@@ -97,10 +97,7 @@ public class ParticleSystem : MultiframeSprite
 
     public Particle AddParticleWithFrame(int frame)
     {
-        if (frame >= TotalFrames)
-        {
-            throw new ArgumentOutOfRangeException("frame");
-        }
+        ArgumentOutOfRangeException.ThrowIfGreaterThanOrEqual(frame, TotalFrames);
         Particle particle = CreateParticle();
         _particles.Add(particle);
         AddChild(particle);

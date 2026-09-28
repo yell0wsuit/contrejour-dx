@@ -39,7 +39,7 @@ public class JointProcessorBase : TypeProcessorBase
             return val;
         }
         Body val2 = TryGetBodyByType(bodiesByWorldReqResult, FarseerUtil.KinematicObjectPredicate);
-        return val2 != null ? val2 : bodiesByWorldReqResult.Count > 0 ? bodiesByWorldReqResult[0] : builder.GroundBody;
+        return val2 ?? (bodiesByWorldReqResult.Count > 0 ? bodiesByWorldReqResult[0] : builder.GroundBody);
     }
 
     private Body TryGetBodyByType(List<Body> bodies, Predicate<object> type)

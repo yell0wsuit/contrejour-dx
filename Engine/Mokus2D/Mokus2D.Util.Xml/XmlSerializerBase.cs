@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 
 namespace Mokus2D.Util.Xml;
@@ -20,7 +21,7 @@ public abstract class XmlSerializerBase
     {
         foreach (KeyValuePair<string, string> alias in aliases)
         {
-            if (source.ToLower().Equals(alias.Value.ToLower()))
+            if (string.Equals(source, alias.Value, StringComparison.OrdinalIgnoreCase))
             {
                 return alias.Key;
             }
@@ -33,7 +34,7 @@ public abstract class XmlSerializerBase
         key = UnprocessAttributeName(key);
         if (target is IList)
         {
-            int num = Convert.ToInt32(key);
+            int num = Convert.ToInt32(key, CultureInfo.InvariantCulture);
             IList list = target as IList;
             while (list.Count < num + 1)
             {
@@ -53,6 +54,6 @@ public abstract class XmlSerializerBase
 
     private string UnprocessAttributeName(string attributeName)
     {
-        return attributeName.StartsWith("__") ? attributeName[2..] : UnprocessValue(attributeName);
+        return attributeName.StartsWith("__", StringComparison.Ordinal) ? attributeName[2..] : UnprocessValue(attributeName);
     }
 }

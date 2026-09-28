@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 
 using Microsoft.Xna.Framework;
@@ -827,28 +828,28 @@ public class Label : AnchorNode, IDataReloadable
     public Label AppendFormat(string format, object arg0)
     {
         SetTextDirty();
-        _ = _text.AppendFormat(format, new object[1] { arg0 });
+        _ = _text.AppendFormat(CultureInfo.CurrentCulture, format, arg0);
         return this;
     }
 
     public Label AppendFormat(string format, object arg0, object arg1)
     {
         SetTextDirty();
-        _ = _text.AppendFormat(format, new object[2] { arg0, arg1 });
+        _ = _text.AppendFormat(CultureInfo.CurrentCulture, format, arg0, arg1);
         return this;
     }
 
     public Label AppendFormat(string format, object arg0, object arg1, object arg2)
     {
         SetTextDirty();
-        _ = _text.AppendFormat(format, new object[3] { arg0, arg1, arg2 });
+        _ = _text.AppendFormat(CultureInfo.CurrentCulture, format, arg0, arg1, arg2);
         return this;
     }
 
     public Label AppendFormat(string format, params object[] args)
     {
         SetTextDirty();
-        _ = _text.AppendFormat(format, args);
+        _ = _text.AppendFormat(CultureInfo.CurrentCulture, format, args);
         return this;
     }
 

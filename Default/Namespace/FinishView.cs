@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 using ContreJour.Clips.menu;
 using ContreJour.Config;
@@ -208,11 +209,7 @@ public class FinishView : MovieStripesView, IDisposable
         label.Position = new Vector2(-154f, 120f);
         clickableLayer.AddChild(label);
         _ = label.FadeIn(0.2f);
-        levelField = ContreJourLabelUtil.CreateLabel(18f, string.Format(Messages.LEVEL, new object[2]
-        {
-            levelPosition.Chapter + 1,
-            levelPosition.Index + 1
-        }));
+        levelField = ContreJourLabelUtil.CreateLabel(18f, string.Format(CultureInfo.CurrentCulture, Messages.LevelFormat, levelPosition.Chapter + 1, levelPosition.Index + 1));
         clickableLayer.AddChild(levelField);
         levelField.Color = this.color;
         levelField.Anchor = new Vector2(0f, 0.5f);

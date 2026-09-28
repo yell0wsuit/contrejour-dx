@@ -75,7 +75,7 @@ public abstract class Joint
 
     public bool IsFixedType()
     {
-        return JointType is JointType.FixedRevolute or JointType.FixedDistance or JointType.FixedPrismatic or JointType.FixedLine or JointType.FixedMouse or JointType.FixedAngle || JointType == JointType.FixedFriction;
+        return JointType is JointType.FixedRevolute or JointType.FixedDistance or JointType.FixedPrismatic or JointType.FixedLine or JointType.FixedMouse or JointType.FixedAngle or JointType.FixedFriction;
     }
 
     internal abstract void InitVelocityConstraints(ref SolverData data);

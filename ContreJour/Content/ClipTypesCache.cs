@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 
 using Mokus2D.Visual;
 
@@ -35,7 +36,7 @@ public class ClipTypesCache
         string[] folderNames = FolderNames;
         foreach (string text in folderNames)
         {
-            type = Type.GetType(string.Format("{0}{1}.{2}", new object[3] { ClipsFolder, text, name }));
+            type = Type.GetType(string.Format(CultureInfo.InvariantCulture, "{0}{1}.{2}", ClipsFolder, text, name));
             if (type is not null)
             {
                 Cache[name] = type;

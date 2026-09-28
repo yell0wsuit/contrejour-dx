@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Globalization;
 
 using ContreJour.Clips.menu;
 using ContreJour.Config;
@@ -382,7 +383,7 @@ public class MainMenu : AccelerometerMenu, IActivatedDependent
         int num = inChapter ? UserData.Instance.GetChapterStars(currentChapter) : UserData.Instance.TotalStars;
         int num2 = inChapter ? UserData.Instance.GetChapterScore(currentChapter) : UserData.Instance.TotalScore;
         int num3 = inChapter ? 60 : (ContreJourConstants.LEVEL_COUNT * 3);
-        string textString = string.Format(Messages.STARS_AND_SCORE, new object[3] { num, num3, num2 });
+        string textString = string.Format(CultureInfo.CurrentCulture, Messages.StarsAndScoreFormat, num, num3, num2);
         starsField.TextString = textString;
     }
 
@@ -599,9 +600,5 @@ public class MainMenu : AccelerometerMenu, IActivatedDependent
     public void OnGameActivated()
     {
         RefreshSoundButtons();
-    }
-
-    ~MainMenu()
-    {
     }
 }

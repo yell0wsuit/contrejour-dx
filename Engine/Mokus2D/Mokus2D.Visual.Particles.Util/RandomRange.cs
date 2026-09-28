@@ -38,12 +38,22 @@ public struct RandomRange : IEquatable<RandomRange>
 
     public override readonly bool Equals(object obj)
     {
-        return obj is null ? false : obj is RandomRange && Equals((RandomRange)obj);
+        return obj is RandomRange other && Equals(other);
     }
 
     public override readonly int GetHashCode()
     {
         return (Value.GetHashCode() * 397) ^ Offset.GetHashCode();
+    }
+
+    public static bool operator ==(RandomRange left, RandomRange right)
+    {
+        return left.Equals(right);
+    }
+
+    public static bool operator !=(RandomRange left, RandomRange right)
+    {
+        return !left.Equals(right);
     }
 
     public static RandomRange operator *(RandomRange value, float mult)

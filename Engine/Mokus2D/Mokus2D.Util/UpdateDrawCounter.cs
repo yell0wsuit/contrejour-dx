@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 using Mokus2D.Visual.Text;
 
@@ -121,7 +122,7 @@ public class UpdateDrawCounter : FpsCounter
             AppendLine("Updated Nodes: ", _updatedNodes / (float)FramesToCalculate);
             foreach (KeyValuePair<string, object> testValue in _testValues)
             {
-                _ = OutputLabel.AppendLine(string.Format("{0}: {1}", new object[2] { testValue.Key, testValue.Value }));
+                _ = OutputLabel.AppendLine(string.Format(CultureInfo.InvariantCulture, "{0}: {1}", testValue.Key, testValue.Value));
             }
             if (AdditionalText != null)
             {

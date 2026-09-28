@@ -40,7 +40,7 @@ internal struct FixedBitArray3 : IEnumerable<bool>, IEnumerable
         }
     }
 
-    public IEnumerator<bool> GetEnumerator()
+    public readonly IEnumerator<bool> GetEnumerator()
     {
         return Enumerate().GetEnumerator();
     }

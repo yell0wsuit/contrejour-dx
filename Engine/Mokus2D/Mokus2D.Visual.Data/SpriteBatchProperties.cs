@@ -15,11 +15,7 @@ public struct SpriteBatchProperties(BlendState blend, SamplerState samplerState)
 
     public override readonly bool Equals(object obj)
     {
-        if (obj is null)
-        {
-            return false;
-        }
-        return ReferenceEquals(this, obj) ? true : (object)obj.GetType() == GetType() && Equals((SpriteBatchProperties)obj);
+        return obj is SpriteBatchProperties other && Equals(other);
     }
 
     public override readonly int GetHashCode()

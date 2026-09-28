@@ -159,7 +159,7 @@ public sealed class RealExplosion : PhysicsLogic
             }, point, point2);
             if (hitClosest && fixture.Body.BodyType == BodyType.Dynamic)
             {
-                if (_data.Any() && _data.Last().Body == fixture.Body && !flag)
+                if (_data.Count > 0 && _data[^1].Body == fixture.Body && !flag)
                 {
                     int index = _data.Count - 1;
                     ShapeData value = _data[index];
@@ -235,13 +235,9 @@ public sealed class RealExplosion : PhysicsLogic
                     float num22 = num15 / (MinRays + num17) * maxForce * 180f / (float)Math.PI * (1f - Math.Min(1f, num20));
                     Vector2 impulse = Vector2.Dot(num22 * new Vector2((float)Math.Cos(num19), (float)Math.Sin(num19)), -output.Normal) * new Vector2((float)Math.Cos(num19), (float)Math.Sin(num19));
                     _data[num14].Body.ApplyLinearImpulse(ref impulse, ref point3);
-                    if (dictionary.ContainsKey(fixture2))
+                    if (!dictionary.TryAdd(fixture2, impulse))
                     {
                         dictionary[fixture2] += impulse;
-                    }
-                    else
-                    {
-                        dictionary.Add(fixture2, impulse);
                     }
                     if (num20 > 1f)
                     {
@@ -268,10 +264,7 @@ public sealed class RealExplosion : PhysicsLogic
                 }
                 Vector2 impulse2 = num24 * (point4 - pos);
                 fixture3.Body.ApplyLinearImpulse(ref impulse2, ref point4);
-                if (!dictionary.ContainsKey(fixture3))
-                {
-                    dictionary.Add(fixture3, impulse2);
-                }
+                _ = dictionary.TryAdd(fixture3, impulse2);
             }
         }
         return dictionary;

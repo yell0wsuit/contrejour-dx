@@ -358,7 +358,7 @@ public class LevelBuilderBase : Updatable, IDisposable
         if (viewType != null || hashtable.Exists("createClip") || hashtable.Exists("clipType"))
         {
             Node node = null;
-            if (viewType != null && !viewType.Equals("null"))
+            if (viewType is not null and not "null")
             {
                 node = ClipTypesCache.CreateNewNode(viewType);
                 Vector2 vector = hashtable.GetVector("scale");

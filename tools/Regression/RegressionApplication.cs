@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 
@@ -149,7 +151,7 @@ public class RegressionApplication : ContreJourApplication
                 HashFrame();
                 if (++_frame % CheckpointInterval == 0)
                 {
-                    _ = _checkpoints.Append(' ').Append((_hash & 0xFFFFFF).ToString("x6"));
+                    _ = _checkpoints.Append(' ').Append((_hash & 0xFFFFFF).ToString("x6", CultureInfo.InvariantCulture));
                 }
                 if (_frame >= RecordedFrames)
                 {
@@ -259,8 +261,8 @@ public class RegressionApplication : ContreJourApplication
         _writer.WriteLine($"save fresh {CanonicalHash(serializer, UserData.Instance)}");
         if (OldSavePath != null)
         {
-            using FileStream stream = File.OpenRead(OldSavePath);
-            UserData old = (UserData)serializer.Deserialize(stream);
+            using XmlReader reader = XmlReader.Create(OldSavePath);
+            UserData old = (UserData)serializer.Deserialize(reader);
             _writer.WriteLine($"save old {CanonicalHash(serializer, old)}");
         }
     }
@@ -272,7 +274,7 @@ public class RegressionApplication : ContreJourApplication
         stream.Position = 0;
         _hash = FnvOffset;
         Mix(Canonical(XElement.Load(stream)));
-        return _hash.ToString("x16");
+        return _hash.ToString("x16", CultureInfo.InvariantCulture);
     }
 
     // Members may be written in any order, but repeated elements (array items) keep theirs.

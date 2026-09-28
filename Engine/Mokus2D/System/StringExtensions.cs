@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 
 namespace System;
@@ -21,7 +22,7 @@ public static class StringExtensions
 
     public static string FormatThis(this string s, params object[] p)
     {
-        return string.Format(s, p);
+        return string.Format(CultureInfo.InvariantCulture, s, p);
     }
 
     public static List<string> ToList(this string s, params char[] p)
@@ -41,7 +42,7 @@ public static class StringExtensions
 
     public static int ToInt(this string s)
     {
-        return Convert.ToInt32(s);
+        return Convert.ToInt32(s, CultureInfo.InvariantCulture);
     }
 
     public static string Repeat(this string str, int count)

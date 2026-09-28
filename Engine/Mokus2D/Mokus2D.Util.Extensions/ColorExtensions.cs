@@ -11,7 +11,7 @@ public static class ColorExtensions
 
     public static Color ToColor(this string hexString)
     {
-        if (hexString.StartsWith("#"))
+        if (hexString.StartsWith('#'))
         {
             hexString = hexString[1..];
         }

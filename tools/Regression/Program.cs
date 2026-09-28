@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using System.IO;
 
 using Default.Namespace;
@@ -26,11 +27,11 @@ public static class Program
         RegressionApplication.OutputPath = Path.GetFullPath(args.Length > 0 ? args[0] : "regression.txt");
         if (args.Length > 1)
         {
-            RegressionApplication.First = int.Parse(args[1]);
+            RegressionApplication.First = int.Parse(args[1], CultureInfo.InvariantCulture);
         }
         if (args.Length > 2)
         {
-            RegressionApplication.Count = int.Parse(args[2]);
+            RegressionApplication.Count = int.Parse(args[2], CultureInfo.InvariantCulture);
         }
 
         // Content paths are relative to the install folder, as in the game.

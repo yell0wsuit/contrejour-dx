@@ -360,7 +360,7 @@ public class Vertices : List<Vector2>
             _ = stringBuilder.Append(base[i].ToString());
             if (i < Count - 1)
             {
-                _ = stringBuilder.Append(" ");
+                _ = stringBuilder.Append(' ');
             }
         }
         return stringBuilder.ToString();

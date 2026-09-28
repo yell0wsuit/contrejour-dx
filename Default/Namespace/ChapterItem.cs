@@ -201,8 +201,4 @@ public class ChapterItem : Node
     {
         SelectEvent.Dispatch(index);
     }
-
-    ~ChapterItem()
-    {
-    }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using System.Text.RegularExpressions;
 
 using Mokus2D.Localization;
@@ -22,6 +23,10 @@ public static class Messages
     public static readonly string TOTAL = "TOTAL".Localize();
 
     public static readonly string STARS_AND_SCORE = "STARS_AND_SCORE".Localize();
+
+    public static readonly CompositeFormat LevelFormat = CompositeFormat.Parse(LEVEL);
+
+    public static readonly CompositeFormat StarsAndScoreFormat = CompositeFormat.Parse(STARS_AND_SCORE);
 
     public static string CompleteText(int stars)
     {

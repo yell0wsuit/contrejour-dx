@@ -2,6 +2,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 
 using Microsoft.Xna.Framework;
 
@@ -483,7 +484,7 @@ public class Node : DisposableBase, IUpdatable, IConfig
         }
         if (node.Parent != null)
         {
-            throw new InvalidOperationException(string.Format("node already added to display list node:{0} current parent:{1} new parent: {2}", new object[3] { node, node.Parent, this }));
+            throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, "node already added to display list node:{0} current parent:{1} new parent: {2}", node, node.Parent, this));
         }
     }
 
@@ -813,10 +814,6 @@ public class Node : DisposableBase, IUpdatable, IConfig
 
     public override string ToString()
     {
-        return string.Format("Node type:{0} name:{1}", new object[2]
-        {
-            GetType(),
-            Name
-        });
+        return string.Format(CultureInfo.InvariantCulture, "Node type:{0} name:{1}", GetType(), Name);
     }
 }

@@ -40,7 +40,7 @@ public class OneFileResourcesLoader : ResourcesLoader
 
     private static string GetTextureName(string resourceName)
     {
-        return resourceName[..(resourceName.IndexOf("/") + 1)];
+        return resourceName[..(resourceName.IndexOf('/') + 1)];
     }
 
     protected override T ProcessXml<T>(string name, XDocument xml)

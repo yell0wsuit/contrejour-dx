@@ -139,6 +139,6 @@ internal class MonotoneMountain
 
     private bool IsConvex(Point p)
     {
-        return _positive == Angle(p) >= 0f;
+        return _positive == (Angle(p) >= 0f);
     }
 }

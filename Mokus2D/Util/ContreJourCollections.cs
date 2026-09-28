@@ -72,22 +72,22 @@ public static class ContreJourCollections
 
     public static bool GetBool(this Dictionary<object, object> source, string key)
     {
-        return source.Exists(key) && Convert.ToBoolean(source.GetObject(key));
+        return source.Exists(key) && Convert.ToBoolean(source.GetObject(key), CultureInfo.InvariantCulture);
     }
 
     public static int GetInt(this Dictionary<object, object> source, string key)
     {
-        return Convert.ToInt32(source.GetString(key));
+        return Convert.ToInt32(source.GetString(key), CultureInfo.InvariantCulture);
     }
 
     public static uint GetUInt(this Dictionary<object, object> source, string key)
     {
-        return Convert.ToUInt32(source.GetString(key));
+        return Convert.ToUInt32(source.GetString(key), CultureInfo.InvariantCulture);
     }
 
     public static int GetShort(this Dictionary<object, object> source, string key)
     {
-        return Convert.ToInt16(source.GetString(key));
+        return Convert.ToInt16(source.GetString(key), CultureInfo.InvariantCulture);
     }
 
     public static List<object> GetArrayList(this Dictionary<object, object> source, string key)

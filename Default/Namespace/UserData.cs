@@ -1,5 +1,7 @@
 using System;
+using System.Globalization;
 using System.IO;
+using System.Xml;
 using System.Xml.Serialization;
 
 using Mokus2D.Sound;
@@ -198,7 +200,7 @@ public class UserData
 
     public string TotalStarsString()
     {
-        return TotalStars.ToString();
+        return TotalStars.ToString(CultureInfo.CurrentCulture);
     }
 
     public int GetChapterStars(int chapter)
@@ -370,7 +372,8 @@ public class UserData
         {
             byte[] array = File.ReadAllBytes(DataFilePath);
             byte[] buffer = CryptUtils.RunProtector(array, encrypt: false);
-            return ((UserData)serializer.Deserialize(new MemoryStream(buffer))) ?? new UserData();
+            using XmlReader reader = XmlReader.Create(new MemoryStream(buffer));
+            return ((UserData)serializer.Deserialize(reader)) ?? new UserData();
         }
         catch (Exception)
         {

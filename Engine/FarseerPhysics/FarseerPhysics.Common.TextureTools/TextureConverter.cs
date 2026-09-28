@@ -86,10 +86,7 @@ public sealed class TextureConverter
     public float HullTolerance
     {
         get => _hullTolerance;
-        set
-        {
-            _hullTolerance = value > 4f ? 4f : value < 0.9f ? 0.9f : value;
-        }
+        set => _hullTolerance = value > 4f ? 4f : value < 0.9f ? 0.9f : value;
     }
 
     public TextureConverter()
@@ -126,7 +123,7 @@ public sealed class TextureConverter
         {
             SetTextureData(data, width.Value);
         }
-        AlphaTolerance = alphaTolerance ?? (byte)20;
+        AlphaTolerance = alphaTolerance ?? 20;
         HullTolerance = hullTolerance ?? 1.5f;
         HoleDetection = holeDetection.HasValue && holeDetection.Value;
         MultipartDetection = multipartDetection.HasValue && multipartDetection.Value;
@@ -343,10 +340,7 @@ public sealed class TextureConverter
 
     private Vector2? SearchHoleEntrance(Vertices polygon, Vector2? lastHoleEntrance)
     {
-        if (polygon == null)
-        {
-            throw new ArgumentNullException("'polygon' can't be null.");
-        }
+        ArgumentNullException.ThrowIfNull(polygon);
         if (polygon.Count < 3)
         {
             throw new ArgumentException("'polygon.MainPolygon.Count' can't be less then 3.");

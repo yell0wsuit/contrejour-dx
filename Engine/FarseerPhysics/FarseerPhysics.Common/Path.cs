@@ -80,7 +80,7 @@ public class Path
             _ = stringBuilder.Append(ControlPoints[i].ToString());
             if (i < ControlPoints.Count - 1)
             {
-                _ = stringBuilder.Append(" ");
+                _ = stringBuilder.Append(' ');
             }
         }
         return stringBuilder.ToString();

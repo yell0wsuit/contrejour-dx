@@ -55,14 +55,11 @@ public class ReflectionHelper
     public ReflectionHelper FieldOrProperty(string fieldName)
     {
         currentMemberInfo = FindField(target.GetType(), fieldName);
-        if (currentMemberInfo is null)
-        {
-            currentMemberInfo = FindProperty(target.GetType(), fieldName) ?? throw new NullReferenceException(string.Format("Sorry, There is no such field or property = {0} in class type {1}", new object[2]
-                {
-                    fieldName,
-                    target.GetType().FullName
-                }));
-        }
+        currentMemberInfo ??= FindProperty(target.GetType(), fieldName) ?? throw new NullReferenceException(string.Format("Sorry, There is no such field or property = {0} in class type {1}", new object[2]
+            {
+                fieldName,
+                target.GetType().FullName
+            }));
         return this;
     }
 

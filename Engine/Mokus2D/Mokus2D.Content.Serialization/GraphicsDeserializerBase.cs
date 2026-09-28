@@ -86,7 +86,7 @@ public abstract class GraphicsDeserializerBase<T> : IGraphicsDeserializer<T>, IG
         string[] array = attribute.Split([' ']);
         Vector2 vector = VectorFromString(array[0]);
         string[] array2 = array[1].Split(['x']);
-        return new Rectangle((int)vector.X, (int)vector.Y, Convert.ToInt32(array2[0]), Convert.ToInt32(array2[1]));
+        return new Rectangle((int)vector.X, (int)vector.Y, Convert.ToInt32(array2[0], CultureInfo.InvariantCulture), Convert.ToInt32(array2[1], CultureInfo.InvariantCulture));
     }
 
     protected bool AttributeToBool(XAttribute attribute, bool defaultValue)
@@ -129,7 +129,7 @@ public abstract class GraphicsDeserializerBase<T> : IGraphicsDeserializer<T>, IG
         if (value[0] == '#')
         {
             value = value[1..];
-            return int.Parse(value, NumberStyles.HexNumber);
+            return int.Parse(value, NumberStyles.HexNumber, CultureInfo.InvariantCulture);
         }
         return Convert.ToInt32(value, CultureInfo.InvariantCulture.NumberFormat);
     }

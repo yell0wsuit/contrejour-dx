@@ -33,6 +33,6 @@ public class ReverseEnumerator<T> : IEnumerator<T>, IEnumerator, IDisposable
 
     public void Reset()
     {
-        currentIndex = source.Count();
+        currentIndex = source.Count;
     }
 }

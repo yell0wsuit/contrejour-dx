@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 using Default.Namespace;
 
@@ -61,7 +62,7 @@ public static class GraphUtil
     public static Vector2 StringToVector(string source)
     {
         string[] array = source.Split([',']);
-        return new Vector2((float)Convert.ToDouble(array[0]), (float)Convert.ToDouble(array[1]));
+        return new Vector2((float)Convert.ToDouble(array[0], CultureInfo.InvariantCulture), (float)Convert.ToDouble(array[1], CultureInfo.InvariantCulture));
     }
 
     public static void DrawRectangle(GraphicsDevice device, float x, float y, float width, float height, Color color)

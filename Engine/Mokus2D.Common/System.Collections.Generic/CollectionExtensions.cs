@@ -53,7 +53,7 @@ public static class MokusCollectionExtensions
 
     public static int GetInt(this IDictionary<string, string> source, string key)
     {
-        return System.Convert.ToInt32(source[key]);
+        return System.Convert.ToInt32(source[key], CultureInfo.InvariantCulture);
     }
 
     public static double GetDouble(this IDictionary<string, string> dictionary, string key)
@@ -295,9 +295,9 @@ public static class MokusCollectionExtensions
         }
     }
 
-    public static IEnumerable<T> Convert<K, T>(this IEnumerable<K> source, Func<K, T> converter)
+    public static IEnumerable<TResult> Convert<TSource, TResult>(this IEnumerable<TSource> source, Func<TSource, TResult> converter)
     {
-        foreach (K element in source)
+        foreach (TSource element in source)
         {
             yield return converter(element);
         }

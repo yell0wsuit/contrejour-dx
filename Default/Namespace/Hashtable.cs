@@ -16,7 +16,7 @@ public class Hashtable : Dictionary<object, object>
         for (int i = 0; i < array.Length; i++)
         {
             string text = array[i];
-            if (!hashtable.Keys.Contains(text))
+            if (!hashtable.ContainsKey(text))
             {
                 return checkForNull ? throw new Exception("Hashtable key `" + key + "` not found - at `" + text + "`.") : null;
             }
@@ -66,22 +66,22 @@ public class Hashtable : Dictionary<object, object>
 
     public bool GetBool(string key)
     {
-        return Exists(key) && Convert.ToBoolean(GetObject(key));
+        return Exists(key) && Convert.ToBoolean(GetObject(key), CultureInfo.InvariantCulture);
     }
 
     public int GetInt(string key)
     {
-        return Convert.ToInt32(GetString(key));
+        return Convert.ToInt32(GetString(key), CultureInfo.InvariantCulture);
     }
 
     public uint GetUInt(string key)
     {
-        return Convert.ToUInt32(GetString(key));
+        return Convert.ToUInt32(GetString(key), CultureInfo.InvariantCulture);
     }
 
     public int GetShort(string key)
     {
-        return Convert.ToInt16(GetString(key));
+        return Convert.ToInt16(GetString(key), CultureInfo.InvariantCulture);
     }
 
     public List<object> GetArrayList(string key)

@@ -57,7 +57,7 @@ internal struct Simplex
         }
     }
 
-    internal void WriteCache(ref SimplexCache cache)
+    internal readonly void WriteCache(ref SimplexCache cache)
     {
         cache.Metric = GetMetric();
         cache.Count = (ushort)Count;

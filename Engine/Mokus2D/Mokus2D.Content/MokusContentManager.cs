@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text;
 
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -14,7 +16,7 @@ public class MokusContentManager : ContentManager
 {
     public const bool DebugDisposedTextures = true;
 
-    private static readonly string TextureNameFormat = "{0}/{0}{1}";
+    private static readonly CompositeFormat TextureNameFormat = CompositeFormat.Parse("{0}/{0}{1}");
 
     private static readonly string[] TextureExtensions = [".png"];
 
@@ -40,11 +42,7 @@ public class MokusContentManager : ContentManager
 
     public string GetFullTexturePath(string name, float scaleFactor)
     {
-        string text = string.Format(TextureNameFormat, new object[2]
-        {
-            name,
-            ContentUtil.GetResourcesSuffix(scaleFactor)
-        });
+        string text = string.Format(CultureInfo.InvariantCulture, TextureNameFormat, name, ContentUtil.GetResourcesSuffix(scaleFactor));
         return Path.Combine(
         [
             Mokus2DGame.Config.GraphicsLoader.GraphicsRootDirectory,

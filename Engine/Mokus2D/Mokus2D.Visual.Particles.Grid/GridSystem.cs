@@ -126,10 +126,7 @@ public class GridSystem : Node
 
     public virtual Node AddParticle(int frame)
     {
-        if (frame >= data.Frames.Count)
-        {
-            throw new ArgumentOutOfRangeException("frame");
-        }
+        ArgumentOutOfRangeException.ThrowIfGreaterThanOrEqual(frame, data.Frames.Count);
         OneFrameSprite oneFrameSprite = new(data, frame);
         AddChild(oneFrameSprite);
         return oneFrameSprite;

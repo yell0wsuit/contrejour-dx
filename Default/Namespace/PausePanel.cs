@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 using ContreJour.Clips.menu;
 using ContreJour.Config;
@@ -162,12 +163,7 @@ public class PausePanel : Node, IDisposable
             _ = buttons.RemoveLast();
             restartButton.Visible = false;
         }
-        string textString = string.Format(Messages.LEVEL, new object[3]
-        {
-            levelPosition.Chapter + 1,
-            levelPosition.Index + 1,
-            null
-        });
+        string textString = string.Format(CultureInfo.CurrentCulture, Messages.LevelFormat, levelPosition.Chapter + 1, levelPosition.Index + 1, null);
         levelLabel.TextString = textString;
         _ = scoreLabel.AppendFormat(Messages.BEST_SCORE, levelDataByFile?.Score ?? 0);
     }

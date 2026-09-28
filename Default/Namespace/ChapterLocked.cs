@@ -1,3 +1,5 @@
+using System.Globalization;
+
 using ContreJour.Clips.menu;
 using ContreJour.Clips.planets;
 using ContreJour.Utils;
@@ -77,7 +79,7 @@ public class ChapterLocked : ChapterItem
         };
         container.AddChild(tablo);
         background.Color = tablo.Color;
-        Label label = ContreJourLabelUtil.CreateLabel(20f, UserData.StarsToUnlock(index).ToString());
+        Label label = ContreJourLabelUtil.CreateLabel(20f, UserData.StarsToUnlock(index).ToString(CultureInfo.CurrentCulture));
         label.Anchor = new Vector2(0.5f, 0.5f);
         label.Align = TextAlign.Left;
         label.Scale *= 0.8f;

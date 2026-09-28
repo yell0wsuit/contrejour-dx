@@ -40,7 +40,7 @@ internal struct FixedArray3<T> : IEnumerable<T>, IEnumerable where T : class
         }
     }
 
-    public IEnumerator<T> GetEnumerator()
+    public readonly IEnumerator<T> GetEnumerator()
     {
         return Enumerate().GetEnumerator();
     }

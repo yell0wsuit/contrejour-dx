@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 using ContreJour.Clips.common2;
@@ -122,7 +123,7 @@ public class HeroEye : RandomAnimationEye
     {
         if (key != null && sounds.ContainsKey(key))
         {
-            SoundManager.PlayRandomSound(sounds[key], key.StartsWith("McEyeBlink") ? 0.3f : 0.75f);
+            SoundManager.PlayRandomSound(sounds[key], key.StartsWith("McEyeBlink", StringComparison.Ordinal) ? 0.3f : 0.75f);
             return true;
         }
         return false;

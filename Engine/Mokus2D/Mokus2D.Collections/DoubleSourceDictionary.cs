@@ -100,7 +100,7 @@ public class DoubleSourceDictionary<TKey, TValue> : IDictionary<TKey, TValue>, I
 
     public bool TryGetValue(TKey key, out TValue value)
     {
-        return SecondSource != null && SecondSource.TryGetValue(key, out value) || _mainSource.TryGetValue(key, out value);
+        return (SecondSource != null && SecondSource.TryGetValue(key, out value)) || _mainSource.TryGetValue(key, out value);
     }
 
     IEnumerator IEnumerable.GetEnumerator()

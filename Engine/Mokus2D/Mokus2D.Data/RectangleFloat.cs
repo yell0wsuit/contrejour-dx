@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 
 using Microsoft.Xna.Framework;
 
@@ -154,7 +155,7 @@ public struct RectangleFloat : IEquatable<RectangleFloat>
 
     public override readonly string ToString()
     {
-        return string.Format("{{X:{0} Y:{1} Width:{2} Height:{3}}}", new object[4] { X, Y, Width, Height });
+        return string.Format(CultureInfo.InvariantCulture, "{{X:{0} Y:{1} Width:{2} Height:{3}}}", X, Y, Width, Height);
     }
 
     public override readonly int GetHashCode()
@@ -185,7 +186,7 @@ public struct RectangleFloat : IEquatable<RectangleFloat>
         Extend(new Vector2(value));
     }
 
-    public Vector2 ClampToBounds(Vector2 position)
+    public readonly Vector2 ClampToBounds(Vector2 position)
     {
         return position.Clamp(LeftTop, RightBottom);
     }
