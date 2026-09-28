@@ -475,13 +475,13 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
         pausePanel.RefreshSoundButtons();
     }
 
-    protected override void Dispose(bool disposed)
+    protected override void Dispose(bool disposing)
     {
         Mokus2DGame.Instance.TouchController.RemoveListener(this);
         Mokus2DGame.Instance.KeysController.RemoveBackKeyListener(OnBackPress);
         pausePanel.Dispose();
         finishView.Dispose();
-        base.Dispose(disposed);
+        base.Dispose(disposing);
     }
 
     public bool TouchBegin(Touch touch)

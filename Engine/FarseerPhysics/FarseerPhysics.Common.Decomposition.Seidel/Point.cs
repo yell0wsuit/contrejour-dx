@@ -1,6 +1,6 @@
 namespace FarseerPhysics.Common.Decomposition.Seidel;
 
-internal class Point
+internal sealed class Point
 {
     public Point Next;
 

@@ -86,9 +86,9 @@ public class SnotProcessor : JointProcessorBase
         return new SnotData(val2, eyeJoint, val, val.GetLocalPoint(vector), list, list2, ropeMetricsEndItem);
     }
 
-    public virtual RopeMetricsWithCoords GetRopeMetricsEndItem(Vector2 start, Vector2 end, Hashtable item)
+    public virtual RopeMetricsWithCoords GetRopeMetricsEndItem(Vector2 startPoint, Vector2 endPoint, Hashtable item)
     {
-        return RopeUtil.GetRopeMetricsEndMaxPartSizeMinParts(start, end, partSize, 3);
+        return RopeUtil.GetRopeMetricsEndMaxPartSizeMinParts(startPoint, endPoint, partSize, 3);
     }
 
     public virtual float LinearDamping()
@@ -109,16 +109,16 @@ public class SnotProcessor : JointProcessorBase
         result.Body = val;
     }
 
-    public virtual Body CreatePartBodyEndIndexTotalDensity(Vector2 start, Vector2 end, int index, int total, float density)
+    public virtual Body CreatePartBodyEndIndexTotalDensity(Vector2 startPoint, Vector2 endPoint, int index, int total, float density)
     {
-        Body val = builder.World.CreateCircle(1f / 6f, end, 0f, density, dynamic: true);
+        Body val = builder.World.CreateCircle(1f / 6f, endPoint, 0f, density, dynamic: true);
         val.SetSensor(value: true);
         return val;
     }
 
-    public virtual Joint JoinBodiesEndBodyStartEndIndexTotal(Body startBody, Body endBody, Vector2 start, Vector2 end, int index, int total)
+    public virtual Joint JoinBodiesEndBodyStartEndIndexTotal(Body startBody, Body endBody, Vector2 startPoint, Vector2 endPoint, int index, int total)
     {
-        DistanceJoint val = JointFactory.CreateDistanceJoint(builder.World, startBody, endBody, start - startBody.Position, end - endBody.Position, false);
+        DistanceJoint val = JointFactory.CreateDistanceJoint(builder.World, startBody, endBody, startPoint - startBody.Position, endPoint - endBody.Position, false);
         val.Frequency = 5f;
         val.DampingRatio = 0.1f;
         return (Joint)(object)val;

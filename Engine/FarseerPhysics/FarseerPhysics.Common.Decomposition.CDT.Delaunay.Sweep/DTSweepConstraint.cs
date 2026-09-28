@@ -1,6 +1,6 @@
 namespace FarseerPhysics.Common.Decomposition.CDT.Delaunay.Sweep;
 
-internal class DTSweepConstraint : TriangulationConstraint
+internal sealed class DTSweepConstraint : TriangulationConstraint
 {
     public DTSweepConstraint(TriangulationPoint p1, TriangulationPoint p2)
     {

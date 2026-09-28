@@ -35,11 +35,11 @@ public class SpikesFlowerSprite : LongNeckSprite
         childScale = _scale;
     }
 
-    public override void GetPairs(List<Pair<Vector2>> result)
+    public override void GetPairs(List<Pair<Vector2>> target)
     {
         Vector2 position = spikes.Eye.Position;
-        result.Add(new Pair<Vector2>(position + new Vector2(5f * childScale, 0f), position - new Vector2(5f * childScale, 0f)));
-        result.Add(centerPoints);
-        result.Add(basePoints);
+        target.Add(new Pair<Vector2>(position + new Vector2(5f * childScale, 0f), position - new Vector2(5f * childScale, 0f)));
+        target.Add(centerPoints);
+        target.Add(basePoints);
     }
 }

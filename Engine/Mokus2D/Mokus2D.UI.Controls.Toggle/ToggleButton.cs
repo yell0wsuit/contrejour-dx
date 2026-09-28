@@ -43,7 +43,7 @@ public class ToggleButton : Button
 
     protected override void RefreshButton()
     {
-        Effect.On = (Pressed && HighliteOnPressed) || _toggle || MouseOver;
+        Effect.IsOn = (Pressed && HighliteOnPressed) || _toggle || MouseOver;
     }
 
     protected override void OnTouchBegin(TouchArguments touchArguments)

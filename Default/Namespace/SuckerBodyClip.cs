@@ -160,7 +160,7 @@ public class SuckerBodyClip : ContreJourBodyClip, IClickable, IVectorPositionPro
             : touchPosition.DistanceTo(Body.Position);
     }
 
-    public int Priority(Vector2 touchPoint)
+    public int Priority(Vector2 touchPosition)
     {
         return 0;
     }
@@ -175,30 +175,30 @@ public class SuckerBodyClip : ContreJourBodyClip, IClickable, IVectorPositionPro
         return false;
     }
 
-    public bool TouchBegan(Touch _touch)
+    public bool TouchBegan(Touch touch)
     {
         if (creating)
         {
             return false;
         }
-        if (touch == null)
+        if (this.touch == null)
         {
-            Vector2 target = builder.TouchRootVec(_touch);
+            Vector2 target = builder.TouchRootVec(touch);
             if (Body.Position.DistanceTo(target) <= 2f || endBody.Position.DistanceTo(target) <= 2f)
             {
-                StartDrag(_touch);
+                StartDrag(touch);
                 return true;
             }
         }
         return false;
     }
 
-    public void TouchEnd(Touch _touch)
+    public void TouchEnd(Touch touch)
     {
         FinishDrag();
     }
 
-    public bool TouchMove(Touch _touch)
+    public bool TouchMove(Touch touch)
     {
         return true;
     }

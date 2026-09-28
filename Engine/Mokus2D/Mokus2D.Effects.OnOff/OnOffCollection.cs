@@ -21,7 +21,7 @@ public class OnOffCollection : OnOffEffect
     {
         foreach (IOnOff effect in _effects)
         {
-            effect.On = true;
+            effect.IsOn = true;
         }
     }
 
@@ -29,7 +29,7 @@ public class OnOffCollection : OnOffEffect
     {
         foreach (IOnOff effect in _effects)
         {
-            effect.On = false;
+            effect.IsOn = false;
         }
     }
 

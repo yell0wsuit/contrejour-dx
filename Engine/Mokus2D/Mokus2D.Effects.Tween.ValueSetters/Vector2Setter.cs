@@ -6,8 +6,8 @@ namespace Mokus2D.Effects.Tween.ValueSetters;
 
 public class Vector2Setter : ValueSetter<Vector2>
 {
-    protected override Vector2 Lerp(Vector2 from, Vector2 to, float amount)
+    protected override Vector2 Lerp(Vector2 value1, Vector2 value2, float amount)
     {
-        return from.LerpTo(to, amount);
+        return value1.LerpTo(value2, amount);
     }
 }

@@ -40,3 +40,7 @@ csharp_style_namespace_declarations = file_scoped:warning
 # Namespaces are part of the type names that level and clip content looks up at runtime
 # (Type.GetType("Default.Namespace." + name), ContreJour.Clips.*), so they can't follow folders.
 dotnet_diagnostic.IDE0130.severity = none
+
+# Default.Namespace is part of the type names content looks up at runtime, so it can't be renamed
+# to avoid Visual Basic keywords; members and parameters are still checked.
+dotnet_code_quality.CA1716.analyzed_symbol_kinds = NamedType, Method, Property, Event, Parameter

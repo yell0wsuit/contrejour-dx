@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace FarseerPhysics.Common.Decomposition.CDT.Sets;
 
-internal class ConstrainedPointSet : PointSet
+internal sealed class ConstrainedPointSet : PointSet
 {
     private List<TriangulationPoint> _constrainedPointList;
 

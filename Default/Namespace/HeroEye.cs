@@ -164,9 +164,9 @@ public class HeroEye : RandomAnimationEye
         eyeBall = (Sprite)ClipTypesCache.CreateNewNode(Game.ChooseSide("McEyeBallBlack", "McEyeBallWhite", null, null, "McEyeBall_6"));
     }
 
-    protected override string ProcessName(string _name)
+    protected override string ProcessName(string name)
     {
-        string text = base.ProcessName(_name);
+        string text = base.ProcessName(name);
         if (text == "McEyeBallHitBlack")
         {
             if (IsWhite)

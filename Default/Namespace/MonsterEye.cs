@@ -110,9 +110,9 @@ public class MonsterEye : RandomAnimationEye, IPositionDepedent
         }
     }
 
-    public void ProviderRemove(IVectorPositionProvider _provider)
+    public void ProviderRemove(IVectorPositionProvider provider)
     {
-        if (randomPositionProvider == _provider)
+        if (randomPositionProvider == provider)
         {
             ChangePositionProvider();
         }

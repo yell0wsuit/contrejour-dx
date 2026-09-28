@@ -71,6 +71,6 @@ public class Trajectory : ParticleSystem
 
     private void RefreshOpacity()
     {
-        _fadeEffect.On = enabled;
+        _fadeEffect.IsOn = enabled;
     }
 }

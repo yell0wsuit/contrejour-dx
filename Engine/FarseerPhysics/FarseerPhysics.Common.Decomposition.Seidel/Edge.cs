@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace FarseerPhysics.Common.Decomposition.Seidel;
 
-internal class Edge
+internal sealed class Edge
 {
     public Trapezoid Above;
 

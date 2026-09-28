@@ -42,7 +42,7 @@ public class MovableSnotEye : SnotEye, IRestartable
         this.targetPoint = targetPoint;
     }
 
-    public override int Priority(Vector2 touchPoint)
+    public override int Priority(Vector2 touchPosition)
     {
         return !snot.Joined ? 0 : 1;
     }

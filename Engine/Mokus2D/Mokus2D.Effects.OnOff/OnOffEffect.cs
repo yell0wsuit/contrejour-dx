@@ -10,7 +10,7 @@ public abstract class OnOffEffect : IOnOff
 
     private bool _on;
 
-    public bool On
+    public bool IsOn
     {
         get => _on;
         set

@@ -1,6 +1,6 @@
 namespace FarseerPhysics.Common.Decomposition.Seidel;
 
-internal class YNode : Node
+internal sealed class YNode : Node
 {
     private Edge _edge;
 

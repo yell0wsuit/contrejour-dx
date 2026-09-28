@@ -23,41 +23,41 @@ public class TrampolineSnotProcessor(LevelBuilderBase _builder) : BridgeSnotProc
         return 2f;
     }
 
-    public override void GetLocalPartPositionsTotalStartEnd(int index, int total, ref Vector2 start, ref Vector2 end)
+    public override void GetLocalPartPositionsTotalStartEnd(int index, int total, ref Vector2 startPoint, ref Vector2 endPoint)
     {
-        start -= end;
-        end = start;
+        startPoint -= endPoint;
+        endPoint = startPoint;
         if (index != 0)
         {
-            start *= 1.25f;
+            startPoint *= 1.25f;
         }
         if (index != total - 1)
         {
-            end *= -0.25f;
+            endPoint *= -0.25f;
         }
         else
         {
-            end = new Vector2(0f, 0f);
+            endPoint = new Vector2(0f, 0f);
         }
     }
 
-    public override RopeMetricsWithCoords GetRopeMetricsEndItem(Vector2 start, Vector2 end, Hashtable item)
+    public override RopeMetricsWithCoords GetRopeMetricsEndItem(Vector2 startPoint, Vector2 endPoint, Hashtable item)
     {
-        RopeMetricsWithCoords ropeMetricsWithCoords = base.GetRopeMetricsEndItem(start, end, item);
+        RopeMetricsWithCoords ropeMetricsWithCoords = base.GetRopeMetricsEndItem(startPoint, endPoint, item);
         if (ropeMetricsWithCoords.Parts % 2 == 0)
         {
-            ropeMetricsWithCoords = RopeUtil.GetRopeMetricsEndMaxPartSizeMinParts(start, end, partSize, ropeMetricsWithCoords.Parts + 1);
+            ropeMetricsWithCoords = RopeUtil.GetRopeMetricsEndMaxPartSizeMinParts(startPoint, endPoint, partSize, ropeMetricsWithCoords.Parts + 1);
         }
         return ropeMetricsWithCoords;
     }
 
-    public override Joint JoinBodiesEndBodyStartEndIndexTotal(Body startBody, Body endBody, Vector2 start, Vector2 end, int index, int total)
+    public override Joint JoinBodiesEndBodyStartEndIndexTotal(Body startBody, Body endBody, Vector2 startPoint, Vector2 endPoint, int index, int total)
     {
-        Vector2 vector = start;
-        vector -= end;
+        Vector2 vector = startPoint;
+        vector -= endPoint;
         Vector2 vector2 = vector;
-        vector += end;
-        vector2 += end;
+        vector += endPoint;
+        vector2 += endPoint;
         DistanceJoint val = JointFactory.CreateDistanceJoint(builder.World, startBody, endBody, vector2 - startBody.Position, vector - endBody.Position, false);
         val.Length = 0f;
         val.Frequency = 4.5f;
@@ -65,9 +65,9 @@ public class TrampolineSnotProcessor(LevelBuilderBase _builder) : BridgeSnotProc
         return (Joint)(object)val;
     }
 
-    public override Body CreatePartBodyEndIndexTotalDensity(Vector2 start, Vector2 end, int index, int total, float density)
+    public override Body CreatePartBodyEndIndexTotalDensity(Vector2 startPoint, Vector2 endPoint, int index, int total, float density)
     {
-        Body val = base.CreatePartBodyEndIndexTotalDensity(start, end, index, total, density);
+        Body val = base.CreatePartBodyEndIndexTotalDensity(startPoint, endPoint, index, total, density);
         PlasticineConstants.ApplyActiveBodiesFilter(val);
         TrampolinePartBodyClip item = new(builder, val);
         parts.Add(item);
@@ -75,11 +75,11 @@ public class TrampolineSnotProcessor(LevelBuilderBase _builder) : BridgeSnotProc
         Body val2 = null;
         if (index == 0)
         {
-            val2 = builder.World.CreateCircle(START_RADIUS, start + new Vector2(0f, START_RADIUS));
+            val2 = builder.World.CreateCircle(START_RADIUS, startPoint + new Vector2(0f, START_RADIUS));
         }
         else if (index == total - 1)
         {
-            val2 = builder.World.CreateCircle(START_RADIUS, end + new Vector2(0f, START_RADIUS));
+            val2 = builder.World.CreateCircle(START_RADIUS, endPoint + new Vector2(0f, START_RADIUS));
         }
         if (val2 != null)
         {

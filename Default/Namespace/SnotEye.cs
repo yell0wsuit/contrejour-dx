@@ -35,7 +35,7 @@ public class SnotEye : ContreJourBodyClip, IClickable
         return false;
     }
 
-    public virtual int Priority(Vector2 touchPoint)
+    public virtual int Priority(Vector2 touchPosition)
     {
         return !snot.Joined ? -10 : 1;
     }

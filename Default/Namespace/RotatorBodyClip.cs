@@ -80,7 +80,7 @@ public class RotatorBodyClip : FurBodyClip, IClickable, IRestartable, ISnotHolde
         targetAngle = Maths.Round(targetAngle, (float)Math.PI * 2f);
     }
 
-    public int Priority(Vector2 touchPoint)
+    public int Priority(Vector2 touchPosition)
     {
         return -1;
     }
@@ -173,12 +173,12 @@ public class RotatorBodyClip : FurBodyClip, IClickable, IRestartable, ISnotHolde
         }
     }
 
-    public bool TouchBegan(Touch _touch)
+    public bool TouchBegan(Touch touch)
     {
-        if (Maths.Between(Body.Position.DistanceTo(builder.TouchRootVec(_touch)) / clip.Scale, MIN_TOUCH_RADIUS, MAX_TOUCH_RADIUS))
+        if (Maths.Between(Body.Position.DistanceTo(builder.TouchRootVec(touch)) / clip.Scale, MIN_TOUCH_RADIUS, MAX_TOUCH_RADIUS))
         {
-            touch = _touch;
-            startTouchAngle = VectorUtil.Atan2(Body.Position, builder.TouchRootVec(touch)) - Body.Rotation;
+            this.touch = touch;
+            startTouchAngle = VectorUtil.Atan2(Body.Position, builder.TouchRootVec(this.touch)) - Body.Rotation;
             SetTouching(value: true);
             StopActions();
             return true;
@@ -204,7 +204,7 @@ public class RotatorBodyClip : FurBodyClip, IClickable, IRestartable, ISnotHolde
         targetAngle = targetAngle.SimplifyAngle(Body.Rotation - (float)Math.PI);
     }
 
-    public void TouchEnd(Touch _touch)
+    public void TouchEnd(Touch touch)
     {
         touchPointSpeed = lastPointSpeed;
         SetTouching(value: false);
@@ -213,6 +213,6 @@ public class RotatorBodyClip : FurBodyClip, IClickable, IRestartable, ISnotHolde
             ? num
             : lastDirection < 0f ? Maths.Floor(targetAngle, ANGLE_REMAINDER) : Maths.Ceil(targetAngle, ANGLE_REMAINDER);
         RunActions();
-        touch = null;
+        this.touch = null;
     }
 }

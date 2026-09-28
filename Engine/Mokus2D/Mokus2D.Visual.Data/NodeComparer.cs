@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace Mokus2D.Visual.Data;
 
-internal class NodeComparer : IComparer<Node>
+internal sealed class NodeComparer : IComparer<Node>
 {
     public int Compare(Node x, Node y)
     {

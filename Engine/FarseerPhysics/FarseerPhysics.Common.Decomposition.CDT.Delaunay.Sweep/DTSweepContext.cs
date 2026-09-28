@@ -1,8 +1,8 @@
 namespace FarseerPhysics.Common.Decomposition.CDT.Delaunay.Sweep;
 
-internal class DTSweepContext : TriangulationContext
+internal sealed class DTSweepContext : TriangulationContext
 {
-    public class DTSweepBasin
+    public sealed class DTSweepBasin
     {
         public AdvancingFrontNode bottomNode;
 
@@ -15,7 +15,7 @@ internal class DTSweepContext : TriangulationContext
         public double width;
     }
 
-    public class DTSweepEdgeEvent
+    public sealed class DTSweepEdgeEvent
     {
         public DTSweepConstraint ConstrainedEdge;
 

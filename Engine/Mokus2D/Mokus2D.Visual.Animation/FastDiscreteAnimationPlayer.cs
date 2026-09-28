@@ -4,7 +4,7 @@ using Mokus2D.Visual.Data;
 
 namespace Mokus2D.Visual.Animation;
 
-internal class FastDiscreteAnimationPlayer : IAnimationNodePlayer
+internal sealed class FastDiscreteAnimationPlayer : IAnimationNodePlayer
 {
     public void ApplyFrameData(AnimationNode node, float frame)
     {

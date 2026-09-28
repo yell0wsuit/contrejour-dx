@@ -4,8 +4,8 @@ namespace Mokus2D.Effects.Tween.ValueSetters;
 
 public class IntSetter : ValueSetter<int>
 {
-    protected override int Lerp(int from, int to, float amount)
+    protected override int Lerp(int value1, int value2, float amount)
     {
-        return (int)amount.Lerp(from, to);
+        return (int)amount.Lerp(value1, value2);
     }
 }

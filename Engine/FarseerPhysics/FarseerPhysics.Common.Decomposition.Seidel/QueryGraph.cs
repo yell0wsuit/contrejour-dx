@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace FarseerPhysics.Common.Decomposition.Seidel;
 
-internal class QueryGraph
+internal sealed class QueryGraph
 {
     private Node _head;
 

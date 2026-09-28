@@ -1,6 +1,6 @@
 namespace FarseerPhysics.Collision;
 
-internal class TreeNode<T>
+internal sealed class TreeNode<T>
 {
     internal AABB AABB;
 

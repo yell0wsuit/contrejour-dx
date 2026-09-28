@@ -8,7 +8,7 @@ namespace FarseerPhysics.Common.TextureTools;
 
 public static class MarchingSquares
 {
-    internal class CxFastList<T>
+    internal sealed class CxFastList<T>
     {
         private CxFastListNode<T> _head;
 
@@ -198,7 +198,7 @@ public static class MarchingSquares
         }
     }
 
-    internal class CxFastListNode<T>
+    internal sealed class CxFastListNode<T>
     {
         internal T _elt;
 
@@ -220,7 +220,7 @@ public static class MarchingSquares
         }
     }
 
-    internal class GeomPoly
+    internal sealed class GeomPoly
     {
         public int Length;
 
@@ -233,7 +233,7 @@ public static class MarchingSquares
         }
     }
 
-    private class GeomPolyVal
+    private sealed class GeomPolyVal
     {
         public int Key;
 

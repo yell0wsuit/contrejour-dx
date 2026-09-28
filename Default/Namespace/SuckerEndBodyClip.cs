@@ -18,7 +18,7 @@ public class SuckerEndBodyClip : ContreJourBodyClip, IClickable
         sucker = _sucker;
     }
 
-    public int Priority(Vector2 touchPoint)
+    public int Priority(Vector2 touchPosition)
     {
         return 1;
     }
@@ -33,21 +33,21 @@ public class SuckerEndBodyClip : ContreJourBodyClip, IClickable
         return false;
     }
 
-    public bool TouchBegan(Touch _touch)
+    public bool TouchBegan(Touch touch)
     {
-        if (touch == null && !sucker.Dragging)
+        if (this.touch == null && !sucker.Dragging)
         {
-            touch = _touch;
-            sucker.StartDrag(touch);
+            this.touch = touch;
+            sucker.StartDrag(this.touch);
             return true;
         }
         return false;
     }
 
-    public void TouchEnd(Touch _touch)
+    public void TouchEnd(Touch touch)
     {
         sucker.FinishDrag();
-        touch = null;
+        this.touch = null;
     }
 
     public bool TouchMove(Touch touch)

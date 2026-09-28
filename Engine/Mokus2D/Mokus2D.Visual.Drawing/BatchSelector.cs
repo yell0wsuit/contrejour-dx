@@ -108,7 +108,7 @@ public class BatchSelector : IDrawer
     {
         if (_batchStarted)
         {
-            _currentSpriteBatch.End();
+            _currentSpriteBatch.Flush();
             _batchStarted = false;
             DrawCallsCount++;
             TrianglesDrawnCount += _currentSpriteBatch.TrianglesCount;

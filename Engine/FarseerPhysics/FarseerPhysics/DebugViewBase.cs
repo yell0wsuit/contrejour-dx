@@ -34,7 +34,7 @@ public abstract class DebugViewBase
 
     public abstract void DrawSolidCircle(Vector2 center, float radius, Vector2 axis, float red, float blue, float green);
 
-    public abstract void DrawSegment(Vector2 start, Vector2 end, float red, float blue, float green);
+    public abstract void DrawSegment(Vector2 startPoint, Vector2 endPoint, float red, float blue, float green);
 
     public abstract void DrawTransform(ref Transform transform);
 }

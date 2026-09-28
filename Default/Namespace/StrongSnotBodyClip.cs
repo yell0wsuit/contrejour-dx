@@ -125,11 +125,11 @@ public class StrongSnotBodyClip : SnotBodyClip
         }
     }
 
-    public override bool TouchBegan(Touch _touch)
+    public override bool TouchBegan(Touch touch)
     {
         //IL_0025: Unknown result type (might be due to invalid IL or missing references)
         //IL_002f: Expected O, but got Unknown
-        if (base.TouchBegan(_touch))
+        if (base.TouchBegan(touch))
         {
             dragJoint = new FixedMouseJoint(Physics.EndBody, Physics.EndBody.Position)
             {

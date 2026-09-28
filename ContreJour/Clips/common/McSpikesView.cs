@@ -1,6 +1,5 @@
 using System.CodeDom.Compiler;
 
-using ContreJour.Clips.partial;
 
 using Mokus2D.Data;
 using Mokus2D.Interfaces;

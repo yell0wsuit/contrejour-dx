@@ -13,7 +13,7 @@ public interface ISimpleSpriteBatch
 
     void Begin(Texture2D texture, Vector2 screenSize, SpriteBatchProperties properties, ISpriteBatchEffect effect);
 
-    void End();
+    void Flush();
 }
 public interface ISimpleSpriteBatch<T> : ISimpleSpriteBatch where T : struct, IVertex
 {

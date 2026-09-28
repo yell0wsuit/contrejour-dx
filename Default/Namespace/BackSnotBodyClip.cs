@@ -51,7 +51,7 @@ public class BackSnotBodyClip : SnotBodyClipBase, IClickable
         _ = Mokus2DGame.LoadResource<MovieClipData>("chapter1/McBackSnotEyeBlink");
     }
 
-    public int Priority(Vector2 touchPoint)
+    public int Priority(Vector2 touchPosition)
     {
         return -1;
     }

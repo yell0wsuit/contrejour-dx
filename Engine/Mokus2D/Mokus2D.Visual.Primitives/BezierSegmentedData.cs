@@ -94,21 +94,21 @@ public class BezierSegmentedData<T> : ISegmentedSpriteData<T>, IUpdatable where 
         lines.Add(_originalLines.Last());
     }
 
-    protected virtual Pair<T> LerpVertices(Pair<T> start, Pair<T> end, float amount)
+    protected virtual Pair<T> LerpVertices(Pair<T> value1, Pair<T> value2, float amount)
     {
         return new Pair<T>
         {
             First =
             {
-                Position = Vector3.Lerp(start.First.Position, end.First.Position, amount),
-                Color = start.First.Color.LerpTo(end.First.Color, amount),
-                TextureCoordinate = start.First.TextureCoordinate.LerpTo(end.First.TextureCoordinate, amount)
+                Position = Vector3.Lerp(value1.First.Position, value2.First.Position, amount),
+                Color = value1.First.Color.LerpTo(value2.First.Color, amount),
+                TextureCoordinate = value1.First.TextureCoordinate.LerpTo(value2.First.TextureCoordinate, amount)
             },
             Second =
             {
-                Position = Vector3.Lerp(start.Second.Position, end.Second.Position, amount),
-                Color = start.Second.Color.LerpTo(end.Second.Color, amount),
-                TextureCoordinate = start.Second.TextureCoordinate.LerpTo(end.Second.TextureCoordinate, amount)
+                Position = Vector3.Lerp(value1.Second.Position, value2.Second.Position, amount),
+                Color = value1.Second.Color.LerpTo(value2.Second.Color, amount),
+                TextureCoordinate = value1.Second.TextureCoordinate.LerpTo(value2.Second.TextureCoordinate, amount)
             }
         };
     }

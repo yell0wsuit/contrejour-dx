@@ -10,7 +10,7 @@ namespace FarseerPhysics.Collision;
 
 public static class Collision
 {
-    private class EPCollider
+    private sealed class EPCollider
     {
         private TempPolygon _polygonB = new();
 

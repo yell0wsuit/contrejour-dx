@@ -11,11 +11,11 @@ public class TintBezierSegmentedData<T> : BezierSegmentedData<T> where T : struc
     {
     }
 
-    protected override Pair<T> LerpVertices(Pair<T> start, Pair<T> end, float amount)
+    protected override Pair<T> LerpVertices(Pair<T> value1, Pair<T> value2, float amount)
     {
-        Pair<T> result = base.LerpVertices(start, end, amount);
-        result.First.ColorRatio = amount.Lerp(start.First.ColorRatio, end.First.ColorRatio);
-        result.Second.ColorRatio = amount.Lerp(start.Second.ColorRatio, end.Second.ColorRatio);
+        Pair<T> result = base.LerpVertices(value1, value2, amount);
+        result.First.ColorRatio = amount.Lerp(value1.First.ColorRatio, value2.First.ColorRatio);
+        result.Second.ColorRatio = amount.Lerp(value1.Second.ColorRatio, value2.Second.ColorRatio);
         return result;
     }
 }

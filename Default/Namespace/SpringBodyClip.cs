@@ -150,9 +150,9 @@ public class SpringBodyClip : ContreJourBodyClip, IClickable, IRestartable
         return false;
     }
 
-    public virtual int Priority(Vector2 touchPoint)
+    public virtual int Priority(Vector2 touchPosition)
     {
-        return sticked == null || !IsTouchDistance(touchPoint) ? -10 : 2;
+        return sticked == null || !IsTouchDistance(touchPosition) ? -10 : 2;
     }
 
     public bool AcceptFreeTouches()

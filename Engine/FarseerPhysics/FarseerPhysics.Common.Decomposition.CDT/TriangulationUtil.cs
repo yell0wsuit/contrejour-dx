@@ -1,6 +1,6 @@
 namespace FarseerPhysics.Common.Decomposition.CDT;
 
-internal class TriangulationUtil
+internal sealed class TriangulationUtil
 {
     public static double EPSILON = 1E-12;
 

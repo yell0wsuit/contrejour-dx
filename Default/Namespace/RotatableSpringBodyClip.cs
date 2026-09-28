@@ -115,9 +115,9 @@ public class RotatableSpringBodyClip : RotatableSpringBase, IRestartable
         targetRotation = 0f.SimplifyAngle((float)((double)Body.Rotation - Math.PI));
     }
 
-    public override int Priority(Vector2 touchPoint)
+    public override int Priority(Vector2 touchPosition)
     {
-        return touchPoint.DistanceTo(Body.Position) < TOUCH_DISTANCE ? base.Priority(touchPoint) : IsRotatorTouched(touchPoint) ? 0 : -100;
+        return touchPosition.DistanceTo(Body.Position) < TOUCH_DISTANCE ? base.Priority(touchPosition) : IsRotatorTouched(touchPosition) ? 0 : -100;
     }
 
     public override float TouchDistance(Vector2 touchPosition)

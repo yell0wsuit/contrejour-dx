@@ -3,7 +3,7 @@ using System.Text;
 
 namespace FarseerPhysics.Common.Decomposition.CDT.Delaunay.Sweep;
 
-internal class AdvancingFront
+internal sealed class AdvancingFront
 {
     public AdvancingFrontNode Head;
 

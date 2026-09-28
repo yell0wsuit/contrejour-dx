@@ -65,11 +65,11 @@ public class PlanetSnot : LongNeckSprite, IDepthDependent
         opacity = 255;
     }
 
-    public override void GetPairs(List<Pair<Vector2>> result)
+    public override void GetPairs(List<Pair<Vector2>> target)
     {
-        result.Add(ContreDrawUtil.GetPointsPair(Vector2.Zero, Vector2.Zero, middle, 10f));
-        result.Add(ContreDrawUtil.GetPointsPair(middle, Vector2.Zero, middle, 5f));
-        result.Add(ContreDrawUtil.GetPointsPair(end, middle, end, 20f));
+        target.Add(ContreDrawUtil.GetPointsPair(Vector2.Zero, Vector2.Zero, middle, 10f));
+        target.Add(ContreDrawUtil.GetPointsPair(middle, Vector2.Zero, middle, 5f));
+        target.Add(ContreDrawUtil.GetPointsPair(end, middle, end, 20f));
     }
 
     public override void Update(float time)

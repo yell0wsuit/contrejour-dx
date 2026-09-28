@@ -51,24 +51,24 @@ public class LianaSprite : LongNeckSprite
         partsLength.Add(2);
     }
 
-    public override void GetPairs(List<Pair<Vector2>> result)
+    public override void GetPairs(List<Pair<Vector2>> target)
     {
         Vector2 vector = data.PositionAt(0);
         Pair<Vector2> pointsPairStartEndWidthResult = ContreDrawUtil.GetPointsPairStartEndWidthResult(vector, vector, data.PositionAt(1), width);
-        result.Add(pointsPairStartEndWidthResult);
-        result.Add(pointsPairStartEndWidthResult);
+        target.Add(pointsPairStartEndWidthResult);
+        target.Add(pointsPairStartEndWidthResult);
         for (int i = 1; i < data.PointsCount(); i++)
         {
             Vector2 start = data.PositionAt(i - 1);
             Vector2 vector2 = data.PositionAt(i);
             vector = VectorUtil.Center(start, vector2);
-            result.Add(ContreDrawUtil.GetPointsPairStartEndWidthResult(vector, vector, vector2, width));
-            result.Add(ContreDrawUtil.GetPointsPairStartEndWidthResult(vector2, start, data.PositionAt(Math.Min(i + 1, data.PointsCount() - 1)), width));
+            target.Add(ContreDrawUtil.GetPointsPairStartEndWidthResult(vector, vector, vector2, width));
+            target.Add(ContreDrawUtil.GetPointsPairStartEndWidthResult(vector2, start, data.PositionAt(Math.Min(i + 1, data.PointsCount() - 1)), width));
         }
         Vector2 vector3 = data.PositionAt(data.PointsCount() - 1);
         pointsPairStartEndWidthResult = ContreDrawUtil.GetPointsPairStartEndWidthResult(vector3, vector, vector3, width);
-        result.Add(pointsPairStartEndWidthResult);
-        result.Add(pointsPairStartEndWidthResult);
+        target.Add(pointsPairStartEndWidthResult);
+        target.Add(pointsPairStartEndWidthResult);
     }
 
     public override void AddBezierPointsBezier(List<Vector2> source, List<Vector2> bezier)

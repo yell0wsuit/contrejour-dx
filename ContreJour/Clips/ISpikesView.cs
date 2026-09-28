@@ -1,6 +1,6 @@
 using Mokus2D.Visual;
 
-namespace ContreJour.Clips.partial;
+namespace ContreJour.Clips;
 
 public interface ISpikesView
 {

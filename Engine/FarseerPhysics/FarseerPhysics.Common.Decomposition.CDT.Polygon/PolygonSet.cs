@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace FarseerPhysics.Common.Decomposition.CDT.Polygon;
 
-internal class PolygonSet
+internal sealed class PolygonSet
 {
     protected List<Polygon> _polygons = [];
 

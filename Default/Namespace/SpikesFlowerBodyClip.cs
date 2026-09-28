@@ -1,8 +1,8 @@
 using System;
 
+using ContreJour.Clips;
 using ContreJour.Clips.common;
 using ContreJour.Clips.common2;
-using ContreJour.Clips.partial;
 
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Dynamics.Contacts;

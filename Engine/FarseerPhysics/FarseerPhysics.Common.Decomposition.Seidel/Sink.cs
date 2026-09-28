@@ -1,6 +1,6 @@
 namespace FarseerPhysics.Common.Decomposition.Seidel;
 
-internal class Sink : Node
+internal sealed class Sink : Node
 {
     public Trapezoid Trapezoid;
 

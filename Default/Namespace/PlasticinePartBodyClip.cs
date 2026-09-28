@@ -281,7 +281,7 @@ public class PlasticinePartBodyClip : ContreJourBodyClip, IClickable, IRestartab
         highlite?.SetDirty();
     }
 
-    public int Priority(Vector2 touchPoint)
+    public int Priority(Vector2 touchPosition)
     {
         return 0;
     }

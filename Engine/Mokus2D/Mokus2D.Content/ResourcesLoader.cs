@@ -9,14 +9,14 @@ public class ResourcesLoader : ResourcesLoaderBase
 {
     private const string FontExtension = "font";
 
-    protected override string GetFileName<T>(string resourceName, string resourcesSuffix)
+    protected override string GetFileName<T>(string resourceName, string resourceSuffix)
     {
         string text = ((object)typeof(T) == typeof(FontData)) ? "font" : "xml";
         IGraphicsDeserializer graphicsDeserializer = _deserializers[typeof(T)];
         string text2 = resourceName;
         if (graphicsDeserializer.UseSuffix)
         {
-            text2 += resourcesSuffix;
+            text2 += resourceSuffix;
         }
         return text2 + "." + text;
     }

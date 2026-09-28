@@ -11,7 +11,7 @@ namespace Mokus2D.Input;
 
 public class KeyboardDelayListener : IUpdatable
 {
-    private class KeyData : ICleanable
+    private sealed class KeyData : ICleanable
     {
         public float Time;
 

@@ -11,9 +11,9 @@ public class VariableSnotProcessor : SnotProcessor
     {
     }
 
-    public override RopeMetricsWithCoords GetRopeMetricsEndItem(Vector2 start, Vector2 end, Hashtable item)
+    public override RopeMetricsWithCoords GetRopeMetricsEndItem(Vector2 startPoint, Vector2 endPoint, Hashtable item)
     {
         float num = item.GetHashtable("config").GetFloat("variableSize") * builder.SizeMult;
-        return RopeUtil.GetRopeMetricsEndMaxPartSizeMinPartsLength(length: start.DistanceTo(end) + num, start: start, end: end, maxPartSize: partSize, minParts: 3);
+        return RopeUtil.GetRopeMetricsEndMaxPartSizeMinPartsLength(length: startPoint.DistanceTo(endPoint) + num, start: startPoint, end: endPoint, maxPartSize: partSize, minParts: 3);
     }
 }

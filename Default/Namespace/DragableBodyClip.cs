@@ -130,30 +130,30 @@ public class DragableBodyClip : ContreJourBodyClip, IClickable, IRestartable, IS
         _dragBounds.Extend(-2f / 3f);
     }
 
-    public int Priority(Vector2 touchPoint)
+    public int Priority(Vector2 touchPosition)
     {
         return 1;
     }
 
-    public bool TouchBegan(Touch _touch)
+    public bool TouchBegan(Touch touch)
     {
-        if (touch == null && ProcessTouch(_touch))
+        if (this.touch == null && ProcessTouch(touch))
         {
             limitSpeed = false;
-            touch = _touch;
+            this.touch = touch;
             dragStartEvent.SendEvent();
             ContreJourGame contreJourGame = (ContreJourGame)builder.Game;
             contreJourGame.IncreaseZoomOut();
             Schedule(contreJourGame.FocusOnHero, 0.05f);
             draging = true;
-            initialMousePosition = builder.TouchRootVec(touch);
+            initialMousePosition = builder.TouchRootVec(this.touch);
             initialDragOffset = Body.Position - initialPosition;
             return true;
         }
         return false;
     }
 
-    public bool TouchMove(Touch _touch)
+    public bool TouchMove(Touch touch)
     {
         return true;
     }
@@ -162,11 +162,11 @@ public class DragableBodyClip : ContreJourBodyClip, IClickable, IRestartable, IS
     {
     }
 
-    public void TouchEnd(Touch _touch)
+    public void TouchEnd(Touch touch)
     {
         draging = false;
         builder.Game.DecreaseZoomOut();
-        touch = null;
+        this.touch = null;
     }
 
     public void Restart()

@@ -6,7 +6,7 @@ using FarseerPhysics.Common.Decomposition.CDT.Delaunay;
 
 namespace FarseerPhysics.Common.Decomposition.CDT.Polygon;
 
-internal class Polygon : Triangulatable
+internal sealed class Polygon : Triangulatable
 {
     protected List<Polygon> _holes;
 

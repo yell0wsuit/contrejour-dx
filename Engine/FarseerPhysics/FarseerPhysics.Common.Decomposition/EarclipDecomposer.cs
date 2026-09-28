@@ -7,7 +7,7 @@ namespace FarseerPhysics.Common.Decomposition;
 
 internal static class EarclipDecomposer
 {
-    private class Triangle : Vertices
+    private sealed class Triangle : Vertices
     {
         public Triangle(float x1, float y1, float x2, float y2, float x3, float y3)
         {

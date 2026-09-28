@@ -194,24 +194,24 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
         return true;
     }
 
-    public int Priority(Vector2 touchPoint)
+    public int Priority(Vector2 touchPosition)
     {
         return 1;
     }
 
-    public virtual bool TouchBegan(Touch _touch)
+    public virtual bool TouchBegan(Touch touch)
     {
-        if (touch != null || stickyJoint != null || !Enabled)
+        if (this.touch != null || stickyJoint != null || !Enabled)
         {
             return false;
         }
-        Vector2 source = builder.TouchRootVec(_touch);
+        Vector2 source = builder.TouchRootVec(touch);
         if (movable && source.DistanceTo(Body.Position) > source.DistanceTo(Physics.EyeBody.Position))
         {
             return false;
         }
         SetZ(Layer() + 1);
-        touch = _touch;
+        this.touch = touch;
         Physics.EndBody.BodyType = 0;
         Physics.EndBody.LinearVelocity = default;
         SetDamping(3f);
@@ -221,20 +221,20 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
         return true;
     }
 
-    public void TouchEnd(Touch _touch)
+    public void TouchEnd(Touch touch)
     {
-        if (_touch == touch)
+        if (touch == this.touch)
         {
             EndDrag();
         }
     }
 
-    public bool TouchMove(Touch _touch)
+    public bool TouchMove(Touch touch)
     {
         return true;
     }
 
-    public void TouchOut(Touch _touch)
+    public void TouchOut(Touch touch)
     {
     }
 

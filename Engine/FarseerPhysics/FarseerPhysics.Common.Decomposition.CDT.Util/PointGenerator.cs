@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace FarseerPhysics.Common.Decomposition.CDT.Util;
 
-internal class PointGenerator
+internal sealed class PointGenerator
 {
     private static readonly Random RNG = new();
 

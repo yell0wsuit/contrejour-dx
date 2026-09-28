@@ -6,7 +6,7 @@ namespace FarseerPhysics.Common.ConvexHull;
 
 public static class ChainHull
 {
-    private class PointComparer : Comparer<Vector2>
+    private sealed class PointComparer : Comparer<Vector2>
     {
         public override int Compare(Vector2 a, Vector2 b)
         {

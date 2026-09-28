@@ -6,7 +6,7 @@ using FarseerPhysics.Common.Decomposition.CDT.Util;
 
 namespace FarseerPhysics.Common.Decomposition.CDT.Delaunay;
 
-internal class DelaunayTriangle
+internal sealed class DelaunayTriangle
 {
     // Only ever written element by element through the fixed array's indexer, which the compiler
     // doesn't count as assigning the field.

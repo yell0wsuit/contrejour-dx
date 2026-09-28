@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace FarseerPhysics.Common.PhysicsLogic;
 
-internal class RayDataComparer : IComparer<float>
+internal sealed class RayDataComparer : IComparer<float>
 {
     int IComparer<float>.Compare(float a, float b)
     {

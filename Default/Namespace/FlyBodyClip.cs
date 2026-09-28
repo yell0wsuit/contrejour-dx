@@ -111,7 +111,7 @@ public class FlyBodyClip : ContreJourBodyClip, IClickable
         Body.GravityScale = 0f;
     }
 
-    public int Priority(Vector2 touchPoint)
+    public int Priority(Vector2 touchPosition)
     {
         return 0;
     }

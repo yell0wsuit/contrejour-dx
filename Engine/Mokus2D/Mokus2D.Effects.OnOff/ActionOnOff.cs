@@ -8,7 +8,7 @@ public class ActionOnOff : IOnOff
 
     private bool _isOn;
 
-    public bool On
+    public bool IsOn
     {
         get => _isOn;
         set

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace FarseerPhysics.Common.Decomposition.Seidel;
 
-internal class TrapezoidalMap
+internal sealed class TrapezoidalMap
 {
     public HashSet<Trapezoid> Map;
 

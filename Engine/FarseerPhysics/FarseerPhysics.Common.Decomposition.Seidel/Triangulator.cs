@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace FarseerPhysics.Common.Decomposition.Seidel;
 
-internal class Triangulator
+internal sealed class Triangulator
 {
     public List<Trapezoid> Trapezoids;
 

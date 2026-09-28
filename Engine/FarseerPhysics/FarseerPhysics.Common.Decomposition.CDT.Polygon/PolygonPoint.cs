@@ -1,6 +1,6 @@
 namespace FarseerPhysics.Common.Decomposition.CDT.Polygon;
 
-internal class PolygonPoint : TriangulationPoint
+internal sealed class PolygonPoint : TriangulationPoint
 {
     public PolygonPoint Next { get; set; }
 

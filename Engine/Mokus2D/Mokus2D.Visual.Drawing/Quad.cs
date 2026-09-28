@@ -99,8 +99,8 @@ public class Quad<T> : IQuad where T : struct, IVertex
         RightBottom.Color = color;
     }
 
-    public void Draw(IDrawer drawer)
+    public void Draw(IDrawer root)
     {
-        drawer.Draw(this);
+        root.Draw(this);
     }
 }

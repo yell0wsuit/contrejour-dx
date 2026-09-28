@@ -35,9 +35,9 @@ public class StrongSnotProcessor : SnotProcessor
         return 0.13f + ((total - (float)index) / total * 0.13f);
     }
 
-    public override Joint JoinBodiesEndBodyStartEndIndexTotal(Body startBody, Body endBody, Vector2 start, Vector2 end, int index, int total)
+    public override Joint JoinBodiesEndBodyStartEndIndexTotal(Body startBody, Body endBody, Vector2 startPoint, Vector2 endPoint, int index, int total)
     {
-        RevoluteJoint val = JointFactory.CreateRevoluteJoint(builder.World, startBody, endBody, endBody.Position - end);
+        RevoluteJoint val = JointFactory.CreateRevoluteJoint(builder.World, startBody, endBody, endBody.Position - endPoint);
         val.CollideConnected = false;
         val.LimitEnabled = false;
         val.Broke += joint_Broke;

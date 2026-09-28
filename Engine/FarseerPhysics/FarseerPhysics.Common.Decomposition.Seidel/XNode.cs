@@ -1,6 +1,6 @@
 namespace FarseerPhysics.Common.Decomposition.Seidel;
 
-internal class XNode : Node
+internal sealed class XNode : Node
 {
     private Point _point;
 

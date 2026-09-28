@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace FarseerPhysics.Common.Decomposition.Seidel;
 
-internal class MonotoneMountain
+internal sealed class MonotoneMountain
 {
     private const float PiSlop = 3.1f;
 

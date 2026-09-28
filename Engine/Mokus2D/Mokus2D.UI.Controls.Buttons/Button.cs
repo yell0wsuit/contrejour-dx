@@ -87,7 +87,7 @@ public class Button
 
     protected virtual void RefreshButton()
     {
-        Effect.On = Pressed || MouseOver;
+        Effect.IsOn = Pressed || MouseOver;
     }
 
     public void ResetEffect()

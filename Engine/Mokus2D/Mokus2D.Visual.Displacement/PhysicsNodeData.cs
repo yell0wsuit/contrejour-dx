@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework;
 
 namespace Mokus2D.Visual.Displacement;
 
-internal class PhysicsNodeData
+internal sealed class PhysicsNodeData
 {
     public Vector2 Velocity;
 

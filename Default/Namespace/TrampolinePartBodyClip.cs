@@ -31,7 +31,7 @@ public class TrampolinePartBodyClip : ContreJourBodyClip, IClickable
         return false;
     }
 
-    public int Priority(Vector2 touchPoint)
+    public int Priority(Vector2 touchPosition)
     {
         return 0;
     }

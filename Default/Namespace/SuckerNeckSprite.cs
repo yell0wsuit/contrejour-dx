@@ -85,10 +85,10 @@ public class SuckerNeckSprite : LongNeckSprite
         middle = new Pair<Vector2>(new Vector2(length / 2f, -1f + (bouncer.CurrentAmplitude * num)), new Vector2(length / 2f, 1f + (bouncer.CurrentAmplitude * num)));
     }
 
-    public override void GetPairs(List<Pair<Vector2>> result)
+    public override void GetPairs(List<Pair<Vector2>> target)
     {
-        result.Add(start);
-        result.Add(middle);
-        result.Add(end);
+        target.Add(start);
+        target.Add(middle);
+        target.Add(end);
     }
 }

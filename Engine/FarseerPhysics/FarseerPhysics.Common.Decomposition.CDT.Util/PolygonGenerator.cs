@@ -4,7 +4,7 @@ using FarseerPhysics.Common.Decomposition.CDT.Polygon;
 
 namespace FarseerPhysics.Common.Decomposition.CDT.Util;
 
-internal class PolygonGenerator
+internal sealed class PolygonGenerator
 {
     private static readonly Random RNG = new();
 

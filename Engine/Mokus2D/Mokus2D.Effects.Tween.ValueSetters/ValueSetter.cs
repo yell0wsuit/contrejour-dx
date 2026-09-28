@@ -58,7 +58,7 @@ public abstract class ValueSetter<TValue> : ValueSetter, ICleanable
         return this;
     }
 
-    protected abstract TValue Lerp(TValue from, TValue to, float amount);
+    protected abstract TValue Lerp(TValue value1, TValue value2, float amount);
 
     public void Clean()
     {

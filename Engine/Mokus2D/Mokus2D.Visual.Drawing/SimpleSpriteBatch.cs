@@ -99,7 +99,7 @@ public class SimpleSpriteBatch<T> : ISimpleSpriteBatch<T>, ISimpleSpriteBatch wh
         SpriteBatchUtil.DrawQuad(quad, ref _vertices, ref _indices, ref _currentVertex, ref _currentIndex);
     }
 
-    public virtual void End()
+    public virtual void Flush()
     {
         if (_currentVertex != 0)
         {

@@ -1,6 +1,6 @@
 namespace FarseerPhysics.Common.Decomposition.CDT.Delaunay.Sweep;
 
-internal class AdvancingFrontNode
+internal sealed class AdvancingFrontNode
 {
     public AdvancingFrontNode Next;
 
