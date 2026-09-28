@@ -94,9 +94,9 @@ public class SpringSuckerBodyClip : SuckerBodyClip
         normal = parallel.Rotate90();
     }
 
-    public override void StartDrag(Touch _touch)
+    public override void StartDrag(Touch touch)
     {
-        base.StartDrag(_touch);
+        base.StartDrag(touch);
         touched = true;
     }
 

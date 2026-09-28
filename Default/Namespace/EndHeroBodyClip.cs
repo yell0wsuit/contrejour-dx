@@ -164,16 +164,16 @@ public class EndHeroBodyClip : HeroBodyClip
         Game.AddChild(outro, 15);
     }
 
-    protected override void FinishLevelSpeed(Vector2 targetPosition, float _finishSpeed)
+    protected override void FinishLevelSpeed(Vector2 targetPosition, float finishSpeed)
     {
         if (levelCompleted)
         {
             Game.RestartEnabled = false;
-            FinishLevelSpeedEyeAnimation(targetPosition, _finishSpeed, null);
+            FinishLevelSpeedEyeAnimation(targetPosition, finishSpeed, null);
         }
         else
         {
-            base.FinishLevelSpeed(targetPosition, _finishSpeed);
+            base.FinishLevelSpeed(targetPosition, finishSpeed);
         }
     }
 

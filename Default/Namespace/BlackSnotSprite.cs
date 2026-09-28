@@ -54,10 +54,10 @@ public class BlackSnotSprite : SpringSnotSprite
         return Color.Lerp(InitialStartColor(), InitialEndColor(), index / (float)lineSize);
     }
 
-    public override void CreateVectors(int _allPointsSize)
+    public override void CreateVectors(int allPointsSize)
     {
-        base.CreateVectors(_allPointsSize);
-        int num = _allPointsSize / 2;
+        base.CreateVectors(allPointsSize);
+        int num = allPointsSize / 2;
         Color color = InitialStartColor();
         Color intermidiateColorLineSize = GetIntermidiateColorLineSize(1, num);
         for (int i = 0; i < num - 1; i++)

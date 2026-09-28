@@ -55,10 +55,10 @@ public class TextureSnotSprite : SpringSnotSprite
         opacity = Maths.StepTo(opacity, targetOpacity, 10f);
     }
 
-    public override void CreateVectors(int _allPointsSize)
+    public override void CreateVectors(int allPointsSize)
     {
-        base.CreateVectors(_allPointsSize);
-        GraphUtil.CreateTextureCoordsVerticesStep((_allPointsSize / 2) - 1, vertices, 0.1f);
+        base.CreateVectors(allPointsSize);
+        GraphUtil.CreateTextureCoordsVerticesStep((allPointsSize / 2) - 1, vertices, 0.1f);
     }
 
     protected override void RefreshTextureCoords(int i, int start)

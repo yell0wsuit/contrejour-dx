@@ -36,12 +36,12 @@ public class RadiusClickListener(Node _target, float _clickRadius, int priority 
         return false;
     }
 
-    protected override bool IsOutStartPosition(Touch touch, Vector2 _startPosition)
+    protected override bool IsOutStartPosition(Touch touch, Vector2 startPosition)
     {
         bool flag = !SpriteContainsPoint(touch);
         if (disableDrag)
         {
-            flag |= base.IsOutStartPosition(touch, _startPosition);
+            flag |= base.IsOutStartPosition(touch, startPosition);
         }
         return flag;
     }

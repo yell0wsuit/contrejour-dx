@@ -52,7 +52,7 @@ public class StrongSnotBodyClip : SnotBodyClip
     {
     }
 
-    public override void CreateHighlite(ContreJourGame _game)
+    public override void CreateHighlite(ContreJourGame game)
     {
     }
 

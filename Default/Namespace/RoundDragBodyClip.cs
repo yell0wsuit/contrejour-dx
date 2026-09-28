@@ -19,9 +19,9 @@ public class RoundDragBodyClip(ContreJourLevelBuilder _builder, object body, Nod
 
     public override Vector2 SnotPosition => Body.Position;
 
-    protected override string ReplaceClipName(ContreJourLevelBuilder _builder)
+    protected override string ReplaceClipName(ContreJourLevelBuilder builder)
     {
-        return _builder.ContreJour.ChooseSide(null, "McRoundDragViewWhite", "McRoundDragView_5", null);
+        return builder.ContreJour.ChooseSide(null, "McRoundDragViewWhite", "McRoundDragView_5", null);
     }
 
     protected override void CreateBoundsClip(float scale)

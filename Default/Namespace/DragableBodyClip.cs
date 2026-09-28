@@ -41,7 +41,7 @@ public class DragableBodyClip : ContreJourBodyClip, IClickable, IRestartable, IS
 
     public const float TouchDistanceIphone = 2.3333333f;
 
-    public const float TouchDistance = 1.6666666f;
+    public const float MaxTouchDistance = 1.6666666f;
 
     public const float OFFSET = 3.4f;
 

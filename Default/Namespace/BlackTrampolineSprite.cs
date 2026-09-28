@@ -25,9 +25,9 @@ public class BlackTrampolineSprite(ContreJourGame game, SnotBodyClipBase snot, f
         return Color.Lerp(MiddleColor(), StartColor(), Math.Abs(index - (lineSize / 2f)) / (lineSize / 2f));
     }
 
-    public override void CreateVectors(int _allPointsSize)
+    public override void CreateVectors(int allPointsSize)
     {
-        base.CreateVectors(_allPointsSize);
+        base.CreateVectors(allPointsSize);
     }
 
     public override void SetBorderColors()

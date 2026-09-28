@@ -12,10 +12,10 @@ public class TexturedSuckerNeck : SuckerNeckSprite
         NeckColor = Color.White;
     }
 
-    public override void CreateVectors(int _allPointsSize)
+    public override void CreateVectors(int allPointsSize)
     {
-        base.CreateVectors(_allPointsSize);
-        GraphUtil.CreateTextureCoordsVerticesStep((_allPointsSize / 2) - 1, vertices, 0.75f);
+        base.CreateVectors(allPointsSize);
+        GraphUtil.CreateTextureCoordsVerticesStep((allPointsSize / 2) - 1, vertices, 0.75f);
     }
 
     public override void Bounce()

@@ -26,9 +26,6 @@ public class LevelsMenu : ClickableLayer
     public static readonly Vector2 BorderOffset = new(200f, 220f);
 
     private static readonly Vector2 GetMorePosition = new(0f, -120f);
-
-    private static readonly List<List<int>> LevelsCache = [];
-
     private readonly float RowOffset = 120f;
 
     public static readonly int[,] LEVELS = new int[6, 20]
@@ -84,20 +81,20 @@ public class LevelsMenu : ClickableLayer
     {
         get
         {
-            if (LevelsCache.Count == 0)
+            if (field.Count == 0)
             {
                 for (int i = 0; i < Constants.ChaptersCount; i++)
                 {
-                    LevelsCache.Add([]);
+                    field.Add([]);
                     for (int j = 0; j < 20; j++)
                     {
-                        LevelsCache[i].Add(LEVELS[i, j]);
+                        field[i].Add(LEVELS[i, j]);
                     }
                 }
             }
-            return LevelsCache;
+            return field;
         }
-    }
+    } = [];
 
     public event Action<int> SelectLevelEvent;
 

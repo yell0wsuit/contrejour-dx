@@ -291,10 +291,10 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
         return 1f;
     }
 
-    public void EatSpeedPauseScaleTime(Vector2 targetPosition, float _finishSpeed, float pause, float scale, float time)
+    public void EatSpeedPauseScaleTime(Vector2 targetPosition, float finishSpeed, float pause, float scale, float time)
     {
         eating = true;
-        FailLevelSpeedPause(targetPosition, _finishSpeed, pause);
+        FailLevelSpeedPause(targetPosition, finishSpeed, pause);
         SetScaleTime(scale, time);
     }
 
