@@ -155,16 +155,11 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
     private List<string> texturesToUnload;
 
     private bool touchEnabled;
-
-    private Vector2 touchFixPoint;
-
     private bool whiteSide;
 
     private WindManager windManager;
 
     private int zoomOutCount;
-
-    private float zoomOutTime;
 
     public static readonly int[] MinZoomLevels =
     [
@@ -423,7 +418,7 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
         }
         CreateEnergy();
         base.ProcessLevel(level);
-        Hashtable levelProperties = level.levelProperties;
+        Hashtable levelProperties = level.LevelProperties;
         levelSize = new Vector2(levelProperties.GetFloat("Width"), levelProperties.GetFloat("Height"));
         GameRoot.Scale = ContreJourConfig.RootSize.X / levelSize.X;
         float num = GameRoot.Scale * levelSize.Y;
@@ -824,7 +819,6 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
     {
         if (zoomOutCount == 0)
         {
-            zoomOutTime = 0f;
         }
         zoomOutCount++;
     }
@@ -834,7 +828,6 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
         zoomOutCount--;
         if (zoomOutCount == 0)
         {
-            zoomOutTime = 0f;
         }
     }
 

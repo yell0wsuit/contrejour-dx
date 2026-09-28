@@ -18,8 +18,6 @@ public class Tweener(object defaultTarget) : DisposableBase, IUpdatable, ICleana
         public readonly int? Tag = tag;
     }
 
-    private bool Test;
-
     private readonly object _defaultTarget = defaultTarget;
 
     private readonly ForEachCollection<TweenAndTag> _tweens = [];

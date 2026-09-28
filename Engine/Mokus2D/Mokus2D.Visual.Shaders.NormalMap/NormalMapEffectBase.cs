@@ -9,16 +9,6 @@ public abstract class NormalMapEffectBase : TextureMatrixEffectBase
 {
     public readonly ShaderParameterInt LightsCount;
 
-    private readonly ShaderParameterFloat AmbientLightPower;
-
-    private readonly ShaderParameterVector3 AmbientLightVector;
-
-    private readonly ShaderParameterColor AmbientLightColor;
-
-    private readonly ShaderParameterFloat MaxLightPower;
-
-    private readonly ShaderParameterFloat DiffuseLightPower;
-
     private readonly EffectParameter _lightPosition;
 
     private readonly EffectParameter _lightPower;
@@ -81,11 +71,6 @@ public abstract class NormalMapEffectBase : TextureMatrixEffectBase
         _lightPower = Parameters["LightPower"];
         _lightColor = Parameters["LightColor"];
         _lightDistanceRate = Parameters["LightDistanceRate"];
-        AmbientLightPower = new ShaderParameterFloat(Parameters, "AmbientLightPower");
-        AmbientLightVector = new ShaderParameterVector3(Parameters, "AmbientLightVector");
-        AmbientLightColor = new ShaderParameterColor(Parameters, "AmbientLightColor");
-        MaxLightPower = new ShaderParameterFloat(Parameters, "MaxLightPower");
-        DiffuseLightPower = new ShaderParameterFloat(Parameters, "DiffuseLightPower");
         _lightsData[0] = new LightData(this, 0, new Vector3(640f, 360f, 100f), 1f, Color.Red);
         for (int i = 1; i < maxLightsCount; i++)
         {

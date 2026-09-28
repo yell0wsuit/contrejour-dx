@@ -26,8 +26,6 @@ public class PlanetSnot : LongNeckSprite, IDepthDependent
 
     private Vector2 targetEnd;
 
-    private ushort opacity;
-
     private float depth;
 
     private Vector2 endInit;
@@ -54,7 +52,6 @@ public class PlanetSnot : LongNeckSprite, IDepthDependent
         middle = middleInit;
         end = Vector2.Zero;
         borderWidth = 4f;
-        opacity = 255;
     }
 
     public override void GetPairs(List<Pair<Vector2>> target)

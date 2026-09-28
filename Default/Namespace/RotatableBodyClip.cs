@@ -12,11 +12,7 @@ public class RotatableBodyClip : BodyClip
 
     private float scaleProgress;
 
-    private float angleDiff;
-
     private bool destroying;
-
-    private int rotationDirection;
 
     private int scaleSign;
 
@@ -26,9 +22,9 @@ public class RotatableBodyClip : BodyClip
         scaleDiff = Maths.Random(0.1f, 0.25f);
         scaleStep = Maths.Random(0.02f, 0.05f);
         scaleProgress = Maths.Random(0f, (float)Math.PI * 2f);
-        angleDiff = Maths.Random(4f, 8f);
+        // The value is unused, but the draw keeps the shared random sequence unchanged.
+        _ = Maths.Random(4f, 8f);
         destroying = false;
-        rotationDirection = 1;
         scaleSign = 1;
         this.clip.RotationDegrees = Maths.Random(360);
     }

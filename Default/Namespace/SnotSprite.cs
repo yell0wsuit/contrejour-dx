@@ -22,13 +22,7 @@ public class SnotSprite : LongNeckSprite
 
     private float endWidth;
 
-    private float startWidthPixels;
-
-    private float endWidthPixels;
-
     private float centerWidth;
-
-    private List<Vector2> surface;
 
     public SnotSprite(SnotBodyClipBase snot, float startWidth, float centerWidth, float endWidth)
     {
@@ -36,8 +30,6 @@ public class SnotSprite : LongNeckSprite
         data = this.snot.Physics;
         this.startWidth = startWidth;
         this.endWidth = endWidth;
-        startWidthPixels = this.startWidth / (1f / 30f);
-        endWidthPixels = this.endWidth / (1f / 30f);
         this.centerWidth = centerWidth;
     }
 

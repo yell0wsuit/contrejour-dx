@@ -14,10 +14,6 @@ public class JoinableSpringBodyClip : RotatableSpringBase
 
     private float relativeAngle;
 
-    private float stickedAngle;
-
-    private RevoluteJoint rotatorJoint;
-
     protected override bool IsMoving => rotator != null && rotator.Body.AngularVelocity != 0f;
 
     public JoinableSpringBodyClip(LevelBuilderBase builder, object body, Node clip, Hashtable config)

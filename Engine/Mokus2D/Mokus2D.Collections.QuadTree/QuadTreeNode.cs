@@ -8,8 +8,6 @@ public class QuadTreeNode<T>(RectangleFloat bounds) where T : class, IQuadTreeOb
 {
     private static int _id;
 
-    private readonly int ID = _id++;
-
     internal readonly QuadTreeNode<T>[] Nodes = new QuadTreeNode<T>[4];
 
     internal List<T> Objects = [];

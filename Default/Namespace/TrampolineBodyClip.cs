@@ -28,17 +28,11 @@ public class TrampolineBodyClip : SnotBodyClipBase
     private float centerDistanceDiff;
 
     private FixedMouseJoint dragJoint;
-
-    private Vector2 dragOffset;
-
     private bool dragging;
 
     private float impulseMultiplier;
 
     private Vector2 impulseVec;
-
-    private Vector2 initialPosition;
-
     private List<Body> launchBodies = [];
 
     private float maxDistance;

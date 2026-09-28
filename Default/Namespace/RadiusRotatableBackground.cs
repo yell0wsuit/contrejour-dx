@@ -11,8 +11,6 @@ public class RadiusRotatableBackground : RotatableBackground
 
     private float radius;
 
-    private float rotation;
-
     public RadiusRotatableBackground(Node node, Hashtable config, ContreJourGame game)
         : base(node, config, game)
     {
@@ -20,7 +18,6 @@ public class RadiusRotatableBackground : RotatableBackground
         centerPosition = this.node.Position;
         centerPosition.X += radius;
         rotationStep = 0.2f;
-        rotation = 0f;
     }
 
     public override void Update(float time)

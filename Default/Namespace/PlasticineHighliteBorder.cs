@@ -17,8 +17,6 @@ public class PlasticineHighliteBorder : PrimitivesNode
 
     private List<object> parts = [];
 
-    private ContreJourGame game;
-
     private PlasticineWideBorder border;
 
     public VertexPositionColor[] Vertices => vertices;
@@ -30,7 +28,6 @@ public class PlasticineHighliteBorder : PrimitivesNode
     public PlasticineHighliteBorder(PlasticineItem firstItem, PlasticineWideBorder border)
     {
         PlasticineItem plasticineItem = firstItem;
-        game = (ContreJourGame)plasticineItem.BodyClip.Builder.Game;
         int num = 0;
         do
         {

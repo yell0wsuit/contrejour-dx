@@ -13,8 +13,6 @@ public class ChapterZip(int index, MainMenu menu) : ChapterItem(index, menu)
 
     private MovieClip openAnimation;
 
-    private Sprite shadow;
-
     protected override void CreateSprites()
     {
         openAnimation = new MovieClip("McPlanetZip");

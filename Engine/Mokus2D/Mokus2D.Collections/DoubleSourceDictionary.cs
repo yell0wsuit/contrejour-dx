@@ -6,8 +6,6 @@ namespace Mokus2D.Collections;
 
 public class DoubleSourceDictionary<TKey, TValue>(IDictionary<TKey, TValue> mainSource) : IDictionary<TKey, TValue>, ICollection<KeyValuePair<TKey, TValue>>, IEnumerable<KeyValuePair<TKey, TValue>>, IEnumerable
 {
-    private bool Test;
-
     private IDictionary<TKey, TValue> _mainSource = mainSource;
 
     public IDictionary<TKey, TValue> SecondSource { get; private set; }

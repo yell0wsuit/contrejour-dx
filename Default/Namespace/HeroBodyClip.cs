@@ -28,8 +28,6 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
 
     private readonly float eyeScale;
 
-    private float airTime;
-
     private List<BlackTail> blackTails;
 
     private Sprite bodyBackground;
@@ -43,12 +41,7 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
     private bool eating;
 
     protected HeroEye eye;
-
-    private float eyeAngle;
-
     private bool eyeClosed;
-
-    private float finishColor;
 
     private float finishPause;
 
@@ -75,8 +68,6 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
     private float lastOnGroundTime;
 
     protected bool levelCompleted;
-
-    private float maxAirTime;
 
     private bool migthyPosted;
 
@@ -229,8 +220,6 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
             portal.ScaleStep = 0.1f;
         }
         onGroundTime = 0f;
-        airTime = 0f;
-        maxAirTime = 0f;
         this.config["hasDust"] = true;
         hotspot = new McHotspotwhite();
         clip.AddChild(hotspot);
@@ -258,7 +247,6 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
         targetScale = new Vector2(1f, 1f);
         breatheScaleStep = 0f;
         teleportEvent = new EventSender();
-        finishColor = 255f;
         ContreJourGame.AddShadowSource();
     }
 
@@ -526,11 +514,9 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
         Body.AngularDamping = (Game.TotalTime - lastOnGroundTime > 0.3f) ? 0.5f : 0f;
         if (Body != null && Body.BodyType == 0 && !onGround && snotJoinedCount == 0)
         {
-            airTime += time;
         }
         else
         {
-            airTime = 0f;
         }
         if (onPlasticine)
         {

@@ -54,8 +54,6 @@ public class SuckerBodyClip : ContreJourBodyClip, IClickable, IVectorPositionPro
 
     protected float maxDistance;
 
-    private float maxLength;
-
     protected Fixture middleFixture;
 
     protected SuckerNeckSprite neck;
@@ -67,8 +65,6 @@ public class SuckerBodyClip : ContreJourBodyClip, IClickable, IVectorPositionPro
     private Vector2 pimpaPosition;
 
     private bool pulled;
-
-    private Vector2 startDragPosition;
 
     protected Touch touch;
 
@@ -109,7 +105,6 @@ public class SuckerBodyClip : ContreJourBodyClip, IClickable, IVectorPositionPro
         this.config["noShadow"] = "true";
         float num = this.config.GetFloat("Width");
         maxDistance = num / 2f * this.builder.SizeMult;
-        maxLength = (num / 2f) + 13f;
         ghostSprite = new Node
         {
             OpacityFloat = 0.5f
@@ -277,7 +272,6 @@ public class SuckerBodyClip : ContreJourBodyClip, IClickable, IVectorPositionPro
             ghostSprite.Tweener.Stop();
             ghostSprite.Visible = true;
             this.touch = touch;
-            startDragPosition = (end != null) ? endBody.Position : builder.TouchRootVec(this.touch);
         }
     }
 

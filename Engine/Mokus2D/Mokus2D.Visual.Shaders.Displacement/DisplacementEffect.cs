@@ -12,8 +12,6 @@ public class DisplacementEffect : TextureMatrixEffectBase
 
     private readonly EffectParameter _textureSize;
 
-    private readonly ShaderParameterFloat MaxDisplacement;
-
     public Texture2D DisplacementTexture { get; set; }
 
     public DisplacementEffect()
@@ -21,7 +19,6 @@ public class DisplacementEffect : TextureMatrixEffectBase
     {
         _displacementTexture = Parameters["DisplacementTexture"];
         _textureSize = Parameters["TextureSize"];
-        MaxDisplacement = new ShaderParameterFloat(Parameters, "MaxDisplacement");
     }
 
     public override void Apply(Matrix matrix, Texture2D texture)

@@ -15,8 +15,6 @@ namespace FarseerPhysics.Dynamics;
 
 public class Body : IDisposable
 {
-    private bool Test;
-
     [ThreadStatic]
     private static int _bodyIdCounter;
     private BodyType _bodyType;

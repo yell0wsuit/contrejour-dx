@@ -4,12 +4,9 @@ namespace Default.Namespace;
 
 public class GroundFall : GravityParticleSystem
 {
-    private bool black;
-
     public GroundFall(ContreJourGame game)
         : base(game.Choose("common/McGroundPart", "common/McGroundPartBlack", "chapter4/McGroundPartWhite", null, "McGroundPart_6"))
     {
-        black = game.BlackSide;
         Angle = new RandomRange(270f, 0f);
         Speed = new RandomRange(40f, 20f);
         AngularSpeed = new RandomRange(0f, 0f);

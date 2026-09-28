@@ -13,8 +13,6 @@ public class PlasticineItem : LinkedListItem
 {
     private float width;
 
-    private World world;
-
     private Vector2 initialPosition = Vector2.Zero;
 
     private float initialAngle;
@@ -49,7 +47,6 @@ public class PlasticineItem : LinkedListItem
         bodyClip.Item = this;
         bodyClip.SetDirty();
         this.width = width;
-        world = bodyClip.World;
         initialPosition = Body.Position;
         initialAngle = Body.Rotation;
         innerPosition = GetBorderVec(-1f / 3f);

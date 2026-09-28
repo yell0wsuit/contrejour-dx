@@ -6,14 +6,13 @@ public class PhysicsUpdater : Updatable
 {
     private World world;
 
-    private ContactListener listener;
-
     public World World => world;
 
     public PhysicsUpdater(World world)
     {
         this.world = world;
-        listener = new ContactListener(this.world);
+        // The listener subscribes itself to the world's contact events.
+        _ = new ContactListener(this.world);
     }
 
     public override void Update(float time)

@@ -14,11 +14,7 @@ public class EnergyPart : Satellite
 
     private bool finished;
 
-    private float baseScale;
-
     private float opacity;
-
-    private bool dealloced;
 
     protected override Vector2 TargetPosition => !collected ? base.TargetPosition : game.BonusTarget.BonusTarget();
 
@@ -33,7 +29,6 @@ public class EnergyPart : Satellite
     {
         timeToEnd = Maths.Random(1f, 2f);
         collected = false;
-        baseScale = 0.7f;
         opacity = 255f;
     }
 
@@ -44,7 +39,6 @@ public class EnergyPart : Satellite
         collected = true;
         speedValue = Maths.Random(150f, 250f);
         angleStep = Maths.Random(0.05f, 0.1f);
-        baseScale = 1.2f;
     }
 
     public void OnHeroFinish()

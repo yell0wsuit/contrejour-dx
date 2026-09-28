@@ -29,13 +29,7 @@ public class LevelBuilderBase : Updatable, IDisposable
     public string NamespacePrefix;
 
     private Dictionary<string, BodyClip> clips;
-
-    private Hashtable createdBodies;
-
     private Dictionary<string, object> createdObjects;
-
-    private Vector2 currentOffset;
-
     private int defaultZ;
 
     private Box2DConfig engineConfig;
@@ -43,9 +37,6 @@ public class LevelBuilderBase : Updatable, IDisposable
     protected GameBase game;
 
     private Body groundBody;
-
-    private Hashtable lastItem;
-
     private Vector2 levelSize;
 
     protected float maxWorldUpdateTime;
@@ -53,9 +44,6 @@ public class LevelBuilderBase : Updatable, IDisposable
     private Vector2 physicsLevelSize;
 
     protected float physicsSpeed;
-
-    private List<object> processedBodies;
-
     protected List<object> processors;
 
     protected PhysicsUpdater updater;

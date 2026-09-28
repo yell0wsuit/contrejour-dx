@@ -22,8 +22,6 @@ public class PlasticineBodyClip : ContreJourBodyClip, IRestartable
 
     private PlasticineHighliteBorder highlite;
 
-    private float lastTouchTime;
-
     private PlasticineItem leftItem;
 
     private PlasticineWideBorder wideBorder;
@@ -224,7 +222,6 @@ public class PlasticineBodyClip : ContreJourBodyClip, IRestartable
 
     public void UpdateGraphics(float time)
     {
-        lastTouchTime += time;
         PlasticineItem nextItem = firstItem;
         do
         {
@@ -242,7 +239,6 @@ public class PlasticineBodyClip : ContreJourBodyClip, IRestartable
     public bool TouchMove(Touch touch)
     {
         changed |= draggingItems[touch].Update();
-        lastTouchTime = 0f;
         return true;
     }
 

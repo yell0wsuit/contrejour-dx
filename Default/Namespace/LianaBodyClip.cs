@@ -9,8 +9,6 @@ namespace Default.Namespace;
 
 public class LianaBodyClip : ContreJourBodyClip
 {
-    private LianaData data;
-
     private List<object> parts;
 
     private LianaSprite clipContent;

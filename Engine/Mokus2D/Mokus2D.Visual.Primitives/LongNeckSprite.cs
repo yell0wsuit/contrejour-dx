@@ -22,8 +22,6 @@ public abstract class LongNeckSprite : SpriteBatchNode
 
     private short[] _indices;
 
-    private int AllPointsSize;
-
     private readonly ISpriteData _spriteData;
 
     private readonly Vector2 _textureLeftTopCoordinate;
@@ -142,7 +140,6 @@ public abstract class LongNeckSprite : SpriteBatchNode
     {
         _indices = new short[(allPointsSize - 2) * 3];
         _vertices = new TintSpriteVertex[((_indices.Length / 6) + 1) * 2];
-        AllPointsSize = allPointsSize;
     }
 
     protected override void DrawSprite(VisualState state, Color color)

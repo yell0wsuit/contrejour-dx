@@ -14,12 +14,6 @@ public struct NodeData
 
     public float Alpha;
 
-    private Color Color;
-
-    private float ColorRatio;
-
-    private bool Visible;
-
     public NodeData(Node node)
     {
         this = default;
@@ -27,8 +21,5 @@ public struct NodeData
         Rotation = node.RotationDegrees;
         Scale = node.ScaleVec;
         Alpha = node.OpacityFloat;
-        Color = node.Color;
-        ColorRatio = node.ColorRatio;
-        Visible = node.Visible;
     }
 }

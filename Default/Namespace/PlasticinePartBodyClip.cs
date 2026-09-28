@@ -19,8 +19,6 @@ namespace Default.Namespace;
 public class PlasticinePartBodyClip : ContreJourBodyClip, IClickable, IRestartable, IGrassControllerContainer
 {
     public const float GrassTrampleDistance = 1.3333334f;
-    private int globalIndex;
-
     private int index;
 
     private int verticesOffset;
@@ -63,16 +61,9 @@ public class PlasticinePartBodyClip : ContreJourBodyClip, IClickable, IRestartab
 
     private bool isTop;
 
-    private int dynamic;
-
-    private bool moving;
-
     private bool dragging;
 
     private float lastTime;
-
-    private Vector2 moveForce;
-
     protected Vector2 lastFrameSpeed;
 
     private Vector2 normal;
@@ -86,15 +77,9 @@ public class PlasticinePartBodyClip : ContreJourBodyClip, IClickable, IRestartab
     private PlasticinePartBodyClip next;
 
     private bool isRotationDirty;
-
-    private Vector2 fixPosition;
-
     private bool fixHighlite;
 
     private Sprite circle;
-
-    private Vector2 circlePosition;
-
     private float circleSize;
 
     private float circleScale;
@@ -184,7 +169,6 @@ public class PlasticinePartBodyClip : ContreJourBodyClip, IClickable, IRestartab
                 CreateGrass((ContreJourLevelBuilder)builder);
             }
         }
-        globalIndex = i++;
         dirty = true;
         groundFallMaxTime = Maths.Random(0.205f, 0.41f);
         groundFallTime = 0f;
@@ -193,7 +177,6 @@ public class PlasticinePartBodyClip : ContreJourBodyClip, IClickable, IRestartab
         parallel = Body.GetWorldPoint(new Vector2(1f, 0f)) - Body.WorldCenter;
         this.parent = parent;
         PlasticineConstants.ApplyStaticBodiesFilter((Body)body);
-        dynamic = 0;
     }
 
     public void MoveToInitialPosition()
@@ -280,7 +263,6 @@ public class PlasticinePartBodyClip : ContreJourBodyClip, IClickable, IRestartab
     {
         if (!(Body.Position == position) || !Maths.FuzzyEquals(angle, Body.Rotation))
         {
-            moving = true;
             lastFrameSpeed = position - Body.Position;
             lastFrameSpeed *= 1f / lastTime;
             targetAngle = angle.SimplifyAngle(Body.Rotation - (float)Math.PI);

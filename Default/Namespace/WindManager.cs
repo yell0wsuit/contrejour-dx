@@ -10,8 +10,6 @@ public class WindManager : IUpdatable
 
     private float windChange;
 
-    private float currentWind;
-
     private float currentWindStep;
 
     private float step;
@@ -20,7 +18,6 @@ public class WindManager : IUpdatable
     public WindManager(float step)
     {
         this.step = step;
-        currentWind = 0f;
         currentWindStep = 0f;
         windValue = GetRandomValue();
         windChange = GetRandomValue();

@@ -29,8 +29,6 @@ public class FlyController : FlyBase
 
     private float verticalOffset;
 
-    private float verticalOffsetMultiplier;
-
     private float windOffset;
 
     [SuppressMessage("Style", "IDE0290:Use primary constructor", Justification = "Its random draws must run after the base constructor's, in this order.")]
@@ -45,7 +43,8 @@ public class FlyController : FlyBase
         scareTime = 0f;
         windOffset = Maths.Random((0f - windOffsetRange) ?? (-0.5f), windOffsetRange ?? 0.5f);
         horizontalOffset = Maths.Random(10f, 20f);
-        verticalOffsetMultiplier = Maths.Random(1f, 2f);
+        // The value is unused, but the draw keeps the shared random sequence unchanged.
+        _ = Maths.Random(1f, 2f);
         verticalOffset = Maths.Random(-5f, 20f);
     }
 

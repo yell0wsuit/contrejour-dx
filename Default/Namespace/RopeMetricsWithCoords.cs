@@ -6,8 +6,6 @@ public class RopeMetricsWithCoords : RopeMetrics
 {
     private Vector2 start;
 
-    private Vector2 end;
-
     private Vector2 partOffset;
 
     public Vector2 PartOffset => partOffset;
@@ -16,7 +14,6 @@ public class RopeMetricsWithCoords : RopeMetrics
         : base(parts, partSize)
     {
         this.start = start;
-        this.end = end;
         partOffset = end - start;
         partOffset *= 1f / parts;
     }

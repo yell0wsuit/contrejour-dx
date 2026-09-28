@@ -18,8 +18,6 @@ public class NamesChanger : Node
 
     private List<Node> names = [];
 
-    private Vector2 screenSize;
-
     public float CurrentIndex
     {
         get => currentIndex;
@@ -96,7 +94,6 @@ public class NamesChanger : Node
         }
         currentIndex = -1f;
         CurrentIndex = 0f;
-        screenSize = Mokus2DGame.Instance.ScreenSize;
     }
 
     private static Node CreateChapterName(int index)

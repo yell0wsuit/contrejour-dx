@@ -29,8 +29,6 @@ public class GrassController : IGrassController, IUpdatable
 
     private bool touched;
 
-    private float touchDistance;
-
     private int notTouchedFrames;
 
     private BodyClip touchingObject;
@@ -71,7 +69,6 @@ public class GrassController : IGrassController, IUpdatable
         game = (ContreJourGame)this.plasticine.Builder.Game;
         startAngle = Maths.Random(-(float)Math.PI / 12f, (float)Math.PI / 12f);
         touched = false;
-        touchDistance = 0f;
         notTouchedFrames = 0;
         Create();
     }
@@ -125,7 +122,6 @@ public class GrassController : IGrassController, IUpdatable
         float num2 = num;
         if (notTouchedFrames >= 5)
         {
-            touchDistance = 0f;
             touchingObject = null;
         }
         if (touchingObject != null)
@@ -134,7 +130,6 @@ public class GrassController : IGrassController, IUpdatable
             float num4 = 2.6666667f;
             if (num3 / touchStartOffset <= 0f && Math.Abs(num3) < num4)
             {
-                touchDistance = Math.Sign(num3) * Math.Min(Math.Abs(num3 / 1.3333334f), 1f);
                 float num5 = (0f - Math.Min(num3 / 2f, 1f)) * TrampleAngle;
                 num += num5 * 3f / 2f;
                 num2 += num5 * 2f;
@@ -142,7 +137,6 @@ public class GrassController : IGrassController, IUpdatable
             else
             {
                 touchingObject = null;
-                touchDistance = 0f;
             }
         }
         float target = num.ToDegrees();

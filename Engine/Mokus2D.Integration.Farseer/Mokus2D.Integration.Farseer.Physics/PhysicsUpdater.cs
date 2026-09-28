@@ -10,8 +10,6 @@ public class PhysicsUpdater : PhysicsTransform, IUpdatable
 {
     private readonly World world;
 
-    private readonly ContactListener listener;
-
     private readonly FarseerConfig config;
 
     public World World => world;
@@ -26,7 +24,8 @@ public class PhysicsUpdater : PhysicsTransform, IUpdatable
         config ??= FarseerConfig.DefaultConfig;
         base.PhysicsToPixels = config.PhysicsToPixels;
         this.world = world;
-        listener = new ContactListener(this.world);
+        // The listener subscribes itself to the world's contact events.
+        _ = new ContactListener(this.world);
         this.config = config;
     }
 

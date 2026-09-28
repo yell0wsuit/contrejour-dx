@@ -9,8 +9,6 @@ public class ParallaxScrollerEffect : TintSpriteEffect
 {
     private readonly ShaderParameterFloat MainLayerScale;
 
-    private readonly ShaderParameterVector2 ViewPosition;
-
     public ParallaxScrollerEffect()
         : this("Mokus2D.Shaders.Parallax.ParallaxScrollerShader")
     {
@@ -20,7 +18,8 @@ public class ParallaxScrollerEffect : TintSpriteEffect
         : base(path)
     {
         MainLayerScale = new ShaderParameterFloat(Parameters, "MainLayerScale");
-        ViewPosition = new ShaderParameterVector2(Parameters, "ViewPosition")
+        // Setting Value writes the shader parameter.
+        _ = new ShaderParameterVector2(Parameters, "ViewPosition")
         {
             Value = Vector2.Zero
         };

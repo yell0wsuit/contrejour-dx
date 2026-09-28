@@ -37,15 +37,10 @@ public class Island
 
     public int ContactCapacity;
 
-    private int JointCapacity;
-
-    private float JointUpdateTime;
-
     public void Reset(int bodyCapacity, int contactCapacity, int jointCapacity, ContactManager contactManager)
     {
         BodyCapacity = bodyCapacity;
         ContactCapacity = contactCapacity;
-        JointCapacity = jointCapacity;
         BodyCount = 0;
         ContactCount = 0;
         JointCount = 0;
@@ -185,7 +180,6 @@ public class Island
                 break;
             }
         }
-        JointUpdateTime = _watch.ElapsedTicks;
         _watch.Reset();
         for (int num7 = 0; num7 < BodyCount; num7++)
         {

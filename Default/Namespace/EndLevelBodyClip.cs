@@ -15,8 +15,6 @@ public class EndLevelBodyClip : RotatableBodyClip, IRestartable
 
     private bool finishing;
 
-    private float scale;
-
     public EndLevelBodyClip(LevelBuilderBase builder, object body, Node clip, Hashtable config)
         : base(builder, body, clip, config)
     {

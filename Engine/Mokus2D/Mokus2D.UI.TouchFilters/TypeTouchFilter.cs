@@ -8,11 +8,8 @@ public class TypeTouchFilter
 {
     public TouchType? Type;
 
-    private readonly Predicate<Touch> Predicate;
-
     public TypeTouchFilter()
     {
-        Predicate = Matches;
     }
 
     protected virtual bool Matches(Touch touch)

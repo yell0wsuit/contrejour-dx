@@ -19,8 +19,6 @@ public class DraggingItem
 
     private float baseAngle;
 
-    private Vector2 baseCenter;
-
     protected Pair<Vector2> basePoints;
 
     private LevelBuilderBase builder;
@@ -29,8 +27,6 @@ public class DraggingItem
 
     private PlasticineItem dragItem;
 
-    private ContreJourGame game;
-
     private Vector2 initialPosition;
 
     private Vector2 initialTouchPosition;
@@ -38,9 +34,6 @@ public class DraggingItem
     private Vector2 lastTouchPosition;
 
     private PlasticineItem left;
-
-    private Pair<Vector2> movingAnchors;
-
     private PlasticineItem right;
 
     public DraggingItem(LevelBuilderBase builder, PlasticineItem item, Touch touch)
@@ -48,7 +41,6 @@ public class DraggingItem
         currentTouch = touch;
         dragItem = item;
         this.builder = builder;
-        game = (ContreJourGame)builder.Game;
         initialTouchPosition = this.builder.TouchRootVec(touch);
         lastTouchPosition = this.builder.TouchRootPoint(touch);
         initialPosition = dragItem.Body.Position;
@@ -100,7 +92,6 @@ public class DraggingItem
     {
         basePoints.First = builder.ToPoint(left.GetRight());
         basePoints.Second = builder.ToPoint(right.GetLeft());
-        baseCenter = VectorUtil.Center(basePoints.First, basePoints.Second);
         baseAnchors.First = builder.ToPoint(left.GetNextAnchorPosition());
         baseAnchors.Second = builder.ToPoint(right.GetPreviuosAnchorPosition());
         baseAngle = VectorUtil.Atan2(baseAnchors.First, baseAnchors.Second);

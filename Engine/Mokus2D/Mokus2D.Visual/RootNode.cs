@@ -9,8 +9,6 @@ namespace Mokus2D.Visual;
 
 public class RootNode : Node
 {
-    private readonly Rectangle ScreenRect;
-
     private readonly BatchSelector _batchSelector;
 
     private readonly OneThreadTransformCalculator _transformCalculator;
@@ -41,7 +39,6 @@ public class RootNode : Node
         _batchSelector = Mokus2DGame.BatchSelector;
         Drawer = _batchSelector;
         Size = new Vector2(width, height);
-        ScreenRect = new Rectangle(0, 0, width, height);
         RootState = new VisualState(spritesScaleFactor);
         CompositeState = new VisualState(RootState);
     }

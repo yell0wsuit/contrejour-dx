@@ -18,12 +18,6 @@ public class TeleportBodyClip : BodyClip
 
     private TeleportBodyClip sibling;
 
-    private float teleportTime;
-
-    private Vector2 portalPosition;
-
-    private bool teleporting;
-
     private bool limitSpeed;
 
     private List<BodyClip> teleportables;
@@ -50,7 +44,6 @@ public class TeleportBodyClip : BodyClip
         {
             portal.Color = ContreJourConstants.GreenLightColor;
         }
-        portalPosition = clip.Position;
         builder.RemoveChild(clip);
         builder.Add(portal, -2);
         portal.TargetScale = 1f;
@@ -84,7 +77,6 @@ public class TeleportBodyClip : BodyClip
 
     public void UpdateTeleportTime()
     {
-        teleportTime = builder.Game.TotalTime;
     }
 
     public override void OnCollisionStartPoint(Body body2, Contact point)
@@ -107,7 +99,6 @@ public class TeleportBodyClip : BodyClip
             {
                 MoveHero(bodyClip);
             }, num2);
-            teleporting = true;
             useEvent.SendEvent();
         }
     }
@@ -148,7 +139,6 @@ public class TeleportBodyClip : BodyClip
             _ = VectorUtil.ClampLength(ref vec, 23.333334f);
             bodyClip.Body.LinearVelocity = vec;
         }
-        teleporting = false;
     }
 
     public static void ScaleHero(BodyClip bodyClip)

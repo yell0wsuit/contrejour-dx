@@ -31,13 +31,7 @@ public class SpringBodyClip : ContreJourBodyClip, IClickable, IRestartable
     private float launchTime;
 
     private MovieClip movie;
-
-    private Node redDot;
-
     private Vector2 relativeStickedPosition;
-
-    private Vector2 size;
-
     private WhiteSmoke smoke;
 
     private float startScale;

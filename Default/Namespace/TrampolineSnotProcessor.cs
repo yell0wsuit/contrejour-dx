@@ -14,8 +14,6 @@ public class TrampolineSnotProcessor(LevelBuilderBase builder) : BridgeSnotProce
 
     private static readonly float StartRadius = 5f * Box2DConfig.DefaultConfig.SizeMultiplier;
 
-    private readonly float PartAngle = MathHelper.ToRadians(15f);
-
     public override float GetDensityTotal(int index, int total)
     {
         return 2f;

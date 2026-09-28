@@ -8,8 +8,6 @@ namespace Default.Namespace;
 
 public class Chapter4(int index, MainMenu menu) : Chapter2(index, menu)
 {
-    private Sprite shadow;
-
     protected override void CreateSprites()
     {
         background = new McPlanet4Background();
