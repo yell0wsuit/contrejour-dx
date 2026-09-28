@@ -1,9 +1,14 @@
 using System.Collections.Generic;
+
 using ContreJour.Clips.level1;
 using ContreJour.Config;
+
 using Default.Namespace.Rose;
+
 using FarseerPhysics.Dynamics;
+
 using Microsoft.Xna.Framework;
+
 using Mokus2D.Sound;
 using Mokus2D.Util.Extensions;
 using Mokus2D.Visual;

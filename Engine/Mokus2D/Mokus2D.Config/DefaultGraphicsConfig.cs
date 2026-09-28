@@ -6,17 +6,17 @@ namespace Mokus2D.Config;
 
 public class DefaultGraphicsConfig : IGraphicsConfig
 {
-	public bool UseColorRatio => false;
+    public bool UseColorRatio => false;
 
-	public ISpriteBatchEffect DefaultEffect { get; private set; }
+    public ISpriteBatchEffect DefaultEffect { get; private set; }
 
-	public DefaultGraphicsConfig()
-	{
-		DefaultEffect = new DefaultEffect(Mokus2DGame.Device);
-	}
+    public DefaultGraphicsConfig()
+    {
+        DefaultEffect = new DefaultEffect(Mokus2DGame.Device);
+    }
 
-	public IQuad CreateDefaultQuad()
-	{
-		return new Quad<SpriteVertex>();
-	}
+    public IQuad CreateDefaultQuad()
+    {
+        return new Quad<SpriteVertex>();
+    }
 }

@@ -1,8 +1,12 @@
 using System;
 using System.Collections.Generic;
+
 using ContreJour.Clips.chapter5;
+
 using FarseerPhysics.Dynamics.Contacts;
+
 using Microsoft.Xna.Framework;
+
 using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual;
 

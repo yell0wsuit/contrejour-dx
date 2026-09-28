@@ -1,4 +1,5 @@
 using FarseerPhysics.Dynamics;
+
 using Microsoft.Xna.Framework;
 
 namespace Default.Namespace;

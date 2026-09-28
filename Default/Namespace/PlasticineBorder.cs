@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+
 using Mokus2D.Visual;
 using Mokus2D.Visual.Util;
 

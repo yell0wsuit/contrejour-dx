@@ -1,4 +1,5 @@
 using System;
+
 using FarseerPhysics.Collision;
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Dynamics.Contacts;
@@ -37,7 +38,7 @@ public class ContactListener
 
     public bool BeginContact(Contact contact)
     {
-        ProcessContact(contact, delegate(BodyClip bodyClip, Body body)
+        ProcessContact(contact, delegate (BodyClip bodyClip, Body body)
         {
             bodyClip.OnCollisionStartPoint(body, contact);
         });
@@ -62,7 +63,7 @@ public class ContactListener
 
     public void EndContact(Contact contact)
     {
-        ProcessContact(contact, delegate(BodyClip bodyClip, Body body)
+        ProcessContact(contact, delegate (BodyClip bodyClip, Body body)
         {
             bodyClip.OnCollisionEndPoint(body, contact);
         });
@@ -72,7 +73,7 @@ public class ContactListener
     {
         if (contact.IsTouching)
         {
-            ProcessContact(contact, delegate(BodyClip bodyClip, Body body)
+            ProcessContact(contact, delegate (BodyClip bodyClip, Body body)
             {
                 bodyClip.OnCollisionPoint(body, contact);
             });

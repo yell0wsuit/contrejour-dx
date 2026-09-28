@@ -1,8 +1,11 @@
 using System;
+
 using FarseerPhysics.Collision.Shapes;
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Factories;
+
 using Microsoft.Xna.Framework;
+
 using Mokus2D.Integration.Farseer.Util;
 
 namespace Default.Namespace;

@@ -4,5 +4,5 @@ namespace Mokus2D.Visual.Interfaces;
 
 public interface IBlendable
 {
-	BlendState Blend { get; set; }
+    BlendState Blend { get; set; }
 }

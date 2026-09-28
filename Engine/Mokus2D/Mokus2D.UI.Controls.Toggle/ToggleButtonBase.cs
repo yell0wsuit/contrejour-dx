@@ -6,26 +6,26 @@ namespace Mokus2D.UI.Controls.Toggle;
 
 public class ToggleButtonBase : MovieClip
 {
-	public ToggleButton Button { get; private set; }
+    public ToggleButton Button { get; private set; }
 
-	public ToggleButtonBase(string name)
-		: base(name)
-	{
-	}
+    public ToggleButtonBase(string name)
+        : base(name)
+    {
+    }
 
-	public ToggleButtonBase(IMovieClipData data)
-		: base(data)
-	{
-	}
+    public ToggleButtonBase(IMovieClipData data)
+        : base(data)
+    {
+    }
 
-	protected override void Initialize()
-	{
-		base.Initialize();
-		Button = CreateButton();
-	}
+    protected override void Initialize()
+    {
+        base.Initialize();
+        Button = CreateButton();
+    }
 
-	protected virtual ToggleButton CreateButton()
-	{
-		return new ToggleButton(this, new FrameOnOff(this));
-	}
+    protected virtual ToggleButton CreateButton()
+    {
+        return new ToggleButton(this, new FrameOnOff(this));
+    }
 }

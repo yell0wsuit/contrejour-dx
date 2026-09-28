@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+
 using Microsoft.Xna.Framework;
+
 using Mokus2D.Data;
 using Mokus2D.Fonts;
 using Mokus2D.Util.Data;
@@ -15,984 +17,984 @@ namespace Mokus2D.Visual.Text;
 
 public class Label : AnchorNode, IDataReloadable
 {
-	public const char Dots = '…';
+    public const char Dots = '…';
 
-	public const char NewLineChar = '\n';
+    public const char NewLineChar = '\n';
 
-	public const char SkipChar = '\r';
+    public const char SkipChar = '\r';
 
-	public const char Nbsp = '\u00a0';
+    public const char Nbsp = '\u00a0';
 
-	public const char Space = ' ';
+    public const char Space = ' ';
 
-	public static bool IgnoreMissingSymbolsDefault = false;
+    public static bool IgnoreMissingSymbolsDefault = false;
 
-	private static readonly Vector2 DefaultMargins = new Vector2(2f);
+    private static readonly Vector2 DefaultMargins = new Vector2(2f);
 
-	private FontData _font;
+    private FontData _font;
 
-	private readonly StringBuilder _text = new StringBuilder();
-
-	private readonly List<Glyph> _glyphs = new List<Glyph>(64);
-
-	private readonly List<LabelLine> _lines = new List<LabelLine>(64);
-
-	private float _lineSpacing;
+    private readonly StringBuilder _text = new StringBuilder();
+
+    private readonly List<Glyph> _glyphs = new List<Glyph>(64);
+
+    private readonly List<LabelLine> _lines = new List<LabelLine>(64);
+
+    private float _lineSpacing;
 
-	private bool _textDirty;
-
-	protected bool PositionsDirty;
-
-	private float? _lineAnchor;
-
-	private RectangleFloat? _symbolsBounds;
-
-	private readonly bool _dynamicTextureSize = true;
-
-	private TextAlign _align = TextAlign.Center;
-
-	public bool DynamicClickArea = true;
-
-	public bool? IgnoreMissingSymbols;
-
-	private float? _maxWidth;
-
-	public Vector2 TextSize { get; private set; }
-
-	public float FontSize { get; private set; }
-
-	protected bool ShouldIgnoreMissingSymbols
-	{
-		get
-		{
-			if (!IgnoreMissingSymbols.HasValue)
-			{
-				return IgnoreMissingSymbolsDefault;
-			}
-			return IgnoreMissingSymbols.Value;
-		}
-	}
-
-	public RectangleFloat? SymbolsBounds
-	{
-		get
-		{
-			RefreshText();
-			RefreshPositions();
-			if (!_symbolsBounds.HasValue && !_lines.Empty() && !_lines.First().Glyphs.Empty())
-			{
-				CalculateSymbolsBounds();
-			}
-			return _symbolsBounds;
-		}
-	}
-
-	public List<Glyph> Glyphs => _glyphs;
-
-	public List<LabelLine> Lines => _lines;
-
-	public override Vector2 Size
-	{
-		get
-		{
-			if (!DynamicClickArea)
-			{
-				return TextureSize;
-			}
-			return TextSize;
-		}
-	}
-
-	public TextAlign Align
-	{
-		get
-		{
-			return _align;
-		}
-		set
-		{
-			if (_align != value)
-			{
-				_align = value;
-				PositionsDirty = true;
-			}
-		}
-	}
-
-	public override Vector2 Anchor
-	{
-		get
-		{
-			return base.Anchor;
-		}
-		set
-		{
-			if (base.Anchor != value)
-			{
-				base.Anchor = value;
-				PositionsDirty = true;
-			}
-			_lineAnchor = null;
-		}
-	}
-
-	public int TextLength => _text.Length;
-
-	public FontData Font
-	{
-		get
-		{
-			return _font;
-		}
-		set
-		{
-			if (_font != value)
-			{
-				_font = value;
-				SetTextDirty();
-			}
-		}
-	}
-
-	public string TextString
-	{
-		get
-		{
-			return _text.ToString();
-		}
-		set
-		{
-			_text.Clear();
-			_text.Append(value);
-			SetTextDirty();
-		}
-	}
-
-	public float LineSpacing
-	{
-		get
-		{
-			return _lineSpacing;
-		}
-		set
-		{
-			if (_lineSpacing != value)
-			{
-				_lineSpacing = value;
-				PositionsDirty = true;
-			}
-		}
-	}
-
-	public bool LimitWidth
-	{
-		get
-		{
-			return MaxWidth.HasValue;
-		}
-		set
-		{
-			MaxWidth = (value ? new float?(TextureSize.X) : ((float?)null));
-		}
-	}
-
-	public float? MaxWidth
-	{
-		get
-		{
-			return _maxWidth;
-		}
-		set
-		{
-			if (_maxWidth != value)
-			{
-				_maxWidth = value;
-				SetTextDirty();
-			}
-		}
-	}
-
-	public char this[int index]
-	{
-		get
-		{
-			return _text[index];
-		}
-		set
-		{
-			SetTextDirty();
-			_text[index] = value;
-		}
-	}
-
-	public Label(string fontName, float fontSize)
-		: this(fontName, fontSize, Vector2.Zero)
-	{
-		_dynamicTextureSize = true;
-	}
-
-	public Label(string fontName, float fontSize, Vector2 size)
-		: this(Mokus2DGame.FontsManager.GetFontData(fontName, fontSize))
-	{
-		_dynamicTextureSize = false;
-		FontSize = fontSize;
-		TextureSize = size;
-		RecalculateScaleFactor();
-		Anchor = Vector2.Zero;
-		Align = TextAlign.Left;
-		UpdateChildren = false;
-	}
-
-	public Label(string id)
-		: this(Mokus2DGame.LoadResource<FontData>(id))
-	{
-	}
-
-	public Label(FontData font)
-		: base(null)
-	{
-		Font = font;
-		ScaleFactor = font.ScaleFactor;
-		ColorRatio = 1f;
-	}
-
-	public void ReloadData()
-	{
-		Font = Mokus2DGame.FontsManager.GetFontData(Font.FontName, FontSize);
-		RecalculateScaleFactor();
-		foreach (Glyph glyph in Glyphs)
-		{
-			glyph.ReloadData(Font);
-		}
-		SetTextDirty();
-	}
-
-	private void RecalculateScaleFactor()
-	{
-		ScaleFactor = FontSize / Font.FontSize * Font.ScaleFactor;
-	}
-
-	public Mokus2D.Util.Data.Point Get2DSymbolPosition(int position)
-	{
-		Mokus2D.Util.Data.Point result = default(Mokus2D.Util.Data.Point);
-		for (int i = 0; _lines[i].Glyphs.Count + 1 < position; i++)
-		{
-			position -= _lines[i].Glyphs.Count + 1;
-		}
-		result.X = position;
-		return result;
-	}
-
-	public int GetSymbolPosition(Mokus2D.Util.Data.Point position)
-	{
-		int num = 0;
-		for (int i = 0; i < position.Y; i++)
-		{
-			num += _lines[i].Glyphs.Count + 1;
-		}
-		return num + position.X;
-	}
-
-	public void SetText(char value)
-	{
-		Clear();
-		Append(value);
-	}
-
-	public void SetText(float value)
-	{
-		Clear();
-		Append(value);
-	}
-
-	public void SetText(int value)
-	{
-		Clear();
-		Append(value);
-	}
-
-	public void RemoveFirstLine()
-	{
-		int? num = _text.IndexOf('\n');
-		int length = ((!num.HasValue) ? _text.Length : (num.Value + 1));
-		_text.Remove(0, length);
-		SetTextDirty();
-	}
-
-	public override void Update(float time)
-	{
-		base.Update(time);
-		if (base.Root == null)
-		{
-			return;
-		}
-		RefreshText();
-		if (_lineAnchor.HasValue)
-		{
-			if (_lines.Count > 0)
-			{
-				base.AnchorY = _lineAnchor.Value / (float)_lines.Count;
-			}
-			_lineAnchor = null;
-		}
-		RefreshPositions();
-	}
-
-	private void RefreshPositions()
-	{
-		if (PositionsDirty)
-		{
-			DoRefreshPositions();
-			PositionsDirty = false;
-		}
-	}
-
-	public void RefreshText()
-	{
-		if (!_textDirty)
-		{
-			return;
-		}
-		try
-		{
-			DoRefreshText();
-			_textDirty = false;
-			if (base.ProcessMouseOver)
-			{
-				base.ProcessMouseOver = false;
-				base.ProcessMouseOver = true;
-			}
-		}
-		catch (IndexOutOfRangeException)
-		{
-			_textDirty = true;
-		}
-	}
-
-	protected override RectangleFloat CalculateBounds()
-	{
-		RectangleFloat result = base.CalculateBounds();
-		if (DynamicClickArea)
-		{
-			switch (Align)
-			{
-			case TextAlign.Center:
-				result.Offset((0f - result.Width) / 2f + TextureSize.X / 2f, 0f);
-				break;
-			case TextAlign.Right:
-				result.Offset(0f - result.Width + TextureSize.X, 0f);
-				break;
-			}
-		}
-		return result;
-	}
-
-	private bool FontHasTexture()
-	{
-		if (_font != null)
-		{
-			return !_font.Texture.Name.IsEmpty();
-		}
-		return false;
-	}
-
-	public Vector2 GetGlyphLeftTop(Mokus2D.Util.Data.Point positionInText)
-	{
-		Vector2 result = StartGlyphsPosition();
-		result.Y += (Font.RealHeight * ScaleFactor + LineSpacing) * base.Root.SpritesScaleFactor.Y.Sign() * (float)positionInText.Y;
-		LabelLine labelLine = _lines[positionInText.Y];
-		result.X += GetLineHorizontalOffset(labelLine);
-		for (int i = 0; i < positionInText.X; i++)
-		{
-			Glyph glyph = labelLine.Glyphs[i];
-			result.X += glyph.Width;
-		}
-		return result;
-	}
-
-	public void RefreshSymbolsTransform()
-	{
-		DoRefreshPositions();
-		foreach (Glyph glyph in _glyphs)
-		{
-			glyph.Scale = 1f;
-			glyph.OpacityFloat = 1f;
-		}
-	}
-
-	private void DoRefreshPositions()
-	{
-		Vector2 vector = StartGlyphsPosition();
-		float num = base.Root.SpritesScaleFactor.Y.Sign();
-		float num2 = Font.RealHeight / 2f * ScaleFactor;
-		foreach (LabelLine line in _lines)
-		{
-			float lineHorizontalOffset = GetLineHorizontalOffset(line);
-			for (int i = 0; i < line.Glyphs.Count; i++)
-			{
-				Glyph glyph = line.Glyphs[i];
-				glyph.Position = vector + new Vector2(glyph.Width / 2f + lineHorizontalOffset, num2 * num);
-				vector.X += glyph.Width;
-			}
-			vector.Y += (Font.RealHeight * ScaleFactor + LineSpacing) * num;
-			vector.X = StartGlyphsPosition().X;
-		}
-	}
-
-	private void CalculateSymbolsBounds()
-	{
-		foreach (LabelLine line in _lines)
-		{
-			foreach (Glyph glyph in line.Glyphs)
-			{
-				RectangleFloat bounds = glyph.Bounds;
-				if (bounds.Width != 0f && bounds.Height != 0f)
-				{
-					bounds.Offset(glyph.Position);
-					if (!_symbolsBounds.HasValue)
-					{
-						_symbolsBounds = bounds;
-					}
-					else
-					{
-						_symbolsBounds = RectangleFloat.Union(_symbolsBounds.Value, bounds);
-					}
-				}
-			}
-		}
-	}
-
-	protected virtual Vector2 StartGlyphsPosition()
-	{
-		return -base.AnchorInPixels * base.Root.SpritesScaleFactor + DefaultMargins;
-	}
-
-	private float GetLineHorizontalOffset(LabelLine line)
-	{
-		return Align switch
-		{
-			TextAlign.Left => 0f, 
-			TextAlign.Right => TextureSize.X - line.Width, 
-			TextAlign.Center => (TextureSize.X - line.Width) / 2f, 
-			_ => throw new InvalidOperationException(), 
-		};
-	}
-
-	private LabelLine GetCleanLine(int index)
-	{
-		if (_lines.Count <= index)
-		{
-			_lines.Add(LabelLine.New());
-		}
-		LabelLine labelLine = _lines[index];
-		labelLine.Glyphs.Clear();
-		return labelLine;
-	}
-
-	protected virtual void DoRefreshText()
-	{
-		Vector2 vector = new Vector2(0f, DefaultMargins.Y * 2f + Font.RealHeight * ScaleFactor + _lineSpacing);
-		float num = DefaultMargins.X * 2f;
-		int num2 = 0;
-		LabelLine cleanLine = GetCleanLine(num2);
-		int num3 = 0;
-		bool flag = false;
-		for (int i = 0; i < _text.Length; i++)
-		{
-			char c = _text[i];
-			if (c == '\r')
-			{
-				continue;
-			}
-			if (c == '\u00a0')
-			{
-				c = ' ';
-			}
-			if (IsNewLine(c))
-			{
-				if (i != _text.Length - 1)
-				{
-					vector.Y += _font.RealHeight * ScaleFactor + _lineSpacing;
-				}
-				vector.X = Math.Max(num, vector.X);
-				cleanLine.Width = num;
-				cleanLine = GetCleanLine(++num2);
-				num = DefaultMargins.X * 2f;
-				flag = false;
-				continue;
-			}
-			CharData charData = _font[c];
-			if (charData != null && !flag && (!MaxWidth.HasValue || num < MaxWidth))
-			{
-				Glyph glyph = RefreshGlyph(num3, c, charData);
-				if (MaxWidth.HasValue && num + glyph.Width >= MaxWidth)
-				{
-					glyph.Initialize(_font['…'], ScaleFactor, '…');
-					flag = true;
-				}
-				glyph.Visible = true;
-				num3++;
-				num += glyph.Width;
-				cleanLine.Glyphs.Add(glyph);
-			}
-			else if (!ShouldIgnoreMissingSymbols)
-			{
-				throw new Exception("Symbol not found: " + c);
-			}
-		}
-		vector.X = Math.Max(num, vector.X);
-		cleanLine.Width = num;
-		if (_dynamicTextureSize)
-		{
-			TextureSize = vector;
-		}
-		TextSize = vector;
-		FreeUnusedObjects(num2, num3);
-		PositionsDirty = true;
-	}
-
-	private void FreeUnusedObjects(int lineIndex, int glyphCount)
-	{
-		int num = _lines.Count - (lineIndex + 1);
-		if (num > 0)
-		{
-			for (int i = lineIndex + 1; i < _lines.Count; i++)
-			{
-				LabelLine.Free(_lines[i]);
-			}
-			_lines.RemoveRange(lineIndex + 1, num);
-		}
-		int num2 = _glyphs.Count - glyphCount;
-		if (num2 > 0)
-		{
-			for (int num3 = _glyphs.Count - 1; num3 >= glyphCount; num3--)
-			{
-				Glyph glyph = _glyphs[num3];
-				RemoveChild(glyph);
-				Glyph.Free(glyph);
-			}
-			_glyphs.RemoveRange(glyphCount, num2);
-		}
-	}
-
-	private bool IsNewLine(char symbol)
-	{
-		return '\n' == symbol;
-	}
-
-	protected virtual Glyph RefreshGlyph(int index, char symbol, CharData data)
-	{
-		Glyph glyph;
-		if (_glyphs.Count <= index)
-		{
-			glyph = Glyph.New(data, ScaleFactor, symbol);
-			_glyphs.Add(glyph);
-			AddChild(glyph);
-		}
-		else
-		{
-			glyph = _glyphs[index];
-			glyph.Initialize(data, ScaleFactor, symbol);
-		}
-		glyph.Scale = 1f;
-		glyph.OpacityFloat = 1f;
-		glyph.IgnoreParentColor = false;
-		return glyph;
-	}
-
-	public Label Append(char value, int repeatCount)
-	{
-		SetTextDirty();
-		_text.Append(value, repeatCount);
-		return this;
-	}
-
-	public Label Append(char[] value, int startIndex, int charCount)
-	{
-		SetTextDirty();
-		_text.Append(value, startIndex, charCount);
-		return this;
-	}
-
-	public Label Append(string value)
-	{
-		SetTextDirty();
-		_text.Append(value);
-		return this;
-	}
-
-	public Label Append(string value, int startIndex, int count)
-	{
-		SetTextDirty();
-		_text.Append(value, startIndex, count);
-		return this;
-	}
-
-	public Label AppendLine()
-	{
-		SetTextDirty();
-		_text.Append('\n');
-		return this;
-	}
-
-	public Label AppendLine(string value)
-	{
-		SetTextDirty();
-		_text.Append(value);
-		AppendLine();
-		return this;
-	}
-
-	public Label Insert(int index, string value, int count)
-	{
-		SetTextDirty();
-		_text.Insert(index, value, count);
-		return this;
-	}
-
-	public Label Remove(int startIndex, int length)
-	{
-		SetTextDirty();
-		_text.Remove(startIndex, length);
-		return this;
-	}
-
-	public Label Append(bool value)
-	{
-		SetTextDirty();
-		_text.Append(value);
-		return this;
-	}
-
-	public Label Append(sbyte value)
-	{
-		SetTextDirty();
-		_text.Append(value);
-		return this;
-	}
-
-	public Label Append(byte value)
-	{
-		SetTextDirty();
-		_text.Append(value);
-		return this;
-	}
-
-	public Label Append(char value)
-	{
-		SetTextDirty();
-		_text.Append(value);
-		return this;
-	}
-
-	public Label Append(short value)
-	{
-		SetTextDirty();
-		_text.Append(value);
-		return this;
-	}
-
-	public Label Append(int value)
-	{
-		SetTextDirty();
-		_text.Append(value);
-		return this;
-	}
-
-	public Label Append(long value)
-	{
-		SetTextDirty();
-		_text.Append(value);
-		return this;
-	}
-
-	public Label Append(float value)
-	{
-		SetTextDirty();
-		_text.Append(value);
-		return this;
-	}
-
-	public Label Append(double value)
-	{
-		SetTextDirty();
-		_text.Append(value);
-		return this;
-	}
-
-	public Label Append(decimal value)
-	{
-		SetTextDirty();
-		_text.Append(value);
-		return this;
-	}
-
-	public Label Append(ushort value)
-	{
-		SetTextDirty();
-		_text.Append(value);
-		return this;
-	}
-
-	public Label Append(uint value)
-	{
-		SetTextDirty();
-		_text.Append(value);
-		return this;
-	}
-
-	public Label Append(ulong value)
-	{
-		SetTextDirty();
-		_text.Append(value);
-		return this;
-	}
-
-	public Label Append(object value)
-	{
-		SetTextDirty();
-		_text.Append(value);
-		return this;
-	}
-
-	public Label Append(char[] value)
-	{
-		SetTextDirty();
-		_text.Append(value);
-		return this;
-	}
-
-	public Label Insert(int index, string value)
-	{
-		SetTextDirty();
-		_text.Insert(index, value);
-		return this;
-	}
-
-	public Label Insert(int index, bool value)
-	{
-		SetTextDirty();
-		_text.Insert(index, value);
-		return this;
-	}
-
-	public Label Insert(int index, sbyte value)
-	{
-		SetTextDirty();
-		_text.Insert(index, value);
-		return this;
-	}
-
-	public Label Insert(int index, byte value)
-	{
-		SetTextDirty();
-		_text.Insert(index, value);
-		return this;
-	}
-
-	public Label Insert(int index, short value)
-	{
-		SetTextDirty();
-		_text.Insert(index, value);
-		return this;
-	}
-
-	public Label Insert(int index, char value)
-	{
-		SetTextDirty();
-		_text.Insert(index, value);
-		return this;
-	}
-
-	public Label Insert(int index, char[] value)
-	{
-		SetTextDirty();
-		_text.Insert(index, value);
-		return this;
-	}
-
-	public Label Insert(int index, char[] value, int startIndex, int charCount)
-	{
-		SetTextDirty();
-		_text.Insert(index, value, startIndex, charCount);
-		return this;
-	}
-
-	public Label Insert(int index, int value)
-	{
-		SetTextDirty();
-		_text.Insert(index, value);
-		return this;
-	}
-
-	public Label Insert(int index, long value)
-	{
-		SetTextDirty();
-		_text.Insert(index, value);
-		return this;
-	}
-
-	public Label Insert(int index, float value)
-	{
-		SetTextDirty();
-		_text.Insert(index, value);
-		return this;
-	}
-
-	public Label Insert(int index, double value)
-	{
-		SetTextDirty();
-		_text.Insert(index, value);
-		return this;
-	}
-
-	public Label Insert(int index, decimal value)
-	{
-		SetTextDirty();
-		_text.Insert(index, value);
-		return this;
-	}
-
-	public Label Insert(int index, ushort value)
-	{
-		SetTextDirty();
-		_text.Insert(index, value);
-		return this;
-	}
-
-	public Label Insert(int index, uint value)
-	{
-		SetTextDirty();
-		_text.Insert(index, value);
-		return this;
-	}
-
-	public Label Insert(int index, ulong value)
-	{
-		SetTextDirty();
-		_text.Insert(index, value);
-		return this;
-	}
-
-	public Label Insert(int index, object value)
-	{
-		SetTextDirty();
-		_text.Insert(index, value);
-		return this;
-	}
-
-	public Label AppendFormat(string format, object arg0)
-	{
-		SetTextDirty();
-		_text.AppendFormat(format, new object[1] { arg0 });
-		return this;
-	}
-
-	public Label AppendFormat(string format, object arg0, object arg1)
-	{
-		SetTextDirty();
-		_text.AppendFormat(format, new object[2] { arg0, arg1 });
-		return this;
-	}
-
-	public Label AppendFormat(string format, object arg0, object arg1, object arg2)
-	{
-		SetTextDirty();
-		_text.AppendFormat(format, new object[3] { arg0, arg1, arg2 });
-		return this;
-	}
-
-	public Label AppendFormat(string format, params object[] args)
-	{
-		SetTextDirty();
-		_text.AppendFormat(format, args);
-		return this;
-	}
-
-	public Label AppendFormat(IFormatProvider provider, string format, params object[] args)
-	{
-		SetTextDirty();
-		_text.AppendFormat(provider, format, args);
-		return this;
-	}
-
-	public Label Replace(string oldValue, string newValue)
-	{
-		SetTextDirty();
-		_text.Replace(oldValue, newValue);
-		return this;
-	}
-
-	public Label Replace(string oldValue, string newValue, int startIndex, int count)
-	{
-		SetTextDirty();
-		_text.Replace(oldValue, newValue, startIndex, count);
-		return this;
-	}
-
-	public Label Replace(char oldChar, char newChar)
-	{
-		SetTextDirty();
-		_text.Replace(oldChar, newChar);
-		return this;
-	}
-
-	public Label Replace(char oldChar, char newChar, int startIndex, int count)
-	{
-		SetTextDirty();
-		_text.Replace(oldChar, newChar, startIndex, count);
-		return this;
-	}
-
-	public Label Clear()
-	{
-		SetTextDirty();
-		_text.Clear();
-		return this;
-	}
-
-	private void SetTextDirty()
-	{
-		_symbolsBounds = null;
-		_textDirty = true;
-	}
-
-	public void SetSymbolsColor(Color color, int index, int count)
-	{
-		SetSymbolsColor(color, 1f, index, count);
-	}
-
-	public void SetSymbolsColor(Color color, float colorRatio, int index, int count)
-	{
-		RefreshText();
-		for (int i = index; i < index + count; i++)
-		{
-			Glyph glyph = Glyphs[i];
-			glyph.Color = color;
-			glyph.ColorRatio = colorRatio;
-			glyph.IgnoreParentColor = true;
-		}
-	}
-
-	public void SetVerticalAnchorToLine(int lineNumber, float inLineAnchor = 0.5f)
-	{
-		_lineAnchor = (float)lineNumber + inLineAnchor;
-	}
-
-	protected override void BeginDraw(VisualState state)
-	{
-	}
-
-	protected override void DrawSprite(VisualState state, Color color)
-	{
-	}
-
-	public override void Draw(VisualState state)
-	{
-		if (_font.Texture.IsDisposed)
-		{
-			ReloadData();
-		}
-		base.Draw(state);
-	}
+    private bool _textDirty;
+
+    protected bool PositionsDirty;
+
+    private float? _lineAnchor;
+
+    private RectangleFloat? _symbolsBounds;
+
+    private readonly bool _dynamicTextureSize = true;
+
+    private TextAlign _align = TextAlign.Center;
+
+    public bool DynamicClickArea = true;
+
+    public bool? IgnoreMissingSymbols;
+
+    private float? _maxWidth;
+
+    public Vector2 TextSize { get; private set; }
+
+    public float FontSize { get; private set; }
+
+    protected bool ShouldIgnoreMissingSymbols
+    {
+        get
+        {
+            if (!IgnoreMissingSymbols.HasValue)
+            {
+                return IgnoreMissingSymbolsDefault;
+            }
+            return IgnoreMissingSymbols.Value;
+        }
+    }
+
+    public RectangleFloat? SymbolsBounds
+    {
+        get
+        {
+            RefreshText();
+            RefreshPositions();
+            if (!_symbolsBounds.HasValue && !_lines.Empty() && !_lines.First().Glyphs.Empty())
+            {
+                CalculateSymbolsBounds();
+            }
+            return _symbolsBounds;
+        }
+    }
+
+    public List<Glyph> Glyphs => _glyphs;
+
+    public List<LabelLine> Lines => _lines;
+
+    public override Vector2 Size
+    {
+        get
+        {
+            if (!DynamicClickArea)
+            {
+                return TextureSize;
+            }
+            return TextSize;
+        }
+    }
+
+    public TextAlign Align
+    {
+        get
+        {
+            return _align;
+        }
+        set
+        {
+            if (_align != value)
+            {
+                _align = value;
+                PositionsDirty = true;
+            }
+        }
+    }
+
+    public override Vector2 Anchor
+    {
+        get
+        {
+            return base.Anchor;
+        }
+        set
+        {
+            if (base.Anchor != value)
+            {
+                base.Anchor = value;
+                PositionsDirty = true;
+            }
+            _lineAnchor = null;
+        }
+    }
+
+    public int TextLength => _text.Length;
+
+    public FontData Font
+    {
+        get
+        {
+            return _font;
+        }
+        set
+        {
+            if (_font != value)
+            {
+                _font = value;
+                SetTextDirty();
+            }
+        }
+    }
+
+    public string TextString
+    {
+        get
+        {
+            return _text.ToString();
+        }
+        set
+        {
+            _text.Clear();
+            _text.Append(value);
+            SetTextDirty();
+        }
+    }
+
+    public float LineSpacing
+    {
+        get
+        {
+            return _lineSpacing;
+        }
+        set
+        {
+            if (_lineSpacing != value)
+            {
+                _lineSpacing = value;
+                PositionsDirty = true;
+            }
+        }
+    }
+
+    public bool LimitWidth
+    {
+        get
+        {
+            return MaxWidth.HasValue;
+        }
+        set
+        {
+            MaxWidth = (value ? new float?(TextureSize.X) : ((float?)null));
+        }
+    }
+
+    public float? MaxWidth
+    {
+        get
+        {
+            return _maxWidth;
+        }
+        set
+        {
+            if (_maxWidth != value)
+            {
+                _maxWidth = value;
+                SetTextDirty();
+            }
+        }
+    }
+
+    public char this[int index]
+    {
+        get
+        {
+            return _text[index];
+        }
+        set
+        {
+            SetTextDirty();
+            _text[index] = value;
+        }
+    }
+
+    public Label(string fontName, float fontSize)
+        : this(fontName, fontSize, Vector2.Zero)
+    {
+        _dynamicTextureSize = true;
+    }
+
+    public Label(string fontName, float fontSize, Vector2 size)
+        : this(Mokus2DGame.FontsManager.GetFontData(fontName, fontSize))
+    {
+        _dynamicTextureSize = false;
+        FontSize = fontSize;
+        TextureSize = size;
+        RecalculateScaleFactor();
+        Anchor = Vector2.Zero;
+        Align = TextAlign.Left;
+        UpdateChildren = false;
+    }
+
+    public Label(string id)
+        : this(Mokus2DGame.LoadResource<FontData>(id))
+    {
+    }
+
+    public Label(FontData font)
+        : base(null)
+    {
+        Font = font;
+        ScaleFactor = font.ScaleFactor;
+        ColorRatio = 1f;
+    }
+
+    public void ReloadData()
+    {
+        Font = Mokus2DGame.FontsManager.GetFontData(Font.FontName, FontSize);
+        RecalculateScaleFactor();
+        foreach (Glyph glyph in Glyphs)
+        {
+            glyph.ReloadData(Font);
+        }
+        SetTextDirty();
+    }
+
+    private void RecalculateScaleFactor()
+    {
+        ScaleFactor = FontSize / Font.FontSize * Font.ScaleFactor;
+    }
+
+    public Mokus2D.Util.Data.Point Get2DSymbolPosition(int position)
+    {
+        Mokus2D.Util.Data.Point result = default(Mokus2D.Util.Data.Point);
+        for (int i = 0; _lines[i].Glyphs.Count + 1 < position; i++)
+        {
+            position -= _lines[i].Glyphs.Count + 1;
+        }
+        result.X = position;
+        return result;
+    }
+
+    public int GetSymbolPosition(Mokus2D.Util.Data.Point position)
+    {
+        int num = 0;
+        for (int i = 0; i < position.Y; i++)
+        {
+            num += _lines[i].Glyphs.Count + 1;
+        }
+        return num + position.X;
+    }
+
+    public void SetText(char value)
+    {
+        Clear();
+        Append(value);
+    }
+
+    public void SetText(float value)
+    {
+        Clear();
+        Append(value);
+    }
+
+    public void SetText(int value)
+    {
+        Clear();
+        Append(value);
+    }
+
+    public void RemoveFirstLine()
+    {
+        int? num = _text.IndexOf('\n');
+        int length = ((!num.HasValue) ? _text.Length : (num.Value + 1));
+        _text.Remove(0, length);
+        SetTextDirty();
+    }
+
+    public override void Update(float time)
+    {
+        base.Update(time);
+        if (base.Root == null)
+        {
+            return;
+        }
+        RefreshText();
+        if (_lineAnchor.HasValue)
+        {
+            if (_lines.Count > 0)
+            {
+                base.AnchorY = _lineAnchor.Value / (float)_lines.Count;
+            }
+            _lineAnchor = null;
+        }
+        RefreshPositions();
+    }
+
+    private void RefreshPositions()
+    {
+        if (PositionsDirty)
+        {
+            DoRefreshPositions();
+            PositionsDirty = false;
+        }
+    }
+
+    public void RefreshText()
+    {
+        if (!_textDirty)
+        {
+            return;
+        }
+        try
+        {
+            DoRefreshText();
+            _textDirty = false;
+            if (base.ProcessMouseOver)
+            {
+                base.ProcessMouseOver = false;
+                base.ProcessMouseOver = true;
+            }
+        }
+        catch (IndexOutOfRangeException)
+        {
+            _textDirty = true;
+        }
+    }
+
+    protected override RectangleFloat CalculateBounds()
+    {
+        RectangleFloat result = base.CalculateBounds();
+        if (DynamicClickArea)
+        {
+            switch (Align)
+            {
+                case TextAlign.Center:
+                    result.Offset((0f - result.Width) / 2f + TextureSize.X / 2f, 0f);
+                    break;
+                case TextAlign.Right:
+                    result.Offset(0f - result.Width + TextureSize.X, 0f);
+                    break;
+            }
+        }
+        return result;
+    }
+
+    private bool FontHasTexture()
+    {
+        if (_font != null)
+        {
+            return !_font.Texture.Name.IsEmpty();
+        }
+        return false;
+    }
+
+    public Vector2 GetGlyphLeftTop(Mokus2D.Util.Data.Point positionInText)
+    {
+        Vector2 result = StartGlyphsPosition();
+        result.Y += (Font.RealHeight * ScaleFactor + LineSpacing) * base.Root.SpritesScaleFactor.Y.Sign() * (float)positionInText.Y;
+        LabelLine labelLine = _lines[positionInText.Y];
+        result.X += GetLineHorizontalOffset(labelLine);
+        for (int i = 0; i < positionInText.X; i++)
+        {
+            Glyph glyph = labelLine.Glyphs[i];
+            result.X += glyph.Width;
+        }
+        return result;
+    }
+
+    public void RefreshSymbolsTransform()
+    {
+        DoRefreshPositions();
+        foreach (Glyph glyph in _glyphs)
+        {
+            glyph.Scale = 1f;
+            glyph.OpacityFloat = 1f;
+        }
+    }
+
+    private void DoRefreshPositions()
+    {
+        Vector2 vector = StartGlyphsPosition();
+        float num = base.Root.SpritesScaleFactor.Y.Sign();
+        float num2 = Font.RealHeight / 2f * ScaleFactor;
+        foreach (LabelLine line in _lines)
+        {
+            float lineHorizontalOffset = GetLineHorizontalOffset(line);
+            for (int i = 0; i < line.Glyphs.Count; i++)
+            {
+                Glyph glyph = line.Glyphs[i];
+                glyph.Position = vector + new Vector2(glyph.Width / 2f + lineHorizontalOffset, num2 * num);
+                vector.X += glyph.Width;
+            }
+            vector.Y += (Font.RealHeight * ScaleFactor + LineSpacing) * num;
+            vector.X = StartGlyphsPosition().X;
+        }
+    }
+
+    private void CalculateSymbolsBounds()
+    {
+        foreach (LabelLine line in _lines)
+        {
+            foreach (Glyph glyph in line.Glyphs)
+            {
+                RectangleFloat bounds = glyph.Bounds;
+                if (bounds.Width != 0f && bounds.Height != 0f)
+                {
+                    bounds.Offset(glyph.Position);
+                    if (!_symbolsBounds.HasValue)
+                    {
+                        _symbolsBounds = bounds;
+                    }
+                    else
+                    {
+                        _symbolsBounds = RectangleFloat.Union(_symbolsBounds.Value, bounds);
+                    }
+                }
+            }
+        }
+    }
+
+    protected virtual Vector2 StartGlyphsPosition()
+    {
+        return -base.AnchorInPixels * base.Root.SpritesScaleFactor + DefaultMargins;
+    }
+
+    private float GetLineHorizontalOffset(LabelLine line)
+    {
+        return Align switch
+        {
+            TextAlign.Left => 0f,
+            TextAlign.Right => TextureSize.X - line.Width,
+            TextAlign.Center => (TextureSize.X - line.Width) / 2f,
+            _ => throw new InvalidOperationException(),
+        };
+    }
+
+    private LabelLine GetCleanLine(int index)
+    {
+        if (_lines.Count <= index)
+        {
+            _lines.Add(LabelLine.New());
+        }
+        LabelLine labelLine = _lines[index];
+        labelLine.Glyphs.Clear();
+        return labelLine;
+    }
+
+    protected virtual void DoRefreshText()
+    {
+        Vector2 vector = new Vector2(0f, DefaultMargins.Y * 2f + Font.RealHeight * ScaleFactor + _lineSpacing);
+        float num = DefaultMargins.X * 2f;
+        int num2 = 0;
+        LabelLine cleanLine = GetCleanLine(num2);
+        int num3 = 0;
+        bool flag = false;
+        for (int i = 0; i < _text.Length; i++)
+        {
+            char c = _text[i];
+            if (c == '\r')
+            {
+                continue;
+            }
+            if (c == '\u00a0')
+            {
+                c = ' ';
+            }
+            if (IsNewLine(c))
+            {
+                if (i != _text.Length - 1)
+                {
+                    vector.Y += _font.RealHeight * ScaleFactor + _lineSpacing;
+                }
+                vector.X = Math.Max(num, vector.X);
+                cleanLine.Width = num;
+                cleanLine = GetCleanLine(++num2);
+                num = DefaultMargins.X * 2f;
+                flag = false;
+                continue;
+            }
+            CharData charData = _font[c];
+            if (charData != null && !flag && (!MaxWidth.HasValue || num < MaxWidth))
+            {
+                Glyph glyph = RefreshGlyph(num3, c, charData);
+                if (MaxWidth.HasValue && num + glyph.Width >= MaxWidth)
+                {
+                    glyph.Initialize(_font['…'], ScaleFactor, '…');
+                    flag = true;
+                }
+                glyph.Visible = true;
+                num3++;
+                num += glyph.Width;
+                cleanLine.Glyphs.Add(glyph);
+            }
+            else if (!ShouldIgnoreMissingSymbols)
+            {
+                throw new Exception("Symbol not found: " + c);
+            }
+        }
+        vector.X = Math.Max(num, vector.X);
+        cleanLine.Width = num;
+        if (_dynamicTextureSize)
+        {
+            TextureSize = vector;
+        }
+        TextSize = vector;
+        FreeUnusedObjects(num2, num3);
+        PositionsDirty = true;
+    }
+
+    private void FreeUnusedObjects(int lineIndex, int glyphCount)
+    {
+        int num = _lines.Count - (lineIndex + 1);
+        if (num > 0)
+        {
+            for (int i = lineIndex + 1; i < _lines.Count; i++)
+            {
+                LabelLine.Free(_lines[i]);
+            }
+            _lines.RemoveRange(lineIndex + 1, num);
+        }
+        int num2 = _glyphs.Count - glyphCount;
+        if (num2 > 0)
+        {
+            for (int num3 = _glyphs.Count - 1; num3 >= glyphCount; num3--)
+            {
+                Glyph glyph = _glyphs[num3];
+                RemoveChild(glyph);
+                Glyph.Free(glyph);
+            }
+            _glyphs.RemoveRange(glyphCount, num2);
+        }
+    }
+
+    private bool IsNewLine(char symbol)
+    {
+        return '\n' == symbol;
+    }
+
+    protected virtual Glyph RefreshGlyph(int index, char symbol, CharData data)
+    {
+        Glyph glyph;
+        if (_glyphs.Count <= index)
+        {
+            glyph = Glyph.New(data, ScaleFactor, symbol);
+            _glyphs.Add(glyph);
+            AddChild(glyph);
+        }
+        else
+        {
+            glyph = _glyphs[index];
+            glyph.Initialize(data, ScaleFactor, symbol);
+        }
+        glyph.Scale = 1f;
+        glyph.OpacityFloat = 1f;
+        glyph.IgnoreParentColor = false;
+        return glyph;
+    }
+
+    public Label Append(char value, int repeatCount)
+    {
+        SetTextDirty();
+        _text.Append(value, repeatCount);
+        return this;
+    }
+
+    public Label Append(char[] value, int startIndex, int charCount)
+    {
+        SetTextDirty();
+        _text.Append(value, startIndex, charCount);
+        return this;
+    }
+
+    public Label Append(string value)
+    {
+        SetTextDirty();
+        _text.Append(value);
+        return this;
+    }
+
+    public Label Append(string value, int startIndex, int count)
+    {
+        SetTextDirty();
+        _text.Append(value, startIndex, count);
+        return this;
+    }
+
+    public Label AppendLine()
+    {
+        SetTextDirty();
+        _text.Append('\n');
+        return this;
+    }
+
+    public Label AppendLine(string value)
+    {
+        SetTextDirty();
+        _text.Append(value);
+        AppendLine();
+        return this;
+    }
+
+    public Label Insert(int index, string value, int count)
+    {
+        SetTextDirty();
+        _text.Insert(index, value, count);
+        return this;
+    }
+
+    public Label Remove(int startIndex, int length)
+    {
+        SetTextDirty();
+        _text.Remove(startIndex, length);
+        return this;
+    }
+
+    public Label Append(bool value)
+    {
+        SetTextDirty();
+        _text.Append(value);
+        return this;
+    }
+
+    public Label Append(sbyte value)
+    {
+        SetTextDirty();
+        _text.Append(value);
+        return this;
+    }
+
+    public Label Append(byte value)
+    {
+        SetTextDirty();
+        _text.Append(value);
+        return this;
+    }
+
+    public Label Append(char value)
+    {
+        SetTextDirty();
+        _text.Append(value);
+        return this;
+    }
+
+    public Label Append(short value)
+    {
+        SetTextDirty();
+        _text.Append(value);
+        return this;
+    }
+
+    public Label Append(int value)
+    {
+        SetTextDirty();
+        _text.Append(value);
+        return this;
+    }
+
+    public Label Append(long value)
+    {
+        SetTextDirty();
+        _text.Append(value);
+        return this;
+    }
+
+    public Label Append(float value)
+    {
+        SetTextDirty();
+        _text.Append(value);
+        return this;
+    }
+
+    public Label Append(double value)
+    {
+        SetTextDirty();
+        _text.Append(value);
+        return this;
+    }
+
+    public Label Append(decimal value)
+    {
+        SetTextDirty();
+        _text.Append(value);
+        return this;
+    }
+
+    public Label Append(ushort value)
+    {
+        SetTextDirty();
+        _text.Append(value);
+        return this;
+    }
+
+    public Label Append(uint value)
+    {
+        SetTextDirty();
+        _text.Append(value);
+        return this;
+    }
+
+    public Label Append(ulong value)
+    {
+        SetTextDirty();
+        _text.Append(value);
+        return this;
+    }
+
+    public Label Append(object value)
+    {
+        SetTextDirty();
+        _text.Append(value);
+        return this;
+    }
+
+    public Label Append(char[] value)
+    {
+        SetTextDirty();
+        _text.Append(value);
+        return this;
+    }
+
+    public Label Insert(int index, string value)
+    {
+        SetTextDirty();
+        _text.Insert(index, value);
+        return this;
+    }
+
+    public Label Insert(int index, bool value)
+    {
+        SetTextDirty();
+        _text.Insert(index, value);
+        return this;
+    }
+
+    public Label Insert(int index, sbyte value)
+    {
+        SetTextDirty();
+        _text.Insert(index, value);
+        return this;
+    }
+
+    public Label Insert(int index, byte value)
+    {
+        SetTextDirty();
+        _text.Insert(index, value);
+        return this;
+    }
+
+    public Label Insert(int index, short value)
+    {
+        SetTextDirty();
+        _text.Insert(index, value);
+        return this;
+    }
+
+    public Label Insert(int index, char value)
+    {
+        SetTextDirty();
+        _text.Insert(index, value);
+        return this;
+    }
+
+    public Label Insert(int index, char[] value)
+    {
+        SetTextDirty();
+        _text.Insert(index, value);
+        return this;
+    }
+
+    public Label Insert(int index, char[] value, int startIndex, int charCount)
+    {
+        SetTextDirty();
+        _text.Insert(index, value, startIndex, charCount);
+        return this;
+    }
+
+    public Label Insert(int index, int value)
+    {
+        SetTextDirty();
+        _text.Insert(index, value);
+        return this;
+    }
+
+    public Label Insert(int index, long value)
+    {
+        SetTextDirty();
+        _text.Insert(index, value);
+        return this;
+    }
+
+    public Label Insert(int index, float value)
+    {
+        SetTextDirty();
+        _text.Insert(index, value);
+        return this;
+    }
+
+    public Label Insert(int index, double value)
+    {
+        SetTextDirty();
+        _text.Insert(index, value);
+        return this;
+    }
+
+    public Label Insert(int index, decimal value)
+    {
+        SetTextDirty();
+        _text.Insert(index, value);
+        return this;
+    }
+
+    public Label Insert(int index, ushort value)
+    {
+        SetTextDirty();
+        _text.Insert(index, value);
+        return this;
+    }
+
+    public Label Insert(int index, uint value)
+    {
+        SetTextDirty();
+        _text.Insert(index, value);
+        return this;
+    }
+
+    public Label Insert(int index, ulong value)
+    {
+        SetTextDirty();
+        _text.Insert(index, value);
+        return this;
+    }
+
+    public Label Insert(int index, object value)
+    {
+        SetTextDirty();
+        _text.Insert(index, value);
+        return this;
+    }
+
+    public Label AppendFormat(string format, object arg0)
+    {
+        SetTextDirty();
+        _text.AppendFormat(format, new object[1] { arg0 });
+        return this;
+    }
+
+    public Label AppendFormat(string format, object arg0, object arg1)
+    {
+        SetTextDirty();
+        _text.AppendFormat(format, new object[2] { arg0, arg1 });
+        return this;
+    }
+
+    public Label AppendFormat(string format, object arg0, object arg1, object arg2)
+    {
+        SetTextDirty();
+        _text.AppendFormat(format, new object[3] { arg0, arg1, arg2 });
+        return this;
+    }
+
+    public Label AppendFormat(string format, params object[] args)
+    {
+        SetTextDirty();
+        _text.AppendFormat(format, args);
+        return this;
+    }
+
+    public Label AppendFormat(IFormatProvider provider, string format, params object[] args)
+    {
+        SetTextDirty();
+        _text.AppendFormat(provider, format, args);
+        return this;
+    }
+
+    public Label Replace(string oldValue, string newValue)
+    {
+        SetTextDirty();
+        _text.Replace(oldValue, newValue);
+        return this;
+    }
+
+    public Label Replace(string oldValue, string newValue, int startIndex, int count)
+    {
+        SetTextDirty();
+        _text.Replace(oldValue, newValue, startIndex, count);
+        return this;
+    }
+
+    public Label Replace(char oldChar, char newChar)
+    {
+        SetTextDirty();
+        _text.Replace(oldChar, newChar);
+        return this;
+    }
+
+    public Label Replace(char oldChar, char newChar, int startIndex, int count)
+    {
+        SetTextDirty();
+        _text.Replace(oldChar, newChar, startIndex, count);
+        return this;
+    }
+
+    public Label Clear()
+    {
+        SetTextDirty();
+        _text.Clear();
+        return this;
+    }
+
+    private void SetTextDirty()
+    {
+        _symbolsBounds = null;
+        _textDirty = true;
+    }
+
+    public void SetSymbolsColor(Color color, int index, int count)
+    {
+        SetSymbolsColor(color, 1f, index, count);
+    }
+
+    public void SetSymbolsColor(Color color, float colorRatio, int index, int count)
+    {
+        RefreshText();
+        for (int i = index; i < index + count; i++)
+        {
+            Glyph glyph = Glyphs[i];
+            glyph.Color = color;
+            glyph.ColorRatio = colorRatio;
+            glyph.IgnoreParentColor = true;
+        }
+    }
+
+    public void SetVerticalAnchorToLine(int lineNumber, float inLineAnchor = 0.5f)
+    {
+        _lineAnchor = (float)lineNumber + inLineAnchor;
+    }
+
+    protected override void BeginDraw(VisualState state)
+    {
+    }
+
+    protected override void DrawSprite(VisualState state, Color color)
+    {
+    }
+
+    public override void Draw(VisualState state)
+    {
+        if (_font.Texture.IsDisposed)
+        {
+            ReloadData();
+        }
+        base.Draw(state);
+    }
 }

@@ -1,10 +1,14 @@
 using System.Collections.Generic;
+
 using ContreJour.Clips.menu;
 using ContreJour.Config;
 using ContreJour.Utils;
+
 using Default.Namespace.Interfaces;
 using Default.Namespace.Windows;
+
 using Microsoft.Xna.Framework;
+
 using Mokus2D;
 using Mokus2D.Events;
 using Mokus2D.Input;
@@ -224,7 +228,7 @@ public class MainMenu : AccelerometerMenu, IActivatedDependent
         button.StopEventPropagation = true;
         button.AnchorY = 1f;
         button.RealScale = 0.765f;
-        button.Children.Each(delegate(Node child)
+        button.Children.Each(delegate (Node child)
         {
             child.Y = button.TextureSize.Y / 2f;
             child.Scale = 2f;

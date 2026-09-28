@@ -2,7 +2,7 @@ namespace FarseerPhysics.Collision;
 
 public enum SeparationFunctionType
 {
-	Points,
-	FaceA,
-	FaceB
+    Points,
+    FaceA,
+    FaceB
 }

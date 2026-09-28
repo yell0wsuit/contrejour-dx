@@ -4,7 +4,7 @@ namespace Mokus2D.Visual.Data;
 
 public struct FrameData
 {
-	public Vector2 Anchor;
+    public Vector2 Anchor;
 
-	public Rectangle Rect;
+    public Rectangle Rect;
 }

@@ -1,22 +1,23 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+
 using Mokus2D.Visual.Drawing.Effects;
 
 namespace Mokus2D.Visual.Shaders;
 
 public abstract class SpriteBatchEffectBase : ISpriteBatchEffect
 {
-	protected readonly Effect Effect;
+    protected readonly Effect Effect;
 
-	protected readonly string Path;
+    protected readonly string Path;
 
-	protected EffectParameterCollection Parameters => Effect.Parameters;
+    protected EffectParameterCollection Parameters => Effect.Parameters;
 
-	protected SpriteBatchEffectBase(string path)
-	{
-		Path = path;
-		Effect = EffectUtil.LoadEffect(GetType(), path);
-	}
+    protected SpriteBatchEffectBase(string path)
+    {
+        Path = path;
+        Effect = EffectUtil.LoadEffect(GetType(), path);
+    }
 
-	public abstract void Apply(Matrix matrix, Texture2D texture);
+    public abstract void Apply(Matrix matrix, Texture2D texture);
 }

@@ -4,12 +4,12 @@ namespace Mokus2D.Visual.Exceptions;
 
 public class NodeException : Exception
 {
-	public NodeException()
-	{
-	}
+    public NodeException()
+    {
+    }
 
-	public NodeException(string message)
-		: base(message)
-	{
-	}
+    public NodeException(string message)
+        : base(message)
+    {
+    }
 }

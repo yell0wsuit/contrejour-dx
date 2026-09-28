@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+
 using Microsoft.Xna.Framework;
+
 using Mokus2D.Interfaces;
 using Mokus2D.Visual.Particles.Util;
 

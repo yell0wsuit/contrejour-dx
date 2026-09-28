@@ -1,4 +1,5 @@
 using System;
+
 using Mokus2D.Visual.Particles.Util;
 
 namespace Default.Namespace;

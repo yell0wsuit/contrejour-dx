@@ -4,40 +4,40 @@ namespace Mokus2D.Effects.OnOff;
 
 public class FrameOnOff : OnOffEffect
 {
-	protected readonly float OffFrame;
+    protected readonly float OffFrame;
 
-	protected readonly float OnFrame;
+    protected readonly float OnFrame;
 
-	private IAnimatedNode AnimatedTarget => (IAnimatedNode)Target;
+    private IAnimatedNode AnimatedTarget => (IAnimatedNode)Target;
 
-	public FrameOnOff(IAnimatedNode target, float offFrame = 0f, float onFrame = 1f)
-		: base((Node)target)
-	{
-		OffFrame = offFrame;
-		OnFrame = onFrame;
-		SetOff();
-	}
+    public FrameOnOff(IAnimatedNode target, float offFrame = 0f, float onFrame = 1f)
+        : base((Node)target)
+    {
+        OffFrame = offFrame;
+        OnFrame = onFrame;
+        SetOff();
+    }
 
-	protected override void SetOn()
-	{
-		AnimatedTarget.GotoAndStop(OnFrame);
-	}
+    protected override void SetOn()
+    {
+        AnimatedTarget.GotoAndStop(OnFrame);
+    }
 
-	protected override void SetOff()
-	{
-		AnimatedTarget.GotoAndStop(OffFrame);
-	}
+    protected override void SetOff()
+    {
+        AnimatedTarget.GotoAndStop(OffFrame);
+    }
 
-	public override void SetOn(bool value)
-	{
-		base.SetOn(value);
-		if (value)
-		{
-			SetOn();
-		}
-		else
-		{
-			SetOff();
-		}
-	}
+    public override void SetOn(bool value)
+    {
+        base.SetOn(value);
+        if (value)
+        {
+            SetOn();
+        }
+        else
+        {
+            SetOff();
+        }
+    }
 }

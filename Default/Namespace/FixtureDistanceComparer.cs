@@ -1,6 +1,9 @@
 using System.Collections.Generic;
+
 using FarseerPhysics.Dynamics;
+
 using Microsoft.Xna.Framework;
+
 using Mokus2D.Util.Extensions;
 
 namespace Default.Namespace;

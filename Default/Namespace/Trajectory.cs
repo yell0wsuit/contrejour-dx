@@ -1,5 +1,7 @@
 using System;
+
 using Microsoft.Xna.Framework;
+
 using Mokus2D.Effects.OnOff;
 
 namespace Default.Namespace;

@@ -4,5 +4,5 @@ namespace Mokus2D.Parallax;
 
 public interface IViewPosition
 {
-	Vector2 ViewPosition { get; set; }
+    Vector2 ViewPosition { get; set; }
 }

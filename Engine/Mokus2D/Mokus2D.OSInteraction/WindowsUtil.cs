@@ -4,7 +4,7 @@ namespace Mokus2D.OSInteraction;
 
 public static class WindowsUtil
 {
-	public static void Initialize(GameWindow window)
-	{
-	}
+    public static void Initialize(GameWindow window)
+    {
+    }
 }

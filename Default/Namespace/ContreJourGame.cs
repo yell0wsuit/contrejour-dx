@@ -1,12 +1,17 @@
 using System;
 using System.Collections.Generic;
+
 using ContreJour;
 using ContreJour.Config;
 using ContreJour.Content;
+
 using Default.Namespace.Interfaces;
+
 using FarseerPhysics.Collision;
 using FarseerPhysics.Dynamics;
+
 using Microsoft.Xna.Framework;
+
 using Mokus2D;
 using Mokus2D.Data;
 using Mokus2D.Effects.Tween.Easing;

@@ -1,7 +1,10 @@
 using System.Collections.Generic;
+
 using FarseerPhysics.Collision.Shapes;
 using FarseerPhysics.Common;
+
 using Microsoft.Xna.Framework;
+
 using Mokus2D.Util;
 
 namespace Default.Namespace;

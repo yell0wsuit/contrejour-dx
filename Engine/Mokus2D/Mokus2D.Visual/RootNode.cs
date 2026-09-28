@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+
 using Mokus2D.Util.Extensions;
 using Mokus2D.Visual.Data;
 using Mokus2D.Visual.Drawing;
@@ -8,83 +9,83 @@ namespace Mokus2D.Visual;
 
 public class RootNode : Node
 {
-	public readonly Rectangle ScreenRect;
+    public readonly Rectangle ScreenRect;
 
-	private readonly BatchSelector _batchSelector;
+    private readonly BatchSelector _batchSelector;
 
-	private readonly TransformationCalculatorBase _transformCalculator;
+    private readonly TransformationCalculatorBase _transformCalculator;
 
-	public bool DrawEnabled = true;
+    public bool DrawEnabled = true;
 
-	internal VisualState RootState;
+    internal VisualState RootState;
 
-	public int NodesDrawnCount => _batchSelector.NodesDrawnCount;
+    public int NodesDrawnCount => _batchSelector.NodesDrawnCount;
 
-	public Vector2 Size { get; private set; }
+    public Vector2 Size { get; private set; }
 
-	public Vector2 SpritesScaleFactor
-	{
-		get
-		{
-			return RootState.SpritesScaleFactor;
-		}
-		set
-		{
-			RootState.SpritesScaleFactor = value;
-		}
-	}
+    public Vector2 SpritesScaleFactor
+    {
+        get
+        {
+            return RootState.SpritesScaleFactor;
+        }
+        set
+        {
+            RootState.SpritesScaleFactor = value;
+        }
+    }
 
-	public void ResetUpdateThread()
-	{
-	}
+    public void ResetUpdateThread()
+    {
+    }
 
-	public RootNode(int width, int height, Vector2 spritesScaleFactor)
-	{
-		ResetUpdateThread();
-		base.Root = this;
-		_transformCalculator = new OneThreadTransformCalculator(this);
-		_batchSelector = Mokus2DGame.BatchSelector;
-		Drawer = _batchSelector;
-		Size = new Vector2(width, height);
-		ScreenRect = new Rectangle(0, 0, width, height);
-		RootState = new VisualState(spritesScaleFactor);
-		base.CompositeState = new VisualState(RootState);
-	}
+    public RootNode(int width, int height, Vector2 spritesScaleFactor)
+    {
+        ResetUpdateThread();
+        base.Root = this;
+        _transformCalculator = new OneThreadTransformCalculator(this);
+        _batchSelector = Mokus2DGame.BatchSelector;
+        Drawer = _batchSelector;
+        Size = new Vector2(width, height);
+        ScreenRect = new Rectangle(0, 0, width, height);
+        RootState = new VisualState(spritesScaleFactor);
+        base.CompositeState = new VisualState(RootState);
+    }
 
-	public RootNode(int width, int height)
-		: this(width, height, Vector2.One)
-	{
-	}
+    public RootNode(int width, int height)
+        : this(width, height, Vector2.One)
+    {
+    }
 
-	public RootNode(Vector2 size)
-		: this((int)size.X, (int)size.Y, Vector2.One)
-	{
-	}
+    public RootNode(Vector2 size)
+        : this((int)size.X, (int)size.Y, Vector2.One)
+    {
+    }
 
-	public RootNode(Vector2 size, Vector2 spritesScaleFactor)
-		: this((int)size.X, (int)size.Y, spritesScaleFactor)
-	{
-	}
+    public RootNode(Vector2 size, Vector2 spritesScaleFactor)
+        : this((int)size.X, (int)size.Y, spritesScaleFactor)
+    {
+    }
 
-	public virtual void ResetSize(Vector2 size)
-	{
-		Size = size;
-	}
+    public virtual void ResetSize(Vector2 size)
+    {
+        Size = size;
+    }
 
-	public override Vector2 GlobalToLocal(Vector2 source, bool refreshTransformations = true)
-	{
-		Matrix matrix = Matrix.Invert(base.NodeMatrix);
-		return source.Transform(ref matrix);
-	}
+    public override Vector2 GlobalToLocal(Vector2 source, bool refreshTransformations = true)
+    {
+        Matrix matrix = Matrix.Invert(base.NodeMatrix);
+        return source.Transform(ref matrix);
+    }
 
-	public virtual void DrawAll()
-	{
-		if (DrawEnabled)
-		{
-			_transformCalculator.DoTransformations();
-			_batchSelector.Reset(Size);
-			DrawNode();
-			_batchSelector.EndDraw();
-		}
-	}
+    public virtual void DrawAll()
+    {
+        if (DrawEnabled)
+        {
+            _transformCalculator.DoTransformations();
+            _batchSelector.Reset(Size);
+            DrawNode();
+            _batchSelector.EndDraw();
+        }
+    }
 }

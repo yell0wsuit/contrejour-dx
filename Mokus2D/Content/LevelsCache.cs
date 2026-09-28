@@ -1,10 +1,14 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+
 using ContreJour;
 using ContreJour.Config;
+
 using Default.Namespace;
+
 using Microsoft.Xna.Framework;
+
 using Mokus2D.Util.Xml;
 
 namespace Mokus2D.Content;

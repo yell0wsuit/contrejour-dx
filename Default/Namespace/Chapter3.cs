@@ -1,5 +1,7 @@
 using ContreJour.Clips.planets;
+
 using Microsoft.Xna.Framework;
+
 using Mokus2D.Util.Extensions;
 using Mokus2D.Visual;
 

@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+
 using Microsoft.Xna.Framework;
+
 using Mokus2D.Interfaces;
 using Mokus2D.Util;
 using Mokus2D.Util.Data;
@@ -10,116 +12,116 @@ namespace Mokus2D.Visual.Primitives;
 
 public class BezierSegmentedData<T> : ISegmentedSpriteData<T>, IUpdatable where T : struct, IVertex
 {
-	private readonly ISegmentedSpriteData<T> _originalData;
+    private readonly ISegmentedSpriteData<T> _originalData;
 
-	private readonly int _bezierSegmentsCount;
+    private readonly int _bezierSegmentsCount;
 
-	private readonly List<Pair<T>> _originalLines = new List<Pair<T>>();
+    private readonly List<Pair<T>> _originalLines = new List<Pair<T>>();
 
-	private readonly List<Vector2> _firstBezierPoints = new List<Vector2>();
+    private readonly List<Vector2> _firstBezierPoints = new List<Vector2>();
 
-	private readonly List<Vector2> _secondBezierPoints = new List<Vector2>();
+    private readonly List<Vector2> _secondBezierPoints = new List<Vector2>();
 
-	private int _spriteSegmentsCount;
+    private int _spriteSegmentsCount;
 
-	public int PairsCount { get; private set; }
+    public int PairsCount { get; private set; }
 
-	public bool IsDirty
-	{
-		get
-		{
-			if (_originalData.IsDirty)
-			{
-				RefreshPairsCount();
-			}
-			return _originalData.IsDirty;
-		}
-	}
+    public bool IsDirty
+    {
+        get
+        {
+            if (_originalData.IsDirty)
+            {
+                RefreshPairsCount();
+            }
+            return _originalData.IsDirty;
+        }
+    }
 
-	public BezierSegmentedData(ISegmentedSpriteData<T> originalData, int bezierSegmentsCount)
-	{
-		_originalData = originalData;
-		_bezierSegmentsCount = bezierSegmentsCount;
-		RefreshPairsCount();
-	}
+    public BezierSegmentedData(ISegmentedSpriteData<T> originalData, int bezierSegmentsCount)
+    {
+        _originalData = originalData;
+        _bezierSegmentsCount = bezierSegmentsCount;
+        RefreshPairsCount();
+    }
 
-	private void RefreshPairsCount()
-	{
-		_spriteSegmentsCount = _originalData.PairsCount - 1;
-		int num = _bezierSegmentsCount * (_spriteSegmentsCount - 1);
-		if (num <= 0)
-		{
-			PairsCount = _originalData.PairsCount;
-		}
-		else
-		{
-			PairsCount = num + 3;
-		}
-	}
+    private void RefreshPairsCount()
+    {
+        _spriteSegmentsCount = _originalData.PairsCount - 1;
+        int num = _bezierSegmentsCount * (_spriteSegmentsCount - 1);
+        if (num <= 0)
+        {
+            PairsCount = _originalData.PairsCount;
+        }
+        else
+        {
+            PairsCount = num + 3;
+        }
+    }
 
-	public void FillLines(SegmentedSprite<T> sprite, List<Pair<T>> lines, ref Matrix matrix)
-	{
-		_originalLines.Clear();
-		_originalData.FillLines(sprite, _originalLines, ref matrix);
-		if (_originalLines.Count < 3)
-		{
-			lines.AddItemsNoGarbage(_originalLines);
-		}
-		else
-		{
-			Interpolate(lines);
-		}
-	}
+    public void FillLines(SegmentedSprite<T> sprite, List<Pair<T>> lines, ref Matrix matrix)
+    {
+        _originalLines.Clear();
+        _originalData.FillLines(sprite, _originalLines, ref matrix);
+        if (_originalLines.Count < 3)
+        {
+            lines.AddItemsNoGarbage(_originalLines);
+        }
+        else
+        {
+            Interpolate(lines);
+        }
+    }
 
-	private void Interpolate(List<Pair<T>> lines)
-	{
-		lines.Add(_originalLines[0]);
-		Pair<T> pair = LerpVertices(_originalLines[0], _originalLines[1], 0.5f);
-		for (int i = 0; i < _originalLines.Count - 2; i++)
-		{
-			Pair<T> start = pair;
-			Pair<T> start2 = _originalLines[i + 1];
-			Pair<T> end = _originalLines[i + 2];
-			pair = LerpVertices(start2, end, 0.5f);
-			_firstBezierPoints.Clear();
-			_secondBezierPoints.Clear();
-			BezierUtil.GetBezierPoints(start.First.Position.ToVector2(), start2.First.Position.ToVector2(), pair.First.Position.ToVector2(), _bezierSegmentsCount, insertLast: false, _firstBezierPoints);
-			BezierUtil.GetBezierPoints(start.Second.Position.ToVector2(), start2.Second.Position.ToVector2(), pair.Second.Position.ToVector2(), _bezierSegmentsCount, insertLast: false, _secondBezierPoints);
-			for (int j = 0; j < _bezierSegmentsCount; j++)
-			{
-				Pair<T> item = LerpVertices(start, pair, (float)j / (float)_bezierSegmentsCount);
-				item.First.Position = _firstBezierPoints[j].ToVector3();
-				item.Second.Position = _secondBezierPoints[j].ToVector3();
-				lines.Add(item);
-			}
-		}
-		_firstBezierPoints.Clear();
-		_secondBezierPoints.Clear();
-		lines.Add(pair);
-		lines.Add(_originalLines.Last());
-	}
+    private void Interpolate(List<Pair<T>> lines)
+    {
+        lines.Add(_originalLines[0]);
+        Pair<T> pair = LerpVertices(_originalLines[0], _originalLines[1], 0.5f);
+        for (int i = 0; i < _originalLines.Count - 2; i++)
+        {
+            Pair<T> start = pair;
+            Pair<T> start2 = _originalLines[i + 1];
+            Pair<T> end = _originalLines[i + 2];
+            pair = LerpVertices(start2, end, 0.5f);
+            _firstBezierPoints.Clear();
+            _secondBezierPoints.Clear();
+            BezierUtil.GetBezierPoints(start.First.Position.ToVector2(), start2.First.Position.ToVector2(), pair.First.Position.ToVector2(), _bezierSegmentsCount, insertLast: false, _firstBezierPoints);
+            BezierUtil.GetBezierPoints(start.Second.Position.ToVector2(), start2.Second.Position.ToVector2(), pair.Second.Position.ToVector2(), _bezierSegmentsCount, insertLast: false, _secondBezierPoints);
+            for (int j = 0; j < _bezierSegmentsCount; j++)
+            {
+                Pair<T> item = LerpVertices(start, pair, (float)j / (float)_bezierSegmentsCount);
+                item.First.Position = _firstBezierPoints[j].ToVector3();
+                item.Second.Position = _secondBezierPoints[j].ToVector3();
+                lines.Add(item);
+            }
+        }
+        _firstBezierPoints.Clear();
+        _secondBezierPoints.Clear();
+        lines.Add(pair);
+        lines.Add(_originalLines.Last());
+    }
 
-	protected virtual Pair<T> LerpVertices(Pair<T> start, Pair<T> end, float amount)
-	{
-		return new Pair<T>
-		{
-			First = 
-			{
-				Position = Vector3.Lerp(start.First.Position, end.First.Position, amount),
-				Color = start.First.Color.LerpTo(end.First.Color, amount),
-				TextureCoordinate = start.First.TextureCoordinate.LerpTo(end.First.TextureCoordinate, amount)
-			},
-			Second = 
-			{
-				Position = Vector3.Lerp(start.Second.Position, end.Second.Position, amount),
-				Color = start.Second.Color.LerpTo(end.Second.Color, amount),
-				TextureCoordinate = start.Second.TextureCoordinate.LerpTo(end.Second.TextureCoordinate, amount)
-			}
-		};
-	}
+    protected virtual Pair<T> LerpVertices(Pair<T> start, Pair<T> end, float amount)
+    {
+        return new Pair<T>
+        {
+            First =
+            {
+                Position = Vector3.Lerp(start.First.Position, end.First.Position, amount),
+                Color = start.First.Color.LerpTo(end.First.Color, amount),
+                TextureCoordinate = start.First.TextureCoordinate.LerpTo(end.First.TextureCoordinate, amount)
+            },
+            Second =
+            {
+                Position = Vector3.Lerp(start.Second.Position, end.Second.Position, amount),
+                Color = start.Second.Color.LerpTo(end.Second.Color, amount),
+                TextureCoordinate = start.Second.TextureCoordinate.LerpTo(end.Second.TextureCoordinate, amount)
+            }
+        };
+    }
 
-	public void Update(float time)
-	{
-		_originalData.Update(time);
-	}
+    public void Update(float time)
+    {
+        _originalData.Update(time);
+    }
 }

@@ -1,4 +1,5 @@
 using System;
+
 using Mokus2D.Effects.Tweening;
 using Mokus2D.Visual;
 
@@ -6,78 +7,78 @@ namespace Mokus2D.Effects.OnOff;
 
 public class OnOffTweenEffect<TValue> : OnOffTimeEffect
 {
-	private readonly GetSetValue<Node, TValue> _valueSetter;
+    private readonly GetSetValue<Node, TValue> _valueSetter;
 
-	public bool Clean;
+    public bool Clean;
 
-	public int? Tag;
+    public int? Tag;
 
-	public Func<float, float> Easing;
+    public Func<float, float> Easing;
 
-	public Action OnComplete;
+    public Action OnComplete;
 
-	public TValue OnValue { get; private set; }
+    public TValue OnValue { get; private set; }
 
-	public TValue OffValue { get; private set; }
+    public TValue OffValue { get; private set; }
 
-	public OnOffTweenEffect(Node target, float duration, GetSetValue<Node, TValue> valueSetter, TValue onValue, TValue offValue)
-		: base(target, duration)
-	{
-		_valueSetter = valueSetter;
-		OnValue = onValue;
-		OffValue = offValue;
-	}
+    public OnOffTweenEffect(Node target, float duration, GetSetValue<Node, TValue> valueSetter, TValue onValue, TValue offValue)
+        : base(target, duration)
+    {
+        _valueSetter = valueSetter;
+        OnValue = onValue;
+        OffValue = offValue;
+    }
 
-	public virtual void ResetOnValue(TValue value)
-	{
-		OnValue = value;
-	}
+    public virtual void ResetOnValue(TValue value)
+    {
+        OnValue = value;
+    }
 
-	public virtual void ResetOffValue(TValue value)
-	{
-		OffValue = value;
-	}
+    public virtual void ResetOffValue(TValue value)
+    {
+        OffValue = value;
+    }
 
-	protected override void SetOn()
-	{
-		TweenTo(OnValue, on: true);
-	}
+    protected override void SetOn()
+    {
+        TweenTo(OnValue, on: true);
+    }
 
-	protected override void SetOff()
-	{
-		TweenTo(OffValue, on: false);
-	}
+    protected override void SetOff()
+    {
+        TweenTo(OffValue, on: false);
+    }
 
-	protected TweenObject TweenTo(TValue targetValue, bool on)
-	{
-		TryStopTween();
-		TweenObject tweenObject = Target.Tweener.Start(GetDuration(on), Tag).Tween(_valueSetter, targetValue, Easing);
-		if (OnComplete != null)
-		{
-			tweenObject.OnComplete(OnComplete);
-		}
-		return tweenObject;
-	}
+    protected TweenObject TweenTo(TValue targetValue, bool on)
+    {
+        TryStopTween();
+        TweenObject tweenObject = Target.Tweener.Start(GetDuration(on), Tag).Tween(_valueSetter, targetValue, Easing);
+        if (OnComplete != null)
+        {
+            tweenObject.OnComplete(OnComplete);
+        }
+        return tweenObject;
+    }
 
-	private void TryStopTween()
-	{
-		if (Clean)
-		{
-			if (Tag.HasValue)
-			{
-				Target.Tweener.Stop(Tag.Value);
-			}
-			else
-			{
-				Target.Tweener.Stop();
-			}
-		}
-	}
+    private void TryStopTween()
+    {
+        if (Clean)
+        {
+            if (Tag.HasValue)
+            {
+                Target.Tweener.Stop(Tag.Value);
+            }
+            else
+            {
+                Target.Tweener.Stop();
+            }
+        }
+    }
 
-	public override void SetOn(bool value)
-	{
-		TryStopTween();
-		base.SetOn(value);
-		_valueSetter.SetValue(Target, value ? OnValue : OffValue);
-	}
+    public override void SetOn(bool value)
+    {
+        TryStopTween();
+        base.SetOn(value);
+        _valueSetter.SetValue(Target, value ? OnValue : OffValue);
+    }
 }

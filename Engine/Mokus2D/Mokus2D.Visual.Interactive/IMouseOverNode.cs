@@ -4,7 +4,7 @@ namespace Mokus2D.Visual.Interactive;
 
 public interface IMouseOverNode : IBoundsNode, ISizeNode
 {
-	void MouseOver();
+    void MouseOver();
 
-	void MouseOut();
+    void MouseOut();
 }

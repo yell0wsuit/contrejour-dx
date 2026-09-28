@@ -1,68 +1,69 @@
 using System;
 using System.Collections.Generic;
+
 using Mokus2D.Interfaces;
 
 namespace Mokus2D.Util;
 
 public class Updater : IUpdatable
 {
-	private class ActionUpdatable : IUpdatable
-	{
-		private readonly Action<float> _action;
+    private class ActionUpdatable : IUpdatable
+    {
+        private readonly Action<float> _action;
 
-		public ActionUpdatable(Action<float> action)
-		{
-			_action = action;
-		}
+        public ActionUpdatable(Action<float> action)
+        {
+            _action = action;
+        }
 
-		public void Update(float time)
-		{
-			_action(time);
-		}
-	}
+        public void Update(float time)
+        {
+            _action(time);
+        }
+    }
 
-	public bool Paused;
+    public bool Paused;
 
-	private readonly LinkedList<IUpdatable> _updatables = new LinkedList<IUpdatable>();
+    private readonly LinkedList<IUpdatable> _updatables = new LinkedList<IUpdatable>();
 
-	private float _totalGameTime;
+    private float _totalGameTime;
 
-	public void AddUpdatable(Action<float> action)
-	{
-		AddUpdatable(new ActionUpdatable(action));
-	}
+    public void AddUpdatable(Action<float> action)
+    {
+        AddUpdatable(new ActionUpdatable(action));
+    }
 
-	public void AddUpdatable(IUpdatable updatable)
-	{
-		_updatables.AddLast(updatable);
-	}
+    public void AddUpdatable(IUpdatable updatable)
+    {
+        _updatables.AddLast(updatable);
+    }
 
-	public void RemoveUpdatable(IUpdatable updatable)
-	{
-		_updatables.Remove(updatable);
-	}
+    public void RemoveUpdatable(IUpdatable updatable)
+    {
+        _updatables.Remove(updatable);
+    }
 
-	public virtual void Update(float time)
-	{
-		if (Paused)
-		{
-			return;
-		}
-		_totalGameTime += time;
-		LinkedListNode<IUpdatable> linkedListNode = _updatables.First;
-		while (linkedListNode != null)
-		{
-			if (linkedListNode.Value is IRemovable { ShouldRemove: not false })
-			{
-				LinkedListNode<IUpdatable> node = linkedListNode;
-				linkedListNode = linkedListNode.Next;
-				_updatables.Remove(node);
-			}
-			else
-			{
-				linkedListNode.Value.Update(time);
-				linkedListNode = linkedListNode.Next;
-			}
-		}
-	}
+    public virtual void Update(float time)
+    {
+        if (Paused)
+        {
+            return;
+        }
+        _totalGameTime += time;
+        LinkedListNode<IUpdatable> linkedListNode = _updatables.First;
+        while (linkedListNode != null)
+        {
+            if (linkedListNode.Value is IRemovable { ShouldRemove: not false })
+            {
+                LinkedListNode<IUpdatable> node = linkedListNode;
+                linkedListNode = linkedListNode.Next;
+                _updatables.Remove(node);
+            }
+            else
+            {
+                linkedListNode.Value.Update(time);
+                linkedListNode = linkedListNode.Next;
+            }
+        }
+    }
 }

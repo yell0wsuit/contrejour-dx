@@ -1,4 +1,5 @@
 using System;
+
 using Mokus2D.Visual;
 
 namespace Default.Namespace;

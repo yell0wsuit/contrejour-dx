@@ -1,5 +1,7 @@
 using ContreJour.Clips.chapter1;
+
 using ContreJourMono.ContreJour.Game.Eyes;
+
 using Microsoft.Xna.Framework;
 
 namespace Default.Namespace;

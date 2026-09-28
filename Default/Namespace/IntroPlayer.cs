@@ -1,7 +1,10 @@
 using System.Collections.Generic;
+
 using ContreJour.Clips.level1;
 using ContreJour.Utils;
+
 using Microsoft.Xna.Framework;
+
 using Mokus2D.Util.Extensions;
 using Mokus2D.Visual;
 using Mokus2D.Visual.Text;

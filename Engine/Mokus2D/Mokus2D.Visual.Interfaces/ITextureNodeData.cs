@@ -4,11 +4,11 @@ namespace Mokus2D.Visual.Interfaces;
 
 public interface ITextureNodeData : IConfig
 {
-	string Id { get; }
+    string Id { get; }
 
-	string TextureName { get; }
+    string TextureName { get; }
 
-	Texture2D Texture { get; set; }
+    Texture2D Texture { get; set; }
 
-	float ScaleFactor { get; }
+    float ScaleFactor { get; }
 }

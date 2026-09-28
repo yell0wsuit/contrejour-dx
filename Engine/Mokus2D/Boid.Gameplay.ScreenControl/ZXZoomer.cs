@@ -1,6 +1,9 @@
 using System;
+
 using Default.Namespace;
+
 using Microsoft.Xna.Framework.Input;
+
 using Mokus2D;
 using Mokus2D.Interfaces;
 using Mokus2D.Util;
@@ -11,69 +14,69 @@ namespace Boid.Gameplay.ScreenControl;
 
 public class ZXZoomer : DisposableBase, IUpdatable
 {
-	public bool Enabled = true;
+    public bool Enabled = true;
 
-	public float? ZoomMax;
+    public float? ZoomMax;
 
-	public float? ZoomMin;
+    public float? ZoomMin;
 
-	public float ZoomSpeed = 1f;
+    public float ZoomSpeed = 1f;
 
-	public float _zoom = 1f;
+    public float _zoom = 1f;
 
-	private int _zoomDirection;
+    private int _zoomDirection;
 
-	public float Zoom
-	{
-		get
-		{
-			return _zoom;
-		}
-		private set
-		{
-			if (_zoom != value)
-			{
-				_zoom = value;
-				this.ZoomChangeEvent.Dispatch(value);
-			}
-		}
-	}
+    public float Zoom
+    {
+        get
+        {
+            return _zoom;
+        }
+        private set
+        {
+            if (_zoom != value)
+            {
+                _zoom = value;
+                this.ZoomChangeEvent.Dispatch(value);
+            }
+        }
+    }
 
-	public event Action<float> ZoomChangeEvent;
+    public event Action<float> ZoomChangeEvent;
 
-	public ZXZoomer()
-	{
-		Mokus2DGame.Keyboard.AddListener(Keys.Z, OnKeyPressed);
-		Mokus2DGame.Keyboard.AddListener(Keys.X, OnKeyPressed);
-	}
+    public ZXZoomer()
+    {
+        Mokus2DGame.Keyboard.AddListener(Keys.Z, OnKeyPressed);
+        Mokus2DGame.Keyboard.AddListener(Keys.X, OnKeyPressed);
+    }
 
-	public void Update(float time)
-	{
-		if (Enabled)
-		{
-			float value = Zoom + ZoomSpeed * _zoomDirection.Sign() * time;
-			value = Maths.Clamp(value, ZoomMin, ZoomMax);
-			Zoom = value;
-		}
-	}
+    public void Update(float time)
+    {
+        if (Enabled)
+        {
+            float value = Zoom + ZoomSpeed * _zoomDirection.Sign() * time;
+            value = Maths.Clamp(value, ZoomMin, ZoomMax);
+            Zoom = value;
+        }
+    }
 
-	private void OnKeyPressed(Keys key, bool pressed)
-	{
-		int num = ((key != Keys.Z) ? 1 : (-1));
-		if (pressed)
-		{
-			_zoomDirection += num;
-		}
-		else
-		{
-			_zoomDirection -= num;
-		}
-	}
+    private void OnKeyPressed(Keys key, bool pressed)
+    {
+        int num = ((key != Keys.Z) ? 1 : (-1));
+        if (pressed)
+        {
+            _zoomDirection += num;
+        }
+        else
+        {
+            _zoomDirection -= num;
+        }
+    }
 
-	protected override void Dispose(bool disposing)
-	{
-		base.Dispose(disposing);
-		Mokus2DGame.Keyboard.RemoveListener(Keys.Z, OnKeyPressed);
-		Mokus2DGame.Keyboard.RemoveListener(Keys.X, OnKeyPressed);
-	}
+    protected override void Dispose(bool disposing)
+    {
+        base.Dispose(disposing);
+        Mokus2DGame.Keyboard.RemoveListener(Keys.Z, OnKeyPressed);
+        Mokus2DGame.Keyboard.RemoveListener(Keys.X, OnKeyPressed);
+    }
 }

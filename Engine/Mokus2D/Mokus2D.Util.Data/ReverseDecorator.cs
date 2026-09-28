@@ -5,20 +5,20 @@ namespace Mokus2D.Util.Data;
 
 public class ReverseDecorator<T> : IEnumerable<T>, IEnumerable
 {
-	private IList<T> source;
+    private IList<T> source;
 
-	public ReverseDecorator(IList<T> source)
-	{
-		this.source = source;
-	}
+    public ReverseDecorator(IList<T> source)
+    {
+        this.source = source;
+    }
 
-	public IEnumerator<T> GetEnumerator()
-	{
-		return new ReverseEnumerator<T>(source);
-	}
+    public IEnumerator<T> GetEnumerator()
+    {
+        return new ReverseEnumerator<T>(source);
+    }
 
-	IEnumerator IEnumerable.GetEnumerator()
-	{
-		return GetEnumerator();
-	}
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return GetEnumerator();
+    }
 }

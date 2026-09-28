@@ -1,7 +1,10 @@
 using ContreJour.Clips.common;
 using ContreJour.Content;
+
 using Default.Namespace;
+
 using Microsoft.Xna.Framework;
+
 using Mokus2D;
 using Mokus2D.Util.Extensions;
 using Mokus2D.Util.MathUtils;

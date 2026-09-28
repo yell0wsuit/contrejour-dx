@@ -4,9 +4,9 @@ namespace Mokus2D.Visual.Focus;
 
 public interface IFocus
 {
-	bool HasFocus { get; set; }
+    bool HasFocus { get; set; }
 
-	event Action<IFocus> FocusInEvent;
+    event Action<IFocus> FocusInEvent;
 
-	event Action<IFocus> FocusOutEvent;
+    event Action<IFocus> FocusOutEvent;
 }

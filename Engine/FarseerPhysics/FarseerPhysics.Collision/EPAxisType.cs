@@ -2,7 +2,7 @@ namespace FarseerPhysics.Collision;
 
 public enum EPAxisType
 {
-	Unknown,
-	EdgeA,
-	EdgeB
+    Unknown,
+    EdgeA,
+    EdgeB
 }

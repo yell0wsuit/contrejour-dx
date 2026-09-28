@@ -4,40 +4,40 @@ namespace Mokus2D.Util;
 
 public class FpsCounter : IUpdatable
 {
-	protected readonly int FramesToCalculate;
+    protected readonly int FramesToCalculate;
 
-	private int currentFrame;
+    private int currentFrame;
 
-	private float seconds;
+    private float seconds;
 
-	private float fps;
+    private float fps;
 
-	public float Fps => fps;
+    public float Fps => fps;
 
-	public FpsCounter(int framesToCalculate)
-	{
-		FramesToCalculate = framesToCalculate;
-	}
+    public FpsCounter(int framesToCalculate)
+    {
+        FramesToCalculate = framesToCalculate;
+    }
 
-	public void Update(float time)
-	{
-		currentFrame++;
-		IncreaseFrameTime(time);
-		if (currentFrame == FramesToCalculate)
-		{
-			CalculateFps();
-		}
-	}
+    public void Update(float time)
+    {
+        currentFrame++;
+        IncreaseFrameTime(time);
+        if (currentFrame == FramesToCalculate)
+        {
+            CalculateFps();
+        }
+    }
 
-	protected virtual void CalculateFps()
-	{
-		currentFrame = 0;
-		fps = (float)FramesToCalculate / seconds;
-		seconds = 0f;
-	}
+    protected virtual void CalculateFps()
+    {
+        currentFrame = 0;
+        fps = (float)FramesToCalculate / seconds;
+        seconds = 0f;
+    }
 
-	protected virtual void IncreaseFrameTime(float time)
-	{
-		seconds += time;
-	}
+    protected virtual void IncreaseFrameTime(float time)
+    {
+        seconds += time;
+    }
 }

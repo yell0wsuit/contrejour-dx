@@ -1,11 +1,15 @@
 using System;
 using System.Collections.Generic;
+
 using ContreJour.Clips.fakeHero;
 using ContreJour.Clips.loading;
 using ContreJour.Config;
 using ContreJour.Utils;
+
 using ContreJourMono.ContreJour.Menu.LevelComplete;
+
 using Microsoft.Xna.Framework;
+
 using Mokus2D;
 using Mokus2D.Effects.Tween.Easing;
 using Mokus2D.Events;
@@ -123,7 +127,7 @@ public class Splash : Node, ITouchListener, IDisposable
 
     private void SplashStarted()
     {
-        afterLogo.Each(delegate(Action action)
+        afterLogo.Each(delegate (Action action)
         {
             action();
         });

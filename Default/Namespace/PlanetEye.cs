@@ -1,7 +1,11 @@
 using System;
+
 using ContreJour.Clips.planets;
+
 using ContreJourMono.ContreJour.Game.Eyes;
+
 using Microsoft.Xna.Framework;
+
 using Mokus2D;
 using Mokus2D.Util.Extensions;
 using Mokus2D.Util.MathUtils;

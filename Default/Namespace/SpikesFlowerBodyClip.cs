@@ -1,10 +1,14 @@
 using System;
+
 using ContreJour.Clips.common;
 using ContreJour.Clips.common2;
 using ContreJour.Clips.partial;
+
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Dynamics.Contacts;
+
 using Microsoft.Xna.Framework;
+
 using Mokus2D.Sound;
 using Mokus2D.Util.Extensions;
 using Mokus2D.Util.MathUtils;

@@ -1,8 +1,12 @@
 using System.Collections.Generic;
+
 using ContreJour.Clips.common;
+
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Dynamics.Joints;
+
 using Microsoft.Xna.Framework;
+
 using Mokus2D.Events;
 using Mokus2D.Input;
 using Mokus2D.Sound;

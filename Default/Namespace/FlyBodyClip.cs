@@ -1,7 +1,11 @@
 using System;
+
 using ContreJour.Clips.chapter5;
+
 using ContreJourMono.ContreJour.Game.Eyes;
+
 using Microsoft.Xna.Framework;
+
 using Mokus2D.Input;
 using Mokus2D.Sound;
 using Mokus2D.Util.Extensions;

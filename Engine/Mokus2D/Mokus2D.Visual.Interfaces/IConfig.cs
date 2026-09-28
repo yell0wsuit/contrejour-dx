@@ -4,5 +4,5 @@ namespace Mokus2D.Visual.Interfaces;
 
 public interface IConfig
 {
-	IDictionary<string, string> Config { get; }
+    IDictionary<string, string> Config { get; }
 }

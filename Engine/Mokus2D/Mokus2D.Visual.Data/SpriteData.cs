@@ -1,5 +1,7 @@
 using System;
+
 using Microsoft.Xna.Framework;
+
 using Mokus2D.Util.Extensions;
 using Mokus2D.Visual.Interfaces;
 
@@ -7,21 +9,21 @@ namespace Mokus2D.Visual.Data;
 
 public class SpriteData : TextureNodeData, ISpriteData, ITextureNodeData, IConfig, ICloneable<SpriteData>
 {
-	public FrameData Frame;
+    public FrameData Frame;
 
-	public Vector2 Size => TextureRect.Size() * base.ScaleFactor;
+    public Vector2 Size => TextureRect.Size() * base.ScaleFactor;
 
-	public Vector2 Anchor => Frame.Anchor;
+    public Vector2 Anchor => Frame.Anchor;
 
-	public Rectangle TextureRect => Frame.Rect;
+    public Rectangle TextureRect => Frame.Rect;
 
-	public SpriteData(string id)
-		: base(id)
-	{
-	}
+    public SpriteData(string id)
+        : base(id)
+    {
+    }
 
-	public SpriteData Clone()
-	{
-		return (SpriteData)MemberwiseClone();
-	}
+    public SpriteData Clone()
+    {
+        return (SpriteData)MemberwiseClone();
+    }
 }

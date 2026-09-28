@@ -1,4 +1,5 @@
 using System.Runtime.InteropServices;
+
 using Microsoft.Xna.Framework;
 
 namespace Mokus2D.Visual;

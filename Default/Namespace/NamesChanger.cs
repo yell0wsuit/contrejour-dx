@@ -1,8 +1,11 @@
 using System;
 using System.Collections.Generic;
+
 using ContreJour.Clips.menu;
 using ContreJour.Utils;
+
 using Microsoft.Xna.Framework;
+
 using Mokus2D;
 using Mokus2D.Visual;
 using Mokus2D.Visual.Text;
@@ -111,10 +114,10 @@ public class NamesChanger : Node
         }
         return CreateLabelColor(color: index switch
         {
-            3 => ContreJourConstants.WHITE_LIGHT_COLOR * 1.8f, 
-            1 => ContreJourConstants.BLUE_LIGHT_COLOR * 1.8f, 
-            5 => ContreJourConstants.GreenLightColor, 
-            _ => Color.Black, 
+            3 => ContreJourConstants.WHITE_LIGHT_COLOR * 1.8f,
+            1 => ContreJourConstants.BLUE_LIGHT_COLOR * 1.8f,
+            5 => ContreJourConstants.GreenLightColor,
+            _ => Color.Black,
         }, text: "CHAPTER{0}".FormatThis(index + 1));
     }
 

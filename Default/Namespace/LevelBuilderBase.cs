@@ -1,11 +1,15 @@
 using System;
 using System.Collections.Generic;
+
 using ContreJour.Content;
 using ContreJour.Debug;
+
 using FarseerPhysics;
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Factories;
+
 using Microsoft.Xna.Framework;
+
 using Mokus2D.Input;
 using Mokus2D.Util;
 using Mokus2D.Util.MathUtils;

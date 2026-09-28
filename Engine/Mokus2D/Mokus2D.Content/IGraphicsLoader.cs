@@ -4,15 +4,15 @@ namespace Mokus2D.Content;
 
 public interface IGraphicsLoader
 {
-	string GraphicsRootDirectory { get; set; }
+    string GraphicsRootDirectory { get; set; }
 
-	bool IsAbsolutePath { get; set; }
+    bool IsAbsolutePath { get; set; }
 
-	bool FallbackToDefaultScaleFactor { get; set; }
+    bool FallbackToDefaultScaleFactor { get; set; }
 
-	float PrefferedScaleFactor { get; set; }
+    float PrefferedScaleFactor { get; set; }
 
-	event Action<string, object> ResourceLoaded;
+    event Action<string, object> ResourceLoaded;
 
-	T Load<T>(string name);
+    T Load<T>(string name);
 }

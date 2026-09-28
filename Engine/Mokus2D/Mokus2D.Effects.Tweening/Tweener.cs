@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+
 using Mokus2D.Collections;
 using Mokus2D.Data;
 using Mokus2D.Effects.Tweening.Repeating;
@@ -10,214 +11,214 @@ namespace Mokus2D.Effects.Tweening;
 
 public class Tweener : DisposableBase, IUpdatable, ICleanable
 {
-	private struct TweenAndTag(ITween tween, int? tag)
-	{
-		public readonly ITween Tween = tween;
+    private struct TweenAndTag(ITween tween, int? tag)
+    {
+        public readonly ITween Tween = tween;
 
-		public readonly int? Tag = tag;
-	}
+        public readonly int? Tag = tag;
+    }
 
-	public bool Test;
+    public bool Test;
 
-	private readonly object _defaultTarget;
+    private readonly object _defaultTarget;
 
-	private readonly ForEachList<TweenAndTag> _tweens = new ForEachList<TweenAndTag>();
+    private readonly ForEachList<TweenAndTag> _tweens = new ForEachList<TweenAndTag>();
 
-	public Tweener(object defaultTarget)
-	{
-		_defaultTarget = defaultTarget;
-	}
+    public Tweener(object defaultTarget)
+    {
+        _defaultTarget = defaultTarget;
+    }
 
-	public TweenObject RepeatForever(float seconds, int? tag = null, object target = null)
-	{
-		TweenObject tweenObject = Create(seconds, target);
-		RepeatForever tween = Mokus2D.Effects.Tweening.Repeating.RepeatForever.New(tweenObject);
-		Start(tween, tag);
-		return tweenObject;
-	}
+    public TweenObject RepeatForever(float seconds, int? tag = null, object target = null)
+    {
+        TweenObject tweenObject = Create(seconds, target);
+        RepeatForever tween = Mokus2D.Effects.Tweening.Repeating.RepeatForever.New(tweenObject);
+        Start(tween, tag);
+        return tweenObject;
+    }
 
-	public Sequence RepeatSequenceForever(float seconds, int? tag = null, object target = null)
-	{
-		Sequence sequence = CreateSequence(seconds, target);
-		RepeatForever tween = Mokus2D.Effects.Tweening.Repeating.RepeatForever.New(sequence);
-		Start(tween, tag);
-		return sequence;
-	}
+    public Sequence RepeatSequenceForever(float seconds, int? tag = null, object target = null)
+    {
+        Sequence sequence = CreateSequence(seconds, target);
+        RepeatForever tween = Mokus2D.Effects.Tweening.Repeating.RepeatForever.New(sequence);
+        Start(tween, tag);
+        return sequence;
+    }
 
-	public void Start(ITween tween, int? tag = null)
-	{
-		lock (_tweens)
-		{
-			_tweens.Add(new TweenAndTag(tween, tag));
-		}
-	}
+    public void Start(ITween tween, int? tag = null)
+    {
+        lock (_tweens)
+        {
+            _tweens.Add(new TweenAndTag(tween, tag));
+        }
+    }
 
-	public Sequence StartSequence()
-	{
-		Sequence sequence = CreateSequence();
-		Start(sequence);
-		return sequence;
-	}
+    public Sequence StartSequence()
+    {
+        Sequence sequence = CreateSequence();
+        Start(sequence);
+        return sequence;
+    }
 
-	private Sequence CreateSequence()
-	{
-		return Sequence.New(_defaultTarget);
-	}
+    private Sequence CreateSequence()
+    {
+        return Sequence.New(_defaultTarget);
+    }
 
-	public Sequence StartSequence(ITween tween, int? tag = null)
-	{
-		Sequence sequence = CreateSequence(tween);
-		lock (_tweens)
-		{
-			_tweens.Add(new TweenAndTag(sequence, tag));
-			return sequence;
-		}
-	}
+    public Sequence StartSequence(ITween tween, int? tag = null)
+    {
+        Sequence sequence = CreateSequence(tween);
+        lock (_tweens)
+        {
+            _tweens.Add(new TweenAndTag(sequence, tag));
+            return sequence;
+        }
+    }
 
-	public Sequence CreateSequence(ITween tween)
-	{
-		Sequence sequence = Sequence.New(_defaultTarget);
-		sequence.Next(tween);
-		return sequence;
-	}
+    public Sequence CreateSequence(ITween tween)
+    {
+        Sequence sequence = Sequence.New(_defaultTarget);
+        sequence.Next(tween);
+        return sequence;
+    }
 
-	public TweenObject Start(float seconds, object target)
-	{
-		return Start(seconds, null, target);
-	}
+    public TweenObject Start(float seconds, object target)
+    {
+        return Start(seconds, null, target);
+    }
 
-	public TweenObject Start(float seconds, int? tag = null, object target = null)
-	{
-		TweenObject tweenObject = Create(seconds, target);
-		lock (_tweens)
-		{
-			_tweens.Add(new TweenAndTag(tweenObject, tag));
-			return tweenObject;
-		}
-	}
+    public TweenObject Start(float seconds, int? tag = null, object target = null)
+    {
+        TweenObject tweenObject = Create(seconds, target);
+        lock (_tweens)
+        {
+            _tweens.Add(new TweenAndTag(tweenObject, tag));
+            return tweenObject;
+        }
+    }
 
-	public TweenObject Create(float seconds, object target = null)
-	{
-		return TweenObject.New(target ?? _defaultTarget, seconds);
-	}
+    public TweenObject Create(float seconds, object target = null)
+    {
+        return TweenObject.New(target ?? _defaultTarget, seconds);
+    }
 
-	public Sequence StartSequence(float seconds, object target = null)
-	{
-		return StartSequence(seconds, null, target);
-	}
+    public Sequence StartSequence(float seconds, object target = null)
+    {
+        return StartSequence(seconds, null, target);
+    }
 
-	public Sequence StartSequence(float seconds, int tag, object target = null)
-	{
-		return StartSequence(seconds, (int?)tag, target);
-	}
+    public Sequence StartSequence(float seconds, int tag, object target = null)
+    {
+        return StartSequence(seconds, (int?)tag, target);
+    }
 
-	private Sequence StartSequence(float seconds, int? tag, object target)
-	{
-		Sequence sequence = CreateSequence(seconds, target);
-		lock (_tweens)
-		{
-			_tweens.Add(new TweenAndTag(sequence, tag));
-			return sequence;
-		}
-	}
+    private Sequence StartSequence(float seconds, int? tag, object target)
+    {
+        Sequence sequence = CreateSequence(seconds, target);
+        lock (_tweens)
+        {
+            _tweens.Add(new TweenAndTag(sequence, tag));
+            return sequence;
+        }
+    }
 
-	public Sequence CreateSequence(float seconds, object target = null)
-	{
-		return Sequence.New(target ?? _defaultTarget).Next(seconds, target);
-	}
+    public Sequence CreateSequence(float seconds, object target = null)
+    {
+        return Sequence.New(target ?? _defaultTarget).Next(seconds, target);
+    }
 
-	public void Update(float time)
-	{
-		lock (_tweens)
-		{
-			using (_tweens.Using())
-			{
-				foreach (TweenAndTag tween in _tweens)
-				{
-					tween.Tween.Update(time);
-					if (tween.Tween.Finished)
-					{
-						tween.Tween.Free();
-						_tweens.Remove(tween);
-					}
-				}
-			}
-		}
-	}
+    public void Update(float time)
+    {
+        lock (_tweens)
+        {
+            using (_tweens.Using())
+            {
+                foreach (TweenAndTag tween in _tweens)
+                {
+                    tween.Tween.Update(time);
+                    if (tween.Tween.Finished)
+                    {
+                        tween.Tween.Free();
+                        _tweens.Remove(tween);
+                    }
+                }
+            }
+        }
+    }
 
-	public void Stop()
-	{
-		Clean();
-	}
+    public void Stop()
+    {
+        Clean();
+    }
 
-	public void Clean()
-	{
-		lock (_tweens)
-		{
-			if (_tweens.Empty())
-			{
-				return;
-			}
-			foreach (TweenAndTag tween in _tweens)
-			{
-				tween.Tween.Free();
-			}
-			_tweens.Clear();
-		}
-	}
+    public void Clean()
+    {
+        lock (_tweens)
+        {
+            if (_tweens.Empty())
+            {
+                return;
+            }
+            foreach (TweenAndTag tween in _tweens)
+            {
+                tween.Tween.Free();
+            }
+            _tweens.Clear();
+        }
+    }
 
-	protected override void Dispose(bool disposing)
-	{
-		base.Dispose(disposing);
-		Stop();
-	}
+    protected override void Dispose(bool disposing)
+    {
+        base.Dispose(disposing);
+        Stop();
+    }
 
-	public void Stop(int? tag)
-	{
-		if (!tag.HasValue)
-		{
-			Stop();
-		}
-		else
-		{
-			Stop(tag.Value);
-		}
-	}
+    public void Stop(int? tag)
+    {
+        if (!tag.HasValue)
+        {
+            Stop();
+        }
+        else
+        {
+            Stop(tag.Value);
+        }
+    }
 
-	public void Stop(int tag)
-	{
-		for (int num = _tweens.Count - 1; num >= 0; num--)
-		{
-			if (_tweens[num].Tag == tag)
-			{
-				_tweens.RemoveAt(num);
-			}
-		}
-	}
+    public void Stop(int tag)
+    {
+        for (int num = _tweens.Count - 1; num >= 0; num--)
+        {
+            if (_tweens[num].Tag == tag)
+            {
+                _tweens.RemoveAt(num);
+            }
+        }
+    }
 
-	public void StopTweenObjects()
-	{
-		Stop(TweenerPredicates.TweenObjectPredicate);
-	}
+    public void StopTweenObjects()
+    {
+        Stop(TweenerPredicates.TweenObjectPredicate);
+    }
 
-	public void StopSequences()
-	{
-		Stop(TweenerPredicates.SequencePredicate);
-	}
+    public void StopSequences()
+    {
+        Stop(TweenerPredicates.SequencePredicate);
+    }
 
-	public void StopObjectSequences(object o)
-	{
-		Stop((ITween t) => t is Sequence && ((Sequence)t).Target == o);
-	}
+    public void StopObjectSequences(object o)
+    {
+        Stop((ITween t) => t is Sequence && ((Sequence)t).Target == o);
+    }
 
-	public void Stop(Predicate<ITween> predicate)
-	{
-		for (int num = _tweens.Count - 1; num >= 0; num--)
-		{
-			if (predicate(_tweens[num].Tween))
-			{
-				_tweens.RemoveAt(num);
-			}
-		}
-	}
+    public void Stop(Predicate<ITween> predicate)
+    {
+        for (int num = _tweens.Count - 1; num >= 0; num--)
+        {
+            if (predicate(_tweens[num].Tween))
+            {
+                _tweens.RemoveAt(num);
+            }
+        }
+    }
 }

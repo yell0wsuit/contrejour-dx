@@ -1,8 +1,12 @@
 using System.Collections.Generic;
+
 using ContreJour.Clips.common2;
 using ContreJour.Content;
+
 using ContreJourMono.ContreJour.Game.Eyes;
+
 using Microsoft.Xna.Framework;
+
 using Mokus2D.Sound;
 using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual;

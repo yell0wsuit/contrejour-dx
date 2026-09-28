@@ -1,4 +1,5 @@
 using System;
+
 using Microsoft.Xna.Framework;
 
 namespace Mokus2D.Visual.Data;
@@ -6,19 +7,19 @@ namespace Mokus2D.Visual.Data;
 [Serializable]
 public class AnimationFrameData
 {
-	public string Id;
+    public string Id;
 
-	public Vector2 Position;
+    public Vector2 Position;
 
-	public float Rotation;
+    public float Rotation;
 
-	public Vector2 Scale;
+    public Vector2 Scale;
 
-	public float Alpha;
+    public float Alpha;
 
-	public Color Color;
+    public Color Color;
 
-	public float ColorRatio;
+    public float ColorRatio;
 
-	public bool Visible;
+    public bool Visible;
 }

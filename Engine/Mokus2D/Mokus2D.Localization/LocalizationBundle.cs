@@ -8,57 +8,57 @@ namespace Mokus2D.Localization;
 
 public class LocalizationBundle
 {
-	private const string ResourcesFolder = "Resources";
+    private const string ResourcesFolder = "Resources";
 
-	private const string ResourcesFileFormat = "{0}/{1}.xml";
+    private const string ResourcesFileFormat = "{0}/{1}.xml";
 
-	private readonly string _name;
+    private readonly string _name;
 
-	private readonly string _locale;
+    private readonly string _locale;
 
-	private readonly Dictionary<string, string> _messages = new Dictionary<string, string>();
+    private readonly Dictionary<string, string> _messages = new Dictionary<string, string>();
 
-	public string CurrentLocale => CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
+    public string CurrentLocale => CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
 
-	public LocalizationBundle(string name, string locale = null)
-	{
-		_name = name;
-		_locale = locale;
-		Load();
-	}
+    public LocalizationBundle(string name, string locale = null)
+    {
+        _name = name;
+        _locale = locale;
+        Load();
+    }
 
-	public string GetLocalizedMessage(string value)
-	{
-		return _messages.TryGetValue(value);
-	}
+    public string GetLocalizedMessage(string value)
+    {
+        return _messages.TryGetValue(value);
+    }
 
-	private void Load()
-	{
-		string locale = _locale ?? CurrentLocale;
-		Stream stream;
-		try
-		{
-			stream = GetStream(locale);
-		}
-		catch (Exception)
-		{
-			stream = GetStream(string.Empty);
-		}
-		XDocument xDocument = XDocument.Load(stream);
-		foreach (XElement item in xDocument.Root.Elements())
-		{
-			_messages[item.Attribute("name").Value] = item.Value;
-		}
-	}
+    private void Load()
+    {
+        string locale = _locale ?? CurrentLocale;
+        Stream stream;
+        try
+        {
+            stream = GetStream(locale);
+        }
+        catch (Exception)
+        {
+            stream = GetStream(string.Empty);
+        }
+        XDocument xDocument = XDocument.Load(stream);
+        foreach (XElement item in xDocument.Root.Elements())
+        {
+            _messages[item.Attribute("name").Value] = item.Value;
+        }
+    }
 
-	private Stream GetStream(string locale)
-	{
-		string text = _name;
-		if (locale.IsNotEmpty())
-		{
-			text = text + "." + locale;
-		}
-		string path = "{0}/{1}.xml".FormatThis("Resources", text, locale);
-		return Mokus2DGame.FileLoader.OpenFile(path);
-	}
+    private Stream GetStream(string locale)
+    {
+        string text = _name;
+        if (locale.IsNotEmpty())
+        {
+            text = text + "." + locale;
+        }
+        string path = "{0}/{1}.xml".FormatThis("Resources", text, locale);
+        return Mokus2DGame.FileLoader.OpenFile(path);
+    }
 }

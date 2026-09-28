@@ -5,15 +5,15 @@ namespace Mokus2D.Util.Data;
 
 public struct ReverseListEnumerable<T>(IList<T> list) : IEnumerable<T>, IEnumerable
 {
-	private readonly IList<T> _list = list;
+    private readonly IList<T> _list = list;
 
-	public IEnumerator<T> GetEnumerator()
-	{
-		return new ReverseListEnumerator<T>(_list);
-	}
+    public IEnumerator<T> GetEnumerator()
+    {
+        return new ReverseListEnumerator<T>(_list);
+    }
 
-	IEnumerator IEnumerable.GetEnumerator()
-	{
-		return GetEnumerator();
-	}
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return GetEnumerator();
+    }
 }

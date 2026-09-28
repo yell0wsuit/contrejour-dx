@@ -4,16 +4,16 @@ namespace Mokus2D.Visual.Displacement.Magnets.Actions;
 
 public abstract class MagnetAction : IUpdatable
 {
-	protected GridMagnetBase GridMagnet;
+    protected GridMagnetBase GridMagnet;
 
-	public abstract bool Finished { get; }
+    public abstract bool Finished { get; }
 
-	protected MagnetAction(GridMagnetBase gridMagnet)
-	{
-		GridMagnet = gridMagnet;
-	}
+    protected MagnetAction(GridMagnetBase gridMagnet)
+    {
+        GridMagnet = gridMagnet;
+    }
 
-	public virtual void Update(float time)
-	{
-	}
+    public virtual void Update(float time)
+    {
+    }
 }

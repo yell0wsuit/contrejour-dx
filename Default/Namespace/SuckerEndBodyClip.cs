@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+
 using Mokus2D.Input;
 
 namespace Default.Namespace;

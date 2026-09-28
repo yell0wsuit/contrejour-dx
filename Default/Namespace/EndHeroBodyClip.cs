@@ -1,10 +1,15 @@
 using System;
 using System.Collections.Generic;
+
 using ContreJour.Config;
+
 using ContreJourMono.ContreJour.Game.Eyes;
+
 using FarseerPhysics.Dynamics;
+
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+
 using Mokus2D.Effects.Tween.Easing;
 using Mokus2D.Sound;
 using Mokus2D.Util.Extensions;

@@ -1,8 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+
 using Default.Namespace;
+
 using Microsoft.Xna.Framework;
+
 using Mokus2D.Fonts;
 using Mokus2D.Visual.Text;
 

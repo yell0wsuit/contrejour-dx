@@ -1,29 +1,30 @@
 using System.Collections.Generic;
+
 using Microsoft.Xna.Framework;
 
 namespace Mokus2D.Visual;
 
 public class Scale9FilledBorder : Scale9Border
 {
-	private readonly Sprite _fill;
+    private readonly Sprite _fill;
 
-	public Scale9FilledBorder(string whiteSquareId, Color borderColor, Color backgroundColor, Vector2 size)
-		: base(size, whiteSquareId, whiteSquareId)
-	{
-		_fill = new Sprite(whiteSquareId);
-		_fill.Color = backgroundColor;
-		_fill.ColorRatio = 1f;
-		AddChildAt(_fill, 0);
-		SetColor(CornerSprites, borderColor);
-		SetColor(SideSprites, borderColor);
-	}
+    public Scale9FilledBorder(string whiteSquareId, Color borderColor, Color backgroundColor, Vector2 size)
+        : base(size, whiteSquareId, whiteSquareId)
+    {
+        _fill = new Sprite(whiteSquareId);
+        _fill.Color = backgroundColor;
+        _fill.ColorRatio = 1f;
+        AddChildAt(_fill, 0);
+        SetColor(CornerSprites, borderColor);
+        SetColor(SideSprites, borderColor);
+    }
 
-	private void SetColor(List<ISizeNode> nodes, Color borderColor)
-	{
-		foreach (Node node in nodes)
-		{
-			node.Color = borderColor;
-			node.ColorRatio = 1f;
-		}
-	}
+    private void SetColor(List<ISizeNode> nodes, Color borderColor)
+    {
+        foreach (Node node in nodes)
+        {
+            node.Color = borderColor;
+            node.ColorRatio = 1f;
+        }
+    }
 }

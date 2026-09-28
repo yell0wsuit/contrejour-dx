@@ -4,5 +4,5 @@ namespace Mokus2D.Visual.Interactive;
 
 public interface IClickableNode : IBoundsNode, ISizeNode, ITouchNode
 {
-	int ClickablePriority { get; }
+    int ClickablePriority { get; }
 }

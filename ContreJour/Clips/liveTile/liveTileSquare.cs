@@ -1,6 +1,9 @@
 using System.CodeDom.Compiler;
+
 using ContreJour.WinRT;
+
 using Microsoft.Xna.Framework;
+
 using Mokus2D.Data;
 using Mokus2D.Interfaces;
 using Mokus2D.Visual.Text;

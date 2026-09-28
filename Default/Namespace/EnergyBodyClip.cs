@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Dynamics.Contacts;
+
 using Mokus2D.Events;
 using Mokus2D.Sound;
 using Mokus2D.Visual;

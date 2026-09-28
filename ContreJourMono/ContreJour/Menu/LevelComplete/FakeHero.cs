@@ -1,7 +1,10 @@
 using System;
 using System.IO;
+
 using ContreJourMono.ContreJour.Game.Hero;
+
 using Microsoft.Xna.Framework;
+
 using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual;
 

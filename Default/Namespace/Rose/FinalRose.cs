@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+
 using ContreJour.Clips.level1;
+
 using Mokus2D.Util;
 using Mokus2D.Visual;
 

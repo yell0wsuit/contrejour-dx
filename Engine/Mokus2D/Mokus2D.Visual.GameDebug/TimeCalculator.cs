@@ -4,23 +4,23 @@ namespace Mokus2D.Visual.GameDebug;
 
 public struct TimeCalculator : IDisposable
 {
-	private DateTime _start;
+    private DateTime _start;
 
-	public float ElapsedSeconds => (float)(DateTime.UtcNow - _start).TotalSeconds;
+    public float ElapsedSeconds => (float)(DateTime.UtcNow - _start).TotalSeconds;
 
-	public static TimeCalculator Create()
-	{
-		TimeCalculator result = default(TimeCalculator);
-		result.Start();
-		return result;
-	}
+    public static TimeCalculator Create()
+    {
+        TimeCalculator result = default(TimeCalculator);
+        result.Start();
+        return result;
+    }
 
-	public void Start()
-	{
-		_start = DateTime.UtcNow;
-	}
+    public void Start()
+    {
+        _start = DateTime.UtcNow;
+    }
 
-	public void Dispose()
-	{
-	}
+    public void Dispose()
+    {
+    }
 }

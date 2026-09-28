@@ -1,8 +1,11 @@
 using System;
+
 using ContreJour.Clips.chapter5;
 using ContreJour.Clips.menu2;
+
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+
 using Mokus2D.Util;
 using Mokus2D.Util.Extensions;
 using Mokus2D.Util.MathUtils;

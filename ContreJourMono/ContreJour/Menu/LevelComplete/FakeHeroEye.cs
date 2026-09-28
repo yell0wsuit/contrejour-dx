@@ -1,6 +1,9 @@
 using ContreJour.Content;
+
 using ContreJourMono.ContreJour.Game.Eyes;
+
 using Microsoft.Xna.Framework;
+
 using Mokus2D.Visual;
 
 namespace ContreJourMono.ContreJour.Menu.LevelComplete;

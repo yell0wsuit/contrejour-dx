@@ -4,5 +4,5 @@ namespace Mokus2D.Visual;
 
 public interface ISizeNode
 {
-	Vector2 Size { get; }
+    Vector2 Size { get; }
 }

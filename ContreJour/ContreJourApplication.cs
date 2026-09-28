@@ -1,16 +1,20 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+
 using ContreJour.Clips.level1;
 using ContreJour.Clips.menu;
 using ContreJour.Clips.menu2;
 using ContreJour.Clips.segoeFont;
 using ContreJour.Config;
 using ContreJour.WinRT;
+
 using Default.Namespace;
+
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input.Touch;
+
 using Mokus2D;
 using Mokus2D.Config.Tint;
 using Mokus2D.Fonts;

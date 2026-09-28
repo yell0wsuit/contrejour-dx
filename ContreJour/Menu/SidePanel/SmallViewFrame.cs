@@ -1,6 +1,9 @@
 using ContreJour.Config;
+
 using Default.Namespace;
+
 using Microsoft.Xna.Framework;
+
 using Mokus2D.Visual;
 
 namespace ContreJour.Menu.SidePanel;

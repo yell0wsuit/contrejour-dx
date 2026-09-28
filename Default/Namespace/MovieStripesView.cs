@@ -1,6 +1,8 @@
 using ContreJour.Clips.menu;
 using ContreJour.Config;
+
 using Microsoft.Xna.Framework;
+
 using Mokus2D.Effects.Tween.Easing;
 using Mokus2D.Events;
 using Mokus2D.Util.Extensions;

@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+
 using Mokus2D.Util.Extensions;
 using Mokus2D.Visual;
 
@@ -6,18 +7,18 @@ namespace Mokus2D.UI.Layout;
 
 public class HorizontalLayout : LineLayout
 {
-	public HorizontalLayout(Node container)
-		: base(container)
-	{
-	}
+    public HorizontalLayout(Node container)
+        : base(container)
+    {
+    }
 
-	protected override float GetNodeSize(ISizeNode sizeNode)
-	{
-		return sizeNode.ScaledSize().X;
-	}
+    protected override float GetNodeSize(ISizeNode sizeNode)
+    {
+        return sizeNode.ScaledSize().X;
+    }
 
-	protected override void ChangePosition(ref Vector2 currentPosition, float change)
-	{
-		currentPosition.X += change;
-	}
+    protected override void ChangePosition(ref Vector2 currentPosition, float change)
+    {
+        currentPosition.X += change;
+    }
 }

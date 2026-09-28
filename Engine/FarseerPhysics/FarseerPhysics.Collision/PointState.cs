@@ -2,8 +2,8 @@ namespace FarseerPhysics.Collision;
 
 public enum PointState
 {
-	Null,
-	Add,
-	Persist,
-	Remove
+    Null,
+    Add,
+    Persist,
+    Remove
 }

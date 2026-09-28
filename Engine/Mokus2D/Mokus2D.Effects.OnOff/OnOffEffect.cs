@@ -4,46 +4,46 @@ namespace Mokus2D.Effects.OnOff;
 
 public abstract class OnOffEffect : IOnOff
 {
-	public bool Test;
+    public bool Test;
 
-	public Node Target;
+    public Node Target;
 
-	private bool _on;
+    private bool _on;
 
-	public bool On
-	{
-		get
-		{
-			return _on;
-		}
-		set
-		{
-			if (_on != value)
-			{
-				_on = value;
-				if (_on)
-				{
-					SetOn();
-				}
-				else
-				{
-					SetOff();
-				}
-			}
-		}
-	}
+    public bool On
+    {
+        get
+        {
+            return _on;
+        }
+        set
+        {
+            if (_on != value)
+            {
+                _on = value;
+                if (_on)
+                {
+                    SetOn();
+                }
+                else
+                {
+                    SetOff();
+                }
+            }
+        }
+    }
 
-	protected OnOffEffect(Node target)
-	{
-		Target = target;
-	}
+    protected OnOffEffect(Node target)
+    {
+        Target = target;
+    }
 
-	protected abstract void SetOn();
+    protected abstract void SetOn();
 
-	protected abstract void SetOff();
+    protected abstract void SetOff();
 
-	public virtual void SetOn(bool value)
-	{
-		_on = value;
-	}
+    public virtual void SetOn(bool value)
+    {
+        _on = value;
+    }
 }

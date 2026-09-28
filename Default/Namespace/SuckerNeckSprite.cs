@@ -1,6 +1,9 @@
 using System.Collections.Generic;
+
 using ContreJour.Primitives;
+
 using Microsoft.Xna.Framework;
+
 using Mokus2D;
 using Mokus2D.Util.Data;
 

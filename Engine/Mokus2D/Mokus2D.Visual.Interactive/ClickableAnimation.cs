@@ -4,13 +4,13 @@ namespace Mokus2D.Visual.Interactive;
 
 public class ClickableAnimation : AnimationNode
 {
-	public ClickableAnimation(string name)
-		: base(name)
-	{
-	}
+    public ClickableAnimation(string name)
+        : base(name)
+    {
+    }
 
-	public ClickableAnimation(AnimationData animationData)
-		: base(animationData)
-	{
-	}
+    public ClickableAnimation(AnimationData animationData)
+        : base(animationData)
+    {
+    }
 }

@@ -5,8 +5,8 @@ namespace Mokus2D.UI.Controls.Toggle;
 
 public class AnimationToggleButton : ToggleButton
 {
-	public AnimationToggleButton(IAnimatedNode content, Sprite background)
-		: base(background, new AnimationOnOff(content))
-	{
-	}
+    public AnimationToggleButton(IAnimatedNode content, Sprite background)
+        : base(background, new AnimationOnOff(content))
+    {
+    }
 }

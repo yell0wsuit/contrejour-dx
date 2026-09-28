@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+
 using Microsoft.Xna.Framework;
+
 using Mokus2D.Data;
 using Mokus2D.Interfaces;
 using Mokus2D.PlatformSupport.Input;
@@ -12,222 +14,222 @@ namespace Mokus2D.Input;
 
 public class TouchController : IUpdatable
 {
-	public const int MaxTouches = 16;
+    public const int MaxTouches = 16;
 
-	private static readonly Pool<Touch> poolTouches = new Pool<Touch>(() => new Touch());
+    private static readonly Pool<Touch> poolTouches = new Pool<Touch>(() => new Touch());
 
-	private static readonly Pool<List<ITouchListener>> poolListeners = new Pool<List<ITouchListener>>(() => new List<ITouchListener>());
+    private static readonly Pool<List<ITouchListener>> poolListeners = new Pool<List<ITouchListener>>(() => new List<ITouchListener>());
 
-	public Matrix TransformMatrix = Matrix.Identity;
+    public Matrix TransformMatrix = Matrix.Identity;
 
-	private readonly List<ITouchListener> listenersCopy = new List<ITouchListener>(64);
+    private readonly List<ITouchListener> listenersCopy = new List<ITouchListener>(64);
 
-	private readonly List<Touch> newTouches = new List<Touch>(16);
+    private readonly List<Touch> newTouches = new List<Touch>(16);
 
-	private readonly SortedList<int> prioritiesList = new SortedList<int>(64, Comparisons.IntReverseComparizon);
+    private readonly SortedList<int> prioritiesList = new SortedList<int>(64, Comparisons.IntReverseComparizon);
 
-	private readonly List<Touch> toBegin = new List<Touch>(16);
+    private readonly List<Touch> toBegin = new List<Touch>(16);
 
-	private readonly List<Touch> toEnd = new List<Touch>(16);
+    private readonly List<Touch> toEnd = new List<Touch>(16);
 
-	private readonly List<Touch> toMove = new List<Touch>(16);
+    private readonly List<Touch> toMove = new List<Touch>(16);
 
-	private readonly Dictionary<int, List<ITouchListener>> listeners = new Dictionary<int, List<ITouchListener>>();
+    private readonly Dictionary<int, List<ITouchListener>> listeners = new Dictionary<int, List<ITouchListener>>();
 
-	private readonly Dictionary<ITouchListener, int> priorities = new Dictionary<ITouchListener, int>(64);
+    private readonly Dictionary<ITouchListener, int> priorities = new Dictionary<ITouchListener, int>(64);
 
-	private readonly Dictionary<Touch, List<ITouchListener>> touches = new Dictionary<Touch, List<ITouchListener>>(16);
+    private readonly Dictionary<Touch, List<ITouchListener>> touches = new Dictionary<Touch, List<ITouchListener>>(16);
 
-	public void Update(float time)
-	{
-		newTouches.Clear();
-		toBegin.Clear();
-		toMove.Clear();
-		List<CursorPoint> cursorPoints = CursorPoints.GetCursorPoints();
-		TransformTouchesCoords(cursorPoints);
-		foreach (CursorPoint item in cursorPoints)
-		{
-			Touch touch = null;
-			foreach (KeyValuePair<Touch, List<ITouchListener>> touch2 in touches)
-			{
-				if (touch2.Key.Id == item.Id)
-				{
-					touch = touch2.Key;
-					break;
-				}
-			}
-			if (touch == null)
-			{
-				touch = poolTouches.New();
-				touch.Initialize(item);
-				toBegin.Add(touch);
-				touch.Active = true;
-			}
-			else
-			{
-				if (touch.Position != item.Position)
-				{
-					toMove.Add(touch);
-				}
-				touch.Position = item.Position;
-			}
-			newTouches.Add(touch);
-			touch.Refresh();
-		}
-		toEnd.Clear();
-		foreach (Touch key in touches.Keys)
-		{
-			if (!newTouches.Contains(key))
-			{
-				toEnd.Add(key);
-				key.Refresh();
-				key.Active = false;
-			}
-		}
-		SendBegin(toBegin);
-		SendMove(toMove);
-		SendEndAndRemove(toEnd);
-		listenersCopy.Clear();
-	}
+    public void Update(float time)
+    {
+        newTouches.Clear();
+        toBegin.Clear();
+        toMove.Clear();
+        List<CursorPoint> cursorPoints = CursorPoints.GetCursorPoints();
+        TransformTouchesCoords(cursorPoints);
+        foreach (CursorPoint item in cursorPoints)
+        {
+            Touch touch = null;
+            foreach (KeyValuePair<Touch, List<ITouchListener>> touch2 in touches)
+            {
+                if (touch2.Key.Id == item.Id)
+                {
+                    touch = touch2.Key;
+                    break;
+                }
+            }
+            if (touch == null)
+            {
+                touch = poolTouches.New();
+                touch.Initialize(item);
+                toBegin.Add(touch);
+                touch.Active = true;
+            }
+            else
+            {
+                if (touch.Position != item.Position)
+                {
+                    toMove.Add(touch);
+                }
+                touch.Position = item.Position;
+            }
+            newTouches.Add(touch);
+            touch.Refresh();
+        }
+        toEnd.Clear();
+        foreach (Touch key in touches.Keys)
+        {
+            if (!newTouches.Contains(key))
+            {
+                toEnd.Add(key);
+                key.Refresh();
+                key.Active = false;
+            }
+        }
+        SendBegin(toBegin);
+        SendMove(toMove);
+        SendEndAndRemove(toEnd);
+        listenersCopy.Clear();
+    }
 
-	private void TransformTouchesCoords(List<CursorPoint> currentTouches)
-	{
-		if (TransformMatrix != Matrix.Identity)
-		{
-			for (int i = 0; i < currentTouches.Count; i++)
-			{
-				CursorPoint cursorPoint = currentTouches[i];
-				currentTouches[i] = new CursorPoint(cursorPoint.Position.Transform(ref TransformMatrix), cursorPoint.Id, cursorPoint.Type);
-			}
-		}
-	}
+    private void TransformTouchesCoords(List<CursorPoint> currentTouches)
+    {
+        if (TransformMatrix != Matrix.Identity)
+        {
+            for (int i = 0; i < currentTouches.Count; i++)
+            {
+                CursorPoint cursorPoint = currentTouches[i];
+                currentTouches[i] = new CursorPoint(cursorPoint.Position.Transform(ref TransformMatrix), cursorPoint.Id, cursorPoint.Type);
+            }
+        }
+    }
 
-	public void AddListener(ITouchListener listener, int priority = 0)
-	{
-		GetListeners(priority).Add(listener);
-		priorities[listener] = priority;
-	}
+    public void AddListener(ITouchListener listener, int priority = 0)
+    {
+        GetListeners(priority).Add(listener);
+        priorities[listener] = priority;
+    }
 
-	public void RemoveListener(ITouchListener listener)
-	{
-		int priority = priorities[listener];
-		priorities.Remove(listener);
-		foreach (KeyValuePair<Touch, List<ITouchListener>> touch in touches)
-		{
-			if (touch.Value.Contains(listener))
-			{
-				touch.Value.Remove(listener);
-			}
-		}
-		GetListeners(priority).Remove(listener);
-	}
+    public void RemoveListener(ITouchListener listener)
+    {
+        int priority = priorities[listener];
+        priorities.Remove(listener);
+        foreach (KeyValuePair<Touch, List<ITouchListener>> touch in touches)
+        {
+            if (touch.Value.Contains(listener))
+            {
+                touch.Value.Remove(listener);
+            }
+        }
+        GetListeners(priority).Remove(listener);
+    }
 
-	private List<ITouchListener> GetListeners(int priority)
-	{
-		if (!listeners.ContainsKey(priority))
-		{
-			listeners[priority] = new List<ITouchListener>();
-			prioritiesList.Add(priority);
-		}
-		return listeners[priority];
-	}
+    private List<ITouchListener> GetListeners(int priority)
+    {
+        if (!listeners.ContainsKey(priority))
+        {
+            listeners[priority] = new List<ITouchListener>();
+            prioritiesList.Add(priority);
+        }
+        return listeners[priority];
+    }
 
-	private void SendEndAndRemove(List<Touch> toEnd)
-	{
-		foreach (Touch item in toEnd)
-		{
-			List<ITouchListener> list = touches[item];
-			touches.Remove(item);
-			poolTouches.Free(item);
-			if (!item.Stoped)
-			{
-				SendEnd(item, list);
-			}
-			list.Clear();
-			poolListeners.Free(list);
-		}
-	}
+    private void SendEndAndRemove(List<Touch> toEnd)
+    {
+        foreach (Touch item in toEnd)
+        {
+            List<ITouchListener> list = touches[item];
+            touches.Remove(item);
+            poolTouches.Free(item);
+            if (!item.Stoped)
+            {
+                SendEnd(item, list);
+            }
+            list.Clear();
+            poolListeners.Free(list);
+        }
+    }
 
-	private void SendEnd(Touch touch, List<ITouchListener> listeners)
-	{
-		foreach (ITouchListener listener in listeners)
-		{
-			listener.TouchEnd(touch);
-			if (touch.Stoped)
-			{
-				break;
-			}
-		}
-	}
+    private void SendEnd(Touch touch, List<ITouchListener> listeners)
+    {
+        foreach (ITouchListener listener in listeners)
+        {
+            listener.TouchEnd(touch);
+            if (touch.Stoped)
+            {
+                break;
+            }
+        }
+    }
 
-	private void SendMove(List<Touch> toMove)
-	{
-		foreach (Touch item in toMove)
-		{
-			if (!item.Stoped)
-			{
-				List<ITouchListener> list = touches[item];
-				listenersCopy.Clear();
-				SendMove(item, list);
-				list.Clear();
-				list.AddItemsNoGarbage(listenersCopy);
-			}
-		}
-	}
+    private void SendMove(List<Touch> toMove)
+    {
+        foreach (Touch item in toMove)
+        {
+            if (!item.Stoped)
+            {
+                List<ITouchListener> list = touches[item];
+                listenersCopy.Clear();
+                SendMove(item, list);
+                list.Clear();
+                list.AddItemsNoGarbage(listenersCopy);
+            }
+        }
+    }
 
-	private void SendMove(Touch touch, List<ITouchListener> listeners)
-	{
-		foreach (ITouchListener listener in listeners)
-		{
-			using (new GarbageTracer(listener.GetType().Name))
-			{
-				if (listener.TouchMove(touch))
-				{
-					listenersCopy.Add(listener);
-				}
-				if (touch.Stoped)
-				{
-					break;
-				}
-			}
-		}
-	}
+    private void SendMove(Touch touch, List<ITouchListener> listeners)
+    {
+        foreach (ITouchListener listener in listeners)
+        {
+            using (new GarbageTracer(listener.GetType().Name))
+            {
+                if (listener.TouchMove(touch))
+                {
+                    listenersCopy.Add(listener);
+                }
+                if (touch.Stoped)
+                {
+                    break;
+                }
+            }
+        }
+    }
 
-	private void SendBegin(List<Touch> toBegin)
-	{
-		if (toBegin.Count == 0)
-		{
-			return;
-		}
-		foreach (Touch item in toBegin)
-		{
-			if (!item.Stoped)
-			{
-				List<ITouchListener> list = poolListeners.New();
-				list.Clear();
-				touches[item] = list;
-				SendBegin(item, list);
-			}
-		}
-	}
+    private void SendBegin(List<Touch> toBegin)
+    {
+        if (toBegin.Count == 0)
+        {
+            return;
+        }
+        foreach (Touch item in toBegin)
+        {
+            if (!item.Stoped)
+            {
+                List<ITouchListener> list = poolListeners.New();
+                list.Clear();
+                touches[item] = list;
+                SendBegin(item, list);
+            }
+        }
+    }
 
-	private void SendBegin(Touch touch, List<ITouchListener> confirmedListeners)
-	{
-		foreach (int priorities in prioritiesList)
-		{
-			listenersCopy.Clear();
-			listenersCopy.AddItemsNoGarbage(listeners[priorities]);
-			foreach (ITouchListener item in listenersCopy)
-			{
-				if (item.TouchBegin(touch))
-				{
-					confirmedListeners.Add(item);
-				}
-				if (touch.Stoped)
-				{
-					return;
-				}
-			}
-		}
-	}
+    private void SendBegin(Touch touch, List<ITouchListener> confirmedListeners)
+    {
+        foreach (int priorities in prioritiesList)
+        {
+            listenersCopy.Clear();
+            listenersCopy.AddItemsNoGarbage(listeners[priorities]);
+            foreach (ITouchListener item in listenersCopy)
+            {
+                if (item.TouchBegin(touch))
+                {
+                    confirmedListeners.Add(item);
+                }
+                if (touch.Stoped)
+                {
+                    return;
+                }
+            }
+        }
+    }
 }

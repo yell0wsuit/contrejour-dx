@@ -6,23 +6,23 @@ namespace Mokus2D.Config.Tint;
 
 public class TintGraphicsConfig : IGraphicsConfig
 {
-	private readonly bool _tintEnabled;
+    private readonly bool _tintEnabled;
 
-	public bool UseColorRatio => _tintEnabled;
+    public bool UseColorRatio => _tintEnabled;
 
-	public ISpriteBatchEffect DefaultEffect { get; private set; }
+    public ISpriteBatchEffect DefaultEffect { get; private set; }
 
-	public TintGraphicsConfig(bool tintEnabled = true)
-	{
-		_tintEnabled = tintEnabled;
-		DefaultEffect = new TintSpriteEffect
-		{
-			TintEnabled = tintEnabled
-		};
-	}
+    public TintGraphicsConfig(bool tintEnabled = true)
+    {
+        _tintEnabled = tintEnabled;
+        DefaultEffect = new TintSpriteEffect
+        {
+            TintEnabled = tintEnabled
+        };
+    }
 
-	public IQuad CreateDefaultQuad()
-	{
-		return new TintQuad<TintSpriteVertex>();
-	}
+    public IQuad CreateDefaultQuad()
+    {
+        return new TintQuad<TintSpriteVertex>();
+    }
 }

@@ -4,5 +4,5 @@ namespace Mokus2D.Visual;
 
 public interface ITextureNode : ISizeNode
 {
-	Texture2D Texture { get; }
+    Texture2D Texture { get; }
 }

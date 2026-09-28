@@ -2,5 +2,5 @@ namespace Mokus2D.Interfaces;
 
 public interface IId
 {
-	string Id { get; }
+    string Id { get; }
 }

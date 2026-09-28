@@ -1,5 +1,7 @@
 using FarseerPhysics.Dynamics;
+
 using Microsoft.Xna.Framework;
+
 using Mokus2D.Visual;
 
 namespace Default.Namespace;

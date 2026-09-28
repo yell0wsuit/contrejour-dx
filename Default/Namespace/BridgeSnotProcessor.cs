@@ -1,8 +1,11 @@
 using System.Collections.Generic;
+
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Dynamics.Joints;
 using FarseerPhysics.Factories;
+
 using Microsoft.Xna.Framework;
+
 using Mokus2D.Util.Data;
 
 namespace Default.Namespace;

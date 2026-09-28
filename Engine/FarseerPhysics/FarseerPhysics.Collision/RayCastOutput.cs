@@ -4,7 +4,7 @@ namespace FarseerPhysics.Collision;
 
 public struct RayCastOutput
 {
-	public float Fraction;
+    public float Fraction;
 
-	public Vector2 Normal;
+    public Vector2 Normal;
 }

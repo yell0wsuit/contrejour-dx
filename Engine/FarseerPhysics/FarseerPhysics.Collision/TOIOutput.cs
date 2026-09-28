@@ -2,7 +2,7 @@ namespace FarseerPhysics.Collision;
 
 public struct TOIOutput
 {
-	public TOIOutputState State;
+    public TOIOutputState State;
 
-	public float T;
+    public float T;
 }

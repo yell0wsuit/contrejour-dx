@@ -1,6 +1,9 @@
 using System.Collections.Generic;
+
 using Default.Namespace;
+
 using Microsoft.Xna.Framework;
+
 using Mokus2D.Util.Extensions;
 
 namespace ContreJour.Menu.SnapPanel;

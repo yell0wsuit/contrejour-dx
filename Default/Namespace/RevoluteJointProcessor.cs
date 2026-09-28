@@ -1,7 +1,10 @@
 using System.Collections.Generic;
+
 using ContreJour.Debug;
+
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Dynamics.Joints;
+
 using Microsoft.Xna.Framework;
 
 namespace Default.Namespace;

@@ -4,14 +4,14 @@ namespace Mokus2D.Visual.Shaders.NormalMap;
 
 public class BasicNormalMapEffect : NormalMapEffectBase
 {
-	public new const int MaxLightsCount = 5;
+    public new const int MaxLightsCount = 5;
 
-	public readonly ShaderParameterFloat LightTextureColorRatio;
+    public readonly ShaderParameterFloat LightTextureColorRatio;
 
-	public BasicNormalMapEffect(int lightsCount)
-		: base("Mokus2D.Shaders.BasicNormalMap", 5)
-	{
-		LightsCount.Value = lightsCount;
-		LightTextureColorRatio = new ShaderParameterFloat(base.Parameters, "LightTextureColorRatio");
-	}
+    public BasicNormalMapEffect(int lightsCount)
+        : base("Mokus2D.Shaders.BasicNormalMap", 5)
+    {
+        LightsCount.Value = lightsCount;
+        LightTextureColorRatio = new ShaderParameterFloat(base.Parameters, "LightTextureColorRatio");
+    }
 }

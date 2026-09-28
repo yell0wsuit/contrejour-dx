@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+
 using Mokus2D.Visual.Interfaces;
 
 namespace Mokus2D.Visual.Data;

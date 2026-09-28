@@ -4,7 +4,7 @@ namespace FarseerPhysics.Collision;
 
 public struct ClipVertex
 {
-	public ContactID ID;
+    public ContactID ID;
 
-	public Vector2 V;
+    public Vector2 V;
 }

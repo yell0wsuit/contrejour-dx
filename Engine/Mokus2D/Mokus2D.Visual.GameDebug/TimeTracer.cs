@@ -5,10 +5,10 @@ namespace Mokus2D.Visual.GameDebug;
 
 public class TimeTracer : IDisposable
 {
-	private readonly DateTime _start = DateTime.UtcNow;
+    private readonly DateTime _start = DateTime.UtcNow;
 
-	public void Dispose()
-	{
-		Trace.TraceInformation("elapsed time {0} milliseconds", (DateTime.UtcNow - _start).TotalMilliseconds);
-	}
+    public void Dispose()
+    {
+        Trace.TraceInformation("elapsed time {0} milliseconds", (DateTime.UtcNow - _start).TotalMilliseconds);
+    }
 }

@@ -5,20 +5,20 @@ namespace Mokus2D.Collections;
 
 public class FactoryDictionary<TKey, TValue> : Dictionary<TKey, TValue>
 {
-	private readonly Func<TKey, TValue> _factory;
+    private readonly Func<TKey, TValue> _factory;
 
-	public FactoryDictionary(Func<TKey, TValue> factory)
-	{
-		_factory = factory;
-	}
+    public FactoryDictionary(Func<TKey, TValue> factory)
+    {
+        _factory = factory;
+    }
 
-	public TValue GetOrCreate(TKey key)
-	{
-		if (!TryGetValue(key, out var value))
-		{
-			value = _factory(key);
-			Add(key, value);
-		}
-		return value;
-	}
+    public TValue GetOrCreate(TKey key)
+    {
+        if (!TryGetValue(key, out var value))
+        {
+            value = _factory(key);
+            Add(key, value);
+        }
+        return value;
+    }
 }

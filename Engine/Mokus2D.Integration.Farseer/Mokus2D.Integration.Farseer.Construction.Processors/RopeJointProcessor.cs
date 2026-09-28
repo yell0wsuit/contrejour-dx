@@ -1,5 +1,7 @@
 using FarseerPhysics.Dynamics.Joints;
+
 using Microsoft.Xna.Framework;
+
 using Mokus2D.Util.Extensions;
 using Mokus2D.Visual;
 
@@ -7,20 +9,20 @@ namespace Mokus2D.Integration.Farseer.Construction.Processors;
 
 public class RopeJointProcessor : JointProcessor
 {
-	private static readonly Vector2 EndOffset = new Vector2(10f, 0f);
+    private static readonly Vector2 EndOffset = new Vector2(10f, 0f);
 
-	public RopeJointProcessor(PhysicsConstructor constructor)
-		: base(constructor)
-	{
-	}
+    public RopeJointProcessor(PhysicsConstructor constructor)
+        : base(constructor)
+    {
+    }
 
-	public override Joint Process(Node item)
-	{
-		Vector2 source = item.ZeroToGlobal();
-		Vector2 target = item.LocalToGlobal(EndOffset);
-		float maxLength = Constructor.ToPhysics(source.DistanceTo(target));
-		RopeJoint ropeJoint = new RopeJoint(GetBodyA(item), GetBodyB(item), Vector2.Zero, Vector2.Zero);
-		ropeJoint.MaxLength = maxLength;
-		return ropeJoint;
-	}
+    public override Joint Process(Node item)
+    {
+        Vector2 source = item.ZeroToGlobal();
+        Vector2 target = item.LocalToGlobal(EndOffset);
+        float maxLength = Constructor.ToPhysics(source.DistanceTo(target));
+        RopeJoint ropeJoint = new RopeJoint(GetBodyA(item), GetBodyB(item), Vector2.Zero, Vector2.Zero);
+        ropeJoint.MaxLength = maxLength;
+        return ropeJoint;
+    }
 }

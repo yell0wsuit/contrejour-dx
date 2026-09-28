@@ -4,9 +4,9 @@ namespace FarseerPhysics.Common.PhysicsLogic;
 
 internal struct ShapeData
 {
-	public Body Body;
+    public Body Body;
 
-	public float Max;
+    public float Max;
 
-	public float Min;
+    public float Min;
 }

@@ -5,5 +5,5 @@ namespace FarseerPhysics.Common.PhysicsLogic;
 [Flags]
 public enum PhysicsLogicType
 {
-	Explosion = 1
+    Explosion = 1
 }

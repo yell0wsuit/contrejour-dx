@@ -5,27 +5,27 @@ namespace Mokus2D.Behaviour;
 
 public abstract class NodeController<T> : INodeController, IUpdatable where T : Node
 {
-	protected readonly T Node;
+    protected readonly T Node;
 
-	protected NodeController(T node)
-	{
-		Node = node;
-		node.Controller = this;
-	}
+    protected NodeController(T node)
+    {
+        Node = node;
+        node.Controller = this;
+    }
 
-	public virtual void Update(float time)
-	{
-	}
+    public virtual void Update(float time)
+    {
+    }
 
-	public virtual void OnRemovedFromStage()
-	{
-	}
+    public virtual void OnRemovedFromStage()
+    {
+    }
 
-	public virtual void OnAddedToStage()
-	{
-	}
+    public virtual void OnAddedToStage()
+    {
+    }
 
-	public virtual void FirstUpdate()
-	{
-	}
+    public virtual void FirstUpdate()
+    {
+    }
 }

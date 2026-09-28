@@ -1,36 +1,37 @@
 using System;
 using System.Collections.Concurrent;
+
 using Mokus2D.Util.Resources;
 
 namespace Mokus2D.Util.Schedule;
 
 public class ConcurrentDelayedActions : DisposableBase
 {
-	private readonly ConcurrentQueue<Action> _actions = new ConcurrentQueue<Action>();
+    private readonly ConcurrentQueue<Action> _actions = new ConcurrentQueue<Action>();
 
-	public void Add(Action action)
-	{
-		_actions.Enqueue(action);
-	}
+    public void Add(Action action)
+    {
+        _actions.Enqueue(action);
+    }
 
-	public void Execute()
-	{
-		do
-		{
-			if (_actions.TryDequeue(out var result))
-			{
-				result();
-			}
-		}
-		while (!_actions.IsEmpty);
-	}
+    public void Execute()
+    {
+        do
+        {
+            if (_actions.TryDequeue(out var result))
+            {
+                result();
+            }
+        }
+        while (!_actions.IsEmpty);
+    }
 
-	protected override void Dispose(bool disposing)
-	{
-		base.Dispose(disposing);
-		while (!_actions.IsEmpty)
-		{
-			_actions.TryDequeue(out var _);
-		}
-	}
+    protected override void Dispose(bool disposing)
+    {
+        base.Dispose(disposing);
+        while (!_actions.IsEmpty)
+        {
+            _actions.TryDequeue(out var _);
+        }
+    }
 }

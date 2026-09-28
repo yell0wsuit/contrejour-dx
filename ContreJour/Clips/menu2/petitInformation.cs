@@ -1,6 +1,9 @@
 using System.CodeDom.Compiler;
+
 using Default.Namespace;
+
 using Microsoft.Xna.Framework;
+
 using Mokus2D;
 using Mokus2D.Data;
 using Mokus2D.Input;

@@ -1,9 +1,12 @@
 using System;
 using System.Collections.Generic;
+
 using ContreJour.Clips.menu;
 using ContreJour.Config;
 using ContreJour.Utils;
+
 using Microsoft.Xna.Framework;
+
 using Mokus2D.Effects.Tween.Easing;
 using Mokus2D.Sound;
 using Mokus2D.Util.Extensions;

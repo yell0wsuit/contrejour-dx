@@ -1,7 +1,9 @@
 using System;
+
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Dynamics.Joints;
 using FarseerPhysics.Factories;
+
 using Microsoft.Xna.Framework;
 
 namespace Default.Namespace;

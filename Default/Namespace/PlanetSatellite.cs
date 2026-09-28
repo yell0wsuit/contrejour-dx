@@ -1,6 +1,9 @@
 using System;
+
 using ContreJour.Clips.menu;
+
 using Microsoft.Xna.Framework;
+
 using Mokus2D.Interfaces;
 using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual;
