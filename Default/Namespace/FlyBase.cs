@@ -9,7 +9,7 @@ namespace Default.Namespace;
 
 public class FlyBase : IUpdatable
 {
-    private CosOpacityChanger opacityChanger;
+    private readonly CosOpacityChanger opacityChanger;
 
     protected Vector2 initialPosition;
 

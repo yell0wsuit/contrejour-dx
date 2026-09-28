@@ -9,17 +9,17 @@ internal sealed class Triangulator
 
     public List<List<Point>> Triangles;
 
-    private Trapezoid _boundingBox;
+    private readonly Trapezoid _boundingBox;
 
-    private List<Edge> _edgeList;
+    private readonly List<Edge> _edgeList;
 
-    private QueryGraph _queryGraph;
+    private readonly QueryGraph _queryGraph;
 
-    private float _sheer = 0.001f;
+    private readonly float _sheer = 0.001f;
 
-    private TrapezoidalMap _trapezoidalMap;
+    private readonly TrapezoidalMap _trapezoidalMap;
 
-    private List<MonotoneMountain> _xMonoPoly;
+    private readonly List<MonotoneMountain> _xMonoPoly;
 
     public Triangulator(List<Point> polyLine, float sheer)
     {

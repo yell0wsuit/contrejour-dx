@@ -28,7 +28,7 @@ internal sealed class DTSweepContext : TriangulationContext
 
     public DTSweepEdgeEvent EdgeEvent = new();
 
-    private DTSweepPointComparator _comparator = new();
+    private readonly DTSweepPointComparator _comparator = new();
 
     public AdvancingFront aFront;
 
@@ -74,12 +74,12 @@ internal sealed class DTSweepContext : TriangulationContext
         Triangles.Clear();
     }
 
-    public void AddNode(AdvancingFrontNode node)
+    public static void AddNode(AdvancingFrontNode node)
     {
         AdvancingFront.AddNode(node);
     }
 
-    public void RemoveNode(AdvancingFrontNode node)
+    public static void RemoveNode(AdvancingFrontNode node)
     {
         AdvancingFront.RemoveNode(node);
     }

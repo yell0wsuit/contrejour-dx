@@ -119,7 +119,7 @@ public class MainMenu : AccelerometerMenu, IActivatedDependent
 
     private readonly float RADIUS = ContreJourConditions.Trial(340, 360);
 
-    private float scoreY = 20f;
+    private readonly float scoreY = 20f;
 
     public bool PlanetsLoaded => planetsLoaded;
 

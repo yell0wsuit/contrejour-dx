@@ -4,7 +4,7 @@ namespace Mokus2D.Util;
 
 public static class XBoxUtil
 {
-    private static List<string> awardedAchievements = new(64);
+    private static readonly List<string> awardedAchievements = new(64);
 
     public static void AwardAchievement(string achievement)
     {

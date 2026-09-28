@@ -19,7 +19,7 @@ public abstract class GraphicsDeserializerBase<T> : IGraphicsDeserializer<T>, IG
 
     private const string Rect = "rect";
 
-    private IGraphicsLoader loader;
+    private readonly IGraphicsLoader loader;
 
     public abstract bool UseSuffix { get; }
 

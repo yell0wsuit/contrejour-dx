@@ -23,7 +23,7 @@ public class PlanetsSpinner : Node, IDisposable
 
     private ChapterLocked explodingChapter;
 
-    private GesturePager pager = new();
+    private readonly GesturePager pager = new();
 
     public Vector2 AccelerometerOffset = Vector2.Zero;
 

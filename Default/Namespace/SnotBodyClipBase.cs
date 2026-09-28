@@ -10,7 +10,7 @@ namespace Default.Namespace;
 
 public class SnotBodyClipBase : ContreJourBodyClip
 {
-    private SnotData physics;
+    private readonly SnotData physics;
 
     protected MonsterEye eye;
 

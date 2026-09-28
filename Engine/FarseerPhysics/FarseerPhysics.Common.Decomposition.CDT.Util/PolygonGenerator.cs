@@ -8,7 +8,7 @@ internal sealed class PolygonGenerator
 {
     private static readonly Random RNG = new();
 
-    private static double PI_2 = Math.PI * 2.0;
+    private static readonly double PI_2 = Math.PI * 2.0;
 
     public static Polygon.Polygon RandomCircleSweep(double scale, int vertexCount)
     {

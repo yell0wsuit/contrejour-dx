@@ -6,17 +6,17 @@ namespace FarseerPhysics.Dynamics.Joints;
 
 public class GearJoint : Joint
 {
-    private JointType _typeA;
+    private readonly JointType _typeA;
 
-    private JointType _typeB;
+    private readonly JointType _typeB;
 
-    private Body _bodyA;
+    private readonly Body _bodyA;
 
-    private Body _bodyB;
+    private readonly Body _bodyB;
 
-    private Body _bodyC;
+    private readonly Body _bodyC;
 
-    private Body _bodyD;
+    private readonly Body _bodyD;
 
     private Vector2 _localAnchorA;
 
@@ -30,11 +30,11 @@ public class GearJoint : Joint
 
     private Vector2 _localAxisD;
 
-    private float _referenceAngleA;
+    private readonly float _referenceAngleA;
 
-    private float _referenceAngleB;
+    private readonly float _referenceAngleB;
 
-    private float _constant;
+    private readonly float _constant;
 
     private float _ratio;
 

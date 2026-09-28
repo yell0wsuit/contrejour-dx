@@ -15,7 +15,7 @@ public static class ChainHull
         }
     }
 
-    private static PointComparer _pointComparer = new();
+    private static readonly PointComparer _pointComparer = new();
 
     public static Vertices GetConvexHull(Vertices vertices)
     {

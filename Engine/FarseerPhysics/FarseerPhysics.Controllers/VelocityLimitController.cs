@@ -11,7 +11,7 @@ public class VelocityLimitController : Controller
 
     public bool LimitLinearVelocity = true;
 
-    private List<Body> _bodies = [];
+    private readonly List<Body> _bodies = [];
 
     private float _maxAngularSqared;
 

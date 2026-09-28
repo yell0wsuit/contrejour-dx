@@ -16,7 +16,7 @@ public abstract class ShaderParameter<T>
 
     private T _value;
 
-    private Flag _valueDirty = new();
+    private readonly Flag _valueDirty = new();
 
     public T Value
     {

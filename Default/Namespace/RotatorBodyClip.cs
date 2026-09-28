@@ -37,23 +37,23 @@ public class RotatorBodyClip : FurBodyClip, IClickable, IRestartable, ISnotHolde
 
     protected float lastPointSpeed;
 
-    private static string[] GRASS_SPRITES = ["McRotatorGrass0", "McRotatorGrass1", "McRotatorGrass2"];
+    private static readonly string[] GRASS_SPRITES = ["McRotatorGrass0", "McRotatorGrass1", "McRotatorGrass2"];
 
-    private float ACTION_TIME = 2.5f;
+    private readonly float ACTION_TIME = 2.5f;
 
-    private int GRASS_COUNT = 26;
+    private readonly int GRASS_COUNT = 26;
 
-    private float MAX_TOUCH_RADIUS = 3f;
+    private readonly float MAX_TOUCH_RADIUS = 3f;
 
-    private float MIN_TOUCH_RADIUS = 1f / 3f;
+    private readonly float MIN_TOUCH_RADIUS = 1f / 3f;
 
-    private float ANGLE_REMAINDER = (float)Math.PI / 8f;
+    private readonly float ANGLE_REMAINDER = (float)Math.PI / 8f;
 
-    private float WIDTH = 120f;
+    private readonly float WIDTH = 120f;
 
-    private float POINT_OFFSET = 48f;
+    private readonly float POINT_OFFSET = 48f;
 
-    private int GRASS_RADIUS = 60;
+    private readonly int GRASS_RADIUS = 60;
 
     public bool Rotating => Body.AngularVelocity != 0f;
 

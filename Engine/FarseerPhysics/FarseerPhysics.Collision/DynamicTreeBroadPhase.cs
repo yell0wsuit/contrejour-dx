@@ -24,11 +24,11 @@ public class DynamicTreeBroadPhase : IBroadPhase
 
     private int _proxyCount;
 
-    private Func<int, bool> _queryCallback;
+    private readonly Func<int, bool> _queryCallback;
 
     private int _queryProxyId;
 
-    private DynamicTree<FixtureProxy> _tree = new();
+    private readonly DynamicTree<FixtureProxy> _tree = new();
 
     public int ProxyCount => _proxyCount;
 

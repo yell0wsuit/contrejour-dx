@@ -33,7 +33,7 @@ public class ClipFactory
 
     private static readonly Dictionary<string, string> fullPaths = [];
 
-    private static Dictionary<object, Dictionary<int, MovieClip>> debugPoints = [];
+    private static readonly Dictionary<object, Dictionary<int, MovieClip>> debugPoints = [];
 
     public static ClipFactory Instance => instance;
 

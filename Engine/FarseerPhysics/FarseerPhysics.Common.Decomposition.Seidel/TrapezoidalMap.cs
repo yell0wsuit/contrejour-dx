@@ -10,7 +10,7 @@ internal sealed class TrapezoidalMap
 
     private Edge _cross;
 
-    private float _margin;
+    private readonly float _margin;
 
     public TrapezoidalMap()
     {

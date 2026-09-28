@@ -6,7 +6,7 @@ public class ButterFly : FlyBase
 {
     private float horizontalStep;
 
-    private float step;
+    private readonly float step;
 
     public ButterFly(Particle _particle, float _scale)
         : base(_particle, _scale)

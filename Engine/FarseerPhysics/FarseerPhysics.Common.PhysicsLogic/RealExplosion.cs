@@ -24,9 +24,9 @@ public sealed class RealExplosion : PhysicsLogic
 
     public int MinRays = 5;
 
-    private List<ShapeData> _data = [];
+    private readonly List<ShapeData> _data = [];
 
-    private RayDataComparer _rdc;
+    private readonly RayDataComparer _rdc;
 
     public RealExplosion(World world)
         : base(world, PhysicsLogicType.Explosion)

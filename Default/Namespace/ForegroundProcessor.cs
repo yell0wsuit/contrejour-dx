@@ -2,7 +2,7 @@ namespace Default.Namespace;
 
 public class ForegroundProcessor : TypeProcessorBase
 {
-    private static int STATIC_RESULT = 1;
+    private static readonly int STATIC_RESULT = 1;
 
     public ForegroundProcessor(LevelBuilderBase _builder)
         : base("foreground", _builder)

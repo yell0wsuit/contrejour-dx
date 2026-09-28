@@ -35,17 +35,17 @@ public class HeroTail : PrimitivesNode
 
     private float currentAngle;
 
-    private List<PointAndAngle> points;
+    private readonly List<PointAndAngle> points;
 
-    private PointAndAngle middle = new(30f, 0.02f, 0f);
+    private readonly PointAndAngle middle = new(30f, 0.02f, 0f);
 
-    private PointAndAngle middle2 = new(50f, 0.019f, (float)Math.PI / 2f);
+    private readonly PointAndAngle middle2 = new(50f, 0.019f, (float)Math.PI / 2f);
 
-    private PointAndAngle end = new(70f, 0.018f, (float)Math.PI);
+    private readonly PointAndAngle end = new(70f, 0.018f, (float)Math.PI);
 
     private VertexPositionColor[] vertices;
 
-    private List<Vector2> surface = new(10);
+    private readonly List<Vector2> surface = new(10);
 
     private readonly List<Vector2> cachedPolygon = new(64);
 

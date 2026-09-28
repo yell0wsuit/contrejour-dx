@@ -6,9 +6,9 @@ namespace Mokus2D.Util.MathUtils;
 
 public static class MathExtensions
 {
-    private static byte[] bytes = new byte[4];
+    private static readonly byte[] bytes = new byte[4];
 
-    private static float[] floats = new float[1];
+    private static readonly float[] floats = new float[1];
 
     public static int ToIntBytes(this float value)
     {

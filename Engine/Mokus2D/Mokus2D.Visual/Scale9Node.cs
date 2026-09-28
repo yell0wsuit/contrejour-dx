@@ -30,13 +30,13 @@ public class Scale9Node : Node, ISizeNode, IDataReloadable
 
     protected readonly Sprite RightBottom;
 
-    private float _leftSize;
+    private readonly float _leftSize;
 
-    private float _rightSize;
+    private readonly float _rightSize;
 
-    private float _topSize;
+    private readonly float _topSize;
 
-    private float _bottomSize;
+    private readonly float _bottomSize;
 
     private Vector2 _size;
 
@@ -169,12 +169,12 @@ public class Scale9Node : Node, ISizeNode, IDataReloadable
         return value;
     }
 
-    private float MaxWidth(Sprite a, Sprite b, Sprite c)
+    private static float MaxWidth(Sprite a, Sprite b, Sprite c)
     {
         return Maths.Max(GetWidth(a), GetWidth(b), GetWidth(c));
     }
 
-    private float MaxHeight(Sprite a, Sprite b, Sprite c)
+    private static float MaxHeight(Sprite a, Sprite b, Sprite c)
     {
         return Maths.Max(GetHeight(a), GetHeight(b), GetHeight(c));
     }

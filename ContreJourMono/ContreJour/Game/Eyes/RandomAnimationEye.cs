@@ -32,7 +32,7 @@ public class RandomAnimationEye : EyeBase
 
     private bool _animationsAllowed = true;
 
-    private Action<IAnimatedNode> clipEndAction;
+    private readonly Action<IAnimatedNode> clipEndAction;
 
     private bool isPlaying;
 

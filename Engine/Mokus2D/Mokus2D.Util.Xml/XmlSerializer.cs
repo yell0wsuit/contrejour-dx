@@ -8,7 +8,7 @@ namespace Mokus2D.Util.Xml;
 
 public class XmlSerializer : XmlSerializerBase
 {
-    private Assembly _assembly;
+    private readonly Assembly _assembly;
 
     public XmlSerializer(Assembly assembly = null)
     {

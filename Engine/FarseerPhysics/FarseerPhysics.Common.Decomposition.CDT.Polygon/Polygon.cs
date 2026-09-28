@@ -12,7 +12,7 @@ internal sealed class Polygon : ITriangulatable
 
     private PolygonPoint _last;
 
-    private List<TriangulationPoint> _points = [];
+    private readonly List<TriangulationPoint> _points = [];
 
     private List<TriangulationPoint> _steinerPoints;
 

@@ -11,9 +11,9 @@ public class DynamicTree<T>
 {
     internal const int NullNode = -1;
 
-    private Stack<int> _raycastStack = new(256);
+    private readonly Stack<int> _raycastStack = new(256);
 
-    private Stack<int> _queryStack = new(256);
+    private readonly Stack<int> _queryStack = new(256);
 
     private int _freeList;
 

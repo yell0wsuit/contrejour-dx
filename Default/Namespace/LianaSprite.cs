@@ -20,7 +20,7 @@ public class LianaSprite : LongNeckSprite
 
     protected List<int> partsLength = [];
 
-    private float MAX_PART_LENGHT = 4f / 15f;
+    private readonly float MAX_PART_LENGHT = 4f / 15f;
 
     public LianaSprite(ILianaDrawData _data, Color neckColor, float _width, float _borderWidth)
     {

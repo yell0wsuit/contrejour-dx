@@ -9,7 +9,7 @@ public abstract class Controller : FilterData
 
     public World World;
 
-    private ControllerType _type;
+    private readonly ControllerType _type;
 
     public Controller(ControllerType controllerType)
     {

@@ -4,7 +4,7 @@ namespace FarseerPhysics.Common.Decomposition.CDT.Sets;
 
 internal sealed class ConstrainedPointSet : PointSet
 {
-    private List<TriangulationPoint> _constrainedPointList;
+    private readonly List<TriangulationPoint> _constrainedPointList;
 
     public int[] EdgeIndex { get; private set; }
 

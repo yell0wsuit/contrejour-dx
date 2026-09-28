@@ -15,15 +15,15 @@ public class PointAndAngle
 
     public float Angle;
 
-    private float angleStep;
+    private readonly float angleStep;
 
-    private float length;
+    private readonly float length;
 
     private Vector2 position;
 
-    private float angleOffset;
+    private readonly float angleOffset;
 
-    private float amplitude = 4f;
+    private readonly float amplitude = 4f;
 
     private float fawnProgress;
 

@@ -17,13 +17,13 @@ public class Island
 
     private ContactManager _contactManager;
 
-    private ContactSolver _contactSolver = new();
+    private readonly ContactSolver _contactSolver = new();
 
     private Contact[] _contacts;
 
     private Joint[] _joints;
 
-    private Stopwatch _watch = new();
+    private readonly Stopwatch _watch = new();
 
     public Body[] Bodies;
 

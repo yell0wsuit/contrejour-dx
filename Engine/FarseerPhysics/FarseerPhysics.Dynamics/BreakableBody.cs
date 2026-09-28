@@ -18,7 +18,7 @@ public class BreakableBody
 
     private Vector2[] _velocitiesCache = new Vector2[8];
 
-    private World _world;
+    private readonly World _world;
 
     public bool Broken;
 

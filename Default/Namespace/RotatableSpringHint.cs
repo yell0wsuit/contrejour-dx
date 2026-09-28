@@ -6,7 +6,7 @@ namespace Default.Namespace;
 
 public class RotatableSpringHint : FadeHint
 {
-    private RotatableSpringBodyClip spring;
+    private readonly RotatableSpringBodyClip spring;
 
     public RotatableSpringHint(ContreJourLevelBuilder _builder, object _body, Sprite _clip, Hashtable _config)
         : base(_builder, _body, _clip, _config)

@@ -8,7 +8,7 @@ public class ButtonSprite : TouchEffect
 {
     private float targetScale;
 
-    private float initialScale;
+    private readonly float initialScale;
 
     public float TargetScale
     {

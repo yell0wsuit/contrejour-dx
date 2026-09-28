@@ -16,7 +16,7 @@ public class ChainShape : Shape
 
     private bool _hasNextVertex;
 
-    private static EdgeShape _edgeShape = new();
+    private static readonly EdgeShape _edgeShape = new();
 
     public override int ChildCount => Vertices.Count - 1;
 

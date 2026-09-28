@@ -51,7 +51,7 @@ public abstract class LongNeckSprite : PrimitivesNode
 
     private readonly List<Vector2> allPoints = [];
 
-    private List<Pair<Vector2>> cachedPairs = new(64);
+    private readonly List<Pair<Vector2>> cachedPairs = new(64);
 
     protected virtual bool HasRecalculateVertices => true;
 

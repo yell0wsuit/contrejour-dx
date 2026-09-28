@@ -99,11 +99,11 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
 
     protected float touchEndTime;
 
-    private bool movable;
+    private readonly bool movable;
 
     private bool enabled = true;
 
-    private DragableBodyClip joinedBodyClip;
+    private readonly DragableBodyClip joinedBodyClip;
 
     public bool Enabled
     {

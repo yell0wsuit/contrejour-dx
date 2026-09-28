@@ -30,7 +30,7 @@ public class GameBase : Node, IUpdatable
 
     private Vector2 physicsLevelSize = Mokus2DGame.Instance.ScreenSize * Box2DConfig.DefaultConfig.SizeMultiplier;
 
-    private List<object> _toRemove = [];
+    private readonly List<object> _toRemove = [];
 
     public LevelBuilderBase Builder => builder;
 

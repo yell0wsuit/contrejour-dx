@@ -7,7 +7,7 @@ namespace Mokus2D.Util.Data;
 
 public sealed class ReverseEnumerator<T> : IEnumerator<T>, IEnumerator, IDisposable
 {
-    private IList<T> source;
+    private readonly IList<T> source;
 
     private int currentIndex;
 

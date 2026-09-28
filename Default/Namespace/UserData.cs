@@ -28,9 +28,9 @@ public class UserData
 
     private static LevelPosition postponedLevel;
 
-    private LevelData[] levelData = new LevelData[Constants.ChaptersCount * 20];
+    private readonly LevelData[] levelData = new LevelData[Constants.ChaptersCount * 20];
 
-    private int[] unlockedLevels = new int[Constants.ChaptersCount];
+    private readonly int[] unlockedLevels = new int[Constants.ChaptersCount];
 
     private int unlockedChapters;
 

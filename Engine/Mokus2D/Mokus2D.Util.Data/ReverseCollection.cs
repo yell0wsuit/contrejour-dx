@@ -5,7 +5,7 @@ namespace Mokus2D.Util.Data;
 
 public class ReverseCollection<T> : IEnumerable<T>, IEnumerable
 {
-    private IList<T> source;
+    private readonly IList<T> source;
 
     public ReverseCollection(IList<T> source)
     {

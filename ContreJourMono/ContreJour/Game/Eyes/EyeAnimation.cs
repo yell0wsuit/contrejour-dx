@@ -2,13 +2,13 @@ namespace ContreJourMono.ContreJour.Game.Eyes;
 
 public class EyeAnimation
 {
-    private string background;
+    private readonly string background;
 
-    private string eyeBall;
+    private readonly string eyeBall;
 
-    private bool lockX;
+    private readonly bool lockX;
 
-    private bool lockY;
+    private readonly bool lockY;
 
     public string Background => background;
 

@@ -6,7 +6,7 @@ namespace Mokus2D.Util.Schedule;
 
 public class Disposable : DisposableBase
 {
-    private Action action;
+    private readonly Action action;
 
     public Disposable(Action action)
     {

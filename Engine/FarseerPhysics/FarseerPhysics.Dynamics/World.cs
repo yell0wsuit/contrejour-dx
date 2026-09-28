@@ -20,19 +20,19 @@ public class World
 
     private bool _stepComplete;
 
-    private HashSet<Body> _bodyAddList = [];
+    private readonly HashSet<Body> _bodyAddList = [];
 
-    private HashSet<Body> _bodyRemoveList = [];
+    private readonly HashSet<Body> _bodyRemoveList = [];
 
-    private HashSet<Joint> _jointAddList = [];
+    private readonly HashSet<Joint> _jointAddList = [];
 
-    private HashSet<Joint> _jointRemoveList = [];
+    private readonly HashSet<Joint> _jointRemoveList = [];
 
     private Func<Fixture, bool> _queryAABBCallback;
 
-    private Func<int, bool> _queryAABBCallbackWrapper;
+    private readonly Func<int, bool> _queryAABBCallbackWrapper;
 
-    private TOIInput _input = new();
+    private readonly TOIInput _input = new();
 
     private Fixture _myFixture;
 
@@ -42,11 +42,11 @@ public class World
 
     private List<Fixture> _testPointAllFixtures;
 
-    private Stopwatch _watch = new();
+    private readonly Stopwatch _watch = new();
 
     private Func<Fixture, Vector2, Vector2, float, float> _rayCastCallback;
 
-    private Func<RayCastInput, int, float> _rayCastCallbackWrapper;
+    private readonly Func<RayCastInput, int, float> _rayCastCallbackWrapper;
 
     internal Queue<Contact> _contactPool = new(256);
 

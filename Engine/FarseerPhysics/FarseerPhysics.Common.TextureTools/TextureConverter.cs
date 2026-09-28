@@ -9,7 +9,7 @@ public sealed class TextureConverter
 {
     private const int ClosepixelsLength = 8;
 
-    private static int[,] _closePixels = new int[8, 2]
+    private static readonly int[,] _closePixels = new int[8, 2]
     {
         { -1, -1 },
         { 0, -1 },
@@ -521,7 +521,7 @@ public sealed class TextureConverter
         return num;
     }
 
-    private List<float> SearchCrossingEdgesHoles(Vertices polygon, int y)
+    private static List<float> SearchCrossingEdgesHoles(Vertices polygon, int y)
     {
         if (polygon == null)
         {
@@ -574,7 +574,7 @@ public sealed class TextureConverter
         return list;
     }
 
-    private bool SplitPolygonEdge(Vertices polygon, Vector2 coordInsideThePolygon, out int vertex1Index, out int vertex2Index)
+    private static bool SplitPolygonEdge(Vertices polygon, Vector2 coordInsideThePolygon, out int vertex1Index, out int vertex2Index)
     {
         int num = 0;
         int index = 0;

@@ -26,7 +26,7 @@ public sealed class BuoyancyController : Controller
 
     private float _offset;
 
-    private Dictionary<int, Body> _uniqueBodies = [];
+    private readonly Dictionary<int, Body> _uniqueBodies = [];
 
     public AABB Container
     {

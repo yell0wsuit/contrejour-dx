@@ -10,7 +10,7 @@ namespace Default.Namespace;
 
 public class SnotPoint : ContreJourBodyClip
 {
-    private static float Radius = 20f;
+    private static readonly float Radius = 20f;
 
     private bool used;
 

@@ -12,7 +12,7 @@ public static class Collision
 {
     private sealed class EPCollider
     {
-        private TempPolygon _polygonB = new();
+        private readonly TempPolygon _polygonB = new();
 
         private Transform _xf;
 

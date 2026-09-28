@@ -10,11 +10,11 @@ internal sealed class MonotoneMountain
 
     public List<List<Point>> Triangles;
 
-    private HashSet<Point> _convexPoints;
+    private readonly HashSet<Point> _convexPoints;
 
     private Point _head;
 
-    private List<Point> _monoPoly;
+    private readonly List<Point> _monoPoly;
 
     private bool _positive;
 

@@ -7,7 +7,7 @@ public class EventSender
 {
     protected List<Action> listeners = new(64);
 
-    private List<Action> listenersCopy = new(64);
+    private readonly List<Action> listenersCopy = new(64);
 
     public bool Enabled { get; set; }
 
@@ -61,7 +61,7 @@ public class EventSender<T> : EventSender
 {
     protected List<Action<T>> parameterListeners = new(64);
 
-    private List<Action<T>> parameterListenersCopy = new(64);
+    private readonly List<Action<T>> parameterListenersCopy = new(64);
 
     public void SendEvent(T eventObject)
     {

@@ -2,7 +2,7 @@ namespace FarseerPhysics.Common.Decomposition.Seidel;
 
 internal sealed class YNode : Node
 {
-    private Edge _edge;
+    private readonly Edge _edge;
 
     public YNode(Edge edge, Node lChild, Node rChild)
         : base(lChild, rChild)

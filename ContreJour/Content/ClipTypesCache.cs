@@ -9,7 +9,7 @@ namespace ContreJour.Content;
 
 public class ClipTypesCache
 {
-    private static List<string> SkipList = ["McEndLevelView", "McRoseView", "McTeleportView", "McSpringView"];
+    private static readonly List<string> SkipList = ["McEndLevelView", "McRoseView", "McTeleportView", "McSpringView"];
 
     private static readonly string ClipsFolder = "ContreJour.Clips.";
 

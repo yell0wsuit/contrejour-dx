@@ -21,7 +21,7 @@ public class Slider : UIComponent, IMouseWheelNode
 
     private const int DefaultWheelScrollSpeedMult = 1;
 
-    private MouseWheelNodeController<Slider> _wheelController;
+    private readonly MouseWheelNodeController<Slider> _wheelController;
 
     private readonly LayoutOrientation Orientation;
 

@@ -23,11 +23,11 @@ public class SpringSuckerBodyClip : SuckerBodyClip
 
     protected Vector2 normal;
 
-    private float JUMP_IMPULSE = 1f;
+    private readonly float JUMP_IMPULSE = 1f;
 
-    private float SNOT_JUMP_IMPULSE = 0.2f;
+    private readonly float SNOT_JUMP_IMPULSE = 0.2f;
 
-    private float SPEED_MULT = 0.75f;
+    private readonly float SPEED_MULT = 0.75f;
 
     private bool touched;
 

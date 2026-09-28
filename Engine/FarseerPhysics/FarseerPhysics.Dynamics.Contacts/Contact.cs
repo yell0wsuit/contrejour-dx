@@ -25,9 +25,9 @@ public class Contact
 
     private ContactType _type;
 
-    private static EdgeShape _edge = new();
+    private static readonly EdgeShape _edge = new();
 
-    private static ContactType[,] _registers = new ContactType[4, 4]
+    private static readonly ContactType[,] _registers = new ContactType[4, 4]
     {
         {
             ContactType.Circle,

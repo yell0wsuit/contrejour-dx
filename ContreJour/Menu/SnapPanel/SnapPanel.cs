@@ -16,7 +16,7 @@ public class SnapPanel : AccelerometerNode, ITouchListener
 {
     private const float BackgroundOffset = 0.1f;
 
-    private Sprite background;
+    private readonly Sprite background;
 
     private readonly Dictionary<Node, Tuple<float, Vector2>> accelerometerChildren = [];
 

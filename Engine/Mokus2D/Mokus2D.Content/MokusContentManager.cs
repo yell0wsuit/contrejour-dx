@@ -35,7 +35,7 @@ public class MokusContentManager : ContentManager
         return _loadedAssets.ContainsKey(assetName);
     }
 
-    public string GetFullTexturePath(string name)
+    public static string GetFullTexturePath(string name)
     {
         return GetFullTexturePath(name, Mokus2DGame.Config.GraphicsLoader.PrefferedScaleFactor);
     }

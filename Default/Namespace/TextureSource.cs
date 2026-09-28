@@ -2,11 +2,11 @@ namespace Default.Namespace;
 
 internal class TextureSource
 {
-    private string path;
+    private readonly string path;
 
-    private float textureScaleFactor;
+    private readonly float textureScaleFactor;
 
-    private int neededWidth;
+    private readonly int neededWidth;
 
     public string Path => path;
 

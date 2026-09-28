@@ -59,7 +59,7 @@ public class Splash : Node, ITouchListener, IDisposable
 
     private static readonly Vector2 LOGO_POSITION = new(241.55f, 372.25f);
 
-    private Action[] afterLogo;
+    private readonly Action[] afterLogo;
 
     private void InitializeAnimation()
     {

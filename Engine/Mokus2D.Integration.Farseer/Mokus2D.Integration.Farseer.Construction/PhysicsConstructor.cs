@@ -213,7 +213,7 @@ public class PhysicsConstructor : PhysicsTransform
         _bodyToAttach = null;
     }
 
-    private void AddShapes(Body body, List<ShapeAndConfig> shapes)
+    private static void AddShapes(Body body, List<ShapeAndConfig> shapes)
     {
         foreach (ShapeAndConfig shape in shapes)
         {

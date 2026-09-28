@@ -2,7 +2,7 @@ namespace FarseerPhysics.Common.Decomposition.Seidel;
 
 internal sealed class XNode : Node
 {
-    private Point _point;
+    private readonly Point _point;
 
     public XNode(Point point, Node lChild, Node rChild)
         : base(lChild, rChild)

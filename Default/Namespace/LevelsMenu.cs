@@ -29,7 +29,7 @@ public class LevelsMenu : ClickableLayer
 
     public static List<List<int>> LEVELS_LIST = [];
 
-    private float RowOffset = 120f;
+    private readonly float RowOffset = 120f;
 
     public static int[,] LEVELS = new int[6, 20]
     {
@@ -65,7 +65,7 @@ public class LevelsMenu : ClickableLayer
 
     private Vector2 initialPosition;
 
-    private Sprite adsButton;
+    private readonly Sprite adsButton;
 
     private Vector2 adsButtonPosition;
 

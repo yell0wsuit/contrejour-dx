@@ -17,11 +17,11 @@ public class LevelsCache
 {
     private readonly string clip_root = "Levels/";
 
-    private XmlSerializer serializer = new(typeof(ContreJourApplication).GetTypeInfo().Assembly);
+    private readonly XmlSerializer serializer = new(typeof(ContreJourApplication).GetTypeInfo().Assembly);
 
-    private Dictionary<string, Level> cache = [];
+    private readonly Dictionary<string, Level> cache = [];
 
-    private MokusContentManager content;
+    private readonly MokusContentManager content;
 
     public Dictionary<string, Level> CachedLevels => cache;
 

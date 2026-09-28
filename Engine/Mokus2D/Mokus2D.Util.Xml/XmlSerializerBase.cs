@@ -8,7 +8,7 @@ namespace Mokus2D.Util.Xml;
 
 public abstract class XmlSerializerBase
 {
-    private Dictionary<string, string> aliases = [];
+    private readonly Dictionary<string, string> aliases = [];
 
     public void AddAlias(string source, string alias)
     {

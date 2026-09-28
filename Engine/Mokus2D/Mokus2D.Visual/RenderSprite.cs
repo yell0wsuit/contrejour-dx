@@ -55,7 +55,7 @@ public class RenderSprite : Sprite
         }
     }
 
-    public void ResetUpdateThread()
+    public static void ResetUpdateThread()
     {
         RootNode.ResetUpdateThread();
     }

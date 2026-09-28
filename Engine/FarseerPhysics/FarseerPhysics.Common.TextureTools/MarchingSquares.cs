@@ -241,7 +241,7 @@ public static class MarchingSquares
         }
     }
 
-    private static int[] _lookMarch =
+    private static readonly int[] _lookMarch =
     [
         0, 224, 56, 216, 14, 238, 54, 214, 131, 99,
         187, 91, 141, 109, 181, 85
@@ -380,18 +380,12 @@ public static class MarchingSquares
                     continue;
                 }
                 CxFastListNode<Vector2> cxFastListNode3 = cxFastListNode.Next().Next();
-                if (cxFastListNode3 == null)
-                {
-                    cxFastListNode3 = points.Begin();
-                }
+                cxFastListNode3 ??= points.Begin();
                 while (cxFastListNode3 != cxFastListNode)
                 {
                     cxFastListNode2 = points2.Insert(cxFastListNode2, cxFastListNode3.Elem());
                     cxFastListNode3 = cxFastListNode3.Next();
-                    if (cxFastListNode3 == null)
-                    {
-                        cxFastListNode3 = points.Begin();
-                    }
+                    cxFastListNode3 ??= points.Begin();
                     geomPolyVal2.GeomP.Length++;
                 }
                 num9 = num8 + 1;
@@ -579,10 +573,7 @@ public static class MarchingSquares
                 cxFastListNode = cxFastListNode.Next();
                 Vector2 vector3 = cxFastListNode.Elem();
                 cxFastListNode = cxFastListNode.Next();
-                if (cxFastListNode == null)
-                {
-                    cxFastListNode = points.Begin();
-                }
+                cxFastListNode ??= points.Begin();
                 Vector2 vector4 = cxFastListNode.Elem();
                 Vector2 vector5 = cxFastListNode4.Elem();
                 Vector2 a2 = vector3 - vector5;

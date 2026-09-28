@@ -31,7 +31,7 @@ public class MovableSnotEye : SnotEye, IRestartable
 
     private float targetSpeed;
 
-    private SnotPoint initialPoint;
+    private readonly SnotPoint initialPoint;
 
     private Vector2 targetPosition;
 

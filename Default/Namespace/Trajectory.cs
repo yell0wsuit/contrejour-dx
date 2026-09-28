@@ -22,7 +22,7 @@ public class Trajectory : ParticleSystem
 
     private bool enabled;
 
-    private FadeAndHideEffect _fadeEffect;
+    private readonly FadeAndHideEffect _fadeEffect;
 
     public bool Enabled
     {
