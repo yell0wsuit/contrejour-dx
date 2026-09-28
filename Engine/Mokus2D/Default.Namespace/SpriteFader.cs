@@ -4,15 +4,15 @@ namespace Default.Namespace;
 
 public class SpriteFader(Node _target)
 {
-    protected ushort disabledOpacity = 255;
+    private ushort disabledOpacity = 255;
 
-    protected float duration = 0.15f;
+    private float duration = 0.15f;
 
-    protected bool enabled;
+    private bool enabled;
 
-    protected ushort enabledOpacity;
+    private ushort enabledOpacity;
 
-    protected Node target = _target;
+    private Node target = _target;
 
     public ushort EnabledOpacity
     {

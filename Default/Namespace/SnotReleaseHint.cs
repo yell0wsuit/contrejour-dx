@@ -6,7 +6,7 @@ namespace Default.Namespace;
 
 public class SnotReleaseHint : SnotLinkHint
 {
-    protected bool used;
+    private bool used;
 
     [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "Level content creates this by reflection with this signature.")]
     public SnotReleaseHint(ContreJourLevelBuilder builder, object body, Sprite clip, Hashtable config)

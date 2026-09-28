@@ -4,7 +4,7 @@ namespace Default.Namespace;
 
 public class SunBackground : MoveBackground
 {
-    protected float currentOpacity;
+    private float currentOpacity;
 
     public SunBackground(Node node, Hashtable config, ContreJourGame game)
         : base(node, config, game)

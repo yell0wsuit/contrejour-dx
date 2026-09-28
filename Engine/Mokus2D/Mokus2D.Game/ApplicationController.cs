@@ -13,7 +13,7 @@ namespace Mokus2D.Game;
 
 public class ApplicationController(Mokus2DGame game, Microsoft.Xna.Framework.Game application, GraphicsDeviceManager graphics) : DisposableBase
 {
-    protected readonly Mokus2DGame Game = game;
+    private readonly Mokus2DGame Game = game;
 
     private readonly GraphicsDeviceManager _graphics = graphics;
 

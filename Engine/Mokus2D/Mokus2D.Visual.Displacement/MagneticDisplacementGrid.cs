@@ -13,13 +13,13 @@ namespace Mokus2D.Visual.Displacement;
 
 public class MagneticDisplacementGrid : DisplacementGrid
 {
-    public float Velocity = 100f;
+    private float Velocity = 100f;
 
-    public bool StaticBorders = true;
+    private bool StaticBorders = true;
 
-    public Vector2 MagnetsOffset;
+    private Vector2 MagnetsOffset;
 
-    public float PowerMult = 1f;
+    private float PowerMult = 1f;
 
     private MagneticNodeData[,] _nodesData;
 

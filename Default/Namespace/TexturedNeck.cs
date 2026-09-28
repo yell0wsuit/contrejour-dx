@@ -9,9 +9,9 @@ namespace Default.Namespace;
 
 public class TexturedNeck : SpriteBatchNode
 {
-    protected List<Vector2> vertices = [];
+    private List<Vector2> vertices = [];
 
-    protected List<Vector2> textureCoords = [];
+    private List<Vector2> textureCoords = [];
 
     public TexturedNeck(string textureFile)
     {

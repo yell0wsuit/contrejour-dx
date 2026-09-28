@@ -12,21 +12,21 @@ namespace Default.Namespace;
 
 public class PlasticineBodyClip : ContreJourBodyClip, IRestartable
 {
-    protected bool changed;
+    private bool changed;
 
-    protected PlasticineSprite clipContent;
+    private PlasticineSprite clipContent;
 
-    protected Dictionary<Touch, DraggingItem> draggingItems;
+    private Dictionary<Touch, DraggingItem> draggingItems;
 
-    protected PlasticineItem firstItem;
+    private PlasticineItem firstItem;
 
-    protected PlasticineHighliteBorder highlite;
+    private PlasticineHighliteBorder highlite;
 
-    protected float lastTouchTime;
+    private float lastTouchTime;
 
     private PlasticineItem leftItem;
 
-    protected PlasticineWideBorder wideBorder;
+    private PlasticineWideBorder wideBorder;
 
     public PlasticineItem FirstItem => firstItem;
 

@@ -11,13 +11,13 @@ namespace Mokus2D.Visual.Shaders.Parallax;
 
 public struct ParallaxVertex : ITintVertex, IVertex, IVertexType
 {
-    public Vector3 Position;
+    private Vector3 Position;
 
-    public Color Color;
+    private Color Color;
 
-    public Vector2 TextureCoordinate;
+    private Vector2 TextureCoordinate;
 
-    public float ColorRatio;
+    private float ColorRatio;
 
     public float Parallax;
 

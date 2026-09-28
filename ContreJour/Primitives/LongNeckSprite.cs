@@ -17,7 +17,7 @@ namespace ContreJour.Primitives;
 
 public abstract class LongNeckSprite : PrimitivesNode
 {
-    protected bool created;
+    private bool created;
 
     protected VertexPositionColorTexture[] vertices;
 
@@ -25,7 +25,7 @@ public abstract class LongNeckSprite : PrimitivesNode
 
     private Color neckColor;
 
-    protected Color drawNeckColor;
+    private Color drawNeckColor;
 
     protected float borderWidth;
 
@@ -35,7 +35,7 @@ public abstract class LongNeckSprite : PrimitivesNode
 
     private readonly TextureCoords textureCoords = new();
 
-    protected float textureStep = 1f;
+    private float textureStep = 1f;
 
     protected bool drawBorder = true;
 

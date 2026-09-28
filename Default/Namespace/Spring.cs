@@ -6,15 +6,15 @@ namespace Default.Namespace;
 
 public class Spring
 {
-    public Body bodyA;
+    private Body bodyA;
 
-    public Body bodyB;
+    private Body bodyB;
 
-    public float k;
+    private float k;
 
-    public Vector2 localAnchorA;
+    private Vector2 localAnchorA;
 
-    public Vector2 localAnchorB;
+    private Vector2 localAnchorB;
 
     public Spring(ref Body bodyA, ref Body bodyB, Vector2 anchorA, Vector2 anchorB, float k)
     {

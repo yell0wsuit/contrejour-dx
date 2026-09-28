@@ -14,21 +14,21 @@ namespace Default.Namespace;
 
 public class TeleportBodyClip : BodyClip
 {
-    protected Portal portal;
+    private Portal portal;
 
-    protected TeleportBodyClip sibling;
+    private TeleportBodyClip sibling;
 
-    protected float teleportTime;
+    private float teleportTime;
 
-    protected Vector2 portalPosition;
+    private Vector2 portalPosition;
 
-    protected bool teleporting;
+    private bool teleporting;
 
-    protected bool limitSpeed;
+    private bool limitSpeed;
 
-    protected List<BodyClip> teleportables;
+    private List<BodyClip> teleportables;
 
-    protected EventSender useEvent;
+    private EventSender useEvent;
 
     public TeleportBodyClip Sibling
     {

@@ -15,7 +15,7 @@ public class Sequence : ITween<Sequence>, ICompletableTween, ITween, ICleanable,
 
     private int _currentIndex;
 
-    public bool Test;
+    private bool Test;
 
     private ITween Current => _tweens[_currentIndex];
 

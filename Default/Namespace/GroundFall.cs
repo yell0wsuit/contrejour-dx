@@ -4,7 +4,7 @@ namespace Default.Namespace;
 
 public class GroundFall : GravityParticleSystem
 {
-    protected bool black;
+    private bool black;
 
     public GroundFall(ContreJourGame game)
         : base(game.Choose("common/McGroundPart", "common/McGroundPartBlack", "chapter4/McGroundPartWhite", null, "McGroundPart_6"))

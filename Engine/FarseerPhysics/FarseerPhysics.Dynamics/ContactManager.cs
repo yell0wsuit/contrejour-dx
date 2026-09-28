@@ -11,13 +11,13 @@ public class ContactManager
 
     public IBroadPhase BroadPhase;
 
-    public CollisionFilterHandler ContactFilter;
+    private CollisionFilterHandler ContactFilter;
 
     public List<Contact> ContactList = new(128);
 
     public EndContactHandler EndContact;
 
-    public BroadphaseHandler OnBroadphaseCollision;
+    private BroadphaseHandler OnBroadphaseCollision;
 
     public PostSolveHandler PostSolve;
 

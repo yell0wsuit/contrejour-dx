@@ -15,25 +15,25 @@ namespace Default.Namespace;
 
 public class EndRoseBodyClip : StickyBodyClip, IBonusAcceptable, IBodyClip
 {
-    protected CosChanger colorChanger;
+    private CosChanger colorChanger;
 
-    protected float colorProgress;
+    private float colorProgress;
 
-    protected float colorStep;
+    private float colorStep;
 
-    protected bool goingDown;
+    private bool goingDown;
 
-    protected float maxTime;
+    private float maxTime;
 
-    protected MovieClip movie;
+    private MovieClip movie;
 
-    protected bool rised;
+    private bool rised;
 
-    protected bool saved;
+    private bool saved;
 
-    protected float startTime;
+    private float startTime;
 
-    protected bool started;
+    private bool started;
 
     public EndRoseBodyClip(LevelBuilderBase builder, object body, Sprite clip, Hashtable config)
         : base(builder, body, clip, config)

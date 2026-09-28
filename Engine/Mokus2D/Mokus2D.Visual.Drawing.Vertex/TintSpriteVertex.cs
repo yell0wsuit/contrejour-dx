@@ -8,13 +8,13 @@ namespace Mokus2D.Visual.Drawing.Vertex;
 
 public struct TintSpriteVertex(Vector3 position, Color color, Vector2 textureCoordinate, float colorRatio) : ITintVertex, IVertex, IVertexType
 {
-    public Vector3 Position = position;
+    private Vector3 Position = position;
 
-    public Color Color = color;
+    private Color Color = color;
 
-    public Vector2 TextureCoordinate = textureCoordinate;
+    private Vector2 TextureCoordinate = textureCoordinate;
 
-    public float ColorRatio = colorRatio;
+    private float ColorRatio = colorRatio;
 
     public static readonly VertexDeclaration VertexDeclaration;
 

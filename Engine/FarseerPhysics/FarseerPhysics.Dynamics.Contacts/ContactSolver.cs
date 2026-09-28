@@ -114,19 +114,19 @@ public class ContactSolver
         }
     }
 
-    public TimeStep _step;
+    private TimeStep _step;
 
-    public Position[] _positions;
+    private Position[] _positions;
 
-    public Velocity[] _velocities;
+    private Velocity[] _velocities;
 
-    public ContactPositionConstraint[] _positionConstraints;
+    private ContactPositionConstraint[] _positionConstraints;
 
     public ContactVelocityConstraint[] _velocityConstraints;
 
-    public Contact[] _contacts;
+    private Contact[] _contacts;
 
-    public int _count;
+    private int _count;
 
     public void Reset(TimeStep step, int count, Contact[] contacts, Position[] positions, Velocity[] velocities)
     {

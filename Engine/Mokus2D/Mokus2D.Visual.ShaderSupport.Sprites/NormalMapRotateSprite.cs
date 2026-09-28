@@ -5,7 +5,7 @@ namespace Mokus2D.Visual.ShaderSupport.Sprites;
 
 public class NormalMapRotateSprite(string name) : Sprite<VertexNormalMapRotate>(name)
 {
-    public bool SkipSelfTransform;
+    private bool SkipSelfTransform;
 
     protected override void RefreshQuad()
     {

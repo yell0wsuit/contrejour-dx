@@ -17,31 +17,31 @@ public class DraggingItem
 
     protected Pair<Vector2> baseAnchors;
 
-    protected float baseAngle;
+    private float baseAngle;
 
-    protected Vector2 baseCenter;
+    private Vector2 baseCenter;
 
     protected Pair<Vector2> basePoints;
 
-    protected LevelBuilderBase builder;
+    private LevelBuilderBase builder;
 
-    protected Touch currentTouch;
+    private Touch currentTouch;
 
-    protected PlasticineItem dragItem;
+    private PlasticineItem dragItem;
 
-    protected ContreJourGame game;
+    private ContreJourGame game;
 
-    protected Vector2 initialPosition;
+    private Vector2 initialPosition;
 
-    protected Vector2 initialTouchPosition;
+    private Vector2 initialTouchPosition;
 
-    protected Vector2 lastTouchPosition;
+    private Vector2 lastTouchPosition;
 
-    protected PlasticineItem left;
+    private PlasticineItem left;
 
-    protected Pair<Vector2> movingAnchors;
+    private Pair<Vector2> movingAnchors;
 
-    protected PlasticineItem right;
+    private PlasticineItem right;
 
     public DraggingItem(LevelBuilderBase builder, PlasticineItem item, Touch touch)
     {

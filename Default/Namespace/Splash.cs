@@ -25,21 +25,21 @@ public class Splash : Node, ITouchListener, IDisposable
 {
     public readonly EventSender EndEvent = new();
 
-    protected Vector2 blackHeroPosition = new Vector2(360f + (W7IPhoneWidthDiff / 4f), 153f) * 2f;
+    private Vector2 blackHeroPosition = new Vector2(360f + (W7IPhoneWidthDiff / 4f), 153f) * 2f;
 
-    protected LayerColor background;
+    private LayerColor background;
 
-    protected Sprite title;
+    private Sprite title;
 
-    protected McChillingoLogo logo;
+    private McChillingoLogo logo;
 
-    protected FakeHero hero;
+    private FakeHero hero;
 
-    protected Vector2 center;
+    private Vector2 center;
 
-    protected Sprite mokusLogo;
+    private Sprite mokusLogo;
 
-    protected FakeHeroBlack blackHero;
+    private FakeHeroBlack blackHero;
 
     private bool ended;
 

@@ -18,15 +18,15 @@ namespace Default.Namespace;
 
 public class BackSnotBodyClip : SnotBodyClipBase, IClickable
 {
-    protected float force;
+    private float force;
 
-    protected float forceProgress;
+    private float forceProgress;
 
-    protected float forceStep;
+    private float forceStep;
 
-    protected bool stabilize;
+    private bool stabilize;
 
-    protected bool stabilizeCalculated;
+    private bool stabilizeCalculated;
 
     public override Body EyeBody => Physics.EndBody;
 

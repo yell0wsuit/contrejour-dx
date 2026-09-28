@@ -9,15 +9,15 @@ public abstract class NormalMapEffectBase : TextureMatrixEffectBase
 {
     public readonly ShaderParameterInt LightsCount;
 
-    public readonly ShaderParameterFloat AmbientLightPower;
+    private readonly ShaderParameterFloat AmbientLightPower;
 
-    public readonly ShaderParameterVector3 AmbientLightVector;
+    private readonly ShaderParameterVector3 AmbientLightVector;
 
-    public readonly ShaderParameterColor AmbientLightColor;
+    private readonly ShaderParameterColor AmbientLightColor;
 
-    public readonly ShaderParameterFloat MaxLightPower;
+    private readonly ShaderParameterFloat MaxLightPower;
 
-    public readonly ShaderParameterFloat DiffuseLightPower;
+    private readonly ShaderParameterFloat DiffuseLightPower;
 
     private readonly EffectParameter _lightPosition;
 

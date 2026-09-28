@@ -9,7 +9,7 @@ namespace Default.Namespace;
 
 public class TrampolinePartBodyClip(LevelBuilderBase builder, object body) : ContreJourBodyClip(builder, body, null, null), IClickable
 {
-    protected TrampolineBodyClip parent;
+    private TrampolineBodyClip parent;
 
     public SnotData Data { get; set; }
 

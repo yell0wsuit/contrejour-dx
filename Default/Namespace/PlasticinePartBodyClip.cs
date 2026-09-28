@@ -19,13 +19,13 @@ namespace Default.Namespace;
 public class PlasticinePartBodyClip : ContreJourBodyClip, IClickable, IRestartable, IGrassControllerContainer
 {
     public const float GrassTrampleDistance = 1.3333334f;
-    protected int globalIndex;
+    private int globalIndex;
 
-    protected int index;
+    private int index;
 
-    protected int verticesOffset;
+    private int verticesOffset;
 
-    protected bool dirty;
+    private bool dirty;
 
     private PlasticineWideBorder border;
 
@@ -33,71 +33,71 @@ public class PlasticinePartBodyClip : ContreJourBodyClip, IClickable, IRestartab
 
     private int fillIndex = -1;
 
-    protected PlasticinePartHighlite highlite;
+    private PlasticinePartHighlite highlite;
 
-    protected Vector2 initialPosition;
+    private Vector2 initialPosition;
 
-    protected float initialAngle;
+    private float initialAngle;
 
-    protected Vector2 targetPosition;
+    private Vector2 targetPosition;
 
-    protected float targetAngle;
+    private float targetAngle;
 
-    protected ContreJourGame game;
+    private ContreJourGame game;
 
-    protected List<DustData> dust = new(64);
+    private List<DustData> dust = new(64);
 
-    protected PlasticineItem item;
+    private PlasticineItem item;
 
-    protected bool updateParent;
+    private bool updateParent;
 
-    protected PlasticineBodyClip parent;
+    private PlasticineBodyClip parent;
 
-    protected float width;
+    private float width;
 
-    protected float groundFallTime;
+    private float groundFallTime;
 
-    protected float groundFallMaxTime;
+    private float groundFallMaxTime;
 
-    protected bool isFloor;
+    private bool isFloor;
 
-    protected bool isTop;
+    private bool isTop;
 
-    protected int dynamic;
+    private int dynamic;
 
-    protected bool moving;
+    private bool moving;
 
-    protected bool dragging;
+    private bool dragging;
 
-    protected float lastTime;
+    private float lastTime;
 
-    protected Vector2 moveForce;
+    private Vector2 moveForce;
 
     protected Vector2 lastFrameSpeed;
 
-    protected Vector2 normal;
+    private Vector2 normal;
 
-    protected Vector2 parallel;
+    private Vector2 parallel;
 
-    protected IGrassController grassController;
+    private IGrassController grassController;
 
-    protected PlasticinePartBodyClip previous;
+    private PlasticinePartBodyClip previous;
 
-    protected PlasticinePartBodyClip next;
+    private PlasticinePartBodyClip next;
 
-    protected bool isRotationDirty;
+    private bool isRotationDirty;
 
-    protected Vector2 fixPosition;
+    private Vector2 fixPosition;
 
-    protected bool fixHighlite;
+    private bool fixHighlite;
 
-    protected Sprite circle;
+    private Sprite circle;
 
-    protected Vector2 circlePosition;
+    private Vector2 circlePosition;
 
-    protected float circleSize;
+    private float circleSize;
 
-    protected float circleScale;
+    private float circleScale;
 
     private static int i;
 

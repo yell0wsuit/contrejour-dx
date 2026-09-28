@@ -9,7 +9,7 @@ public class SnotLinkHint(ContreJourLevelBuilder builder, object body, Sprite cl
 {
     protected SnotBodyClip snot;
 
-    protected bool snotGot;
+    private bool snotGot;
 
     public override bool HasToHide()
     {

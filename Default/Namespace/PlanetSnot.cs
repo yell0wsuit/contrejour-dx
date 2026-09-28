@@ -20,19 +20,19 @@ public class PlanetSnot : LongNeckSprite, IDepthDependent
 
     public readonly Sprite BaseSprite;
 
-    protected Vector2 middle;
+    private Vector2 middle;
 
-    protected Vector2 end;
+    private Vector2 end;
 
-    protected Vector2 targetEnd;
+    private Vector2 targetEnd;
 
-    protected ushort opacity;
+    private ushort opacity;
 
-    protected float depth;
+    private float depth;
 
-    protected Vector2 endInit;
+    private Vector2 endInit;
 
-    protected Vector2 middleInit;
+    private Vector2 middleInit;
 
     private static readonly Vector2 END = new(0f, 80f);
 

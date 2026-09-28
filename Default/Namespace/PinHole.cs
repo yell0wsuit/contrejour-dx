@@ -8,7 +8,7 @@ namespace Default.Namespace;
 
 public class PinHole : PrimitivesNode
 {
-    protected VertexPositionColorTexture[] vertices = new VertexPositionColorTexture[24];
+    private VertexPositionColorTexture[] vertices = new VertexPositionColorTexture[24];
 
     public static readonly Vector3 InOffset = new(-10f, -10f, 0f);
 

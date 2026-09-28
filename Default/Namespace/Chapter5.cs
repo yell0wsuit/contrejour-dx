@@ -14,15 +14,15 @@ namespace Default.Namespace;
 
 public class Chapter5(int index, MainMenu menu) : ChapterItem(index, menu)
 {
-    protected Node foreground;
+    private Node foreground;
 
-    protected Node foregroundContainer;
+    private Node foregroundContainer;
 
-    protected List<CosPropertyChanger> changers = [];
+    private List<CosPropertyChanger> changers = [];
 
-    protected Node planetForeground;
+    private Node planetForeground;
 
-    protected Sprite ocean;
+    private Sprite ocean;
 
     protected override void CreateSprites()
     {

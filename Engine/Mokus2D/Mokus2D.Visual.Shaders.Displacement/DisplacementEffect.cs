@@ -12,7 +12,7 @@ public class DisplacementEffect : TextureMatrixEffectBase
 
     private readonly EffectParameter _textureSize;
 
-    public readonly ShaderParameterFloat MaxDisplacement;
+    private readonly ShaderParameterFloat MaxDisplacement;
 
     public Texture2D DisplacementTexture { get; set; }
 

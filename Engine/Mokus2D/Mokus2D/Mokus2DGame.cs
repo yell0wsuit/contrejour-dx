@@ -26,13 +26,13 @@ public abstract class Mokus2DGame : DisposableBase
 {
     public readonly KeysController KeysController = new();
 
-    public readonly Scheduler Scheduler = new();
+    private readonly Scheduler Scheduler = new();
 
     public readonly TouchController TouchController = new();
 
     public readonly SpriteClicksListener SpriteClicksListener;
 
-    public Tweener Tweener;
+    private Tweener Tweener;
 
     public readonly UpdateDrawCounter PerformanceCounter = new(60);
 
@@ -46,7 +46,7 @@ public abstract class Mokus2DGame : DisposableBase
 
     public Color BackgroundColor = Color.Black;
 
-    public float? MaxUpdateTime = 0.04f;
+    private float? MaxUpdateTime = 0.04f;
     private IFileLoader _fileLoader = new FileLoader();
 
     private readonly ConcurrentDelayedActions _mainThreadActions = new();

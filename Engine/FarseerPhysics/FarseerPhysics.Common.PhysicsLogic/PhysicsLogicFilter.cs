@@ -2,7 +2,7 @@ namespace FarseerPhysics.Common.PhysicsLogic;
 
 public struct PhysicsLogicFilter
 {
-    public PhysicsLogicType ControllerIgnores;
+    private PhysicsLogicType ControllerIgnores;
 
     public void IgnorePhysicsLogic(PhysicsLogicType type)
     {

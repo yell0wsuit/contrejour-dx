@@ -4,11 +4,11 @@ namespace Mokus2D.Util.MathUtils;
 
 public class AsymptoticFloat(float min, float max, float offset) : IValueProcessor<float>
 {
-    public float Min = min;
+    private float Min = min;
 
-    public float Max = max;
+    private float Max = max;
 
-    public float Offset = offset;
+    private float Offset = offset;
 
     public static float GetValue(float value, float min, float max, float asymptoticOffset)
     {

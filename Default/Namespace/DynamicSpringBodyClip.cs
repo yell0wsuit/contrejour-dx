@@ -6,15 +6,15 @@ namespace Default.Namespace;
 
 public class DynamicSpringBodyClip(LevelBuilderBase builder, object body, Node clip, Hashtable config) : SpringBodyClip(builder, body, clip, config)
 {
-    protected Vector2 relativePosition;
+    private Vector2 relativePosition;
 
-    protected Vector2 worldPosition;
+    private Vector2 worldPosition;
 
-    protected Vector2 oldPosition;
+    private Vector2 oldPosition;
 
     private float oldAngle;
 
-    protected float oldAngleForSticked;
+    private float oldAngleForSticked;
 
     private bool TransformChanged => oldPosition != Body.Position || oldAngle != Body.Rotation;
 

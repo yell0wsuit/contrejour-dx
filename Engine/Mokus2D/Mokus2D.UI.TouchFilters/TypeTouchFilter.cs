@@ -8,7 +8,7 @@ public class TypeTouchFilter
 {
     public TouchType? Type;
 
-    public readonly Predicate<Touch> Predicate;
+    private readonly Predicate<Touch> Predicate;
 
     public TypeTouchFilter()
     {

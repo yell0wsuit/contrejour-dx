@@ -6,9 +6,9 @@ namespace Mokus2D.Util.MathUtils;
 
 public class AsymptoticVector2(RectangleFloat bounds, float offset) : IValueProcessor<Vector2>
 {
-    public RectangleFloat Bounds = bounds;
+    private RectangleFloat Bounds = bounds;
 
-    public float Offset = offset;
+    private float Offset = offset;
 
     public Vector2 GetValue(Vector2 value)
     {

@@ -7,11 +7,11 @@ namespace Default.Namespace;
 
 public class RadiusClickListener(Node _target, float _clickRadius, int priority = 0) : ClickListener(priority)
 {
-    protected float clickRadius = _clickRadius;
+    private float clickRadius = _clickRadius;
 
-    protected bool disableDrag;
+    private bool disableDrag;
 
-    protected Node target = _target;
+    private Node target = _target;
 
     public bool DisableDrag
     {

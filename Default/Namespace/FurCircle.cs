@@ -8,9 +8,9 @@ namespace Default.Namespace;
 
 public class FurCircle : ParticleSystem
 {
-    protected float radius;
+    private float radius;
 
-    protected float angleStep;
+    private float angleStep;
 
     public float Radius
     {

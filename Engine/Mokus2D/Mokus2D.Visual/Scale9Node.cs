@@ -12,23 +12,23 @@ namespace Mokus2D.Visual;
 
 public class Scale9Node : Node, ISizeNode, IDataReloadable
 {
-    protected readonly Sprite LeftTop;
+    private readonly Sprite LeftTop;
 
-    protected readonly Sprite Top;
+    private readonly Sprite Top;
 
-    protected readonly Sprite RightTop;
+    private readonly Sprite RightTop;
 
-    protected readonly Sprite Left;
+    private readonly Sprite Left;
 
-    protected readonly Sprite Middle;
+    private readonly Sprite Middle;
 
-    protected readonly Sprite Right;
+    private readonly Sprite Right;
 
-    protected readonly Sprite LeftBottom;
+    private readonly Sprite LeftBottom;
 
-    protected readonly Sprite Bottom;
+    private readonly Sprite Bottom;
 
-    protected readonly Sprite RightBottom;
+    private readonly Sprite RightBottom;
 
     private readonly float _leftSize;
 

@@ -8,13 +8,13 @@ namespace Default.Namespace;
 
 public class Bouncer : IUpdatable
 {
-    protected float amplitude;
+    private float amplitude;
 
-    protected float currentAmplitude;
+    private float currentAmplitude;
 
-    protected float amplitudeStep;
+    private float amplitudeStep;
 
-    protected CosChanger changer;
+    private CosChanger changer;
 
     public float Amplitude
     {

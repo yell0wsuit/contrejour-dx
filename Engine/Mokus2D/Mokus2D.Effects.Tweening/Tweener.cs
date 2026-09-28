@@ -18,7 +18,7 @@ public class Tweener(object defaultTarget) : DisposableBase, IUpdatable, ICleana
         public readonly int? Tag = tag;
     }
 
-    public bool Test;
+    private bool Test;
 
     private readonly object _defaultTarget = defaultTarget;
 

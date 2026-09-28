@@ -15,27 +15,27 @@ namespace Default.Namespace;
 
 public class RotatorBodyClip : FurBodyClip, IClickable, IRestartable, ISnotHolder
 {
-    protected float targetAngle;
+    private float targetAngle;
 
-    protected Touch touch;
+    private Touch touch;
 
-    protected float startTouchAngle;
+    private float startTouchAngle;
 
-    protected Sprite circle;
+    private Sprite circle;
 
-    protected Sprite touchPoint;
+    private Sprite touchPoint;
 
-    protected bool touching;
+    private bool touching;
 
-    protected float lastDirection;
+    private float lastDirection;
 
-    protected float touchPointAngle;
+    private float touchPointAngle;
 
-    protected float touchPointSpeed;
+    private float touchPointSpeed;
 
-    protected float touchPointNeededSpeed;
+    private float touchPointNeededSpeed;
 
-    protected float lastPointSpeed;
+    private float lastPointSpeed;
 
     private readonly float ActionTime = 2.5f;
 

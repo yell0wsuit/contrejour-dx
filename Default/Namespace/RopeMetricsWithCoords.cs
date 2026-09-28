@@ -4,11 +4,11 @@ namespace Default.Namespace;
 
 public class RopeMetricsWithCoords : RopeMetrics
 {
-    protected Vector2 start;
+    private Vector2 start;
 
-    protected Vector2 end;
+    private Vector2 end;
 
-    protected Vector2 partOffset;
+    private Vector2 partOffset;
 
     public Vector2 PartOffset => partOffset;
 

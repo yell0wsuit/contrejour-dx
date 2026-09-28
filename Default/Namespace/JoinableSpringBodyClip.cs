@@ -8,15 +8,15 @@ namespace Default.Namespace;
 
 public class JoinableSpringBodyClip : RotatableSpringBase
 {
-    protected RotatorBodyClip rotator;
+    private RotatorBodyClip rotator;
 
-    protected Vector2 relativeRotatorPosition;
+    private Vector2 relativeRotatorPosition;
 
-    protected float relativeAngle;
+    private float relativeAngle;
 
-    protected float stickedAngle;
+    private float stickedAngle;
 
-    protected RevoluteJoint rotatorJoint;
+    private RevoluteJoint rotatorJoint;
 
     protected override bool IsMoving => rotator != null && rotator.Body.AngularVelocity != 0f;
 

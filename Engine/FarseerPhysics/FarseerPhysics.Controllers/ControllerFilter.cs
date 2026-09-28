@@ -2,7 +2,7 @@ namespace FarseerPhysics.Controllers;
 
 public struct ControllerFilter
 {
-    public ControllerType ControllerFlags;
+    private ControllerType ControllerFlags;
 
     public void IgnoreController(ControllerType controller)
     {

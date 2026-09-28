@@ -7,7 +7,7 @@ namespace Default.Namespace;
 
 public class ContreJourBodyClip : BodyClip
 {
-    protected readonly ContreJourLevelBuilder contreJourBuilder;
+    private readonly ContreJourLevelBuilder contreJourBuilder;
 
     public ContreJourGame Game { get; }
 

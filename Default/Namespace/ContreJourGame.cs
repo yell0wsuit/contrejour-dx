@@ -71,100 +71,100 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
 
     private readonly PausePanel pausePanel;
 
-    protected Node alphaBackground;
+    private Node alphaBackground;
 
-    protected EventSender backEvent;
+    private EventSender backEvent;
 
-    protected List<BackgroundBase> backgrounds = [];
+    private List<BackgroundBase> backgrounds = [];
 
-    protected bool blackSide;
+    private bool blackSide;
 
-    protected IBonusAcceptable bonusTarget;
+    private IBonusAcceptable bonusTarget;
 
-    protected Color buttonsColor;
+    private Color buttonsColor;
 
-    protected int chapter;
+    private int chapter;
 
-    protected ClickableLayer clickableLayer;
+    private ClickableLayer clickableLayer;
 
-    protected Dictionary<Touch, IClickable> draggingItems;
+    private Dictionary<Touch, IClickable> draggingItems;
 
-    protected ParticleSystem dust;
+    private ParticleSystem dust;
 
-    protected EndLevelBodyClip endLevel;
+    private EndLevelBodyClip endLevel;
 
-    protected ParticleSystem energy;
+    private ParticleSystem energy;
 
-    protected FinishView finishView;
+    private FinishView finishView;
 
-    protected bool finished;
+    private bool finished;
 
-    protected float flyOpacity;
+    private float flyOpacity;
 
-    protected ParticleSystem flyes;
+    private ParticleSystem flyes;
 
-    protected List<ForegroundBase> foregrounds = [];
+    private List<ForegroundBase> foregrounds = [];
 
-    protected int frame;
+    private int frame;
 
-    protected List<Touch> freeDisabledTouches;
+    private List<Touch> freeDisabledTouches;
 
-    protected List<Touch> freeTouches;
+    private List<Touch> freeTouches;
 
-    protected ParticleSystem grass;
+    private ParticleSystem grass;
 
-    protected Button pauseButton;
+    private Button pauseButton;
 
-    protected GroundFall groundFall;
-    protected int levelIndex;
+    private GroundFall groundFall;
+    private int levelIndex;
 
-    protected int levelPosition;
+    private int levelPosition;
 
-    protected LightColor lightColor;
+    private LightColor lightColor;
 
-    protected Vector2 lightPoint;
+    private Vector2 lightPoint;
 
-    protected float lightPower;
+    private float lightPower;
 
-    protected bool lightPowerChanged;
+    private bool lightPowerChanged;
 
-    protected EventSender nextLevelEvent;
+    private EventSender nextLevelEvent;
 
-    protected GravityParticleSystem particles;
+    private GravityParticleSystem particles;
 
-    protected List<PlasticineBodyClip> plasticine = new(8);
+    private List<PlasticineBodyClip> plasticine = new(8);
 
-    protected List<object> positionDependent;
+    private List<object> positionDependent;
 
-    protected List<object> positionProviders;
+    private List<object> positionProviders;
 
-    protected float providersValue;
+    private float providersValue;
 
-    protected bool restartEnabled;
+    private bool restartEnabled;
 
-    protected LayerColor restartLayer;
+    private LayerColor restartLayer;
 
-    protected bool snotSend;
+    private bool snotSend;
 
-    protected int starsCollected;
+    private int starsCollected;
 
-    protected LightColor startLightColor;
+    private LightColor startLightColor;
 
-    protected Hashtable teleports;
+    private Hashtable teleports;
 
-    protected List<string> texturesToUnload;
+    private List<string> texturesToUnload;
 
-    protected bool touchEnabled;
+    private bool touchEnabled;
 
-    protected Vector2 touchFixPoint;
+    private Vector2 touchFixPoint;
 
-    protected bool whiteSide;
+    private bool whiteSide;
 
-    protected WindManager windManager;
+    private WindManager windManager;
 
-    protected int zoomOutCount;
+    private int zoomOutCount;
 
-    protected float zoomOutTime;
+    private float zoomOutTime;
 
     public static readonly int[] MinZoomLevels =
     [

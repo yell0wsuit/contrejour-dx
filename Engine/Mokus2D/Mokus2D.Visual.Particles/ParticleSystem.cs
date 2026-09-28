@@ -8,7 +8,7 @@ namespace Mokus2D.Visual.Particles;
 
 public class ParticleSystem : Node
 {
-    public ParticleSystemConfig ParticlesConfig;
+    private ParticleSystemConfig ParticlesConfig;
 
     private readonly List<ParticleData> _visibleParticles = [];
 
@@ -20,9 +20,9 @@ public class ParticleSystem : Node
 
     private float _timeToCreate;
 
-    public bool CanCreateParticles = true;
+    private bool CanCreateParticles = true;
 
-    public Predicate<ParticleData> RemovePredicate;
+    private Predicate<ParticleData> RemovePredicate;
 
     public int VisibleParticles => _visibleParticles.Count;
 

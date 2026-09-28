@@ -9,17 +9,17 @@ namespace Mokus2D.Visual.Data;
 
 public class ClipData : IMovieClipData, ISpriteData, ITextureNodeData, IConfig
 {
-    public int FramesCount;
+    private int FramesCount;
 
-    public bool UseSheet;
+    private bool UseSheet;
 
-    public bool Jpg;
+    private bool Jpg;
 
-    public Vector2 TileData;
+    private Vector2 TileData;
 
-    public int Width;
+    private int Width;
 
-    public int Height;
+    private int Height;
 
     public float ScaleFactor { get; set; } = 1f;
 

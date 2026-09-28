@@ -8,9 +8,9 @@ namespace Default.Namespace;
 
 public class PlasticineWideBorder : PrimitivesNode
 {
-    protected VertexPositionColor[] outBorder;
+    private VertexPositionColor[] outBorder;
 
-    protected VertexPositionColor[] inBorder;
+    private VertexPositionColor[] inBorder;
 
     public VertexPositionColor[] OutBorder => outBorder;
 

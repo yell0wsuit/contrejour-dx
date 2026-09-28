@@ -16,19 +16,19 @@ namespace Default.Namespace;
 
 public class BlackSmokeTail(Body _body, LevelBuilderBase _builder) : IUpdatable
 {
-    protected Body body = _body;
+    private Body body = _body;
 
-    protected LevelBuilderBase builder = _builder;
+    private LevelBuilderBase builder = _builder;
 
-    protected List<object> items = [];
+    private List<object> items = [];
 
-    protected Vector2 previousPosition;
+    private Vector2 previousPosition;
 
-    protected bool initialized;
+    private bool initialized;
 
-    protected float startScale = 1f;
+    private float startScale = 1f;
 
-    protected string clipName = "McTailPart";
+    private string clipName = "McTailPart";
 
     public float StartScale
     {

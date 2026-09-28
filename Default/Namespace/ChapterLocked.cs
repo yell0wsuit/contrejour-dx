@@ -19,11 +19,11 @@ public class ChapterLocked : ChapterItem
 {
     public readonly EventSender ExplodeEvent = new();
 
-    protected bool exploding;
+    private bool exploding;
 
-    protected Explosion explosion;
+    private Explosion explosion;
 
-    protected Tablo tablo;
+    private Tablo tablo;
 
     public ChapterItem TargetChapter { get; set; }
 

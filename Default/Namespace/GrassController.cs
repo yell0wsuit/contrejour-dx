@@ -13,33 +13,33 @@ public class GrassController : IGrassController, IUpdatable
 {
     protected PlasticinePartBodyClip plasticine;
 
-    protected ContreJourGame game;
+    private ContreJourGame game;
 
     protected ContreJourLevelBuilder builder;
 
-    protected Particle grass;
+    private Particle grass;
 
     protected List<GrassAndPosition> smallGrasses;
 
-    protected WindData windData;
+    private WindData windData;
 
-    protected List<object> flyes;
+    private List<object> flyes;
 
-    protected float startAngle;
+    private float startAngle;
 
-    protected bool touched;
+    private bool touched;
 
-    protected float touchDistance;
+    private float touchDistance;
 
-    protected int notTouchedFrames;
+    private int notTouchedFrames;
 
-    protected BodyClip touchingObject;
+    private BodyClip touchingObject;
 
-    protected float touchStartOffset;
+    private float touchStartOffset;
 
-    protected float touchOffset;
+    private float touchOffset;
 
-    protected float smallGrassRotation;
+    private float smallGrassRotation;
 
     public Particle Grass => grass;
 

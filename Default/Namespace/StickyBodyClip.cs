@@ -12,9 +12,9 @@ namespace Default.Namespace;
 
 public class StickyBodyClip : ContreJourBodyClip
 {
-    protected Body joinedBody;
+    private Body joinedBody;
 
-    protected bool joined;
+    private bool joined;
 
     private Vector2 offset;
 

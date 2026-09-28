@@ -4,13 +4,13 @@ namespace FarseerPhysics.Common.PhysicsLogic;
 
 public abstract class FilterData
 {
-    public Category DisabledOnCategories;
+    private Category DisabledOnCategories;
 
-    public int DisabledOnGroup;
+    private int DisabledOnGroup;
 
-    public Category EnabledOnCategories = Category.All;
+    private Category EnabledOnCategories = Category.All;
 
-    public int EnabledOnGroup;
+    private int EnabledOnGroup;
 
     public virtual bool IsActiveOn(Body body)
     {

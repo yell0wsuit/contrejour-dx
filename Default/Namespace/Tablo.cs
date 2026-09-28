@@ -7,7 +7,7 @@ namespace Default.Namespace;
 
 public class Tablo : Sprite
 {
-    protected bool open;
+    private bool open;
 
     public bool Open
     {

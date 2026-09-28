@@ -6,11 +6,11 @@ namespace Default.Namespace;
 
 public class TextureSnotSprite : SpringSnotSprite
 {
-    protected float opacity;
+    private float opacity;
 
-    protected float targetOpacity;
+    private float targetOpacity;
 
-    protected Color textureColor;
+    private Color textureColor;
 
     public float TargetOpacity
     {

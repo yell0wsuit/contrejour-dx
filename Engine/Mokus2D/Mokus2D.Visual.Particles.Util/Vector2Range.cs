@@ -8,9 +8,9 @@ namespace Mokus2D.Visual.Particles.Util;
 
 public struct Vector2Range(Vector2 value, Vector2 offset)
 {
-    public Vector2 Value = value;
+    private Vector2 Value = value;
 
-    public Vector2 Offset = offset;
+    private Vector2 Offset = offset;
 
     public static Vector2Range Create(Vector2 min, Vector2 max)
     {

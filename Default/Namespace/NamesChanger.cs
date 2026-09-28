@@ -14,11 +14,11 @@ namespace Default.Namespace;
 
 public class NamesChanger : Node
 {
-    protected float currentIndex;
+    private float currentIndex;
 
-    protected List<Node> names = [];
+    private List<Node> names = [];
 
-    protected Vector2 screenSize;
+    private Vector2 screenSize;
 
     public float CurrentIndex
     {

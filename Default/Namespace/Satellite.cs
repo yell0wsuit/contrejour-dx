@@ -9,19 +9,19 @@ namespace Default.Namespace;
 
 public class Satellite : IUpdatable, IRemovable
 {
-    protected float direction;
+    private float direction;
 
     protected float speedValue;
 
     protected float angleStep;
 
-    protected bool hasRemove;
+    private bool hasRemove;
 
     protected Particle clip;
 
     protected ContreJourGame game;
 
-    protected Vector2 initialPosition;
+    private Vector2 initialPosition;
 
     protected BodyClip target;
 

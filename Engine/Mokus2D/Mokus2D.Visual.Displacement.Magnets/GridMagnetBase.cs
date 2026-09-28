@@ -11,11 +11,11 @@ public abstract class GridMagnetBase : IGridMagnet, IUpdatable
 {
     public float Power = 1f;
 
-    public float? MaxPower;
+    private float? MaxPower;
 
-    public float? MinPower;
+    private float? MinPower;
 
-    public MagnetAction Action;
+    private MagnetAction Action;
 
     public bool HasRemove => Action != null && Action.Finished;
 

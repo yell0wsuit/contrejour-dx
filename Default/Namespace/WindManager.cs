@@ -6,15 +6,15 @@ namespace Default.Namespace;
 
 public class WindManager : IUpdatable
 {
-    protected float windValue;
+    private float windValue;
 
-    protected float windChange;
+    private float windChange;
 
-    protected float currentWind;
+    private float currentWind;
 
-    protected float currentWindStep;
+    private float currentWindStep;
 
-    protected float step;
+    private float step;
 
     [SuppressMessage("Style", "IDE0290:Use primary constructor", Justification = "Its random draws must run after the base constructor's, in this order.")]
     public WindManager(float step)

@@ -6,9 +6,9 @@ namespace Default.Namespace;
 
 public class GravityParticle : Particle
 {
-    protected Vector2 speed;
+    private Vector2 speed;
 
-    protected float angularSpeed;
+    private float angularSpeed;
 
     public Vector2 Speed
     {

@@ -9,7 +9,7 @@ public abstract class SpriteBatchEffectBase(string path) : ISpriteBatchEffect
 {
     protected readonly Effect Effect = EffectUtil.LoadEffect(path);
 
-    protected readonly string Path = path;
+    private readonly string Path = path;
 
     protected EffectParameterCollection Parameters => Effect.Parameters;
 

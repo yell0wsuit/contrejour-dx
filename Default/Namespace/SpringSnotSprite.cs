@@ -4,13 +4,13 @@ namespace Default.Namespace;
 
 public class SpringSnotSprite(ContreJourGame _game, SnotBodyClipBase snot, float startWidth, float centerWidth, float endWidth) : SnotSprite(snot, startWidth, centerWidth, endWidth)
 {
-    protected ContreJourGame game = _game;
+    private ContreJourGame game = _game;
 
-    protected bool active;
+    private bool active;
 
     protected float activeProgress;
 
-    protected float previousActiveProgress = 1f;
+    private float previousActiveProgress = 1f;
 
     public bool Active
     {

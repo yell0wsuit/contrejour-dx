@@ -8,9 +8,9 @@ namespace Default.Namespace;
 
 public class EndLastLevelBodyClip : EndLevelBodyClip
 {
-    protected CosChanger scaleChanger;
+    private CosChanger scaleChanger;
 
-    protected bool bounce;
+    private bool bounce;
 
     [SuppressMessage("Style", "IDE0290:Use primary constructor", Justification = "Its random draws must run after the base constructor's, in this order.")]
     public EndLastLevelBodyClip(LevelBuilderBase builder, object body, Node clip, Hashtable config)

@@ -8,11 +8,11 @@ public class FarseerConfig
 
     public float PhysicsToPixels = 30f;
 
-    public float Density = 0.3f;
+    private float Density = 0.3f;
 
-    public float Restitution;
+    private float Restitution;
 
     public float Friction = 1f;
 
-    public Vector2 Gravity = new(0f, 10f);
+    private Vector2 Gravity = new(0f, 10f);
 }

@@ -15,9 +15,9 @@ public class SimpleSpriteBatch<T> : ISimpleSpriteBatch<T>, ISimpleSpriteBatch wh
 
     protected T[] _vertices;
 
-    protected readonly GraphicsDevice _device;
+    private readonly GraphicsDevice _device;
 
-    protected Texture2D _texture;
+    private Texture2D _texture;
 
     protected SpriteBatchProperties _properties;
 
@@ -31,9 +31,9 @@ public class SimpleSpriteBatch<T> : ISimpleSpriteBatch<T>, ISimpleSpriteBatch wh
 
     private readonly ISpriteBatchEffect _defaultEffect;
 
-    protected Vector2 _screenSize;
+    private Vector2 _screenSize;
 
-    public ISpriteBatchEffect _currentEffect;
+    private ISpriteBatchEffect _currentEffect;
 
     protected short[] _indices;
 

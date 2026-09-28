@@ -45,31 +45,31 @@ public class DragableBodyClip : ContreJourBodyClip, IClickable, IRestartable, IS
 
     public const float OFFSET = 3.4f;
 
-    protected Vector2 axis;
+    private Vector2 axis;
 
     protected float currentAlpha;
 
-    protected EventSender dragStartEvent;
+    private EventSender dragStartEvent;
 
-    protected bool draging;
+    private bool draging;
 
-    protected Vector2 initialDragOffset;
+    private Vector2 initialDragOffset;
 
-    protected Vector2 initialMousePosition;
+    private Vector2 initialMousePosition;
 
     protected Vector2 initialPosition;
 
-    protected bool limitSpeed;
+    private bool limitSpeed;
 
-    protected float lowerLimit;
+    private float lowerLimit;
 
-    protected McDragLimit middle;
+    private McDragLimit middle;
 
-    protected Vector2 targetPosition;
+    private Vector2 targetPosition;
 
-    protected Touch touch;
+    private Touch touch;
 
-    protected float upperLimit;
+    private float upperLimit;
 
     private readonly CircleShape _dragShape;
 

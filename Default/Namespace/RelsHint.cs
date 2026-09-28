@@ -6,9 +6,9 @@ namespace Default.Namespace;
 
 public class RelsHint : FadeHint
 {
-    protected DragableBodyClip rels;
+    private DragableBodyClip rels;
 
-    protected bool used;
+    private bool used;
 
     [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "Level content creates this by reflection with this signature.")]
     public RelsHint(ContreJourLevelBuilder builder, object body, Sprite clip, Hashtable config)

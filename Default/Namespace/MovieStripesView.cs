@@ -12,11 +12,11 @@ namespace Default.Namespace;
 
 public class MovieStripesView : Node
 {
-    protected Node topSquare;
+    private Node topSquare;
 
-    protected Node bottomSquare;
+    private Node bottomSquare;
 
-    protected LayerColor FadeRectangle;
+    private LayerColor FadeRectangle;
 
     public readonly EventSender RestartEvent = new();
 

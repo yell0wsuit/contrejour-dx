@@ -28,99 +28,99 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
 
     private readonly float eyeScale;
 
-    protected float airTime;
+    private float airTime;
 
-    protected List<BlackTail> blackTails;
+    private List<BlackTail> blackTails;
 
-    protected Sprite bodyBackground;
+    private Sprite bodyBackground;
 
-    protected float breatheScale;
+    private float breatheScale;
 
-    protected float breatheScaleStep;
+    private float breatheScaleStep;
 
-    protected bool disablePositionUpdate;
+    private bool disablePositionUpdate;
 
-    protected bool eating;
+    private bool eating;
 
     protected HeroEye eye;
 
-    protected float eyeAngle;
+    private float eyeAngle;
 
-    protected bool eyeClosed;
+    private bool eyeClosed;
 
-    protected float finishColor;
+    private float finishColor;
 
-    protected float finishPause;
+    private float finishPause;
 
-    protected Vector2 finishPosition;
+    private Vector2 finishPosition;
 
-    protected bool finishSet;
+    private bool finishSet;
 
-    protected float finishSpeed;
+    private float finishSpeed;
 
     protected bool finished;
 
-    protected bool hasToYawn;
+    private bool hasToYawn;
 
-    protected bool hitEnabled;
+    private bool hitEnabled;
 
-    protected Sprite hotspot;
+    private Sprite hotspot;
 
-    protected Vector2 initialPosition;
+    private Vector2 initialPosition;
 
-    protected float lastFootPosition;
+    private float lastFootPosition;
 
-    protected float lastHitTime;
+    private float lastHitTime;
 
-    protected float lastOnGroundTime;
+    private float lastOnGroundTime;
 
     protected bool levelCompleted;
 
-    protected float maxAirTime;
+    private float maxAirTime;
 
-    protected bool migthyPosted;
+    private bool migthyPosted;
 
-    protected bool onGround;
+    private bool onGround;
 
-    protected float onGroundTime;
+    private float onGroundTime;
 
-    protected bool onPlasticine;
+    private bool onPlasticine;
 
-    protected Portal portal;
+    private Portal portal;
 
-    protected Vector2 previousSpeed;
+    private Vector2 previousSpeed;
 
-    protected bool removed;
+    private bool removed;
 
-    protected bool restartOnEating;
+    private bool restartOnEating;
 
-    protected bool restarting;
+    private bool restarting;
 
-    protected Sprite shadow;
+    private Sprite shadow;
 
     protected bool sleep;
 
-    protected float sleepSoundTime;
+    private float sleepSoundTime;
 
-    protected bool snotEnabled;
+    private bool snotEnabled;
 
-    protected int snotJoinedCount;
+    private int snotJoinedCount;
 
-    protected bool speedLocked;
+    private bool speedLocked;
 
-    protected bool speedyPosted;
+    private bool speedyPosted;
 
     protected HeroTail tail;
 
     protected Vector2 targetScale;
 
-    protected EventSender teleportEvent;
+    private EventSender teleportEvent;
 
-    protected float timeToSleep;
+    private float timeToSleep;
 
-    protected float velocity;
+    private float velocity;
 
-    protected Vector2 worldSize;
+    private Vector2 worldSize;
 
     public EventSender TeleportEvent => teleportEvent;
 

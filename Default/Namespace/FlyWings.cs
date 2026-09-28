@@ -10,15 +10,15 @@ namespace Default.Namespace;
 
 public class FlyWings : Node
 {
-    protected Sprite bottom;
+    private Sprite bottom;
 
-    protected Sprite top;
+    private Sprite top;
 
-    protected Node topContainer;
+    private Node topContainer;
 
-    protected Node bottomContainer;
+    private Node bottomContainer;
 
-    protected bool flying;
+    private bool flying;
 
     private static readonly float RotationDiff = 5.ToRadians();
 

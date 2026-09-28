@@ -9,9 +9,9 @@ namespace Default.Namespace;
 
 public class MovingRotatingSprite : RotatingSprite
 {
-    protected CosChanger changer;
+    private CosChanger changer;
 
-    protected Vector2 initialPosition;
+    private Vector2 initialPosition;
 
     public override Vector2 Position
     {

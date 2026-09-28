@@ -34,13 +34,13 @@ public class TouchCircle(Touch _touch, LevelBuilderBase builder) : BodyClip(buil
         }
     }
 
-    protected Dictionary<PlasticineBodyClip, ClosestItem> closestMap;
+    private Dictionary<PlasticineBodyClip, ClosestItem> closestMap;
 
-    protected bool enabled = true;
+    private bool enabled = true;
 
-    protected bool free = true;
+    private bool free = true;
 
-    protected Touch touch = _touch;
+    private Touch touch = _touch;
 
     public Touch Touch => touch;
 

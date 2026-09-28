@@ -4,9 +4,9 @@ namespace Default.Namespace;
 
 public class PhysicsUpdater : Updatable
 {
-    protected World world;
+    private World world;
 
-    protected ContactListener listener;
+    private ContactListener listener;
 
     public World World => world;
 

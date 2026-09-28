@@ -52,10 +52,10 @@ public class PhysicsConstructor : PhysicsTransform
         Category.Cat31
     ];
 
-    public float Density = 1f;
+    private float Density = 1f;
 
-    public IPhysicsConfigProcessor ConfigProcessor;
-    public readonly World World;
+    private IPhysicsConfigProcessor ConfigProcessor;
+    private readonly World World;
 
     private readonly Dictionary<string, ShapeProcessor> _processors = [];
 

@@ -7,13 +7,13 @@ namespace Default.Namespace;
 
 public class ChapterZip(int index, MainMenu menu) : ChapterItem(index, menu)
 {
-    protected Tablo arrow;
+    private Tablo arrow;
 
-    protected Sprite highlite;
+    private Sprite highlite;
 
-    protected MovieClip openAnimation;
+    private MovieClip openAnimation;
 
-    protected Sprite shadow;
+    private Sprite shadow;
 
     protected override void CreateSprites()
     {

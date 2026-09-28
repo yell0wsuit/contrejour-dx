@@ -4,7 +4,7 @@ namespace Default.Namespace;
 
 public class Level
 {
-    public List<object> items;
+    private List<object> items;
 
     public Hashtable levelProperties;
 

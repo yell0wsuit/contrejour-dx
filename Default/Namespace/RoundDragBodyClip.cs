@@ -9,9 +9,9 @@ namespace Default.Namespace;
 
 public class RoundDragBodyClip(ContreJourLevelBuilder _builder, object body, Node clip, Hashtable config) : DragableBodyClip(_builder, body, clip, config)
 {
-    protected float radius;
+    private float radius;
 
-    protected Sprite middleSprite;
+    private Sprite middleSprite;
 
     private static readonly Vector2 TouchCenterOffset = new(42f, 42f);
 

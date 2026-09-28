@@ -14,21 +14,21 @@ namespace Default.Namespace;
 
 public class SimpleSpikesBodyClip : ContreJourBodyClip, IRestartable
 {
-    protected bool floating;
+    private bool floating;
 
-    protected float speed;
+    private float speed;
 
-    protected float direction;
+    private float direction;
 
-    protected float angleStep;
+    private float angleStep;
 
-    protected Vector2 initialPosition;
+    private Vector2 initialPosition;
 
-    protected float prickTime;
+    private float prickTime;
 
-    protected bool actionsRunning;
+    private bool actionsRunning;
 
-    protected float initialScale;
+    private float initialScale;
 
     public SimpleSpikesBodyClip(LevelBuilderBase builder, object body, Node clip, Hashtable config)
         : base(builder, body, clip, config)

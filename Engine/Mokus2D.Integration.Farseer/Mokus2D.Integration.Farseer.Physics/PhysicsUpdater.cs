@@ -8,11 +8,11 @@ namespace Mokus2D.Integration.Farseer.Physics;
 
 public class PhysicsUpdater : PhysicsTransform, IUpdatable
 {
-    protected readonly World world;
+    private readonly World world;
 
-    protected readonly ContactListener listener;
+    private readonly ContactListener listener;
 
-    protected readonly FarseerConfig config;
+    private readonly FarseerConfig config;
 
     public World World => world;
 

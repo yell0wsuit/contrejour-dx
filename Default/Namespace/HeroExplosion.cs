@@ -8,11 +8,11 @@ namespace Default.Namespace;
 
 public class HeroExplosion
 {
-    protected Explosion explosion;
+    private Explosion explosion;
 
-    protected HeroBodyClip bodyClip;
+    private HeroBodyClip bodyClip;
 
-    protected ContreJourGame game;
+    private ContreJourGame game;
 
     public void Explode(HeroBodyClip bodyClip, ContreJourGame game)
     {

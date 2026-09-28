@@ -6,7 +6,7 @@ namespace Default.Namespace;
 
 public class BodyProcessor : ShapeProcessor
 {
-    protected Hashtable processors;
+    private Hashtable processors;
 
     public BodyProcessor(LevelBuilderBase builder)
         : base("body", builder)

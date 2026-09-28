@@ -8,11 +8,11 @@ namespace Default.Namespace;
 
 public class RevoluteJointDef(RevoluteJoint joint)
 {
-    public Body BodyA = joint.BodyA;
+    private Body BodyA = joint.BodyA;
 
-    public Body BodyB = joint.BodyB;
+    private Body BodyB = joint.BodyB;
 
-    public Vector2 LocalAnchorB = joint.LocalAnchorB;
+    private Vector2 LocalAnchorB = joint.LocalAnchorB;
 
     public RevoluteJoint Create(World world)
     {

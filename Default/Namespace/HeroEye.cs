@@ -20,15 +20,15 @@ public class HeroEye : RandomAnimationEye
 
     private static readonly Color BonusColor = new(143, 238, 255);
 
-    protected bool isDefaultColor;
+    private bool isDefaultColor;
 
-    protected float colorTime;
+    private float colorTime;
 
-    protected float colorProgress;
+    private float colorProgress;
 
-    protected Dictionary<string, List<string>> sounds;
+    private Dictionary<string, List<string>> sounds;
 
-    protected bool moveAllowed;
+    private bool moveAllowed;
 
     public bool MoveAllowed
     {

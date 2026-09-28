@@ -12,23 +12,23 @@ namespace FarseerPhysics.Common.TextureTools;
 
 public class Terrain
 {
-    public World World;
+    private World World;
 
-    public Vector2 Center;
+    private Vector2 Center;
 
-    public float Width;
+    private float Width;
 
-    public float Height;
+    private float Height;
 
-    public int PointsPerUnit;
+    private int PointsPerUnit;
 
-    public int CellSize;
+    private int CellSize;
 
-    public int SubCellSize;
+    private int SubCellSize;
 
-    public int Iterations = 2;
+    private int Iterations = 2;
 
-    public TriangulationAlgorithm Decomposer;
+    private TriangulationAlgorithm Decomposer;
 
     private sbyte[,] _terrainMap;
 

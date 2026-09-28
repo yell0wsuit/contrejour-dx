@@ -13,9 +13,9 @@ namespace Default.Namespace;
 
 public class DestroyOnHitClip(LevelBuilderBase builder, object body, Node clip, Hashtable config) : BodyClip(builder, body, clip, config)
 {
-    protected Explosion explosion;
+    private Explosion explosion;
 
-    protected int snotJoinedCount;
+    private int snotJoinedCount;
 
     public int SnotJoinedCount
     {

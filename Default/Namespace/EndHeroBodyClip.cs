@@ -21,21 +21,21 @@ public class EndHeroBodyClip : HeroBodyClip
 {
     private static readonly float StopOffset = 124f;
 
-    protected bool animationsAllowed;
+    private bool animationsAllowed;
 
-    protected List<EnergyPart> energy = [];
+    private List<EnergyPart> energy = [];
 
-    protected float energySpeed;
+    private float energySpeed;
 
-    protected bool hasToStop;
+    private bool hasToStop;
 
-    protected Outro outro;
+    private Outro outro;
 
-    protected float shakePosition;
+    private float shakePosition;
 
-    protected bool stoped;
+    private bool stoped;
 
-    protected MovieStripesView stripesView;
+    private MovieStripesView stripesView;
 
     protected override float FirstRespawnTime => 3f;
 

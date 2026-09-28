@@ -2,9 +2,9 @@ namespace Default.Namespace;
 
 public class LinkedListItem(object _item)
 {
-    protected LinkedListItem next;
+    private LinkedListItem next;
 
-    protected LinkedListItem previous;
+    private LinkedListItem previous;
 
     protected object item = _item;
 

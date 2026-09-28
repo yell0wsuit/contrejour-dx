@@ -8,9 +8,9 @@ namespace Default.Namespace;
 
 public class MoveCharHint(ContreJourLevelBuilder builder, object body, Sprite clip, Hashtable config) : FadeHint(builder, body, clip, config)
 {
-    protected Vector2 initialPosition;
+    private Vector2 initialPosition;
 
-    protected bool initialPositionSet;
+    private bool initialPositionSet;
 
     public override bool HasToHide()
     {

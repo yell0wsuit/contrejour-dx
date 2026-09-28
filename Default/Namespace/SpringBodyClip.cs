@@ -26,29 +26,29 @@ public class SpringBodyClip : ContreJourBodyClip, IClickable, IRestartable
 
     protected Vector2 bodyCenterVec;
 
-    protected CosChanger breatheChanger;
+    private CosChanger breatheChanger;
 
-    protected float launchTime;
+    private float launchTime;
 
-    protected MovieClip movie;
+    private MovieClip movie;
 
-    protected Node redDot;
+    private Node redDot;
 
-    protected Vector2 relativeStickedPosition;
+    private Vector2 relativeStickedPosition;
 
-    protected Vector2 size;
+    private Vector2 size;
 
-    protected WhiteSmoke smoke;
+    private WhiteSmoke smoke;
 
-    protected float startScale;
+    private float startScale;
 
     protected ILaunchable sticked;
 
-    protected float suckDistance;
+    private float suckDistance;
 
-    protected Vector2 suckPoint;
+    private Vector2 suckPoint;
 
-    protected float timeToSmoke;
+    private float timeToSmoke;
 
     protected virtual Vector2 SmokePoint => DefaultSmokePoint;
 

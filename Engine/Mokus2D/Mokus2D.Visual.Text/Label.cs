@@ -33,7 +33,7 @@ public class Label : AnchorNode, IDataReloadable
     private readonly StringBuilder _text = new();
     private bool _textDirty;
 
-    protected bool PositionsDirty;
+    private bool PositionsDirty;
 
     private float? _lineAnchor;
 
@@ -42,7 +42,7 @@ public class Label : AnchorNode, IDataReloadable
     private readonly bool _dynamicTextureSize = true;
     public bool DynamicClickArea = true;
 
-    public bool? IgnoreMissingSymbols;
+    private bool? IgnoreMissingSymbols;
 
     public Vector2 TextSize { get; private set; }
 

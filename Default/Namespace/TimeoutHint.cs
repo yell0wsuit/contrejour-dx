@@ -6,7 +6,7 @@ namespace Default.Namespace;
 
 public class TimeoutHint : FadeHint
 {
-    protected bool showing;
+    private bool showing;
 
     [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "Level content creates this by reflection with this signature.")]
     public TimeoutHint(ContreJourLevelBuilder builder, object body, Sprite clip, Hashtable config)

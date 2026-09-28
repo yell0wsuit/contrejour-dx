@@ -25,13 +25,13 @@ public static class FarseerUtil
 
     public struct Borders(bool left, bool top, bool right, bool bottom)
     {
-        public bool Bottom = bottom;
+        private bool Bottom = bottom;
 
-        public bool Left = left;
+        private bool Left = left;
 
-        public bool Right = right;
+        private bool Right = right;
 
-        public bool Top = top;
+        private bool Top = top;
     }
 
     public static bool DynamicBodyPredicate(Body body)

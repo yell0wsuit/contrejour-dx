@@ -14,11 +14,11 @@ namespace Default.Namespace;
 
 public class LianaSprite : LongNeckSprite
 {
-    protected float width;
+    private float width;
 
-    protected ILianaDrawData data;
+    private ILianaDrawData data;
 
-    protected List<int> partsLength = [];
+    private List<int> partsLength = [];
 
     private readonly float MaxPartLenght = 4f / 15f;
 

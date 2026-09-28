@@ -16,25 +16,25 @@ namespace Default.Namespace;
 
 public class FlyBodyClip : ContreJourBodyClip, IClickable
 {
-    protected FlyEye eye;
+    private FlyEye eye;
 
-    protected Sprite bodySprite;
+    private Sprite bodySprite;
 
-    protected Vector2 initialPosition;
+    private Vector2 initialPosition;
 
-    protected bool freeFlight;
+    private bool freeFlight;
 
-    protected bool stoped;
+    private bool stoped;
 
-    protected FlyWings leftWings;
+    private FlyWings leftWings;
 
-    protected FlyWings rightWings;
+    private FlyWings rightWings;
 
-    protected float backTime;
+    private float backTime;
 
-    protected float scaredTime;
+    private float scaredTime;
 
-    protected float heroScaredTime;
+    private float heroScaredTime;
 
     private static readonly Vector2 WingsPosition = new(8f, 2f);
 

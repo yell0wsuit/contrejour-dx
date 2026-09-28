@@ -10,11 +10,11 @@ namespace Default.Namespace;
 
 public class PlasticineBorder : PrimitivesNode, IOpacity
 {
-    protected VertexPositionColorTexture[] outBorder;
+    private VertexPositionColorTexture[] outBorder;
 
-    protected VertexPositionColorTexture[] inBorder;
+    private VertexPositionColorTexture[] inBorder;
 
-    protected int polygonSize;
+    private int polygonSize;
 
     private static readonly Color DefaultOutColor = new Color(255, 255, 255) * 0f;
 

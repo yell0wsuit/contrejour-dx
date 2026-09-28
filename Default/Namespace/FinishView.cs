@@ -36,43 +36,43 @@ public class FinishView : MovieStripesView, IDisposable
 
     public readonly EventSender NextLevelEvent = new();
 
-    protected List<Button> buttons = [];
+    private List<Button> buttons = [];
 
-    protected Vector2 center;
+    private Vector2 center;
 
-    protected ClickableLayer clickableLayer;
+    private ClickableLayer clickableLayer;
 
-    protected Color color;
+    private Color color;
 
-    protected List<Sprite> energies;
+    private List<Sprite> energies;
 
-    protected ContreJourGame game;
+    private ContreJourGame game;
 
-    protected FakeHero hero;
+    private FakeHero hero;
 
-    protected Sprite highlite;
+    private Sprite highlite;
 
-    protected Label levelField;
+    private Label levelField;
 
-    protected LevelPosition levelPosition;
+    private LevelPosition levelPosition;
 
-    protected bool newHighScore;
+    private bool newHighScore;
 
-    protected MenuPortal portal;
+    private MenuPortal portal;
 
-    protected int score;
+    private int score;
 
     private Button skipButton;
 
-    protected Sprite stamp;
+    private Sprite stamp;
 
-    protected int stars;
+    private int stars;
 
-    protected ProgressLabel starsBonusField;
+    private ProgressLabel starsBonusField;
 
-    protected float time;
+    private float time;
 
-    protected ProgressLabel totalField;
+    private ProgressLabel totalField;
 
     public FinishView(ContreJourGame game)
         : base(game.BlackSide, fade: true)

@@ -14,15 +14,15 @@ namespace Default.Namespace;
 
 public class MonsterEye : RandomAnimationEye, IPositionDepedent
 {
-    protected Vector2 clipPosition;
+    private Vector2 clipPosition;
 
-    protected float startAngle;
+    private float startAngle;
 
     protected IVectorPositionProvider positionProvider;
 
-    protected IVectorPositionProvider randomPositionProvider;
+    private IVectorPositionProvider randomPositionProvider;
 
-    protected bool providerEnabled;
+    private bool providerEnabled;
     public static readonly EyeAnimation[] SnotAnimations =
     [
         new("McEyeBlinkMonster"),

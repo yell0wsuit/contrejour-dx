@@ -14,15 +14,15 @@ namespace Boid.Gameplay.ScreenControl;
 
 public class ZXZoomer : DisposableBase, IUpdatable
 {
-    public bool Enabled = true;
+    private bool Enabled = true;
 
-    public float? ZoomMax;
+    private float? ZoomMax;
 
-    public float? ZoomMin;
+    private float? ZoomMin;
 
-    public float ZoomSpeed = 1f;
+    private float ZoomSpeed = 1f;
 
-    public float _zoom = 1f;
+    private float _zoom = 1f;
 
     private int _zoomDirection;
 

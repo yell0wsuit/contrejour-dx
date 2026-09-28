@@ -8,7 +8,7 @@ public class SpringBridgeHint : FadeHint
 {
     private static readonly float QueryRadius = 100f * Box2DConfig.DefaultConfig.SizeMultiplier;
 
-    protected SpringSuckerBodyClip sucker;
+    private SpringSuckerBodyClip sucker;
 
     [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "Level content creates this by reflection with this signature.")]
     public SpringBridgeHint(ContreJourLevelBuilder builder, object body, Sprite clip, Hashtable config)

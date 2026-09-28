@@ -17,7 +17,7 @@ namespace Mokus2D.Visual;
 
 public abstract class AnchorNode : SpriteBatchNode, ITouchDispatchNode, IClickableNode, ITouchNode, IMouseOverNode, IBoundsNode, ISizeNode
 {
-    public readonly StopPropagationConfig StopPropagation = new();
+    private readonly StopPropagationConfig StopPropagation = new();
 
     public bool TouchOutResult;
 

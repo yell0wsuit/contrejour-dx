@@ -8,7 +8,7 @@ namespace Default.Namespace;
 
 public class MoveBackground : BackgroundBase
 {
-    protected Vector2 moveOffset;
+    private Vector2 moveOffset;
 
     public MoveBackground(Node node, Hashtable config, ContreJourGame game)
         : base(node, config, game)

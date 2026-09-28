@@ -4,9 +4,9 @@ namespace Default.Namespace;
 
 public class FadeBackground : BackgroundBase
 {
-    protected float opacity;
+    private float opacity;
 
-    protected Sprite sprite;
+    private Sprite sprite;
 
     public FadeBackground(Node node, Hashtable config, ContreJourGame game)
         : base(node, config, game)

@@ -2,11 +2,11 @@ namespace Default.Namespace;
 
 public class SnotChain(SnotBodyClip _snot, float _distance)
 {
-    protected SnotBodyClip snot = _snot;
+    private SnotBodyClip snot = _snot;
 
-    protected float distance = _distance;
+    private float distance = _distance;
 
-    protected float diff;
+    private float diff;
 
     public SnotBodyClip Snot => snot;
 

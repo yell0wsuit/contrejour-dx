@@ -14,9 +14,9 @@ public class AnchorPositionCalculator
 {
     private readonly Dictionary<string, AnimationData> _originalAnimationData = [];
 
-    public readonly Vector2 DevelopmentSize;
+    private readonly Vector2 DevelopmentSize;
 
-    public Vector2 CurrentSize;
+    private Vector2 CurrentSize;
 
     public AnchorPositionCalculator(Vector2 developmentSize)
     {

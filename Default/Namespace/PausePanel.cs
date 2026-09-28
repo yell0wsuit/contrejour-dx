@@ -22,27 +22,27 @@ public class PausePanel : Node, IDisposable
 {
     private readonly LayerColor backgroundLayer = new(Color.Black, "menu/whitePixel");
 
-    protected int buttonIndex;
+    private int buttonIndex;
 
-    protected List<Button> buttons;
+    private List<Button> buttons;
 
-    protected ClickableLayer clickableLayer;
+    private ClickableLayer clickableLayer;
 
-    protected ContreJourGame game;
+    private ContreJourGame game;
 
-    protected Label levelLabel;
+    private Label levelLabel;
 
-    protected ToggleButton musicButton;
+    private ToggleButton musicButton;
 
-    protected bool open;
+    private bool open;
 
-    protected Button restartButton;
+    private Button restartButton;
 
-    protected Label scoreLabel;
+    private Label scoreLabel;
 
-    protected ToggleButton soundButton;
+    private ToggleButton soundButton;
 
-    protected Vector2 winSize;
+    private Vector2 winSize;
 
     public PausePanel(ContreJourGame game)
     {

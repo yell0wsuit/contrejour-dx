@@ -20,13 +20,13 @@ public class ChapterItem : Node
 
     protected List<object> alphaItems = [];
 
-    protected Sprite backLight;
+    private Sprite backLight;
 
     protected Sprite background;
 
     protected Sprite blurBackground;
 
-    protected RadiusClickListener clickListener;
+    private RadiusClickListener clickListener;
 
     protected Node container;
 
@@ -34,17 +34,17 @@ public class ChapterItem : Node
 
     protected List<object> depthDependent = [];
 
-    protected bool enabled;
+    private bool enabled;
 
     protected List<object> hidingItems = [];
 
     protected int index;
 
-    protected Color lightColor;
+    private Color lightColor;
 
     protected MainMenu menu;
 
-    protected float offset;
+    private float offset;
 
     public float Offset => offset;
 

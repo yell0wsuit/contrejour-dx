@@ -24,53 +24,53 @@ namespace Default.Namespace;
 
 public class MainMenu : AccelerometerMenu, IActivatedDependent
 {
-    protected LevelsMenu levelsMenu;
+    private LevelsMenu levelsMenu;
 
     public readonly EventSender<int> LevelSelectEvent = new();
 
     public readonly EventSender ExitEvent = new();
 
-    protected Sprite ground;
+    private Sprite ground;
 
-    protected Sprite logo;
+    private Sprite logo;
 
-    protected List<Sprite> backgroundImages;
+    private List<Sprite> backgroundImages;
 
-    protected LayerColor blackLayer;
+    private LayerColor blackLayer;
 
-    protected Label starsField;
+    private Label starsField;
 
-    protected Node starsIcon;
+    private Node starsIcon;
 
-    protected Vector2 centerPosition;
+    private Vector2 centerPosition;
 
-    protected Node background;
+    private Node background;
 
-    protected Button backButton;
+    private Button backButton;
 
-    protected ToggleButton soundButton;
+    private ToggleButton soundButton;
 
-    protected ToggleButton musicButton;
+    private ToggleButton musicButton;
 
-    protected ClickableLayer clickableLayer;
+    private ClickableLayer clickableLayer;
 
-    protected NamesChanger names;
+    private NamesChanger names;
 
-    protected Node foreground;
+    private Node foreground;
 
     private PlanetsSpinner spinner;
 
     private BackgroundChanger backgroundChanger;
 
-    protected bool inChapter;
+    private bool inChapter;
 
-    protected bool inLevel;
+    private bool inLevel;
 
-    protected int currentChapter;
+    private int currentChapter;
 
-    protected Vector2 winSize;
+    private Vector2 winSize;
 
-    protected bool planetsLoaded;
+    private bool planetsLoaded;
 
     private static int loadedLevel = -1;
 

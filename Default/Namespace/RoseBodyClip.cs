@@ -23,37 +23,37 @@ public class RoseBodyClip : StickyBodyClip, IBonusAcceptable, IBodyClip
 
     private static readonly Vector2 PuddleOffset = new(-80f, -1f);
 
-    protected bool bonusHidden;
+    private bool bonusHidden;
 
-    protected IAnimatedNode finalRose;
+    private IAnimatedNode finalRose;
 
-    protected bool finished;
+    private bool finished;
 
-    protected ContreJourGame game;
+    private ContreJourGame game;
 
-    protected Sprite headBack;
+    private Sprite headBack;
 
-    protected McRoseHeadDown headDown;
+    private McRoseHeadDown headDown;
 
-    protected Node headFront;
+    private Node headFront;
 
-    protected Sprite headLight;
+    private Sprite headLight;
 
-    protected IntroPlayer intro;
+    private IntroPlayer intro;
 
-    protected McLystok1 leaf1;
+    private McLystok1 leaf1;
 
-    protected McLystok2 leaf2;
+    private McLystok2 leaf2;
 
-    protected McLystokMain leafMain;
+    private McLystokMain leafMain;
 
-    protected McPuddle puddle;
+    private McPuddle puddle;
 
-    protected List<IAnimatedNode> roseParts;
+    private List<IAnimatedNode> roseParts;
 
-    protected Button skipButton;
+    private Button skipButton;
 
-    protected MovieClip stalk;
+    private MovieClip stalk;
 
     public RoseBodyClip(LevelBuilderBase builder, object body, Node clip, Hashtable config)
         : base(builder, body, clip, config)

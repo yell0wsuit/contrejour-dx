@@ -49,7 +49,7 @@ public class Node : DisposableBase, IUpdatable, IConfig
 
     public bool IgnoreParentOpacity;
 
-    public bool IgnoreParentTransformations;
+    private bool IgnoreParentTransformations;
 
     public IgnoredAnimationProperties IgnoredAnimations = IgnoredAnimationProperties.None;
 
@@ -71,7 +71,7 @@ public class Node : DisposableBase, IUpdatable, IConfig
 
     public bool UpdateEnabled = true;
 
-    public bool UpdateSelf = true;
+    private bool UpdateSelf = true;
     private bool _firstUpdate = true;
     private bool _matrixDirty;
 

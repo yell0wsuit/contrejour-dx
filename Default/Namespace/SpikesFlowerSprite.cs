@@ -11,13 +11,13 @@ namespace Default.Namespace;
 
 public class SpikesFlowerSprite : LongNeckSprite
 {
-    protected SpikesFlowerBodyClip spikes;
+    private SpikesFlowerBodyClip spikes;
 
-    protected Pair<Vector2> basePoints;
+    private Pair<Vector2> basePoints;
 
-    protected Pair<Vector2> centerPoints;
+    private Pair<Vector2> centerPoints;
 
-    protected float childScale;
+    private float childScale;
 
     public SpikesFlowerSprite(SpikesFlowerBodyClip bodyClip, float scale)
     {

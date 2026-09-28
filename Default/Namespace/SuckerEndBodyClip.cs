@@ -6,9 +6,9 @@ namespace Default.Namespace;
 
 public class SuckerEndBodyClip(SuckerBodyClip _sucker, object body) : ContreJourBodyClip(_sucker.Builder, body, null, null), IClickable
 {
-    protected Touch touch;
+    private Touch touch;
 
-    protected SuckerBodyClip sucker = _sucker;
+    private SuckerBodyClip sucker = _sucker;
 
     public bool DisableHeroFocus => true;
 

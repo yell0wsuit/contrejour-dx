@@ -14,7 +14,7 @@ public class NormalMapSprite : Sprite<VertexPositionColorTexture2>
 {
     private readonly ISpriteData _normalMapData;
 
-    public float Z;
+    private float Z;
 
     public NormalMapSprite(string name, string normalMapName)
         : base(name)

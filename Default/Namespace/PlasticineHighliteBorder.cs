@@ -13,13 +13,13 @@ public class PlasticineHighliteBorder : PrimitivesNode
 {
     public const int HighlitePartVerticesCount = 4;
 
-    protected VertexPositionColor[] vertices;
+    private VertexPositionColor[] vertices;
 
-    protected List<object> parts = [];
+    private List<object> parts = [];
 
-    protected ContreJourGame game;
+    private ContreJourGame game;
 
-    protected PlasticineWideBorder border;
+    private PlasticineWideBorder border;
 
     public VertexPositionColor[] Vertices => vertices;
 

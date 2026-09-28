@@ -4,7 +4,7 @@ namespace Mokus2D.Visual.Displacement.Magnets;
 
 public class DirectedCircleMagnet : CircleMagnet
 {
-    public Vector2 Direction = Vector2.One;
+    private Vector2 Direction = Vector2.One;
 
     public DirectedCircleMagnet(float radius, float power)
         : base(radius, power)

@@ -10,7 +10,7 @@ namespace Mokus2D.UI.Controls.Buttons;
 
 public class Button
 {
-    protected readonly AnchorNode Content;
+    private readonly AnchorNode Content;
 
     public readonly IOnOff Effect;
     private Touch _pressTouch;

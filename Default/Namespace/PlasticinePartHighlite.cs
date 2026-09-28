@@ -12,27 +12,27 @@ namespace Default.Namespace;
 
 public class PlasticinePartHighlite : IUpdatable
 {
-    protected PlasticinePartBodyClip plasticine;
+    private PlasticinePartBodyClip plasticine;
 
-    protected LevelBuilderBase builder;
+    private LevelBuilderBase builder;
 
-    protected ContreJourGame game;
+    private ContreJourGame game;
 
-    protected PlasticineHighliteBorder parent;
+    private PlasticineHighliteBorder parent;
 
-    protected int index;
+    private int index;
 
-    protected bool dirty;
+    private bool dirty;
 
-    protected float lightLength;
+    private float lightLength;
 
-    protected Vector2 lightBottom;
+    private Vector2 lightBottom;
 
-    protected bool hasLight;
+    private bool hasLight;
 
-    protected bool highliteSet;
+    private bool highliteSet;
 
-    protected Color noLightBorderOut;
+    private Color noLightBorderOut;
 
     private static readonly Color NoLightBorderOutBlue = ContreJourConstants.BlueLightColor.ChangeAlpha(0);
 

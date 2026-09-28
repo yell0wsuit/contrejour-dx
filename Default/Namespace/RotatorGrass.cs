@@ -8,17 +8,17 @@ namespace Default.Namespace;
 
 public class RotatorGrass
 {
-    protected CosChanger rotationChanger;
+    private CosChanger rotationChanger;
 
-    protected float initialAngle;
+    private float initialAngle;
 
-    protected float initialDegrees;
+    private float initialDegrees;
 
-    protected float contactAngle;
+    private float contactAngle;
 
-    protected float currentContactAngle;
+    private float currentContactAngle;
 
-    protected Particle particle;
+    private Particle particle;
 
     public float InitialAngle
     {

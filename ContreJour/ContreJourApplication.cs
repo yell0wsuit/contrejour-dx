@@ -33,7 +33,7 @@ public class ContreJourApplication : Mokus2DGame
 
     private Node _currentView;
 
-    protected int lastLevel;
+    private int lastLevel;
 
     private bool canShowIntro = true;
 

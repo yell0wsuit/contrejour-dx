@@ -18,7 +18,7 @@ public class GameBase : Node, IUpdatable
 
     protected readonly Node gameRoot = new();
 
-    protected EventSender levelLoadedEvent;
+    private EventSender levelLoadedEvent;
 
     protected bool paused;
 

@@ -13,9 +13,9 @@ public class EndLevelBodyClip : RotatableBodyClip, IRestartable
 {
     protected Portal portal;
 
-    protected bool finishing;
+    private bool finishing;
 
-    protected float scale;
+    private float scale;
 
     public EndLevelBodyClip(LevelBuilderBase builder, object body, Node clip, Hashtable config)
         : base(builder, body, clip, config)

@@ -25,7 +25,7 @@ public class KeysController : IUpdatable
 
     private bool _stoped;
 
-    public bool Enabled = true;
+    private bool Enabled = true;
 
     public void StopPropagation()
     {

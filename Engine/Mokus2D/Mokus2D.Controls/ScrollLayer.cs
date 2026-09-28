@@ -20,13 +20,13 @@ public class ScrollLayer : ClickableLayer, ITouchListener
 
     public const float MaxInertiaStep = 20f;
 
-    public Vector2 MinPosition = Vector2.Zero;
+    private Vector2 MinPosition = Vector2.Zero;
 
-    public Vector2 MaxPosition = Vector2.Zero;
+    private Vector2 MaxPosition = Vector2.Zero;
 
-    public bool InertiaHorizontal;
+    private bool InertiaHorizontal;
 
-    public bool InertiaVertical = true;
+    private bool InertiaVertical = true;
 
     private Touch _scrollTouch;
 

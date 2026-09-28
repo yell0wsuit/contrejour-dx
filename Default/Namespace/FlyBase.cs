@@ -21,7 +21,7 @@ public class FlyBase : IUpdatable
 
     protected float verticalStep;
 
-    protected float verticalStepDiff;
+    private float verticalStepDiff;
 
     public FlyBase(Particle particle, float scale)
     {

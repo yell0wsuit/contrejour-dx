@@ -12,13 +12,13 @@ public struct VertexPositionColorTexture2(Vector3 position, Color color, Vector2
 
     public Vector3 Position = position;
 
-    public Color Color = color;
+    private Color Color = color;
 
     public float Rotation = rotation;
 
     public Vector2 Scale = Vector2.One;
 
-    public Vector2 TextureCoordinate = textureCoordinate;
+    private Vector2 TextureCoordinate = textureCoordinate;
 
     public Vector2 NormalMapTextureCoordinate = Vector2.Zero;
 

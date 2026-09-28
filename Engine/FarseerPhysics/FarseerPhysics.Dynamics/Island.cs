@@ -27,19 +27,19 @@ public class Island
 
     public int ContactCount;
 
-    public int JointCount;
+    private int JointCount;
 
-    public Velocity[] _velocities;
+    private Velocity[] _velocities;
 
-    public Position[] _positions;
+    private Position[] _positions;
 
     public int BodyCapacity;
 
     public int ContactCapacity;
 
-    public int JointCapacity;
+    private int JointCapacity;
 
-    public float JointUpdateTime;
+    private float JointUpdateTime;
 
     public void Reset(int bodyCapacity, int contactCapacity, int jointCapacity, ContactManager contactManager)
     {

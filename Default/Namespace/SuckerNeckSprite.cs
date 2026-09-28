@@ -11,15 +11,15 @@ namespace Default.Namespace;
 
 public class SuckerNeckSprite : LongNeckSprite
 {
-    protected Pair<Vector2> start;
+    private Pair<Vector2> start;
 
-    protected Pair<Vector2> middle;
+    private Pair<Vector2> middle;
 
-    protected Pair<Vector2> end;
+    private Pair<Vector2> end;
 
-    protected Bouncer bouncer;
+    private Bouncer bouncer;
 
-    protected float length;
+    private float length;
 
     private int frame;
 

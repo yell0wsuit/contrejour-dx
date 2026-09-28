@@ -6,9 +6,9 @@ namespace Default.Namespace;
 
 public class FlowerEye : MonsterEye
 {
-    protected Node baseNode;
+    private Node baseNode;
 
-    protected Vector2 initialPosition;
+    private Vector2 initialPosition;
 
     public override Vector2 Position
     {

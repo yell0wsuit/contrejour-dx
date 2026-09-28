@@ -9,11 +9,11 @@ namespace Default.Namespace;
 
 public class ShadowNode : SpriteBatchNode
 {
-    protected List<Vector2> borderPoints;
+    private List<Vector2> borderPoints;
 
-    protected List<Color> borderColors;
+    private List<Color> borderColors;
 
-    protected List<Vector2> fillPoints;
+    private List<Vector2> fillPoints;
 
     private readonly Color InColor = new(0, 0, 0, 50);
 

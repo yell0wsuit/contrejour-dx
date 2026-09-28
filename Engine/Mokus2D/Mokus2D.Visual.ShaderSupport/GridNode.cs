@@ -23,11 +23,11 @@ public class GridNode : Node
 
     private readonly List<GridNodeCell> _toRemove = [];
 
-    protected Point LeftTopCell = new(-1, -1);
+    private Point LeftTopCell = new(-1, -1);
 
-    protected Point RightBottomCell = new(-1, -1);
+    private Point RightBottomCell = new(-1, -1);
 
-    public Node DebugRoot;
+    private Node DebugRoot;
 
     public GridNode(Vector2 cellSize, RectangleFloat bounds, RectangleFloat screenBounds)
     {

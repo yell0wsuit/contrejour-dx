@@ -8,7 +8,7 @@ public class MagnetChangeRadius : MagnetIntervalActionBase
 
     private readonly float _startRadius;
 
-    protected CircleMagnet CircleMagnet;
+    private CircleMagnet CircleMagnet;
 
     public MagnetChangeRadius(CircleMagnet gridMagnet, float timeout, float targetRadius)
         : base(gridMagnet, timeout)

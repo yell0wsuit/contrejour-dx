@@ -9,11 +9,11 @@ public class WhiteSmoke : GravityParticleSystem
 {
     public bool ScaleDownOnDestroy = true;
 
-    protected float maxOpacity;
+    private float maxOpacity;
 
-    protected float opacityStep;
+    private float opacityStep;
 
-    protected float scaleStep;
+    private float scaleStep;
 
     public float OpacityStep
     {

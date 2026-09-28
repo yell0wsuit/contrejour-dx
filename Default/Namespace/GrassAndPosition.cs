@@ -4,9 +4,9 @@ namespace Default.Namespace;
 
 public class GrassAndPosition(Particle particle, Vector2 position)
 {
-    protected Particle particle = particle;
+    private Particle particle = particle;
 
-    protected Vector2 position = position;
+    private Vector2 position = position;
 
     public Particle Particle => particle;
 

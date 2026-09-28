@@ -7,21 +7,21 @@ namespace Default.Namespace;
 
 public class GravityParticleSystem : ParticleSystem
 {
-    protected Vector2 gravity;
+    private Vector2 gravity;
 
-    protected RandomRange speed;
+    private RandomRange speed;
 
-    protected RandomRange angle;
+    private RandomRange angle;
 
     protected RandomRange horizontalPosition;
 
     protected RandomRange verticalPosition;
 
-    protected RandomRange angularSpeed;
+    private RandomRange angularSpeed;
 
     private RandomRange particlesScale = new(1f, 0f);
 
-    protected RandomRange startOpacity = new(255f, 0f);
+    private RandomRange startOpacity = new(255f, 0f);
 
     protected Vector2 bottomLeftBound = new(float.NegativeInfinity, float.NegativeInfinity);
 

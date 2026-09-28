@@ -16,7 +16,7 @@ namespace Mokus2D.Visual.Primitives;
 
 public class SegmentedSprite<T> : SpriteBatchNode where T : struct, IVertex
 {
-    protected readonly ISegmentedSpriteData<T> Data;
+    private readonly ISegmentedSpriteData<T> Data;
 
     private T[] _vertices;
 

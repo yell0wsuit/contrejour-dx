@@ -4,19 +4,19 @@ namespace Default.Namespace;
 
 public class Box2DConfig
 {
-    protected Vector2 gravity;
+    private Vector2 gravity;
 
-    protected int velocityIterations;
+    private int velocityIterations;
 
-    protected int positionIterations;
+    private int positionIterations;
 
-    protected float sizeMultiplier;
+    private float sizeMultiplier;
 
-    protected float density;
+    private float density;
 
-    protected float restitution;
+    private float restitution;
 
-    protected float friction;
+    private float friction;
 
     public Vector2 Gravity
     {

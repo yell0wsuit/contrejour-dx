@@ -9,11 +9,11 @@ namespace Default.Namespace;
 
 public class LianaBodyClip : ContreJourBodyClip
 {
-    protected LianaData data;
+    private LianaData data;
 
-    protected List<object> parts;
+    private List<object> parts;
 
-    protected LianaSprite clipContent;
+    private LianaSprite clipContent;
 
     public LianaBodyClip(LevelBuilderBase builder, LianaData data, Node clip, Hashtable config)
         : base(builder, data.Bodies[0], clip, config)

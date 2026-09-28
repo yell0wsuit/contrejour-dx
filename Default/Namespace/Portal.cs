@@ -12,11 +12,11 @@ public class Portal : ParticleSystem
 {
     protected List<Satellite> parts;
 
-    protected float targetScale;
+    private float targetScale;
 
-    protected float itemsScale;
+    private float itemsScale;
 
-    protected float scaleStep;
+    private float scaleStep;
 
     public float TargetScale
     {

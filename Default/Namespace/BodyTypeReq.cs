@@ -4,7 +4,7 @@ namespace Default.Namespace;
 
 public class BodyTypeReq(BodyType type) : IReq
 {
-    protected BodyType type = type;
+    private BodyType type = type;
 
     public bool Meet(object objectP)
     {

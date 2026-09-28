@@ -12,9 +12,9 @@ namespace Default.Namespace;
 
 public class Chapter1(int index, MainMenu menu) : ChapterItem(index, menu)
 {
-    protected Sprite foreground;
+    private Sprite foreground;
 
-    protected PlanetEye eye;
+    private PlanetEye eye;
 
     public override float Depth
     {

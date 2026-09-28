@@ -12,11 +12,11 @@ public class Button : TouchSprite
 
     protected bool enabled;
 
-    protected Sprite icon;
+    private Sprite icon;
 
-    protected Sprite pressed;
+    private Sprite pressed;
 
-    protected float realScale;
+    private float realScale;
 
     protected bool touching;
 

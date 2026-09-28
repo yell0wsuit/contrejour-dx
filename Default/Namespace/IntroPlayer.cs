@@ -13,13 +13,13 @@ namespace Default.Namespace;
 
 public class IntroPlayer : Node
 {
-    protected ContreJourGame game;
+    private ContreJourGame game;
 
-    protected List<string> messages;
+    private List<string> messages;
 
-    protected List<string> rightMessages;
+    private List<string> rightMessages;
 
-    protected Vector2 textPosition;
+    private Vector2 textPosition;
 
     public IntroPlayer(ContreJourGame game)
     {

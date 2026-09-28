@@ -14,11 +14,11 @@ public struct NodeData
 
     public float Alpha;
 
-    public Color Color;
+    private Color Color;
 
-    public float ColorRatio;
+    private float ColorRatio;
 
-    public bool Visible;
+    private bool Visible;
 
     public NodeData(Node node)
     {

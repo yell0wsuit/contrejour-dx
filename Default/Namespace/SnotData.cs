@@ -9,23 +9,23 @@ namespace Default.Namespace;
 
 public class SnotData
 {
-    protected Body joinedBody;
+    private Body joinedBody;
 
-    protected Body eyeBody;
+    private Body eyeBody;
 
-    protected RevoluteJoint eyeJoint;
+    private RevoluteJoint eyeJoint;
 
-    protected Vector2 localStartAnchor;
+    private Vector2 localStartAnchor;
 
-    protected List<Body> bodies;
+    private List<Body> bodies;
 
-    protected List<Joint> joints;
+    private List<Joint> joints;
 
-    protected float initialLength;
+    private float initialLength;
 
-    protected SnotBodyClipBase snot;
+    private SnotBodyClipBase snot;
 
-    protected RopeMetrics metrics;
+    private RopeMetrics metrics;
 
     public Body EyeBody
     {

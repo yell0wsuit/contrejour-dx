@@ -8,11 +8,11 @@ public class OneActionScheduler(Action action, float timeout) : IUpdatable
 {
     private readonly Action _action = action;
 
-    public float Timeout = timeout;
+    private float Timeout = timeout;
 
     private float _elapsedTime;
 
-    public bool Enabled = true;
+    private bool Enabled = true;
 
     public float TimeLeft => Timeout - _elapsedTime;
 

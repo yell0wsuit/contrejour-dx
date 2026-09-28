@@ -10,15 +10,15 @@ namespace Default.Namespace;
 
 public class ClickListener : ITouchListener
 {
-    protected readonly EventSender<Touch> clickEvent = new();
+    private readonly EventSender<Touch> clickEvent = new();
 
-    protected bool enabled;
+    private bool enabled;
 
-    protected bool listening;
+    private bool listening;
 
-    protected float radius;
+    private float radius;
 
-    protected Dictionary<Touch, Vector2> startPositions = [];
+    private Dictionary<Touch, Vector2> startPositions = [];
 
     public EventSender ClickEvent => clickEvent;
 

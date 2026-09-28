@@ -7,9 +7,9 @@ namespace Default.Namespace;
 
 public class Explosion : GravityParticleSystem
 {
-    protected float opacityStep;
+    private float opacityStep;
 
-    protected float scaleStep;
+    private float scaleStep;
 
     public float ScaleStep
     {

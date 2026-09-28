@@ -11,23 +11,23 @@ namespace Default.Namespace;
 
 public class PlasticineItem : LinkedListItem
 {
-    protected float width;
+    private float width;
 
-    protected World world;
+    private World world;
 
-    protected Vector2 initialPosition = Vector2.Zero;
+    private Vector2 initialPosition = Vector2.Zero;
 
-    protected float initialAngle;
+    private float initialAngle;
 
-    protected Vector2 innerPosition;
+    private Vector2 innerPosition;
 
-    protected Vector2 outerPosition;
+    private Vector2 outerPosition;
 
-    protected Vector2 normalVec;
+    private Vector2 normalVec;
 
-    protected float ortoAngle;
+    private float ortoAngle;
 
-    protected Vector2 ortogonalVec;
+    private Vector2 ortogonalVec;
 
     public float InitialAngle => initialAngle;
 

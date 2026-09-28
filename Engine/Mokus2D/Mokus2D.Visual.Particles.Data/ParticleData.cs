@@ -32,7 +32,7 @@ public class ParticleData(Node particle, ParticleSystemConfig systemConfig) : IU
 
     public readonly Node Particle = particle;
 
-    public readonly ParticleSystemConfig SystemConfig = systemConfig;
+    private readonly ParticleSystemConfig SystemConfig = systemConfig;
 
     private float _deathTime;
 

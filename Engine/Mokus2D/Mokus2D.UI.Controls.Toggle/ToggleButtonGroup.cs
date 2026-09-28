@@ -16,9 +16,9 @@ public class ToggleButtonGroup<T>
 
     private readonly BiDictionary<ToggleButton, T> _data = [];
 
-    public bool DeselectEnabled = true;
+    private bool DeselectEnabled = true;
 
-    public bool ToggleOnTouchBegin = true;
+    private bool ToggleOnTouchBegin = true;
 
     public ToggleButton this[int index] => _buttons[index];
 

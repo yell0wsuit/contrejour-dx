@@ -8,11 +8,11 @@ namespace Default.Namespace;
 
 public class MovableSpringBodyClip(LevelBuilderBase builder, object body, Node clip, Hashtable config) : DynamicSpringBodyClip(builder, body, clip, config)
 {
-    protected DragableBodyClip mover;
+    private DragableBodyClip mover;
 
-    protected Vector2 offset;
+    private Vector2 offset;
 
-    protected Vector2 moverPosition;
+    private Vector2 moverPosition;
 
     public override void Update(float time)
     {

@@ -7,7 +7,7 @@ namespace Mokus2D.Visual;
 
 public class RenderRootNode : RootNode
 {
-    public Color ClearColor = Color.Black * 0f;
+    private Color ClearColor = Color.Black * 0f;
 
     public RenderTarget2D RenderTarget { get; private set; }
 

@@ -25,9 +25,9 @@ public class KeyboardDelayListener : IUpdatable
 
     private readonly Dictionary<Keys, KeyData> _pressedTimes = [];
 
-    public float RepeatDelay;
+    private float RepeatDelay;
 
-    public float RepeatTime;
+    private float RepeatTime;
 
     public event Action<Keys> KeyPressedEvent;
 

@@ -6,19 +6,19 @@ namespace Default.Namespace;
 
 public class RotatableBodyClip : BodyClip
 {
-    protected float scaleDiff;
+    private float scaleDiff;
 
-    protected float scaleStep;
+    private float scaleStep;
 
-    protected float scaleProgress;
+    private float scaleProgress;
 
-    protected float angleDiff;
+    private float angleDiff;
 
-    protected bool destroying;
+    private bool destroying;
 
-    protected int rotationDirection;
+    private int rotationDirection;
 
-    protected int scaleSign;
+    private int scaleSign;
 
     public RotatableBodyClip(LevelBuilderBase builder, object body, Node clip, Hashtable config)
         : base(builder, body, clip, config)

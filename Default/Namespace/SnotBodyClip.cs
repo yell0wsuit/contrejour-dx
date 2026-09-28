@@ -35,35 +35,35 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
 
     private readonly RevoluteJointDef eyeJointDef;
 
-    protected BlackTail blackTail;
+    private BlackTail blackTail;
 
-    protected bool blinking;
+    private bool blinking;
 
-    protected bool dynamicDrag;
+    private bool dynamicDrag;
 
-    protected bool hasRelease;
+    private bool hasRelease;
 
-    protected Sprite highlite;
+    private Sprite highlite;
 
-    protected CosChanger highliteChanger;
+    private CosChanger highliteChanger;
 
-    protected bool jointRemoved;
+    private bool jointRemoved;
 
-    protected float length;
+    private float length;
 
-    protected EventSender linkEvent;
+    private EventSender linkEvent;
 
     protected ISnotLinked linked;
 
-    protected EventSender releaseEvent;
+    private EventSender releaseEvent;
 
-    protected SnotEye snotEye;
+    private SnotEye snotEye;
 
     protected RevoluteJoint stickyJoint;
 
-    protected Touch touch;
+    private Touch touch;
 
-    protected float touchEndTime;
+    private float touchEndTime;
 
     private readonly bool movable;
     private readonly DragableBodyClip joinedBodyClip;

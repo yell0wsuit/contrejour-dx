@@ -19,31 +19,31 @@ public class BlackTail : PrimitivesNode, IUpdatable
 {
     protected VertexPositionColorTexture[] vertices = [];
 
-    protected List<Vector2> bezierPoints = [];
+    private List<Vector2> bezierPoints = [];
 
-    protected Body body;
+    private Body body;
 
-    protected Vector2 target;
+    private Vector2 target;
 
-    protected LevelBuilderBase builder;
+    private LevelBuilderBase builder;
 
-    protected Vector2 currentPosition;
+    private Vector2 currentPosition;
 
-    protected Vector2 previousPosition;
+    private Vector2 previousPosition;
 
-    protected Vector2 previousCenter;
+    private Vector2 previousCenter;
 
-    protected Vector2 currentCenter;
+    private Vector2 currentCenter;
 
-    protected List<int> removeFrames = [];
+    private List<int> removeFrames = [];
 
-    protected int currentFrame;
+    private int currentFrame;
 
-    protected float width;
+    private float width;
 
-    protected int frames;
+    private int frames;
 
-    protected bool moving;
+    private bool moving;
 
     private bool opacityDirty;
 

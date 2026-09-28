@@ -14,9 +14,9 @@ namespace Default.Namespace;
 
 public class PlanetEye : BackSnotEye, IVectorPositionProvider
 {
-    protected Vector2 eyePosition;
+    private Vector2 eyePosition;
 
-    protected Vector2 speed;
+    private Vector2 speed;
 
     protected override EyeAnimation[] Animations =>
     [

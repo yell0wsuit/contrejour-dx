@@ -6,9 +6,9 @@ namespace Default.Namespace;
 
 public class SlingshotHint : FadeHint
 {
-    protected TrampolineBodyClip trampoline;
+    private TrampolineBodyClip trampoline;
 
-    protected bool touched;
+    private bool touched;
 
     [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "Level content creates this by reflection with this signature.")]
     public SlingshotHint(ContreJourLevelBuilder builder, object body, Sprite clip, Hashtable config)

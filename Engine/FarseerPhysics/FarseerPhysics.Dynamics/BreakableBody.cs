@@ -20,13 +20,13 @@ public class BreakableBody
 
     private readonly World _world;
 
-    public bool Broken;
+    private bool Broken;
 
     public Body MainBody;
 
-    public List<Fixture> Parts = new(8);
+    private List<Fixture> Parts = new(8);
 
-    public float Strength = 500f;
+    private float Strength = 500f;
 
     public BreakableBody(IEnumerable<Vertices> vertices, World world, float density)
     {

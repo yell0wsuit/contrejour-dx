@@ -18,15 +18,15 @@ namespace Default.Namespace;
 
 public class SpikesFlowerBodyClip : ContreJourBodyClip, IVectorPositionProvider
 {
-    protected IEatable hero;
+    private IEatable hero;
 
-    protected ISpikesView movie;
+    private ISpikesView movie;
 
-    protected FlowerEye eye;
+    private FlowerEye eye;
 
-    protected SpikesFlowerSprite drawing;
+    private SpikesFlowerSprite drawing;
 
-    protected Node container;
+    private Node container;
 
     private static readonly Vector2 EyePosition = new(0f, 30f);
 

@@ -26,9 +26,9 @@ public class BodyClip : Updatable
 
     protected LevelBuilderBase builder;
 
-    protected bool destroyed;
+    private bool destroyed;
 
-    protected bool destroyLaterCalled;
+    private bool destroyLaterCalled;
 
     private readonly Flag _firstUpdate = new();
 

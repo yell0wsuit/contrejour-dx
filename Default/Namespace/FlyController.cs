@@ -13,25 +13,25 @@ public class FlyController : FlyBase
 
     protected const float MaxHorizontalOffset = 20f;
 
-    protected IWindManager windProvider;
+    private IWindManager windProvider;
 
-    protected IGrassControllerContainer grassControllerContainer;
+    private IGrassControllerContainer grassControllerContainer;
 
-    protected float horizontalOffset;
+    private float horizontalOffset;
 
-    protected float initialGroundY;
+    private float initialGroundY;
 
-    protected Vector2 scareOffset;
+    private Vector2 scareOffset;
 
-    protected float scareTime;
+    private float scareTime;
 
-    protected int scared;
+    private int scared;
 
-    protected float verticalOffset;
+    private float verticalOffset;
 
-    protected float verticalOffsetMultiplier;
+    private float verticalOffsetMultiplier;
 
-    protected float windOffset;
+    private float windOffset;
 
     [SuppressMessage("Style", "IDE0290:Use primary constructor", Justification = "Its random draws must run after the base constructor's, in this order.")]
     public FlyController(IWindManager windProvider, IGrassControllerContainer grassControllerContainer, Particle particle, float? scale = null, float? windOffsetRange = null)

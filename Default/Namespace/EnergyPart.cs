@@ -8,17 +8,17 @@ namespace Default.Namespace;
 
 public class EnergyPart : Satellite
 {
-    protected float timeToEnd;
+    private float timeToEnd;
 
-    protected bool collected;
+    private bool collected;
 
-    protected bool finished;
+    private bool finished;
 
-    protected float baseScale;
+    private float baseScale;
 
-    protected float opacity;
+    private float opacity;
 
-    protected bool dealloced;
+    private bool dealloced;
 
     protected override Vector2 TargetPosition => !collected ? base.TargetPosition : game.BonusTarget.BonusTarget();
 

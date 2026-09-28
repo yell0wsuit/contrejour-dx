@@ -5,7 +5,7 @@ namespace Mokus2D.Behaviour;
 
 public abstract class AnimationNodeController(AnimationNode node) : INodeController, IUpdatable
 {
-    protected readonly AnimationNode Node = node;
+    private readonly AnimationNode Node = node;
 
     public virtual void Update(float time)
     {

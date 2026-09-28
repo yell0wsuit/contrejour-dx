@@ -11,11 +11,11 @@ public class OnOffTweenEffect<TValue>(Node target, float duration, GetSetValue<N
 
     public bool Clean;
 
-    public int? Tag;
+    private int? Tag;
 
-    public Func<float, float> Easing;
+    private Func<float, float> Easing;
 
-    public Action OnComplete;
+    private Action OnComplete;
 
     public TValue OnValue { get; private set; } = onValue;
 

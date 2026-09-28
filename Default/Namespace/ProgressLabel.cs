@@ -4,13 +4,13 @@ namespace Default.Namespace;
 
 public class ProgressLabel(float size, string _format, int _value, int _steps) : ContreJourLabel(size)
 {
-    protected string format = _format;
+    private string format = _format;
 
-    protected int value = _value;
+    private int value = _value;
 
-    protected int steps = _steps;
+    private int steps = _steps;
 
-    protected int currentStep;
+    private int currentStep;
 
     public int Value
     {

@@ -9,13 +9,13 @@ namespace Mokus2D.Visual;
 
 public class RootNode : Node
 {
-    public readonly Rectangle ScreenRect;
+    private readonly Rectangle ScreenRect;
 
     private readonly BatchSelector _batchSelector;
 
     private readonly OneThreadTransformCalculator _transformCalculator;
 
-    public bool DrawEnabled = true;
+    private bool DrawEnabled = true;
 
     internal VisualState RootState;
 

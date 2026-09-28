@@ -10,15 +10,15 @@ public struct VertexNormalMapRotate(Vector3 position, Color color, Vector2 textu
 {
     public static readonly VertexDeclaration VertexDeclaration;
 
-    public Vector3 Position = position;
+    private Vector3 Position = position;
 
-    public Color Color = color;
+    private Color Color = color;
 
     public float Rotation = rotation;
 
     public Vector2 Scale = Vector2.One;
 
-    public Vector2 TextureCoordinate = textureCoordinate;
+    private Vector2 TextureCoordinate = textureCoordinate;
 
     readonly VertexDeclaration IVertexType.VertexDeclaration => VertexDeclaration;
 

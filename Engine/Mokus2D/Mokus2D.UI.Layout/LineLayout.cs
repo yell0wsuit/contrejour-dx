@@ -8,11 +8,11 @@ namespace Mokus2D.UI.Layout;
 
 public abstract class LineLayout(Node container) : LayoutBase(container)
 {
-    public float Margins;
+    private float Margins;
 
-    public LayoutDirection Direction = LayoutDirection.Normal;
+    private LayoutDirection Direction = LayoutDirection.Normal;
 
-    public ILayoutPositionApplier PositionApplier = new DefaultPositionApplier();
+    private ILayoutPositionApplier PositionApplier = new DefaultPositionApplier();
 
     public float? FixedSize;
 

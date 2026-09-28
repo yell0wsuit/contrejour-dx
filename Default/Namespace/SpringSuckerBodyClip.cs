@@ -19,9 +19,9 @@ public class SpringSuckerBodyClip : SuckerBodyClip
 {
     public readonly EventSender ContactEvent = new();
 
-    protected Vector2 parallel;
+    private Vector2 parallel;
 
-    protected Vector2 normal;
+    private Vector2 normal;
 
     private readonly float JumpImpulse = 1f;
 

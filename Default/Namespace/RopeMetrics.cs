@@ -2,9 +2,9 @@ namespace Default.Namespace;
 
 public class RopeMetrics(int _parts, float _partSize)
 {
-    protected int parts = _parts;
+    private int parts = _parts;
 
-    protected float partSize = _partSize;
+    private float partSize = _partSize;
 
     public int Parts
     {

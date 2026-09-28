@@ -6,13 +6,13 @@ namespace Default.Namespace;
 
 public abstract class TouchEffect(Node node)
 {
-    public readonly EventSender ChangeEvent = new();
+    private readonly EventSender ChangeEvent = new();
 
     protected Node Node = node;
 
     protected float effectTime = 0.1f;
 
-    protected bool isOn;
+    private bool isOn;
 
     public float EffectTime
     {

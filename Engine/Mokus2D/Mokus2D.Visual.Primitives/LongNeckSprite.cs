@@ -16,13 +16,13 @@ public abstract class LongNeckSprite : SpriteBatchNode
 {
     public static readonly ISpriteData DefaultSpriteData;
 
-    protected bool Created;
+    private bool Created;
 
     private TintSpriteVertex[] _vertices;
 
     private short[] _indices;
 
-    protected int AllPointsSize;
+    private int AllPointsSize;
 
     private readonly ISpriteData _spriteData;
 

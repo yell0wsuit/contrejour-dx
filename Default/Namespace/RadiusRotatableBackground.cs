@@ -9,9 +9,9 @@ public class RadiusRotatableBackground : RotatableBackground
 {
     protected Vector2 centerPosition;
 
-    protected float radius;
+    private float radius;
 
-    protected float rotation;
+    private float rotation;
 
     public RadiusRotatableBackground(Node node, Hashtable config, ContreJourGame game)
         : base(node, config, game)

@@ -9,11 +9,11 @@ namespace Default.Namespace;
 
 public class ColorRectangle : PrimitivesNode
 {
-    protected Vector2 size;
+    private Vector2 size;
 
-    protected bool sizeDirty;
+    private bool sizeDirty;
 
-    protected VertexPositionColorTexture[] vertices = new VertexPositionColorTexture[4];
+    private VertexPositionColorTexture[] vertices = new VertexPositionColorTexture[4];
 
     public Vector2 Size
     {

@@ -23,39 +23,39 @@ public class TrampolineBodyClip : SnotBodyClipBase
 
     public readonly EventSender HeroTouchEvent = new();
 
-    protected Vector2 center;
+    private Vector2 center;
 
-    protected float centerDistanceDiff;
+    private float centerDistanceDiff;
 
-    protected FixedMouseJoint dragJoint;
+    private FixedMouseJoint dragJoint;
 
-    protected Vector2 dragOffset;
+    private Vector2 dragOffset;
 
-    protected bool dragging;
+    private bool dragging;
 
-    protected float impulseMultiplier;
+    private float impulseMultiplier;
 
-    protected Vector2 impulseVec;
+    private Vector2 impulseVec;
 
-    protected Vector2 initialPosition;
+    private Vector2 initialPosition;
 
-    protected List<Body> launchBodies = [];
+    private List<Body> launchBodies = [];
 
-    protected float maxDistance;
+    private float maxDistance;
 
     protected Vector2 normal;
 
-    protected TrampolinePartBodyClip part;
+    private TrampolinePartBodyClip part;
 
     private readonly Trajectory trajectory;
 
-    protected float startDistance;
+    private float startDistance;
 
-    protected float startTrampolineWidth;
+    private float startTrampolineWidth;
 
-    protected float timeFromLaunch;
+    private float timeFromLaunch;
 
-    protected Touch touch;
+    private Touch touch;
 
     public bool Dragging
     {

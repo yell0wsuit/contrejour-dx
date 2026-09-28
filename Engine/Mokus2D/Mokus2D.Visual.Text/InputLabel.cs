@@ -16,7 +16,7 @@ namespace Mokus2D.Visual.Text;
 
 public class InputLabel : Label, IFocus
 {
-    public string AllowedSymbols;
+    private string AllowedSymbols;
     private bool _listenersAdded;
 
     private Mokus2D.Util.Data.Point _textPosition;

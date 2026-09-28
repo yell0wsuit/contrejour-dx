@@ -8,15 +8,15 @@ namespace Default.Namespace;
 
 public class DustData : IUpdatable
 {
-    protected float alphaDiff;
+    private float alphaDiff;
 
-    protected bool dragging;
+    private bool dragging;
 
-    protected ContreJourGame game;
+    private ContreJourGame game;
 
-    protected bool hasRemove;
+    private bool hasRemove;
 
-    protected Particle particle;
+    private Particle particle;
 
     protected Vector2 speed;
 

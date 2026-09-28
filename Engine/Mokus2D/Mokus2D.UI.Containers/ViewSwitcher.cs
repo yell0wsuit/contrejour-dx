@@ -17,7 +17,7 @@ public class ViewSwitcher : Node
 
     private readonly Action _onPreviousViewHide;
 
-    public bool RemoveViewManualy;
+    private bool RemoveViewManualy;
 
     public Node CurrentView
     {

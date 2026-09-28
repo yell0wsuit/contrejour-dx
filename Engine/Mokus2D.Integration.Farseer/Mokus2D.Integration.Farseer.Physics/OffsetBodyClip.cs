@@ -8,9 +8,9 @@ namespace Mokus2D.Integration.Farseer.Physics;
 
 public class OffsetBodyClip(PhysicsUpdater updater, Body body, Node clip) : BodyClip(updater, body, clip)
 {
-    public float RotationOffset;
+    private float RotationOffset;
 
-    public Vector2 PositionOffset;
+    private Vector2 PositionOffset;
 
     public override void UpdatePosition(float time)
     {

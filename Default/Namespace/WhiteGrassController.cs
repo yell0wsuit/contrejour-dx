@@ -6,7 +6,7 @@ namespace Default.Namespace;
 
 public class WhiteGrassController(PlasticinePartBodyClip plasticine) : GrassController(plasticine)
 {
-    protected bool borderUpdated;
+    private bool borderUpdated;
 
     public override float SmallGrassScale => 0.7f;
 

@@ -10,7 +10,7 @@ namespace Mokus2D.Visual;
 public class AnimationPlayer : IUpdatable
 {
     private float maxFrame;
-    public float FPS = Mokus2DGame.Config.AnimationFPS;
+    private float FPS = Mokus2DGame.Config.AnimationFPS;
 
     private readonly IAnimatedNode _owner;
 

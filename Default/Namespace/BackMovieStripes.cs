@@ -9,11 +9,11 @@ namespace Default.Namespace;
 
 public class BackMovieStripes : MovieStripesView
 {
-    protected Button backButton;
+    private Button backButton;
 
     public readonly EventSender BackEvent = new();
 
-    protected ClickableLayer clickableLayer;
+    private ClickableLayer clickableLayer;
 
     public BackMovieStripes()
         : base(blackSide: false, fade: false)

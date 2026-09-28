@@ -7,13 +7,13 @@ namespace Default.Namespace;
 
 public class Bezier(Vector2 _start, Vector2 _control, Vector2 _end)
 {
-    protected Vector2 start = _start;
+    private Vector2 start = _start;
 
-    protected Vector2 control = _control;
+    private Vector2 control = _control;
 
-    protected Vector2 end = _end;
+    private Vector2 end = _end;
 
-    protected float calculatedLength = -1f;
+    private float calculatedLength = -1f;
 
     public float Length
     {

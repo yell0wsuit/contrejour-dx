@@ -16,29 +16,29 @@ public class Outro : Node, ITouchListener, IDisposable
 {
     private static readonly float SPEED = ContreJourLabelUtil.IsAsian ? 30 : 15;
 
-    protected LayerColor background;
+    private LayerColor background;
 
-    protected Vector2 creditsPosition;
+    private Vector2 creditsPosition;
 
     private Touch currentTouch;
 
-    protected float margins;
+    private float margins;
 
-    protected float maxY;
+    private float maxY;
 
-    protected float minY;
+    private float minY;
 
-    protected float onEndTime;
+    private float onEndTime;
 
-    protected Node text;
+    private Node text;
 
     protected Vector2 textPosition;
 
-    protected bool textVisible;
+    private bool textVisible;
 
-    protected Vector2 touchPosition;
+    private Vector2 touchPosition;
 
-    protected float touchSpeed;
+    private float touchSpeed;
 
     public bool TextVisible
     {

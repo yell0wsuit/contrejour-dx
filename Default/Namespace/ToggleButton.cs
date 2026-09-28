@@ -6,9 +6,9 @@ namespace Default.Namespace;
 
 public class ToggleButton : Button
 {
-    protected bool toggle;
+    private bool toggle;
 
-    protected Sprite toggleIcon;
+    private Sprite toggleIcon;
 
     public Sprite ToggleIcon => toggleIcon;
 

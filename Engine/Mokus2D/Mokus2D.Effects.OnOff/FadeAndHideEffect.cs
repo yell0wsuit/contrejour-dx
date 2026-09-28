@@ -8,9 +8,9 @@ namespace Mokus2D.Effects.OnOff;
 
 public class FadeAndHideEffect : OnOffTweenEffect<float>
 {
-    public bool ResetZeroOpacity = true;
+    private bool ResetZeroOpacity = true;
 
-    public GetSetValue<Node, bool> VisibleSetter = NodeValues.Visible;
+    private GetSetValue<Node, bool> VisibleSetter = NodeValues.Visible;
 
     private readonly Action _onHide;
 

@@ -12,7 +12,7 @@ namespace Default.Namespace;
 
 public class Chapter2(int index, MainMenu menu) : ChapterItem(index, menu)
 {
-    protected WhiteSmoke springSmoke;
+    private WhiteSmoke springSmoke;
 
     protected override void CreateSprites()
     {
