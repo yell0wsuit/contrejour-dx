@@ -9,12 +9,12 @@ public class WhiteSnotSprite : BlackSnotSprite
     {
     }
 
-    public override Color initialStartColor()
+    public override Color InitialStartColor()
     {
         return ContreJourConstants.WHITE_SNOT_START_COLOR;
     }
 
-    public override Color initialEndColor()
+    public override Color InitialEndColor()
     {
         return ContreJourConstants.WHITE_SNOT_END_COLOR;
     }

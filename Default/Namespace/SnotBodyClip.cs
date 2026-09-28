@@ -243,13 +243,13 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
         touchEndTime = -1f;
     }
 
-    private static float closestReq(object item, object param)
+    private static float ClosestReq(object item, object param)
     {
         BodyClip bodyClip = (BodyClip)item;
         return 0f - VectorExtensions.DistanceTo(target: (Vector2)param, source: bodyClip.Body.Position);
     }
 
-    private static bool linkableReq(BodyClip clip, object param)
+    private static bool LinkableReq(BodyClip clip, object param)
     {
         //IL_000d: Unknown result type (might be due to invalid IL or missing references)
         LinkableReqParams linkableReqParams = (LinkableReqParams)param;
@@ -460,12 +460,12 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
 
     public BodyAndPoint GetDragTarget(Vector2 _position)
     {
-        List<BodyClip> list = FarseerUtil.Query(param: new LinkableReqParams(JoinDistance(), _position), world: builder.World, center: _position, radius: JoinDistance(), clipPredicate: linkableReq);
+        List<BodyClip> list = FarseerUtil.Query(param: new LinkableReqParams(JoinDistance(), _position), world: builder.World, center: _position, radius: JoinDistance(), clipPredicate: LinkableReq);
         if (list.Count == 0)
         {
             return new BodyAndPoint(null, _position);
         }
-        BodyClip bodyClip = (BodyClip)Arrays.MaxItem(list, closestReq, _position);
+        BodyClip bodyClip = (BodyClip)Arrays.MaxItem(list, ClosestReq, _position);
         return new BodyAndPoint(bodyClip.Body, bodyClip.Body.Position);
     }
 

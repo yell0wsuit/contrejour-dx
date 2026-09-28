@@ -4,7 +4,7 @@ using FarseerPhysics.Common.Decomposition.CDT.Delaunay;
 
 namespace FarseerPhysics.Common.Decomposition.CDT.Sets;
 
-internal class PointSet : Triangulatable
+internal class PointSet : ITriangulatable
 {
     public IList<TriangulationPoint> Points { get; private set; }
 

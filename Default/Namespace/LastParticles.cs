@@ -12,19 +12,19 @@ public class LastParticles : BlackFall
         SpeedMult = 5f;
     }
 
-    protected override void initParams()
+    protected override void InitParams()
     {
-        base.initParams();
+        base.InitParams();
         ParticlesScale = new RandomRange(0.9f, 0.6f);
     }
 
-    public override void initParticle(GravityParticle gravityParticle)
+    public override void InitParticle(GravityParticle gravityParticle)
     {
         if (Maths.Random() < 0.1f)
         {
             gravityParticle.Scale = Maths.Random(3f, 3.5f);
         }
-        base.initParticle(gravityParticle);
+        base.InitParticle(gravityParticle);
         float num = ParticlesScale.Value + ParticlesScale.Offset;
         gravityParticle.OpacityFloat = Math.Max((num - gravityParticle.Scale) / num, 0.05f);
     }

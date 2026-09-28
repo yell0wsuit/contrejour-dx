@@ -5,7 +5,7 @@ using Mokus2D.Visual;
 
 namespace Mokus2D.UI.Containers;
 
-public class ViewStack : Node
+public class ViewSwitcher : Node
 {
     public Action<Node> ShowEffect;
 
@@ -46,7 +46,7 @@ public class ViewStack : Node
 
     public event Action<Node> AfterHideEvent;
 
-    public ViewStack()
+    public ViewSwitcher()
     {
         _showCurrentView = ShowCurrentView;
         _onPreviousViewHide = OnPreviousViewHide;

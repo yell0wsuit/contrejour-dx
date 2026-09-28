@@ -9,19 +9,19 @@ public abstract class DebugViewBase
 {
     protected World World { get; private set; }
 
-    public DebugViewFlags Flags { get; set; }
+    public DebugViewOptions Flags { get; set; }
 
     protected DebugViewBase(World world)
     {
         World = world;
     }
 
-    public void AppendFlags(DebugViewFlags flags)
+    public void AppendFlags(DebugViewOptions flags)
     {
         Flags |= flags;
     }
 
-    public void RemoveFlags(DebugViewFlags flags)
+    public void RemoveFlags(DebugViewOptions flags)
     {
         Flags &= ~flags;
     }

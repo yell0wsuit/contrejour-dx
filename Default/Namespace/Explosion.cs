@@ -34,9 +34,9 @@ public class Explosion : GravityParticleSystem
         Angle = new RandomRange(0f, 3600f);
     }
 
-    public override void initParticle(GravityParticle gravityParticle)
+    public override void InitParticle(GravityParticle gravityParticle)
     {
-        base.initParticle(gravityParticle);
+        base.InitParticle(gravityParticle);
         if (gravityParticle.Position != Vector2.Zero)
         {
             gravityParticle.Speed = VectorUtil.ToVector(gravityParticle.Speed.Length(), Maths.Atan2(gravityParticle.Position.Y, gravityParticle.Position.X));

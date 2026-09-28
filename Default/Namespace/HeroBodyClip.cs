@@ -253,11 +253,11 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
         Body.SetGroupIndex(-2);
         lastHitTime = 0f;
         snotEnabled = true;
-        initializeBody();
+        InitializeBody();
         hitEnabled = true;
         if (Game.LevelIndex != 0 || !Game.CanShowIntro)
         {
-            initializeBody();
+            InitializeBody();
             Schedule(FirstRespawn, FirstRespawnTime);
             if (Game.EndLevel != null)
             {
@@ -425,7 +425,7 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
         Schedule(Respawn, 0.2f);
     }
 
-    public void initializeBody()
+    public void InitializeBody()
     {
         Body.BodyType = 0;
         clip.Visible = false;
@@ -487,7 +487,7 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
         finishSet = false;
         disablePositionUpdate = false;
         finished = false;
-        initializeBody();
+        InitializeBody();
         restarting = false;
         clip.OpacityByte = 255;
         Body.SetTransform(initialPosition, Body.Rotation);

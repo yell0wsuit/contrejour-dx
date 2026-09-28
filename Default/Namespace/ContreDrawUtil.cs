@@ -12,7 +12,7 @@ namespace Default.Namespace;
 
 public static class ContreDrawUtil
 {
-    public static Pair<Vector2> ccp2Pair(Pair<Vector2> pair)
+    public static Pair<Vector2> Ccp2Pair(Pair<Vector2> pair)
     {
         return new Pair<Vector2>(pair.First, pair.Second);
     }

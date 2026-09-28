@@ -9,12 +9,12 @@ public class GreenSnotSprite : BlackSnotSprite
     {
     }
 
-    public override Color initialStartColor()
+    public override Color InitialStartColor()
     {
         return ContreJourConstants.GreenSnotStart;
     }
 
-    public override Color initialEndColor()
+    public override Color InitialEndColor()
     {
         return ContreJourConstants.GreenSnotEnd;
     }

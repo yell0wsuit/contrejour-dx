@@ -30,7 +30,7 @@ public class FlyBase : IUpdatable
         initialPosition = _particle.Position;
         targetPosition = initialPosition;
         opacityChanger = new CosOpacityChanger(particle, 0f, Maths.Random(0.5f, 0.6f), Maths.Random(0.01f, 0.07f));
-        initParams();
+        InitParams();
     }
 
     public virtual void Update(float time)
@@ -41,7 +41,7 @@ public class FlyBase : IUpdatable
         opacityChanger.Update(time);
     }
 
-    private void initParams()
+    private void InitParams()
     {
         stepY = Maths.Random(0.25f, 0.75f);
         verticalStep = Maths.Random((float)Math.PI * -2f, (float)Math.PI * 2f);

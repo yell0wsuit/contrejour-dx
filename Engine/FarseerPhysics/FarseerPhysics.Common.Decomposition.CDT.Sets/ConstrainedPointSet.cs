@@ -45,7 +45,7 @@ internal sealed class ConstrainedPointSet : PointSet
         }
     }
 
-    public bool isValid()
+    public bool IsValid()
     {
         return true;
     }

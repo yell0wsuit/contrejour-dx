@@ -32,7 +32,7 @@ public class BreakableBody
     {
         _world = world;
         ContactManager contactManager = _world.ContactManager;
-        contactManager.PostSolve = (PostSolveDelegate)Delegate.Combine(contactManager.PostSolve, new PostSolveDelegate(PostSolve));
+        contactManager.PostSolve = (PostSolveHandler)Delegate.Combine(contactManager.PostSolve, new PostSolveHandler(PostSolve));
         MainBody = new Body(_world)
         {
             BodyType = BodyType.Dynamic
@@ -49,7 +49,7 @@ public class BreakableBody
     {
         _world = world;
         ContactManager contactManager = _world.ContactManager;
-        contactManager.PostSolve = (PostSolveDelegate)Delegate.Combine(contactManager.PostSolve, new PostSolveDelegate(PostSolve));
+        contactManager.PostSolve = (PostSolveHandler)Delegate.Combine(contactManager.PostSolve, new PostSolveHandler(PostSolve));
         MainBody = new Body(_world)
         {
             BodyType = BodyType.Dynamic
@@ -105,7 +105,7 @@ public class BreakableBody
     private void Decompose()
     {
         ContactManager contactManager = _world.ContactManager;
-        contactManager.PostSolve = (PostSolveDelegate)Delegate.Remove(contactManager.PostSolve, new PostSolveDelegate(PostSolve));
+        contactManager.PostSolve = (PostSolveHandler)Delegate.Remove(contactManager.PostSolve, new PostSolveHandler(PostSolve));
         for (int i = 0; i < Parts.Count; i++)
         {
             Fixture fixture = Parts[i];

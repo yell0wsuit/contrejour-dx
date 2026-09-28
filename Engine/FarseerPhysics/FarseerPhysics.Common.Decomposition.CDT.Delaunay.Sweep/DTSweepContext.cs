@@ -58,7 +58,7 @@ internal sealed class DTSweepContext : TriangulationContext
             return;
         }
         triangle.IsInterior = true;
-        Triangulatable.AddTriangle(triangle);
+        ITriangulatable.AddTriangle(triangle);
         for (int i = 0; i < 3; i++)
         {
             if (!triangle.EdgeIsConstrained[i])
@@ -122,7 +122,7 @@ internal sealed class DTSweepContext : TriangulationContext
         }
     }
 
-    public override void PrepareTriangulation(Triangulatable t)
+    public override void PrepareTriangulation(ITriangulatable t)
     {
         base.PrepareTriangulation(t);
         double x;
@@ -159,7 +159,7 @@ internal sealed class DTSweepContext : TriangulationContext
 
     public void FinalizeTriangulation()
     {
-        Triangulatable.AddTriangles(Triangles);
+        ITriangulatable.AddTriangles(Triangles);
         Triangles.Clear();
     }
 

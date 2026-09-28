@@ -12,7 +12,7 @@ internal abstract class TriangulationContext
 
     public TriangulationMode TriangulationMode { get; protected set; }
 
-    public Triangulatable Triangulatable { get; private set; }
+    public ITriangulatable ITriangulatable { get; private set; }
 
     public bool WaitUntilNotified { get; private set; }
 
@@ -32,9 +32,9 @@ internal abstract class TriangulationContext
         StepCount++;
     }
 
-    public virtual void PrepareTriangulation(Triangulatable t)
+    public virtual void PrepareTriangulation(ITriangulatable t)
     {
-        Triangulatable = t;
+        ITriangulatable = t;
         TriangulationMode = t.TriangulationMode;
         t.PrepareTriangulation(this);
     }

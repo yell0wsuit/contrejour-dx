@@ -77,7 +77,7 @@ public static class GraphUtil
         });
     }
 
-    public static VertexPositionColor[] getVertexPositionColor(List<Vector2> polygon, List<Color> colors, int lenght = -1)
+    public static VertexPositionColor[] GetVertexPositionColor(List<Vector2> polygon, List<Color> colors, int lenght = -1)
     {
         if (lenght == -1)
         {
@@ -92,7 +92,7 @@ public static class GraphUtil
         return array;
     }
 
-    public static VertexPositionColor[] getVertexPositionColor(List<Vector2> polygon, Color color, int lenght = -1)
+    public static VertexPositionColor[] GetVertexPositionColor(List<Vector2> polygon, Color color, int lenght = -1)
     {
         if (lenght == -1)
         {
@@ -345,12 +345,12 @@ public static class GraphUtil
 
     public static void FillConvexColors(List<Vector2> polygon, List<Color> colors)
     {
-        DrawTriangleFan(getVertexPositionColor(polygon, colors));
+        DrawTriangleFan(GetVertexPositionColor(polygon, colors));
     }
 
     public static void FillConvexColor(List<Vector2> polygon, Color color)
     {
-        DrawTriangleFan(getVertexPositionColor(polygon, color));
+        DrawTriangleFan(GetVertexPositionColor(polygon, color));
     }
 
     public static void FillTrianglesStripTextureCoordsTextureColor(List<Vector2> triangles, List<Vector2> textureCoords, Texture2D texture, Color color)
@@ -406,7 +406,7 @@ public static class GraphUtil
 
     public static void FillTrianglesColorsLoopType(List<Vector2> vertices, List<Color> colors, PrimitiveType loopType)
     {
-        VertexPositionColor[] vertexPositionColor = getVertexPositionColor(vertices, colors);
+        VertexPositionColor[] vertexPositionColor = GetVertexPositionColor(vertices, colors);
         DrawTriangleStrip(vertexPositionColor);
     }
 
@@ -529,7 +529,7 @@ public static class GraphUtil
 
     public static void FillTrianglesTrianglesSizeColorLoopType(List<Vector2> triangles, int trianglesSize, Color color, PrimitiveType loopType)
     {
-        DrawTriangleStrip(getVertexPositionColor(triangles, color, trianglesSize));
+        DrawTriangleStrip(GetVertexPositionColor(triangles, color, trianglesSize));
     }
 
     public static void FillTrianglesTrianglesSize(List<Vector2> triangles, int trianglesSize)

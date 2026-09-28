@@ -22,24 +22,24 @@ public class BlackSnotSprite : SpringSnotSprite
         return 4;
     }
 
-    public virtual Color initialStartColor()
+    public virtual Color InitialStartColor()
     {
         return START_COLOR;
     }
 
-    public virtual Color initialEndColor()
+    public virtual Color InitialEndColor()
     {
         return END_COLOR;
     }
 
     public override Color BaseCircleColor()
     {
-        return initialStartColor();
+        return InitialStartColor();
     }
 
     public override Color EndCircleColor()
     {
-        return initialEndColor();
+        return InitialEndColor();
     }
 
     public override Color EndColor()
@@ -51,14 +51,14 @@ public class BlackSnotSprite : SpringSnotSprite
 
     public virtual Color GetIntermidiateColorLineSize(int index, int lineSize)
     {
-        return Color.Lerp(initialStartColor(), initialEndColor(), index / (float)lineSize);
+        return Color.Lerp(InitialStartColor(), InitialEndColor(), index / (float)lineSize);
     }
 
     public override void CreateVectors(int _allPointsSize)
     {
         base.CreateVectors(_allPointsSize);
         int num = _allPointsSize / 2;
-        Color color = initialStartColor();
+        Color color = InitialStartColor();
         Color intermidiateColorLineSize = GetIntermidiateColorLineSize(1, num);
         for (int i = 0; i < num - 1; i++)
         {
@@ -80,7 +80,7 @@ public class BlackSnotSprite : SpringSnotSprite
 
     public override void SetBorderColors()
     {
-        BlackDrawUtil.SetBorderColors(allPointsSize, initialStartColor(), initialEndColor(), EndColor(), border);
+        BlackDrawUtil.SetBorderColors(allPointsSize, InitialStartColor(), InitialEndColor(), EndColor(), border);
     }
 
     public override void DrawPolygons()

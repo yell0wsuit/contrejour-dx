@@ -21,9 +21,9 @@ public class BlueLights : GravityParticleSystem
         topRightBound = new Vector2(w7FromIPhoneSize.X, w7FromIPhoneSize.Y);
     }
 
-    public override void initParticle(GravityParticle gravityParticle)
+    public override void InitParticle(GravityParticle gravityParticle)
     {
-        base.initParticle(gravityParticle);
+        base.InitParticle(gravityParticle);
         gravityParticle.OpacityByte = (int)(40f + (20f * gravityParticle.Scale));
         float num = 20f * gravityParticle.Scale;
         gravityParticle.Speed *= num;

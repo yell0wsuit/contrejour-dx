@@ -44,20 +44,20 @@ public class SnotSprite : LongNeckSprite
     public override void GetPairs(List<Pair<Vector2>> target)
     {
         Vector2 startPosition = snot.StartPosition;
-        target.Add(ContreDrawUtil.ccp2Pair(ContreDrawUtil.GetPointsPairStartEndWidthResult(startPosition, startPosition, data.BodyAt(0).Position, startWidth)));
+        target.Add(ContreDrawUtil.Ccp2Pair(ContreDrawUtil.GetPointsPairStartEndWidthResult(startPosition, startPosition, data.BodyAt(0).Position, startWidth)));
         Vector2 start = startPosition;
         Body val = null;
         for (int i = 0; i < data.BodiesSize() - 1; i++)
         {
             val = data.BodyAt(i);
             Body val2 = data.BodyAt(i + 1);
-            target.Add(ContreDrawUtil.ccp2Pair(ContreDrawUtil.GetPointsPairStartEndWidthResult(val.Position, start, val2.Position, centerWidth)));
+            target.Add(ContreDrawUtil.Ccp2Pair(ContreDrawUtil.GetPointsPairStartEndWidthResult(val.Position, start, val2.Position, centerWidth)));
             start = val2.Position;
             if (i < data.BodiesSize() - 2)
             {
-                target.Add(ContreDrawUtil.ccp2Pair(ContreDrawUtil.GetPointsPairStartEndWidthResult((val.Position + val2.Position) * 0.5f, val.Position, val2.Position, centerWidth)));
+                target.Add(ContreDrawUtil.Ccp2Pair(ContreDrawUtil.GetPointsPairStartEndWidthResult((val.Position + val2.Position) * 0.5f, val.Position, val2.Position, centerWidth)));
             }
         }
-        target.Add(ContreDrawUtil.ccp2Pair(ContreDrawUtil.GetPointsPairStartEndWidthResult(snot.EndPosition(), val.Position, snot.EndPosition(), endWidth)));
+        target.Add(ContreDrawUtil.Ccp2Pair(ContreDrawUtil.GetPointsPairStartEndWidthResult(snot.EndPosition(), val.Position, snot.EndPosition(), endWidth)));
     }
 }

@@ -27,13 +27,13 @@ public class ContactListener
         //IL_0098: Unknown result type (might be due to invalid IL or missing references)
         //IL_00a2: Expected O, but got Unknown
         ContactManager contactManager = world.ContactManager;
-        contactManager.BeginContact = (BeginContactDelegate)Delegate.Combine((Delegate)(object)contactManager.BeginContact, new BeginContactDelegate(BeginContact));
+        contactManager.BeginContact = (BeginContactHandler)Delegate.Combine((Delegate)(object)contactManager.BeginContact, new BeginContactHandler(BeginContact));
         ContactManager contactManager2 = world.ContactManager;
-        contactManager2.EndContact = (EndContactDelegate)Delegate.Combine((Delegate)(object)contactManager2.EndContact, new EndContactDelegate(EndContact));
+        contactManager2.EndContact = (EndContactHandler)Delegate.Combine((Delegate)(object)contactManager2.EndContact, new EndContactHandler(EndContact));
         ContactManager contactManager3 = world.ContactManager;
-        contactManager3.PreSolve = (PreSolveDelegate)Delegate.Combine((Delegate)(object)contactManager3.PreSolve, new PreSolveDelegate(PreSolve));
+        contactManager3.PreSolve = (PreSolveHandler)Delegate.Combine((Delegate)(object)contactManager3.PreSolve, new PreSolveHandler(PreSolve));
         ContactManager contactManager4 = world.ContactManager;
-        contactManager4.PostSolve = (PostSolveDelegate)Delegate.Combine((Delegate)(object)contactManager4.PostSolve, new PostSolveDelegate(PostSolve));
+        contactManager4.PostSolve = (PostSolveHandler)Delegate.Combine((Delegate)(object)contactManager4.PostSolve, new PostSolveHandler(PostSolve));
     }
 
     public bool BeginContact(Contact contact)

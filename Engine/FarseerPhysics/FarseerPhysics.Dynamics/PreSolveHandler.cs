@@ -3,4 +3,4 @@ using FarseerPhysics.Dynamics.Contacts;
 
 namespace FarseerPhysics.Dynamics;
 
-public delegate void PreSolveDelegate(Contact contact, ref Manifold oldManifold);
+public delegate void PreSolveHandler(Contact contact, ref Manifold oldManifold);

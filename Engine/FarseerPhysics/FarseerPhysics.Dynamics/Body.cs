@@ -437,14 +437,14 @@ public class Body : IDisposable
 
     public bool IsDisposed { get; set; }
 
-    public event OnCollisionEventHandler OnCollision
+    public event OnCollisionHandler OnCollision
     {
         add
         {
             for (int i = 0; i < FixtureList.Count; i++)
             {
                 Fixture fixture = FixtureList[i];
-                fixture.OnCollision = (OnCollisionEventHandler)Delegate.Combine(fixture.OnCollision, value);
+                fixture.OnCollision = (OnCollisionHandler)Delegate.Combine(fixture.OnCollision, value);
             }
         }
         remove
@@ -452,19 +452,19 @@ public class Body : IDisposable
             for (int i = 0; i < FixtureList.Count; i++)
             {
                 Fixture fixture = FixtureList[i];
-                fixture.OnCollision = (OnCollisionEventHandler)Delegate.Remove(fixture.OnCollision, value);
+                fixture.OnCollision = (OnCollisionHandler)Delegate.Remove(fixture.OnCollision, value);
             }
         }
     }
 
-    public event OnSeparationEventHandler OnSeparation
+    public event OnSeparationHandler OnSeparation
     {
         add
         {
             for (int i = 0; i < FixtureList.Count; i++)
             {
                 Fixture fixture = FixtureList[i];
-                fixture.OnSeparation = (OnSeparationEventHandler)Delegate.Combine(fixture.OnSeparation, value);
+                fixture.OnSeparation = (OnSeparationHandler)Delegate.Combine(fixture.OnSeparation, value);
             }
         }
         remove
@@ -472,7 +472,7 @@ public class Body : IDisposable
             for (int i = 0; i < FixtureList.Count; i++)
             {
                 Fixture fixture = FixtureList[i];
-                fixture.OnSeparation = (OnSeparationEventHandler)Delegate.Remove(fixture.OnSeparation, value);
+                fixture.OnSeparation = (OnSeparationHandler)Delegate.Remove(fixture.OnSeparation, value);
             }
         }
     }

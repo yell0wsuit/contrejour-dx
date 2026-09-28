@@ -138,7 +138,7 @@ public class DynamicTreeBroadPhase : IBroadPhase
         return AABB.TestOverlap(ref fatAABB, ref fatAABB2);
     }
 
-    public void UpdatePairs(BroadphaseDelegate callback)
+    public void UpdatePairs(BroadphaseHandler callback)
     {
         _pairCount = 0;
         for (int i = 0; i < _moveCount; i++)

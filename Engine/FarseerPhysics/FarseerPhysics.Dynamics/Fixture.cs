@@ -35,13 +35,13 @@ public class Fixture : IDisposable
 
     public Category IgnoreCCDWith;
 
-    public AfterCollisionEventHandler AfterCollision;
+    public AfterCollisionHandler AfterCollision;
 
-    public BeforeCollisionEventHandler BeforeCollision;
+    public BeforeCollisionHandler BeforeCollision;
 
-    public OnCollisionEventHandler OnCollision;
+    public OnCollisionHandler OnCollision;
 
-    public OnSeparationEventHandler OnSeparation;
+    public OnSeparationHandler OnSeparation;
 
     public short CollisionGroup
     {

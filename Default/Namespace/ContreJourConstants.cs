@@ -233,7 +233,7 @@ public static class ContreJourConstants
 
     public static string[] APP_URLS = ["http://itunes.apple.com/app/id440693481", "http://itunes.apple.com/app/id444085845?mt=8"];
 
-    public static float getAnimationInterval()
+    public static float GetAnimationInterval()
     {
         return 1f / 60f;
     }

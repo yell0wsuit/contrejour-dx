@@ -10,7 +10,7 @@ public interface IBroadPhase
 {
     int ProxyCount { get; }
 
-    void UpdatePairs(BroadphaseDelegate callback);
+    void UpdatePairs(BroadphaseHandler callback);
 
     bool TestOverlap(int proxyIdA, int proxyIdB);
 

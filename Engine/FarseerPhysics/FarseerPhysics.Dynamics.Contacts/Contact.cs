@@ -202,7 +202,7 @@ public class Contact
                     Delegate[] invocationList = FixtureA.OnCollision.GetInvocationList();
                     for (int k = 0; k < invocationList.Length; k++)
                     {
-                        OnCollisionEventHandler onCollisionEventHandler = (OnCollisionEventHandler)invocationList[k];
+                        OnCollisionHandler onCollisionEventHandler = (OnCollisionHandler)invocationList[k];
                         flag3 = onCollisionEventHandler(FixtureA, FixtureB, this) && flag3;
                     }
                 }
@@ -211,7 +211,7 @@ public class Contact
                     Delegate[] invocationList2 = FixtureB.OnCollision.GetInvocationList();
                     for (int l = 0; l < invocationList2.Length; l++)
                     {
-                        OnCollisionEventHandler onCollisionEventHandler2 = (OnCollisionEventHandler)invocationList2[l];
+                        OnCollisionHandler onCollisionEventHandler2 = (OnCollisionHandler)invocationList2[l];
                         flag4 = onCollisionEventHandler2(FixtureB, FixtureA, this) && flag4;
                     }
                 }

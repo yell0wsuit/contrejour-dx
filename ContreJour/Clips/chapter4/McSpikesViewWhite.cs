@@ -20,9 +20,9 @@ public class McSpikesViewWhite : AnimationNode, IFreeable, IId, ISpikesView
 
     public string Id => "chapter4/McSpikesViewWhite";
 
-    MovieClip ISpikesView.left => left;
+    MovieClip ISpikesView.Left => left;
 
-    MovieClip ISpikesView.right => right;
+    MovieClip ISpikesView.Right => right;
 
     public static McSpikesViewWhite New()
     {

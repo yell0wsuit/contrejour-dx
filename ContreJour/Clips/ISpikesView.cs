@@ -4,7 +4,7 @@ namespace ContreJour.Clips;
 
 public interface ISpikesView
 {
-    MovieClip left { get; }
+    MovieClip Left { get; }
 
-    MovieClip right { get; }
+    MovieClip Right { get; }
 }

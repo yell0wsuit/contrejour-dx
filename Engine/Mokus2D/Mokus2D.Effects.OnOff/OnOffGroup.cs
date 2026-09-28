@@ -2,11 +2,11 @@ using System.Collections.Generic;
 
 namespace Mokus2D.Effects.OnOff;
 
-public class OnOffCollection : OnOffEffect
+public class OnOffGroup : OnOffEffect
 {
     private readonly List<IOnOff> _effects;
 
-    public OnOffCollection(params IOnOff[] effects)
+    public OnOffGroup(params IOnOff[] effects)
         : base(null)
     {
         _effects = [.. effects];

@@ -3,7 +3,7 @@ using System;
 namespace FarseerPhysics;
 
 [Flags]
-public enum DebugViewFlags
+public enum DebugViewOptions
 {
     Shape = 1,
     Joint = 2,

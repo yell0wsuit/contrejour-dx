@@ -54,8 +54,8 @@ public class SpikesFlowerBodyClip : ContreJourBodyClip, IVectorPositionProvider
         };
         container.AddChild(node);
         movie = (ISpikesView)_clip;
-        movie.left.Stoped = movie.right.Stoped = true;
-        movie.left.Speed = movie.right.Speed = 1.5f;
+        movie.Left.Stoped = movie.Right.Stoped = true;
+        movie.Left.Speed = movie.Right.Speed = 1.5f;
         drawing = new SpikesFlowerSprite(this, clip.ScaleY);
         container.AddChild(drawing, -1);
     }
@@ -85,7 +85,7 @@ public class SpikesFlowerBodyClip : ContreJourBodyClip, IVectorPositionProvider
 
     public override void OnCollisionPoint(Body body2, Contact point)
     {
-        if (body2.UserData is IEatable eatable && movie.left.Stoped && Maths.FuzzyEquals(movie.left.CurrentFrame, 0f) && eatable.CanDie())
+        if (body2.UserData is IEatable eatable && movie.Left.Stoped && Maths.FuzzyEquals(movie.Left.CurrentFrame, 0f) && eatable.CanDie())
         {
             hero = eatable;
             hero.EatSpeedPauseScaleTime(Body.Position, 0.5f, 1.3f, 0f, 0.2f);
@@ -94,9 +94,9 @@ public class SpikesFlowerBodyClip : ContreJourBodyClip, IVectorPositionProvider
                 UserData.Instance.FeedMonster++;
             }
             hero.Clip.Parent.ChangeChildLayer(hero.Clip, -1);
-            movie.left.Stoped = movie.right.Stoped = false;
-            movie.left.Rewind = movie.right.Rewind = false;
-            movie.left.EndEvent += OnCloseEnd;
+            movie.Left.Stoped = movie.Right.Stoped = false;
+            movie.Left.Rewind = movie.Right.Rewind = false;
+            movie.Left.EndEvent += OnCloseEnd;
             eye.PositionProvider = this;
             SoundManager.PlaySound("deathByFlowerOut4", 0.5f);
         }
@@ -104,18 +104,18 @@ public class SpikesFlowerBodyClip : ContreJourBodyClip, IVectorPositionProvider
 
     private void OnCloseEnd(IAnimatedNode animatedNode)
     {
-        movie.left.EndEvent -= OnCloseEnd;
-        movie.left.GotoAndStop(movie.left.TotalFrames - 1);
-        movie.right.GotoAndStop(movie.right.TotalFrames - 1);
+        movie.Left.EndEvent -= OnCloseEnd;
+        movie.Left.GotoAndStop(movie.Left.TotalFrames - 1);
+        movie.Right.GotoAndStop(movie.Right.TotalFrames - 1);
         Schedule(Open, 1f);
     }
 
     private void Open()
     {
         SoundManager.PlaySound("deathByFlowerOut10", 0.7f);
-        movie.left.Rewind = movie.right.Rewind = true;
-        movie.left.Stoped = movie.right.Stoped = false;
-        movie.left.Repeat = movie.right.Repeat = false;
+        movie.Left.Rewind = movie.Right.Rewind = true;
+        movie.Left.Stoped = movie.Right.Stoped = false;
+        movie.Left.Repeat = movie.Right.Repeat = false;
         eye.PositionProvider = null;
         CreateDeadEye();
     }

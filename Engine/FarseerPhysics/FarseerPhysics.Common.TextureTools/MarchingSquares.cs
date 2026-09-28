@@ -294,7 +294,7 @@ public static class MarchingSquares
                 {
                     if (combine && polya != null && (num7 & 9) != 0)
                     {
-                        combLeft(ref polya, ref poly);
+                        CombLeft(ref polya, ref poly);
                         poly = polya;
                     }
                     else
@@ -540,7 +540,7 @@ public static class MarchingSquares
         return num;
     }
 
-    private static void combLeft(ref GeomPoly polya, ref GeomPoly polyb)
+    private static void CombLeft(ref GeomPoly polya, ref GeomPoly polyb)
     {
         CxFastList<Vector2> points = polya.Points;
         CxFastList<Vector2> points2 = polyb.Points;

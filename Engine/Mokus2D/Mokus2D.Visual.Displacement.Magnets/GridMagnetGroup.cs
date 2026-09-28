@@ -4,19 +4,19 @@ using Microsoft.Xna.Framework;
 
 namespace Mokus2D.Visual.Displacement.Magnets;
 
-public class GridMagnetsCollection : GridMagnetBase
+public class GridMagnetGroup : GridMagnetBase
 {
     private readonly List<GridMagnetBase> _magnets = [];
 
     public List<GridMagnetBase> Magnets => _magnets;
 
-    public GridMagnetsCollection(List<GridMagnetBase> magnets)
+    public GridMagnetGroup(List<GridMagnetBase> magnets)
     {
         _magnets = magnets;
         CalculateBounds();
     }
 
-    public GridMagnetsCollection(params GridMagnetBase[] magnets)
+    public GridMagnetGroup(params GridMagnetBase[] magnets)
     {
         _magnets = [];
         CalculateBounds();

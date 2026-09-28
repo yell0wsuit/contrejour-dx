@@ -52,21 +52,21 @@ public class World
 
     internal bool _worldHasNewFixture;
 
-    public BodyDelegate BodyAdded;
+    public BodyHandler BodyAdded;
 
-    public BodyDelegate BodyRemoved;
+    public BodyHandler BodyRemoved;
 
-    public FixtureDelegate FixtureAdded;
+    public FixtureHandler FixtureAdded;
 
-    public FixtureDelegate FixtureRemoved;
+    public FixtureHandler FixtureRemoved;
 
-    public JointDelegate JointAdded;
+    public JointHandler JointAdded;
 
-    public JointDelegate JointRemoved;
+    public JointHandler JointRemoved;
 
-    public ControllerDelegate ControllerAdded;
+    public ControllerHandler ControllerAdded;
 
-    public ControllerDelegate ControllerRemoved;
+    public ControllerHandler ControllerRemoved;
 
     public Vector2 Gravity;
 

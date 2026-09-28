@@ -1,0 +1,25 @@
+using System.Diagnostics.CodeAnalysis;
+
+// Body clips create their sprites and effects and hand them straight to the level builder; the scene
+// graph owns and disposes those nodes, so the clips keep references to them without owning them.
+[assembly: SuppressMessage("Design", "CA1001", Scope = "type", Target = "~T:Default.Namespace.DestroyOnHitClip", Justification = "Nodes are owned and disposed by the scene graph.")]
+[assembly: SuppressMessage("Design", "CA1001", Scope = "type", Target = "~T:Default.Namespace.DragableBodyClip", Justification = "Nodes are owned and disposed by the scene graph.")]
+[assembly: SuppressMessage("Design", "CA1001", Scope = "type", Target = "~T:Default.Namespace.EndHeroBodyClip", Justification = "Nodes are owned and disposed by the scene graph.")]
+[assembly: SuppressMessage("Design", "CA1001", Scope = "type", Target = "~T:Default.Namespace.EndLevelBodyClip", Justification = "Nodes are owned and disposed by the scene graph.")]
+[assembly: SuppressMessage("Design", "CA1001", Scope = "type", Target = "~T:Default.Namespace.FlyBodyClip", Justification = "Nodes are owned and disposed by the scene graph.")]
+[assembly: SuppressMessage("Design", "CA1001", Scope = "type", Target = "~T:Default.Namespace.FurBodyClip", Justification = "Nodes are owned and disposed by the scene graph.")]
+[assembly: SuppressMessage("Design", "CA1001", Scope = "type", Target = "~T:Default.Namespace.HeroBodyClip", Justification = "Nodes are owned and disposed by the scene graph.")]
+[assembly: SuppressMessage("Design", "CA1001", Scope = "type", Target = "~T:Default.Namespace.HeroExplosion", Justification = "Nodes are owned and disposed by the scene graph.")]
+[assembly: SuppressMessage("Design", "CA1001", Scope = "type", Target = "~T:Default.Namespace.LianaBodyClip", Justification = "Nodes are owned and disposed by the scene graph.")]
+[assembly: SuppressMessage("Design", "CA1001", Scope = "type", Target = "~T:Default.Namespace.PlasticineBodyClip", Justification = "Nodes are owned and disposed by the scene graph.")]
+[assembly: SuppressMessage("Design", "CA1001", Scope = "type", Target = "~T:Default.Namespace.RoseBodyClip", Justification = "Nodes are owned and disposed by the scene graph.")]
+[assembly: SuppressMessage("Design", "CA1001", Scope = "type", Target = "~T:Default.Namespace.RotatableSpringBodyClip", Justification = "Nodes are owned and disposed by the scene graph.")]
+[assembly: SuppressMessage("Design", "CA1001", Scope = "type", Target = "~T:Default.Namespace.RotatorBodyClip", Justification = "Nodes are owned and disposed by the scene graph.")]
+[assembly: SuppressMessage("Design", "CA1001", Scope = "type", Target = "~T:Default.Namespace.RoundDragBodyClip", Justification = "Nodes are owned and disposed by the scene graph.")]
+[assembly: SuppressMessage("Design", "CA1001", Scope = "type", Target = "~T:Default.Namespace.SnotBodyClip", Justification = "Nodes are owned and disposed by the scene graph.")]
+[assembly: SuppressMessage("Design", "CA1001", Scope = "type", Target = "~T:Default.Namespace.SnotBodyClipBase", Justification = "Nodes are owned and disposed by the scene graph.")]
+[assembly: SuppressMessage("Design", "CA1001", Scope = "type", Target = "~T:Default.Namespace.SpikesFlowerBodyClip", Justification = "Nodes are owned and disposed by the scene graph.")]
+[assembly: SuppressMessage("Design", "CA1001", Scope = "type", Target = "~T:Default.Namespace.SpringBodyClip", Justification = "Nodes are owned and disposed by the scene graph.")]
+[assembly: SuppressMessage("Design", "CA1001", Scope = "type", Target = "~T:Default.Namespace.SuckerBodyClip", Justification = "Nodes are owned and disposed by the scene graph.")]
+[assembly: SuppressMessage("Design", "CA1001", Scope = "type", Target = "~T:Default.Namespace.TeleportBodyClip", Justification = "Nodes are owned and disposed by the scene graph.")]
+[assembly: SuppressMessage("Design", "CA1001", Scope = "type", Target = "~T:Default.Namespace.TrampolineBodyClip", Justification = "Nodes are owned and disposed by the scene graph.")]

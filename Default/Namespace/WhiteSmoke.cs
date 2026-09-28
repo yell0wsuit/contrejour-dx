@@ -56,9 +56,9 @@ public class WhiteSmoke : GravityParticleSystem
         maxOpacity = 255f;
     }
 
-    public override void initParticle(GravityParticle gravityParticle)
+    public override void InitParticle(GravityParticle gravityParticle)
     {
-        base.initParticle(gravityParticle);
+        base.InitParticle(gravityParticle);
         gravityParticle.Tag = this;
         gravityParticle.OpacityByte = 1;
     }
@@ -98,7 +98,7 @@ public class WhiteSmoke : GravityParticleSystem
         if (particle.OpacityByte <= 0 || (scaleStep < 0f && (particle.Scale < 2f || particle.OpacityByte > 150)))
         {
             particle.Visible = false;
-            initParticle((GravityParticle)particle);
+            InitParticle((GravityParticle)particle);
         }
     }
 }

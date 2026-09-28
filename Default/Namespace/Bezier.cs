@@ -27,7 +27,7 @@ public class Bezier
         }
     }
 
-    private float fOR(float value1, float value2)
+    private float FirstNonZero(float value1, float value2)
     {
         return Maths.FuzzyNotEquals(value1, 0f) ? value1 : value2;
     }
@@ -104,7 +104,7 @@ public class Bezier
                     do
                     {
                         num18 = num15 * num11;
-                        num11 -= (num18 - num) / fOR(Maths.Sqrt(Math.Abs((num10 * num11 * num11) + (num9 * num11) + num8)), 1E-10f);
+                        num11 -= (num18 - num) / FirstNonZero(Maths.Sqrt(Math.Abs((num10 * num11 * num11) + (num9 * num11) + num8)), 1E-10f);
                     }
                     while (Math.Abs(num18 - num) > 1E-10f && num17-- > 0f);
                 }
@@ -114,7 +114,7 @@ public class Bezier
                     do
                     {
                         num18 = 0f * ((((num9 * num11) + num8) * Maths.Sqrt(Math.Abs((num9 * num11) + num8))) - (num8 * num15)) / num9;
-                        num11 -= (num18 - num) / fOR(Maths.Sqrt(Math.Abs((num10 * num11 * num11) + (num9 * num11) + num8)), 1E-10f);
+                        num11 -= (num18 - num) / FirstNonZero(Maths.Sqrt(Math.Abs((num10 * num11 * num11) + (num9 * num11) + num8)), 1E-10f);
                     }
                     while (Math.Abs(num18 - num) > 1E-10f && num17-- > 0f);
                 }
@@ -128,7 +128,7 @@ public class Bezier
                     float num20 = (((0.5f * num9) + (num10 * num11)) / num16) + num19;
                     float num21 = 0.25f * ((2f * num10 * num11) + num9) * num19 / num10;
                     num18 = ((!(num20 < 1E-10f)) ? (num21 + (0.5f * Maths.Log((((0.5f * num9) + (num10 * num11)) / num16) + num19) / num16 * num12)) : num21) - ((!(num14 < 1E-10f)) ? (num13 + (0.5f * Maths.Log((0.5f * num9 / num16) + num15) / num16 * num12)) : num13);
-                    num11 -= (num18 - num) / fOR(num19, 1E-10f);
+                    num11 -= (num18 - num) / FirstNonZero(num19, 1E-10f);
                 }
                 while (Math.Abs(num18 - num) > 1E-10f && num17-- > 0f);
             }

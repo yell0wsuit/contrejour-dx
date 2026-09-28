@@ -13,16 +13,16 @@ public class BlackFall : GravityParticleSystem
     public BlackFall()
         : base(Mokus2DGame.LoadMovieClipData("common/McFallParticle"))
     {
-        initParams();
+        InitParams();
     }
 
     public BlackFall(string textureName)
         : base(textureName)
     {
-        initParams();
+        InitParams();
     }
 
-    protected virtual void initParams()
+    protected virtual void InitParams()
     {
         Vector2 w7FromIPhoneSize = ScreenConstants.W7FromIPhoneSize;
         HorizontalPosition = new RandomRange(w7FromIPhoneSize.X / 2f, w7FromIPhoneSize.X / 2f);
@@ -35,9 +35,9 @@ public class BlackFall : GravityParticleSystem
         topRightBound = new Vector2(w7FromIPhoneSize.X + 20f, w7FromIPhoneSize.Y + 20f);
     }
 
-    public override void initParticle(GravityParticle gravityParticle)
+    public override void InitParticle(GravityParticle gravityParticle)
     {
-        base.initParticle(gravityParticle);
+        base.InitParticle(gravityParticle);
         float num = (SpeedMult * (gravityParticle.Scale - (ParticlesScale.Value - ParticlesScale.Offset))) + 1f;
         gravityParticle.Speed *= num;
     }

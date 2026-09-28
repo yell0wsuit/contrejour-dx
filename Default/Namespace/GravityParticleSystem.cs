@@ -119,10 +119,10 @@ public class GravityParticleSystem : ParticleSystem
 
     protected override void OnShowParticle(Particle particle)
     {
-        initParticle((GravityParticle)particle);
+        InitParticle((GravityParticle)particle);
     }
 
-    public virtual void initParticle(GravityParticle gravityParticle)
+    public virtual void InitParticle(GravityParticle gravityParticle)
     {
         float valueInRange = speed.GetValueInRange();
         float f = MathHelper.ToRadians(angle.GetValueInRange());
@@ -152,7 +152,7 @@ public class GravityParticleSystem : ParticleSystem
     public override Particle CreateParticle()
     {
         GravityParticle gravityParticle = (Data is IMovieClipData) ? new GravityParticle(this, (IMovieClipData)Data) : new GravityParticle(this, (ISpriteData)Data);
-        initParticle(gravityParticle);
+        InitParticle(gravityParticle);
         return gravityParticle;
     }
 
@@ -166,7 +166,7 @@ public class GravityParticleSystem : ParticleSystem
         base.UpdateParticleTime(particle, time);
         if (gravityParticle.Position.X > topRightBound.X || gravityParticle.Position.Y > topRightBound.Y || gravityParticle.Position.X < bottomLeftBound.X || gravityParticle.Position.Y < bottomLeftBound.Y)
         {
-            initParticle(gravityParticle);
+            InitParticle(gravityParticle);
         }
     }
 }

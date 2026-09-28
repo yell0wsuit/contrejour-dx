@@ -3,20 +3,20 @@ using Mokus2D.Visual.Data;
 
 namespace Mokus2D.UI.Containers;
 
-public class ViewStackAnimation<T> : AnimationNode where T : ViewStack, new()
+public class ViewStackAnimation<T> : AnimationNode where T : ViewSwitcher, new()
 {
-    public T ViewStack { get; private set; }
+    public T ViewSwitcher { get; private set; }
 
     public Node CurrentView
     {
         get
         {
-            T viewStack = ViewStack;
+            T viewStack = ViewSwitcher;
             return viewStack.CurrentView;
         }
         set
         {
-            T viewStack = ViewStack;
+            T viewStack = ViewSwitcher;
             viewStack.CurrentView = value;
         }
     }
@@ -35,11 +35,11 @@ public class ViewStackAnimation<T> : AnimationNode where T : ViewStack, new()
     {
         base.Initialize();
         RemoveAllChildren();
-        ViewStack = new T();
-        AddChild(ViewStack);
+        ViewSwitcher = new T();
+        AddChild(ViewSwitcher);
     }
 }
-public class ViewStackAnimation : ViewStackAnimation<ViewStack>
+public class ViewStackAnimation : ViewStackAnimation<ViewSwitcher>
 {
     public ViewStackAnimation(string name)
         : base(name)

@@ -146,17 +146,17 @@ public class QuadTree<T> where T : class, IQuadTreeObject<T>
         QuadTreeNode<T> node = quadObject.Node;
         _ = node.Objects.Remove(quadObject);
         quadObject.Node = null;
-        quadObject.BoundsChanged -= quadObject_BoundsChanged;
+        quadObject.BoundsChanged -= OnQuadObjectBoundsChanged;
     }
 
     private void AddQuadObjectToNode(QuadTreeNode<T> node, T quadObject)
     {
         node.Objects.Add(quadObject);
         quadObject.Node = node;
-        quadObject.BoundsChanged += quadObject_BoundsChanged;
+        quadObject.BoundsChanged += OnQuadObjectBoundsChanged;
     }
 
-    private void quadObject_BoundsChanged(T sender)
+    private void OnQuadObjectBoundsChanged(T sender)
     {
         T val = sender;
         if (val == null)

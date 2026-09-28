@@ -25,7 +25,7 @@ public class LevelsCache
 
     public Dictionary<string, Level> CachedLevels => cache;
 
-    private string correctName(string name)
+    private string CorrectName(string name)
     {
         string[] array = name.Split('/', '\\');
         return array[^1];
@@ -50,7 +50,7 @@ public class LevelsCache
 
     public Level Load(string name)
     {
-        name = correctName(name);
+        name = CorrectName(name);
         if (!cache.TryGetValue(name, out Level level))
         {
             string path = Path.ChangeExtension(Path.Combine(

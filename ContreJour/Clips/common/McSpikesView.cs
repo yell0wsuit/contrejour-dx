@@ -20,9 +20,9 @@ public class McSpikesView : AnimationNode, IFreeable, IId, ISpikesView
 
     public string Id => "common/McSpikesView";
 
-    MovieClip ISpikesView.left => left;
+    MovieClip ISpikesView.Left => left;
 
-    MovieClip ISpikesView.right => right;
+    MovieClip ISpikesView.Right => right;
 
     public static McSpikesView New()
     {

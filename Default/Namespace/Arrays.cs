@@ -9,7 +9,7 @@ public class Arrays
         return source[Maths.Random(source.Count)];
     }
 
-    public static object MaxItem<T>(List<T> source, MaxItemDelegate getValueDelegate, object param)
+    public static object MaxItem<T>(List<T> source, MaxItemScore getValueDelegate, object param)
     {
         float num = float.NegativeInfinity;
         object result = null;

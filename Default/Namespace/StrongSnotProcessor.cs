@@ -40,11 +40,11 @@ public class StrongSnotProcessor : SnotProcessor
         RevoluteJoint val = JointFactory.CreateRevoluteJoint(builder.World, startBody, endBody, endBody.Position - endPoint);
         val.CollideConnected = false;
         val.LimitEnabled = false;
-        val.Broke += joint_Broke;
+        val.Broke += OnJointBroke;
         return (Joint)(object)val;
     }
 
-    private void joint_Broke(Joint arg1, float arg2)
+    private void OnJointBroke(Joint arg1, float arg2)
     {
         throw new NotImplementedException();
     }

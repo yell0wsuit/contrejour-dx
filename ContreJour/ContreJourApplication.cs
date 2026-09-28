@@ -35,7 +35,7 @@ public class ContreJourApplication : Mokus2DGame
 
     private const int BlockedViewLayer = 2;
 
-    private ViewStack _gameContainer;
+    private ViewSwitcher _gameContainer;
 
     private LayerColor _blackForeground;
 
@@ -122,7 +122,7 @@ public class ContreJourApplication : Mokus2DGame
         StartApplication();
         SegoePrint28Label.Register();
         ContreJourConfig.AspectRatio = ChooseAspectRatio();
-        _gameContainer = new ViewStack
+        _gameContainer = new ViewSwitcher
         {
             ShowEffect = ShowView,
             HideEffect = HideView
