@@ -35,7 +35,7 @@ public class WhiteSmoke : GravityParticleSystem
 
     public virtual Vector2 SmokePosition
     {
-        get => new Vector2(horizontalPosition.Value, verticalPosition.Value);
+        get => new(horizontalPosition.Value, verticalPosition.Value);
         set
         {
             horizontalPosition.Value = value.X;

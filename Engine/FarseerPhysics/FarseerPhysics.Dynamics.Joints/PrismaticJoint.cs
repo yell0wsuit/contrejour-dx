@@ -548,6 +548,6 @@ public class PrismaticJoint : Joint
         data.positions[_indexA].a = a;
         data.positions[_indexB].c = c2;
         data.positions[_indexB].a = a2;
-        return num5 <= 0.005f ? num6 <= (float)Math.PI / 90f : false;
+        return num5 <= 0.005f && num6 <= (float)Math.PI / 90f;
     }
 }

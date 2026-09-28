@@ -50,7 +50,7 @@ internal struct FixedBitArray3 : IEnumerable<bool>, IEnumerable
         return GetEnumerator();
     }
 
-    public bool Contains(bool value)
+    public readonly bool Contains(bool value)
     {
         for (int i = 0; i < 3; i++)
         {
@@ -62,7 +62,7 @@ internal struct FixedBitArray3 : IEnumerable<bool>, IEnumerable
         return false;
     }
 
-    public int IndexOf(bool value)
+    public readonly int IndexOf(bool value)
     {
         for (int i = 0; i < 3; i++)
         {
@@ -90,7 +90,7 @@ internal struct FixedBitArray3 : IEnumerable<bool>, IEnumerable
         }
     }
 
-    private IEnumerable<bool> Enumerate()
+    private readonly IEnumerable<bool> Enumerate()
     {
         for (int i = 0; i < 3; i++)
         {

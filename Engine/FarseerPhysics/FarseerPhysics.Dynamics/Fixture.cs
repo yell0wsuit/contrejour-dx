@@ -282,9 +282,7 @@ public class Fixture : IDisposable
 
     internal bool CompareTo(Fixture fixture)
     {
-        return _collidesWith == fixture._collidesWith && _collisionCategories == fixture._collisionCategories && _collisionGroup == fixture._collisionGroup && Friction == fixture.Friction && IsSensor == fixture.IsSensor && Restitution == fixture.Restitution && UserData == fixture.UserData && IgnoreCCDWith == fixture.IgnoreCCDWith
-            ? SequenceEqual(_collisionIgnores, fixture._collisionIgnores)
-            : false;
+        return _collidesWith == fixture._collidesWith && _collisionCategories == fixture._collisionCategories && _collisionGroup == fixture._collisionGroup && Friction == fixture.Friction && IsSensor == fixture.IsSensor && Restitution == fixture.Restitution && UserData == fixture.UserData && IgnoreCCDWith == fixture.IgnoreCCDWith && SequenceEqual(_collisionIgnores, fixture._collisionIgnores);
     }
 
     private bool SequenceEqual<T>(HashSet<T> first, HashSet<T> second)
@@ -302,11 +300,7 @@ public class Fixture : IDisposable
                 return false;
             }
         }
-        if (enumerator2.MoveNext())
-        {
-            return false;
-        }
-        return true;
+        return !enumerator2.MoveNext();
     }
 
     public Fixture CloneOnto(Body body)

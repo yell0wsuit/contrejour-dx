@@ -190,18 +190,16 @@ public class ContactManager
             {
                 return false;
             }
-            if (((fixtureA.CollisionCategories & fixtureB.CollidesWith) == 0) & ((fixtureB.CollisionCategories & fixtureA.CollidesWith) == 0))
-            {
-                return false;
-            }
-            return !fixtureA.IsFixtureIgnored(fixtureB) && !fixtureB.IsFixtureIgnored(fixtureA);
+            return ((fixtureA.CollisionCategories & fixtureB.CollidesWith) == 0) & ((fixtureB.CollisionCategories & fixtureA.CollidesWith) == 0)
+                ? false
+                : !fixtureA.IsFixtureIgnored(fixtureB) && !fixtureB.IsFixtureIgnored(fixtureA);
         }
         if (fixtureA.CollisionGroup == fixtureB.CollisionGroup && fixtureA.CollisionGroup != 0)
         {
             return fixtureA.CollisionGroup > 0;
         }
         bool flag = (fixtureA.CollidesWith & fixtureB.CollisionCategories) != Category.None && (fixtureA.CollisionCategories & fixtureB.CollidesWith) != 0;
-        return flag && (fixtureA.IsFixtureIgnored(fixtureB) || fixtureB.IsFixtureIgnored(fixtureA)) ? false : flag;
+        return (!flag || (!fixtureA.IsFixtureIgnored(fixtureB) && !fixtureB.IsFixtureIgnored(fixtureA))) && flag;
     }
 
     internal void UpdateContacts(ContactEdge contactEdge, bool value)

@@ -209,14 +209,9 @@ public class RotatorBodyClip : FurBodyClip, IClickable, IRestartable, ISnotHolde
         touchPointSpeed = lastPointSpeed;
         SetTouching(value: false);
         float num = Maths.Round(targetAngle, ANGLE_REMAINDER);
-        if (Math.Abs(num - targetAngle) < ANGLE_REMAINDER / 5f)
-        {
-            targetAngle = num;
-        }
-        else
-        {
-            targetAngle = lastDirection < 0f ? Maths.Floor(targetAngle, ANGLE_REMAINDER) : Maths.Ceil(targetAngle, ANGLE_REMAINDER);
-        }
+        targetAngle = Math.Abs(num - targetAngle) < ANGLE_REMAINDER / 5f
+            ? num
+            : lastDirection < 0f ? Maths.Floor(targetAngle, ANGLE_REMAINDER) : Maths.Ceil(targetAngle, ANGLE_REMAINDER);
         RunActions();
         touch = null;
     }

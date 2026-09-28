@@ -163,7 +163,7 @@ public static class FarseerUtil
 
     public static Vector2 GetWorldPoint(Contact contact)
     {
-        contact.GetWorldManifold(out Vector2 vector, out FixedArray2<Vector2> val);
+        contact.GetWorldManifold(out _, out FixedArray2<Vector2> val);
         return val[0];
     }
 
@@ -198,7 +198,7 @@ public static class FarseerUtil
 
     public static bool IsSensor(this Contact contact)
     {
-        return !contact.FixtureA.IsSensor ? contact.FixtureB.IsSensor : true;
+        return contact.FixtureA.IsSensor || contact.FixtureB.IsSensor;
     }
 
     public static bool IsSensor(this Body body)
@@ -226,7 +226,7 @@ public static class FarseerUtil
         //IL_0007: Expected O, but got Unknown
         //IL_000a: Unknown result type (might be due to invalid IL or missing references)
         //IL_0010: Expected O, but got Unknown
-        return BodyFromShape(world, new PolygonShape(new Vertices(vertices), density), position, 0f, sensor, density, dynamic);
+        return BodyFromShape(world, new PolygonShape([.. vertices], density), position, 0f, sensor, density, dynamic);
     }
 
     public static Body CreateBox(World world, Vector2 position, float width, float height, float rotation, bool sensor, float density, bool dynamic)

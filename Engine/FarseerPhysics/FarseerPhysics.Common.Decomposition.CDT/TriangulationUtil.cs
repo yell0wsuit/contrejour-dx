@@ -53,10 +53,6 @@ internal class TriangulationUtil
         double num = (pa.X - pc.X) * (pb.Y - pc.Y);
         double num2 = (pa.Y - pc.Y) * (pb.X - pc.X);
         double num3 = num - num2;
-        if (num3 > 0.0 - EPSILON && num3 < EPSILON)
-        {
-            return Orientation.Collinear;
-        }
-        return num3 > 0.0 ? Orientation.CCW : Orientation.CW;
+        return num3 > 0.0 - EPSILON && num3 < EPSILON ? Orientation.Collinear : num3 > 0.0 ? Orientation.CCW : Orientation.CW;
     }
 }

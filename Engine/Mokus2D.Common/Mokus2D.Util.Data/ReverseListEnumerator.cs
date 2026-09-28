@@ -12,7 +12,7 @@ public struct ReverseListEnumerator<T> : IEnumerator<T>, IEnumerator, IDisposabl
 
     public readonly T Current => _list[_currentIndex];
 
-    object IEnumerator.Current => Current;
+    readonly object IEnumerator.Current => Current;
 
     public ReverseListEnumerator(IList<T> list)
     {

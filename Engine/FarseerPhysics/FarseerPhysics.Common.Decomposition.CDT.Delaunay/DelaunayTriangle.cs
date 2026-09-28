@@ -57,17 +57,17 @@ internal class DelaunayTriangle
 
     public bool Contains(TriangulationPoint p)
     {
-        return p != Points[0] && p != Points[1] ? p == Points[2] : true;
+        return p == Points[0] || p == Points[1] || p == Points[2];
     }
 
     public bool Contains(DTSweepConstraint e)
     {
-        return Contains(e.P) ? Contains(e.Q) : false;
+        return Contains(e.P) && Contains(e.Q);
     }
 
     public bool Contains(TriangulationPoint p, TriangulationPoint q)
     {
-        return Contains(p) ? Contains(q) : false;
+        return Contains(p) && Contains(q);
     }
 
     private void MarkNeighbor(TriangulationPoint p1, TriangulationPoint p2, DelaunayTriangle t)
@@ -280,11 +280,7 @@ internal class DelaunayTriangle
         {
             return 0;
         }
-        if (flag && flag3)
-        {
-            return 1;
-        }
-        return flag && flag2 ? 2 : -1;
+        return flag && flag3 ? 1 : flag && flag2 ? 2 : -1;
     }
 
     public bool GetConstrainedEdgeCCW(TriangulationPoint p)

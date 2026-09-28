@@ -89,7 +89,7 @@ public struct ParallaxVertex : ITintVertex, IVertex, IVertexType
 
     public override readonly bool Equals(object obj)
     {
-        return obj == null || (object)obj.GetType() != GetType() ? false : this == (ParallaxVertex)obj;
+        return obj != null && (object)obj.GetType() == GetType() && this == (ParallaxVertex)obj;
     }
 
     public override readonly int GetHashCode()

@@ -253,9 +253,7 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
     {
         //IL_000d: Unknown result type (might be due to invalid IL or missing references)
         LinkableReqParams linkableReqParams = (LinkableReqParams)param;
-        return clip.Body.BodyType != 0 && linkableReqParams.Position.DistanceTo(clip.Body.Position) < linkableReqParams.Distance && clip is ISnotLinked
-            ? (clip as ISnotLinked).SnotEnabled
-            : false;
+        return clip.Body.BodyType != 0 && linkableReqParams.Position.DistanceTo(clip.Body.Position) < linkableReqParams.Distance && clip is ISnotLinked && (clip as ISnotLinked).SnotEnabled;
     }
 
     public void SetLengthDiff(float value)

@@ -27,7 +27,7 @@ public abstract class TouchAnimation : AnimationNode, ITouchListener
 
     private bool IsInteractionsEnabled()
     {
-        return Root != null && RootVisible ? RootInteractionsEnabled : false;
+        return Root != null && RootVisible && RootInteractionsEnabled;
     }
 
     public virtual bool TouchBegin(Touch touch)

@@ -29,21 +29,9 @@ public class KeyboardController : IUpdatable
 
     private readonly HashSet<Keys> _currentPressedKeys = [];
 
-    public bool IsShiftPressed
-    {
-        get
-        {
-            return !_currentPressedKeys.Contains(Keys.LeftShift) ? _currentPressedKeys.Contains(Keys.RightShift) : true;
-        }
-    }
+    public bool IsShiftPressed => _currentPressedKeys.Contains(Keys.LeftShift) || _currentPressedKeys.Contains(Keys.RightShift);
 
-    public bool IsCapital
-    {
-        get
-        {
-            return !IsShiftPressed ? Keyboard.GetState().IsKeyDown(Keys.CapsLock) : true;
-        }
-    }
+    public bool IsCapital => IsShiftPressed || Keyboard.GetState().IsKeyDown(Keys.CapsLock);
 
     public event Action<Keys, bool> KeyStateChangedEvent;
 
@@ -196,14 +184,7 @@ public class KeyboardController : IUpdatable
 
     private void DispatchKeyEvent(Keys key, bool value)
     {
-        if (value)
-        {
-            _ = _currentPressedKeys.Add(key);
-        }
-        else
-        {
-            _ = _currentPressedKeys.Remove(key);
-        }
+        _ = value ? _currentPressedKeys.Add(key) : _currentPressedKeys.Remove(key);
         List<Action<Keys, bool>> list = _actions.TryGetValue(key);
         if (list != null)
         {

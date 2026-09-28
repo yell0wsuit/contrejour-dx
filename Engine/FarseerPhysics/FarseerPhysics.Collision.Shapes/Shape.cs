@@ -65,11 +65,9 @@ public abstract class Shape
         {
             return ((CircleShape)this).CompareTo((CircleShape)shape);
         }
-        if (shape is EdgeShape && this is EdgeShape)
-        {
-            return ((EdgeShape)this).CompareTo((EdgeShape)shape);
-        }
-        return shape is ChainShape && this is ChainShape ? ((ChainShape)this).CompareTo((ChainShape)shape) : false;
+        return shape is EdgeShape && this is EdgeShape
+            ? ((EdgeShape)this).CompareTo((EdgeShape)shape)
+            : shape is ChainShape && this is ChainShape && ((ChainShape)this).CompareTo((ChainShape)shape);
     }
 
     public abstract float ComputeSubmergedArea(ref Vector2 normal, float offset, ref Transform xf, out Vector2 sc);

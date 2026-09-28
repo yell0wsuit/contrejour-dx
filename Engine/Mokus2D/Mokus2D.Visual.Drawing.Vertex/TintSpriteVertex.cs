@@ -77,7 +77,7 @@ public struct TintSpriteVertex : ITintVertex, IVertex, IVertexType
 
     public override readonly bool Equals(object obj)
     {
-        return obj == null || (object)obj.GetType() != GetType() ? false : this == (TintSpriteVertex)obj;
+        return obj != null && (object)obj.GetType() == GetType() && this == (TintSpriteVertex)obj;
     }
 
     public override readonly int GetHashCode()

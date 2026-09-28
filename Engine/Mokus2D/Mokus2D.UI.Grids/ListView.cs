@@ -28,13 +28,7 @@ public class ListView<T> : Node, IListView
 
     public float Height => _height;
 
-    public int DataCount
-    {
-        get
-        {
-            return Data != null ? Data.Count : 0;
-        }
-    }
+    public int DataCount => Data != null ? Data.Count : 0;
 
     public IList<T> Data
     {

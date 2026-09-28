@@ -57,15 +57,11 @@ public class ReflectionHelper
         currentMemberInfo = FindField(target.GetType(), fieldName);
         if (currentMemberInfo is null)
         {
-            currentMemberInfo = FindProperty(target.GetType(), fieldName);
-            if (currentMemberInfo is null)
-            {
-                throw new NullReferenceException(string.Format("Sorry, There is no such field or property = {0} in class type {1}", new object[2]
+            currentMemberInfo = FindProperty(target.GetType(), fieldName) ?? throw new NullReferenceException(string.Format("Sorry, There is no such field or property = {0} in class type {1}", new object[2]
                 {
                     fieldName,
                     target.GetType().FullName
                 }));
-            }
         }
         return this;
     }
@@ -74,11 +70,9 @@ public class ReflectionHelper
     {
         Type type = currentMemberInfo.GetType();
         TypeInfo typeInfo = type.GetTypeInfo();
-        if (typeInfo.IsSubclassOf(typeof(PropertyInfo)))
-        {
-            return ((PropertyInfo)currentMemberInfo).GetValue(target, null);
-        }
-        return typeInfo.IsSubclassOf(typeof(FieldInfo))
+        return typeInfo.IsSubclassOf(typeof(PropertyInfo))
+            ? ((PropertyInfo)currentMemberInfo).GetValue(target, null)
+            : typeInfo.IsSubclassOf(typeof(FieldInfo))
             ? ((FieldInfo)currentMemberInfo).GetValue(target)
             : throw new NotSupportedException($"Unsupported type of modified memeber. {type.Name}");
     }

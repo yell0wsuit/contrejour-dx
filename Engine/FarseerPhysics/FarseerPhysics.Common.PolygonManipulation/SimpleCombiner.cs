@@ -63,7 +63,7 @@ public static class SimpleCombiner
                     Vertices vertices3 = AddTriangle(triangles[num3], vertices2);
                     if (vertices3 != null && vertices3.Count <= Settings.MaxPolygonVertices && vertices3.IsConvex())
                     {
-                        vertices2 = new Vertices(vertices3);
+                        vertices2 = [.. vertices3];
                         array[num3] = true;
                     }
                 }
@@ -75,7 +75,7 @@ public static class SimpleCombiner
                 _ = SimplifyTools.MergeParallelEdges(vertices2, tolerance);
                 if (vertices2.Count >= 3)
                 {
-                    list.Add(new Vertices(vertices2));
+                    list.Add([.. vertices2]);
                 }
             }
             if (vertices2.Count >= 3)

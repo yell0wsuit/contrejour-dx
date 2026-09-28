@@ -10,13 +10,7 @@ public class MouseConstrainsUpdater
 {
     private readonly Flag _applied = new(on: false);
 
-    protected virtual bool ShouldApplyConstrains
-    {
-        get
-        {
-            return Mokus2DGame.Instance.AcceptsInput ? Mokus2DGame.Instance.IsFullScreen : false;
-        }
-    }
+    protected virtual bool ShouldApplyConstrains => Mokus2DGame.Instance.AcceptsInput && Mokus2DGame.Instance.IsFullScreen;
 
     public void ClipCursor(ref Rectangle rect)
     {

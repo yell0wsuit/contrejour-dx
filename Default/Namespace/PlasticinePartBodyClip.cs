@@ -529,7 +529,7 @@ public class PlasticinePartBodyClip : ContreJourBodyClip, IClickable, IRestartab
         BodyClip bodyClip = (BodyClip)body2.UserData;
         if (bodyClip != null)
         {
-            point.GetWorldManifold(out Vector2 vector, out FixedArray2<Vector2> val);
+            point.GetWorldManifold(out _, out FixedArray2<Vector2> val);
             Vector2 localPoint = Body.GetLocalPoint(val[0]);
             float x = localPoint.X;
             item.UpdateTouchesBodyClipDistance(x, bodyClip, 1.3333334f);

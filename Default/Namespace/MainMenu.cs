@@ -475,7 +475,7 @@ public class MainMenu : AccelerometerMenu, IActivatedDependent
             backButton.Enabled = false;
         }
         _ = blackLayer.FadeIn(0.3f).OnComplete(ShowPlanets);
-        levelsMenu?.ScaleTo(0.3f, 0.5f);
+        _ = (levelsMenu?.ScaleTo(0.3f, 0.5f));
         blackLayer.Visible = true;
     }
 

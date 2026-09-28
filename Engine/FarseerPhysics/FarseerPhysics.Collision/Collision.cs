@@ -712,7 +712,7 @@ public static class Collision
         {
             vector2 = vertex;
             value2 = vector - vector2;
-            Vector2.Dot(ref value2, ref value2, out var result);
+            Vector2.Dot(ref value2, ref value2, out float result);
             if (result > num3 * num3)
             {
                 return;
@@ -750,7 +750,7 @@ public static class Collision
         {
             vector2 = vertex2;
             value2 = vector - vector2;
-            Vector2.Dot(ref value2, ref value2, out var result2);
+            Vector2.Dot(ref value2, ref value2, out float result2);
             if (result2 > num3 * num3)
             {
                 return;
@@ -784,10 +784,10 @@ public static class Collision
             manifold.Points[0] = value6;
             return;
         }
-        Vector2.Dot(ref value, ref value, out var result3);
+        Vector2.Dot(ref value, ref value, out float result3);
         vector2 = 1f / result3 * ((num * vertex) + (num2 * vertex2));
         value2 = vector - vector2;
-        Vector2.Dot(ref value2, ref value2, out var result4);
+        Vector2.Dot(ref value2, ref value2, out float result4);
         if (!(result4 > num3 * num3))
         {
             Vector2 vector5 = new(0f - value.Y, value.X);

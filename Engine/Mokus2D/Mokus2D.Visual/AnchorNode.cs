@@ -37,13 +37,7 @@ public abstract class AnchorNode : SpriteBatchNode, ITouchDispatchNode, IClickab
 
     public int ClickablePriority { get; set; }
 
-    public bool IsMouseOver
-    {
-        get
-        {
-            return !ProcessMouseOver ? throw new NodeException("Mouse over is not being processed") : _isMouseOver;
-        }
-    }
+    public bool IsMouseOver => !ProcessMouseOver ? throw new NodeException("Mouse over is not being processed") : _isMouseOver;
 
     public virtual Vector2 TextureSize { get; protected set; }
 

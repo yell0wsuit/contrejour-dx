@@ -50,7 +50,7 @@ internal struct FixedArray3<T> : IEnumerable<T>, IEnumerable where T : class
         return GetEnumerator();
     }
 
-    public bool Contains(T value)
+    public readonly bool Contains(T value)
     {
         for (int i = 0; i < 3; i++)
         {
@@ -62,7 +62,7 @@ internal struct FixedArray3<T> : IEnumerable<T>, IEnumerable where T : class
         return false;
     }
 
-    public int IndexOf(T value)
+    public readonly int IndexOf(T value)
     {
         for (int i = 0; i < 3; i++)
         {
@@ -90,7 +90,7 @@ internal struct FixedArray3<T> : IEnumerable<T>, IEnumerable where T : class
         }
     }
 
-    private IEnumerable<T> Enumerate()
+    private readonly IEnumerable<T> Enumerate()
     {
         for (int i = 0; i < 3; i++)
         {

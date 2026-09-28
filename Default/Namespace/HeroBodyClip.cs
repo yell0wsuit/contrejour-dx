@@ -323,7 +323,7 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
 
     public bool CanDie()
     {
-        return !restarting ? snotEnabled : false;
+        return !restarting && snotEnabled;
     }
 
     public float DeadEyeScale()
@@ -361,7 +361,7 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
         restartOnEating = eating;
         teleportEvent.SendEvent();
         FadeOutTails();
-        tail?.FadeOutAndHide(0.1f);
+        _ = (tail?.FadeOutAndHide(0.1f));
         Schedule(HideBody, 0.1f);
     }
 
@@ -391,7 +391,7 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
 
     public bool CanTeleport()
     {
-        return CanDie() ? !eating : false;
+        return CanDie() && !eating;
     }
 
     public void Teleport(BodyClip teleport)
@@ -865,7 +865,7 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
                 _ = blackTail.FadeOut(0.3f);
             }
         }
-        tail?.ScaleTo(0.3f, 0f);
+        _ = (tail?.ScaleTo(0.3f, 0f));
     }
 
     protected virtual void DoFinish()

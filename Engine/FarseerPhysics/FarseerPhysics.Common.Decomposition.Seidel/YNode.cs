@@ -16,10 +16,6 @@ internal class YNode : Node
         {
             return RightChild.Locate(edge);
         }
-        if (_edge.IsBelow(edge.P))
-        {
-            return LeftChild.Locate(edge);
-        }
-        return edge.Slope < _edge.Slope ? RightChild.Locate(edge) : LeftChild.Locate(edge);
+        return _edge.IsBelow(edge.P) ? LeftChild.Locate(edge) : edge.Slope < _edge.Slope ? RightChild.Locate(edge) : LeftChild.Locate(edge);
     }
 }

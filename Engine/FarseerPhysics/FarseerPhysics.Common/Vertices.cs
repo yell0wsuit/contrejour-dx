@@ -215,7 +215,7 @@ public class Vertices : List<Vector2>
 
     public bool IsCounterClockWise()
     {
-        return Count < 3 ? false : GetSignedArea() > 0f;
+        return Count >= 3 && GetSignedArea() > 0f;
     }
 
     public void ForceCounterClockWise()
@@ -347,7 +347,7 @@ public class Vertices : List<Vector2>
             {
                 Vector2[] array = [.. Holes[j]];
                 Vector2.Transform(array, ref transform, array);
-                Holes[j] = new Vertices(array);
+                Holes[j] = [.. array];
             }
         }
     }

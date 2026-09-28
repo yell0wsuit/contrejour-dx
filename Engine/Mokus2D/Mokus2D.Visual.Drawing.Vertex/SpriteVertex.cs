@@ -68,7 +68,7 @@ public struct SpriteVertex : IVertex, IVertexType
 
     public override readonly bool Equals(object obj)
     {
-        return obj == null || (object)obj.GetType() != GetType() ? false : this == (SpriteVertex)obj;
+        return obj != null && (object)obj.GetType() == GetType() && this == (SpriteVertex)obj;
     }
 
     public override readonly int GetHashCode()

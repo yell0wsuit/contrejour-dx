@@ -18,11 +18,9 @@ public static class ReflectionHelperExtensions
     public static bool IsGenericDefinition(this Type targetType, Type genericType)
     {
         TypeInfo typeInfo = targetType.GetTypeInfo();
-        if (typeInfo.IsGenericType && IsCurrentGenericDefinition(targetType, genericType))
-        {
-            return true;
-        }
-        return typeInfo.BaseType is not null ? typeInfo.BaseType.IsGenericDefinition(genericType) : false;
+        return typeInfo.IsGenericType && IsCurrentGenericDefinition(targetType, genericType)
+            ? true
+            : typeInfo.BaseType is not null && typeInfo.BaseType.IsGenericDefinition(genericType);
     }
 
     private static bool IsCurrentGenericDefinition(Type targetType, Type genericType)

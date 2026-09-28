@@ -317,7 +317,7 @@ public static class MarchingSquares
             {
                 foreach (GeomPoly item in listOfElements)
                 {
-                    list.Add(new Vertices(item.Points.GetListOfElements()));
+                    list.Add([.. item.Points.GetListOfElements()]);
                 }
                 return list;
             }
@@ -431,7 +431,7 @@ public static class MarchingSquares
         listOfElements = cxFastList.GetListOfElements();
         foreach (GeomPoly item2 in listOfElements)
         {
-            list.Add(new Vertices(item2.Points.GetListOfElements()));
+            list.Add([.. item2.Points.GetListOfElements()]);
         }
         return list;
     }

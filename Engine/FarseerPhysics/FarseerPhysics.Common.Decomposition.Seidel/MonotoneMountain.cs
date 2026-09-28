@@ -112,7 +112,7 @@ internal class MonotoneMountain
 
     private bool Valid(Point p)
     {
-        return p.Neq(_head) && p.Neq(_tail) ? IsConvex(p) : false;
+        return p.Neq(_head) && p.Neq(_tail) && IsConvex(p);
     }
 
     private void GenMonoPoly()

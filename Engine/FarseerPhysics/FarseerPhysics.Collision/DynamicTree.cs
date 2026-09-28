@@ -25,13 +25,7 @@ public class DynamicTree<T>
 
     private int _root;
 
-    public int Height
-    {
-        get
-        {
-            return _root == -1 ? 0 : _nodes[_root].Height;
-        }
-    }
+    public int Height => _root == -1 ? 0 : _nodes[_root].Height;
 
     public float AreaRatio
     {

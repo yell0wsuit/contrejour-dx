@@ -17,13 +17,7 @@ public abstract class GridMagnetBase : IGridMagnet, IUpdatable
 
     public MagnetAction Action;
 
-    public bool HasRemove
-    {
-        get
-        {
-            return Action != null ? Action.Finished : false;
-        }
-    }
+    public bool HasRemove => Action != null && Action.Finished;
 
     public Rectangle Bounds { get; protected set; }
 

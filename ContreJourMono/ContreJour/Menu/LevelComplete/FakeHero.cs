@@ -5,7 +5,6 @@ using ContreJourMono.ContreJour.Game.Hero;
 
 using Microsoft.Xna.Framework;
 
-using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual;
 
 namespace ContreJourMono.ContreJour.Menu.LevelComplete;
@@ -52,11 +51,7 @@ public class FakeHero : Node
 
     public new Vector2 Position
     {
-        get => base.Position;
-        set
-        {
-            base.Position = value;
-        }
+        get => base.Position; set => base.Position = value;
     }
 
     public Vector2 ViewTarget

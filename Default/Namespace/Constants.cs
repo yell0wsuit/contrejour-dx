@@ -1,5 +1,3 @@
-using Microsoft.Xna.Framework;
-
 namespace Default.Namespace;
 
 public static class Constants
@@ -36,11 +34,5 @@ public static class Constants
 
     public static bool IsTrial => false;
 
-    public static int LevelsToPlay
-    {
-        get
-        {
-            return !IsTrial ? 20 : 10;
-        }
-    }
+    public static int LevelsToPlay => !IsTrial ? 20 : 10;
 }

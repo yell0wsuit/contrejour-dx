@@ -57,7 +57,7 @@ public class ChainShape : Shape
             _ = vertices[i - 1];
             _ = vertices[i];
         }
-        Vertices = new Vertices(vertices);
+        Vertices = [.. vertices];
         if (createLoop)
         {
             Vertices.Add(vertices[0]);
@@ -154,7 +154,7 @@ public class ChainShape : Shape
                 return false;
             }
         }
-        return PrevVertex == shape.PrevVertex ? NextVertex == shape.NextVertex : false;
+        return PrevVertex == shape.PrevVertex && NextVertex == shape.NextVertex;
     }
 
     public override Shape Clone()
@@ -168,7 +168,7 @@ public class ChainShape : Shape
             NextVertex = _nextVertex,
             _hasNextVertex = _hasNextVertex,
             _hasPrevVertex = _hasPrevVertex,
-            Vertices = new Vertices(Vertices),
+            Vertices = [.. Vertices],
             MassData = MassData
         };
         return chainShape;

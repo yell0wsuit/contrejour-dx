@@ -17,6 +17,6 @@ public class TypeTouchFilter
 
     protected virtual bool Matches(Touch touch)
     {
-        return Type.HasValue ? touch.Type == Type : true;
+        return !Type.HasValue || touch.Type == Type;
     }
 }

@@ -18,11 +18,9 @@ public static class ConversionExtensions
 
     private static T ConvertToType<T>(object source, Type type, IFormatProvider formatProvider)
     {
-        if (type.IsGenericDefinition(typeof(Nullable<>)))
-        {
-            return source == null ? (T)(object)null : (T)Convert.ChangeType(source, Nullable.GetUnderlyingType(type), formatProvider);
-        }
-        return (T)Convert.ChangeType(source, type, formatProvider);
+        return type.IsGenericDefinition(typeof(Nullable<>))
+            ? source == null ? (T)(object)null : (T)Convert.ChangeType(source, Nullable.GetUnderlyingType(type), formatProvider)
+            : (T)Convert.ChangeType(source, type, formatProvider);
     }
 
     public static object ConvertToType(this object source, Type type)
@@ -32,10 +30,8 @@ public static class ConversionExtensions
 
     public static object ConvertToType(this object source, Type type, IFormatProvider formatProvider)
     {
-        if (type.IsGenericDefinition(typeof(Nullable<>)))
-        {
-            return source == null ? null : Convert.ChangeType(source, Nullable.GetUnderlyingType(type), formatProvider);
-        }
-        return Convert.ChangeType(source, type, formatProvider);
+        return type.IsGenericDefinition(typeof(Nullable<>))
+            ? source == null ? null : Convert.ChangeType(source, Nullable.GetUnderlyingType(type), formatProvider)
+            : Convert.ChangeType(source, type, formatProvider);
     }
 }

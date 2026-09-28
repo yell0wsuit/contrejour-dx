@@ -323,11 +323,9 @@ public class TrampolineBodyClip : SnotBodyClipBase
 
     public override SnotSprite CreateClip()
     {
-        if (game.WhiteSide)
-        {
-            return new WhiteTrampolineSprite(game, this, startWidth, centerWidth, endWidth);
-        }
-        return game.BlackSide
+        return game.WhiteSide
+            ? new WhiteTrampolineSprite(game, this, startWidth, centerWidth, endWidth)
+            : game.BlackSide
             ? new BlackTrampolineSprite(game, this, startWidth, centerWidth, endWidth)
             : new SnotSprite(this, startWidth, centerWidth, endWidth);
     }

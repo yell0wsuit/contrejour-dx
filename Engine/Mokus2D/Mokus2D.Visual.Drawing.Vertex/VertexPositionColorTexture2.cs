@@ -77,7 +77,7 @@ public struct VertexPositionColorTexture2 : IVertex, IVertexType
 
     public override readonly bool Equals(object obj)
     {
-        return obj == null || (object)obj.GetType() != GetType() ? false : this == (VertexPositionColorTexture2)obj;
+        return obj != null && (object)obj.GetType() == GetType() && this == (VertexPositionColorTexture2)obj;
     }
 
     public override readonly int GetHashCode()

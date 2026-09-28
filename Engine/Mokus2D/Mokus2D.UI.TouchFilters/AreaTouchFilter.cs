@@ -16,7 +16,7 @@ public class AreaTouchFilter : TypeTouchFilter
 
     protected override bool Matches(Touch touch)
     {
-        return base.Matches(touch) ? IsInArea(touch) : false;
+        return base.Matches(touch) && IsInArea(touch);
     }
 
     private bool IsInArea(Touch touch)

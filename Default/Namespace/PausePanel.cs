@@ -209,14 +209,7 @@ public class PausePanel : Node, IDisposable
     {
         ShowButton(buttons[buttonIndex]);
         buttonIndex++;
-        if (buttonIndex < buttons.Count)
-        {
-            _ = this.Schedule(0.1f, ProcessNextButton);
-        }
-        else
-        {
-            _ = this.Schedule(0.1f, ShowMusic);
-        }
+        _ = buttonIndex < buttons.Count ? this.Schedule(0.1f, ProcessNextButton) : this.Schedule(0.1f, ShowMusic);
     }
 
     private void ShowMusic()

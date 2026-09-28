@@ -33,16 +33,12 @@ public struct RandomRange : IEquatable<RandomRange>
 
     public readonly bool Equals(RandomRange other)
     {
-        return Value.Equals(other.Value) ? Offset.Equals(other.Offset) : false;
+        return Value.Equals(other.Value) && Offset.Equals(other.Offset);
     }
 
-    public override bool Equals(object obj)
+    public override readonly bool Equals(object obj)
     {
-        if (ReferenceEquals(null, obj))
-        {
-            return false;
-        }
-        return obj is RandomRange ? Equals((RandomRange)obj) : false;
+        return obj is null ? false : obj is RandomRange && Equals((RandomRange)obj);
     }
 
     public override readonly int GetHashCode()

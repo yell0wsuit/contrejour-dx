@@ -14,10 +14,6 @@ internal class DTSweepPointComparator : IComparer<TriangulationPoint>
         {
             return 1;
         }
-        if (p1.X < p2.X)
-        {
-            return -1;
-        }
-        return p1.X > p2.X ? 1 : 0;
+        return p1.X < p2.X ? -1 : p1.X > p2.X ? 1 : 0;
     }
 }

@@ -33,16 +33,12 @@ public class ListViewRenderers<T>
 
         private readonly bool Equals(Range other)
         {
-            return Start == other.Start ? End == other.End : false;
+            return Start == other.Start && End == other.End;
         }
 
-        public override bool Equals(object obj)
+        public override readonly bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj))
-            {
-                return false;
-            }
-            return obj is Range ? Equals((Range)obj) : false;
+            return obj is null ? false : obj is Range && Equals((Range)obj);
         }
 
         public override readonly int GetHashCode()
@@ -94,13 +90,7 @@ public class ListViewRenderers<T>
         }
     }
 
-    private int ListItemsCount
-    {
-        get
-        {
-            return _list.Data != null ? _list.Data.Count : 0;
-        }
-    }
+    private int ListItemsCount => _list.Data != null ? _list.Data.Count : 0;
 
     public event Action RenderersChanged;
 

@@ -71,15 +71,15 @@ public struct Point
 
     public static bool operator !=(Point a, Point b)
     {
-        return a.X == b.X ? a.Y != b.Y : true;
+        return a.X != b.X || a.Y != b.Y;
     }
 
     public readonly bool Equals(Point other)
     {
-        return X == other.X ? Y == other.Y : false;
+        return X == other.X && Y == other.Y;
     }
 
-    public override bool Equals(object obj)
+    public override readonly bool Equals(object obj)
     {
         bool result = false;
         if (obj is Point)
@@ -106,7 +106,7 @@ public struct Point
 
     public readonly bool Between(Point a, Point b)
     {
-        return X.Between(a.X, b.X) ? Y.Between(a.Y, b.Y) : false;
+        return X.Between(a.X, b.X) && Y.Between(a.Y, b.Y);
     }
 
     public static implicit operator Vector2(Point src)

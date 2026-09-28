@@ -132,7 +132,7 @@ public static class Maths
 
     public static bool Between(float value, float min, float max)
     {
-        return value >= min ? value <= max : false;
+        return value >= min && value <= max;
     }
 
     public static float Random(float min, float max)

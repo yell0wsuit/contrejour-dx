@@ -184,12 +184,12 @@ public static class MathUtils
 
     public static bool IsValid(float x)
     {
-        return float.IsNaN(x) ? false : !float.IsInfinity(x);
+        return !float.IsNaN(x) && !float.IsInfinity(x);
     }
 
     public static bool IsValid(this Vector2 x)
     {
-        return IsValid(x.X) ? IsValid(x.Y) : false;
+        return IsValid(x.X) && IsValid(x.Y);
     }
 
     public static float InvSqrt(float x)
@@ -279,7 +279,7 @@ public static class MathUtils
 
     public static bool FloatInRange(float value, float min, float max)
     {
-        return value >= min ? value <= max : false;
+        return value >= min && value <= max;
     }
 
     public static Vector2 Mul(ref Rot rot, Vector2 axis)

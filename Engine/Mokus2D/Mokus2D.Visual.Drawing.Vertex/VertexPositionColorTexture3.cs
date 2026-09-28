@@ -80,7 +80,7 @@ public struct VertexPositionColorTexture3 : IVertex, IVertexType
 
     public override readonly bool Equals(object obj)
     {
-        return obj == null || (object)obj.GetType() != GetType() ? false : this == (VertexPositionColorTexture3)obj;
+        return obj != null && (object)obj.GetType() == GetType() && this == (VertexPositionColorTexture3)obj;
     }
 
     public override readonly int GetHashCode()

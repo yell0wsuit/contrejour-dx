@@ -64,7 +64,7 @@ public class MovieStripesView : Node
 
     public void Show()
     {
-        FadeRectangle?.FadeTo(FinishDuration, _blackSide ? 0.6f : 0.3f);
+        _ = (FadeRectangle?.FadeTo(FinishDuration, _blackSide ? 0.6f : 0.3f));
         _ = topSquare.MoveTo(FinishDuration, new Vector2(topSquare.Position.X, topSquare.Position.Y - StripesHeightIphone), Cubic.EaseIn);
         _ = bottomSquare.MoveTo(FinishDuration, new Vector2(bottomSquare.Position.X, bottomSquare.Position.Y + StripesHeightIphone), Cubic.EaseIn);
     }

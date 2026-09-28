@@ -22,7 +22,6 @@ using Mokus2D.Sound;
 using Mokus2D.UI.Containers;
 using Mokus2D.Util.Extensions;
 using Mokus2D.Visual;
-using Mokus2D.Visual.Text;
 
 namespace ContreJour;
 
@@ -439,7 +438,7 @@ public class ContreJourApplication : Mokus2DGame
 
     public bool IsFirstLevel(Node node)
     {
-        return node is ContreJourGame ? ((ContreJourGame)node).LevelIndex == 0 : false;
+        return node is ContreJourGame && ((ContreJourGame)node).LevelIndex == 0;
     }
 
     private static void LoadSounds()

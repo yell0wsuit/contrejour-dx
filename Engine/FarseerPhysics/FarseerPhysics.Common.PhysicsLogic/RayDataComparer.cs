@@ -7,10 +7,6 @@ internal class RayDataComparer : IComparer<float>
     int IComparer<float>.Compare(float a, float b)
     {
         float num = a - b;
-        if (num > 0f)
-        {
-            return 1;
-        }
-        return num < 0f ? -1 : 0;
+        return num > 0f ? 1 : num < 0f ? -1 : 0;
     }
 }

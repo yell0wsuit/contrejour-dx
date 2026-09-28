@@ -36,35 +36,13 @@ public class RandomAnimationEye : EyeBase
 
     private bool isPlaying;
 
-    protected bool HasAnimations
-    {
-        get
-        {
-            return Animations != null ? Animations.Length > 0 : false;
-        }
-    }
+    protected bool HasAnimations => Animations != null && Animations.Length > 0;
 
     protected virtual EyeAnimation[] Animations => ANIMATIONS;
 
-    protected bool IsWhite
-    {
-        get
-        {
-            return Game != null ? Game.WhiteSide : false;
-        }
-    }
+    protected bool IsWhite => Game != null && Game.WhiteSide;
 
-    protected bool BlackEye
-    {
-        get
-        {
-            if (Game != null)
-            {
-                return !Game.WhiteSide && !Game.BlackSide ? Game.BonusChapter : true;
-            }
-            return false;
-        }
-    }
+    protected bool BlackEye => Game != null ? Game.WhiteSide || Game.BlackSide || Game.BonusChapter : false;
 
     public virtual bool AnimationsAllowed
     {

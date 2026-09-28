@@ -40,13 +40,7 @@ public class ParticleData : IUpdatable
 
     public float Time { get; private set; }
 
-    public bool HasRemove
-    {
-        get
-        {
-            return !CheckValue(LifeDistance) ? Time >= _totalTime : true;
-        }
-    }
+    public bool HasRemove => CheckValue(LifeDistance) || Time >= _totalTime;
 
     public ParticleData(Node particle, ParticleSystemConfig systemConfig)
     {
@@ -106,6 +100,6 @@ public class ParticleData : IUpdatable
 
     private bool CheckValue(float? value)
     {
-        return value.HasValue ? value <= 0f : false;
+        return value.HasValue && value <= 0f;
     }
 }

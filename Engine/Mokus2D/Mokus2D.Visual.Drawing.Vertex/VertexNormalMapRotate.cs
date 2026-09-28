@@ -74,7 +74,7 @@ public struct VertexNormalMapRotate : IVertex, IVertexType
 
     public override readonly bool Equals(object obj)
     {
-        return obj == null || (object)obj.GetType() != GetType() ? false : this == (VertexNormalMapRotate)obj;
+        return obj != null && (object)obj.GetType() == GetType() && this == (VertexNormalMapRotate)obj;
     }
 
     public override readonly int GetHashCode()

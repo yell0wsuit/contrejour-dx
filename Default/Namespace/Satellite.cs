@@ -43,13 +43,7 @@ public class Satellite : IUpdatable, IRemovable
         set => angleStep = value;
     }
 
-    protected virtual Vector2 TargetPosition
-    {
-        get
-        {
-            return target == null ? initialPosition : game.Builder.ToIPadPoint(target.Body.Position);
-        }
-    }
+    protected virtual Vector2 TargetPosition => target == null ? initialPosition : game.Builder.ToIPadPoint(target.Body.Position);
 
     public bool ShouldRemove => hasRemove;
 

@@ -61,7 +61,7 @@ internal static class EarclipDecomposer
             float num12 = 1f / ((num7 * num10) - (num8 * num8));
             float num13 = ((num10 * num9) - (num8 * num11)) * num12;
             float num14 = ((num7 * num11) - (num8 * num9)) * num12;
-            return num13 > 0f && num14 > 0f ? num13 + num14 < 1f : false;
+            return num13 > 0f && num14 > 0f && num13 + num14 < 1f;
         }
     }
 
@@ -77,7 +77,7 @@ internal static class EarclipDecomposer
             return [];
         }
         List<Vertices> list = [];
-        Vertices pin = new(vertices);
+        Vertices pin = [.. vertices];
         if (ResolvePinchPoint(pin, out Vertices poutA, out Vertices poutB, tolerance))
         {
             List<Vertices> list2 = TriangulatePolygon(poutA, tolerance);
@@ -88,11 +88,11 @@ internal static class EarclipDecomposer
             }
             for (int i = 0; i < list2.Count; i++)
             {
-                list.Add(new Vertices(list2[i]));
+                list.Add([.. list2[i]]);
             }
             for (int j = 0; j < list3.Count; j++)
             {
-                list.Add(new Vertices(list3[j]));
+                list.Add([.. list3[j]]);
             }
             return list;
         }
@@ -122,11 +122,11 @@ internal static class EarclipDecomposer
                     a.Normalize();
                     b.Normalize();
                     b2.Normalize();
-                    MathUtils.Cross(ref a, ref b, out var c);
+                    MathUtils.Cross(ref a, ref b, out float c);
                     c = Math.Abs(c);
-                    MathUtils.Cross(ref b, ref b2, out var c2);
+                    MathUtils.Cross(ref b, ref b2, out float c2);
                     c2 = Math.Abs(c2);
-                    MathUtils.Cross(ref b2, ref a, out var c3);
+                    MathUtils.Cross(ref b2, ref a, out float c3);
                     c3 = Math.Abs(c3);
                     float num7 = Math.Min(c, Math.Min(c2, c3));
                     if (num7 > num4)
@@ -171,7 +171,7 @@ internal static class EarclipDecomposer
         num++;
         for (int num11 = 0; num11 < num; num11++)
         {
-            list.Add(new Vertices(array[num11]));
+            list.Add([.. array[num11]]);
         }
         return list;
     }

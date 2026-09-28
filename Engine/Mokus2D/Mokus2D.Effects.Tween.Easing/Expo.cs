@@ -17,11 +17,9 @@ public class Expo
 
     private static float EaseInOutFunction(float k)
     {
-        if (k == 0f)
-        {
-            return 0f;
-        }
-        return k == 1f
+        return k == 0f
+            ? 0f
+            : k == 1f
             ? 1f
             : (float)(((k *= 2f) < 1f) ? (0.5 * Math.Pow(2.0, 10f * (k - 1f))) : (0.5 * (0.0 - Math.Pow(2.0, -10f * (k - 1f)) + 2.0)));
     }

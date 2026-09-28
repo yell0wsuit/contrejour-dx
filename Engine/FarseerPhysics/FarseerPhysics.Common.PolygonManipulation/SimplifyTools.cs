@@ -144,7 +144,7 @@ public static class SimplifyTools
     public static Vertices MergeIdenticalPoints(Vertices vertices)
     {
         HashSet<Vector2> hashSet = [.. vertices];
-        return new Vertices(hashSet);
+        return [.. hashSet];
     }
 
     public static Vertices ReduceByDistance(Vertices vertices, float distance)
@@ -206,9 +206,9 @@ public static class SimplifyTools
         while (num < vertices.Count)
         {
             Vector2 b2 = (num == vertices.Count - 1) ? vertices2[0] : vertices[num];
-            MathUtils.Cross(ref a, ref b, out var c);
-            MathUtils.Cross(ref b, ref b2, out var c2);
-            MathUtils.Cross(ref a, ref b2, out var c3);
+            MathUtils.Cross(ref a, ref b, out float c);
+            MathUtils.Cross(ref b, ref b2, out float c2);
+            MathUtils.Cross(ref a, ref b2, out float c3);
             if (Math.Abs(c3 - (c + c2)) > areaTolerance)
             {
                 vertices2.Add(b);

@@ -17,11 +17,9 @@ public static class ColorExtensions
         }
         uint hex = uint.Parse(hexString, NumberStyles.HexNumber, CultureInfo.InvariantCulture);
         _ = Color.White;
-        if (hexString.Length == 8)
-        {
-            return hex.ToARGBColor();
-        }
-        return hexString.Length == 6
+        return hexString.Length == 8
+            ? hex.ToARGBColor()
+            : hexString.Length == 6
             ? hex.ToRGBColor()
             : throw new InvalidOperationException("Invald hex representation of an ARGB or RGB color value.");
     }

@@ -66,7 +66,7 @@ public class Hashtable : Dictionary<object, object>
 
     public bool GetBool(string key)
     {
-        return Exists(key) ? Convert.ToBoolean(GetObject(key)) : false;
+        return Exists(key) && Convert.ToBoolean(GetObject(key));
     }
 
     public int GetInt(string key)

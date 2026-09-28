@@ -16,13 +16,7 @@ public class DynamicSpringBodyClip : SpringBodyClip
 
     protected float oldAngleForSticked;
 
-    private bool TransformChanged
-    {
-        get
-        {
-            return !(oldPosition != Body.Position) ? oldAngle != Body.Rotation : true;
-        }
-    }
+    private bool TransformChanged => oldPosition != Body.Position || oldAngle != Body.Rotation;
 
     public DynamicSpringBodyClip(LevelBuilderBase _builder, object _body, Node _clip, Hashtable _config)
         : base(_builder, _body, _clip, _config)

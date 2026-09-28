@@ -334,20 +334,16 @@ public class LevelBuilderBase : Updatable, IDisposable
 
     public virtual string GetViewType(Hashtable config)
     {
-        if (config.Exists("iPhoneViewType"))
-        {
-            return config.GetString("iPhoneViewType");
-        }
-        return config.Exists("viewType") ? config.GetString("viewType") : null;
+        return config.Exists("iPhoneViewType")
+            ? config.GetString("iPhoneViewType")
+            : config.Exists("viewType") ? config.GetString("viewType") : null;
     }
 
     private string GetClipType(Hashtable config)
     {
-        if (config.Exists("iPhoneClipType"))
-        {
-            return config.GetString("iPhoneClipType");
-        }
-        return config.Exists("clipType") ? config.GetString("clipType") : null;
+        return config.Exists("iPhoneClipType")
+            ? config.GetString("iPhoneClipType")
+            : config.Exists("clipType") ? config.GetString("clipType") : null;
     }
 
     public virtual LevelBuilderBase GetBuilder()

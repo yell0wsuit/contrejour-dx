@@ -83,21 +83,9 @@ public class GrassController : IGrassController, IUpdatable
 
     public virtual float TrampleAngle => (float)Math.PI / 6f;
 
-    public virtual float SmallGrassStep
-    {
-        get
-        {
-            return !touched ? 1f : 4f;
-        }
-    }
+    public virtual float SmallGrassStep => !touched ? 1f : 4f;
 
-    public virtual float GrassStep
-    {
-        get
-        {
-            return !touched ? 1f : 2.5f;
-        }
-    }
+    public virtual float GrassStep => !touched ? 1f : 2.5f;
 
     public virtual float GetSmallGrassOffset(int index)
     {

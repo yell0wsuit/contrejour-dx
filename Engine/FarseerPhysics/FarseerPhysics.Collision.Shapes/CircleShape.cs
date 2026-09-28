@@ -109,7 +109,7 @@ public class CircleShape : Shape
 
     public bool CompareTo(CircleShape shape)
     {
-        return Radius == shape.Radius ? Position == shape.Position : false;
+        return Radius == shape.Radius && Position == shape.Position;
     }
 
     public override Shape Clone()

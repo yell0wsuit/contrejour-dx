@@ -22,7 +22,7 @@ public class TouchNode : Node, ITouchListener
 
     private bool IsInteractionsEnabled()
     {
-        return Root != null && RootVisible ? RootInteractionsEnabled : false;
+        return Root != null && RootVisible && RootInteractionsEnabled;
     }
 
     public virtual bool TouchBegin(Touch touch)

@@ -227,14 +227,7 @@ public class DragableBodyClip : ContreJourBodyClip, IClickable, IRestartable, IS
         if (Maths.FuzzyNotEquals(time, 0f) && !targetPosition.FuzzyEquals(Body.Position, 1f / 30f))
         {
             Vector2 vec = targetPosition - Body.Position;
-            if (limitSpeed)
-            {
-                _ = VectorUtil.ClampLength(ref vec, 26.666666f * time);
-            }
-            else
-            {
-                _ = VectorUtil.ClampLength(ref vec, 60f * time);
-            }
+            _ = limitSpeed ? VectorUtil.ClampLength(ref vec, 26.666666f * time) : VectorUtil.ClampLength(ref vec, 60f * time);
             Vector2 linearVelocity = vec;
             linearVelocity *= 0.5f / time;
             vec *= 0.5f;

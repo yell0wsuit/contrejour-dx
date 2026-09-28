@@ -29,29 +29,14 @@ public class DoubleSourceDictionary<TKey, TValue> : IDictionary<TKey, TValue>, I
 
     public TValue this[TKey key]
     {
-        get
-        {
-            return SecondSource != null && SecondSource.TryGetValue(key, out TValue value) ? value : _mainSource[key];
-        }
+        get => SecondSource != null && SecondSource.TryGetValue(key, out TValue value) ? value : _mainSource[key];
 
         set => throw new NotImplementedException();
     }
 
-    public ICollection<TKey> Keys
-    {
-        get
-        {
-            return SecondSource == null ? _mainSource.Keys : throw new NotImplementedException();
-        }
-    }
+    public ICollection<TKey> Keys => SecondSource == null ? _mainSource.Keys : throw new NotImplementedException();
 
-    public ICollection<TValue> Values
-    {
-        get
-        {
-            return SecondSource == null ? _mainSource.Values : throw new NotImplementedException();
-        }
-    }
+    public ICollection<TValue> Values => SecondSource == null ? _mainSource.Values : throw new NotImplementedException();
 
     public DoubleSourceDictionary(IDictionary<TKey, TValue> mainSource)
     {
@@ -85,11 +70,7 @@ public class DoubleSourceDictionary<TKey, TValue> : IDictionary<TKey, TValue>, I
 
     public bool Contains(KeyValuePair<TKey, TValue> item)
     {
-        if (!_mainSource.Contains(item))
-        {
-            return SecondSource != null ? SecondSource.Contains(item) : false;
-        }
-        return true;
+        return !_mainSource.Contains(item) ? SecondSource != null && SecondSource.Contains(item) : true;
     }
 
     public void CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex)
@@ -104,11 +85,7 @@ public class DoubleSourceDictionary<TKey, TValue> : IDictionary<TKey, TValue>, I
 
     public bool ContainsKey(TKey key)
     {
-        if (!_mainSource.ContainsKey(key))
-        {
-            return SecondSource != null ? SecondSource.ContainsKey(key) : false;
-        }
-        return true;
+        return !_mainSource.ContainsKey(key) ? SecondSource != null && SecondSource.ContainsKey(key) : true;
     }
 
     public void Add(TKey key, TValue value)
@@ -123,7 +100,7 @@ public class DoubleSourceDictionary<TKey, TValue> : IDictionary<TKey, TValue>, I
 
     public bool TryGetValue(TKey key, out TValue value)
     {
-        return SecondSource != null && SecondSource.TryGetValue(key, out value) ? true : _mainSource.TryGetValue(key, out value);
+        return SecondSource != null && SecondSource.TryGetValue(key, out value) || _mainSource.TryGetValue(key, out value);
     }
 
     IEnumerator IEnumerable.GetEnumerator()

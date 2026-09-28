@@ -39,7 +39,7 @@ public class ApplicationController : DisposableBase
 
     public Util.Data.Point PrefferedBackBufferSize
     {
-        get => new Util.Data.Point(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
+        get => new(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
         set
         {
             _graphics.PreferredBackBufferWidth = value.X;

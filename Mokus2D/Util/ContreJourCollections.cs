@@ -72,7 +72,7 @@ public static class ContreJourCollections
 
     public static bool GetBool(this Dictionary<object, object> source, string key)
     {
-        return source.Exists(key) ? Convert.ToBoolean(source.GetObject(key)) : false;
+        return source.Exists(key) && Convert.ToBoolean(source.GetObject(key));
     }
 
     public static int GetInt(this Dictionary<object, object> source, string key)

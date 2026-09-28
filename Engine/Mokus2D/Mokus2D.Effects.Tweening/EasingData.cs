@@ -69,11 +69,9 @@ public class EasingData : IEasingData, ICleanable
         {
             return _functionA(ratio);
         }
-        if (_functionB != null)
-        {
-            return _functionB(ratio, _dataA);
-        }
-        return _functionC != null ? _functionC(ratio, _dataA, _dataB) : throw new Exception("No ease function selected");
+        return _functionB != null
+            ? _functionB(ratio, _dataA)
+            : _functionC != null ? _functionC(ratio, _dataA, _dataB) : throw new Exception("No ease function selected");
     }
 
     public void Clean()

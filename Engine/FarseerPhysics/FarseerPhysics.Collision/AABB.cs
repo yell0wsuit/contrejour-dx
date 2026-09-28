@@ -45,13 +45,13 @@ public struct AABB
         }
     }
 
-    public AABB Q1 => new(Center, UpperBound);
+    public readonly AABB Q1 => new(Center, UpperBound);
 
-    public AABB Q2 => new(new Vector2(LowerBound.X, Center.Y), new Vector2(Center.X, UpperBound.Y));
+    public readonly AABB Q2 => new(new Vector2(LowerBound.X, Center.Y), new Vector2(Center.X, UpperBound.Y));
 
-    public AABB Q3 => new(LowerBound, Center);
+    public readonly AABB Q3 => new(LowerBound, Center);
 
-    public AABB Q4 => new(new Vector2(Center.X, LowerBound.Y), new Vector2(UpperBound.X, Center.Y));
+    public readonly AABB Q4 => new(new Vector2(Center.X, LowerBound.Y), new Vector2(UpperBound.X, Center.Y));
 
     public AABB(Vector2 min, Vector2 max)
     {
@@ -95,22 +95,16 @@ public struct AABB
 
     public readonly bool Contains(ref Vector2 point)
     {
-        if (point.X > LowerBound.X + 1.1920929E-07f && point.X < UpperBound.X - 1.1920929E-07f)
-        {
-            return point.Y > LowerBound.Y + 1.1920929E-07f ? point.Y < UpperBound.Y - 1.1920929E-07f : false;
-        }
-        return false;
+        return point.X > LowerBound.X + 1.1920929E-07f && point.X < UpperBound.X - 1.1920929E-07f
+            ? point.Y > LowerBound.Y + 1.1920929E-07f && point.Y < UpperBound.Y - 1.1920929E-07f
+            : false;
     }
 
     public static bool TestOverlap(ref AABB a, ref AABB b)
     {
         Vector2 vector = b.LowerBound - a.UpperBound;
         Vector2 vector2 = a.LowerBound - b.UpperBound;
-        if (vector.X > 0f || vector.Y > 0f)
-        {
-            return false;
-        }
-        return vector2.X <= 0f && vector2.Y <= 0f;
+        return vector.X > 0f || vector.Y > 0f ? false : vector2.X <= 0f && vector2.Y <= 0f;
     }
 
     public readonly bool RayCast(out RayCastOutput output, ref RayCastInput input, bool doInteriorCheck = true)

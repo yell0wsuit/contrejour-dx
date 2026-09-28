@@ -12,11 +12,9 @@ public class AsymptoticFloat : IValueProcessor<float>
 
     public static float GetValue(float value, float min, float max, float asymptoticOffset)
     {
-        if (value < min)
-        {
-            return min - Maths.AsymptoticTo(asymptoticOffset, min - value);
-        }
-        return value > max ? max + Maths.AsymptoticTo(asymptoticOffset, value - max) : value;
+        return value < min
+            ? min - Maths.AsymptoticTo(asymptoticOffset, min - value)
+            : value > max ? max + Maths.AsymptoticTo(asymptoticOffset, value - max) : value;
     }
 
     public AsymptoticFloat(float min, float max, float offset)

@@ -110,14 +110,7 @@ public class UpdateDrawCounter : FpsCounter
         {
             _ = OutputLabel.Clear();
             _ = OutputLabel.Append("FPS: ");
-            if (float.IsInfinity(Fps))
-            {
-                _ = OutputLabel.Append("Infinity");
-            }
-            else
-            {
-                _ = OutputLabel.Append(Fps);
-            }
+            _ = float.IsInfinity(Fps) ? OutputLabel.Append("Infinity") : OutputLabel.Append(Fps);
             _ = OutputLabel.AppendLine();
             AppendLine("U: ", UpdateTime);
             AppendLine("D: ", DrawTime);

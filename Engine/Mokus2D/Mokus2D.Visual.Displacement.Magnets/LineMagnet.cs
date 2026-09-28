@@ -78,11 +78,9 @@ public class LineMagnet : GridMagnetBase
     {
         Vector2 closestPoint = relativePosition.GetClosestPoint(Start, End);
         float num = closestPoint.DistanceTo(relativePosition);
-        if (num >= _maxDistance)
-        {
-            return Vector2.Zero;
-        }
-        return relativePosition == closestPoint
+        return num >= _maxDistance
+            ? Vector2.Zero
+            : relativePosition == closestPoint
             ? Vector2.Zero
             : (relativePosition - closestPoint).Normalize((MaxDistance - num) / MaxDistance * Power);
     }

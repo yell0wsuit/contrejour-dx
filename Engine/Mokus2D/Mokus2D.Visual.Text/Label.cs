@@ -62,13 +62,7 @@ public class Label : AnchorNode, IDataReloadable
 
     public float FontSize { get; private set; }
 
-    protected bool ShouldIgnoreMissingSymbols
-    {
-        get
-        {
-            return !IgnoreMissingSymbols.HasValue ? IgnoreMissingSymbolsDefault : IgnoreMissingSymbols.Value;
-        }
-    }
+    protected bool ShouldIgnoreMissingSymbols => IgnoreMissingSymbols ?? IgnoreMissingSymbolsDefault;
 
     public RectangleFloat? SymbolsBounds
     {
@@ -88,13 +82,7 @@ public class Label : AnchorNode, IDataReloadable
 
     public List<LabelLine> Lines => _lines;
 
-    public override Vector2 Size
-    {
-        get
-        {
-            return !DynamicClickArea ? TextureSize : TextSize;
-        }
-    }
+    public override Vector2 Size => !DynamicClickArea ? TextureSize : TextSize;
 
     public TextAlign Align
     {
@@ -355,7 +343,7 @@ public class Label : AnchorNode, IDataReloadable
 
     private bool FontHasTexture()
     {
-        return _font != null ? !_font.Texture.Name.IsEmpty() : false;
+        return _font != null && !_font.Texture.Name.IsEmpty();
     }
 
     public Vector2 GetGlyphLeftTop(Mokus2D.Util.Data.Point positionInText)

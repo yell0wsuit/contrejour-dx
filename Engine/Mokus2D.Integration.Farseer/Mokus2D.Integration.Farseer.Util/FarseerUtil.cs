@@ -151,7 +151,7 @@ public static class FarseerUtil
 
     public static bool IsSensor(this Contact contact)
     {
-        return !contact.FixtureA.IsSensor ? contact.FixtureB.IsSensor : true;
+        return contact.FixtureA.IsSensor || contact.FixtureB.IsSensor;
     }
 
     public static bool IsSensor(this Body body)
@@ -174,7 +174,7 @@ public static class FarseerUtil
 
     public static Body CreateBox(World world, Vector2 position, List<Vector2> vertices, bool sensor, float density, bool dynamic)
     {
-        Vertices vertices2 = new(vertices);
+        Vertices vertices2 = [.. vertices];
         PolygonShape shape = new(vertices2, density);
         return BodyFromShape(world, shape, position, 0f, sensor, density, dynamic);
     }

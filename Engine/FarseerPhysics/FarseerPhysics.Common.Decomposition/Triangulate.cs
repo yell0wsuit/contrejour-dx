@@ -20,7 +20,7 @@ public static class Triangulate
             case TriangulationAlgorithm.Earclip:
                 if (vertices.IsCounterClockWise())
                 {
-                    Vertices vertices4 = new(vertices);
+                    Vertices vertices4 = [.. vertices];
                     vertices4.Reverse();
                     list2 = EarclipDecomposer.ConvexPartition(vertices4, tolerance);
                 }
@@ -32,7 +32,7 @@ public static class Triangulate
             case TriangulationAlgorithm.Bayazit:
                 if (!vertices.IsCounterClockWise())
                 {
-                    Vertices vertices3 = new(vertices);
+                    Vertices vertices3 = [.. vertices];
                     vertices3.Reverse();
                     list2 = BayazitDecomposer.ConvexPartition(vertices3);
                 }
@@ -44,7 +44,7 @@ public static class Triangulate
             case TriangulationAlgorithm.Flipcode:
                 if (!vertices.IsCounterClockWise())
                 {
-                    Vertices vertices2 = new(vertices);
+                    Vertices vertices2 = [.. vertices];
                     vertices2.Reverse();
                     list2 = FlipcodeDecomposer.ConvexPartition(vertices2);
                 }

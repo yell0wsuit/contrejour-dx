@@ -10,11 +10,7 @@ public static class Comparisons
 
     public static int Reverse(int result)
     {
-        if (result < 0)
-        {
-            return 1;
-        }
-        return result > 0 ? -1 : 0;
+        return result < 0 ? 1 : result > 0 ? -1 : 0;
     }
 
     public static int IntReverseComparizon(int first, int second)
@@ -24,11 +20,7 @@ public static class Comparisons
 
     public static int LongComparizon(long first, long second)
     {
-        if (first > second)
-        {
-            return 1;
-        }
-        return second > first ? -1 : 0;
+        return first > second ? 1 : second > first ? -1 : 0;
     }
 
     public static int IntComparizon(int first, int second)
@@ -38,19 +30,11 @@ public static class Comparisons
 
     public static int FloatComparizon(float first, float second)
     {
-        if (first > second)
-        {
-            return 1;
-        }
-        return second > first ? -1 : 0;
+        return first > second ? 1 : second > first ? -1 : 0;
     }
 
     public static int DoubleComparizon(double first, double second)
     {
-        if (first > second)
-        {
-            return 1;
-        }
-        return second > first ? -1 : 0;
+        return first > second ? 1 : second > first ? -1 : 0;
     }
 }

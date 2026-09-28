@@ -329,14 +329,7 @@ public class FinishView : MovieStripesView, IDisposable
     private void LookAtPlayer()
     {
         hero.ViewTarget = hero.Position;
-        if (newHighScore || stars == 3)
-        {
-            _ = this.Schedule(0.5f, Smile);
-        }
-        else
-        {
-            _ = this.Schedule(0.5f, Blink);
-        }
+        _ = newHighScore || stars == 3 ? this.Schedule(0.5f, Smile) : this.Schedule(0.5f, Blink);
     }
 
     private void Blink()

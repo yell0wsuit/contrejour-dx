@@ -40,7 +40,7 @@ public static class PathManager
             throw new Exception("The path must be closed to convert to a polygon.");
         }
         List<Vector2> vertices = path.GetVertices(subdivisions);
-        List<Vertices> list = Triangulate.ConvexPartition(new Vertices(vertices), TriangulationAlgorithm.Bayazit);
+        List<Vertices> list = Triangulate.ConvexPartition([.. vertices], TriangulationAlgorithm.Bayazit);
         foreach (Vertices item in list)
         {
             _ = body.CreateFixture(new PolygonShape(item, density));

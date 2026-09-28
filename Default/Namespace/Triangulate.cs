@@ -110,7 +110,7 @@ public class Triangulate
         float num13 = (num * num10) - (num2 * num9);
         float num14 = (num5 * num8) - (num6 * num7);
         float num15 = (num3 * num12) - (num4 * num11);
-        return num13 >= 0f && num15 >= 0f ? num14 >= 0f : false;
+        return num13 >= 0f && num15 >= 0f && num14 >= 0f;
     }
 
     private static bool Snip(List<Vector2> contour, int u, int v, int w, int n, ref int[] V)

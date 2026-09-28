@@ -16,7 +16,7 @@ public class PolygonShape : Shape
         get => _vertices;
         set
         {
-            _vertices = new Vertices(value);
+            _vertices = [.. value];
             if (Settings.UseConvexHullPolygons)
             {
                 if (_vertices.Count <= 3)
@@ -274,7 +274,7 @@ public class PolygonShape : Shape
                 return false;
             }
         }
-        return Radius == shape.Radius ? MassData == shape.MassData : false;
+        return Radius == shape.Radius && MassData == shape.MassData;
     }
 
     public override Shape Clone()
@@ -284,8 +284,8 @@ public class PolygonShape : Shape
             ShapeType = ShapeType,
             _radius = _radius,
             _density = _density,
-            _vertices = new Vertices(_vertices),
-            _normals = new Vertices(_normals),
+            _vertices = [.. _vertices],
+            _normals = [.. _normals],
             MassData = MassData
         };
         return polygonShape;

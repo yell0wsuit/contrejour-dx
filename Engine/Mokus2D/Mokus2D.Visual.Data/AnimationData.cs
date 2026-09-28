@@ -26,7 +26,7 @@ public class AnimationData : ConfigData
 
     public Dictionary<string, string> GetInstanceConfig(string childName)
     {
-        return _instanceConfigs != null ? _instanceConfigs.TryGetValue(childName) : null;
+        return _instanceConfigs?.TryGetValue(childName);
     }
 
     public AnimationFrameData GetChildFrameData(int frame, string childName)

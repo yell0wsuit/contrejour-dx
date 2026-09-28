@@ -153,10 +153,10 @@ public class MonsterEye : RandomAnimationEye, IPositionDepedent
             IVectorPositionProvider vectorPositionProvider = positionProvider ?? randomPositionProvider;
             if (vectorPositionProvider != null)
             {
-                Vector2 zero = Vector2.Zero;
+                _ = Vector2.Zero;
                 if (Game != null)
                 {
-                    zero = Game.Builder.ToRootChild(Vector2.Zero, this);
+                    Vector2 zero = Game.Builder.ToRootChild(Vector2.Zero, this);
                     clipPosition = Game.Builder.ToIPhoneVec(zero);
                 }
                 Vector2 vector = vectorPositionProvider.PositionVec - clipPosition;

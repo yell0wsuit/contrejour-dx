@@ -504,7 +504,7 @@ public class ContactSolver
                 xfB.q.Set(num3);
                 xfA.p = c - MathUtils.Mul(xfA.q, localCenterA);
                 xfB.p = c2 - MathUtils.Mul(xfB.q, localCenterB);
-                PositionSolverManifold.Initialize(contactPositionConstraint, xfA, xfB, j, out Vector2 normal, out Vector2 point, out var separation);
+                PositionSolverManifold.Initialize(contactPositionConstraint, xfA, xfB, j, out Vector2 normal, out Vector2 point, out float separation);
                 Vector2 a = point - c;
                 Vector2 a2 = point - c2;
                 num = Math.Min(num, separation);
@@ -564,7 +564,7 @@ public class ContactSolver
                 xfB.q.Set(num7);
                 xfA.p = c - MathUtils.Mul(xfA.q, localCenterA);
                 xfB.p = c2 - MathUtils.Mul(xfB.q, localCenterB);
-                PositionSolverManifold.Initialize(contactPositionConstraint, xfA, xfB, j, out Vector2 normal, out Vector2 point, out var separation);
+                PositionSolverManifold.Initialize(contactPositionConstraint, xfA, xfB, j, out Vector2 normal, out Vector2 point, out float separation);
                 Vector2 a = point - c;
                 Vector2 a2 = point - c2;
                 num = Math.Min(num, separation);

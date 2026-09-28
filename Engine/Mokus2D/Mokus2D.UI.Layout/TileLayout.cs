@@ -35,6 +35,6 @@ public class TileLayout : LayoutBase
 
     private Vector2 Size(Node child)
     {
-        return ItemSize.HasValue ? ItemSize.Value : ((ISizeNode)child).ScaledSize();
+        return ItemSize ?? ((ISizeNode)child).ScaledSize();
     }
 }

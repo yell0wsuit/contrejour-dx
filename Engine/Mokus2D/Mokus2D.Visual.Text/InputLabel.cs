@@ -104,29 +104,9 @@ public class InputLabel : Label, IFocus
         }
     }
 
-    public bool CursorAtEnd
-    {
-        get
-        {
-            if (TextPosition.Y < Lines.Count)
-            {
-                return TextPosition.Y == Lines.Count - 1 ? TextPosition.X >= Lines.Last().Glyphs.Count : false;
-            }
-            return true;
-        }
-    }
+    public bool CursorAtEnd => TextPosition.Y < Lines.Count ? TextPosition.Y == Lines.Count - 1 && TextPosition.X >= Lines.Last().Glyphs.Count : true;
 
-    public bool CursorAtStart
-    {
-        get
-        {
-            if (TextPosition.Y >= 0)
-            {
-                return TextPosition.Y == 0 ? TextPosition.X <= 0 : false;
-            }
-            return true;
-        }
-    }
+    public bool CursorAtStart => TextPosition.Y >= 0 ? TextPosition.Y == 0 && TextPosition.X <= 0 : true;
 
     public event Action<IFocus> FocusInEvent;
 

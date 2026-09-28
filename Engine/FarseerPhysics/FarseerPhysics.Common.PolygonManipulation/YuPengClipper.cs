@@ -30,16 +30,12 @@ public static class YuPengClipper
 
         public override bool Equals(object obj)
         {
-            return obj == null ? false : Equals(obj as Edge);
+            return obj != null && Equals(obj as Edge);
         }
 
         public bool Equals(Edge e)
         {
-            if (e == null)
-            {
-                return false;
-            }
-            return VectorEqual(EdgeStart, e.EdgeStart) ? VectorEqual(EdgeEnd, e.EdgeEnd) : false;
+            return e == null ? false : VectorEqual(EdgeStart, e.EdgeStart) && VectorEqual(EdgeEnd, e.EdgeEnd);
         }
 
         public override int GetHashCode()
@@ -94,8 +90,8 @@ public static class YuPengClipper
 
     private static void CalculateIntersections(Vertices polygon1, Vertices polygon2, out Vertices slicedPoly1, out Vertices slicedPoly2)
     {
-        slicedPoly1 = new Vertices(polygon1);
-        slicedPoly2 = new Vertices(polygon2);
+        slicedPoly1 = [.. polygon1];
+        slicedPoly2 = [.. polygon2];
         for (int i = 0; i < polygon1.Count; i++)
         {
             Vector2 vector = polygon1[i];
@@ -308,11 +304,7 @@ public static class YuPengClipper
     private static float CalculateSimplexCoefficient(Vector2 a, Vector2 b, Vector2 c)
     {
         float num = MathUtils.Area(ref a, ref b, ref c);
-        if (num < 0f)
-        {
-            return -1f;
-        }
-        return num > 0f ? 1f : 0f;
+        return num < 0f ? -1f : num > 0f ? 1f : 0f;
     }
 
     private static bool PointInSimplex(Vector2 point, Edge edge)
@@ -324,9 +316,7 @@ public static class YuPengClipper
     private static bool PointOnLineSegment(Vector2 start, Vector2 end, Vector2 point)
     {
         Vector2 value = end - start;
-        return MathUtils.Area(ref start, ref end, ref point) == 0f && Vector2.Dot(point - start, value) >= 0f
-            ? Vector2.Dot(point - end, value) <= 0f
-            : false;
+        return MathUtils.Area(ref start, ref end, ref point) == 0f && Vector2.Dot(point - start, value) >= 0f && Vector2.Dot(point - end, value) <= 0f;
     }
 
     private static bool VectorEqual(Vector2 vec1, Vector2 vec2)

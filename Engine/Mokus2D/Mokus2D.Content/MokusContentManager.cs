@@ -169,9 +169,9 @@ public class MokusContentManager : ContentManager
 
     public List<string> GetLoadedTextures()
     {
-        return [.. (from asset in _loadedAssets
+        return [.. from asset in _loadedAssets
                 where asset.Value is Texture2D
-                select asset.Key)];
+                select asset.Key];
     }
 
     protected override void Dispose(bool disposing)

@@ -23,7 +23,7 @@ public static class ChainHull
         {
             return vertices;
         }
-        Vertices vertices2 = new(vertices);
+        Vertices vertices2 = [.. vertices];
         vertices2.Sort(_pointComparer);
         Vector2[] array = new Vector2[vertices2.Count];
         int num = -1;

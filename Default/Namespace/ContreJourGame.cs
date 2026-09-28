@@ -55,11 +55,7 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
             }
             float num = clickable.TouchDistance(sourcePoint);
             float num2 = clickable2.TouchDistance(sourcePoint);
-            if (Maths.FuzzyEquals(num, num2))
-            {
-                return 0;
-            }
-            return !(num < num2) ? 1 : -1;
+            return Maths.FuzzyEquals(num, num2) ? 0 : !(num < num2) ? 1 : -1;
         }
     }
 
@@ -575,11 +571,7 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
         {
             return last ?? normal;
         }
-        if (WhiteSide)
-        {
-            return white ?? normal;
-        }
-        return BlackSide ? blue ?? normal : normal;
+        return WhiteSide ? white ?? normal : BlackSide ? blue ?? normal : normal;
     }
 
     public T ChooseSide<T>(T black, T white, T last, T normal, T green)
@@ -594,11 +586,7 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
 
     public T ChooseSide<T>(T black, T white, T normal)
     {
-        if (blackSide)
-        {
-            return black;
-        }
-        return whiteSide ? white : normal;
+        return blackSide ? black : whiteSide ? white : normal;
     }
 
     public void AddShadowSource(BodyClip source)

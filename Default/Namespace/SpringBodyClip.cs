@@ -282,7 +282,7 @@ public class SpringBodyClip : ContreJourBodyClip, IClickable, IRestartable
 
     public bool CanLaunch(object bodyClip)
     {
-        return bodyClip is ILaunchable ? ((ILaunchable)bodyClip).CanLaunch() : false;
+        return bodyClip is ILaunchable && ((ILaunchable)bodyClip).CanLaunch();
     }
 
     private bool IsTouchDistance(Vector2 touchPosition)
@@ -585,7 +585,7 @@ public class SpringBodyClip : ContreJourBodyClip, IClickable, IRestartable
 
     public bool CheckFixtureKey(Fixture fixture, string key)
     {
-        return fixture.UserData is not Hashtable hashtable ? false : hashtable.ContainsKey(key);
+        return fixture.UserData is Hashtable hashtable && hashtable.ContainsKey(key);
     }
 
     public bool IsSticky(Fixture fixture)

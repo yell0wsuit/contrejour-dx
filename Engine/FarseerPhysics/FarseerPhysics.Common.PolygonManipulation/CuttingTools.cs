@@ -31,7 +31,7 @@ public static class CuttingTools
                 localPoint2 += new Vector2(0f, 1.1920929E-07f);
             }
         }
-        Vertices vertices = new(polygonShape.Vertices);
+        Vertices vertices = [.. polygonShape.Vertices];
         Vertices[] array = new Vertices[2];
         for (int i = 0; i < array.Length; i++)
         {

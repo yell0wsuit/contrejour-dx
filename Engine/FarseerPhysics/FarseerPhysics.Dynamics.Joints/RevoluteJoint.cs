@@ -463,6 +463,6 @@ public class RevoluteJoint : Joint
         data.positions[_indexA].a = num;
         data.positions[_indexB].c = c2;
         data.positions[_indexB].a = num2;
-        return num9 <= 0.005f ? num3 <= (float)Math.PI / 90f : false;
+        return num9 <= 0.005f && num3 <= (float)Math.PI / 90f;
     }
 }

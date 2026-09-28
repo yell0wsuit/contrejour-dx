@@ -164,7 +164,7 @@ public static class VectorExtensions
 
     public static bool Between(this Vector2 vector, Vector2 min, Vector2 max)
     {
-        return vector.X.Between(min.X, max.X) ? vector.Y.Between(min.Y, max.Y) : false;
+        return vector.X.Between(min.X, max.X) && vector.Y.Between(min.Y, max.Y);
     }
 
     public static Vector2 Rotate90(this Vector2 vector)
@@ -176,7 +176,7 @@ public static class VectorExtensions
 
     public static bool IsNaN(this Vector2 source)
     {
-        return !float.IsNaN(source.X) ? float.IsNaN(source.Y) : true;
+        return float.IsNaN(source.X) || float.IsNaN(source.Y);
     }
 
     public static Vector2 Signs(this Vector2 source)

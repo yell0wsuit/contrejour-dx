@@ -88,14 +88,7 @@ public sealed class TextureConverter
         get => _hullTolerance;
         set
         {
-            if (value > 4f)
-            {
-                _hullTolerance = 4f;
-            }
-            else
-            {
-                _hullTolerance = value < 0.9f ? 0.9f : value;
-            }
+            _hullTolerance = value > 4f ? 4f : value < 0.9f ? 0.9f : value;
         }
     }
 
@@ -133,12 +126,12 @@ public sealed class TextureConverter
         {
             SetTextureData(data, width.Value);
         }
-        AlphaTolerance = alphaTolerance.HasValue ? alphaTolerance.Value : (byte)20;
-        HullTolerance = hullTolerance.HasValue ? hullTolerance.Value : 1.5f;
-        HoleDetection = holeDetection.HasValue ? holeDetection.Value : false;
-        MultipartDetection = multipartDetection.HasValue ? multipartDetection.Value : false;
-        PixelOffsetOptimization = pixelOffsetOptimization.HasValue ? pixelOffsetOptimization.Value : false;
-        Transform = transform.HasValue ? transform.Value : Matrix.Identity;
+        AlphaTolerance = alphaTolerance ?? (byte)20;
+        HullTolerance = hullTolerance ?? 1.5f;
+        HoleDetection = holeDetection.HasValue && holeDetection.Value;
+        MultipartDetection = multipartDetection.HasValue && multipartDetection.Value;
+        PixelOffsetOptimization = pixelOffsetOptimization.HasValue && pixelOffsetOptimization.Value;
+        Transform = transform ?? Matrix.Identity;
     }
 
     private void SetTextureData(uint[] data, int width)
@@ -230,7 +223,7 @@ public sealed class TextureConverter
             Vertices vertices;
             if (detectedPolygons.Count == 0)
             {
-                vertices = new Vertices(CreateSimplePolygon(Vector2.Zero, Vector2.Zero));
+                vertices = [.. CreateSimplePolygon(Vector2.Zero, Vector2.Zero)];
                 if (vertices.Count > 2)
                 {
                     entrance = GetTopMostVertex(vertices);
@@ -242,7 +235,7 @@ public sealed class TextureConverter
                 {
                     break;
                 }
-                vertices = new Vertices(CreateSimplePolygon(entrance.Value, new Vector2(entrance.Value.X - 1f, entrance.Value.Y)));
+                vertices = [.. CreateSimplePolygon(entrance.Value, new Vector2(entrance.Value.X - 1f, entrance.Value.Y))];
             }
             flag = false;
             if (vertices.Count > 2)
@@ -267,7 +260,7 @@ public sealed class TextureConverter
                             case VerticesDetectionType.Integrated:
                                 {
                                     vertices2.Add(vertices2[0]);
-                                    if (SplitPolygonEdge(vertices, lastHoleEntrance.Value, out var _, out var vertex2Index))
+                                    if (SplitPolygonEdge(vertices, lastHoleEntrance.Value, out int _, out int vertex2Index))
                                     {
                                         vertices.InsertRange(vertex2Index, vertices2);
                                     }
@@ -330,24 +323,22 @@ public sealed class TextureConverter
     {
         _tempIsSolidX = (int)v.X;
         _tempIsSolidY = (int)v.Y;
-        return _tempIsSolidX >= 0 && _tempIsSolidX < _width && _tempIsSolidY >= 0 && _tempIsSolidY < _height
-            ? _data[_tempIsSolidX + (_tempIsSolidY * _width)] >= _alphaTolerance
-            : false;
+        return _tempIsSolidX >= 0 && _tempIsSolidX < _width && _tempIsSolidY >= 0 && _tempIsSolidY < _height && _data[_tempIsSolidX + (_tempIsSolidY * _width)] >= _alphaTolerance;
     }
 
     public bool IsSolid(ref int x, ref int y)
     {
-        return x >= 0 && x < _width && y >= 0 && y < _height ? _data[x + (y * _width)] >= _alphaTolerance : false;
+        return x >= 0 && x < _width && y >= 0 && y < _height && _data[x + (y * _width)] >= _alphaTolerance;
     }
 
     public bool IsSolid(ref int index)
     {
-        return index >= 0 && index < _dataLength ? _data[index] >= _alphaTolerance : false;
+        return index >= 0 && index < _dataLength && _data[index] >= _alphaTolerance;
     }
 
     public bool InBounds(ref Vector2 coord)
     {
-        return coord.X >= 0f && coord.X < _width && coord.Y >= 0f ? coord.Y < _height : false;
+        return coord.X >= 0f && coord.X < _width && coord.Y >= 0f && coord.Y < _height;
     }
 
     private Vector2? SearchHoleEntrance(Vertices polygon, Vector2? lastHoleEntrance)

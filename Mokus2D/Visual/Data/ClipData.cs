@@ -39,7 +39,7 @@ public class ClipData : IMovieClipData, ISpriteData, ITextureNodeData, IConfig
 
     public Vector2 Size
     {
-        get => new Vector2(Width, Height);
+        get => new(Width, Height);
         set
         {
             Width = (int)value.X;

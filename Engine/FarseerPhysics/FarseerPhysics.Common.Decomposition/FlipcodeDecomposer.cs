@@ -69,7 +69,7 @@ internal static class FlipcodeDecomposer
         float num = ((c.X - b.X) * (p.Y - b.Y)) - ((c.Y - b.Y) * (p.X - b.X));
         float num2 = ((b.X - a.X) * (p.Y - a.Y)) - ((b.Y - a.Y) * (p.X - a.X));
         float num3 = ((a.X - c.X) * (p.Y - c.Y)) - ((a.Y - c.Y) * (p.X - c.X));
-        return num >= 0f && num3 >= 0f ? num2 >= 0f : false;
+        return num >= 0f && num3 >= 0f && num2 >= 0f;
     }
 
     private static bool Snip(Vertices contour, int u, int v, int w, int n, int[] V)

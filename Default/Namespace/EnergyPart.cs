@@ -26,13 +26,7 @@ public class EnergyPart : Satellite
 
     protected bool dealloced;
 
-    protected override Vector2 TargetPosition
-    {
-        get
-        {
-            return !collected ? base.TargetPosition : game.BonusTarget.BonusTarget();
-        }
-    }
+    protected override Vector2 TargetPosition => !collected ? base.TargetPosition : game.BonusTarget.BonusTarget();
 
     public EnergyPart(ContreJourGame _game, BodyClip parent, float _direction, Vector2 position)
         : this(_game, parent, _game.Energy.AddOrGetInvisible(), _direction, position)

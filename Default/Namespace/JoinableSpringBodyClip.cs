@@ -20,13 +20,7 @@ public class JoinableSpringBodyClip : RotatableSpringBase
 
     protected RevoluteJoint rotatorJoint;
 
-    protected override bool IsMoving
-    {
-        get
-        {
-            return rotator != null ? rotator.Body.AngularVelocity != 0f : false;
-        }
-    }
+    protected override bool IsMoving => rotator != null && rotator.Body.AngularVelocity != 0f;
 
     public JoinableSpringBodyClip(LevelBuilderBase _builder, object _body, Node _clip, Hashtable _config)
         : base(_builder, _body, _clip, _config)

@@ -61,7 +61,7 @@ public class KeysController : IUpdatable
     public bool ContainsListener(Action action)
     {
         ActionPriority item = FindItem(action);
-        return _backKeysListeners.Contains(item) ? !_toRemove.Contains(item) : false;
+        return _backKeysListeners.Contains(item) && !_toRemove.Contains(item);
     }
 
     private ActionPriority FindItem(Action action)

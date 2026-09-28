@@ -109,7 +109,7 @@ public class Button : TouchSprite
     public override bool TouchOut(Touch touch)
     {
         HidePressed();
-        return !enabled ? false : base.TouchOut(touch);
+        return enabled && base.TouchOut(touch);
     }
 
     public override void TouchEnd(Touch touch)

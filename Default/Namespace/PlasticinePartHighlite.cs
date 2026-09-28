@@ -62,13 +62,7 @@ public class PlasticinePartHighlite : IUpdatable
         set => hasLight = value;
     }
 
-    private bool MirrorLight
-    {
-        get
-        {
-            return !game.WhiteSide && !game.BlackSide ? game.BonusChapter : true;
-        }
-    }
+    private bool MirrorLight => game.WhiteSide || game.BlackSide || game.BonusChapter;
 
     public PlasticinePartHighlite(PlasticinePartBodyClip _plasticine, PlasticineHighliteBorder _parent, int _index)
     {

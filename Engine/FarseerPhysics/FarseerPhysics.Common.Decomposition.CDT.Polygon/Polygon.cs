@@ -40,7 +40,7 @@ internal class Polygon : Triangulatable
     }
 
     public Polygon(IEnumerable<PolygonPoint> points)
-        : this((points as IList<PolygonPoint>) ?? points.ToArray())
+        : this((points as IList<PolygonPoint>) ?? [.. points])
     {
     }
 

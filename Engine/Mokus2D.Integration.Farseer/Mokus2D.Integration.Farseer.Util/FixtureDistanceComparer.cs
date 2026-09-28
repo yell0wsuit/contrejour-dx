@@ -16,10 +16,6 @@ internal readonly struct FixtureDistanceComparer(Vector2 center) : IComparer<Fix
     {
         float num = x.Body.Position.DistanceTo(center);
         float num2 = y.Body.Position.DistanceTo(center);
-        if (num < num2)
-        {
-            return -1;
-        }
-        return num == num2 ? 0 : 2;
+        return num < num2 ? -1 : num == num2 ? 0 : 2;
     }
 }

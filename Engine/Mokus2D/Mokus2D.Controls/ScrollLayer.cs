@@ -145,11 +145,7 @@ public class ScrollLayer : ClickableLayer, ITouchListener
 
     private float GetReturnValue(float current, float min, float max, float time)
     {
-        if (current < min)
-        {
-            return StepToBorder(current, min, time);
-        }
-        return current > max ? StepToBorder(current, max, time) : current;
+        return current < min ? StepToBorder(current, min, time) : current > max ? StepToBorder(current, max, time) : current;
     }
 
     private float StepToBorder(float current, float max, float time)

@@ -117,11 +117,7 @@ public class RotatableSpringBodyClip : RotatableSpringBase, IRestartable
 
     public override int Priority(Vector2 touchPoint)
     {
-        if (touchPoint.DistanceTo(Body.Position) < TOUCH_DISTANCE)
-        {
-            return base.Priority(touchPoint);
-        }
-        return IsRotatorTouched(touchPoint) ? 0 : -100;
+        return touchPoint.DistanceTo(Body.Position) < TOUCH_DISTANCE ? base.Priority(touchPoint) : IsRotatorTouched(touchPoint) ? 0 : -100;
     }
 
     public override float TouchDistance(Vector2 touchPosition)
@@ -210,7 +206,7 @@ public class RotatableSpringBodyClip : RotatableSpringBase, IRestartable
     private bool IsRotatorTouched(Vector2 touchPosition)
     {
         float num = Body.Position.DistanceTo(touchPosition);
-        return rotateTouch == null ? Math.Abs(num - TOUCH_RADIUS) < TOUCH_DISTANCE : false;
+        return rotateTouch == null && Math.Abs(num - TOUCH_RADIUS) < TOUCH_DISTANCE;
     }
 
     private float GetTouchAngle()

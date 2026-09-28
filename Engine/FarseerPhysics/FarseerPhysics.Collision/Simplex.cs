@@ -68,7 +68,7 @@ internal struct Simplex
         }
     }
 
-    internal Vector2 GetSearchDirection()
+    internal readonly Vector2 GetSearchDirection()
     {
         switch (Count)
         {
@@ -85,7 +85,7 @@ internal struct Simplex
         }
     }
 
-    internal Vector2 GetClosestPoint()
+    internal readonly Vector2 GetClosestPoint()
     {
         return Count switch
         {
@@ -97,7 +97,7 @@ internal struct Simplex
         };
     }
 
-    internal void GetWitnessPoints(out Vector2 pA, out Vector2 pB)
+    internal readonly void GetWitnessPoints(out Vector2 pA, out Vector2 pB)
     {
         switch (Count)
         {
@@ -122,7 +122,7 @@ internal struct Simplex
         }
     }
 
-    internal float GetMetric()
+    internal readonly float GetMetric()
     {
         return Count switch
         {

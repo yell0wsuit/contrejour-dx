@@ -152,10 +152,7 @@ public class Node : DisposableBase, IUpdatable, IConfig
 
     public float Scale
     {
-        get
-        {
-            return ScaleVec.X == ScaleVec.Y ? ScaleVec.X : throw new InvalidOperationException("ScaleVec.X differs from ScaleVec.Y");
-        }
+        get => ScaleVec.X == ScaleVec.Y ? ScaleVec.X : throw new InvalidOperationException("ScaleVec.X differs from ScaleVec.Y");
 
         set => ScaleVec = new Vector2(value, value);
     }
@@ -253,13 +250,7 @@ public class Node : DisposableBase, IUpdatable, IConfig
         }
     }
 
-    public bool IsVisibleAndOnScreen
-    {
-        get
-        {
-            return Visible ? OnScreenCount > 0 : false;
-        }
-    }
+    public bool IsVisibleAndOnScreen => Visible && OnScreenCount > 0;
 
     public bool RootInteractionsEnabled
     {
@@ -540,16 +531,11 @@ public class Node : DisposableBase, IUpdatable, IConfig
         }
         if (!_children.Empty())
         {
-            if (index == 0)
-            {
-                node._layer = Math.Min(_children[0].Layer, node._layer);
-            }
-            else
-            {
-                node._layer = index == _children.Count
+            node._layer = index == 0
+                ? Math.Min(_children[0].Layer, node._layer)
+                : index == _children.Count
                     ? Math.Max(_children.Last().Layer, node.Layer)
                     : node._layer.Clamp(_children[index - 1]._layer, _children[index]._layer);
-            }
         }
         SetThisAsParentTo(node);
         _children.Insert(index, node);

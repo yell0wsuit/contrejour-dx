@@ -80,7 +80,7 @@ internal class Trapezoid
 
     public bool Contains(Point point)
     {
-        return point.X > LeftPoint.X && point.X < RightPoint.X && Top.IsAbove(point) ? Bottom.IsBelow(point) : false;
+        return point.X > LeftPoint.X && point.X < RightPoint.X && Top.IsAbove(point) && Bottom.IsBelow(point);
     }
 
     public List<Point> GetVertices()

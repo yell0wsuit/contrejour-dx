@@ -28,7 +28,7 @@ public struct PrimitivesDrawing : IDisposable
         BeginDrawPrimitives(state, matrix, texture);
     }
 
-    public void Dispose()
+    public readonly void Dispose()
     {
         EndDrawPrimitives();
     }

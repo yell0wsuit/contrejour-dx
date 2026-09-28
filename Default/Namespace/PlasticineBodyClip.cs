@@ -196,11 +196,9 @@ public class PlasticineBodyClip : ContreJourBodyClip, IRestartable
     {
         List<Vector2> polygon = [];
         GetBorderVerticesOffset(ref polygon, offset);
-        if (!Game.BlackSide)
-        {
-            return !Game.BonusChapter ? new PlasticineBorder(polygon) : new GreenPlasticineBorder(polygon);
-        }
-        return new BlackPlasticineBorder(polygon);
+        return !Game.BlackSide
+            ? !Game.BonusChapter ? new PlasticineBorder(polygon) : new GreenPlasticineBorder(polygon)
+            : new BlackPlasticineBorder(polygon);
     }
 
     public bool StartDragItemTouch(PlasticineItem item, Touch touch)

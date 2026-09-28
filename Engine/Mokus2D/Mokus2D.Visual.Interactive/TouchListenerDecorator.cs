@@ -10,13 +10,7 @@ public class TouchListenerDecorator : TouchListenerBase
 
     public Func<bool> Filter;
 
-    private bool FilterValue
-    {
-        get
-        {
-            return Filter != null ? Filter() : true;
-        }
-    }
+    private bool FilterValue => Filter == null || Filter();
 
     public TouchListenerDecorator(ITouchListener listener, bool enabled = true)
         : base(enabled)
@@ -26,12 +20,12 @@ public class TouchListenerDecorator : TouchListenerBase
 
     public override bool TouchBegin(Touch touch)
     {
-        return FilterValue ? _listener.TouchBegin(touch) : false;
+        return FilterValue && _listener.TouchBegin(touch);
     }
 
     public override bool TouchMove(Touch touch)
     {
-        return FilterValue ? _listener.TouchMove(touch) : false;
+        return FilterValue && _listener.TouchMove(touch);
     }
 
     public override void TouchEnd(Touch touch)

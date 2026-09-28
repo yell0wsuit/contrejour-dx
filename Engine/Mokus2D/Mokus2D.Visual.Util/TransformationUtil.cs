@@ -9,7 +9,7 @@ public static class TransformationUtil
 {
     public static bool ShouldRefreshNode(Node node)
     {
-        return node.Visible ? node.OnScreenCount > 0 : false;
+        return node.Visible && node.OnScreenCount > 0;
     }
 
     public static void Transform<T>(T[] source, T[] target, ref Matrix matrix) where T : struct, IVertex

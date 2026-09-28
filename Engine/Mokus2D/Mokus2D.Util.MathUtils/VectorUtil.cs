@@ -141,7 +141,7 @@ public static class VectorUtil
 
     public static bool FuzzyEquals(this Vector2 a, Vector2 b, float delta = 0.0001f)
     {
-        return Maths.FuzzyEquals(a.X, b.X, delta) ? Maths.FuzzyEquals(a.Y, b.Y, delta) : false;
+        return Maths.FuzzyEquals(a.X, b.X, delta) && Maths.FuzzyEquals(a.Y, b.Y, delta);
     }
 
     public static Vector2 Clamp(this Vector2 position, Vector2 minValue, Vector2 maxValue)

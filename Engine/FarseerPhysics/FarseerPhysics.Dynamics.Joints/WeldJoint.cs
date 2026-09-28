@@ -258,6 +258,6 @@ public class WeldJoint : Joint
         data.positions[_indexA].a = a;
         data.positions[_indexB].c = c2;
         data.positions[_indexB].a = a2;
-        return num <= 0.005f ? num2 <= (float)Math.PI / 90f : false;
+        return num <= 0.005f && num2 <= (float)Math.PI / 90f;
     }
 }

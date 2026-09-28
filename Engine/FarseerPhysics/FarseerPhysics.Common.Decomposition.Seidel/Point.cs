@@ -50,7 +50,7 @@ internal class Point
 
     public bool Neq(Point p)
     {
-        return p.X == X ? p.Y != Y : true;
+        return p.X != X || p.Y != Y;
     }
 
     public float Orient2D(Point pb, Point pc)
