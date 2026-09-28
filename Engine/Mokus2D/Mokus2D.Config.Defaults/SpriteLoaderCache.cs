@@ -60,7 +60,7 @@ public class SpriteLoaderCache : IGraphicsLoader
         baseLoader.ResourceLoaded += BaseLoaderOnResourceLoaded;
     }
 
-    public static void SetPrefferedScaleFactor(float mult)
+    public static void SetPrefferedScaleFactor()
     {
     }
 

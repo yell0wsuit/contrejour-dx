@@ -37,12 +37,6 @@ public class ToggleButton : Button
         CreateToggle(_toggleName);
     }
 
-    public ToggleButton(string backgroundFile, string _pressedName, string _iconName, string _toggleName)
-        : base(backgroundFile)
-    {
-        CreateToggle(_toggleName);
-    }
-
     public void CreateToggle(string _toggleName)
     {
         toggleIcon = new Sprite(_toggleName);

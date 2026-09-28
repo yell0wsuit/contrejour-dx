@@ -64,11 +64,6 @@ public class FadeHint : HintBase, IRemovable, IRestartable
 
     public void Show()
     {
-        Show(2f);
-    }
-
-    public void Show(float time)
-    {
         if (!hiding)
         {
             clip.Visible = true;

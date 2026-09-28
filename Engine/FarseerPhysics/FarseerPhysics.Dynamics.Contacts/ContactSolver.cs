@@ -128,7 +128,7 @@ public class ContactSolver
 
     public int _count;
 
-    public void Reset(TimeStep step, int count, Contact[] contacts, Position[] positions, Velocity[] velocities, bool warmstarting = true)
+    public void Reset(TimeStep step, int count, Contact[] contacts, Position[] positions, Velocity[] velocities)
     {
         _step = step;
         _count = count;

@@ -54,7 +54,7 @@ public class SlingshotHint : FadeHint
         if (!trampoline.Dragging && !touched)
         {
             touched = true;
-            Show(0.5f);
+            Show();
         }
     }
 

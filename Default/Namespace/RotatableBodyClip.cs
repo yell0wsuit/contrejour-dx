@@ -44,8 +44,4 @@ public class RotatableBodyClip : BodyClip
         }
     }
 
-    public void UpdateRotation(float time)
-    {
-        clip.RotationDegrees += rotationDirection * angleDiff;
-    }
 }

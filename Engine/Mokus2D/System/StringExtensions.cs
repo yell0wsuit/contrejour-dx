@@ -6,10 +6,6 @@ namespace System;
 
 public static class StringExtensions
 {
-    public static void Intern(this string value)
-    {
-    }
-
     public static bool IsEmpty(this string s)
     {
         return string.IsNullOrEmpty(s);

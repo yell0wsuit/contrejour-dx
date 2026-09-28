@@ -22,7 +22,7 @@ public class LianaSprite : LongNeckSprite
 
     private readonly float MAX_PART_LENGHT = 4f / 15f;
 
-    public LianaSprite(ILianaDrawData _data, Color neckColor, float _width, float _borderWidth)
+    public LianaSprite(ILianaDrawData _data, Color neckColor, float _width)
     {
         data = _data;
         width = _width * (1f / 30f);
@@ -32,8 +32,16 @@ public class LianaSprite : LongNeckSprite
     }
 
     public LianaSprite(ILianaDrawData _data, Color _color)
-        : this(_data, _color, 0f, Maths.Random(8f, 10f))
+        : this(_data, _color, UnusedBorderWidth())
     {
+    }
+
+    // The width is 0; the border width this constructor used to pass was never used, but its random
+    // draw stays so the shared random sequence, and everything seeded from it, is unchanged.
+    private static float UnusedBorderWidth()
+    {
+        _ = Maths.Random(8f, 10f);
+        return 0f;
     }
 
     public void CreateParts()

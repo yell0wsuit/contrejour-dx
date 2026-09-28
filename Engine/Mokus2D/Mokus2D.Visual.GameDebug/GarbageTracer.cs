@@ -9,10 +9,9 @@ public struct GarbageTracer : IDisposable
 
     private long _memory;
 
-    public GarbageTracer(string name, bool start = true)
+    public GarbageTracer(string name)
     {
         this = default;
-        name.Intern();
         _name = name;
     }
 

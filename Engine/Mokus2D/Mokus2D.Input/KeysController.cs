@@ -81,7 +81,7 @@ public class KeysController : IUpdatable
         }
     }
 
-    public void AddBackKeyListener(Action action, int priority = 0)
+    public void AddBackKeyListener(Action action)
     {
         _backKeysListeners.Add(new ActionPriority(action, 0));
     }

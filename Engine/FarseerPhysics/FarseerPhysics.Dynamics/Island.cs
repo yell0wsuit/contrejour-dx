@@ -229,7 +229,7 @@ public class Island
         }
     }
 
-    internal void SolveTOI(ref TimeStep subStep, int toiIndexA, int toiIndexB, bool warmstarting)
+    internal void SolveTOI(ref TimeStep subStep, int toiIndexA, int toiIndexB)
     {
         for (int i = 0; i < BodyCount; i++)
         {
@@ -239,7 +239,7 @@ public class Island
             _velocities[i].v = body._linearVelocity;
             _velocities[i].w = body._angularVelocity;
         }
-        _contactSolver.Reset(subStep, ContactCount, _contacts, _positions, _velocities, warmstarting);
+        _contactSolver.Reset(subStep, ContactCount, _contacts, _positions, _velocities);
         for (int j = 0; j < Settings.TOIPositionIterations; j++)
         {
             if (_contactSolver.SolveTOIPositionConstraints(toiIndexA, toiIndexB))

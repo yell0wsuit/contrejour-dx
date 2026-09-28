@@ -235,7 +235,7 @@ public class World
             {
                 JointEdge jointEdge2 = jointEdge;
                 jointEdge = jointEdge.Next;
-                RemoveJoint(jointEdge2.Joint, doCheck: false);
+                RemoveJoint(jointEdge2.Joint);
             }
             bodyRemove.JointList = null;
             ContactEdge contactEdge = bodyRemove.ContactList;
@@ -560,7 +560,7 @@ public class World
             subStep.dt = (1f - num) * step.dt;
             subStep.inv_dt = 1f / subStep.dt;
             subStep.dtRatio = 1f;
-            Island.SolveTOI(ref subStep, body3.IslandIndex, body4.IslandIndex, warmstarting: false);
+            Island.SolveTOI(ref subStep, body3.IslandIndex, body4.IslandIndex);
             for (int m = 0; m < Island.BodyCount; m++)
             {
                 Body body6 = Island.Bodies[m];
@@ -604,17 +604,12 @@ public class World
         }
     }
 
-    private void RemoveJoint(Joint joint, bool doCheck)
+    public void RemoveJoint(Joint joint)
     {
         if (!_jointRemoveList.Contains(joint))
         {
             _ = _jointRemoveList.Add(joint);
         }
-    }
-
-    public void RemoveJoint(Joint joint)
-    {
-        RemoveJoint(joint, doCheck: true);
     }
 
     public void ProcessChanges()

@@ -16,16 +16,6 @@ internal sealed class AdvancingFront
         Head = head;
         Tail = tail;
         Search = head;
-        AddNode(head);
-        AddNode(tail);
-    }
-
-    public static void AddNode(AdvancingFrontNode node)
-    {
-    }
-
-    public static void RemoveNode(AdvancingFrontNode node)
-    {
     }
 
     public override string ToString()

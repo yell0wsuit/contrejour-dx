@@ -16,7 +16,7 @@ public abstract class SpriteBatchEffectBase : ISpriteBatchEffect
     protected SpriteBatchEffectBase(string path)
     {
         Path = path;
-        Effect = EffectUtil.LoadEffect(GetType(), path);
+        Effect = EffectUtil.LoadEffect(path);
     }
 
     public abstract void Apply(Matrix matrix, Texture2D texture);

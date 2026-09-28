@@ -190,11 +190,6 @@ public class LevelBuilderBase : Updatable, IDisposable
         GameRoot.ChangeChildLayer(child, z);
     }
 
-    public void RemoveChild(Node child, bool cleanup)
-    {
-        GameRoot.RemoveChild(child);
-    }
-
     public void RemoveChild(Node child)
     {
         GameRoot.RemoveChild(child);

@@ -4,7 +4,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using Mokus2D.Content;
-using Mokus2D.OSInteraction;
 
 namespace Mokus2D.Game;
 
@@ -16,7 +15,6 @@ public class Mokus2DApplication<T> : Microsoft.Xna.Framework.Game where T : Moku
 
     public Mokus2DApplication()
     {
-        WindowsUtil.Initialize(Window);
         _game = new T();
         _graphics = new GraphicsDeviceManager(this)
         {

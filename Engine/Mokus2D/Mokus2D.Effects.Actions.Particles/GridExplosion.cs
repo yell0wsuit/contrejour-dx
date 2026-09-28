@@ -21,12 +21,12 @@ public class GridExplosion : GridAction
 
     private float maxGridOffset;
 
-    public static GridExplosion New(float seconds, float minRadius, float maxRadius)
+    public static GridExplosion New(float minRadius, float maxRadius)
     {
-        return pool.New().Initialize(seconds, minRadius, maxRadius);
+        return pool.New().Initialize(minRadius, maxRadius);
     }
 
-    protected GridExplosion Initialize(float seconds, float minRadius, float maxRadius)
+    protected GridExplosion Initialize(float minRadius, float maxRadius)
     {
         _ = Initialize();
         this.minRadius = minRadius;

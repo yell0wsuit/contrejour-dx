@@ -25,7 +25,7 @@ public class Spring
         localAnchorB = bodyB.GetLocalPoint(anchorB);
     }
 
-    public void Update(float time)
+    public void Update()
     {
         //IL_0006: Unknown result type (might be due to invalid IL or missing references)
         //IL_0013: Unknown result type (might be due to invalid IL or missing references)

@@ -160,7 +160,7 @@ public class EndHeroBodyClip : HeroBodyClip
 
     private void ShowOutro()
     {
-        outro = new Outro(Game, UserData.Instance.RoseSaved);
+        outro = new Outro(UserData.Instance.RoseSaved);
         Game.AddChild(outro, 15);
     }
 

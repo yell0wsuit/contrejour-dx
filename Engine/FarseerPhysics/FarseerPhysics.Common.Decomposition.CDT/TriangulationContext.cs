@@ -41,10 +41,6 @@ internal abstract class TriangulationContext
 
     public abstract TriangulationConstraint NewConstraint(TriangulationPoint a, TriangulationPoint b);
 
-    public static void Update(string message)
-    {
-    }
-
     public virtual void Clear()
     {
         Points.Clear();

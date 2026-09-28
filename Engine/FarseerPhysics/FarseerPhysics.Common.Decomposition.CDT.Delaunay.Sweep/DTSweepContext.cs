@@ -72,16 +72,6 @@ internal sealed class DTSweepContext : TriangulationContext
         Triangles.Clear();
     }
 
-    public static void AddNode(AdvancingFrontNode node)
-    {
-        AdvancingFront.AddNode(node);
-    }
-
-    public static void RemoveNode(AdvancingFrontNode node)
-    {
-        AdvancingFront.RemoveNode(node);
-    }
-
     public AdvancingFrontNode LocateNode(TriangulationPoint point)
     {
         return aFront.LocateNode(point);
@@ -101,7 +91,6 @@ internal sealed class DTSweepContext : TriangulationContext
         };
         AdvancingFrontNode tail = new(delaunayTriangle.Points[2]);
         aFront = new AdvancingFront(advancingFrontNode, tail);
-        AdvancingFront.AddNode(advancingFrontNode2);
         aFront.Head.Next = advancingFrontNode2;
         advancingFrontNode2.Next = aFront.Tail;
         advancingFrontNode2.Prev = aFront.Head;

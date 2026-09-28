@@ -54,7 +54,7 @@ public class Outro : Node, ITouchListener, IDisposable
         }
     }
 
-    public Outro(ContreJourGame game, bool success)
+    public Outro(bool success)
     {
         Mokus2DGame.Instance.TouchController.AddListener(this);
         minY = -150f;

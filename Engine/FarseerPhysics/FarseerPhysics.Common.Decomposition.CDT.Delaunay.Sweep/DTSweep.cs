@@ -34,7 +34,6 @@ internal static class DTSweep
                     EdgeEvent(tcx, edge, node);
                 }
             }
-            TriangulationContext.Update(null);
         }
     }
 
@@ -140,7 +139,6 @@ internal static class DTSweep
         {
             Fill(tcx, advancingFrontNode);
         }
-        DTSweepContext.AddNode(advancingFrontNode2);
         FillAdvancingFront(tcx, advancingFrontNode2);
         return advancingFrontNode2;
     }
@@ -157,7 +155,6 @@ internal static class DTSweep
         };
         node.Next.Prev = advancingFrontNode;
         node.Next = advancingFrontNode;
-        DTSweepContext.AddNode(advancingFrontNode);
         if (!Legalize(tcx, delaunayTriangle))
         {
             tcx.MapTriangleToNodes(delaunayTriangle);
@@ -604,7 +601,6 @@ internal static class DTSweep
         tcx.Triangles.Add(delaunayTriangle);
         node.Prev.Next = node.Next;
         node.Next.Prev = node.Prev;
-        DTSweepContext.RemoveNode(node);
         if (!Legalize(tcx, delaunayTriangle))
         {
             tcx.MapTriangleToNodes(delaunayTriangle);

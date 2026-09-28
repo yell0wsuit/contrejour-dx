@@ -84,7 +84,7 @@ public abstract class LongNeckSprite : SpriteBatchNode
         _secondBezier.Clear();
         AddBezierPointsBezier(_first, _firstBezier);
         AddBezierPointsBezier(_second, _secondBezier);
-        CreatePolygonsFirstBezierSecondBezier(_cachedPairs, _firstBezier, _secondBezier);
+        CreatePolygonsFirstBezierSecondBezier(_firstBezier, _secondBezier);
     }
 
     public virtual void AddBezierPointsBezier(List<Vector2> source, List<Vector2> bezier)
@@ -92,7 +92,7 @@ public abstract class LongNeckSprite : SpriteBatchNode
         BezierUtil.AddBezierPoints(bezier, source, 6);
     }
 
-    public void CreatePolygonsFirstBezierSecondBezier(List<Pair<Vector2>> pairs, List<Vector2> firstBezier, List<Vector2> secondBezier)
+    public void CreatePolygonsFirstBezierSecondBezier(List<Vector2> firstBezier, List<Vector2> secondBezier)
     {
         ProcessBezierSecond(firstBezier, secondBezier);
         TintSpriteVertex tintSpriteVertex = new(Vector2.Transform(firstBezier[0], CompositeState.Matrix).ToVector3(), Color, _textureLeftBottomCoordinate, ColorRatio);

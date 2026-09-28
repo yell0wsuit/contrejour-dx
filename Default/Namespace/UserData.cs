@@ -364,7 +364,7 @@ public class UserData
         try
         {
             byte[] array = File.ReadAllBytes(DataFilePath);
-            byte[] buffer = CryptUtils.RunProtector(array, encrypt: false);
+            byte[] buffer = CryptUtils.RunProtector(array);
             using XmlReader reader = XmlReader.Create(new MemoryStream(buffer));
             return ((UserData)serializer.Deserialize(reader)) ?? new UserData();
         }
@@ -381,7 +381,7 @@ public class UserData
             MemoryStream memoryStream = new();
             serializer.Serialize(memoryStream, instance);
             _ = Directory.CreateDirectory(Path.GetDirectoryName(DataFilePath));
-            File.WriteAllBytes(DataFilePath, CryptUtils.RunProtector(memoryStream.ToArray(), encrypt: true));
+            File.WriteAllBytes(DataFilePath, CryptUtils.RunProtector(memoryStream.ToArray()));
         }
     }
 }

@@ -135,7 +135,7 @@ public abstract class LongNeckSprite : PrimitivesNode
         secondBezier.Clear();
         AddBezierPointsBezier(first, firstBezier);
         AddBezierPointsBezier(second, secondBezier);
-        CreatePolygonsFirstBezierSecondBezier(cachedPairs, firstBezier, secondBezier);
+        CreatePolygonsFirstBezierSecondBezier(firstBezier, secondBezier);
     }
 
     public virtual void AddBezierPointsBezier(List<Vector2> source, List<Vector2> bezier)
@@ -143,7 +143,7 @@ public abstract class LongNeckSprite : PrimitivesNode
         BezierUtil.AddBezierPoints(bezier, source, 6);
     }
 
-    public void CreatePolygonsFirstBezierSecondBezier(List<Pair<Vector2>> pairs, List<Vector2> firstBezier, List<Vector2> secondBezier)
+    public void CreatePolygonsFirstBezierSecondBezier(List<Vector2> firstBezier, List<Vector2> secondBezier)
     {
         ProcessBezierSecond(firstBezier, secondBezier);
         for (int i = 0; i < firstBezier.Count - 1; i++)

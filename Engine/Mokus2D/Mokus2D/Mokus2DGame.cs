@@ -251,7 +251,7 @@ public abstract class Mokus2DGame : DisposableBase
             TouchController.Update(time);
         }
         Scheduler.Update(time);
-        ApplicationController.Update(time);
+        ApplicationController.Update();
         Tweener.Update(time);
         Root.UpdateNode(time);
         PerformanceCounter.EndUpdate();

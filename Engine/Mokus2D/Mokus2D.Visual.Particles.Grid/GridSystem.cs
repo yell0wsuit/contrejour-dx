@@ -19,7 +19,7 @@ public class GridSystem : Node
 
     public Vector2 GridSize => gridSize;
 
-    public static GridSystem CreateGrid(ISizeNode source, Vector2 gridSize, RootNode root = null)
+    public static GridSystem CreateGrid(ISizeNode source, Vector2 gridSize)
     {
         return CreateGrid((Node)source, source.Size, gridSize);
     }

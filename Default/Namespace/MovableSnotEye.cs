@@ -70,11 +70,11 @@ public class MovableSnotEye : SnotEye, IRestartable
         base.Update(time);
         if (moving)
         {
-            DragSnot(time);
+            DragSnot();
         }
         else if (!moving && targetPoint != null && !Body.Position.FuzzyEquals(targetPoint.Body.Position))
         {
-            MoveTo(Body.Position.StepTo(targetPoint.Body.Position, targetSpeed * time), time);
+            MoveTo(Body.Position.StepTo(targetPoint.Body.Position, targetSpeed * time));
         }
         else if (!snot.Enabled)
         {
@@ -94,7 +94,7 @@ public class MovableSnotEye : SnotEye, IRestartable
         }
     }
 
-    private void DragSnot(float time)
+    private void DragSnot()
     {
         Body.BodyType = (BodyType)1;
         Body.LinearVelocity = Vector2.Zero;
@@ -119,10 +119,10 @@ public class MovableSnotEye : SnotEye, IRestartable
             }
         }
         targetPosition = VectorExtensions.StepTo(step: Math.Max(targetPosition.DistanceTo(vector2) / 5f, 0.5f), source: targetPosition, target: vector2);
-        MoveTo(targetPosition, time);
+        MoveTo(targetPosition);
     }
 
-    public void MoveTo(Vector2 position, float time)
+    public void MoveTo(Vector2 position)
     {
         Vector2 vector = position - Body.Position;
         Body.Position += vector;

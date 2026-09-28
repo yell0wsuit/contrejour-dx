@@ -9,7 +9,7 @@ public static class EffectUtil
 {
     private const string Extension = "ogl.mgfxo";
 
-    public static Effect LoadEffect(Type type, string path)
+    public static Effect LoadEffect(string path)
     {
         path = path.Replace(".", "/");
         path = Path.ChangeExtension(path, Extension);

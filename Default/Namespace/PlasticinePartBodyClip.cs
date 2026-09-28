@@ -181,7 +181,7 @@ public class PlasticinePartBodyClip : ContreJourBodyClip, IClickable, IRestartab
             isFloor = true;
             if (hasGrass)
             {
-                CreateGrass((ContreJourLevelBuilder)_builder, _parent, (Body)_body);
+                CreateGrass((ContreJourLevelBuilder)_builder);
             }
         }
         globalIndex = i++;
@@ -456,7 +456,7 @@ public class PlasticinePartBodyClip : ContreJourBodyClip, IClickable, IRestartab
         grassController?.ScareFlyes(offset);
     }
 
-    public void CreateGrass(ContreJourLevelBuilder _builder, PlasticineBodyClip _parent, Body _body)
+    public void CreateGrass(ContreJourLevelBuilder _builder)
     {
         if (!_builder.ContreJour.BlackSide)
         {

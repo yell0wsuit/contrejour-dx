@@ -353,7 +353,7 @@ public static class GraphUtil
         DrawTriangleFan(GetVertexPositionColor(polygon, color));
     }
 
-    public static void FillTrianglesStripTextureCoordsTextureColor(List<Vector2> triangles, List<Vector2> textureCoords, Texture2D texture, Color color)
+    public static void FillTrianglesStripTextureCoordsTextureColor(List<Vector2> triangles, List<Vector2> textureCoords, Color color)
     {
         FillTrianglesTextureCoordsTextureLoopTypeColor(triangles, textureCoords, PrimitiveType.TriangleStrip, color);
     }
@@ -366,7 +366,7 @@ public static class GraphUtil
         }
     }
 
-    public static void FillTrianglesTextureCoordsTextureColor(List<Vector2> triangles, List<Vector2> textureCoords, Texture2D texture, Color color)
+    public static void FillTrianglesTextureCoordsTextureColor(List<Vector2> triangles, List<Vector2> textureCoords, Color color)
     {
         FillTrianglesTextureCoordsTextureLoopTypeColor(triangles, textureCoords, PrimitiveType.TriangleList, color);
     }
@@ -376,17 +376,17 @@ public static class GraphUtil
         FillTrianglesColorsLoopType(triangles, colors);
     }
 
-    public static void FillTrianglesStripTextureCoordsTexture(List<Vector2> triangles, List<Vector2> textureCoords, Texture2D texture)
+    public static void FillTrianglesStripTextureCoordsTexture(List<Vector2> triangles, List<Vector2> textureCoords)
     {
-        FillTrianglesTextureCoordsTextureLoopType(triangles, textureCoords, texture, PrimitiveType.TriangleStrip);
+        FillTrianglesTextureCoordsTextureLoopType(triangles, textureCoords, PrimitiveType.TriangleStrip);
     }
 
-    public static void FillTrianglesTextureCoordsTexture(List<Vector2> vertices, List<Vector2> textureCoords, Texture2D texture)
+    public static void FillTrianglesTextureCoordsTexture(List<Vector2> vertices, List<Vector2> textureCoords)
     {
-        FillTrianglesTextureCoordsTextureLoopType(vertices, textureCoords, texture, PrimitiveType.TriangleList);
+        FillTrianglesTextureCoordsTextureLoopType(vertices, textureCoords, PrimitiveType.TriangleList);
     }
 
-    public static void FillTrianglesTextureCoordsTextureLoopType(List<Vector2> vertices, List<Vector2> textureCoords, Texture2D texture, PrimitiveType loopType)
+    public static void FillTrianglesTextureCoordsTextureLoopType(List<Vector2> vertices, List<Vector2> textureCoords, PrimitiveType loopType)
     {
         FillTrianglesTextureCoordsTextureLoopTypeColor(vertices, textureCoords, loopType, new Color(255, 255, 255, 255));
     }

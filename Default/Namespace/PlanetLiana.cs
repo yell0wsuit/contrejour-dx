@@ -38,7 +38,7 @@ public class PlanetLiana : Node, ILianaDrawData
         middle = defaultConfig.ToVec(_middle);
         points.Add(middle);
         points.Add(defaultConfig.ToVec(end));
-        sprite = new LianaSprite(this, new Color(50, 50, 50, 255), Maths.Random(2f, 4f), 2f);
+        sprite = new LianaSprite(this, new Color(50, 50, 50, 255), Maths.Random(2f, 4f));
         AddChild(sprite);
         angle = Maths.Random(-(float)Math.PI / 6f, (float)Math.PI / 6f);
         changer = new CosChanger(0f - Maths.Random(0.1f, 0.5f), Maths.Random(0.1f, 0.5f), Maths.Random(0.01f, 0.02f));

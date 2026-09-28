@@ -76,7 +76,7 @@ public static class MouseController
         linkedListNode.List.Remove(linkedListNode);
     }
 
-    public static void Update(float time)
+    public static void Update()
     {
         if (Mokus2DGame.Instance.AcceptsInput)
         {

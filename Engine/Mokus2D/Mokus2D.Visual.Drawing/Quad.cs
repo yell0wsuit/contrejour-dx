@@ -26,7 +26,7 @@ public class Quad<T> : IQuad where T : struct, IVertex
 
     public Rectangle Bounds => _bounds;
 
-    public void Refresh(Color color, float colorAmount, Rectangle textureRect, Vector2 textureSize, Matrix matrix, Vector2 anchorInPixels, Vector2 size, float depth)
+    public void Refresh(Color color, float colorAmount, Rectangle textureRect, Vector2 textureSize, Matrix matrix, Vector2 anchorInPixels, Vector2 size)
     {
         RefreshColor(color, colorAmount);
         RefreshTextureRect(textureRect, textureSize);
