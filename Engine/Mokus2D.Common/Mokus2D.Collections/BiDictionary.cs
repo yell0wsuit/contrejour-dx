@@ -7,7 +7,7 @@ public class BiDictionary<TKey, TValue> : IDictionary<TKey, TValue>, ICollection
 {
     private readonly IDictionary<TKey, TValue> _firstToSecond = new Dictionary<TKey, TValue>();
 
-    private readonly IDictionary<TValue, TKey> _secondToFirst = new Dictionary<TValue, TKey>();
+    private readonly Dictionary<TValue, TKey> _secondToFirst = [];
 
     public int Count => _firstToSecond.Count;
 

@@ -196,7 +196,7 @@ public static class SimplifyTools
         }
         if (areaTolerance < 0f)
         {
-            throw new ArgumentOutOfRangeException("areaTolerance", "must be equal to or greater than zero.");
+            throw new ArgumentOutOfRangeException(nameof(areaTolerance), "must be equal to or greater than zero.");
         }
         Vertices vertices2 = new(vertices.Count);
         Vector2 a = vertices[^2];

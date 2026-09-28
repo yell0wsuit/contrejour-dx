@@ -12,7 +12,7 @@ public class ReflectionHelper
 
     private ReflectionHelper(object target)
     {
-        this.target = target ?? throw new ArgumentNullException("target");
+        this.target = target ?? throw new ArgumentNullException(nameof(target));
     }
 
     public static FieldInfo FindField(Type type, string name)

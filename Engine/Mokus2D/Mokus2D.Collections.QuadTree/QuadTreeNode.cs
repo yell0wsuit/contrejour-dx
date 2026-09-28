@@ -42,6 +42,8 @@ public class QuadTreeNode<T> where T : class, IQuadTreeObject<T>
                 case QuadDirection.SE:
                     Nodes[3] = value;
                     break;
+                default:
+                    break;
             }
             value?.Parent = this;
         }

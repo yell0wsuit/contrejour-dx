@@ -99,8 +99,7 @@ public class ClipFactory
     private static ClipData GetConfigByName(string name)
     {
         name = CorrectName(name);
-        ClipData clipData;
-        if (!configsCache.TryGetValue(name, out clipData))
+        if (!configsCache.TryGetValue(name, out ClipData clipData))
         {
             clipData = TryReadConfig(name, currentTextureSource) ?? TryReadConfig(name, defaultTextureSource);
             configsCache[name] = clipData;

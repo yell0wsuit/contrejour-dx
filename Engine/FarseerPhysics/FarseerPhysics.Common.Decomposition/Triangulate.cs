@@ -63,7 +63,7 @@ public static class Triangulate
                 list2 = CDTDecomposer.ConvexPartition(vertices);
                 break;
             default:
-                throw new ArgumentOutOfRangeException("algorithm");
+                throw new ArgumentOutOfRangeException(nameof(algorithm));
         }
         if (discardAndFixInvalid)
         {
@@ -91,6 +91,10 @@ public static class Triangulate
                 return false;
             case PolygonError.NotCounterClockWise:
                 polygon.Reverse();
+                break;
+            case PolygonError.NoError:
+            case PolygonError.NotConvex:
+            default:
                 break;
         }
         if (polygonError == PolygonError.NotConvex)

@@ -86,10 +86,10 @@ public class ChapterLocked : ChapterItem
         label.Color = index == 1 ? Color.Lerp(ContreJourConstants.GREY_COLOR, tablo.Color, 0.7f) : tablo.Color;
         tablo.AddChild(label);
         label.Position = new Vector2(60f, 46f);
-        Node node = new McEnergyIcon();
+        McEnergyIcon node = new();
         tablo.AddChild(node);
         node.Position = new Vector2(100f, 46f);
-        Sprite sprite = new McLockIcon();
+        McLockIcon sprite = new();
         tablo.AddChild(sprite);
         sprite.Position = new Vector2(24f, 46f);
         sprite.Color = label.Color;

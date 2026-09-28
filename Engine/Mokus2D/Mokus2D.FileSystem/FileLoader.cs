@@ -11,7 +11,7 @@ public class FileLoader : IFileLoader
         return stream;
     }
 
-    private static Stream OpenStream(string name)
+    private static FileStream OpenStream(string name)
     {
         try
         {

@@ -64,6 +64,8 @@ public class ContactSolver
                         normal = -normal;
                         break;
                     }
+                default:
+                    break;
             }
         }
     }

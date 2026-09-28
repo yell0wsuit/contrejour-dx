@@ -291,8 +291,8 @@ public class Fixture : IDisposable
         {
             return false;
         }
-        using IEnumerator<T> enumerator = first.GetEnumerator();
-        using IEnumerator<T> enumerator2 = second.GetEnumerator();
+        using HashSet<T>.Enumerator enumerator = first.GetEnumerator();
+        using HashSet<T>.Enumerator enumerator2 = second.GetEnumerator();
         while (enumerator.MoveNext())
         {
             if (!enumerator2.MoveNext() || !Equals(enumerator.Current, enumerator2.Current))

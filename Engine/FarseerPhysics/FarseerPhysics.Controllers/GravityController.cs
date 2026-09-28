@@ -69,6 +69,8 @@ public class GravityController : Controller
                         case GravityType.Linear:
                             force = Strength / (float)Math.Sqrt(num) * body.Mass * body2.Mass * vector;
                             break;
+                        default:
+                            break;
                     }
                     body.ApplyForce(ref force);
                 }
@@ -86,6 +88,8 @@ public class GravityController : Controller
                             break;
                         case GravityType.Linear:
                             force = Strength / (float)Math.Sqrt(num2) * body.Mass * vector2;
+                            break;
+                        default:
                             break;
                     }
                     body.ApplyForce(ref force);

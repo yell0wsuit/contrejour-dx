@@ -45,7 +45,7 @@ internal struct FixedBitArray3 : IEnumerable<bool>, IEnumerable
         return Enumerate().GetEnumerator();
     }
 
-    IEnumerator IEnumerable.GetEnumerator()
+    readonly IEnumerator IEnumerable.GetEnumerator()
     {
         return GetEnumerator();
     }

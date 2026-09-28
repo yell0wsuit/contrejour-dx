@@ -151,7 +151,7 @@ internal class Triangulator
         return list;
     }
 
-    private static void Shuffle<T>(IList<T> list)
+    private static void Shuffle<T>(List<T> list)
     {
         Random random = new();
         int num = list.Count;

@@ -227,7 +227,7 @@ public class SpringBodyClip : ContreJourBodyClip, IClickable, IRestartable
 
     protected virtual void CreateShadow()
     {
-        Node node = new Sprite(Game.ChooseSide("common/McSpringShadow", "chapter4/McSpringShadowWhite", "common/McSpringShadow_5"));
+        Sprite node = new(Game.ChooseSide("common/McSpringShadow", "chapter4/McSpringShadowWhite", "common/McSpringShadow_5"));
         builder.AddChildBefore(node, clip);
         node.Position = clip.Position;
         node.RotationRadians = clip.RotationRadians;

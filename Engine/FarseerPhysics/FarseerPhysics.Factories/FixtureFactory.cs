@@ -42,7 +42,7 @@ public static class FixtureFactory
     {
         if (radius <= 0f)
         {
-            throw new ArgumentOutOfRangeException("radius", "Radius must be more than 0 meters");
+            throw new ArgumentOutOfRangeException(nameof(radius), "Radius must be more than 0 meters");
         }
         CircleShape shape = new(radius, density);
         return body.CreateFixture(shape, userData);
@@ -52,7 +52,7 @@ public static class FixtureFactory
     {
         if (radius <= 0f)
         {
-            throw new ArgumentOutOfRangeException("radius", "Radius must be more than 0 meters");
+            throw new ArgumentOutOfRangeException(nameof(radius), "Radius must be more than 0 meters");
         }
         CircleShape circleShape = new(radius, density)
         {
@@ -65,7 +65,7 @@ public static class FixtureFactory
     {
         if (vertices.Count <= 1)
         {
-            throw new ArgumentOutOfRangeException("vertices", "Too few points to be a polygon");
+            throw new ArgumentOutOfRangeException(nameof(vertices), "Too few points to be a polygon");
         }
         PolygonShape shape = new(vertices, density);
         return body.CreateFixture(shape, userData);
@@ -75,11 +75,11 @@ public static class FixtureFactory
     {
         if (xRadius <= 0f)
         {
-            throw new ArgumentOutOfRangeException("xRadius", "X-radius must be more than 0");
+            throw new ArgumentOutOfRangeException(nameof(xRadius), "X-radius must be more than 0");
         }
         if (yRadius <= 0f)
         {
-            throw new ArgumentOutOfRangeException("yRadius", "Y-radius must be more than 0");
+            throw new ArgumentOutOfRangeException(nameof(yRadius), "Y-radius must be more than 0");
         }
         Vertices vertices = PolygonTools.CreateEllipse(xRadius, yRadius, edges);
         PolygonShape shape = new(vertices, density);

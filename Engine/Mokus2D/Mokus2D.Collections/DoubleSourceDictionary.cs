@@ -70,7 +70,7 @@ public class DoubleSourceDictionary<TKey, TValue> : IDictionary<TKey, TValue>, I
 
     public bool Contains(KeyValuePair<TKey, TValue> item)
     {
-        return _mainSource.Contains(item) || SecondSource != null && SecondSource.Contains(item);
+        return _mainSource.Contains(item) || (SecondSource != null && SecondSource.Contains(item));
     }
 
     public void CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex)
@@ -85,7 +85,7 @@ public class DoubleSourceDictionary<TKey, TValue> : IDictionary<TKey, TValue>, I
 
     public bool ContainsKey(TKey key)
     {
-        return _mainSource.ContainsKey(key) || SecondSource != null && SecondSource.ContainsKey(key);
+        return _mainSource.ContainsKey(key) || (SecondSource != null && SecondSource.ContainsKey(key));
     }
 
     public void Add(TKey key, TValue value)

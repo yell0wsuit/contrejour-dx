@@ -62,11 +62,11 @@ public static class BodyFactory
     {
         if (width <= 0f)
         {
-            throw new ArgumentOutOfRangeException("width", "Width must be more than 0 meters");
+            throw new ArgumentOutOfRangeException(nameof(width), "Width must be more than 0 meters");
         }
         if (height <= 0f)
         {
-            throw new ArgumentOutOfRangeException("height", "Height must be more than 0 meters");
+            throw new ArgumentOutOfRangeException(nameof(height), "Height must be more than 0 meters");
         }
         Body body = CreateBody(world, position);
         body.UserData = userData;

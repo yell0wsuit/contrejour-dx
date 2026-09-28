@@ -102,6 +102,8 @@ public abstract class AbstractForceController : Controller
             case TimingModes.Curve:
                 Enabled = false;
                 break;
+            default:
+                break;
         }
     }
 
@@ -188,6 +190,8 @@ public abstract class AbstractForceController : Controller
                         Triggered = false;
                     }
                 }
+                break;
+            default:
                 break;
         }
     }

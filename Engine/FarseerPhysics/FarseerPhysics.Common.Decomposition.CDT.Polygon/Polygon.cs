@@ -30,7 +30,7 @@ internal class Polygon : Triangulatable
     {
         if (points.Count < 3)
         {
-            throw new ArgumentException("List has fewer than 3 points", "points");
+            throw new ArgumentException("List has fewer than 3 points", nameof(points));
         }
         if (points[0].Equals(points[points.Count - 1]))
         {
@@ -125,7 +125,7 @@ internal class Polygon : Triangulatable
         int num = _points.IndexOf(point);
         if (num == -1)
         {
-            throw new ArgumentException("Tried to insert a point into a Polygon after a point not belonging to the Polygon", "point");
+            throw new ArgumentException("Tried to insert a point into a Polygon after a point not belonging to the Polygon", nameof(point));
         }
         newPoint.Next = point.Next;
         newPoint.Previous = point;

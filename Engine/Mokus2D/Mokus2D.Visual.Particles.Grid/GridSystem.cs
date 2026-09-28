@@ -15,7 +15,7 @@ public class GridSystem : Node
 
     private readonly Vector2 cellSize;
 
-    private readonly IMovieClipData data;
+    private readonly MovieClipData data;
 
     public Vector2 GridSize => gridSize;
 
@@ -42,7 +42,7 @@ public class GridSystem : Node
         return CreateGrid(source, gridSize, renderSprite);
     }
 
-    private static IMovieClipData CreateGrid(Texture2D texture, Vector2 gridSize)
+    private static MovieClipData CreateGrid(Texture2D texture, Vector2 gridSize)
     {
         gridSize = gridSize.ToIntVector();
         MovieClipData movieClipData = new(null)

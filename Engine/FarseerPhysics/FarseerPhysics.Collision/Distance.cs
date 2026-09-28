@@ -42,6 +42,8 @@ public static class Distance
                 case 3:
                     simplex.Solve3();
                     break;
+                default:
+                    break;
             }
             if (simplex.Count == 3)
             {

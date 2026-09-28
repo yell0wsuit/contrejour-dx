@@ -337,6 +337,9 @@ public class Label : AnchorNode, IDataReloadable
                 case TextAlign.Right:
                     result.Offset(0f - result.Width + TextureSize.X, 0f);
                     break;
+                case TextAlign.Left:
+                default:
+                    break;
             }
         }
         return result;

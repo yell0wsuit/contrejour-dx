@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace FarseerPhysics.Common.Decomposition.Seidel;
 
@@ -89,9 +90,7 @@ internal class MonotoneMountain
     {
         while (_convexPoints.Count != 0)
         {
-            IEnumerator<Point> enumerator = _convexPoints.GetEnumerator();
-            _ = enumerator.MoveNext();
-            Point current = enumerator.Current;
+            Point current = _convexPoints.First();
             _ = _convexPoints.Remove(current);
             Point prev = current.Prev;
             Point item = current;

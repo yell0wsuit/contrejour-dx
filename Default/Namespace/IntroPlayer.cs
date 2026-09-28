@@ -60,7 +60,7 @@ public class IntroPlayer : Node
 
     private void PlayLogo()
     {
-        Sprite sprite = new McIntroLogo();
+        McIntroLogo sprite = new();
         AddChild(sprite);
         sprite.Position = textPosition;
         FadeItemShowTime(sprite, 6f);

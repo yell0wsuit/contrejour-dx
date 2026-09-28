@@ -120,10 +120,9 @@ public class ParallaxScroller : IViewPosition
         foreach (Node child in parent.Children)
         {
             float parallax = 1f;
-            IConfig config = child;
-            if (config != null)
+            if (child != null)
             {
-                parallax = config.Config.GetFloat("parallax", 1f);
+                parallax = child.Config.GetFloat("parallax", 1f);
             }
             Add(child, parallax);
         }

@@ -51,8 +51,7 @@ public class LevelsCache
     public Level Load(string name)
     {
         name = correctName(name);
-        Level level;
-        if (!cache.TryGetValue(name, out level))
+        if (!cache.TryGetValue(name, out Level level))
         {
             string path = Path.ChangeExtension(Path.Combine(
             [

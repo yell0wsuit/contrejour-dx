@@ -277,6 +277,9 @@ public class Contact
             case ContactType.Circle:
                 Collision.Collision.CollideCircles(ref manifold, (CircleShape)FixtureA.Shape, ref transformA, (CircleShape)FixtureB.Shape, ref transformB);
                 break;
+            case ContactType.NotSupported:
+            default:
+                break;
         }
     }
 

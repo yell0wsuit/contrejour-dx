@@ -63,7 +63,7 @@ public class PausePanel : Node, IDisposable
         Position = new Vector2(winSize.X, 0f);
         AddChild(backgroundLayer);
         backgroundLayer.OpacityByte = 0;
-        Sprite sprite = new McRightPanelBackground();
+        McRightPanelBackground sprite = new();
         AddChild(sprite);
         sprite.Scale = Math.Max((winSize.Y + 10f) / sprite.Size.Y * 1.4f, 358f / sprite.Size.X);
         sprite.Position = new Vector2(sprite.ScaledSize.X + -306f - 52f, (0f - sprite.Size.Y) * 0.2f);

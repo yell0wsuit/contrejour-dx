@@ -8,6 +8,6 @@ public static class XNACollectionExtensions
 {
     public static Vector2 GetVector2(this IDictionary<string, string> source, string key, Vector2 defaultValue = default)
     {
-        return source.ContainsKey(key) ? source[key].ToVector2() : defaultValue;
+        return source.TryGetValue(key, out string value) ? value.ToVector2() : defaultValue;
     }
 }

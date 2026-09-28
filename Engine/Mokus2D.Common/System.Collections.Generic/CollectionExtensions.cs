@@ -33,7 +33,7 @@ public static class MokusCollectionExtensions
 
     public static string GetString(this IDictionary<string, string> source, string key, string defaultValue = null)
     {
-        return source == null || !source.ContainsKey(key) ? defaultValue : source[key];
+        return source != null && source.TryGetValue(key, out string value) ? value : defaultValue;
     }
 
     public static float GetFloat(this IDictionary<string, string> source, string key)
@@ -43,7 +43,7 @@ public static class MokusCollectionExtensions
 
     public static bool GetBool(this IDictionary<string, string> source, string key, bool defaultValue = false)
     {
-        return source.ContainsKey(key) ? System.Convert.ToBoolean(source[key]) : defaultValue;
+        return source.TryGetValue(key, out string value) ? System.Convert.ToBoolean(value, CultureInfo.InvariantCulture) : defaultValue;
     }
 
     public static int GetInt(this IDictionary<string, string> source, string key, int defaultValue)

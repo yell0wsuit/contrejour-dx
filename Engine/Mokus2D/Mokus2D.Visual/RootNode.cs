@@ -13,7 +13,7 @@ public class RootNode : Node
 
     private readonly BatchSelector _batchSelector;
 
-    private readonly TransformationCalculatorBase _transformCalculator;
+    private readonly OneThreadTransformCalculator _transformCalculator;
 
     public bool DrawEnabled = true;
 

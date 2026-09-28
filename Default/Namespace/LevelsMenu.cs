@@ -167,7 +167,7 @@ public class LevelsMenu : ClickableLayer
         InteractionsEnabled = true;
     }
 
-    private Sprite CreateGetMoreButton(int chapter)
+    private TouchSprite CreateGetMoreButton(int chapter)
     {
         TouchSprite touchSprite = new("McGetMoreLevelsButton");
         Node node;
@@ -208,7 +208,7 @@ public class LevelsMenu : ClickableLayer
         position.Y += (button.Size.Y / 2f) - 15f;
         Scale = 0.85f;
         InitialScale = Scale;
-        Node node = new McVenzel
+        McVenzel node = new()
         {
             Position = button.Position + new Vector2(56f, 0f),
             Scale = 1.15f

@@ -9,8 +9,6 @@ namespace Mokus2D.Data;
 
 public struct RectangleFloat : IEquatable<RectangleFloat>
 {
-    private static Rectangle emptyRectangle;
-
     public float X;
 
     public float Y;
@@ -19,7 +17,7 @@ public struct RectangleFloat : IEquatable<RectangleFloat>
 
     public float Height;
 
-    public static Rectangle Empty => emptyRectangle;
+    public static Rectangle Empty => default;
 
     public readonly Vector2 LeftTop => new(X, Y);
 
@@ -191,7 +189,7 @@ public struct RectangleFloat : IEquatable<RectangleFloat>
         return position.Clamp(LeftTop, RightBottom);
     }
 
-    public Vector2 GetOffBoundsOffset(Vector2 position)
+    public readonly Vector2 GetOffBoundsOffset(Vector2 position)
     {
         Vector2 vector = ClampToBounds(position);
         return vector - position;

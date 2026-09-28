@@ -52,6 +52,10 @@ public class DistanceProxy
                     Radius = edgeShape.Radius;
                     break;
                 }
+            case ShapeType.Unknown:
+            case ShapeType.TypeCount:
+            default:
+                break;
         }
     }
 

@@ -150,7 +150,7 @@ public class LevelBuilderBase : Updatable, IDisposable
 
     public object GetObject(string key)
     {
-        return !createdObjects.ContainsKey(key) ? null : createdObjects[key];
+        return createdObjects.TryGetValue(key, out object value) ? value : null;
     }
 
     public void AddForeground(Node child)

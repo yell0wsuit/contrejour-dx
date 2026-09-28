@@ -129,7 +129,7 @@ public class FinishView : MovieStripesView, IDisposable
             color = this.color;
             color2 = ContreJourConstants.GreenLightColor * 0.5f;
         }
-        Sprite sprite = new McLevelComplete();
+        McLevelComplete sprite = new();
         AddChild(sprite);
         Vector2 rootSize = ContreJourConfig.RootSize;
         center = new Vector2(rootSize.X / 2f, rootSize.Y / 2f);

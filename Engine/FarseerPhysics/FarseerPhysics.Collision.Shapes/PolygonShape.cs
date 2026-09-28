@@ -233,6 +233,8 @@ public class PolygonShape : Shape
                     num4 = Vertices.Count - 1;
                 }
                 break;
+            default:
+                break;
         }
         int num5 = (num3 + 1) % Vertices.Count;
         int num6 = (num4 + 1) % Vertices.Count;

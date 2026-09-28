@@ -113,11 +113,11 @@ public sealed class TextureConverter
     {
         if (data != null && !width.HasValue)
         {
-            throw new ArgumentNullException("width", "'width' can't be null if 'data' is set.");
+            throw new ArgumentNullException(nameof(width), "'width' can't be null if 'data' is set.");
         }
         if (data == null && width.HasValue)
         {
-            throw new ArgumentNullException("data", "'data' can't be null if 'width' is set.");
+            throw new ArgumentNullException(nameof(data), "'data' can't be null if 'width' is set.");
         }
         if (data != null && width.HasValue)
         {
@@ -135,15 +135,15 @@ public sealed class TextureConverter
     {
         if (data == null)
         {
-            throw new ArgumentNullException("data", "'data' can't be null.");
+            throw new ArgumentNullException(nameof(data), "'data' can't be null.");
         }
         if (data.Length < 4)
         {
-            throw new ArgumentOutOfRangeException("data", "'data' length can't be less then 4. Your texture must be at least 2 x 2 pixels in size.");
+            throw new ArgumentOutOfRangeException(nameof(data), "'data' length can't be less then 4. Your texture must be at least 2 x 2 pixels in size.");
         }
         if (width < 2)
         {
-            throw new ArgumentOutOfRangeException("width", "'width' can't be less then 2. Your texture must be at least 2 x 2 pixels in size.");
+            throw new ArgumentOutOfRangeException(nameof(width), "'width' can't be less then 2. Your texture must be at least 2 x 2 pixels in size.");
         }
         if (data.Length % width != 0)
         {
@@ -266,6 +266,8 @@ public sealed class TextureConverter
                             case VerticesDetectionType.Separated:
                                 vertices.Holes ??= [];
                                 vertices.Holes.Add(vertices2);
+                                break;
+                            default:
                                 break;
                         }
                     }
@@ -399,7 +401,7 @@ public sealed class TextureConverter
     {
         if (polygon == null)
         {
-            throw new ArgumentNullException("polygon", "'polygon' can't be null.");
+            throw new ArgumentNullException(nameof(polygon), "'polygon' can't be null.");
         }
         if (polygon.Count < 3)
         {
@@ -426,7 +428,7 @@ public sealed class TextureConverter
     {
         if (polygon == null)
         {
-            throw new ArgumentNullException("polygon", "'polygon' can't be null.");
+            throw new ArgumentNullException(nameof(polygon), "'polygon' can't be null.");
         }
         if (polygon.Count < 3)
         {
@@ -523,7 +525,7 @@ public sealed class TextureConverter
     {
         if (polygon == null)
         {
-            throw new ArgumentNullException("polygon", "'polygon' can't be null.");
+            throw new ArgumentNullException(nameof(polygon), "'polygon' can't be null.");
         }
         if (polygon.Count < 3)
         {
@@ -847,6 +849,8 @@ public sealed class TextureConverter
                         return 0;
                     case -1:
                         return 7;
+                    default:
+                        break;
                 }
                 break;
             case 0:
@@ -856,6 +860,8 @@ public sealed class TextureConverter
                         return 2;
                     case -1:
                         return 6;
+                    default:
+                        break;
                 }
                 break;
             case -1:
@@ -867,7 +873,11 @@ public sealed class TextureConverter
                         return 4;
                     case -1:
                         return 5;
+                    default:
+                        break;
                 }
+                break;
+            default:
                 break;
         }
         return 0;
