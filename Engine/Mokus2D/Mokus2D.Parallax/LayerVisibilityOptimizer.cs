@@ -54,7 +54,7 @@ public class LayerVisibilityOptimizer
 		_layer = layer;
 		_bounds = bounds;
 		_islandSize = islandSize;
-		_size = (Mokus2D.Util.Data.Point)(bounds.Size / islandSize).Ceiling();
+		_size = (Mokus2D.Util.Data.Point)VectorExtensions.Ceiling(bounds.Size / islandSize);
 		_maxIndex = _size - new Mokus2D.Util.Data.Point(1);
 		_inBoundsIslands = new VisibleIsland[_size.X, _size.Y];
 	}
@@ -190,7 +190,7 @@ public class LayerVisibilityOptimizer
 
 	private Mokus2D.Util.Data.Point GetIslandIndex(Vector2 corner)
 	{
-		return (Mokus2D.Util.Data.Point)((corner - _bounds.LeftTop) / _islandSize).Floor();
+		return (Mokus2D.Util.Data.Point)VectorExtensions.Floor((corner - _bounds.LeftTop) / _islandSize);
 	}
 
 	private void RefreshVisibleArea()

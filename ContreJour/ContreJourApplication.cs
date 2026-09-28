@@ -21,7 +21,6 @@ using Mokus2D.Util.Data;
 using Mokus2D.Util.Extensions;
 using Mokus2D.Visual;
 using Mokus2D.Visual.Text;
-using Windows.ApplicationModel;
 
 namespace ContreJour;
 
@@ -57,25 +56,18 @@ public class ContreJourApplication : Mokus2DGame
 
     public static Dictionary<int, FontData> Fonts => fonts;
 
-    private bool IsFullscreen
-    {
-        get
-        {
-            Vector2 windowSize = base.ApplicationController.WindowSize;
-            if (windowSize.X >= _initialSize.X)
-            {
-                return windowSize.Y >= _initialSize.Y;
-            }
-            return false;
-        }
-    }
+    // The Windows 8 build blocked play while the app was snapped (window smaller than at launch).
+    // Desktop has no snapped view, and macOS shrinks the full screen window below the notch/menu bar
+    // after launch, so the original size comparison would block the game permanently.
+    private bool IsFullscreen => true;
 
     private bool MultitouchSupported
     {
         get
         {
-            TouchPanelCapabilities capabilities = TouchPanel.GetCapabilities();
-            return capabilities.IsConnected && capabilities.MaximumTouchCount >= 2;
+            // The Windows 8 build refused to run without a multitouch screen. On desktop the mouse
+            // is fed through the engine's cursor input instead, so don't block the game.
+            return true;
         }
     }
 
@@ -110,11 +102,7 @@ public class ContreJourApplication : Mokus2DGame
         }
         base.ContentRootDirectory = "Assets/Content";
         Mokus2DGame.Config.GraphicsLoader.GraphicsRootDirectory = "Graphics";
-        SoundManager.MusicPath = Path.Combine(new string[2]
-        {
-            Package.Current.InstalledLocation.Path,
-            "Assets\\Content\\Music"
-        });
+        SoundManager.MusicPath = Path.Combine(AppContext.BaseDirectory, "Assets", "Content", "Music");
     }
 
     private void LoadMusic()
@@ -508,7 +496,7 @@ public class ContreJourApplication : Mokus2DGame
         });
     }
 
-    public override void OnApplicationViewChanged(ViewStateChangedEventArgs args)
+    public override void OnApplicationViewChanged(EventArgs args)
     {
         base.OnApplicationViewChanged(args);
         BlockGameIfNeeded();

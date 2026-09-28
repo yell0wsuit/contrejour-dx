@@ -7,7 +7,6 @@ using Mokus2D.PlatformSupport.Input;
 using Mokus2D.Util;
 using Mokus2D.Util.Extensions;
 using Mokus2D.Util.MathUtils;
-using Windows.Devices.Input;
 
 namespace Mokus2D.Platforms.Input;
 
@@ -23,7 +22,6 @@ public static class CursorPointsFiller
 
 	private static Vector2? _mousePosition;
 
-	private static readonly MouseCapabilities MouseCapabilities = new MouseCapabilities();
 
 	public static void FillPoints(List<CursorPoint> cursorPoints)
 	{
@@ -81,6 +79,7 @@ public static class CursorPointsFiller
 
 	private static bool GetMouseButtonsSwapped()
 	{
-		return MouseCapabilities.SwapButtons.ToBool();
+		// Desktop MonoGame already reports the logical (post-swap) buttons.
+		return false;
 	}
 }

@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="ENJOYING_THE_GAME">
+    喜欢这个游戏吗？
+    请为其打分。
+  </string>
+  <string name="RATE">打分</string>
+  <string name="NOT_NOW">以后再打分</string>
+  <string name="NO_THANKS">不打分，谢谢</string>
+  <string name="TOTAL">总计：{0}</string>
+  <string name="BEST_SCORE">最高分：{0}</string>
+  <string name="ENERGY_BONUS">光点奖励：{0}</string>
+  <string name="TIME_BONUS">时间奖励：{0}</string>
+  <string name="STARS_AND_SCORE">{0}/{1}    得分：{2}</string>
+  <string name="LEVEL">关卡 {0}-{1}</string>
+  <string name="DIRECTED_BY">指导</string>
+  <string name="MAKSYM_HRYNIV">Maksym Hryniv</string>
+  <string name="MIHAI_MAKSYM">
+    Mihai Tymoshenko
+    Andriy Shvyrov
+    Maksym Hryniv
+  </string>
+  <string name="MIHAI_TYMOSHENKO">Mihai Tymoshenko</string>
+  <string name="ANDRIY_SHVUREV">Andriy Shvyrov</string>
+  <string name="DAVID_LEON">David Ari Leon</string>
+  <string name="IHOR_PRYSHLIAK">Ihor Pryshliak</string>
+  <string name="SFX_BY">特效处理</string>
+  <string name="GRAPHICS_BY">图形设计</string>
+  <string name="MUSIC_BY">音乐制作</string>
+  <string name="CONGRATULATIONS">
+    恭喜您！
+    您已通关！
+  </string>
+  <string name="NOT_THE_END">
+    但游戏还没有结束。
+    升级后将获得更多关卡。
+  </string>
+  <string name="CREDITS">工作人员表</string>
+  <string name="PRODUCER">制作人</string>
+  <string name="TOM_KINNINBUGRH">Tom Kinniburgh</string>
+  <string name="BETA_TESTERS">试用版测试人员</string>
+  <string name="BETA_TESTERS_NAMES_1">Silent Genius, Nick Manfre,</string>
+  <string name="BETA_TESTERS_NAMES_2">Kieran Byrne, Wei Cheng Wu,</string>
+  <string name="BETA_TESTERS_NAMES_3">Kevin Homick, Jacob Anderson,</string>
+  <string name="BETA_TESTERS_NAMES_4">Ruslan Salmanov, Andrey Gubin</string>
+  <string name="EVERYTHING_ELSE">其他</string>
+  <string name="COMPOSER">作曲</string>
+  <string name="SFX">特效</string>
+  <string name="IDEA">创意</string>
+  <string name="ANTON_MYKHAYLETS">Anton Mykhaylets</string>
+  <string name="PHYSICS_ENGINE">物理引擎</string>
+  <string name="BOX2D">Box2D</string>
+  <string name="GRAPHICS_ENGINE">图形引擎</string>
+  <string name="STARS">...</string>
+  <string name="COCOS2D">Iphone Cocos2D</string>
+  <string name="CHAPTER_COMPLETE_DESCRIPTION_0">通过第一章节</string>
+  <string name="CHAPTER_COMPLETE_DESCRIPTION_1">通过第二章节</string>
+  <string name="CHAPTER_COMPLETE_DESCRIPTION_2">通过第三章节</string>
+  <string name="CHAPTER_PERFECT_DESCRIPTION_0">通过第一章节每个关卡获得3个光点</string>
+  <string name="CHAPTER_PERFECT_DESCRIPTION_1">通过第二章节每个关卡获得3个光点</string>
+  <string name="CHAPTER_PERFECT_DESCRIPTION_2">通过第三章节每个关卡获得3个光点</string>
+  <string name="COLLECT_90_LIGHTS">共获得90个光点</string>
+  <string name="COLLECT_180_LIGHTS">共获得180个光点</string>
+  <string name="COLLECT_240_LIGHTS">共获得240个光点</string>
+  <string name="SPEEDY_DESCRIPTION">地面移动速度达到每秒500像素</string>
+  <string name="MIGHTY_BIRD_DESCRIPTION">空中移动速度达到每秒1000像素</string>
+  <string name="OUT_OF_SCREEN_DESCRIPTION">跌落至屏幕外50次</string>
+  <string name="ACUPUNCTURE_DESCRIPTION">您被尖刺刺中50次</string>
+  <string name="FEED_MONSTERS_DESCRIPTION">被吞掉50次</string>
+  <string name="SPIDER_DESCRIPTION">一次连接6根触角</string>
+  <string name="SNOT_EYE_HIT_DESCRIPTION">击中眼内触角200次</string>
+  <string name="RUSH_HOUR_DESCRIPTION">5秒钟内通过任一关卡</string>
+  <string name="BLOCKS_DESTROY_DESCRIPTION">摧毁20个障碍物</string>
+  <string name="SPRING_SHOT_DESCRIPTION">用炮花将自己发射出去100次</string>
+  <string name="TRAMPOLINE_SHOT_DESCRIPTION">用弹弓将自己发射出去100次</string>
+  <string name="I_CAN_FLY_DESCRIPTION">在空中停留5秒</string>
+  <string name="FAST_PERFECT_DESCRIPTION">在10秒钟内通过任一关卡，获得3盏灯</string>
+  <string name="USE_HEADPHONES">
+    使用耳机
+    体验最佳音响效果
+  </string>
+  <string name="COMPLETE_TEXT_0">通过！</string>
+  <string name="COMPLETE_TEXT_1">不错！</string>
+  <string name="COMPLETE_TEXT_2">很好！</string>
+  <string name="COMPLETE_TEXT_3">太棒了！</string>
+  <string name="GRAPHIC_ARTISTS">美工</string>
+  <string name="CHAPTER1">
+    第 1 章
+    怪兽
+  </string>
+  <string name="CHAPTER2">
+    第 2 章
+    暗夜
+  </string>
+  <string name="CHAPTER3">
+    第 3 章
+    机器
+  </string>
+  <string name="CHAPTER4">
+    第 4 章
+    月光
+  </string>
+  <string name="CHAPTER5">
+    第 5 章
+    丛林
+  </string>
+  <string name="SLIDE_FINGER">
+    滑动手指
+    改变地形
+  </string>
+  <string name="STRIPES_DONT_STRETCH">条纹不能伸长</string>
+  <string name="BLACK_SPRINGY">
+    黑色的
+    具有弹性
+  </string>
+  <string name="TAP_THE_EYE">
+    轻敲眼睛
+    放开
+  </string>
+  <string name="PULL_THE_TENTACLE">
+    拉动触角
+    将其连接
+  </string>
+  <string name="PULL_THE_SLINGSHOT">拉动弹弓</string>
+  <string name="YOU_CAN_SKIP">你可以跳过任何一关</string>
+  <string name="BY_PRESSING_THE">按动</string>
+  <string name="BUTTON_FROM_THE_MENU">菜单上的按钮</string>
+  <string name="DRAG_TO_ROTATE">
+    拖动
+    以旋转
+  </string>
+  <string name="IF_YOU_NEED_RETRY">
+    如果你需要再试一次
+    请按此处
+  </string>
+  <string name="TENTACLES_CAN_BE_MOVED">某些触角可以移动</string>
+  <string name="IT_S_PORTAL">这是传送门</string>
+  <string name="IT_S_PORTAL_2">这是传送门</string>
+  <string name="YOU_CAN_PINCH">你可以双指缩放</string>
+  <string name="USE_MULTITOUCH">使用多点触控</string>
+  <string name="YOU_CAN_ATTACH">
+    你可以附加多个
+    触角
+  </string>
+  <string name="COLLECT_AS_MANY">
+    尽可能多地
+    收集光点
+  </string>
+  <string name="PULL_THE_BRIDGE">
+    利用拖动来拉拽
+    桥梁
+  </string>
+  <string name="REMOVE_THE_BRIDGE">
+    轻敲眼睛
+    去除桥梁
+  </string>
+  <string name="IMPROVED_RESULT">
+    成绩
+    提高了！
+  </string>
+  <string name="YOU_TRIED_HARD">
+    你努力尝试了。但有时这并不够…
+    你需要返回，获得更多光点。
+  </string>
+  <string name="YOU_DID_IT">
+    你努力尝试了。你成功了！
+    
+    我们希望你在《黑暗旅行》的世界里
+    旅途愉快。
+  </string>
+  <string name="BY_MAKSYM_HRYNIV">Maksym Hryniv</string>
+  <string name="INSPIRED_BY">
+    灵感来自
+    “小王子”
+  </string>
+  <string name="MORE_MUSIC">获得更多音乐</string>
+  <string name="GET_SOUNDTRACKS">
+    获得《黑暗旅行》
+    音轨
+  </string>
+  <string name="GET_INGAME_MUSIC">
+    获得游戏
+    音乐
+  </string>
+  <string name="DOWNLOAD_ON">下载中</string>
+  <string name="NETWORK_ERROR">网络错误</string>
+  <string name="CANNOT_CONNECT">
+    无法连接至互联网
+    请检查你的互联网连接
+  </string>
+  <string name="CLOSE">关闭</string>
+  <string name="EXPERIENCE_THE_SOUNDTRACK">体验《黑暗旅行》宁静的超现实配乐，现提供完全版原声配乐</string>
+  <string name="PREVIEW_THE_TRACKS">预览轨道</string>
+  <string name="GET_MORE_LEVELS">在完整版中获得更多关卡</string>
+  <string name="AVAILABLE_ON_THE">在可用</string>
+  <string name="GET_IPHONE_VERSION">获得iPhone版</string>
+  <string name="GET_UNIVERSAL_VERSION">获得通用版</string>
+  <string name="SOME_TENTACLES">一些触角</string>
+  <string name="CAN_BE_MOVED">可以移动</string>
+  <string name="CHAPTER6">
+    奖励章节
+    “芒果”
+  </string>
+  <string name="COMPLETE_MORE_CHAPTERS">完成更多章节以解锁</string>
+  <string name="BUY_FULL_VERSION_TO_UNLOCK">
+    购买完整版来解锁：
+    * 100个关卡，横跨5个奇妙的世界
+    * 新的触角，鼓风机还有蹦床
+    * 成就和排行榜   。。。 等等！
+  </string>
+  <string name="ACHIEVEMENTS">成就 (achievement)</string>
+  <string name="LEADERBOARDS">排行榜</string>
+  <string name="YOUR_SCORE">您的分数：{0}</string>
+  <string name="NO_INTERNET">当前无法连接到 Xbox LIVE。请检查您的连接。</string>
+  <string name="OK">确定</string>
+  <string name="MORE_LEVELS_IN_FULL_VERSION">在完整游戏里获得更多的关卡</string>
+  <string name="BUY_FULL_VERSION">购买完整游戏</string>
+  <string name="ACH_blue_lantern_DESC">共获得180个光点</string>
+  <string name="ACH_blue_lantern_HOWTO">共获得180个光点</string>
+  <string name="ACH_blue_lantern_NAME">蓝灯笼</string>
+  <string name="ACH_chapter1_perfect_DESC">通过第一章节每个关卡获得3个光点</string>
+  <string name="ACH_chapter1_perfect_HOWTO">通过第一章节每个关卡获得3个光点</string>
+  <string name="ACH_chapter1_perfect_NAME">第一章：“怪兽”完美达成</string>
+  <string name="ACH_chapter2_perfect_DESC">通过第二章节每个关卡获得3个光点</string>
+  <string name="ACH_chapter2_perfect_HOWTO">通过第二章节每个关卡获得3个光点</string>
+  <string name="ACH_chapter2_perfect_NAME">第二章：“暗夜”完美达成</string>
+  <string name="ACH_chapter3_perfect_DESC">通过第三章节每个关卡获得3个光点</string>
+  <string name="ACH_chapter3_perfect_HOWTO">通过第三章节每个关卡获得3个光点</string>
+  <string name="ACH_chapter3_perfect_NAME">第三章：“机器”完美达成</string>
+  <string name="ACH_chapter4_perfect_DESC">通过第四章节每个关卡获得3个光点</string>
+  <string name="ACH_chapter4_perfect_HOWTO">通过第四章节每个关卡获得3个光点</string>
+  <string name="ACH_chapter4_perfect_NAME">第四章：“月光”完美达成</string>
+  <string name="ACH_chapter5_perfect_DESC">通过第五章节每个关卡获得3个光点</string>
+  <string name="ACH_chapter5_perfect_HOWTO">通过第五章节每个关卡获得3个光点</string>
+  <string name="ACH_chapter5_perfect_NAME">第五章：“丛林”完美达成</string>
+  <string name="ACH_chapter6_perfect_DESC">通过第六章节每个关卡获得3个光点</string>
+  <string name="ACH_chapter6_perfect_HOWTO">通过第六章节每个关卡获得3个光点</string>
+  <string name="ACH_chapter6_perfect_NAME">第六章：“芒果”完美达成</string>
+  <string name="ACH_fast_perfect_DESC">在10秒钟内通过任一关卡，获得3盏灯</string>
+  <string name="ACH_fast_perfect_HOWTO">在10秒钟内通过任一关卡，获得3盏灯</string>
+  <string name="ACH_fast_perfect_NAME">又快又好</string>
+  <string name="ACH_little_prince_DESC">拯救玫瑰</string>
+  <string name="ACH_little_prince_HOWTO">拯救玫瑰</string>
+  <string name="ACH_little_prince_NAME">小王子</string>
+  <string name="ACH_mighty_bird_DESC">空中移动速度达到每秒1000像素</string>
+  <string name="ACH_mighty_bird_HOWTO">空中移动速度达到每秒1000像素</string>
+  <string name="ACH_mighty_bird_NAME">大鸟</string>
+  <string name="ACH_rush_hour_DESC">5秒钟内通过任一关卡</string>
+  <string name="ACH_rush_hour_HOWTO">5秒钟内通过任一关卡</string>
+  <string name="ACH_rush_hour_NAME">尖峰时刻</string>
+  <string name="ACH_speedy_DESC">地面移动速度达到每秒500像素</string>
+  <string name="ACH_speedy_HOWTO">地面移动速度达到每秒500像素</string>
+  <string name="ACH_speedy_NAME">快速赛手</string>
+  <string name="ACH_spider_DESC">一次连接6根触角</string>
+  <string name="ACH_spider_HOWTO">一次连接6根触角</string>
+  <string name="ACH_spider_NAME">蜘蛛</string>
+  <string name="ACH_sunrise_DESC">共获得300个光点</string>
+  <string name="ACH_sunrise_HOWTO">共获得300个光点</string>
+  <string name="ACH_sunrise_NAME">日出</string>
+  <string name="EXIT_CONFIRM">您确定要完全退出游戏吗？</string>
+  <string name="RESUMING_GAME">正在恢复Contre Jour</string>
+  <string name="PLEASE_WAIT">请稍候…</string>
+  <string name="FULLSCREEN_TO_PLAY">以全屏方式打开窗口用于播放影音。</string>
+  <string name="CREATED_FOR_TOUCH">Contre Jour 适用于多点触控设备。
+电脑必须有触控屏才能播放。</string>
+</resources>

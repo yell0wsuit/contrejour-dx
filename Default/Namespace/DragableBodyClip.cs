@@ -83,7 +83,7 @@ public class DragableBodyClip : ContreJourBodyClip, IClickable, IRestartable, IS
     {
         get
         {
-            Vector2 vector = builder.ToVec(new Vector2(0f, -60f)).Rotate(0f - rotationOffsetRadians);
+            Vector2 vector = VectorExtensions.Rotate(builder.ToVec(new Vector2(0f, -60f)), 0f - rotationOffsetRadians);
             return Body.GetWorldPoint(vector);
         }
     }

@@ -161,7 +161,7 @@ public abstract class Mokus2DGame : DisposableBase
 
 	public event Action Exiting;
 
-	public virtual void OnApplicationViewChanged(ViewStateChangedEventArgs args)
+	public virtual void OnApplicationViewChanged(EventArgs args)
 	{
 	}
 

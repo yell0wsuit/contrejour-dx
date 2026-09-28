@@ -18,17 +18,24 @@ public class Mokus2DApplication<T> : Microsoft.Xna.Framework.Game where T : Moku
 		_game = new T();
 		_graphics = new GraphicsDeviceManager(this);
 		_graphics.PreferredBackBufferFormat = SurfaceFormat.Color;
+		// Windows 8 apps always ran full screen at native resolution; mirror that with borderless full screen.
+		_graphics.HardwareModeSwitch = false;
+		DisplayMode displayMode = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode;
+		_graphics.PreferredBackBufferWidth = displayMode.Width;
+		_graphics.PreferredBackBufferHeight = displayMode.Height;
 		_graphics.ApplyChanges();
 	}
 
 	protected override void Initialize()
 	{
 		base.Initialize();
-		InitializePlatform();
 		base.Content = new MokusContentManager(base.Services);
 		ApplicationController applicationController = new ApplicationController(_game, this, _graphics);
 		T game = _game;
 		game.Initialize(applicationController);
+		// Subscribe after the game is set up: resizes applied during Initialize would otherwise
+		// reach the game before its views exist (Win8 view-state events only arrived later).
+		InitializePlatform();
 	}
 
 	protected override void Update(GameTime gameTime)
@@ -60,7 +67,7 @@ public class Mokus2DApplication<T> : Microsoft.Xna.Framework.Game where T : Moku
 		game.OnDeactivated();
 	}
 
-	protected override void OnExiting(object sender, EventArgs args)
+	protected override void OnExiting(object sender, ExitingEventArgs args)
 	{
 		base.OnExiting(sender, args);
 		T game = _game;
@@ -69,10 +76,10 @@ public class Mokus2DApplication<T> : Microsoft.Xna.Framework.Game where T : Moku
 
 	private void InitializePlatform()
 	{
-		base.ApplicationViewChanged += OnApplicationViewChanged;
+		base.Window.ClientSizeChanged += OnApplicationViewChanged;
 	}
 
-	private void OnApplicationViewChanged(object sender, ViewStateChangedEventArgs e)
+	private void OnApplicationViewChanged(object sender, EventArgs e)
 	{
 		T game = _game;
 		game.OnApplicationViewChanged(e);

@@ -37,7 +37,7 @@ public static class ColorExtensions
 		byte r = (byte)(hex >> 16);
 		byte g = (byte)(hex >> 8);
 		byte b = (byte)hex;
-		return new Color(r, g, b, 255);
+		return new Color(r, g, b, (byte)255);
 	}
 
 	public static Color ToARGBColor(this uint hex)

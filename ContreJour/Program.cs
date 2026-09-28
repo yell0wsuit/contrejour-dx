@@ -1,13 +1,16 @@
+using System;
 using Mokus2D.Game;
-using MonoGame.Framework;
-using Windows.ApplicationModel.Core;
 
 namespace ContreJour;
 
 public static class Program
 {
+    [STAThread]
     private static void Main()
     {
-        CoreApplication.Run((IFrameworkViewSource)(object)new GameFrameworkViewSource<Mokus2DApplication<ContreJourApplication>>());
+        // Content paths are relative to the install folder, as they were inside the appx package.
+        Environment.CurrentDirectory = AppContext.BaseDirectory;
+        using Mokus2DApplication<ContreJourApplication> game = new Mokus2DApplication<ContreJourApplication>();
+        game.Run();
     }
 }

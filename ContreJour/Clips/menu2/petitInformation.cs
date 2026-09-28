@@ -7,7 +7,6 @@ using Mokus2D.Input;
 using Mokus2D.Interfaces;
 using Mokus2D.Visual;
 using Mokus2D.Visual.Text;
-using Windows.UI.ViewManagement;
 
 namespace ContreJour.Clips.menu2;
 
@@ -80,7 +79,7 @@ public class petitInformation : AnimationNode, ITouchListener, IFreeable, IId
 
     public void TryEnterFullscreen()
     {
-        ApplicationView.TryUnsnap();
+        // Windows 8 "snapped" view has no desktop equivalent.
     }
 
     public static petitInformation New()

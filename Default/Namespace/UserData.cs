@@ -5,8 +5,6 @@ using Mokus2D.Sound;
 using Mokus2D.Util;
 using Mokus2D.Util.Data;
 using Mokus2D.Util.Extensions;
-using Windows.Storage;
-using Windows.Storage.Streams;
 
 namespace Default.Namespace;
 
@@ -385,22 +383,13 @@ public class UserData
         }
     }
 
+    private static string DataFilePath => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ContreJour", FILE_NAME);
+
     private static UserData ReadUserData()
     {
-        StorageFolder localFolder = ApplicationData.Current.LocalFolder;
         try
         {
-            IBuffer result = WindowsRuntimeSystemExtensions.GetAwaiter<IBuffer>(FileIO.ReadBufferAsync((IStorageFile)(object)WindowsRuntimeSystemExtensions.GetAwaiter<StorageFile>(localFolder.GetFileAsync("contreJourData.xml")).GetResult())).GetResult();
-            byte[] array = new byte[result.Length];
-            DataReader val = DataReader.FromBuffer(result);
-            try
-            {
-                val.ReadBytes(array);
-            }
-            finally
-            {
-                ((IDisposable)val)?.Dispose();
-            }
+            byte[] array = File.ReadAllBytes(DataFilePath);
             byte[] buffer = CryptUtils.RunProtector(array, encrypt: false);
             return ((UserData)serializer.Deserialize(new MemoryStream(buffer))) ?? new UserData();
         }
@@ -414,10 +403,10 @@ public class UserData
     {
         if (instance != null)
         {
-            StorageFile val = ApplicationData.Current.LocalFolder.CreateFileAsync("contreJourData.xml", (CreationCollisionOption)1).AwaitResult<StorageFile>();
             MemoryStream memoryStream = new MemoryStream();
             serializer.Serialize(memoryStream, instance);
-            FileIO.WriteBytesAsync((IStorageFile)(object)val, CryptUtils.RunProtector(memoryStream.ToArray(), encrypt: true)).AwaitResult();
+            Directory.CreateDirectory(Path.GetDirectoryName(DataFilePath));
+            File.WriteAllBytes(DataFilePath, CryptUtils.RunProtector(memoryStream.ToArray(), encrypt: true));
         }
     }
 }

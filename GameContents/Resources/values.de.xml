@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="ENJOYING_THE_GAME">Gefällt dir das Spiel?
+Bitte bewerte es.</string>
+  <string name="RATE">Bewerten</string>
+  <string name="NOT_NOW">Jetzt nicht</string>
+  <string name="NO_THANKS">Nein, danke</string>
+  <string name="TOTAL">Gesamt: {0}</string>
+  <string name="BEST_SCORE">Höchstpunktzahl: {0}</string>
+  <string name="ENERGY_BONUS">Lichterbonus: {0}</string>
+  <string name="TIME_BONUS">Zeitbonus: {0}</string>
+  <string name="STARS_AND_SCORE">{0}/{1}     Punkte: {2}</string>
+  <string name="LEVEL">Level {0}-{1}</string>
+  <string name="DIRECTED_BY">Entwickelt von</string>
+  <string name="MAKSYM_HRYNIV">Maksym Hryniv</string>
+  <string name="MIHAI_MAKSYM">Mihai Tymoshenko
+Andriy Shvyrov
+Maksym Hryniv</string>
+  <string name="MIHAI_TYMOSHENKO">Mihai Tymoshenko</string>
+  <string name="ANDRIY_SHVUREV">Andriy Shvyrov</string>
+  <string name="DAVID_LEON">David Ari Leon</string>
+  <string name="IHOR_PRYSHLIAK">Ihor Pryshliak</string>
+  <string name="SFX_BY">SFX von</string>
+  <string name="GRAPHICS_BY">Grafiken von</string>
+  <string name="MUSIC_BY">Musik von</string>
+  <string name="CONGRATULATIONS">Glückwunsch!
+Du hast das Spiel beendet!</string>
+  <string name="NOT_THE_END">Aber das ist nicht das Ende.
+In den nächsten Updates gibt es bald auch neue Level</string>
+  <string name="CREDITS">Mitwirkende</string>
+  <string name="PRODUCER">Produktion</string>
+  <string name="TOM_KINNINBUGRH">Tom Kinniburgh</string>
+  <string name="BETA_TESTERS">Beta-Tester</string>
+  <string name="BETA_TESTERS_NAMES_1">Silent Genius, Nick Manfre,</string>
+  <string name="BETA_TESTERS_NAMES_2">Kieran Byrne, Wei Cheng Wu,</string>
+  <string name="BETA_TESTERS_NAMES_3">Kevin Homick, Jacob Anderson,</string>
+  <string name="BETA_TESTERS_NAMES_4">Ruslan Salmanov, Andrey Gubin</string>
+  <string name="EVERYTHING_ELSE">Alles andere</string>
+  <string name="COMPOSER">Komponist</string>
+  <string name="SFX">SFX</string>
+  <string name="IDEA">Idee von</string>
+  <string name="ANTON_MYKHAYLETS">Anton Mykhaylets</string>
+  <string name="PHYSICS_ENGINE">Physik-Engine</string>
+  <string name="BOX2D">Box2D</string>
+  <string name="GRAPHICS_ENGINE">Grafik-Engine</string>
+  <string name="STARS">...</string>
+  <string name="COCOS2D">Cocos2D für iPhone</string>
+  <string name="CHAPTER_COMPLETE_DESCRIPTION_0">Schließe das erste Kapitel ab</string>
+  <string name="CHAPTER_COMPLETE_DESCRIPTION_1">Schließe das zweite Kapitel ab</string>
+  <string name="CHAPTER_COMPLETE_DESCRIPTION_2">Schließe das dritte Kapitel ab</string>
+  <string name="CHAPTER_PERFECT_DESCRIPTION_0">Sammle drei Lichter in allen Leveln von Kapitel 1</string>
+  <string name="CHAPTER_PERFECT_DESCRIPTION_1">Sammle drei Lichter in allen Leveln von Kapitel 2</string>
+  <string name="CHAPTER_PERFECT_DESCRIPTION_2">Sammle drei Lichter in allen Leveln von Kapitel 3</string>
+  <string name="COLLECT_90_LIGHTS">Sammle 90 Lichter</string>
+  <string name="COLLECT_180_LIGHTS">Sammle 180 Lichter</string>
+  <string name="COLLECT_240_LIGHTS">Sammle 240 Lichter</string>
+  <string name="SPEEDY_DESCRIPTION">Erreiche die Geschwindigkeit 500 Pixel pro Sekunde auf dem Boden</string>
+  <string name="MIGHTY_BIRD_DESCRIPTION">Erreiche die Geschwindigkeit 1000 Pixel pro Sekunde in der Luft</string>
+  <string name="OUT_OF_SCREEN_DESCRIPTION">Falle 50 Mal aus dem Bildschirm</string>
+  <string name="ACUPUNCTURE_DESCRIPTION">Stich dich 50 Mal an Stacheln</string>
+  <string name="FEED_MONSTERS_DESCRIPTION">Lass dich 50 Mal fressen</string>
+  <string name="SPIDER_DESCRIPTION">Verbinde 6 Tentakel gleichzeitig</string>
+  <string name="SNOT_EYE_HIT_DESCRIPTION">Triff 200 Mal die Tentakel im Auge</string>
+  <string name="RUSH_HOUR_DESCRIPTION">Schließe ein beliebiges Level in 5 Sekunden ab</string>
+  <string name="BLOCKS_DESTROY_DESCRIPTION">Zerstöre 50 Blöcke</string>
+  <string name="SPRING_SHOT_DESCRIPTION">Schieße dich 100 Mal aus einer Kanonenblume</string>
+  <string name="TRAMPOLINE_SHOT_DESCRIPTION">Schieße dich 100 Mal aus einer Schleuder</string>
+  <string name="I_CAN_FLY_DESCRIPTION">Bleib 5 Sekunden in der Luft</string>
+  <string name="FAST_PERFECT_DESCRIPTION">Schließe ein beliebiges Level mit 3 Lichtern in 10 Sekunden ab</string>
+  <string name="USE_HEADPHONES">Benutze Kopfhörer
+ für das beste Audioerlebnis</string>
+  <string name="COMPLETE_TEXT_0">Geschafft!</string>
+  <string name="COMPLETE_TEXT_1">Gut!</string>
+  <string name="COMPLETE_TEXT_2">Toll!</string>
+  <string name="COMPLETE_TEXT_3">Perfekt!</string>
+  <string name="GRAPHIC_ARTISTS">Grafiker</string>
+  <string name="CHAPTER1">Kapitel 1
+Monster</string>
+  <string name="CHAPTER2">Kapitel 2
+die Nacht</string>
+  <string name="CHAPTER3">Kapitel 3
+Maschine</string>
+  <string name="CHAPTER4">Kapitel 4
+Mondlicht</string>
+  <string name="CHAPTER5">Kapitel 5
+Dschungel</string>
+  <string name="SLIDE_FINGER">gleite mit deinem Finger,
+um den Boden zu verändern</string>
+  <string name="STRIPES_DONT_STRETCH">Streifen dehnen sich nicht</string>
+  <string name="BLACK_SPRINGY">die Schwarzen
+federn</string>
+  <string name="TAP_THE_EYE">tippe das Auge an, um
+loszulassen</string>
+  <string name="PULL_THE_TENTACLE">ziehe das Tentakel
+um es zu verbinden</string>
+  <string name="PULL_THE_SLINGSHOT">ziehe die Steinschleuder</string>
+  <string name="YOU_CAN_SKIP">du kannst jedes Level überspringen</string>
+  <string name="BY_PRESSING_THE">durch das Drücken der</string>
+  <string name="BUTTON_FROM_THE_MENU">Taste im Menü</string>
+  <string name="DRAG_TO_ROTATE">ziehe,
+um zu drehen</string>
+  <string name="IF_YOU_NEED_RETRY">falls du es neustarten willst
+drücke hier</string>
+  <string name="TENTACLES_CAN_BE_MOVED">manche Tentakel können bewegt werden</string>
+  <string name="IT_S_PORTAL">es ist ein Portal</string>
+  <string name="IT_S_PORTAL_2">es ist ein Portal 2</string>
+  <string name="YOU_CAN_PINCH">du kannst zwei Finger zusammenziehen um zu vergrößern</string>
+  <string name="USE_MULTITOUCH">benutze Multitouch</string>
+  <string name="YOU_CAN_ATTACH">du kannst mehr als einen
+Tentakel anfügen</string>
+  <string name="COLLECT_AS_MANY">sammle so viele Lichter
+wie du kannst</string>
+  <string name="PULL_THE_BRIDGE">gleite, um die Brücke
+zu ziehen</string>
+  <string name="REMOVE_THE_BRIDGE">tippe das Auge an, 
+um die Brücke zu entfernen</string>
+  <string name="IMPROVED_RESULT">Verbessertes
+Ergebnis!</string>
+  <string name="YOU_TRIED_HARD">Du hast dein Bestes gegeben. Manchmal reicht es aber nicht aus ...
+Du musst zurückgehen und mehr Lichter sammeln.</string>
+  <string name="YOU_DID_IT">Du hast dein Bestes gegeben. Und du hast es geschafft!
+
+Wir hoffen, dass dir Reise in die Welt von "Contre Jour" gefallen hat.</string>
+  <string name="BY_MAKSYM_HRYNIV">Maksym Hryniv</string>
+  <string name="INSPIRED_BY">Inspiriert von
+"Der Kleine Prinz"</string>
+  <string name="MORE_MUSIC">Mehr Musik</string>
+  <string name="GET_SOUNDTRACKS">Hol dir den "Contre Jour"
+Soundtrack</string>
+  <string name="GET_INGAME_MUSIC">Hol dir In-Game
+Musik</string>
+  <string name="DOWNLOAD_ON">Download an</string>
+  <string name="NETWORK_ERROR">Netzwerkfehler</string>
+  <string name="CANNOT_CONNECT">Verbindung zum Internet nicht möglich.
+Bitte überprüfe deine Internetverbindung</string>
+  <string name="CLOSE">Schließen</string>
+  <string name="EXPERIENCE_THE_SOUNDTRACK">Erlebe jetzt mit dem vollen originalen Soundtrack die surreale und besinnliche Musik von "Contre Jour"</string>
+  <string name="PREVIEW_THE_TRACKS">Musiktitel Hörprobe</string>
+  <string name="GET_MORE_LEVELS">Erhalte mehr Levels
+in der Vollversion</string>
+  <string name="AVAILABLE_ON_THE">Verfügbar auf</string>
+  <string name="GET_IPHONE_VERSION">Hol dir die ‚nur für iPhone‘-Version</string>
+  <string name="GET_UNIVERSAL_VERSION">Hol dir die Universal-Version</string>
+  <string name="SOME_TENTACLES">einige Tentakel</string>
+  <string name="CAN_BE_MOVED">können bewegt werden</string>
+  <string name="CHAPTER6">Bonus-Kapitel
+Mango</string>
+  <string name="COMPLETE_MORE_CHAPTERS">Beende mehr Kapitel zum Freischalten</string>
+  <string name="BUY_FULL_VERSION_TO_UNLOCK">Kaufe die Vollversion zum Freischalten von:
+* 100 Levels über 5 fantastische Welten
+* neue Tentakel, Gebläse, Trampoline
+* Erfolge und Bestenlisten             ... und mehr!</string>
+  <string name="ACHIEVEMENTS">Erfolge</string>
+  <string name="LEADERBOARDS">Bestenlisten</string>
+  <string name="YOUR_SCORE">Deine Punkte: {0}</string>
+  <string name="NO_INTERNET">Es konnte momentan keine Verbindung zu Xbox LIVE hergestellt werden. Bitte überprüfen Sie Ihre Verbindung.</string>
+  <string name="OK">OK</string>
+  <string name="MORE_LEVELS_IN_FULL_VERSION">Hole dir mehr Levels in der Vollversion des Spiels</string>
+  <string name="BUY_FULL_VERSION">Spiele-Vollversion kaufen</string>
+  <string name="EXIT_CONFIRM">Möchtest du wirklich aufhören?</string>
+  <string name="RESUMING_GAME">Contre Jour wird fortgesetzt</string>
+  <string name="PLEASE_WAIT">Bitte Warten …</string>
+  <string name="FULLSCREEN_TO_PLAY">Öffne zum Spielen das Fenster
+im Vollbildmodus.</string>
+  <string name="CREATED_FOR_TOUCH">Contre Jour ist für Multitouch-Geräte entwickelt.
+Zum Spielen muss dein PC einen Touchscreen haben.
+  </string>
+</resources>

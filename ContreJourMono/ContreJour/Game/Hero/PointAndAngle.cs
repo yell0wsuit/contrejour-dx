@@ -27,7 +27,7 @@ public class PointAndAngle
 
     public float AngleStep => angleStep;
 
-    public Vector2 Position => position.Rotate(Angle);
+    public Vector2 Position => VectorExtensions.Rotate(position, Angle);
 
     public PointAndAngle(float length, float angleStep, float angleOffset)
     {

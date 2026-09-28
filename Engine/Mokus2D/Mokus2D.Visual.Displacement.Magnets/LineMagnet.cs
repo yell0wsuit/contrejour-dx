@@ -102,8 +102,8 @@ public class LineMagnet : GridMagnetBase
 		Vector2 value2 = (End - Start).Abs();
 		value -= new Vector2(_maxDistance);
 		value2 += new Vector2(_maxDistance) * 2f;
-		value2 = value2.Ceiling();
-		value = value.Floor();
+		value2 = VectorExtensions.Ceiling(value2);
+		value = VectorExtensions.Floor(value);
 		base.Bounds = new Rectangle((int)value.X, (int)value.Y, (int)value2.X, (int)value2.Y);
 	}
 }

@@ -1,10 +1,7 @@
 using System;
-using System.Runtime.InteropServices.WindowsRuntime;
 using Microsoft.Xna.Framework;
 using Mokus2D.Util.Extensions;
 using Mokus2D.Visual;
-using Windows.Devices.Sensors;
-using Windows.Foundation;
 
 namespace Default.Namespace;
 
@@ -24,30 +21,8 @@ public class AccelerometerNode : Node
 
     private Vector2 speed = Vector2.Zero;
 
-    private readonly Accelerometer accelerometer = Accelerometer.GetDefault();
-
-    private Vector2 _accelerometerValue;
-
-    private Vector2 Acceleration
-    {
-        get
-        {
-            if (accelerometer == null)
-            {
-                return Vector2.Zero;
-            }
-            return _accelerometerValue;
-        }
-    }
-
-    public unsafe AccelerometerNode()
-    {
-        if (accelerometer != null)
-        {
-            Accelerometer val = accelerometer;
-            WindowsRuntimeMarshal.AddEventHandler(new Func<TypedEventHandler<Accelerometer, AccelerometerReadingChangedEventArgs>, EventRegistrationToken>(val, (nint)__ldftn(Accelerometer.add_ReadingChanged)), new Action<EventRegistrationToken>(val, (nint)__ldftn(Accelerometer.remove_ReadingChanged)), OnReadingChanged);
-        }
-    }
+    // Desktop has no accelerometer; behaves like the original when Accelerometer.GetDefault() returned null.
+    private Vector2 Acceleration => Vector2.Zero;
 
     private void UpdateOffset(Vector2 acceleration)
     {
@@ -73,11 +48,6 @@ public class AccelerometerNode : Node
             acceleration.X *= -1f;
         }
         UpdateOffset(acceleration);
-    }
-
-    private void OnReadingChanged(Accelerometer sender, AccelerometerReadingChangedEventArgs args)
-    {
-        _accelerometerValue = new Vector2((float)args.Reading.AccelerationY, (float)args.Reading.AccelerationX);
     }
 
     protected override void Dispose(bool disposing)

@@ -84,15 +84,15 @@ public class PlasticineBorder : PrimitivesNode, IOpacity
         }
     }
 
-    [SpecialName]
-    int IOpacity.get_OpacityByte()
+    int IOpacity.OpacityByte
     {
-        return base.OpacityByte;
-    }
-
-    [SpecialName]
-    void IOpacity.set_OpacityByte(int P_0)
-    {
-        base.OpacityByte = P_0;
+        get
+        {
+            return base.OpacityByte;
+        }
+        set
+        {
+            base.OpacityByte = value;
+        }
     }
 }

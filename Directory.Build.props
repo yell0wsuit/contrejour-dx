@@ -1,0 +1,13 @@
+<Project>
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <!-- Decompiled sources: silence the noise ILSpy output produces (unused fields, hiding members, etc.) -->
+    <NoWarn>$(NoWarn);CS0108;CS0114;CS0162;CS0168;CS0169;CS0219;CS0414;CS0649;CS0659;CS0661;CS0612;CS0618;CS8981</NoWarn>
+  </PropertyGroup>
+</Project>

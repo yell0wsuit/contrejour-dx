@@ -326,9 +326,9 @@ public class Fixture : IDisposable
 		{
 			return false;
 		}
-		using (IEnumerator<T> enumerator = (object)first.GetEnumerator())
+		using (IEnumerator<T> enumerator = first.GetEnumerator())
 		{
-			using IEnumerator<T> enumerator2 = (object)second.GetEnumerator();
+			using IEnumerator<T> enumerator2 = second.GetEnumerator();
 			while (enumerator.MoveNext())
 			{
 				if (!enumerator2.MoveNext() || !object.Equals(enumerator.Current, enumerator2.Current))

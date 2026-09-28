@@ -1,0 +1,9 @@
+<Solution>
+  <Project Path="ContreJour.csproj" />
+  <Folder Name="/Engine/">
+    <Project Path="Engine/FarseerPhysics/FarseerPhysics.csproj" />
+    <Project Path="Engine/Mokus2D.Common/Mokus2D.Common.csproj" />
+    <Project Path="Engine/Mokus2D/Mokus2D.csproj" />
+    <Project Path="Engine/Mokus2D.Integration.Farseer/Mokus2D.Integration.Farseer.csproj" />
+  </Folder>
+</Solution>

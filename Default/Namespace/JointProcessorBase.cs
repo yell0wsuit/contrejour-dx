@@ -52,7 +52,7 @@ public class JointProcessorBase : TypeProcessorBase
     {
         //IL_001d: Unknown result type (might be due to invalid IL or missing references)
         //IL_0023: Expected O, but got Unknown
-        List<object> list = CollectionExtensions.Filter(bodies.ToArray(), type);
+        List<object> list = MokusCollectionExtensions.Filter(bodies.ToArray(), type);
         if (list.Count > 0)
         {
             return (Body)list[0];

@@ -27,7 +27,7 @@ public class QuadTree<T> where T : class, IQuadTreeObject<T>
 		RectangleFloat bounds = quadObject.Bounds;
 		if (root == null)
 		{
-			Vector2 vector = new Vector2(bounds.Width / minLeafSize.X, bounds.Height / minLeafSize.Y).Ceiling();
+			Vector2 vector = VectorExtensions.Ceiling(new Vector2(bounds.Width / minLeafSize.X, bounds.Height / minLeafSize.Y));
 			float num = Math.Max(vector.X, vector.Y);
 			Vector2 vector2 = minLeafSize * num;
 			Vector2 center = bounds.Center;

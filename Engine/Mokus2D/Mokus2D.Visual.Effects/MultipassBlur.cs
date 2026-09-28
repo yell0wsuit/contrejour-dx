@@ -33,7 +33,7 @@ public class MultipassBlur
 	{
 		_texture = texture;
 		_scale = scale;
-		_size = (_texture.Size() * _scale).Floor();
+		_size = VectorExtensions.Floor(_texture.Size() * _scale);
 		_firstTarget = GraphicsUtil.CreateRenderTarget(_size);
 		_secondTarget = GraphicsUtil.CreateRenderTarget(_size);
 		_root = new RootNode((int)_size.X, (int)_size.Y);

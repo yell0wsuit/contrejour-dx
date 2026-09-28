@@ -32,7 +32,7 @@ public class GridNode : Node
 		_cellSize = cellSize;
 		_bounds = bounds;
 		_screenBounds = screenBounds;
-		_gridSize = (_bounds.Size / _cellSize).Ceiling().ToPoint();
+		_gridSize = VectorExtensions.Ceiling(_bounds.Size / _cellSize).ToPoint();
 		_children = new GridNodeCell[_gridSize.X, _gridSize.Y];
 		base.TransformationsRefreshedEvent += OnTransformationRefreshed;
 	}

@@ -6,7 +6,7 @@ using Mokus2D.Visual.Data;
 
 namespace System.Collections.Generic;
 
-public static class CollectionExtensions
+public static class MokusCollectionExtensions
 {
 	public static TValue TryGetValue<TKey, TValue>(this IDictionary<TKey, TValue> source, TKey key)
 	{

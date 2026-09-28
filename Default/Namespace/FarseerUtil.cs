@@ -162,7 +162,7 @@ public static class FarseerUtil
     {
         Vector2 vector = default(Vector2);
         FixedArray2<Vector2> val = default(FixedArray2<Vector2>);
-        contact.GetWorldManifold(ref vector, ref val);
+        contact.GetWorldManifold(out vector, out val);
         return val[0];
     }
 

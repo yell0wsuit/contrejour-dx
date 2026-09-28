@@ -1,50 +1,25 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <AssemblyName>ContreJour</AssemblyName>
-    <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>netcore451</TargetFramework>
-    <PlatformTarget>x86</PlatformTarget>
+    <RootNamespace>ContreJour</RootNamespace>
   </PropertyGroup>
-  <PropertyGroup>
-    <LangVersion>14.0</LangVersion>
-    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
-    <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
-  </PropertyGroup>
-  <PropertyGroup />
-  <ItemGroup />
+
   <ItemGroup>
-    <Reference Include="Mokus2D">
-      <HintPath>..\ContreJourWindows8\5AE61EDC.ContreJour_1.1.0.2_x86__xk7ayzvrc85t8\Mokus2D.dll</HintPath>
-    </Reference>
-    <Reference Include="Farseer Physics MonoGame.Windows8" />
-    <Reference Include="System.Collections" />
-    <Reference Include="MonoGame.Framework">
-      <HintPath>..\ContreJourWindows8\5AE61EDC.ContreJour_1.1.0.2_x86__xk7ayzvrc85t8\MonoGame.Framework.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Xml.XmlSerializer" />
-    <Reference Include="Windows" />
-    <Reference Include="System.Reflection" />
-    <Reference Include="System.Xml.XDocument" />
-    <Reference Include="Mokus2D.Integration.Fmod.win8">
-      <HintPath>..\ContreJourWindows8\5AE61EDC.ContreJour_1.1.0.2_x86__xk7ayzvrc85t8\Mokus2D.Integration.Fmod.win8.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Threading.Tasks" />
-    <Reference Include="System.Runtime.InteropServices" />
-    <Reference Include="System.Resources.ResourceManager" />
-    <Reference Include="Mokus2D.Common.WinUniversal">
-      <HintPath>..\ContreJourWindows8\5AE61EDC.ContreJour_1.1.0.2_x86__xk7ayzvrc85t8\Mokus2D.Common.WinUniversal.dll</HintPath>
-    </Reference>
-    <Reference Include="Mokus2D.Integration.Farseer.Win8">
-      <HintPath>..\ContreJourWindows8\5AE61EDC.ContreJour_1.1.0.2_x86__xk7ayzvrc85t8\Mokus2D.Integration.Farseer.Win8.dll</HintPath>
-    </Reference>
-    <Reference Include="System.IO" />
-    <Reference Include="System.Text.RegularExpressions" />
-    <Reference Include="System.Linq" />
-    <Reference Include="System.Globalization" />
-    <Reference Include="System.Threading" />
-    <Reference Include="System.Runtime.WindowsRuntime" />
-    <Reference Include="System.Runtime.InteropServices.WindowsRuntime" />
-    <Reference Include="NotificationsExtensions" />
+    <!-- Engine projects live in their own folders -->
+    <Compile Remove="Engine/**" />
+    <None Remove="Engine/**" />
+    <None Remove="GameContents/**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MonoGame.Framework.DesktopGL" />
+    <ProjectReference Include="Engine/Mokus2D.Integration.Farseer/Mokus2D.Integration.Farseer.csproj" />
+  </ItemGroup>
+
+  <!-- Recreate the original appx layout next to the executable: Assets/ and Resources/ -->
+  <ItemGroup>
+    <Content Include="GameContents/**" Exclude="GameContents/Resources/**;GameContents/**/.DS_Store" Link="Assets/%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="GameContents/Resources/**" Exclude="GameContents/**/.DS_Store" Link="Resources/%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 </Project>
