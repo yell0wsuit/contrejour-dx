@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
+using System.Xml.Linq;
+using System.Xml.Serialization;
 
 using Default.Namespace;
 
@@ -28,6 +31,8 @@ public class RegressionApplication : ContreJourApplication
 
     private const int StepsPerUpdate = 100;
 
+    private const int MenuChapters = 6;
+
     private const ulong FnvOffset = 14695981039346656037UL;
 
     private const ulong FnvPrime = 1099511628211UL;
@@ -45,7 +50,8 @@ public class RegressionApplication : ContreJourApplication
     // here, to find the first frame where two runs diverge.
     public static string TracePath = Environment.GetEnvironmentVariable("CJ_REGRESSION_TRACE");
 
-    private StreamWriter _trace;
+    // A save file written by an earlier build; loading it checks that old saves still read the same.
+    public static string OldSavePath = Environment.GetEnvironmentVariable("CJ_REGRESSION_OLD_SAVE");
 
     private enum Phase
     {
@@ -55,15 +61,18 @@ public class RegressionApplication : ContreJourApplication
         Done
     }
 
+    // One level, or the main menu opened at one chapter with its level list shown.
+    private sealed record Item(string Label, int Level, int MenuChapter);
+
     private readonly StringBuilder _checkpoints = new();
 
     private Phase _phase = Phase.Startup;
 
-    private List<int> _levels;
+    private List<Item> _items;
 
     private int _position;
 
-    private int _level;
+    private Item _item;
 
     private int _frame;
 
@@ -72,6 +81,8 @@ public class RegressionApplication : ContreJourApplication
     private string _error;
 
     private StreamWriter _writer;
+
+    private StreamWriter _trace;
 
     // Windowed at a fixed size, so the run doesn't take over the screen and the aspect ratio
     // (which picks the 16x9 or 4x3 level set and the layout) is the same on every machine.
@@ -96,7 +107,7 @@ public class RegressionApplication : ContreJourApplication
             catch (Exception e) when (_phase != Phase.Startup)
             {
                 _error = $"EXCEPTION {e.GetType().Name}: {e.Message.ReplaceLineEndings(" ")}";
-                FinishLevel();
+                FinishItem();
             }
         }
     }
@@ -107,9 +118,9 @@ public class RegressionApplication : ContreJourApplication
         {
             case Phase.Startup:
                 // A fresh save goes from the splash straight into the first level; wait for that
-                // so the splash can't interrupt the levels we load ourselves.
+                // so the splash can't interrupt the scenes we load ourselves.
                 base.Update(TimeStep);
-                if (FindGame() != null)
+                if (Find<ContreJourGame>(Root) != null)
                 {
                     _writer = new StreamWriter(OutputPath);
                     if (TracePath != null)
@@ -117,9 +128,9 @@ public class RegressionApplication : ContreJourApplication
                         _trace = new StreamWriter(TracePath);
                     }
                     _writer.WriteLine($"# frames={RecordedFrames} settle={SettleFrames} step=1/60 checkpoint={CheckpointInterval}");
-                    _levels = PlayableLevels();
-                    _position = Math.Min(First, _levels.Count - 1);
-                    StartLevel();
+                    _items = Items();
+                    _position = 0;
+                    StartItem();
                 }
                 else if (++_frame > MaxStartupFrames)
                 {
@@ -130,15 +141,7 @@ public class RegressionApplication : ContreJourApplication
                 base.Update(TimeStep);
                 if (++_frame >= SettleFrames)
                 {
-                    ContreJourGame game = FindGame();
-                    if (game == null || game.LevelIndex != _level)
-                    {
-                        _error = "NOT LOADED";
-                        FinishLevel();
-                        break;
-                    }
-                    _phase = Phase.Record;
-                    _frame = 0;
+                    OnSettled();
                 }
                 break;
             case Phase.Record:
@@ -150,10 +153,24 @@ public class RegressionApplication : ContreJourApplication
                 }
                 if (_frame >= RecordedFrames)
                 {
-                    FinishLevel();
+                    FinishItem();
                 }
                 break;
+            case Phase.Done:
+            default:
+                break;
         }
+    }
+
+    // The selected range of playable levels, then every chapter's menu.
+    private static List<Item> Items()
+    {
+        List<Item> items = [.. PlayableLevels().Skip(First).Take(Count).Select(level => new Item($"level {level:D3}", level, -1))];
+        for (int chapter = 0; chapter < MenuChapters; chapter++)
+        {
+            items.Add(new Item($"menu {chapter}", -1, chapter));
+        }
+        return items;
     }
 
     // Every level the menus can reach, chapter by chapter, plus the ending. The level folders hold
@@ -169,53 +186,131 @@ public class RegressionApplication : ContreJourApplication
         return levels;
     }
 
-    private void StartLevel()
+    private void StartItem()
     {
-        int level = _levels[_position];
-        _level = level;
+        _item = _items[_position];
         _frame = 0;
         _hash = FnvOffset;
         _error = null;
         _ = _checkpoints.Clear();
         _phase = Phase.Settle;
-        LoadLevel(level);
+        if (_item.Level >= 0)
+        {
+            LoadLevel(_item.Level);
+        }
+        else
+        {
+            ShowMainMenu(_item.MenuChapter);
+        }
     }
 
-    private void FinishLevel()
+    private void OnSettled()
+    {
+        if (_item.Level >= 0)
+        {
+            ContreJourGame game = Find<ContreJourGame>(Root);
+            if (game == null || game.LevelIndex != _item.Level)
+            {
+                _error = "NOT LOADED";
+                FinishItem();
+                return;
+            }
+        }
+        else
+        {
+            MainMenu menu = Find<MainMenu>(Root);
+            if (menu == null)
+            {
+                _error = "NOT LOADED";
+                FinishItem();
+                return;
+            }
+            menu.ShowLevels();
+        }
+        _phase = Phase.Record;
+        _frame = 0;
+    }
+
+    private void FinishItem()
     {
         string result = _error ?? $"{_hash:x16}{_checkpoints}";
-        _writer.WriteLine($"level {_level:D3} {result}");
+        _writer.WriteLine($"{_item.Label} {result}");
         _writer.Flush();
         Failed |= _error != null;
         _position++;
-        if (_position < _levels.Count && _position < First + Count)
+        if (_position < _items.Count)
         {
-            StartLevel();
+            StartItem();
             return;
         }
+        WriteSaveChecks();
         _writer.Dispose();
         _trace?.Dispose();
         _phase = Phase.Done;
         ApplicationController.Application.Exit();
     }
 
-    private ContreJourGame FindGame()
+    // The save file is UserData serialized with XmlSerializer, so its public members are a file
+    // format. Hash a canonical form (member order ignored) of this run's save, and of an older
+    // save loaded and written back, to catch changes to what gets saved or read.
+    private void WriteSaveChecks()
     {
-        return FindGame(Root);
+        XmlSerializer serializer = new(typeof(UserData));
+        _writer.WriteLine($"save fresh {CanonicalHash(serializer, UserData.Instance)}");
+        if (OldSavePath != null)
+        {
+            using FileStream stream = File.OpenRead(OldSavePath);
+            UserData old = (UserData)serializer.Deserialize(stream);
+            _writer.WriteLine($"save old {CanonicalHash(serializer, old)}");
+        }
     }
 
-    private static ContreJourGame FindGame(Node node)
+    private string CanonicalHash(XmlSerializer serializer, UserData data)
     {
-        if (node is ContreJourGame game)
+        using MemoryStream stream = new();
+        serializer.Serialize(stream, data);
+        stream.Position = 0;
+        _hash = FnvOffset;
+        Mix(Canonical(XElement.Load(stream)));
+        return _hash.ToString("x16");
+    }
+
+    // Members may be written in any order, but repeated elements (array items) keep theirs.
+    private static string Canonical(XElement element)
+    {
+        StringBuilder builder = new();
+        _ = builder.Append('<').Append(element.Name.LocalName);
+        foreach (XAttribute attribute in element.Attributes().Where(a => !a.IsNamespaceDeclaration).OrderBy(a => a.Name.LocalName, StringComparer.Ordinal))
         {
-            return game;
+            _ = builder.Append(' ').Append(attribute.Name.LocalName).Append('=').Append(attribute.Value);
+        }
+        _ = builder.Append('>');
+        if (element.HasElements)
+        {
+            foreach (XElement child in element.Elements().OrderBy(e => e.Name.LocalName, StringComparer.Ordinal))
+            {
+                _ = builder.Append(Canonical(child));
+            }
+        }
+        else
+        {
+            _ = builder.Append(element.Value);
+        }
+        return builder.Append("</>").ToString();
+    }
+
+    private static T Find<T>(Node node) where T : Node
+    {
+        if (node is T found)
+        {
+            return found;
         }
         foreach (Node child in node.Children)
         {
-            ContreJourGame found = FindGame(child);
-            if (found != null)
+            T result = Find<T>(child);
+            if (result != null)
             {
-                return found;
+                return result;
             }
         }
         return null;
@@ -223,7 +318,24 @@ public class RegressionApplication : ContreJourApplication
 
     private void HashFrame()
     {
-        ContreJourGame game = FindGame();
+        if (_item.Level < 0)
+        {
+            MainMenu menu = Find<MainMenu>(Root);
+            if (menu == null)
+            {
+                Mix(-1);
+                return;
+            }
+            HashNode(menu);
+            if (_trace != null)
+            {
+                _trace.WriteLine($"F{_frame} {_item.Label}");
+                TraceNode(menu, "menu");
+            }
+            return;
+        }
+
+        ContreJourGame game = Find<ContreJourGame>(Root);
         if (game == null)
         {
             Mix(-1);

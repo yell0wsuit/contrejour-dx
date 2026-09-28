@@ -7,13 +7,15 @@ using Mokus2D.Game;
 
 namespace ContreJour.Regression;
 
-// Plays every level with no input on a fixed timestep and writes a fingerprint of the physics world
-// and scene graph per level. Run it before and after a change and diff the outputs to catch any
-// behaviour change (physics, level loading, reflection/serialization by name).
+// Plays every level and opens every chapter menu with no input on a fixed timestep, and writes a
+// fingerprint of the physics world and scene graph for each, plus of the save file format. Run it
+// before and after a change and diff the outputs to catch any behaviour change (physics, level
+// loading, reflection/serialization by name, save compatibility).
 //
 // Usage: dotnet run --project tools/Regression -- <output file> [first] [count]
 // where first/count select a range of the playable level list (default: all of them).
 // Set CJ_REGRESSION_TRACE=<file> to also dump every recorded frame's bodies and nodes.
+// Set CJ_REGRESSION_OLD_SAVE=<save file> to also check that an older save still loads the same.
 //
 // Outputs are only comparable on the same machine: math library results can differ across OS/CPU.
 public static class Program

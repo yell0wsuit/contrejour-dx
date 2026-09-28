@@ -324,6 +324,12 @@ public class ContreJourApplication : Mokus2DGame
         return _currentView;
     }
 
+    // Used by tools/Regression to visit every chapter's menus.
+    internal void ShowMainMenu(int chapter)
+    {
+        ChangeScene(() => CreateMainMenu(chapter));
+    }
+
     private MainMenu CreateMainMenu(int chapter)
     {
         MainMenu mainMenu = CreateMainMenu();
