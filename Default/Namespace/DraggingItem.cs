@@ -158,10 +158,10 @@ public class DraggingItem
         BezierUtil.AddBezierPoints(list, list2, 3);
         for (int i = 0; i < list.Count; i++)
         {
-            PlasticineBodyClip.SetDotPositionPosition(i, list[i]);
+            PlasticineBodyClip.SetDotPositionPosition();
         }
         currentDragPoint.Y += 30f;
-        PlasticineBodyClip.SetDotPositionPosition(0, currentDragPoint);
+        PlasticineBodyClip.SetDotPositionPosition();
         UpdatePositions(list);
     }
 

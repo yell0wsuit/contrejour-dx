@@ -25,7 +25,7 @@ public abstract class DelayedSymbolsEffect
 
     protected abstract ICompletableTween PlayGlyphEffect(Visual.Text.Label label, int tag, Glyph glyph, float delay);
 
-    protected float GetGlyphDelay(Visual.Text.Label label)
+    protected float GetGlyphDelay()
     {
         return SymbolDelayTime;
     }
@@ -39,7 +39,7 @@ public abstract class DelayedSymbolsEffect
     {
         label.RefreshText();
         label.RefreshSymbolsTransform();
-        float glyphDelay = GetGlyphDelay(label);
+        float glyphDelay = GetGlyphDelay();
         for (int i = 0; i < label.Glyphs.Count; i++)
         {
             Glyph glyph = label.Glyphs[i];

@@ -18,7 +18,7 @@ public class GridMagnetGroup : GridMagnetBase
 
     public GridMagnetGroup(params GridMagnetBase[] magnets)
     {
-        _magnets = [];
+        _magnets = [.. magnets];
         CalculateBounds();
     }
 

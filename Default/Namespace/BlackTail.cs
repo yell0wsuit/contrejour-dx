@@ -178,18 +178,18 @@ public class BlackTail : PrimitivesNode, IUpdatable
             previousCenter = currentCenter;
             previousPosition = currentPosition;
         }
-        RemoveTail(time);
+        RemoveTail();
         currentFrame++;
     }
 
-    public int FramesToLive(float time)
+    public int FramesToLive()
     {
         return frames;
     }
 
-    public void RemoveTail(float time)
+    public void RemoveTail()
     {
-        int num = currentFrame - FramesToLive(time);
+        int num = currentFrame - FramesToLive();
         while (removeFrames.Count > 0 && removeFrames.Last() <= num)
         {
             _ = removeFrames.RemoveLast();

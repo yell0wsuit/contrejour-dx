@@ -34,7 +34,7 @@ public class IntroPlayer : Node
     {
         if (messages.Count > 0)
         {
-            ShowMessageRightMessageIndex(messages.Last(), rightMessages.Last(), 4 - messages.Count);
+            ShowMessageRightMessageIndex(messages.Last(), rightMessages.Last());
             _ = messages.RemoveLast();
             _ = rightMessages.RemoveLast();
             _ = this.Schedule(3.75f, PlayItem);
@@ -58,7 +58,7 @@ public class IntroPlayer : Node
         FadeItemShowTime(sprite, 6f);
     }
 
-    public void ShowMessageRightMessageIndex(string message, string rightMessage, int index)
+    public void ShowMessageRightMessageIndex(string message, string rightMessage)
     {
         Color gREY_COLOR = ContreJourConstants.GREY_COLOR;
         Label label = ContreJourLabelUtil.CreateMultilineLabel(15f, message);

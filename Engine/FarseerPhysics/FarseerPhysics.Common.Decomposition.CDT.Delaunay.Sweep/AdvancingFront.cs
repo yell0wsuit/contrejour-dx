@@ -39,7 +39,7 @@ internal sealed class AdvancingFront
         return stringBuilder.ToString();
     }
 
-    private AdvancingFrontNode FindSearchNode(double x)
+    private AdvancingFrontNode FindSearchNode()
     {
         return Search;
     }
@@ -51,7 +51,7 @@ internal sealed class AdvancingFront
 
     private AdvancingFrontNode LocateNode(double x)
     {
-        AdvancingFrontNode advancingFrontNode = FindSearchNode(x);
+        AdvancingFrontNode advancingFrontNode = FindSearchNode();
         if (x < advancingFrontNode.Value)
         {
             while ((advancingFrontNode = advancingFrontNode.Prev) != null)
@@ -80,7 +80,7 @@ internal sealed class AdvancingFront
     public AdvancingFrontNode LocatePoint(TriangulationPoint point)
     {
         double x = point.X;
-        AdvancingFrontNode advancingFrontNode = FindSearchNode(x);
+        AdvancingFrontNode advancingFrontNode = FindSearchNode();
         double x2 = advancingFrontNode.Point.X;
         if (x == x2)
         {

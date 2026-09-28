@@ -90,7 +90,7 @@ public class UpdateDrawCounter : FpsCounter
         }
     }
 
-    public void IncreaseDrawCalls(string textureName, int triangles)
+    public void IncreaseDrawCalls(int triangles)
     {
         _drawCalls++;
         _drawnTriangles += triangles;

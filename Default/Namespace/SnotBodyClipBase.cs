@@ -1,3 +1,5 @@
+using System.Diagnostics.CodeAnalysis;
+
 using ContreJour.Content;
 
 using FarseerPhysics.Dynamics;
@@ -40,6 +42,7 @@ public class SnotBodyClipBase : ContreJourBodyClip
 
     public virtual Body EyeBody => physics.EyeBody;
 
+    [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "Level content creates this by reflection with this signature.")]
     public SnotBodyClipBase(LevelBuilderBase _builder, SnotData _body, Node _clip, Hashtable _config)
         : base(_builder, _body.EndBody, null, _config)
     {

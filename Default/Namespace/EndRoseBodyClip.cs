@@ -69,7 +69,7 @@ public class EndRoseBodyClip : StickyBodyClip, IBonusAcceptable, IBodyClip
         return clip.Position + new Vector2(28f, 78f) + (new Vector2(-20f, 20f) * movie.CurrentFrame / movie.MaxFrame);
     }
 
-    private void AddLight(float direction)
+    private void AddLight()
     {
         Sprite sprite = new McRoseLight
         {
@@ -83,8 +83,8 @@ public class EndRoseBodyClip : StickyBodyClip, IBonusAcceptable, IBodyClip
 
     public void ShowLights()
     {
-        AddLight(-1f);
-        AddLight(1f);
+        AddLight();
+        AddLight();
     }
 
     public void DropTear()

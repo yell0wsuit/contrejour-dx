@@ -6,12 +6,12 @@ namespace Default.Namespace;
 
 public static class PlatformConversions
 {
-    public static List<Vector2> TransformPhysicsCoords(List<Vector2> source, Vector2 physicsLevelSize)
+    public static List<Vector2> TransformPhysicsCoords(List<Vector2> source)
     {
         return source;
     }
 
-    public static Vector2 TransformLevelCoords(Vector2 source, Vector2 physicsLevelSize)
+    public static Vector2 TransformLevelCoords(Vector2 source)
     {
         return source;
     }

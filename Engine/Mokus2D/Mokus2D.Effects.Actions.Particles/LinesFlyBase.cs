@@ -29,7 +29,7 @@ public abstract class LinesFlyBase : GridLinesAction
         {
             Node particle = Grid.Children[i];
             Vector2 particlePosition = Grid.GetParticlePosition(i);
-            CreateAction(time, particle, (int)particlePosition.X, (int)particlePosition.Y);
+            CreateAction(particle, (int)particlePosition.X, (int)particlePosition.Y);
         }
     }
 

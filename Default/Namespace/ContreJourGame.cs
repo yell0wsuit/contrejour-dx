@@ -573,7 +573,7 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
         return blackSide ? black : whiteSide ? white : normal;
     }
 
-    public static void AddShadowSource(BodyClip source)
+    public static void AddShadowSource()
     {
     }
 
@@ -1026,14 +1026,14 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
         return ((PositionProviderValue)positionProviders[num3 - 1]).Provider;
     }
 
-    private static void UpdateZoomOut(float time)
+    private static void UpdateZoomOut()
     {
     }
 
     public override void UpdateGame(float time)
     {
         _scheduler.Update(time);
-        UpdateZoomOut(time);
+        UpdateZoomOut();
         frame++;
         base.UpdateGame(time);
         foreach (PlasticineBodyClip item in plasticine)

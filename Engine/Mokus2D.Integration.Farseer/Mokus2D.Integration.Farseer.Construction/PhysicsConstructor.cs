@@ -237,10 +237,10 @@ public class PhysicsConstructor : PhysicsTransform
     {
         string name = child.GetType().Name;
         IDictionary<string, string> config = child.Config;
-        Shape shape = ProcessByType(child, positionOffset, name, child.Config);
+        Shape shape = ProcessByType(child, positionOffset, name);
         if (shape == null && config != null && config.HasKey("shape"))
         {
-            shape = ProcessByType(child, positionOffset, config["shape"], config);
+            shape = ProcessByType(child, positionOffset, config["shape"]);
         }
         if (shape != null)
         {
@@ -248,7 +248,7 @@ public class PhysicsConstructor : PhysicsTransform
         }
     }
 
-    private Shape ProcessByType(Node child, Vector2 positionOffset, string type, IDictionary<string, string> config)
+    private Shape ProcessByType(Node child, Vector2 positionOffset, string type)
     {
         if (_processors.TryGetValue(type, out ShapeProcessor processor))
         {
@@ -259,7 +259,7 @@ public class PhysicsConstructor : PhysicsTransform
         return null;
     }
 
-    public float GetDensity(Node item)
+    public float GetDensity()
     {
         return Density;
     }

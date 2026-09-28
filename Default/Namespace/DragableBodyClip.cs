@@ -214,7 +214,7 @@ public class DragableBodyClip : ContreJourBodyClip, IClickable, IRestartable, IS
         return builder.TouchRootVec(_touch).DistanceTo(Body.Position + TouchOffset()) < 2.3333333f;
     }
 
-    public void UpdateTouchPosition(float time)
+    public void UpdateTouchPosition()
     {
         targetPosition = GetDragPosition(builder.TouchRootVec(touch) - initialMousePosition + initialDragOffset);
         targetPosition = _dragBounds.ClampToBounds(targetPosition);
@@ -247,7 +247,7 @@ public class DragableBodyClip : ContreJourBodyClip, IClickable, IRestartable, IS
         Body.LinearVelocity = Vector2.Zero;
         if (touch != null)
         {
-            UpdateTouchPosition(time);
+            UpdateTouchPosition();
         }
         MoveToTarget(time);
         if (Maths.FuzzyNotEquals(time, 0f) && (int)Body.BodyType == 2)

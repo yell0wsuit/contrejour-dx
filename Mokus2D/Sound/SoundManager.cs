@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Mokus2D.Sound;
 
 // Silent stand-in for the original FMOD Ex (fmodexWSA81) backed implementation.
 // Keeps the public surface and enabled/control state so callers behave the same;
 // no audio is loaded or played until a desktop audio backend is wired in.
+[SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "Silent stub; keeps the API the audio backend will implement.")]
 public static class SoundManager
 {
     public static string MusicPath = "";

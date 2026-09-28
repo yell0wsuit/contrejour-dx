@@ -113,7 +113,7 @@ public class PlanetsSpinner : Node, IDisposable
         SetTargetChapter(chapter.Index);
     }
 
-    public void SetTargetChapter(int index, float seconds = 0.3f)
+    public void SetTargetChapter(int index)
     {
         if (!hasExplodingChapter)
         {

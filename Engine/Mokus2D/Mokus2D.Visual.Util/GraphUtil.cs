@@ -355,7 +355,7 @@ public static class GraphUtil
 
     public static void FillTrianglesStripTextureCoordsTextureColor(List<Vector2> triangles, List<Vector2> textureCoords, Texture2D texture, Color color)
     {
-        FillTrianglesTextureCoordsTextureLoopTypeColor(triangles, textureCoords, texture, PrimitiveType.TriangleStrip, color);
+        FillTrianglesTextureCoordsTextureLoopTypeColor(triangles, textureCoords, PrimitiveType.TriangleStrip, color);
     }
 
     public static void FillTrianglesList<T>(T[] vertices) where T : struct, IVertexType
@@ -368,12 +368,12 @@ public static class GraphUtil
 
     public static void FillTrianglesTextureCoordsTextureColor(List<Vector2> triangles, List<Vector2> textureCoords, Texture2D texture, Color color)
     {
-        FillTrianglesTextureCoordsTextureLoopTypeColor(triangles, textureCoords, texture, PrimitiveType.TriangleList, color);
+        FillTrianglesTextureCoordsTextureLoopTypeColor(triangles, textureCoords, PrimitiveType.TriangleList, color);
     }
 
     public static void FillTrianglesStripColors(List<Vector2> triangles, List<Color> colors)
     {
-        FillTrianglesColorsLoopType(triangles, colors, PrimitiveType.TriangleStrip);
+        FillTrianglesColorsLoopType(triangles, colors);
     }
 
     public static void FillTrianglesStripTextureCoordsTexture(List<Vector2> triangles, List<Vector2> textureCoords, Texture2D texture)
@@ -388,10 +388,10 @@ public static class GraphUtil
 
     public static void FillTrianglesTextureCoordsTextureLoopType(List<Vector2> vertices, List<Vector2> textureCoords, Texture2D texture, PrimitiveType loopType)
     {
-        FillTrianglesTextureCoordsTextureLoopTypeColor(vertices, textureCoords, texture, loopType, new Color(255, 255, 255, 255));
+        FillTrianglesTextureCoordsTextureLoopTypeColor(vertices, textureCoords, loopType, new Color(255, 255, 255, 255));
     }
 
-    public static void FillTrianglesTextureCoordsTextureLoopTypeColor(List<Vector2> vertices, List<Vector2> textureCoords, Texture2D texture, PrimitiveType loopType, Color color)
+    public static void FillTrianglesTextureCoordsTextureLoopTypeColor(List<Vector2> vertices, List<Vector2> textureCoords, PrimitiveType loopType, Color color)
     {
         VertexPositionColorTexture[] array = new VertexPositionColorTexture[vertices.Count];
         for (int i = 0; i < vertices.Count; i++)
@@ -404,7 +404,7 @@ public static class GraphUtil
         Mokus2DGame.Device.DrawUserPrimitives(loopType, array, 0, primitiveCount);
     }
 
-    public static void FillTrianglesColorsLoopType(List<Vector2> vertices, List<Color> colors, PrimitiveType loopType)
+    public static void FillTrianglesColorsLoopType(List<Vector2> vertices, List<Color> colors)
     {
         VertexPositionColor[] vertexPositionColor = GetVertexPositionColor(vertices, colors);
         DrawTriangleStrip(vertexPositionColor);
@@ -412,7 +412,7 @@ public static class GraphUtil
 
     public static void FillTrianglesColors(List<Vector2> vertices, List<Color> colors)
     {
-        FillTrianglesColorsLoopType(vertices, colors, PrimitiveType.TriangleList);
+        FillTrianglesColorsLoopType(vertices, colors);
     }
 
     public static void FillConvex(List<Vector2> polygon)
@@ -514,20 +514,20 @@ public static class GraphUtil
 
     public static void FillTrianglesColor(List<Vector2> triangles, Color color)
     {
-        FillTrianglesTrianglesSizeColorLoopType(triangles, triangles.Count, color, PrimitiveType.TriangleList);
+        FillTrianglesTrianglesSizeColorLoopType(triangles, triangles.Count, color);
     }
 
     public static void FillTrianglesStripColor(List<Vector2> triangles, Color color)
     {
-        FillTrianglesTrianglesSizeColorLoopType(triangles, triangles.Count, color, PrimitiveType.TriangleStrip);
+        FillTrianglesTrianglesSizeColorLoopType(triangles, triangles.Count, color);
     }
 
     public static void FillTrianglesTrianglesSizeColor(List<Vector2> triangles, int trianglesSize, Color color)
     {
-        FillTrianglesTrianglesSizeColorLoopType(triangles, trianglesSize, color, PrimitiveType.TriangleList);
+        FillTrianglesTrianglesSizeColorLoopType(triangles, trianglesSize, color);
     }
 
-    public static void FillTrianglesTrianglesSizeColorLoopType(List<Vector2> triangles, int trianglesSize, Color color, PrimitiveType loopType)
+    public static void FillTrianglesTrianglesSizeColorLoopType(List<Vector2> triangles, int trianglesSize, Color color)
     {
         DrawTriangleStrip(GetVertexPositionColor(triangles, color, trianglesSize));
     }

@@ -33,12 +33,12 @@ public abstract class GridAction : ITween, ICleanable, IUpdatable
             for (int j = 0; j < gridSize.X; j++)
             {
                 Node particle = Grid.GetParticle(j, i);
-                CreateAction(time, particle, j, i);
+                CreateAction(particle, j, i);
             }
         }
     }
 
-    protected void CreateAction(float time, Node particle, int x, int y)
+    protected void CreateAction(Node particle, int x, int y)
     {
         _ = CreateParticleUpdater(particle, x, y);
     }

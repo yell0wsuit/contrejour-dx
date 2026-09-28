@@ -103,7 +103,7 @@ public class SimpleSpikesBodyClip : ContreJourBodyClip, IRestartable
     {
         if (body2.UserData is ISpikesDestroyable spikesDestroyable && !point.IsSensor() && spikesDestroyable.CanDie())
         {
-            OnHeroHitPoint(spikesDestroyable, point);
+            OnHeroHitPoint(spikesDestroyable);
             MovieClip movieClip = (MovieClip)Clip;
             movieClip.UpdateEnabled = true;
             movieClip.Repeat = false;
@@ -115,7 +115,7 @@ public class SimpleSpikesBodyClip : ContreJourBodyClip, IRestartable
         }
     }
 
-    public static void OnHeroHitPoint(ISpikesDestroyable hero, Contact point)
+    public static void OnHeroHitPoint(ISpikesDestroyable hero)
     {
         hero.Explode();
     }

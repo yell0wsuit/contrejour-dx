@@ -259,7 +259,7 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
         breatheScaleStep = 0f;
         teleportEvent = new EventSender();
         finishColor = 255f;
-        ContreJourGame.AddShadowSource(this);
+        ContreJourGame.AddShadowSource();
     }
 
     public Vector2 BonusTarget()

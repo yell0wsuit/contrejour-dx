@@ -81,7 +81,7 @@ public static class SpriteBatchUtil
         {
             PrepareDraw(device, ref matrix, ref properties, currentEffect, texture);
             device.DrawUserIndexedPrimitives(PrimitiveType.TriangleList, vertices, 0, verticesCount, indices, 0, indicesCount / 3);
-            Mokus2DGame.Instance.PerformanceCounter.IncreaseDrawCalls(texture.Name, indicesCount / 3);
+            Mokus2DGame.Instance.PerformanceCounter.IncreaseDrawCalls(indicesCount / 3);
         }
     }
 
@@ -100,7 +100,7 @@ public static class SpriteBatchUtil
             device.SetVertexBuffer(vertices);
             device.Indices = indices;
             device.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, indicesCount / 3);
-            Mokus2DGame.Instance.PerformanceCounter.IncreaseDrawCalls(texture.Name, indicesCount / 3);
+            Mokus2DGame.Instance.PerformanceCounter.IncreaseDrawCalls(indicesCount / 3);
         }
     }
 }

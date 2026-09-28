@@ -215,7 +215,7 @@ public class PlasticineBodyClip : ContreJourBodyClip, IRestartable
         return true;
     }
 
-    public void StopDragTouch(PlasticineItem item, Touch touch)
+    public void StopDragTouch(Touch touch)
     {
         DraggingItem draggingItem = draggingItems[touch];
         _ = draggingItems.Remove(touch);
@@ -246,7 +246,7 @@ public class PlasticineBodyClip : ContreJourBodyClip, IRestartable
         return true;
     }
 
-    public static void SetDotPositionPosition(int index, Vector2 position)
+    public static void SetDotPositionPosition()
     {
     }
 

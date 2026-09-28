@@ -267,12 +267,12 @@ public class PlasticinePartBodyClip : ContreJourBodyClip, IClickable, IRestartab
 
     public void TouchEnd(Touch touch)
     {
-        parent.StopDragTouch(item, touch);
+        parent.StopDragTouch(touch);
     }
 
     public void Free(Touch touch)
     {
-        parent.StopDragTouch(item, touch);
+        parent.StopDragTouch(touch);
         game.FreeTouch(touch);
     }
 
@@ -501,7 +501,7 @@ public class PlasticinePartBodyClip : ContreJourBodyClip, IClickable, IRestartab
             localPoint.Y += 0.2f;
             if (isFloor && !dragging && bodyClip.Config.GetBool("hasDust"))
             {
-                AddDustPointPosition(body2, point, localPoint);
+                AddDustPointPosition(body2, localPoint);
             }
         }
     }
@@ -510,7 +510,7 @@ public class PlasticinePartBodyClip : ContreJourBodyClip, IClickable, IRestartab
     {
     }
 
-    public void AddDustPointPosition(Body body2, Contact point, Vector2 position)
+    public void AddDustPointPosition(Body body2, Vector2 position)
     {
         float num = body2.LinearVelocity.Length();
         if (num >= 1f && Maths.Random() < 0.33f)

@@ -33,6 +33,6 @@ public class PolygonProcessor : ShapeProcessor
         {
             _resultCoords.Reverse();
         }
-        return new PolygonShape(_resultCoords, Constructor.GetDensity(item));
+        return new PolygonShape(_resultCoords, Constructor.GetDensity());
     }
 }
