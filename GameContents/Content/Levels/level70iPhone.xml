@@ -1,0 +1,1032 @@
+<root __type__="Level">
+  <levelProperties __type__="NSMutableDictionary" height="640" background="McBackground3_2IPhone" width="1066.6666666666667" blackSide="false">
+    <backgrounds __type__="NSMutableArray">
+      <__0 __type__="NSMutableDictionary" type="McBackground3_2Content" rotation="0" initialScale="0.498046875">
+        <scale __type__="FlashPoint" x="0.937469482421875" y="0.937469482421875"/>
+        <config __type__="NSMutableDictionary" noAlpha="true" iPhoneSizeLimit="510" jpg="true" final="true" layer="4"/>
+        <position __type__="FlashPoint" x="-19.55" y="747.85"/>
+      </__0>
+      <__1 __type__="NSMutableDictionary" type="McShesternaBackground" rotation="49.71006774902344" initialScale="0.4106183334669981">
+        <scale __type__="FlashPoint" x="0.6574941065065432" y="0.6574941065065432"/>
+        <config __type__="NSMutableDictionary" type="RotatableBackground" viewType="McShesternaBackground" color="aaaaaaaa" iPhoneSizeLimit="256" speed="0.2" final="true"/>
+        <position __type__="FlashPoint" x="401.05" y="239.64999999999998"/>
+      </__1>
+      <__2 __type__="NSMutableDictionary" type="McShesternaBackground" rotation="0" initialScale="0.4106183334669981">
+        <scale __type__="FlashPoint" x="0.7569427490234375" y="0.7569427490234375"/>
+        <config __type__="NSMutableDictionary" type="RotatableBackground" viewType="McShesternaBackground" color="777777" iPhoneSizeLimit="256" speed="-0.3" final="true"/>
+        <position __type__="FlashPoint" x="669.2" y="233.85000000000002"/>
+      </__2>
+      <__3 __type__="NSMutableDictionary" type="McShesternaBackground" rotation="49.709564208984375" initialScale="0.4106183334669981">
+        <scale __type__="FlashPoint" x="0.4115883694285035" y="0.4115883694285035"/>
+        <config __type__="NSMutableDictionary" type="RotatableBackground" viewType="McShesternaBackground" color="888888" iPhoneSizeLimit="256" speed="0.2" final="true"/>
+        <position __type__="FlashPoint" x="88.8" y="176.85000000000002"/>
+      </__3>
+      <__4 __type__="NSMutableDictionary" type="McBackground3_2Foreground" rotation="0" initialScale="0.4584269662921348">
+        <scale __type__="FlashPoint" x="0.937469482421875" y="0.937469482421875"/>
+        <config __type__="NSMutableDictionary" noAlpha="true" iPhoneSizeLimit="510" final="true" layer="4"/>
+        <position __type__="FlashPoint" x="-19.55" y="655.4"/>
+      </__4>
+    </backgrounds>
+  </levelProperties>
+  <items __type__="NSMutableArray">
+    <__0 __type__="NSMutableDictionary" type="com.bboygames.contreJour.editor.editables.ForegroundEditable" background="false" minimumAlpha="1" x="1027" contentType="McBackgroundStoneNSMutableDictionary2" y="544" maximumAlpha="1" z="12" rotation="0" alphaStep="0" height="128" innerX="0" zIndex="25" innerY="0" width="128">
+      <flipY __type__="null"/>
+      <children __type__="NSMutableArray">
+        <__0 __type__="NSMutableDictionary">
+          <position __type__="FlashPoint" x="34.233333333333334" y="3.1999999999999993"/>
+          <config __type__="NSMutableDictionary" height="128" background="false" minimumAlpha="1" x="1027" rotationOffset="0" contentType="McBackgroundStoneNSMutableDictionary2" y="96" maximumAlpha="1" type="foreground" viewType="McBackgroundStoneView2" rotation="0" alphaStep="0" z="12" innerX="0" zIndex="25" innerY="0" width="128">
+            <flipX __type__="null"/>
+            <flipY __type__="null"/>
+            <scale __type__="FlashPoint" x="1" y="1"/>
+          </config>
+        </__0>
+      </children>
+      <flipX __type__="null"/>
+    </__0>
+    <__1 __type__="NSMutableDictionary" type="com.bboygames.bEditor.editables.ProportionalEditable" innerY="0" x="947" innerX="-60.8" contentType="McStoneNSMutableDictionary1" y="655" zIndex="26" rotation="-51.01872248671041" width="134.2439024390244">
+      <children __type__="NSMutableArray">
+        <__0 __type__="NSMutableDictionary">
+          <position __type__="FlashPoint" x="30.291666666666668" y="-2.0749999999999993"/>
+          <config __type__="NSMutableDictionary" x="947" contentType="McStoneNSMutableDictionary1" y="-62.25" type="body" viewType="McStoneView1" rotation="-51.01872248671041" clipType="StoneBodyClip" rotationOffset="-51.018722449349966" innerX="-60.8" zIndex="26" innerY="0" width="134.2439024390244">
+            <flipX __type__="null"/>
+            <flipY __type__="null"/>
+            <scale __type__="FlashPoint" x="0.524390241364703" y="0.524390241364703"/>
+          </config>
+          <shapes __type__="NSMutableArray">
+            <__0 __type__="NSMutableDictionary" radius="0.7121661010997067">
+              <type __type__="null"/>
+              <config __type__="NSMutableDictionary" x="947" contentType="McStoneNSMutableDictionary1" y="-85.04999999999995" type="circle" rotationOffset="-51.018722449349966" rotation="-51.01872248671041" innerX="-60.8" zIndex="26" innerY="0" width="134.2439024390244">
+                <flipX __type__="null"/>
+                <flipY __type__="null"/>
+                <scale __type__="FlashPoint" x="0.4274753456827987" y="0.4274753456827987"/>
+              </config>
+              <position __type__="FlashPoint" x="-1.115000000000002" y="-0.7600000000000016"/>
+            </__0>
+            <__1 __type__="NSMutableDictionary">
+              <type __type__="null"/>
+              <position __type__="FlashPoint" x="-0.8666666666666671" y="0.19666666666666544"/>
+              <config __type__="NSMutableDictionary" x="947" contentType="McStoneNSMutableDictionary1" y="-56.35000000000002" type="polygon" rotationOffset="-52.98767081360778" rotation="-51.01872248671041" innerX="-60.8" zIndex="26" innerY="0" width="134.2439024390244">
+                <flipX __type__="null"/>
+                <flipY __type__="null"/>
+                <scale __type__="FlashPoint" x="0.6733606712503105" y="0.18159866706276392"/>
+              </config>
+              <vertices __type__="NSMutableArray">
+                <__0 __type__="FlashPoint" x="-1.3" y="-0.8816666666666682"/>
+                <__1 __type__="FlashPoint" x="0.05" y="0.9099999999999985"/>
+                <__2 __type__="FlashPoint" x="-0.43333333333333335" y="1.275"/>
+                <__3 __type__="FlashPoint" x="-1.7833333333333332" y="-0.5166666666666666"/>
+              </vertices>
+            </__1>
+            <__2 __type__="NSMutableDictionary">
+              <type __type__="null"/>
+              <position __type__="FlashPoint" x="-0.1650000000000027" y="-0.8016666666666659"/>
+              <config __type__="NSMutableDictionary" x="947" contentType="McStoneNSMutableDictionary1" y="-86.29999999999995" type="polygon" rotationOffset="-26.054595862435903" rotation="-51.01872248671041" innerX="-60.8" zIndex="26" innerY="0" width="134.2439024390244">
+                <flipX __type__="null"/>
+                <flipY __type__="null"/>
+                <scale __type__="FlashPoint" x="0.5280425762577313" y="0.16310665695996976"/>
+              </config>
+              <vertices __type__="NSMutableArray">
+                <__0 __type__="FlashPoint" x="-0.8366666666666674" y="-1.4316666666666682"/>
+                <__1 __type__="FlashPoint" x="0.7450000000000008" y="-0.6599999999999985"/>
+                <__2 __type__="FlashPoint" x="0.5066666666666682" y="-0.1716666666666659"/>
+                <__3 __type__="FlashPoint" x="-1.075" y="-0.9433333333333318"/>
+              </vertices>
+            </__2>
+            <__3 __type__="NSMutableDictionary" radius="1.1624746114312452">
+              <type __type__="null"/>
+              <config __type__="NSMutableDictionary" x="947" contentType="McStoneNSMutableDictionary1" y="-49.049999999999955" type="circle" rotationOffset="-51.018722449349966" rotation="-51.01872248671041" innerX="-60.8" zIndex="26" innerY="0" width="134.2439024390244">
+                <flipX __type__="null"/>
+                <flipY __type__="null"/>
+                <scale __type__="FlashPoint" x="0.6970959141188496" y="0.6970959141188496"/>
+              </config>
+              <position __type__="FlashPoint" x="0.38333333333333286" y="0.4400000000000013"/>
+            </__3>
+          </shapes>
+        </__0>
+      </children>
+      <flipX __type__="null"/>
+      <flipY __type__="null"/>
+    </__1>
+    <__2 __type__="NSMutableDictionary" type="com.bboygames.bEditor.editables.ProportionalEditable" innerY="0" x="389" innerX="-10.5" contentType="McStaticGroundNSMutableDictionary" y="448" zIndex="27" rotation="0" width="32.5981252343457">
+      <children __type__="NSMutableArray">
+        <__0 __type__="NSMutableDictionary">
+          <position __type__="FlashPoint" x="12.616666666666667" y="6.399999999999999"/>
+          <config __type__="NSMutableDictionary" noShadow="true" x="389" contentType="McStaticGroundNSMutableDictionary" y="192" type="body" viewType="McStaticGroundView" rotation="0" rotationOffset="0" innerX="-10.5" zIndex="27" innerY="0" width="32.5981252343457">
+            <flipX __type__="null"/>
+            <flipY __type__="null"/>
+            <scale __type__="FlashPoint" x="0.6081739782527184" y="0.6081739782527184"/>
+          </config>
+          <shapes __type__="NSMutableArray">
+            <__0 __type__="NSMutableDictionary">
+              <type __type__="null"/>
+              <position __type__="FlashPoint" x="0.0016666666666669272" y="0.010000000000001563"/>
+              <config __type__="NSMutableDictionary" x="389" contentType="McStaticGroundNSMutableDictionary" y="192.3" type="polygon" rotationOffset="0" rotation="0" innerX="-10.5" zIndex="27" innerY="0" width="32.5981252343457">
+                <flipX __type__="null"/>
+                <flipY __type__="null"/>
+                <scale __type__="FlashPoint" x="0.2575756369076912" y="0.25975643654284425"/>
+              </config>
+              <vertices __type__="NSMutableArray">
+                <__0 __type__="FlashPoint" x="-0.42833333333333407" y="-0.42333333333333295"/>
+                <__1 __type__="FlashPoint" x="0.43166666666666625" y="-0.42333333333333295"/>
+                <__2 __type__="FlashPoint" x="0.43166666666666625" y="0.4433333333333337"/>
+                <__3 __type__="FlashPoint" x="-0.42833333333333407" y="0.4433333333333337"/>
+              </vertices>
+            </__0>
+          </shapes>
+        </__0>
+      </children>
+      <flipX __type__="null"/>
+      <flipY __type__="null"/>
+    </__2>
+    <__3 __type__="NSMutableDictionary" type="com.bboygames.bEditor.editables.ProportionalEditable" innerY="0" x="792" innerX="-29.95" contentType="McStoneNSMutableDictionary3" y="414" zIndex="28" rotation="0" width="196.00424178154827">
+      <children __type__="NSMutableArray">
+        <__0 __type__="NSMutableDictionary">
+          <position __type__="FlashPoint" x="25.401666666666664" y="7.533333333333333"/>
+          <config __type__="NSMutableDictionary" x="792" contentType="McStoneNSMutableDictionary3" y="226" type="body" viewType="McStoneView3" rotation="0" clipType="StoneBodyClip" rotationOffset="0" innerX="-29.95" zIndex="28" innerY="0" width="196.00424178154827">
+            <flipX __type__="null"/>
+            <flipY __type__="null"/>
+            <scale __type__="FlashPoint" x="0.7656415694591729" y="0.7656415694591729"/>
+          </config>
+          <shapes __type__="NSMutableArray">
+            <__0 __type__="NSMutableDictionary" radius="1.0616666666666656">
+              <type __type__="null"/>
+              <config __type__="NSMutableDictionary" x="792" contentType="McStoneNSMutableDictionary3" y="242.7" type="circle" rotationOffset="0" rotation="0" innerX="-29.95" zIndex="28" innerY="0" width="196.00424178154827">
+                <flipX __type__="null"/>
+                <flipY __type__="null"/>
+                <scale __type__="FlashPoint" x="0.6369676155098424" y="0.6369676155098424"/>
+              </config>
+              <position __type__="FlashPoint" x="-1.75" y="0.5566666666666649"/>
+            </__0>
+            <__1 __type__="NSMutableDictionary">
+              <type __type__="null"/>
+              <position __type__="FlashPoint" x="-0.4349999999999987" y="1.1516666666666655"/>
+              <config __type__="NSMutableDictionary" x="792" contentType="McStoneNSMutableDictionary3" y="260.55" type="polygon" rotationOffset="-1.4763031005859375" rotation="0" innerX="-29.95" zIndex="28" innerY="0" width="196.00424178154827">
+                <flipX __type__="null"/>
+                <flipY __type__="null"/>
+                <scale __type__="FlashPoint" x="1.003344805857482" y="0.27056894192081266"/>
+              </config>
+              <vertices __type__="NSMutableArray">
+                <__0 __type__="FlashPoint" x="-2.094999999999997" y="0.6583333333333333"/>
+                <__1 __type__="FlashPoint" x="1.2483333333333348" y="0.7433333333333337"/>
+                <__2 __type__="FlashPoint" x="1.225" y="1.6450000000000007"/>
+                <__3 __type__="FlashPoint" x="-2.118333333333332" y="1.5600000000000003"/>
+              </vertices>
+            </__1>
+            <__2 __type__="NSMutableDictionary">
+              <type __type__="null"/>
+              <position __type__="FlashPoint" x="-0.7966666666666633" y="-0.6566666666666663"/>
+              <config __type__="NSMutableDictionary" x="792" contentType="McStoneNSMutableDictionary3" y="206.3" type="polygon" rotationOffset="25.793380737304688" rotation="0" innerX="-29.95" zIndex="28" innerY="0" width="196.00424178154827">
+                <flipX __type__="null"/>
+                <flipY __type__="null"/>
+                <scale __type__="FlashPoint" x="0.9075066082869814" y="0.2430487698243852"/>
+              </config>
+              <vertices __type__="NSMutableArray">
+                <__0 __type__="FlashPoint" x="-2.3349999999999986" y="-0.36333333333333256"/>
+                <__1 __type__="FlashPoint" x="0.38833333333333636" y="-1.6799999999999993"/>
+                <__2 __type__="FlashPoint" x="0.7416666666666667" y="-0.95"/>
+                <__3 __type__="FlashPoint" x="-1.9816666666666645" y="0.36666666666666664"/>
+              </vertices>
+            </__2>
+            <__3 __type__="NSMutableDictionary" radius="1.7316666666666674">
+              <type __type__="null"/>
+              <config __type__="NSMutableDictionary" x="792" contentType="McStoneNSMutableDictionary3" y="222.55" type="circle" rotationOffset="0" rotation="0" innerX="-29.95" zIndex="28" innerY="0" width="196.00424178154827">
+                <flipX __type__="null"/>
+                <flipY __type__="null"/>
+                <scale __type__="FlashPoint" x="1.0386911111065087" y="1.0386911111065087"/>
+              </config>
+              <position __type__="FlashPoint" x="1.0433333333333366" y="-0.11500000000000021"/>
+            </__3>
+          </shapes>
+        </__0>
+      </children>
+      <flipX __type__="null"/>
+      <flipY __type__="null"/>
+    </__3>
+    <__4 __type__="NSMutableDictionary" type="com.bboygames.contreJour.editor.editables.ForegroundEditable" background="false" minimumAlpha="1" x="160" contentType="McBackgroundStoneNSMutableDictionary2" y="684" maximumAlpha="1" z="-3" rotation="83.3143813576715" alphaStep="0" height="91.1" innerX="18.75" zIndex="29" innerY="-18.45" width="90.42901554404145">
+      <flipY __type__="null"/>
+      <children __type__="NSMutableArray">
+        <__0 __type__="NSMutableDictionary">
+          <position __type__="FlashPoint" x="6.016666666666667" y="-2.015000000000004"/>
+          <config __type__="NSMutableDictionary" height="91.1" background="false" minimumAlpha="1" x="160" rotationOffset="83.31438120155555" contentType="McBackgroundStoneNSMutableDictionary2" y="-60.450000000000045" maximumAlpha="1" type="foreground" viewType="McBackgroundStoneView2" rotation="83.3143813576715" alphaStep="0" z="-3" innerX="18.75" zIndex="29" innerY="-18.45" width="90.42901554404145">
+            <flipX __type__="null"/>
+            <flipY __type__="null"/>
+            <scale __type__="FlashPoint" x="0.7064766713924874" y="0.711718737361577"/>
+          </config>
+        </__0>
+      </children>
+      <flipX __type__="null"/>
+    </__4>
+    <__5 __type__="NSMutableDictionary" type="com.bboygames.contreJour.editor.editables.ForegroundEditable" background="false" minimumAlpha="1" x="183" contentType="McBackgroundStoneNSMutableDictionary2" y="593" maximumAlpha="1" z="-3" rotation="23.26481998947087" alphaStep="0" height="104" innerX="-17" zIndex="30" innerY="-12" width="93.97720207253886">
+      <flipY __type__="null"/>
+      <children __type__="NSMutableArray">
+        <__0 __type__="NSMutableDictionary">
+          <position __type__="FlashPoint" x="5.736666666666666" y="2.1583333333333314"/>
+          <config __type__="NSMutableDictionary" height="104" background="false" minimumAlpha="1" x="183" rotationOffset="23.264820494532724" contentType="McBackgroundStoneNSMutableDictionary2" y="64.75" maximumAlpha="1" type="foreground" viewType="McBackgroundStoneView2" rotation="23.26481998947087" alphaStep="0" z="-3" innerX="-17" zIndex="30" innerY="-12" width="93.97720207253886">
+            <flipX __type__="null"/>
+            <flipY __type__="null"/>
+            <scale __type__="FlashPoint" x="0.7341968909536536" y="0.8124999997365547"/>
+          </config>
+        </__0>
+      </children>
+      <flipX __type__="null"/>
+    </__5>
+    <__6 __type__="NSMutableDictionary" type="com.bboygames.contreJour.editor.editables.PlasticineEditable" x="-22" contentType="McPlasticineNSMutableDictionary9" y="256" rotation="0" height="162.92431131762362" innerX="100" zIndex="31" innerY="31.95" width="383.94577864838396">
+      <flipY __type__="null"/>
+      <children __type__="NSMutableArray">
+        <__0 __type__="NSMutableDictionary">
+          <points __type__="NSMutableArray">
+            <__0 __type__="FlashPoint" x="9.545" y="12.02"/>
+            <__1 __type__="FlashPoint" x="9.713333333333333" y="10.076666666666666"/>
+            <__2 __type__="FlashPoint" x="8.751666666666667" y="8.809999999999999"/>
+            <__3 __type__="FlashPoint" x="2.603333333333333" y="8.594999999999999"/>
+            <__4 __type__="FlashPoint" x="-3.235" y="8.975"/>
+            <__5 __type__="FlashPoint" x="-4.306666666666667" y="10.456666666666665"/>
+            <__6 __type__="FlashPoint" x="-4.108333333333333" y="12.209999999999999"/>
+            <__7 __type__="FlashPoint" x="-2.7550000000000003" y="13.606666666666666"/>
+            <__8 __type__="FlashPoint" x="2.603333333333333" y="13.228333333333332"/>
+            <__9 __type__="FlashPoint" x="7.993333333333333" y="13.606666666666666"/>
+          </points>
+          <position __type__="FlashPoint" x="2.6" y="11.735"/>
+          <config __type__="NSMutableDictionary" height="162.92431131762362" x="-22" createClip="true" contentType="McPlasticineNSMutableDictionary9" y="352.05" type="plasticine" rotationOffset="0" rotation="0" clipType="PlasticineBodyClip" innerX="100" zIndex="31" innerY="31.95" width="383.94577864838396">
+            <flipX __type__="null"/>
+            <flipY __type__="null"/>
+            <disableGrass __type__="null"/>
+            <scale __type__="FlashPoint" x="2.088932419196866" y="1.646531695984069"/>
+            <disableFlyes __type__="null"/>
+          </config>
+        </__0>
+      </children>
+      <flipX __type__="null"/>
+      <disableGrass __type__="null"/>
+      <disableFlyes __type__="null"/>
+    </__6>
+    <__7 __type__="NSMutableDictionary" type="com.bboygames.bEditor.editables.ProportionalEditable" innerY="0" x="540" innerX="-55.95" contentType="McStickNSMutableDictionary" y="385" zIndex="32" rotation="0" width="367.96917131044404">
+      <children __type__="NSMutableArray">
+        <__0 __type__="NSMutableDictionary">
+          <position __type__="FlashPoint" x="16.135" y="8.499999999999998"/>
+          <config __type__="NSMutableDictionary" x="540" rotationOffset="0" contentType="McStickNSMutableDictionary" y="255" density="0.15" cache="true" rotation="0" type="body" viewType="McStickView" innerX="-55.95" zIndex="32" innerY="0" dynamic="true" width="367.96917131044404">
+            <flipX __type__="null"/>
+            <flipY __type__="null"/>
+            <scale __type__="FlashPoint" x="1.451554916412008" y="1.4516090244597033"/>
+          </config>
+          <shapes __type__="NSMutableArray">
+            <__0 __type__="NSMutableDictionary">
+              <type __type__="null"/>
+              <position __type__="FlashPoint" x="0.014999999999997016" y="-0.011666666666666714"/>
+              <config __type__="NSMutableDictionary" x="540" contentType="McStickNSMutableDictionary" y="254.64999999999998" type="polygon" rotationOffset="0" rotation="0" innerX="-55.95" zIndex="32" innerY="0" width="367.96917131044404">
+                <flipX __type__="null"/>
+                <flipY __type__="null"/>
+                <scale __type__="FlashPoint" x="3.593958364895045" y="0.23620542353574028"/>
+              </config>
+              <vertices __type__="NSMutableArray">
+                <__0 __type__="FlashPoint" x="-5.975" y="-0.40499999999999925"/>
+                <__1 __type__="FlashPoint" x="6.005000000000001" y="-0.40499999999999925"/>
+                <__2 __type__="FlashPoint" x="6.005000000000001" y="0.38166666666666627"/>
+                <__3 __type__="FlashPoint" x="-5.975" y="0.38166666666666627"/>
+              </vertices>
+            </__0>
+          </shapes>
+        </__0>
+      </children>
+      <flipX __type__="null"/>
+      <flipY __type__="null"/>
+    </__7>
+    <__8 __type__="NSMutableDictionary" type="com.bboygames.bEditor.editables.ProportionalEditable" innerY="0" x="192" innerX="-39" contentType="McStoneNSMutableDictionary1" y="519" zIndex="33" rotation="0" width="177.98515376458113">
+      <children __type__="NSMutableArray">
+        <__0 __type__="NSMutableDictionary">
+          <position __type__="FlashPoint" x="5.1" y="4.033333333333331"/>
+          <config __type__="NSMutableDictionary" x="192" contentType="McStoneNSMutableDictionary1" y="121" type="body" viewType="McStoneView1" rotation="0" clipType="StoneBodyClip" rotationOffset="0" innerX="-39" zIndex="33" innerY="0" width="177.98515376458113">
+            <flipX __type__="null"/>
+            <flipY __type__="null"/>
+            <scale __type__="FlashPoint" x="0.695254506892895" y="0.695254506892895"/>
+          </config>
+          <shapes __type__="NSMutableArray">
+            <__0 __type__="NSMutableDictionary" radius="0.9450000000000003">
+              <type __type__="null"/>
+              <config __type__="NSMutableDictionary" x="192" contentType="McStoneNSMutableDictionary1" y="136.45" type="circle" rotationOffset="0" rotation="0" innerX="-39" zIndex="33" innerY="0" width="177.98515376458113">
+                <flipX __type__="null"/>
+                <flipY __type__="null"/>
+                <scale __type__="FlashPoint" x="0.566761425418793" y="0.566761425418793"/>
+              </config>
+              <position __type__="FlashPoint" x="-1.711666666666666" y="0.5150000000000006"/>
+            </__0>
+            <__1 __type__="NSMutableDictionary">
+              <type __type__="null"/>
+              <position __type__="FlashPoint" x="-0.5183333333333335" y="1.0583333333333336"/>
+              <config __type__="NSMutableDictionary" x="192" contentType="McStoneNSMutableDictionary1" y="152.75" type="polygon" rotationOffset="-1.9689483642578125" rotation="0" innerX="-39" zIndex="33" innerY="0" width="177.98515376458113">
+                <flipX __type__="null"/>
+                <flipY __type__="null"/>
+                <scale __type__="FlashPoint" x="0.8927645949948361" y="0.24076972026128818"/>
+              </config>
+              <vertices __type__="NSMutableArray">
+                <__0 __type__="FlashPoint" x="-1.9916666666666667" y="0.6066666666666662"/>
+                <__1 __type__="FlashPoint" x="0.9833333333333333" y="0.7083333333333334"/>
+                <__2 __type__="FlashPoint" x="0.9550000000000002" y="1.5100000000000005"/>
+                <__3 __type__="FlashPoint" x="-2.0199999999999996" y="1.4083333333333332"/>
+              </vertices>
+            </__1>
+            <__2 __type__="NSMutableDictionary">
+              <type __type__="null"/>
+              <position __type__="FlashPoint" x="-0.9633333333333329" y="-0.49666666666666615"/>
+              <config __type__="NSMutableDictionary" x="192" contentType="McStoneNSMutableDictionary1" y="106.10000000000002" type="polygon" rotationOffset="24.964126586914063" rotation="0" innerX="-39" zIndex="33" innerY="0" width="177.98515376458113">
+                <flipX __type__="null"/>
+                <flipY __type__="null"/>
+                <scale __type__="FlashPoint" x="0.7000968973394671" y="0.21625238116661374"/>
+              </config>
+              <vertices __type__="NSMutableArray">
+                <__0 __type__="FlashPoint" x="-2.1733333333333333" y="-0.33166666666666816"/>
+                <__1 __type__="FlashPoint" x="-0.058333333333333334" y="-1.3166666666666667"/>
+                <__2 __type__="FlashPoint" x="0.24666666666666684" y="-0.6616666666666674"/>
+                <__3 __type__="FlashPoint" x="-1.8683333333333332" y="0.323333333333333"/>
+              </vertices>
+            </__2>
+            <__3 __type__="NSMutableDictionary" radius="1.5399999999999991">
+              <type __type__="null"/>
+              <config __type__="NSMutableDictionary" x="192" contentType="McStoneNSMutableDictionary1" y="120.14999999999998" type="circle" rotationOffset="0" rotation="0" innerX="-39" zIndex="33" innerY="0" width="177.98515376458113">
+                <flipX __type__="null"/>
+                <flipY __type__="null"/>
+                <scale __type__="FlashPoint" x="0.9242335913163607" y="0.9242335913163607"/>
+              </config>
+              <position __type__="FlashPoint" x="0.7733333333333334" y="-0.028333333333332433"/>
+            </__3>
+          </shapes>
+        </__0>
+      </children>
+      <flipX __type__="null"/>
+      <flipY __type__="null"/>
+    </__8>
+    <__9 __type__="NSMutableDictionary" type="com.bboygames.bEditor.editables.ProportionalEditable" innerY="0" x="159" innerX="-8.45" contentType="McSpikesNSMutableDictionary" y="441" zIndex="34" rotation="3.731396999160445" width="97.98287817620518">
+      <children __type__="NSMutableArray">
+        <__0 __type__="NSMutableDictionary">
+          <position __type__="FlashPoint" x="5.0183333333333335" y="6.6516666666666655"/>
+          <config __type__="NSMutableDictionary" x="159" contentType="McSpikesNSMutableDictionary" y="199.55" type="body" viewType="McSpikesView" rotation="3.731396999160445" clipType="SpikesFlowerBodyClip" rotationOffset="3.731397036202348" innerX="-8.45" zIndex="34" innerY="0" width="97.98287817620518">
+            <flipX __type__="null"/>
+            <flipY __type__="null"/>
+            <scale __type__="FlashPoint" x="0.8527665597281165" y="0.8527665597281167"/>
+          </config>
+          <shapes __type__="NSMutableArray">
+            <__0 __type__="NSMutableDictionary">
+              <type __type__="null"/>
+              <position __type__="FlashPoint" x="-0.061666666666667425" y="-0.8433333333333337"/>
+              <config __type__="NSMutableDictionary" x="159" contentType="McSpikesNSMutableDictionary" y="174.25" type="polygon" rotationOffset="3.731397036202348" rotation="3.731396999160445" innerX="-8.45" zIndex="34" innerY="0" width="97.98287817620518">
+                <flipX __type__="null"/>
+                <flipY __type__="null"/>
+                <scale __type__="FlashPoint" x="0.8816536105489847" y="0.0998294837377031"/>
+              </config>
+              <vertices __type__="NSMutableArray">
+                <__0 __type__="FlashPoint" x="-1.5383333333333336" y="-0.9133333333333344"/>
+                <__1 __type__="FlashPoint" x="1.3933333333333326" y="-1.105000000000001"/>
+                <__2 __type__="FlashPoint" x="1.4149999999999996" y="-0.773333333333333"/>
+                <__3 __type__="FlashPoint" x="-1.516666666666667" y="-0.5816666666666663"/>
+              </vertices>
+            </__0>
+          </shapes>
+        </__0>
+      </children>
+      <flipX __type__="null"/>
+      <flipY __type__="null"/>
+    </__9>
+    <__10 __type__="NSMutableDictionary" type="com.bboygames.bEditor.editables.ProportionalEditable" innerY="0" x="243" innerX="-50.45" contentType="McStoneNSMutableDictionary3" y="651" zIndex="35" rotation="13.296343363255824" width="155.0116648992577">
+      <children __type__="NSMutableArray">
+        <__0 __type__="NSMutableDictionary">
+          <position __type__="FlashPoint" x="6.463333333333334" y="0.019999999999999574"/>
+          <config __type__="NSMutableDictionary" x="243" contentType="McStoneNSMutableDictionary3" y="0.6000000000000227" type="body" viewType="McStoneView3" rotation="13.296343363255824" clipType="StoneBodyClip" rotationOffset="13.296343331996825" innerX="-50.45" zIndex="35" innerY="0" width="155.0116648992577">
+            <flipX __type__="null"/>
+            <flipY __type__="null"/>
+            <scale __type__="FlashPoint" x="0.6055142995199014" y="0.6055142995199014"/>
+          </config>
+          <shapes __type__="NSMutableArray">
+            <__0 __type__="NSMutableDictionary" radius="0.839239073340977">
+              <type __type__="null"/>
+              <config __type__="NSMutableDictionary" x="243" contentType="McStoneNSMutableDictionary3" y="23" type="circle" rotationOffset="13.296343331996825" rotation="13.296343363255824" innerX="-50.45" zIndex="35" innerY="0" width="155.0116648992577">
+                <flipX __type__="null"/>
+                <flipY __type__="null"/>
+                <scale __type__="FlashPoint" x="0.5037513830325938" y="0.5037513830325938"/>
+              </config>
+              <position __type__="FlashPoint" x="-1.245" y="0.7466666666666661"/>
+            </__0>
+            <__1 __type__="NSMutableDictionary">
+              <type __type__="null"/>
+              <position __type__="FlashPoint" x="-0.125" y="0.9666666666666686"/>
+              <config __type__="NSMutableDictionary" x="243" contentType="McStoneNSMutableDictionary3" y="29.600000000000023" type="polygon" rotationOffset="11.820040231410887" rotation="13.296343363255824" innerX="-50.45" zIndex="35" innerY="0" width="155.0116648992577">
+                <flipX __type__="null"/>
+                <flipY __type__="null"/>
+                <scale __type__="FlashPoint" x="0.7935039730469091" y="0.21398180280983037"/>
+              </config>
+              <vertices __type__="NSMutableArray">
+                <__0 __type__="FlashPoint" x="-1.4916666666666667" y="0.8883333333333325"/>
+                <__1 __type__="FlashPoint" x="1.096666666666667" y="0.3466666666666659"/>
+                <__2 __type__="FlashPoint" x="1.2416666666666667" y="1.0450000000000008"/>
+                <__3 __type__="FlashPoint" x="-1.346666666666667" y="1.5866666666666673"/>
+              </vertices>
+            </__1>
+            <__2 __type__="NSMutableDictionary">
+              <type __type__="null"/>
+              <position __type__="FlashPoint" x="-0.7333333333333334" y="-0.36166666666666814"/>
+              <config __type__="NSMutableDictionary" x="243" contentType="McStoneNSMutableDictionary3" y="-10.25" type="polygon" rotationOffset="39.08972406930151" rotation="13.296343363255824" innerX="-50.45" zIndex="35" innerY="0" width="155.0116648992577">
+                <flipX __type__="null"/>
+                <flipY __type__="null"/>
+                <scale __type__="FlashPoint" x="0.717709500301466" y="0.19221723516572206"/>
+              </config>
+              <vertices __type__="NSMutableArray">
+                <__0 __type__="FlashPoint" x="-1.8633333333333335" y="0.1433333333333318"/>
+                <__1 __type__="FlashPoint" x="-0.006666666666667235" y="-1.3650000000000015"/>
+                <__2 __type__="FlashPoint" x="0.39666666666666683" y="-0.8666666666666667"/>
+                <__3 __type__="FlashPoint" x="-1.4600000000000004" y="0.6416666666666666"/>
+              </vertices>
+            </__2>
+            <__3 __type__="NSMutableDictionary" radius="1.3684155476722384">
+              <type __type__="null"/>
+              <config __type__="NSMutableDictionary" x="243" contentType="McStoneNSMutableDictionary3" y="-7.7000000000000455" type="circle" rotationOffset="13.296343331996825" rotation="13.296343363255824" innerX="-50.45" zIndex="35" innerY="0" width="155.0116648992577">
+                <flipX __type__="null"/>
+                <flipY __type__="null"/>
+                <scale __type__="FlashPoint" x="0.8214579062151397" y="0.8214579062151397"/>
+              </config>
+              <position __type__="FlashPoint" x="0.7816666666666663" y="-0.2766666666666673"/>
+            </__3>
+          </shapes>
+        </__0>
+      </children>
+      <flipX __type__="null"/>
+      <flipY __type__="null"/>
+    </__10>
+    <__11 __type__="NSMutableDictionary" type="com.bboygames.bEditor.editables.ProportionalEditable" innerY="0" x="202" innerX="-53" contentType="McStoneNSMutableDictionary2" y="760" zIndex="36" rotation="0" width="139.9860290166577">
+      <children __type__="NSMutableArray">
+        <__0 __type__="NSMutableDictionary">
+          <position __type__="FlashPoint" x="4.966666666666667" y="-4"/>
+          <config __type__="NSMutableDictionary" x="202" contentType="McStoneNSMutableDictionary2" y="-120" type="body" viewType="McStoneView2" rotation="0" clipType="StoneBodyClip" rotationOffset="0" innerX="-53" zIndex="36" innerY="0" width="139.9860290166577">
+            <flipX __type__="null"/>
+            <flipY __type__="null"/>
+            <scale __type__="FlashPoint" x="0.569048898441698" y="0.569048898441698"/>
+          </config>
+          <shapes __type__="NSMutableArray">
+            <__0 __type__="NSMutableDictionary" radius="0.6700000000000017">
+              <type __type__="null"/>
+              <config __type__="NSMutableDictionary" x="202" contentType="McStoneNSMutableDictionary2" y="-108.85000000000002" type="circle" rotationOffset="0" rotation="0" innerX="-53" zIndex="36" innerY="0" width="139.9860290166577">
+                <flipX __type__="null"/>
+                <flipY __type__="null"/>
+                <scale __type__="FlashPoint" x="0.40191857011519344" y="0.40191857011519344"/>
+              </config>
+              <position __type__="FlashPoint" x="-1.1333333333333333" y="0.37166666666666615"/>
+            </__0>
+            <__1 __type__="NSMutableDictionary">
+              <type __type__="null"/>
+              <position __type__="FlashPoint" x="-0.3050000000000006" y="0.7483333333333348"/>
+              <config __type__="NSMutableDictionary" x="202" contentType="McStoneNSMutableDictionary2" y="-97.54999999999995" type="polygon" rotationOffset="-1.4763031005859375" rotation="0" innerX="-53" zIndex="36" innerY="0" width="139.9860290166577">
+                <flipX __type__="null"/>
+                <flipY __type__="null"/>
+                <scale __type__="FlashPoint" x="0.6330963335311168" y="0.1707295334656008"/>
+              </config>
+              <vertices __type__="NSMutableArray">
+                <__0 __type__="FlashPoint" x="-1.3516666666666666" y="0.4366666666666674"/>
+                <__1 __type__="FlashPoint" x="0.7566666666666663" y="0.49166666666666664"/>
+                <__2 __type__="FlashPoint" x="0.7416666666666667" y="1.0599999999999985"/>
+                <__3 __type__="FlashPoint" x="-1.3666666666666667" y="1.0049999999999992"/>
+              </vertices>
+            </__1>
+            <__2 __type__="NSMutableDictionary">
+              <type __type__="null"/>
+              <position __type__="FlashPoint" x="-0.5316666666666663" y="-0.39333333333333087"/>
+              <config __type__="NSMutableDictionary" x="202" contentType="McStoneNSMutableDictionary2" y="-131.79999999999995" type="polygon" rotationOffset="25.793380737304688" rotation="0" innerX="-53" zIndex="36" innerY="0" width="139.9860290166577">
+                <flipX __type__="null"/>
+                <flipY __type__="null"/>
+                <scale __type__="FlashPoint" x="0.5726308090542948" y="0.15335983750451007"/>
+              </config>
+              <vertices __type__="NSMutableArray">
+                <__0 __type__="FlashPoint" x="-1.5016666666666665" y="-0.20833333333333334"/>
+                <__1 __type__="FlashPoint" x="0.21666666666666667" y="-1.0383333333333327"/>
+                <__2 __type__="FlashPoint" x="0.4383333333333335" y="-0.578333333333334"/>
+                <__3 __type__="FlashPoint" x="-1.2800000000000002" y="0.25166666666666515"/>
+              </vertices>
+            </__2>
+            <__3 __type__="NSMutableDictionary" radius="1.091666666666665">
+              <type __type__="null"/>
+              <config __type__="NSMutableDictionary" x="202" contentType="McStoneNSMutableDictionary2" y="-121.54999999999995" type="circle" rotationOffset="0" rotation="0" innerX="-53" zIndex="36" innerY="0" width="139.9860290166577">
+                <flipX __type__="null"/>
+                <flipY __type__="null"/>
+                <scale __type__="FlashPoint" x="0.6553926216793726" y="0.6553926216793726"/>
+              </config>
+              <position __type__="FlashPoint" x="0.628333333333333" y="-0.05166666666666586"/>
+            </__3>
+          </shapes>
+        </__0>
+      </children>
+      <flipX __type__="null"/>
+      <flipY __type__="null"/>
+    </__11>
+    <__12 __type__="NSMutableDictionary" type="com.bboygames.contreJour.editor.editables.ForegroundEditable" background="false" minimumAlpha="1" x="697" contentType="McPimpaNSMutableDictionary" y="361" maximumAlpha="1" z="1" rotation="-74.82393579147796" alphaStep="0" height="37.04658227848101" innerX="-31.45" zIndex="37" innerY="-23.5" width="47.105571992110455">
+      <flipY __type__="null"/>
+      <children __type__="NSMutableArray">
+        <__0 __type__="NSMutableDictionary">
+          <position __type__="FlashPoint" x="22.203333333333333" y="8.493333333333332"/>
+          <config __type__="NSMutableDictionary" height="37.04658227848101" background="false" minimumAlpha="1" x="697" rotationOffset="-74.82393533878601" contentType="McPimpaNSMutableDictionary" y="254.8" maximumAlpha="1" type="foreground" viewType="McPimpaView" rotation="-74.82393579147796" alphaStep="0" z="1" innerX="-31.45" zIndex="37" innerY="-23.5" width="47.105571992110455">
+            <flipX __type__="null"/>
+            <flipY __type__="null"/>
+            <scale __type__="FlashPoint" x="0.42784351445390917" y="0.4409282602068652"/>
+          </config>
+        </__0>
+      </children>
+      <flipX __type__="null"/>
+    </__12>
+    <__13 __type__="NSMutableDictionary" type="com.bboygames.bEditor.editables.ProportionalEditable" innerY="0" x="438" innerX="0" contentType="McSimpleSpikesNSMutableDictionary" y="207" zIndex="38" rotation="0" width="256">
+      <children __type__="NSMutableArray">
+        <__0 __type__="NSMutableDictionary">
+          <position __type__="FlashPoint" x="14.6" y="14.433333333333334"/>
+          <config __type__="NSMutableDictionary" x="438" contentType="McSimpleSpikesNSMutableDictionary" y="433" type="body" viewType="McSimpleSpikesView" rotation="0" clipType="SimpleSpikesBodyClip" rotationOffset="0" innerX="0" zIndex="38" innerY="0" width="256">
+            <flipX __type__="null"/>
+            <flipY __type__="null"/>
+            <scale __type__="FlashPoint" x="1" y="1"/>
+          </config>
+          <shapes __type__="NSMutableArray">
+            <__0 __type__="NSMutableDictionary">
+              <type __type__="null"/>
+              <position __type__="FlashPoint" x="-0.10666666666666558" y="-0.016666666666667496"/>
+              <config __type__="NSMutableDictionary" x="438" contentType="McSimpleSpikesNSMutableDictionary" y="432.5" type="polygon" rotationOffset="0" rotation="0" innerX="0" zIndex="38" innerY="0" width="256">
+                <flipX __type__="null"/>
+                <flipY __type__="null"/>
+                <scale __type__="FlashPoint" x="1.975433349609375" y="0.2692108154296875"/>
+              </config>
+              <vertices __type__="NSMutableArray">
+                <__0 __type__="FlashPoint" x="-3.398333333333333" y="-0.46499999999999964"/>
+                <__1 __type__="FlashPoint" x="3.1849999999999983" y="-0.46499999999999964"/>
+                <__2 __type__="FlashPoint" x="3.1849999999999983" y="0.43166666666666625"/>
+                <__3 __type__="FlashPoint" x="-3.398333333333333" y="0.43166666666666625"/>
+              </vertices>
+            </__0>
+            <__1 __type__="NSMutableDictionary" radius="0.2833333333333332">
+              <type __type__="null"/>
+              <config __type__="NSMutableDictionary" x="438" contentType="McSimpleSpikesNSMutableDictionary" y="431.5" type="circle" rotationOffset="0" rotation="0" innerX="0" zIndex="38" innerY="0" width="256">
+                <flipX __type__="null"/>
+                <flipY __type__="null"/>
+                <scale __type__="FlashPoint" x="0.16998291015625" y="0.16998291015625"/>
+              </config>
+              <position __type__="FlashPoint" x="3.1683333333333312" y="-0.05000000000000071"/>
+            </__1>
+            <__2 __type__="NSMutableDictionary" radius="0.2833333333333332">
+              <type __type__="null"/>
+              <config __type__="NSMutableDictionary" x="438" contentType="McSimpleSpikesNSMutableDictionary" y="437.45" type="circle" rotationOffset="0" rotation="0" innerX="0" zIndex="38" innerY="0" width="256">
+                <flipX __type__="null"/>
+                <flipY __type__="null"/>
+                <scale __type__="FlashPoint" x="0.16998291015625" y="0.16998291015625"/>
+              </config>
+              <position __type__="FlashPoint" x="-3.25" y="0.14833333333333254"/>
+            </__2>
+          </shapes>
+        </__0>
+      </children>
+      <flipX __type__="null"/>
+      <flipY __type__="null"/>
+    </__13>
+    <__14 __type__="NSMutableDictionary" type="com.bboygames.bEditor.editables.DragableEditable" x="158" innerX="0" contentType="McEndLevelNSMutableDictionary" y="410" zIndex="39" innerY="0">
+      <children __type__="NSMutableArray">
+        <__0 __type__="NSMutableDictionary">
+          <position __type__="FlashPoint" x="5.266666666666667" y="7.666666666666666"/>
+          <config __type__="NSMutableDictionary" x="158" contentType="McEndLevelNSMutableDictionary" y="230" type="body" viewType="McEndLevelView" clipType="EndLevelBodyClip" rotationOffset="0" sensor="true" zIndex="39" innerY="0" innerX="0">
+            <flipX __type__="null"/>
+            <flipY __type__="null"/>
+            <scale __type__="FlashPoint" x="1" y="1"/>
+          </config>
+          <shapes __type__="NSMutableArray">
+            <__0 __type__="NSMutableDictionary" radius="0.3483333333333327">
+              <type __type__="null"/>
+              <config __type__="NSMutableDictionary" x="158" innerX="0" contentType="McEndLevelNSMutableDictionary" y="230" zIndex="39" type="circle" rotationOffset="0" innerY="0">
+                <scale __type__="FlashPoint" x="0.2091522216796875" y="0.2091522216796875"/>
+                <flipX __type__="null"/>
+                <flipY __type__="null"/>
+              </config>
+              <position __type__="FlashPoint" x="0" y="0"/>
+            </__0>
+          </shapes>
+        </__0>
+      </children>
+      <flipX __type__="null"/>
+      <flipY __type__="null"/>
+    </__14>
+    <__15 __type__="NSMutableDictionary" type="com.bboygames.bEditor.editables.ProportionalEditable" innerY="0" x="883" innerX="0" contentType="McSpringNSMutableDictionary" y="685" zIndex="40" rotation="-53.880159443745185" width="83">
+      <children __type__="NSMutableArray">
+        <__0 __type__="NSMutableDictionary">
+          <position __type__="FlashPoint" x="29.433333333333334" y="-1.5"/>
+          <config __type__="NSMutableDictionary" x="883" contentType="McSpringNSMutableDictionary" y="-45" type="body" viewType="McSpringView" rotation="-53.880159443745185" clipType="SpringBodyClip" rotationOffset="-53.88015982898818" innerX="0" blackViewType="McSpringViewBlack" zIndex="40" innerY="0" width="83" id="base">
+            <flipX __type__="null"/>
+            <flipY __type__="null"/>
+            <scale __type__="FlashPoint" x="0.9999999979194899" y="0.9999999979194899"/>
+          </config>
+          <shapes __type__="NSMutableArray">
+            <__0 __type__="NSMutableDictionary">
+              <type __type__="null"/>
+              <fixtureConfig __type__="NSMutableDictionary" type="square" sensor="true" sticky="true"/>
+              <position __type__="FlashPoint" x="-2.796666666666667" y="1.3816666666666677"/>
+              <config __type__="NSMutableDictionary" x="883" contentType="McSpringNSMutableDictionary" y="-3.5499999999999545" type="polygon" rotationOffset="-53.88015982898818" rotation="-53.880159443745185" sticky="true" innerX="0" zIndex="40" innerY="0" sensor="true" width="83">
+                <flipY __type__="null"/>
+                <flipX __type__="null"/>
+                <scale __type__="FlashPoint" x="0.5078582753105833" y="0.8014424277442589"/>
+              </config>
+              <vertices __type__="NSMutableArray">
+                <__0 __type__="FlashPoint" x="-1.996666666666666" y="0.38666666666666744"/>
+                <__1 __type__="FlashPoint" x="-0.9983333333333348" y="1.7549999999999992"/>
+                <__2 __type__="FlashPoint" x="-3.596666666666666" y="2.376666666666665"/>
+                <__3 __type__="FlashPoint" x="-4.595000000000001" y="1.0083333333333333"/>
+              </vertices>
+            </__0>
+            <__1 __type__="NSMutableDictionary">
+              <type __type__="null"/>
+              <fixtureConfig __type__="NSMutableDictionary" type="square" sensor="true" sticky="true"/>
+              <position __type__="FlashPoint" x="-2.2049999999999983" y="2.169999999999998"/>
+              <config __type__="NSMutableDictionary" x="883" contentType="McSpringNSMutableDictionary" y="20.100000000000023" type="polygon" rotationOffset="-53.88015982898818" rotation="-53.880159443745185" sticky="true" innerX="0" zIndex="40" innerY="0" sensor="true" width="83">
+                <flipY __type__="null"/>
+                <flipX __type__="null"/>
+                <scale __type__="FlashPoint" x="0.5120086659269483" y="0.7970495951118788"/>
+              </config>
+              <vertices __type__="NSMutableArray">
+                <__0 __type__="FlashPoint" x="-2.004999999999999" y="0.3533333333333341"/>
+                <__1 __type__="FlashPoint" x="-0.9983333333333348" y="1.7316666666666682"/>
+                <__2 __type__="FlashPoint" x="-2.4049999999999994" y="3.9866666666666672"/>
+                <__3 __type__="FlashPoint" x="-3.4116666666666675" y="2.6083333333333334"/>
+              </vertices>
+            </__1>
+            <__2 __type__="NSMutableDictionary">
+              <type __type__="null"/>
+              <position __type__="FlashPoint" x="-0.08500000000000085" y="0.04333333333332945"/>
+              <config __type__="NSMutableDictionary" x="883" contentType="McSpringNSMutableDictionary" y="-43.700000000000045" type="polygon" rotationOffset="-53.88015982898818" rotation="-53.880159443745185" innerX="0" zIndex="40" innerY="0" width="83">
+                <flipX __type__="null"/>
+                <flipY __type__="null"/>
+                <scale __type__="FlashPoint" x="0.5189666737249721" y="0.14062499970742826"/>
+              </config>
+              <vertices __type__="NSMutableArray">
+                <__0 __type__="FlashPoint" x="-0.40499999999999925" y="-0.7933333333333318"/>
+                <__1 __type__="FlashPoint" x="0.6150000000000015" y="0.603333333333334"/>
+                <__2 __type__="FlashPoint" x="0.2349999999999985" y="0.8799999999999992"/>
+                <__3 __type__="FlashPoint" x="-0.7849999999999985" y="-0.5166666666666666"/>
+              </vertices>
+            </__2>
+            <__3 __type__="NSMutableDictionary">
+              <type __type__="null"/>
+              <position __type__="FlashPoint" x="-0.7516666666666652" y="0.379999999999999"/>
+              <config __type__="NSMutableDictionary" x="883" contentType="McSpringNSMutableDictionary" y="-33.60000000000002" type="polygon" rotationOffset="-48.61014029773818" rotation="-53.880159443745185" innerX="0" zIndex="40" innerY="0" width="83">
+                <flipX __type__="null"/>
+                <flipY __type__="null"/>
+                <scale __type__="FlashPoint" x="0.48290700709730594" y="0.3633593104441122"/>
+              </config>
+              <vertices __type__="NSMutableArray">
+                <__0 __type__="FlashPoint" x="-0.7683333333333318" y="-0.5416666666666666"/>
+                <__1 __type__="FlashPoint" x="0.29500000000000076" y="0.6650000000000015"/>
+                <__2 __type__="FlashPoint" x="-1.798333333333335" y="0.09500000000000075"/>
+              </vertices>
+            </__3>
+            <__4 __type__="NSMutableDictionary">
+              <type __type__="null"/>
+              <position __type__="FlashPoint" x="-0.6233333333333348" y="0.5799999999999983"/>
+              <config __type__="NSMutableDictionary" x="883" contentType="McSpringNSMutableDictionary" y="-27.600000000000023" type="polygon" rotationOffset="-139.33740470203506" rotation="-53.880159443745185" innerX="0" zIndex="40" innerY="0" width="83">
+                <flipX __type__="null"/>
+                <flipY __type__="null"/>
+                <scale __type__="FlashPoint" x="0.3492723453507303" y="0.48444264746272403"/>
+              </config>
+              <vertices __type__="NSMutableArray">
+                <__0 __type__="FlashPoint" x="0.24500000000000074" y="0.8866666666666674"/>
+                <__1 __type__="FlashPoint" x="-0.6383333333333325" y="1.6450000000000007"/>
+                <__2 __type__="FlashPoint" x="-0.6083333333333333" y="-0.4849999999999985"/>
+              </vertices>
+            </__4>
+            <__5 __type__="NSMutableDictionary">
+              <type __type__="null"/>
+              <fixtureConfig __type__="NSMutableDictionary" type="square" release="true"/>
+              <position __type__="FlashPoint" x="-1.163333333333334" y="-0.4016666666666673"/>
+              <config __type__="NSMutableDictionary" x="883" contentType="McSpringNSMutableDictionary" release="true" type="polygon" rotationOffset="32.665448691519636" rotation="-53.880159443745185" y="-57.049999999999955" innerX="0" zIndex="40" innerY="0" width="83">
+                <flipX __type__="null"/>
+                <flipY __type__="null"/>
+                <scale __type__="FlashPoint" x="0.4809152509644406" y="0.055520577431299276"/>
+              </config>
+              <vertices __type__="NSMutableArray">
+                <__0 __type__="FlashPoint" x="-1.8883333333333325" y="-0.046666666666665906"/>
+                <__1 __type__="FlashPoint" x="-0.5383333333333326" y="-0.9116666666666674"/>
+                <__2 __type__="FlashPoint" x="-0.4383333333333326" y="-0.7566666666666682"/>
+                <__3 __type__="FlashPoint" x="-1.7883333333333324" y="0.10833333333333334"/>
+              </vertices>
+            </__5>
+            <__6 __type__="NSMutableDictionary">
+              <type __type__="null"/>
+              <fixtureConfig __type__="NSMutableDictionary" type="square" release="true"/>
+              <position __type__="FlashPoint" x="0.00833333333333286" y="1.1816666666666684"/>
+              <config __type__="NSMutableDictionary" x="883" contentType="McSpringNSMutableDictionary" release="true" type="polygon" rotationOffset="39.63520577159776" rotation="-53.880159443745185" y="-9.549999999999955" innerX="0" zIndex="40" innerY="0" width="83">
+                <flipX __type__="null"/>
+                <flipY __type__="null"/>
+                <scale __type__="FlashPoint" x="0.4736082830151543" y="0.055525221640065923"/>
+              </config>
+              <vertices __type__="NSMutableArray">
+                <__0 __type__="FlashPoint" x="-0.6583333333333333" y="1.6133333333333326"/>
+                <__1 __type__="FlashPoint" x="0.5566666666666682" y="0.6066666666666681"/>
+                <__2 __type__="FlashPoint" x="0.675" y="0.75"/>
+                <__3 __type__="FlashPoint" x="-0.5400000000000015" y="1.7566666666666682"/>
+              </vertices>
+            </__6>
+            <__7 __type__="NSMutableDictionary">
+              <type __type__="null"/>
+              <position __type__="FlashPoint" x="-0.37666666666666515" y="1.5316666666666663"/>
+              <config __type__="NSMutableDictionary" x="883" contentType="McSpringNSMutableDictionary" y="0.9500000000000455" type="polygon" rotationOffset="-203.5730614403163" rotation="-53.880159443745185" innerX="0" zIndex="40" innerY="0" width="83">
+                <flipX __type__="null"/>
+                <flipY __type__="null"/>
+                <scale __type__="FlashPoint" x="0.07350721395672062" y="0.15664293499849818"/>
+              </config>
+              <vertices __type__="NSMutableArray">
+                <__0 __type__="FlashPoint" x="-0.3433333333333318" y="1.8299999999999992"/>
+                <__1 __type__="FlashPoint" x="-0.5683333333333318" y="1.7316666666666682"/>
+                <__2 __type__="FlashPoint" x="-0.18499999999999847" y="1.331666666666668"/>
+              </vertices>
+            </__7>
+            <__8 __type__="NSMutableDictionary">
+              <type __type__="null"/>
+              <position __type__="FlashPoint" x="-1.668333333333333" y="-0.163333333333334"/>
+              <config __type__="NSMutableDictionary" x="883" contentType="McSpringNSMutableDictionary" y="-49.89999999999998" type="polygon" rotationOffset="4.348889853629011" rotation="-53.880159443745185" innerX="0" zIndex="40" innerY="0" width="83">
+                <flipX __type__="null"/>
+                <flipY __type__="null"/>
+                <scale __type__="FlashPoint" x="0.1287597024659484" y="0.08273407859619591"/>
+              </config>
+              <vertices __type__="NSMutableArray">
+                <__0 __type__="FlashPoint" x="-1.878333333333334" y="-0.2849999999999985"/>
+                <__1 __type__="FlashPoint" x="-1.45" y="-0.31666666666666665"/>
+                <__2 __type__="FlashPoint" x="-1.8866666666666674" y="-0.009999999999998484"/>
+              </vertices>
+            </__8>
+            <__9 __type__="NSMutableDictionary">
+              <type __type__="null"/>
+              <fixtureConfig __type__="NSMutableDictionary" type="square" base="true"/>
+              <position __type__="FlashPoint" x="-0.5583333333333336" y="0.8633333333333333"/>
+              <config __type__="NSMutableDictionary" x="883" contentType="McSpringNSMutableDictionary" y="-19.100000000000023" type="polygon" rotationOffset="-91.41223380359756" rotation="-53.880159443745185" base="true" innerX="0" zIndex="40" innerY="0" width="83">
+                <flipX __type__="null"/>
+                <flipY __type__="null"/>
+                <scale __type__="FlashPoint" x="0.3549675439806686" y="0.08000408780679784"/>
+              </config>
+              <vertices __type__="NSMutableArray">
+                <__0 __type__="FlashPoint" x="-0.4099999999999985" y="0.275"/>
+                <__1 __type__="FlashPoint" x="-0.4400000000000015" y="1.4583333333333333"/>
+                <__2 __type__="FlashPoint" x="-0.7066666666666682" y="1.451666666666665"/>
+                <__3 __type__="FlashPoint" x="-0.6766666666666652" y="0.2683333333333318"/>
+              </vertices>
+            </__9>
+            <__10 __type__="NSMutableDictionary">
+              <type __type__="null"/>
+              <fixtureConfig __type__="NSMutableDictionary" type="square" base="true"/>
+              <position __type__="FlashPoint" x="-0.9800000000000004" y="0.24833333333333485"/>
+              <config __type__="NSMutableDictionary" x="883" contentType="McSpringNSMutableDictionary" y="-37.549999999999955" type="polygon" rotationOffset="-13.354006264535052" rotation="-53.880159443745185" base="true" innerX="0" zIndex="40" innerY="0" width="83">
+                <flipX __type__="null"/>
+                <flipY __type__="null"/>
+                <scale __type__="FlashPoint" x="0.3549584567357431" y="0.08000012105907002"/>
+              </config>
+              <vertices __type__="NSMutableArray">
+                <__0 __type__="FlashPoint" x="-1.525" y="-0.018333333333331817"/>
+                <__1 __type__="FlashPoint" x="-0.37333333333333485" y="0.2549999999999992"/>
+                <__2 __type__="FlashPoint" x="-0.4349999999999985" y="0.5150000000000015"/>
+                <__3 __type__="FlashPoint" x="-1.5866666666666673" y="0.24166666666666667"/>
+              </vertices>
+            </__10>
+          </shapes>
+        </__0>
+      </children>
+      <flipX __type__="null"/>
+      <flipY __type__="null"/>
+    </__15>
+    <__16 __type__="NSMutableDictionary" type="com.bboygames.bEditor.editables.ProportionalEditable" innerY="0" x="983" innerX="0" contentType="McStoneNSMutableDictionary0" y="479" zIndex="41" rotation="-46.64622524934796" width="256">
+      <children __type__="NSMutableArray">
+        <__0 __type__="NSMutableDictionary">
+          <position __type__="FlashPoint" x="32.766666666666666" y="5.366666666666665"/>
+          <config __type__="NSMutableDictionary" x="983" contentType="McStoneNSMutableDictionary0" y="161" type="body" viewType="McStoneView0" rotation="-46.64622524934796" clipType="StoneBodyClip" rotationOffset="-46.64622499942102" innerX="0" zIndex="41" innerY="0" width="256">
+            <flipX __type__="null"/>
+            <flipY __type__="null"/>
+            <scale __type__="FlashPoint" x="0.9999999756402659" y="0.9999999756402659"/>
+          </config>
+          <shapes __type__="NSMutableArray">
+            <__0 __type__="NSMutableDictionary" radius="1.68969507439788">
+              <type __type__="null"/>
+              <config __type__="NSMutableDictionary" x="983" contentType="McStoneNSMutableDictionary0" y="179.85000000000002" type="circle" rotationOffset="-39.439453148835085" rotation="-46.64622524934796" innerX="0" zIndex="41" innerY="0" width="256">
+                <flipX __type__="null"/>
+                <flipY __type__="null"/>
+                <scale __type__="FlashPoint" x="1.07323765764367" y="1.0137336572896074"/>
+              </config>
+              <position __type__="FlashPoint" x="1.0433333333333294" y="0.6283333333333339"/>
+            </__0>
+            <__1 __type__="NSMutableDictionary" radius="1.1438191387724814">
+              <type __type__="null"/>
+              <config __type__="NSMutableDictionary" x="983" contentType="McStoneNSMutableDictionary0" y="125.60000000000002" type="circle" rotationOffset="-39.43858339785852" rotation="-46.64622524934796" innerX="0" zIndex="41" innerY="0" width="256">
+                <flipX __type__="null"/>
+                <flipY __type__="null"/>
+                <scale __type__="FlashPoint" x="0.6860242955650542" y="0.6860242955650542"/>
+              </config>
+              <position __type__="FlashPoint" x="-1.7966666666666669" y="-1.179999999999998"/>
+            </__1>
+            <__2 __type__="NSMutableDictionary">
+              <type __type__="null"/>
+              <position __type__="FlashPoint" x="-1.0666666666666664" y="0.22499999999999964"/>
+              <config __type__="NSMutableDictionary" x="983" contentType="McStoneNSMutableDictionary0" y="167.75" type="polygon" rotationOffset="-40.18669130801477" rotation="-46.64622524934796" innerX="0" zIndex="41" innerY="0" width="256">
+                <flipX __type__="null"/>
+                <flipY __type__="null"/>
+                <scale __type__="FlashPoint" x="1.0805903677157827" y="0.29139991253190495"/>
+              </config>
+              <vertices __type__="NSMutableArray">
+                <__0 __type__="FlashPoint" x="-2.128333333333334" y="-1.3083333333333333"/>
+                <__1 __type__="FlashPoint" x="0.6233333333333348" y="1.0166666666666666"/>
+                <__2 __type__="FlashPoint" x="-0.004999999999999242" y="1.7583333333333333"/>
+                <__3 __type__="FlashPoint" x="-2.756666666666668" y="-0.5666666666666667"/>
+              </vertices>
+            </__2>
+            <__3 __type__="NSMutableDictionary">
+              <type __type__="null"/>
+              <position __type__="FlashPoint" x="0.13000000000000256" y="-1.1133333333333315"/>
+              <config __type__="NSMutableDictionary" x="983" contentType="McStoneNSMutableDictionary0" y="127.60000000000002" type="polygon" rotationOffset="-22.892227196686648" rotation="-46.64622524934796" innerX="0" zIndex="41" innerY="0" width="256">
+                <flipX __type__="null"/>
+                <flipY __type__="null"/>
+                <scale __type__="FlashPoint" x="1.2486999588808962" y="0.2617457942833175"/>
+              </config>
+              <vertices __type__="NSMutableArray">
+                <__0 __type__="FlashPoint" x="-1.6183333333333318" y="-2.325"/>
+                <__1 __type__="FlashPoint" x="2.216666666666667" y="-0.7049999999999992"/>
+                <__2 __type__="FlashPoint" x="1.8783333333333303" y="0.09833333333333295"/>
+                <__3 __type__="FlashPoint" x="-1.956666666666668" y="-1.5216666666666658"/>
+              </vertices>
+            </__3>
+            <__4 __type__="NSMutableDictionary" radius="0.8371661855463467">
+              <type __type__="null"/>
+              <config __type__="NSMutableDictionary" x="983" contentType="McStoneNSMutableDictionary0" y="110.75" type="circle" rotationOffset="-39.43772890567102" rotation="-46.64622524934796" innerX="0" zIndex="41" innerY="0" width="256">
+                <flipX __type__="null"/>
+                <flipY __type__="null"/>
+                <scale __type__="FlashPoint" x="0.5018305713091981" y="0.5018305713091981"/>
+              </config>
+              <position __type__="FlashPoint" x="-2.518333333333331" y="-1.674999999999999"/>
+            </__4>
+          </shapes>
+        </__0>
+      </children>
+      <flipX __type__="null"/>
+      <flipY __type__="null"/>
+    </__16>
+    <__17 __type__="NSMutableDictionary" type="com.bboygames.bEditor.editables.DragableEditable" x="361" innerX="0" contentType="McEnergyNSMutableDictionary" y="265" zIndex="42" innerY="0">
+      <children __type__="NSMutableArray">
+        <__0 __type__="NSMutableDictionary">
+          <position __type__="FlashPoint" x="12.033333333333333" y="12.499999999999998"/>
+          <config __type__="NSMutableDictionary" x="361" contentType="McEnergyNSMutableDictionary" y="375" type="body" viewType="McEnergyView" clipType="EnergyBodyClip" rotationOffset="0" sensor="true" zIndex="42" innerY="0" innerX="0">
+            <flipX __type__="null"/>
+            <flipY __type__="null"/>
+            <scale __type__="FlashPoint" x="1" y="1"/>
+          </config>
+          <shapes __type__="NSMutableArray">
+            <__0 __type__="NSMutableDictionary" radius="0.6316666666666659">
+              <type __type__="null"/>
+              <config __type__="NSMutableDictionary" x="361" innerX="0" contentType="McEnergyNSMutableDictionary" y="375" zIndex="42" type="circle" rotationOffset="0" innerY="0">
+                <scale __type__="FlashPoint" x="0.3788909912109375" y="0.3788909912109375"/>
+                <flipX __type__="null"/>
+                <flipY __type__="null"/>
+              </config>
+              <position __type__="FlashPoint" x="0" y="0"/>
+            </__0>
+          </shapes>
+        </__0>
+      </children>
+      <flipX __type__="null"/>
+      <flipY __type__="null"/>
+    </__17>
+    <__18 __type__="NSMutableDictionary" type="com.bboygames.bEditor.editables.DragableEditable" x="817" innerX="0" contentType="McEnergyNSMutableDictionary" y="632" zIndex="43" innerY="0">
+      <children __type__="NSMutableArray">
+        <__0 __type__="NSMutableDictionary">
+          <position __type__="FlashPoint" x="27.233333333333334" y="0.2666666666666657"/>
+          <config __type__="NSMutableDictionary" x="817" contentType="McEnergyNSMutableDictionary" y="8" type="body" viewType="McEnergyView" clipType="EnergyBodyClip" rotationOffset="0" sensor="true" zIndex="43" innerY="0" innerX="0">
+            <flipX __type__="null"/>
+            <flipY __type__="null"/>
+            <scale __type__="FlashPoint" x="1" y="1"/>
+          </config>
+          <shapes __type__="NSMutableArray">
+            <__0 __type__="NSMutableDictionary" radius="0.6316666666666677">
+              <type __type__="null"/>
+              <config __type__="NSMutableDictionary" x="817" innerX="0" contentType="McEnergyNSMutableDictionary" y="8" zIndex="43" type="circle" rotationOffset="0" innerY="0">
+                <scale __type__="FlashPoint" x="0.3788909912109375" y="0.3788909912109375"/>
+                <flipX __type__="null"/>
+                <flipY __type__="null"/>
+              </config>
+              <position __type__="FlashPoint" x="0" y="0"/>
+            </__0>
+          </shapes>
+        </__0>
+      </children>
+      <flipX __type__="null"/>
+      <flipY __type__="null"/>
+    </__18>
+    <__19 __type__="NSMutableDictionary" type="com.bboygames.bEditor.editables.DragableEditable" x="934" innerX="0" contentType="McEnergyNSMutableDictionary" y="421" zIndex="44" innerY="0">
+      <children __type__="NSMutableArray">
+        <__0 __type__="NSMutableDictionary">
+          <position __type__="FlashPoint" x="31.133333333333333" y="7.299999999999999"/>
+          <config __type__="NSMutableDictionary" x="934" contentType="McEnergyNSMutableDictionary" y="219" type="body" viewType="McEnergyView" clipType="EnergyBodyClip" rotationOffset="0" sensor="true" zIndex="44" innerY="0" innerX="0">
+            <flipX __type__="null"/>
+            <flipY __type__="null"/>
+            <scale __type__="FlashPoint" x="1" y="1"/>
+          </config>
+          <shapes __type__="NSMutableArray">
+            <__0 __type__="NSMutableDictionary" radius="0.6316666666666659">
+              <type __type__="null"/>
+              <config __type__="NSMutableDictionary" x="934" innerX="0" contentType="McEnergyNSMutableDictionary" y="219" zIndex="44" type="circle" rotationOffset="0" innerY="0">
+                <scale __type__="FlashPoint" x="0.3788909912109375" y="0.3788909912109375"/>
+                <flipX __type__="null"/>
+                <flipY __type__="null"/>
+              </config>
+              <position __type__="FlashPoint" x="0" y="0"/>
+            </__0>
+          </shapes>
+        </__0>
+      </children>
+      <flipX __type__="null"/>
+      <flipY __type__="null"/>
+    </__19>
+    <__20 __type__="NSMutableDictionary" type="com.bboygames.bEditor.editables.JointEditableView" x="662" innerX="0" contentType="McRevoluteJointNSMutableDictionary" y="384" zIndex="45" innerY="0">
+      <rotationLocked __type__="null"/>
+      <children __type__="NSMutableArray">
+        <__0 __type__="NSMutableDictionary">
+          <position __type__="FlashPoint" x="22.075" y="8.483333333333333"/>
+          <config __type__="NSMutableDictionary" x="662" innerX="0" contentType="McRevoluteJointNSMutableDictionary" y="254.5" zIndex="45" type="editorRevoluteJoint" rotationOffset="0" innerY="0">
+            <scale __type__="FlashPoint" x="1" y="1"/>
+            <rotationLocked __type__="null"/>
+            <flipX __type__="null"/>
+            <flipY __type__="null"/>
+          </config>
+        </__0>
+      </children>
+      <flipX __type__="null"/>
+      <flipY __type__="null"/>
+    </__20>
+    <__21 __type__="NSMutableDictionary" type="com.bboygames.contreJour.editor.editables.SnotEditable" x="222" contentType="McSnotNSMutableDictionary" y="238" rotation="0" height="106.97562833206396" zIndex="46" innerY="-3" innerX="0" width="12.5">
+      <flipY __type__="null"/>
+      <children __type__="NSMutableArray">
+        <__0 __type__="NSMutableDictionary">
+          <start __type__="FlashPoint" x="7.3999999999999995" y="15.078333333333333"/>
+          <end __type__="FlashPoint" x="7.3999999999999995" y="11.921666666666665"/>
+          <position __type__="FlashPoint" x="7.3999999999999995" y="13.5"/>
+          <config __type__="NSMutableDictionary" height="106.97562833206396" x="222" createClip="true" contentType="McSnotNSMutableDictionary" y="405" type="snot" rotationOffset="0" rotation="0" clipType="SnotBodyClip" innerX="0" zIndex="46" innerY="-3" width="12.5">
+            <flipX __type__="null"/>
+            <flipY __type__="null"/>
+            <scale __type__="FlashPoint" x="1" y="0.9466869763899466"/>
+            <movable __type__="null"/>
+          </config>
+        </__0>
+      </children>
+      <flipX __type__="null"/>
+      <movable __type__="null"/>
+    </__21>
+    <__22 __type__="NSMutableDictionary" type="com.bboygames.contreJour.editor.editables.SnotEditable" x="337" contentType="McSnotNSMutableDictionary" y="174" rotation="0" height="113" zIndex="47" innerY="0" innerX="0" width="12.5">
+      <flipY __type__="null"/>
+      <children __type__="NSMutableArray">
+        <__0 __type__="NSMutableDictionary">
+          <start __type__="FlashPoint" x="11.233333333333333" y="17.2"/>
+          <end __type__="FlashPoint" x="11.233333333333333" y="13.866666666666665"/>
+          <position __type__="FlashPoint" x="11.233333333333333" y="15.533333333333331"/>
+          <config __type__="NSMutableDictionary" height="113" x="337" createClip="true" contentType="McSnotNSMutableDictionary" y="466" type="snot" rotationOffset="0" rotation="0" clipType="SnotBodyClip" innerX="0" zIndex="47" innerY="0" width="12.5">
+            <flipX __type__="null"/>
+            <flipY __type__="null"/>
+            <scale __type__="FlashPoint" x="1" y="1"/>
+            <movable __type__="null"/>
+          </config>
+        </__0>
+      </children>
+      <flipX __type__="null"/>
+      <movable __type__="null"/>
+    </__22>
+    <__23 __type__="NSMutableDictionary" type="com.bboygames.contreJour.editor.editables.SnotEditable" x="276" contentType="McSnotNSMutableDictionary" y="230" rotation="0" height="106.97562833206396" zIndex="48" innerY="-3" innerX="0" width="12.5">
+      <flipY __type__="null"/>
+      <children __type__="NSMutableArray">
+        <__0 __type__="NSMutableDictionary">
+          <start __type__="FlashPoint" x="9.2" y="15.344999999999999"/>
+          <end __type__="FlashPoint" x="9.2" y="12.18833333333333"/>
+          <position __type__="FlashPoint" x="9.2" y="13.766666666666666"/>
+          <config __type__="NSMutableDictionary" height="106.97562833206396" x="276" createClip="true" contentType="McSnotNSMutableDictionary" y="413" type="snot" rotationOffset="0" rotation="0" clipType="SnotBodyClip" innerX="0" zIndex="48" innerY="-3" width="12.5">
+            <flipX __type__="null"/>
+            <flipY __type__="null"/>
+            <scale __type__="FlashPoint" x="1" y="0.9466869763899466"/>
+            <movable __type__="null"/>
+          </config>
+        </__0>
+      </children>
+      <flipX __type__="null"/>
+      <movable __type__="null"/>
+    </__23>
+    <__24 __type__="NSMutableDictionary" type="com.bboygames.contreJour.editor.editables.HeroEditable" x="55" innerX="0" contentType="McHeroNSMutableDictionary" y="127" zIndex="49" innerY="0">
+      <children __type__="NSMutableArray">
+        <__0 __type__="NSMutableDictionary">
+          <position __type__="FlashPoint" x="1.8333333333333333" y="17.099999999999998"/>
+          <config __type__="NSMutableDictionary" x="55" contentType="McHeroNSMutableDictionary" y="513" density="0.3" viewType="McHeroView" type="body" clipType="HeroBodyClip" rotationOffset="0" innerX="0" zIndex="49" iPhoneViewType="McHeroBackView" innerY="0" dynamic="true" id="hero">
+            <flipX __type__="null"/>
+            <flipY __type__="null"/>
+            <scale __type__="FlashPoint" x="1" y="1"/>
+          </config>
+          <shapes __type__="NSMutableArray">
+            <__0 __type__="NSMutableDictionary" radius="0.836666666666666">
+              <type __type__="null"/>
+              <config __type__="NSMutableDictionary" x="55" innerX="0" contentType="McHeroNSMutableDictionary" y="513" zIndex="49" type="circle" rotationOffset="0" innerY="0">
+                <scale __type__="FlashPoint" x="0.5015106201171875" y="0.5015106201171875"/>
+                <flipX __type__="null"/>
+                <flipY __type__="null"/>
+              </config>
+              <position __type__="FlashPoint" x="0" y="0"/>
+            </__0>
+          </shapes>
+        </__0>
+      </children>
+      <flipX __type__="null"/>
+      <flipY __type__="null"/>
+    </__24>
+  </items>
+</root>

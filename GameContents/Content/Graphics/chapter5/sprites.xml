@@ -1,0 +1,211 @@
+<root>
+  <Mc5ChapterParticle type="sprite" texture="chapter5/chapter5" scaleFactor="1">
+    <frame anchor="0.5,0.5" rect="813,139 32x32"/>
+  </Mc5ChapterParticle>
+  <McRotatorGrass0 type="sprite" texture="chapter5/chapter5" scaleFactor="1">
+    <frame anchor="0.4722222222222222,0.75" rect="767,246 36x64"/>
+  </McRotatorGrass0>
+  <McBaloonLegs type="sprite" texture="chapter5/chapter5" scaleFactor="1">
+    <frame anchor="0.5,0.5" rect="234,468 32x32"/>
+  </McBaloonLegs>
+  <McBridgeHideHintView type="sprite" texture="chapter5/chapter5" scaleFactor="1">
+    <frame anchor="2.1020408163265305,0.8333333333333334" rect="804,457 49x48"/>
+  </McBridgeHideHintView>
+  <McBridgeHintView type="sprite" texture="chapter5/chapter5" scaleFactor="1">
+    <frame anchor="0.5021645021645021,0.5466666666666666" rect="1,416 231x75"/>
+  </McBridgeHintView>
+  <McCircleSpikesView_5 type="movieClip" texture="chapter5/chapter5" scaleFactor="1" anchor="0.5084745762711864,0.4909090909090909" size="59,55">
+    <frame anchor="-0.0847457627118644,-0.05454545454545454" rect="599,466 48x45"/>
+    <frame anchor="-0.05084745762711865,-0.03636363636363636" rect="752,457 50x48"/>
+    <frame anchor="-0.01694915254237288,-0.01818181818181818" rect="885,1 55x51"/>
+    <frame anchor="0,0" rect="824,1 59x55"/>
+  </McCircleSpikesView_5>
+  <McEggBridgeView_5 type="sprite" texture="chapter5/chapter5" scaleFactor="1">
+    <frame anchor="0.49473684210526314,0.5" rect="588,113 95x30"/>
+  </McEggBridgeView_5>
+  <McEggView0_5 type="sprite" texture="chapter5/chapter5" scaleFactor="1">
+    <frame anchor="0.5,0.5" rect="1,290 252x124"/>
+  </McEggView0_5>
+  <McEggView2_5 type="sprite" texture="chapter5/chapter5" scaleFactor="1">
+    <frame anchor="0.4978540772532189,0.4965034965034965" rect="1,1 233x143"/>
+  </McEggView2_5>
+  <McEggView3_5 type="sprite" texture="chapter5/chapter5" scaleFactor="1">
+    <frame anchor="0.5,0.5" rect="1,146 232x142"/>
+  </McEggView3_5>
+  <McEyeBall type="sprite" texture="chapter5/chapter5" scaleFactor="1">
+    <frame anchor="0.5,0.5" rect="587,275 12x12"/>
+  </McEyeBall>
+  <McEyeDead type="sprite" texture="chapter5/chapter5" scaleFactor="1">
+    <frame anchor="0.5135135135135135,0.5" rect="806,403 37x38"/>
+  </McEyeDead>
+  <McEyeSpotlight type="sprite" texture="chapter5/chapter5" scaleFactor="1">
+    <frame anchor="0.3888888888888889,0.5" rect="531,494 18x14"/>
+  </McEyeSpotlight>
+  <McFlyBody type="sprite" texture="chapter5/chapter5" scaleFactor="1">
+    <frame anchor="0.5,0.45454545454545453" rect="767,312 20x22"/>
+  </McFlyBody>
+  <McFlyWing type="sprite" texture="chapter5/chapter5" scaleFactor="1">
+    <frame anchor="0.9230769230769231,0.5" rect="551,494 13x14"/>
+  </McFlyWing>
+  <McFurCircle type="sprite" texture="chapter5/chapter5" scaleFactor="1">
+    <frame anchor="0.49206349206349204,0.5039370078740157" rect="588,146 126x127"/>
+  </McFurCircle>
+  <McGrass_5 type="movieClip" texture="chapter5/chapter5" scaleFactor="1" anchor="0.4444444444444444,0.7" size="36,60">
+    <frame anchor="0,0" rect="809,341 36x60"/>
+    <frame anchor="-0.08333333333333333,-0.11666666666666667" rect="784,113 27x49"/>
+    <frame anchor="-0.05555555555555555,-0.2833333333333333" rect="869,137 28x37"/>
+  </McGrass_5>
+  <McKaktusView0_5 type="sprite" texture="chapter5/chapter5" scaleFactor="1">
+    <frame anchor="0.4927536231884058,0.4703196347031963" rect="236,1 138x219"/>
+  </McKaktusView0_5>
+  <McKaktusView2_5 type="sprite" texture="chapter5/chapter5" scaleFactor="1">
+    <frame anchor="0.5,0.4473684210526316" rect="478,1 108x190"/>
+  </McKaktusView2_5>
+  <McKaktusView3_5 type="sprite" texture="chapter5/chapter5" scaleFactor="1">
+    <frame anchor="0.5,0.5" rect="376,1 100x212"/>
+  </McKaktusView3_5>
+  <McRotatableSpring type="movieClip" texture="chapter5/chapter5" scaleFactor="1" anchor="0.5,0.6136363636363636" size="78,88">
+    <frame anchor="0,0" rect="357,284 78x88"/>
+    <frame anchor="-0.10256410256410256,-0.22727272727272727" rect="716,177 62x65"/>
+    <frame anchor="-0.1794871794871795,-0.1590909090909091" rect="839,177 51x71"/>
+    <frame anchor="-0.21794871794871795,-0.06818181818181818" rect="821,59 46x78"/>
+    <frame anchor="-0.19230769230769232,-0.022727272727272728" rect="716,244 49x82"/>
+    <frame anchor="-0.23076923076923078,-0.09090909090909091" rect="869,59 44x76"/>
+    <frame anchor="-0.14102564102564102,-0.20454545454545456" rect="780,177 57x67"/>
+    <frame anchor="-0.07692307692307693,-0.26136363636363635" rect="716,113 66x62"/>
+    <frame anchor="-0.05128205128205128,-0.2840909090909091" rect="605,337 70x61"/>
+    <frame anchor="-0.038461538461538464,-0.29545454545454547" rect="605,275 72x60"/>
+    <frame anchor="-0.02564102564102564,-0.3181818181818182" rect="676,405 74x59"/>
+    <frame anchor="-0.02564102564102564,-0.3181818181818182" rect="599,405 75x59"/>
+  </McRotatableSpring>
+  <McRotatableSpringHintView type="sprite" texture="chapter5/chapter5" scaleFactor="1">
+    <frame anchor="1.196969696969697,0.45454545454545453" rect="463,405 66x88"/>
+  </McRotatableSpringHintView>
+  <McRotatorArrowPart type="movieClip" texture="chapter5/chapter5" scaleFactor="1" anchor="0.92,1.25" size="50,36">
+    <frame anchor="-0.7,-0.5" rect="728,488 14x18"/>
+    <frame anchor="-0.6,-0.3333333333333333" rect="847,139 19x24"/>
+    <frame anchor="-0.46,-0.2222222222222222" rect="685,113 26x28"/>
+    <frame anchor="-0.32,-0.1111111111111111" rect="693,466 33x32"/>
+    <frame anchor="-0.16,-0.027777777777777776" rect="649,466 42x35"/>
+    <frame anchor="0,0" rect="357,374 50x36"/>
+  </McRotatorArrowPart>
+  <McRotatorBase type="sprite" texture="chapter5/chapter5" scaleFactor="1">
+    <frame anchor="0.5,0.5" rect="336,468 32x32"/>
+  </McRotatorBase>
+  <McRotatorCircle type="sprite" texture="chapter5/chapter5" scaleFactor="1">
+    <config premultiply="false" type="null"/>
+    <frame anchor="0.4954954954954955,0.5" rect="474,215 111x112"/>
+  </McRotatorCircle>
+  <McRotatorGrass1 type="sprite" texture="chapter5/chapter5" scaleFactor="1">
+    <frame anchor="0.5,0.7407407407407407" rect="679,275 26x54"/>
+  </McRotatorGrass1>
+  <McRotatorGrass2 type="sprite" texture="chapter5/chapter5" scaleFactor="1">
+    <frame anchor="0.5,0.775" rect="437,284 30x40"/>
+  </McRotatorGrass2>
+  <McRotatorHintView type="sprite" texture="chapter5/chapter5" scaleFactor="1">
+    <frame anchor="0,0.5172413793103449" rect="531,405 66x87"/>
+  </McRotatorHintView>
+  <McRotatorPoint type="sprite" texture="chapter5/chapter5" scaleFactor="1">
+    <config premultiply="false" type="null"/>
+    <frame anchor="0.5,0.5" rect="728,466 20x20"/>
+  </McRotatorPoint>
+  <McRotatorTouch type="sprite" texture="chapter5/chapter5" scaleFactor="1">
+    <frame anchor="0.5,0.5" rect="409,374 26x32"/>
+  </McRotatorTouch>
+  <McRoundDragView_5 type="sprite" texture="chapter5/chapter5" scaleFactor="1">
+    <frame anchor="0.22,0.7676767676767676" rect="255,284 100x99"/>
+  </McRoundDragView_5>
+  <McSimpleSpikesView_5 type="movieClip" texture="chapter5/chapter5" scaleFactor="1" anchor="0.5063291139240507,0.48333333333333334" size="237,60">
+    <frame anchor="-0.02531645569620253,-0.06666666666666667" rect="234,416 227x50"/>
+    <frame anchor="-0.016877637130801686,-0.05" rect="588,59 231x52"/>
+    <frame anchor="-0.008438818565400843,-0.016666666666666666" rect="588,1 234x56"/>
+    <frame anchor="0,0" rect="235,222 237x60"/>
+  </McSimpleSpikesView_5>
+  <McSpringBridgeHintView type="sprite" texture="chapter5/chapter5" scaleFactor="1">
+    <frame anchor="4.0588235294117645,0.49411764705882355" rect="847,341 17x85"/>
+  </McSpringBridgeHintView>
+  <McSpringTouchPoint type="sprite" texture="chapter5/chapter5" scaleFactor="1">
+    <config premultiply="false" type="null"/>
+    <frame anchor="0.5,0.5" rect="677,337 64x64"/>
+  </McSpringTouchPoint>
+  <McSuckerBody type="sprite" texture="chapter5/chapter5" scaleFactor="1">
+    <frame anchor="0.5,0.5" rect="255,385 26x26"/>
+  </McSuckerBody>
+  <McSuckerBodyStrong type="sprite" texture="chapter5/chapter5" scaleFactor="1">
+    <frame anchor="0.5,0.5" rect="805,246 26x26"/>
+  </McSuckerBodyStrong>
+  <McSuckerHighlite type="sprite" texture="chapter5/chapter5" scaleFactor="1">
+    <config premultiply="false" type="null"/>
+    <frame anchor="0.5,0.5" rect="743,337 64x64"/>
+  </McSuckerHighlite>
+  <McSuckerLegs type="sprite" texture="chapter5/chapter5" scaleFactor="1">
+    <frame anchor="0.5,0.5" rect="302,468 32x32"/>
+  </McSuckerLegs>
+  <McSuckerStrongSnotTexture type="sprite" texture="chapter5/chapter5" scaleFactor="1">
+    <frame anchor="0.5,0.5" rect="268,468 32x32"/>
+  </McSuckerStrongSnotTexture>
+  <McSuckerStrongSnotTextureipad3 type="sprite" texture="chapter5/chapter5" scaleFactor="1">
+    <frame anchor="0.5,0.5" rect="809,275 64x64"/>
+  </McSuckerStrongSnotTextureipad3>
+  <McTear type="movieClip" texture="chapter5/chapter5" scaleFactor="1" anchor="-0.34375,1.0461538461538462" size="32,65">
+    <frame anchor="-0.34375,0" rect="587,326 5x1"/>
+    <frame anchor="-0.34375,0" rect="798,332 6x2"/>
+    <frame anchor="-0.34375,0" rect="244,284 7x3"/>
+    <frame anchor="-0.34375,0" rect="789,332 7x3"/>
+    <frame anchor="-0.34375,0" rect="235,284 7x4"/>
+    <frame anchor="-0.34375,0" rect="328,393 7x5"/>
+    <frame anchor="-0.375,0" rect="591,494 6x5"/>
+    <frame anchor="-0.375,0" rect="319,394 7x6"/>
+    <frame anchor="-0.375,0" rect="301,385 7x7"/>
+    <frame anchor="-0.375,0" rect="301,394 7x7"/>
+    <frame anchor="-0.375,0" rect="301,403 7x7"/>
+    <frame anchor="-0.375,0" rect="707,297 7x8"/>
+    <frame anchor="-0.375,0" rect="589,503 7x8"/>
+    <frame anchor="-0.375,0" rect="707,317 7x8"/>
+    <frame anchor="-0.375,0" rect="707,307 7x8"/>
+    <frame anchor="-0.375,-0.015384615384615385" rect="596,315 7x9"/>
+    <frame anchor="-0.375,-0.046153846153846156" rect="707,275 7x9"/>
+    <frame anchor="-0.375,-0.07692307692307693" rect="707,286 7x9"/>
+    <frame anchor="-0.375,-0.1076923076923077" rect="587,315 7x9"/>
+    <frame anchor="-0.375,-0.16923076923076924" rect="292,385 7x7"/>
+    <frame anchor="-0.375,-0.2153846153846154" rect="337,385 7x6"/>
+    <frame anchor="-0.375,-0.24615384615384617" rect="292,394 7x7"/>
+    <frame anchor="-0.375,-0.2923076923076923" rect="328,385 7x6"/>
+    <frame anchor="-0.375,-0.3230769230769231" rect="292,403 7x7"/>
+    <frame anchor="-0.375,-0.38461538461538464" rect="319,385 7x7"/>
+    <frame anchor="-0.375,-0.4461538461538462" rect="310,403 7x7"/>
+    <frame anchor="-0.375,-0.5076923076923077" rect="310,394 7x7"/>
+    <frame anchor="-0.375,-0.5692307692307692" rect="310,385 7x7"/>
+    <frame anchor="-0.375,-0.6307692307692307" rect="283,403 7x7"/>
+    <frame anchor="-0.375,-0.6923076923076923" rect="283,385 7x7"/>
+    <frame anchor="-0.375,-0.7538461538461538" rect="283,394 7x7"/>
+    <frame anchor="-0.375,-0.8153846153846154" rect="319,402 7x6"/>
+    <frame anchor="-0.375,-0.8769230769230769" rect="346,385 7x6"/>
+    <frame anchor="-0.34375,-0.8769230769230769" rect="681,503 9x7"/>
+    <frame anchor="-0.3125,-0.8769230769230769" rect="587,306 11x7"/>
+    <frame anchor="-0.28125,-0.8769230769230769" rect="587,297 13x7"/>
+    <frame anchor="-0.25,-0.8923076923076924" rect="587,289 15x6"/>
+    <frame anchor="-0.21875,-0.8923076923076924" rect="443,405 17x6"/>
+    <frame anchor="-0.1875,-0.8923076923076924" rect="847,165 19x6"/>
+    <frame anchor="-0.15625,-0.8923076923076924" rect="566,503 21x6"/>
+    <frame anchor="-0.125,-0.8923076923076924" rect="566,494 23x7"/>
+    <frame anchor="-0.09375,-0.8923076923076924" rect="707,328 25x7"/>
+    <frame anchor="-0.09375,-0.8923076923076924" rect="784,164 26x7"/>
+    <frame anchor="-0.0625,-0.9076923076923077" rect="734,328 28x6"/>
+    <frame anchor="-0.03125,-0.9076923076923077" rect="649,503 30x6"/>
+    <frame anchor="0,-0.9076923076923077" rect="693,500 32x6"/>
+    <frame anchor="0,-0.9076923076923077" rect="409,408 32x6"/>
+  </McTear>
+  <McTubusBase type="sprite" texture="chapter5/chapter5" scaleFactor="1">
+    <frame anchor="0.5,0.5" rect="529,329 74x74"/>
+  </McTubusBase>
+  <McTubusBody type="sprite" texture="chapter5/chapter5" scaleFactor="1">
+    <frame anchor="0.5,0.9324324324324325" rect="437,329 90x74"/>
+  </McTubusBody>
+  <McTubusEyeBackground type="sprite" texture="chapter5/chapter5" scaleFactor="1">
+    <frame anchor="0.5,0.5" rect="752,403 52x52"/>
+  </McTubusEyeBackground>
+  <McTubusEyeBall type="sprite" texture="chapter5/chapter5" scaleFactor="1">
+    <frame anchor="0.5,0.5" rect="789,312 18x18"/>
+  </McTubusEyeBall>
+</root>

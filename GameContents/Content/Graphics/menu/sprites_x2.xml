@@ -1,0 +1,152 @@
+<root>
+  <McBackIcon type="sprite" texture="menu/menu_x2" scaleFactor="0.5">
+    <frame anchor="0.5,0.5" rect="539,783 64x54"/>
+  </McBackIcon>
+  <McButtonBackgroundBig type="sprite" texture="menu/menu_x2" scaleFactor="0.5">
+    <frame anchor="0.49696969696969695,0.49079754601226994" rect="1850,195 165x163"/>
+  </McButtonBackgroundBig>
+  <McButtonBackground type="sprite" texture="menu/menu_x2" scaleFactor="0.5">
+    <frame anchor="0.5,0.49107142857142855" rect="771,573 114x112"/>
+  </McButtonBackground>
+  <McButtonBackgroundLight type="sprite" texture="menu/menu_x2" scaleFactor="0.5">
+    <frame anchor="0.5,0.49107142857142855" rect="1923,687 114x112"/>
+  </McButtonBackgroundLight>
+  <McButtonPressed type="sprite" texture="menu/menu_x2" scaleFactor="0.5">
+    <frame anchor="0.5,0.5" rect="511,573 128x128"/>
+  </McButtonPressed>
+  <McButtonPressedBig type="sprite" texture="menu/menu_x2" scaleFactor="0.5">
+    <frame anchor="0.5,0.5" rect="1850,1 192x192"/>
+  </McButtonPressedBig>
+  <McChapter1Name type="sprite" texture="menu/menu_x2" scaleFactor="0.5">
+    <frame anchor="0.4843205574912892,0.44366197183098594" rect="577,287 574x284"/>
+  </McChapter1Name>
+  <McChapter2Name type="sprite" texture="menu/menu_x2" scaleFactor="0.5">
+    <frame anchor="0.4843205574912892,0.44366197183098594" rect="1,287 574x284"/>
+  </McChapter2Name>
+  <McChapter3Name type="sprite" texture="menu/menu_x2" scaleFactor="0.5">
+    <frame anchor="0.4843205574912892,0.44366197183098594" rect="1153,375 574x284"/>
+  </McChapter3Name>
+  <McChapter4Name type="sprite" texture="menu/menu_x2" scaleFactor="0.5">
+    <frame anchor="0.4858420268256334,0.44366197183098594" rect="1,1 671x284"/>
+  </McChapter4Name>
+  <McChapter5Name type="sprite" texture="menu/menu_x2" scaleFactor="0.5">
+    <frame anchor="0.4858420268256334,0.44366197183098594" rect="674,1 671x284"/>
+  </McChapter5Name>
+  <McCrystalIcon type="sprite" texture="menu/menu_x2" scaleFactor="0.5">
+    <frame anchor="0.5,0.5" rect="641,573 128x128"/>
+  </McCrystalIcon>
+  <McDisabledIcon type="sprite" texture="menu/menu_x2" scaleFactor="0.5">
+    <frame anchor="0.5,0.5" rect="1923,569 116x116"/>
+  </McDisabledIcon>
+  <McEnergyBig type="sprite" texture="menu/menu_x2" scaleFactor="0.5">
+    <frame anchor="0.5,0.5" rect="1083,661 96x96"/>
+  </McEnergyBig>
+  <McEnergyBigInactive type="sprite" texture="menu/menu_x2" scaleFactor="0.5">
+    <frame anchor="0.5,0.5" rect="771,687 96x96"/>
+  </McEnergyBigInactive>
+  <McEnergyIcon type="sprite" texture="menu/menu_x2" scaleFactor="0.5">
+    <frame anchor="0.5,0.5" rect="473,783 64x64"/>
+  </McEnergyIcon>
+  <McImprovedResult type="sprite" texture="menu/menu_x2" scaleFactor="0.5">
+    <config premultiply="false" type="null"/>
+    <frame anchor="0.2954091816367265,0.06182795698924731" rect="1347,1 501x372"/>
+  </McImprovedResult>
+  <McLevelEnergy type="sprite" texture="menu/menu_x2" scaleFactor="0.5">
+    <config premultiply="false" type="null"/>
+    <frame anchor="0.5,0.5" rect="185,874 48x48"/>
+  </McLevelEnergy>
+  <McLevelEnergyInactive type="sprite" texture="menu/menu_x2" scaleFactor="0.5">
+    <config premultiply="false" type="null"/>
+    <frame anchor="0.5,0.5" rect="250,839 48x48"/>
+  </McLevelEnergyInactive>
+  <McLevelItemBackground type="sprite" texture="menu/menu_x2" scaleFactor="0.5">
+    <frame anchor="0.5,0.5" rect="1729,375 256x192"/>
+  </McLevelItemBackground>
+  <McLevelItemSelected type="sprite" texture="menu/menu_x2" scaleFactor="0.5">
+    <frame anchor="0.6987179487179487,0.4935897435897436" rect="353,573 156x156"/>
+  </McLevelItemSelected>
+  <McLevels0 type="sprite" texture="menu/menu_x2" scaleFactor="0.5">
+    <frame anchor="0.5,0.5" rect="511,703 58x78"/>
+  </McLevels0>
+  <McLevels1 type="sprite" texture="menu/menu_x2" scaleFactor="0.5">
+    <frame anchor="0.5,0.5" rect="1273,287 58x78"/>
+  </McLevels1>
+  <McLevels2 type="sprite" texture="menu/menu_x2" scaleFactor="0.5">
+    <frame anchor="0.5,0.5" rect="1213,287 58x78"/>
+  </McLevels2>
+  <McLevels3 type="sprite" texture="menu/menu_x2" scaleFactor="0.5">
+    <frame anchor="0.5,0.5" rect="571,703 58x78"/>
+  </McLevels3>
+  <McLevels4 type="sprite" texture="menu/menu_x2" scaleFactor="0.5">
+    <frame anchor="0.5,0.5" rect="353,731 58x78"/>
+  </McLevels4>
+  <McLevels5 type="sprite" texture="menu/menu_x2" scaleFactor="0.5">
+    <frame anchor="0.5,0.5" rect="413,731 58x78"/>
+  </McLevels5>
+  <McLevels6 type="sprite" texture="menu/menu_x2" scaleFactor="0.5">
+    <frame anchor="0.5,0.5" rect="1987,360 58x78"/>
+  </McLevels6>
+  <McLevels7 type="sprite" texture="menu/menu_x2" scaleFactor="0.5">
+    <frame anchor="0.5,0.5" rect="1083,573 58x78"/>
+  </McLevels7>
+  <McLevels8 type="sprite" texture="menu/menu_x2" scaleFactor="0.5">
+    <frame anchor="0.5,0.5" rect="1153,287 58x78"/>
+  </McLevels8>
+  <McLevels9 type="sprite" texture="menu/menu_x2" scaleFactor="0.5">
+    <frame anchor="0.5,0.5" rect="1987,440 58x78"/>
+  </McLevels9>
+  <McLockIcon type="sprite" texture="menu/menu_x2" scaleFactor="0.5">
+    <frame anchor="0.5,0.5245901639344263" rect="308,811 54x61"/>
+  </McLockIcon>
+  <McMainMenuLogo type="sprite" texture="menu/menu_x2" scaleFactor="0.5">
+    <frame anchor="0,0" rect="1,573 350x234"/>
+  </McMainMenuLogo>
+  <McMenuCircleSpikes type="sprite" texture="menu/menu_x2" scaleFactor="0.5">
+    <frame anchor="0.5,0.5" rect="706,703 62x58"/>
+  </McMenuCircleSpikes>
+  <McMenuIcon type="sprite" texture="menu/menu_x2" scaleFactor="0.5">
+    <frame anchor="0.5,0.5" rect="887,573 96x96"/>
+  </McMenuIcon>
+  <McMusicIcon type="sprite" texture="menu/menu_x2" scaleFactor="0.5">
+    <frame anchor="0.5616438356164384,0.5081967213114754" rect="631,703 73x61"/>
+  </McMusicIcon>
+  <McMusicLoadingIcon type="sprite" texture="menu/menu_x2" scaleFactor="0.5">
+    <frame anchor="0.5,0.5" rect="153,884 26x26"/>
+  </McMusicLoadingIcon>
+  <McMusicPauseIcon type="sprite" texture="menu/menu_x2" scaleFactor="0.5">
+    <frame anchor="0.5,0.5" rect="1987,520 42x42"/>
+  </McMusicPauseIcon>
+  <McPauseIcon type="sprite" texture="menu/menu_x2" scaleFactor="0.5">
+    <frame anchor="0.5,0.5" rect="706,763 60x56"/>
+  </McPauseIcon>
+  <McPlayIcon type="sprite" texture="menu/menu_x2" scaleFactor="0.5">
+    <frame anchor="0.5,0.5" rect="985,573 96x96"/>
+  </McPlayIcon>
+  <McRestartIcon type="sprite" texture="menu/menu_x2" scaleFactor="0.5">
+    <frame anchor="0.5,0.5" rect="985,671 96x96"/>
+  </McRestartIcon>
+  <McRoseButton type="sprite" texture="menu/menu_x2" scaleFactor="0.5">
+    <frame anchor="0.5,0.5" rect="1729,569 192x192"/>
+  </McRoseButton>
+  <McRoseForeground type="sprite" texture="menu/menu_x2" scaleFactor="0.5">
+    <frame anchor="3.2903225806451615,5.045454545454546" rect="473,731 31x44"/>
+  </McRoseForeground>
+  <McSkipIcon type="sprite" texture="menu/menu_x2" scaleFactor="0.5">
+    <frame anchor="0.5,0.5" rect="887,671 96x96"/>
+  </McSkipIcon>
+  <McSoundIcon type="sprite" texture="menu/menu_x2" scaleFactor="0.5">
+    <frame anchor="0.5205479452054794,0.5" rect="631,766 73x60"/>
+  </McSoundIcon>
+  <McTotalLine type="movieClip" texture="menu/menu_x2" scaleFactor="0.5" anchor="0.003278688524590164,0.15384615384615385" size="305,13">
+    <frame anchor="0,-0.6153846153846154" rect="282,824 20x5"/>
+    <frame anchor="0,-0.46153846153846156" rect="1,898 53x7"/>
+    <frame anchor="0,-0.3076923076923077" rect="364,811 85x9"/>
+    <frame anchor="0,-0.15384615384615385" rect="1850,360 117x11"/>
+    <frame anchor="0,-0.07692307692307693" rect="1,884 150x12"/>
+    <frame anchor="0,0" rect="1,869 182x13"/>
+    <frame anchor="0,0" rect="1,854 214x13"/>
+    <frame anchor="0,0" rect="1,839 247x13"/>
+    <frame anchor="0,0" rect="1,824 279x13"/>
+    <frame anchor="0,0" rect="1,809 305x13"/>
+  </McTotalLine>
+</root>

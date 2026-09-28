@@ -1,0 +1,18 @@
+<root>
+  <petitInformation type="animation" precalculatedBounds="-512,-495 1024x990">
+    <children>
+      <background type="petitInformationBackground" blendMode="normal"/>
+      <message type="Label" blendMode="null"/>
+      <resize type="resizeIcon" blendMode="normal"/>
+      <touch type="touchIcon" blendMode="normal"/>
+    </children>
+    <frames>
+      <frame index="0">
+        <background/>
+        <message position="-152.45,295.7" color="#969696" colorRatio="1"/>
+        <resize position="43.95,-183"/>
+        <touch position="45.95,-189.1"/>
+      </frame>
+    </frames>
+  </petitInformation>
+</root>

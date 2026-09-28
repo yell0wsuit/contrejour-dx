@@ -1,0 +1,14 @@
+<root>
+  <McCircleSpikesView type="movieClip" texture="spikes/spikes" scaleFactor="1" anchor="0.46,0.46808510638297873" size="50,47">
+    <frame anchor="-0.08,-0.06382978723404255" rect="471,57 39x38"/>
+    <frame anchor="-0.06,-0.0425531914893617" rect="1,204 42x41"/>
+    <frame anchor="-0.02,-0.02127659574468085" rect="1,158 46x44"/>
+    <frame anchor="0,0" rect="1,109 50x47"/>
+  </McCircleSpikesView>
+  <McSimpleSpikesView type="movieClip" texture="spikes/spikes" scaleFactor="1" anchor="0.5042372881355932,0.5087719298245614" size="236,57">
+    <frame anchor="-0.0211864406779661,-0.08771929824561403" rect="1,60 227x47"/>
+    <frame anchor="-0.012711864406779662,-0.07017543859649122" rect="239,57 230x50"/>
+    <frame anchor="-0.00847457627118644,-0.03508771929824561" rect="239,1 232x54"/>
+    <frame anchor="0,0" rect="1,1 236x57"/>
+  </McSimpleSpikesView>
+</root>

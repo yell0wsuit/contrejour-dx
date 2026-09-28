@@ -1,0 +1,16 @@
+<root>
+  <McSpikesView type="animation" precalculatedBounds="-56,3 115x40">
+    <children>
+      <left type="McSpikesPart" blendMode="normal"/>
+      <right type="McSpikesPart" blendMode="normal"/>
+      <instance5241334 type="McSpikesCenter" blendMode="normal"/>
+    </children>
+    <frames>
+      <frame index="0">
+        <left position="-53.25,11.15"/>
+        <right position="55.75,11.15" scale="-1,1"/>
+        <instance5241334/>
+      </frame>
+    </frames>
+  </McSpikesView>
+</root>

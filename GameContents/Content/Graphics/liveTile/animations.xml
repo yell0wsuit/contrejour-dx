@@ -1,0 +1,40 @@
+<root>
+  <liveTileSquare type="animation" precalculatedBounds="-36,-32 412x417">
+    <config type="ContreJour.WinRT.LiveTileAnimation"/>
+    <children>
+      <instance640 type="blackSquare" blendMode="normal"/>
+      <background type="liveTileGraphics_358x358" blendMode="normal"/>
+      <blueLight type="liveTileBlueLight" blendMode="normal"/>
+      <highLight type="liveTileHighLight" blendMode="normal"/>
+      <count type="Label" blendMode="null"/>
+    </children>
+    <frames>
+      <frame index="0">
+        <instance640 position="-36.95,-32" scale="12.15130615234375,11.906509399414063"/>
+        <background/>
+        <blueLight position="278.9,288.4" scale="6,5.99981689453125"/>
+        <highLight position="286.95,289.95"/>
+        <count position="174.95,261.45" color="#cccccc" colorRatio="1"/>
+      </frame>
+    </frames>
+  </liveTileSquare>
+  <liveTileWide type="animation" precalculatedBounds="-36,-32 416x257">
+    <config type="ContreJour.WinRT.LiveTileAnimation"/>
+    <children>
+      <instance652 type="blackSquare" blendMode="normal"/>
+      <background type="liveTileGraphics_358x173" blendMode="normal"/>
+      <blueLight type="liveTileBlueLight" blendMode="normal"/>
+      <highLight type="liveTileHighLight" blendMode="normal"/>
+      <count type="Label" blendMode="null"/>
+    </children>
+    <frames>
+      <frame index="0">
+        <instance652 position="-36.95,-32" scale="12.15130615234375,6.529693603515625"/>
+        <background/>
+        <blueLight position="282.95,128.95" scale="6,5.99981689453125"/>
+        <highLight position="290.95,131.95"/>
+        <count position="180.95,107.9" color="#cccccc" colorRatio="1"/>
+      </frame>
+    </frames>
+  </liveTileWide>
+</root>

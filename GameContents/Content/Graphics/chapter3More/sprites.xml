@@ -1,0 +1,24 @@
+<root>
+  <McRelsHintView type="sprite" texture="chapter3More/chapter3More" scaleFactor="1">
+    <frame anchor="0.5,0.2714285714285714" rect="495,312 18x70"/>
+  </McRelsHintView>
+  <McShesterna2Background type="sprite" texture="chapter3More/chapter3More" scaleFactor="1">
+    <config speed="0.2" final="true" iPhoneSizeLimit="256" viewType="McShesternaBackground" type="null"/>
+    <frame anchor="0.4980392156862745,0.5019607843137255" rect="258,1 255x255"/>
+  </McShesterna2Background>
+  <McShesternaBackground type="sprite" texture="chapter3More/chapter3More" scaleFactor="1">
+    <config speed="-0.5" final="true" iPhoneSizeLimit="256" type="null"/>
+    <frame anchor="0.4980392156862745,0.5019607843137255" rect="1,1 255x255"/>
+  </McShesternaBackground>
+  <McShesternaBackgroundBlur type="sprite" texture="chapter3More/chapter3More" scaleFactor="1">
+    <config speed="1" final="true" iPhoneSizeLimit="254" type="null" premultiply="false"/>
+    <frame anchor="0.4980237154150198,0.5098814229249012" rect="1,258 253x253"/>
+  </McShesternaBackgroundBlur>
+  <McShesternaOut type="sprite" texture="chapter3More/chapter3More" scaleFactor="1">
+    <config speed="0.2" final="true" iPhoneSizeLimit="254" type="null" radius="60"/>
+    <frame anchor="0.4978902953586498,0.5" rect="256,258 237x236"/>
+  </McShesternaOut>
+  <McStoneLongView type="sprite" texture="chapter3More/chapter3More" scaleFactor="1">
+    <frame anchor="0.5019607843137255,0.5" rect="495,258 510x52"/>
+  </McStoneLongView>
+</root>

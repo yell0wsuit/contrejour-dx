@@ -1,0 +1,42 @@
+<root>
+  <McPlanet1Foreground type="sprite" texture="planets/planets_x2" scaleFactor="0.5">
+    <frame anchor="0.47058823529411764,0.5270541082164328" rect="1,1 493x499"/>
+  </McPlanet1Foreground>
+  <McPlanet2Background type="sprite" texture="planets/planets_x2" scaleFactor="0.5">
+    <frame anchor="0.45368171021377673,0.5687203791469194" rect="473,502 421x422"/>
+  </McPlanet2Background>
+  <McPlanet3Background type="sprite" texture="planets/planets_x2" scaleFactor="0.5">
+    <frame anchor="0.5340425531914894,0.5090439276485789" rect="1,502 470x387"/>
+  </McPlanet3Background>
+  <McPlanet3Foreground type="sprite" texture="planets/planets_x2" scaleFactor="0.5">
+    <frame anchor="0.5120481927710844,0.5612535612535613" rect="1350,502 332x351"/>
+  </McPlanet3Foreground>
+  <McPlanetCross type="sprite" texture="planets/planets_x2" scaleFactor="0.5">
+    <frame anchor="0.5,0.4838709677419355" rect="371,891 62x62"/>
+  </McPlanetCross>
+  <McPlanetLocked type="sprite" texture="planets/planets_x2" scaleFactor="0.5">
+    <frame anchor="0.504424778761062,0.5" rect="896,502 452x368"/>
+  </McPlanetLocked>
+  <McPlanetShesterna2 type="sprite" texture="planets/planets_x2" scaleFactor="0.5">
+    <frame anchor="0.504,0.5072463768115942" rect="1672,855 125x138"/>
+  </McPlanetShesterna2>
+  <McPlanetShesterna3 type="sprite" texture="planets/planets_x2" scaleFactor="0.5">
+    <frame anchor="0.5,0.5" rect="371,955 58x64"/>
+  </McPlanetShesterna3>
+  <McPlanetShesternaBlur type="sprite" texture="planets/planets_x2" scaleFactor="0.5">
+    <frame anchor="0.5,0.5" rect="1799,855 128x128"/>
+  </McPlanetShesternaBlur>
+  <McPlanetShesterna type="sprite" texture="planets/planets_x2" scaleFactor="0.5">
+    <frame anchor="0.49606299212598426,0.5079365079365079" rect="1,891 127x126"/>
+  </McPlanetShesterna>
+  <McPlanetSpringBack type="sprite" texture="planets/planets_x2" scaleFactor="0.5">
+    <frame anchor="0.4915254237288136,0.9285714285714286" rect="251,891 118x126"/>
+  </McPlanetSpringBack>
+  <McPlanetSpringView type="sprite" texture="planets/planets_x2" scaleFactor="0.5">
+    <config premultiply="true" type="null"/>
+    <frame anchor="0.47058823529411764,0.8661417322834646" rect="130,891 119x127"/>
+  </McPlanetSpringView>
+  <McPlanetTablo type="sprite" texture="planets/planets_x2" scaleFactor="0.5">
+    <frame anchor="0.134375,0.958904109589041" rect="1350,855 320x146"/>
+  </McPlanetTablo>
+</root>

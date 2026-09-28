@@ -1,0 +1,17 @@
+<root>
+  <blackSquare type="sprite" texture="liveTile/liveTile" scaleFactor="1">
+    <frame anchor="0,0" rect="1,465 32x32"/>
+  </blackSquare>
+  <liveTileBlueLight type="sprite" texture="liveTile/liveTile" scaleFactor="1">
+    <frame anchor="0.5,0.5" rect="35,465 30x30"/>
+  </liveTileBlueLight>
+  <liveTileGraphics_358x173 type="sprite" texture="liveTile/liveTile" scaleFactor="1">
+    <frame anchor="0,0" rect="1,313 310x150"/>
+  </liveTileGraphics_358x173>
+  <liveTileGraphics_358x358 type="sprite" texture="liveTile/liveTile" scaleFactor="1">
+    <frame anchor="0,0" rect="1,1 310x310"/>
+  </liveTileGraphics_358x358>
+  <liveTileHighLight type="sprite" texture="liveTile/liveTile" scaleFactor="1">
+    <frame anchor="0.6166666666666667,0.6071428571428571" rect="313,1 60x56"/>
+  </liveTileHighLight>
+</root>

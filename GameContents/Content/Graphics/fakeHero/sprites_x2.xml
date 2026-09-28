@@ -1,0 +1,146 @@
+<root>
+  <McEyeBall type="sprite" texture="fakeHero/fakeHero_x2" scaleFactor="0.5">
+    <frame anchor="0.5,0.5" rect="397,473 22x22"/>
+  </McEyeBall>
+  <McFakeHeroBackground type="sprite" texture="fakeHero/fakeHero_x2" scaleFactor="0.5">
+    <frame anchor="0.5,0.5" rect="1,1 256x256"/>
+  </McFakeHeroBackground>
+  <McFakeHeroBackgroundBlack type="sprite" texture="fakeHero/fakeHero_x2" scaleFactor="0.5">
+    <frame anchor="0.5024875621890548,0.5025641025641026" rect="1,517 201x195"/>
+  </McFakeHeroBackgroundBlack>
+  <McFakeHeroBackgroundWhite type="sprite" texture="fakeHero/fakeHero_x2" scaleFactor="0.5">
+    <frame anchor="0.5,0.5" rect="1,259 256x256"/>
+  </McFakeHeroBackgroundWhite>
+  <McFakeHeroEye type="sprite" texture="fakeHero/fakeHero_x2" scaleFactor="0.5">
+    <frame anchor="0.5,0.3786407766990291" rect="779,1 128x103"/>
+  </McFakeHeroEye>
+  <McFakeHeroEyeBall type="sprite" texture="fakeHero/fakeHero_x2" scaleFactor="0.5">
+    <frame anchor="0.5,0.5" rect="499,705 38x38"/>
+  </McFakeHeroEyeBall>
+  <McFakeHeroEyeBallBlack type="sprite" texture="fakeHero/fakeHero_x2" scaleFactor="0.5">
+    <frame anchor="0.5,0.5" rect="933,380 32x32"/>
+  </McFakeHeroEyeBallBlack>
+  <McFakeHeroEyeBallWhite type="sprite" texture="fakeHero/fakeHero_x2" scaleFactor="0.5">
+    <frame anchor="0.5,0.5" rect="637,669 32x32"/>
+  </McFakeHeroEyeBallWhite>
+  <McFakeHeroEyeBlack type="sprite" texture="fakeHero/fakeHero_x2" scaleFactor="0.5">
+    <frame anchor="0.5,0.4297520661157025" rect="1,843 138x121"/>
+  </McFakeHeroEyeBlack>
+  <McFakeHeroEyeBlink type="movieClip" texture="fakeHero/fakeHero_x2" scaleFactor="0.5" anchor="0.5,0.3786407766990291" size="128,103">
+    <frame anchor="0,0" rect="259,106 128x103"/>
+    <frame anchor="0,-0.1941747572815534" rect="657,279 128x83"/>
+    <frame anchor="-0.0078125,-0.3883495145631068" rect="649,832 126x63"/>
+    <frame anchor="-0.046875,-0.5825242718446602" rect="905,832 116x43"/>
+    <frame anchor="-0.0703125,-0.7766990291262136" rect="909,902 110x23"/>
+    <frame anchor="-0.359375,-0.970873786407767" rect="804,508 36x3"/>
+    <frame anchor="-0.0703125,-0.7766990291262136" rect="909,26 110x23"/>
+    <frame anchor="-0.046875,-0.5825242718446602" rect="637,624 116x43"/>
+    <frame anchor="-0.0078125,-0.3883495145631068" rect="555,767 126x63"/>
+    <frame anchor="0,-0.1941747572815534" rect="426,558 128x83"/>
+    <frame anchor="0,0" rect="499,1 128x103"/>
+    <frame anchor="0,0" rect="259,1 128x103"/>
+    <frame anchor="0,0" rect="259,211 128x103"/>
+    <frame anchor="0,-0.1941747572815534" rect="535,364 128x83"/>
+    <frame anchor="-0.0078125,-0.3883495145631068" rect="777,832 126x63"/>
+    <frame anchor="-0.046875,-0.5825242718446602" rect="556,489 116x43"/>
+    <frame anchor="-0.0703125,-0.7766990291262136" rect="909,927 110x23"/>
+    <frame anchor="-0.359375,-0.970873786407767" rect="755,658 36x3"/>
+    <frame anchor="-0.0703125,-0.7766990291262136" rect="909,877 110x23"/>
+    <frame anchor="-0.046875,-0.5825242718446602" rect="556,579 116x43"/>
+    <frame anchor="-0.0078125,-0.3883495145631068" rect="811,767 126x63"/>
+    <frame anchor="0,-0.1941747572815534" rect="426,473 128x83"/>
+  </McFakeHeroEyeBlink>
+  <McFakeHeroEyeBlinkBlack type="movieClip" texture="fakeHero/fakeHero_x2" scaleFactor="0.5" anchor="0.5073529411764706,0.3300970873786408" size="136,103">
+    <frame anchor="0,0" rect="279,843 136x100"/>
+    <frame anchor="0,-0.21359223300970873" rect="525,196 136x81"/>
+    <frame anchor="0,-0.4174757281553398" rect="499,643 136x60"/>
+    <frame anchor="0,-0.6310679611650486" rect="409,969 136x38"/>
+    <frame anchor="0,-0.8446601941747572" rect="832,730 136x16"/>
+    <frame anchor="0,-0.6310679611650486" rect="787,954 136x38"/>
+    <frame anchor="0,-0.4174757281553398" rect="793,168 136x60"/>
+    <frame anchor="0,-0.21359223300970873" rect="389,307 136x81"/>
+    <frame anchor="0,0" rect="141,843 136x100"/>
+    <frame anchor="0,0" rect="417,748 136x100"/>
+    <frame anchor="0,0" rect="361,646 136x100"/>
+    <frame anchor="0,-0.21359223300970873" rect="649,106 136x81"/>
+    <frame anchor="0,-0.4174757281553398" rect="787,106 136x60"/>
+    <frame anchor="0,-0.6310679611650486" rect="556,449 136x38"/>
+    <frame anchor="0,-0.8446601941747572" rect="832,748 136x16"/>
+    <frame anchor="0,-0.6310679611650486" rect="665,364 136x38"/>
+    <frame anchor="0,-0.4174757281553398" rect="556,705 136x60"/>
+    <frame anchor="0,-0.21359223300970873" rect="397,390 136x81"/>
+    <frame anchor="0,0" rect="223,646 136x100"/>
+  </McFakeHeroEyeBlinkBlack>
+  <McFakeHeroEyeOpen type="movieClip" texture="fakeHero/fakeHero_x2" scaleFactor="0.5" anchor="0.5,0.3786407766990291" size="128,103">
+    <frame anchor="-0.359375,-0.970873786407767" rect="933,414 36x3"/>
+    <frame anchor="-0.0703125,-0.7766990291262136" rect="909,1 110x23"/>
+    <frame anchor="-0.046875,-0.5825242718446602" rect="556,534 116x43"/>
+    <frame anchor="-0.0078125,-0.3883495145631068" rect="683,767 126x63"/>
+    <frame anchor="0,-0.1941747572815534" rect="527,279 128x83"/>
+    <frame anchor="0,0" rect="649,1 128x103"/>
+  </McFakeHeroEyeOpen>
+  <McFakeHeroEyeSmile type="movieClip" texture="fakeHero/fakeHero_x2" scaleFactor="0.5" anchor="0.5,0.38235294117647056" size="128,102">
+    <frame anchor="0,0" rect="259,316 128x102"/>
+    <frame anchor="0,-0.058823529411764705" rect="519,106 128x88"/>
+    <frame anchor="0,-0.10784313725490197" rect="663,189 128x71"/>
+    <frame anchor="0,-0.16666666666666666" rect="779,897 128x55"/>
+    <frame anchor="0,-0.21568627450980393" rect="694,669 128x38"/>
+    <frame anchor="0,-0.2647058823529412" rect="804,356 128x22"/>
+    <frame anchor="0,-0.3235294117647059" rect="694,467 128x19"/>
+    <frame anchor="0,-0.37254901960784315" rect="804,488 128x18"/>
+    <frame anchor="0,-0.3235294117647059" rect="803,401 128x19"/>
+    <frame anchor="0,-0.2647058823529412" rect="674,489 128x22"/>
+    <frame anchor="0,-0.3235294117647059" rect="803,380 128x19"/>
+    <frame anchor="0,-0.37254901960784315" rect="832,441 128x18"/>
+    <frame anchor="0,-0.28431372549019607" rect="893,508 128x17"/>
+    <frame anchor="0,-0.19607843137254902" rect="893,545 128x16"/>
+    <frame anchor="0,-0.28431372549019607" rect="893,527 128x16"/>
+    <frame anchor="0,-0.37254901960784315" rect="893,563 128x16"/>
+    <frame anchor="0,-0.28431372549019607" rect="812,581 128x16"/>
+    <frame anchor="-0.0078125,-0.19607843137254902" rect="812,599 127x16"/>
+    <frame anchor="0,-0.22549019607843138" rect="694,443 128x22"/>
+    <frame anchor="0,-0.24509803921568626" rect="787,994 128x28"/>
+    <frame anchor="0,-0.19607843137254902" rect="793,230 128x44"/>
+    <frame anchor="0,-0.14705882352941177" rect="649,897 128x59"/>
+    <frame anchor="0,-0.09803921568627451" rect="279,945 128x74"/>
+    <frame anchor="0,-0.049019607843137254" rect="223,748 128x89"/>
+    <frame anchor="0,0" rect="389,106 128x102"/>
+  </McFakeHeroEyeSmile>
+  <McFakeHeroEyeSmileBlack type="movieClip" texture="fakeHero/fakeHero_x2" scaleFactor="0.5" anchor="0.5073529411764706,0.35789473684210527" size="136,95">
+    <frame anchor="0,0" rect="259,420 136x95"/>
+    <frame anchor="0,-0.06315789473684211" rect="787,279 136x75"/>
+    <frame anchor="0,-0.12631578947368421" rect="1,966 136x56"/>
+    <frame anchor="0,-0.18947368421052632" rect="665,404 136x37"/>
+    <frame anchor="0,-0.25263157894736843" rect="694,746 136x18"/>
+    <frame anchor="0,-0.29473684210526313" rect="803,422 136x17"/>
+    <frame anchor="0,-0.3368421052631579" rect="674,513 136x17"/>
+    <frame anchor="0,-0.2631578947368421" rect="755,640 136x16"/>
+    <frame anchor="0,-0.17894736842105263" rect="824,461 136x16"/>
+    <frame anchor="0,-0.25263157894736843" rect="674,532 136x16"/>
+    <frame anchor="0,-0.3368421052631579" rect="674,550 136x16"/>
+    <frame anchor="0,-0.25263157894736843" rect="674,604 136x16"/>
+    <frame anchor="0,-0.17894736842105263" rect="755,622 136x16"/>
+    <frame anchor="0,-0.25263157894736843" rect="674,568 136x16"/>
+    <frame anchor="0,-0.3368421052631579" rect="674,586 136x16"/>
+    <frame anchor="0,-0.25263157894736843" rect="832,694 136x16"/>
+    <frame anchor="0,-0.17894736842105263" rect="824,676 136x16"/>
+    <frame anchor="0,-0.22105263157894736" rect="824,658 136x16"/>
+    <frame anchor="0,-0.25263157894736843" rect="832,712 136x16"/>
+    <frame anchor="0,-0.2" rect="694,709 136x35"/>
+    <frame anchor="0,-0.12631578947368421" rect="649,958 136x55"/>
+    <frame anchor="0,-0.07368421052631578" rect="141,945 136x74"/>
+    <frame anchor="-0.014705882352941176,0" rect="389,210 134x95"/>
+  </McFakeHeroEyeSmileBlack>
+  <McFakeHeroHotspot type="sprite" texture="fakeHero/fakeHero_x2" scaleFactor="0.5">
+    <frame anchor="0.05263157894736842,0.49572649572649574" rect="533,850 114x117"/>
+  </McFakeHeroHotspot>
+  <McFakeHeroHotspotBlack type="sprite" texture="fakeHero/fakeHero_x2" scaleFactor="0.5">
+    <frame anchor="0.05263157894736842,0.49572649572649574" rect="417,850 114x117"/>
+  </McFakeHeroHotspotBlack>
+  <McFakeHeroShadow type="sprite" texture="fakeHero/fakeHero_x2" scaleFactor="0.5">
+    <frame anchor="0.5045454545454545,-0.1889763779527559" rect="1,714 220x127"/>
+  </McFakeHeroShadow>
+  <McFakeHeroShadowBlack type="sprite" texture="fakeHero/fakeHero_x2" scaleFactor="0.5">
+    <frame anchor="0.5045454545454545,-0.1889763779527559" rect="204,517 220x127"/>
+  </McFakeHeroShadowBlack>
+</root>

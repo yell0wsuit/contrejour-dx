@@ -1,0 +1,30 @@
+<root>
+  <McChillingo type="sprite" texture="loading/loading" scaleFactor="1">
+    <config premultiply="true" type="null"/>
+    <frame anchor="-0.638671875,3.210144927536232" rect="1,497 512x138"/>
+  </McChillingo>
+  <McChillingoLogoStart type="movieClip" texture="loading/loading" scaleFactor="1" anchor="0.5,0.5" size="120,120">
+    <frame anchor="0,0" rect="757,123 120x120"/>
+    <frame anchor="0,0" rect="635,227 120x120"/>
+    <frame anchor="0,0" rect="513,349 120x120"/>
+    <frame anchor="0,0" rect="635,349 120x120"/>
+    <frame anchor="0,0" rect="757,245 120x120"/>
+    <frame anchor="0,0" rect="879,123 120x120"/>
+    <frame anchor="0,0" rect="513,105 120x120"/>
+    <frame anchor="0,0" rect="869,1 120x120"/>
+    <frame anchor="0,0" rect="513,227 120x120"/>
+    <frame anchor="0,0" rect="635,105 120x120"/>
+  </McChillingoLogoStart>
+  <McChillingoPetitCircle type="sprite" texture="loading/loading" scaleFactor="1">
+    <frame anchor="0.5,0.5" rect="879,245 98x98"/>
+  </McChillingoPetitCircle>
+  <McLeg type="sprite" texture="loading/loading" scaleFactor="1">
+    <frame anchor="0.5,0.47619047619047616" rect="991,1 22x21"/>
+  </McLeg>
+  <McHeadphones type="sprite" texture="loading/loading" scaleFactor="1">
+    <frame anchor="0.5509803921568628,0.5789473684210527" rect="1,1 510x494"/>
+  </McHeadphones>
+  <McMokusLogo type="sprite" texture="loading/loading" scaleFactor="1">
+    <frame anchor="0.4915254237288136,0.47058823529411764" rect="513,1 354x102"/>
+  </McMokusLogo>
+</root>

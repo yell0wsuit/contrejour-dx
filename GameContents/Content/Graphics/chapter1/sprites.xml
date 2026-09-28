@@ -1,0 +1,130 @@
+<root>
+  <McBackSnotBase type="sprite" texture="chapter1/chapter1" scaleFactor="1">
+    <config premultiply="false" type="null"/>
+    <frame anchor="0.5,0.5" rect="1082,884 130x130"/>
+  </McBackSnotBase>
+  <McBackSnotEye type="sprite" texture="chapter1/chapter1" scaleFactor="1">
+    <frame anchor="0.5,0.5060240963855421" rect="882,793 84x83"/>
+  </McBackSnotEye>
+  <McBackSnotEyeBall type="sprite" texture="chapter1/chapter1" scaleFactor="1">
+    <frame anchor="0.5,0.4857142857142857" rect="717,937 36x35"/>
+  </McBackSnotEyeBall>
+  <McBackSnotEyeBlink type="movieClip" texture="chapter1/chapter1" scaleFactor="1" anchor="0.5,0.5060240963855421" size="84,83">
+    <frame anchor="0,0" rect="882,623 84x83"/>
+    <frame anchor="0,-0.12048192771084337" rect="968,603 84x73"/>
+    <frame anchor="0,-0.27710843373493976" rect="1050,386 84x60"/>
+    <frame anchor="0,-0.43373493975903615" rect="1112,99 84x47"/>
+    <frame anchor="-0.023809523809523808,-0.5783132530120482" rect="561,988 81x35"/>
+    <frame anchor="-0.07142857142857142,-0.7349397590361446" rect="1001,999 72x22"/>
+    <frame anchor="-0.20238095238095238,-0.891566265060241" rect="780,1011 51x8"/>
+    <frame anchor="-0.07142857142857142,-0.7349397590361446" rect="853,999 72x22"/>
+    <frame anchor="-0.023809523809523808,-0.5783132530120482" rect="644,988 81x35"/>
+    <frame anchor="0,-0.43373493975903615" rect="1050,515 84x47"/>
+    <frame anchor="0,-0.27710843373493976" rect="1026,200 84x60"/>
+    <frame anchor="0,-0.12048192771084337" rect="968,678 84x73"/>
+    <frame anchor="0,0" rect="878,538 84x83"/>
+    <frame anchor="0,0" rect="878,453 84x83"/>
+    <frame anchor="0,0" rect="964,368 84x83"/>
+    <frame anchor="0,0" rect="882,708 84x83"/>
+    <frame anchor="0,0" rect="599,668 84x83"/>
+    <frame anchor="0,-0.12048192771084337" rect="968,753 84x73"/>
+    <frame anchor="0,-0.27710843373493976" rect="1026,262 84x60"/>
+    <frame anchor="0,-0.43373493975903615" rect="1118,448 84x47"/>
+    <frame anchor="-0.023809523809523808,-0.5783132530120482" rect="1176,148 81x35"/>
+    <frame anchor="-0.07142857142857142,-0.7349397590361446" rect="407,992 72x22"/>
+    <frame anchor="-0.20238095238095238,-0.891566265060241" rect="727,1011 51x8"/>
+    <frame anchor="-0.07142857142857142,-0.7349397590361446" rect="333,992 72x22"/>
+    <frame anchor="-0.023809523809523808,-0.5783132530120482" rect="1136,334 81x35"/>
+    <frame anchor="0,-0.43373493975903615" rect="1112,50 84x47"/>
+    <frame anchor="0,-0.27710843373493976" rect="1050,324 84x60"/>
+    <frame anchor="0,-0.12048192771084337" rect="964,528 84x73"/>
+    <frame anchor="0,0" rect="878,368 84x83"/>
+  </McBackSnotEyeBlink>
+  <McBackSnotEyeBlinkOneTime type="movieClip" texture="chapter1/chapter1" scaleFactor="1" anchor="0.5,0.5060240963855421" size="84,83">
+    <frame anchor="0,0" rect="685,668 84x83"/>
+    <frame anchor="0,-0.12048192771084337" rect="964,453 84x73"/>
+    <frame anchor="0,-0.27710843373493976" rect="1026,138 84x60"/>
+    <frame anchor="0,-0.43373493975903615" rect="968,828 84x47"/>
+    <frame anchor="-0.023809523809523808,-0.5783132530120482" rect="1050,564 81x35"/>
+    <frame anchor="-0.07142857142857142,-0.7349397590361446" rect="481,992 72x22"/>
+    <frame anchor="-0.20238095238095238,-0.891566265060241" rect="682,753 51x8"/>
+    <frame anchor="-0.07142857142857142,-0.7349397590361446" rect="927,999 72x22"/>
+    <frame anchor="-0.023809523809523808,-0.5783132530120482" rect="1214,271 81x35"/>
+    <frame anchor="0,-0.43373493975903615" rect="1112,1 84x47"/>
+    <frame anchor="0,-0.27710843373493976" rect="1026,76 84x60"/>
+    <frame anchor="0,-0.12048192771084337" rect="1026,1 84x73"/>
+    <frame anchor="0,0" rect="513,668 84x83"/>
+  </McBackSnotEyeBlinkOneTime>
+  <McBackground5Content type="sprite" texture="chapter1/chapter1" scaleFactor="1">
+    <config final="true" noAlpha="true" type="null" iPhoneSizeLimit="510" jpg="true" layer="4"/>
+    <frame anchor="0.5264187866927593,0.5534246575342465" rect="513,1 511x365"/>
+  </McBackground5Content>
+  <McBackgroundCrabContent type="sprite" texture="chapter1/chapter1" scaleFactor="1">
+    <config final="true" noAlpha="true" type="null" iPhoneSizeLimit="510" jpg="true" layer="4"/>
+    <frame anchor="0,0" rect="1,1 510x383"/>
+  </McBackgroundCrabContent>
+  <McBackgroundSkyContent type="sprite" texture="chapter1/chapter1" scaleFactor="1">
+    <config final="true" noAlpha="true" type="null" iPhoneSizeLimit="510" jpg="true" layer="4"/>
+    <frame anchor="0,0" rect="1,386 510x383"/>
+  </McBackgroundSkyContent>
+  <McFlowerHead type="sprite" texture="chapter1/chapter1" scaleFactor="1">
+    <frame anchor="0.5,0.5" rect="727,974 32x32"/>
+  </McFlowerHead>
+  <McGroundHintView type="sprite" texture="chapter1/chapter1" scaleFactor="1">
+    <frame anchor="-0.6710526315789473,0.672" rect="775,884 76x125"/>
+  </McGroundHintView>
+  <McLightsHintView type="sprite" texture="chapter1/chapter1" scaleFactor="1">
+    <frame anchor="1.8181818181818181,0.27692307692307694" rect="1050,448 66x65"/>
+  </McLightsHintView>
+  <McMoreTentaclesHintView type="sprite" texture="chapter1/chapter1" scaleFactor="1">
+    <frame anchor="0.48514851485148514,0.4247787610619469" rect="878,884 202x113"/>
+  </McMoreTentaclesHintView>
+  <McMultitouch2HintView type="sprite" texture="chapter1/chapter1" scaleFactor="1">
+    <frame anchor="0.5,0.20408163265306123" rect="561,937 154x49"/>
+  </McMultitouch2HintView>
+  <McMultitouchHintView type="sprite" texture="chapter1/chapter1" scaleFactor="1">
+    <frame anchor="0.5,0.39622641509433965" rect="259,937 300x53"/>
+  </McMultitouchHintView>
+  <McPinchHintView type="sprite" texture="chapter1/chapter1" scaleFactor="1">
+    <frame anchor="0.5269461077844312,-0.7857142857142857" rect="513,753 167x14"/>
+  </McPinchHintView>
+  <McRetryHintView type="sprite" texture="chapter1/chapter1" scaleFactor="1">
+    <frame anchor="-0.8548387096774194,0.6557377049180327" rect="1112,148 62x61"/>
+  </McRetryHintView>
+  <McSkipHintView type="sprite" texture="chapter1/chapter1" scaleFactor="1">
+    <frame anchor="0.9491525423728814,0.13793103448275862" rect="1174,211 59x58"/>
+  </McSkipHintView>
+  <McSlingshotHintView type="sprite" texture="chapter1/chapter1" scaleFactor="1">
+    <frame anchor="7.571428571428571,0.5" rect="853,884 14x68"/>
+  </McSlingshotHintView>
+  <McSnotHintView type="sprite" texture="chapter1/chapter1" scaleFactor="1">
+    <frame anchor="1.7222222222222223,2.04" rect="259,992 72x25"/>
+  </McSnotHintView>
+  <McSnotReleaseHintView type="sprite" texture="chapter1/chapter1" scaleFactor="1">
+    <frame anchor="1.5666666666666667,0.559322033898305" rect="1136,273 60x59"/>
+  </McSnotReleaseHintView>
+  <McStoneView0 type="sprite" texture="chapter1/chapter1" scaleFactor="1">
+    <frame anchor="0.5,0.5" rect="513,368 256x146"/>
+  </McStoneView0>
+  <McStoneView1 type="sprite" texture="chapter1/chapter1" scaleFactor="1">
+    <frame anchor="0.5,0.5" rect="517,771 256x164"/>
+  </McStoneView1>
+  <McStoneView2 type="sprite" texture="chapter1/chapter1" scaleFactor="1">
+    <frame anchor="0.5,0.5" rect="513,516 246x150"/>
+  </McStoneView2>
+  <McStoneView3 type="sprite" texture="chapter1/chapter1" scaleFactor="1">
+    <frame anchor="0.5,0.5" rect="259,771 256x164"/>
+  </McStoneView3>
+  <McStoneView4 type="sprite" texture="chapter1/chapter1" scaleFactor="1">
+    <frame anchor="0.5,0.5" rect="1,771 256x236"/>
+  </McStoneView4>
+  <McStoneView5 type="sprite" texture="chapter1/chapter1" scaleFactor="1">
+    <frame anchor="0.49523809523809526,0.5" rect="771,368 105x256"/>
+  </McStoneView5>
+  <McStoneView6 type="sprite" texture="chapter1/chapter1" scaleFactor="1">
+    <frame anchor="0.47619047619047616,0.5" rect="775,626 105x256"/>
+  </McStoneView6>
+  <McStripesHintView type="sprite" texture="chapter1/chapter1" scaleFactor="1">
+    <frame anchor="2.8333333333333335,0.5" rect="1112,211 60x60"/>
+  </McStripesHintView>
+</root>

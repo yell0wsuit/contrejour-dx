@@ -1,0 +1,52 @@
+<root>
+  <McLightView1 type="animation" precalculatedBounds="-184,-257 368x520">
+    <children>
+      <instance5230306 type="McLightView1Content" blendMode="normal"/>
+    </children>
+    <frames>
+      <frame index="0">
+        <instance5230306 position="-0.55,2.5" scale="1.685394287109375,1.685394287109375"/>
+      </frame>
+    </frames>
+  </McLightView1>
+  <McLightView11 type="animation" precalculatedBounds="-77,-101 156x204">
+    <children>
+      <instance5230326 type="McLightView11ContentExport" blendMode="normal"/>
+    </children>
+    <frames>
+      <frame index="0">
+        <instance5230326 position="0.45,0" scale="-1,1"/>
+      </frame>
+    </frames>
+  </McLightView11>
+  <McLightView12 type="animation" precalculatedBounds="-78,-101 156x204">
+    <children>
+      <instance5230352 type="McLightView11ContentExport" blendMode="normal"/>
+    </children>
+    <frames>
+      <frame index="0">
+        <instance5230352/>
+      </frame>
+    </frames>
+  </McLightView12>
+  <McLightView2 type="animation" precalculatedBounds="-127,-101 256x204">
+    <children>
+      <instance5230372 type="McLightView7Content" blendMode="normal"/>
+    </children>
+    <frames>
+      <frame index="0">
+        <instance5230372 position="0.5,0" scale="-1,1"/>
+      </frame>
+    </frames>
+  </McLightView2>
+  <McLightView7 type="animation" precalculatedBounds="-128,-101 256x204">
+    <children>
+      <instance5230392 type="McLightView7Content" blendMode="normal"/>
+    </children>
+    <frames>
+      <frame index="0">
+        <instance5230392/>
+      </frame>
+    </frames>
+  </McLightView7>
+</root>

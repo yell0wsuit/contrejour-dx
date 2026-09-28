@@ -1,0 +1,44 @@
+<root>
+  <McBaloonGrassAll type="animation" precalculatedBounds="-6,-16 13x22">
+    <children>
+      <instance5244430 type="McRotatorGrass0" blendMode="normal"/>
+    </children>
+    <frames>
+      <frame index="0">
+        <instance5244430 scale="0.339324951171875,0.341064453125"/>
+      </frame>
+      <frame index="1">
+        <instance5244432 scale="0.339324951171875,0.341064453125"/>
+      </frame>
+      <frame index="2">
+        <instance5244434 scale="0.339324951171875,0.341064453125"/>
+      </frame>
+    </frames>
+  </McBaloonGrassAll>
+  <McBaloonTailEnd type="animation" precalculatedBounds="-7,-8 32x16">
+    <children>
+      <instance5244474 type="McRotatorGrass0" blendMode="normal"/>
+    </children>
+    <frames>
+      <frame index="0">
+        <instance5244474 rotation="90" scale="0.44140625,0.49725341796875"/>
+      </frame>
+    </frames>
+  </McBaloonTailEnd>
+  <McRotatorGrassAll type="animation" precalculatedBounds="-18,-47 37x65">
+    <children>
+      <instance5244712 type="McRotatorGrass0" blendMode="normal"/>
+    </children>
+    <frames>
+      <frame index="0">
+        <instance5244712/>
+      </frame>
+      <frame index="1">
+        <instance5244714/>
+      </frame>
+      <frame index="2">
+        <instance5244716/>
+      </frame>
+    </frames>
+  </McRotatorGrassAll>
+</root>

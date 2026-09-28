@@ -1,0 +1,27 @@
+<root __type__="Level">
+  <items __type__="NSMutableArray"/>
+  <levelProperties __type__="NSMutableDictionary" height="562.5" background="McBackground0" width="800" blackSide="false">
+    <backgrounds __type__="NSMutableArray">
+      <__0 __type__="NSMutableDictionary" type="McBackground0Back" rotation="0" initialScale="0.44035746664939773">
+        <scale __type__="FlashPoint" x="1" y="1"/>
+        <position __type__="FlashPoint" x="-38" y="616.5"/>
+        <config __type__="NSMutableDictionary" iPhoneSizeLimit="510" layer="4" final="true"/>
+      </__0>
+      <__1 __type__="NSMutableDictionary" type="McBackground0Front1" rotation="0" initialScale="0.4199950588816602">
+        <scale __type__="FlashPoint" x="1" y="1"/>
+        <position __type__="FlashPoint" x="484.8" y="-89.54999999999995"/>
+        <config __type__="NSMutableDictionary" iPhoneSizeLimit="510" layer="4" final="true"/>
+      </__1>
+      <__2 __type__="NSMutableDictionary" type="McBackground0Middle" rotation="0" initialScale="0.35700392674960546">
+        <scale __type__="FlashPoint" x="1" y="1"/>
+        <position __type__="FlashPoint" x="467.15" y="229.3"/>
+        <config __type__="NSMutableDictionary" iPhoneSizeLimit="512" layer="4" final="true"/>
+      </__2>
+      <__3 __type__="NSMutableDictionary" type="McBackground0Front" rotation="0" initialScale="0.4409543944427666">
+        <scale __type__="FlashPoint" x="1" y="1"/>
+        <position __type__="FlashPoint" x="498.05" y="-141.04999999999995"/>
+        <config __type__="NSMutableDictionary" type="LightPowerBackground" iPhoneSizeLimit="511" layer="4" noAlpha="true" final="true"/>
+      </__3>
+    </backgrounds>
+  </levelProperties>
+</root>
