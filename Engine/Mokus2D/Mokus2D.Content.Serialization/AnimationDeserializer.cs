@@ -8,14 +8,9 @@ using Mokus2D.Visual.Data;
 
 namespace Mokus2D.Content.Serialization;
 
-public class AnimationDeserializer : GraphicsDeserializerBase<AnimationData>
+public class AnimationDeserializer(IGraphicsLoader loader) : GraphicsDeserializerBase<AnimationData>(loader)
 {
     public override bool UseSuffix => false;
-
-    public AnimationDeserializer(IGraphicsLoader loader)
-        : base(loader)
-    {
-    }
 
     public override AnimationData Deserialize(string id, XElement element)
     {

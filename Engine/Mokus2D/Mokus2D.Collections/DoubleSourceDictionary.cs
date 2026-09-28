@@ -4,11 +4,11 @@ using System.Collections.Generic;
 
 namespace Mokus2D.Collections;
 
-public class DoubleSourceDictionary<TKey, TValue> : IDictionary<TKey, TValue>, ICollection<KeyValuePair<TKey, TValue>>, IEnumerable<KeyValuePair<TKey, TValue>>, IEnumerable
+public class DoubleSourceDictionary<TKey, TValue>(IDictionary<TKey, TValue> mainSource) : IDictionary<TKey, TValue>, ICollection<KeyValuePair<TKey, TValue>>, IEnumerable<KeyValuePair<TKey, TValue>>, IEnumerable
 {
     public bool Test;
 
-    private IDictionary<TKey, TValue> _mainSource;
+    private IDictionary<TKey, TValue> _mainSource = mainSource;
 
     public IDictionary<TKey, TValue> SecondSource { get; private set; }
 
@@ -37,11 +37,6 @@ public class DoubleSourceDictionary<TKey, TValue> : IDictionary<TKey, TValue>, I
     public ICollection<TKey> Keys => SecondSource == null ? _mainSource.Keys : throw new NotImplementedException();
 
     public ICollection<TValue> Values => SecondSource == null ? _mainSource.Values : throw new NotImplementedException();
-
-    public DoubleSourceDictionary(IDictionary<TKey, TValue> mainSource)
-    {
-        _mainSource = mainSource;
-    }
 
     public void SetSecondSource(IDictionary<TKey, TValue> secondSource)
     {

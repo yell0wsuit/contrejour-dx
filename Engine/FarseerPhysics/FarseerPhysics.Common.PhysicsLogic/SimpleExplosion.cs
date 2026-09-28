@@ -8,15 +8,9 @@ using Microsoft.Xna.Framework;
 
 namespace FarseerPhysics.Common.PhysicsLogic;
 
-public sealed class SimpleExplosion : PhysicsLogic
+public sealed class SimpleExplosion(World world) : PhysicsLogic(world, PhysicsLogicType.Explosion)
 {
-    public float Power { get; set; }
-
-    public SimpleExplosion(World world)
-        : base(world, PhysicsLogicType.Explosion)
-    {
-        Power = 1f;
-    }
+    public float Power { get; set; } = 1f;
 
     public Dictionary<Body, Vector2> Activate(Vector2 pos, float radius, float force, float maxForce = float.MaxValue)
     {

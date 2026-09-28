@@ -12,7 +12,7 @@ using Mokus2D.Util;
 
 namespace Mokus2D.Content;
 
-public class MokusContentManager : ContentManager
+public class MokusContentManager(IServiceProvider serviceProvider) : ContentManager(serviceProvider)
 {
     public const bool DebugDisposedTextures = true;
 
@@ -22,13 +22,7 @@ public class MokusContentManager : ContentManager
 
     private readonly Dictionary<string, object> _loadedAssets = [];
 
-    private readonly Dictionary<Texture2D, string> _loadedTextures;
-
-    public MokusContentManager(IServiceProvider serviceProvider)
-        : base(serviceProvider)
-    {
-        _loadedTextures = [];
-    }
+    private readonly Dictionary<Texture2D, string> _loadedTextures = [];
 
     public bool IsLoaded(string assetName)
     {

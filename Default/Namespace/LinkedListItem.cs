@@ -1,12 +1,12 @@
 namespace Default.Namespace;
 
-public class LinkedListItem
+public class LinkedListItem(object _item)
 {
     protected LinkedListItem next;
 
     protected LinkedListItem previous;
 
-    protected object item;
+    protected object item = _item;
 
     public LinkedListItem Previous
     {
@@ -24,11 +24,6 @@ public class LinkedListItem
     {
         get => item;
         set => item = value;
-    }
-
-    public LinkedListItem(object _item)
-    {
-        item = _item;
     }
 
     public void Remove()

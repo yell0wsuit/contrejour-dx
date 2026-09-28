@@ -4,9 +4,9 @@ using Mokus2D.Visual;
 
 namespace Mokus2D.Effects.OnOff;
 
-public class ScaleMultEffect : ScaleEffect
+public class ScaleMultEffect(Node target, float scaleMult, float seconds) : ScaleEffect(target, seconds, target.ScaleVec * scaleMult, target.ScaleVec)
 {
-    private float _scaleMult;
+    private float _scaleMult = scaleMult;
 
     public float ScaleMult
     {
@@ -16,12 +16,6 @@ public class ScaleMultEffect : ScaleEffect
             _scaleMult = value;
             ResetOnValue(OffValue * value);
         }
-    }
-
-    public ScaleMultEffect(Node target, float scaleMult, float seconds)
-        : base(target, seconds, target.ScaleVec * scaleMult, target.ScaleVec)
-    {
-        _scaleMult = scaleMult;
     }
 
     public override void ResetOffValue(Vector2 value)

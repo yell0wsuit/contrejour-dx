@@ -4,13 +4,8 @@ using Microsoft.Xna.Framework;
 
 namespace Default.Namespace;
 
-public class LianaProcessor : JointProcessorBase
+public class LianaProcessor(LevelBuilderBase _builder) : JointProcessorBase("liana", _builder)
 {
-    public LianaProcessor(LevelBuilderBase _builder)
-        : base("liana", _builder)
-    {
-    }
-
     public override object ProcessItem(Hashtable item)
     {
         return null;

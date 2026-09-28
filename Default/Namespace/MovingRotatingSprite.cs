@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 using Microsoft.Xna.Framework;
 
@@ -21,6 +22,7 @@ public class MovingRotatingSprite : RotatingSprite
         }
     }
 
+    [SuppressMessage("Style", "IDE0290:Use primary constructor", Justification = "Its random draws must run after the base constructor's, in this order.")]
     public MovingRotatingSprite(string filename)
         : base(filename)
     {

@@ -1,14 +1,8 @@
 namespace FarseerPhysics.Common.Decomposition.Seidel;
 
-internal sealed class YNode : Node
+internal sealed class YNode(Edge edge, Node lChild, Node rChild) : Node(lChild, rChild)
 {
-    private readonly Edge _edge;
-
-    public YNode(Edge edge, Node lChild, Node rChild)
-        : base(lChild, rChild)
-    {
-        _edge = edge;
-    }
+    private readonly Edge _edge = edge;
 
     public override Sink Locate(Edge edge)
     {

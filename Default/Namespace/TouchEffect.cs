@@ -4,13 +4,13 @@ using Mokus2D.Visual.Interactive;
 
 namespace Default.Namespace;
 
-public abstract class TouchEffect
+public abstract class TouchEffect(Node node)
 {
     public readonly EventSender ChangeEvent = new();
 
-    protected Node Node;
+    protected Node Node = node;
 
-    protected float effectTime;
+    protected float effectTime = 0.1f;
 
     protected bool isOn;
 
@@ -47,12 +47,6 @@ public abstract class TouchEffect
         sprite.TouchBeginEvent += OnTouchBegan;
         sprite.TouchEndEvent += OnTouchEnd;
         sprite.TouchOutEvent += OnTouchEnd;
-    }
-
-    public TouchEffect(Node node)
-    {
-        Node = node;
-        effectTime = 0.1f;
     }
 
     public abstract void OnAction(Node node);

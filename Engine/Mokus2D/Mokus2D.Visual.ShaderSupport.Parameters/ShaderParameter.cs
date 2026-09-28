@@ -5,14 +5,14 @@ using Mokus2D.Util;
 
 namespace Mokus2D.Visual.ShaderSupport.Parameters;
 
-public abstract class ShaderParameter<T>
+public abstract class ShaderParameter<T>(EffectParameter parameter)
 {
     public static readonly GetSetValue<ShaderParameter<T>, T> GetSet = new(o => o.Value, delegate (ShaderParameter<T> o, T v)
     {
         o.Value = v;
     });
 
-    protected readonly EffectParameter Parameter;
+    protected readonly EffectParameter Parameter = parameter;
     private readonly Flag _valueDirty = new();
 
     public T Value
@@ -35,11 +35,6 @@ public abstract class ShaderParameter<T>
     protected ShaderParameter(EffectParameterCollection parameters, string name)
         : this(parameters[name])
     {
-    }
-
-    protected ShaderParameter(EffectParameter parameter)
-    {
-        Parameter = parameter;
     }
 
     public void Refresh()

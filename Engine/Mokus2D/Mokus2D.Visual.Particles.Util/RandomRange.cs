@@ -6,24 +6,18 @@ using Default.Namespace;
 namespace Mokus2D.Visual.Particles.Util;
 
 [DataContract]
-public struct RandomRange : IEquatable<RandomRange>
+public struct RandomRange(float value, float randomRange) : IEquatable<RandomRange>
 {
     [DataMember]
-    public float Value;
+    public float Value = value;
 
     [DataMember]
-    public float Offset;
+    public float Offset = randomRange;
 
     public static RandomRange Create(float min, float max)
     {
         float num = (min + max) / 2f;
         return new RandomRange(num, Math.Abs(max - num));
-    }
-
-    public RandomRange(float value, float randomRange)
-    {
-        Value = value;
-        Offset = randomRange;
     }
 
     public readonly float GetValueInRange()

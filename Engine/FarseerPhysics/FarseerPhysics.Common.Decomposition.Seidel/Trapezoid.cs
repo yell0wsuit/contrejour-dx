@@ -2,41 +2,27 @@ using System.Collections.Generic;
 
 namespace FarseerPhysics.Common.Decomposition.Seidel;
 
-internal sealed class Trapezoid
+internal sealed class Trapezoid(Point leftPoint, Point rightPoint, Edge top, Edge bottom)
 {
-    public Edge Bottom;
+    public Edge Bottom = bottom;
 
-    public bool Inside;
+    public bool Inside = true;
 
-    public Point LeftPoint;
+    public Point LeftPoint = leftPoint;
 
-    public Trapezoid LowerLeft;
+    public Trapezoid LowerLeft = null;
 
-    public Trapezoid LowerRight;
+    public Trapezoid LowerRight = null;
 
-    public Point RightPoint;
+    public Point RightPoint = rightPoint;
 
-    public Sink Sink;
+    public Sink Sink = null;
 
-    public Edge Top;
+    public Edge Top = top;
 
-    public Trapezoid UpperLeft;
+    public Trapezoid UpperLeft = null;
 
-    public Trapezoid UpperRight;
-
-    public Trapezoid(Point leftPoint, Point rightPoint, Edge top, Edge bottom)
-    {
-        LeftPoint = leftPoint;
-        RightPoint = rightPoint;
-        Top = top;
-        Bottom = bottom;
-        UpperLeft = null;
-        UpperRight = null;
-        LowerLeft = null;
-        LowerRight = null;
-        Inside = true;
-        Sink = null;
-    }
+    public Trapezoid UpperRight = null;
 
     public void UpdateLeft(Trapezoid ul, Trapezoid ll)
     {

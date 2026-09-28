@@ -2,13 +2,8 @@ using Microsoft.Xna.Framework;
 
 namespace Default.Namespace;
 
-public class GreenSnotSprite : BlackSnotSprite
+public class GreenSnotSprite(ContreJourGame _game, SnotBodyClipBase _snot, float _startWidth, float _centerWidth, float _endWidth) : BlackSnotSprite(_game, _snot, _startWidth, _centerWidth, _endWidth)
 {
-    public GreenSnotSprite(ContreJourGame _game, SnotBodyClipBase _snot, float _startWidth, float _centerWidth, float _endWidth)
-        : base(_game, _snot, _startWidth, _centerWidth, _endWidth)
-    {
-    }
-
     public override Color InitialStartColor()
     {
         return ContreJourConstants.GreenSnotStart;

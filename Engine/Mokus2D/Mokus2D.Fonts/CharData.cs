@@ -8,11 +8,11 @@ using Mokus2D.Visual.Interfaces;
 
 namespace Mokus2D.Fonts;
 
-public class CharData : ISpriteData, ITextureNodeData, IConfig
+public class CharData(FontData font, Rectangle textureRect, Vector2 anchor, float width) : ISpriteData, ITextureNodeData, IConfig
 {
-    private readonly FontData _font;
+    private readonly FontData _font = font;
 
-    public readonly float Width;
+    public readonly float Width = width;
 
     public string Id => _font.Id;
 
@@ -28,15 +28,7 @@ public class CharData : ISpriteData, ITextureNodeData, IConfig
 
     public float ScaleFactor => _font.ScaleFactor;
 
-    public Vector2 Anchor { get; private set; }
+    public Vector2 Anchor { get; private set; } = new Vector2(anchor.X / textureRect.Width, anchor.Y / textureRect.Height);
 
-    public Rectangle TextureRect { get; private set; }
-
-    public CharData(FontData font, Rectangle textureRect, Vector2 anchor, float width)
-    {
-        _font = font;
-        TextureRect = textureRect;
-        Anchor = new Vector2(anchor.X / textureRect.Width, anchor.Y / textureRect.Height);
-        Width = width;
-    }
+    public Rectangle TextureRect { get; private set; } = textureRect;
 }

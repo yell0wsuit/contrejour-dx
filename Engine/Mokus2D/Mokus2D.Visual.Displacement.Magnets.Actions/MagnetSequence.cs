@@ -2,17 +2,11 @@ using System.Collections.Generic;
 
 namespace Mokus2D.Visual.Displacement.Magnets.Actions;
 
-public class MagnetSequence : MagnetAction
+public class MagnetSequence(params MagnetAction[] actions) : MagnetAction(null)
 {
-    private readonly Queue<MagnetAction> _actions;
+    private readonly Queue<MagnetAction> _actions = new Queue<MagnetAction>(actions);
 
     public override bool Finished => _actions.Count == 0;
-
-    public MagnetSequence(params MagnetAction[] actions)
-        : base(null)
-    {
-        _actions = new Queue<MagnetAction>(actions);
-    }
 
     public override void Update(float time)
     {

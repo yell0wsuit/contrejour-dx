@@ -2,20 +2,15 @@ using Mokus2D.Interfaces;
 
 namespace Mokus2D.Util;
 
-public class FpsCounter : IUpdatable
+public class FpsCounter(int framesToCalculate) : IUpdatable
 {
-    protected readonly int FramesToCalculate;
+    protected readonly int FramesToCalculate = framesToCalculate;
 
     private int currentFrame;
 
     private float seconds;
 
     public float Fps { get; private set; }
-
-    public FpsCounter(int framesToCalculate)
-    {
-        FramesToCalculate = framesToCalculate;
-    }
 
     public void Update(float time)
     {

@@ -4,9 +4,9 @@ using Default.Namespace;
 
 namespace Mokus2D.Visual.Primitives.Collections;
 
-public class Pow2Array<T>
+public class Pow2Array<T>(int capacity)
 {
-    private T[] _items;
+    private T[] _items = new T[Maths.Pow2Ceil(capacity)];
 
     public int Length { get; private set; }
 
@@ -15,11 +15,6 @@ public class Pow2Array<T>
     public Pow2Array()
         : this(128)
     {
-    }
-
-    public Pow2Array(int capacity)
-    {
-        _items = new T[Maths.Pow2Ceil(capacity)];
     }
 
     public void SetLength(int value)

@@ -1,3 +1,5 @@
+using System.Diagnostics.CodeAnalysis;
+
 using Microsoft.Xna.Framework;
 
 using Mokus2D.Util.Extensions;
@@ -25,6 +27,7 @@ public class EnergyPart : Satellite
     {
     }
 
+    [SuppressMessage("Style", "IDE0290:Use primary constructor", Justification = "Its random draws must run after the base constructor's, in this order.")]
     public EnergyPart(ContreJourGame _game, BodyClip parent, Particle particle, float _direction, Vector2 position)
         : base(_game, particle, parent, _direction, position)
     {

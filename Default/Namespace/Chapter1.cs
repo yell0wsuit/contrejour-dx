@@ -10,7 +10,7 @@ using Mokus2D.Visual;
 
 namespace Default.Namespace;
 
-public class Chapter1 : ChapterItem
+public class Chapter1(int _index, MainMenu _menu) : ChapterItem(_index, _menu)
 {
     protected Sprite foreground;
 
@@ -23,11 +23,6 @@ public class Chapter1 : ChapterItem
             base.Depth = value;
             eye.AnimationsAllowed = Maths.FuzzyEquals(value, 1f);
         }
-    }
-
-    public Chapter1(int _index, MainMenu _menu)
-        : base(_index, _menu)
-    {
     }
 
     protected override void CreateSprites()

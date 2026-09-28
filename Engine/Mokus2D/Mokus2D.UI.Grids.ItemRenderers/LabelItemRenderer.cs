@@ -3,13 +3,8 @@ using Mokus2D.Visual.Text;
 
 namespace Mokus2D.UI.Grids.ItemRenderers;
 
-public class LabelItemRenderer<T> : Label, IItemRenderer<T>, ICleanable
+public class LabelItemRenderer<T>(string fontName, float fontSize) : Label(fontName, fontSize), IItemRenderer<T>, ICleanable
 {
-    public LabelItemRenderer(string fontName, float fontSize)
-        : base(fontName, fontSize)
-    {
-    }
-
     public void SetData(object sharedData, T itemData, int index)
     {
         TextString = GetText(itemData);

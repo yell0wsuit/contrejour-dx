@@ -3,14 +3,9 @@ using Mokus2D.Visual.Drawing.Vertex;
 
 namespace Mokus2D.Visual.ShaderSupport.Sprites;
 
-public class NormalMapRotateSprite : Sprite<VertexNormalMapRotate>
+public class NormalMapRotateSprite(string name) : Sprite<VertexNormalMapRotate>(name)
 {
     public bool SkipSelfTransform;
-
-    public NormalMapRotateSprite(string name)
-        : base(name)
-    {
-    }
 
     protected override void RefreshQuad()
     {

@@ -2,13 +2,8 @@ using Microsoft.Xna.Framework;
 
 namespace Default.Namespace;
 
-public class LightPointProcessor : TypeProcessorBase
+public class LightPointProcessor(LevelBuilderBase _builder) : TypeProcessorBase("lightPoint", _builder)
 {
-    public LightPointProcessor(LevelBuilderBase _builder)
-        : base("lightPoint", _builder)
-    {
-    }
-
     public override object ProcessItem(Hashtable item)
     {
         Vector2 vector = item.GetVector("position");

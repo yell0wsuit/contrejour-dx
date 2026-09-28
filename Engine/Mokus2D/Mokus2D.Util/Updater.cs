@@ -7,14 +7,9 @@ namespace Mokus2D.Util;
 
 public class Updater : IUpdatable
 {
-    private sealed class ActionUpdatable : IUpdatable
+    private sealed class ActionUpdatable(Action<float> action) : IUpdatable
     {
-        private readonly Action<float> _action;
-
-        public ActionUpdatable(Action<float> action)
-        {
-            _action = action;
-        }
+        private readonly Action<float> _action = action;
 
         public void Update(float time)
         {

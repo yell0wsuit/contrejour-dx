@@ -1,3 +1,5 @@
+using System.Diagnostics.CodeAnalysis;
+
 using Mokus2D.Interfaces;
 
 namespace Default.Namespace;
@@ -14,6 +16,7 @@ public class WindManager : IUpdatable
 
     protected float step;
 
+    [SuppressMessage("Style", "IDE0290:Use primary constructor", Justification = "Its random draws must run after the base constructor's, in this order.")]
     public WindManager(float _step)
     {
         step = _step;

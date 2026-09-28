@@ -9,19 +9,13 @@ using Mokus2D.Visual.Drawing.Vertex;
 
 namespace Mokus2D.Visual.Primitives;
 
-public class BezierLineSegmentedData<T> : LineSegmentedData<T>, ISegmentedSpriteData<T>, IUpdatable where T : struct, IVertex
+public class BezierLineSegmentedData<T>(float width, int bezierSegmentsCount) : LineSegmentedData<T>(width), ISegmentedSpriteData<T>, IUpdatable where T : struct, IVertex
 {
-    private readonly int _bezierSegmentsCount;
+    private readonly int _bezierSegmentsCount = bezierSegmentsCount;
 
     private readonly List<Vector2> _bezierLine = [];
 
     public override int PairsCount => BezierUtil.GetBezierLinePointsCount(Line.Count, _bezierSegmentsCount);
-
-    public BezierLineSegmentedData(float width, int bezierSegmentsCount)
-        : base(width)
-    {
-        _bezierSegmentsCount = bezierSegmentsCount;
-    }
 
     public override void FillLines(SegmentedSprite<T> sprite, List<Pair<T>> lines, ref Matrix matrix)
     {

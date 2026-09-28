@@ -2,16 +2,9 @@ using FarseerPhysics.Dynamics;
 
 namespace Default.Namespace;
 
-public class BodyTypeReq : IReq
+public class BodyTypeReq(BodyType type) : IReq
 {
-    protected BodyType type;
-
-    public BodyTypeReq(BodyType type)
-    {
-        //IL_0007: Unknown result type (might be due to invalid IL or missing references)
-        //IL_0008: Unknown result type (might be due to invalid IL or missing references)
-        this.type = type;
-    }
+    protected BodyType type = type;
 
     public bool Meet(object objectP)
     {

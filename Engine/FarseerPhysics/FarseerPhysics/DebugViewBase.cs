@@ -5,16 +5,11 @@ using Microsoft.Xna.Framework;
 
 namespace FarseerPhysics;
 
-public abstract class DebugViewBase
+public abstract class DebugViewBase(World world)
 {
-    protected World World { get; private set; }
+    protected World World { get; private set; } = world;
 
     public DebugViewOptions Flags { get; set; }
-
-    protected DebugViewBase(World world)
-    {
-        World = world;
-    }
 
     public void AppendFlags(DebugViewOptions flags)
     {

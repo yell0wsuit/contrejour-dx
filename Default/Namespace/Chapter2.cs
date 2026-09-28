@@ -10,14 +10,9 @@ using Mokus2D.Visual.Particles.Util;
 
 namespace Default.Namespace;
 
-public class Chapter2 : ChapterItem
+public class Chapter2(int _index, MainMenu _menu) : ChapterItem(_index, _menu)
 {
     protected WhiteSmoke springSmoke;
-
-    public Chapter2(int _index, MainMenu _menu)
-        : base(_index, _menu)
-    {
-    }
 
     protected override void CreateSprites()
     {

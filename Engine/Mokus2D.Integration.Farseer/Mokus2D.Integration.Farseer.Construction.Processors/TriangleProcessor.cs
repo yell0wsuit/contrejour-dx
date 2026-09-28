@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework;
 
 namespace Mokus2D.Integration.Farseer.Construction.Processors;
 
-public class TriangleProcessor : PolygonProcessor
+public class TriangleProcessor(PhysicsConstructor constructor) : PolygonProcessor(constructor, Coords)
 {
     private static readonly Vector2[] Coords =
     [
@@ -10,9 +10,4 @@ public class TriangleProcessor : PolygonProcessor
         new(-5f, 5f),
         new(5f, -5f)
     ];
-
-    public TriangleProcessor(PhysicsConstructor constructor)
-        : base(constructor, Coords)
-    {
-    }
 }

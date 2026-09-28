@@ -5,13 +5,8 @@ using Mokus2D.Visual;
 
 namespace Mokus2D.UI.Layout;
 
-public class HorizontalLayout : LineLayout
+public class HorizontalLayout(Node container) : LineLayout(container)
 {
-    public HorizontalLayout(Node container)
-        : base(container)
-    {
-    }
-
     protected override float GetNodeSize(ISizeNode sizeNode)
     {
         return sizeNode.ScaledSize().X;

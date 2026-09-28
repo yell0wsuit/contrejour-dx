@@ -4,16 +4,11 @@ using Mokus2D.Visual;
 
 namespace Default.Namespace;
 
-public class NodeContainer : Node
+public class NodeContainer(Func<Node> nodeFactory) : Node
 {
-    private readonly Func<Node> _nodeFactory;
+    private readonly Func<Node> _nodeFactory = nodeFactory;
 
     private Node _node;
-
-    public NodeContainer(Func<Node> nodeFactory)
-    {
-        _nodeFactory = nodeFactory;
-    }
 
     protected override void OnAddedToStage()
     {

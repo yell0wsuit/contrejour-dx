@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 
 namespace Default.Namespace;
 
-public class WhiteGrassController : GrassController
+public class WhiteGrassController(PlasticinePartBodyClip _plasticine) : GrassController(_plasticine)
 {
     protected bool borderUpdated;
 
@@ -25,11 +25,6 @@ public class WhiteGrassController : GrassController
     public float SmallGrassOffset(int index)
     {
         return ((index * 2) - 1) * plasticine.Width / 3f;
-    }
-
-    public WhiteGrassController(PlasticinePartBodyClip _plasticine)
-        : base(_plasticine)
-    {
     }
 
     public override void Update(float time)

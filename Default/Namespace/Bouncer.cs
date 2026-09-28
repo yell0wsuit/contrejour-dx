@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 using Mokus2D.Interfaces;
 using Mokus2D.Util.MathUtils;
@@ -37,6 +38,7 @@ public class Bouncer : IUpdatable
 
     public float Value => changer.Value * currentAmplitude;
 
+    [SuppressMessage("Style", "IDE0290:Use primary constructor", Justification = "Its random draws must run after the base constructor's, in this order.")]
     public Bouncer(float _amplitude, float _amplitudeStep, float step)
     {
         changer = new CosChanger(-1f, 1f, step);

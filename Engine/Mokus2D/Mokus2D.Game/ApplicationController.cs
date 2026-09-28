@@ -11,13 +11,13 @@ using Mokus2D.Util.Resources;
 
 namespace Mokus2D.Game;
 
-public class ApplicationController : DisposableBase
+public class ApplicationController(Mokus2DGame game, Microsoft.Xna.Framework.Game application, GraphicsDeviceManager graphics) : DisposableBase
 {
-    protected readonly Mokus2DGame Game;
+    protected readonly Mokus2DGame Game = game;
 
-    private readonly GraphicsDeviceManager _graphics;
+    private readonly GraphicsDeviceManager _graphics = graphics;
 
-    public readonly Microsoft.Xna.Framework.Game Application;
+    public readonly Microsoft.Xna.Framework.Game Application = application;
 
     public MokusContentManager Content => (MokusContentManager)Application.Content;
 
@@ -76,13 +76,6 @@ public class ApplicationController : DisposableBase
     }
 
     public GraphicsDevice GraphicsDevice => Application.GraphicsDevice;
-
-    public ApplicationController(Mokus2DGame game, Microsoft.Xna.Framework.Game application, GraphicsDeviceManager graphics)
-    {
-        Game = game;
-        Application = application;
-        _graphics = graphics;
-    }
 
     public void OnInitialize()
     {

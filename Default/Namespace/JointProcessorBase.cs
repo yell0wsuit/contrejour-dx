@@ -8,13 +8,8 @@ using Microsoft.Xna.Framework;
 
 namespace Default.Namespace;
 
-public class JointProcessorBase : TypeProcessorBase
+public class JointProcessorBase(string _type, LevelBuilderBase _builder) : TypeProcessorBase(_type, _builder)
 {
-    public JointProcessorBase(string _type, LevelBuilderBase _builder)
-        : base(_type, _builder)
-    {
-    }
-
     public Joint CreateJointConfig(RevoluteJoint joint, Hashtable config)
     {
         builder.World.AddJoint((Joint)(object)joint);

@@ -2,15 +2,15 @@ using ContreJour.Utils;
 
 namespace Default.Namespace;
 
-public class ProgressLabel : ContreJourLabel
+public class ProgressLabel(float size, string _format, int _value, int _steps) : ContreJourLabel(size)
 {
-    protected string format;
+    protected string format = _format;
 
-    protected int value;
+    protected int value = _value;
 
-    protected int steps;
+    protected int steps = _steps;
 
-    protected int currentStep;
+    protected int currentStep = 0;
 
     public int Value
     {
@@ -19,15 +19,6 @@ public class ProgressLabel : ContreJourLabel
     }
 
     public int CurrentValue => (int)(value * (float)currentStep / steps);
-
-    public ProgressLabel(float size, string _format, int _value, int _steps)
-        : base(size)
-    {
-        value = _value;
-        format = _format;
-        steps = _steps;
-        currentStep = 0;
-    }
 
     public override void Update(float time)
     {

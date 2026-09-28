@@ -4,13 +4,8 @@ using Microsoft.Xna.Framework;
 
 namespace Default.Namespace;
 
-public class CircleProcessor : ShapeProcessor
+public class CircleProcessor(LevelBuilderBase _builder) : ShapeProcessor("circle", _builder)
 {
-    public CircleProcessor(LevelBuilderBase _builder)
-        : base("circle", _builder)
-    {
-    }
-
     public override Shape CreateShape(Hashtable item)
     {
         //IL_0029: Unknown result type (might be due to invalid IL or missing references)

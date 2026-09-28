@@ -7,25 +7,17 @@ using Mokus2D.Visual.Text.LabelData;
 
 namespace Mokus2D.Effects.Label;
 
-public class AssembleSymbolsEffect : DelayedSymbolsEffect
+public class AssembleSymbolsEffect(float symbolDelayTime, Vector2 tweenOffset, Vector2 tweenScale, float tweenTime) : DelayedSymbolsEffect(symbolDelayTime)
 {
-    protected readonly Vector2 TweenOffset;
+    protected readonly Vector2 TweenOffset = tweenOffset;
 
-    protected readonly Vector2 TweenScale;
+    protected readonly Vector2 TweenScale = tweenScale;
 
-    public float TweenTime;
+    public float TweenTime = tweenTime;
 
     public AssembleSymbolsEffect(float symbolDelayTime)
         : this(symbolDelayTime, new Vector2(20f, 0f), new Vector2(3f, 1f), 0.2f)
     {
-    }
-
-    public AssembleSymbolsEffect(float symbolDelayTime, Vector2 tweenOffset, Vector2 tweenScale, float tweenTime)
-        : base(symbolDelayTime)
-    {
-        TweenOffset = tweenOffset;
-        TweenScale = tweenScale;
-        TweenTime = tweenTime;
     }
 
     protected override ICompletableTween PlayGlyphEffect(Visual.Text.Label label, int tag, Glyph glyph, float delay)

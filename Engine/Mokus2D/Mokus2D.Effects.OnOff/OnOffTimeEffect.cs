@@ -4,17 +4,11 @@ using Mokus2D.Visual;
 
 namespace Mokus2D.Effects.OnOff;
 
-public abstract class OnOffTimeEffect : OnOffEffect
+public abstract class OnOffTimeEffect(Node target, float duration) : OnOffEffect(target)
 {
-    protected readonly float Duration;
+    protected readonly float Duration = duration;
 
     public Func<bool, float> DurationProvider;
-
-    protected OnOffTimeEffect(Node target, float duration)
-        : base(target)
-    {
-        Duration = duration;
-    }
 
     protected float GetDuration(bool on)
     {

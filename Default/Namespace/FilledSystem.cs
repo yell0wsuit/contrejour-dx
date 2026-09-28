@@ -7,15 +7,10 @@ using Mokus2D.Visual.Interfaces;
 
 namespace Default.Namespace;
 
-public class FilledSystem : ParticleSystem
+public class FilledSystem(IMovieClipData config) : ParticleSystem(config)
 {
     public FilledSystem(string name)
         : this(Mokus2DGame.LoadResource<IMovieClipData>(name))
-    {
-    }
-
-    public FilledSystem(IMovieClipData config)
-        : base(config)
     {
     }
 

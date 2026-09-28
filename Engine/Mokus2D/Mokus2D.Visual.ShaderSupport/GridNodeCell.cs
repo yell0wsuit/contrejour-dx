@@ -2,12 +2,7 @@ using Microsoft.Xna.Framework;
 
 namespace Mokus2D.Visual.ShaderSupport;
 
-public class GridNodeCell : Node
+public class GridNodeCell(Point cellIndex) : Node
 {
-    public readonly Point CellIndex;
-
-    public GridNodeCell(Point cellIndex)
-    {
-        CellIndex = cellIndex;
-    }
+    public readonly Point CellIndex = cellIndex;
 }

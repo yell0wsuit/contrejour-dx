@@ -6,19 +6,19 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Mokus2D.Visual.Drawing.Vertex;
 
-public struct VertexNormalMapRotate : IVertex, IVertexType
+public struct VertexNormalMapRotate(Vector3 position, Color color, Vector2 textureCoordinate, float rotation) : IVertex, IVertexType
 {
     public static readonly VertexDeclaration VertexDeclaration;
 
-    public Vector3 Position;
+    public Vector3 Position = position;
 
-    public Color Color;
+    public Color Color = color;
 
-    public float Rotation;
+    public float Rotation = rotation;
 
-    public Vector2 Scale;
+    public Vector2 Scale = Vector2.One;
 
-    public Vector2 TextureCoordinate;
+    public Vector2 TextureCoordinate = textureCoordinate;
 
     readonly VertexDeclaration IVertexType.VertexDeclaration => VertexDeclaration;
 
@@ -46,15 +46,6 @@ public struct VertexNormalMapRotate : IVertex, IVertexType
         {
             Name = "VertexNormalMapRotate.VertexDeclaration"
         };
-    }
-
-    public VertexNormalMapRotate(Vector3 position, Color color, Vector2 textureCoordinate, float rotation)
-    {
-        Position = position;
-        Color = color;
-        TextureCoordinate = textureCoordinate;
-        Scale = Vector2.One;
-        Rotation = rotation;
     }
 
     public static bool operator ==(VertexNormalMapRotate left, VertexNormalMapRotate right)

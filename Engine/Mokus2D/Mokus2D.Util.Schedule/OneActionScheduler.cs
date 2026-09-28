@@ -4,23 +4,17 @@ using Mokus2D.Interfaces;
 
 namespace Mokus2D.Util.Schedule;
 
-public class OneActionScheduler : IUpdatable
+public class OneActionScheduler(Action action, float timeout) : IUpdatable
 {
-    private readonly Action _action;
+    private readonly Action _action = action;
 
-    public float Timeout;
+    public float Timeout = timeout;
 
     private float _elapsedTime;
 
     public bool Enabled = true;
 
     public float TimeLeft => Timeout - _elapsedTime;
-
-    public OneActionScheduler(Action action, float timeout)
-    {
-        _action = action;
-        Timeout = timeout;
-    }
 
     public void Reset()
     {

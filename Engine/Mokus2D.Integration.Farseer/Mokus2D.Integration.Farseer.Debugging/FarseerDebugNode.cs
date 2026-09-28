@@ -14,7 +14,7 @@ using Mokus2D.Visual.Util;
 
 namespace Mokus2D.Integration.Farseer.Debugging;
 
-public class FarseerDebugNode : PrimitivesNode
+public class FarseerDebugNode(World world, float physicsToPixels) : PrimitivesNode
 {
     private readonly Color STATIC_COLOR = ColorUtil.CreateColor(255, 0, 255, 200);
 
@@ -22,15 +22,9 @@ public class FarseerDebugNode : PrimitivesNode
 
     private readonly Color KINEMATIC_COLOR = ColorUtil.CreateColor(0, 0, 255, 200);
 
-    private readonly World world;
+    private readonly World world = world;
 
-    private readonly float _physicsToPixels;
-
-    public FarseerDebugNode(World world, float physicsToPixels)
-    {
-        this.world = world;
-        _physicsToPixels = physicsToPixels;
-    }
+    private readonly float _physicsToPixels = physicsToPixels;
 
     protected override void DrawPrimitives()
     {

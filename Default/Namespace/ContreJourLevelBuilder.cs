@@ -4,14 +4,9 @@ using Mokus2D.Visual;
 
 namespace Default.Namespace;
 
-public class ContreJourLevelBuilder : LevelBuilderBase
+public class ContreJourLevelBuilder(GameBase _game) : LevelBuilderBase(_game)
 {
     public ContreJourGame ContreJour => (ContreJourGame)game;
-
-    public ContreJourLevelBuilder(GameBase _game)
-        : base(_game)
-    {
-    }
 
     public override void AddProcessors()
     {

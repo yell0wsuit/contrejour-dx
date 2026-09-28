@@ -6,14 +6,9 @@ using System.Xml.Linq;
 
 namespace Mokus2D.Util.Xml;
 
-public class XmlSerializer : XmlSerializerBase
+public class XmlSerializer(Assembly assembly = null) : XmlSerializerBase
 {
-    private readonly Assembly _assembly;
-
-    public XmlSerializer(Assembly assembly = null)
-    {
-        _assembly = assembly;
-    }
+    private readonly Assembly _assembly = assembly;
 
     public override object DeserializeFile(Stream stream)
     {

@@ -10,11 +10,11 @@ using Mokus2D.Visual.Drawing.Vertex;
 
 namespace Mokus2D.Visual.Primitives;
 
-public class LineSegmentedData<T> : ISegmentedSpriteData<T>, IUpdatable where T : struct, IVertex
+public class LineSegmentedData<T>(float width) : ISegmentedSpriteData<T>, IUpdatable where T : struct, IVertex
 {
     protected readonly List<Vector2> Line = [];
 
-    private readonly float _width;
+    private readonly float _width = width;
 
     public virtual int PairsCount => Line.Count;
 
@@ -34,11 +34,6 @@ public class LineSegmentedData<T> : ISegmentedSpriteData<T>, IUpdatable where T 
     }
 
     public int Count => Line.Count;
-
-    public LineSegmentedData(float width)
-    {
-        _width = width;
-    }
 
     public void Add(Vector2 position)
     {

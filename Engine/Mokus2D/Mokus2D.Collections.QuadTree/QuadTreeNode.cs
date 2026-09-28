@@ -4,7 +4,7 @@ using Mokus2D.Data;
 
 namespace Mokus2D.Collections.QuadTree;
 
-public class QuadTreeNode<T> where T : class, IQuadTreeObject<T>
+public class QuadTreeNode<T>(RectangleFloat bounds) where T : class, IQuadTreeObject<T>
 {
     private static int _id;
 
@@ -49,16 +49,11 @@ public class QuadTreeNode<T> where T : class, IQuadTreeObject<T>
         }
     }
 
-    public RectangleFloat Bounds { get; internal set; }
+    public RectangleFloat Bounds { get; internal set; } = bounds;
 
     public bool HasChildNodes()
     {
         return Nodes[0] != null;
-    }
-
-    public QuadTreeNode(RectangleFloat bounds)
-    {
-        Bounds = bounds;
     }
 
     public QuadTreeNode(float x, float y, float width, float height)

@@ -6,13 +6,8 @@ using Microsoft.Xna.Framework;
 
 namespace Default.Namespace;
 
-public class EditorRevoluteJointProcessor : RevoluteJointProcessor
+public class EditorRevoluteJointProcessor(LevelBuilderBase _builder) : RevoluteJointProcessor("editorRevoluteJoint", _builder)
 {
-    public EditorRevoluteJointProcessor(LevelBuilderBase _builder)
-        : base("editorRevoluteJoint", _builder)
-    {
-    }
-
     public override object ProcessItem(Hashtable item)
     {
         Hashtable hashtable = item.GetHashtable("config");

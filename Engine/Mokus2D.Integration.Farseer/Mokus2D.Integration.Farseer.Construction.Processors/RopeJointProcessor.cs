@@ -7,14 +7,9 @@ using Mokus2D.Visual;
 
 namespace Mokus2D.Integration.Farseer.Construction.Processors;
 
-public class RopeJointProcessor : JointProcessor
+public class RopeJointProcessor(PhysicsConstructor constructor) : JointProcessor(constructor)
 {
     private static readonly Vector2 EndOffset = new(10f, 0f);
-
-    public RopeJointProcessor(PhysicsConstructor constructor)
-        : base(constructor)
-    {
-    }
 
     public override Joint Process(Node item)
     {

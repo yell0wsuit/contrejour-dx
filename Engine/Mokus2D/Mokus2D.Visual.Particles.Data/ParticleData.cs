@@ -6,7 +6,7 @@ using Mokus2D.Util.MathUtils;
 
 namespace Mokus2D.Visual.Particles.Data;
 
-public class ParticleData : IUpdatable
+public class ParticleData(Node particle, ParticleSystemConfig systemConfig) : IUpdatable
 {
     public Vector2 Speed;
 
@@ -30,9 +30,9 @@ public class ParticleData : IUpdatable
 
     public float RotationSpeed;
 
-    public readonly Node Particle;
+    public readonly Node Particle = particle;
 
-    public readonly ParticleSystemConfig SystemConfig;
+    public readonly ParticleSystemConfig SystemConfig = systemConfig;
 
     private float _deathTime;
 
@@ -41,12 +41,6 @@ public class ParticleData : IUpdatable
     public float Time { get; private set; }
 
     public bool HasRemove => CheckValue(LifeDistance) || Time >= _totalTime;
-
-    public ParticleData(Node particle, ParticleSystemConfig systemConfig)
-    {
-        Particle = particle;
-        SystemConfig = systemConfig;
-    }
 
     public void Initialize()
     {

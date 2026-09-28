@@ -11,7 +11,7 @@ using Mokus2D.Util.MathUtils;
 
 namespace Default.Namespace;
 
-public class TouchCircle : BodyClip
+public class TouchCircle(Touch _touch, LevelBuilderBase _builder) : BodyClip(_builder, CreateBody(_builder, _touch), null, null)
 {
     public class ClosestItem
     {
@@ -36,11 +36,11 @@ public class TouchCircle : BodyClip
 
     protected Dictionary<PlasticineBodyClip, ClosestItem> closestMap;
 
-    protected bool enabled;
+    protected bool enabled = true;
 
-    protected bool free;
+    protected bool free = true;
 
-    protected Touch touch;
+    protected Touch touch = _touch;
 
     public Touch Touch => touch;
 
@@ -53,14 +53,6 @@ public class TouchCircle : BodyClip
     public bool Free => free;
 
     public new Vector2 Position => builder.TouchRootPoint(touch);
-
-    public TouchCircle(Touch _touch, LevelBuilderBase _builder)
-        : base(_builder, CreateBody(_builder, _touch), null, null)
-    {
-        touch = _touch;
-        enabled = true;
-        free = true;
-    }
 
     public static Body CreateBody(LevelBuilderBase _builder, Touch _touch)
     {

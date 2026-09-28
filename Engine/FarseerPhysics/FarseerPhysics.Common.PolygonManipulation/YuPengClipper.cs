@@ -6,17 +6,11 @@ namespace FarseerPhysics.Common.PolygonManipulation;
 
 public static class YuPengClipper
 {
-    private sealed class Edge
+    private sealed class Edge(Vector2 edgeStart, Vector2 edgeEnd)
     {
-        public Vector2 EdgeStart { get; private set; }
+        public Vector2 EdgeStart { get; private set; } = edgeStart;
 
-        public Vector2 EdgeEnd { get; private set; }
-
-        public Edge(Vector2 edgeStart, Vector2 edgeEnd)
-        {
-            EdgeStart = edgeStart;
-            EdgeEnd = edgeEnd;
-        }
+        public Vector2 EdgeEnd { get; private set; } = edgeEnd;
 
         public Vector2 GetCenter()
         {

@@ -2,19 +2,13 @@ using Mokus2D.Util.MathUtils;
 
 namespace Mokus2D.Visual.Displacement.Magnets.Actions;
 
-public abstract class MagnetIntervalActionBase : MagnetAction
+public abstract class MagnetIntervalActionBase(GridMagnetBase gridMagnet, float timeout) : MagnetAction(gridMagnet)
 {
-    private readonly float _timeout;
+    private readonly float _timeout = timeout;
 
     private float _elapsed;
 
     public override bool Finished => _elapsed >= _timeout;
-
-    protected MagnetIntervalActionBase(GridMagnetBase gridMagnet, float timeout)
-        : base(gridMagnet)
-    {
-        _timeout = timeout;
-    }
 
     protected abstract void UpdateMagnet(float ratio);
 

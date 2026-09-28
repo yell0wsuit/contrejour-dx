@@ -9,7 +9,7 @@ using Mokus2D.Visual.Interfaces;
 
 namespace Mokus2D.Visual.Primitives;
 
-public abstract class LongNeckLineSprite : LongNeckSprite
+public abstract class LongNeckLineSprite(ISpriteData spriteData = null) : LongNeckSprite(spriteData)
 {
     private readonly List<Vector2> pointsData = [];
 
@@ -24,11 +24,6 @@ public abstract class LongNeckLineSprite : LongNeckSprite
 
     protected LongNeckLineSprite(string id)
         : this(Mokus2DGame.LoadSpriteData(id))
-    {
-    }
-
-    protected LongNeckLineSprite(ISpriteData spriteData = null)
-        : base(spriteData)
     {
     }
 

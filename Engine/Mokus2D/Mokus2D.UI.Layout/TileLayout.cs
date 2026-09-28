@@ -5,19 +5,13 @@ using Mokus2D.Visual;
 
 namespace Mokus2D.UI.Layout;
 
-public class TileLayout : LayoutBase
+public class TileLayout(Node container, int maxItems) : LayoutBase(container)
 {
-    private readonly int _maxItems;
+    private readonly int _maxItems = maxItems;
 
     public Vector2 Margins;
 
     public Vector2? ItemSize;
-
-    public TileLayout(Node container, int maxItems)
-        : base(container)
-    {
-        _maxItems = maxItems;
-    }
 
     public void Apply()
     {

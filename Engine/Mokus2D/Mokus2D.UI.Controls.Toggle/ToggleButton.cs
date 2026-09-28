@@ -8,7 +8,7 @@ using Mokus2D.Visual.Interactive;
 
 namespace Mokus2D.UI.Controls.Toggle;
 
-public class ToggleButton : Button
+public class ToggleButton(AnchorNode content, IOnOff effect) : Button(content, effect)
 {
     public bool ToggleOnTouchBegin;
 
@@ -28,11 +28,6 @@ public class ToggleButton : Button
     }
 
     public event Action<ToggleButton> ToggleChangeEvent;
-
-    public ToggleButton(AnchorNode content, IOnOff effect)
-        : base(content, effect)
-    {
-    }
 
     public void ForceEffect()
     {

@@ -4,7 +4,7 @@ using Mokus2D.Visual;
 
 namespace Default.Namespace;
 
-public class DynamicSpringBodyClip : SpringBodyClip
+public class DynamicSpringBodyClip(LevelBuilderBase _builder, object _body, Node _clip, Hashtable _config) : SpringBodyClip(_builder, _body, _clip, _config)
 {
     protected Vector2 relativePosition;
 
@@ -17,11 +17,6 @@ public class DynamicSpringBodyClip : SpringBodyClip
     protected float oldAngleForSticked;
 
     private bool TransformChanged => oldPosition != Body.Position || oldAngle != Body.Rotation;
-
-    public DynamicSpringBodyClip(LevelBuilderBase _builder, object _body, Node _clip, Hashtable _config)
-        : base(_builder, _body, _clip, _config)
-    {
-    }
 
     protected override void CreateShadow()
     {

@@ -3,10 +3,6 @@ using Mokus2D.Visual;
 
 namespace Mokus2D.UI.Controls.Toggle;
 
-public class AnimationToggleButton : ToggleButton
+public class AnimationToggleButton(IAnimatedNode content, Sprite background) : ToggleButton(background, new AnimationOnOff(content))
 {
-    public AnimationToggleButton(IAnimatedNode content, Sprite background)
-        : base(background, new AnimationOnOff(content))
-    {
-    }
 }

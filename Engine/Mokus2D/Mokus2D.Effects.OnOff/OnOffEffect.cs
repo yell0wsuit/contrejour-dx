@@ -2,11 +2,11 @@ using Mokus2D.Visual;
 
 namespace Mokus2D.Effects.OnOff;
 
-public abstract class OnOffEffect : IOnOff
+public abstract class OnOffEffect(Node target) : IOnOff
 {
     public bool Test;
 
-    public Node Target;
+    public Node Target = target;
 
     private bool _on;
 
@@ -28,11 +28,6 @@ public abstract class OnOffEffect : IOnOff
                 }
             }
         }
-    }
-
-    protected OnOffEffect(Node target)
-    {
-        Target = target;
     }
 
     protected abstract void SetOn();

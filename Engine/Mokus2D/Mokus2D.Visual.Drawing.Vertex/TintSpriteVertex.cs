@@ -6,15 +6,15 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Mokus2D.Visual.Drawing.Vertex;
 
-public struct TintSpriteVertex : ITintVertex, IVertex, IVertexType
+public struct TintSpriteVertex(Vector3 position, Color color, Vector2 textureCoordinate, float colorRatio) : ITintVertex, IVertex, IVertexType
 {
-    public Vector3 Position;
+    public Vector3 Position = position;
 
-    public Color Color;
+    public Color Color = color;
 
-    public Vector2 TextureCoordinate;
+    public Vector2 TextureCoordinate = textureCoordinate;
 
-    public float ColorRatio;
+    public float ColorRatio = colorRatio;
 
     public static readonly VertexDeclaration VertexDeclaration;
 
@@ -50,14 +50,6 @@ public struct TintSpriteVertex : ITintVertex, IVertex, IVertexType
         {
             Name = "TintSpriteVertex.VertexDeclaration"
         };
-    }
-
-    public TintSpriteVertex(Vector3 position, Color color, Vector2 textureCoordinate, float colorRatio)
-    {
-        Position = position;
-        Color = color;
-        TextureCoordinate = textureCoordinate;
-        ColorRatio = colorRatio;
     }
 
     public static bool operator ==(TintSpriteVertex left, TintSpriteVertex right)

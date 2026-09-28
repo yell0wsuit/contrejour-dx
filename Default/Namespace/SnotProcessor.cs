@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework;
 
 namespace Default.Namespace;
 
-public class SnotProcessor : JointProcessorBase
+public class SnotProcessor(LevelBuilderBase _builder, string _type, float _partSize) : JointProcessorBase(_type, _builder)
 {
     public struct BodyAndJoint
     {
@@ -31,7 +31,7 @@ public class SnotProcessor : JointProcessorBase
 
     public const float LINEAR_DAMPING = 1f;
 
-    protected float partSize;
+    protected float partSize = _partSize;
 
     public SnotProcessor(LevelBuilderBase _builder)
         : this(_builder, "snot")
@@ -41,12 +41,6 @@ public class SnotProcessor : JointProcessorBase
     public SnotProcessor(LevelBuilderBase _builder, string _type)
         : this(_builder, _type, 1.6f)
     {
-    }
-
-    public SnotProcessor(LevelBuilderBase _builder, string _type, float _partSize)
-        : base(_type, _builder)
-    {
-        partSize = _partSize;
     }
 
     public virtual float GetStartDensity()

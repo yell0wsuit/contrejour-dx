@@ -2,13 +2,8 @@ using Mokus2D.Visual;
 
 namespace Default.Namespace;
 
-public class CosRotationChanger : CosPropertyChanger
+public class CosRotationChanger(Node target, float maxValue, float step) : CosPropertyChanger(target, 0f - maxValue, maxValue, step)
 {
-    public CosRotationChanger(Node target, float maxValue, float step)
-        : base(target, 0f - maxValue, maxValue, step)
-    {
-    }
-
     protected override void SetPropertyValue(float value)
     {
         target.RotationDegrees = value;

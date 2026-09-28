@@ -8,13 +8,13 @@ using Mokus2D.Visual.Interfaces;
 
 namespace Mokus2D.Fonts;
 
-public class FontData : TextureNodeData
+public class FontData(string id, string fontName, float fontSize, float realHeight) : TextureNodeData(id)
 {
-    public readonly string FontName;
+    public readonly string FontName = fontName;
 
-    public readonly float FontSize;
+    public readonly float FontSize = fontSize;
 
-    public readonly float RealHeight;
+    public readonly float RealHeight = realHeight;
 
     private readonly Dictionary<char, CharData> _chars = [];
 
@@ -23,14 +23,6 @@ public class FontData : TextureNodeData
     public static char GetSpecialSymbol(int index)
     {
         return (char)(57344 + index);
-    }
-
-    public FontData(string id, string fontName, float fontSize, float realHeight)
-        : base(id)
-    {
-        FontName = fontName;
-        FontSize = fontSize;
-        RealHeight = realHeight;
     }
 
     public void AddSpecialSymbol(char symbol, Rectangle rectangle, Vector2 anchorInPixels, float width)

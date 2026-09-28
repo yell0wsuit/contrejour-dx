@@ -1,13 +1,8 @@
 namespace Default.Namespace;
 
-public class FakeProcessor : TypeProcessorBase
+public class FakeProcessor(string _type, LevelBuilderBase _builder) : TypeProcessorBase(_type, _builder)
 {
     private static readonly int STATIC_RESULT = 1;
-
-    public FakeProcessor(string _type, LevelBuilderBase _builder)
-        : base(_type, _builder)
-    {
-    }
 
     public override object ProcessItem(Hashtable item)
     {

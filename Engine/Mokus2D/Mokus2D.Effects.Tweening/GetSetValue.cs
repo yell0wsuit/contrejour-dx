@@ -2,17 +2,11 @@ using System;
 
 namespace Mokus2D.Effects.Tweening;
 
-public class GetSetValue<TValue>
+public class GetSetValue<TValue>(Func<object, TValue> getter, Action<object, TValue> setter)
 {
-    private readonly Func<object, TValue> _getter;
+    private readonly Func<object, TValue> _getter = getter;
 
-    private readonly Action<object, TValue> _setter;
-
-    public GetSetValue(Func<object, TValue> getter, Action<object, TValue> setter)
-    {
-        _getter = getter;
-        _setter = setter;
-    }
+    private readonly Action<object, TValue> _setter = setter;
 
     public TValue GetValue(object node)
     {
@@ -24,21 +18,14 @@ public class GetSetValue<TValue>
         _setter(node, value);
     }
 }
-public class GetSetValue<TObject, TValue> : GetSetValue<TValue> where TObject : class
-{
-    private readonly Func<TObject, TValue> _getter;
-
-    private readonly Action<TObject, TValue> _setter;
-
-    public GetSetValue(Func<TObject, TValue> getter, Action<TObject, TValue> setter)
-        : base(o => getter((TObject)o), delegate (object o, TValue v)
+public class GetSetValue<TObject, TValue>(Func<TObject, TValue> getter, Action<TObject, TValue> setter) : GetSetValue<TValue>(o => getter((TObject)o), delegate (object o, TValue v)
         {
             setter((TObject)o, v);
-        })
-    {
-        _getter = getter;
-        _setter = setter;
-    }
+        }) where TObject : class
+{
+    private readonly Func<TObject, TValue> _getter = getter;
+
+    private readonly Action<TObject, TValue> _setter = setter;
 
     public TValue GetValue(TObject node)
     {

@@ -4,9 +4,9 @@ using Microsoft.Xna.Framework;
 
 namespace FarseerPhysics.Collision.Shapes;
 
-public abstract class Shape
+public abstract class Shape(float density)
 {
-    internal float _density;
+    internal float _density = density;
 
     internal float _radius;
 
@@ -14,7 +14,7 @@ public abstract class Shape
 
     public MassData MassData;
 
-    public ShapeType ShapeType { get; internal set; }
+    public ShapeType ShapeType { get; internal set; } = ShapeType.Unknown;
 
     public abstract int ChildCount { get; }
 
@@ -37,12 +37,6 @@ public abstract class Shape
             _2radius = _radius * _radius;
             ComputeProperties();
         }
-    }
-
-    protected Shape(float density)
-    {
-        _density = density;
-        ShapeType = ShapeType.Unknown;
     }
 
     public abstract Shape Clone();

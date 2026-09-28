@@ -5,19 +5,13 @@ using Mokus2D.Visual.Drawing.Effects;
 
 namespace Mokus2D.Visual.Shaders;
 
-public abstract class SpriteBatchEffectBase : ISpriteBatchEffect
+public abstract class SpriteBatchEffectBase(string path) : ISpriteBatchEffect
 {
-    protected readonly Effect Effect;
+    protected readonly Effect Effect = EffectUtil.LoadEffect(path);
 
-    protected readonly string Path;
+    protected readonly string Path = path;
 
     protected EffectParameterCollection Parameters => Effect.Parameters;
-
-    protected SpriteBatchEffectBase(string path)
-    {
-        Path = path;
-        Effect = EffectUtil.LoadEffect(path);
-    }
 
     public abstract void Apply(Matrix matrix, Texture2D texture);
 }

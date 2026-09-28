@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 using Microsoft.Xna.Framework;
 
@@ -32,6 +33,7 @@ public class FlyController : FlyBase
 
     protected float windOffset;
 
+    [SuppressMessage("Style", "IDE0290:Use primary constructor", Justification = "Its random draws must run after the base constructor's, in this order.")]
     public FlyController(IWindManager _windProvider, IGrassControllerContainer _grassControllerContainer, Particle _particle, float? scale = null, float? windOffsetRange = null)
         : base(_particle, scale ?? Maths.Random(0.8f, 1.2f))
     {

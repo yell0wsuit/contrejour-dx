@@ -2,15 +2,9 @@ using System.Collections.Generic;
 
 namespace Mokus2D.Effects.OnOff;
 
-public class OnOffGroup : OnOffEffect
+public class OnOffGroup(params IOnOff[] effects) : OnOffEffect(null)
 {
-    private readonly List<IOnOff> _effects;
-
-    public OnOffGroup(params IOnOff[] effects)
-        : base(null)
-    {
-        _effects = [.. effects];
-    }
+    private readonly List<IOnOff> _effects = [.. effects];
 
     public void Add(IOnOff onOff)
     {

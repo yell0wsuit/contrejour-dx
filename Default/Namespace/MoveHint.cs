@@ -2,16 +2,11 @@ using Mokus2D.Visual;
 
 namespace Default.Namespace;
 
-public class MoveHint : FadeHint
+public class MoveHint(ContreJourLevelBuilder _builder, object _body, Sprite _clip, Hashtable _config) : FadeHint(_builder, _body, _clip, _config)
 {
     private SnotPoint point;
 
     private bool used;
-
-    public MoveHint(ContreJourLevelBuilder _builder, object _body, Sprite _clip, Hashtable _config)
-        : base(_builder, _body, _clip, _config)
-    {
-    }
 
     private void GetPoint()
     {

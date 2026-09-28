@@ -4,17 +4,11 @@ using Mokus2D.Data;
 
 namespace Mokus2D.Util.MathUtils;
 
-public class AsymptoticVector2 : IValueProcessor<Vector2>
+public class AsymptoticVector2(RectangleFloat bounds, float offset) : IValueProcessor<Vector2>
 {
-    public RectangleFloat Bounds;
+    public RectangleFloat Bounds = bounds;
 
-    public float Offset;
-
-    public AsymptoticVector2(RectangleFloat bounds, float offset)
-    {
-        Bounds = bounds;
-        Offset = offset;
-    }
+    public float Offset = offset;
 
     public Vector2 GetValue(Vector2 value)
     {

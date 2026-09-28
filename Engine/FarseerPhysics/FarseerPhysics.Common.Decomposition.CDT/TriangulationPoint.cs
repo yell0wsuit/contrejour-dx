@@ -4,11 +4,11 @@ using FarseerPhysics.Common.Decomposition.CDT.Delaunay.Sweep;
 
 namespace FarseerPhysics.Common.Decomposition.CDT;
 
-internal class TriangulationPoint
+internal class TriangulationPoint(double x, double y)
 {
-    public double X;
+    public double X = x;
 
-    public double Y;
+    public double Y = y;
 
     public List<DTSweepConstraint> Edges { get; private set; }
 
@@ -25,12 +25,6 @@ internal class TriangulationPoint
     }
 
     public bool HasEdges => Edges != null;
-
-    public TriangulationPoint(double x, double y)
-    {
-        X = x;
-        Y = y;
-    }
 
     public override string ToString()
     {

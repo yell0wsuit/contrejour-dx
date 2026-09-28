@@ -4,13 +4,8 @@ using Mokus2D.Util;
 
 namespace Default.Namespace;
 
-public class PolygonProcessor : ShapeProcessor
+public class PolygonProcessor(LevelBuilderBase _builder) : ShapeProcessor("polygon", _builder)
 {
-    public PolygonProcessor(LevelBuilderBase _builder)
-        : base("polygon", _builder)
-    {
-    }
-
     public override Shape CreateShape(Hashtable item)
     {
         //IL_0012: Unknown result type (might be due to invalid IL or missing references)

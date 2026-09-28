@@ -5,13 +5,8 @@ using Mokus2D.Visual.Interfaces;
 
 namespace Mokus2D.Content.Serialization;
 
-public class MovieClipDeserializer : NodeDeserializerBase<IMovieClipData>
+public class MovieClipDeserializer(IGraphicsLoader loader) : NodeDeserializerBase<IMovieClipData>(loader)
 {
-    public MovieClipDeserializer(IGraphicsLoader loader)
-        : base(loader)
-    {
-    }
-
     public override IMovieClipData Deserialize(string id, XElement element)
     {
         MovieClipData movieClipData = new(id);

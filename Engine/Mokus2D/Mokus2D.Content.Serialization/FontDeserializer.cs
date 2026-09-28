@@ -6,14 +6,9 @@ using Mokus2D.Fonts;
 
 namespace Mokus2D.Content.Serialization;
 
-public class FontDeserializer : GraphicsDeserializerBase<FontData>
+public class FontDeserializer(IGraphicsLoader loader) : GraphicsDeserializerBase<FontData>(loader)
 {
     public override bool UseSuffix => true;
-
-    public FontDeserializer(IGraphicsLoader loader)
-        : base(loader)
-    {
-    }
 
     public override FontData Deserialize(string id, XElement element)
     {

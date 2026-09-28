@@ -6,18 +6,13 @@ using Mokus2D.Visual;
 
 namespace Default.Namespace;
 
-public class MovableSpringBodyClip : DynamicSpringBodyClip
+public class MovableSpringBodyClip(LevelBuilderBase _builder, object _body, Node _clip, Hashtable _config) : DynamicSpringBodyClip(_builder, _body, _clip, _config)
 {
     protected DragableBodyClip mover;
 
     protected Vector2 offset;
 
     protected Vector2 moverPosition;
-
-    public MovableSpringBodyClip(LevelBuilderBase _builder, object _body, Node _clip, Hashtable _config)
-        : base(_builder, _body, _clip, _config)
-    {
-    }
 
     public override void Update(float time)
     {

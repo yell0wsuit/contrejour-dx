@@ -8,18 +8,11 @@ using Mokus2D.Visual;
 
 namespace Mokus2D.Integration.Farseer.Construction.Processors;
 
-public class PolygonProcessor : ShapeProcessor
+public class PolygonProcessor(PhysicsConstructor constructor, Vector2[] coords) : ShapeProcessor(constructor)
 {
-    private readonly Vector2[] _coords;
+    private readonly Vector2[] _coords = coords;
 
-    private readonly Vertices _resultCoords;
-
-    public PolygonProcessor(PhysicsConstructor constructor, Vector2[] coords)
-        : base(constructor)
-    {
-        _coords = coords;
-        _resultCoords = new Vertices(coords.Length);
-    }
+    private readonly Vertices _resultCoords = new Vertices(coords.Length);
 
     public override Shape Process(Node item, Vector2 positionOffset)
     {

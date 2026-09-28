@@ -5,15 +5,15 @@ using Microsoft.Xna.Framework;
 
 namespace Default.Namespace;
 
-public class Bezier
+public class Bezier(Vector2 _start, Vector2 _control, Vector2 _end)
 {
-    protected Vector2 start;
+    protected Vector2 start = _start;
 
-    protected Vector2 control;
+    protected Vector2 control = _control;
 
-    protected Vector2 end;
+    protected Vector2 end = _end;
 
-    protected float calculatedLength;
+    protected float calculatedLength = -1f;
 
     public float Length
     {
@@ -30,14 +30,6 @@ public class Bezier
     private static float FirstNonZero(float value1, float value2)
     {
         return Maths.FuzzyNotEquals(value1, 0f) ? value1 : value2;
-    }
-
-    public Bezier(Vector2 _start, Vector2 _control, Vector2 _end)
-    {
-        start = _start;
-        control = _control;
-        end = _end;
-        calculatedLength = -1f;
     }
 
     public Vector2 GetPointByTime(float time)

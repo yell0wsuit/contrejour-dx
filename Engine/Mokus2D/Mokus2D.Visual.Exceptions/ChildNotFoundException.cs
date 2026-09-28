@@ -1,11 +1,6 @@
 namespace Mokus2D.Visual.Exceptions;
 
-public class ChildNotFoundException : NodeException
+public class ChildNotFoundException(string id) : NodeException
 {
-    public string Id { get; }
-
-    public ChildNotFoundException(string id)
-    {
-        Id = id;
-    }
+    public string Id { get; } = id;
 }

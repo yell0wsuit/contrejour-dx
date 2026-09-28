@@ -8,19 +8,13 @@ using Mokus2D.Util.Extensions;
 
 namespace Mokus2D.Collections.QuadTree;
 
-public class QuadTree<T> where T : class, IQuadTreeObject<T>
+public class QuadTree<T>(Vector2 minLeafSize, int maxObjectsPerLeaf) where T : class, IQuadTreeObject<T>
 {
-    private readonly Vector2 minLeafSize;
+    private readonly Vector2 minLeafSize = minLeafSize;
 
-    private readonly int maxObjectsPerLeaf;
+    private readonly int maxObjectsPerLeaf = maxObjectsPerLeaf;
 
     public QuadTreeNode<T> Root { get; private set; }
-
-    public QuadTree(Vector2 minLeafSize, int maxObjectsPerLeaf)
-    {
-        this.minLeafSize = minLeafSize;
-        this.maxObjectsPerLeaf = maxObjectsPerLeaf;
-    }
 
     public void Add(T quadObject)
     {

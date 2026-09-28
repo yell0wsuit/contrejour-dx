@@ -14,21 +14,21 @@ using Mokus2D.Visual;
 
 namespace Default.Namespace;
 
-public class BlackSmokeTail : IUpdatable
+public class BlackSmokeTail(Body _body, LevelBuilderBase _builder) : IUpdatable
 {
-    protected Body body;
+    protected Body body = _body;
 
-    protected LevelBuilderBase builder;
+    protected LevelBuilderBase builder = _builder;
 
-    protected List<object> items;
+    protected List<object> items = [];
 
     protected Vector2 previousPosition;
 
     protected bool initialized;
 
-    protected float startScale;
+    protected float startScale = 1f;
 
-    protected string clipName;
+    protected string clipName = "McTailPart";
 
     public float StartScale
     {
@@ -40,15 +40,6 @@ public class BlackSmokeTail : IUpdatable
     {
         get => clipName;
         set => clipName = value;
-    }
-
-    public BlackSmokeTail(Body _body, LevelBuilderBase _builder)
-    {
-        body = _body;
-        builder = _builder;
-        items = [];
-        startScale = 1f;
-        clipName = "McTailPart";
     }
 
     public void Update(float time)

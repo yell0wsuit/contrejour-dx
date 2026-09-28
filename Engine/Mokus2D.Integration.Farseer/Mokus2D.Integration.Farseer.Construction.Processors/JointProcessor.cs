@@ -7,13 +7,8 @@ using Mokus2D.Visual;
 
 namespace Mokus2D.Integration.Farseer.Construction.Processors;
 
-public abstract class JointProcessor : PhysicsProcessor
+public abstract class JointProcessor(PhysicsConstructor constructor) : PhysicsProcessor(constructor)
 {
-    protected JointProcessor(PhysicsConstructor constructor)
-        : base(constructor)
-    {
-    }
-
     public abstract Joint Process(Node item);
 
     protected Body GetBodyA(Node item)

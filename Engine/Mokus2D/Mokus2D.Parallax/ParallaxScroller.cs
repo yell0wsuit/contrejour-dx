@@ -11,12 +11,12 @@ using Mokus2D.Visual.Interfaces;
 
 namespace Mokus2D.Parallax;
 
-public class ParallaxScroller : IViewPosition
+public class ParallaxScroller(Vector2 screenSize) : IViewPosition
 {
     public const string ParallaxConfigName = "parallax";
 
     private Vector2 _viewPosition = Vector2.Zero;
-    private Vector2 _zoomCenter = Vector2.Zero;
+    private Vector2 _zoomCenter = screenSize / 2f;
 
     private readonly List<ParallaxLayer> _layers = [];
 
@@ -24,7 +24,7 @@ public class ParallaxScroller : IViewPosition
 
     private Vector2? _fieldZoomPosition;
 
-    public Vector2 ScreenSize { get; }
+    public Vector2 ScreenSize { get; } = screenSize;
 
     public float ZoomDistance
     {
@@ -90,12 +90,6 @@ public class ParallaxScroller : IViewPosition
     public static float GetConfigParallax(Node node)
     {
         return node.Config != null ? node.Config.GetFloat("parallax", 1f) : 1f;
-    }
-
-    public ParallaxScroller(Vector2 screenSize)
-    {
-        ScreenSize = screenSize;
-        _zoomCenter = screenSize / 2f;
     }
 
     public ParallaxLayer FindLayer(Node node)

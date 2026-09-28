@@ -7,13 +7,8 @@ using Mokus2D.Visual;
 
 namespace Default.Namespace;
 
-public class Chapter3 : ChapterItem
+public class Chapter3(int _index, MainMenu _menu) : ChapterItem(_index, _menu)
 {
-    public Chapter3(int _index, MainMenu _menu)
-        : base(_index, _menu)
-    {
-    }
-
     protected override void CreateSprites()
     {
         AddShesterna("planets/McPlanetShesterna", 5, new Vector2(-40f, 60f)).Color = new Color(100, 100, 100);

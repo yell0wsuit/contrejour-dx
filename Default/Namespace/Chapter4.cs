@@ -6,14 +6,9 @@ using Mokus2D.Visual;
 
 namespace Default.Namespace;
 
-public class Chapter4 : Chapter2
+public class Chapter4(int _index, MainMenu _menu) : Chapter2(_index, _menu)
 {
     protected Sprite shadow;
-
-    public Chapter4(int _index, MainMenu _menu)
-        : base(_index, _menu)
-    {
-    }
 
     protected override void CreateSprites()
     {

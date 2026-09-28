@@ -5,13 +5,8 @@ using Mokus2D.Visual.Particles.Util;
 
 namespace Default.Namespace;
 
-public class Chapter6 : ChapterItem
+public class Chapter6(int _index, MainMenu _menu) : ChapterItem(_index, _menu)
 {
-    public Chapter6(int _index, MainMenu _menu)
-        : base(_index, _menu)
-    {
-    }
-
     protected override void CreateSprites()
     {
         ParticleSystem particleSystem = new("planets/McGreenPlanetFly");

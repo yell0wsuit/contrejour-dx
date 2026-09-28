@@ -32,14 +32,9 @@ namespace Default.Namespace;
 
 public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedDependent, IWindManager
 {
-    public class ClickableComparer : IComparer<BodyClip>
+    public class ClickableComparer(Vector2 sourcePoint) : IComparer<BodyClip>
     {
-        private readonly Vector2 sourcePoint;
-
-        public ClickableComparer(Vector2 sourcePoint)
-        {
-            this.sourcePoint = sourcePoint;
-        }
+        private readonly Vector2 sourcePoint = sourcePoint;
 
         public int Compare(BodyClip clip1, BodyClip clip2)
         {

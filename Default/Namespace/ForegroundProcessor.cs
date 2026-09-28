@@ -1,13 +1,8 @@
 namespace Default.Namespace;
 
-public class ForegroundProcessor : TypeProcessorBase
+public class ForegroundProcessor(LevelBuilderBase _builder) : TypeProcessorBase("foreground", _builder)
 {
     private static readonly int STATIC_RESULT = 1;
-
-    public ForegroundProcessor(LevelBuilderBase _builder)
-        : base("foreground", _builder)
-    {
-    }
 
     public override object ProcessItem(Hashtable item)
     {

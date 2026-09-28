@@ -5,14 +5,9 @@ using Mokus2D.Visual;
 
 namespace Mokus2D.UI.TouchFilters;
 
-public class AreaTouchFilter : TypeTouchFilter
+public class AreaTouchFilter(Sprite area) : TypeTouchFilter
 {
-    private readonly Sprite _area;
-
-    public AreaTouchFilter(Sprite area)
-    {
-        _area = area;
-    }
+    private readonly Sprite _area = area;
 
     protected override bool Matches(Touch touch)
     {

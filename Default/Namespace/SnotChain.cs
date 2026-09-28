@@ -1,10 +1,10 @@
 namespace Default.Namespace;
 
-public class SnotChain
+public class SnotChain(SnotBodyClip _snot, float _distance)
 {
-    protected SnotBodyClip snot;
+    protected SnotBodyClip snot = _snot;
 
-    protected float distance;
+    protected float distance = _distance;
 
     protected float diff;
 
@@ -21,11 +21,5 @@ public class SnotChain
     public static object CreateWithSnotDistance(SnotBodyClip _snot, float _distance)
     {
         return new SnotChain(_snot, _distance);
-    }
-
-    public SnotChain(SnotBodyClip _snot, float _distance)
-    {
-        snot = _snot;
-        distance = _distance;
     }
 }

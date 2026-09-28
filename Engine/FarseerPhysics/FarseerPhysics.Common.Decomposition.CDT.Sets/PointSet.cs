@@ -4,18 +4,13 @@ using FarseerPhysics.Common.Decomposition.CDT.Delaunay;
 
 namespace FarseerPhysics.Common.Decomposition.CDT.Sets;
 
-internal class PointSet : ITriangulatable
+internal class PointSet(List<TriangulationPoint> points) : ITriangulatable
 {
-    public IList<TriangulationPoint> Points { get; private set; }
+    public IList<TriangulationPoint> Points { get; private set; } = [.. points];
 
     public IList<DelaunayTriangle> Triangles { get; private set; }
 
     public virtual TriangulationMode TriangulationMode => TriangulationMode.Unconstrained;
-
-    public PointSet(List<TriangulationPoint> points)
-    {
-        Points = [.. points];
-    }
 
     public void AddTriangle(DelaunayTriangle t)
     {

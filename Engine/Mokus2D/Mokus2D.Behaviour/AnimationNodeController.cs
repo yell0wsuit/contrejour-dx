@@ -3,14 +3,9 @@ using Mokus2D.Visual;
 
 namespace Mokus2D.Behaviour;
 
-public abstract class AnimationNodeController : INodeController, IUpdatable
+public abstract class AnimationNodeController(AnimationNode node) : INodeController, IUpdatable
 {
-    protected readonly AnimationNode Node;
-
-    protected AnimationNodeController(AnimationNode node)
-    {
-        Node = node;
-    }
+    protected readonly AnimationNode Node = node;
 
     public virtual void Update(float time)
     {

@@ -6,22 +6,16 @@ using Mokus2D.Util.Extensions;
 
 namespace Mokus2D.Visual.Particles.Util;
 
-public struct Vector2Range
+public struct Vector2Range(Vector2 value, Vector2 offset)
 {
-    public Vector2 Value;
+    public Vector2 Value = value;
 
-    public Vector2 Offset;
+    public Vector2 Offset = offset;
 
     public static Vector2Range Create(Vector2 min, Vector2 max)
     {
         Vector2 vector = (min + max) / 2f;
         return new Vector2Range(vector, (max - vector).Abs());
-    }
-
-    public Vector2Range(Vector2 value, Vector2 offset)
-    {
-        Value = value;
-        Offset = offset;
     }
 
     public readonly Vector2 GetValueInRange()

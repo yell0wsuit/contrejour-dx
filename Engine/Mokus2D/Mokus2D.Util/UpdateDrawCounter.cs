@@ -6,7 +6,7 @@ using Mokus2D.Visual.Text;
 
 namespace Mokus2D.Util;
 
-public class UpdateDrawCounter : FpsCounter
+public class UpdateDrawCounter(int framesToCalculate) : FpsCounter(framesToCalculate)
 {
     private DateTime _startTime;
 
@@ -41,11 +41,6 @@ public class UpdateDrawCounter : FpsCounter
     public float StaticUpdatesTime { get; private set; }
 
     public float StaticDrawsTime { get; private set; }
-
-    public UpdateDrawCounter(int framesToCalculate)
-        : base(framesToCalculate)
-    {
-    }
 
     public void SetTestValue(string name, object value)
     {

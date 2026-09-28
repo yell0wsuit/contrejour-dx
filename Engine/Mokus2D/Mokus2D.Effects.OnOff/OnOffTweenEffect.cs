@@ -5,9 +5,9 @@ using Mokus2D.Visual;
 
 namespace Mokus2D.Effects.OnOff;
 
-public class OnOffTweenEffect<TValue> : OnOffTimeEffect
+public class OnOffTweenEffect<TValue>(Node target, float duration, GetSetValue<Node, TValue> valueSetter, TValue onValue, TValue offValue) : OnOffTimeEffect(target, duration)
 {
-    private readonly GetSetValue<Node, TValue> _valueSetter;
+    private readonly GetSetValue<Node, TValue> _valueSetter = valueSetter;
 
     public bool Clean;
 
@@ -17,17 +17,9 @@ public class OnOffTweenEffect<TValue> : OnOffTimeEffect
 
     public Action OnComplete;
 
-    public TValue OnValue { get; private set; }
+    public TValue OnValue { get; private set; } = onValue;
 
-    public TValue OffValue { get; private set; }
-
-    public OnOffTweenEffect(Node target, float duration, GetSetValue<Node, TValue> valueSetter, TValue onValue, TValue offValue)
-        : base(target, duration)
-    {
-        _valueSetter = valueSetter;
-        OnValue = onValue;
-        OffValue = offValue;
-    }
+    public TValue OffValue { get; private set; } = offValue;
 
     public virtual void ResetOnValue(TValue value)
     {

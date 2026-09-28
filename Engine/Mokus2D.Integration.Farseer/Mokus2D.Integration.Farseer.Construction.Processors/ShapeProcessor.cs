@@ -6,12 +6,7 @@ using Mokus2D.Visual;
 
 namespace Mokus2D.Integration.Farseer.Construction.Processors;
 
-public abstract class ShapeProcessor : PhysicsProcessor
+public abstract class ShapeProcessor(PhysicsConstructor constructor) : PhysicsProcessor(constructor)
 {
-    protected ShapeProcessor(PhysicsConstructor constructor)
-        : base(constructor)
-    {
-    }
-
     public abstract Shape Process(Node item, Vector2 positionOffset);
 }

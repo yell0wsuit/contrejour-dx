@@ -7,7 +7,7 @@ using Mokus2D.Input;
 
 namespace Default.Namespace;
 
-public class TrampolinePartBodyClip : ContreJourBodyClip, IClickable
+public class TrampolinePartBodyClip(LevelBuilderBase _builder, object _body) : ContreJourBodyClip(_builder, _body, null, null), IClickable
 {
     protected TrampolineBodyClip parent;
 
@@ -20,11 +20,6 @@ public class TrampolinePartBodyClip : ContreJourBodyClip, IClickable
     }
 
     public bool DisableHeroFocus => false;
-
-    public TrampolinePartBodyClip(LevelBuilderBase _builder, object _body)
-        : base(_builder, _body, null, null)
-    {
-    }
 
     public bool UseForZoom()
     {

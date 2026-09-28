@@ -5,7 +5,7 @@ using Mokus2D.Visual;
 
 namespace Default.Namespace;
 
-public class ChapterZip : ChapterItem
+public class ChapterZip(int _index, MainMenu _menu) : ChapterItem(_index, _menu)
 {
     protected Tablo arrow;
 
@@ -14,11 +14,6 @@ public class ChapterZip : ChapterItem
     protected MovieClip openAnimation;
 
     protected Sprite shadow;
-
-    public ChapterZip(int _index, MainMenu _menu)
-        : base(_index, _menu)
-    {
-    }
 
     protected override void CreateSprites()
     {

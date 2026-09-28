@@ -1,11 +1,6 @@
 namespace Mokus2D.Integration.Farseer.Construction.Processors;
 
-public abstract class PhysicsProcessor
+public abstract class PhysicsProcessor(PhysicsConstructor constructor)
 {
-    protected readonly PhysicsConstructor Constructor;
-
-    protected PhysicsProcessor(PhysicsConstructor constructor)
-    {
-        Constructor = constructor;
-    }
+    protected readonly PhysicsConstructor Constructor = constructor;
 }

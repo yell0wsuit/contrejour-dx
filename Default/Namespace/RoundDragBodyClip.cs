@@ -7,7 +7,7 @@ using Mokus2D.Visual;
 
 namespace Default.Namespace;
 
-public class RoundDragBodyClip : DragableBodyClip
+public class RoundDragBodyClip(ContreJourLevelBuilder _builder, object _body, Node _clip, Hashtable _config) : DragableBodyClip(_builder, _body, _clip, _config)
 {
     protected float radius;
 
@@ -18,11 +18,6 @@ public class RoundDragBodyClip : DragableBodyClip
     public override Vector2 PositionVec => base.PositionVec + TouchOffset();
 
     public override Vector2 SnotPosition => Body.Position;
-
-    public RoundDragBodyClip(ContreJourLevelBuilder _builder, object _body, Node _clip, Hashtable _config)
-        : base(_builder, _body, _clip, _config)
-    {
-    }
 
     protected override string ReplaceClipName(ContreJourLevelBuilder _builder)
     {

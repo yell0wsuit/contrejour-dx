@@ -4,14 +4,9 @@ using Mokus2D.Util.Resources;
 
 namespace Mokus2D.Util.Schedule;
 
-public class Disposable : DisposableBase
+public class Disposable(Action action) : DisposableBase
 {
-    private readonly Action action;
-
-    public Disposable(Action action)
-    {
-        this.action = action;
-    }
+    private readonly Action action = action;
 
     protected override void Dispose(bool disposing)
     {

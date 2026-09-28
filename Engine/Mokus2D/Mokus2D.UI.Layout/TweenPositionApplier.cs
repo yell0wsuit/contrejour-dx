@@ -5,17 +5,11 @@ using Mokus2D.Visual;
 
 namespace Mokus2D.UI.Layout;
 
-public class TweenPositionApplier : ILayoutPositionApplier
+public class TweenPositionApplier(float effectTime, int? tag = null) : ILayoutPositionApplier
 {
-    private readonly float _effectTime;
+    private readonly float _effectTime = effectTime;
 
-    private readonly int? _tag;
-
-    public TweenPositionApplier(float effectTime, int? tag = null)
-    {
-        _effectTime = effectTime;
-        _tag = tag;
-    }
+    private readonly int? _tag = tag;
 
     public void ApplyPosition(Node node, Vector2 position)
     {

@@ -1,16 +1,10 @@
 namespace Mokus2D.Effects.Tweening;
 
-public class StructGetSet<TObject, TValue> where TObject : struct
+public class StructGetSet<TObject, TValue>(Getter<TObject, TValue> getter, Setter<TObject, TValue> setter) where TObject : struct
 {
-    private readonly Getter<TObject, TValue> _getter;
+    private readonly Getter<TObject, TValue> _getter = getter;
 
-    private readonly Setter<TObject, TValue> _setter;
-
-    public StructGetSet(Getter<TObject, TValue> getter, Setter<TObject, TValue> setter)
-    {
-        _getter = getter;
-        _setter = setter;
-    }
+    private readonly Setter<TObject, TValue> _setter = setter;
 
     public TValue GetValue(TObject target)
     {

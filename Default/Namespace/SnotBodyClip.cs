@@ -19,30 +19,18 @@ namespace Default.Namespace;
 
 public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvider, IRestartable
 {
-    public class BodyAndPoint
+    public class BodyAndPoint(Body body, Vector2 point)
     {
-        public Body Body;
+        public Body Body = body;
 
-        public Vector2 Point;
-
-        public BodyAndPoint(Body body, Vector2 point)
-        {
-            Body = body;
-            Point = point;
-        }
+        public Vector2 Point = point;
     }
 
-    public class LinkableReqParams
+    public class LinkableReqParams(float distance, Vector2 position)
     {
-        public float Distance;
+        public float Distance = distance;
 
-        public Vector2 Position;
-
-        public LinkableReqParams(float distance, Vector2 position)
-        {
-            Distance = distance;
-            Position = position;
-        }
+        public Vector2 Position = position;
     }
 
     private readonly RevoluteJointDef eyeJointDef;

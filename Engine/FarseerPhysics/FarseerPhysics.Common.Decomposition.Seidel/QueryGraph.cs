@@ -2,14 +2,9 @@ using System.Collections.Generic;
 
 namespace FarseerPhysics.Common.Decomposition.Seidel;
 
-internal sealed class QueryGraph
+internal sealed class QueryGraph(Node head)
 {
-    private Node _head;
-
-    public QueryGraph(Node head)
-    {
-        _head = head;
-    }
+    private Node _head = head;
 
     private Trapezoid Locate(Edge edge)
     {

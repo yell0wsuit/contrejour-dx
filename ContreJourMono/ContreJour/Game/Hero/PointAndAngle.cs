@@ -7,30 +7,22 @@ using Mokus2D.Util.MathUtils;
 
 namespace ContreJourMono.ContreJour.Game.Hero;
 
-public class PointAndAngle
+public class PointAndAngle(float length, float angleStep, float angleOffset)
 {
     public float Angle;
-    private readonly float length;
+    private readonly float length = length;
 
-    private Vector2 position;
+    private Vector2 position = new Vector2(length * 0.5f, 0f);
 
-    private readonly float angleOffset;
+    private readonly float angleOffset = angleOffset;
 
     private readonly float amplitude = 4f;
 
     private float fawnProgress;
 
-    public float AngleStep { get; }
+    public float AngleStep { get; } = angleStep;
 
     public Vector2 Position => VectorExtensions.Rotate(position, Angle);
-
-    public PointAndAngle(float length, float angleStep, float angleOffset)
-    {
-        position = new Vector2(length * 0.5f, 0f);
-        this.length = length;
-        AngleStep = angleStep;
-        this.angleOffset = angleOffset;
-    }
 
     public void Update(float speed, bool onGround, float timeCoeff)
     {

@@ -6,13 +6,8 @@ using Mokus2D.Util.Extensions;
 
 namespace Default.Namespace;
 
-public class BlackPlasticineBorder : PlasticineBorder
+public class BlackPlasticineBorder(List<Vector2> initialPolygon) : PlasticineBorder(initialPolygon)
 {
-    public BlackPlasticineBorder(List<Vector2> initialPolygon)
-        : base(initialPolygon)
-    {
-    }
-
     public override Color OutColor()
     {
         return CenterColor().ChangeAlpha(0);

@@ -7,15 +7,15 @@ using Mokus2D.Util.MathUtils;
 
 namespace Mokus2D.Util.Data;
 
-public struct Point
+public struct Point(int x, int y)
 {
     public static readonly Point Zero;
 
     public static readonly Point One = new(1);
 
-    public int X;
+    public int X = x;
 
-    public int Y;
+    public int Y = y;
 
     public static Point Min(Point a, Point b)
     {
@@ -36,12 +36,6 @@ public struct Point
     public Point(int value)
         : this(value, value)
     {
-    }
-
-    public Point(int x, int y)
-    {
-        X = x;
-        Y = y;
     }
 
     public static Point operator +(Point a, Point b)

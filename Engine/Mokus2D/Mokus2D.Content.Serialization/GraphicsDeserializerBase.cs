@@ -11,16 +11,11 @@ using Mokus2D.Visual.Data;
 
 namespace Mokus2D.Content.Serialization;
 
-public abstract class GraphicsDeserializerBase<T> : IGraphicsDeserializer<T>, IGraphicsDeserializer
+public abstract class GraphicsDeserializerBase<T>(IGraphicsLoader loader) : IGraphicsDeserializer<T>, IGraphicsDeserializer
 {
-    private readonly IGraphicsLoader loader;
+    private readonly IGraphicsLoader loader = loader;
 
     public abstract bool UseSuffix { get; }
-
-    protected GraphicsDeserializerBase(IGraphicsLoader loader)
-    {
-        this.loader = loader;
-    }
 
     public abstract T Deserialize(string id, XElement element);
 

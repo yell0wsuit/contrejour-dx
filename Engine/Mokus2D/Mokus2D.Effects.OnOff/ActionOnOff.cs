@@ -2,9 +2,9 @@ using System;
 
 namespace Mokus2D.Effects.OnOff;
 
-public class ActionOnOff : IOnOff
+public class ActionOnOff(Action<bool> action) : IOnOff
 {
-    private Action<bool> _action;
+    private Action<bool> _action = action;
 
     private bool _isOn;
 
@@ -19,11 +19,6 @@ public class ActionOnOff : IOnOff
                 _action(value);
             }
         }
-    }
-
-    public ActionOnOff(Action<bool> action)
-    {
-        _action = action;
     }
 
     protected void SetAction(Action<bool> action)

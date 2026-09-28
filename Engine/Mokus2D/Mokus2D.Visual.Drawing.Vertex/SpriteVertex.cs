@@ -6,13 +6,13 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Mokus2D.Visual.Drawing.Vertex;
 
-public struct SpriteVertex : IVertex, IVertexType
+public struct SpriteVertex(Vector3 position, Color color, Vector2 textureCoordinate) : IVertex, IVertexType
 {
-    public Vector3 Position;
+    public Vector3 Position = position;
 
-    public Color Color;
+    public Color Color = color;
 
-    public Vector2 TextureCoordinate;
+    public Vector2 TextureCoordinate = textureCoordinate;
 
     public static readonly VertexDeclaration VertexDeclaration;
 
@@ -42,13 +42,6 @@ public struct SpriteVertex : IVertex, IVertexType
         {
             Name = "SpriteVertex.VertexDeclaration"
         };
-    }
-
-    public SpriteVertex(Vector3 position, Color color, Vector2 textureCoordinate)
-    {
-        Position = position;
-        Color = color;
-        TextureCoordinate = textureCoordinate;
     }
 
     public static bool operator ==(SpriteVertex left, SpriteVertex right)

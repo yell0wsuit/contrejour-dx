@@ -2,11 +2,11 @@ using Microsoft.Xna.Framework;
 
 namespace Default.Namespace;
 
-public class GrassAndPosition
+public class GrassAndPosition(Particle particle, Vector2 position)
 {
-    protected Particle particle;
+    protected Particle particle = particle;
 
-    protected Vector2 position;
+    protected Vector2 position = position;
 
     public Particle Particle => particle;
 
@@ -14,11 +14,5 @@ public class GrassAndPosition
     {
         get => position;
         set => position = value;
-    }
-
-    public GrassAndPosition(Particle particle, Vector2 position)
-    {
-        this.particle = particle;
-        this.position = position;
     }
 }

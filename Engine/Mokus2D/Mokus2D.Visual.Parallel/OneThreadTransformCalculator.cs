@@ -2,13 +2,8 @@ using Mokus2D.Visual.Util;
 
 namespace Mokus2D.Visual.Parallel;
 
-public class OneThreadTransformCalculator : TransformationCalculatorBase
+public class OneThreadTransformCalculator(RootNode root) : TransformationCalculatorBase(root)
 {
-    public OneThreadTransformCalculator(RootNode root)
-        : base(root)
-    {
-    }
-
     public override void DoTransformations()
     {
         if (!TransformationUtil.ShouldRefreshNode(Root))

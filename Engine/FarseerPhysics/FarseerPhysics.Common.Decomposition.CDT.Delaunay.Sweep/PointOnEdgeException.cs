@@ -2,10 +2,6 @@ using System;
 
 namespace FarseerPhysics.Common.Decomposition.CDT.Delaunay.Sweep;
 
-internal sealed class PointOnEdgeException : NotImplementedException
+internal sealed class PointOnEdgeException(string message) : NotImplementedException(message)
 {
-    public PointOnEdgeException(string message)
-        : base(message)
-    {
-    }
 }

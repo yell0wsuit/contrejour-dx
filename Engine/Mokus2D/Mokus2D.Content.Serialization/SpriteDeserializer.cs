@@ -6,13 +6,8 @@ using Mokus2D.Visual.Interfaces;
 
 namespace Mokus2D.Content.Serialization;
 
-public class SpriteDeserializer : NodeDeserializerBase<ISpriteData>
+public class SpriteDeserializer(IGraphicsLoader loader) : NodeDeserializerBase<ISpriteData>(loader)
 {
-    public SpriteDeserializer(IGraphicsLoader loader)
-        : base(loader)
-    {
-    }
-
     public override ISpriteData Deserialize(string id, XElement element)
     {
         SpriteData spriteData = new(id);

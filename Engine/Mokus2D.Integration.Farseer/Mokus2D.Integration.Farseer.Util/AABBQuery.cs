@@ -4,14 +4,9 @@ using FarseerPhysics.Dynamics;
 
 namespace Mokus2D.Integration.Farseer.Util;
 
-public class AABBQuery
+public class AABBQuery(List<Fixture> fixtures)
 {
-    public List<Fixture> Fixtures { get; }
-
-    public AABBQuery(List<Fixture> fixtures)
-    {
-        Fixtures = fixtures;
-    }
+    public List<Fixture> Fixtures { get; } = fixtures;
 
     public AABBQuery()
         : this([])

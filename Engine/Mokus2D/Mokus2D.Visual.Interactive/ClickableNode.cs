@@ -2,14 +2,9 @@ using Mokus2D.Input;
 
 namespace Mokus2D.Visual.Interactive;
 
-public abstract class ClickableNode : Node, ITouchListener
+public abstract class ClickableNode(int priority = 0) : Node, ITouchListener
 {
-    private readonly int _priority;
-
-    protected ClickableNode(int priority = 0)
-    {
-        _priority = priority;
-    }
+    private readonly int _priority = priority;
 
     protected override void OnAddedToStage()
     {

@@ -3,18 +3,13 @@ using FarseerPhysics.Dynamics;
 
 namespace FarseerPhysics.Controllers;
 
-public abstract class Controller : FilterData
+public abstract class Controller(ControllerType controllerType) : FilterData
 {
     public bool Enabled;
 
     public World World;
 
-    private readonly ControllerType _type;
-
-    public Controller(ControllerType controllerType)
-    {
-        _type = controllerType;
-    }
+    private readonly ControllerType _type = controllerType;
 
     public override bool IsActiveOn(Body body)
     {

@@ -1,14 +1,8 @@
 namespace FarseerPhysics.Common.Decomposition.Seidel;
 
-internal sealed class XNode : Node
+internal sealed class XNode(Point point, Node lChild, Node rChild) : Node(lChild, rChild)
 {
-    private readonly Point _point;
-
-    public XNode(Point point, Node lChild, Node rChild)
-        : base(lChild, rChild)
-    {
-        _point = point;
-    }
+    private readonly Point _point = point;
 
     public override Sink Locate(Edge edge)
     {

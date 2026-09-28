@@ -4,13 +4,8 @@ using Mokus2D.Visual;
 
 namespace Default.Namespace;
 
-public class StoneBodyClip : ContreJourBodyClip
+public class StoneBodyClip(LevelBuilderBase builder, object body, Node clip, Hashtable config) : ContreJourBodyClip(builder, body, clip, config)
 {
-    public StoneBodyClip(LevelBuilderBase builder, object body, Node clip, Hashtable config)
-        : base(builder, body, clip, config)
-    {
-    }
-
     public override void Update(float time)
     {
         base.Update(time);

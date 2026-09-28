@@ -4,14 +4,9 @@ using Mokus2D.Visual.Data;
 
 namespace Mokus2D.Content.Serialization;
 
-public abstract class NodeDeserializerBase<T> : GraphicsDeserializerBase<T>
+public abstract class NodeDeserializerBase<T>(IGraphicsLoader loader) : GraphicsDeserializerBase<T>(loader)
 {
     public override bool UseSuffix => true;
-
-    protected NodeDeserializerBase(IGraphicsLoader loader)
-        : base(loader)
-    {
-    }
 
     protected void AddConfigAndScaleFactor(TextureNodeData data, XElement element)
     {

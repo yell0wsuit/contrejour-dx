@@ -3,13 +3,8 @@ using Mokus2D.Visual.Drawing;
 
 namespace Mokus2D.Visual.Primitives;
 
-public class TintSegmentedSprite<T> : SegmentedSprite<T> where T : struct, ITintVertex
+public class TintSegmentedSprite<T>(string spriteId, ISegmentedSpriteData<T> data) : SegmentedSprite<T>(spriteId, data) where T : struct, ITintVertex
 {
-    public TintSegmentedSprite(string spriteId, ISegmentedSpriteData<T> data)
-        : base(spriteId, data)
-    {
-    }
-
     public override Pair<T> GetDefaultPair(float ratio)
     {
         Pair<T> defaultPair = base.GetDefaultPair(ratio);

@@ -6,13 +6,8 @@ using Mokus2D.Visual;
 
 namespace Mokus2D.Integration.Farseer.Construction.Processors;
 
-public class CircleProcessor : ShapeProcessor
+public class CircleProcessor(PhysicsConstructor constructor) : ShapeProcessor(constructor)
 {
-    public CircleProcessor(PhysicsConstructor constructor)
-        : base(constructor)
-    {
-    }
-
     public override Shape Process(Node item, Vector2 positionOffset)
     {
         Vector2 vector = Constructor.ToPhysics(new Vector2(5f, 0f), item, positionOffset);

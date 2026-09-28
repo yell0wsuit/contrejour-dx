@@ -1,3 +1,5 @@
+using System.Diagnostics.CodeAnalysis;
+
 using Mokus2D.Sound;
 using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual;
@@ -10,6 +12,7 @@ public class EndLastLevelBodyClip : EndLevelBodyClip
 
     protected bool bounce;
 
+    [SuppressMessage("Style", "IDE0290:Use primary constructor", Justification = "Its random draws must run after the base constructor's, in this order.")]
     public EndLastLevelBodyClip(LevelBuilderBase _builder, object _body, Node _clip, Hashtable _config)
         : base(_builder, _body, _clip, _config)
     {

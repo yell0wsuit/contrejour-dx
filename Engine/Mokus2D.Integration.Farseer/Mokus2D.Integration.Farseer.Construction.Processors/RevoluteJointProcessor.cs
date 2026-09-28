@@ -9,13 +9,8 @@ using Mokus2D.Visual;
 
 namespace Mokus2D.Integration.Farseer.Construction.Processors;
 
-public class RevoluteJointProcessor : JointProcessor
+public class RevoluteJointProcessor(PhysicsConstructor constructor) : JointProcessor(constructor)
 {
-    public RevoluteJointProcessor(PhysicsConstructor constructor)
-        : base(constructor)
-    {
-    }
-
     public override Joint Process(Node item)
     {
         Vector2 anchor = Constructor.ToPhysics(item);

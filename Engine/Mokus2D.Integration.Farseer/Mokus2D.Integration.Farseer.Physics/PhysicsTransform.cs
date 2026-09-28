@@ -2,14 +2,9 @@ using Microsoft.Xna.Framework;
 
 namespace Mokus2D.Integration.Farseer.Physics;
 
-public class PhysicsTransform
+public class PhysicsTransform(float physicsToPixels)
 {
-    public float PhysicsToPixels { get; protected set; }
-
-    public PhysicsTransform(float physicsToPixels)
-    {
-        PhysicsToPixels = physicsToPixels;
-    }
+    public float PhysicsToPixels { get; protected set; } = physicsToPixels;
 
     public Vector2 ToPhysics(float x, float y)
     {

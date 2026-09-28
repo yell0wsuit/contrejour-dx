@@ -5,9 +5,9 @@ using Mokus2D.Visual;
 
 namespace Mokus2D.UI.Controls;
 
-public class SliderButtons : IUpdatable
+public class SliderButtons(Slider slider) : IUpdatable
 {
-    private readonly Slider _slider;
+    private readonly Slider _slider = slider;
 
     private Sprite _upButton;
 
@@ -20,11 +20,6 @@ public class SliderButtons : IUpdatable
     public float ScrollSpeed = 1f;
 
     public bool IsStaticScrollSpeed;
-
-    public SliderButtons(Slider slider)
-    {
-        _slider = slider;
-    }
 
     public void Initialize(Sprite upButton, Sprite downButton)
     {

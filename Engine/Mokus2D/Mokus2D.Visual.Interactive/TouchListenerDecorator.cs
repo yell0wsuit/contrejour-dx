@@ -4,19 +4,13 @@ using Mokus2D.Input;
 
 namespace Mokus2D.Visual.Interactive;
 
-public class TouchListenerDecorator : TouchListenerBase
+public class TouchListenerDecorator(ITouchListener listener, bool enabled = true) : TouchListenerBase(enabled)
 {
-    private readonly ITouchListener _listener;
+    private readonly ITouchListener _listener = listener;
 
     public Func<bool> Filter;
 
     private bool FilterValue => Filter == null || Filter();
-
-    public TouchListenerDecorator(ITouchListener listener, bool enabled = true)
-        : base(enabled)
-    {
-        _listener = listener;
-    }
 
     public override bool TouchBegin(Touch touch)
     {

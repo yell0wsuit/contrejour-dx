@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework;
 
 namespace FarseerPhysics.Common.PhysicsLogic;
 
-public sealed class RealExplosion : PhysicsLogic
+public sealed class RealExplosion(World world) : PhysicsLogic(world, PhysicsLogicType.Explosion)
 {
     public float EdgeRatio = 0.025f;
 
@@ -24,14 +24,7 @@ public sealed class RealExplosion : PhysicsLogic
 
     private readonly List<ShapeData> _data = [];
 
-    private readonly RayDataComparer _rdc;
-
-    public RealExplosion(World world)
-        : base(world, PhysicsLogicType.Explosion)
-    {
-        _rdc = new RayDataComparer();
-        _data = [];
-    }
+    private readonly RayDataComparer _rdc = new RayDataComparer();
 
     public Dictionary<Fixture, Vector2> Activate(Vector2 pos, float radius, float maxForce)
     {

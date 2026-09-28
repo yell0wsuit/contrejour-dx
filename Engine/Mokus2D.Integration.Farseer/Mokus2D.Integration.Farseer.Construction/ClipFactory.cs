@@ -8,20 +8,13 @@ using Mokus2D.Visual;
 
 namespace Mokus2D.Integration.Farseer.Construction;
 
-public class ClipFactory : IClipFactory
+public class ClipFactory(Node clipsNode, Assembly clipsAssembly, string @namespace) : IClipFactory
 {
-    private readonly string _namespace;
+    private readonly string _namespace = @namespace;
 
-    private readonly Assembly _clipsAssembly;
+    private readonly Assembly _clipsAssembly = clipsAssembly;
 
-    private readonly Node _clipsNode;
-
-    public ClipFactory(Node clipsNode, Assembly clipsAssembly, string @namespace)
-    {
-        _clipsAssembly = clipsAssembly;
-        _namespace = @namespace;
-        _clipsNode = clipsNode;
-    }
+    private readonly Node _clipsNode = clipsNode;
 
     public Node CreateClip(IDictionary<string, string> config, Body body)
     {

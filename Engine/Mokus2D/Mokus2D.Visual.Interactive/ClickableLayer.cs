@@ -2,14 +2,9 @@ using Mokus2D.Input;
 
 namespace Mokus2D.Visual.Interactive;
 
-public class ClickableLayer : Node, ITouchListener
+public class ClickableLayer(int priority = 0) : Node, ITouchListener
 {
-    private readonly int _priority;
-
-    public ClickableLayer(int priority = 0)
-    {
-        _priority = priority;
-    }
+    private readonly int _priority = priority;
 
     public virtual bool TouchBegin(Touch touch)
     {

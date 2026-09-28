@@ -6,17 +6,12 @@ using Mokus2D.Visual;
 
 namespace Default.Namespace;
 
-public class SnotLinkHint : FadeHint
+[method: SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "Level content creates this by reflection with this signature.")]
+public class SnotLinkHint(ContreJourLevelBuilder _builder, object _body, Sprite _clip, Hashtable _config) : FadeHint(_builder, null, _clip, _config)
 {
     protected SnotBodyClip snot;
 
     protected bool snotGot;
-
-    [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "Level content creates this by reflection with this signature.")]
-    public SnotLinkHint(ContreJourLevelBuilder _builder, object _body, Sprite _clip, Hashtable _config)
-        : base(_builder, null, _clip, _config)
-    {
-    }
 
     public override bool HasToHide()
     {

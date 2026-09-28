@@ -9,7 +9,7 @@ using Mokus2D.Util.Resources;
 
 namespace Mokus2D.Effects.Tweening;
 
-public class Tweener : DisposableBase, IUpdatable, ICleanable
+public class Tweener(object defaultTarget) : DisposableBase, IUpdatable, ICleanable
 {
     private readonly struct TweenAndTag(ITween tween, int? tag)
     {
@@ -20,14 +20,9 @@ public class Tweener : DisposableBase, IUpdatable, ICleanable
 
     public bool Test;
 
-    private readonly object _defaultTarget;
+    private readonly object _defaultTarget = defaultTarget;
 
     private readonly ForEachCollection<TweenAndTag> _tweens = [];
-
-    public Tweener(object defaultTarget)
-    {
-        _defaultTarget = defaultTarget;
-    }
 
     public TweenObject RepeatForever(float seconds, int? tag = null, object target = null)
     {

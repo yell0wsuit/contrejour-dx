@@ -9,23 +9,15 @@ using Mokus2D.Visual;
 
 namespace Mokus2D.Integration.Farseer.Construction;
 
-public class BodyClipCreator : IPhysicsConfigProcessor
+public class BodyClipCreator(PhysicsUpdater updater, Assembly bodyClipsAssembly, string bodyClipsNamespace, ClipFactory clipFactory) : IPhysicsConfigProcessor
 {
-    private readonly string _bodyClipsNamespace;
+    private readonly string _bodyClipsNamespace = bodyClipsNamespace;
 
-    private readonly Assembly _bodyClipsAssembly;
+    private readonly Assembly _bodyClipsAssembly = bodyClipsAssembly;
 
-    private readonly PhysicsUpdater _updater;
+    private readonly PhysicsUpdater _updater = updater;
 
-    private readonly ClipFactory _clipFactory;
-
-    public BodyClipCreator(PhysicsUpdater updater, Assembly bodyClipsAssembly, string bodyClipsNamespace, ClipFactory clipFactory)
-    {
-        _updater = updater;
-        _bodyClipsAssembly = bodyClipsAssembly;
-        _bodyClipsNamespace = bodyClipsNamespace;
-        _clipFactory = clipFactory;
-    }
+    private readonly ClipFactory _clipFactory = clipFactory;
 
     public void ProcessConfig(IDictionary<string, string> config, Body body)
     {

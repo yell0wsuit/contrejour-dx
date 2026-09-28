@@ -6,20 +6,13 @@ using Microsoft.Xna.Framework;
 
 namespace Default.Namespace;
 
-public class RevoluteJointDef
+public class RevoluteJointDef(RevoluteJoint joint)
 {
-    public Body BodyA;
+    public Body BodyA = joint.BodyA;
 
-    public Body BodyB;
+    public Body BodyB = joint.BodyB;
 
-    public Vector2 LocalAnchorB;
-
-    public RevoluteJointDef(RevoluteJoint joint)
-    {
-        BodyA = joint.BodyA;
-        BodyB = joint.BodyB;
-        LocalAnchorB = joint.LocalAnchorB;
-    }
+    public Vector2 LocalAnchorB = joint.LocalAnchorB;
 
     public RevoluteJoint Create(World world)
     {

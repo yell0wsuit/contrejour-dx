@@ -7,15 +7,15 @@ using Mokus2D.Util.MathUtils;
 
 namespace Mokus2D.Data;
 
-public struct RectangleFloat : IEquatable<RectangleFloat>
+public struct RectangleFloat(float x, float y, float width, float height) : IEquatable<RectangleFloat>
 {
-    public float X;
+    public float X = x;
 
-    public float Y;
+    public float Y = y;
 
-    public float Width;
+    public float Width = width;
 
-    public float Height;
+    public float Height = height;
 
     public static Rectangle Empty => default;
 
@@ -56,14 +56,6 @@ public struct RectangleFloat : IEquatable<RectangleFloat>
         Vector2 vector = Vector2.Min(cornerA, cornerB);
         Vector2 vector2 = Vector2.Max(cornerA, cornerB);
         return new RectangleFloat(vector, vector2 - vector);
-    }
-
-    public RectangleFloat(float x, float y, float width, float height)
-    {
-        X = x;
-        Y = y;
-        Width = width;
-        Height = height;
     }
 
     public RectangleFloat(Vector2 position, Vector2 size)

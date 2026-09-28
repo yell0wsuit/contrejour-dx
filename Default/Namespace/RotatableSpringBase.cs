@@ -2,14 +2,9 @@ using Mokus2D.Visual;
 
 namespace Default.Namespace;
 
-public abstract class RotatableSpringBase : DynamicSpringBodyClip
+public abstract class RotatableSpringBase(LevelBuilderBase _builder, object _body, Node _clip, Hashtable _config) : DynamicSpringBodyClip(_builder, _body, _clip, _config)
 {
     protected abstract bool IsMoving { get; }
-
-    public RotatableSpringBase(LevelBuilderBase _builder, object _body, Node _clip, Hashtable _config)
-        : base(_builder, _body, _clip, _config)
-    {
-    }
 
     public override void Update(float time)
     {

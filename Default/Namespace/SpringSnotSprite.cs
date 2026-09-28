@@ -2,28 +2,20 @@ using Microsoft.Xna.Framework;
 
 namespace Default.Namespace;
 
-public class SpringSnotSprite : SnotSprite
+public class SpringSnotSprite(ContreJourGame _game, SnotBodyClipBase _snot, float _startWidth, float _centerWidth, float _endWidth) : SnotSprite(_snot, _startWidth, _centerWidth, _endWidth)
 {
-    protected ContreJourGame game;
+    protected ContreJourGame game = _game;
 
     protected bool active;
 
-    protected float activeProgress;
+    protected float activeProgress = 0f;
 
-    protected float previousActiveProgress;
+    protected float previousActiveProgress = 1f;
 
     public bool Active
     {
         get => active;
         set => active = value;
-    }
-
-    public SpringSnotSprite(ContreJourGame _game, SnotBodyClipBase _snot, float _startWidth, float _centerWidth, float _endWidth)
-        : base(_snot, _startWidth, _centerWidth, _endWidth)
-    {
-        game = _game;
-        activeProgress = 0f;
-        previousActiveProgress = 1f;
     }
 
     public override void Update(float time)

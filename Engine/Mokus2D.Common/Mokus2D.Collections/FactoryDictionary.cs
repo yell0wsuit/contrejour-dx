@@ -3,14 +3,9 @@ using System.Collections.Generic;
 
 namespace Mokus2D.Collections;
 
-public class FactoryDictionary<TKey, TValue> : Dictionary<TKey, TValue>
+public class FactoryDictionary<TKey, TValue>(Func<TKey, TValue> factory) : Dictionary<TKey, TValue>
 {
-    private readonly Func<TKey, TValue> _factory;
-
-    public FactoryDictionary(Func<TKey, TValue> factory)
-    {
-        _factory = factory;
-    }
+    private readonly Func<TKey, TValue> _factory = factory;
 
     public TValue GetOrCreate(TKey key)
     {

@@ -3,20 +3,13 @@ using System.Text;
 
 namespace FarseerPhysics.Common.Decomposition.CDT.Delaunay.Sweep;
 
-internal sealed class AdvancingFront
+internal sealed class AdvancingFront(AdvancingFrontNode head, AdvancingFrontNode tail)
 {
-    public AdvancingFrontNode Head;
+    public AdvancingFrontNode Head = head;
 
-    private AdvancingFrontNode Search;
+    private AdvancingFrontNode Search = head;
 
-    public AdvancingFrontNode Tail;
-
-    public AdvancingFront(AdvancingFrontNode head, AdvancingFrontNode tail)
-    {
-        Head = head;
-        Tail = tail;
-        Search = head;
-    }
+    public AdvancingFrontNode Tail = tail;
 
     public override string ToString()
     {

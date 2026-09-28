@@ -2,17 +2,17 @@ using Mokus2D.Visual;
 
 namespace Default.Namespace;
 
-public class SpriteFader
+public class SpriteFader(Node _target)
 {
-    protected ushort disabledOpacity;
+    protected ushort disabledOpacity = 255;
 
-    protected float duration;
+    protected float duration = 0.15f;
 
     protected bool enabled;
 
-    protected ushort enabledOpacity;
+    protected ushort enabledOpacity = 0;
 
-    protected Node target;
+    protected Node target = _target;
 
     public ushort EnabledOpacity
     {
@@ -43,13 +43,5 @@ public class SpriteFader
     {
         get => duration;
         set => duration = value;
-    }
-
-    public SpriteFader(Node _target)
-    {
-        target = _target;
-        enabledOpacity = 0;
-        disabledOpacity = 255;
-        duration = 0.15f;
     }
 }

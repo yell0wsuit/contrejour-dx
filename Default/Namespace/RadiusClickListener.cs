@@ -5,13 +5,13 @@ using Mokus2D.Visual;
 
 namespace Default.Namespace;
 
-public class RadiusClickListener : ClickListener
+public class RadiusClickListener(Node _target, float _clickRadius, int priority = 0) : ClickListener(priority)
 {
-    protected float clickRadius;
+    protected float clickRadius = _clickRadius;
 
     protected bool disableDrag;
 
-    protected Node target;
+    protected Node target = _target;
 
     public bool DisableDrag
     {
@@ -20,13 +20,6 @@ public class RadiusClickListener : ClickListener
     }
 
     public override bool Enabled => base.Enabled && target.RootVisible;
-
-    public RadiusClickListener(Node _target, float _clickRadius, int priority = 0)
-        : base(priority)
-    {
-        clickRadius = _clickRadius;
-        target = _target;
-    }
 
     private bool SpriteContainsPoint(Touch touch)
     {

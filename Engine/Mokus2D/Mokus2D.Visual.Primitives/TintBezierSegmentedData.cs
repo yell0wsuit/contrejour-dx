@@ -4,13 +4,8 @@ using Mokus2D.Visual.Drawing;
 
 namespace Mokus2D.Visual.Primitives;
 
-public class TintBezierSegmentedData<T> : BezierSegmentedData<T> where T : struct, ITintVertex
+public class TintBezierSegmentedData<T>(ISegmentedSpriteData<T> originalData, int bezierSegmentsCount) : BezierSegmentedData<T>(originalData, bezierSegmentsCount) where T : struct, ITintVertex
 {
-    public TintBezierSegmentedData(ISegmentedSpriteData<T> originalData, int bezierSegmentsCount)
-        : base(originalData, bezierSegmentsCount)
-    {
-    }
-
     protected override Pair<T> LerpVertices(Pair<T> value1, Pair<T> value2, float amount)
     {
         Pair<T> result = base.LerpVertices(value1, value2, amount);

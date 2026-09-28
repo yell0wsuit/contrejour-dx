@@ -4,13 +4,8 @@ using FarseerPhysics.Factories;
 
 namespace Default.Namespace;
 
-public class ShapeProcessor : TypeProcessorBase
+public class ShapeProcessor(string _type, LevelBuilderBase _builder) : TypeProcessorBase(_type, _builder)
 {
-    public ShapeProcessor(string _type, LevelBuilderBase _builder)
-        : base(_type, _builder)
-    {
-    }
-
     public override object ProcessItem(Hashtable item)
     {
         Hashtable hashtable = item.GetHashtable("config");

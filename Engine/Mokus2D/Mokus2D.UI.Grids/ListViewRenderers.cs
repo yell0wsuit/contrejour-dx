@@ -8,7 +8,7 @@ using Mokus2D.Visual;
 
 namespace Mokus2D.UI.Grids;
 
-public class ListViewRenderers<T>
+public class ListViewRenderers<T>(Func<Node> itemRendererFactory, ListView<T> list)
 {
     private struct Range(int start, int end)
     {
@@ -47,10 +47,10 @@ public class ListViewRenderers<T>
         }
     }
 
-    private readonly Pool<Node> _renderersPool;
+    private readonly Pool<Node> _renderersPool = new Pool<Node>(itemRendererFactory);
     private Range _currentRange;
 
-    private readonly ListView<T> _list;
+    private readonly ListView<T> _list = list;
 
     public List<Node> ItemRenderers { get; } = [];
 
@@ -87,12 +87,6 @@ public class ListViewRenderers<T>
     private int ListItemsCount => _list.Data != null ? _list.Data.Count : 0;
 
     public event Action RenderersChanged;
-
-    public ListViewRenderers(Func<Node> itemRendererFactory, ListView<T> list)
-    {
-        _list = list;
-        _renderersPool = new Pool<Node>(itemRendererFactory);
-    }
 
     public void RefreshData()
     {

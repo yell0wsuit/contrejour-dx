@@ -11,28 +11,21 @@ using Mokus2D.Util.MathUtils;
 
 namespace Default.Namespace;
 
-public class MovableSnotEye : SnotEye, IRestartable
+public class MovableSnotEye(SnotBodyClip _snot, Body _body, SnotPoint targetPoint) : SnotEye(_snot, _body), IRestartable
 {
     private bool moving;
 
     private Touch movingTouch;
 
-    private SnotPoint targetPoint;
+    private SnotPoint targetPoint = targetPoint;
 
     private bool restoreJoint;
 
     private float targetSpeed;
 
-    private readonly SnotPoint initialPoint;
+    private readonly SnotPoint initialPoint = targetPoint;
 
     private Vector2 targetPosition;
-
-    public MovableSnotEye(SnotBodyClip _snot, Body _body, SnotPoint targetPoint)
-        : base(_snot, _body)
-    {
-        initialPoint = targetPoint;
-        this.targetPoint = targetPoint;
-    }
 
     public override int Priority(Vector2 touchPosition)
     {

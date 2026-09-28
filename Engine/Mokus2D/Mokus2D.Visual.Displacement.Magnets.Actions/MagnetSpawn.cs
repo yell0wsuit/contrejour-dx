@@ -2,19 +2,13 @@ using System.Collections.Generic;
 
 namespace Mokus2D.Visual.Displacement.Magnets.Actions;
 
-public class MagnetSpawn : MagnetAction
+public class MagnetSpawn(params MagnetAction[] actions) : MagnetAction(null)
 {
-    private readonly List<MagnetAction> _actions = [];
+    private readonly List<MagnetAction> _actions = [.. actions];
 
     private readonly List<MagnetAction> _toRemove = [];
 
     public override bool Finished => _actions.Empty();
-
-    public MagnetSpawn(params MagnetAction[] actions)
-        : base(null)
-    {
-        _actions = [.. actions];
-    }
 
     public override void Update(float time)
     {

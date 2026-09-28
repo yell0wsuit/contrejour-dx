@@ -1,18 +1,12 @@
 namespace Default.Namespace;
 
-public class PositionProviderValue
+public class PositionProviderValue(IVectorPositionProvider _provider, float _value)
 {
-    protected IVectorPositionProvider provider;
+    protected IVectorPositionProvider provider = _provider;
 
-    protected float value;
+    protected float value = _value;
 
     public float Value => value;
 
     public IVectorPositionProvider Provider => provider;
-
-    public PositionProviderValue(IVectorPositionProvider _provider, float _value)
-    {
-        provider = _provider;
-        value = _value;
-    }
 }

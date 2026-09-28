@@ -211,7 +211,7 @@ public class Sprite : AnchorNode, ITextureNode, IAnchorNode, ISizeNode, IBlendab
         base.Dispose(disposing);
     }
 }
-public class Sprite<T> : Sprite where T : struct, IVertex
+public class Sprite<T>(Texture2D texture) : Sprite(texture) where T : struct, IVertex
 {
     public Sprite(string name)
         : this(Mokus2DGame.LoadResource<ISpriteData>(name))
@@ -223,11 +223,6 @@ public class Sprite<T> : Sprite where T : struct, IVertex
     {
         ResetData(data);
         Initialize();
-    }
-
-    public Sprite(Texture2D texture)
-        : base(texture)
-    {
     }
 
     protected override IQuad CreateQuad()

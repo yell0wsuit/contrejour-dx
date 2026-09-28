@@ -1,10 +1,10 @@
 namespace Default.Namespace;
 
-public class RopeMetrics
+public class RopeMetrics(int _parts, float _partSize)
 {
-    protected int parts;
+    protected int parts = _parts;
 
-    protected float partSize;
+    protected float partSize = _partSize;
 
     public int Parts
     {
@@ -16,11 +16,5 @@ public class RopeMetrics
     {
         get => partSize;
         set => partSize = value;
-    }
-
-    public RopeMetrics(int _parts, float _partSize)
-    {
-        parts = _parts;
-        partSize = _partSize;
     }
 }

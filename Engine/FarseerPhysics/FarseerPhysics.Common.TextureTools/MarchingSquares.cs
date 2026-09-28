@@ -184,16 +184,11 @@ public static class MarchingSquares
         }
     }
 
-    internal sealed class CxFastListNode<T>
+    internal sealed class CxFastListNode<T>(T obj)
     {
-        internal T _elt;
+        internal T _elt = obj;
 
         internal CxFastListNode<T> _next;
-
-        public CxFastListNode(T obj)
-        {
-            _elt = obj;
-        }
 
         public T Elem()
         {
@@ -219,17 +214,11 @@ public static class MarchingSquares
         }
     }
 
-    private sealed class GeomPolyVal
+    private sealed class GeomPolyVal(MarchingSquares.GeomPoly geomP, int K)
     {
-        public int Key;
+        public int Key = K;
 
-        public GeomPoly GeomP;
-
-        public GeomPolyVal(GeomPoly geomP, int K)
-        {
-            GeomP = geomP;
-            Key = K;
-        }
+        public GeomPoly GeomP = geomP;
     }
 
     private static readonly int[] _lookMarch =

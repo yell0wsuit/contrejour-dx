@@ -5,14 +5,9 @@ using Mokus2D.Visual;
 
 namespace Mokus2D.UI.Layout;
 
-public class VerticalLayout : LineLayout
+public class VerticalLayout(Node container) : LineLayout(container)
 {
     public float TotalHeight => TotalSize;
-
-    public VerticalLayout(Node container)
-        : base(container)
-    {
-    }
 
     protected override float GetNodeSize(ISizeNode sizeNode)
     {

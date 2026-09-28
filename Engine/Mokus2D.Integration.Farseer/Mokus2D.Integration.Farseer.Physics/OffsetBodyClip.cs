@@ -6,16 +6,11 @@ using Mokus2D.Visual;
 
 namespace Mokus2D.Integration.Farseer.Physics;
 
-public class OffsetBodyClip : BodyClip
+public class OffsetBodyClip(PhysicsUpdater updater, Body body, Node clip) : BodyClip(updater, body, clip)
 {
     public float RotationOffset;
 
     public Vector2 PositionOffset;
-
-    public OffsetBodyClip(PhysicsUpdater updater, Body body, Node clip)
-        : base(updater, body, clip)
-    {
-    }
 
     public override void UpdatePosition(float time)
     {

@@ -3,14 +3,9 @@ using System.Collections.Generic;
 
 namespace Mokus2D.Util.Data;
 
-public class ReverseCollection<T> : IEnumerable<T>, IEnumerable
+public class ReverseCollection<T>(IList<T> source) : IEnumerable<T>, IEnumerable
 {
-    private readonly IList<T> source;
-
-    public ReverseCollection(IList<T> source)
-    {
-        this.source = source;
-    }
+    private readonly IList<T> source = source;
 
     public IEnumerator<T> GetEnumerator()
     {

@@ -11,7 +11,7 @@ using Mokus2D.Visual.Particles.Util;
 
 namespace Default.Namespace;
 
-public class DestroyOnHitClip : BodyClip
+public class DestroyOnHitClip(LevelBuilderBase _builder, object _body, Node _clip, Hashtable _config) : BodyClip(_builder, _body, _clip, _config)
 {
     protected Explosion explosion;
 
@@ -21,11 +21,6 @@ public class DestroyOnHitClip : BodyClip
     {
         get => snotJoinedCount;
         set => snotJoinedCount = value;
-    }
-
-    public DestroyOnHitClip(LevelBuilderBase _builder, object _body, Node _clip, Hashtable _config)
-        : base(_builder, _body, _clip, _config)
-    {
     }
 
     public override void OnCollisionStartPoint(Body body2, Contact point)
