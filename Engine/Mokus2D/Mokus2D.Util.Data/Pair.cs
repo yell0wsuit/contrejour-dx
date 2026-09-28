@@ -6,7 +6,7 @@ namespace Mokus2D.Util.Data;
 
 public struct Pair<T>(T first, T second)
 {
-    public static StructGetSet<Pair<T>, T> FirstValue = new(delegate (ref Pair<T> p)
+    public static readonly StructGetSet<Pair<T>, T> FirstValue = new(delegate (ref Pair<T> p)
     {
         return p.First;
     }, delegate (ref Pair<T> p, T v)
@@ -14,7 +14,7 @@ public struct Pair<T>(T first, T second)
         p.First = v;
     });
 
-    public static StructGetSet<Pair<T>, T> SecondValue = new(delegate (ref Pair<T> p)
+    public static readonly StructGetSet<Pair<T>, T> SecondValue = new(delegate (ref Pair<T> p)
     {
         return p.Second;
     }, delegate (ref Pair<T> p, T v)

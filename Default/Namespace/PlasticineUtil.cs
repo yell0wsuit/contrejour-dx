@@ -12,7 +12,7 @@ namespace Default.Namespace;
 
 public class PlasticineUtil
 {
-    public static object LIMIT = new();
+    public static readonly object LIMIT = new();
 
     public static PolygonShape CreateSurfaceBox(float width)
     {

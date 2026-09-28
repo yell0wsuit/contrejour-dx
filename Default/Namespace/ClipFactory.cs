@@ -25,7 +25,7 @@ public class ClipFactory
 
     private static readonly XmlSerializer serializer = new();
 
-    public static MokusContentManager content;
+    public static readonly MokusContentManager content;
 
     private static readonly Dictionary<string, ClipData> configsCache = [];
 

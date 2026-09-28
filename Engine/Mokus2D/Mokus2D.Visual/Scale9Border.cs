@@ -10,7 +10,7 @@ namespace Mokus2D.Visual;
 
 public class Scale9Border : Node
 {
-    public static GetSetValue<Scale9Border, Vector2> SizeValue = new(n => n.Size, delegate (Scale9Border n, Vector2 v)
+    public static readonly GetSetValue<Scale9Border, Vector2> SizeValue = new(n => n.Size, delegate (Scale9Border n, Vector2 v)
     {
         n.Size = v;
     });

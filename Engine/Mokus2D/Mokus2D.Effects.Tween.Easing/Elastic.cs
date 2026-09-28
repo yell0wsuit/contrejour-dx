@@ -8,7 +8,7 @@ public class Elastic
 
     public static readonly Func<float, float> EaseOut = k => EaseOutFunction(k);
 
-    public static Func<float, float> EaseInOut = k => EaseInOutFunction(k);
+    public static readonly Func<float, float> EaseInOut = k => EaseInOutFunction(k);
 
     public static readonly Func<float, float, float> EaseInWith = (k, a) => EaseInFunction(k, a);
 

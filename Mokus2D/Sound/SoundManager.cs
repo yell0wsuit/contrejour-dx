@@ -10,9 +10,9 @@ namespace Mokus2D.Sound;
 [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "Silent stub; keeps the API the audio backend will implement.")]
 public static class SoundManager
 {
-    public static string MusicPath = "";
+    public static string MusicPath { get; set; } = "";
 
-    public static float SongChangePause = 1f;
+    public static readonly float SongChangePause = 1f;
 
     private static bool musicEnabled = true;
 

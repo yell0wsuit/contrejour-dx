@@ -64,29 +64,29 @@ public static class Settings
 
     public const bool AutoClearForces = true;
 
-    public static int VelocityIterations = 8;
+    public static int VelocityIterations { get; set; } = 8;
 
-    public static int PositionIterations = 3;
+    public static int PositionIterations { get; set; } = 3;
 
-    public static bool ContinuousPhysics = true;
+    public static bool ContinuousPhysics { get; set; } = true;
 
-    public static bool UseConvexHullPolygons = true;
+    public static readonly bool UseConvexHullPolygons = true;
 
-    public static int TOIVelocityIterations = VelocityIterations;
+    public static readonly int TOIVelocityIterations = VelocityIterations;
 
-    public static int TOIPositionIterations = 20;
+    public static readonly int TOIPositionIterations = 20;
 
-    public static bool AllowSleep = true;
+    public static readonly bool AllowSleep = true;
 
-    public static int MaxPolygonVertices = 8;
+    public static readonly int MaxPolygonVertices = 8;
 
-    public static bool UseFPECollisionCategories;
+    public static readonly bool UseFPECollisionCategories;
 
-    public static Category DefaultFixtureCollisionCategories = Category.Cat1;
+    public static readonly Category DefaultFixtureCollisionCategories = Category.Cat1;
 
-    public static Category DefaultFixtureCollidesWith = Category.All;
+    public static readonly Category DefaultFixtureCollidesWith = Category.All;
 
-    public static Category DefaultFixtureIgnoreCCDWith = Category.None;
+    public static readonly Category DefaultFixtureIgnoreCCDWith = Category.None;
 
     public static float MixFriction(float friction1, float friction2)
     {

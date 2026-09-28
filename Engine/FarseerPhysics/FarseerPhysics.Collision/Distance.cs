@@ -9,13 +9,31 @@ namespace FarseerPhysics.Collision;
 public static class Distance
 {
     [ThreadStatic]
-    public static int GJKCalls;
+    private static int _gjkCalls;
+
+    public static int GJKCalls
+    {
+        get => _gjkCalls;
+        set => _gjkCalls = value;
+    }
 
     [ThreadStatic]
-    public static int GJKIters;
+    private static int _gjkIters;
+
+    public static int GJKIters
+    {
+        get => _gjkIters;
+        set => _gjkIters = value;
+    }
 
     [ThreadStatic]
-    public static int GJKMaxIters;
+    private static int _gjkMaxIters;
+
+    public static int GJKMaxIters
+    {
+        get => _gjkMaxIters;
+        set => _gjkMaxIters = value;
+    }
 
     public static void ComputeDistance(out DistanceOutput output, out SimplexCache cache, DistanceInput input)
     {

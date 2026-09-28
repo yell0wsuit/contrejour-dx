@@ -21,17 +21,17 @@ public class LevelsMenu : ClickableLayer
 
     public static readonly int COLUMNS = 20 / ROWS;
 
-    public static Vector2 BORDER_OFFSET_IPHONE = new Vector2(120f, 80f) * 2f;
+    public static readonly Vector2 BORDER_OFFSET_IPHONE = new Vector2(120f, 80f) * 2f;
 
-    public static Vector2 BORDER_OFFSET = new(200f, 220f);
+    public static readonly Vector2 BORDER_OFFSET = new(200f, 220f);
 
     private static readonly Vector2 GetMorePosition = new(0f, -120f);
 
-    public static List<List<int>> LEVELS_LIST = [];
+    public static readonly List<List<int>> LEVELS_LIST = [];
 
     private readonly float RowOffset = 120f;
 
-    public static int[,] LEVELS = new int[6, 20]
+    public static readonly int[,] LEVELS = new int[6, 20]
     {
         {
             0, 45, 1, 4, 35, 3, 19, 26, 9, 47,

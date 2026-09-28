@@ -14,7 +14,7 @@ namespace Mokus2D.Visual.Primitives;
 
 public abstract class LongNeckSprite : SpriteBatchNode
 {
-    public static ISpriteData DefaultSpriteData;
+    public static readonly ISpriteData DefaultSpriteData;
 
     protected bool Created;
 

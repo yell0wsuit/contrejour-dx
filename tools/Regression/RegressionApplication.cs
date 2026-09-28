@@ -39,21 +39,21 @@ public class RegressionApplication : ContreJourApplication
 
     private const ulong FnvPrime = 1099511628211UL;
 
-    public static string OutputPath = "regression.txt";
+    public static string OutputPath { get; set; } = "regression.txt";
 
     // Positions in the list of playable levels (see PlayableLevels), not level file numbers.
-    public static int First;
+    public static int First { get; set; }
 
-    public static int Count = int.MaxValue;
+    public static int Count { get; set; } = int.MaxValue;
 
-    public static bool Failed;
+    public static bool Failed { get; set; }
 
     // When set, every recorded frame's body and node hashes (and each body's state) are written
     // here, to find the first frame where two runs diverge.
-    public static string TracePath = Environment.GetEnvironmentVariable("CJ_REGRESSION_TRACE");
+    public static readonly string TracePath = Environment.GetEnvironmentVariable("CJ_REGRESSION_TRACE");
 
     // A save file written by an earlier build; loading it checks that old saves still read the same.
-    public static string OldSavePath = Environment.GetEnvironmentVariable("CJ_REGRESSION_OLD_SAVE");
+    public static readonly string OldSavePath = Environment.GetEnvironmentVariable("CJ_REGRESSION_OLD_SAVE");
 
     private enum Phase
     {
