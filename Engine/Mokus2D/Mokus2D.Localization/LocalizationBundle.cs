@@ -8,10 +8,6 @@ namespace Mokus2D.Localization;
 
 public class LocalizationBundle
 {
-    private const string ResourcesFolder = "Resources";
-
-    private const string ResourcesFileFormat = "{0}/{1}.xml";
-
     private readonly string _name;
 
     private readonly string _locale;

@@ -4,8 +4,6 @@ namespace Default.Namespace;
 
 public class TimeoutHint : FadeHint
 {
-    private const float TIMEOUT = 25f;
-
     protected bool showing;
 
     public TimeoutHint(ContreJourLevelBuilder _builder, object _body, Sprite _clip, Hashtable _config)

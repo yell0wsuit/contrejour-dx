@@ -15,16 +15,6 @@ namespace Default.Namespace;
 
 public class RotatableSpringBodyClip : RotatableSpringBase, IRestartable
 {
-    private const float ACTION_TIME = 2.5f;
-
-    private const float ANGLE_REMAINDER = (float)Math.PI / 8f;
-
-    private const float TOUCH_RADIUS_PIXELS = 80f;
-
-    private const int CIRCLE_RADIUS = 50;
-
-    private const float DEFAULT_WIDTH = 32f;
-
     private static readonly float TOUCH_RADIUS = 80f * Box2DConfig.DefaultConfig.SizeMultiplier;
 
     private static readonly float TOUCH_DISTANCE = 40f * Box2DConfig.DefaultConfig.SizeMultiplier;

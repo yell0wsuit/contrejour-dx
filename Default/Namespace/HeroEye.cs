@@ -16,18 +16,6 @@ namespace Default.Namespace;
 
 public class HeroEye : RandomAnimationEye
 {
-    private const float HERO_EYE_SCALE = 1.07f;
-
-    private const float EYE_CORNER_SPEED = 3f;
-
-    private const float COLOR_TIME = 0.5f;
-
-    private const string EyeBallBlack = "McEyeBallBlack";
-
-    private const string EyeBallWhite = "McEyeBallWhite";
-
-    private const string EyeBallGreen = "McEyeBall_6";
-
     private static readonly Color START_COLOR = new(255, 255, 255);
 
     private static readonly Color BONUS_COLOR = new(143, 238, 255);

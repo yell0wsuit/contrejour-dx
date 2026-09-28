@@ -14,8 +14,6 @@ namespace Default.Namespace;
 
 public class SimpleSpikesBodyClip : ContreJourBodyClip, IRestartable
 {
-    private const float PRICK_TIME = 2f;
-
     protected bool floating;
 
     protected float speed;

@@ -345,11 +345,6 @@ public class Label : AnchorNode, IDataReloadable
         return result;
     }
 
-    private bool FontHasTexture()
-    {
-        return _font != null && !_font.Texture.Name.IsEmpty();
-    }
-
     public Vector2 GetGlyphLeftTop(Mokus2D.Util.Data.Point positionInText)
     {
         Vector2 result = StartGlyphsPosition();

@@ -8,10 +8,6 @@ namespace Default.Namespace;
 
 public class HeroExplosion
 {
-    private const float SHAKE_OFFSET = 2f;
-
-    private const int SHAKE_COUNT = 15;
-
     protected Explosion explosion;
 
     protected HeroBodyClip bodyClip;

@@ -13,10 +13,6 @@ namespace Default.Namespace;
 
 public class DestroyOnHitClip : BodyClip
 {
-    private const int EXPLOSION_PARTICLES = 25;
-
-    private const float MIN_IMPULSE = 7f;
-
     protected Explosion explosion;
 
     protected int snotJoinedCount;

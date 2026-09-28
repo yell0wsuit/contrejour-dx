@@ -27,14 +27,6 @@ namespace ContreJour;
 
 public class ContreJourApplication : Mokus2DGame
 {
-    private const float FADE_OUT_DURATION = 0.5f;
-
-    private const float FADE_IN_DURATION = 1f;
-
-    private const int StripesLayer = 1;
-
-    private const int BlockedViewLayer = 2;
-
     private ViewSwitcher _gameContainer;
 
     private LayerColor _blackForeground;
@@ -189,16 +181,6 @@ public class ContreJourApplication : Mokus2DGame
         _ = _blackForeground.FadeOutAndHide(1f);
     }
 
-    private void Test()
-    {
-        McPuddle mcPuddle = new()
-        {
-            XY = 200f
-        };
-        mcPuddle.CurrentFrame = mcPuddle.TotalFrames - 1;
-        Root.AddChild(mcPuddle);
-    }
-
     private void SetRootScaleAndPosition(Mokus2D.Util.Data.Point size)
     {
         Root.Position = new Vector2(0f, ApplicationController.BackBufferSize.Y);
@@ -351,13 +333,6 @@ public class ContreJourApplication : Mokus2DGame
         SoundManager.StopMusic();
     }
 
-    private Splash CreateSplash()
-    {
-        Splash splash = new();
-        splash.EndEvent.AddListener(OnSplashExit);
-        return splash;
-    }
-
     public void LoadLevel(int _level)
     {
         bool flag = IsFirstLevel(_currentView) || _level == 0;
@@ -497,10 +472,6 @@ public class ContreJourApplication : Mokus2DGame
     {
         base.OnApplicationViewChanged(args);
         BlockGameIfNeeded();
-    }
-
-    private static void OnResizeToFullscreen()
-    {
     }
 
     private static void PlatformUpdate()

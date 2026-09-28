@@ -64,9 +64,6 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
     public const float WIND_STEP_WHITE = 0.02f;
 
     public const float WIND_STEP = 0.03f;
-
-    private const float STRIPES_HEIGHT = 30f;
-
     public const float ZOOM_SCALE = 1.3f;
 
     public const float CLICK_RADIUS_IPHONE = 1.5f;
@@ -554,12 +551,6 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
         _scheduler.Cancel(action);
     }
 
-    private void SetFinished(bool value)
-    {
-        finished = value;
-        RestartEnabled = !finished;
-    }
-
     public T Choose<T>(T normal = null, T blue = null, T white = null, T last = null, T green = null) where T : class
     {
         return BonusChapter
@@ -710,11 +701,6 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
     public void RegisterPlasticine(PlasticineBodyClip item)
     {
         plasticine.Add(item);
-    }
-
-    private void OnRestartClick(Button item)
-    {
-        Restart();
     }
 
     public TeleportBodyClip GetTeleport(string color)

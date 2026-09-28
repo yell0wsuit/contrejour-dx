@@ -5,10 +5,6 @@ namespace FarseerPhysics.Common.Decomposition.CDT.Delaunay.Sweep;
 
 internal static class DTSweep
 {
-    private const double PI_div2 = Math.PI / 2.0;
-
-    private const double PI_3div4 = Math.PI * 3.0 / 4.0;
-
     public static void Triangulate(DTSweepContext tcx)
     {
         tcx.CreateAdvancingFront();

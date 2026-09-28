@@ -8,8 +8,6 @@ namespace FarseerPhysics.Collision;
 
 public class DynamicTreeBroadPhase : IBroadPhase
 {
-    private const int NullProxy = -1;
-
     private int[] _moveBuffer;
 
     private int _moveCapacity;

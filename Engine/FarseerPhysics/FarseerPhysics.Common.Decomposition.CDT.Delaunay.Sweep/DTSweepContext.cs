@@ -22,8 +22,6 @@ internal sealed class DTSweepContext : TriangulationContext
         public bool Right;
     }
 
-    private const float ALPHA = 0.3f;
-
     public DTSweepBasin Basin = new();
 
     public DTSweepEdgeEvent EdgeEvent = new();

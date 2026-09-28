@@ -6,14 +6,6 @@ namespace Default.Namespace;
 
 public class EnergyPart : Satellite
 {
-    private const float MAX_OPACITY = 200f;
-
-    private const float MIN_OPACITY = 100f;
-
-    private const float SCALE_CHANGE = 0.3f;
-
-    private const float MIN_LENGTH = 10f;
-
     protected float timeToEnd;
 
     protected bool collected;

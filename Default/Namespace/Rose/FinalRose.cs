@@ -10,8 +10,6 @@ namespace Default.Namespace.Rose;
 
 public class FinalRose : Node, IAnimatedNode
 {
-    private const int RoseFrames = 79;
-
     private readonly List<IAnimatedNode> parts = [];
 
     private readonly AnimationPlayer player;

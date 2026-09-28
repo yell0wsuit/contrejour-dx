@@ -12,12 +12,6 @@ namespace Default.Namespace;
 
 public class PlasticinePartHighlite : IUpdatable
 {
-    private const float MAX_LIGHT_ANGLE = 1.3463969f;
-
-    private const float MIN_LIGHT_LENGTH = 0.1f;
-
-    private const float MAX_LIGHT_LENGTH = 1.2f;
-
     protected PlasticinePartBodyClip plasticine;
 
     protected LevelBuilderBase builder;
@@ -188,15 +182,5 @@ public class PlasticinePartHighlite : IUpdatable
         vertices[index + 2].Position = inBorder[index + 2].Position;
         vertices[index + 1].Position = flag ? PreviousHighlite().LightBottom.Middle(lightBottom).ToVector3() : vertices[index].Position;
         vertices[index + 3].Position = hasLight ? lightBottom.ToVector3() : vertices[index + 2].Position;
-    }
-
-    private void SetColors(ref List<Color> target, Color first, Color second)
-    {
-        for (int i = 0; i < 4; i++)
-        {
-            int num = index + (i * 2);
-            target[num] = first;
-            target[num + 1] = second;
-        }
     }
 }

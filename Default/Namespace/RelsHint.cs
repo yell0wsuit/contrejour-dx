@@ -4,8 +4,6 @@ namespace Default.Namespace;
 
 public class RelsHint : FadeHint
 {
-    private const float QUERY_RADIUS = 6.6666665f;
-
     protected DragableBodyClip rels;
 
     protected bool used;

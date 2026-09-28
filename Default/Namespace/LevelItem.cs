@@ -10,13 +10,6 @@ namespace Default.Namespace;
 public class LevelItem : Button, IBoundsNode, ISizeNode
 {
     public const float EFFECT_TIME = 0.1f;
-
-    private const int STAR_X = 36;
-
-    private const int STAR_OFFSET = 22;
-
-    private const int MAX_STARS = 3;
-
     protected int index;
 
     protected int level;

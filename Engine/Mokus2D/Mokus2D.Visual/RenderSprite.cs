@@ -10,8 +10,6 @@ namespace Mokus2D.Visual;
 
 public class RenderSprite : Sprite
 {
-    private const int DebugLayer = int.MaxValue;
-
     protected readonly RootNode RenderRoot;
 
     private readonly Node _container;

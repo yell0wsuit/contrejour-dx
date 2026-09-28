@@ -10,8 +10,6 @@ namespace Default.Namespace;
 
 public class Portal : ParticleSystem
 {
-    private const int PARTS_COUNT = 5;
-
     protected List<Satellite> parts;
 
     protected float targetScale;

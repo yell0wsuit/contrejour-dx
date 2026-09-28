@@ -10,8 +10,6 @@ namespace ContreJour.Menu.SnapPanel;
 
 public class SnapParticles : ParticleSystem
 {
-    private const int OrtoOffset = 40;
-
     private static readonly Vector2[] path =
     [
         new(0f, 0f),

@@ -9,8 +9,6 @@ namespace Mokus2D.Visual.Animation;
 
 public static class AnimationUtil
 {
-    private const string SpeedProperty = "speed";
-
     public static void ApplyChildTransformations(AnimationNode source, AnimationNode target, bool recursive = false)
     {
         foreach (string childrenName in target.ChildrenNames)

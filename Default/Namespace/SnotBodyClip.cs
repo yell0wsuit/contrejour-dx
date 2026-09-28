@@ -45,28 +45,6 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
         }
     }
 
-    private const bool AUTOJOIN = false;
-
-    private const float DisabledOpacity = 0.5f;
-
-    private const float BLINK_TIME_MAX = 25f;
-
-    private const float BLINK_TIME_MIN = 10f;
-
-    private const float DRAG_DAMPING = 3f;
-
-    private const float FREE_DAMPING = 0.5f;
-
-    private const float HERO_STICK_DISTANCE = 2f;
-
-    private const float MAX_DRAG_FORCE = 100000f;
-
-    private const float DRAG_DISTANCE_MULTIPLIER = 2.6f;
-
-    private const float DISCONNECT_FORCE = 10f;
-
-    private const string Movable = "movable";
-
     private readonly RevoluteJointDef eyeJointDef;
 
     protected BlackTail blackTail;

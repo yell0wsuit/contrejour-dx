@@ -13,8 +13,6 @@ namespace Default.Namespace;
 
 public class PlanetsSpinner : Node, IDisposable
 {
-    private const float PlanetsDistance = 550f;
-
     public readonly EventSender<int> SelectEvent = new();
 
     private readonly List<ChapterItem> chapters = [];

@@ -19,8 +19,6 @@ namespace Default.Namespace;
 
 public class DragableBodyClip : ContreJourBodyClip, IClickable, IRestartable, ISnotHolder
 {
-    private const float DragScreenBounds = 2f / 3f;
-
     public const float RESTART_SPEED = 26.666666f;
 
     public const float MAX_SPEED = 60f;
@@ -233,15 +231,6 @@ public class DragableBodyClip : ContreJourBodyClip, IClickable, IRestartable, IS
             vec *= 0.5f;
             Body.LinearVelocity = linearVelocity;
             Body.SetTransform(vec + Body.Position, Body.Rotation);
-        }
-    }
-
-    private void DragStrongSnot(Vector2 speed)
-    {
-        HeroBodyClip heroBodyClip = (HeroBodyClip)Snot.Linked;
-        if (Math.Abs(heroBodyClip.Body.LinearVelocity.X) < 1f / 6f && heroBodyClip.Body.Position.Y < Snot.Position.Y - (((StrongSnotBodyClip)Snot).NormalDistance * 0.8f) && heroBodyClip.Body.LinearVelocity.Y > speed.Y)
-        {
-            heroBodyClip.Body.LinearVelocity = new Vector2(heroBodyClip.Body.LinearVelocity.X, speed.Y * 2f);
         }
     }
 

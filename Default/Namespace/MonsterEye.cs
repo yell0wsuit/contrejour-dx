@@ -14,14 +14,6 @@ namespace Default.Namespace;
 
 public class MonsterEye : RandomAnimationEye, IPositionDepedent
 {
-    private const int PositionProviderTag = 100;
-
-    private const float MAX_DISTANCE = 6.6666665f;
-
-    private const float PROVIDER_MAX_TIME = 15f;
-
-    private const float PROVIDER_MIN_TIME = 3f;
-
     protected Vector2 clipPosition;
 
     protected float startAngle;

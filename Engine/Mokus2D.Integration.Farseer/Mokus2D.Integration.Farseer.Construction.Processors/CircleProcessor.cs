@@ -8,8 +8,6 @@ namespace Mokus2D.Integration.Farseer.Construction.Processors;
 
 public class CircleProcessor : ShapeProcessor
 {
-    private const float Radius = 5f;
-
     public CircleProcessor(PhysicsConstructor constructor)
         : base(constructor)
     {

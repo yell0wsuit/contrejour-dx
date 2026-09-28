@@ -4,12 +4,6 @@ namespace Default.Namespace;
 
 public class SpringSnotSprite : SnotSprite
 {
-    private const float ACTIVE_STEP = 0.05f;
-
-    private const int CIRLCE_SEGMENTS_END = 12;
-
-    private const int CIRLCE_SEGMENTS_BASE = 16;
-
     protected ContreJourGame game;
 
     protected bool active;

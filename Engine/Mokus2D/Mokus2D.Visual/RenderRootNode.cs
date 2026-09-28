@@ -7,8 +7,6 @@ namespace Mokus2D.Visual;
 
 public class RenderRootNode : RootNode
 {
-    private const int DebugLayer = int.MaxValue;
-
     public Color ClearColor = Color.Black * 0f;
 
     public RenderTarget2D RenderTarget { get; private set; }

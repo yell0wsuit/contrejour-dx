@@ -11,8 +11,6 @@ namespace Default.Namespace;
 
 public class RevoluteJointProcessor : JointProcessorBase
 {
-    private const float MOTOR_TORQUE_MULT = 30f;
-
     public RevoluteJointProcessor(LevelBuilderBase _builder)
         : base("revoluteJoint", _builder)
     {

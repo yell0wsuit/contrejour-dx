@@ -7,8 +7,6 @@ namespace Default.Namespace;
 
 public class MultitouchHint : FadeHint
 {
-    private const float QUERY_RADIUS = 6.6666665f;
-
     protected int joinCount;
 
     protected List<BodyClip> snots;

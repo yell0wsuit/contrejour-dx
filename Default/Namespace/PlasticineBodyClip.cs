@@ -12,16 +12,6 @@ namespace Default.Namespace;
 
 public class PlasticineBodyClip : ContreJourBodyClip, IRestartable
 {
-    private const float OPACITY_STEP = 5.1f;
-
-    private const float END_OPACITY = 102f;
-
-    private const int START_OPACITY = 0;
-
-    private const float MAX_DRAG_FORCE = 800f;
-
-    private const int GROUND_FILL_STEP = 2;
-
     protected bool changed;
 
     protected PlasticineSprite clipContent;

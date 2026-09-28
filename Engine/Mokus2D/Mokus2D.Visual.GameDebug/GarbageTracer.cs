@@ -5,8 +5,6 @@ namespace Mokus2D.Visual.GameDebug;
 
 public struct GarbageTracer : IDisposable
 {
-    private const string INFO_MESSAGE_ARG = "Garbage Generation in {0} {1} bytes";
-
     private readonly string _name;
 
     private long _memory;

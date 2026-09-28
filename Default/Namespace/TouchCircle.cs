@@ -34,16 +34,6 @@ public class TouchCircle : BodyClip
         }
     }
 
-    private const float NEGATIVE_MULT = -0.25f;
-
-    private const float FORCE = 350f;
-
-    private const float MAX_OFFSET = 2.3333333f;
-
-    private const float ACTION_RADIUS = 3.3333333f;
-
-    private const float RADIUS = 4f;
-
     protected Dictionary<PlasticineBodyClip, ClosestItem> closestMap;
 
     protected bool enabled;
@@ -164,10 +154,5 @@ public class TouchCircle : BodyClip
         item.Clip = plasticineItem.BodyClip;
         item.Negative = VectorUtil.Projection(Body.Position - item.Clip.Body.Position, item.Clip.Normal) > 0.7f;
         item.Refreshed = true;
-    }
-
-    private void Dealloc()
-    {
-        builder.World.RemoveBody(Body);
     }
 }

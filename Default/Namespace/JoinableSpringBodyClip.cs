@@ -8,8 +8,6 @@ namespace Default.Namespace;
 
 public class JoinableSpringBodyClip : RotatableSpringBase
 {
-    private const float QUERY_RADIUS = 1.6666666f;
-
     protected RotatorBodyClip rotator;
 
     protected Vector2 relativeRotatorPosition;
@@ -30,25 +28,11 @@ public class JoinableSpringBodyClip : RotatableSpringBase
         relativeAngle = rotator.Body.Rotation - Body.Rotation;
     }
 
-    private void DestroyRotatorJoint()
-    {
-        if (rotatorJoint != null)
-        {
-            builder.World.RemoveJoint((Joint)(object)rotatorJoint);
-            rotatorJoint = null;
-        }
-    }
-
     private void FixPosition()
     {
         Vector2 worldPoint = rotator.Body.GetWorldPoint(relativeRotatorPosition);
         float num = rotator.Body.Rotation - relativeAngle;
         Body.SetTransform(worldPoint, num);
-    }
-
-    private void CreateRotatorJoint()
-    {
-        rotatorJoint ??= FarseerUtil.CreateRevoluteJoint(builder.World, Body, rotator.Body, Body.Position, collideConnected: false, limitAngles: true);
     }
 
     public override void Update(float time)

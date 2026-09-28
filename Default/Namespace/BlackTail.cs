@@ -17,16 +17,6 @@ namespace Default.Namespace;
 
 public class BlackTail : PrimitivesNode, IUpdatable
 {
-    private const int LOW_FPS_FRAMES_TO_LIVE = 10;
-
-    private const int FRAMES_TO_LIVE = 40;
-
-    private const float MIN_DISTANCE = 1f;
-
-    private const float PART_DISTANCE = 3f;
-
-    private const float TAIL_WIDTH = 40f;
-
     protected VertexPositionColorTexture[] vertices = [];
 
     protected List<Vector2> bezierPoints = [];

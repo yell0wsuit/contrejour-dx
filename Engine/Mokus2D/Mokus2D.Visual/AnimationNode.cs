@@ -18,8 +18,6 @@ namespace Mokus2D.Visual;
 
 public abstract class AnimationNode : Node, IAnimatedNode, IConfig, IBoundsNode, ISizeNode
 {
-    private const char OffspringSeparator = '.';
-
     private AnimationData _animationData;
 
     public bool AnimationEnabled = true;

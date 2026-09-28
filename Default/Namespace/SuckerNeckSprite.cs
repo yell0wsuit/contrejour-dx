@@ -11,10 +11,6 @@ namespace Default.Namespace;
 
 public class SuckerNeckSprite : LongNeckSprite
 {
-    private const float MIDDLE_WIDTH = -1f;
-
-    private const float START_WIDTH = 9f;
-
     protected Pair<Vector2> start;
 
     protected Pair<Vector2> middle;

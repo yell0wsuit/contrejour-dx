@@ -16,16 +16,6 @@ namespace Default.Namespace;
 
 public class BlackSmokeTail : IUpdatable
 {
-    private const float START_OPACITY = 150f;
-
-    private const float MAX_DISTANCE = 2f;
-
-    private const float MIN_SPEED = 0.1f;
-
-    private const int OPACITY_DIFF = 8;
-
-    private const float SCALE_DIFF = 0.05f;
-
     protected Body body;
 
     protected LevelBuilderBase builder;

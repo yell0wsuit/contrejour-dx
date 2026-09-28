@@ -20,12 +20,6 @@ namespace Default.Namespace;
 
 public class PausePanel : Node, IDisposable
 {
-    private const float MOVE_OFFSET = 300f;
-
-    private const float MOVE_DURATION = 0.5f;
-
-    private const float playOffset = -306f;
-
     private readonly LayerColor backgroundLayer = new(Color.Black, "menu/whitePixel");
 
     protected int buttonIndex;
@@ -270,10 +264,6 @@ public class PausePanel : Node, IDisposable
     private void OnSkipClick(TouchArguments touchArguments)
     {
         game.Skip();
-    }
-
-    private static void OnMusicRefresh()
-    {
     }
 
     public void RefreshSoundButtons()

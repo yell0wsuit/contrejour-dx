@@ -80,27 +80,4 @@ public static class ContreJourLabelUtil
     {
         return ProcessLabel(new ProgressLabel(size, format, value, steps));
     }
-
-    private static FontData GetFont(float size, out float scale)
-    {
-        FontData fontData = null;
-        scale = 1f;
-        int num = 0;
-        foreach (KeyValuePair<int, FontData> font in ContreJourApplication.Fonts)
-        {
-            num = Math.Max(num, font.Key);
-            if (font.Key >= size)
-            {
-                fontData = font.Value;
-                scale *= size / font.Key;
-                break;
-            }
-        }
-        if (fontData == null)
-        {
-            fontData = ContreJourApplication.Fonts[num];
-            scale *= size / num;
-        }
-        return fontData;
-    }
 }

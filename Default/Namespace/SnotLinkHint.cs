@@ -7,8 +7,6 @@ namespace Default.Namespace;
 
 public class SnotLinkHint : FadeHint
 {
-    private const float QUERY_RADIUS = 6.6666665f;
-
     protected SnotBodyClip snot;
 
     protected bool snotGot;

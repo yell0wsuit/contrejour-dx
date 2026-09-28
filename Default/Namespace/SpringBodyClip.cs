@@ -18,44 +18,6 @@ namespace Default.Namespace;
 
 public class SpringBodyClip : ContreJourBodyClip, IClickable, IRestartable
 {
-    private const float SLOW_SMOKE_MULT = 6f;
-
-    private const float MAX_JOINED_DISTANCE = 1.3333334f;
-
-    private const float TO_CENTER_FORCE = 7f;
-
-    private const float SCALE_STEP = 7f;
-
-    private const float OPACITY_STEP = 200f;
-
-    private const float SMOKE_RANGE = 20f;
-
-    private const float MAX_TIME_TO_SMOKE = 2.3f;
-
-    private const float MIN_TIME_TO_SMOKE = 1.5f;
-
-    private const float LAUNCH_PAUSE = 0.2f;
-
-    private const int SPIT_FRAMES = 5;
-
-    private const int BASE_FRAME = 7;
-
-    private const int SMOKE_PARTS = 10;
-
-    private const float BUBBLE_DISTANCE = 2.6666667f;
-
-    private const float JOINT_STEP = 2f / 3f;
-
-    private const float MAX_DISTANCE = 1.1666666f;
-
-    private const float IMPULSE = 25f;
-
-    private const float IMPULSE_DISTANCE = 6.6666665f;
-
-    private const float SUCK_DISTANCE = 150f;
-
-    private const int SUCK_FORCE = 100;
-
     private static readonly Vector2 BODY_CENTER = new(0f, 20f);
 
     private static readonly Vector2 SMOKE_POINT = new(0f, 60f);
@@ -208,11 +170,6 @@ public class SpringBodyClip : ContreJourBodyClip, IClickable, IRestartable
         return Game.Choose("McSpringView_5", null, "McSpringViewWhite", null, "McSpringView_6");
     }
 
-    private static EventSender GetDestroyEvent(Body teleportBody)
-    {
-        return ((ISnotLinked)teleportBody.UserData).DestroyEvent;
-    }
-
     protected virtual void SetSticked(ILaunchable value)
     {
         sticked?.DestroyEvent.RemoveListener(OnTeleport);
@@ -355,10 +312,6 @@ public class SpringBodyClip : ContreJourBodyClip, IClickable, IRestartable
         movie.MinFrame = 0f;
         movie.MaxFrame = movie.TotalFrames;
         movie.Stoped = false;
-    }
-
-    private static void EnableJoin()
-    {
     }
 
     public static float JointStep()

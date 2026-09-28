@@ -14,14 +14,6 @@ namespace Default.Namespace;
 
 public class TeleportBodyClip : BodyClip
 {
-    private const float MAX_TELEPORT_SPEED = 23.333334f;
-
-    private const float MAX_SCALE = 1.2f;
-
-    private const float MIN_SCALE = 0.2f;
-
-    private const float TELEPORT_TIME = 0.1f;
-
     protected Portal portal;
 
     protected TeleportBodyClip sibling;

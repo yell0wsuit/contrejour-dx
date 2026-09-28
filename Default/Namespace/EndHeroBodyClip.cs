@@ -19,12 +19,6 @@ namespace Default.Namespace;
 
 public class EndHeroBodyClip : HeroBodyClip
 {
-    private const float SOUND_TIME = 7f;
-
-    private const float LIGHTS_TIME = 8f;
-
-    private const float END_SHAKE_TIME = 8f;
-
     private static readonly float STOP_OFFSET = 124f;
 
     protected bool animationsAllowed;

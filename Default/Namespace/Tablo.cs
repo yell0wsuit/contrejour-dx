@@ -7,8 +7,6 @@ namespace Default.Namespace;
 
 public class Tablo : Sprite
 {
-    private const float EFFECT_TIME = 0.2f;
-
     protected bool open;
 
     public bool Open

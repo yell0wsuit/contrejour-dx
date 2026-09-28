@@ -13,14 +13,6 @@ namespace Default.Namespace;
 
 public class MovableSnotEye : SnotEye, IRestartable
 {
-    private const float Radius = 55f;
-
-    private const float MaxSpeed = 1500f;
-
-    private const float MinSpeed = 400f;
-
-    private const float StickRadius = 50f;
-
     private bool moving;
 
     private Touch movingTouch;

@@ -4,8 +4,6 @@ namespace Default.Namespace;
 
 public class PortalHint : FadeHint
 {
-    private const float QUERY_RADIUS = 6.6666665f;
-
     protected TeleportBodyClip portal;
 
     public PortalHint(ContreJourLevelBuilder _builder, object _body, Sprite _clip, Hashtable _config)

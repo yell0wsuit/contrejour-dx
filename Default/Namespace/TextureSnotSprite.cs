@@ -6,10 +6,6 @@ namespace Default.Namespace;
 
 public class TextureSnotSprite : SpringSnotSprite
 {
-    private const float TEXTURE_STEP = 0.1f;
-
-    private const float OPACITY_STEP = 10f;
-
     protected float opacity;
 
     protected float targetOpacity;

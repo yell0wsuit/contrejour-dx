@@ -14,10 +14,6 @@ namespace ContreJourMono.ContreJour.Game.Eyes;
 
 public abstract class EyeBase : Node
 {
-    private const float STEP = 0.5f;
-
-    private const float RADIUS = 7f;
-
     protected float eyeStep = 0.5f;
 
     protected Sprite background;

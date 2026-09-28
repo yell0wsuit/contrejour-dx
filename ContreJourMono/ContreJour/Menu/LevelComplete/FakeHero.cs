@@ -11,8 +11,6 @@ namespace ContreJourMono.ContreJour.Menu.LevelComplete;
 
 public class FakeHero : Node
 {
-    private const float ViewDistance = 200f;
-
     protected static readonly string TextureFolder = "fakeHero";
 
     private readonly Sprite background;

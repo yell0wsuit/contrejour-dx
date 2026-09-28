@@ -4,8 +4,6 @@ namespace Default.Namespace;
 
 public class TeleportPortal : ParticleSystem
 {
-    private const int PARTS_COUNT = 5;
-
     protected Portal portal;
 
     public TeleportPortal(Portal _portal)

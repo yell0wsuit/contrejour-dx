@@ -6,8 +6,6 @@ namespace Default.Namespace;
 
 public class FlowerEye : MonsterEye
 {
-    private const string DefaultBaseClip = "common/McFlowerHead";
-
     protected Node baseNode;
 
     protected Vector2 initialPosition;

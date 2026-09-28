@@ -9,8 +9,6 @@ namespace Default.Namespace;
 
 public class SnotEye : ContreJourBodyClip, IClickable
 {
-    private const float MAX_RADIUS = 1.8333334f;
-
     protected bool hasRelease;
 
     protected SnotBodyClip snot;

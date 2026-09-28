@@ -4,8 +4,6 @@ namespace Default.Namespace;
 
 public class SlingshotHint : FadeHint
 {
-    private const float QUERY_RADIUS = 10f;
-
     protected TrampolineBodyClip trampoline;
 
     protected bool touched;

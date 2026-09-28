@@ -9,12 +9,6 @@ namespace Default.Namespace;
 
 public class AccelerometerNode : Node
 {
-    private const float StepCoeff = 0.015f;
-
-    private const float MinChange = 0.05f;
-
-    private const float SpeedStep = 0.05f;
-
     protected Vector2 accelerometerOffset;
 
     protected bool accelerometerUsed;

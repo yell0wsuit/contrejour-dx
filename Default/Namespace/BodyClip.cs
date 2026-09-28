@@ -101,11 +101,6 @@ public class BodyClip : Updatable
         return [];
     }
 
-    private Vector2 Scale()
-    {
-        return config.GetVector("scale", Vector2.One);
-    }
-
     public override void Update(float time)
     {
         if (_firstUpdate.Use())

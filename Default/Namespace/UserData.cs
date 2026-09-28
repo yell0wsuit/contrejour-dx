@@ -13,13 +13,6 @@ namespace Default.Namespace;
 public class UserData
 {
     private const string FILE_NAME = "contreJourData.xml";
-
-    private const int ENJOY_STARS = 30;
-
-    private const int ROSE_NEEDED_LIGHTS = 240;
-
-    private const int MinUnlockedChapters = 1;
-
     private static readonly int[] STARS_TO_UNLOCK = [0, 30, 70, 120, 180];
 
     private static UserData instance;

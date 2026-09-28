@@ -9,10 +9,6 @@ namespace Mokus2D.Visual.Text;
 
 public class Cursor : Sprite
 {
-    private const char CursorSymbol = '|';
-
-    private const float VisibleTime = 0.5f;
-
     private FontData _fontData;
 
     public Cursor(FontData data, float scaleFactor)

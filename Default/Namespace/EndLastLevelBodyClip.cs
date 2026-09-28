@@ -6,8 +6,6 @@ namespace Default.Namespace;
 
 public class EndLastLevelBodyClip : EndLevelBodyClip
 {
-    private const float END_SCALE = 1.7f;
-
     protected CosChanger scaleChanger;
 
     protected bool bounce;

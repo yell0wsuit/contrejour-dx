@@ -20,8 +20,6 @@ public static class Achievements
 
     public const string LittlePrince = "little_prince";
 
-    private const string ChapterPerfectFormat = "chapter{0}_perfect";
-
     public static string GetChapterPerfect(int chapter)
     {
         return "chapter{0}_perfect".FormatThis(chapter + 1);

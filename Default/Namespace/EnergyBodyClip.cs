@@ -13,8 +13,6 @@ namespace Default.Namespace;
 
 public class EnergyBodyClip : BodyClip, IRestartable
 {
-    private const int ENERGY_PARTS_COUNT = 5;
-
     protected ContreJourLevelBuilder contreJourBuilder;
 
     protected List<object> energyParts;

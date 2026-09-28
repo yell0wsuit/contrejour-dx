@@ -16,52 +16,6 @@ namespace Default.Namespace;
 
 public class FlyBodyClip : ContreJourBodyClip, IClickable
 {
-    private const float HERO_DISTANCE = 1.6666666f;
-
-    private const float BORDER = 50f;
-
-    private const float SCARED_TIME = 2f;
-
-    private const float ANGLE_MULT = 5f;
-
-    private const float STOP_DISTANCE = 0.1f;
-
-    private const float STOP_DAMPING = 10f;
-
-    private const float FREE_FLIGHT_DAMPING = 0.7f;
-
-    private const float LOOK_SPEED = 1f;
-
-    private const float SCALE_TIME = 1.2f;
-
-    private const float MAX_SCALE = 0.95f;
-
-    private const float MIN_SCALE = 0.6f;
-
-    private const float MAX_STOP_SPEED = 3f;
-
-    private const float MAX_DISTANCE = 6.6666665f;
-
-    private const float FLY_HOME_ANGLE = (float)Math.PI / 6f;
-
-    private const float FLY_UP_ANGLE = (float)Math.PI / 12f;
-
-    private const float MAX_IMPULSE = 6f;
-
-    private const float MIN_IMPULSE = 3f;
-
-    private const float MAX_AIR_TIME = 45f;
-
-    private const float MIN_AIR_TIME = 30f;
-
-    private const float MAX_START_FLY_TIME = 20f;
-
-    private const float MIN_START_FLY_TIME = 10f;
-
-    private const float MAX_FLY_TIME = 11f;
-
-    private const float MIN_FLY_TIME = 7f;
-
     protected FlyEye eye;
 
     protected Sprite bodySprite;

@@ -16,18 +16,6 @@ namespace Mokus2D.Integration.Farseer.Construction;
 
 public class PhysicsConstructor : PhysicsTransform
 {
-    private const string ShapeName = "shape";
-
-    private const string Sensor = "sensor";
-
-    private const string CollisionCategories = "collisionCategories";
-
-    private const string Dynamic = "dynamic";
-
-    private const string Kinematic = "kinematic";
-
-    private const string Joint = "joint";
-
     private static readonly Category[] Categories =
     [
         Category.None,

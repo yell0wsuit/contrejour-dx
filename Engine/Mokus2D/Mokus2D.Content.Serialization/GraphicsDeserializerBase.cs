@@ -13,12 +13,6 @@ namespace Mokus2D.Content.Serialization;
 
 public abstract class GraphicsDeserializerBase<T> : IGraphicsDeserializer<T>, IGraphicsDeserializer
 {
-    private const string NullString = "null";
-
-    private const string Anchor = "anchor";
-
-    private const string Rect = "rect";
-
     private readonly IGraphicsLoader loader;
 
     public abstract bool UseSuffix { get; }

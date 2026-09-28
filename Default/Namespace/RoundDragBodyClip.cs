@@ -9,10 +9,6 @@ namespace Default.Namespace;
 
 public class RoundDragBodyClip : DragableBodyClip
 {
-    private const float BOUNDS_SIZE = 200f;
-
-    private const float CIRCLE_SIZE = 200f;
-
     protected float radius;
 
     protected Sprite middleSprite;

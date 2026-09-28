@@ -18,10 +18,6 @@ namespace Default.Namespace;
 
 public class BackSnotBodyClip : SnotBodyClipBase, IClickable
 {
-    private const float SCARE_FORCE = 0.7f;
-
-    private const float BASE_SCALE = 10.24f;
-
     protected float force;
 
     protected float forceProgress;

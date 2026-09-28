@@ -12,10 +12,6 @@ namespace Default.Namespace;
 
 public class PlanetSatellite : Node, IUpdatable
 {
-    private const float ROTATION_STEP = 20f;
-
-    private const float RADIUS = 150f;
-
     protected Sprite satellite;
 
     protected CosChanger changer;

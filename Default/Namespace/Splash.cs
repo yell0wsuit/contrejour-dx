@@ -23,8 +23,6 @@ namespace Default.Namespace;
 
 public class Splash : Node, ITouchListener, IDisposable
 {
-    private const float JUMP_DURATION = 0.5f;
-
     public readonly EventSender EndEvent = new();
 
     protected Vector2 blackHeroPosition = new Vector2(360f + (W7IPhoneWidthDiff / 4f), 153f) * 2f;
@@ -85,40 +83,10 @@ public class Splash : Node, ITouchListener, IDisposable
         _ = this.Schedule(0.01f, StartAnimation);
     }
 
-    private void InitializeChillingo()
-    {
-        title = new McChillingo();
-        AddChild(title);
-        title.Scale = 0.9375f;
-        title.Position = new Vector2(W7IPhoneWidthDiff / 2f, -40f);
-        AddLogo();
-        _ = this.Schedule(0.53f, Play);
-    }
-
     private void StartAnimation()
     {
         AddListeners();
         _ = this.Schedule(0.9f, PlaySplashSound);
-    }
-
-    private void AddLogo()
-    {
-        logo = new McChillingoLogo();
-        AddChild(logo);
-        logo.Stop();
-        logo.Repeat = false;
-        logo.startAnimation.Stop();
-        logo.startAnimation.Repeat = false;
-        logo.Scale = 0.9375f;
-        logo.Position = LOGO_POSITION_IPHONE;
-        hero = new FakeHero
-        {
-            Scale = 0.9375f,
-            OpacityByte = 0,
-            Visible = false
-        };
-        AddChild(hero);
-        hero.Position = HERO_POSITION_IPHONE;
     }
 
     private void AddListeners()
@@ -171,13 +139,6 @@ public class Splash : Node, ITouchListener, IDisposable
 
     public void TouchEnd(Touch touch)
     {
-    }
-
-    private void Play()
-    {
-        logo.Play();
-        logo.startAnimation.Play();
-        logo.startAnimation.EndEvent += ShowHero;
     }
 
     private void ShowHero(IAnimatedNode animatedNode)

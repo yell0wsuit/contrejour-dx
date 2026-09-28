@@ -9,8 +9,6 @@ namespace Mokus2D.Visual;
 
 public class AnimationPlayer : IUpdatable
 {
-    private const float EPSILON = 0.0001f;
-
     private float currentFrame;
 
     private float maxFrame;

@@ -13,18 +13,6 @@ namespace Default.Namespace;
 
 public class StrongSnotBodyClip : SnotBodyClip
 {
-    private const float JOIN_DISTANCE = 1.3333334f;
-
-    private const float COLOR_STEP = 20f;
-
-    private const float RELEASE_TIME = 0.6f;
-
-    private const float MAX_STRETCHING = 30f;
-
-    private const float MAX_DISTANCE_MULT = 1.25f;
-
-    private const float MOUSE_FORCE = 100f;
-
     private FixedMouseJoint dragJoint;
 
     protected float extremeSnotDistance;

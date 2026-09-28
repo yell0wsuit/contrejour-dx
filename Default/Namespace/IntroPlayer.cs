@@ -13,12 +13,6 @@ namespace Default.Namespace;
 
 public class IntroPlayer : Node
 {
-    private const int MESSAGES_COUNT = 4;
-
-    private const float SHOW_TIME = 1.5f;
-
-    private const float FADE_TIME = 0.8f;
-
     private static readonly Color LAST_COLOR = new(16, 16, 16);
 
     protected ContreJourGame game;

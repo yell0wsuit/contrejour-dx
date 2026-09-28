@@ -6,10 +6,6 @@ namespace Default.Namespace;
 
 public class WhiteGrassController : GrassController
 {
-    private const float BORDER_OFFSET = -7f;
-
-    private const int WHITE_GRASS_COUNT = 3;
-
     protected bool borderUpdated;
 
     public override float SmallGrassScale => 0.7f;

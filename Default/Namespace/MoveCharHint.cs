@@ -8,8 +8,6 @@ namespace Default.Namespace;
 
 public class MoveCharHint : FadeHint
 {
-    private const float MAX_DISTANCE = 60f;
-
     protected Vector2 initialPosition;
 
     protected bool initialPositionSet;

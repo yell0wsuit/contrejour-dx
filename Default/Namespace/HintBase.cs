@@ -11,8 +11,6 @@ namespace Default.Namespace;
 
 public class HintBase : BodyClip, IRemovable
 {
-    private const string TEXT_DATA = "textData";
-
     protected ContreJourGame contreJour;
 
     public virtual bool ShouldRemove => false;

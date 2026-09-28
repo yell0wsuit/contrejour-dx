@@ -6,8 +6,6 @@ namespace Default.Namespace;
 
 public class TexturedSuckerNeck : SuckerNeckSprite
 {
-    private const float TEXTURE_STEP = 0.75f;
-
     public TexturedSuckerNeck(string textureName)
     {
         Texture = ClipFactory.GetTexture(textureName);

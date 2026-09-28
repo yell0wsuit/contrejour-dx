@@ -10,8 +10,6 @@ namespace Default.Namespace;
 
 public class ClickListener : ITouchListener
 {
-    private const float DEFAULT_RADIUS = 20f;
-
     protected readonly EventSender<Touch> clickEvent = new();
 
     protected bool enabled;

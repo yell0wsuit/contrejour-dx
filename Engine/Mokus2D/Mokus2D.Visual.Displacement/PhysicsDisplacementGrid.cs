@@ -126,15 +126,6 @@ public class PhysicsDisplacementGrid : DisplacementGrid
         physicsNodeData.Acceleration += vector5;
     }
 
-    private float FixDelta(int w, int nextW, float dx)
-    {
-        if ((w == 0 && nextW == 1 && dx > 0f) || (nextW == GridSize.Width && w == nextW - 1 && dx < 0f))
-        {
-            dx = 0f;
-        }
-        return dx;
-    }
-
     private void UpdatePositions(float time)
     {
         for (int i = 1; i < GridSize.Width - 1; i++)

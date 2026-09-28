@@ -44,8 +44,6 @@ public static class YuPengClipper
         }
     }
 
-    private const float ClipperEpsilonSquared = 1.1920929E-07f;
-
     public static List<Vertices> Union(Vertices polygon1, Vertices polygon2, out PolyClipError error)
     {
         return Execute(polygon1, polygon2, PolyClipType.Union, out error);

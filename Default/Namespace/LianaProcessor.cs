@@ -6,10 +6,6 @@ namespace Default.Namespace;
 
 public class LianaProcessor : JointProcessorBase
 {
-    private const float DENSITY = 0.3f;
-
-    private const float RADIUS = 1f / 6f;
-
     public LianaProcessor(LevelBuilderBase _builder)
         : base("liana", _builder)
     {

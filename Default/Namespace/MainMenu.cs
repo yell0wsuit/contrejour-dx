@@ -25,18 +25,6 @@ namespace Default.Namespace;
 
 public class MainMenu : AccelerometerMenu, IActivatedDependent
 {
-    private const float FADE_TIME = 2f;
-
-    private const float EFFECTS_TIME = 0.3f;
-
-    private const float BACKGROUND_ACC_MULT = 1.05f;
-
-    private const float NAMES_ACC_MULT_IPHONE = 0.07f;
-
-    private const float NAMES_ACC_MULT = 0.3f;
-
-    private const float FOREGROUND_ACC_MULT = 1.1f;
-
     protected LevelsMenu levelsMenu;
 
     public readonly EventSender<int> LevelSelectEvent = new();
@@ -212,14 +200,6 @@ public class MainMenu : AccelerometerMenu, IActivatedDependent
         soundButton.Position = musicButton.Position - new Vector2(soundButton.TextureSize.X * soundButton.RealScale, 0f);
         soundButton.TouchEndEvent += OnSoundClick;
         RefreshSoundButtons();
-    }
-
-    private static void OnLeaderboardsClick(TouchArguments touchArguments)
-    {
-    }
-
-    private static void OnAchievementsClick(TouchArguments touchArguments)
-    {
     }
 
     private void ApplyButtonProperties(Button button)
@@ -544,29 +524,9 @@ public class MainMenu : AccelerometerMenu, IActivatedDependent
         }
     }
 
-    private void OnWindowOpenChange()
-    {
-        if (!currentWindow.Open)
-        {
-            clickableLayer.InteractionsEnabled = true;
-            levelsMenu?.InteractionsEnabled = true;
-            spinner.Enabled = !inChapter;
-            currentWindow = null;
-        }
-    }
-
     public static void OnGetFullVersion()
     {
         SoundManager.PlaySound("newClip1", 0.7f);
-    }
-
-    private void SetCurrentWindow(PopUpWindow window)
-    {
-        currentWindow = window;
-        window.Open = true;
-        clickableLayer.InteractionsEnabled = false;
-        spinner.Enabled = false;
-        levelsMenu?.InteractionsEnabled = false;
     }
 
     public void RefreshPosition()

@@ -9,10 +9,6 @@ namespace Default.Namespace;
 
 public class Satellite : IUpdatable, IRemovable
 {
-    private const float MAX_STEP = 0.1f;
-
-    private const float MIN_STEP = 0.05f;
-
     protected float direction;
 
     protected float speedValue;

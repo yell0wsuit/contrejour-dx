@@ -26,8 +26,6 @@ namespace Mokus2D.Visual;
 
 public class Node : DisposableBase, IUpdatable, IConfig
 {
-    private const int DefaultListCapacity = 64;
-
     public readonly Tweener Tweener;
 
     private readonly ConcurrentQueue<NodeAndLayer> _addLater = new();
@@ -79,9 +77,6 @@ public class Node : DisposableBase, IUpdatable, IConfig
     public bool UpdateSelf = true;
 
     private IDictionary<string, string> _config;
-
-    private GarbageTracer _drawTracer;
-
     private bool _firstUpdate = true;
 
     private int _layer;
@@ -326,11 +321,6 @@ public class Node : DisposableBase, IUpdatable, IConfig
     public event Action TransformationsRefreshedEvent;
 
     public event Action AddedToStageEvent;
-
-    [Conditional("DEBUG")]
-    private static void ThrowIfNotInMainThread()
-    {
-    }
 
     public Node()
     {
@@ -804,12 +794,6 @@ public class Node : DisposableBase, IUpdatable, IConfig
         {
             child.Dispose();
         }
-    }
-
-    [Conditional("DEBUG")]
-    private void CreateGarbageTracer()
-    {
-        _drawTracer = new GarbageTracer(string.Concat(GetType(), ".Draw"));
     }
 
     public override string ToString()

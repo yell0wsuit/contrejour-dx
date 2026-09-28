@@ -14,8 +14,6 @@ namespace Mokus2D.Visual.Primitives;
 
 public abstract class LongNeckSprite : SpriteBatchNode
 {
-    private const int BezierParts = 6;
-
     public static ISpriteData DefaultSpriteData;
 
     protected bool Created;

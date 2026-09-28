@@ -17,18 +17,6 @@ namespace ContreJourMono.ContreJour.Game.Hero;
 
 public class HeroTail : PrimitivesNode
 {
-    private const float CENTER_ANGLE = (float)Math.PI / 2f;
-
-    private const float ANGLE_LIMIT = (float)Math.PI * 3f / 8f;
-
-    private const float MIDDLE1_DISTANCE = 30f;
-
-    private const float MIDDLE2_DISTANCE = 50f;
-
-    private const float END_DISTANCE = 70f;
-
-    private const int POINTS = 10;
-
     public bool LimitAngles;
 
     public float Speed;

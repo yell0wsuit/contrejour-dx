@@ -14,18 +14,6 @@ namespace Default.Namespace;
 
 public class Outro : Node, ITouchListener, IDisposable
 {
-    private const float TEXT_FADE_TIME = 5f;
-
-    private const float FADE_TIME = 2f;
-
-    private const float MAX_TOUCH_SPEED = 100f;
-
-    private const float CREDITS_MARGINS_IPHONE = 20f;
-
-    private const float CREDITS_MARGINS = 15f;
-
-    private const float CREDITS_STEP = 30f;
-
     private static readonly float SPEED = ContreJourLabelUtil.IsAsian ? 30 : 15;
 
     protected LayerColor background;
@@ -106,16 +94,6 @@ public class Outro : Node, ITouchListener, IDisposable
         text.AddChild(label3);
         textVisible = true;
         onEndTime = 0f;
-    }
-
-    private static bool UseAccelerometer()
-    {
-        return false;
-    }
-
-    private static int Priority(Vector2 touchPoint)
-    {
-        return 1;
     }
 
     public void AddCreditsRight(string left, string right)

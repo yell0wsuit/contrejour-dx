@@ -12,10 +12,6 @@ namespace Default.Namespace;
 
 public class MovieStripesView : Node
 {
-    private const float FadeOpacity = 0.3f;
-
-    private const float FadeOpacityBlack = 0.6f;
-
     protected Node topSquare;
 
     protected Node bottomSquare;

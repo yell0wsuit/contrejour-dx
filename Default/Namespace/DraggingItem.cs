@@ -13,12 +13,6 @@ namespace Default.Namespace;
 
 public class DraggingItem
 {
-    private const float FREE_ANGLE_DIFF = (float)Math.PI / 8f;
-
-    private const float ORTO_FREE_DISTANCE = 1f;
-
-    private const float FREE_DISTANCE = 3.3333333f;
-
     public const int DRAG_COUNT = 7;
 
     protected Pair<Vector2> baseAnchors;
@@ -76,42 +70,6 @@ public class DraggingItem
             previousItem = previousItem.PreviousItem;
             nextItem = nextItem.NextItem;
         }
-    }
-
-    private bool FixBorderDrag(Vector2 currentTouchPosition)
-    {
-        Vector2 vector = builder.ToVec(currentTouchPosition);
-        float num = vector.DistanceTo(dragItem.Body.Position);
-        PlasticineItem previousItem = dragItem;
-        bool flag;
-        do
-        {
-            previousItem = previousItem.PreviousItem;
-            float num2 = previousItem.Body.Position.DistanceTo(vector);
-            flag = num2 < num;
-            if (flag)
-            {
-                num = num2;
-            }
-        }
-        while (flag);
-        previousItem = previousItem.NextItem;
-        if (previousItem == dragItem)
-        {
-            do
-            {
-                previousItem = previousItem.NextItem;
-                float num3 = previousItem.Body.Position.DistanceTo(vector);
-                flag = num3 < num;
-                if (flag)
-                {
-                    num = num3;
-                }
-            }
-            while (flag);
-            previousItem = previousItem.PreviousItem;
-        }
-        return previousItem != dragItem && Math.Abs(previousItem.BodyClip.InitialAngle - dragItem.BodyClip.InitialAngle) >= (float)Math.PI / 8f;
     }
 
     public bool UpdateWithTouch(Touch touch)

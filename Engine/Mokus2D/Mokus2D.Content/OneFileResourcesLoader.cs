@@ -11,10 +11,6 @@ namespace Mokus2D.Content;
 
 public class OneFileResourcesLoader : ResourcesLoader
 {
-    private const string Animations = "animations";
-
-    private const string Sprites = "sprites";
-
     private static readonly List<Type> SeparateFileTypes = [typeof(ParticleSystemConfig)];
 
     private readonly Dictionary<string, IGraphicsDeserializer> _deserializerByType = [];

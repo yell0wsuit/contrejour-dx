@@ -12,10 +12,6 @@ namespace Default.Namespace;
 
 public class BridgeSnotProcessor : StrongSnotProcessor
 {
-    private const float BRIDGE_WIDTH = 1f / 3f;
-
-    private const float BRIDGE_PART_SIZE = 5f / 6f;
-
     public BridgeSnotProcessor(LevelBuilderBase _builder)
         : base(_builder, "bridgeSnot", 5f / 6f)
     {

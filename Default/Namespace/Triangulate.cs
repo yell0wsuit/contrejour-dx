@@ -6,8 +6,6 @@ namespace Default.Namespace;
 
 public class Triangulate
 {
-    private const float EPSILON = 1E-10f;
-
     public static int Process(List<Vector2> contour, ref List<Vector2> result)
     {
         int count = contour.Count;

@@ -12,10 +12,6 @@ namespace Default.Namespace;
 
 public class StickyBodyClip : ContreJourBodyClip
 {
-    private const float PLAY_SPEED = 3f;
-
-    private const float RADIUS = 1.6666666f;
-
     protected Body joinedBody;
 
     protected bool joined;

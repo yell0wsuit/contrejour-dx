@@ -13,14 +13,6 @@ namespace Mokus2D.Platforms.Input;
 
 public static class CursorPointsFiller
 {
-    private const int LeftMouseButtonId = -1;
-
-    private const int RightMouseButtonId = -2;
-
-    private const int MiddleMouseButtonId = -3;
-
-    private const float MinMouseStepLength = 2f;
-
     private static Vector2? _mousePosition;
 
 

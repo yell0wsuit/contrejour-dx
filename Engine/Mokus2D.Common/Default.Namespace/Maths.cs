@@ -13,9 +13,6 @@ public static class Maths
     public const float PI2 = (float)Math.PI / 2f;
 
     public const float PI4 = (float)Math.PI / 4f;
-
-    private const int DegreesInCircle = 360;
-
     private static Random randomGenerator = new((int)DateTime.Now.Ticks);
 
     public static Random RandomGenerator => randomGenerator;

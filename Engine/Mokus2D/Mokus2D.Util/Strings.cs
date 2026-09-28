@@ -5,8 +5,6 @@ namespace Mokus2D.Util;
 
 public static class Strings
 {
-    private const string AllowedSymbols = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM_";
-
     private static readonly Random RandomGenerator = new();
 
     public static string GenerateRandomString(int length)

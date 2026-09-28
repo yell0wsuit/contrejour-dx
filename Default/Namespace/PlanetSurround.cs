@@ -10,8 +10,6 @@ namespace Default.Namespace;
 
 public class PlanetSurround : IUpdatable
 {
-    private const int PARTS_COUNT = 128;
-
     private readonly List<ButterFly> parts = new(128);
 
     private RandomRange orbit = new(115f, 5f);

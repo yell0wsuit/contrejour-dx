@@ -12,12 +12,6 @@ namespace Default.Namespace;
 
 public class PlasticineUtil
 {
-    private const float LINEAR_DAMPING = 10f;
-
-    private const float ANGULAR_DAMPING = 10f;
-
-    private const float MAX_ANGLE = (float)Math.PI / 8f;
-
     public static object LIMIT = new();
 
     public static PolygonShape CreateSurfaceBox(float width)

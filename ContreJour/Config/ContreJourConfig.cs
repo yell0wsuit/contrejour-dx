@@ -4,8 +4,6 @@ namespace ContreJour.Config;
 
 public static class ContreJourConfig
 {
-    private const float ButtonOffset = 60f;
-
     public static AspectRatio AspectRatio;
 
     public static Vector2 RootSize;

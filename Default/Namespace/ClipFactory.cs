@@ -15,8 +15,6 @@ namespace Default.Namespace;
 
 public class ClipFactory
 {
-    private const string TextureExtension = "xnb";
-
     private static readonly ClipFactory instance = new();
 
     private static readonly List<TextureSource> textureSources = [];

@@ -15,12 +15,6 @@ namespace Mokus2D.UI.Controls;
 
 public class Slider : UIComponent, IMouseWheelNode
 {
-    private const float DefaultWheelSpeed = 1f;
-
-    private const int DefaultMinWheelScrollSpeed = 20;
-
-    private const int DefaultWheelScrollSpeedMult = 1;
-
     private readonly MouseWheelNodeController<Slider> _wheelController;
 
     private readonly LayoutOrientation Orientation;

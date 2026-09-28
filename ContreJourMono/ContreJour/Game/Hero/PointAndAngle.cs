@@ -9,10 +9,6 @@ namespace ContreJourMono.ContreJour.Game.Hero;
 
 public class PointAndAngle
 {
-    private const float FAWN_MIN_STEP = 0.2f;
-
-    private const float FAWN_STEP = 0.3f;
-
     public float Angle;
 
     private readonly float angleStep;

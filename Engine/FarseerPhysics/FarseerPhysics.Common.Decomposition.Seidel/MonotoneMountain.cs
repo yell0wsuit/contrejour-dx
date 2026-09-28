@@ -6,8 +6,6 @@ namespace FarseerPhysics.Common.Decomposition.Seidel;
 
 internal sealed class MonotoneMountain
 {
-    private const float PiSlop = 3.1f;
-
     public List<List<Point>> Triangles;
 
     private readonly HashSet<Point> _convexPoints;

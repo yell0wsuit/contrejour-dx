@@ -11,8 +11,6 @@ namespace Mokus2D.Integration.Farseer.Construction.Processors;
 
 public class RevoluteJointProcessor : JointProcessor
 {
-    private const string LimitEnabled = "limitEnabled";
-
     public RevoluteJointProcessor(PhysicsConstructor constructor)
         : base(constructor)
     {

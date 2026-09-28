@@ -14,10 +14,6 @@ namespace Default.Namespace;
 
 public class NamesChanger : Node
 {
-    private const float WIDTH = 1300f;
-
-    private const int FontSize = 32;
-
     protected float currentIndex;
 
     protected List<Node> names = [];

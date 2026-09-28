@@ -12,8 +12,6 @@ namespace FarseerPhysics.Common.PhysicsLogic;
 
 public sealed class RealExplosion : PhysicsLogic
 {
-    private const float MaxEdgeOffset = (float)Math.PI / 90f;
-
     public float EdgeRatio = 0.025f;
 
     public bool IgnoreWhenInsideShape;

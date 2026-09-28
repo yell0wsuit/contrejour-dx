@@ -10,8 +10,6 @@ namespace Mokus2D.Fonts;
 
 public class FontData : TextureNodeData
 {
-    private const char SpecialSymbolsStart = '\ue000';
-
     public readonly string FontName;
 
     public readonly float FontSize;

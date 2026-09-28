@@ -8,12 +8,6 @@ namespace Mokus2D.Util;
 
 public class UpdateDrawCounter : FpsCounter
 {
-    private const int StaticUpdatesCount = 100;
-
-    private const string TestValueFormat = "{0}: {1}";
-
-    private const string InfinityString = "Infinity";
-
     private DateTime _startTime;
 
     private float _drawTime;

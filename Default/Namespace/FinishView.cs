@@ -24,20 +24,6 @@ namespace Default.Namespace;
 
 public class FinishView : MovieStripesView, IDisposable
 {
-    private const float LABEL_MARGINS = 30f;
-
-    private const float LABELS_Y = 46f;
-
-    private const int FONT_SIZE_IPHONE = 15;
-
-    private const int FONT_SIZE = 22;
-
-    private const float FIELDS_POSITION_IPHONE = -148f;
-
-    private const float FIELDS_POSITION = -30f;
-
-    private const int ENERGY_STEPS = 15;
-
     private static readonly Vector2 STARS_OFFSET = new(100f, 120f);
 
     private static readonly Vector2 PORTAL_OFFSET = new(0f, 0f);
@@ -269,11 +255,6 @@ public class FinishView : MovieStripesView, IDisposable
     private static void PlayBell()
     {
         SoundManager.PlaySound("bell", 0.6f);
-    }
-
-    private static void PlayClick()
-    {
-        SoundManager.PlaySound("newClip1", 0.7f);
     }
 
     public void ShowPortal()

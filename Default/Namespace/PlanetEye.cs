@@ -14,16 +14,6 @@ namespace Default.Namespace;
 
 public class PlanetEye : BackSnotEye, IVectorPositionProvider
 {
-    private const float MAX_TIMEOUT = 10f;
-
-    private const float MIN_TIMEOUT = 3f;
-
-    private const float MAX_ANGLE = (float)Math.PI / 12f;
-
-    private const float MAX_OFFSET = 10f;
-
-    private const float MAX_SPEED = 2f;
-
     protected Vector2 eyePosition;
 
     protected Vector2 speed;
@@ -47,11 +37,6 @@ public class PlanetEye : BackSnotEye, IVectorPositionProvider
         _ = Mokus2DGame.LoadMovieClipData("planets/McPlanetEyeBlink");
         _ = Mokus2DGame.LoadMovieClipData("planets/McPlanetEyeBlinkOneTime");
         UpdateEnabled = true;
-    }
-
-    private static string MaskName()
-    {
-        return null;
     }
 
     public override void Update(float time)

@@ -16,10 +16,6 @@ namespace Mokus2D.Integration.Farseer.Debugging;
 
 public class FarseerDebugNode : PrimitivesNode
 {
-    private const int CIRCLE_SEGMENTS = 20;
-
-    private const int Opacity = 200;
-
     private readonly Color STATIC_COLOR = ColorUtil.CreateColor(255, 0, 255, 200);
 
     private readonly Color DYNAMIC_COLOR = ColorUtil.CreateColor(0, 255, 0, 200);

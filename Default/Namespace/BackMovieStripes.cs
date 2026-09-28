@@ -9,8 +9,6 @@ namespace Default.Namespace;
 
 public class BackMovieStripes : MovieStripesView
 {
-    private const float FADE_TIME = 2f;
-
     protected Button backButton;
 
     public readonly EventSender BackEvent = new();

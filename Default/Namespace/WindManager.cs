@@ -4,8 +4,6 @@ namespace Default.Namespace;
 
 public class WindManager : IUpdatable
 {
-    private const float ACC_MULTIPLIER = 0.01f;
-
     protected float windValue;
 
     protected float windChange;

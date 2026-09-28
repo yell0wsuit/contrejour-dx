@@ -10,8 +10,6 @@ namespace Default.Namespace;
 
 public class TrampolineSnotProcessor(LevelBuilderBase _builder) : BridgeSnotProcessor(_builder, "trampoline", 2f / 3f)
 {
-    private const float SPRING_K = 800f;
-
     protected List<TrampolinePartBodyClip> parts = [];
 
     private static readonly float START_RADIUS = 5f * Box2DConfig.DefaultConfig.SizeMultiplier;

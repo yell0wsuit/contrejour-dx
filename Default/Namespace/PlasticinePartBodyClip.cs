@@ -18,42 +18,7 @@ namespace Default.Namespace;
 
 public class PlasticinePartBodyClip : ContreJourBodyClip, IClickable, IRestartable, IGrassControllerContainer
 {
-    private const float FIX_LIMIT_OFFSET = 2f / 3f;
-
-    private const float GROUND_FALL_OFFSET = 2f / 3f;
-
-    private const float GROUND_FALL_TIMEOUT = 0.205f;
-
-    private const float SPEED_MULT = 0.5f;
-
-    private const float MAX_GROUND_VELOCITY = 4.5f;
-
-    private const float MOVE_SPEED_MULT = 0.4f;
-
-    private const float MAX_X_SPEED = 4f;
-
-    private const float JUMP_SPEED_MULT = 1f / 3f;
-
-    private const float JUMP_FORCE_MULT = 50f;
-
-    private const float MAX_JUMP_SPEED = 5f;
-
-    private const float MOVE_FORCE = 1.2f;
-
-    private const float DUST_OFFSET = 0.2f;
-
     public const float GRASS_TRAMPLE_DISTANCE = 1.3333334f;
-
-    private const float GRASS_ANGLE_WHITE = (float)Math.PI / 3f;
-
-    private const float GRASS_ANGLE = (float)Math.PI / 5f;
-
-    private const float GRASS_RANDOM = 0.55f;
-
-    private const float MIN_DUST_SPEED = 1f;
-
-    private const float DUST_RANDOM = 0.33f;
-
     protected int globalIndex;
 
     protected int index;

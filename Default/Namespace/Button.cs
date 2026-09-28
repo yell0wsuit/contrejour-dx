@@ -8,8 +8,6 @@ namespace Default.Namespace;
 
 public class Button : TouchSprite
 {
-    private const float PRESS_SCALE = 1.1f;
-
     public bool StopEventPropagation;
 
     protected bool enabled;
@@ -72,16 +70,6 @@ public class Button : TouchSprite
     public static Button ButtonBigWithIcon(string _iconName)
     {
         return new Button("menu/McButtonBackgroundBig", "menu/McButtonPressedBig", _iconName);
-    }
-
-    private void SetIconRotation(float value)
-    {
-        icon.RotationDegrees = value;
-    }
-
-    private float IconRotation()
-    {
-        return icon.RotationDegrees;
     }
 
     public override bool TouchBegin(Touch touch)

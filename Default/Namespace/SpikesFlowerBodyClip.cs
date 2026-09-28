@@ -18,10 +18,6 @@ namespace Default.Namespace;
 
 public class SpikesFlowerBodyClip : ContreJourBodyClip, IVectorPositionProvider
 {
-    private const float EYE_SCALE = 0.7f;
-
-    private const float DEAD_EYE_RADIUS = 16f;
-
     protected IEatable hero;
 
     protected ISpikesView movie;

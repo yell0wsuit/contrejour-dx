@@ -16,14 +16,6 @@ namespace Default.Namespace;
 
 public class PlanetSnot : LongNeckSprite, IDepthDependent
 {
-    private const float RADIUS = 40f;
-
-    private const float MIDDLE_WIDTH = 5f;
-
-    private const float END_WIDTH = 20f;
-
-    private const float START_WIDTH = 10f;
-
     private readonly PlanetSnotEye _eye;
 
     public readonly Sprite BaseSprite;

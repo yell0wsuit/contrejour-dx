@@ -8,10 +8,6 @@ namespace Default.Namespace;
 
 public class Trajectory : ParticleSystem
 {
-    private const float PATH_PART_DISTANCE = 30f;
-
-    private const int PATH_PARTS = 7;
-
     private readonly float enabledOpacity;
 
     public float Angle;

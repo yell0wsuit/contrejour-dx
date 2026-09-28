@@ -13,10 +13,6 @@ namespace ContreJourMono.ContreJour.Game.Eyes;
 
 public class RandomAnimationEye : EyeBase
 {
-    private const float MIN_TIMEOUT = 3f;
-
-    private const float MAX_TIMEOUT = 10f;
-
     private static readonly EyeAnimation[] ANIMATIONS =
     [
         new("McEyeSmile", null, lockY: true),

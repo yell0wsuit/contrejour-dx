@@ -11,10 +11,6 @@ namespace FarseerPhysics.Dynamics;
 
 public class Island
 {
-    private const float LinTolSqr = 0.0001f;
-
-    private const float AngTolSqr = 0.0012184697f;
-
     private ContactManager _contactManager;
 
     private readonly ContactSolver _contactSolver = new();

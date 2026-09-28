@@ -17,8 +17,6 @@ namespace ContreJour.Primitives;
 
 public abstract class LongNeckSprite : PrimitivesNode
 {
-    private const int BEZIER_PARTS = 6;
-
     protected bool created;
 
     protected VertexPositionColorTexture[] vertices;

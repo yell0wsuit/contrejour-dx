@@ -11,34 +11,6 @@ namespace Default.Namespace;
 
 public class GrassController : IGrassController, IUpdatable
 {
-    private const int FLYES_COUNT_LAST_CHAPTER = 1;
-
-    private const int FLYES_COUNT = 2;
-
-    private const float SMALL_GRASS_ANGLE_DIFF = 4f;
-
-    private const float GRASS_ANGLE_DIFF = 2.5f;
-
-    private const float GRASS_ANGLE_DIFF_BACK = 1f;
-
-    private const float FLY_MIN_OFFSET = 1.3333334f;
-
-    private const float FLY_MAX_OFFSET = 2f;
-
-    private const float TRAMPLE_ANGLE = (float)Math.PI / 6f;
-
-    private const int NO_TOUCH_FRAMES = 5;
-
-    private const int SMALL_GRASS_ON_GROUND = 3;
-
-    private const int SMALL_GRASS_COUNT = 5;
-
-    private const float SMALL_GRASS_SCALE = 0.5f;
-
-    private const float GRASS_SCALE = 0.65f;
-
-    private const int GRASS_COUNT = 8;
-
     protected PlasticinePartBodyClip plasticine;
 
     protected ContreJourGame game;

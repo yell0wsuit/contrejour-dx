@@ -44,10 +44,6 @@ public class BlackDrawUtil
         }
     }
 
-    private static void CreateTextureCoords(List<Vector2> textureCoords)
-    {
-    }
-
     public static void CreatePolygon(List<Vector2> polygon, Pair<Vector2> pair, Pair<Vector2> nextPair)
     {
         polygon[0] = pair.First;

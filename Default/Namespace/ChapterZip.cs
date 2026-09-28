@@ -7,8 +7,6 @@ namespace Default.Namespace;
 
 public class ChapterZip : ChapterItem
 {
-    private const float HIGHLITE_TIME = 1.5f;
-
     protected Tablo arrow;
 
     protected Sprite highlite;

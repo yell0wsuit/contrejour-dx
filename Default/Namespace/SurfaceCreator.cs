@@ -10,22 +10,6 @@ namespace Default.Namespace;
 
 public class SurfaceCreator
 {
-    private const float CIRCLE_RANDOM = 0.5f;
-
-    private const float CIRCLE_ANGLE = (float)Math.PI / 6f;
-
-    private const int CIRCLE_DISTANCE_MAX = 6;
-
-    private const int CIRCLE_DISTANCE_MIN = 3;
-
-    private const float BLACK_MULTIPLIER = 1f;
-
-    private const float GRASS_MAX_COUNT = 10f;
-
-    private const float GRASS_MIN_COUNT = 5f;
-
-    private const float GRASS_RANDOM = 0.2f;
-
     public static PlasticineItem CreateParentPointsMaxWidth(ContreJourLevelBuilder builder, PlasticineBodyClip parent, List<Vector2> points, float maxWidth, out PlasticineItem leftItem)
     {
         if (builder.ContreJour.BlackSide)

@@ -6,8 +6,6 @@ namespace Mokus2D.Visual.Primitives.Collections;
 
 public class Pow2Array<T>
 {
-    private const int DefaultCapacity = 128;
-
     private T[] _items;
 
     public int Length { get; private set; }

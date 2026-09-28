@@ -8,10 +8,6 @@ namespace Default.Namespace;
 
 public class MovableSpringBodyClip : DynamicSpringBodyClip
 {
-    private const float UNJOIN_IMPULSE = 10f;
-
-    private const float QUERY_RADIUS = 3.3333333f;
-
     protected DragableBodyClip mover;
 
     protected Vector2 offset;

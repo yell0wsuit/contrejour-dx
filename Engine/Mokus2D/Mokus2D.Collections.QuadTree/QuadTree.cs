@@ -132,15 +132,6 @@ public class QuadTree<T> where T : class, IQuadTreeObject<T>
         AddQuadObjectToNode(node, quadObject);
     }
 
-    private void ClearQuadObjectsFromNode(QuadTreeNode<T> node)
-    {
-        List<T> list = [.. node.Objects];
-        foreach (T item in list)
-        {
-            RemoveQuadObjectFromNode(item);
-        }
-    }
-
     private void RemoveQuadObjectFromNode(T quadObject)
     {
         QuadTreeNode<T> node = quadObject.Node;

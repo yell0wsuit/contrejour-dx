@@ -7,8 +7,6 @@ namespace FarseerPhysics.Common.TextureTools;
 
 public sealed class TextureConverter
 {
-    private const int ClosepixelsLength = 8;
-
     private static readonly int[,] _closePixels = new int[8, 2]
     {
         { -1, -1 },

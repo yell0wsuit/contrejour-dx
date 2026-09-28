@@ -7,8 +7,6 @@ namespace Mokus2D.Content;
 
 public class ResourcesLoader : ResourcesLoaderBase
 {
-    private const string FontExtension = "font";
-
     protected override string GetFileName<T>(string resourceName, string resourceSuffix)
     {
         string text = ((object)typeof(T) == typeof(FontData)) ? "font" : "xml";

@@ -4,8 +4,6 @@ namespace Default.Namespace;
 
 public class GroundFall : GravityParticleSystem
 {
-    private const float SCALE_STEP = 0.015f;
-
     protected bool black;
 
     public GroundFall(ContreJourGame game)

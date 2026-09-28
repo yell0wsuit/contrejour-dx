@@ -24,44 +24,6 @@ namespace Default.Namespace;
 
 public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusAcceptable, ISnotLinked, IEatable, ISpikesDestroyable, ILaunchable, IRadius, IBodyClip, ITeleportable, IRestartable
 {
-    private const int OUT_OF_SCREEN_COUNT = 50;
-
-    private const float MAX_LINKED_SPEED = 33.333332f;
-
-    private const float MAX_SPEED = 66.666664f;
-
-    private const float MIGHTY_SPEED = 33.333332f;
-
-    private const float SPEEDY_SPEED = 11.666667f;
-
-    private const float FOOT_DISTANCE = 1f;
-
-    private const float HIT_SOUND_PAUSE = 0.5f;
-
-    private const float TARGET_FINISH_COLOR = 50f;
-
-    private const float MAX_POSITION_STEP = 20f;
-
-    private const float SHADOW_OPACITY_STEP = 20f;
-
-    private const float SLEEP_TIMEOUT = 7f;
-
-    private const float BREATHE_SCALE_SPEED = 0.02f;
-
-    private const float MAX_BREATHE_SCALE = 0.04f;
-
-    private const float BREATHE_VELOCITY = 0.1f;
-
-    private const float HIT_SPEED = 4f;
-
-    private const float HERO_RADIUS = 5f / 6f;
-
-    private const float HERO_RADIUS_PIXELS = 25f;
-
-    private const int MaxHitSpeed = 5;
-
-    private const string DefaultShadow = "McHeroShadow";
-
     private static readonly Color BLACK_TAIL_COLOR = ColorUtil.CreateColor(52, 185, 242, 255);
 
     public readonly EventSender FinishEvent = new();
@@ -517,11 +479,6 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
     private void RemovePortal()
     {
         portal.TargetScale = 0f;
-    }
-
-    private static float SpeedMultiplier()
-    {
-        return 0.2f;
     }
 
     public override void Update(float time)

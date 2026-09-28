@@ -9,8 +9,6 @@ namespace Mokus2D.Visual;
 
 public class LayerColor : SpriteBatchNode, IDataReloadable
 {
-    private const float Offset = 10f;
-
     private readonly IQuad _quad;
 
     private ISpriteData _spriteData;

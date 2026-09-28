@@ -4,8 +4,6 @@ namespace Mokus2D.Util;
 
 public static class HardwareCapabilities
 {
-    private const long NormalMemorySize = 94371840L;
-
     private static bool isLowMemory;
 
     private static bool lowMemoryChecked;

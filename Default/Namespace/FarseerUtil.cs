@@ -32,10 +32,6 @@ public static class FarseerUtil
         public bool Top = top;
     }
 
-    private const float BORDER_STEP = 1f / 6f;
-
-    private const string TrueString = "true";
-
     private static readonly string IdString = "id";
 
     static FarseerUtil()

@@ -82,15 +82,6 @@ public class TweenToFrame : IntervalTweenBase
         _target = null;
     }
 
-    [Conditional("DEBUG")]
-    private void BreakIfUpdating()
-    {
-        if (_inUpdate)
-        {
-            Debugger.Break();
-        }
-    }
-
     protected override void UpdateRatio(float ratio)
     {
         _inUpdate = true;

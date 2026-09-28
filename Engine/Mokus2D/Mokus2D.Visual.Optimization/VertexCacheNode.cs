@@ -15,8 +15,6 @@ namespace Mokus2D.Visual.Optimization;
 
 public class VertexCacheNode<TVertex> : Node, IDrawer where TVertex : struct, IVertex
 {
-    private const int DefaultVerticesCount = 512;
-
     private static readonly VisualState OneState = new()
     {
         TransformationDirty = true
@@ -177,14 +175,5 @@ public class VertexCacheNode<TVertex> : Node, IDrawer where TVertex : struct, IV
     public void IncreaseNodesDrawnCount()
     {
         _drawnNodes++;
-    }
-
-    [Conditional("DEBUG")]
-    private static void CheckType(Type type)
-    {
-        if ((object)typeof(TVertex) != type)
-        {
-            throw new InvalidOperationException("Type of vertex doesn't match");
-        }
     }
 }

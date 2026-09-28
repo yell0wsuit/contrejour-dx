@@ -22,18 +22,6 @@ namespace Default.Namespace;
 
 public class SuckerBodyClip : ContreJourBodyClip, IClickable, IVectorPositionProvider, IRestartable
 {
-    private const float PIMPA_SPEED = 1000f;
-
-    private const float MIN_BOUNCE_DISTANCE = 1.1666666f;
-
-    private const float MAX_TOUCH_DISTANCE = 2f;
-
-    private const float MIN_CENTER_DISTANCE = 1.5f;
-
-    private const float MIN_DISTANCE = 2f / 3f;
-
-    private const float END_RADIUS = 0.1f;
-
     private static readonly Vector2 MIN_BORDER_OFFSET = new(30f);
 
     public readonly EventSender FinishDragEvent = new();

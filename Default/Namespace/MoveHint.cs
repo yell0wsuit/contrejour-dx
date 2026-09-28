@@ -4,8 +4,6 @@ namespace Default.Namespace;
 
 public class MoveHint : FadeHint
 {
-    private const float QUERY_RADIUS = 6.6666665f;
-
     private SnotPoint point;
 
     private bool used;

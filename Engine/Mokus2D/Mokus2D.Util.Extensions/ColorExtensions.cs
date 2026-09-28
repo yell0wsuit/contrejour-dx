@@ -7,8 +7,6 @@ namespace Mokus2D.Util.Extensions;
 
 public static class ColorExtensions
 {
-    private const float MaxChannelValueFloat = 255f;
-
     public static Color ToColor(this string hexString)
     {
         if (hexString.StartsWith('#'))

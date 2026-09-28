@@ -9,10 +9,6 @@ namespace Mokus2D.Integration.Farseer.Construction.Processors;
 
 public abstract class JointProcessor : PhysicsProcessor
 {
-    private const string BodyA = "bodyA";
-
-    private const string BodyB = "bodyB";
-
     protected JointProcessor(PhysicsConstructor constructor)
         : base(constructor)
     {

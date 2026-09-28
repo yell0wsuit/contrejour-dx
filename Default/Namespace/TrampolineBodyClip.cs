@@ -19,24 +19,6 @@ namespace Default.Namespace;
 
 public class TrampolineBodyClip : SnotBodyClipBase
 {
-    private const float POST_LAUNCH_TIME = 0.3f;
-
-    private const float DEFAULT_WIDTH = 6.533333f;
-
-    private const float TO_CENTER_FORCE = 3f;
-
-    private const float MAX_STEP = 1.6666666f;
-
-    private const float MAX_CENTER_DISTANCE = 5f;
-
-    private const float START_CENTER_DISTANCE = 1.621671f;
-
-    private const float BODY_LAUNCH_IMPULSE = 22f;
-
-    private const float MAX_LAUNCH_IMPULSE = 6f;
-
-    private const float DRAG_FORCE = 500f;
-
     public readonly EventSender DragEvent = new();
 
     public readonly EventSender HeroTouchEvent = new();
