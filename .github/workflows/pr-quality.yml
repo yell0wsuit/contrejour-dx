@@ -1,0 +1,45 @@
+name: PR Code Quality
+
+# Also runs on main so the caches the PR runs restore from exist there: a PR can read main's
+# caches but never save one that another PR could use.
+on:
+    push:
+        branches: [main]
+        paths: &quality-paths
+            - "**/*.cs"
+            - "**/*.csproj"
+            - "**/*.props"
+            - "**/*.targets"
+            - "**/*.slnx"
+            - ".editorconfig"
+            - "global.json"
+            - "nuget.config"
+            - ".github/workflows/pr-quality.yml"
+            - ".github/actions/**"
+    pull_request:
+        branches: [main]
+        paths: *quality-paths
+
+permissions:
+    contents: read
+
+jobs:
+    code-quality:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v7
+
+            - uses: ./.github/actions/setup-dotnet
+
+            - name: Restore dependencies
+              run: dotnet restore ContreJour.slnx
+
+            - name: Check formatting
+              run: dotnet format ContreJour.slnx --verify-no-changes --verbosity diagnostic
+
+            # The level regression harness (tools/Regression) needs a window and a GPU, so it
+            # runs locally rather than here.
+            - name: Build
+              run: dotnet build ContreJour.slnx --no-restore -c Release
