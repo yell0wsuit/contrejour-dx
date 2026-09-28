@@ -1,0 +1,31 @@
+using Microsoft.Xna.Framework;
+
+namespace Mokus2D.Visual;
+
+public class AnimatedMaskedSprite : MaskedSprite
+{
+	public AnimatedMaskedSprite(AnchorNode mask)
+		: base(mask)
+	{
+	}
+
+	public AnimatedMaskedSprite(SpriteBatchNode mask, Vector2 size)
+		: base(mask, size)
+	{
+	}
+
+	public AnimatedMaskedSprite(Vector2 size)
+		: base(size)
+	{
+	}
+
+	public override void Update(float time)
+	{
+		maskRoot.UpdateNode(time);
+		if (RenderRoot != null)
+		{
+			RenderRoot.UpdateNode(time);
+		}
+		RedrawTexture();
+	}
+}
