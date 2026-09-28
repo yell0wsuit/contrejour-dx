@@ -15,7 +15,7 @@ public class McChapter6Name : Sprite, IFreeable, IId
 
     public static McChapter6Name New()
     {
-        McChapter6Name mcChapter6Name = StaticPool<McChapter6Name>.New();
+        McChapter6Name mcChapter6Name = StaticPool.New<McChapter6Name>();
         mcChapter6Name.RefreshProperties();
         return mcChapter6Name;
     }
@@ -27,6 +27,6 @@ public class McChapter6Name : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McChapter6Name>.Free(this);
+        StaticPool.Free<McChapter6Name>(this);
     }
 }

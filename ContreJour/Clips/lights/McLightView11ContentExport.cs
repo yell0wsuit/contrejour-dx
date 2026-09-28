@@ -15,7 +15,7 @@ public class McLightView11ContentExport : Sprite, IFreeable, IId
 
     public static McLightView11ContentExport New()
     {
-        McLightView11ContentExport mcLightView11ContentExport = StaticPool<McLightView11ContentExport>.New();
+        McLightView11ContentExport mcLightView11ContentExport = StaticPool.New<McLightView11ContentExport>();
         mcLightView11ContentExport.RefreshProperties();
         return mcLightView11ContentExport;
     }
@@ -27,6 +27,6 @@ public class McLightView11ContentExport : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McLightView11ContentExport>.Free(this);
+        StaticPool.Free<McLightView11ContentExport>(this);
     }
 }

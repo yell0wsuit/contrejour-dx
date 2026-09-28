@@ -15,7 +15,7 @@ public class McLevelEnergyInactive : Sprite, IFreeable, IId
 
     public static McLevelEnergyInactive New()
     {
-        McLevelEnergyInactive mcLevelEnergyInactive = StaticPool<McLevelEnergyInactive>.New();
+        McLevelEnergyInactive mcLevelEnergyInactive = StaticPool.New<McLevelEnergyInactive>();
         mcLevelEnergyInactive.RefreshProperties();
         return mcLevelEnergyInactive;
     }
@@ -27,6 +27,6 @@ public class McLevelEnergyInactive : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McLevelEnergyInactive>.Free(this);
+        StaticPool.Free<McLevelEnergyInactive>(this);
     }
 }

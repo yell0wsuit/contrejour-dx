@@ -15,7 +15,7 @@ public class McRicochetView : Sprite, IFreeable, IId
 
     public static McRicochetView New()
     {
-        McRicochetView mcRicochetView = StaticPool<McRicochetView>.New();
+        McRicochetView mcRicochetView = StaticPool.New<McRicochetView>();
         mcRicochetView.RefreshProperties();
         return mcRicochetView;
     }
@@ -27,6 +27,6 @@ public class McRicochetView : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McRicochetView>.Free(this);
+        StaticPool.Free<McRicochetView>(this);
     }
 }

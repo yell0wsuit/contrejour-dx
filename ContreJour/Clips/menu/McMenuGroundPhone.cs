@@ -15,7 +15,7 @@ public class McMenuGroundPhone : Sprite, IFreeable, IId
 
     public static McMenuGroundPhone New()
     {
-        McMenuGroundPhone mcMenuGroundPhone = StaticPool<McMenuGroundPhone>.New();
+        McMenuGroundPhone mcMenuGroundPhone = StaticPool.New<McMenuGroundPhone>();
         mcMenuGroundPhone.RefreshProperties();
         return mcMenuGroundPhone;
     }
@@ -27,6 +27,6 @@ public class McMenuGroundPhone : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McMenuGroundPhone>.Free(this);
+        StaticPool.Free<McMenuGroundPhone>(this);
     }
 }

@@ -15,7 +15,7 @@ public class McChapterLight : Sprite, IFreeable, IId
 
     public static McChapterLight New()
     {
-        McChapterLight mcChapterLight = StaticPool<McChapterLight>.New();
+        McChapterLight mcChapterLight = StaticPool.New<McChapterLight>();
         mcChapterLight.RefreshProperties();
         return mcChapterLight;
     }
@@ -27,6 +27,6 @@ public class McChapterLight : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McChapterLight>.Free(this);
+        StaticPool.Free<McChapterLight>(this);
     }
 }

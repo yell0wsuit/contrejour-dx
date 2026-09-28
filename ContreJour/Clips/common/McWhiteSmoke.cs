@@ -15,7 +15,7 @@ public class McWhiteSmoke : Sprite, IFreeable, IId
 
     public static McWhiteSmoke New()
     {
-        McWhiteSmoke mcWhiteSmoke = StaticPool<McWhiteSmoke>.New();
+        McWhiteSmoke mcWhiteSmoke = StaticPool.New<McWhiteSmoke>();
         mcWhiteSmoke.RefreshProperties();
         return mcWhiteSmoke;
     }
@@ -27,6 +27,6 @@ public class McWhiteSmoke : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McWhiteSmoke>.Free(this);
+        StaticPool.Free<McWhiteSmoke>(this);
     }
 }

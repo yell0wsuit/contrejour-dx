@@ -15,7 +15,7 @@ public class McSatellite : Sprite, IFreeable, IId
 
     public static McSatellite New()
     {
-        McSatellite mcSatellite = StaticPool<McSatellite>.New();
+        McSatellite mcSatellite = StaticPool.New<McSatellite>();
         mcSatellite.RefreshProperties();
         return mcSatellite;
     }
@@ -27,6 +27,6 @@ public class McSatellite : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McSatellite>.Free(this);
+        StaticPool.Free<McSatellite>(this);
     }
 }

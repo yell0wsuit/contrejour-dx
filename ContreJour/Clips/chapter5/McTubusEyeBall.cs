@@ -15,7 +15,7 @@ public class McTubusEyeBall : Sprite, IFreeable, IId
 
     public static McTubusEyeBall New()
     {
-        McTubusEyeBall mcTubusEyeBall = StaticPool<McTubusEyeBall>.New();
+        McTubusEyeBall mcTubusEyeBall = StaticPool.New<McTubusEyeBall>();
         mcTubusEyeBall.RefreshProperties();
         return mcTubusEyeBall;
     }
@@ -27,6 +27,6 @@ public class McTubusEyeBall : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McTubusEyeBall>.Free(this);
+        StaticPool.Free<McTubusEyeBall>(this);
     }
 }

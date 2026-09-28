@@ -15,7 +15,7 @@ public class McArrowView : Sprite, IFreeable, IId
 
     public static McArrowView New()
     {
-        McArrowView mcArrowView = StaticPool<McArrowView>.New();
+        McArrowView mcArrowView = StaticPool.New<McArrowView>();
         mcArrowView.RefreshProperties();
         return mcArrowView;
     }
@@ -27,6 +27,6 @@ public class McArrowView : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McArrowView>.Free(this);
+        StaticPool.Free<McArrowView>(this);
     }
 }

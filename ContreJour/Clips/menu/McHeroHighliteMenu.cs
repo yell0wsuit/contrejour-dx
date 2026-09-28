@@ -15,7 +15,7 @@ public class McHeroHighliteMenu : Sprite, IFreeable, IId
 
     public static McHeroHighliteMenu New()
     {
-        McHeroHighliteMenu mcHeroHighliteMenu = StaticPool<McHeroHighliteMenu>.New();
+        McHeroHighliteMenu mcHeroHighliteMenu = StaticPool.New<McHeroHighliteMenu>();
         mcHeroHighliteMenu.RefreshProperties();
         return mcHeroHighliteMenu;
     }
@@ -27,6 +27,6 @@ public class McHeroHighliteMenu : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McHeroHighliteMenu>.Free(this);
+        StaticPool.Free<McHeroHighliteMenu>(this);
     }
 }

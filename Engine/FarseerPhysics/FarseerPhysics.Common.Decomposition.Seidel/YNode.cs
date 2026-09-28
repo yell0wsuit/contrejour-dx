@@ -12,10 +12,8 @@ internal class YNode : Node
 
     public override Sink Locate(Edge edge)
     {
-        if (_edge.IsAbove(edge.P))
-        {
-            return RightChild.Locate(edge);
-        }
-        return _edge.IsBelow(edge.P) ? LeftChild.Locate(edge) : edge.Slope < _edge.Slope ? RightChild.Locate(edge) : LeftChild.Locate(edge);
+        return _edge.IsAbove(edge.P)
+            ? RightChild.Locate(edge)
+            : _edge.IsBelow(edge.P) ? LeftChild.Locate(edge) : edge.Slope < _edge.Slope ? RightChild.Locate(edge) : LeftChild.Locate(edge);
     }
 }

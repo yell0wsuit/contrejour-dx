@@ -15,7 +15,7 @@ public class McBackground3_4Foreground : Sprite, IFreeable, IId
 
     public static McBackground3_4Foreground New()
     {
-        McBackground3_4Foreground mcBackground3_4Foreground = StaticPool<McBackground3_4Foreground>.New();
+        McBackground3_4Foreground mcBackground3_4Foreground = StaticPool.New<McBackground3_4Foreground>();
         mcBackground3_4Foreground.RefreshProperties();
         return mcBackground3_4Foreground;
     }
@@ -27,6 +27,6 @@ public class McBackground3_4Foreground : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McBackground3_4Foreground>.Free(this);
+        StaticPool.Free<McBackground3_4Foreground>(this);
     }
 }

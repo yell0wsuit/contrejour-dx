@@ -15,7 +15,7 @@ public class McRoseButton : Sprite, IFreeable, IId
 
     public static McRoseButton New()
     {
-        McRoseButton mcRoseButton = StaticPool<McRoseButton>.New();
+        McRoseButton mcRoseButton = StaticPool.New<McRoseButton>();
         mcRoseButton.RefreshProperties();
         return mcRoseButton;
     }
@@ -27,6 +27,6 @@ public class McRoseButton : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McRoseButton>.Free(this);
+        StaticPool.Free<McRoseButton>(this);
     }
 }

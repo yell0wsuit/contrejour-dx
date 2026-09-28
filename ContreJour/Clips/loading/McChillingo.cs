@@ -15,7 +15,7 @@ public class McChillingo : Sprite, IFreeable, IId
 
     public static McChillingo New()
     {
-        McChillingo mcChillingo = StaticPool<McChillingo>.New();
+        McChillingo mcChillingo = StaticPool.New<McChillingo>();
         mcChillingo.RefreshProperties();
         return mcChillingo;
     }
@@ -27,6 +27,6 @@ public class McChillingo : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McChillingo>.Free(this);
+        StaticPool.Free<McChillingo>(this);
     }
 }

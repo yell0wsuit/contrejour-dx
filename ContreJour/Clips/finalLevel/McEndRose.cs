@@ -15,7 +15,7 @@ public class McEndRose : MovieClip, IFreeable, IId
 
     public static McEndRose New()
     {
-        McEndRose mcEndRose = StaticPool<McEndRose>.New();
+        McEndRose mcEndRose = StaticPool.New<McEndRose>();
         mcEndRose.RefreshProperties();
         return mcEndRose;
     }
@@ -27,6 +27,6 @@ public class McEndRose : MovieClip, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McEndRose>.Free(this);
+        StaticPool.Free<McEndRose>(this);
     }
 }

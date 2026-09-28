@@ -15,7 +15,7 @@ public class McRoseHeadBase : Sprite, IFreeable, IId
 
     public static McRoseHeadBase New()
     {
-        McRoseHeadBase mcRoseHeadBase = StaticPool<McRoseHeadBase>.New();
+        McRoseHeadBase mcRoseHeadBase = StaticPool.New<McRoseHeadBase>();
         mcRoseHeadBase.RefreshProperties();
         return mcRoseHeadBase;
     }
@@ -27,6 +27,6 @@ public class McRoseHeadBase : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McRoseHeadBase>.Free(this);
+        StaticPool.Free<McRoseHeadBase>(this);
     }
 }

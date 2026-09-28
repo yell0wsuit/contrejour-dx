@@ -11,9 +11,9 @@ public class SpriteClicksListener : ITouchListener
 {
     private readonly Pool<List<IClickableNode>> _listPool = new(() => []);
 
-    private readonly SortedDictionary<int, ForEachList<IClickableNode>> _sprites = [];
+    private readonly SortedDictionary<int, ForEachCollection<IClickableNode>> _sprites = [];
 
-    private readonly List<ForEachList<IClickableNode>> _spritesByPriority = [];
+    private readonly List<ForEachCollection<IClickableNode>> _spritesByPriority = [];
 
     private readonly List<IClickableNode> _toRemove = [];
 
@@ -28,11 +28,11 @@ public class SpriteClicksListener : ITouchListener
     {
         List<IClickableNode> list = _listPool.New();
         list.Clear();
-        foreach (ForEachList<IClickableNode> value in _sprites.Values)
+        foreach (ForEachCollection<IClickableNode> value in _sprites.Values)
         {
             _spritesByPriority.Add(value);
         }
-        foreach (ForEachList<IClickableNode> item in _spritesByPriority)
+        foreach (ForEachCollection<IClickableNode> item in _spritesByPriority)
         {
             using (item.Using())
             {
@@ -99,19 +99,19 @@ public class SpriteClicksListener : ITouchListener
 
     public void Add(IClickableNode sprite)
     {
-        ForEachList<IClickableNode> orCreatePriorityList = GetOrCreatePriorityList(sprite);
+        ForEachCollection<IClickableNode> orCreatePriorityList = GetOrCreatePriorityList(sprite);
         orCreatePriorityList.Add(sprite);
     }
 
     public void Remove(IClickableNode sprite)
     {
-        ForEachList<IClickableNode> orCreatePriorityList = GetOrCreatePriorityList(sprite);
+        ForEachCollection<IClickableNode> orCreatePriorityList = GetOrCreatePriorityList(sprite);
         _ = orCreatePriorityList.Remove(sprite);
     }
 
-    private ForEachList<IClickableNode> GetOrCreatePriorityList(IClickableNode sprite)
+    private ForEachCollection<IClickableNode> GetOrCreatePriorityList(IClickableNode sprite)
     {
-        ForEachList<IClickableNode> forEachList = _sprites.TryGetValue(sprite.ClickablePriority);
+        ForEachCollection<IClickableNode> forEachList = _sprites.TryGetValue(sprite.ClickablePriority);
         if (forEachList == null)
         {
             forEachList = [];

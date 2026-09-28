@@ -15,7 +15,7 @@ public class McChillingoPetitCircle : Sprite, IFreeable, IId
 
     public static McChillingoPetitCircle New()
     {
-        McChillingoPetitCircle mcChillingoPetitCircle = StaticPool<McChillingoPetitCircle>.New();
+        McChillingoPetitCircle mcChillingoPetitCircle = StaticPool.New<McChillingoPetitCircle>();
         mcChillingoPetitCircle.RefreshProperties();
         return mcChillingoPetitCircle;
     }
@@ -27,6 +27,6 @@ public class McChillingoPetitCircle : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McChillingoPetitCircle>.Free(this);
+        StaticPool.Free<McChillingoPetitCircle>(this);
     }
 }

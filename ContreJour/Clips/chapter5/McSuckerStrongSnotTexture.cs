@@ -15,7 +15,7 @@ public class McSuckerStrongSnotTexture : Sprite, IFreeable, IId
 
     public static McSuckerStrongSnotTexture New()
     {
-        McSuckerStrongSnotTexture mcSuckerStrongSnotTexture = StaticPool<McSuckerStrongSnotTexture>.New();
+        McSuckerStrongSnotTexture mcSuckerStrongSnotTexture = StaticPool.New<McSuckerStrongSnotTexture>();
         mcSuckerStrongSnotTexture.RefreshProperties();
         return mcSuckerStrongSnotTexture;
     }
@@ -27,6 +27,6 @@ public class McSuckerStrongSnotTexture : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McSuckerStrongSnotTexture>.Free(this);
+        StaticPool.Free<McSuckerStrongSnotTexture>(this);
     }
 }

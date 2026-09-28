@@ -15,7 +15,7 @@ public class McPlanetLocked : Sprite, IFreeable, IId
 
     public static McPlanetLocked New()
     {
-        McPlanetLocked mcPlanetLocked = StaticPool<McPlanetLocked>.New();
+        McPlanetLocked mcPlanetLocked = StaticPool.New<McPlanetLocked>();
         mcPlanetLocked.RefreshProperties();
         return mcPlanetLocked;
     }
@@ -27,6 +27,6 @@ public class McPlanetLocked : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McPlanetLocked>.Free(this);
+        StaticPool.Free<McPlanetLocked>(this);
     }
 }

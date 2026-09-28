@@ -15,7 +15,7 @@ public class McTotalGrass : MovieClip, IFreeable, IId
 
     public static McTotalGrass New()
     {
-        McTotalGrass mcTotalGrass = StaticPool<McTotalGrass>.New();
+        McTotalGrass mcTotalGrass = StaticPool.New<McTotalGrass>();
         mcTotalGrass.RefreshProperties();
         return mcTotalGrass;
     }
@@ -27,6 +27,6 @@ public class McTotalGrass : MovieClip, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McTotalGrass>.Free(this);
+        StaticPool.Free<McTotalGrass>(this);
     }
 }

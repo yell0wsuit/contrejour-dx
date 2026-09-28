@@ -15,7 +15,7 @@ public class McButtonBackgroundLight : Sprite, IFreeable, IId
 
     public static McButtonBackgroundLight New()
     {
-        McButtonBackgroundLight mcButtonBackgroundLight = StaticPool<McButtonBackgroundLight>.New();
+        McButtonBackgroundLight mcButtonBackgroundLight = StaticPool.New<McButtonBackgroundLight>();
         mcButtonBackgroundLight.RefreshProperties();
         return mcButtonBackgroundLight;
     }
@@ -27,6 +27,6 @@ public class McButtonBackgroundLight : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McButtonBackgroundLight>.Free(this);
+        StaticPool.Free<McButtonBackgroundLight>(this);
     }
 }

@@ -21,7 +21,7 @@ public class McPlanetStickGraphics : AnimationNode, IFreeable, IId
 
     public static McPlanetStickGraphics New()
     {
-        McPlanetStickGraphics mcPlanetStickGraphics = StaticPool<McPlanetStickGraphics>.New();
+        McPlanetStickGraphics mcPlanetStickGraphics = StaticPool.New<McPlanetStickGraphics>();
         mcPlanetStickGraphics.RefreshProperties();
         return mcPlanetStickGraphics;
     }
@@ -40,6 +40,6 @@ public class McPlanetStickGraphics : AnimationNode, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McPlanetStickGraphics>.Free(this);
+        StaticPool.Free<McPlanetStickGraphics>(this);
     }
 }

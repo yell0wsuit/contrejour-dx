@@ -15,7 +15,7 @@ public class resizeIcon : Sprite, IFreeable, IId
 
     public static resizeIcon New()
     {
-        resizeIcon resizeIcon2 = StaticPool<resizeIcon>.New();
+        resizeIcon resizeIcon2 = StaticPool.New<resizeIcon>();
         resizeIcon2.RefreshProperties();
         return resizeIcon2;
     }
@@ -27,6 +27,6 @@ public class resizeIcon : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<resizeIcon>.Free(this);
+        StaticPool.Free<resizeIcon>(this);
     }
 }

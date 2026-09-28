@@ -15,7 +15,7 @@ public class McSnowParticle : Sprite, IFreeable, IId
 
     public static McSnowParticle New()
     {
-        McSnowParticle mcSnowParticle = StaticPool<McSnowParticle>.New();
+        McSnowParticle mcSnowParticle = StaticPool.New<McSnowParticle>();
         mcSnowParticle.RefreshProperties();
         return mcSnowParticle;
     }
@@ -27,6 +27,6 @@ public class McSnowParticle : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McSnowParticle>.Free(this);
+        StaticPool.Free<McSnowParticle>(this);
     }
 }

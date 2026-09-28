@@ -15,7 +15,7 @@ public class McHeroBlackView : Sprite, IFreeable, IId
 
     public static McHeroBlackView New()
     {
-        McHeroBlackView mcHeroBlackView = StaticPool<McHeroBlackView>.New();
+        McHeroBlackView mcHeroBlackView = StaticPool.New<McHeroBlackView>();
         mcHeroBlackView.RefreshProperties();
         return mcHeroBlackView;
     }
@@ -27,6 +27,6 @@ public class McHeroBlackView : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McHeroBlackView>.Free(this);
+        StaticPool.Free<McHeroBlackView>(this);
     }
 }

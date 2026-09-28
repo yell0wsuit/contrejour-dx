@@ -15,7 +15,7 @@ public class McFlyWing : Sprite, IFreeable, IId
 
     public static McFlyWing New()
     {
-        McFlyWing mcFlyWing = StaticPool<McFlyWing>.New();
+        McFlyWing mcFlyWing = StaticPool.New<McFlyWing>();
         mcFlyWing.RefreshProperties();
         return mcFlyWing;
     }
@@ -27,6 +27,6 @@ public class McFlyWing : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McFlyWing>.Free(this);
+        StaticPool.Free<McFlyWing>(this);
     }
 }

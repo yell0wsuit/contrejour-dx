@@ -15,7 +15,7 @@ public class McGetMoreLevelsText : Sprite, IFreeable, IId
 
     public static McGetMoreLevelsText New()
     {
-        McGetMoreLevelsText mcGetMoreLevelsText = StaticPool<McGetMoreLevelsText>.New();
+        McGetMoreLevelsText mcGetMoreLevelsText = StaticPool.New<McGetMoreLevelsText>();
         mcGetMoreLevelsText.RefreshProperties();
         return mcGetMoreLevelsText;
     }
@@ -27,6 +27,6 @@ public class McGetMoreLevelsText : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McGetMoreLevelsText>.Free(this);
+        StaticPool.Free<McGetMoreLevelsText>(this);
     }
 }

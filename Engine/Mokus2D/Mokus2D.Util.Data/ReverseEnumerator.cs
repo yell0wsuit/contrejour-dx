@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Mokus2D.Util.Data;
 
-public class ReverseEnumerator<T> : IEnumerator<T>, IEnumerator, IDisposable
+public sealed class ReverseEnumerator<T> : IEnumerator<T>, IEnumerator, IDisposable
 {
     private IList<T> source;
 

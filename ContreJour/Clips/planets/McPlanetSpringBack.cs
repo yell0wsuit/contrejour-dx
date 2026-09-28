@@ -15,7 +15,7 @@ public class McPlanetSpringBack : Sprite, IFreeable, IId
 
     public static McPlanetSpringBack New()
     {
-        McPlanetSpringBack mcPlanetSpringBack = StaticPool<McPlanetSpringBack>.New();
+        McPlanetSpringBack mcPlanetSpringBack = StaticPool.New<McPlanetSpringBack>();
         mcPlanetSpringBack.RefreshProperties();
         return mcPlanetSpringBack;
     }
@@ -27,6 +27,6 @@ public class McPlanetSpringBack : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McPlanetSpringBack>.Free(this);
+        StaticPool.Free<McPlanetSpringBack>(this);
     }
 }

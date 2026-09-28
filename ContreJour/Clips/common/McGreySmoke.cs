@@ -15,7 +15,7 @@ public class McGreySmoke : Sprite, IFreeable, IId
 
     public static McGreySmoke New()
     {
-        McGreySmoke mcGreySmoke = StaticPool<McGreySmoke>.New();
+        McGreySmoke mcGreySmoke = StaticPool.New<McGreySmoke>();
         mcGreySmoke.RefreshProperties();
         return mcGreySmoke;
     }
@@ -27,6 +27,6 @@ public class McGreySmoke : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McGreySmoke>.Free(this);
+        StaticPool.Free<McGreySmoke>(this);
     }
 }

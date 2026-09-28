@@ -15,7 +15,7 @@ public class McSoundIcon : Sprite, IFreeable, IId
 
     public static McSoundIcon New()
     {
-        McSoundIcon mcSoundIcon = StaticPool<McSoundIcon>.New();
+        McSoundIcon mcSoundIcon = StaticPool.New<McSoundIcon>();
         mcSoundIcon.RefreshProperties();
         return mcSoundIcon;
     }
@@ -27,6 +27,6 @@ public class McSoundIcon : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McSoundIcon>.Free(this);
+        StaticPool.Free<McSoundIcon>(this);
     }
 }

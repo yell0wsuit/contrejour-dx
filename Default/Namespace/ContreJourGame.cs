@@ -481,6 +481,7 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
         Mokus2DGame.Instance.KeysController.RemoveBackKeyListener(OnBackPress);
         pausePanel.Dispose();
         finishView.Dispose();
+        base.Dispose(disposed);
     }
 
     public bool TouchBegin(Touch touch)
@@ -503,9 +504,9 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
         {
             UpdateFreeTouch(touch);
         }
-        if (draggingItems.ContainsKey(touch))
+        if (draggingItems.TryGetValue(touch, out IClickable dragged))
         {
-            _ = draggingItems[touch].TouchMove(touch);
+            _ = dragged.TouchMove(touch);
         }
         return true;
     }
@@ -517,10 +518,8 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
             _ = freeTouches.Remove(touch);
         }
         _ = freeDisabledTouches.Remove(touch);
-        if (draggingItems.ContainsKey(touch))
+        if (draggingItems.Remove(touch, out IClickable clickable))
         {
-            IClickable clickable = draggingItems[touch];
-            _ = draggingItems.Remove(touch);
             clickable.TouchEnd(touch);
         }
         foreach (PositionProviderValue positionProvider in positionProviders.Cast<PositionProviderValue>())
@@ -563,15 +562,9 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
 
     public T Choose<T>(T normal = null, T blue = null, T white = null, T last = null, T green = null) where T : class
     {
-        if (BonusChapter)
-        {
-            return green ?? normal;
-        }
-        if (RoseChapter)
-        {
-            return last ?? normal;
-        }
-        return WhiteSide ? white ?? normal : BlackSide ? blue ?? normal : normal;
+        return BonusChapter
+            ? green ?? normal
+            : RoseChapter ? last ?? normal : WhiteSide ? white ?? normal : BlackSide ? blue ?? normal : normal;
     }
 
     public T ChooseSide<T>(T black, T white, T last, T normal, T green)

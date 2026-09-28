@@ -159,7 +159,7 @@ public class BlackTail : PrimitivesNode, IUpdatable
                         bezierPoints.Resize(1);
                     }
                     bezierPoints[0] = currentPosition;
-                    bezierPoints.InsertRange(1, new ReverseDecorator<Vector2>(list));
+                    bezierPoints.InsertRange(1, new ReverseCollection<Vector2>(list));
                 }
             }
             else

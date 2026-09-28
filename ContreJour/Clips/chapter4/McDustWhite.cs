@@ -15,7 +15,7 @@ public class McDustWhite : Sprite, IFreeable, IId
 
     public static McDustWhite New()
     {
-        McDustWhite mcDustWhite = StaticPool<McDustWhite>.New();
+        McDustWhite mcDustWhite = StaticPool.New<McDustWhite>();
         mcDustWhite.RefreshProperties();
         return mcDustWhite;
     }
@@ -27,6 +27,6 @@ public class McDustWhite : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McDustWhite>.Free(this);
+        StaticPool.Free<McDustWhite>(this);
     }
 }

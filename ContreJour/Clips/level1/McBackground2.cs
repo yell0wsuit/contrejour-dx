@@ -27,7 +27,7 @@ public class McBackground2 : AnimationNode, IFreeable, IId
 
     public static McBackground2 New()
     {
-        McBackground2 mcBackground = StaticPool<McBackground2>.New();
+        McBackground2 mcBackground = StaticPool.New<McBackground2>();
         mcBackground.RefreshProperties();
         return mcBackground;
     }
@@ -52,6 +52,6 @@ public class McBackground2 : AnimationNode, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McBackground2>.Free(this);
+        StaticPool.Free<McBackground2>(this);
     }
 }

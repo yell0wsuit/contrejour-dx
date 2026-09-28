@@ -15,7 +15,7 @@ public class McFinishPart : Sprite, IFreeable, IId
 
     public static McFinishPart New()
     {
-        McFinishPart mcFinishPart = StaticPool<McFinishPart>.New();
+        McFinishPart mcFinishPart = StaticPool.New<McFinishPart>();
         mcFinishPart.RefreshProperties();
         return mcFinishPart;
     }
@@ -27,6 +27,6 @@ public class McFinishPart : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McFinishPart>.Free(this);
+        StaticPool.Free<McFinishPart>(this);
     }
 }

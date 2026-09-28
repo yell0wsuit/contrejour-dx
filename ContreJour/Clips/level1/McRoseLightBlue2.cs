@@ -15,7 +15,7 @@ public class McRoseLightBlue2 : Sprite, IFreeable, IId
 
     public static McRoseLightBlue2 New()
     {
-        McRoseLightBlue2 mcRoseLightBlue = StaticPool<McRoseLightBlue2>.New();
+        McRoseLightBlue2 mcRoseLightBlue = StaticPool.New<McRoseLightBlue2>();
         mcRoseLightBlue.RefreshProperties();
         return mcRoseLightBlue;
     }
@@ -27,6 +27,6 @@ public class McRoseLightBlue2 : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McRoseLightBlue2>.Free(this);
+        StaticPool.Free<McRoseLightBlue2>(this);
     }
 }

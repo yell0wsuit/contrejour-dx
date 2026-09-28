@@ -15,7 +15,7 @@ public class McSlingshotHintView : Sprite, IFreeable, IId
 
     public static McSlingshotHintView New()
     {
-        McSlingshotHintView mcSlingshotHintView = StaticPool<McSlingshotHintView>.New();
+        McSlingshotHintView mcSlingshotHintView = StaticPool.New<McSlingshotHintView>();
         mcSlingshotHintView.RefreshProperties();
         return mcSlingshotHintView;
     }
@@ -27,6 +27,6 @@ public class McSlingshotHintView : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McSlingshotHintView>.Free(this);
+        StaticPool.Free<McSlingshotHintView>(this);
     }
 }

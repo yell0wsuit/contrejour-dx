@@ -15,7 +15,7 @@ public class McSpringBridgeHintView : Sprite, IFreeable, IId
 
     public static McSpringBridgeHintView New()
     {
-        McSpringBridgeHintView mcSpringBridgeHintView = StaticPool<McSpringBridgeHintView>.New();
+        McSpringBridgeHintView mcSpringBridgeHintView = StaticPool.New<McSpringBridgeHintView>();
         mcSpringBridgeHintView.RefreshProperties();
         return mcSpringBridgeHintView;
     }
@@ -27,6 +27,6 @@ public class McSpringBridgeHintView : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McSpringBridgeHintView>.Free(this);
+        StaticPool.Free<McSpringBridgeHintView>(this);
     }
 }

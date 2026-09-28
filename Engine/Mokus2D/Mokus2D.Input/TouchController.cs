@@ -26,7 +26,7 @@ public class TouchController : IUpdatable
 
     private readonly List<Touch> newTouches = new(16);
 
-    private readonly SortedList<int> prioritiesList = new(64, Comparisons.IntReverseComparizon);
+    private readonly SortedCollection<int> prioritiesList = new(64, Comparisons.IntReverseComparizon);
 
     private readonly List<Touch> toBegin = new(16);
 
@@ -126,12 +126,13 @@ public class TouchController : IUpdatable
 
     private List<ITouchListener> GetListeners(int priority)
     {
-        if (!listeners.ContainsKey(priority))
+        if (!listeners.TryGetValue(priority, out List<ITouchListener> priorityListeners))
         {
-            listeners[priority] = [];
+            priorityListeners = [];
+            listeners[priority] = priorityListeners;
             prioritiesList.Add(priority);
         }
-        return listeners[priority];
+        return priorityListeners;
     }
 
     private void SendEndAndRemove(List<Touch> toEnd)

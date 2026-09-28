@@ -11,9 +11,9 @@ public abstract class GridMagnetBase : IGridMagnet, IUpdatable
 {
     public float Power = 1f;
 
-    public float? MaxPower = null;
+    public float? MaxPower;
 
-    public float? MinPower = null;
+    public float? MinPower;
 
     public MagnetAction Action;
 

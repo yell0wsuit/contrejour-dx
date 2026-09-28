@@ -15,7 +15,7 @@ public class McPlanetRoseLight : Sprite, IFreeable, IId
 
     public static McPlanetRoseLight New()
     {
-        McPlanetRoseLight mcPlanetRoseLight = StaticPool<McPlanetRoseLight>.New();
+        McPlanetRoseLight mcPlanetRoseLight = StaticPool.New<McPlanetRoseLight>();
         mcPlanetRoseLight.RefreshProperties();
         return mcPlanetRoseLight;
     }
@@ -27,6 +27,6 @@ public class McPlanetRoseLight : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McPlanetRoseLight>.Free(this);
+        StaticPool.Free<McPlanetRoseLight>(this);
     }
 }

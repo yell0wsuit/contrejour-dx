@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Mokus2D.Util.Data;
 
-public readonly struct ReverseListEnumerable<T>(IList<T> list) : IEnumerable<T>, IEnumerable
+public readonly struct ReverseListCollection<T>(IList<T> list) : IEnumerable<T>, IEnumerable
 {
     private readonly IList<T> _list = list;
 

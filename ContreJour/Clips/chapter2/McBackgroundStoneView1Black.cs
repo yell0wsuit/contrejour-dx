@@ -15,7 +15,7 @@ public class McBackgroundStoneView1Black : Sprite, IFreeable, IId
 
     public static McBackgroundStoneView1Black New()
     {
-        McBackgroundStoneView1Black mcBackgroundStoneView1Black = StaticPool<McBackgroundStoneView1Black>.New();
+        McBackgroundStoneView1Black mcBackgroundStoneView1Black = StaticPool.New<McBackgroundStoneView1Black>();
         mcBackgroundStoneView1Black.RefreshProperties();
         return mcBackgroundStoneView1Black;
     }
@@ -27,6 +27,6 @@ public class McBackgroundStoneView1Black : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McBackgroundStoneView1Black>.Free(this);
+        StaticPool.Free<McBackgroundStoneView1Black>(this);
     }
 }

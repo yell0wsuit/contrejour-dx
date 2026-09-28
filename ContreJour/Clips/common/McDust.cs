@@ -15,7 +15,7 @@ public class McDust : Sprite, IFreeable, IId
 
     public static McDust New()
     {
-        McDust mcDust = StaticPool<McDust>.New();
+        McDust mcDust = StaticPool.New<McDust>();
         mcDust.RefreshProperties();
         return mcDust;
     }
@@ -27,6 +27,6 @@ public class McDust : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McDust>.Free(this);
+        StaticPool.Free<McDust>(this);
     }
 }

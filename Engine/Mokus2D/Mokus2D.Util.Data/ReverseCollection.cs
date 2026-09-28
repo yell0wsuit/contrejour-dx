@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace Mokus2D.Util.Data;
 
-public class ReverseDecorator<T> : IEnumerable<T>, IEnumerable
+public class ReverseCollection<T> : IEnumerable<T>, IEnumerable
 {
     private IList<T> source;
 
-    public ReverseDecorator(IList<T> source)
+    public ReverseCollection(IList<T> source)
     {
         this.source = source;
     }

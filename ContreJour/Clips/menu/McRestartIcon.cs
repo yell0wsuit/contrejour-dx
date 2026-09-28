@@ -15,7 +15,7 @@ public class McRestartIcon : Sprite, IFreeable, IId
 
     public static McRestartIcon New()
     {
-        McRestartIcon mcRestartIcon = StaticPool<McRestartIcon>.New();
+        McRestartIcon mcRestartIcon = StaticPool.New<McRestartIcon>();
         mcRestartIcon.RefreshProperties();
         return mcRestartIcon;
     }
@@ -27,6 +27,6 @@ public class McRestartIcon : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McRestartIcon>.Free(this);
+        StaticPool.Free<McRestartIcon>(this);
     }
 }

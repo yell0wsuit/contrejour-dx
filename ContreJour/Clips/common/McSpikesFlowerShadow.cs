@@ -15,7 +15,7 @@ public class McSpikesFlowerShadow : Sprite, IFreeable, IId
 
     public static McSpikesFlowerShadow New()
     {
-        McSpikesFlowerShadow mcSpikesFlowerShadow = StaticPool<McSpikesFlowerShadow>.New();
+        McSpikesFlowerShadow mcSpikesFlowerShadow = StaticPool.New<McSpikesFlowerShadow>();
         mcSpikesFlowerShadow.RefreshProperties();
         return mcSpikesFlowerShadow;
     }
@@ -27,6 +27,6 @@ public class McSpikesFlowerShadow : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McSpikesFlowerShadow>.Free(this);
+        StaticPool.Free<McSpikesFlowerShadow>(this);
     }
 }

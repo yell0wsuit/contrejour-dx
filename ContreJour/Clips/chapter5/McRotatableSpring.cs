@@ -15,7 +15,7 @@ public class McRotatableSpring : MovieClip, IFreeable, IId
 
     public static McRotatableSpring New()
     {
-        McRotatableSpring mcRotatableSpring = StaticPool<McRotatableSpring>.New();
+        McRotatableSpring mcRotatableSpring = StaticPool.New<McRotatableSpring>();
         mcRotatableSpring.RefreshProperties();
         return mcRotatableSpring;
     }
@@ -27,6 +27,6 @@ public class McRotatableSpring : MovieClip, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McRotatableSpring>.Free(this);
+        StaticPool.Free<McRotatableSpring>(this);
     }
 }

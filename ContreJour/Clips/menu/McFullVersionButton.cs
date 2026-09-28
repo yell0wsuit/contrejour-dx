@@ -15,7 +15,7 @@ public class McFullVersionButton : Sprite, IFreeable, IId
 
     public static McFullVersionButton New()
     {
-        McFullVersionButton mcFullVersionButton = StaticPool<McFullVersionButton>.New();
+        McFullVersionButton mcFullVersionButton = StaticPool.New<McFullVersionButton>();
         mcFullVersionButton.RefreshProperties();
         return mcFullVersionButton;
     }
@@ -27,6 +27,6 @@ public class McFullVersionButton : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McFullVersionButton>.Free(this);
+        StaticPool.Free<McFullVersionButton>(this);
     }
 }

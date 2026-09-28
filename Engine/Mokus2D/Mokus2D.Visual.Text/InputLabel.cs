@@ -22,7 +22,7 @@ public class InputLabel : Label, IFocus
 
     private bool _listenersAdded;
 
-    private Mokus2D.Util.Data.Point _textPosition = default;
+    private Mokus2D.Util.Data.Point _textPosition;
 
     private Cursor _cursor;
 
@@ -104,9 +104,9 @@ public class InputLabel : Label, IFocus
         }
     }
 
-    public bool CursorAtEnd => TextPosition.Y < Lines.Count ? TextPosition.Y == Lines.Count - 1 && TextPosition.X >= Lines.Last().Glyphs.Count : true;
+    public bool CursorAtEnd => TextPosition.Y >= Lines.Count || TextPosition.Y == Lines.Count - 1 && TextPosition.X >= Lines.Last().Glyphs.Count;
 
-    public bool CursorAtStart => TextPosition.Y >= 0 ? TextPosition.Y == 0 && TextPosition.X <= 0 : true;
+    public bool CursorAtStart => TextPosition.Y < 0 || TextPosition.Y == 0 && TextPosition.X <= 0;
 
     public event Action<IFocus> FocusInEvent;
 

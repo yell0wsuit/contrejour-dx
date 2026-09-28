@@ -15,7 +15,7 @@ public class liveTileGraphics_358x173 : Sprite, IFreeable, IId
 
     public static liveTileGraphics_358x173 New()
     {
-        liveTileGraphics_358x173 liveTileGraphics_358x359 = StaticPool<liveTileGraphics_358x173>.New();
+        liveTileGraphics_358x173 liveTileGraphics_358x359 = StaticPool.New<liveTileGraphics_358x173>();
         liveTileGraphics_358x359.RefreshProperties();
         return liveTileGraphics_358x359;
     }
@@ -27,6 +27,6 @@ public class liveTileGraphics_358x173 : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<liveTileGraphics_358x173>.Free(this);
+        StaticPool.Free<liveTileGraphics_358x173>(this);
     }
 }

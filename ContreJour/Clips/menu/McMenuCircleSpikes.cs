@@ -15,7 +15,7 @@ public class McMenuCircleSpikes : Sprite, IFreeable, IId
 
     public static McMenuCircleSpikes New()
     {
-        McMenuCircleSpikes mcMenuCircleSpikes = StaticPool<McMenuCircleSpikes>.New();
+        McMenuCircleSpikes mcMenuCircleSpikes = StaticPool.New<McMenuCircleSpikes>();
         mcMenuCircleSpikes.RefreshProperties();
         return mcMenuCircleSpikes;
     }
@@ -27,6 +27,6 @@ public class McMenuCircleSpikes : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McMenuCircleSpikes>.Free(this);
+        StaticPool.Free<McMenuCircleSpikes>(this);
     }
 }

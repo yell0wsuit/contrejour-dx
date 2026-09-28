@@ -15,7 +15,7 @@ public class McKaktusView2 : Sprite, IFreeable, IId
 
     public static McKaktusView2 New()
     {
-        McKaktusView2 mcKaktusView = StaticPool<McKaktusView2>.New();
+        McKaktusView2 mcKaktusView = StaticPool.New<McKaktusView2>();
         mcKaktusView.RefreshProperties();
         return mcKaktusView;
     }
@@ -27,6 +27,6 @@ public class McKaktusView2 : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McKaktusView2>.Free(this);
+        StaticPool.Free<McKaktusView2>(this);
     }
 }

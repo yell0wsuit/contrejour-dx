@@ -57,15 +57,11 @@ public abstract class Shape
 
     public bool CompareTo(Shape shape)
     {
-        if (shape is PolygonShape && this is PolygonShape)
-        {
-            return ((PolygonShape)this).CompareTo((PolygonShape)shape);
-        }
-        if (shape is CircleShape && this is CircleShape)
-        {
-            return ((CircleShape)this).CompareTo((CircleShape)shape);
-        }
-        return shape is EdgeShape && this is EdgeShape
+        return shape is PolygonShape && this is PolygonShape
+            ? ((PolygonShape)this).CompareTo((PolygonShape)shape)
+            : shape is CircleShape && this is CircleShape
+            ? ((CircleShape)this).CompareTo((CircleShape)shape)
+            : shape is EdgeShape && this is EdgeShape
             ? ((EdgeShape)this).CompareTo((EdgeShape)shape)
             : shape is ChainShape && this is ChainShape && ((ChainShape)this).CompareTo((ChainShape)shape);
     }

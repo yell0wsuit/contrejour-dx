@@ -15,7 +15,7 @@ public class McEyeSmileBlack : MovieClip, IFreeable, IId
 
     public static McEyeSmileBlack New()
     {
-        McEyeSmileBlack mcEyeSmileBlack = StaticPool<McEyeSmileBlack>.New();
+        McEyeSmileBlack mcEyeSmileBlack = StaticPool.New<McEyeSmileBlack>();
         mcEyeSmileBlack.RefreshProperties();
         return mcEyeSmileBlack;
     }
@@ -27,6 +27,6 @@ public class McEyeSmileBlack : MovieClip, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McEyeSmileBlack>.Free(this);
+        StaticPool.Free<McEyeSmileBlack>(this);
     }
 }

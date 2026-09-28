@@ -15,7 +15,7 @@ public class McRotatorTouch : Sprite, IFreeable, IId
 
     public static McRotatorTouch New()
     {
-        McRotatorTouch mcRotatorTouch = StaticPool<McRotatorTouch>.New();
+        McRotatorTouch mcRotatorTouch = StaticPool.New<McRotatorTouch>();
         mcRotatorTouch.RefreshProperties();
         return mcRotatorTouch;
     }
@@ -27,6 +27,6 @@ public class McRotatorTouch : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McRotatorTouch>.Free(this);
+        StaticPool.Free<McRotatorTouch>(this);
     }
 }

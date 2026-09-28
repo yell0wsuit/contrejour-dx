@@ -15,7 +15,7 @@ public class McSkipIcon : Sprite, IFreeable, IId
 
     public static McSkipIcon New()
     {
-        McSkipIcon mcSkipIcon = StaticPool<McSkipIcon>.New();
+        McSkipIcon mcSkipIcon = StaticPool.New<McSkipIcon>();
         mcSkipIcon.RefreshProperties();
         return mcSkipIcon;
     }
@@ -27,6 +27,6 @@ public class McSkipIcon : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McSkipIcon>.Free(this);
+        StaticPool.Free<McSkipIcon>(this);
     }
 }

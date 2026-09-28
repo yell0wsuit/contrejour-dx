@@ -15,7 +15,7 @@ public class McSnotEndHighlite : Sprite, IFreeable, IId
 
     public static McSnotEndHighlite New()
     {
-        McSnotEndHighlite mcSnotEndHighlite = StaticPool<McSnotEndHighlite>.New();
+        McSnotEndHighlite mcSnotEndHighlite = StaticPool.New<McSnotEndHighlite>();
         mcSnotEndHighlite.RefreshProperties();
         return mcSnotEndHighlite;
     }
@@ -27,6 +27,6 @@ public class McSnotEndHighlite : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McSnotEndHighlite>.Free(this);
+        StaticPool.Free<McSnotEndHighlite>(this);
     }
 }

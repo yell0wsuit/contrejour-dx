@@ -15,7 +15,7 @@ public class McLevelItemInactive : Sprite, IFreeable, IId
 
     public static McLevelItemInactive New()
     {
-        McLevelItemInactive mcLevelItemInactive = StaticPool<McLevelItemInactive>.New();
+        McLevelItemInactive mcLevelItemInactive = StaticPool.New<McLevelItemInactive>();
         mcLevelItemInactive.RefreshProperties();
         return mcLevelItemInactive;
     }
@@ -27,6 +27,6 @@ public class McLevelItemInactive : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McLevelItemInactive>.Free(this);
+        StaticPool.Free<McLevelItemInactive>(this);
     }
 }

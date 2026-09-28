@@ -15,7 +15,7 @@ public class McEnergyIcon : Sprite, IFreeable, IId
 
     public static McEnergyIcon New()
     {
-        McEnergyIcon mcEnergyIcon = StaticPool<McEnergyIcon>.New();
+        McEnergyIcon mcEnergyIcon = StaticPool.New<McEnergyIcon>();
         mcEnergyIcon.RefreshProperties();
         return mcEnergyIcon;
     }
@@ -27,6 +27,6 @@ public class McEnergyIcon : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McEnergyIcon>.Free(this);
+        StaticPool.Free<McEnergyIcon>(this);
     }
 }

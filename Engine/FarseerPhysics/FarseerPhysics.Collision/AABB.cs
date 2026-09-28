@@ -95,16 +95,14 @@ public struct AABB
 
     public readonly bool Contains(ref Vector2 point)
     {
-        return point.X > LowerBound.X + 1.1920929E-07f && point.X < UpperBound.X - 1.1920929E-07f
-            ? point.Y > LowerBound.Y + 1.1920929E-07f && point.Y < UpperBound.Y - 1.1920929E-07f
-            : false;
+        return point.X > LowerBound.X + 1.1920929E-07f && point.X < UpperBound.X - 1.1920929E-07f && point.Y > LowerBound.Y + 1.1920929E-07f && point.Y < UpperBound.Y - 1.1920929E-07f;
     }
 
     public static bool TestOverlap(ref AABB a, ref AABB b)
     {
         Vector2 vector = b.LowerBound - a.UpperBound;
         Vector2 vector2 = a.LowerBound - b.UpperBound;
-        return vector.X > 0f || vector.Y > 0f ? false : vector2.X <= 0f && vector2.Y <= 0f;
+        return vector.X <= 0f && vector.Y <= 0f && vector2.X <= 0f && vector2.Y <= 0f;
     }
 
     public readonly bool RayCast(out RayCastOutput output, ref RayCastInput input, bool doInteriorCheck = true)

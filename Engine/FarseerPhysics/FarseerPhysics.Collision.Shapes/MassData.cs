@@ -31,7 +31,7 @@ public struct MassData : IEquatable<MassData>
 
     public override readonly bool Equals(object obj)
     {
-        return obj is null ? false : (object)obj.GetType() == typeof(MassData) && Equals((MassData)obj);
+        return obj is not null && (object)obj.GetType() == typeof(MassData) && Equals((MassData)obj);
     }
 
     public override readonly int GetHashCode()

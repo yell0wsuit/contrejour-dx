@@ -15,7 +15,7 @@ public class McHole2 : Sprite, IFreeable, IId
 
     public static McHole2 New()
     {
-        McHole2 mcHole = StaticPool<McHole2>.New();
+        McHole2 mcHole = StaticPool.New<McHole2>();
         mcHole.RefreshProperties();
         return mcHole;
     }
@@ -27,6 +27,6 @@ public class McHole2 : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McHole2>.Free(this);
+        StaticPool.Free<McHole2>(this);
     }
 }

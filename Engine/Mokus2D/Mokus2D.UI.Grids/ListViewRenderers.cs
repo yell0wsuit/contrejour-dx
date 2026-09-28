@@ -38,7 +38,7 @@ public class ListViewRenderers<T>
 
         public override readonly bool Equals(object obj)
         {
-            return obj is null ? false : obj is Range && Equals((Range)obj);
+            return obj is not null && obj is Range && Equals((Range)obj);
         }
 
         public override readonly int GetHashCode()
@@ -93,11 +93,6 @@ public class ListViewRenderers<T>
     private int ListItemsCount => _list.Data != null ? _list.Data.Count : 0;
 
     public event Action RenderersChanged;
-
-    public static ListViewRenderers<T> Create<TItemRenderer>(ListView<T> list) where TItemRenderer : Node, IItemRenderer<T>, new()
-    {
-        return new ListViewRenderers<T>(() => new TItemRenderer(), list);
-    }
 
     public ListViewRenderers(Func<Node> itemRendererFactory, ListView<T> list)
     {
@@ -175,5 +170,13 @@ public class ListViewRenderers<T>
                 _itemRenderers.RemoveAt(num);
             }
         }
+    }
+}
+
+public static class ListViewRenderers
+{
+    public static ListViewRenderers<T> Create<T, TItemRenderer>(ListView<T> list) where TItemRenderer : Node, IItemRenderer<T>, new()
+    {
+        return new ListViewRenderers<T>(() => new TItemRenderer(), list);
     }
 }

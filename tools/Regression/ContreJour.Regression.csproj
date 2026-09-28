@@ -2,6 +2,8 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <RootNamespace>ContreJour.Regression</RootNamespace>
+    <!-- The decompiled projects carry their own AssemblyInfo.cs; this one has none. -->
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
   </PropertyGroup>
 
   <ItemGroup>

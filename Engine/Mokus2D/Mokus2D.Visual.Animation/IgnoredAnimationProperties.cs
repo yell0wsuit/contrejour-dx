@@ -2,7 +2,7 @@ namespace Mokus2D.Visual.Animation;
 
 public struct IgnoredAnimationProperties(bool visible = false, bool opacity = false, bool color = false, bool position = false, bool rotation = false, bool scale = false)
 {
-    public static readonly IgnoredAnimationProperties None = default;
+    public static readonly IgnoredAnimationProperties None;
 
     public static readonly IgnoredAnimationProperties All = new(visible: true, opacity: true, color: true, position: true, rotation: true, scale: true);
 

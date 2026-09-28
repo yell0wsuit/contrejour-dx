@@ -15,7 +15,7 @@ public class McColorFix : Sprite, IFreeable, IId
 
     public static McColorFix New()
     {
-        McColorFix mcColorFix = StaticPool<McColorFix>.New();
+        McColorFix mcColorFix = StaticPool.New<McColorFix>();
         mcColorFix.RefreshProperties();
         return mcColorFix;
     }
@@ -27,6 +27,6 @@ public class McColorFix : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McColorFix>.Free(this);
+        StaticPool.Free<McColorFix>(this);
     }
 }

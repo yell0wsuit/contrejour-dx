@@ -22,7 +22,7 @@ public class Tweener : DisposableBase, IUpdatable, ICleanable
 
     private readonly object _defaultTarget;
 
-    private readonly ForEachList<TweenAndTag> _tweens = [];
+    private readonly ForEachCollection<TweenAndTag> _tweens = [];
 
     public Tweener(object defaultTarget)
     {

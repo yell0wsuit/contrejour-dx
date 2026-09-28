@@ -67,7 +67,7 @@ public class ParallaxVisibilityOptimizer
     public void Rebuild(RectangleFloat bounds, Predicate<Node> predicate = null)
     {
         Vector2 islandSize = _scroller.ScreenSize / 3f;
-        foreach (ParallaxLayer item in _scroller)
+        foreach (ParallaxLayer item in _scroller.Layers)
         {
             if (item.Parallax != 0f && predicate.NullOrTrue(item.Node))
             {

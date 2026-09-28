@@ -15,7 +15,7 @@ public class McMenuBackground3 : Sprite, IFreeable, IId
 
     public static McMenuBackground3 New()
     {
-        McMenuBackground3 mcMenuBackground = StaticPool<McMenuBackground3>.New();
+        McMenuBackground3 mcMenuBackground = StaticPool.New<McMenuBackground3>();
         mcMenuBackground.RefreshProperties();
         return mcMenuBackground;
     }
@@ -27,6 +27,6 @@ public class McMenuBackground3 : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McMenuBackground3>.Free(this);
+        StaticPool.Free<McMenuBackground3>(this);
     }
 }

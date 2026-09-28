@@ -15,7 +15,7 @@ public class McDragLimit : Sprite, IFreeable, IId
 
     public static McDragLimit New()
     {
-        McDragLimit mcDragLimit = StaticPool<McDragLimit>.New();
+        McDragLimit mcDragLimit = StaticPool.New<McDragLimit>();
         mcDragLimit.RefreshProperties();
         return mcDragLimit;
     }
@@ -27,6 +27,6 @@ public class McDragLimit : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McDragLimit>.Free(this);
+        StaticPool.Free<McDragLimit>(this);
     }
 }

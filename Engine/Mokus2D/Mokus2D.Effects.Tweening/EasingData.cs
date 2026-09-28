@@ -65,11 +65,9 @@ public class EasingData : IEasingData, ICleanable
 
     public float Ease(float ratio)
     {
-        if (_functionA != null)
-        {
-            return _functionA(ratio);
-        }
-        return _functionB != null
+        return _functionA != null
+            ? _functionA(ratio)
+            : _functionB != null
             ? _functionB(ratio, _dataA)
             : _functionC != null ? _functionC(ratio, _dataA, _dataB) : throw new Exception("No ease function selected");
     }

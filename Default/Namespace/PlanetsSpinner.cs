@@ -157,5 +157,6 @@ public class PlanetsSpinner : Node, IDisposable
         {
             chapter.RemoveListeners();
         }
+        base.Dispose(disposing);
     }
 }

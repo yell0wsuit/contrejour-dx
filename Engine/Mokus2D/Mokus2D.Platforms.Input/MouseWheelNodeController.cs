@@ -14,7 +14,7 @@ public class MouseWheelNodeController<T> : NodeController<T> where T : Node, IMo
 
     public float ScrollSpeedMult = 1f;
 
-    public float? MaxScrollSpeed = null;
+    public float? MaxScrollSpeed;
 
     private float? _targetValue;
 

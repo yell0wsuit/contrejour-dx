@@ -15,7 +15,7 @@ public class McBackgroundSkyContent : Sprite, IFreeable, IId
 
     public static McBackgroundSkyContent New()
     {
-        McBackgroundSkyContent mcBackgroundSkyContent = StaticPool<McBackgroundSkyContent>.New();
+        McBackgroundSkyContent mcBackgroundSkyContent = StaticPool.New<McBackgroundSkyContent>();
         mcBackgroundSkyContent.RefreshProperties();
         return mcBackgroundSkyContent;
     }
@@ -27,6 +27,6 @@ public class McBackgroundSkyContent : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McBackgroundSkyContent>.Free(this);
+        StaticPool.Free<McBackgroundSkyContent>(this);
     }
 }

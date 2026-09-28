@@ -15,7 +15,7 @@ public class McMusicPlayIcon : Sprite, IFreeable, IId
 
     public static McMusicPlayIcon New()
     {
-        McMusicPlayIcon mcMusicPlayIcon = StaticPool<McMusicPlayIcon>.New();
+        McMusicPlayIcon mcMusicPlayIcon = StaticPool.New<McMusicPlayIcon>();
         mcMusicPlayIcon.RefreshProperties();
         return mcMusicPlayIcon;
     }
@@ -27,6 +27,6 @@ public class McMusicPlayIcon : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McMusicPlayIcon>.Free(this);
+        StaticPool.Free<McMusicPlayIcon>(this);
     }
 }

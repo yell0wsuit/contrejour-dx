@@ -15,7 +15,7 @@ public class McRotatorPoint : Sprite, IFreeable, IId
 
     public static McRotatorPoint New()
     {
-        McRotatorPoint mcRotatorPoint = StaticPool<McRotatorPoint>.New();
+        McRotatorPoint mcRotatorPoint = StaticPool.New<McRotatorPoint>();
         mcRotatorPoint.RefreshProperties();
         return mcRotatorPoint;
     }
@@ -27,6 +27,6 @@ public class McRotatorPoint : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McRotatorPoint>.Free(this);
+        StaticPool.Free<McRotatorPoint>(this);
     }
 }

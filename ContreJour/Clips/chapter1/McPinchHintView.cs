@@ -15,7 +15,7 @@ public class McPinchHintView : Sprite, IFreeable, IId
 
     public static McPinchHintView New()
     {
-        McPinchHintView mcPinchHintView = StaticPool<McPinchHintView>.New();
+        McPinchHintView mcPinchHintView = StaticPool.New<McPinchHintView>();
         mcPinchHintView.RefreshProperties();
         return mcPinchHintView;
     }
@@ -27,6 +27,6 @@ public class McPinchHintView : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McPinchHintView>.Free(this);
+        StaticPool.Free<McPinchHintView>(this);
     }
 }

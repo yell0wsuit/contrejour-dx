@@ -15,7 +15,7 @@ public class McMultitouch2HintView : Sprite, IFreeable, IId
 
     public static McMultitouch2HintView New()
     {
-        McMultitouch2HintView mcMultitouch2HintView = StaticPool<McMultitouch2HintView>.New();
+        McMultitouch2HintView mcMultitouch2HintView = StaticPool.New<McMultitouch2HintView>();
         mcMultitouch2HintView.RefreshProperties();
         return mcMultitouch2HintView;
     }
@@ -27,6 +27,6 @@ public class McMultitouch2HintView : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McMultitouch2HintView>.Free(this);
+        StaticPool.Free<McMultitouch2HintView>(this);
     }
 }

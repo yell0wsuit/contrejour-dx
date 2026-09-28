@@ -17,7 +17,7 @@ public class McLystok2 : AnimationNode, IFreeable, IId
 
     public static McLystok2 New()
     {
-        McLystok2 mcLystok = StaticPool<McLystok2>.New();
+        McLystok2 mcLystok = StaticPool.New<McLystok2>();
         mcLystok.RefreshProperties();
         return mcLystok;
     }
@@ -32,6 +32,6 @@ public class McLystok2 : AnimationNode, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McLystok2>.Free(this);
+        StaticPool.Free<McLystok2>(this);
     }
 }

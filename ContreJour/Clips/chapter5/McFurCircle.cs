@@ -15,7 +15,7 @@ public class McFurCircle : Sprite, IFreeable, IId
 
     public static McFurCircle New()
     {
-        McFurCircle mcFurCircle = StaticPool<McFurCircle>.New();
+        McFurCircle mcFurCircle = StaticPool.New<McFurCircle>();
         mcFurCircle.RefreshProperties();
         return mcFurCircle;
     }
@@ -27,6 +27,6 @@ public class McFurCircle : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McFurCircle>.Free(this);
+        StaticPool.Free<McFurCircle>(this);
     }
 }

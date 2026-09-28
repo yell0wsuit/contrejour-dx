@@ -15,7 +15,7 @@ public class McSpringViewWhite : MovieClip, IFreeable, IId
 
     public static McSpringViewWhite New()
     {
-        McSpringViewWhite mcSpringViewWhite = StaticPool<McSpringViewWhite>.New();
+        McSpringViewWhite mcSpringViewWhite = StaticPool.New<McSpringViewWhite>();
         mcSpringViewWhite.RefreshProperties();
         return mcSpringViewWhite;
     }
@@ -27,6 +27,6 @@ public class McSpringViewWhite : MovieClip, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McSpringViewWhite>.Free(this);
+        StaticPool.Free<McSpringViewWhite>(this);
     }
 }

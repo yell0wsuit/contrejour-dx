@@ -15,7 +15,7 @@ public class Mc5ChapterParticle : Sprite, IFreeable, IId
 
     public static Mc5ChapterParticle New()
     {
-        Mc5ChapterParticle mc5ChapterParticle = StaticPool<Mc5ChapterParticle>.New();
+        Mc5ChapterParticle mc5ChapterParticle = StaticPool.New<Mc5ChapterParticle>();
         mc5ChapterParticle.RefreshProperties();
         return mc5ChapterParticle;
     }
@@ -27,6 +27,6 @@ public class Mc5ChapterParticle : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<Mc5ChapterParticle>.Free(this);
+        StaticPool.Free<Mc5ChapterParticle>(this);
     }
 }

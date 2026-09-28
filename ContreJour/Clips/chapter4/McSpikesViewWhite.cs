@@ -27,7 +27,7 @@ public class McSpikesViewWhite : AnimationNode, IFreeable, IId, ISpikesView
 
     public static McSpikesViewWhite New()
     {
-        McSpikesViewWhite mcSpikesViewWhite = StaticPool<McSpikesViewWhite>.New();
+        McSpikesViewWhite mcSpikesViewWhite = StaticPool.New<McSpikesViewWhite>();
         mcSpikesViewWhite.RefreshProperties();
         return mcSpikesViewWhite;
     }
@@ -46,6 +46,6 @@ public class McSpikesViewWhite : AnimationNode, IFreeable, IId, ISpikesView
 
     public void Free()
     {
-        StaticPool<McSpikesViewWhite>.Free(this);
+        StaticPool.Free<McSpikesViewWhite>(this);
     }
 }

@@ -1,21 +1,25 @@
 namespace Mokus2D.Data;
 
-public static class StaticPool<T> where T : new()
+public static class StaticPool
 {
-    private static readonly Pool<T> Pool = new(() => new T());
-
-    public static T New()
+    public static T New<T>() where T : new()
     {
-        return Pool.New();
+        return Holder<T>.Pool.New();
     }
 
-    public static void Free(T item)
+    public static void Free<T>(T item) where T : new()
     {
-        Pool.Free(item);
+        Holder<T>.Pool.Free(item);
     }
 
-    public static void Clear()
+    public static void Clear<T>() where T : new()
     {
-        Pool.Clear();
+        Holder<T>.Pool.Clear();
+    }
+
+    // One pool per type, created the first time that type is pooled.
+    private static class Holder<T> where T : new()
+    {
+        public static readonly Pool<T> Pool = new(() => new T());
     }
 }

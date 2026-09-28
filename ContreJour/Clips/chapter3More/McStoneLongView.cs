@@ -15,7 +15,7 @@ public class McStoneLongView : Sprite, IFreeable, IId
 
     public static McStoneLongView New()
     {
-        McStoneLongView mcStoneLongView = StaticPool<McStoneLongView>.New();
+        McStoneLongView mcStoneLongView = StaticPool.New<McStoneLongView>();
         mcStoneLongView.RefreshProperties();
         return mcStoneLongView;
     }
@@ -27,6 +27,6 @@ public class McStoneLongView : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McStoneLongView>.Free(this);
+        StaticPool.Free<McStoneLongView>(this);
     }
 }

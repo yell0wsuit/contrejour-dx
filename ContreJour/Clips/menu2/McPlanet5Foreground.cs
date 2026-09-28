@@ -15,7 +15,7 @@ public class McPlanet5Foreground : Sprite, IFreeable, IId
 
     public static McPlanet5Foreground New()
     {
-        McPlanet5Foreground mcPlanet5Foreground = StaticPool<McPlanet5Foreground>.New();
+        McPlanet5Foreground mcPlanet5Foreground = StaticPool.New<McPlanet5Foreground>();
         mcPlanet5Foreground.RefreshProperties();
         return mcPlanet5Foreground;
     }
@@ -27,6 +27,6 @@ public class McPlanet5Foreground : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McPlanet5Foreground>.Free(this);
+        StaticPool.Free<McPlanet5Foreground>(this);
     }
 }

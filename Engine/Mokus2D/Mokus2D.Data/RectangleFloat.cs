@@ -9,7 +9,7 @@ namespace Mokus2D.Data;
 
 public struct RectangleFloat : IEquatable<RectangleFloat>
 {
-    private static Rectangle emptyRectangle = default;
+    private static Rectangle emptyRectangle;
 
     public float X;
 

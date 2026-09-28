@@ -52,7 +52,7 @@ public class LevelsCache
     {
         name = correctName(name);
         Level level;
-        if (!cache.ContainsKey(name))
+        if (!cache.TryGetValue(name, out level))
         {
             string path = Path.ChangeExtension(Path.Combine(
             [
@@ -66,10 +66,6 @@ public class LevelsCache
             Stream stream = Mokus2DGame.FileLoader.OpenFile(path);
             level = (Level)serializer.DeserializeFile(stream);
             cache[name] = level;
-        }
-        else
-        {
-            level = cache[name];
         }
         return level;
     }

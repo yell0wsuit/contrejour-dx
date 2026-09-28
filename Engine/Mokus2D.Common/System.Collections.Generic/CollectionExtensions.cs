@@ -233,9 +233,9 @@ public static class MokusCollectionExtensions
         }
     }
 
-    public static ReverseListEnumerable<T> ReverseForEach<T>(this IList<T> list)
+    public static ReverseListCollection<T> ReverseForEach<T>(this IList<T> list)
     {
-        return new ReverseListEnumerable<T>(list);
+        return new ReverseListCollection<T>(list);
     }
 
     public static ReverseListEnumerator<T> GetReverseEnumerator<T>(this IList<T> list)

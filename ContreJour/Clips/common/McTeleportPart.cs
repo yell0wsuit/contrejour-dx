@@ -15,7 +15,7 @@ public class McTeleportPart : Sprite, IFreeable, IId
 
     public static McTeleportPart New()
     {
-        McTeleportPart mcTeleportPart = StaticPool<McTeleportPart>.New();
+        McTeleportPart mcTeleportPart = StaticPool.New<McTeleportPart>();
         mcTeleportPart.RefreshProperties();
         return mcTeleportPart;
     }
@@ -27,6 +27,6 @@ public class McTeleportPart : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McTeleportPart>.Free(this);
+        StaticPool.Free<McTeleportPart>(this);
     }
 }

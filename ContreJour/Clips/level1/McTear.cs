@@ -15,7 +15,7 @@ public class McTear : MovieClip, IFreeable, IId
 
     public static McTear New()
     {
-        McTear mcTear = StaticPool<McTear>.New();
+        McTear mcTear = StaticPool.New<McTear>();
         mcTear.RefreshProperties();
         return mcTear;
     }
@@ -27,6 +27,6 @@ public class McTear : MovieClip, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McTear>.Free(this);
+        StaticPool.Free<McTear>(this);
     }
 }

@@ -15,7 +15,7 @@ public class McBackSnotBase : Sprite, IFreeable, IId
 
     public static McBackSnotBase New()
     {
-        McBackSnotBase mcBackSnotBase = StaticPool<McBackSnotBase>.New();
+        McBackSnotBase mcBackSnotBase = StaticPool.New<McBackSnotBase>();
         mcBackSnotBase.RefreshProperties();
         return mcBackSnotBase;
     }
@@ -27,6 +27,6 @@ public class McBackSnotBase : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McBackSnotBase>.Free(this);
+        StaticPool.Free<McBackSnotBase>(this);
     }
 }

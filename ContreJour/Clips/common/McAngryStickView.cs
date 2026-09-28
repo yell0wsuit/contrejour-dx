@@ -15,7 +15,7 @@ public class McAngryStickView : Sprite, IFreeable, IId
 
     public static McAngryStickView New()
     {
-        McAngryStickView mcAngryStickView = StaticPool<McAngryStickView>.New();
+        McAngryStickView mcAngryStickView = StaticPool.New<McAngryStickView>();
         mcAngryStickView.RefreshProperties();
         return mcAngryStickView;
     }
@@ -27,6 +27,6 @@ public class McAngryStickView : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McAngryStickView>.Free(this);
+        StaticPool.Free<McAngryStickView>(this);
     }
 }

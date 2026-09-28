@@ -15,7 +15,7 @@ public class McRelsHintView : Sprite, IFreeable, IId
 
     public static McRelsHintView New()
     {
-        McRelsHintView mcRelsHintView = StaticPool<McRelsHintView>.New();
+        McRelsHintView mcRelsHintView = StaticPool.New<McRelsHintView>();
         mcRelsHintView.RefreshProperties();
         return mcRelsHintView;
     }
@@ -27,6 +27,6 @@ public class McRelsHintView : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McRelsHintView>.Free(this);
+        StaticPool.Free<McRelsHintView>(this);
     }
 }

@@ -15,7 +15,7 @@ public class McButtonMenuBackground : Sprite, IFreeable, IId
 
     public static McButtonMenuBackground New()
     {
-        McButtonMenuBackground mcButtonMenuBackground = StaticPool<McButtonMenuBackground>.New();
+        McButtonMenuBackground mcButtonMenuBackground = StaticPool.New<McButtonMenuBackground>();
         mcButtonMenuBackground.RefreshProperties();
         return mcButtonMenuBackground;
     }
@@ -27,6 +27,6 @@ public class McButtonMenuBackground : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McButtonMenuBackground>.Free(this);
+        StaticPool.Free<McButtonMenuBackground>(this);
     }
 }

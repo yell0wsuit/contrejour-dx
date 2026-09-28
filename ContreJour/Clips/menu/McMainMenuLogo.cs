@@ -15,7 +15,7 @@ public class McMainMenuLogo : Sprite, IFreeable, IId
 
     public static McMainMenuLogo New()
     {
-        McMainMenuLogo mcMainMenuLogo = StaticPool<McMainMenuLogo>.New();
+        McMainMenuLogo mcMainMenuLogo = StaticPool.New<McMainMenuLogo>();
         mcMainMenuLogo.RefreshProperties();
         return mcMainMenuLogo;
     }
@@ -27,6 +27,6 @@ public class McMainMenuLogo : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McMainMenuLogo>.Free(this);
+        StaticPool.Free<McMainMenuLogo>(this);
     }
 }

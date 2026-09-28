@@ -15,7 +15,7 @@ public class McShesterna2Background : Sprite, IFreeable, IId
 
     public static McShesterna2Background New()
     {
-        McShesterna2Background mcShesterna2Background = StaticPool<McShesterna2Background>.New();
+        McShesterna2Background mcShesterna2Background = StaticPool.New<McShesterna2Background>();
         mcShesterna2Background.RefreshProperties();
         return mcShesterna2Background;
     }
@@ -27,6 +27,6 @@ public class McShesterna2Background : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McShesterna2Background>.Free(this);
+        StaticPool.Free<McShesterna2Background>(this);
     }
 }

@@ -15,7 +15,7 @@ public class McStebloAnimation : MovieClip, IFreeable, IId
 
     public static McStebloAnimation New()
     {
-        McStebloAnimation mcStebloAnimation = StaticPool<McStebloAnimation>.New();
+        McStebloAnimation mcStebloAnimation = StaticPool.New<McStebloAnimation>();
         mcStebloAnimation.RefreshProperties();
         return mcStebloAnimation;
     }
@@ -27,6 +27,6 @@ public class McStebloAnimation : MovieClip, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McStebloAnimation>.Free(this);
+        StaticPool.Free<McStebloAnimation>(this);
     }
 }

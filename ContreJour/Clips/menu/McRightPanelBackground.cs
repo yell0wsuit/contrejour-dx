@@ -15,7 +15,7 @@ public class McRightPanelBackground : Sprite, IFreeable, IId
 
     public static McRightPanelBackground New()
     {
-        McRightPanelBackground mcRightPanelBackground = StaticPool<McRightPanelBackground>.New();
+        McRightPanelBackground mcRightPanelBackground = StaticPool.New<McRightPanelBackground>();
         mcRightPanelBackground.RefreshProperties();
         return mcRightPanelBackground;
     }
@@ -27,6 +27,6 @@ public class McRightPanelBackground : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McRightPanelBackground>.Free(this);
+        StaticPool.Free<McRightPanelBackground>(this);
     }
 }

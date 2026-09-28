@@ -21,7 +21,7 @@ public class McRoseHeadFront : AnimationNode, IFreeable, IId
 
     public static McRoseHeadFront New()
     {
-        McRoseHeadFront mcRoseHeadFront = StaticPool<McRoseHeadFront>.New();
+        McRoseHeadFront mcRoseHeadFront = StaticPool.New<McRoseHeadFront>();
         mcRoseHeadFront.RefreshProperties();
         return mcRoseHeadFront;
     }
@@ -40,6 +40,6 @@ public class McRoseHeadFront : AnimationNode, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McRoseHeadFront>.Free(this);
+        StaticPool.Free<McRoseHeadFront>(this);
     }
 }

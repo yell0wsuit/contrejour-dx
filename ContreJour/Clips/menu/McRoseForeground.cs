@@ -15,7 +15,7 @@ public class McRoseForeground : Sprite, IFreeable, IId
 
     public static McRoseForeground New()
     {
-        McRoseForeground mcRoseForeground = StaticPool<McRoseForeground>.New();
+        McRoseForeground mcRoseForeground = StaticPool.New<McRoseForeground>();
         mcRoseForeground.RefreshProperties();
         return mcRoseForeground;
     }
@@ -27,6 +27,6 @@ public class McRoseForeground : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McRoseForeground>.Free(this);
+        StaticPool.Free<McRoseForeground>(this);
     }
 }

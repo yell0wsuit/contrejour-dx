@@ -87,7 +87,7 @@ public class petitInformation : AnimationNode, ITouchListener, IFreeable, IId
 
     public static petitInformation New()
     {
-        petitInformation petitInformation2 = StaticPool<petitInformation>.New();
+        petitInformation petitInformation2 = StaticPool.New<petitInformation>();
         petitInformation2.RefreshProperties();
         return petitInformation2;
     }
@@ -113,6 +113,6 @@ public class petitInformation : AnimationNode, ITouchListener, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<petitInformation>.Free(this);
+        StaticPool.Free<petitInformation>(this);
     }
 }

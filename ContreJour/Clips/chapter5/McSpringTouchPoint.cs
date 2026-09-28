@@ -15,7 +15,7 @@ public class McSpringTouchPoint : Sprite, IFreeable, IId
 
     public static McSpringTouchPoint New()
     {
-        McSpringTouchPoint mcSpringTouchPoint = StaticPool<McSpringTouchPoint>.New();
+        McSpringTouchPoint mcSpringTouchPoint = StaticPool.New<McSpringTouchPoint>();
         mcSpringTouchPoint.RefreshProperties();
         return mcSpringTouchPoint;
     }
@@ -27,6 +27,6 @@ public class McSpringTouchPoint : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McSpringTouchPoint>.Free(this);
+        StaticPool.Free<McSpringTouchPoint>(this);
     }
 }

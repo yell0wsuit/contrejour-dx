@@ -15,7 +15,7 @@ public class McLeafView1 : Sprite, IFreeable, IId
 
     public static McLeafView1 New()
     {
-        McLeafView1 mcLeafView = StaticPool<McLeafView1>.New();
+        McLeafView1 mcLeafView = StaticPool.New<McLeafView1>();
         mcLeafView.RefreshProperties();
         return mcLeafView;
     }
@@ -27,6 +27,6 @@ public class McLeafView1 : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McLeafView1>.Free(this);
+        StaticPool.Free<McLeafView1>(this);
     }
 }

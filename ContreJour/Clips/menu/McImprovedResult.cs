@@ -15,7 +15,7 @@ public class McImprovedResult : Sprite, IFreeable, IId
 
     public static McImprovedResult New()
     {
-        McImprovedResult mcImprovedResult = StaticPool<McImprovedResult>.New();
+        McImprovedResult mcImprovedResult = StaticPool.New<McImprovedResult>();
         mcImprovedResult.RefreshProperties();
         return mcImprovedResult;
     }
@@ -27,6 +27,6 @@ public class McImprovedResult : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McImprovedResult>.Free(this);
+        StaticPool.Free<McImprovedResult>(this);
     }
 }

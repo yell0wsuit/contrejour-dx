@@ -29,7 +29,7 @@ public class liveTileSquare : LiveTileAnimation, IFreeable, IId
 
     public static liveTileSquare New()
     {
-        liveTileSquare liveTileSquare2 = StaticPool<liveTileSquare>.New();
+        liveTileSquare liveTileSquare2 = StaticPool.New<liveTileSquare>();
         liveTileSquare2.RefreshProperties();
         return liveTileSquare2;
     }
@@ -57,6 +57,6 @@ public class liveTileSquare : LiveTileAnimation, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<liveTileSquare>.Free(this);
+        StaticPool.Free<liveTileSquare>(this);
     }
 }

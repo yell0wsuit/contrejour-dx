@@ -15,7 +15,7 @@ public class McEyeMonster : Sprite, IFreeable, IId
 
     public static McEyeMonster New()
     {
-        McEyeMonster mcEyeMonster = StaticPool<McEyeMonster>.New();
+        McEyeMonster mcEyeMonster = StaticPool.New<McEyeMonster>();
         mcEyeMonster.RefreshProperties();
         return mcEyeMonster;
     }
@@ -27,6 +27,6 @@ public class McEyeMonster : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McEyeMonster>.Free(this);
+        StaticPool.Free<McEyeMonster>(this);
     }
 }

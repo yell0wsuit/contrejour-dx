@@ -15,7 +15,7 @@ public class McRoundDragFrameView : Sprite, IFreeable, IId
 
     public static McRoundDragFrameView New()
     {
-        McRoundDragFrameView mcRoundDragFrameView = StaticPool<McRoundDragFrameView>.New();
+        McRoundDragFrameView mcRoundDragFrameView = StaticPool.New<McRoundDragFrameView>();
         mcRoundDragFrameView.RefreshProperties();
         return mcRoundDragFrameView;
     }
@@ -27,6 +27,6 @@ public class McRoundDragFrameView : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McRoundDragFrameView>.Free(this);
+        StaticPool.Free<McRoundDragFrameView>(this);
     }
 }

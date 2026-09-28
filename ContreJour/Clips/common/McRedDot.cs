@@ -15,7 +15,7 @@ public class McRedDot : Sprite, IFreeable, IId
 
     public static McRedDot New()
     {
-        McRedDot mcRedDot = StaticPool<McRedDot>.New();
+        McRedDot mcRedDot = StaticPool.New<McRedDot>();
         mcRedDot.RefreshProperties();
         return mcRedDot;
     }
@@ -27,6 +27,6 @@ public class McRedDot : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McRedDot>.Free(this);
+        StaticPool.Free<McRedDot>(this);
     }
 }

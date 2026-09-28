@@ -15,7 +15,7 @@ public class McPlanet3Light : Sprite, IFreeable, IId
 
     public static McPlanet3Light New()
     {
-        McPlanet3Light mcPlanet3Light = StaticPool<McPlanet3Light>.New();
+        McPlanet3Light mcPlanet3Light = StaticPool.New<McPlanet3Light>();
         mcPlanet3Light.RefreshProperties();
         return mcPlanet3Light;
     }
@@ -27,6 +27,6 @@ public class McPlanet3Light : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McPlanet3Light>.Free(this);
+        StaticPool.Free<McPlanet3Light>(this);
     }
 }

@@ -11,7 +11,7 @@ using Mokus2D.Visual.Interfaces;
 
 namespace Mokus2D.Parallax;
 
-public class ParallaxScroller : IEnumerable<ParallaxLayer>, IEnumerable, IViewPosition
+public class ParallaxScroller : IViewPosition
 {
     public const string ParallaxConfigName = "parallax";
 
@@ -24,6 +24,8 @@ public class ParallaxScroller : IEnumerable<ParallaxLayer>, IEnumerable, IViewPo
     private Vector2 _zoomCenter = Vector2.Zero;
 
     private readonly List<ParallaxLayer> _layers = [];
+
+    public IReadOnlyList<ParallaxLayer> Layers => _layers;
 
     private Vector2? _fieldZoomPosition;
 
@@ -184,15 +186,5 @@ public class ParallaxScroller : IEnumerable<ParallaxLayer>, IEnumerable, IViewPo
     private float GetLayerScale(ParallaxLayer layer)
     {
         return layer.Parallax == 0f ? 1f : layer.ParallaxDistance / (layer.ParallaxDistance + ZoomDistance);
-    }
-
-    public IEnumerator<ParallaxLayer> GetEnumerator()
-    {
-        return _layers.GetEnumerator();
-    }
-
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-        return GetEnumerator();
     }
 }

@@ -15,7 +15,7 @@ public class McLevelItemBackground : Sprite, IFreeable, IId
 
     public static McLevelItemBackground New()
     {
-        McLevelItemBackground mcLevelItemBackground = StaticPool<McLevelItemBackground>.New();
+        McLevelItemBackground mcLevelItemBackground = StaticPool.New<McLevelItemBackground>();
         mcLevelItemBackground.RefreshProperties();
         return mcLevelItemBackground;
     }
@@ -27,6 +27,6 @@ public class McLevelItemBackground : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McLevelItemBackground>.Free(this);
+        StaticPool.Free<McLevelItemBackground>(this);
     }
 }

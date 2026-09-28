@@ -15,7 +15,7 @@ public class McIconLeaderboards : Sprite, IFreeable, IId
 
     public static McIconLeaderboards New()
     {
-        McIconLeaderboards mcIconLeaderboards = StaticPool<McIconLeaderboards>.New();
+        McIconLeaderboards mcIconLeaderboards = StaticPool.New<McIconLeaderboards>();
         mcIconLeaderboards.RefreshProperties();
         return mcIconLeaderboards;
     }
@@ -27,6 +27,6 @@ public class McIconLeaderboards : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McIconLeaderboards>.Free(this);
+        StaticPool.Free<McIconLeaderboards>(this);
     }
 }

@@ -9,7 +9,7 @@ namespace Mokus2D.Util.Data;
 
 public struct Point
 {
-    public static readonly Point Zero = default;
+    public static readonly Point Zero;
 
     public static readonly Point One = new(1);
 

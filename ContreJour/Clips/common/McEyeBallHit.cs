@@ -15,7 +15,7 @@ public class McEyeBallHit : MovieClip, IFreeable, IId
 
     public static McEyeBallHit New()
     {
-        McEyeBallHit mcEyeBallHit = StaticPool<McEyeBallHit>.New();
+        McEyeBallHit mcEyeBallHit = StaticPool.New<McEyeBallHit>();
         mcEyeBallHit.RefreshProperties();
         return mcEyeBallHit;
     }
@@ -27,6 +27,6 @@ public class McEyeBallHit : MovieClip, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McEyeBallHit>.Free(this);
+        StaticPool.Free<McEyeBallHit>(this);
     }
 }

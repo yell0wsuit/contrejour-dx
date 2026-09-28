@@ -19,7 +19,7 @@ public class KeyboardController : IUpdatable
 
     private readonly Dictionary<Keys, List<Action<Keys, bool>>> _actions = [];
 
-    private readonly FactoryDictionary<Keys, ForEachList<Action<Keys>>> _delayActions = new(k => []);
+    private readonly FactoryDictionary<Keys, ForEachCollection<Action<Keys>>> _delayActions = new(k => []);
 
     private readonly List<Action<Keys, bool>> _currentActions = [];
 
@@ -124,7 +124,7 @@ public class KeyboardController : IUpdatable
 
     public void AddDelayListener(Keys key, Action<Keys> action, bool addFirst = false)
     {
-        ForEachList<Action<Keys>> orCreate = _delayActions.GetOrCreate(key);
+        ForEachCollection<Action<Keys>> orCreate = _delayActions.GetOrCreate(key);
         if (addFirst)
         {
             orCreate.Insert(0, action);
@@ -164,7 +164,7 @@ public class KeyboardController : IUpdatable
         {
             return;
         }
-        ForEachList<Action<Keys>> forEachList = _delayActions.TryGetValue(keys);
+        ForEachCollection<Action<Keys>> forEachList = _delayActions.TryGetValue(keys);
         if (forEachList == null)
         {
             return;

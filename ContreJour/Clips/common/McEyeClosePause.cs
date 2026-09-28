@@ -15,7 +15,7 @@ public class McEyeClosePause : MovieClip, IFreeable, IId
 
     public static McEyeClosePause New()
     {
-        McEyeClosePause mcEyeClosePause = StaticPool<McEyeClosePause>.New();
+        McEyeClosePause mcEyeClosePause = StaticPool.New<McEyeClosePause>();
         mcEyeClosePause.RefreshProperties();
         return mcEyeClosePause;
     }
@@ -27,6 +27,6 @@ public class McEyeClosePause : MovieClip, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McEyeClosePause>.Free(this);
+        StaticPool.Free<McEyeClosePause>(this);
     }
 }

@@ -29,7 +29,7 @@ public class liveTileWide : LiveTileAnimation, IFreeable, IId
 
     public static liveTileWide New()
     {
-        liveTileWide liveTileWide2 = StaticPool<liveTileWide>.New();
+        liveTileWide liveTileWide2 = StaticPool.New<liveTileWide>();
         liveTileWide2.RefreshProperties();
         return liveTileWide2;
     }
@@ -57,6 +57,6 @@ public class liveTileWide : LiveTileAnimation, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<liveTileWide>.Free(this);
+        StaticPool.Free<liveTileWide>(this);
     }
 }

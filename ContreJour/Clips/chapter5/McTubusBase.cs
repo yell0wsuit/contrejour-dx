@@ -15,7 +15,7 @@ public class McTubusBase : Sprite, IFreeable, IId
 
     public static McTubusBase New()
     {
-        McTubusBase mcTubusBase = StaticPool<McTubusBase>.New();
+        McTubusBase mcTubusBase = StaticPool.New<McTubusBase>();
         mcTubusBase.RefreshProperties();
         return mcTubusBase;
     }
@@ -27,6 +27,6 @@ public class McTubusBase : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McTubusBase>.Free(this);
+        StaticPool.Free<McTubusBase>(this);
     }
 }

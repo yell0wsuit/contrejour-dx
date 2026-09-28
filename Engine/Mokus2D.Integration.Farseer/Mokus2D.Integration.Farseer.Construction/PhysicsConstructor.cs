@@ -262,9 +262,9 @@ public class PhysicsConstructor : PhysicsTransform
 
     private Shape ProcessByType(Node child, Vector2 positionOffset, string type, IDictionary<string, string> config)
     {
-        if (_processors.ContainsKey(type))
+        if (_processors.TryGetValue(type, out ShapeProcessor processor))
         {
-            Shape result = _processors[type].Process(child, positionOffset);
+            Shape result = processor.Process(child, positionOffset);
             child.Visible = false;
             return result;
         }

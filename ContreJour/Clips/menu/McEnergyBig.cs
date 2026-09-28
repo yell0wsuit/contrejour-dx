@@ -15,7 +15,7 @@ public class McEnergyBig : Sprite, IFreeable, IId
 
     public static McEnergyBig New()
     {
-        McEnergyBig mcEnergyBig = StaticPool<McEnergyBig>.New();
+        McEnergyBig mcEnergyBig = StaticPool.New<McEnergyBig>();
         mcEnergyBig.RefreshProperties();
         return mcEnergyBig;
     }
@@ -27,6 +27,6 @@ public class McEnergyBig : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McEnergyBig>.Free(this);
+        StaticPool.Free<McEnergyBig>(this);
     }
 }

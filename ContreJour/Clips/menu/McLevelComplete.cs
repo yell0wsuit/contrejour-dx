@@ -15,7 +15,7 @@ public class McLevelComplete : Sprite, IFreeable, IId
 
     public static McLevelComplete New()
     {
-        McLevelComplete mcLevelComplete = StaticPool<McLevelComplete>.New();
+        McLevelComplete mcLevelComplete = StaticPool.New<McLevelComplete>();
         mcLevelComplete.RefreshProperties();
         return mcLevelComplete;
     }
@@ -27,6 +27,6 @@ public class McLevelComplete : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McLevelComplete>.Free(this);
+        StaticPool.Free<McLevelComplete>(this);
     }
 }

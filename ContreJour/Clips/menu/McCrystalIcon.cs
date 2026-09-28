@@ -15,7 +15,7 @@ public class McCrystalIcon : Sprite, IFreeable, IId
 
     public static McCrystalIcon New()
     {
-        McCrystalIcon mcCrystalIcon = StaticPool<McCrystalIcon>.New();
+        McCrystalIcon mcCrystalIcon = StaticPool.New<McCrystalIcon>();
         mcCrystalIcon.RefreshProperties();
         return mcCrystalIcon;
     }
@@ -27,6 +27,6 @@ public class McCrystalIcon : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McCrystalIcon>.Free(this);
+        StaticPool.Free<McCrystalIcon>(this);
     }
 }

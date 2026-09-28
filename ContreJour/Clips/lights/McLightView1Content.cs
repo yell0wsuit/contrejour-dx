@@ -15,7 +15,7 @@ public class McLightView1Content : Sprite, IFreeable, IId
 
     public static McLightView1Content New()
     {
-        McLightView1Content mcLightView1Content = StaticPool<McLightView1Content>.New();
+        McLightView1Content mcLightView1Content = StaticPool.New<McLightView1Content>();
         mcLightView1Content.RefreshProperties();
         return mcLightView1Content;
     }
@@ -27,6 +27,6 @@ public class McLightView1Content : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McLightView1Content>.Free(this);
+        StaticPool.Free<McLightView1Content>(this);
     }
 }

@@ -15,7 +15,7 @@ public class McPlanetEyeBlink : MovieClip, IFreeable, IId
 
     public static McPlanetEyeBlink New()
     {
-        McPlanetEyeBlink mcPlanetEyeBlink = StaticPool<McPlanetEyeBlink>.New();
+        McPlanetEyeBlink mcPlanetEyeBlink = StaticPool.New<McPlanetEyeBlink>();
         mcPlanetEyeBlink.RefreshProperties();
         return mcPlanetEyeBlink;
     }
@@ -27,6 +27,6 @@ public class McPlanetEyeBlink : MovieClip, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McPlanetEyeBlink>.Free(this);
+        StaticPool.Free<McPlanetEyeBlink>(this);
     }
 }

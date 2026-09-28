@@ -15,7 +15,7 @@ public class McRotatableSpringHintView : Sprite, IFreeable, IId
 
     public static McRotatableSpringHintView New()
     {
-        McRotatableSpringHintView mcRotatableSpringHintView = StaticPool<McRotatableSpringHintView>.New();
+        McRotatableSpringHintView mcRotatableSpringHintView = StaticPool.New<McRotatableSpringHintView>();
         mcRotatableSpringHintView.RefreshProperties();
         return mcRotatableSpringHintView;
     }
@@ -27,6 +27,6 @@ public class McRotatableSpringHintView : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McRotatableSpringHintView>.Free(this);
+        StaticPool.Free<McRotatableSpringHintView>(this);
     }
 }

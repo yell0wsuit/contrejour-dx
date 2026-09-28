@@ -1,6 +1,6 @@
 namespace Mokus2D.Visual.Data;
 
-public class NodeChildren : SortedList<Node>
+public class NodeChildren : SortedCollection<Node>
 {
     private static readonly NodeComparer Comparer = new();
 

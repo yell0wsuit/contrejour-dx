@@ -15,7 +15,7 @@ public class McRotatorCircle : Sprite, IFreeable, IId
 
     public static McRotatorCircle New()
     {
-        McRotatorCircle mcRotatorCircle = StaticPool<McRotatorCircle>.New();
+        McRotatorCircle mcRotatorCircle = StaticPool.New<McRotatorCircle>();
         mcRotatorCircle.RefreshProperties();
         return mcRotatorCircle;
     }
@@ -27,6 +27,6 @@ public class McRotatorCircle : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McRotatorCircle>.Free(this);
+        StaticPool.Free<McRotatorCircle>(this);
     }
 }

@@ -15,7 +15,7 @@ public class McSuckerStrongSnotTextureipad3 : Sprite, IFreeable, IId
 
     public static McSuckerStrongSnotTextureipad3 New()
     {
-        McSuckerStrongSnotTextureipad3 mcSuckerStrongSnotTextureipad = StaticPool<McSuckerStrongSnotTextureipad3>.New();
+        McSuckerStrongSnotTextureipad3 mcSuckerStrongSnotTextureipad = StaticPool.New<McSuckerStrongSnotTextureipad3>();
         mcSuckerStrongSnotTextureipad.RefreshProperties();
         return mcSuckerStrongSnotTextureipad;
     }
@@ -27,6 +27,6 @@ public class McSuckerStrongSnotTextureipad3 : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McSuckerStrongSnotTextureipad3>.Free(this);
+        StaticPool.Free<McSuckerStrongSnotTextureipad3>(this);
     }
 }

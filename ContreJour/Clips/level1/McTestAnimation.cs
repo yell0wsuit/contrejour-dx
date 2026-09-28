@@ -17,7 +17,7 @@ public class McTestAnimation : AnimationNode, IFreeable, IId
 
     public static McTestAnimation New()
     {
-        McTestAnimation mcTestAnimation = StaticPool<McTestAnimation>.New();
+        McTestAnimation mcTestAnimation = StaticPool.New<McTestAnimation>();
         mcTestAnimation.RefreshProperties();
         return mcTestAnimation;
     }
@@ -32,6 +32,6 @@ public class McTestAnimation : AnimationNode, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McTestAnimation>.Free(this);
+        StaticPool.Free<McTestAnimation>(this);
     }
 }

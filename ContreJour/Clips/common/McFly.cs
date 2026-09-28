@@ -15,7 +15,7 @@ public class McFly : Sprite, IFreeable, IId
 
     public static McFly New()
     {
-        McFly mcFly = StaticPool<McFly>.New();
+        McFly mcFly = StaticPool.New<McFly>();
         mcFly.RefreshProperties();
         return mcFly;
     }
@@ -27,6 +27,6 @@ public class McFly : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McFly>.Free(this);
+        StaticPool.Free<McFly>(this);
     }
 }

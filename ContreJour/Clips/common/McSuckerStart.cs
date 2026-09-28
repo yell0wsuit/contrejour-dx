@@ -15,7 +15,7 @@ public class McSuckerStart : Sprite, IFreeable, IId
 
     public static McSuckerStart New()
     {
-        McSuckerStart mcSuckerStart = StaticPool<McSuckerStart>.New();
+        McSuckerStart mcSuckerStart = StaticPool.New<McSuckerStart>();
         mcSuckerStart.RefreshProperties();
         return mcSuckerStart;
     }
@@ -27,6 +27,6 @@ public class McSuckerStart : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McSuckerStart>.Free(this);
+        StaticPool.Free<McSuckerStart>(this);
     }
 }

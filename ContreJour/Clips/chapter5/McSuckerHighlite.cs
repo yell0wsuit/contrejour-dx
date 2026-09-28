@@ -15,7 +15,7 @@ public class McSuckerHighlite : Sprite, IFreeable, IId
 
     public static McSuckerHighlite New()
     {
-        McSuckerHighlite mcSuckerHighlite = StaticPool<McSuckerHighlite>.New();
+        McSuckerHighlite mcSuckerHighlite = StaticPool.New<McSuckerHighlite>();
         mcSuckerHighlite.RefreshProperties();
         return mcSuckerHighlite;
     }
@@ -27,6 +27,6 @@ public class McSuckerHighlite : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McSuckerHighlite>.Free(this);
+        StaticPool.Free<McSuckerHighlite>(this);
     }
 }

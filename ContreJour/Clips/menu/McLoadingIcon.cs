@@ -15,7 +15,7 @@ public class McLoadingIcon : Sprite, IFreeable, IId
 
     public static McLoadingIcon New()
     {
-        McLoadingIcon mcLoadingIcon = StaticPool<McLoadingIcon>.New();
+        McLoadingIcon mcLoadingIcon = StaticPool.New<McLoadingIcon>();
         mcLoadingIcon.RefreshProperties();
         return mcLoadingIcon;
     }
@@ -27,6 +27,6 @@ public class McLoadingIcon : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McLoadingIcon>.Free(this);
+        StaticPool.Free<McLoadingIcon>(this);
     }
 }

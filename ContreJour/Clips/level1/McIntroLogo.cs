@@ -15,7 +15,7 @@ public class McIntroLogo : Sprite, IFreeable, IId
 
     public static McIntroLogo New()
     {
-        McIntroLogo mcIntroLogo = StaticPool<McIntroLogo>.New();
+        McIntroLogo mcIntroLogo = StaticPool.New<McIntroLogo>();
         mcIntroLogo.RefreshProperties();
         return mcIntroLogo;
     }
@@ -27,6 +27,6 @@ public class McIntroLogo : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McIntroLogo>.Free(this);
+        StaticPool.Free<McIntroLogo>(this);
     }
 }

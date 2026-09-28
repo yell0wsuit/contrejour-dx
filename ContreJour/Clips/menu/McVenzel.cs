@@ -15,7 +15,7 @@ public class McVenzel : Sprite, IFreeable, IId
 
     public static McVenzel New()
     {
-        McVenzel mcVenzel = StaticPool<McVenzel>.New();
+        McVenzel mcVenzel = StaticPool.New<McVenzel>();
         mcVenzel.RefreshProperties();
         return mcVenzel;
     }
@@ -27,6 +27,6 @@ public class McVenzel : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McVenzel>.Free(this);
+        StaticPool.Free<McVenzel>(this);
     }
 }

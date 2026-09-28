@@ -15,7 +15,7 @@ public class McRoundDragView_5 : Sprite, IFreeable, IId
 
     public static McRoundDragView_5 New()
     {
-        McRoundDragView_5 mcRoundDragView_ = StaticPool<McRoundDragView_5>.New();
+        McRoundDragView_5 mcRoundDragView_ = StaticPool.New<McRoundDragView_5>();
         mcRoundDragView_.RefreshProperties();
         return mcRoundDragView_;
     }
@@ -27,6 +27,6 @@ public class McRoundDragView_5 : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McRoundDragView_5>.Free(this);
+        StaticPool.Free<McRoundDragView_5>(this);
     }
 }

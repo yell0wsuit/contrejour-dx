@@ -15,7 +15,7 @@ public class McTubusEyeBackground : Sprite, IFreeable, IId
 
     public static McTubusEyeBackground New()
     {
-        McTubusEyeBackground mcTubusEyeBackground = StaticPool<McTubusEyeBackground>.New();
+        McTubusEyeBackground mcTubusEyeBackground = StaticPool.New<McTubusEyeBackground>();
         mcTubusEyeBackground.RefreshProperties();
         return mcTubusEyeBackground;
     }
@@ -27,6 +27,6 @@ public class McTubusEyeBackground : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McTubusEyeBackground>.Free(this);
+        StaticPool.Free<McTubusEyeBackground>(this);
     }
 }

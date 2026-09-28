@@ -186,13 +186,7 @@ public class ContactManager
     {
         if (Settings.UseFPECollisionCategories)
         {
-            if (fixtureA.CollisionGroup == fixtureB.CollisionGroup && fixtureA.CollisionGroup != 0 && fixtureB.CollisionGroup != 0)
-            {
-                return false;
-            }
-            return ((fixtureA.CollisionCategories & fixtureB.CollidesWith) == 0) & ((fixtureB.CollisionCategories & fixtureA.CollidesWith) == 0)
-                ? false
-                : !fixtureA.IsFixtureIgnored(fixtureB) && !fixtureB.IsFixtureIgnored(fixtureA);
+            return (fixtureA.CollisionGroup != fixtureB.CollisionGroup || fixtureA.CollisionGroup == 0 || fixtureB.CollisionGroup == 0) && (fixtureA.CollisionCategories & fixtureB.CollidesWith) != 0 | (fixtureB.CollisionCategories & fixtureA.CollidesWith) != 0 && !fixtureA.IsFixtureIgnored(fixtureB) && !fixtureB.IsFixtureIgnored(fixtureA);
         }
         if (fixtureA.CollisionGroup == fixtureB.CollisionGroup && fixtureA.CollisionGroup != 0)
         {

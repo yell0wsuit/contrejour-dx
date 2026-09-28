@@ -15,7 +15,7 @@ public class McRoseView : Sprite, IFreeable, IId
 
     public static McRoseView New()
     {
-        McRoseView mcRoseView = StaticPool<McRoseView>.New();
+        McRoseView mcRoseView = StaticPool.New<McRoseView>();
         mcRoseView.RefreshProperties();
         return mcRoseView;
     }
@@ -27,6 +27,6 @@ public class McRoseView : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McRoseView>.Free(this);
+        StaticPool.Free<McRoseView>(this);
     }
 }

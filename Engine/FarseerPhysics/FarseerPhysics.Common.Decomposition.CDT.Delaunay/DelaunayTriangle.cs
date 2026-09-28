@@ -276,11 +276,7 @@ internal class DelaunayTriangle
         bool flag = num == 0 || num2 == 0;
         bool flag2 = num == 1 || num2 == 1;
         bool flag3 = num == 2 || num2 == 2;
-        if (flag2 && flag3)
-        {
-            return 0;
-        }
-        return flag && flag3 ? 1 : flag && flag2 ? 2 : -1;
+        return flag2 && flag3 ? 0 : flag && flag3 ? 1 : flag && flag2 ? 2 : -1;
     }
 
     public bool GetConstrainedEdgeCCW(TriangulationPoint p)

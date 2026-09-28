@@ -17,7 +17,7 @@ public class LystokAnimation : AnimationNode, IFreeable, IId
 
     public static LystokAnimation New()
     {
-        LystokAnimation lystokAnimation = StaticPool<LystokAnimation>.New();
+        LystokAnimation lystokAnimation = StaticPool.New<LystokAnimation>();
         lystokAnimation.RefreshProperties();
         return lystokAnimation;
     }
@@ -32,6 +32,6 @@ public class LystokAnimation : AnimationNode, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<LystokAnimation>.Free(this);
+        StaticPool.Free<LystokAnimation>(this);
     }
 }

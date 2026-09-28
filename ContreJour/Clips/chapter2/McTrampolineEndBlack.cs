@@ -15,7 +15,7 @@ public class McTrampolineEndBlack : Sprite, IFreeable, IId
 
     public static McTrampolineEndBlack New()
     {
-        McTrampolineEndBlack mcTrampolineEndBlack = StaticPool<McTrampolineEndBlack>.New();
+        McTrampolineEndBlack mcTrampolineEndBlack = StaticPool.New<McTrampolineEndBlack>();
         mcTrampolineEndBlack.RefreshProperties();
         return mcTrampolineEndBlack;
     }
@@ -27,6 +27,6 @@ public class McTrampolineEndBlack : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McTrampolineEndBlack>.Free(this);
+        StaticPool.Free<McTrampolineEndBlack>(this);
     }
 }

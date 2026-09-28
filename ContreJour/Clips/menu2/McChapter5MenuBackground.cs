@@ -15,7 +15,7 @@ public class McChapter5MenuBackground : Sprite, IFreeable, IId
 
     public static McChapter5MenuBackground New()
     {
-        McChapter5MenuBackground mcChapter5MenuBackground = StaticPool<McChapter5MenuBackground>.New();
+        McChapter5MenuBackground mcChapter5MenuBackground = StaticPool.New<McChapter5MenuBackground>();
         mcChapter5MenuBackground.RefreshProperties();
         return mcChapter5MenuBackground;
     }
@@ -27,6 +27,6 @@ public class McChapter5MenuBackground : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McChapter5MenuBackground>.Free(this);
+        StaticPool.Free<McChapter5MenuBackground>(this);
     }
 }

@@ -9,11 +9,11 @@ namespace Mokus2D.Visual.Text;
 
 public class FontsManager
 {
-    private readonly Dictionary<string, SortedList<FontData>> _fonts = [];
+    private readonly Dictionary<string, SortedCollection<FontData>> _fonts = [];
 
     public FontData GetFontData(string fontName, float size)
     {
-        SortedList<FontData> sortedList = (_fonts.TryGetValue(fontName) ?? _fonts.TryGetValue(RemoveSpaces(fontName))) ?? throw new Exception("Font not found, try calling FontClass.Register() static method in application OnInitialize()");
+        SortedCollection<FontData> sortedList = (_fonts.TryGetValue(fontName) ?? _fonts.TryGetValue(RemoveSpaces(fontName))) ?? throw new Exception("Font not found, try calling FontClass.Register() static method in application OnInitialize()");
         foreach (FontData item in sortedList)
         {
             if (item.FontSize >= size)
@@ -31,7 +31,7 @@ public class FontsManager
 
     public void ReloadFonts()
     {
-        foreach (SortedList<FontData> value in _fonts.Values)
+        foreach (SortedCollection<FontData> value in _fonts.Values)
         {
             List<FontData> list = [.. value];
             value.Clear();
@@ -45,11 +45,11 @@ public class FontsManager
 
     public void RegisterFont(string fontName, string fontId)
     {
-        if (!_fonts.ContainsKey(fontName))
+        if (!_fonts.TryGetValue(fontName, out SortedCollection<FontData> sortedList))
         {
-            _fonts[fontName] = new SortedList<FontData>(FontsComparizon);
+            sortedList = new SortedCollection<FontData>(FontsComparizon);
+            _fonts[fontName] = sortedList;
         }
-        SortedList<FontData> sortedList = _fonts[fontName];
         sortedList.Add(Mokus2DGame.LoadResource<FontData>(fontId));
     }
 

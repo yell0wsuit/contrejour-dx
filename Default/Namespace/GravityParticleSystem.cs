@@ -9,15 +9,15 @@ public class GravityParticleSystem : ParticleSystem
 {
     protected Vector2 gravity;
 
-    protected RandomRange speed = default;
+    protected RandomRange speed;
 
-    protected RandomRange angle = default;
+    protected RandomRange angle;
 
-    protected RandomRange horizontalPosition = default;
+    protected RandomRange horizontalPosition;
 
-    protected RandomRange verticalPosition = default;
+    protected RandomRange verticalPosition;
 
-    protected RandomRange angularSpeed = default;
+    protected RandomRange angularSpeed;
 
     private RandomRange particlesScale = new(1f, 0f);
 

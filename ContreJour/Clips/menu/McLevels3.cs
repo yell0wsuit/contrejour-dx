@@ -15,7 +15,7 @@ public class McLevels3 : Sprite, IFreeable, IId
 
     public static McLevels3 New()
     {
-        McLevels3 mcLevels = StaticPool<McLevels3>.New();
+        McLevels3 mcLevels = StaticPool.New<McLevels3>();
         mcLevels.RefreshProperties();
         return mcLevels;
     }
@@ -27,6 +27,6 @@ public class McLevels3 : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McLevels3>.Free(this);
+        StaticPool.Free<McLevels3>(this);
     }
 }

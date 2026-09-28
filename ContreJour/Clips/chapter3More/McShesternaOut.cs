@@ -15,7 +15,7 @@ public class McShesternaOut : Sprite, IFreeable, IId
 
     public static McShesternaOut New()
     {
-        McShesternaOut mcShesternaOut = StaticPool<McShesternaOut>.New();
+        McShesternaOut mcShesternaOut = StaticPool.New<McShesternaOut>();
         mcShesternaOut.RefreshProperties();
         return mcShesternaOut;
     }
@@ -27,6 +27,6 @@ public class McShesternaOut : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McShesternaOut>.Free(this);
+        StaticPool.Free<McShesternaOut>(this);
     }
 }

@@ -15,7 +15,7 @@ public class McPlanet5Ocean : Sprite, IFreeable, IId
 
     public static McPlanet5Ocean New()
     {
-        McPlanet5Ocean mcPlanet5Ocean = StaticPool<McPlanet5Ocean>.New();
+        McPlanet5Ocean mcPlanet5Ocean = StaticPool.New<McPlanet5Ocean>();
         mcPlanet5Ocean.RefreshProperties();
         return mcPlanet5Ocean;
     }
@@ -27,6 +27,6 @@ public class McPlanet5Ocean : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McPlanet5Ocean>.Free(this);
+        StaticPool.Free<McPlanet5Ocean>(this);
     }
 }

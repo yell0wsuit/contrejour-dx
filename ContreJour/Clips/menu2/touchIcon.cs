@@ -15,7 +15,7 @@ public class touchIcon : Sprite, IFreeable, IId
 
     public static touchIcon New()
     {
-        touchIcon touchIcon2 = StaticPool<touchIcon>.New();
+        touchIcon touchIcon2 = StaticPool.New<touchIcon>();
         touchIcon2.RefreshProperties();
         return touchIcon2;
     }
@@ -27,6 +27,6 @@ public class touchIcon : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<touchIcon>.Free(this);
+        StaticPool.Free<touchIcon>(this);
     }
 }

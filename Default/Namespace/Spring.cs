@@ -12,9 +12,9 @@ public class Spring
 
     public float k;
 
-    public Vector2 localAnchorA = default;
+    public Vector2 localAnchorA;
 
-    public Vector2 localAnchorB = default;
+    public Vector2 localAnchorB;
 
     public Spring(ref Body bodyA, ref Body bodyB, Vector2 anchorA, Vector2 anchorB, float k)
     {

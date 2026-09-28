@@ -106,11 +106,11 @@ public class TouchCircle : BodyClip
 
     public bool IsNegative(PlasticinePartBodyClip part)
     {
-        if (!closestMap.ContainsKey(part.Parent))
+        if (!closestMap.TryGetValue(part.Parent, out ClosestItem closestItem))
         {
-            closestMap[part.Parent] = new ClosestItem(null, refreshed: false);
+            closestItem = new ClosestItem(null, refreshed: false);
+            closestMap[part.Parent] = closestItem;
         }
-        ClosestItem closestItem = closestMap[part.Parent];
         if (!closestItem.Refreshed)
         {
             RefreshClosestPlasticineDefaultItem(closestItem, part);

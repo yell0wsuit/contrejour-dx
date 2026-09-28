@@ -15,7 +15,7 @@ public class McEyeBlinkOneTimeMonsterBlack : MovieClip, IFreeable, IId
 
     public static McEyeBlinkOneTimeMonsterBlack New()
     {
-        McEyeBlinkOneTimeMonsterBlack mcEyeBlinkOneTimeMonsterBlack = StaticPool<McEyeBlinkOneTimeMonsterBlack>.New();
+        McEyeBlinkOneTimeMonsterBlack mcEyeBlinkOneTimeMonsterBlack = StaticPool.New<McEyeBlinkOneTimeMonsterBlack>();
         mcEyeBlinkOneTimeMonsterBlack.RefreshProperties();
         return mcEyeBlinkOneTimeMonsterBlack;
     }
@@ -27,6 +27,6 @@ public class McEyeBlinkOneTimeMonsterBlack : MovieClip, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McEyeBlinkOneTimeMonsterBlack>.Free(this);
+        StaticPool.Free<McEyeBlinkOneTimeMonsterBlack>(this);
     }
 }

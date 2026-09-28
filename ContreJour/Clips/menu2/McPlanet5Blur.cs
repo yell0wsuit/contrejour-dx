@@ -15,7 +15,7 @@ public class McPlanet5Blur : Sprite, IFreeable, IId
 
     public static McPlanet5Blur New()
     {
-        McPlanet5Blur mcPlanet5Blur = StaticPool<McPlanet5Blur>.New();
+        McPlanet5Blur mcPlanet5Blur = StaticPool.New<McPlanet5Blur>();
         mcPlanet5Blur.RefreshProperties();
         return mcPlanet5Blur;
     }
@@ -27,6 +27,6 @@ public class McPlanet5Blur : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McPlanet5Blur>.Free(this);
+        StaticPool.Free<McPlanet5Blur>(this);
     }
 }

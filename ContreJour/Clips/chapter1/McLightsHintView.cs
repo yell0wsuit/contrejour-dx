@@ -15,7 +15,7 @@ public class McLightsHintView : Sprite, IFreeable, IId
 
     public static McLightsHintView New()
     {
-        McLightsHintView mcLightsHintView = StaticPool<McLightsHintView>.New();
+        McLightsHintView mcLightsHintView = StaticPool.New<McLightsHintView>();
         mcLightsHintView.RefreshProperties();
         return mcLightsHintView;
     }
@@ -27,6 +27,6 @@ public class McLightsHintView : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McLightsHintView>.Free(this);
+        StaticPool.Free<McLightsHintView>(this);
     }
 }

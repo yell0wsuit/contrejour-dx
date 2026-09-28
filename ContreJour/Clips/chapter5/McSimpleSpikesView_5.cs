@@ -15,7 +15,7 @@ public class McSimpleSpikesView_5 : MovieClip, IFreeable, IId
 
     public static McSimpleSpikesView_5 New()
     {
-        McSimpleSpikesView_5 mcSimpleSpikesView_ = StaticPool<McSimpleSpikesView_5>.New();
+        McSimpleSpikesView_5 mcSimpleSpikesView_ = StaticPool.New<McSimpleSpikesView_5>();
         mcSimpleSpikesView_.RefreshProperties();
         return mcSimpleSpikesView_;
     }
@@ -27,6 +27,6 @@ public class McSimpleSpikesView_5 : MovieClip, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McSimpleSpikesView_5>.Free(this);
+        StaticPool.Free<McSimpleSpikesView_5>(this);
     }
 }

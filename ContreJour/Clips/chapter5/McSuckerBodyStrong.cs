@@ -15,7 +15,7 @@ public class McSuckerBodyStrong : Sprite, IFreeable, IId
 
     public static McSuckerBodyStrong New()
     {
-        McSuckerBodyStrong mcSuckerBodyStrong = StaticPool<McSuckerBodyStrong>.New();
+        McSuckerBodyStrong mcSuckerBodyStrong = StaticPool.New<McSuckerBodyStrong>();
         mcSuckerBodyStrong.RefreshProperties();
         return mcSuckerBodyStrong;
     }
@@ -27,6 +27,6 @@ public class McSuckerBodyStrong : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McSuckerBodyStrong>.Free(this);
+        StaticPool.Free<McSuckerBodyStrong>(this);
     }
 }

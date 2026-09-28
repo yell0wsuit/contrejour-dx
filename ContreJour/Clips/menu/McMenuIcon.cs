@@ -15,7 +15,7 @@ public class McMenuIcon : Sprite, IFreeable, IId
 
     public static McMenuIcon New()
     {
-        McMenuIcon mcMenuIcon = StaticPool<McMenuIcon>.New();
+        McMenuIcon mcMenuIcon = StaticPool.New<McMenuIcon>();
         mcMenuIcon.RefreshProperties();
         return mcMenuIcon;
     }
@@ -27,6 +27,6 @@ public class McMenuIcon : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McMenuIcon>.Free(this);
+        StaticPool.Free<McMenuIcon>(this);
     }
 }

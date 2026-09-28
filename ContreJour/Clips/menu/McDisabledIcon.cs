@@ -15,7 +15,7 @@ public class McDisabledIcon : Sprite, IFreeable, IId
 
     public static McDisabledIcon New()
     {
-        McDisabledIcon mcDisabledIcon = StaticPool<McDisabledIcon>.New();
+        McDisabledIcon mcDisabledIcon = StaticPool.New<McDisabledIcon>();
         mcDisabledIcon.RefreshProperties();
         return mcDisabledIcon;
     }
@@ -27,6 +27,6 @@ public class McDisabledIcon : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McDisabledIcon>.Free(this);
+        StaticPool.Free<McDisabledIcon>(this);
     }
 }

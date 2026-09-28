@@ -15,7 +15,7 @@ public class McGroundHintView : Sprite, IFreeable, IId
 
     public static McGroundHintView New()
     {
-        McGroundHintView mcGroundHintView = StaticPool<McGroundHintView>.New();
+        McGroundHintView mcGroundHintView = StaticPool.New<McGroundHintView>();
         mcGroundHintView.RefreshProperties();
         return mcGroundHintView;
     }
@@ -27,6 +27,6 @@ public class McGroundHintView : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McGroundHintView>.Free(this);
+        StaticPool.Free<McGroundHintView>(this);
     }
 }

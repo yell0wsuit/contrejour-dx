@@ -15,7 +15,7 @@ public class McWhiteGrass : MovieClip, IFreeable, IId
 
     public static McWhiteGrass New()
     {
-        McWhiteGrass mcWhiteGrass = StaticPool<McWhiteGrass>.New();
+        McWhiteGrass mcWhiteGrass = StaticPool.New<McWhiteGrass>();
         mcWhiteGrass.RefreshProperties();
         return mcWhiteGrass;
     }
@@ -27,6 +27,6 @@ public class McWhiteGrass : MovieClip, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McWhiteGrass>.Free(this);
+        StaticPool.Free<McWhiteGrass>(this);
     }
 }

@@ -15,7 +15,7 @@ public class McPlanetStickBall : Sprite, IFreeable, IId
 
     public static McPlanetStickBall New()
     {
-        McPlanetStickBall mcPlanetStickBall = StaticPool<McPlanetStickBall>.New();
+        McPlanetStickBall mcPlanetStickBall = StaticPool.New<McPlanetStickBall>();
         mcPlanetStickBall.RefreshProperties();
         return mcPlanetStickBall;
     }
@@ -27,6 +27,6 @@ public class McPlanetStickBall : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McPlanetStickBall>.Free(this);
+        StaticPool.Free<McPlanetStickBall>(this);
     }
 }

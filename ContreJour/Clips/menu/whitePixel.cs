@@ -15,7 +15,7 @@ public class whitePixel : Sprite, IFreeable, IId
 
     public static whitePixel New()
     {
-        whitePixel whitePixel2 = StaticPool<whitePixel>.New();
+        whitePixel whitePixel2 = StaticPool.New<whitePixel>();
         whitePixel2.RefreshProperties();
         return whitePixel2;
     }
@@ -27,6 +27,6 @@ public class whitePixel : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<whitePixel>.Free(this);
+        StaticPool.Free<whitePixel>(this);
     }
 }

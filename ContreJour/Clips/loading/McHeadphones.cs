@@ -15,7 +15,7 @@ public class McHeadphones : Sprite, IFreeable, IId
 
     public static McHeadphones New()
     {
-        McHeadphones mcHeadphones = StaticPool<McHeadphones>.New();
+        McHeadphones mcHeadphones = StaticPool.New<McHeadphones>();
         mcHeadphones.RefreshProperties();
         return mcHeadphones;
     }
@@ -27,6 +27,6 @@ public class McHeadphones : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McHeadphones>.Free(this);
+        StaticPool.Free<McHeadphones>(this);
     }
 }

@@ -15,7 +15,7 @@ public class petitInformationBackground : Sprite, IFreeable, IId
 
     public static petitInformationBackground New()
     {
-        petitInformationBackground petitInformationBackground2 = StaticPool<petitInformationBackground>.New();
+        petitInformationBackground petitInformationBackground2 = StaticPool.New<petitInformationBackground>();
         petitInformationBackground2.RefreshProperties();
         return petitInformationBackground2;
     }
@@ -27,6 +27,6 @@ public class petitInformationBackground : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<petitInformationBackground>.Free(this);
+        StaticPool.Free<petitInformationBackground>(this);
     }
 }

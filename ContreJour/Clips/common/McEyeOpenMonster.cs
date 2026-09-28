@@ -15,7 +15,7 @@ public class McEyeOpenMonster : MovieClip, IFreeable, IId
 
     public static McEyeOpenMonster New()
     {
-        McEyeOpenMonster mcEyeOpenMonster = StaticPool<McEyeOpenMonster>.New();
+        McEyeOpenMonster mcEyeOpenMonster = StaticPool.New<McEyeOpenMonster>();
         mcEyeOpenMonster.RefreshProperties();
         return mcEyeOpenMonster;
     }
@@ -27,6 +27,6 @@ public class McEyeOpenMonster : MovieClip, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McEyeOpenMonster>.Free(this);
+        StaticPool.Free<McEyeOpenMonster>(this);
     }
 }

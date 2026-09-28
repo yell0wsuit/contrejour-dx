@@ -15,7 +15,7 @@ public class McGreenPlanetFly : Sprite, IFreeable, IId
 
     public static McGreenPlanetFly New()
     {
-        McGreenPlanetFly mcGreenPlanetFly = StaticPool<McGreenPlanetFly>.New();
+        McGreenPlanetFly mcGreenPlanetFly = StaticPool.New<McGreenPlanetFly>();
         mcGreenPlanetFly.RefreshProperties();
         return mcGreenPlanetFly;
     }
@@ -27,6 +27,6 @@ public class McGreenPlanetFly : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McGreenPlanetFly>.Free(this);
+        StaticPool.Free<McGreenPlanetFly>(this);
     }
 }

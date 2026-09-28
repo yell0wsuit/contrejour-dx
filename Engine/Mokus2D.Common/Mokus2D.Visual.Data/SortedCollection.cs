@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Mokus2D.Visual.Data;
 
-public class SortedList<T> : IList<T>, ICollection<T>, IEnumerable<T>, IEnumerable
+public class SortedCollection<T> : IList<T>, ICollection<T>, IEnumerable<T>, IEnumerable
 {
     private Comparison<T> _comparison;
 
@@ -37,25 +37,25 @@ public class SortedList<T> : IList<T>, ICollection<T>, IEnumerable<T>, IEnumerab
 
     public bool IsReadOnly => false;
 
-    public SortedList(IComparer<T> comparer, int capacity)
+    public SortedCollection(IComparer<T> comparer, int capacity)
     {
         _comparer = comparer;
         Items = new List<T>(capacity);
     }
 
-    public SortedList(Comparison<T> comparison)
+    public SortedCollection(Comparison<T> comparison)
     {
         Comparison = comparison;
         Items = [];
     }
 
-    public SortedList(int capacity, Comparison<T> comparison)
+    public SortedCollection(int capacity, Comparison<T> comparison)
     {
         Comparison = comparison;
         Items = new List<T>(capacity);
     }
 
-    public SortedList(IEnumerable<T> collection, Comparison<T> comparison)
+    public SortedCollection(IEnumerable<T> collection, Comparison<T> comparison)
     {
         Comparison = comparison;
         Items = [.. collection];

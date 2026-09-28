@@ -15,7 +15,7 @@ public class McPlanetShesterna2 : Sprite, IFreeable, IId
 
     public static McPlanetShesterna2 New()
     {
-        McPlanetShesterna2 mcPlanetShesterna = StaticPool<McPlanetShesterna2>.New();
+        McPlanetShesterna2 mcPlanetShesterna = StaticPool.New<McPlanetShesterna2>();
         mcPlanetShesterna.RefreshProperties();
         return mcPlanetShesterna;
     }
@@ -27,6 +27,6 @@ public class McPlanetShesterna2 : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McPlanetShesterna2>.Free(this);
+        StaticPool.Free<McPlanetShesterna2>(this);
     }
 }

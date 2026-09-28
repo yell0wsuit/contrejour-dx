@@ -15,7 +15,7 @@ public class McBaloonLegs : Sprite, IFreeable, IId
 
     public static McBaloonLegs New()
     {
-        McBaloonLegs mcBaloonLegs = StaticPool<McBaloonLegs>.New();
+        McBaloonLegs mcBaloonLegs = StaticPool.New<McBaloonLegs>();
         mcBaloonLegs.RefreshProperties();
         return mcBaloonLegs;
     }
@@ -27,6 +27,6 @@ public class McBaloonLegs : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McBaloonLegs>.Free(this);
+        StaticPool.Free<McBaloonLegs>(this);
     }
 }

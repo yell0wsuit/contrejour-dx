@@ -15,7 +15,7 @@ public class McFakeHeroEyeBlink : MovieClip, IFreeable, IId
 
     public static McFakeHeroEyeBlink New()
     {
-        McFakeHeroEyeBlink mcFakeHeroEyeBlink = StaticPool<McFakeHeroEyeBlink>.New();
+        McFakeHeroEyeBlink mcFakeHeroEyeBlink = StaticPool.New<McFakeHeroEyeBlink>();
         mcFakeHeroEyeBlink.RefreshProperties();
         return mcFakeHeroEyeBlink;
     }
@@ -27,6 +27,6 @@ public class McFakeHeroEyeBlink : MovieClip, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McFakeHeroEyeBlink>.Free(this);
+        StaticPool.Free<McFakeHeroEyeBlink>(this);
     }
 }

@@ -15,7 +15,7 @@ public class McBackSnotEyeBlinkOneTime : MovieClip, IFreeable, IId
 
     public static McBackSnotEyeBlinkOneTime New()
     {
-        McBackSnotEyeBlinkOneTime mcBackSnotEyeBlinkOneTime = StaticPool<McBackSnotEyeBlinkOneTime>.New();
+        McBackSnotEyeBlinkOneTime mcBackSnotEyeBlinkOneTime = StaticPool.New<McBackSnotEyeBlinkOneTime>();
         mcBackSnotEyeBlinkOneTime.RefreshProperties();
         return mcBackSnotEyeBlinkOneTime;
     }
@@ -27,6 +27,6 @@ public class McBackSnotEyeBlinkOneTime : MovieClip, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McBackSnotEyeBlinkOneTime>.Free(this);
+        StaticPool.Free<McBackSnotEyeBlinkOneTime>(this);
     }
 }

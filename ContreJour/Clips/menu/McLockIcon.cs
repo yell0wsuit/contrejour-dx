@@ -15,7 +15,7 @@ public class McLockIcon : Sprite, IFreeable, IId
 
     public static McLockIcon New()
     {
-        McLockIcon mcLockIcon = StaticPool<McLockIcon>.New();
+        McLockIcon mcLockIcon = StaticPool.New<McLockIcon>();
         mcLockIcon.RefreshProperties();
         return mcLockIcon;
     }
@@ -27,6 +27,6 @@ public class McLockIcon : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McLockIcon>.Free(this);
+        StaticPool.Free<McLockIcon>(this);
     }
 }

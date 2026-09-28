@@ -17,7 +17,7 @@ public class McBaloonTailEnd : AnimationNode, IFreeable, IId
 
     public static McBaloonTailEnd New()
     {
-        McBaloonTailEnd mcBaloonTailEnd = StaticPool<McBaloonTailEnd>.New();
+        McBaloonTailEnd mcBaloonTailEnd = StaticPool.New<McBaloonTailEnd>();
         mcBaloonTailEnd.RefreshProperties();
         return mcBaloonTailEnd;
     }
@@ -32,6 +32,6 @@ public class McBaloonTailEnd : AnimationNode, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McBaloonTailEnd>.Free(this);
+        StaticPool.Free<McBaloonTailEnd>(this);
     }
 }

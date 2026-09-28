@@ -15,7 +15,7 @@ public class McFlowerHead : Sprite, IFreeable, IId
 
     public static McFlowerHead New()
     {
-        McFlowerHead mcFlowerHead = StaticPool<McFlowerHead>.New();
+        McFlowerHead mcFlowerHead = StaticPool.New<McFlowerHead>();
         mcFlowerHead.RefreshProperties();
         return mcFlowerHead;
     }
@@ -27,6 +27,6 @@ public class McFlowerHead : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McFlowerHead>.Free(this);
+        StaticPool.Free<McFlowerHead>(this);
     }
 }

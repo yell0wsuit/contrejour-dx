@@ -15,7 +15,7 @@ public class McLevelItemSelected : Sprite, IFreeable, IId
 
     public static McLevelItemSelected New()
     {
-        McLevelItemSelected mcLevelItemSelected = StaticPool<McLevelItemSelected>.New();
+        McLevelItemSelected mcLevelItemSelected = StaticPool.New<McLevelItemSelected>();
         mcLevelItemSelected.RefreshProperties();
         return mcLevelItemSelected;
     }
@@ -27,6 +27,6 @@ public class McLevelItemSelected : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McLevelItemSelected>.Free(this);
+        StaticPool.Free<McLevelItemSelected>(this);
     }
 }

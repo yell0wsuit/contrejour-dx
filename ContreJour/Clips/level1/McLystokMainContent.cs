@@ -15,7 +15,7 @@ public class McLystokMainContent : Sprite, IFreeable, IId
 
     public static McLystokMainContent New()
     {
-        McLystokMainContent mcLystokMainContent = StaticPool<McLystokMainContent>.New();
+        McLystokMainContent mcLystokMainContent = StaticPool.New<McLystokMainContent>();
         mcLystokMainContent.RefreshProperties();
         return mcLystokMainContent;
     }
@@ -27,6 +27,6 @@ public class McLystokMainContent : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McLystokMainContent>.Free(this);
+        StaticPool.Free<McLystokMainContent>(this);
     }
 }

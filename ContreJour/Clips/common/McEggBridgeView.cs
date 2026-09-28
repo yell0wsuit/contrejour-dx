@@ -15,7 +15,7 @@ public class McEggBridgeView : Sprite, IFreeable, IId
 
     public static McEggBridgeView New()
     {
-        McEggBridgeView mcEggBridgeView = StaticPool<McEggBridgeView>.New();
+        McEggBridgeView mcEggBridgeView = StaticPool.New<McEggBridgeView>();
         mcEggBridgeView.RefreshProperties();
         return mcEggBridgeView;
     }
@@ -27,6 +27,6 @@ public class McEggBridgeView : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McEggBridgeView>.Free(this);
+        StaticPool.Free<McEggBridgeView>(this);
     }
 }

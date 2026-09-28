@@ -15,7 +15,7 @@ public class McEnergyBall : Sprite, IFreeable, IId
 
     public static McEnergyBall New()
     {
-        McEnergyBall mcEnergyBall = StaticPool<McEnergyBall>.New();
+        McEnergyBall mcEnergyBall = StaticPool.New<McEnergyBall>();
         mcEnergyBall.RefreshProperties();
         return mcEnergyBall;
     }
@@ -27,6 +27,6 @@ public class McEnergyBall : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McEnergyBall>.Free(this);
+        StaticPool.Free<McEnergyBall>(this);
     }
 }

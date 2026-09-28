@@ -15,7 +15,7 @@ public class McGetMoreLevelsButton : Sprite, IFreeable, IId
 
     public static McGetMoreLevelsButton New()
     {
-        McGetMoreLevelsButton mcGetMoreLevelsButton = StaticPool<McGetMoreLevelsButton>.New();
+        McGetMoreLevelsButton mcGetMoreLevelsButton = StaticPool.New<McGetMoreLevelsButton>();
         mcGetMoreLevelsButton.RefreshProperties();
         return mcGetMoreLevelsButton;
     }
@@ -27,6 +27,6 @@ public class McGetMoreLevelsButton : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McGetMoreLevelsButton>.Free(this);
+        StaticPool.Free<McGetMoreLevelsButton>(this);
     }
 }

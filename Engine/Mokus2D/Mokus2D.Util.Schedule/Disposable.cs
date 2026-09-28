@@ -16,5 +16,6 @@ public class Disposable : DisposableBase
     protected override void Dispose(bool disposing)
     {
         action?.Invoke();
+        base.Dispose(disposing);
     }
 }

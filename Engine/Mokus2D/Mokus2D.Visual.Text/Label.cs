@@ -27,7 +27,7 @@ public class Label : AnchorNode, IDataReloadable
 
     public const char Space = ' ';
 
-    public static bool IgnoreMissingSymbolsDefault = false;
+    public static bool IgnoreMissingSymbolsDefault;
 
     private static readonly Vector2 DefaultMargins = new(2f);
 

@@ -15,7 +15,7 @@ public class McChapter4Blur : Sprite, IFreeable, IId
 
     public static McChapter4Blur New()
     {
-        McChapter4Blur mcChapter4Blur = StaticPool<McChapter4Blur>.New();
+        McChapter4Blur mcChapter4Blur = StaticPool.New<McChapter4Blur>();
         mcChapter4Blur.RefreshProperties();
         return mcChapter4Blur;
     }
@@ -27,6 +27,6 @@ public class McChapter4Blur : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McChapter4Blur>.Free(this);
+        StaticPool.Free<McChapter4Blur>(this);
     }
 }

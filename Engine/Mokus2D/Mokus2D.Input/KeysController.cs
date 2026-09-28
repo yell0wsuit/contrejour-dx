@@ -15,7 +15,7 @@ public class KeysController : IUpdatable
 {
     private static readonly Comparison<ActionPriority> Comparison = (first, second) => Comparisons.FloatComparizon(first.Priority, second.Priority);
 
-    private readonly SortedList<ActionPriority> _backKeysListeners = new(64, Comparison);
+    private readonly SortedCollection<ActionPriority> _backKeysListeners = new(64, Comparison);
 
     private readonly List<ActionPriority> _toRemove = new(64);
 

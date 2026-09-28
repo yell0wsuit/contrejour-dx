@@ -15,7 +15,7 @@ public class McEyeDead : Sprite, IFreeable, IId
 
     public static McEyeDead New()
     {
-        McEyeDead mcEyeDead = StaticPool<McEyeDead>.New();
+        McEyeDead mcEyeDead = StaticPool.New<McEyeDead>();
         mcEyeDead.RefreshProperties();
         return mcEyeDead;
     }
@@ -27,6 +27,6 @@ public class McEyeDead : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McEyeDead>.Free(this);
+        StaticPool.Free<McEyeDead>(this);
     }
 }

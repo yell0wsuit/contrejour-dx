@@ -15,7 +15,7 @@ public class PelustokNoLight : Sprite, IFreeable, IId
 
     public static PelustokNoLight New()
     {
-        PelustokNoLight pelustokNoLight = StaticPool<PelustokNoLight>.New();
+        PelustokNoLight pelustokNoLight = StaticPool.New<PelustokNoLight>();
         pelustokNoLight.RefreshProperties();
         return pelustokNoLight;
     }
@@ -27,6 +27,6 @@ public class PelustokNoLight : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<PelustokNoLight>.Free(this);
+        StaticPool.Free<PelustokNoLight>(this);
     }
 }

@@ -15,7 +15,7 @@ public class McPlanetFur : MovieClip, IFreeable, IId
 
     public static McPlanetFur New()
     {
-        McPlanetFur mcPlanetFur = StaticPool<McPlanetFur>.New();
+        McPlanetFur mcPlanetFur = StaticPool.New<McPlanetFur>();
         mcPlanetFur.RefreshProperties();
         return mcPlanetFur;
     }
@@ -27,6 +27,6 @@ public class McPlanetFur : MovieClip, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McPlanetFur>.Free(this);
+        StaticPool.Free<McPlanetFur>(this);
     }
 }

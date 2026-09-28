@@ -15,7 +15,7 @@ public class McGroundCircle0 : Sprite, IFreeable, IId
 
     public static McGroundCircle0 New()
     {
-        McGroundCircle0 mcGroundCircle = StaticPool<McGroundCircle0>.New();
+        McGroundCircle0 mcGroundCircle = StaticPool.New<McGroundCircle0>();
         mcGroundCircle.RefreshProperties();
         return mcGroundCircle;
     }
@@ -27,6 +27,6 @@ public class McGroundCircle0 : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McGroundCircle0>.Free(this);
+        StaticPool.Free<McGroundCircle0>(this);
     }
 }

@@ -59,18 +59,6 @@ public class ListView<T> : Node, IListView
 
     public event Action DataChangedEvent;
 
-    public static ListView<T> Create(Type rendererType, string animationId, float height)
-    {
-        int itemsCout = GetItemsCout(animationId, height);
-        return new ListView<T>(rendererType, itemsCout, height);
-    }
-
-    protected static int GetItemsCout(string animationId, float height)
-    {
-        AnimationData animationData = Mokus2DGame.LoadAnimation(animationId);
-        return (int)(height / animationData.PrecalculatedBounds.Height);
-    }
-
     public ListView(Type itemRendererType, int itemsCount, float height)
         : this(() => (Node)Activator.CreateInstance(itemRendererType), itemsCount, height)
     {
@@ -153,5 +141,20 @@ public class ListView<T> : Node, IListView
     {
         _layout.Apply();
         RefreshRenderersPosition(TopRendererOffset);
+    }
+}
+
+public static class ListView
+{
+    public static ListView<T> Create<T>(Type rendererType, string animationId, float height)
+    {
+        int itemsCount = GetItemsCount(animationId, height);
+        return new ListView<T>(rendererType, itemsCount, height);
+    }
+
+    private static int GetItemsCount(string animationId, float height)
+    {
+        AnimationData animationData = Mokus2DGame.LoadAnimation(animationId);
+        return (int)(height / animationData.PrecalculatedBounds.Height);
     }
 }

@@ -15,7 +15,7 @@ public class McIconAchievements : Sprite, IFreeable, IId
 
     public static McIconAchievements New()
     {
-        McIconAchievements mcIconAchievements = StaticPool<McIconAchievements>.New();
+        McIconAchievements mcIconAchievements = StaticPool.New<McIconAchievements>();
         mcIconAchievements.RefreshProperties();
         return mcIconAchievements;
     }
@@ -27,6 +27,6 @@ public class McIconAchievements : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McIconAchievements>.Free(this);
+        StaticPool.Free<McIconAchievements>(this);
     }
 }

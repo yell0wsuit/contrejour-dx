@@ -42,7 +42,7 @@ public class RandomAnimationEye : EyeBase
 
     protected bool IsWhite => Game != null && Game.WhiteSide;
 
-    protected bool BlackEye => Game != null ? Game.WhiteSide || Game.BlackSide || Game.BonusChapter : false;
+    protected bool BlackEye => Game != null && (Game.WhiteSide || Game.BlackSide || Game.BonusChapter);
 
     public virtual bool AnimationsAllowed
     {

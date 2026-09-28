@@ -29,7 +29,7 @@ public class McRoseHeadLightDown : AnimationNode, IFreeable, IId
 
     public static McRoseHeadLightDown New()
     {
-        McRoseHeadLightDown mcRoseHeadLightDown = StaticPool<McRoseHeadLightDown>.New();
+        McRoseHeadLightDown mcRoseHeadLightDown = StaticPool.New<McRoseHeadLightDown>();
         mcRoseHeadLightDown.RefreshProperties();
         return mcRoseHeadLightDown;
     }
@@ -56,6 +56,6 @@ public class McRoseHeadLightDown : AnimationNode, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McRoseHeadLightDown>.Free(this);
+        StaticPool.Free<McRoseHeadLightDown>(this);
     }
 }

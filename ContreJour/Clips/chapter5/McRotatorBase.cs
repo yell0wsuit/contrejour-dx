@@ -15,7 +15,7 @@ public class McRotatorBase : Sprite, IFreeable, IId
 
     public static McRotatorBase New()
     {
-        McRotatorBase mcRotatorBase = StaticPool<McRotatorBase>.New();
+        McRotatorBase mcRotatorBase = StaticPool.New<McRotatorBase>();
         mcRotatorBase.RefreshProperties();
         return mcRotatorBase;
     }
@@ -27,6 +27,6 @@ public class McRotatorBase : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McRotatorBase>.Free(this);
+        StaticPool.Free<McRotatorBase>(this);
     }
 }

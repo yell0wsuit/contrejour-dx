@@ -15,7 +15,7 @@ public class McBackSnotEye : Sprite, IFreeable, IId
 
     public static McBackSnotEye New()
     {
-        McBackSnotEye mcBackSnotEye = StaticPool<McBackSnotEye>.New();
+        McBackSnotEye mcBackSnotEye = StaticPool.New<McBackSnotEye>();
         mcBackSnotEye.RefreshProperties();
         return mcBackSnotEye;
     }
@@ -27,6 +27,6 @@ public class McBackSnotEye : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McBackSnotEye>.Free(this);
+        StaticPool.Free<McBackSnotEye>(this);
     }
 }

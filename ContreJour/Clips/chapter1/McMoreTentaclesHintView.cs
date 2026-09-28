@@ -15,7 +15,7 @@ public class McMoreTentaclesHintView : Sprite, IFreeable, IId
 
     public static McMoreTentaclesHintView New()
     {
-        McMoreTentaclesHintView mcMoreTentaclesHintView = StaticPool<McMoreTentaclesHintView>.New();
+        McMoreTentaclesHintView mcMoreTentaclesHintView = StaticPool.New<McMoreTentaclesHintView>();
         mcMoreTentaclesHintView.RefreshProperties();
         return mcMoreTentaclesHintView;
     }
@@ -27,6 +27,6 @@ public class McMoreTentaclesHintView : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McMoreTentaclesHintView>.Free(this);
+        StaticPool.Free<McMoreTentaclesHintView>(this);
     }
 }

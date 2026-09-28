@@ -15,7 +15,7 @@ public class McSpikesPart : MovieClip, IFreeable, IId
 
     public static McSpikesPart New()
     {
-        McSpikesPart mcSpikesPart = StaticPool<McSpikesPart>.New();
+        McSpikesPart mcSpikesPart = StaticPool.New<McSpikesPart>();
         mcSpikesPart.RefreshProperties();
         return mcSpikesPart;
     }
@@ -27,6 +27,6 @@ public class McSpikesPart : MovieClip, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McSpikesPart>.Free(this);
+        StaticPool.Free<McSpikesPart>(this);
     }
 }

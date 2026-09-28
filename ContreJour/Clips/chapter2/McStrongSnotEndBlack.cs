@@ -15,7 +15,7 @@ public class McStrongSnotEndBlack : Sprite, IFreeable, IId
 
     public static McStrongSnotEndBlack New()
     {
-        McStrongSnotEndBlack mcStrongSnotEndBlack = StaticPool<McStrongSnotEndBlack>.New();
+        McStrongSnotEndBlack mcStrongSnotEndBlack = StaticPool.New<McStrongSnotEndBlack>();
         mcStrongSnotEndBlack.RefreshProperties();
         return mcStrongSnotEndBlack;
     }
@@ -27,6 +27,6 @@ public class McStrongSnotEndBlack : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McStrongSnotEndBlack>.Free(this);
+        StaticPool.Free<McStrongSnotEndBlack>(this);
     }
 }

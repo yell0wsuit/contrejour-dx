@@ -188,11 +188,7 @@ public class StrongSnotBodyClip : SnotBodyClip
 
     public bool CanRelease()
     {
-        if (stickyJoint == null)
-        {
-            return false;
-        }
-        return linked is not HeroBodyClip ? true : ((HeroBodyClip)linked).OnGround() || linked.SnotJoinedCount > 1;
+        return stickyJoint != null && (linked is not HeroBodyClip || ((HeroBodyClip)linked).OnGround() || linked.SnotJoinedCount > 1);
     }
 
     public override void SetDamping(float value)

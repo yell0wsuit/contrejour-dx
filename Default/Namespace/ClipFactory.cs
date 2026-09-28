@@ -100,14 +100,10 @@ public class ClipFactory
     {
         name = CorrectName(name);
         ClipData clipData;
-        if (!configsCache.ContainsKey(name))
+        if (!configsCache.TryGetValue(name, out clipData))
         {
             clipData = TryReadConfig(name, currentTextureSource) ?? TryReadConfig(name, defaultTextureSource);
             configsCache[name] = clipData;
-        }
-        else
-        {
-            clipData = configsCache[name];
         }
         return clipData;
     }

@@ -17,7 +17,7 @@ public class McPuddle : AnimationNode, IFreeable, IId
 
     public static McPuddle New()
     {
-        McPuddle mcPuddle = StaticPool<McPuddle>.New();
+        McPuddle mcPuddle = StaticPool.New<McPuddle>();
         mcPuddle.RefreshProperties();
         return mcPuddle;
     }
@@ -32,6 +32,6 @@ public class McPuddle : AnimationNode, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McPuddle>.Free(this);
+        StaticPool.Free<McPuddle>(this);
     }
 }

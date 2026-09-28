@@ -15,7 +15,7 @@ public class McLock : Sprite, IFreeable, IId
 
     public static McLock New()
     {
-        McLock mcLock = StaticPool<McLock>.New();
+        McLock mcLock = StaticPool.New<McLock>();
         mcLock.RefreshProperties();
         return mcLock;
     }
@@ -27,6 +27,6 @@ public class McLock : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McLock>.Free(this);
+        StaticPool.Free<McLock>(this);
     }
 }

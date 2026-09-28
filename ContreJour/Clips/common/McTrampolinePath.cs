@@ -15,7 +15,7 @@ public class McTrampolinePath : Sprite, IFreeable, IId
 
     public static McTrampolinePath New()
     {
-        McTrampolinePath mcTrampolinePath = StaticPool<McTrampolinePath>.New();
+        McTrampolinePath mcTrampolinePath = StaticPool.New<McTrampolinePath>();
         mcTrampolinePath.RefreshProperties();
         return mcTrampolinePath;
     }
@@ -27,6 +27,6 @@ public class McTrampolinePath : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McTrampolinePath>.Free(this);
+        StaticPool.Free<McTrampolinePath>(this);
     }
 }

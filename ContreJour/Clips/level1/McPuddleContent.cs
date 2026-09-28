@@ -15,7 +15,7 @@ public class McPuddleContent : Sprite, IFreeable, IId
 
     public static McPuddleContent New()
     {
-        McPuddleContent mcPuddleContent = StaticPool<McPuddleContent>.New();
+        McPuddleContent mcPuddleContent = StaticPool.New<McPuddleContent>();
         mcPuddleContent.RefreshProperties();
         return mcPuddleContent;
     }
@@ -27,6 +27,6 @@ public class McPuddleContent : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McPuddleContent>.Free(this);
+        StaticPool.Free<McPuddleContent>(this);
     }
 }

@@ -15,7 +15,7 @@ public class McDragViewWhite : Sprite, IFreeable, IId
 
     public static McDragViewWhite New()
     {
-        McDragViewWhite mcDragViewWhite = StaticPool<McDragViewWhite>.New();
+        McDragViewWhite mcDragViewWhite = StaticPool.New<McDragViewWhite>();
         mcDragViewWhite.RefreshProperties();
         return mcDragViewWhite;
     }
@@ -27,6 +27,6 @@ public class McDragViewWhite : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McDragViewWhite>.Free(this);
+        StaticPool.Free<McDragViewWhite>(this);
     }
 }

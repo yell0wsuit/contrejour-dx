@@ -15,7 +15,7 @@ public class McRoseHeadLight : Sprite, IFreeable, IId
 
     public static McRoseHeadLight New()
     {
-        McRoseHeadLight mcRoseHeadLight = StaticPool<McRoseHeadLight>.New();
+        McRoseHeadLight mcRoseHeadLight = StaticPool.New<McRoseHeadLight>();
         mcRoseHeadLight.RefreshProperties();
         return mcRoseHeadLight;
     }
@@ -27,6 +27,6 @@ public class McRoseHeadLight : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McRoseHeadLight>.Free(this);
+        StaticPool.Free<McRoseHeadLight>(this);
     }
 }

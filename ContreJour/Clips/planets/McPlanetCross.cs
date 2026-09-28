@@ -15,7 +15,7 @@ public class McPlanetCross : Sprite, IFreeable, IId
 
     public static McPlanetCross New()
     {
-        McPlanetCross mcPlanetCross = StaticPool<McPlanetCross>.New();
+        McPlanetCross mcPlanetCross = StaticPool.New<McPlanetCross>();
         mcPlanetCross.RefreshProperties();
         return mcPlanetCross;
     }
@@ -27,6 +27,6 @@ public class McPlanetCross : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McPlanetCross>.Free(this);
+        StaticPool.Free<McPlanetCross>(this);
     }
 }

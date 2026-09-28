@@ -15,7 +15,7 @@ public class McStripesHintView : Sprite, IFreeable, IId
 
     public static McStripesHintView New()
     {
-        McStripesHintView mcStripesHintView = StaticPool<McStripesHintView>.New();
+        McStripesHintView mcStripesHintView = StaticPool.New<McStripesHintView>();
         mcStripesHintView.RefreshProperties();
         return mcStripesHintView;
     }
@@ -27,6 +27,6 @@ public class McStripesHintView : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McStripesHintView>.Free(this);
+        StaticPool.Free<McStripesHintView>(this);
     }
 }

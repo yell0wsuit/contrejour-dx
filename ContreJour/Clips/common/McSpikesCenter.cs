@@ -15,7 +15,7 @@ public class McSpikesCenter : Sprite, IFreeable, IId
 
     public static McSpikesCenter New()
     {
-        McSpikesCenter mcSpikesCenter = StaticPool<McSpikesCenter>.New();
+        McSpikesCenter mcSpikesCenter = StaticPool.New<McSpikesCenter>();
         mcSpikesCenter.RefreshProperties();
         return mcSpikesCenter;
     }
@@ -27,6 +27,6 @@ public class McSpikesCenter : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McSpikesCenter>.Free(this);
+        StaticPool.Free<McSpikesCenter>(this);
     }
 }

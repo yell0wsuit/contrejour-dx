@@ -15,7 +15,7 @@ public class McRotatorArrowPart : MovieClip, IFreeable, IId
 
     public static McRotatorArrowPart New()
     {
-        McRotatorArrowPart mcRotatorArrowPart = StaticPool<McRotatorArrowPart>.New();
+        McRotatorArrowPart mcRotatorArrowPart = StaticPool.New<McRotatorArrowPart>();
         mcRotatorArrowPart.RefreshProperties();
         return mcRotatorArrowPart;
     }
@@ -27,6 +27,6 @@ public class McRotatorArrowPart : MovieClip, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McRotatorArrowPart>.Free(this);
+        StaticPool.Free<McRotatorArrowPart>(this);
     }
 }

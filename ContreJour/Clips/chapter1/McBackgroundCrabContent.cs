@@ -15,7 +15,7 @@ public class McBackgroundCrabContent : Sprite, IFreeable, IId
 
     public static McBackgroundCrabContent New()
     {
-        McBackgroundCrabContent mcBackgroundCrabContent = StaticPool<McBackgroundCrabContent>.New();
+        McBackgroundCrabContent mcBackgroundCrabContent = StaticPool.New<McBackgroundCrabContent>();
         mcBackgroundCrabContent.RefreshProperties();
         return mcBackgroundCrabContent;
     }
@@ -27,6 +27,6 @@ public class McBackgroundCrabContent : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McBackgroundCrabContent>.Free(this);
+        StaticPool.Free<McBackgroundCrabContent>(this);
     }
 }

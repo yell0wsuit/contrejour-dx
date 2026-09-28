@@ -15,7 +15,7 @@ public class McBridgeHideHintView : Sprite, IFreeable, IId
 
     public static McBridgeHideHintView New()
     {
-        McBridgeHideHintView mcBridgeHideHintView = StaticPool<McBridgeHideHintView>.New();
+        McBridgeHideHintView mcBridgeHideHintView = StaticPool.New<McBridgeHideHintView>();
         mcBridgeHideHintView.RefreshProperties();
         return mcBridgeHideHintView;
     }
@@ -27,6 +27,6 @@ public class McBridgeHideHintView : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McBridgeHideHintView>.Free(this);
+        StaticPool.Free<McBridgeHideHintView>(this);
     }
 }

@@ -15,7 +15,7 @@ public class McBackground2Back : Sprite, IFreeable, IId
 
     public static McBackground2Back New()
     {
-        McBackground2Back mcBackground2Back = StaticPool<McBackground2Back>.New();
+        McBackground2Back mcBackground2Back = StaticPool.New<McBackground2Back>();
         mcBackground2Back.RefreshProperties();
         return mcBackground2Back;
     }
@@ -27,6 +27,6 @@ public class McBackground2Back : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McBackground2Back>.Free(this);
+        StaticPool.Free<McBackground2Back>(this);
     }
 }

@@ -15,7 +15,7 @@ public class McMokusLogo : Sprite, IFreeable, IId
 
     public static McMokusLogo New()
     {
-        McMokusLogo mcMokusLogo = StaticPool<McMokusLogo>.New();
+        McMokusLogo mcMokusLogo = StaticPool.New<McMokusLogo>();
         mcMokusLogo.RefreshProperties();
         return mcMokusLogo;
     }
@@ -27,6 +27,6 @@ public class McMokusLogo : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McMokusLogo>.Free(this);
+        StaticPool.Free<McMokusLogo>(this);
     }
 }

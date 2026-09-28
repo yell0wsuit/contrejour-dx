@@ -15,7 +15,7 @@ public class McRotatableEggView0 : Sprite, IFreeable, IId
 
     public static McRotatableEggView0 New()
     {
-        McRotatableEggView0 mcRotatableEggView = StaticPool<McRotatableEggView0>.New();
+        McRotatableEggView0 mcRotatableEggView = StaticPool.New<McRotatableEggView0>();
         mcRotatableEggView.RefreshProperties();
         return mcRotatableEggView;
     }
@@ -27,6 +27,6 @@ public class McRotatableEggView0 : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McRotatableEggView0>.Free(this);
+        StaticPool.Free<McRotatableEggView0>(this);
     }
 }

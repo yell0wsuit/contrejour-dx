@@ -15,7 +15,7 @@ public class McGetUniversalButton : Sprite, IFreeable, IId
 
     public static McGetUniversalButton New()
     {
-        McGetUniversalButton mcGetUniversalButton = StaticPool<McGetUniversalButton>.New();
+        McGetUniversalButton mcGetUniversalButton = StaticPool.New<McGetUniversalButton>();
         mcGetUniversalButton.RefreshProperties();
         return mcGetUniversalButton;
     }
@@ -27,6 +27,6 @@ public class McGetUniversalButton : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McGetUniversalButton>.Free(this);
+        StaticPool.Free<McGetUniversalButton>(this);
     }
 }

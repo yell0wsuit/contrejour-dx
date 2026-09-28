@@ -69,13 +69,13 @@ public class SpriteLoaderCache : IGraphicsLoader
         name = FixName(name);
         Dictionary<string, object> dictionary = typeof(ITextureNodeData).GetTypeInfo().IsAssignableFrom(typeof(T).GetTypeInfo()) ? _textureNodeData : _data;
         T val;
-        if (!dictionary.ContainsKey(name))
+        if (!dictionary.TryGetValue(name, out object cached))
         {
             val = _baseLoader.Load<T>(name);
         }
         else
         {
-            val = (T)dictionary[name];
+            val = (T)cached;
             RefreshTexture(val as ITextureNodeData);
         }
         return val;

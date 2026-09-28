@@ -15,7 +15,7 @@ public class McTailTextureWhite : Sprite, IFreeable, IId
 
     public static McTailTextureWhite New()
     {
-        McTailTextureWhite mcTailTextureWhite = StaticPool<McTailTextureWhite>.New();
+        McTailTextureWhite mcTailTextureWhite = StaticPool.New<McTailTextureWhite>();
         mcTailTextureWhite.RefreshProperties();
         return mcTailTextureWhite;
     }
@@ -27,6 +27,6 @@ public class McTailTextureWhite : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McTailTextureWhite>.Free(this);
+        StaticPool.Free<McTailTextureWhite>(this);
     }
 }

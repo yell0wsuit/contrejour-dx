@@ -15,7 +15,7 @@ public class McFakeHeroBackground_6 : Sprite, IFreeable, IId
 
     public static McFakeHeroBackground_6 New()
     {
-        McFakeHeroBackground_6 mcFakeHeroBackground_ = StaticPool<McFakeHeroBackground_6>.New();
+        McFakeHeroBackground_6 mcFakeHeroBackground_ = StaticPool.New<McFakeHeroBackground_6>();
         mcFakeHeroBackground_.RefreshProperties();
         return mcFakeHeroBackground_;
     }
@@ -27,6 +27,6 @@ public class McFakeHeroBackground_6 : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McFakeHeroBackground_6>.Free(this);
+        StaticPool.Free<McFakeHeroBackground_6>(this);
     }
 }

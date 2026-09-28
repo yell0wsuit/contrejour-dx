@@ -17,7 +17,7 @@ public class McPlanetStick : AnimationNode, IFreeable, IId
 
     public static McPlanetStick New()
     {
-        McPlanetStick mcPlanetStick = StaticPool<McPlanetStick>.New();
+        McPlanetStick mcPlanetStick = StaticPool.New<McPlanetStick>();
         mcPlanetStick.RefreshProperties();
         return mcPlanetStick;
     }
@@ -32,6 +32,6 @@ public class McPlanetStick : AnimationNode, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McPlanetStick>.Free(this);
+        StaticPool.Free<McPlanetStick>(this);
     }
 }

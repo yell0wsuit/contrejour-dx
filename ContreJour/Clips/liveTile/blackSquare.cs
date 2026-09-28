@@ -15,7 +15,7 @@ public class blackSquare : Sprite, IFreeable, IId
 
     public static blackSquare New()
     {
-        blackSquare blackSquare2 = StaticPool<blackSquare>.New();
+        blackSquare blackSquare2 = StaticPool.New<blackSquare>();
         blackSquare2.RefreshProperties();
         return blackSquare2;
     }
@@ -27,6 +27,6 @@ public class blackSquare : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<blackSquare>.Free(this);
+        StaticPool.Free<blackSquare>(this);
     }
 }

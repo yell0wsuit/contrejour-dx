@@ -15,7 +15,7 @@ public class McStoneView7 : Sprite, IFreeable, IId
 
     public static McStoneView7 New()
     {
-        McStoneView7 mcStoneView = StaticPool<McStoneView7>.New();
+        McStoneView7 mcStoneView = StaticPool.New<McStoneView7>();
         mcStoneView.RefreshProperties();
         return mcStoneView;
     }
@@ -27,6 +27,6 @@ public class McStoneView7 : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McStoneView7>.Free(this);
+        StaticPool.Free<McStoneView7>(this);
     }
 }

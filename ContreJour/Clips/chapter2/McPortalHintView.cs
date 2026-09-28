@@ -15,7 +15,7 @@ public class McPortalHintView : Sprite, IFreeable, IId
 
     public static McPortalHintView New()
     {
-        McPortalHintView mcPortalHintView = StaticPool<McPortalHintView>.New();
+        McPortalHintView mcPortalHintView = StaticPool.New<McPortalHintView>();
         mcPortalHintView.RefreshProperties();
         return mcPortalHintView;
     }
@@ -27,6 +27,6 @@ public class McPortalHintView : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McPortalHintView>.Free(this);
+        StaticPool.Free<McPortalHintView>(this);
     }
 }

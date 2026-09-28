@@ -15,7 +15,7 @@ public class McPlanetTablo : Sprite, IFreeable, IId
 
     public static McPlanetTablo New()
     {
-        McPlanetTablo mcPlanetTablo = StaticPool<McPlanetTablo>.New();
+        McPlanetTablo mcPlanetTablo = StaticPool.New<McPlanetTablo>();
         mcPlanetTablo.RefreshProperties();
         return mcPlanetTablo;
     }
@@ -27,6 +27,6 @@ public class McPlanetTablo : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McPlanetTablo>.Free(this);
+        StaticPool.Free<McPlanetTablo>(this);
     }
 }

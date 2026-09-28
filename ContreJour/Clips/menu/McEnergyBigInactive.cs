@@ -15,7 +15,7 @@ public class McEnergyBigInactive : Sprite, IFreeable, IId
 
     public static McEnergyBigInactive New()
     {
-        McEnergyBigInactive mcEnergyBigInactive = StaticPool<McEnergyBigInactive>.New();
+        McEnergyBigInactive mcEnergyBigInactive = StaticPool.New<McEnergyBigInactive>();
         mcEnergyBigInactive.RefreshProperties();
         return mcEnergyBigInactive;
     }
@@ -27,6 +27,6 @@ public class McEnergyBigInactive : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McEnergyBigInactive>.Free(this);
+        StaticPool.Free<McEnergyBigInactive>(this);
     }
 }

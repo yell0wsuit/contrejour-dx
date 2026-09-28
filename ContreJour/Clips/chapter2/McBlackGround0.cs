@@ -15,7 +15,7 @@ public class McBlackGround0 : Sprite, IFreeable, IId
 
     public static McBlackGround0 New()
     {
-        McBlackGround0 mcBlackGround = StaticPool<McBlackGround0>.New();
+        McBlackGround0 mcBlackGround = StaticPool.New<McBlackGround0>();
         mcBlackGround.RefreshProperties();
         return mcBlackGround;
     }
@@ -27,6 +27,6 @@ public class McBlackGround0 : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McBlackGround0>.Free(this);
+        StaticPool.Free<McBlackGround0>(this);
     }
 }

@@ -15,7 +15,7 @@ public class McSkipHintView : Sprite, IFreeable, IId
 
     public static McSkipHintView New()
     {
-        McSkipHintView mcSkipHintView = StaticPool<McSkipHintView>.New();
+        McSkipHintView mcSkipHintView = StaticPool.New<McSkipHintView>();
         mcSkipHintView.RefreshProperties();
         return mcSkipHintView;
     }
@@ -27,6 +27,6 @@ public class McSkipHintView : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McSkipHintView>.Free(this);
+        StaticPool.Free<McSkipHintView>(this);
     }
 }

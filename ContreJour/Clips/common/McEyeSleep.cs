@@ -15,7 +15,7 @@ public class McEyeSleep : MovieClip, IFreeable, IId
 
     public static McEyeSleep New()
     {
-        McEyeSleep mcEyeSleep = StaticPool<McEyeSleep>.New();
+        McEyeSleep mcEyeSleep = StaticPool.New<McEyeSleep>();
         mcEyeSleep.RefreshProperties();
         return mcEyeSleep;
     }
@@ -27,6 +27,6 @@ public class McEyeSleep : MovieClip, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McEyeSleep>.Free(this);
+        StaticPool.Free<McEyeSleep>(this);
     }
 }

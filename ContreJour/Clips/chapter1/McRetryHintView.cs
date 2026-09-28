@@ -15,7 +15,7 @@ public class McRetryHintView : Sprite, IFreeable, IId
 
     public static McRetryHintView New()
     {
-        McRetryHintView mcRetryHintView = StaticPool<McRetryHintView>.New();
+        McRetryHintView mcRetryHintView = StaticPool.New<McRetryHintView>();
         mcRetryHintView.RefreshProperties();
         return mcRetryHintView;
     }
@@ -27,6 +27,6 @@ public class McRetryHintView : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McRetryHintView>.Free(this);
+        StaticPool.Free<McRetryHintView>(this);
     }
 }

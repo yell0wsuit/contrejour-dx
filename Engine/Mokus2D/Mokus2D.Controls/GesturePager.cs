@@ -6,7 +6,7 @@ using Mokus2D.Util.MathUtils;
 
 namespace Mokus2D.Controls;
 
-public class GesturePager : ITouchListener, IDisposable, IUpdatable
+public sealed class GesturePager : ITouchListener, IDisposable, IUpdatable
 {
     public int? MaxPosition;
 

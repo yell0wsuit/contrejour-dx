@@ -121,9 +121,9 @@ public class HeroEye : RandomAnimationEye
 
     public bool TryPlaySound(string key)
     {
-        if (key != null && sounds.ContainsKey(key))
+        if (key != null && sounds.TryGetValue(key, out List<string> keySounds))
         {
-            SoundManager.PlayRandomSound(sounds[key], key.StartsWith("McEyeBlink", StringComparison.Ordinal) ? 0.3f : 0.75f);
+            SoundManager.PlayRandomSound(keySounds, key.StartsWith("McEyeBlink", StringComparison.Ordinal) ? 0.3f : 0.75f);
             return true;
         }
         return false;

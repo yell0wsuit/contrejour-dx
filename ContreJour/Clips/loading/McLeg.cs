@@ -15,7 +15,7 @@ public class McLeg : Sprite, IFreeable, IId
 
     public static McLeg New()
     {
-        McLeg mcLeg = StaticPool<McLeg>.New();
+        McLeg mcLeg = StaticPool.New<McLeg>();
         mcLeg.RefreshProperties();
         return mcLeg;
     }
@@ -27,6 +27,6 @@ public class McLeg : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McLeg>.Free(this);
+        StaticPool.Free<McLeg>(this);
     }
 }

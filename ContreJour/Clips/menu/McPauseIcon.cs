@@ -15,7 +15,7 @@ public class McPauseIcon : Sprite, IFreeable, IId
 
     public static McPauseIcon New()
     {
-        McPauseIcon mcPauseIcon = StaticPool<McPauseIcon>.New();
+        McPauseIcon mcPauseIcon = StaticPool.New<McPauseIcon>();
         mcPauseIcon.RefreshProperties();
         return mcPauseIcon;
     }
@@ -27,6 +27,6 @@ public class McPauseIcon : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McPauseIcon>.Free(this);
+        StaticPool.Free<McPauseIcon>(this);
     }
 }

@@ -15,7 +15,7 @@ public class McButtonPressedBig : Sprite, IFreeable, IId
 
     public static McButtonPressedBig New()
     {
-        McButtonPressedBig mcButtonPressedBig = StaticPool<McButtonPressedBig>.New();
+        McButtonPressedBig mcButtonPressedBig = StaticPool.New<McButtonPressedBig>();
         mcButtonPressedBig.RefreshProperties();
         return mcButtonPressedBig;
     }
@@ -27,6 +27,6 @@ public class McButtonPressedBig : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McButtonPressedBig>.Free(this);
+        StaticPool.Free<McButtonPressedBig>(this);
     }
 }

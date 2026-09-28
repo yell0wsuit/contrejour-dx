@@ -15,7 +15,7 @@ public class McSnotHintView : Sprite, IFreeable, IId
 
     public static McSnotHintView New()
     {
-        McSnotHintView mcSnotHintView = StaticPool<McSnotHintView>.New();
+        McSnotHintView mcSnotHintView = StaticPool.New<McSnotHintView>();
         mcSnotHintView.RefreshProperties();
         return mcSnotHintView;
     }
@@ -27,6 +27,6 @@ public class McSnotHintView : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McSnotHintView>.Free(this);
+        StaticPool.Free<McSnotHintView>(this);
     }
 }

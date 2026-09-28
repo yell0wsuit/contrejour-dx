@@ -15,7 +15,7 @@ public class McBackIcon : Sprite, IFreeable, IId
 
     public static McBackIcon New()
     {
-        McBackIcon mcBackIcon = StaticPool<McBackIcon>.New();
+        McBackIcon mcBackIcon = StaticPool.New<McBackIcon>();
         mcBackIcon.RefreshProperties();
         return mcBackIcon;
     }
@@ -27,6 +27,6 @@ public class McBackIcon : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McBackIcon>.Free(this);
+        StaticPool.Free<McBackIcon>(this);
     }
 }

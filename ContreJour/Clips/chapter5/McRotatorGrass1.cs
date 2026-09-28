@@ -15,7 +15,7 @@ public class McRotatorGrass1 : Sprite, IFreeable, IId
 
     public static McRotatorGrass1 New()
     {
-        McRotatorGrass1 mcRotatorGrass = StaticPool<McRotatorGrass1>.New();
+        McRotatorGrass1 mcRotatorGrass = StaticPool.New<McRotatorGrass1>();
         mcRotatorGrass.RefreshProperties();
         return mcRotatorGrass;
     }
@@ -27,6 +27,6 @@ public class McRotatorGrass1 : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McRotatorGrass1>.Free(this);
+        StaticPool.Free<McRotatorGrass1>(this);
     }
 }

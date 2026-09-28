@@ -15,7 +15,7 @@ public class McFakeHeroEyeBallWhite : Sprite, IFreeable, IId
 
     public static McFakeHeroEyeBallWhite New()
     {
-        McFakeHeroEyeBallWhite mcFakeHeroEyeBallWhite = StaticPool<McFakeHeroEyeBallWhite>.New();
+        McFakeHeroEyeBallWhite mcFakeHeroEyeBallWhite = StaticPool.New<McFakeHeroEyeBallWhite>();
         mcFakeHeroEyeBallWhite.RefreshProperties();
         return mcFakeHeroEyeBallWhite;
     }
@@ -27,6 +27,6 @@ public class McFakeHeroEyeBallWhite : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McFakeHeroEyeBallWhite>.Free(this);
+        StaticPool.Free<McFakeHeroEyeBallWhite>(this);
     }
 }

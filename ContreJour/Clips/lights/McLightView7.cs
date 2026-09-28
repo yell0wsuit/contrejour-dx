@@ -17,7 +17,7 @@ public class McLightView7 : AnimationNode, IFreeable, IId
 
     public static McLightView7 New()
     {
-        McLightView7 mcLightView = StaticPool<McLightView7>.New();
+        McLightView7 mcLightView = StaticPool.New<McLightView7>();
         mcLightView.RefreshProperties();
         return mcLightView;
     }
@@ -32,6 +32,6 @@ public class McLightView7 : AnimationNode, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McLightView7>.Free(this);
+        StaticPool.Free<McLightView7>(this);
     }
 }

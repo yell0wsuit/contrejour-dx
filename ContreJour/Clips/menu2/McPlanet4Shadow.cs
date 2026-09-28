@@ -15,7 +15,7 @@ public class McPlanet4Shadow : Sprite, IFreeable, IId
 
     public static McPlanet4Shadow New()
     {
-        McPlanet4Shadow mcPlanet4Shadow = StaticPool<McPlanet4Shadow>.New();
+        McPlanet4Shadow mcPlanet4Shadow = StaticPool.New<McPlanet4Shadow>();
         mcPlanet4Shadow.RefreshProperties();
         return mcPlanet4Shadow;
     }
@@ -27,6 +27,6 @@ public class McPlanet4Shadow : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McPlanet4Shadow>.Free(this);
+        StaticPool.Free<McPlanet4Shadow>(this);
     }
 }

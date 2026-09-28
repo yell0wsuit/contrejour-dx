@@ -17,7 +17,7 @@ public class McBaloonGrassAll : AnimationNode, IFreeable, IId
 
     public static McBaloonGrassAll New()
     {
-        McBaloonGrassAll mcBaloonGrassAll = StaticPool<McBaloonGrassAll>.New();
+        McBaloonGrassAll mcBaloonGrassAll = StaticPool.New<McBaloonGrassAll>();
         mcBaloonGrassAll.RefreshProperties();
         return mcBaloonGrassAll;
     }
@@ -32,6 +32,6 @@ public class McBaloonGrassAll : AnimationNode, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McBaloonGrassAll>.Free(this);
+        StaticPool.Free<McBaloonGrassAll>(this);
     }
 }

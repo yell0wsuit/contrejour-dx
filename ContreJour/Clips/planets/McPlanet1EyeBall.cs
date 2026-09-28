@@ -15,7 +15,7 @@ public class McPlanet1EyeBall : Sprite, IFreeable, IId
 
     public static McPlanet1EyeBall New()
     {
-        McPlanet1EyeBall mcPlanet1EyeBall = StaticPool<McPlanet1EyeBall>.New();
+        McPlanet1EyeBall mcPlanet1EyeBall = StaticPool.New<McPlanet1EyeBall>();
         mcPlanet1EyeBall.RefreshProperties();
         return mcPlanet1EyeBall;
     }
@@ -27,6 +27,6 @@ public class McPlanet1EyeBall : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McPlanet1EyeBall>.Free(this);
+        StaticPool.Free<McPlanet1EyeBall>(this);
     }
 }

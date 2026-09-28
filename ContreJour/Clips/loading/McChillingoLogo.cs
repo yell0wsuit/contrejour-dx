@@ -27,7 +27,7 @@ public class McChillingoLogo : AnimationNode, IFreeable, IId
 
     public static McChillingoLogo New()
     {
-        McChillingoLogo mcChillingoLogo = StaticPool<McChillingoLogo>.New();
+        McChillingoLogo mcChillingoLogo = StaticPool.New<McChillingoLogo>();
         mcChillingoLogo.RefreshProperties();
         return mcChillingoLogo;
     }
@@ -52,6 +52,6 @@ public class McChillingoLogo : AnimationNode, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McChillingoLogo>.Free(this);
+        StaticPool.Free<McChillingoLogo>(this);
     }
 }

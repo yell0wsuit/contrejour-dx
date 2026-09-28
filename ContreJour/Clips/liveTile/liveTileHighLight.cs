@@ -15,7 +15,7 @@ public class liveTileHighLight : Sprite, IFreeable, IId
 
     public static liveTileHighLight New()
     {
-        liveTileHighLight liveTileHighLight2 = StaticPool<liveTileHighLight>.New();
+        liveTileHighLight liveTileHighLight2 = StaticPool.New<liveTileHighLight>();
         liveTileHighLight2.RefreshProperties();
         return liveTileHighLight2;
     }
@@ -27,6 +27,6 @@ public class liveTileHighLight : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<liveTileHighLight>.Free(this);
+        StaticPool.Free<liveTileHighLight>(this);
     }
 }

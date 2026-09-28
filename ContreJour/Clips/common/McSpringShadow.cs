@@ -15,7 +15,7 @@ public class McSpringShadow : Sprite, IFreeable, IId
 
     public static McSpringShadow New()
     {
-        McSpringShadow mcSpringShadow = StaticPool<McSpringShadow>.New();
+        McSpringShadow mcSpringShadow = StaticPool.New<McSpringShadow>();
         mcSpringShadow.RefreshProperties();
         return mcSpringShadow;
     }
@@ -27,6 +27,6 @@ public class McSpringShadow : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McSpringShadow>.Free(this);
+        StaticPool.Free<McSpringShadow>(this);
     }
 }

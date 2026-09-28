@@ -19,7 +19,7 @@ public class McLystokMain : AnimationNode, IFreeable, IId
 
     public static McLystokMain New()
     {
-        McLystokMain mcLystokMain = StaticPool<McLystokMain>.New();
+        McLystokMain mcLystokMain = StaticPool.New<McLystokMain>();
         mcLystokMain.RefreshProperties();
         return mcLystokMain;
     }
@@ -36,6 +36,6 @@ public class McLystokMain : AnimationNode, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McLystokMain>.Free(this);
+        StaticPool.Free<McLystokMain>(this);
     }
 }

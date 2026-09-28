@@ -15,7 +15,7 @@ public class McGrass_5 : MovieClip, IFreeable, IId
 
     public static McGrass_5 New()
     {
-        McGrass_5 mcGrass_ = StaticPool<McGrass_5>.New();
+        McGrass_5 mcGrass_ = StaticPool.New<McGrass_5>();
         mcGrass_.RefreshProperties();
         return mcGrass_;
     }
@@ -27,6 +27,6 @@ public class McGrass_5 : MovieClip, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McGrass_5>.Free(this);
+        StaticPool.Free<McGrass_5>(this);
     }
 }

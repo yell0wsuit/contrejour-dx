@@ -15,7 +15,7 @@ public class McBlackSquare : Sprite, IFreeable, IId
 
     public static McBlackSquare New()
     {
-        McBlackSquare mcBlackSquare = StaticPool<McBlackSquare>.New();
+        McBlackSquare mcBlackSquare = StaticPool.New<McBlackSquare>();
         mcBlackSquare.RefreshProperties();
         return mcBlackSquare;
     }
@@ -27,6 +27,6 @@ public class McBlackSquare : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McBlackSquare>.Free(this);
+        StaticPool.Free<McBlackSquare>(this);
     }
 }

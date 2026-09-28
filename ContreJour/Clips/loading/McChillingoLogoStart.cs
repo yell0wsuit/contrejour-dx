@@ -15,7 +15,7 @@ public class McChillingoLogoStart : MovieClip, IFreeable, IId
 
     public static McChillingoLogoStart New()
     {
-        McChillingoLogoStart mcChillingoLogoStart = StaticPool<McChillingoLogoStart>.New();
+        McChillingoLogoStart mcChillingoLogoStart = StaticPool.New<McChillingoLogoStart>();
         mcChillingoLogoStart.RefreshProperties();
         return mcChillingoLogoStart;
     }
@@ -27,6 +27,6 @@ public class McChillingoLogoStart : MovieClip, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McChillingoLogoStart>.Free(this);
+        StaticPool.Free<McChillingoLogoStart>(this);
     }
 }

@@ -15,7 +15,7 @@ public class McPlanetEye : Sprite, IFreeable, IId
 
     public static McPlanetEye New()
     {
-        McPlanetEye mcPlanetEye = StaticPool<McPlanetEye>.New();
+        McPlanetEye mcPlanetEye = StaticPool.New<McPlanetEye>();
         mcPlanetEye.RefreshProperties();
         return mcPlanetEye;
     }
@@ -27,6 +27,6 @@ public class McPlanetEye : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McPlanetEye>.Free(this);
+        StaticPool.Free<McPlanetEye>(this);
     }
 }

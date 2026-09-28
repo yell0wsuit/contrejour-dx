@@ -15,7 +15,7 @@ public class McEyeSpotlight : Sprite, IFreeable, IId
 
     public static McEyeSpotlight New()
     {
-        McEyeSpotlight mcEyeSpotlight = StaticPool<McEyeSpotlight>.New();
+        McEyeSpotlight mcEyeSpotlight = StaticPool.New<McEyeSpotlight>();
         mcEyeSpotlight.RefreshProperties();
         return mcEyeSpotlight;
     }
@@ -27,6 +27,6 @@ public class McEyeSpotlight : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McEyeSpotlight>.Free(this);
+        StaticPool.Free<McEyeSpotlight>(this);
     }
 }

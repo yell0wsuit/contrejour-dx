@@ -35,7 +35,7 @@ public static class YuPengClipper
 
         public bool Equals(Edge e)
         {
-            return e == null ? false : VectorEqual(EdgeStart, e.EdgeStart) && VectorEqual(EdgeEnd, e.EdgeEnd);
+            return e != null && VectorEqual(EdgeStart, e.EdgeStart) && VectorEqual(EdgeEnd, e.EdgeEnd);
         }
 
         public override int GetHashCode()

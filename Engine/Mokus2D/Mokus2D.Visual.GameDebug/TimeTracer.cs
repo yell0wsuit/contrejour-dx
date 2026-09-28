@@ -3,7 +3,7 @@ using System.Diagnostics;
 
 namespace Mokus2D.Visual.GameDebug;
 
-public class TimeTracer : IDisposable
+public sealed class TimeTracer : IDisposable
 {
     private readonly DateTime _start = DateTime.UtcNow;
 

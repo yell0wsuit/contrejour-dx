@@ -15,7 +15,7 @@ public class McGroundPartWhite : Sprite, IFreeable, IId
 
     public static McGroundPartWhite New()
     {
-        McGroundPartWhite mcGroundPartWhite = StaticPool<McGroundPartWhite>.New();
+        McGroundPartWhite mcGroundPartWhite = StaticPool.New<McGroundPartWhite>();
         mcGroundPartWhite.RefreshProperties();
         return mcGroundPartWhite;
     }
@@ -27,6 +27,6 @@ public class McGroundPartWhite : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McGroundPartWhite>.Free(this);
+        StaticPool.Free<McGroundPartWhite>(this);
     }
 }

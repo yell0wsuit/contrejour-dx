@@ -15,7 +15,7 @@ public class McFakeHeroHotspot : Sprite, IFreeable, IId
 
     public static McFakeHeroHotspot New()
     {
-        McFakeHeroHotspot mcFakeHeroHotspot = StaticPool<McFakeHeroHotspot>.New();
+        McFakeHeroHotspot mcFakeHeroHotspot = StaticPool.New<McFakeHeroHotspot>();
         mcFakeHeroHotspot.RefreshProperties();
         return mcFakeHeroHotspot;
     }
@@ -27,6 +27,6 @@ public class McFakeHeroHotspot : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McFakeHeroHotspot>.Free(this);
+        StaticPool.Free<McFakeHeroHotspot>(this);
     }
 }

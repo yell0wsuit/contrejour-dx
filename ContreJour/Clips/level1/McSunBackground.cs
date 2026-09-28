@@ -15,7 +15,7 @@ public class McSunBackground : Sprite, IFreeable, IId
 
     public static McSunBackground New()
     {
-        McSunBackground mcSunBackground = StaticPool<McSunBackground>.New();
+        McSunBackground mcSunBackground = StaticPool.New<McSunBackground>();
         mcSunBackground.RefreshProperties();
         return mcSunBackground;
     }
@@ -27,6 +27,6 @@ public class McSunBackground : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McSunBackground>.Free(this);
+        StaticPool.Free<McSunBackground>(this);
     }
 }

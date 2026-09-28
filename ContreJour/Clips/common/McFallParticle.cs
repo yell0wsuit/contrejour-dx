@@ -15,7 +15,7 @@ public class McFallParticle : MovieClip, IFreeable, IId
 
     public static McFallParticle New()
     {
-        McFallParticle mcFallParticle = StaticPool<McFallParticle>.New();
+        McFallParticle mcFallParticle = StaticPool.New<McFallParticle>();
         mcFallParticle.RefreshProperties();
         return mcFallParticle;
     }
@@ -27,6 +27,6 @@ public class McFallParticle : MovieClip, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McFallParticle>.Free(this);
+        StaticPool.Free<McFallParticle>(this);
     }
 }

@@ -15,7 +15,7 @@ public class McSunLight : Sprite, IFreeable, IId
 
     public static McSunLight New()
     {
-        McSunLight mcSunLight = StaticPool<McSunLight>.New();
+        McSunLight mcSunLight = StaticPool.New<McSunLight>();
         mcSunLight.RefreshProperties();
         return mcSunLight;
     }
@@ -27,6 +27,6 @@ public class McSunLight : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McSunLight>.Free(this);
+        StaticPool.Free<McSunLight>(this);
     }
 }

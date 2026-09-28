@@ -15,7 +15,7 @@ public class McEggView1 : Sprite, IFreeable, IId
 
     public static McEggView1 New()
     {
-        McEggView1 mcEggView = StaticPool<McEggView1>.New();
+        McEggView1 mcEggView = StaticPool.New<McEggView1>();
         mcEggView.RefreshProperties();
         return mcEggView;
     }
@@ -27,6 +27,6 @@ public class McEggView1 : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McEggView1>.Free(this);
+        StaticPool.Free<McEggView1>(this);
     }
 }

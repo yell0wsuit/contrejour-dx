@@ -15,7 +15,7 @@ public class McEnergyView : Sprite, IFreeable, IId
 
     public static McEnergyView New()
     {
-        McEnergyView mcEnergyView = StaticPool<McEnergyView>.New();
+        McEnergyView mcEnergyView = StaticPool.New<McEnergyView>();
         mcEnergyView.RefreshProperties();
         return mcEnergyView;
     }
@@ -27,6 +27,6 @@ public class McEnergyView : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McEnergyView>.Free(this);
+        StaticPool.Free<McEnergyView>(this);
     }
 }

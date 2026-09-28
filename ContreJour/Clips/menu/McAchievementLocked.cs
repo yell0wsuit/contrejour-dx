@@ -15,7 +15,7 @@ public class McAchievementLocked : Sprite, IFreeable, IId
 
     public static McAchievementLocked New()
     {
-        McAchievementLocked mcAchievementLocked = StaticPool<McAchievementLocked>.New();
+        McAchievementLocked mcAchievementLocked = StaticPool.New<McAchievementLocked>();
         mcAchievementLocked.RefreshProperties();
         return mcAchievementLocked;
     }
@@ -27,6 +27,6 @@ public class McAchievementLocked : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McAchievementLocked>.Free(this);
+        StaticPool.Free<McAchievementLocked>(this);
     }
 }

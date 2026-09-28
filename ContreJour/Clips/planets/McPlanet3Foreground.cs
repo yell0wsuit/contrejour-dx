@@ -15,7 +15,7 @@ public class McPlanet3Foreground : Sprite, IFreeable, IId
 
     public static McPlanet3Foreground New()
     {
-        McPlanet3Foreground mcPlanet3Foreground = StaticPool<McPlanet3Foreground>.New();
+        McPlanet3Foreground mcPlanet3Foreground = StaticPool.New<McPlanet3Foreground>();
         mcPlanet3Foreground.RefreshProperties();
         return mcPlanet3Foreground;
     }
@@ -27,6 +27,6 @@ public class McPlanet3Foreground : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McPlanet3Foreground>.Free(this);
+        StaticPool.Free<McPlanet3Foreground>(this);
     }
 }

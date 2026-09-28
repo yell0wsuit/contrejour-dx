@@ -6,36 +6,38 @@ using Mokus2D.Collections.ForEach;
 
 namespace Mokus2D.Collections;
 
-public class ForEachDebugList<T> : IList<T>, ICollection<T>, IEnumerable<T>, IEnumerable, IForEachList
+public class ForEachCollection<T> : IList<T>, ICollection<T>, IEnumerable<T>, IEnumerable, IForEachList
 {
-    private readonly List<T> _list = [];
+    private readonly List<T> _list;
+
+    private readonly List<T> _toRemove = [];
+
+    private readonly List<T> _toAdd = [];
+
+    private bool _clean;
 
     private bool _inForEach;
 
-    public object SyncRoot => ((ICollection)_list).SyncRoot;
+    public List<T> ToRemove => _toRemove;
 
-    public bool IsSynchronized => ((ICollection)_list).IsSynchronized;
+    public bool IsReadOnly => ((ICollection<T>)_list).IsReadOnly;
 
     T IList<T>.this[int index]
     {
         get => _list[index];
         set
         {
-            ThrowIfInForEach();
+            ThrowIfForEach();
             _list[index] = value;
         }
     }
-
-    public int Count => _list.Count;
-
-    public bool IsReadOnly => ((ICollection<T>)_list).IsReadOnly;
 
     public T this[int index]
     {
         get => _list[index];
         set
         {
-            ThrowIfInForEach();
+            ThrowIfForEach();
             _list[index] = value;
         }
     }
@@ -46,9 +48,58 @@ public class ForEachDebugList<T> : IList<T>, ICollection<T>, IEnumerable<T>, IEn
         set => _list.Capacity = value;
     }
 
+    public int Count => _list.Count;
+
+    public bool Empty => Count == 0;
+
+    public ForEachCollection(int capacity)
+    {
+        _list = new List<T>(capacity);
+    }
+
+    public ForEachCollection()
+    {
+        _list = [];
+    }
+
+    public void StartForEach()
+    {
+        _inForEach = true;
+    }
+
+    public void EndForEach()
+    {
+        if (_clean)
+        {
+            _clean = false;
+            _list.Clear();
+        }
+        if (!_toRemove.Empty())
+        {
+            _list.RemoveListNoGarbage(_toRemove);
+            _toRemove.Clear();
+        }
+        if (!_toAdd.Empty())
+        {
+            _list.AddItemsNoGarbage(_toAdd);
+            _toAdd.Clear();
+        }
+        _inForEach = false;
+    }
+
+    IEnumerator<T> IEnumerable<T>.GetEnumerator()
+    {
+        return _list.GetEnumerator();
+    }
+
     IEnumerator IEnumerable.GetEnumerator()
     {
         return ((IEnumerable)_list).GetEnumerator();
+    }
+
+    public List<T>.Enumerator GetEnumerator()
+    {
+        return _list.GetEnumerator();
     }
 
     public void CopyTo(Array array, int index)
@@ -56,10 +107,16 @@ public class ForEachDebugList<T> : IList<T>, ICollection<T>, IEnumerable<T>, IEn
         ((ICollection)_list).CopyTo(array, index);
     }
 
-    public int Add(object value)
+    public void Add(T item)
     {
-        ThrowIfInForEach();
-        return ((IList)_list).Add(value);
+        if (_inForEach)
+        {
+            _toAdd.Add(item);
+        }
+        else
+        {
+            _list.Add(item);
+        }
     }
 
     public bool Contains(object value)
@@ -74,26 +131,34 @@ public class ForEachDebugList<T> : IList<T>, ICollection<T>, IEnumerable<T>, IEn
 
     public void Insert(int index, object value)
     {
-        ThrowIfInForEach();
+        ThrowIfForEach();
         ((IList)_list).Insert(index, value);
     }
 
     public void Remove(object value)
     {
-        ThrowIfInForEach();
-        ((IList)_list).Remove(value);
-    }
-
-    public void Add(T item)
-    {
-        ThrowIfInForEach();
-        _list.Add(item);
+        if (_inForEach)
+        {
+            _toRemove.Add((T)value);
+        }
+        else
+        {
+            ((IList)_list).Remove(value);
+        }
     }
 
     public void AddRange(IEnumerable<T> collection)
     {
-        ThrowIfInForEach();
+        ThrowIfForEach();
         _list.AddRange(collection);
+    }
+
+    private void ThrowIfForEach()
+    {
+        if (_inForEach)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public int BinarySearch(int index, int count, T item, IComparer<T> comparer)
@@ -113,8 +178,24 @@ public class ForEachDebugList<T> : IList<T>, ICollection<T>, IEnumerable<T>, IEn
 
     public void Clear()
     {
-        ThrowIfInForEach();
-        _list.Clear();
+        Clear(clearNewAddedActions: false);
+    }
+
+    public void Clear(bool clearNewAddedActions)
+    {
+        if (_inForEach)
+        {
+            if (clearNewAddedActions)
+            {
+                _toAdd.Clear();
+            }
+            _toRemove.Clear();
+            _clean = true;
+        }
+        else
+        {
+            _list.Clear();
+        }
     }
 
     public bool Contains(T item)
@@ -129,11 +210,13 @@ public class ForEachDebugList<T> : IList<T>, ICollection<T>, IEnumerable<T>, IEn
 
     public void CopyTo(int index, T[] array, int arrayIndex, int count)
     {
+        ThrowIfForEach();
         _list.CopyTo(index, array, arrayIndex, count);
     }
 
     public void CopyTo(T[] array, int arrayIndex)
     {
+        ThrowIfForEach();
         _list.CopyTo(array, arrayIndex);
     }
 
@@ -187,11 +270,6 @@ public class ForEachDebugList<T> : IList<T>, ICollection<T>, IEnumerable<T>, IEn
         return _list.FindLastIndex(startIndex, count, match);
     }
 
-    public List<T>.Enumerator GetEnumerator()
-    {
-        return _list.GetEnumerator();
-    }
-
     public List<T> GetRange(int index, int count)
     {
         return _list.GetRange(index, count);
@@ -214,13 +292,13 @@ public class ForEachDebugList<T> : IList<T>, ICollection<T>, IEnumerable<T>, IEn
 
     public void Insert(int index, T item)
     {
-        ThrowIfInForEach();
+        ThrowIfForEach();
         _list.Insert(index, item);
     }
 
     public void InsertRange(int index, IEnumerable<T> collection)
     {
-        ThrowIfInForEach();
+        ThrowIfForEach();
         _list.InsertRange(index, collection);
     }
 
@@ -241,104 +319,88 @@ public class ForEachDebugList<T> : IList<T>, ICollection<T>, IEnumerable<T>, IEn
 
     public bool Remove(T item)
     {
-        ThrowIfInForEach();
+        if (_inForEach)
+        {
+            _toRemove.Add(item);
+            return true;
+        }
         return _list.Remove(item);
     }
 
     public int RemoveAll(Predicate<T> match)
     {
-        ThrowIfInForEach();
+        ThrowIfForEach();
         return _list.RemoveAll(match);
     }
 
     public void RemoveAt(int index)
     {
-        ThrowIfInForEach();
+        ThrowIfForEach();
         _list.RemoveAt(index);
     }
 
     public void RemoveRange(int index, int count)
     {
-        ThrowIfInForEach();
+        ThrowIfForEach();
         _list.RemoveRange(index, count);
     }
 
     public void Reverse()
     {
-        ThrowIfInForEach();
+        ThrowIfForEach();
         _list.Reverse();
     }
 
     public void Reverse(int index, int count)
     {
-        ThrowIfInForEach();
+        ThrowIfForEach();
         _list.Reverse(index, count);
     }
 
     public void Sort()
     {
-        ThrowIfInForEach();
+        ThrowIfForEach();
         _list.Sort();
     }
 
     public void Sort(IComparer<T> comparer)
     {
-        ThrowIfInForEach();
+        ThrowIfForEach();
         _list.Sort(comparer);
     }
 
     public void Sort(int index, int count, IComparer<T> comparer)
     {
-        ThrowIfInForEach();
+        ThrowIfForEach();
         _list.Sort(index, count, comparer);
     }
 
     public void Sort(Comparison<T> comparison)
     {
-        ThrowIfInForEach();
+        ThrowIfForEach();
         _list.Sort(comparison);
     }
 
     public T[] ToArray()
     {
+        ThrowIfForEach();
         return [.. _list];
     }
 
     public void TrimExcess()
     {
+        ThrowIfForEach();
         _list.TrimExcess();
     }
 
     public bool TrueForAll(Predicate<T> match)
     {
+        ThrowIfForEach();
         return _list.TrueForAll(match);
-    }
-
-    IEnumerator<T> IEnumerable<T>.GetEnumerator()
-    {
-        return _list.GetEnumerator();
-    }
-
-    public void StartForEach()
-    {
-        _inForEach = true;
-    }
-
-    public void EndForEach()
-    {
-        _inForEach = false;
     }
 
     public ForEachListUsing Using()
     {
         return new ForEachListUsing(this);
-    }
-
-    private void ThrowIfInForEach()
-    {
-        if (_inForEach)
-        {
-            throw new Exception("List modified in for each");
-        }
     }
 }

@@ -15,7 +15,7 @@ public class McBigButtonBackground : Sprite, IFreeable, IId
 
     public static McBigButtonBackground New()
     {
-        McBigButtonBackground mcBigButtonBackground = StaticPool<McBigButtonBackground>.New();
+        McBigButtonBackground mcBigButtonBackground = StaticPool.New<McBigButtonBackground>();
         mcBigButtonBackground.RefreshProperties();
         return mcBigButtonBackground;
     }
@@ -27,6 +27,6 @@ public class McBigButtonBackground : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McBigButtonBackground>.Free(this);
+        StaticPool.Free<McBigButtonBackground>(this);
     }
 }

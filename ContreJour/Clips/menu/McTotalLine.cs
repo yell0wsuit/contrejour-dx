@@ -15,7 +15,7 @@ public class McTotalLine : MovieClip, IFreeable, IId
 
     public static McTotalLine New()
     {
-        McTotalLine mcTotalLine = StaticPool<McTotalLine>.New();
+        McTotalLine mcTotalLine = StaticPool.New<McTotalLine>();
         mcTotalLine.RefreshProperties();
         return mcTotalLine;
     }
@@ -27,6 +27,6 @@ public class McTotalLine : MovieClip, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McTotalLine>.Free(this);
+        StaticPool.Free<McTotalLine>(this);
     }
 }

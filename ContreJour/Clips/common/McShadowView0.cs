@@ -15,7 +15,7 @@ public class McShadowView0 : Sprite, IFreeable, IId
 
     public static McShadowView0 New()
     {
-        McShadowView0 mcShadowView = StaticPool<McShadowView0>.New();
+        McShadowView0 mcShadowView = StaticPool.New<McShadowView0>();
         mcShadowView.RefreshProperties();
         return mcShadowView;
     }
@@ -27,6 +27,6 @@ public class McShadowView0 : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McShadowView0>.Free(this);
+        StaticPool.Free<McShadowView0>(this);
     }
 }

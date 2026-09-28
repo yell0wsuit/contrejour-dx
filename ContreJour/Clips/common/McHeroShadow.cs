@@ -15,7 +15,7 @@ public class McHeroShadow : Sprite, IFreeable, IId
 
     public static McHeroShadow New()
     {
-        McHeroShadow mcHeroShadow = StaticPool<McHeroShadow>.New();
+        McHeroShadow mcHeroShadow = StaticPool.New<McHeroShadow>();
         mcHeroShadow.RefreshProperties();
         return mcHeroShadow;
     }
@@ -27,6 +27,6 @@ public class McHeroShadow : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McHeroShadow>.Free(this);
+        StaticPool.Free<McHeroShadow>(this);
     }
 }

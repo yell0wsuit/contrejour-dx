@@ -15,7 +15,7 @@ public class McPlanetCommingBackground : Sprite, IFreeable, IId
 
     public static McPlanetCommingBackground New()
     {
-        McPlanetCommingBackground mcPlanetCommingBackground = StaticPool<McPlanetCommingBackground>.New();
+        McPlanetCommingBackground mcPlanetCommingBackground = StaticPool.New<McPlanetCommingBackground>();
         mcPlanetCommingBackground.RefreshProperties();
         return mcPlanetCommingBackground;
     }
@@ -27,6 +27,6 @@ public class McPlanetCommingBackground : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McPlanetCommingBackground>.Free(this);
+        StaticPool.Free<McPlanetCommingBackground>(this);
     }
 }

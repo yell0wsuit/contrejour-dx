@@ -15,7 +15,7 @@ public class McButtonYes : Sprite, IFreeable, IId
 
     public static McButtonYes New()
     {
-        McButtonYes mcButtonYes = StaticPool<McButtonYes>.New();
+        McButtonYes mcButtonYes = StaticPool.New<McButtonYes>();
         mcButtonYes.RefreshProperties();
         return mcButtonYes;
     }
@@ -27,6 +27,6 @@ public class McButtonYes : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McButtonYes>.Free(this);
+        StaticPool.Free<McButtonYes>(this);
     }
 }

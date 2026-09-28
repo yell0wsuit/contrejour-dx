@@ -15,7 +15,7 @@ public class McEyeMonsterBlack : Sprite, IFreeable, IId
 
     public static McEyeMonsterBlack New()
     {
-        McEyeMonsterBlack mcEyeMonsterBlack = StaticPool<McEyeMonsterBlack>.New();
+        McEyeMonsterBlack mcEyeMonsterBlack = StaticPool.New<McEyeMonsterBlack>();
         mcEyeMonsterBlack.RefreshProperties();
         return mcEyeMonsterBlack;
     }
@@ -27,6 +27,6 @@ public class McEyeMonsterBlack : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McEyeMonsterBlack>.Free(this);
+        StaticPool.Free<McEyeMonsterBlack>(this);
     }
 }

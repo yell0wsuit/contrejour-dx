@@ -19,7 +19,7 @@ public class McEyeBallHitBlack : AnimationNode, IFreeable, IId
 
     public static McEyeBallHitBlack New()
     {
-        McEyeBallHitBlack mcEyeBallHitBlack = StaticPool<McEyeBallHitBlack>.New();
+        McEyeBallHitBlack mcEyeBallHitBlack = StaticPool.New<McEyeBallHitBlack>();
         mcEyeBallHitBlack.RefreshProperties();
         return mcEyeBallHitBlack;
     }
@@ -36,6 +36,6 @@ public class McEyeBallHitBlack : AnimationNode, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McEyeBallHitBlack>.Free(this);
+        StaticPool.Free<McEyeBallHitBlack>(this);
     }
 }

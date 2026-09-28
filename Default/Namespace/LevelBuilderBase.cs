@@ -127,6 +127,7 @@ public class LevelBuilderBase : Updatable, IDisposable
 
     public void Dispose()
     {
+        GC.SuppressFinalize(this);
     }
 
     public Body CreateCircleRadiusPositionRotationDynamic(float radius, Vector2 position, float rotation, bool dynamic)

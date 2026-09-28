@@ -15,7 +15,7 @@ public class McEyeCloseSlowBlack : MovieClip, IFreeable, IId
 
     public static McEyeCloseSlowBlack New()
     {
-        McEyeCloseSlowBlack mcEyeCloseSlowBlack = StaticPool<McEyeCloseSlowBlack>.New();
+        McEyeCloseSlowBlack mcEyeCloseSlowBlack = StaticPool.New<McEyeCloseSlowBlack>();
         mcEyeCloseSlowBlack.RefreshProperties();
         return mcEyeCloseSlowBlack;
     }
@@ -27,6 +27,6 @@ public class McEyeCloseSlowBlack : MovieClip, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McEyeCloseSlowBlack>.Free(this);
+        StaticPool.Free<McEyeCloseSlowBlack>(this);
     }
 }

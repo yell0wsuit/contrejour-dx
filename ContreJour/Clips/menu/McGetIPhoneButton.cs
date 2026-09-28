@@ -15,7 +15,7 @@ public class McGetIPhoneButton : Sprite, IFreeable, IId
 
     public static McGetIPhoneButton New()
     {
-        McGetIPhoneButton mcGetIPhoneButton = StaticPool<McGetIPhoneButton>.New();
+        McGetIPhoneButton mcGetIPhoneButton = StaticPool.New<McGetIPhoneButton>();
         mcGetIPhoneButton.RefreshProperties();
         return mcGetIPhoneButton;
     }
@@ -27,6 +27,6 @@ public class McGetIPhoneButton : Sprite, IFreeable, IId
 
     public void Free()
     {
-        StaticPool<McGetIPhoneButton>.Free(this);
+        StaticPool.Free<McGetIPhoneButton>(this);
     }
 }
