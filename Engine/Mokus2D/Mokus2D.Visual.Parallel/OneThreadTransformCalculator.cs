@@ -22,7 +22,7 @@ public class OneThreadTransformCalculator : TransformationCalculatorBase
         }
     }
 
-    private void RefreshTransformations(Node node)
+    private static void RefreshTransformations(Node node)
     {
         if (!TransformationUtil.ShouldRefreshNode(node))
         {

@@ -64,7 +64,7 @@ public class RandomAnimationEye : EyeBase
     {
     }
 
-    private void CacheAnimations()
+    private static void CacheAnimations()
     {
     }
 

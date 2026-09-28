@@ -188,10 +188,10 @@ public class GrassController : IGrassController, IUpdatable
         grass.Position = builder.ToIPadPoint(surfaceCenter);
         foreach (GrassAndPosition smallGrass in smallGrasses)
         {
-            Vector2 vector = smallGrass.Position + plasticine.GetLocalSurfaceCenter();
+            Vector2 vector = smallGrass.Position + PlasticinePartBodyClip.GetLocalSurfaceCenter();
             Vector2 worldPoint = plasticine.Body.GetWorldPoint(vector);
             smallGrass.Particle.Position = builder.ToIPadPoint(worldPoint);
-            smallGrass.Particle.RotationDegrees = builder.ToRotation(plasticine.Body.Rotation);
+            smallGrass.Particle.RotationDegrees = LevelBuilderBase.ToRotation(plasticine.Body.Rotation);
             smallGrass.Particle.RotationDegrees = smallGrassRotation;
         }
     }
@@ -237,7 +237,7 @@ public class GrassController : IGrassController, IUpdatable
         }
     }
 
-    public void RandomizeClipMinScaleMaxScale(Particle _clip, float minScale, float maxScale)
+    public static void RandomizeClipMinScaleMaxScale(Particle _clip, float minScale, float maxScale)
     {
         _clip.Scale = Maths.Random(minScale, maxScale);
     }

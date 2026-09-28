@@ -231,7 +231,7 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
         if (Game.BlackSide || Game.WhiteSide || Game.BonusChapter)
         {
             bodyBackground = (Sprite)ClipTypesCache.CreateNewNode(Game.ChooseSide("McHeroBlackView", "McHeroWhiteView", "McHeroBackView", "McHeroBackView", "McHeroView_6"));
-            _builder.ReplaceChildWith(_clip, bodyBackground);
+            LevelBuilderBase.ReplaceChildWith(_clip, bodyBackground);
         }
         else
         {
@@ -299,7 +299,7 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
         breatheScaleStep = 0f;
         teleportEvent = new EventSender();
         finishColor = 255f;
-        Game.AddShadowSource(this);
+        ContreJourGame.AddShadowSource(this);
     }
 
     public Vector2 BonusTarget()
@@ -519,7 +519,7 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
         portal.TargetScale = 0f;
     }
 
-    private float SpeedMultiplier()
+    private static float SpeedMultiplier()
     {
         return 0.2f;
     }
@@ -908,7 +908,7 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
         clip.Visible = false;
     }
 
-    public void HideEye()
+    public static void HideEye()
     {
     }
 

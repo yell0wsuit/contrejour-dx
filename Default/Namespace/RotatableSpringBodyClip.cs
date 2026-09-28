@@ -236,7 +236,7 @@ public class RotatableSpringBodyClip : RotatableSpringBase, IRestartable
         _ = touchPoint.FadeTo(0.3f, minOpacity);
     }
 
-    private void RunFadeInOut(Node node, float _in, float _out)
+    private static void RunFadeInOut(Node node, float _in, float _out)
     {
         node.Tweener.Stop();
         _ = node.Tweener.RepeatSequenceForever(2.5f).FadeTo(_out).Next(2.5f)

@@ -37,7 +37,7 @@ public class KeyboardController : IUpdatable
 
     public event Action<Keys> KeyPressedEvent;
 
-    private void Initialize()
+    private static void Initialize()
     {
     }
 
@@ -77,11 +77,11 @@ public class KeyboardController : IUpdatable
         }
     }
 
-    public void OnGameDeactivated()
+    public static void OnGameDeactivated()
     {
     }
 
-    public void OnGameExit()
+    public static void OnGameExit()
     {
     }
 

@@ -180,7 +180,7 @@ public class VertexCacheNode<TVertex> : Node, IDrawer where TVertex : struct, IV
     }
 
     [Conditional("DEBUG")]
-    private void CheckType(Type type)
+    private static void CheckType(Type type)
     {
         if ((object)typeof(TVertex) != type)
         {

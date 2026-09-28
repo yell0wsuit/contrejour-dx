@@ -98,7 +98,7 @@ public class ParticleData : IUpdatable
         }
     }
 
-    private bool CheckValue(float? value)
+    private static bool CheckValue(float? value)
     {
         return value.HasValue && value <= 0f;
     }

@@ -8,15 +8,15 @@ namespace FarseerPhysics.Common.Decomposition.CDT.Polygon;
 
 internal sealed class Polygon : ITriangulatable
 {
-    protected List<Polygon> _holes;
+    private List<Polygon> _holes;
 
-    protected PolygonPoint _last;
+    private PolygonPoint _last;
 
-    protected List<TriangulationPoint> _points = [];
+    private List<TriangulationPoint> _points = [];
 
-    protected List<TriangulationPoint> _steinerPoints;
+    private List<TriangulationPoint> _steinerPoints;
 
-    protected List<DelaunayTriangle> _triangles;
+    private List<DelaunayTriangle> _triangles;
 
     public IList<Polygon> Holes => _holes;
 

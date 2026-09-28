@@ -52,7 +52,7 @@ public class SnotEye : ContreJourBodyClip, IClickable
         if (hasRelease)
         {
             snot.ReleaseSnot();
-            ((ContreJourGame)builder.Game).FocusOnHero();
+            ContreJourGame.FocusOnHero();
             hasRelease = false;
         }
     }

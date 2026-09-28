@@ -12,7 +12,7 @@ public class AccelerometerMenu : AccelerometerNode, ITouchListener
         Mokus2DGame.Instance.TouchController.AddListener(this, Priority);
     }
 
-    public bool IsFastDevice()
+    public static bool IsFastDevice()
     {
         return true;
     }

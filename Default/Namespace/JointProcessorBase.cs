@@ -42,7 +42,7 @@ public class JointProcessorBase : TypeProcessorBase
         return val2 ?? (bodiesByWorldReqResult.Count > 0 ? bodiesByWorldReqResult[0] : builder.GroundBody);
     }
 
-    private Body TryGetBodyByType(List<Body> bodies, Predicate<object> type)
+    private static Body TryGetBodyByType(List<Body> bodies, Predicate<object> type)
     {
         //IL_001d: Unknown result type (might be due to invalid IL or missing references)
         //IL_0023: Expected O, but got Unknown

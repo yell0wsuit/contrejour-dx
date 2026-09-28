@@ -285,12 +285,12 @@ public class TrampolineBodyClip : SnotBodyClipBase
         }
     }
 
-    public void UpdateAchievement(Body launchBody)
+    public static void UpdateAchievement(Body launchBody)
     {
         _ = launchBody.UserData;
     }
 
-    public void LaunchBodiesImpulseDirection(List<Body> bodies, float impulse, Vector2 direction)
+    public static void LaunchBodiesImpulseDirection(List<Body> bodies, float impulse, Vector2 direction)
     {
         foreach (Body body in bodies)
         {

@@ -37,7 +37,7 @@ public class WindManager : IUpdatable
         currentWindStep += step;
     }
 
-    public float GetRandomValue()
+    public static float GetRandomValue()
     {
         return Maths.Random(-1f, 1f);
     }

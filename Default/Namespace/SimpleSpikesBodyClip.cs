@@ -40,7 +40,7 @@ public class SimpleSpikesBodyClip : ContreJourBodyClip, IRestartable
         floating = text.Contains("Circle");
         if (!contreJourGame.BlackSide)
         {
-            clip = _builder.ReplaceClipWith(_clip, text + contreJourGame.ChooseSide(null, "White", "_5", "Black", "_6"));
+            clip = LevelBuilderBase.ReplaceClipWith(_clip, text + contreJourGame.ChooseSide(null, "White", "_5", "Black", "_6"));
         }
         clip.UpdateEnabled = false;
         prickTime = -2f;
@@ -117,7 +117,7 @@ public class SimpleSpikesBodyClip : ContreJourBodyClip, IRestartable
         }
     }
 
-    public void OnHeroHitPoint(ISpikesDestroyable hero, Contact point)
+    public static void OnHeroHitPoint(ISpikesDestroyable hero, Contact point)
     {
         hero.Explode();
     }

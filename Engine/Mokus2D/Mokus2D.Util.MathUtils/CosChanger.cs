@@ -52,7 +52,7 @@ public class CosChanger
         return GetValue(MinValue, MaxValue, Progress + phaseOffset);
     }
 
-    public float GetValue(float min, float max, float p)
+    public static float GetValue(float min, float max, float p)
     {
         return MathHelper.Lerp(max, min, (float)(1.0 + Math.Cos(p)) / 2f);
     }

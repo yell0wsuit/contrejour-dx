@@ -38,7 +38,7 @@ internal static class DTSweep
                     EdgeEvent(tcx, edge, node);
                 }
             }
-            tcx.Update(null);
+            TriangulationContext.Update(null);
         }
     }
 

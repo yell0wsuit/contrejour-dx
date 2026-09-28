@@ -27,14 +27,14 @@ public class OneFileResourcesLoader : ResourcesLoader
         _deserializerByType["font"] = _deserializers[typeof(FontData)];
     }
 
-    protected override string GetFileName<T>(string resourceName, string resourcesSuffix)
+    protected override string GetFileName<T>(string resourceName, string resourceSuffix)
     {
         if (SeparateFileTypes.Contains(typeof(T)))
         {
-            return base.GetFileName<T>(resourceName, resourcesSuffix);
+            return base.GetFileName<T>(resourceName, resourceSuffix);
         }
         string textureName = GetTextureName(resourceName);
-        textureName = ((object)typeof(T) != typeof(AnimationData)) ? (textureName + "sprites" + resourcesSuffix) : (textureName + "animations");
+        textureName = ((object)typeof(T) != typeof(AnimationData)) ? (textureName + "sprites" + resourceSuffix) : (textureName + "animations");
         return textureName + ".xml";
     }
 

@@ -58,7 +58,7 @@ public class SuckerNeckSprite : LongNeckSprite
         base.Update(time);
     }
 
-    public new Color EndColor()
+    public static new Color EndColor()
     {
         return new Color(100, 100, 100, 0);
     }

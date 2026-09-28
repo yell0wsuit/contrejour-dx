@@ -35,7 +35,7 @@ public class PlanetSatellite : Node, IUpdatable
     {
         changer.Update(time);
         satellite.Position = new Vector2(changer.Value, 0f);
-        satellite.Scale = changer.GetValue(0.5f, 1f, changer.Progress - ((float)Math.PI / 2f));
+        satellite.Scale = CosChanger.GetValue(0.5f, 1f, changer.Progress - ((float)Math.PI / 2f));
         satellite.OpacityFloat = satellite.Scale;
         RotationDegrees += 20f * time;
         int nodeLayer = (!(satellite.Scale < 0.75f)) ? 1 : (-1);

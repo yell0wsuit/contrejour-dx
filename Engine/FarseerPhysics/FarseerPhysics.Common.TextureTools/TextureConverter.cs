@@ -295,7 +295,7 @@ public sealed class TextureConverter
         return detectedPolygons;
     }
 
-    private void ApplyTriangulationCompatibleWinding(ref List<Vertices> detectedPolygons)
+    private static void ApplyTriangulationCompatibleWinding(ref List<Vertices> detectedPolygons)
     {
         for (int i = 0; i < detectedPolygons.Count; i++)
         {
@@ -480,7 +480,7 @@ public sealed class TextureConverter
         return true;
     }
 
-    private Vector2? GetTopMostVertex(Vertices vertices)
+    private static Vector2? GetTopMostVertex(Vertices vertices)
     {
         float num = float.MaxValue;
         Vector2? result = null;
@@ -495,7 +495,7 @@ public sealed class TextureConverter
         return result;
     }
 
-    private float GetTopMostCoord(Vertices vertices)
+    private static float GetTopMostCoord(Vertices vertices)
     {
         float num = float.MaxValue;
         for (int i = 0; i < vertices.Count; i++)
@@ -508,7 +508,7 @@ public sealed class TextureConverter
         return num;
     }
 
-    private float GetBottomMostCoord(Vertices vertices)
+    private static float GetBottomMostCoord(Vertices vertices)
     {
         float num = float.MinValue;
         for (int i = 0; i < vertices.Count; i++)
@@ -543,7 +543,7 @@ public sealed class TextureConverter
         return list;
     }
 
-    private List<float> SearchCrossingEdges(Vertices polygon, int y)
+    private static List<float> SearchCrossingEdges(Vertices polygon, int y)
     {
         List<float> list = [];
         if (polygon.Count > 2)
@@ -836,7 +836,7 @@ public sealed class TextureConverter
         return result;
     }
 
-    private int GetIndexOfFirstPixelToCheck(ref Vector2 last, ref Vector2 current)
+    private static int GetIndexOfFirstPixelToCheck(ref Vector2 last, ref Vector2 current)
     {
         switch ((int)(current.X - last.X))
         {

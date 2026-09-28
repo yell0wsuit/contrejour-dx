@@ -41,7 +41,7 @@ internal abstract class TriangulationContext
 
     public abstract TriangulationConstraint NewConstraint(TriangulationPoint a, TriangulationPoint b);
 
-    public void Update(string message)
+    public static void Update(string message)
     {
     }
 

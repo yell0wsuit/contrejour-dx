@@ -153,7 +153,7 @@ public abstract class AnchorNode : SpriteBatchNode, ITouchDispatchNode, IClickab
         return new RectangleFloat(x, y, Size.X, Size.Y);
     }
 
-    private float GetScaledAnchor(float anchor, float scaleFactor)
+    private static float GetScaledAnchor(float anchor, float scaleFactor)
     {
         return !(scaleFactor > 0f) ? 1f - anchor : anchor;
     }

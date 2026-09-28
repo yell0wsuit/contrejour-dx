@@ -103,7 +103,7 @@ public class NamesChanger : Node
         screenSize = Mokus2DGame.Instance.ScreenSize;
     }
 
-    private Node CreateChapterName(int index)
+    private static Node CreateChapterName(int index)
     {
         return ContreJourLabelUtil.IsEnglish
             ? new Sprite("menu/McChapter{0}Name".FormatThis(index + 1))
@@ -116,7 +116,7 @@ public class NamesChanger : Node
             }, text: "CHAPTER{0}".FormatThis(index + 1));
     }
 
-    private Node CreateLabelColor(string text, Color color)
+    private static Node CreateLabelColor(string text, Color color)
     {
         Node node = new();
         Label label = ContreJourLabelUtil.CreateMultilineLabel(32f, text);

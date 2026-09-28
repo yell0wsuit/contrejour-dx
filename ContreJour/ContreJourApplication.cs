@@ -60,9 +60,9 @@ public class ContreJourApplication : Mokus2DGame
     // The Windows 8 build blocked play while the app was snapped (window smaller than at launch).
     // Desktop has no snapped view, and macOS shrinks the full screen window below the notch/menu bar
     // after launch, so the original size comparison would block the game permanently.
-    private bool IsFullscreen => true;
+    private static bool IsFullscreen => true;
 
-    private bool MultitouchSupported =>
+    private static bool MultitouchSupported =>
         // The Windows 8 build refused to run without a multitouch screen. On desktop the mouse
         // is fed through the engine's cursor input instead, so don't block the game.
         true;
@@ -167,7 +167,7 @@ public class ContreJourApplication : Mokus2DGame
         });
     }
 
-    private void OnViewHide(Node view, Action continuation)
+    private static void OnViewHide(Node view, Action continuation)
     {
         if (view != null)
         {
@@ -370,7 +370,7 @@ public class ContreJourApplication : Mokus2DGame
         ChangeScene(func);
     }
 
-    private Func<T> CleanLoad<T>(Func<T> action) where T : Node
+    private static Func<T> CleanLoad<T>(Func<T> action) where T : Node
     {
         ForceRemoveTextures();
         return action;
@@ -432,11 +432,11 @@ public class ContreJourApplication : Mokus2DGame
         }
     }
 
-    public void ForceRemoveTextures()
+    public static void ForceRemoveTextures()
     {
     }
 
-    public bool IsFirstLevel(Node node)
+    public static bool IsFirstLevel(Node node)
     {
         return node is ContreJourGame && ((ContreJourGame)node).LevelIndex == 0;
     }
@@ -499,19 +499,19 @@ public class ContreJourApplication : Mokus2DGame
         BlockGameIfNeeded();
     }
 
-    private void OnResizeToFullscreen()
+    private static void OnResizeToFullscreen()
     {
     }
 
-    private void PlatformUpdate()
+    private static void PlatformUpdate()
     {
     }
 
-    public void PlatformInitialize()
+    public static void PlatformInitialize()
     {
     }
 
-    private void PlatformResize()
+    private static void PlatformResize()
     {
     }
 }

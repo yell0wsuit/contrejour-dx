@@ -266,7 +266,7 @@ public class UserData
         return num;
     }
 
-    public LevelPosition GetLevelPosition(int index)
+    public static LevelPosition GetLevelPosition(int index)
     {
         return LevelsMenu.GetLevelPosition(index);
     }
@@ -341,7 +341,7 @@ public class UserData
         return num;
     }
 
-    private void SaveHighscore()
+    private static void SaveHighscore()
     {
     }
 

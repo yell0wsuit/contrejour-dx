@@ -210,7 +210,7 @@ public abstract class Mokus2DGame : DisposableBase
 
     public virtual void OnDeactivated()
     {
-        Keyboard.OnGameDeactivated();
+        KeyboardController.OnGameDeactivated();
     }
 
     public virtual void OnResume()
@@ -230,7 +230,7 @@ public abstract class Mokus2DGame : DisposableBase
     public virtual void OnExiting()
     {
         IsExiting = true;
-        Keyboard.OnGameExit();
+        KeyboardController.OnGameExit();
         Exiting.Dispatch();
     }
 

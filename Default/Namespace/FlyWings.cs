@@ -60,7 +60,7 @@ public class FlyWings : Node
         }
     }
 
-    public void StartActionDiff(Sprite wing, float diff)
+    public static void StartActionDiff(Sprite wing, float diff)
     {
         _ = wing.Tweener.RepeatSequenceForever(1.5f).Tween(NodeValues.RotationRadians, diff, Cubic.EaseInOut).Next(1.5f)
             .Tween(NodeValues.RotationRadians, 0f - diff, Cubic.EaseInOut);

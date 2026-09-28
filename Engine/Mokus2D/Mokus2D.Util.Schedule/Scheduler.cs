@@ -16,7 +16,7 @@ public class Scheduler : Updater
 
     private readonly List<Action> _toRun = [];
 
-    public void Schedule(Action action)
+    public static void Schedule(Action action)
     {
         action();
     }

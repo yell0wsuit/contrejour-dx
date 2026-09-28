@@ -75,7 +75,7 @@ public class ScrollLayer : ClickableLayer, ITouchListener
         return true;
     }
 
-    private float FixInertiaValue(float old, float current)
+    private static float FixInertiaValue(float old, float current)
     {
         float value = current;
         if (current.Sign() == old.Sign() && old.Abs() > current.Abs())
@@ -110,7 +110,7 @@ public class ScrollLayer : ClickableLayer, ITouchListener
         }
     }
 
-    private float GetTimeValue(float value, float time)
+    private static float GetTimeValue(float value, float time)
     {
         return value * 60f * time;
     }

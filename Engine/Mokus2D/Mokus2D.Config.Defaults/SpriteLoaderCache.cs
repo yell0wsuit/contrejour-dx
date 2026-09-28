@@ -60,7 +60,7 @@ public class SpriteLoaderCache : IGraphicsLoader
         baseLoader.ResourceLoaded += BaseLoaderOnResourceLoaded;
     }
 
-    public void SetPrefferedScaleFactor(float mult)
+    public static void SetPrefferedScaleFactor(float mult)
     {
     }
 
@@ -81,7 +81,7 @@ public class SpriteLoaderCache : IGraphicsLoader
         return val;
     }
 
-    private string FixName(string name)
+    private static string FixName(string name)
     {
         return name.Replace('\\', '/');
     }

@@ -328,7 +328,7 @@ public class Node : DisposableBase, IUpdatable, IConfig
     public event Action AddedToStageEvent;
 
     [Conditional("DEBUG")]
-    private void ThrowIfNotInMainThread()
+    private static void ThrowIfNotInMainThread()
     {
     }
 

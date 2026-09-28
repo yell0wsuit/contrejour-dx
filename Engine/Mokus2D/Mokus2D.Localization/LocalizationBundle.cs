@@ -18,7 +18,7 @@ public class LocalizationBundle
 
     private readonly Dictionary<string, string> _messages = [];
 
-    public string CurrentLocale => CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
+    public static string CurrentLocale => CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
 
     public LocalizationBundle(string name, string locale = null)
     {

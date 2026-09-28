@@ -85,7 +85,7 @@ public class SpringSuckerBodyClip : SuckerBodyClip
         return new McSuckerBody();
     }
 
-    public void CreateLegs()
+    public static void CreateLegs()
     {
     }
 

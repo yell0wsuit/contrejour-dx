@@ -29,7 +29,7 @@ public class RootNode : Node
         set => RootState.SpritesScaleFactor = value;
     }
 
-    public void ResetUpdateThread()
+    public static void ResetUpdateThread()
     {
     }
 

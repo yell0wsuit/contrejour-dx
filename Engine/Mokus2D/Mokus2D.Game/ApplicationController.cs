@@ -100,12 +100,12 @@ public class ApplicationController : DisposableBase
         _graphics.ApplyChanges();
     }
 
-    public void Update(float time)
+    public static void Update(float time)
     {
         MouseController.Update(time);
     }
 
-    public void Exit()
+    public static void Exit()
     {
     }
 }

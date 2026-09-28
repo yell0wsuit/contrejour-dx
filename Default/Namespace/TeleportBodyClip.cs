@@ -159,7 +159,7 @@ public class TeleportBodyClip : BodyClip
         teleporting = false;
     }
 
-    public void ScaleHero(BodyClip bodyClip)
+    public static void ScaleHero(BodyClip bodyClip)
     {
         (bodyClip as ITeleportable).SetScaleTime(1f, Math.Min(0.1f, 0.1f / bodyClip.Body.LinearVelocity.Length() * 10f));
     }

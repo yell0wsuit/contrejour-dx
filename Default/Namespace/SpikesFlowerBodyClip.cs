@@ -43,7 +43,7 @@ public class SpikesFlowerBodyClip : ContreJourBodyClip, IVectorPositionProvider
     {
         if (Game.WhiteSide || Game.BonusChapter)
         {
-            _clip = _builder.ReplaceClipWith(_clip, Game.Choose(null, null, "McSpikesViewWhite", null, "McSpikesView_6"));
+            _clip = LevelBuilderBase.ReplaceClipWith(_clip, Game.Choose(null, null, "McSpikesViewWhite", null, "McSpikesView_6"));
             clip = _clip;
         }
         container = new Node();

@@ -225,7 +225,7 @@ public class PhysicsConstructor : PhysicsTransform
         }
     }
 
-    public void ApplyFixtureConfig(Fixture fixture, IDictionary<string, string> config)
+    public static void ApplyFixtureConfig(Fixture fixture, IDictionary<string, string> config)
     {
         fixture.UserData = config;
         if (config.GetBool("sensor"))

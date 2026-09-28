@@ -190,7 +190,7 @@ public class MainMenu : AccelerometerMenu, IActivatedDependent
         foreground.AddChild(node);
     }
 
-    public void CreateLiteButtons()
+    public static void CreateLiteButtons()
     {
     }
 
@@ -214,11 +214,11 @@ public class MainMenu : AccelerometerMenu, IActivatedDependent
         RefreshSoundButtons();
     }
 
-    private void OnLeaderboardsClick(TouchArguments touchArguments)
+    private static void OnLeaderboardsClick(TouchArguments touchArguments)
     {
     }
 
-    private void OnAchievementsClick(TouchArguments touchArguments)
+    private static void OnAchievementsClick(TouchArguments touchArguments)
     {
     }
 
@@ -241,7 +241,7 @@ public class MainMenu : AccelerometerMenu, IActivatedDependent
         musicButton.Toggle = !SoundManager.MusicEnabled;
     }
 
-    public void CacheImages()
+    public static void CacheImages()
     {
     }
 
@@ -339,7 +339,7 @@ public class MainMenu : AccelerometerMenu, IActivatedDependent
         RefreshScore();
     }
 
-    public List<string> Backgrounds()
+    public static List<string> Backgrounds()
     {
         return
         [
@@ -517,7 +517,7 @@ public class MainMenu : AccelerometerMenu, IActivatedDependent
         spinner.SetTargetChapter(chapter);
     }
 
-    private void FixCurrentPosition()
+    private static void FixCurrentPosition()
     {
     }
 
@@ -555,7 +555,7 @@ public class MainMenu : AccelerometerMenu, IActivatedDependent
         }
     }
 
-    public void OnGetFullVersion()
+    public static void OnGetFullVersion()
     {
         SoundManager.PlaySound("newClip1", 0.7f);
     }

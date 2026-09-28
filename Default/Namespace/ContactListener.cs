@@ -36,7 +36,7 @@ public class ContactListener
         contactManager4.PostSolve = (PostSolveHandler)Delegate.Combine((Delegate)(object)contactManager4.PostSolve, new PostSolveHandler(PostSolve));
     }
 
-    public bool BeginContact(Contact contact)
+    public static bool BeginContact(Contact contact)
     {
         ProcessContact(contact, delegate (BodyClip bodyClip, Body body)
         {
@@ -45,7 +45,7 @@ public class ContactListener
         return true;
     }
 
-    private void ProcessContact(Contact contact, Action<BodyClip, Body> action)
+    private static void ProcessContact(Contact contact, Action<BodyClip, Body> action)
     {
         BodyClip bodyClip = (BodyClip)contact.FixtureA.Body.UserData;
         BodyClip bodyClip2 = (BodyClip)contact.FixtureB.Body.UserData;
@@ -61,7 +61,7 @@ public class ContactListener
         }
     }
 
-    public void EndContact(Contact contact)
+    public static void EndContact(Contact contact)
     {
         ProcessContact(contact, delegate (BodyClip bodyClip, Body body)
         {
@@ -69,7 +69,7 @@ public class ContactListener
         });
     }
 
-    public void PreSolve(Contact contact, ref Manifold manifold)
+    public static void PreSolve(Contact contact, ref Manifold manifold)
     {
         if (contact.IsTouching)
         {
@@ -80,7 +80,7 @@ public class ContactListener
         }
     }
 
-    public void PostSolve(Contact contact, ContactVelocityConstraint impulse)
+    public static void PostSolve(Contact contact, ContactVelocityConstraint impulse)
     {
         if (contact.IsTouching)
         {

@@ -156,7 +156,7 @@ public class Hashtable : Dictionary<object, object>
         return stringWriter.ToString();
     }
 
-    public void Trace()
+    public static void Trace()
     {
     }
 }

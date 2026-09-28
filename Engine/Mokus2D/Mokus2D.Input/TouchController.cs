@@ -151,7 +151,7 @@ public class TouchController : IUpdatable
         }
     }
 
-    private void SendEnd(Touch touch, List<ITouchListener> listeners)
+    private static void SendEnd(Touch touch, List<ITouchListener> listeners)
     {
         foreach (ITouchListener listener in listeners)
         {

@@ -26,7 +26,7 @@ internal sealed class TrapezoidalMap
         _cross = null;
     }
 
-    public Trapezoid[] Case1(Trapezoid t, Edge e)
+    public static Trapezoid[] Case1(Trapezoid t, Edge e)
     {
         Trapezoid[] array =
         [

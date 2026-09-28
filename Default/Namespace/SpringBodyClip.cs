@@ -101,7 +101,7 @@ public class SpringBodyClip : ContreJourBodyClip, IClickable, IRestartable
     {
         if (!Game.BlackSide)
         {
-            _clip = _builder.ReplaceClipWith(_clip, GetClipName());
+            _clip = LevelBuilderBase.ReplaceClipWith(_clip, GetClipName());
             clip = _clip;
         }
         clip.Parent.ChangeChildLayer(_clip, 2);
@@ -208,7 +208,7 @@ public class SpringBodyClip : ContreJourBodyClip, IClickable, IRestartable
         return Game.Choose("McSpringView_5", null, "McSpringViewWhite", null, "McSpringView_6");
     }
 
-    private EventSender GetDestroyEvent(Body teleportBody)
+    private static EventSender GetDestroyEvent(Body teleportBody)
     {
         return ((ISnotLinked)teleportBody.UserData).DestroyEvent;
     }
@@ -240,7 +240,7 @@ public class SpringBodyClip : ContreJourBodyClip, IClickable, IRestartable
         smoke.SmokePosition = clip.LocalToNode(SmokePoint, builder.GameRoot);
     }
 
-    private float OpacityStep()
+    private static float OpacityStep()
     {
         return 200f;
     }
@@ -280,7 +280,7 @@ public class SpringBodyClip : ContreJourBodyClip, IClickable, IRestartable
         smoke.ShowAllParticles();
     }
 
-    public bool CanLaunch(object bodyClip)
+    public static bool CanLaunch(object bodyClip)
     {
         return bodyClip is ILaunchable && ((ILaunchable)bodyClip).CanLaunch();
     }
@@ -314,7 +314,7 @@ public class SpringBodyClip : ContreJourBodyClip, IClickable, IRestartable
     {
         sticked.SetSpeedLocked(value: false);
         sticked.HitEnabled = true;
-        Game.FocusOnHero();
+        ContreJourGame.FocusOnHero();
         sticked.Body.BodyType = (BodyType)2;
         ApplyImpulseTo(sticked);
         launchTime = Game.TotalTime;
@@ -357,11 +357,11 @@ public class SpringBodyClip : ContreJourBodyClip, IClickable, IRestartable
         movie.Stoped = false;
     }
 
-    private void EnableJoin()
+    private static void EnableJoin()
     {
     }
 
-    public float JointStep()
+    public static float JointStep()
     {
         return 2f / 3f;
     }
@@ -559,7 +559,7 @@ public class SpringBodyClip : ContreJourBodyClip, IClickable, IRestartable
         }
     }
 
-    public bool CheckBodyContactsKeyCount(Body target, string fixtureKey, int count)
+    public static bool CheckBodyContactsKeyCount(Body target, string fixtureKey, int count)
     {
         ContactEdge val = target.ContactList;
         int num = 0;
@@ -583,12 +583,12 @@ public class SpringBodyClip : ContreJourBodyClip, IClickable, IRestartable
         return CheckBodyContactsKeyCount(sticked.Body, fixtureKey, 2);
     }
 
-    public bool CheckFixtureKey(Fixture fixture, string key)
+    public static bool CheckFixtureKey(Fixture fixture, string key)
     {
         return fixture.UserData is Hashtable hashtable && hashtable.ContainsKey(key);
     }
 
-    public bool IsSticky(Fixture fixture)
+    public static bool IsSticky(Fixture fixture)
     {
         return CheckFixtureKey(fixture, "sticky");
     }

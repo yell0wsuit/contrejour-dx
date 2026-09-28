@@ -27,7 +27,7 @@ public class Bezier
         }
     }
 
-    private float FirstNonZero(float value1, float value2)
+    private static float FirstNonZero(float value1, float value2)
     {
         return Maths.FuzzyNotEquals(value1, 0f) ? value1 : value2;
     }

@@ -122,7 +122,7 @@ internal sealed class MonotoneMountain
         }
     }
 
-    private float Angle(Point p)
+    private static float Angle(Point p)
     {
         Point point = p.Next - p;
         Point p2 = p.Prev - p;

@@ -25,7 +25,7 @@ public class LevelsCache
 
     public Dictionary<string, Level> CachedLevels => cache;
 
-    private string CorrectName(string name)
+    private static string CorrectName(string name)
     {
         string[] array = name.Split('/', '\\');
         return array[^1];

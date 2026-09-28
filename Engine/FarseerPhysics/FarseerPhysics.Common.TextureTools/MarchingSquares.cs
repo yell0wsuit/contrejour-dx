@@ -19,11 +19,6 @@ public static class MarchingSquares
             return _head;
         }
 
-        public CxFastListNode<T> End()
-        {
-            return null;
-        }
-
         public T Front()
         {
             return _head.Elem();
@@ -371,7 +366,7 @@ public static class MarchingSquares
                 }
                 bool flag3 = true;
                 CxFastListNode<Vector2> cxFastListNode2;
-                for (cxFastListNode2 = points2.Begin(); cxFastListNode2 != points2.End(); cxFastListNode2 = cxFastListNode2.Next())
+                for (cxFastListNode2 = points2.Begin(); cxFastListNode2 != null; cxFastListNode2 = cxFastListNode2.Next())
                 {
                     if (VecDsq(cxFastListNode2.Elem(), b) < 1.1920929E-07f)
                     {
@@ -385,7 +380,7 @@ public static class MarchingSquares
                     continue;
                 }
                 CxFastListNode<Vector2> cxFastListNode3 = cxFastListNode.Next().Next();
-                if (cxFastListNode3 == points.End())
+                if (cxFastListNode3 == null)
                 {
                     cxFastListNode3 = points.Begin();
                 }
@@ -393,7 +388,7 @@ public static class MarchingSquares
                 {
                     cxFastListNode2 = points2.Insert(cxFastListNode2, cxFastListNode3.Elem());
                     cxFastListNode3 = cxFastListNode3.Next();
-                    if (cxFastListNode3 == points.End())
+                    if (cxFastListNode3 == null)
                     {
                         cxFastListNode3 = points.Begin();
                     }
@@ -548,7 +543,7 @@ public static class MarchingSquares
         CxFastListNode<Vector2> cxFastListNode2 = points2.Begin();
         Vector2 b = cxFastListNode2.Elem();
         CxFastListNode<Vector2> cxFastListNode3 = null;
-        while (cxFastListNode != points.End())
+        while (cxFastListNode != null)
         {
             Vector2 vector = cxFastListNode.Elem();
             if (VecDsq(vector, b) < 1.1920929E-07f)
@@ -584,7 +579,7 @@ public static class MarchingSquares
                 cxFastListNode = cxFastListNode.Next();
                 Vector2 vector3 = cxFastListNode.Elem();
                 cxFastListNode = cxFastListNode.Next();
-                if (cxFastListNode == points.End())
+                if (cxFastListNode == null)
                 {
                     cxFastListNode = points.Begin();
                 }

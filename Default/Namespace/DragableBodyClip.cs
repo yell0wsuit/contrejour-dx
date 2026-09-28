@@ -97,7 +97,7 @@ public class DragableBodyClip : ContreJourBodyClip, IClickable, IRestartable, IS
     {
         //IL_00f7: Unknown result type (might be due to invalid IL or missing references)
         //IL_0101: Expected O, but got Unknown
-        _clip = _builder.ReplaceClipWith(_clip, ReplaceClipName(_builder));
+        _clip = LevelBuilderBase.ReplaceClipWith(_clip, ReplaceClipName(_builder));
         clip = _clip;
         _clip.Parent.ChangeChildLayer(_clip, 2);
         dragStartEvent = new EventSender();
@@ -144,7 +144,7 @@ public class DragableBodyClip : ContreJourBodyClip, IClickable, IRestartable, IS
             dragStartEvent.SendEvent();
             ContreJourGame contreJourGame = (ContreJourGame)builder.Game;
             contreJourGame.IncreaseZoomOut();
-            Schedule(contreJourGame.FocusOnHero, 0.05f);
+            Schedule(ContreJourGame.FocusOnHero, 0.05f);
             draging = true;
             initialMousePosition = builder.TouchRootVec(this.touch);
             initialDragOffset = Body.Position - initialPosition;

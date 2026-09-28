@@ -59,7 +59,7 @@ public class SpringSnotSprite : SnotSprite
     {
     }
 
-    public void SetCirclesColors()
+    public static void SetCirclesColors()
     {
     }
 

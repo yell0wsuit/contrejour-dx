@@ -197,7 +197,7 @@ public class ParticleSystemConfig : ICloneable<ParticleSystemConfig>
         data.Initialize();
     }
 
-    private float? GetValueInRange(RandomRange? range)
+    private static float? GetValueInRange(RandomRange? range)
     {
         return range.HasValue ? range.Value.GetValueInRange() : null;
     }

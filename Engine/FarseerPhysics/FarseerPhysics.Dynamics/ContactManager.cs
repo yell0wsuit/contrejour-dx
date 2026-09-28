@@ -196,7 +196,7 @@ public class ContactManager
         return (!flag || (!fixtureA.IsFixtureIgnored(fixtureB) && !fixtureB.IsFixtureIgnored(fixtureA))) && flag;
     }
 
-    internal void UpdateContacts(ContactEdge contactEdge, bool value)
+    internal static void UpdateContacts(ContactEdge contactEdge, bool value)
     {
     }
 }

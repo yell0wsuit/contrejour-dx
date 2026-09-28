@@ -153,7 +153,7 @@ public class Scale9Node : Node, ISizeNode, IDataReloadable
         TrySetPosition(RightBottom, vector);
     }
 
-    private void TrySetPosition(Sprite node, Vector2 position)
+    private static void TrySetPosition(Sprite node, Vector2 position)
     {
         node?.Position = position;
     }
@@ -179,12 +179,12 @@ public class Scale9Node : Node, ISizeNode, IDataReloadable
         return Maths.Max(GetHeight(a), GetHeight(b), GetHeight(c));
     }
 
-    private float GetWidth(Sprite sprite)
+    private static float GetWidth(Sprite sprite)
     {
         return sprite?.Size.X ?? 0f;
     }
 
-    private float GetHeight(Sprite sprite)
+    private static float GetHeight(Sprite sprite)
     {
         return sprite?.Size.Y ?? 0f;
     }

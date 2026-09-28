@@ -95,7 +95,7 @@ internal sealed class Trapezoid
         return list;
     }
 
-    private Point LineIntersect(Edge edge, float x)
+    private static Point LineIntersect(Edge edge, float x)
     {
         float y = (edge.Slope * x) + edge.B;
         return new Point(x, y);

@@ -24,7 +24,7 @@ public class AccelerometerNode : Node
     private Vector2 speed = Vector2.Zero;
 
     // Desktop has no accelerometer; behaves like the original when Accelerometer.GetDefault() returned null.
-    private Vector2 Acceleration => Vector2.Zero;
+    private static Vector2 Acceleration => Vector2.Zero;
 
     private void UpdateOffset(Vector2 acceleration)
     {

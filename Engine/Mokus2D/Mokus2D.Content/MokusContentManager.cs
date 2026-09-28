@@ -40,7 +40,7 @@ public class MokusContentManager : ContentManager
         return GetFullTexturePath(name, Mokus2DGame.Config.GraphicsLoader.PrefferedScaleFactor);
     }
 
-    public string GetFullTexturePath(string name, float scaleFactor)
+    public static string GetFullTexturePath(string name, float scaleFactor)
     {
         string text = string.Format(CultureInfo.InvariantCulture, TextureNameFormat, name, ContentUtil.GetResourcesSuffix(scaleFactor));
         return Path.Combine(

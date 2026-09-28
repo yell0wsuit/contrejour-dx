@@ -205,7 +205,7 @@ public class LevelBuilderBase : Updatable, IDisposable
         GameRoot.AddChild(child, z);
     }
 
-    public Node ReplaceClipWithNode(Node clip, Node newClip)
+    public static Node ReplaceClipWithNode(Node clip, Node newClip)
     {
         newClip.ScaleX = clip.ScaleX;
         newClip.ScaleY = clip.ScaleY;
@@ -215,12 +215,12 @@ public class LevelBuilderBase : Updatable, IDisposable
         return newClip;
     }
 
-    public Node ReplaceClipWith(Node clip, string clipName)
+    public static Node ReplaceClipWith(Node clip, string clipName)
     {
         return ReplaceClipWithNode(clip, ClipTypesCache.CreateNewNode(clipName));
     }
 
-    public void ReplaceChildWith(Node source, Node with)
+    public static void ReplaceChildWith(Node source, Node with)
     {
         source.Parent.AddChild(with, source.Layer);
         source.RemoveFromParent();
@@ -285,7 +285,7 @@ public class LevelBuilderBase : Updatable, IDisposable
         return engineConfig.ToPoint(vec);
     }
 
-    public void DestroyFixturesData(Body body)
+    public static void DestroyFixturesData(Body body)
     {
         foreach (Fixture fixture in body.FixtureList)
         {
@@ -340,7 +340,7 @@ public class LevelBuilderBase : Updatable, IDisposable
             : config.Exists("viewType") ? config.GetString("viewType") : null;
     }
 
-    private string GetClipType(Hashtable config)
+    private static string GetClipType(Hashtable config)
     {
         return config.Exists("iPhoneClipType")
             ? config.GetString("iPhoneClipType")
@@ -402,12 +402,12 @@ public class LevelBuilderBase : Updatable, IDisposable
         }
     }
 
-    public float ToRotationVec(Vector2 vec)
+    public static float ToRotationVec(Vector2 vec)
     {
         return ToRotation(VectorUtil.Atan2(vec));
     }
 
-    public float ToRotation(float angle)
+    public static float ToRotation(float angle)
     {
         return MathHelper.ToDegrees(0f - angle);
     }

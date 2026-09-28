@@ -49,7 +49,7 @@ public class PlanetEye : BackSnotEye, IVectorPositionProvider
         UpdateEnabled = true;
     }
 
-    private string MaskName()
+    private static string MaskName()
     {
         return null;
     }

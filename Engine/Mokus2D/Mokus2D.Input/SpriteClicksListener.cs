@@ -120,7 +120,7 @@ public class SpriteClicksListener : ITouchListener
         return forEachList;
     }
 
-    private bool SpriteContainsTouch(IClickableNode sprite, Touch touch)
+    private static bool SpriteContainsTouch(IClickableNode sprite, Touch touch)
     {
         return sprite.ContainsGlobalPosition(touch.Position);
     }

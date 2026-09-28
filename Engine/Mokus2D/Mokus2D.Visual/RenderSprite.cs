@@ -57,7 +57,7 @@ public class RenderSprite : Sprite
 
     public void ResetUpdateThread()
     {
-        RenderRoot.ResetUpdateThread();
+        RootNode.ResetUpdateThread();
     }
 
     public override void ResetTexture(Texture2D texture)

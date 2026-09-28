@@ -100,7 +100,7 @@ public class TweenObject : IntervalTweenBase, ITween<TweenObject>, ICompletableT
         }
     }
 
-    private void SetTargetValues(List<ValueSetter> list)
+    private static void SetTargetValues(List<ValueSetter> list)
     {
         foreach (ValueSetter item in list)
         {

@@ -582,15 +582,15 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
         return blackSide ? black : whiteSide ? white : normal;
     }
 
-    public void AddShadowSource(BodyClip source)
+    public static void AddShadowSource(BodyClip source)
     {
     }
 
-    public void AddColorOverlay()
+    public static void AddColorOverlay()
     {
     }
 
-    public int GetRandomColor()
+    public static int GetRandomColor()
     {
         return !(Maths.Random() < 0.3f) ? 0 : 255;
     }
@@ -818,7 +818,7 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
         }
     }
 
-    public void AddBackgroundColorConfig(Node background, Hashtable config)
+    public static void AddBackgroundColorConfig(Node background, Hashtable config)
     {
         if (config.ContainsKey("color"))
         {
@@ -904,7 +904,7 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
         energy.OpacityByte = 0;
     }
 
-    public void FocusOnHero()
+    public static void FocusOnHero()
     {
     }
 
@@ -1040,7 +1040,7 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
         return ((PositionProviderValue)positionProviders[num3 - 1]).Provider;
     }
 
-    private void UpdateZoomOut(float time)
+    private static void UpdateZoomOut(float time)
     {
     }
 

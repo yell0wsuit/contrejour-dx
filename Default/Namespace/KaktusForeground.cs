@@ -10,7 +10,7 @@ public class KaktusForeground : ForegroundBase
         string text = _builder.ContreJour.ChooseSide("Black", null, "_5", null, "_6");
         if (text != null)
         {
-            _clip = (Sprite)_builder.ReplaceClipWith(_clip, config.GetString("viewType") + text);
+            _clip = (Sprite)LevelBuilderBase.ReplaceClipWith(_clip, config.GetString("viewType") + text);
             _builder.ChangeChildLayer(_clip, -2);
         }
     }

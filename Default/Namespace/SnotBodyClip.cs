@@ -268,12 +268,12 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
         }
     }
 
-    public float ExtremeDamping()
+    public static float ExtremeDamping()
     {
         return 6f;
     }
 
-    public float FreeDamping()
+    public static float FreeDamping()
     {
         return 0.5f;
     }
@@ -432,7 +432,7 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
         return 2.6f;
     }
 
-    public Vector2 OtherLocalAnchor(JointEdge edge)
+    public static Vector2 OtherLocalAnchor(JointEdge edge)
     {
         //IL_0006: Unknown result type (might be due to invalid IL or missing references)
         //IL_000c: Expected O, but got Unknown
@@ -440,7 +440,7 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
         return val.BodyA == edge.Other ? val.BodyA.GetLocalPoint(val.LocalAnchorA) : val.BodyB.GetLocalPoint(val.LocalAnchorB);
     }
 
-    public Vector2 ThisLocalAnchor(JointEdge edge)
+    public static Vector2 ThisLocalAnchor(JointEdge edge)
     {
         //IL_0006: Unknown result type (might be due to invalid IL or missing references)
         //IL_000c: Expected O, but got Unknown
@@ -544,11 +544,11 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
         stickyJoint = FarseerUtil.CreateRevoluteJoint(World, Physics.EndBody, joinBody, joinPoint);
         eye.Open = true;
         SetZ(Layer() + 1);
-        game.FocusOnHero();
+        ContreJourGame.FocusOnHero();
         linkEvent.SendEvent();
     }
 
-    public bool BodyConnectedToStaticProcessed(Body _body, ref List<Body> processed)
+    public static bool BodyConnectedToStaticProcessed(Body _body, ref List<Body> processed)
     {
         //IL_0001: Unknown result type (might be due to invalid IL or missing references)
         //IL_0007: Invalid comparison between Unknown and I4

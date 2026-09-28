@@ -86,7 +86,7 @@ public class IntroPlayer : Node
         FadeItem(label2);
     }
 
-    public void FadeItemShowTime(Node item, float time)
+    public static void FadeItemShowTime(Node item, float time)
     {
         item.OpacityFloat = 0f;
         _ = item.Tweener.StartSequence(0.8f).Tween(NodeValues.OpacityFloat, 1f).Next(time)
@@ -95,7 +95,7 @@ public class IntroPlayer : Node
             .OnComplete(NodeValues.Hide);
     }
 
-    public void FadeItem(Node item)
+    public static void FadeItem(Node item)
     {
         FadeItemShowTime(item, 1.5f);
     }

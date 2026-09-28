@@ -499,7 +499,7 @@ public class PlasticinePartBodyClip : ContreJourBodyClip, IClickable, IRestartab
         }
     }
 
-    public Vector2 GetLocalSurfaceCenter()
+    public static Vector2 GetLocalSurfaceCenter()
     {
         return new Vector2(0f, 7f / 12f);
     }

@@ -17,7 +17,7 @@ public class BlackSnotSprite : SpringSnotSprite
         borderWidth = 3f;
     }
 
-    public int PointsInNeckPart()
+    public static int PointsInNeckPart()
     {
         return 4;
     }

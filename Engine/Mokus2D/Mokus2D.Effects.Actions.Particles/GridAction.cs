@@ -21,7 +21,7 @@ public abstract class GridAction : ITween, ICleanable, IUpdatable
         return this;
     }
 
-    protected void SetTargets()
+    protected static void SetTargets()
     {
     }
 

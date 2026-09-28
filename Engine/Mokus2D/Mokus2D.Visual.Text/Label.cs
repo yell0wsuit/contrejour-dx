@@ -522,7 +522,7 @@ public class Label : AnchorNode, IDataReloadable
         }
     }
 
-    private bool IsNewLine(char symbol)
+    private static bool IsNewLine(char symbol)
     {
         return '\n' == symbol;
     }

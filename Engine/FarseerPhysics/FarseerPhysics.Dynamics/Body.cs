@@ -185,14 +185,14 @@ public class Body : IDisposable
                 if (!_awake)
                 {
                     _sleepTime = 0f;
-                    _world.ContactManager.UpdateContacts(ContactList, value: true);
+                    ContactManager.UpdateContacts(ContactList, value: true);
                 }
             }
             else
             {
                 ResetDynamics();
                 _sleepTime = 0f;
-                _world.ContactManager.UpdateContacts(ContactList, value: false);
+                ContactManager.UpdateContacts(ContactList, value: false);
             }
             _awake = value;
         }

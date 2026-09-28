@@ -140,7 +140,7 @@ public class Scale9Border : Node
         RefreshGroupSize((Node)_rightTop, (Node)_top, new Vector2(Size.X, 0f), Size.X);
     }
 
-    private void RefreshGroupSize(Node corner, Node side, Vector2 position, float sideSize)
+    private static void RefreshGroupSize(Node corner, Node side, Vector2 position, float sideSize)
     {
         corner.Position = position;
         side.Position = position;

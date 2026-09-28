@@ -56,7 +56,7 @@ public class QuadTree<T> where T : class, IQuadTreeObject<T>
         }
     }
 
-    private void Query(RectangleFloat bounds, QuadTreeNode<T> node, Action<T> callback)
+    private static void Query(RectangleFloat bounds, QuadTreeNode<T> node, Action<T> callback)
     {
         if (node == null || !bounds.Intersects(node.Bounds))
         {
@@ -255,7 +255,7 @@ public class QuadTree<T> where T : class, IQuadTreeObject<T>
         root = quadTreeNode;
     }
 
-    private List<T> GetChildObjects(QuadTreeNode<T> node)
+    private static List<T> GetChildObjects(QuadTreeNode<T> node)
     {
         List<T> list = [.. node.Objects];
         QuadTreeNode<T>[] nodes = node.Nodes;
@@ -274,7 +274,7 @@ public class QuadTree<T> where T : class, IQuadTreeObject<T>
         return root == null ? 0 : GetQuadObjectCount(root);
     }
 
-    private int GetQuadObjectCount(QuadTreeNode<T> node)
+    private static int GetQuadObjectCount(QuadTreeNode<T> node)
     {
         int num = node.Objects.Count;
         QuadTreeNode<T>[] nodes = node.Nodes;
@@ -293,7 +293,7 @@ public class QuadTree<T> where T : class, IQuadTreeObject<T>
         return root == null ? 0 : GetQuadNodeCount(root, 1);
     }
 
-    private int GetQuadNodeCount(QuadTreeNode<T> node, int count)
+    private static int GetQuadNodeCount(QuadTreeNode<T> node, int count)
     {
         if (node == null)
         {
@@ -321,7 +321,7 @@ public class QuadTree<T> where T : class, IQuadTreeObject<T>
         return list;
     }
 
-    private void GetChildNodes(QuadTreeNode<T> node, ICollection<QuadTreeNode<T>> results)
+    private static void GetChildNodes(QuadTreeNode<T> node, ICollection<QuadTreeNode<T>> results)
     {
         QuadTreeNode<T>[] nodes = node.Nodes;
         foreach (QuadTreeNode<T> quadTreeNode in nodes)

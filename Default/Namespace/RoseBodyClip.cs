@@ -59,7 +59,7 @@ public class RoseBodyClip : StickyBodyClip, IBonusAcceptable, IBodyClip
         : base(_builder, _body, _clip, _config)
     {
         Node node = new();
-        _builder.ReplaceChildWith(_clip, node);
+        LevelBuilderBase.ReplaceChildWith(_clip, node);
         node.Position = _clip.Position;
         clip = node;
         game = (ContreJourGame)_builder.Game;

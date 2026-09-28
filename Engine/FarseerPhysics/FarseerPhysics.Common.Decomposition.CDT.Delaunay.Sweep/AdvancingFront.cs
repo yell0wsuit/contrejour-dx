@@ -7,7 +7,7 @@ internal sealed class AdvancingFront
 {
     public AdvancingFrontNode Head;
 
-    protected AdvancingFrontNode Search;
+    private AdvancingFrontNode Search;
 
     public AdvancingFrontNode Tail;
 
@@ -20,11 +20,11 @@ internal sealed class AdvancingFront
         AddNode(tail);
     }
 
-    public void AddNode(AdvancingFrontNode node)
+    public static void AddNode(AdvancingFrontNode node)
     {
     }
 
-    public void RemoveNode(AdvancingFrontNode node)
+    public static void RemoveNode(AdvancingFrontNode node)
     {
     }
 

@@ -22,7 +22,7 @@ public class Scale9FilledBorder : Scale9Border
         SetColor(SideSprites, borderColor);
     }
 
-    private void SetColor(List<ISizeNode> nodes, Color borderColor)
+    private static void SetColor(List<ISizeNode> nodes, Color borderColor)
     {
         foreach (Node node in nodes.Cast<Node>())
         {

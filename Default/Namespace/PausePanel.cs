@@ -152,7 +152,7 @@ public class PausePanel : Node, IDisposable
             return;
         }
         LevelData levelDataByFile = UserData.Instance.GetLevelDataByFile(levelIndex);
-        LevelPosition levelPosition = UserData.Instance.GetLevelPosition(levelIndex);
+        LevelPosition levelPosition = UserData.GetLevelPosition(levelIndex);
         if (levelPosition.Chapter == Constants.NormalChaptersCount - 1 && levelPosition.Index == 19 && UserData.Instance.GetLevelDataByPosition(levelPosition) == null)
         {
             _ = buttons.RemoveLast();
@@ -222,7 +222,7 @@ public class PausePanel : Node, IDisposable
         }
     }
 
-    public void ShowButton(Button button)
+    public static void ShowButton(Button button)
     {
         button.Scale = 0f;
         button.Visible = true;
@@ -272,7 +272,7 @@ public class PausePanel : Node, IDisposable
         game.Skip();
     }
 
-    private void OnMusicRefresh()
+    private static void OnMusicRefresh()
     {
     }
 

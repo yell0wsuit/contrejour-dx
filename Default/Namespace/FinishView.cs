@@ -266,12 +266,12 @@ public class FinishView : MovieStripesView, IDisposable
         _ = this.Schedule(0.4f, ShowStarsBonus);
     }
 
-    private void PlayBell()
+    private static void PlayBell()
     {
         SoundManager.PlaySound("bell", 0.6f);
     }
 
-    private void PlayClick()
+    private static void PlayClick()
     {
         SoundManager.PlaySound("newClip1", 0.7f);
     }
@@ -408,14 +408,14 @@ public class FinishView : MovieStripesView, IDisposable
         clickableLayer.AddChild(stamp);
     }
 
-    private void BlinkItemWithButton(Sprite button)
+    private static void BlinkItemWithButton(Sprite button)
     {
         _ = button.Tweener.StartSequence(0.15f).ScaleTo(button.Scale * 1.2f, Cubic.EaseOut).Next(0.15f)
             .ScaleTo(button.Scale, Elastic.EaseIn);
         PlayBell();
     }
 
-    private void ShowItemWithButton(Sprite button)
+    private static void ShowItemWithButton(Sprite button)
     {
         float scale = button.Scale;
         button.Scale = 0f;

@@ -96,7 +96,7 @@ public class BodyClip : Updatable
         ((ContreJourGame)builder.Game).UnSchedule(action);
     }
 
-    public List<string> TexturesToUnload()
+    public static List<string> TexturesToUnload()
     {
         return [];
     }

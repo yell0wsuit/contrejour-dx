@@ -264,7 +264,7 @@ public abstract class AnimationNode : Node, IAnimatedNode, IConfig, IBoundsNode,
         AddChild(child);
     }
 
-    protected void SetBlendMode(Node child, string blendMode)
+    protected static void SetBlendMode(Node child, string blendMode)
     {
         if (child is SpriteBatchNode spriteBatchNode)
         {

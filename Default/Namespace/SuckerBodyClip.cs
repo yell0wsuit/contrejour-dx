@@ -228,7 +228,7 @@ public class SuckerBodyClip : ContreJourBodyClip, IClickable, IVectorPositionPro
         return new TexturedSuckerNeck("McSuckerStrongSnotTexture");
     }
 
-    private void RedrawGhost()
+    private static void RedrawGhost()
     {
     }
 

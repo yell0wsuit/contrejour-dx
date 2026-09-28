@@ -47,7 +47,7 @@ internal sealed class Triangulator
                 Trapezoid[] array;
                 if (flag && flag2)
                 {
-                    array = _trapezoidalMap.Case1(item2, edge);
+                    array = TrapezoidalMap.Case1(item2, edge);
                     _queryGraph.Case1(item2.Sink, edge, array);
                 }
                 else if (flag && !flag2)

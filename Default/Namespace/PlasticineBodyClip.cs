@@ -256,7 +256,7 @@ public class PlasticineBodyClip : ContreJourBodyClip, IRestartable
         return true;
     }
 
-    public void SetDotPositionPosition(int index, Vector2 position)
+    public static void SetDotPositionPosition(int index, Vector2 position)
     {
     }
 

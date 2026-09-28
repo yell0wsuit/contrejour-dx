@@ -48,7 +48,7 @@ internal sealed class SmoothAnimationPlayer : IAnimationNodePlayer
         }
     }
 
-    private void ApplyChildFrameData(AnimationNode node, Node child, AnimationFrameData previousData, AnimationFrameData nextData, float offset)
+    private static void ApplyChildFrameData(AnimationNode node, Node child, AnimationFrameData previousData, AnimationFrameData nextData, float offset)
     {
         if (!child.IgnoredAnimations.Visible)
         {

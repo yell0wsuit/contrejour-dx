@@ -108,12 +108,12 @@ public class Outro : Node, ITouchListener, IDisposable
         onEndTime = 0f;
     }
 
-    private bool UseAccelerometer()
+    private static bool UseAccelerometer()
     {
         return false;
     }
 
-    private int Priority(Vector2 touchPoint)
+    private static int Priority(Vector2 touchPoint)
     {
         return 1;
     }
