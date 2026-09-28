@@ -10,19 +10,19 @@ internal sealed class Trapezoid(Point leftPoint, Point rightPoint, Edge top, Edg
 
     public Point LeftPoint = leftPoint;
 
-    public Trapezoid LowerLeft = null;
+    public Trapezoid LowerLeft;
 
-    public Trapezoid LowerRight = null;
+    public Trapezoid LowerRight;
 
     public Point RightPoint = rightPoint;
 
-    public Sink Sink = null;
+    public Sink Sink;
 
     public Edge Top = top;
 
-    public Trapezoid UpperLeft = null;
+    public Trapezoid UpperLeft;
 
-    public Trapezoid UpperRight = null;
+    public Trapezoid UpperRight;
 
     public void UpdateLeft(Trapezoid ul, Trapezoid ll)
     {

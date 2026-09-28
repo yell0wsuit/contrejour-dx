@@ -8,7 +8,7 @@ public class SpringSnotSprite(ContreJourGame _game, SnotBodyClipBase _snot, floa
 
     protected bool active;
 
-    protected float activeProgress = 0f;
+    protected float activeProgress;
 
     protected float previousActiveProgress = 1f;
 

@@ -47,7 +47,7 @@ public class ListViewRenderers<T>(Func<Node> itemRendererFactory, ListView<T> li
         }
     }
 
-    private readonly Pool<Node> _renderersPool = new Pool<Node>(itemRendererFactory);
+    private readonly Pool<Node> _renderersPool = new(itemRendererFactory);
     private Range _currentRange;
 
     private readonly ListView<T> _list = list;

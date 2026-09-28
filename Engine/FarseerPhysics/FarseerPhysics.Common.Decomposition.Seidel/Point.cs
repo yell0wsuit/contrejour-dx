@@ -2,9 +2,9 @@ namespace FarseerPhysics.Common.Decomposition.Seidel;
 
 internal sealed class Point(float x, float y)
 {
-    public Point Next = null;
+    public Point Next;
 
-    public Point Prev = null;
+    public Point Prev;
 
     public float X = x;
 

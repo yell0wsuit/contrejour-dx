@@ -10,7 +10,7 @@ public class SpriteFader(Node _target)
 
     protected bool enabled;
 
-    protected ushort enabledOpacity = 0;
+    protected ushort enabledOpacity;
 
     protected Node target = _target;
 

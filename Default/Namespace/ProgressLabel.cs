@@ -10,7 +10,7 @@ public class ProgressLabel(float size, string _format, int _value, int _steps) :
 
     protected int steps = _steps;
 
-    protected int currentStep = 0;
+    protected int currentStep;
 
     public int Value
     {

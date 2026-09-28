@@ -12,7 +12,7 @@ public class PointAndAngle(float length, float angleStep, float angleOffset)
     public float Angle;
     private readonly float length = length;
 
-    private Vector2 position = new Vector2(length * 0.5f, 0f);
+    private Vector2 position = new(length * 0.5f, 0f);
 
     private readonly float angleOffset = angleOffset;
 

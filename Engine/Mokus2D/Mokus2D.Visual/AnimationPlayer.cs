@@ -107,7 +107,7 @@ public class AnimationPlayer : IUpdatable
         {
             int num = (!Rewind) ? 1 : (-1);
             float num2 = time * FPS * Speed * num;
-            float num3 = CurrentFrame = CurrentFrame + num2;
+            float num3 = CurrentFrame += num2;
             if ((num3 > maxFrame && !Rewind) || (num3 < MinFrame && Rewind))
             {
                 EndEvent.Dispatch();

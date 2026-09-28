@@ -24,7 +24,7 @@ public sealed class RealExplosion(World world) : PhysicsLogic(world, PhysicsLogi
 
     private readonly List<ShapeData> _data = [];
 
-    private readonly RayDataComparer _rdc = new RayDataComparer();
+    private readonly RayDataComparer _rdc = new();
 
     public Dictionary<Fixture, Vector2> Activate(Vector2 pos, float radius, float maxForce)
     {

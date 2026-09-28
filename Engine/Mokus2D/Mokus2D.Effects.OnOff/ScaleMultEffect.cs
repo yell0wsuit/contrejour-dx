@@ -6,17 +6,15 @@ namespace Mokus2D.Effects.OnOff;
 
 public class ScaleMultEffect(Node target, float scaleMult, float seconds) : ScaleEffect(target, seconds, target.ScaleVec * scaleMult, target.ScaleVec)
 {
-    private float _scaleMult = scaleMult;
-
     public float ScaleMult
     {
-        get => _scaleMult;
+        get;
         set
         {
-            _scaleMult = value;
+            field = value;
             ResetOnValue(OffValue * value);
         }
-    }
+    } = scaleMult;
 
     public override void ResetOffValue(Vector2 value)
     {

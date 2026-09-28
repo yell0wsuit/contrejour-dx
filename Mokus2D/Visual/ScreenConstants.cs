@@ -14,7 +14,7 @@ public static class ScreenConstants
     }
 
     [StructLayout(LayoutKind.Sequential, Size = 1)]
-    public struct Scales
+    public readonly struct Scales
     {
         public static readonly float fromIPhone2ByHeight = OsSizes.W7.Y / OsSizes.IPhoneRetina.Y;
     }

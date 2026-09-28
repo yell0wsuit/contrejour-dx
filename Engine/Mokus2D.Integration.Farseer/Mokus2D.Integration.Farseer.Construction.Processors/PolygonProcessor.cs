@@ -12,7 +12,7 @@ public class PolygonProcessor(PhysicsConstructor constructor, Vector2[] coords) 
 {
     private readonly Vector2[] _coords = coords;
 
-    private readonly Vertices _resultCoords = new Vertices(coords.Length);
+    private readonly Vertices _resultCoords = new(coords.Length);
 
     public override Shape Process(Node item, Vector2 positionOffset)
     {
