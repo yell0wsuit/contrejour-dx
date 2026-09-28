@@ -24,8 +24,6 @@ public class SpringBodyClip : ContreJourBodyClip, IClickable, IRestartable
 
     private static readonly Vector2 SUCK_POINT = new(0f, 40f);
 
-    private static readonly Vector2 STICKY_POINT = new(0f, 40f);
-
     protected Vector2 bodyCenterVec;
 
     protected CosChanger breatheChanger;

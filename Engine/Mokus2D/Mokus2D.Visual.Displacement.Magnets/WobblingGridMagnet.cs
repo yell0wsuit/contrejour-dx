@@ -13,8 +13,6 @@ public class WobblingGridMagnet : GridMagnetBase
 
     private readonly Vector2 _nodeSize;
 
-    private readonly Vector2 _gridSize;
-
     private readonly CosChanger _verticalOffset;
 
     private readonly CosChanger _horizontalOffset;
@@ -34,7 +32,6 @@ public class WobblingGridMagnet : GridMagnetBase
         : base(size)
     {
         _nodeSize = nodeSize;
-        _gridSize = (size / nodeSize).ToIntVector();
         _verticalOffset = new CosChanger(-1f, 1f, 0.71428573f * _step);
         _horizontalOffset = new CosChanger(-1f, 1f, _step);
     }

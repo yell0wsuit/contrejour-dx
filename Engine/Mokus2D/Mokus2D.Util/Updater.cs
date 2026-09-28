@@ -26,8 +26,6 @@ public class Updater : IUpdatable
 
     private readonly LinkedList<IUpdatable> _updatables = new();
 
-    private float _totalGameTime;
-
     public void AddUpdatable(Action<float> action)
     {
         AddUpdatable(new ActionUpdatable(action));
@@ -49,7 +47,6 @@ public class Updater : IUpdatable
         {
             return;
         }
-        _totalGameTime += time;
         LinkedListNode<IUpdatable> linkedListNode = _updatables.First;
         while (linkedListNode != null)
         {

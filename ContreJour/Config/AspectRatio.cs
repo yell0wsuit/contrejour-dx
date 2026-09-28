@@ -1,6 +1,6 @@
 namespace ContreJour.Config;
 
-public struct AspectRatio(float ratio, string levelsFolder)
+public readonly struct AspectRatio(float ratio, string levelsFolder)
 {
     public static readonly AspectRatio Ratio5x3 = new(1.6666666f, "");
 

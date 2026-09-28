@@ -21,8 +21,6 @@ public class GridExplosion : GridAction
 
     private float maxGridOffset;
 
-    private float seconds;
-
     public static GridExplosion New(float seconds, float minRadius, float maxRadius)
     {
         return pool.New().Initialize(seconds, minRadius, maxRadius);
@@ -31,7 +29,6 @@ public class GridExplosion : GridAction
     protected GridExplosion Initialize(float seconds, float minRadius, float maxRadius)
     {
         _ = Initialize();
-        this.seconds = seconds;
         this.minRadius = minRadius;
         this.maxRadius = maxRadius;
         return this;

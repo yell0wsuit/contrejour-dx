@@ -32,8 +32,6 @@ public abstract class EyeBase : Node
 
     private readonly bool useMask;
 
-    private readonly Vector2 maskSize = new(50f, 50f);
-
     private float viewDistance;
 
     private float viewAngle;
@@ -96,7 +94,6 @@ public abstract class EyeBase : Node
         this.game = game;
         useMask = useMask && Mokus2DGame.Config.RenderTargetEnabled;
         this.useMask = useMask && Mokus2DGame.Config.RenderTargetEnabled;
-        this.maskSize = maskSize;
         CreateDefaultView();
         if (useMask)
         {

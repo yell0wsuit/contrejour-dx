@@ -26,8 +26,6 @@ public class TweenToFrame : IntervalTweenBase
 
     private bool _finished;
 
-    private bool _inUpdate;
-
     public static TweenToFrame New(AnimationNode target, List<AnimationFrameData> frame, float seconds)
     {
         return Pool.New().Initialize(target, frame, seconds);
@@ -84,7 +82,6 @@ public class TweenToFrame : IntervalTweenBase
 
     protected override void UpdateRatio(float ratio)
     {
-        _inUpdate = true;
         foreach (KeyValuePair<Node, NodeTweenData> datum in _data)
         {
             Node key = datum.Key;
@@ -102,7 +99,6 @@ public class TweenToFrame : IntervalTweenBase
                 key.OpacityFloat = MathHelper.Lerp(value.StartData.Alpha, 0f, ratio);
             }
         }
-        _inUpdate = false;
     }
 
     public override void Free()

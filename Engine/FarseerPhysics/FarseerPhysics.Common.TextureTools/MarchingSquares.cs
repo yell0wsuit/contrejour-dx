@@ -12,8 +12,6 @@ public static class MarchingSquares
     {
         private CxFastListNode<T> _head;
 
-        private int _count;
-
         public CxFastListNode<T> Begin()
         {
             return _head;
@@ -31,12 +29,10 @@ public static class MarchingSquares
             {
                 cxFastListNode._next = null;
                 _head = cxFastListNode;
-                _count++;
                 return cxFastListNode;
             }
             cxFastListNode._next = _head;
             _head = cxFastListNode;
-            _count++;
             return cxFastListNode;
         }
 
@@ -54,11 +50,9 @@ public static class MarchingSquares
                         if (cxFastListNode == _head)
                         {
                             _head = cxFastListNode._next;
-                            _count--;
                             return true;
                         }
                         cxFastListNode2._next = cxFastListNode._next;
-                        _count--;
                         return true;
                     }
                     cxFastListNode2 = cxFastListNode;
@@ -84,7 +78,6 @@ public static class MarchingSquares
             CxFastListNode<T> next = node._next;
             cxFastListNode._next = next;
             node._next = cxFastListNode;
-            _count++;
             return cxFastListNode;
         }
 
@@ -103,7 +96,6 @@ public static class MarchingSquares
                 }
                 _head = _head._next;
             }
-            _count--;
             return next;
         }
 
@@ -134,7 +126,6 @@ public static class MarchingSquares
                 cxFastListNode2._next = null;
             }
             _head = null;
-            _count = 0;
         }
 
         public bool Has(T value)

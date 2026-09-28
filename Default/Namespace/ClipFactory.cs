@@ -31,8 +31,6 @@ public class ClipFactory
 
     private static readonly Dictionary<string, string> fullPaths = [];
 
-    private static readonly Dictionary<object, Dictionary<int, MovieClip>> debugPoints = [];
-
     public static ClipFactory Instance => instance;
 
     public static Dictionary<string, string> FullPaths => fullPaths;

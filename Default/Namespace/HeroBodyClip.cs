@@ -24,8 +24,6 @@ namespace Default.Namespace;
 
 public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusAcceptable, ISnotLinked, IEatable, ISpikesDestroyable, ILaunchable, IRadius, IBodyClip, ITeleportable, IRestartable
 {
-    private static readonly Color BLACK_TAIL_COLOR = ColorUtil.CreateColor(52, 185, 242, 255);
-
     public readonly EventSender FinishEvent = new();
 
     private readonly float eyeScale;

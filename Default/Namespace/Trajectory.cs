@@ -8,8 +8,6 @@ namespace Default.Namespace;
 
 public class Trajectory : ParticleSystem
 {
-    private readonly float enabledOpacity;
-
     public float Angle;
 
     public float FadeOutDelay;
@@ -36,7 +34,6 @@ public class Trajectory : ParticleSystem
     public Trajectory(ContreJourGame _game)
         : base(_game.BlackSide ? "chapter2/McTrampolinePathBlack" : "common/McTrampolinePath", 7)
     {
-        enabledOpacity = (_game.Chapter == 4) ? 0.7f : 0.5f;
         Visible = false;
         OpacityFloat = 0f;
         int num = 0;

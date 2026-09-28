@@ -16,8 +16,6 @@ namespace Mokus2D.Visual.Primitives;
 
 public class SegmentedSprite<T> : SpriteBatchNode where T : struct, IVertex
 {
-    private readonly ISpriteData _spriteData;
-
     protected readonly ISegmentedSpriteData<T> Data;
 
     private T[] _vertices;
@@ -48,7 +46,6 @@ public class SegmentedSprite<T> : SpriteBatchNode where T : struct, IVertex
     public SegmentedSprite(ISpriteData spriteData, ISegmentedSpriteData<T> data)
         : base(spriteData.Texture)
     {
-        _spriteData = spriteData;
         Data = data;
         _currentSegmentsCount = GetSegmentsCount();
         _vertices = new T[GetVerticesCount()];

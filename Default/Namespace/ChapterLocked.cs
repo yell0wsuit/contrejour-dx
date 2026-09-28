@@ -17,8 +17,6 @@ namespace Default.Namespace;
 
 public class ChapterLocked : ChapterItem
 {
-    private static readonly Color TABLO_COLOR = new(40, 127, 157, 255);
-
     public readonly EventSender ExplodeEvent = new();
 
     protected bool exploding;

@@ -42,8 +42,6 @@ public class Scale9Node : Node, ISizeNode, IDataReloadable
 
     private float _overlap;
 
-    private readonly Flag _anchorsDirty = new(on: false);
-
     private readonly Dictionary<Sprite, Vector2> _childrenAnchors = [];
 
     public float Overlap

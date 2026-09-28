@@ -37,8 +37,6 @@ public class RotatorBodyClip : FurBodyClip, IClickable, IRestartable, ISnotHolde
 
     protected float lastPointSpeed;
 
-    private static readonly string[] GRASS_SPRITES = ["McRotatorGrass0", "McRotatorGrass1", "McRotatorGrass2"];
-
     private readonly float ACTION_TIME = 2.5f;
 
     private readonly int GRASS_COUNT = 26;

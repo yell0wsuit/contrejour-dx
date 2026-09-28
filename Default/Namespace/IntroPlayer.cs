@@ -13,8 +13,6 @@ namespace Default.Namespace;
 
 public class IntroPlayer : Node
 {
-    private static readonly Color LAST_COLOR = new(16, 16, 16);
-
     protected ContreJourGame game;
 
     protected List<string> messages;

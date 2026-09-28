@@ -15,8 +15,6 @@ public class AccelerometerNode : Node
 
     protected Vector2 maxAccOffset = new((float)Math.PI / 22f, 80f);
 
-    private Vector2 speed = Vector2.Zero;
-
     // Desktop has no accelerometer; behaves like the original when Accelerometer.GetDefault() returned null.
     private static Vector2 Acceleration => Vector2.Zero;
 

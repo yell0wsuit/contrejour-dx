@@ -45,18 +45,6 @@ public class Splash : Node, ITouchListener, IDisposable
 
     private static readonly float W7IPhoneWidthDiff = ScreenConstants.W7FromIPhoneSize.X - ScreenConstants.OsSizes.IPhoneRetina.X;
 
-    private static readonly Vector2 JUMP_OFFSET = new(0f, 100f);
-
-    private static readonly Vector2 BLACK_HERO_POSITION = new(730f, 370f);
-
-    private static readonly Vector2 HERO_POSITION_IPHONE = new Vector2(113f + (W7IPhoneWidthDiff / 4f), 159f) * 2f;
-
-    private static readonly Vector2 HERO_POSITION = new(241.3f, 382.9f);
-
-    private static readonly Vector2 LOGO_POSITION_IPHONE = new Vector2(112.6f + (W7IPhoneWidthDiff / 4f), 154.1f) * 2f;
-
-    private static readonly Vector2 LOGO_POSITION = new(241.55f, 372.25f);
-
     private readonly Action[] afterLogo;
 
     private void InitializeAnimation()

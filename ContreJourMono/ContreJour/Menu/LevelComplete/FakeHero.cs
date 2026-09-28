@@ -25,8 +25,6 @@ public class FakeHero : Node
 
     private float speed;
 
-    private Vector2 viewTarget;
-
     public HeroTail Tail => tail;
 
     protected virtual Color TailColor => Color.Black;
@@ -56,7 +54,6 @@ public class FakeHero : Node
     {
         set
         {
-            viewTarget = value;
             Vector2 vector = Parent.LocalToNode(value, this);
             eye.ViewAngle = (float)Math.Atan2(vector.Y, vector.X);
             eye.ViewDistance = vector.Length() / 200f;

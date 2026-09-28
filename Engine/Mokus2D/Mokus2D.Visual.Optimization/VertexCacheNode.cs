@@ -28,8 +28,6 @@ public class VertexCacheNode<TVertex> : Node, IDrawer where TVertex : struct, IV
 
     private int _currentIndex;
 
-    private int _drawnNodes;
-
     private IDrawer _parentDrawer;
 
     private SpriteBatchProperties _spriteBatchProperties = Mokus2DGame.Config.DefaultSpriteBatchProperties;
@@ -83,7 +81,6 @@ public class VertexCacheNode<TVertex> : Node, IDrawer where TVertex : struct, IV
         _currentVertex = 0;
         _currentIndex = 0;
         UpdateChildrenTransformations = true;
-        _drawnNodes = 0;
         RefreshChildrenTransformations(OneState, this);
         int index = DrawChildrenPart(0, positiveLayers: false);
         _ = DrawChildrenPart(index, positiveLayers: true);
@@ -174,6 +171,5 @@ public class VertexCacheNode<TVertex> : Node, IDrawer where TVertex : struct, IV
 
     public void IncreaseNodesDrawnCount()
     {
-        _drawnNodes++;
     }
 }

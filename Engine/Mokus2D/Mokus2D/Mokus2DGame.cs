@@ -34,10 +34,6 @@ public abstract class Mokus2DGame : DisposableBase
 
     public Tweener Tweener;
 
-    private readonly GarbageTracer _schedulerGarbageTracer = new("Scheduler", start: false);
-
-    private readonly GarbageTracer _touchGarbageTracer = new("TouchController", start: false);
-
     public readonly UpdateDrawCounter PerformanceCounter = new(60);
 
     private GameConfig _config;
@@ -53,12 +49,6 @@ public abstract class Mokus2DGame : DisposableBase
     public float? MaxUpdateTime = 0.04f;
 
     private RootNode _root;
-
-    private GarbageTracer _gameDrawGarbageTracer = new("Game.Draw", start: false);
-
-    private GarbageTracer _gameUpdateGarbageTracer = new("Game.Update", start: false);
-
-    private GarbageTracer _rootGarbageTracer = new("Root.Update", start: false);
 
     private IFileLoader _fileLoader = new FileLoader();
 

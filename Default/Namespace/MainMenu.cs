@@ -6,7 +6,6 @@ using ContreJour.Config;
 using ContreJour.Utils;
 
 using Default.Namespace.Interfaces;
-using Default.Namespace.Windows;
 
 using Microsoft.Xna.Framework;
 
@@ -62,8 +61,6 @@ public class MainMenu : AccelerometerMenu, IActivatedDependent
     private PlanetsSpinner spinner;
 
     private BackgroundChanger backgroundChanger;
-
-    private PopUpWindow currentWindow;
 
     protected bool inChapter;
 
@@ -431,11 +428,7 @@ public class MainMenu : AccelerometerMenu, IActivatedDependent
 
     private void OnBackClick()
     {
-        if (currentWindow != null && currentWindow.Open)
-        {
-            currentWindow.Open = false;
-        }
-        else if (inChapter)
+        if (inChapter)
         {
             HideLevels();
             inChapter = false;
