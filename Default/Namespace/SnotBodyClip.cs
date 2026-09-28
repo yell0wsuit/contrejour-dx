@@ -116,7 +116,7 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
             ? new MovableSnotEye(targetPoint: new SnotPoint(this.builder, body.EyeBody.Position, null, null)
             {
                 Used = true
-            }, _snot: this, body: Physics.EyeBody)
+            }, snot: this, body: Physics.EyeBody)
             : new SnotEye(this, Physics.EyeBody);
         eyeJointDef = new RevoluteJointDef(Physics.EyeJoint);
         game.AddPositionProvider(new PositionProviderValue(this, 1f));

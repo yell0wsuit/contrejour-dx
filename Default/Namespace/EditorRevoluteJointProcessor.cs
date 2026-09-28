@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 
 namespace Default.Namespace;
 
-public class EditorRevoluteJointProcessor(LevelBuilderBase _builder) : RevoluteJointProcessor("editorRevoluteJoint", _builder)
+public class EditorRevoluteJointProcessor(LevelBuilderBase builder) : RevoluteJointProcessor("editorRevoluteJoint", builder)
 {
     public override object ProcessItem(Hashtable item)
     {

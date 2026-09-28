@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework;
 
 namespace Default.Namespace;
 
-public class SpringSnotSprite(ContreJourGame _game, SnotBodyClipBase _snot, float startWidth, float centerWidth, float endWidth) : SnotSprite(_snot, startWidth, centerWidth, endWidth)
+public class SpringSnotSprite(ContreJourGame _game, SnotBodyClipBase snot, float startWidth, float centerWidth, float endWidth) : SnotSprite(snot, startWidth, centerWidth, endWidth)
 {
     protected ContreJourGame game = _game;
 

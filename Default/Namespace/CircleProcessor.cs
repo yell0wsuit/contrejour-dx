@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 
 namespace Default.Namespace;
 
-public class CircleProcessor(LevelBuilderBase _builder) : ShapeProcessor("circle", _builder)
+public class CircleProcessor(LevelBuilderBase builder) : ShapeProcessor("circle", builder)
 {
     public override Shape CreateShape(Hashtable item)
     {

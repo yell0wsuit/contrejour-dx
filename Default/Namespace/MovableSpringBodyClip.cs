@@ -6,7 +6,7 @@ using Mokus2D.Visual;
 
 namespace Default.Namespace;
 
-public class MovableSpringBodyClip(LevelBuilderBase _builder, object body, Node clip, Hashtable config) : DynamicSpringBodyClip(_builder, body, clip, config)
+public class MovableSpringBodyClip(LevelBuilderBase builder, object body, Node clip, Hashtable config) : DynamicSpringBodyClip(builder, body, clip, config)
 {
     protected DragableBodyClip mover;
 

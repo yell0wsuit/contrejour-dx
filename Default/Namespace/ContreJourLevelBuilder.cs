@@ -4,7 +4,7 @@ using Mokus2D.Visual;
 
 namespace Default.Namespace;
 
-public class ContreJourLevelBuilder(GameBase _game) : LevelBuilderBase(_game)
+public class ContreJourLevelBuilder(GameBase game) : LevelBuilderBase(game)
 {
     public ContreJourGame ContreJour => (ContreJourGame)game;
 

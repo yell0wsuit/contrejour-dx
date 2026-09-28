@@ -4,7 +4,7 @@ using FarseerPhysics.Factories;
 
 namespace Default.Namespace;
 
-public class ShapeProcessor(string type, LevelBuilderBase _builder) : TypeProcessorBase(type, _builder)
+public class ShapeProcessor(string type, LevelBuilderBase builder) : TypeProcessorBase(type, builder)
 {
     public override object ProcessItem(Hashtable item)
     {

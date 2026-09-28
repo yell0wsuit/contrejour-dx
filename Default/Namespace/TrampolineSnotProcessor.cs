@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework;
 
 namespace Default.Namespace;
 
-public class TrampolineSnotProcessor(LevelBuilderBase _builder) : BridgeSnotProcessor(_builder, "trampoline", 2f / 3f)
+public class TrampolineSnotProcessor(LevelBuilderBase builder) : BridgeSnotProcessor(builder, "trampoline", 2f / 3f)
 {
     protected List<TrampolinePartBodyClip> parts = [];
 

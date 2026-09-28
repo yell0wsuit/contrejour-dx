@@ -5,7 +5,7 @@ using Mokus2D.Visual;
 
 namespace Default.Namespace;
 
-public class SnotLinkHint(ContreJourLevelBuilder _builder, object body, Sprite _clip, Hashtable config) : FadeHint(_builder, body, _clip, config)
+public class SnotLinkHint(ContreJourLevelBuilder builder, object body, Sprite clip, Hashtable config) : FadeHint(builder, body, clip, config)
 {
     protected SnotBodyClip snot;
 

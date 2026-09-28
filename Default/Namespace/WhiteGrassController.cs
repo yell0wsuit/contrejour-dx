@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 
 namespace Default.Namespace;
 
-public class WhiteGrassController(PlasticinePartBodyClip _plasticine) : GrassController(_plasticine)
+public class WhiteGrassController(PlasticinePartBodyClip plasticine) : GrassController(plasticine)
 {
     protected bool borderUpdated;
 

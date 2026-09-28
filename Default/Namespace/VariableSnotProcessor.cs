@@ -4,7 +4,7 @@ using Mokus2D.Util.Extensions;
 
 namespace Default.Namespace;
 
-public class VariableSnotProcessor(LevelBuilderBase _builder) : SnotProcessor(_builder, "variableSnot")
+public class VariableSnotProcessor(LevelBuilderBase builder) : SnotProcessor(builder, "variableSnot")
 {
     public override RopeMetricsWithCoords GetRopeMetricsEndItem(Vector2 startPoint, Vector2 endPoint, Hashtable item)
     {

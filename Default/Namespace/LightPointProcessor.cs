@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework;
 
 namespace Default.Namespace;
 
-public class LightPointProcessor(LevelBuilderBase _builder) : TypeProcessorBase("lightPoint", _builder)
+public class LightPointProcessor(LevelBuilderBase builder) : TypeProcessorBase("lightPoint", builder)
 {
     public override object ProcessItem(Hashtable item)
     {
