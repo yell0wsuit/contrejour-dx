@@ -8,7 +8,11 @@ namespace FarseerPhysics.Common.Decomposition.CDT.Delaunay;
 
 internal class DelaunayTriangle
 {
+    // Only ever written element by element through the fixed array's indexer, which the compiler
+    // doesn't count as assigning the field.
+#pragma warning disable CS0649
     public FixedBitArray3 EdgeIsConstrained;
+#pragma warning restore CS0649
 
     public FixedBitArray3 EdgeIsDelaunay;
 

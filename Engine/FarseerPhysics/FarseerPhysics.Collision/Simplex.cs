@@ -10,7 +10,11 @@ internal struct Simplex
 {
     internal int Count;
 
+    // Only ever written element by element through the fixed array's indexer, which the compiler
+    // doesn't count as assigning the field.
+#pragma warning disable CS0649
     internal FixedArray3<SimplexVertex> V;
+#pragma warning restore CS0649
 
     internal void ReadCache(ref SimplexCache cache, DistanceProxy proxyA, ref Transform transformA, DistanceProxy proxyB, ref Transform transformB)
     {

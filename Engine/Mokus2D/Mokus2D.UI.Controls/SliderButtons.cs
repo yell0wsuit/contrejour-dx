@@ -36,6 +36,7 @@ public class SliderButtons : IUpdatable
         _downButton = downButton;
         InitializeButton(_upButton, -1);
         InitializeButton(_downButton, 1);
+        _initialized = true;
     }
 
     private void InitializeButton(Sprite button, int direction)

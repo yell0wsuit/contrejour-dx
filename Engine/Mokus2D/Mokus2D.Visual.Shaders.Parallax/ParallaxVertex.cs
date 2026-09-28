@@ -1,3 +1,4 @@
+using System;
 using System.Globalization;
 
 using Microsoft.Xna.Framework;
@@ -26,22 +27,26 @@ public struct ParallaxVertex : ITintVertex, IVertex, IVertexType
 
     Vector3 IVertex.Position
     {
-        readonly get => Position; set => Position = value;
+        readonly get => Position;
+        set => Position = value;
     }
 
     Color IVertex.Color
     {
-        readonly get => Color; set => Color = value;
+        readonly get => Color;
+        set => Color = value;
     }
 
     Vector2 IVertex.TextureCoordinate
     {
-        readonly get => TextureCoordinate; set => TextureCoordinate = value;
+        readonly get => TextureCoordinate;
+        set => TextureCoordinate = value;
     }
 
     float ITintVertex.ColorRatio
     {
-        readonly get => ColorRatio; set => ColorRatio = value;
+        readonly get => ColorRatio;
+        set => ColorRatio = value;
     }
 
     static ParallaxVertex()
@@ -69,9 +74,7 @@ public struct ParallaxVertex : ITintVertex, IVertex, IVertexType
 
     public static bool operator ==(ParallaxVertex left, ParallaxVertex right)
     {
-        return left.Position == right.Position && left.Color == right.Color && left.TextureCoordinate == right.TextureCoordinate && left.ColorRatio == right.ColorRatio
-            ? left.Parallax == right.Parallax
-            : false;
+        return left.Position == right.Position && left.Color == right.Color && left.TextureCoordinate == right.TextureCoordinate && left.ColorRatio == right.ColorRatio && left.Parallax == right.Parallax;
     }
 
     public static bool operator !=(ParallaxVertex left, ParallaxVertex right)
@@ -87,5 +90,10 @@ public struct ParallaxVertex : ITintVertex, IVertex, IVertexType
     public override readonly bool Equals(object obj)
     {
         return obj == null || (object)obj.GetType() != GetType() ? false : this == (ParallaxVertex)obj;
+    }
+
+    public override readonly int GetHashCode()
+    {
+        return HashCode.Combine(Position, Color, TextureCoordinate, ColorRatio, Parallax);
     }
 }

@@ -190,8 +190,6 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
 
     public static readonly int[] LOW_FPS_LEVELS = [4, 6, 44, 53, 54, 12];
 
-    private int screenDragDisableCount;
-
     private List<object> _toRemove = [];
 
     private readonly Scheduler _scheduler = new();

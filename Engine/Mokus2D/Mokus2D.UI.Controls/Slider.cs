@@ -181,7 +181,12 @@ public class Slider : UIComponent, IMouseWheelNode
         }
     }
 
-    public event Action<float> MouseWheelValueChange;
+    // Required by IMouseWheelNode; the slider never raises it.
+    public event Action<float> MouseWheelValueChange
+    {
+        add { }
+        remove { }
+    }
 
     public event Action<Slider> ChangeEvent;
 

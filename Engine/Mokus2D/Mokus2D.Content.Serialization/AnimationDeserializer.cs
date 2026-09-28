@@ -50,9 +50,9 @@ public class AnimationDeserializer : GraphicsDeserializerBase<AnimationData>
             {
                 Id = item2.Name.ToString(),
                 Alpha = AttributToFloat(item2.Attribute("alpha"), 1f),
-                Position = VectorFromString((string?)item2.Attribute("position"), Vector2.Zero),
+                Position = VectorFromString((string)item2.Attribute("position"), Vector2.Zero),
                 Rotation = AttributToFloat(item2.Attribute("rotation"), 0f),
-                Scale = VectorFromString((string?)item2.Attribute("scale"), Vector2.One),
+                Scale = VectorFromString((string)item2.Attribute("scale"), Vector2.One),
                 Color = AttributToInt(item2.Attribute("color"), 16777215).ToRGBColor(),
                 ColorRatio = AttributToFloat(item2.Attribute("colorRatio"), 0f),
                 Visible = AttributeToBool(item2.Attribute("visible"), defaultValue: true)

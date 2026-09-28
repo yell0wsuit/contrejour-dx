@@ -4,23 +4,6 @@ namespace Default.Namespace;
 
 public static class Constants
 {
-    public static class config
-    {
-        public const int velocityIterations = 16;
-
-        public const int positionIterations = 20;
-
-        public const float sizeMultiplier = 1f / 30f;
-
-        public const float density = 0.3f;
-
-        public const float restitution = 0f;
-
-        public const float friction = 1f;
-
-        public static readonly Vector2 gravity = new(0f, 10f);
-    }
-
     public const string CONFIG = "config";
 
     public const string TYPE = "type";
@@ -47,10 +30,6 @@ public static class Constants
 
     public const int K_GAME_AUTOROTATION_UI_VIEW_CONTROLLER = 2;
 
-    private static bool isTrial;
-
-    private static bool isTrialGet;
-
     public static readonly int ChaptersCount = IsTrial ? 2 : 5;
 
     public static readonly int NormalChaptersCount = IsTrial ? 2 : 5;
@@ -61,7 +40,7 @@ public static class Constants
     {
         get
         {
-            return !isTrial ? 20 : 10;
+            return !IsTrial ? 20 : 10;
         }
     }
 }

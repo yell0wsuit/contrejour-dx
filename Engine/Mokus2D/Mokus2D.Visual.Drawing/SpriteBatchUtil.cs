@@ -99,7 +99,7 @@ public static class SpriteBatchUtil
             PrepareDraw(device, ref matrix, ref properties, currentEffect, texture);
             device.SetVertexBuffer(vertices);
             device.Indices = indices;
-            device.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, verticesCount, 0, indicesCount / 3);
+            device.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, indicesCount / 3);
             Mokus2DGame.Instance.PerformanceCounter.IncreaseDrawCalls(texture.Name, indicesCount / 3);
         }
     }

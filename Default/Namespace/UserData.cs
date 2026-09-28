@@ -24,8 +24,6 @@ public class UserData
 
     private static readonly XmlSerializer serializer = new(typeof(UserData));
 
-    private static bool levelPostponed;
-
     private static LevelPosition postponedLevel;
 
     private LevelData[] levelData = new LevelData[Constants.ChaptersCount * 20];

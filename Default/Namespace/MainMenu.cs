@@ -64,10 +64,6 @@ public class MainMenu : AccelerometerMenu, IActivatedDependent
 
     protected ToggleButton musicButton;
 
-    private Button achievementsButton;
-
-    private Button leaderboardsButton;
-
     protected ClickableLayer clickableLayer;
 
     protected NamesChanger names;

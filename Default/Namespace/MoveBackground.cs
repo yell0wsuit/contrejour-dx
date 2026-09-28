@@ -16,7 +16,6 @@ public class MoveBackground : BackgroundBase
         if (_config.Exists("moveOffset"))
         {
             moveOffset = _config.Exists("moveOffset") ? GraphUtil.StringToVector(_config.GetString("moveOffset")) : Vector2.Zero;
-            moveOffset = moveOffset;
             if (game.CanShowIntro)
             {
                 _ = _node.MoveTo(60f, _node.Position + moveOffset);

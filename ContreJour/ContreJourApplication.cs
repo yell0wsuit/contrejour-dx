@@ -52,8 +52,6 @@ public class ContreJourApplication : Mokus2DGame
 
     private static readonly Dictionary<int, FontData> fonts = [];
 
-    private Label _upsLabel;
-
     private bool _restarting;
 
     public static Dictionary<int, FontData> Fonts => fonts;

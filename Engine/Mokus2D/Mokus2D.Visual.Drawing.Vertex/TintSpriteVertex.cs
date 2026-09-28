@@ -1,3 +1,4 @@
+using System;
 using System.Globalization;
 
 using Microsoft.Xna.Framework;
@@ -21,22 +22,26 @@ public struct TintSpriteVertex : ITintVertex, IVertex, IVertexType
 
     Vector3 IVertex.Position
     {
-        readonly get => Position; set => Position = value;
+        readonly get => Position;
+        set => Position = value;
     }
 
     Color IVertex.Color
     {
-        readonly get => Color; set => Color = value;
+        readonly get => Color;
+        set => Color = value;
     }
 
     Vector2 IVertex.TextureCoordinate
     {
-        readonly get => TextureCoordinate; set => TextureCoordinate = value;
+        readonly get => TextureCoordinate;
+        set => TextureCoordinate = value;
     }
 
     float ITintVertex.ColorRatio
     {
-        readonly get => ColorRatio; set => ColorRatio = value;
+        readonly get => ColorRatio;
+        set => ColorRatio = value;
     }
 
     static TintSpriteVertex()
@@ -57,7 +62,7 @@ public struct TintSpriteVertex : ITintVertex, IVertex, IVertexType
 
     public static bool operator ==(TintSpriteVertex left, TintSpriteVertex right)
     {
-        return left.Position == right.Position && left.Color == right.Color ? left.TextureCoordinate == right.TextureCoordinate : false;
+        return left.Position == right.Position && left.Color == right.Color && left.TextureCoordinate == right.TextureCoordinate;
     }
 
     public static bool operator !=(TintSpriteVertex left, TintSpriteVertex right)
@@ -73,5 +78,10 @@ public struct TintSpriteVertex : ITintVertex, IVertex, IVertexType
     public override readonly bool Equals(object obj)
     {
         return obj == null || (object)obj.GetType() != GetType() ? false : this == (TintSpriteVertex)obj;
+    }
+
+    public override readonly int GetHashCode()
+    {
+        return HashCode.Combine(Position, Color, TextureCoordinate);
     }
 }

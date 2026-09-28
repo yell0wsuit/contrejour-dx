@@ -1,3 +1,4 @@
+using System;
 using System.Globalization;
 
 using Microsoft.Xna.Framework;
@@ -23,17 +24,20 @@ public struct VertexNormalMapRotate : IVertex, IVertexType
 
     Vector3 IVertex.Position
     {
-        readonly get => Position; set => Position = value;
+        readonly get => Position;
+        set => Position = value;
     }
 
     Color IVertex.Color
     {
-        readonly get => Color; set => Color = value;
+        readonly get => Color;
+        set => Color = value;
     }
 
     Vector2 IVertex.TextureCoordinate
     {
-        readonly get => TextureCoordinate; set => TextureCoordinate = value;
+        readonly get => TextureCoordinate;
+        set => TextureCoordinate = value;
     }
 
     static VertexNormalMapRotate()
@@ -55,9 +59,7 @@ public struct VertexNormalMapRotate : IVertex, IVertexType
 
     public static bool operator ==(VertexNormalMapRotate left, VertexNormalMapRotate right)
     {
-        return left.Position == right.Position && left.Color == right.Color && left.TextureCoordinate == right.TextureCoordinate && left.Scale == right.Scale
-            ? left.Rotation == right.Rotation
-            : false;
+        return left.Position == right.Position && left.Color == right.Color && left.TextureCoordinate == right.TextureCoordinate && left.Scale == right.Scale && left.Rotation == right.Rotation;
     }
 
     public static bool operator !=(VertexNormalMapRotate left, VertexNormalMapRotate right)
@@ -73,5 +75,10 @@ public struct VertexNormalMapRotate : IVertex, IVertexType
     public override readonly bool Equals(object obj)
     {
         return obj == null || (object)obj.GetType() != GetType() ? false : this == (VertexNormalMapRotate)obj;
+    }
+
+    public override readonly int GetHashCode()
+    {
+        return HashCode.Combine(Position, Color, TextureCoordinate, Scale, Rotation);
     }
 }

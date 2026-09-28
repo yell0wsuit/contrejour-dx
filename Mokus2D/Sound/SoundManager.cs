@@ -44,7 +44,12 @@ public static class SoundManager
         set => _hasControl = value;
     }
 
-    public static event Action MusicDisableEvent;
+    // Subscribed to by the game but never raised, as in the original FMOD-backed version.
+    public static event Action MusicDisableEvent
+    {
+        add { }
+        remove { }
+    }
 
     public static void Update()
     {

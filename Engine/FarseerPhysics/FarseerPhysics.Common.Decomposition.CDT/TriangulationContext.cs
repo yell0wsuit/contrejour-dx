@@ -10,8 +10,6 @@ internal abstract class TriangulationContext
 
     public readonly List<DelaunayTriangle> Triangles = [];
 
-    private int _stepTime = -1;
-
     public TriangulationMode TriangulationMode { get; protected set; }
 
     public Triangulatable Triangulatable { get; private set; }

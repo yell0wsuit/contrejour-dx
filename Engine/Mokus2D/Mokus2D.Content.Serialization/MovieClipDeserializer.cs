@@ -22,7 +22,7 @@ public class MovieClipDeserializer : NodeDeserializerBase<IMovieClipData>
             movieClipData.Frames.Add(GetFrame(item));
         }
         movieClipData.Anchor = AnchorFromXml(element);
-        movieClipData.Size = VectorFromString((string?)element.Attribute("size"));
+        movieClipData.Size = VectorFromString((string)element.Attribute("size"));
         return movieClipData;
     }
 }

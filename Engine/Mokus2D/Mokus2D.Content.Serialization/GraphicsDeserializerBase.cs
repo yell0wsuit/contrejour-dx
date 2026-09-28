@@ -57,7 +57,7 @@ public abstract class GraphicsDeserializerBase<T> : IGraphicsDeserializer<T>, IG
         string assetName = result.TextureName = Path.Combine(
         [
             loader.GraphicsRootDirectory,
-            (string?)document.Attribute("texture")
+            (string)document.Attribute("texture")
         ]);
         result.Texture = Mokus2DGame.ContentManager.Load<Texture2D>(assetName);
     }
@@ -69,12 +69,12 @@ public abstract class GraphicsDeserializerBase<T> : IGraphicsDeserializer<T>, IG
 
     protected Rectangle RectFromXml(XElement element)
     {
-        return RectFromString((string?)element.Attribute("rect"));
+        return RectFromString((string)element.Attribute("rect"));
     }
 
     protected Vector2 AnchorFromXml(XElement frameXML)
     {
-        return VectorFromString((string?)frameXML.Attribute("anchor"));
+        return VectorFromString((string)frameXML.Attribute("anchor"));
     }
 
     protected Rectangle RectFromString(string attribute)
@@ -91,17 +91,17 @@ public abstract class GraphicsDeserializerBase<T> : IGraphicsDeserializer<T>, IG
 
     protected bool AttributeToBool(XAttribute attribute, bool defaultValue)
     {
-        return attribute != null ? ToBool((string?)attribute) : defaultValue;
+        return attribute != null ? ToBool((string)attribute) : defaultValue;
     }
 
     protected int AttributToInt(XAttribute attribute, int defaultValue)
     {
-        return attribute != null ? ToInt((string?)attribute) : defaultValue;
+        return attribute != null ? ToInt((string)attribute) : defaultValue;
     }
 
     protected float AttributToFloat(XAttribute attribute, float defaultValue)
     {
-        return attribute != null ? ToSingle((string?)attribute) : defaultValue;
+        return attribute != null ? ToSingle((string)attribute) : defaultValue;
     }
 
     protected Vector2 VectorFromString(string attribute, Vector2 defaultValue)

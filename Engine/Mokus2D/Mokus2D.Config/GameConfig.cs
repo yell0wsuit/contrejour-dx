@@ -17,8 +17,6 @@ public class GameConfig
 
     public readonly DebugConfig DebugConfig = new();
 
-    private SpriteBatchProperties? _defaultSpriteBatchProperties;
-
     public IGraphicsLoader GraphicsLoader = new SpriteLoaderCache(new OneFileResourcesLoader());
 
     private IGraphicsConfig _graphicsConfig;

@@ -55,8 +55,6 @@ public class RotatorBodyClip : FurBodyClip, IClickable, IRestartable, ISnotHolde
 
     private int GRASS_RADIUS = 60;
 
-    private float MAX_RADIUS = 1.6666666f;
-
     public bool Rotating => Body.AngularVelocity != 0f;
 
     public bool DisableHeroFocus => false;

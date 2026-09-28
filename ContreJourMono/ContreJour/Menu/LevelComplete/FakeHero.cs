@@ -18,8 +18,6 @@ public class FakeHero : Node
 
     private readonly Sprite background;
 
-    private readonly CosChanger breatheChanger = new(0f, 0.07f, 0.04f);
-
     private readonly FakeHeroEye eye;
 
     private readonly Sprite hotSpot;
@@ -27,10 +25,6 @@ public class FakeHero : Node
     private readonly Sprite shadow;
 
     private readonly HeroTail tail;
-
-    private bool breathing;
-
-    private Vector2 realPosition;
 
     private float speed;
 
@@ -62,7 +56,6 @@ public class FakeHero : Node
         set
         {
             base.Position = value;
-            realPosition = value;
         }
     }
 
@@ -124,11 +117,5 @@ public class FakeHero : Node
     public override void Update(float time)
     {
         base.Update(time);
-        if (breathing)
-        {
-            breatheChanger.Update(time);
-            ScaleVec = new Vector2(1f + breatheChanger.Value, 1f + (breatheChanger.Value / 2f));
-            base.Position = realPosition + new Vector2(0f, breatheChanger.Value / 4f * background.TextureSize.X * background.ScaleX);
-        }
     }
 }

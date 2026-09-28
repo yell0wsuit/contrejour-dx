@@ -55,8 +55,6 @@ public class BlackTail : PrimitivesNode, IUpdatable
 
     protected bool moving;
 
-    private float LOW_FPS_TIME = 0.04f;
-
     private bool opacityDirty;
 
     public float Width
