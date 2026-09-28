@@ -10,19 +10,17 @@ namespace Mokus2D.Visual.Interactive;
 
 public class KeyboardListener : DisposableBase
 {
-    private bool _enabled = true;
-
     private readonly FactoryDictionary<Keys, List<Action<Keys, bool>>> _keysList = new(k => []);
 
     public bool Enabled
     {
-        get => _enabled;
+        get;
         set
         {
-            if (!_enabled)
+            if (!field)
             {
-                _enabled = value;
-                if (_enabled)
+                field = value;
+                if (field)
                 {
                     AddListeners();
                 }
@@ -32,7 +30,7 @@ public class KeyboardListener : DisposableBase
                 }
             }
         }
-    }
+    } = true;
 
     private void AddListeners()
     {

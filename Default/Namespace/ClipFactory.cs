@@ -15,8 +15,6 @@ namespace Default.Namespace;
 
 public class ClipFactory
 {
-    private static readonly ClipFactory instance = new();
-
     private static readonly List<TextureSource> textureSources = [];
 
     private static TextureSource defaultTextureSource = new("mc/hd/", 1f, 640);
@@ -29,11 +27,9 @@ public class ClipFactory
 
     private static readonly Dictionary<string, ClipData> configsCache = [];
 
-    private static readonly Dictionary<string, string> fullPaths = [];
+    public static ClipFactory Instance { get; } = new();
 
-    public static ClipFactory Instance => instance;
-
-    public static Dictionary<string, string> FullPaths => fullPaths;
+    public static Dictionary<string, string> FullPaths { get; } = [];
 
     static ClipFactory()
     {

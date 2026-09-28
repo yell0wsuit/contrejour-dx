@@ -9,8 +9,6 @@ public class PolygonShape : Shape
 {
     private Vertices _vertices;
 
-    private Vertices _normals;
-
     public Vertices Vertices
     {
         get => _vertices;
@@ -28,20 +26,20 @@ public class PolygonShape : Shape
                     _vertices = GiftWrap.GetConvexHull(_vertices);
                 }
             }
-            _normals = new Vertices(_vertices.Count);
+            Normals = new Vertices(_vertices.Count);
             for (int i = 0; i < _vertices.Count; i++)
             {
                 int index = (i + 1 < _vertices.Count) ? (i + 1) : 0;
                 Vector2 vector = _vertices[index] - _vertices[i];
                 Vector2 item = new(vector.Y, 0f - vector.X);
                 item.Normalize();
-                _normals.Add(item);
+                Normals.Add(item);
             }
             ComputeProperties();
         }
     }
 
-    public Vertices Normals => _normals;
+    public Vertices Normals { get; private set; }
 
     public override int ChildCount => 1;
 
@@ -59,7 +57,7 @@ public class PolygonShape : Shape
         ShapeType = ShapeType.Polygon;
         _radius = 0.01f;
         _vertices = new Vertices(Settings.MaxPolygonVertices);
-        _normals = new Vertices(Settings.MaxPolygonVertices);
+        Normals = new Vertices(Settings.MaxPolygonVertices);
     }
 
     internal PolygonShape()
@@ -68,7 +66,7 @@ public class PolygonShape : Shape
         ShapeType = ShapeType.Polygon;
         _radius = 0.01f;
         _vertices = new Vertices(Settings.MaxPolygonVertices);
-        _normals = new Vertices(Settings.MaxPolygonVertices);
+        Normals = new Vertices(Settings.MaxPolygonVertices);
     }
 
     protected override void ComputeProperties()
@@ -287,7 +285,7 @@ public class PolygonShape : Shape
             _radius = _radius,
             _density = _density,
             _vertices = [.. _vertices],
-            _normals = [.. _normals],
+            Normals = [.. Normals],
             MassData = MassData
         };
         return polygonShape;

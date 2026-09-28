@@ -11,13 +11,11 @@ namespace Mokus2D.Visual.Particles.Grid;
 
 public class GridSystem : Node
 {
-    private readonly Vector2 gridSize;
-
     private readonly Vector2 cellSize;
 
     private readonly MovieClipData data;
 
-    public Vector2 GridSize => gridSize;
+    public Vector2 GridSize { get; }
 
     public static GridSystem CreateGrid(ISizeNode source, Vector2 gridSize)
     {
@@ -74,7 +72,7 @@ public class GridSystem : Node
     public GridSystem(Texture2D texture, Vector2 gridSize, bool createParticles = true)
     {
         data = CreateGrid(texture, gridSize);
-        this.gridSize = gridSize.ToIntVector();
+        GridSize = gridSize.ToIntVector();
         cellSize = GetCellSize(texture, gridSize);
         if (createParticles)
         {
@@ -84,14 +82,14 @@ public class GridSystem : Node
 
     public Node GetParticle(int x, int y)
     {
-        return Children[(int)((y * gridSize.X) + x)];
+        return Children[(int)((y * GridSize.X) + x)];
     }
 
     public void CreateParticles()
     {
-        for (int i = 0; i < gridSize.Y; i++)
+        for (int i = 0; i < GridSize.Y; i++)
         {
-            for (int j = 0; j < gridSize.X; j++)
+            for (int j = 0; j < GridSize.X; j++)
             {
                 Node particle = AddParticle(j, i);
                 ResetParticlePosition(particle, j, i);
@@ -101,9 +99,9 @@ public class GridSystem : Node
 
     public void ResetTransformations()
     {
-        for (int i = 0; i < gridSize.Y; i++)
+        for (int i = 0; i < GridSize.Y; i++)
         {
-            for (int j = 0; j < gridSize.X; j++)
+            for (int j = 0; j < GridSize.X; j++)
             {
                 Node particle = GetParticle(j, i);
                 particle.ScaleVec = Vector2.One;
@@ -121,7 +119,7 @@ public class GridSystem : Node
 
     public Node AddParticle(int x, int y)
     {
-        return AddParticle((int)((y * gridSize.X) + x));
+        return AddParticle((int)((y * GridSize.X) + x));
     }
 
     public virtual Node AddParticle(int frame)
@@ -134,6 +132,6 @@ public class GridSystem : Node
 
     public Vector2 GetParticlePosition(int index)
     {
-        return new Vector2(index % gridSize.X, (int)(index / gridSize.X) % gridSize.Y);
+        return new Vector2(index % GridSize.X, (int)(index / GridSize.X) % GridSize.Y);
     }
 }

@@ -19,15 +19,9 @@ public class Body : IDisposable
 
     [ThreadStatic]
     private static int _bodyIdCounter;
-
-    private float _angularDamping;
-
     private BodyType _bodyType;
 
     private float _inertia;
-
-    private float _linearDamping;
-
     private float _mass;
 
     private bool _sleepingAllowed = true;
@@ -148,17 +142,9 @@ public class Body : IDisposable
         }
     }
 
-    public float LinearDamping
-    {
-        get => _linearDamping;
-        set => _linearDamping = value;
-    }
+    public float LinearDamping { get; set; }
 
-    public float AngularDamping
-    {
-        get => _angularDamping;
-        set => _angularDamping = value;
-    }
+    public float AngularDamping { get; set; }
 
     public bool IsBullet { get; set; }
 
@@ -858,8 +844,8 @@ public class Body : IDisposable
             _enabled = _enabled,
             _fixedRotation = _fixedRotation,
             _sleepingAllowed = _sleepingAllowed,
-            _linearDamping = _linearDamping,
-            _angularDamping = _angularDamping,
+            LinearDamping = LinearDamping,
+            AngularDamping = AngularDamping,
             _awake = _awake,
             IsBullet = IsBullet,
             IgnoreCCD = IgnoreCCD,

@@ -2,31 +2,23 @@ namespace ContreJourMono.ContreJour.Game.Eyes;
 
 public class EyeAnimation
 {
-    private readonly string background;
+    public string Background { get; }
 
-    private readonly string eyeBall;
+    public string EyeBall { get; }
 
-    private readonly bool lockX;
+    public bool LockX { get; }
 
-    private readonly bool lockY;
+    public bool LockY { get; }
 
-    public string Background => background;
+    public bool ReplaceBackground => Background != null;
 
-    public string EyeBall => eyeBall;
-
-    public bool LockX => lockX;
-
-    public bool LockY => lockY;
-
-    public bool ReplaceBackground => background != null;
-
-    public bool ReplaceEye => eyeBall != null;
+    public bool ReplaceEye => EyeBall != null;
 
     public EyeAnimation(string background, string eyeBall = null, bool lockY = false, bool lockX = false)
     {
-        this.background = background;
-        this.eyeBall = eyeBall;
-        this.lockX = lockX;
-        this.lockY = lockY;
+        Background = background;
+        EyeBall = eyeBall;
+        LockX = lockX;
+        LockY = lockY;
     }
 }

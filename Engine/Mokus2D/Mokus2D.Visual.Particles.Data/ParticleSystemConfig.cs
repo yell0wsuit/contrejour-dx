@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Serialization;
 
 using Default.Namespace;
@@ -103,6 +104,9 @@ public class ParticleSystemConfig : ICloneable<ParticleSystemConfig>
     [DataMember]
     public bool CanFlipY;
 
+    // XmlSerializer reads this type and rejects a property with a private setter, so FadeColor stays a
+    // get-only property over this field (the serializer skips get-only properties).
+    [SuppressMessage("Style", "IDE0032:Use auto property", Justification = "XmlSerializer rejects a private setter.")]
     private bool _fadeColor;
 
     [NonSerialized]

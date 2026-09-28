@@ -8,28 +8,19 @@ public class BackgroundChanger
 {
     private readonly List<Sprite> backgrounds;
 
-    private float currentIndex;
+    public int FirstIndex { get; private set; }
 
-    private int firstIndex;
+    public int NextIndex { get; private set; }
 
-    private int nextIndex;
-
-    private float offset;
-
-    public int FirstIndex => firstIndex;
-
-    public int NextIndex => nextIndex;
-
-    public float Offset => offset;
+    public float Offset { get; private set; }
 
     public float CurrentIndex
     {
-        get => currentIndex;
-        set
+        get; set
         {
-            if (currentIndex != value)
+            if (field != value)
             {
-                currentIndex = value;
+                field = value;
                 RefreshOpacity();
             }
         }
@@ -43,15 +34,15 @@ public class BackgroundChanger
 
     private void RefreshOpacity()
     {
-        firstIndex = (int)Maths.ModPositive(currentIndex, ContreJourConstants.PlanetsCount);
-        offset = Maths.PeriodicOffset(currentIndex - firstIndex, ContreJourConstants.PlanetsCount);
-        nextIndex = (firstIndex + 1) % ContreJourConstants.PlanetsCount;
+        FirstIndex = (int)Maths.ModPositive(CurrentIndex, ContreJourConstants.PlanetsCount);
+        Offset = Maths.PeriodicOffset(CurrentIndex - FirstIndex, ContreJourConstants.PlanetsCount);
+        NextIndex = (FirstIndex + 1) % ContreJourConstants.PlanetsCount;
         for (int i = 0; i < backgrounds.Count; i++)
         {
             backgrounds[i].Visible = false;
         }
-        SetBackgroundOpacity(firstIndex, offset);
-        SetBackgroundOpacity(nextIndex, 1f - offset);
+        SetBackgroundOpacity(FirstIndex, Offset);
+        SetBackgroundOpacity(NextIndex, 1f - Offset);
     }
 
     private void SetBackgroundOpacity(int index, float offset)

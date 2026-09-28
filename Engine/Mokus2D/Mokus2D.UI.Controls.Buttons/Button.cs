@@ -13,23 +13,18 @@ public class Button
     protected readonly AnchorNode Content;
 
     public readonly IOnOff Effect;
-
-    private bool _pressed;
-
     private Touch _pressTouch;
-
-    private bool _highliteOnMouseOver;
 
     public bool MouseOver { get; private set; }
 
     public bool Pressed
     {
-        get => _pressed;
+        get;
         set
         {
-            if (_pressed != value)
+            if (field != value)
             {
-                _pressed = value;
+                field = value;
                 RefreshButton();
             }
         }
@@ -37,10 +32,10 @@ public class Button
 
     public bool HighliteOnMouseOver
     {
-        get => _highliteOnMouseOver;
+        get;
         set
         {
-            _highliteOnMouseOver = value;
+            field = value;
             Content.ProcessMouseOver = value;
             if (!value)
             {

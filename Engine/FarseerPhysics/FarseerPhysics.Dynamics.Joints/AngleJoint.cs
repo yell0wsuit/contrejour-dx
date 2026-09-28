@@ -12,8 +12,6 @@ public class AngleJoint : Joint
 
     private float _massFactor;
 
-    private float _targetAngle;
-
     public override Vector2 WorldAnchorA
     {
         get => BodyA.Position;
@@ -32,12 +30,12 @@ public class AngleJoint : Joint
 
     public float TargetAngle
     {
-        get => _targetAngle;
+        get;
         set
         {
-            if (value != _targetAngle)
+            if (value != field)
             {
-                _targetAngle = value;
+                field = value;
                 WakeBodies();
             }
         }

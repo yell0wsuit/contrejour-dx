@@ -9,12 +9,7 @@ namespace Mokus2D.Visual;
 
 public class AnimationPlayer : IUpdatable
 {
-    private float currentFrame;
-
     private float maxFrame;
-
-    private float minFrame;
-
     public float FPS = Mokus2DGame.Config.AnimationFPS;
 
     private readonly IAnimatedNode _owner;
@@ -31,17 +26,17 @@ public class AnimationPlayer : IUpdatable
 
     public float MinFrame
     {
-        get => minFrame;
+        get;
         set
         {
             value = value.Clamp(0f, _owner.TotalFrames - 1);
-            if (minFrame != value)
+            if (field != value)
             {
-                minFrame = value;
-                maxFrame = Math.Max(maxFrame, minFrame + 1f);
-                if (currentFrame < minFrame)
+                field = value;
+                maxFrame = Math.Max(maxFrame, field + 1f);
+                if (CurrentFrame < field)
                 {
-                    CurrentFrame = minFrame;
+                    CurrentFrame = field;
                 }
             }
         }
@@ -56,7 +51,7 @@ public class AnimationPlayer : IUpdatable
             if (maxFrame != value)
             {
                 maxFrame = value - 0.0001f;
-                if (currentFrame > maxFrame)
+                if (CurrentFrame > maxFrame)
                 {
                     CurrentFrame = maxFrame;
                 }
@@ -68,25 +63,25 @@ public class AnimationPlayer : IUpdatable
 
     public float CurrentFrame
     {
-        get => currentFrame;
+        get;
         set
         {
-            if (currentFrame != value)
+            if (field != value)
             {
-                if ((value > maxFrame || value < minFrame) && !Repeat)
+                if ((value > maxFrame || value < MinFrame) && !Repeat)
                 {
-                    value = value.Clamp(minFrame, maxFrame);
+                    value = value.Clamp(MinFrame, maxFrame);
                     Stoped = true;
                 }
                 while (value > maxFrame)
                 {
-                    value = value - maxFrame + minFrame;
+                    value = value - maxFrame + MinFrame;
                 }
-                while (value < minFrame)
+                while (value < MinFrame)
                 {
-                    value = value - minFrame + maxFrame;
+                    value = value - MinFrame + maxFrame;
                 }
-                currentFrame = value;
+                field = value;
             }
         }
     }
@@ -112,8 +107,8 @@ public class AnimationPlayer : IUpdatable
         {
             int num = (!Rewind) ? 1 : (-1);
             float num2 = time * FPS * Speed * num;
-            float num3 = CurrentFrame = currentFrame + num2;
-            if ((num3 > maxFrame && !Rewind) || (num3 < minFrame && Rewind))
+            float num3 = CurrentFrame = CurrentFrame + num2;
+            if ((num3 > maxFrame && !Rewind) || (num3 < MinFrame && Rewind))
             {
                 EndEvent.Dispatch();
             }

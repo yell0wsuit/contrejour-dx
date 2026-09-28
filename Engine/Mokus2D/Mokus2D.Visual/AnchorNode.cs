@@ -24,20 +24,12 @@ public abstract class AnchorNode : SpriteBatchNode, ITouchDispatchNode, IClickab
     private Vector2 _anchor = new(0.5f);
 
     private DirtyProperty<RectangleFloat> _bounds;
-
-    private bool _clickable;
-
     private bool _clickableAdded;
-
-    private bool _processMouseOver;
-
     private bool _processMouseOverAdded;
-
-    private bool _isMouseOver;
 
     public int ClickablePriority { get; set; }
 
-    public bool IsMouseOver => !ProcessMouseOver ? throw new NodeException("Mouse over is not being processed") : _isMouseOver;
+    public bool IsMouseOver { get => !ProcessMouseOver ? throw new NodeException("Mouse over is not being processed") : field; private set; }
 
     public virtual Vector2 TextureSize { get; protected set; }
 
@@ -87,12 +79,12 @@ public abstract class AnchorNode : SpriteBatchNode, ITouchDispatchNode, IClickab
 
     public bool Clickable
     {
-        get => _clickable;
+        get;
         set
         {
-            if (value != _clickable)
+            if (value != field)
             {
-                _clickable = value;
+                field = value;
                 RefreshClickableState();
             }
         }
@@ -100,12 +92,12 @@ public abstract class AnchorNode : SpriteBatchNode, ITouchDispatchNode, IClickab
 
     public bool ProcessMouseOver
     {
-        get => _processMouseOver;
+        get;
         set
         {
-            if (value != _processMouseOver)
+            if (value != field)
             {
-                _processMouseOver = value;
+                field = value;
                 RefreshProcessMouseOverState();
             }
         }
@@ -160,7 +152,7 @@ public abstract class AnchorNode : SpriteBatchNode, ITouchDispatchNode, IClickab
 
     private void RefreshClickableState()
     {
-        bool flag = _clickable && Root != null;
+        bool flag = Clickable && Root != null;
         if (flag != _clickableAdded)
         {
             if (flag)
@@ -239,13 +231,13 @@ public abstract class AnchorNode : SpriteBatchNode, ITouchDispatchNode, IClickab
 
     public void MouseOver()
     {
-        _isMouseOver = true;
+        IsMouseOver = true;
         MouseOverEvent.Dispatch();
     }
 
     public void MouseOut()
     {
-        _isMouseOver = false;
+        IsMouseOver = false;
         MouseOutEvent.Dispatch();
     }
 }

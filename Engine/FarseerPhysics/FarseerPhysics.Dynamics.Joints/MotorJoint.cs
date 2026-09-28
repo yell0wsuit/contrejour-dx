@@ -13,11 +13,6 @@ public class MotorJoint : Joint
     private Vector2 _linearImpulse;
 
     private float _angularImpulse;
-
-    private float _maxForce;
-
-    private float _maxTorque;
-
     private int _indexA;
 
     private int _indexB;
@@ -62,17 +57,9 @@ public class MotorJoint : Joint
         }
     }
 
-    public float MaxForce
-    {
-        get => _maxForce;
-        set => _maxForce = value;
-    }
+    public float MaxForce { get; set; }
 
-    public float MaxTorque
-    {
-        get => _maxTorque;
-        set => _maxTorque = value;
-    }
+    public float MaxTorque { get; set; }
 
     public Vector2 LinearOffset
     {
@@ -114,8 +101,8 @@ public class MotorJoint : Joint
         Vector2 position = BodyB.Position;
         _linearOffset = useWorldCoordinates ? BodyA.GetLocalPoint(position) : position;
         _angularOffset = 0f;
-        _maxForce = 1f;
-        _maxTorque = 1f;
+        MaxForce = 1f;
+        MaxTorque = 1f;
         CorrectionFactor = 0.3f;
         _angularOffset = BodyB.Rotation - BodyA.Rotation;
     }
@@ -197,7 +184,7 @@ public class MotorJoint : Joint
         float num = w2 - w + (inv_dt * CorrectionFactor * _angularError);
         float num2 = (0f - _angularMass) * num;
         float angularImpulse = _angularImpulse;
-        float num3 = dt * _maxTorque;
+        float num3 = dt * MaxTorque;
         _angularImpulse = MathUtils.Clamp(_angularImpulse + num2, 0f - num3, num3);
         num2 = _angularImpulse - angularImpulse;
         w -= invIA * num2;
@@ -206,7 +193,7 @@ public class MotorJoint : Joint
         Vector2 vector = -MathUtils.Mul(ref _linearMass, ref v3);
         Vector2 linearImpulse = _linearImpulse;
         _linearImpulse += vector;
-        float num4 = dt * _maxForce;
+        float num4 = dt * MaxForce;
         if (_linearImpulse.LengthSquared() > num4 * num4)
         {
             _linearImpulse.Normalize();

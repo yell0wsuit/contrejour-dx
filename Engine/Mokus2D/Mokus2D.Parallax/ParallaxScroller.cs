@@ -16,11 +16,6 @@ public class ParallaxScroller : IViewPosition
     public const string ParallaxConfigName = "parallax";
 
     private Vector2 _viewPosition = Vector2.Zero;
-
-    private readonly Vector2 _screenSize;
-
-    private float _zoomDistance;
-
     private Vector2 _zoomCenter = Vector2.Zero;
 
     private readonly List<ParallaxLayer> _layers = [];
@@ -29,17 +24,16 @@ public class ParallaxScroller : IViewPosition
 
     private Vector2? _fieldZoomPosition;
 
-    public Vector2 ScreenSize => _screenSize;
+    public Vector2 ScreenSize { get; }
 
     public float ZoomDistance
     {
-        get => _zoomDistance;
-        set
+        get; set
         {
-            if (_zoomDistance != value)
+            if (field != value)
             {
                 float mainLayerScale = MainLayerScale;
-                _zoomDistance = value;
+                field = value;
                 RefreshZoom();
                 FixZoomPosition(mainLayerScale, MainLayerScale);
                 ZoomChanged.Dispatch();
@@ -55,8 +49,8 @@ public class ParallaxScroller : IViewPosition
 
     public Vector2 CenterPosition
     {
-        get => ViewPosition + (_screenSize / MainLayerScale / 2f);
-        set => ViewPosition = value - (_screenSize / MainLayerScale / 2f);
+        get => ViewPosition + (ScreenSize / MainLayerScale / 2f);
+        set => ViewPosition = value - (ScreenSize / MainLayerScale / 2f);
     }
 
     public Vector2 ViewPosition
@@ -100,7 +94,7 @@ public class ParallaxScroller : IViewPosition
 
     public ParallaxScroller(Vector2 screenSize)
     {
-        _screenSize = screenSize;
+        ScreenSize = screenSize;
         _zoomCenter = screenSize / 2f;
     }
 

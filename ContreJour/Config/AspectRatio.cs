@@ -13,11 +13,7 @@ public readonly struct AspectRatio(float ratio, string levelsFolder)
         Ratio16x9
     ];
 
-    private readonly float ratio = ratio;
+    public readonly float Ratio { get; } = ratio;
 
-    private readonly string levelsFolder = levelsFolder;
-
-    public readonly float Ratio => ratio;
-
-    public readonly string LevelsFolder => levelsFolder;
+    public readonly string LevelsFolder { get; } = levelsFolder;
 }

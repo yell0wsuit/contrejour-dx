@@ -16,9 +16,7 @@ public class CosChanger
 
     public float MaxValue;
 
-    private float value;
-
-    public float Value => value;
+    public float Value { get; private set; }
 
     public bool IsMax => Math.Abs(Progress % (Math.PI * 2.0)) < Step;
 
@@ -44,7 +42,7 @@ public class CosChanger
     public void Update(float time)
     {
         Progress += Step * time;
-        value = GetValue(MinValue, MaxValue, Progress);
+        Value = GetValue(MinValue, MaxValue, Progress);
     }
 
     public float GetValue(float phaseOffset)

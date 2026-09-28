@@ -11,8 +11,6 @@ public class MaskedSprite : RenderSprite
 
     private readonly BlendState blendState;
 
-    private SpriteBatchNode mask;
-
     public bool UpdateMask
     {
         get => maskRoot.UpdateChildren;
@@ -21,17 +19,17 @@ public class MaskedSprite : RenderSprite
 
     public SpriteBatchNode Mask
     {
-        get => mask;
+        get;
         set
         {
-            if (mask != null)
+            if (field != null)
             {
-                maskRoot.RemoveChild(mask);
+                maskRoot.RemoveChild(field);
             }
-            mask = value;
-            if (mask != null)
+            field = value;
+            if (field != null)
             {
-                maskRoot.AddChild(mask);
+                maskRoot.AddChild(field);
             }
         }
     }
@@ -63,7 +61,7 @@ public class MaskedSprite : RenderSprite
 
     protected override void DrawContent()
     {
-        if (mask != null)
+        if (Mask != null)
         {
             base.DrawContent();
             if (Mokus2DGame.Config.RenderTargetEnabled)
@@ -71,11 +69,11 @@ public class MaskedSprite : RenderSprite
                 maskRoot.ScaleX = Math.Sign(Root.ScaleX);
                 maskRoot.ScaleY = Math.Sign(Root.ScaleY);
                 maskRoot.SpritesScaleFactor = Root.SpritesScaleFactor;
-                BlendState blend = mask.Blend;
-                mask.Blend = blendState;
+                BlendState blend = Mask.Blend;
+                Mask.Blend = blendState;
                 maskRoot.Position = AnchorInPixels;
                 maskRoot.DrawAll();
-                mask.Blend = blend;
+                Mask.Blend = blend;
             }
         }
     }

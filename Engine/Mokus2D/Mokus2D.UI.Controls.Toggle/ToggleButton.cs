@@ -10,20 +10,18 @@ namespace Mokus2D.UI.Controls.Toggle;
 
 public class ToggleButton : Button
 {
-    private bool _toggle;
-
     public bool ToggleOnTouchBegin;
 
     public bool HighliteOnPressed = true;
 
     public bool Toggle
     {
-        get => _toggle;
+        get;
         set
         {
-            if (_toggle != value)
+            if (field != value)
             {
-                _toggle = value;
+                field = value;
                 RefreshButton();
             }
         }
@@ -43,7 +41,7 @@ public class ToggleButton : Button
 
     protected override void RefreshButton()
     {
-        Effect.IsOn = (Pressed && HighliteOnPressed) || _toggle || MouseOver;
+        Effect.IsOn = (Pressed && HighliteOnPressed) || Toggle || MouseOver;
     }
 
     protected override void OnTouchBegin(TouchArguments touchArguments)

@@ -19,16 +19,13 @@ public class DynamicTreeBroadPhase : IBroadPhase
     private int _pairCapacity;
 
     private int _pairCount;
-
-    private int _proxyCount;
-
     private readonly Func<int, bool> _queryCallback;
 
     private int _queryProxyId;
 
     private readonly DynamicTree<FixtureProxy> _tree = new();
 
-    public int ProxyCount => _proxyCount;
+    public int ProxyCount { get; private set; }
 
     public float TreeQuality => _tree.AreaRatio;
 
@@ -39,7 +36,7 @@ public class DynamicTreeBroadPhase : IBroadPhase
     public DynamicTreeBroadPhase()
     {
         _queryCallback = QueryCallback;
-        _proxyCount = 0;
+        ProxyCount = 0;
         _pairCapacity = 16;
         _pairCount = 0;
         _pairBuffer = new Pair[_pairCapacity];
@@ -51,7 +48,7 @@ public class DynamicTreeBroadPhase : IBroadPhase
     public int AddProxy(ref FixtureProxy proxy)
     {
         int num = _tree.AddProxy(ref proxy.AABB, proxy);
-        _proxyCount++;
+        ProxyCount++;
         BufferMove(num);
         return num;
     }
@@ -59,7 +56,7 @@ public class DynamicTreeBroadPhase : IBroadPhase
     public void RemoveProxy(int proxyId)
     {
         UnBufferMove(proxyId);
-        _proxyCount--;
+        ProxyCount--;
         _tree.RemoveProxy(proxyId);
     }
 

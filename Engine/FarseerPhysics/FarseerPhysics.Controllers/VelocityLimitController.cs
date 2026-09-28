@@ -14,30 +14,25 @@ public class VelocityLimitController : Controller
     private readonly List<Body> _bodies = [];
 
     private float _maxAngularSqared;
-
-    private float _maxAngularVelocity;
-
     private float _maxLinearSqared;
-
-    private float _maxLinearVelocity;
 
     public float MaxAngularVelocity
     {
-        get => _maxAngularVelocity;
+        get;
         set
         {
-            _maxAngularVelocity = value;
-            _maxAngularSqared = _maxAngularVelocity * _maxAngularVelocity;
+            field = value;
+            _maxAngularSqared = field * field;
         }
     }
 
     public float MaxLinearVelocity
     {
-        get => _maxLinearVelocity;
+        get;
         set
         {
-            _maxLinearVelocity = value;
-            _maxLinearSqared = _maxLinearVelocity * _maxLinearVelocity;
+            field = value;
+            _maxLinearSqared = field * field;
         }
     }
 
@@ -79,7 +74,7 @@ public class VelocityLimitController : Controller
                 if (num3 > dt * _maxLinearSqared)
                 {
                     float num4 = (float)Math.Sqrt(num3);
-                    float num5 = _maxLinearVelocity / num4;
+                    float num5 = MaxLinearVelocity / num4;
                     body._linearVelocity.X *= num5;
                     body._linearVelocity.Y *= num5;
                 }
@@ -89,7 +84,7 @@ public class VelocityLimitController : Controller
                 float num6 = dt * body._angularVelocity;
                 if (num6 * num6 > _maxAngularSqared)
                 {
-                    float num7 = _maxAngularVelocity / Math.Abs(num6);
+                    float num7 = MaxAngularVelocity / Math.Abs(num6);
                     body._angularVelocity *= num7;
                 }
             }

@@ -35,9 +35,6 @@ public class GearJoint : Joint
     private readonly float _referenceAngleB;
 
     private readonly float _constant;
-
-    private float _ratio;
-
     private float _impulse;
 
     private int _indexA;
@@ -102,11 +99,7 @@ public class GearJoint : Joint
         }
     }
 
-    public float Ratio
-    {
-        get => _ratio;
-        set => _ratio = value;
-    }
+    public float Ratio { get; set; }
 
     public Joint JointA { get; private set; }
 
@@ -176,8 +169,8 @@ public class GearJoint : Joint
             Vector2 vector2 = MathUtils.MulT(xf4.q, MathUtils.Mul(xf3.q, _localAnchorB) + (xf3.p - xf4.p));
             num2 = Vector2.Dot(vector2 - localAnchorD, _localAxisD);
         }
-        _ratio = ratio;
-        _constant = num + (_ratio * num2);
+        Ratio = ratio;
+        _constant = num + (Ratio * num2);
         _impulse = 0f;
     }
 
@@ -248,19 +241,19 @@ public class GearJoint : Joint
         if (_typeB == JointType.Revolute)
         {
             _JvBD = Vector2.Zero;
-            _JwB = _ratio;
-            _JwD = _ratio;
-            _mass += _ratio * _ratio * (_iB + _iD);
+            _JwB = Ratio;
+            _JwD = Ratio;
+            _mass += Ratio * Ratio * (_iB + _iD);
         }
         else
         {
             Vector2 vector2 = MathUtils.Mul(q4, _localAxisD);
             Vector2 a7 = MathUtils.Mul(q4, _localAnchorD - _lcD);
             Vector2 a8 = MathUtils.Mul(q2, _localAnchorB - _lcB);
-            _JvBD = _ratio * vector2;
-            _JwD = _ratio * MathUtils.Cross(a7, vector2);
-            _JwB = _ratio * MathUtils.Cross(a8, vector2);
-            _mass += (_ratio * _ratio * (_mD + _mB)) + (_iD * _JwD * _JwD) + (_iB * _JwB * _JwB);
+            _JvBD = Ratio * vector2;
+            _JwD = Ratio * MathUtils.Cross(a7, vector2);
+            _JwB = Ratio * MathUtils.Cross(a8, vector2);
+            _mass += (Ratio * Ratio * (_mD + _mB)) + (_iD * _JwD * _JwD) + (_iB * _JwB * _JwB);
         }
         _mass = (_mass > 0f) ? (1f / _mass) : 0f;
         v += _mA * _impulse * _JvAC;
@@ -360,9 +353,9 @@ public class GearJoint : Joint
         if (_typeB == JointType.Revolute)
         {
             vector6 = Vector2.Zero;
-            num5 = _ratio;
-            num6 = _ratio;
-            num += _ratio * _ratio * (_iB + _iD);
+            num5 = Ratio;
+            num6 = Ratio;
+            num += Ratio * Ratio * (_iB + _iD);
             num7 = a2 - a4 - _referenceAngleB;
         }
         else
@@ -370,15 +363,15 @@ public class GearJoint : Joint
             Vector2 vector7 = MathUtils.Mul(q4, _localAxisD);
             Vector2 a6 = MathUtils.Mul(q4, _localAnchorD - _lcD);
             Vector2 vector8 = MathUtils.Mul(q2, _localAnchorB - _lcB);
-            vector6 = _ratio * vector7;
-            num6 = _ratio * MathUtils.Cross(a6, vector7);
-            num5 = _ratio * MathUtils.Cross(vector8, vector7);
-            num += (_ratio * _ratio * (_mD + _mB)) + (_iD * num6 * num6) + (_iB * num5 * num5);
+            vector6 = Ratio * vector7;
+            num6 = Ratio * MathUtils.Cross(a6, vector7);
+            num5 = Ratio * MathUtils.Cross(vector8, vector7);
+            num += (Ratio * Ratio * (_mD + _mB)) + (_iD * num6 * num6) + (_iB * num5 * num5);
             Vector2 vector9 = _localAnchorD - _lcD;
             Vector2 vector10 = MathUtils.MulT(q4, vector8 + (c2 - c4));
             num7 = Vector2.Dot(vector10 - vector9, _localAxisD);
         }
-        float num8 = num4 + (_ratio * num7) - _constant;
+        float num8 = num4 + (Ratio * num7) - _constant;
         float num9 = 0f;
         if (num > 0f)
         {

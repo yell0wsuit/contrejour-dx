@@ -12,21 +12,13 @@ namespace Default.Namespace;
 
 public class ParticleSystem : MultiframeSprite
 {
-    private readonly List<Particle> _particles = [];
-
     private readonly List<Particle> _invisibleParticles = [];
 
     private readonly List<Particle> _cachedInvisible = [];
 
-    private bool _paused;
+    public List<Particle> Particles { get; } = [];
 
-    public List<Particle> Particles => _particles;
-
-    public bool Paused
-    {
-        get => _paused;
-        set => _paused = value;
-    }
+    public bool Paused { get; set; }
 
     public ParticleSystem(string textureName)
         : this(Mokus2DGame.LoadSpriteData(textureName))
@@ -72,7 +64,7 @@ public class ParticleSystem : MultiframeSprite
     {
         if (!particle.Visible)
         {
-            _particles.Add(particle);
+            Particles.Add(particle);
             AddChild(particle);
             _ = _invisibleParticles.RemoveLast();
             particle.Visible = true;
@@ -99,7 +91,7 @@ public class ParticleSystem : MultiframeSprite
     {
         ArgumentOutOfRangeException.ThrowIfGreaterThanOrEqual(frame, TotalFrames);
         Particle particle = CreateParticle();
-        _particles.Add(particle);
+        Particles.Add(particle);
         AddChild(particle);
         FrameData frameData = Frames[frame];
         particle.SetFrameData(frameData);
@@ -117,7 +109,7 @@ public class ParticleSystem : MultiframeSprite
 
     public void HideAllParticles()
     {
-        foreach (Particle particle in _particles)
+        foreach (Particle particle in Particles)
         {
             particle.Visible = false;
         }
@@ -144,13 +136,13 @@ public class ParticleSystem : MultiframeSprite
 
     public override void Update(float time)
     {
-        if (_paused)
+        if (Paused)
         {
             return;
         }
         base.Update(time);
         _cachedInvisible.Clear();
-        foreach (Particle particle in _particles)
+        foreach (Particle particle in Particles)
         {
             UpdateParticleTime(particle, time);
             if (!particle.Visible)
@@ -161,7 +153,7 @@ public class ParticleSystem : MultiframeSprite
         _invisibleParticles.AddItemsNoGarbage(_cachedInvisible);
         foreach (Particle item in _cachedInvisible)
         {
-            _ = _particles.Remove(item);
+            _ = Particles.Remove(item);
             RemoveChild(item);
         }
     }
@@ -180,9 +172,9 @@ public class ParticleSystem : MultiframeSprite
 
     public void RemoveParticle(Particle particle)
     {
-        if (_particles.Contains(particle))
+        if (Particles.Contains(particle))
         {
-            _ = _particles.Remove(particle);
+            _ = Particles.Remove(particle);
             RemoveChild(particle);
         }
         if (_invisibleParticles.Contains(particle))

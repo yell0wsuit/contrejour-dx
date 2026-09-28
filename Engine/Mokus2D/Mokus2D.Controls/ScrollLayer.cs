@@ -38,19 +38,17 @@ public class ScrollLayer : ClickableLayer, ITouchListener
 
     private Vector2 _inertia = Vector2.Zero;
 
-    private float _returnCoeff = 0.2f;
-
     public float ReturnCoeff
     {
-        get => _returnCoeff;
+        get;
         set
         {
-            if (_returnCoeff != value)
+            if (field != value)
             {
-                _returnCoeff = value;
+                field = value;
             }
         }
-    }
+    } = 0.2f;
 
     public bool Scrolling => _scrollTouch != null;
 
@@ -150,7 +148,7 @@ public class ScrollLayer : ClickableLayer, ITouchListener
 
     private float StepToBorder(float current, float max, float time)
     {
-        float value = Math.Max(Math.Abs(current - max) * _returnCoeff, 1f);
+        float value = Math.Max(Math.Abs(current - max) * ReturnCoeff, 1f);
         return current.StepTo(max, GetTimeValue(value, time));
     }
 

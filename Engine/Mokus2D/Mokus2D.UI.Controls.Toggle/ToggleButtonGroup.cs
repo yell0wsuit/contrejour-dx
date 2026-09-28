@@ -20,8 +20,6 @@ public class ToggleButtonGroup<T>
 
     public bool ToggleOnTouchBegin = true;
 
-    private ToggleButton _selectingButton;
-
     public ToggleButton this[int index] => _buttons[index];
 
     public int Count => _buttons.Count;
@@ -43,7 +41,7 @@ public class ToggleButtonGroup<T>
         get => _selectedButton;
         set
         {
-            _selectingButton = null;
+            SelectingButton = null;
             if (_selectedButton == value)
             {
                 return;
@@ -60,7 +58,7 @@ public class ToggleButtonGroup<T>
         }
     }
 
-    public ToggleButton SelectingButton => _selectingButton;
+    public ToggleButton SelectingButton { get; private set; }
 
     public event Action<ToggleButton, T> SelectedButtonChangeEvent;
 
@@ -148,7 +146,7 @@ public class ToggleButtonGroup<T>
 
     private void OnButtonTouchBegin(Button button, Touch arg2)
     {
-        _selectingButton = (ToggleButton)button;
+        SelectingButton = (ToggleButton)button;
     }
 }
 public class ToggleButtonGroup : ToggleButtonGroup<object>

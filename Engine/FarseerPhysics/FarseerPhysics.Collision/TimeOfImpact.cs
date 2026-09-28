@@ -6,50 +6,20 @@ namespace FarseerPhysics.Collision;
 
 public static class TimeOfImpact
 {
-    [ThreadStatic]
-    private static int _toiCalls;
+    [field: ThreadStatic]
+    public static int TOICalls { get; set; }
 
-    public static int TOICalls
-    {
-        get => _toiCalls;
-        set => _toiCalls = value;
-    }
+    [field: ThreadStatic]
+    public static int TOIIters { get; set; }
 
-    [ThreadStatic]
-    private static int _toiIters;
+    [field: ThreadStatic]
+    public static int TOIMaxIters { get; set; }
 
-    public static int TOIIters
-    {
-        get => _toiIters;
-        set => _toiIters = value;
-    }
+    [field: ThreadStatic]
+    public static int TOIRootIters { get; set; }
 
-    [ThreadStatic]
-    private static int _toiMaxIters;
-
-    public static int TOIMaxIters
-    {
-        get => _toiMaxIters;
-        set => _toiMaxIters = value;
-    }
-
-    [ThreadStatic]
-    private static int _toiRootIters;
-
-    public static int TOIRootIters
-    {
-        get => _toiRootIters;
-        set => _toiRootIters = value;
-    }
-
-    [ThreadStatic]
-    private static int _toiMaxRootIters;
-
-    public static int TOIMaxRootIters
-    {
-        get => _toiMaxRootIters;
-        set => _toiMaxRootIters = value;
-    }
+    [field: ThreadStatic]
+    public static int TOIMaxRootIters { get; set; }
 
     [ThreadStatic]
     private static DistanceInput _distanceInput;

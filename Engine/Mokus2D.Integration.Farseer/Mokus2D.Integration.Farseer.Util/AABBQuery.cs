@@ -6,13 +6,11 @@ namespace Mokus2D.Integration.Farseer.Util;
 
 public class AABBQuery
 {
-    private readonly List<Fixture> _fixtures;
-
-    public List<Fixture> Fixtures => _fixtures;
+    public List<Fixture> Fixtures { get; }
 
     public AABBQuery(List<Fixture> fixtures)
     {
-        _fixtures = fixtures;
+        Fixtures = fixtures;
     }
 
     public AABBQuery()
@@ -22,7 +20,7 @@ public class AABBQuery
 
     public bool CallbackReportFixture(Fixture fixture)
     {
-        _fixtures.Add(fixture);
+        Fixtures.Add(fixture);
         return true;
     }
 }

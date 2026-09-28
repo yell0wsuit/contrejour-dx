@@ -18,12 +18,9 @@ public class LevelsCache
     private readonly string clip_root = "Levels/";
 
     private readonly XmlSerializer serializer = new(typeof(ContreJourApplication).GetTypeInfo().Assembly);
-
-    private readonly Dictionary<string, Level> cache = [];
-
     private readonly MokusContentManager content;
 
-    public Dictionary<string, Level> CachedLevels => cache;
+    public Dictionary<string, Level> CachedLevels { get; } = [];
 
     private static string CorrectName(string name)
     {
@@ -51,7 +48,7 @@ public class LevelsCache
     public Level Load(string name)
     {
         name = CorrectName(name);
-        if (!cache.TryGetValue(name, out Level level))
+        if (!CachedLevels.TryGetValue(name, out Level level))
         {
             string path = Path.ChangeExtension(Path.Combine(
             [
@@ -64,7 +61,7 @@ public class LevelsCache
             ]), "xml");
             Stream stream = Mokus2DGame.FileLoader.OpenFile(path);
             level = (Level)serializer.DeserializeFile(stream);
-            cache[name] = level;
+            CachedLevels[name] = level;
         }
         return level;
     }

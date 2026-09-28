@@ -55,9 +55,6 @@ public class PhysicsConstructor : PhysicsTransform
     public float Density = 1f;
 
     public IPhysicsConfigProcessor ConfigProcessor;
-
-    private readonly Node _physicsContainer;
-
     public readonly World World;
 
     private readonly Dictionary<string, ShapeProcessor> _processors = [];
@@ -68,13 +65,13 @@ public class PhysicsConstructor : PhysicsTransform
 
     private readonly Dictionary<string, Body> _createdBodies = [];
 
-    public Node PhysicsContainer => _physicsContainer;
+    public Node PhysicsContainer { get; }
 
     public PhysicsConstructor(World world, Node physicsContainer, float physicsToPixels)
         : base(physicsToPixels)
     {
         World = world;
-        _physicsContainer = physicsContainer;
+        PhysicsContainer = physicsContainer;
         _processors["square"] = new SquareProcessor(this);
         _processors["triangle"] = new TriangleProcessor(this);
         _processors["circle"] = new CircleProcessor(this);

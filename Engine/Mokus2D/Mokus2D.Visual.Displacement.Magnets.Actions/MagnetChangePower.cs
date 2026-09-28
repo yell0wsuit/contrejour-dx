@@ -6,23 +6,17 @@ public class MagnetChangePower : MagnetIntervalActionBase
 {
     private readonly float _targetPower;
 
-    private float _startPower;
-
-    public float StartPower
-    {
-        get => _startPower;
-        set => _startPower = value;
-    }
+    public float StartPower { get; set; }
 
     public MagnetChangePower(GridMagnetBase gridMagnet, float timeout, float targetPower)
         : base(gridMagnet, timeout)
     {
-        _startPower = gridMagnet.Power;
+        StartPower = gridMagnet.Power;
         _targetPower = targetPower;
     }
 
     protected override void UpdateMagnet(float ratio)
     {
-        GridMagnet.Power = ratio.Lerp(_startPower, _targetPower);
+        GridMagnet.Power = ratio.Lerp(StartPower, _targetPower);
     }
 }

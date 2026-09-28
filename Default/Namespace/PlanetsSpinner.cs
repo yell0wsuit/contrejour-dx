@@ -27,11 +27,7 @@ public class PlanetsSpinner : Node, IDisposable
 
     public float PlanetsScale = 1f;
 
-    private bool hasExplodingChapter;
-
-    private bool exploding;
-
-    public bool HasExplodingChapter => hasExplodingChapter;
+    public bool HasExplodingChapter { get; private set; }
 
     public float CurrentIndex
     {
@@ -50,7 +46,7 @@ public class PlanetsSpinner : Node, IDisposable
         set => pager.Enabled = value;
     }
 
-    public bool Exploding => exploding;
+    public bool Exploding { get; private set; }
 
     public PlanetsSpinner(MainMenu menu)
     {
@@ -77,7 +73,7 @@ public class PlanetsSpinner : Node, IDisposable
             if (!flag && i >= UserData.Instance.UnlockedChapters && i < Constants.NormalChaptersCount && UserData.StarsToUnlock(i) > 0)
             {
                 CreateExplodingChapter(chapterItem, menu);
-                hasExplodingChapter = true;
+                HasExplodingChapter = true;
             }
             AddChild(chapterItem);
             chapters.Add(chapterItem);
@@ -96,7 +92,7 @@ public class PlanetsSpinner : Node, IDisposable
 
     private void CreateExplodingChapter(ChapterItem chapter, MainMenu menu)
     {
-        exploding = true;
+        Exploding = true;
         pager.Enabled = false;
         UserData.Instance.UnlockChapter(chapter.Index);
         explodingChapter = new ChapterLocked(chapter.Index, menu)
@@ -115,7 +111,7 @@ public class PlanetsSpinner : Node, IDisposable
 
     public void SetTargetChapter(int index)
     {
-        if (!hasExplodingChapter)
+        if (!HasExplodingChapter)
         {
             pager.CurrentPosition = index - 1;
             _ = this.Schedule(0.3f, delegate

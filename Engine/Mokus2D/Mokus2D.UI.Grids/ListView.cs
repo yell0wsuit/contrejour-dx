@@ -11,45 +11,35 @@ namespace Mokus2D.UI.Grids;
 public class ListView<T> : Node, IListView
 {
     private readonly ListViewRenderers<T> _renderers;
-
-    private float _itemsPosition;
-
-    private readonly float _height;
-
     public readonly Node ItemsContainer = new();
 
     private readonly ListViewLayout<T> _layout;
-
-    private IList<T> _data = [];
-
     public object SharedData;
 
     public int ItemsCount { get; private set; }
 
-    public float Height => _height;
+    public float Height { get; }
 
     public int DataCount => Data != null ? Data.Count : 0;
 
     public IList<T> Data
     {
-        get => _data;
-        set
+        get; set
         {
-            _data = value;
+            field = value;
             RefreshDataAndDispatchChange();
         }
-    }
+    } = [];
 
     public List<Node> ItemRenderers => _renderers.ItemRenderers;
 
     public float ItemsPosition
     {
-        get => _itemsPosition;
-        set
+        get; set
         {
-            if (_itemsPosition != value)
+            if (field != value)
             {
-                _itemsPosition = value;
+                field = value;
                 RefreshPosition(value);
             }
         }
@@ -69,7 +59,7 @@ public class ListView<T> : Node, IListView
     {
         SharedData = this;
         ItemsCount = itemsCount;
-        _height = height;
+        Height = height;
         _renderers = new ListViewRenderers<T>(itemRendererFactory, this);
         _renderers.RenderersChanged += OnRenderersChanged;
         _layout = new ListViewLayout<T>(this, ItemsContainer)

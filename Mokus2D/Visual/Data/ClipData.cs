@@ -9,10 +9,6 @@ namespace Mokus2D.Visual.Data;
 
 public class ClipData : IMovieClipData, ISpriteData, ITextureNodeData, IConfig
 {
-    private readonly List<FrameData> frames = [];
-
-    private float scaleFactor = 1f;
-
     public int FramesCount;
 
     public bool UseSheet;
@@ -25,11 +21,7 @@ public class ClipData : IMovieClipData, ISpriteData, ITextureNodeData, IConfig
 
     public int Height;
 
-    public float ScaleFactor
-    {
-        get => scaleFactor;
-        set => scaleFactor = value;
-    }
+    public float ScaleFactor { get; set; } = 1f;
 
     public string Id { get; private set; }
 
@@ -47,7 +39,7 @@ public class ClipData : IMovieClipData, ISpriteData, ITextureNodeData, IConfig
         }
     }
 
-    public List<FrameData> Frames => frames;
+    public List<FrameData> Frames { get; } = [];
 
     public string TextureName
     {

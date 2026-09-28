@@ -47,9 +47,6 @@ public abstract class Mokus2DGame : DisposableBase
     public Color BackgroundColor = Color.Black;
 
     public float? MaxUpdateTime = 0.04f;
-
-    private RootNode _root;
-
     private IFileLoader _fileLoader = new FileLoader();
 
     private readonly ConcurrentDelayedActions _mainThreadActions = new();
@@ -117,8 +114,8 @@ public abstract class Mokus2DGame : DisposableBase
     {
         get
         {
-            _root ??= CreateRootNode();
-            return _root;
+            field ??= CreateRootNode();
+            return field;
         }
     }
 

@@ -14,37 +14,13 @@ public static class SoundManager
 
     public static readonly float SongChangePause = 1f;
 
-    private static bool musicEnabled = true;
+    public static bool SoundEnabled { get; set; } = true;
 
-    private static bool soundEnabled = true;
+    public static bool MusicEnabled { get; set; } = true;
 
-    private static bool loop = true;
+    public static bool Loop { get; set; } = true;
 
-    private static bool _hasControl;
-
-    public static bool SoundEnabled
-    {
-        get => soundEnabled;
-        set => soundEnabled = value;
-    }
-
-    public static bool MusicEnabled
-    {
-        get => musicEnabled;
-        set => musicEnabled = value;
-    }
-
-    public static bool Loop
-    {
-        get => loop;
-        set => loop = value;
-    }
-
-    public static bool HasControl
-    {
-        get => _hasControl;
-        set => _hasControl = value;
-    }
+    public static bool HasControl { get; set; }
 
     // Subscribed to by the game but never raised, as in the original FMOD-backed version.
     public static event Action MusicDisableEvent

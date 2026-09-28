@@ -2,22 +2,16 @@ namespace Default.Namespace;
 
 internal class TextureSource
 {
-    private readonly string path;
+    public string Path { get; }
 
-    private readonly float textureScaleFactor;
+    public float TextureScaleFactor { get; }
 
-    private readonly int neededWidth;
-
-    public string Path => path;
-
-    public float TextureScaleFactor => textureScaleFactor;
-
-    public int NeededWidth => neededWidth;
+    public int NeededWidth { get; }
 
     public TextureSource(string path, float textureScaleFactor, int neededWidth)
     {
-        this.path = path;
-        this.textureScaleFactor = textureScaleFactor;
-        this.neededWidth = neededWidth;
+        Path = path;
+        TextureScaleFactor = textureScaleFactor;
+        NeededWidth = neededWidth;
     }
 }

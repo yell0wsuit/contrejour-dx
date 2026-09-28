@@ -13,13 +13,12 @@ public static class Maths
     public const float PI2 = (float)Math.PI / 2f;
 
     public const float PI4 = (float)Math.PI / 4f;
-    private static Random randomGenerator = new((int)DateTime.Now.Ticks);
 
-    public static Random RandomGenerator => randomGenerator;
+    public static Random RandomGenerator { get; private set; } = new((int)DateTime.Now.Ticks);
 
     public static void Randomize(int seed)
     {
-        randomGenerator = new Random(seed);
+        RandomGenerator = new Random(seed);
     }
 
     public static float AsymptoticToOne(float ratio)

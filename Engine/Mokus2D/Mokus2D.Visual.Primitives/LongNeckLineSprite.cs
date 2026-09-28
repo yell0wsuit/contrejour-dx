@@ -16,16 +16,9 @@ public abstract class LongNeckLineSprite : LongNeckSprite
     private readonly List<Vector2> controlPoints = [];
 
     private readonly List<Vector2> bezierLine = [];
-
-    private float _width = 15f;
-
     protected int bezierPartsCount = 3;
 
-    public float Width
-    {
-        get => _width;
-        set => _width = value;
-    }
+    public float Width { get; set; } = 15f;
 
     protected abstract void GetPoints(List<Vector2> points);
 
@@ -50,10 +43,10 @@ public abstract class LongNeckLineSprite : LongNeckSprite
         Pair<Vector2> orthoPoints;
         for (int i = 0; i < bezierLine.Count - 1; i++)
         {
-            orthoPoints = VectorUtil.GetOrthoPoints(bezierLine[i], bezierLine[i], bezierLine[i + 1], _width);
+            orthoPoints = VectorUtil.GetOrthoPoints(bezierLine[i], bezierLine[i], bezierLine[i + 1], Width);
             target.Add(orthoPoints);
         }
-        orthoPoints = VectorUtil.GetOrthoPoints(bezierLine.Last(), bezierLine[^2], bezierLine.Last(), _width);
+        orthoPoints = VectorUtil.GetOrthoPoints(bezierLine.Last(), bezierLine[^2], bezierLine.Last(), Width);
         target.Add(orthoPoints);
     }
 

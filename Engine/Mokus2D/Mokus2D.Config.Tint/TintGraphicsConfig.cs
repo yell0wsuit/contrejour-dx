@@ -6,15 +6,13 @@ namespace Mokus2D.Config.Tint;
 
 public class TintGraphicsConfig : IGraphicsConfig
 {
-    private readonly bool _tintEnabled;
-
-    public bool UseColorRatio => _tintEnabled;
+    public bool UseColorRatio { get; }
 
     public ISpriteBatchEffect DefaultEffect { get; private set; }
 
     public TintGraphicsConfig(bool tintEnabled = true)
     {
-        _tintEnabled = tintEnabled;
+        UseColorRatio = tintEnabled;
         DefaultEffect = new TintSpriteEffect
         {
             TintEnabled = tintEnabled

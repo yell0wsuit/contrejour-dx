@@ -39,16 +39,14 @@ public class Scale9Border : Node
 
     private Vector2 _size;
 
-    private float _borderWidth;
-
     public float BorderWidth
     {
-        get => _borderWidth;
+        get;
         set
         {
-            if (_borderWidth != value)
+            if (field != value)
             {
-                _borderWidth = value;
+                field = value;
                 RefreshBorderWidth();
             }
         }
@@ -121,14 +119,14 @@ public class Scale9Border : Node
 
     private void RefreshBorderWidth()
     {
-        Vector2 value = new(_borderWidth);
+        Vector2 value = new(BorderWidth);
         foreach (ISizeNode cornerSprite in CornerSprites)
         {
             cornerSprite.SetScaledSize(value);
         }
         foreach (ISizeNode sideSprite in SideSprites)
         {
-            ((Node)sideSprite).ScaleY = _borderWidth / sideSprite.Size.Y;
+            ((Node)sideSprite).ScaleY = BorderWidth / sideSprite.Size.Y;
         }
     }
 

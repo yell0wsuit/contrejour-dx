@@ -7,13 +7,11 @@ public class ReversableRandom(int seed) : Random(seed)
 {
     private readonly List<double> _values = [];
 
-    private int _step;
-
-    public int Step => _step;
+    public int Step { get; private set; }
 
     public void ResetStep(int value)
     {
-        _step = value;
+        Step = value;
     }
 
     public override double NextDouble()
@@ -39,16 +37,16 @@ public class ReversableRandom(int seed) : Random(seed)
     private double NextValue(Func<double> baseFunction)
     {
         double num;
-        if (_step == _values.Count)
+        if (Step == _values.Count)
         {
             num = baseFunction();
             _values.Add(num);
         }
         else
         {
-            num = _values[_step];
+            num = _values[Step];
         }
-        _step++;
+        Step++;
         return num;
     }
 }

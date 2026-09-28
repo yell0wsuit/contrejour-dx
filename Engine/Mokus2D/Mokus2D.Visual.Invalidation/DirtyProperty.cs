@@ -7,9 +7,6 @@ namespace Mokus2D.Visual.Invalidation;
 public struct DirtyProperty<T> where T : IEquatable<T>
 {
     private T _value;
-
-    private bool _dirty;
-
     private readonly Action<T> _refreshMethod;
 
     public T Value
@@ -20,18 +17,18 @@ public struct DirtyProperty<T> where T : IEquatable<T>
             if (!_value.Equals(value))
             {
                 _value = value;
-                _dirty = true;
+                Dirty = true;
             }
         }
     }
 
-    public readonly bool Dirty => _dirty;
+    public bool Dirty { get; private set; }
 
     public DirtyProperty(T value)
     {
         this = default;
         _value = value;
-        _dirty = true;
+        Dirty = true;
     }
 
     public DirtyProperty(T value, Action<T> refreshMethod)
@@ -53,11 +50,11 @@ public struct DirtyProperty<T> where T : IEquatable<T>
 
     public void SetDirty()
     {
-        _dirty = true;
+        Dirty = true;
     }
 
     public void SetClean()
     {
-        _dirty = false;
+        Dirty = false;
     }
 }

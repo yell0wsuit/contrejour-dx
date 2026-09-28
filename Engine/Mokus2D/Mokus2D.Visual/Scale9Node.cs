@@ -39,17 +39,14 @@ public class Scale9Node : Node, ISizeNode, IDataReloadable
     private readonly float _bottomSize;
 
     private Vector2 _size;
-
-    private float _overlap;
-
     private readonly Dictionary<Sprite, Vector2> _childrenAnchors = [];
 
     public float Overlap
     {
-        get => _overlap;
+        get;
         set
         {
-            _overlap = value;
+            field = value;
             RefreshSize();
         }
     }

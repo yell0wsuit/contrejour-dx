@@ -18,19 +18,16 @@ public class GameConfig
     public readonly DebugConfig DebugConfig = new();
 
     public IGraphicsLoader GraphicsLoader = new SpriteLoaderCache(new OneFileResourcesLoader());
-
-    private IGraphicsConfig _graphicsConfig;
-
     public SpriteBatchProperties DefaultSpriteBatchProperties = new(BlendState.AlphaBlend, SamplerState.LinearClamp);
 
     public IGraphicsConfig GraphicsConfig
     {
         get
         {
-            _graphicsConfig ??= new TintGraphicsConfig();
-            return _graphicsConfig;
+            field ??= new TintGraphicsConfig();
+            return field;
         }
 
-        set => _graphicsConfig = value;
+        set;
     }
 }

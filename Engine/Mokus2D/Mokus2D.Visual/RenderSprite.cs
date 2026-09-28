@@ -11,14 +11,11 @@ namespace Mokus2D.Visual;
 public class RenderSprite : Sprite
 {
     protected readonly RootNode RenderRoot;
-
-    private readonly Node _container;
-
     public Color ClearColor = Color.Black * 0f;
 
     private RenderTarget2D _renderTarget;
 
-    public Node ChildrenContainer => _container;
+    public Node ChildrenContainer { get; }
 
     public RenderSprite(Vector2 size)
         : this(size, Vector2.One, Vector2.One)
@@ -44,12 +41,12 @@ public class RenderSprite : Sprite
             RenderRoot = new RootNode(Texture.Width, Texture.Height);
             _renderTarget = (RenderTarget2D)Texture;
             InitRoot(spritesScaleFactor, rootScale);
-            _container = RenderRoot;
+            ChildrenContainer = RenderRoot;
         }
         else
         {
-            _container = new Node();
-            base.AddChild(_container, 0);
+            ChildrenContainer = new Node();
+            base.AddChild(ChildrenContainer, 0);
         }
     }
 
@@ -122,32 +119,32 @@ public class RenderSprite : Sprite
 
     public override void RemoveChild(Node node)
     {
-        _container.RemoveChild(node);
+        ChildrenContainer.RemoveChild(node);
     }
 
     public override void Update(float time)
     {
-        _container.UpdateNode(time);
+        ChildrenContainer.UpdateNode(time);
     }
 
     public override void AddChild(Node node, int nodeLayer)
     {
-        _container.AddChild(node, nodeLayer);
+        ChildrenContainer.AddChild(node, nodeLayer);
     }
 
     public override void AddChildAt(Node node, int index)
     {
-        _container.AddChildAt(node, index);
+        ChildrenContainer.AddChildAt(node, index);
     }
 
     public override int GetChildIndex(Node child)
     {
-        return _container.GetChildIndex(child);
+        return ChildrenContainer.GetChildIndex(child);
     }
 
     public override void RemoveAllChildren()
     {
-        _container.RemoveAllChildren();
+        ChildrenContainer.RemoveAllChildren();
     }
 
     public void AddDebugLayer(string whiteRect)

@@ -26,9 +26,6 @@ public abstract class NormalMapEffectBase : TextureMatrixEffectBase
     private readonly EffectParameter _lightColor;
 
     private readonly EffectParameter _lightDistanceRate;
-
-    private Node _transformationNode;
-
     private bool _transformationDirty;
 
     private readonly Vector3[] _lightPositionValuesTransformed;
@@ -57,14 +54,14 @@ public abstract class NormalMapEffectBase : TextureMatrixEffectBase
 
     public Node TransformationNode
     {
-        get => _transformationNode;
+        get;
         set
         {
-            if (_transformationNode != value)
+            if (field != value)
             {
-                _transformationNode?.TransformationsRefreshedEvent -= OnTransformationsRefreshed;
-                _transformationNode = value;
-                _transformationNode?.TransformationsRefreshedEvent += OnTransformationsRefreshed;
+                field?.TransformationsRefreshedEvent -= OnTransformationsRefreshed;
+                field = value;
+                field?.TransformationsRefreshedEvent += OnTransformationsRefreshed;
                 _transformationDirty = true;
             }
         }
@@ -127,10 +124,10 @@ public abstract class NormalMapEffectBase : TextureMatrixEffectBase
     {
         for (int i = 0; i < MaxLightsCount; i++)
         {
-            if (_transformationNode != null)
+            if (TransformationNode != null)
             {
                 ref Vector3 reference = ref _lightPositionValuesTransformed[i];
-                reference = Vector3.Transform(_lightPositionValues[i], _transformationNode.CompositeState.Matrix);
+                reference = Vector3.Transform(_lightPositionValues[i], TransformationNode.CompositeState.Matrix);
             }
             else
             {

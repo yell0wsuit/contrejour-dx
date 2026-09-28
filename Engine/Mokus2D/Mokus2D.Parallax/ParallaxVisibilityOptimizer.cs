@@ -17,16 +17,14 @@ public class ParallaxVisibilityOptimizer
 
     private readonly List<LayerAndOptimizer> _layers = [];
 
-    private bool _enabled = true;
-
     public bool Enabled
     {
-        get => _enabled;
+        get;
         set
         {
-            if (_enabled != value)
+            if (field != value)
             {
-                _enabled = value;
+                field = value;
                 if (value)
                 {
                     RefreshLayers();
@@ -37,7 +35,7 @@ public class ParallaxVisibilityOptimizer
                 }
             }
         }
-    }
+    } = true;
 
     public ParallaxVisibilityOptimizer(ParallaxScroller scroller)
         : this(scroller, Vector2.Zero)

@@ -10,9 +10,6 @@ public class VisualState
     public bool TransformationDirty;
 
     public Matrix Matrix = Matrix.Identity;
-
-    private float _opacity = 1f;
-
     private Vector2 _spritesScaleFactor = Vector2.One;
 
     private Color _color = Color.White;
@@ -25,11 +22,7 @@ public class VisualState
 
     public float ColorRatio { get; private set; }
 
-    public float Opacity
-    {
-        get => _opacity;
-        set => _opacity = value;
-    }
+    public float Opacity { get; set; } = 1f;
 
     public Color GetColor(bool premultiply)
     {
@@ -67,7 +60,7 @@ public class VisualState
 
     public void RefreshValues(VisualState parentState, float nodeOpacity, Color nodeColor, float colorRatio, bool ignoreParentOpacity, bool ignoreParentColor)
     {
-        _opacity = ignoreParentOpacity ? nodeOpacity : (nodeOpacity * parentState._opacity);
+        Opacity = ignoreParentOpacity ? nodeOpacity : (nodeOpacity * parentState.Opacity);
         if (!ignoreParentColor)
         {
             if (Mokus2DGame.Config.GraphicsConfig.UseColorRatio)

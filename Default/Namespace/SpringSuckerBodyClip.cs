@@ -31,9 +31,7 @@ public class SpringSuckerBodyClip : SuckerBodyClip
 
     private bool touched;
 
-    private bool autocreated;
-
-    public bool Autocreated => autocreated;
+    public bool Autocreated { get; private set; }
 
     protected override float BounceVolume => 0.4f;
 
@@ -65,8 +63,8 @@ public class SpringSuckerBodyClip : SuckerBodyClip
 
     private void AutoCreate()
     {
-        autocreated = CanAutocreate;
-        if (autocreated)
+        Autocreated = CanAutocreate;
+        if (Autocreated)
         {
             ghostSprite.Visible = false;
             createPosition = Body.Position;

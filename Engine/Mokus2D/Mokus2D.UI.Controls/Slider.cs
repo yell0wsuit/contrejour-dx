@@ -26,9 +26,6 @@ public class Slider : UIComponent, IMouseWheelNode
     private readonly Sprite _thumb;
 
     public float ClickAreaSpeed = 1000f;
-
-    private Sprite _clickArea;
-
     private bool _clickAreaStatic;
 
     private float? _clickAreaTargetPosition;
@@ -36,11 +33,6 @@ public class Slider : UIComponent, IMouseWheelNode
     private Touch _clickAreaTouch;
 
     private Vector2 _clickOffset;
-
-    private float _max = 1f;
-
-    private float _min;
-
     private float _value;
 
     public bool IsDragging { get; private set; }
@@ -82,36 +74,36 @@ public class Slider : UIComponent, IMouseWheelNode
 
     public Sprite ClickArea
     {
-        get => _clickArea;
+        get;
         set
         {
-            if (_clickArea != value)
+            if (field != value)
             {
-                if (_clickArea != null)
+                if (field != null)
                 {
-                    _clickArea.TouchBeginEvent -= OnClickAreaTouchBegin;
-                    _clickArea.TouchEndEvent -= OnClickAreaTouchEnd;
-                    _clickArea.TouchMoveEvent -= OnClickAreaTouchMove;
-                    _clickArea.TouchOutEvent -= OnClickAreaTouchMove;
+                    field.TouchBeginEvent -= OnClickAreaTouchBegin;
+                    field.TouchEndEvent -= OnClickAreaTouchEnd;
+                    field.TouchMoveEvent -= OnClickAreaTouchMove;
+                    field.TouchOutEvent -= OnClickAreaTouchMove;
                 }
-                _clickArea = value;
-                _clickArea.Clickable = true;
-                _clickArea.TouchBeginEvent += OnClickAreaTouchBegin;
-                _clickArea.TouchEndEvent += OnClickAreaTouchEnd;
-                _clickArea.TouchMoveEvent += OnClickAreaTouchMove;
-                _clickArea.TouchOutEvent += OnClickAreaTouchMove;
+                field = value;
+                field.Clickable = true;
+                field.TouchBeginEvent += OnClickAreaTouchBegin;
+                field.TouchEndEvent += OnClickAreaTouchEnd;
+                field.TouchMoveEvent += OnClickAreaTouchMove;
+                field.TouchOutEvent += OnClickAreaTouchMove;
             }
         }
     }
 
     public float Min
     {
-        get => _min;
+        get;
         set
         {
-            if (value != _min)
+            if (value != field)
             {
-                _min = value;
+                field = value;
                 ClampValue();
                 SetPropertiesDirty();
             }
@@ -120,17 +112,17 @@ public class Slider : UIComponent, IMouseWheelNode
 
     public float Max
     {
-        get => _max;
+        get;
         set
         {
-            if (_max != value)
+            if (field != value)
             {
-                _max = value;
+                field = value;
                 ClampValue();
                 SetPropertiesDirty();
             }
         }
-    }
+    } = 1f;
 
     public float Value
     {
@@ -283,7 +275,7 @@ public class Slider : UIComponent, IMouseWheelNode
     private void ChangeValue(float offset)
     {
         float num = offset.Clamp(0f, _maxWidth);
-        ChangeValueAndDispatch((num / _maxWidth).Lerp(_min, _max));
+        ChangeValueAndDispatch((num / _maxWidth).Lerp(Min, Max));
     }
 
     internal void ChangeValueAndDispatch(float value)

@@ -5,13 +5,7 @@ namespace Mokus2D.Visual.Shaders.NormalMap;
 public class LightData
 {
     private Vector3 _position;
-
-    private float _power;
-
     private Color _color;
-
-    private float _distanceRate;
-
     internal int Index;
 
     private readonly NormalMapEffectBase _effect;
@@ -31,12 +25,12 @@ public class LightData
 
     public float Power
     {
-        get => _power;
+        get;
         set
         {
-            if (_power != value)
+            if (field != value)
             {
-                _power = value;
+                field = value;
                 _effect.SetLightPower(Index, value);
             }
         }
@@ -57,12 +51,12 @@ public class LightData
 
     public float DistanceRate
     {
-        get => _distanceRate;
+        get;
         set
         {
-            if (_distanceRate != value)
+            if (field != value)
             {
-                _distanceRate = value;
+                field = value;
                 _effect.SetLightDistanceRate(Index, value);
             }
         }

@@ -17,9 +17,6 @@ namespace Mokus2D.Visual.Text;
 public class InputLabel : Label, IFocus
 {
     public string AllowedSymbols;
-
-    private bool _hasFocus;
-
     private bool _listenersAdded;
 
     private Mokus2D.Util.Data.Point _textPosition;
@@ -29,34 +26,25 @@ public class InputLabel : Label, IFocus
     private bool _cursorPositionDirty = true;
 
     private bool _positionToEnd = true;
-
-    private bool _enabled = true;
-
     private readonly Dictionary<Keys, Action<Keys>> _keyHandlers = [];
 
-    private int? _maxSymbols;
-
-    public int? MaxSymbols
-    {
-        get => _maxSymbols;
-        set => _maxSymbols = value;
-    }
+    public int? MaxSymbols { get; set; }
 
     public bool Enabled
     {
-        get => _enabled;
+        get;
         set
         {
-            if (_enabled != value)
+            if (field != value)
             {
-                _enabled = value;
+                field = value;
                 if (!value)
                 {
                     HasFocus = false;
                 }
             }
         }
-    }
+    } = true;
 
     public Color CursorColor
     {
@@ -70,15 +58,14 @@ public class InputLabel : Label, IFocus
 
     public bool HasFocus
     {
-        get => _hasFocus;
-        set
+        get; set
         {
-            if (_hasFocus != value)
+            if (field != value)
             {
-                _hasFocus = value;
+                field = value;
                 _cursor.Visible = value;
                 RefreshKeyboardListeners();
-                if (_hasFocus)
+                if (field)
                 {
                     FocusInEvent.Dispatch(this);
                 }

@@ -9,17 +9,9 @@ namespace FarseerPhysics.Dynamics.Joints;
 public class FixedMouseJoint : Joint
 {
     private Vector2 _worldAnchor;
-
-    private float _frequency;
-
-    private float _dampingRatio;
-
     private float _beta;
 
     private Vector2 _impulse;
-
-    private float _maxForce;
-
     private float _gamma;
 
     private int _indexA;
@@ -54,23 +46,11 @@ public class FixedMouseJoint : Joint
         }
     }
 
-    public float MaxForce
-    {
-        get => _maxForce;
-        set => _maxForce = value;
-    }
+    public float MaxForce { get; set; }
 
-    public float Frequency
-    {
-        get => _frequency;
-        set => _frequency = value;
-    }
+    public float Frequency { get; set; }
 
-    public float DampingRatio
-    {
-        get => _dampingRatio;
-        set => _dampingRatio = value;
-    }
+    public float DampingRatio { get; set; }
 
     public FixedMouseJoint(Body body, Vector2 worldAnchor)
         : base(body)

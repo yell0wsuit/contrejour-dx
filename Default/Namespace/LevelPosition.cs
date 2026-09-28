@@ -2,21 +2,13 @@ namespace Default.Namespace;
 
 public class LevelPosition
 {
-    private readonly int chapter;
+    public int Index { get; set; }
 
-    private int index;
+    public int Chapter { get; }
 
-    public int Index
-    {
-        get => index;
-        set => index = value;
-    }
+    public bool IsEndGame => Index == -1;
 
-    public int Chapter => chapter;
-
-    public bool IsEndGame => index == -1;
-
-    public int MenuChapter => !IsEndGame ? chapter : Constants.NormalChaptersCount - 1;
+    public int MenuChapter => !IsEndGame ? Chapter : Constants.NormalChaptersCount - 1;
 
     public static LevelPosition EndGame => new(0, -1);
 
@@ -24,18 +16,18 @@ public class LevelPosition
 
     public LevelPosition()
     {
-        chapter = -1;
-        index = -1;
+        Chapter = -1;
+        Index = -1;
     }
 
     public LevelPosition(int chapter, int index)
     {
-        this.chapter = chapter;
-        this.index = index;
+        Chapter = chapter;
+        Index = index;
     }
 
     public int GlobalPosition()
     {
-        return (chapter * 20) + index;
+        return (Chapter * 20) + Index;
     }
 }

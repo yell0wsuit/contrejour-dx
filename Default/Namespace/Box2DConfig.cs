@@ -18,8 +18,6 @@ public class Box2DConfig
 
     protected float friction;
 
-    private static Box2DConfig defaultConfigValue;
-
     public Vector2 Gravity
     {
         get => gravity;
@@ -66,8 +64,8 @@ public class Box2DConfig
     {
         get
         {
-            defaultConfigValue ??= new Box2DConfig();
-            return defaultConfigValue;
+            field ??= new Box2DConfig();
+            return field;
         }
     }
 

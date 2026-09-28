@@ -12,8 +12,6 @@ namespace Default.Namespace;
 
 public class SnotBodyClipBase : ContreJourBodyClip
 {
-    private readonly SnotData physics;
-
     protected MonsterEye eye;
 
     protected ContreJourGame game;
@@ -36,26 +34,26 @@ public class SnotBodyClipBase : ContreJourBodyClip
 
     protected float startWidth;
 
-    public SnotData Physics => physics;
+    public SnotData Physics { get; }
 
-    public virtual Vector2 StartPosition => physics.GetWorldStartPoint();
+    public virtual Vector2 StartPosition => Physics.GetWorldStartPoint();
 
-    public virtual Body EyeBody => physics.EyeBody;
+    public virtual Body EyeBody => Physics.EyeBody;
 
     [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "Level content creates this by reflection with this signature.")]
     public SnotBodyClipBase(LevelBuilderBase _builder, SnotData _body, Node _clip, Hashtable _config)
         : base(_builder, _body.EndBody, null, _config)
     {
-        physics = _body;
+        Physics = _body;
         game = (ContreJourGame)builder.Game;
         container = new Node();
-        physics.Snot = this;
+        Physics.Snot = this;
         InitSizes();
         clipContent = CreateClip();
         baseClip = ClipTypesCache.CreateNewNode(BaseClipName());
-        baseClip.Position = builder.ToIPadPoint(physics.GetWorldStartPoint());
+        baseClip.Position = builder.ToIPadPoint(Physics.GetWorldStartPoint());
         baseEndClip = ClipTypesCache.CreateNewNode(BaseEndClipName());
-        physics.EndBody.ApplyLinearImpulse(new Vector2(Maths.Random(), Maths.Random()) * physics.EndBody.Mass);
+        Physics.EndBody.ApplyLinearImpulse(new Vector2(Maths.Random(), Maths.Random()) * Physics.EndBody.Mass);
         eye = CreateEye();
         AddClipsToStage();
     }
@@ -98,7 +96,7 @@ public class SnotBodyClipBase : ContreJourBodyClip
 
     protected virtual MonsterEye CreateEye()
     {
-        return new MonsterEye((ContreJourGame)builder.Game, _visible: false, physics.EyeBody.Position);
+        return new MonsterEye((ContreJourGame)builder.Game, _visible: false, Physics.EyeBody.Position);
     }
 
     public virtual SnotSprite CreateClip()
@@ -108,13 +106,13 @@ public class SnotBodyClipBase : ContreJourBodyClip
 
     public virtual Vector2 EndPosition()
     {
-        return physics.EndBody.Position;
+        return Physics.EndBody.Position;
     }
 
     public override void Update(float time)
     {
         base.Update(time);
-        baseClip.Position = builder.ToIPadPoint(physics.GetWorldStartPoint());
+        baseClip.Position = builder.ToIPadPoint(Physics.GetWorldStartPoint());
         baseEndClip.Position = builder.ToIPadPoint(EndPosition());
         if (eye != null && eye.HasToUpdate)
         {

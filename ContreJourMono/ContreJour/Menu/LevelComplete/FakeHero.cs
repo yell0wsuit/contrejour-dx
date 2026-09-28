@@ -12,38 +12,26 @@ namespace ContreJourMono.ContreJour.Menu.LevelComplete;
 public class FakeHero : Node
 {
     protected static readonly string TextureFolder = "fakeHero";
-
-    private readonly Sprite background;
-
-    private readonly FakeHeroEye eye;
-
-    private readonly Sprite hotSpot;
-
     private readonly Sprite shadow;
 
-    private readonly HeroTail tail;
-
-    private float speed;
-
-    public HeroTail Tail => tail;
+    public HeroTail Tail { get; }
 
     protected virtual Color TailColor => Color.Black;
 
-    public Sprite Background => background;
+    public Sprite Background { get; }
 
-    public FakeHeroEye Eye => eye;
+    public FakeHeroEye Eye { get; }
 
     public float Speed
     {
-        get => speed;
-        set
+        get; set
         {
-            speed = value;
-            tail.Speed = value;
+            field = value;
+            Tail.Speed = value;
         }
     }
 
-    public Sprite HotSpot => hotSpot;
+    public Sprite HotSpot { get; }
 
     public new Vector2 Position
     {
@@ -55,26 +43,26 @@ public class FakeHero : Node
         set
         {
             Vector2 vector = Parent.LocalToNode(value, this);
-            eye.ViewAngle = (float)Math.Atan2(vector.Y, vector.X);
-            eye.ViewDistance = vector.Length() / 200f;
+            Eye.ViewAngle = (float)Math.Atan2(vector.Y, vector.X);
+            Eye.ViewDistance = vector.Length() / 200f;
         }
     }
 
     public FakeHero()
     {
-        background = new Sprite(ProcessName("McFakeHeroBackground"));
+        Background = new Sprite(ProcessName("McFakeHeroBackground"));
         shadow = new Sprite(ProcessName("McFakeHeroShadow"));
-        hotSpot = new Sprite(ProcessName("McFakeHeroHotspot"));
-        tail = new HeroTail(TailColor);
-        AddChild(tail);
-        tail.LimitAngles = true;
-        tail.Scale = 2f;
-        tail.Speed = 0f;
+        HotSpot = new Sprite(ProcessName("McFakeHeroHotspot"));
+        Tail = new HeroTail(TailColor);
+        AddChild(Tail);
+        Tail.LimitAngles = true;
+        Tail.Scale = 2f;
+        Tail.Speed = 0f;
         AddChild(shadow);
-        AddChild(background);
-        AddChild(hotSpot);
-        eye = CreateEye();
-        AddChild(eye);
+        AddChild(Background);
+        AddChild(HotSpot);
+        Eye = CreateEye();
+        AddChild(Eye);
     }
 
     public void LookAt(Node node)
@@ -94,14 +82,14 @@ public class FakeHero : Node
 
     public void SetMoveAngle(float angle, float speed)
     {
-        tail.SetMovementDirection(angle);
+        Tail.SetMovementDirection(angle);
         Speed = speed;
     }
 
     public void SetViewAngle(float angle, float ratio)
     {
-        eye.ViewAngle = angle;
-        eye.ViewDistance = ratio;
+        Eye.ViewAngle = angle;
+        Eye.ViewDistance = ratio;
     }
 
     public override void Update(float time)

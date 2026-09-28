@@ -14,9 +14,7 @@ public class QuadTree<T> where T : class, IQuadTreeObject<T>
 
     private readonly int maxObjectsPerLeaf;
 
-    private QuadTreeNode<T> root;
-
-    public QuadTreeNode<T> Root => root;
+    public QuadTreeNode<T> Root { get; private set; }
 
     public QuadTree(Vector2 minLeafSize, int maxObjectsPerLeaf)
     {
@@ -27,20 +25,20 @@ public class QuadTree<T> where T : class, IQuadTreeObject<T>
     public void Add(T quadObject)
     {
         RectangleFloat bounds = quadObject.Bounds;
-        if (root == null)
+        if (Root == null)
         {
             Vector2 vector = VectorExtensions.Ceiling(new Vector2(bounds.Width / minLeafSize.X, bounds.Height / minLeafSize.Y));
             float num = Math.Max(vector.X, vector.Y);
             Vector2 vector2 = minLeafSize * num;
             Vector2 center = bounds.Center;
             Vector2 position = center - (vector2 / 2f);
-            root = new QuadTreeNode<T>(new RectangleFloat(position, vector2));
+            Root = new QuadTreeNode<T>(new RectangleFloat(position, vector2));
         }
-        while (!root.Bounds.Contains(bounds))
+        while (!Root.Bounds.Contains(bounds))
         {
             ExpandRoot(bounds);
         }
-        InsertNodeObject(root, quadObject);
+        InsertNodeObject(Root, quadObject);
     }
 
     public void Query(Vector2 point, Action<T> callback)
@@ -50,9 +48,9 @@ public class QuadTree<T> where T : class, IQuadTreeObject<T>
 
     public void Query(RectangleFloat bounds, Action<T> callback)
     {
-        if (root != null)
+        if (Root != null)
         {
-            Query(bounds, root, callback);
+            Query(bounds, Root, callback);
         }
     }
 
@@ -79,16 +77,16 @@ public class QuadTree<T> where T : class, IQuadTreeObject<T>
 
     private void ExpandRoot(RectangleFloat newChildBounds)
     {
-        bool flag = root.Bounds.Y < newChildBounds.Y;
-        bool flag2 = root.Bounds.X < newChildBounds.X;
+        bool flag = Root.Bounds.Y < newChildBounds.Y;
+        bool flag2 = Root.Bounds.X < newChildBounds.X;
         QuadDirection quadDirection = (!flag) ? (flag2 ? QuadDirection.SW : QuadDirection.SE) : ((!flag2) ? QuadDirection.NE : QuadDirection.NW);
-        float x = (quadDirection is QuadDirection.NW or QuadDirection.SW) ? root.Bounds.X : (root.Bounds.X - root.Bounds.Width);
-        float y = (quadDirection is QuadDirection.NW or QuadDirection.NE) ? root.Bounds.Y : (root.Bounds.Y - root.Bounds.Height);
-        RectangleFloat bounds = new(x, y, root.Bounds.Width * 2f, root.Bounds.Height * 2f);
+        float x = (quadDirection is QuadDirection.NW or QuadDirection.SW) ? Root.Bounds.X : (Root.Bounds.X - Root.Bounds.Width);
+        float y = (quadDirection is QuadDirection.NW or QuadDirection.NE) ? Root.Bounds.Y : (Root.Bounds.Y - Root.Bounds.Height);
+        RectangleFloat bounds = new(x, y, Root.Bounds.Width * 2f, Root.Bounds.Height * 2f);
         QuadTreeNode<T> quadTreeNode = new(bounds);
         SetupChildNodes(quadTreeNode);
-        quadTreeNode[quadDirection] = root;
-        root = quadTreeNode;
+        quadTreeNode[quadDirection] = Root;
+        Root = quadTreeNode;
     }
 
     private void InsertNodeObject(QuadTreeNode<T> node, T quadObject)
@@ -243,7 +241,7 @@ public class QuadTree<T> where T : class, IQuadTreeObject<T>
                 quadTreeNode3.Parent = null;
             }
         }
-        root = quadTreeNode;
+        Root = quadTreeNode;
     }
 
     private static List<T> GetChildObjects(QuadTreeNode<T> node)
@@ -262,7 +260,7 @@ public class QuadTree<T> where T : class, IQuadTreeObject<T>
 
     public int GetQuadObjectCount()
     {
-        return root == null ? 0 : GetQuadObjectCount(root);
+        return Root == null ? 0 : GetQuadObjectCount(Root);
     }
 
     private static int GetQuadObjectCount(QuadTreeNode<T> node)
@@ -281,7 +279,7 @@ public class QuadTree<T> where T : class, IQuadTreeObject<T>
 
     public int GetQuadNodeCount()
     {
-        return root == null ? 0 : GetQuadNodeCount(root, 1);
+        return Root == null ? 0 : GetQuadNodeCount(Root, 1);
     }
 
     private static int GetQuadNodeCount(QuadTreeNode<T> node, int count)
@@ -304,10 +302,10 @@ public class QuadTree<T> where T : class, IQuadTreeObject<T>
     public List<QuadTreeNode<T>> GetAllNodes()
     {
         List<QuadTreeNode<T>> list = [];
-        if (root != null)
+        if (Root != null)
         {
-            list.Add(root);
-            GetChildNodes(root, list);
+            list.Add(Root);
+            GetChildNodes(Root, list);
         }
         return list;
     }

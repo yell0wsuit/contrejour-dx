@@ -23,9 +23,6 @@ public class MonsterEye : RandomAnimationEye, IPositionDepedent
     protected IVectorPositionProvider randomPositionProvider;
 
     protected bool providerEnabled;
-
-    private bool open;
-
     public static readonly EyeAnimation[] SNOT_ANIMATIONS =
     [
         new("McEyeBlinkMonster"),
@@ -56,12 +53,12 @@ public class MonsterEye : RandomAnimationEye, IPositionDepedent
 
     public bool Open
     {
-        get => open;
+        get;
         set
         {
-            if (open != value)
+            if (field != value)
             {
-                open = value;
+                field = value;
                 if (value && !Visible)
                 {
                     AnimationEndEvent.RemoveListener(OnCloseEnd);

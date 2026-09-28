@@ -11,17 +11,6 @@ public class RevoluteJoint : Joint
     private Vector3 _impulse;
 
     private float _motorImpulse;
-
-    private bool _enableMotor;
-
-    private float _maxMotorTorque;
-
-    private float _motorSpeed;
-
-    private bool _enableLimit;
-
-    private float _referenceAngle;
-
     private float _lowerAngle;
 
     private float _upperAngle;
@@ -70,11 +59,11 @@ public class RevoluteJoint : Joint
 
     public float ReferenceAngle
     {
-        get => _referenceAngle;
+        get;
         set
         {
             WakeBodies();
-            _referenceAngle = value;
+            field = value;
         }
     }
 
@@ -84,13 +73,13 @@ public class RevoluteJoint : Joint
 
     public bool LimitEnabled
     {
-        get => _enableLimit;
+        get;
         set
         {
-            if (_enableLimit != value)
+            if (field != value)
             {
                 WakeBodies();
-                _enableLimit = value;
+                field = value;
                 _impulse.Z = 0f;
             }
         }
@@ -126,31 +115,31 @@ public class RevoluteJoint : Joint
 
     public bool MotorEnabled
     {
-        get => _enableMotor;
+        get;
         set
         {
             WakeBodies();
-            _enableMotor = value;
+            field = value;
         }
     }
 
     public float MotorSpeed
     {
-        get => _motorSpeed;
+        get;
         set
         {
             WakeBodies();
-            _motorSpeed = value;
+            field = value;
         }
     }
 
     public float MaxMotorTorque
     {
-        get => _maxMotorTorque;
+        get;
         set
         {
             WakeBodies();
-            _maxMotorTorque = value;
+            field = value;
         }
     }
 
@@ -259,11 +248,11 @@ public class RevoluteJoint : Joint
         {
             _motorMass = 1f / _motorMass;
         }
-        if (!_enableMotor || flag)
+        if (!MotorEnabled || flag)
         {
             _motorImpulse = 0f;
         }
-        if (_enableLimit && !flag)
+        if (LimitEnabled && !flag)
         {
             float num = a2 - a - ReferenceAngle;
             if (Math.Abs(_upperAngle - _lowerAngle) < (float)Math.PI / 45f)
@@ -320,18 +309,18 @@ public class RevoluteJoint : Joint
         float invIA = _invIA;
         float invIB = _invIB;
         bool flag = invIA + invIB == 0f;
-        if (_enableMotor && _limitState != LimitState.Equal && !flag)
+        if (MotorEnabled && _limitState != LimitState.Equal && !flag)
         {
-            float num3 = num2 - num - _motorSpeed;
+            float num3 = num2 - num - MotorSpeed;
             float num4 = _motorMass * (0f - num3);
             float motorImpulse = _motorImpulse;
-            float num5 = data.step.dt * _maxMotorTorque;
+            float num5 = data.step.dt * MaxMotorTorque;
             _motorImpulse = MathUtils.Clamp(_motorImpulse + num4, 0f - num5, num5);
             num4 = _motorImpulse - motorImpulse;
             num -= invIA * num4;
             num2 += invIB * num4;
         }
-        if (_enableLimit && _limitState != LimitState.Inactive && !flag)
+        if (LimitEnabled && _limitState != LimitState.Inactive && !flag)
         {
             Vector2 vector = v2 + MathUtils.Cross(num2, _rB) - v - MathUtils.Cross(num, _rA);
             float z = num2 - num;
@@ -412,7 +401,7 @@ public class RevoluteJoint : Joint
         Rot q2 = new(num2);
         float num3 = 0f;
         bool flag = _invIA + _invIB == 0f;
-        if (_enableLimit && _limitState != LimitState.Inactive && !flag)
+        if (LimitEnabled && _limitState != LimitState.Inactive && !flag)
         {
             float num4 = num2 - num - ReferenceAngle;
             float num5 = 0f;

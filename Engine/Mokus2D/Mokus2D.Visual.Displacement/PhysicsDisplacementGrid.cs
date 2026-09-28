@@ -22,18 +22,16 @@ public class PhysicsDisplacementGrid : DisplacementGrid
 
     private float _diagonalDistance;
 
-    private float _dampingRatio;
-
     public float DampingRatio
     {
-        get => _dampingRatio;
+        get;
         set
         {
             if (!value.Between(0f, 1f))
             {
                 throw new ArgumentOutOfRangeException(nameof(value), "Damping should be between 0 and 1");
             }
-            _dampingRatio = value;
+            field = value;
         }
     }
 

@@ -6,26 +6,24 @@ namespace Mokus2D.Visual.Displacement.Magnets;
 
 public class GridMagnetGroup : GridMagnetBase
 {
-    private readonly List<GridMagnetBase> _magnets = [];
-
-    public List<GridMagnetBase> Magnets => _magnets;
+    public List<GridMagnetBase> Magnets { get; } = [];
 
     public GridMagnetGroup(List<GridMagnetBase> magnets)
     {
-        _magnets = magnets;
+        Magnets = magnets;
         CalculateBounds();
     }
 
     public GridMagnetGroup(params GridMagnetBase[] magnets)
     {
-        _magnets = [.. magnets];
+        Magnets = [.. magnets];
         CalculateBounds();
     }
 
     private void CalculateBounds()
     {
         Rectangle rectangle = Rectangle.Empty;
-        foreach (GridMagnetBase magnet in _magnets)
+        foreach (GridMagnetBase magnet in Magnets)
         {
             Rectangle bounds = magnet.Bounds;
             bounds.Offset((int)magnet.Position.X, (int)magnet.Position.Y);
@@ -37,7 +35,7 @@ public class GridMagnetGroup : GridMagnetBase
     public override Vector2 GetForce(Vector2 relativePosition)
     {
         Vector2 zero = Vector2.Zero;
-        foreach (GridMagnetBase magnet in _magnets)
+        foreach (GridMagnetBase magnet in Magnets)
         {
             Vector2 relativePosition2 = relativePosition - magnet.Position;
             Vector2 force = magnet.GetForce(relativePosition2);

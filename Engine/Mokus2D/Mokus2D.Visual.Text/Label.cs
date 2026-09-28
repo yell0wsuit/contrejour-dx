@@ -30,17 +30,7 @@ public class Label : AnchorNode, IDataReloadable
     public static readonly bool IgnoreMissingSymbolsDefault;
 
     private static readonly Vector2 DefaultMargins = new(2f);
-
-    private FontData _font;
-
     private readonly StringBuilder _text = new();
-
-    private readonly List<Glyph> _glyphs = new(64);
-
-    private readonly List<LabelLine> _lines = new(64);
-
-    private float _lineSpacing;
-
     private bool _textDirty;
 
     protected bool PositionsDirty;
@@ -50,14 +40,9 @@ public class Label : AnchorNode, IDataReloadable
     private RectangleFloat? _symbolsBounds;
 
     private readonly bool _dynamicTextureSize = true;
-
-    private TextAlign _align = TextAlign.Center;
-
     public bool DynamicClickArea = true;
 
     public bool? IgnoreMissingSymbols;
-
-    private float? _maxWidth;
 
     public Vector2 TextSize { get; private set; }
 
@@ -71,7 +56,7 @@ public class Label : AnchorNode, IDataReloadable
         {
             RefreshText();
             RefreshPositions();
-            if (!_symbolsBounds.HasValue && !_lines.Empty() && !_lines.First().Glyphs.Empty())
+            if (!_symbolsBounds.HasValue && !Lines.Empty() && !Lines.First().Glyphs.Empty())
             {
                 CalculateSymbolsBounds();
             }
@@ -79,24 +64,23 @@ public class Label : AnchorNode, IDataReloadable
         }
     }
 
-    public List<Glyph> Glyphs => _glyphs;
+    public List<Glyph> Glyphs { get; } = new(64);
 
-    public List<LabelLine> Lines => _lines;
+    public List<LabelLine> Lines { get; } = new(64);
 
     public override Vector2 Size => !DynamicClickArea ? TextureSize : TextSize;
 
     public TextAlign Align
     {
-        get => _align;
-        set
+        get; set
         {
-            if (_align != value)
+            if (field != value)
             {
-                _align = value;
+                field = value;
                 PositionsDirty = true;
             }
         }
-    }
+    } = TextAlign.Center;
 
     public override Vector2 Anchor
     {
@@ -116,12 +100,11 @@ public class Label : AnchorNode, IDataReloadable
 
     public FontData Font
     {
-        get => _font;
-        set
+        get; set
         {
-            if (_font != value)
+            if (field != value)
             {
-                _font = value;
+                field = value;
                 SetTextDirty();
             }
         }
@@ -140,12 +123,11 @@ public class Label : AnchorNode, IDataReloadable
 
     public float LineSpacing
     {
-        get => _lineSpacing;
-        set
+        get; set
         {
-            if (_lineSpacing != value)
+            if (field != value)
             {
-                _lineSpacing = value;
+                field = value;
                 PositionsDirty = true;
             }
         }
@@ -159,12 +141,11 @@ public class Label : AnchorNode, IDataReloadable
 
     public float? MaxWidth
     {
-        get => _maxWidth;
-        set
+        get; set
         {
-            if (_maxWidth != value)
+            if (field != value)
             {
-                _maxWidth = value;
+                field = value;
                 SetTextDirty();
             }
         }
@@ -230,9 +211,9 @@ public class Label : AnchorNode, IDataReloadable
     public Mokus2D.Util.Data.Point Get2DSymbolPosition(int position)
     {
         Mokus2D.Util.Data.Point result = default;
-        for (int i = 0; _lines[i].Glyphs.Count + 1 < position; i++)
+        for (int i = 0; Lines[i].Glyphs.Count + 1 < position; i++)
         {
-            position -= _lines[i].Glyphs.Count + 1;
+            position -= Lines[i].Glyphs.Count + 1;
         }
         result.X = position;
         return result;
@@ -243,7 +224,7 @@ public class Label : AnchorNode, IDataReloadable
         int num = 0;
         for (int i = 0; i < position.Y; i++)
         {
-            num += _lines[i].Glyphs.Count + 1;
+            num += Lines[i].Glyphs.Count + 1;
         }
         return num + position.X;
     }
@@ -284,9 +265,9 @@ public class Label : AnchorNode, IDataReloadable
         RefreshText();
         if (_lineAnchor.HasValue)
         {
-            if (_lines.Count > 0)
+            if (Lines.Count > 0)
             {
-                AnchorY = _lineAnchor.Value / _lines.Count;
+                AnchorY = _lineAnchor.Value / Lines.Count;
             }
             _lineAnchor = null;
         }
@@ -349,7 +330,7 @@ public class Label : AnchorNode, IDataReloadable
     {
         Vector2 result = StartGlyphsPosition();
         result.Y += ((Font.RealHeight * ScaleFactor) + LineSpacing) * Root.SpritesScaleFactor.Y.Sign() * positionInText.Y;
-        LabelLine labelLine = _lines[positionInText.Y];
+        LabelLine labelLine = Lines[positionInText.Y];
         result.X += GetLineHorizontalOffset(labelLine);
         for (int i = 0; i < positionInText.X; i++)
         {
@@ -362,7 +343,7 @@ public class Label : AnchorNode, IDataReloadable
     public void RefreshSymbolsTransform()
     {
         DoRefreshPositions();
-        foreach (Glyph glyph in _glyphs)
+        foreach (Glyph glyph in Glyphs)
         {
             glyph.Scale = 1f;
             glyph.OpacityFloat = 1f;
@@ -374,7 +355,7 @@ public class Label : AnchorNode, IDataReloadable
         Vector2 vector = StartGlyphsPosition();
         float num = Root.SpritesScaleFactor.Y.Sign();
         float num2 = Font.RealHeight / 2f * ScaleFactor;
-        foreach (LabelLine line in _lines)
+        foreach (LabelLine line in Lines)
         {
             float lineHorizontalOffset = GetLineHorizontalOffset(line);
             for (int i = 0; i < line.Glyphs.Count; i++)
@@ -390,7 +371,7 @@ public class Label : AnchorNode, IDataReloadable
 
     private void CalculateSymbolsBounds()
     {
-        foreach (LabelLine line in _lines)
+        foreach (LabelLine line in Lines)
         {
             foreach (Glyph glyph in line.Glyphs)
             {
@@ -422,18 +403,18 @@ public class Label : AnchorNode, IDataReloadable
 
     private LabelLine GetCleanLine(int index)
     {
-        if (_lines.Count <= index)
+        if (Lines.Count <= index)
         {
-            _lines.Add(LabelLine.New());
+            Lines.Add(LabelLine.New());
         }
-        LabelLine labelLine = _lines[index];
+        LabelLine labelLine = Lines[index];
         labelLine.Glyphs.Clear();
         return labelLine;
     }
 
     protected virtual void DoRefreshText()
     {
-        Vector2 vector = new(0f, (DefaultMargins.Y * 2f) + (Font.RealHeight * ScaleFactor) + _lineSpacing);
+        Vector2 vector = new(0f, (DefaultMargins.Y * 2f) + (Font.RealHeight * ScaleFactor) + LineSpacing);
         float num = DefaultMargins.X * 2f;
         int num2 = 0;
         LabelLine cleanLine = GetCleanLine(num2);
@@ -454,7 +435,7 @@ public class Label : AnchorNode, IDataReloadable
             {
                 if (i != _text.Length - 1)
                 {
-                    vector.Y += (_font.RealHeight * ScaleFactor) + _lineSpacing;
+                    vector.Y += (Font.RealHeight * ScaleFactor) + LineSpacing;
                 }
                 vector.X = Math.Max(num, vector.X);
                 cleanLine.Width = num;
@@ -463,13 +444,13 @@ public class Label : AnchorNode, IDataReloadable
                 flag = false;
                 continue;
             }
-            CharData charData = _font[c];
+            CharData charData = Font[c];
             if (charData != null && !flag && (!MaxWidth.HasValue || num < MaxWidth))
             {
                 Glyph glyph = RefreshGlyph(num3, c, charData);
                 if (MaxWidth.HasValue && num + glyph.Width >= MaxWidth)
                 {
-                    _ = glyph.Initialize(_font['…'], ScaleFactor, '…');
+                    _ = glyph.Initialize(Font['…'], ScaleFactor, '…');
                     flag = true;
                 }
                 glyph.Visible = true;
@@ -495,25 +476,25 @@ public class Label : AnchorNode, IDataReloadable
 
     private void FreeUnusedObjects(int lineIndex, int glyphCount)
     {
-        int num = _lines.Count - (lineIndex + 1);
+        int num = Lines.Count - (lineIndex + 1);
         if (num > 0)
         {
-            for (int i = lineIndex + 1; i < _lines.Count; i++)
+            for (int i = lineIndex + 1; i < Lines.Count; i++)
             {
-                LabelLine.Free(_lines[i]);
+                LabelLine.Free(Lines[i]);
             }
-            _lines.RemoveRange(lineIndex + 1, num);
+            Lines.RemoveRange(lineIndex + 1, num);
         }
-        int num2 = _glyphs.Count - glyphCount;
+        int num2 = Glyphs.Count - glyphCount;
         if (num2 > 0)
         {
-            for (int num3 = _glyphs.Count - 1; num3 >= glyphCount; num3--)
+            for (int num3 = Glyphs.Count - 1; num3 >= glyphCount; num3--)
             {
-                Glyph glyph = _glyphs[num3];
+                Glyph glyph = Glyphs[num3];
                 RemoveChild(glyph);
                 Glyph.Free(glyph);
             }
-            _glyphs.RemoveRange(glyphCount, num2);
+            Glyphs.RemoveRange(glyphCount, num2);
         }
     }
 
@@ -525,15 +506,15 @@ public class Label : AnchorNode, IDataReloadable
     protected virtual Glyph RefreshGlyph(int index, char symbol, CharData data)
     {
         Glyph glyph;
-        if (_glyphs.Count <= index)
+        if (Glyphs.Count <= index)
         {
             glyph = Glyph.New(data, ScaleFactor, symbol);
-            _glyphs.Add(glyph);
+            Glyphs.Add(glyph);
             AddChild(glyph);
         }
         else
         {
-            glyph = _glyphs[index];
+            glyph = Glyphs[index];
             _ = glyph.Initialize(data, ScaleFactor, symbol);
         }
         glyph.Scale = 1f;
@@ -931,7 +912,7 @@ public class Label : AnchorNode, IDataReloadable
 
     public override void Draw(VisualState state)
     {
-        if (_font.Texture.IsDisposed)
+        if (Font.Texture.IsDisposed)
         {
             ReloadData();
         }

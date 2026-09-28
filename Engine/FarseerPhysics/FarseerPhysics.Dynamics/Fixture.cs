@@ -14,13 +14,6 @@ public class Fixture : IDisposable
 {
     [ThreadStatic]
     private static int _fixtureIdCounter;
-
-    private bool _isSensor;
-
-    private float _friction;
-
-    private float _restitution;
-
     internal Category _collidesWith;
 
     internal Category _collisionCategories;
@@ -86,11 +79,11 @@ public class Fixture : IDisposable
 
     public bool IsSensor
     {
-        get => _isSensor;
+        get;
         set
         {
             Body?.Awake = true;
-            _isSensor = value;
+            field = value;
         }
     }
 
@@ -98,17 +91,9 @@ public class Fixture : IDisposable
 
     public object UserData { get; set; }
 
-    public float Friction
-    {
-        get => _friction;
-        set => _friction = value;
-    }
+    public float Friction { get; set; }
 
-    public float Restitution
-    {
-        get => _restitution;
-        set => _restitution = value;
-    }
+    public float Restitution { get; set; }
 
     public int FixtureId { get; internal set; }
 

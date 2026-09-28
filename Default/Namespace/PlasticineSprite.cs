@@ -10,9 +10,7 @@ public class PlasticineSprite : PrimitivesNode
 {
     private static readonly Color COLOR = new(0, 0, 0, 255);
 
-    private VertexPositionColor[] vertices;
-
-    public VertexPositionColor[] Vertices => vertices;
+    public VertexPositionColor[] Vertices { get; private set; }
 
     public override Color Color
     {
@@ -34,20 +32,20 @@ public class PlasticineSprite : PrimitivesNode
 
     private void RefreshColor()
     {
-        if (vertices != null)
+        if (Vertices != null)
         {
-            GraphUtil.SetColor(vertices, Color);
+            GraphUtil.SetColor(Vertices, Color);
         }
     }
 
     protected override void DrawPrimitives()
     {
-        GraphUtil.DrawTriangleStrip(vertices);
+        GraphUtil.DrawTriangleStrip(Vertices);
     }
 
     public void InitVertices(int verticesCount)
     {
-        vertices = new VertexPositionColor[verticesCount];
+        Vertices = new VertexPositionColor[verticesCount];
         RefreshColor();
     }
 }

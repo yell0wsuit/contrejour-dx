@@ -26,48 +26,20 @@ public sealed class TextureConverter
     private int _width;
 
     private int _height;
-
-    private VerticesDetectionType _polygonDetectionType;
-
     private uint _alphaTolerance;
-
-    private float _hullTolerance;
-
-    private bool _holeDetection;
-
-    private bool _multipartDetection;
-
-    private bool _pixelOffsetOptimization;
-
     private Matrix _transform = Matrix.Identity;
 
     private int _tempIsSolidX;
 
     private int _tempIsSolidY;
 
-    public VerticesDetectionType PolygonDetectionType
-    {
-        get => _polygonDetectionType;
-        set => _polygonDetectionType = value;
-    }
+    public VerticesDetectionType PolygonDetectionType { get; set; }
 
-    public bool HoleDetection
-    {
-        get => _holeDetection;
-        set => _holeDetection = value;
-    }
+    public bool HoleDetection { get; set; }
 
-    public bool MultipartDetection
-    {
-        get => _multipartDetection;
-        set => _multipartDetection = value;
-    }
+    public bool MultipartDetection { get; set; }
 
-    public bool PixelOffsetOptimization
-    {
-        get => _pixelOffsetOptimization;
-        set => _pixelOffsetOptimization = value;
-    }
+    public bool PixelOffsetOptimization { get; set; }
 
     public Matrix Transform
     {
@@ -81,11 +53,7 @@ public sealed class TextureConverter
         set => _alphaTolerance = (uint)(value << 24);
     }
 
-    public float HullTolerance
-    {
-        get => _hullTolerance;
-        set => _hullTolerance = value > 4f ? 4f : value < 0.9f ? 0.9f : value;
-    }
+    public float HullTolerance { get; set => field = value > 4f ? 4f : value < 0.9f ? 0.9f : value; }
 
     public TextureConverter()
     {
@@ -235,7 +203,7 @@ public sealed class TextureConverter
             flag = false;
             if (vertices.Count > 2)
             {
-                if (_holeDetection)
+                if (HoleDetection)
                 {
                     while (true)
                     {
@@ -250,7 +218,7 @@ public sealed class TextureConverter
                         {
                             continue;
                         }
-                        switch (_polygonDetectionType)
+                        switch (PolygonDetectionType)
                         {
                             case VerticesDetectionType.Integrated:
                                 {
@@ -272,7 +240,7 @@ public sealed class TextureConverter
                 }
                 detectedPolygons.Add(vertices);
             }
-            if ((_multipartDetection || vertices.Count <= 2) && SearchNextHullEntrance(detectedPolygons, entrance.Value, out entrance))
+            if ((MultipartDetection || vertices.Count <= 2) && SearchNextHullEntrance(detectedPolygons, entrance.Value, out entrance))
             {
                 flag = true;
             }
@@ -438,7 +406,7 @@ public sealed class TextureConverter
             for (int i = 0; i < polygon.Count; i++)
             {
                 Vector2 start = polygon[i];
-                if (LineTools.DistanceBetweenPointAndLineSegment(ref point, ref start, ref end) <= _hullTolerance || Vector2.Distance(point, start) <= _hullTolerance)
+                if (LineTools.DistanceBetweenPointAndLineSegment(ref point, ref start, ref end) <= HullTolerance || Vector2.Distance(point, start) <= HullTolerance)
                 {
                     return false;
                 }
@@ -449,7 +417,7 @@ public sealed class TextureConverter
         for (int j = 0; j < polygon.Count; j++)
         {
             Vector2 start = polygon[j];
-            if (LineTools.DistanceBetweenPointAndLineSegment(ref point, ref start, ref end) <= _hullTolerance)
+            if (LineTools.DistanceBetweenPointAndLineSegment(ref point, ref start, ref end) <= HullTolerance)
             {
                 return false;
             }
@@ -822,7 +790,7 @@ public sealed class TextureConverter
             for (int i = 1; i < num; i++)
             {
                 Vector2 point = hullArea[i];
-                if (LineTools.DistanceBetweenPointAndLineSegment(ref point, ref start, ref end) >= _hullTolerance)
+                if (LineTools.DistanceBetweenPointAndLineSegment(ref point, ref start, ref end) >= HullTolerance)
                 {
                     vector = hullArea[i];
                     result = true;

@@ -5,17 +5,15 @@ namespace Mokus2D.Visual.Interactive;
 
 public abstract class TouchListenerBase : DisposableBase, ITouchListener
 {
-    private bool _enabled;
-
     public bool Enabled
     {
-        get => _enabled;
+        get;
         set
         {
-            if (_enabled != value)
+            if (field != value)
             {
-                _enabled = value;
-                if (_enabled)
+                field = value;
+                if (field)
                 {
                     Mokus2DGame.Instance.TouchController.AddListener(this);
                 }

@@ -121,9 +121,6 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
     protected Button pauseButton;
 
     protected GroundFall groundFall;
-
-    private HeroBodyClip hero;
-
     protected int levelIndex;
 
     protected int levelPosition;
@@ -229,9 +226,9 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
 
     public EventSender NextLevelEvent => nextLevelEvent;
 
-    public HeroBodyClip Hero => hero;
+    public HeroBodyClip Hero { get; private set; }
 
-    public Vector2 HeroPositionVec => hero.Body.Position;
+    public Vector2 HeroPositionVec => Hero.Body.Position;
 
     public float FlyOpacity
     {
@@ -287,7 +284,7 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
 
     public IBonusAcceptable BonusTarget
     {
-        get => bonusTarget ?? hero;
+        get => bonusTarget ?? Hero;
         set => bonusTarget = value;
     }
 
@@ -323,9 +320,9 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
 
     public bool BonusChapter => chapter == 5;
 
-    public int HeroIndex => Builder.GameRoot.Children.IndexOf(hero.Clip);
+    public int HeroIndex => Builder.GameRoot.Children.IndexOf(Hero.Clip);
 
-    public Vector2 HeroPositionPixels => hero.Clip.Position;
+    public Vector2 HeroPositionPixels => Hero.Clip.Position;
 
     public float LightPower
     {
@@ -593,7 +590,7 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
 
     public void HardRestart()
     {
-        hero?.Removed = true;
+        Hero?.Removed = true;
         RestartEvent.SendEvent();
         DisableEvents();
     }
@@ -656,14 +653,14 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
 
     public void Back()
     {
-        hero?.Removed = true;
+        Hero?.Removed = true;
         backEvent.SendEvent();
         DisableEvents();
     }
 
     public void Skip()
     {
-        hero?.Removed = true;
+        Hero?.Removed = true;
         LevelPosition position = LevelsMenu.GetLevelPosition(levelIndex);
         UserData.Instance.SkipLevel(position);
         nextLevelEvent.SendEvent();
@@ -972,7 +969,7 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
 
     public void RegisterHero(HeroBodyClip _hero)
     {
-        hero = _hero;
+        Hero = _hero;
         AddPositionProvider(new PositionProviderValue(_hero, 5f));
     }
 

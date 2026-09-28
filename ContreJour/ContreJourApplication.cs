@@ -40,12 +40,9 @@ public class ContreJourApplication : Mokus2DGame
     private petitInformation _blockedGamePanel;
 
     private Vector2 _initialSize;
-
-    private static readonly Dictionary<int, FontData> fonts = [];
-
     private bool _restarting;
 
-    public static Dictionary<int, FontData> Fonts => fonts;
+    public static Dictionary<int, FontData> Fonts { get; } = [];
 
     protected virtual bool StartFullScreen => true;
 

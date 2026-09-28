@@ -6,8 +6,6 @@ namespace FarseerPhysics.Dynamics.Joints;
 
 public abstract class Joint
 {
-    private float _breakpoint;
-
     private double _breakpointSquared;
 
     public bool Enabled = true;
@@ -34,11 +32,11 @@ public abstract class Joint
 
     public float Breakpoint
     {
-        get => _breakpoint;
+        get;
         set
         {
-            _breakpoint = value;
-            _breakpointSquared = _breakpoint * _breakpoint;
+            field = value;
+            _breakpointSquared = field * field;
         }
     }
 

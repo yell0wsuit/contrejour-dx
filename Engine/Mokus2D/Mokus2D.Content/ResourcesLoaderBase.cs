@@ -22,8 +22,6 @@ public abstract class ResourcesLoaderBase : IGraphicsLoader
 
     private string _resourcesSuffix;
 
-    private float _prefferedScaleFactor = 1f;
-
     public string GraphicsRootDirectory { get; set; }
 
     public bool IsAbsolutePath { get; set; }
@@ -32,16 +30,16 @@ public abstract class ResourcesLoaderBase : IGraphicsLoader
 
     public float PrefferedScaleFactor
     {
-        get => _prefferedScaleFactor;
+        get;
         set
         {
-            if (_prefferedScaleFactor != value)
+            if (field != value)
             {
-                _prefferedScaleFactor = value;
+                field = value;
                 _resourcesSuffix = value != 1f ? ContentUtil.GetResourcesSuffix(value) : null;
             }
         }
-    }
+    } = 1f;
 
     public event Action<string, object> ResourceLoaded;
 

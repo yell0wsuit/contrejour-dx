@@ -9,17 +9,15 @@ namespace Mokus2D.Visual.Displacement.Magnets;
 
 public class CircleMagnet : GridMagnetBase
 {
-    private float _radius;
-
     public float Radius
     {
-        get => _radius;
+        get;
         set
         {
-            if (_radius != value)
+            if (field != value)
             {
-                _radius = value;
-                int num = _radius.Ceiling();
+                field = value;
+                int num = field.Ceiling();
                 Bounds = new Rectangle(-num, -num, num * 2, num * 2);
             }
         }

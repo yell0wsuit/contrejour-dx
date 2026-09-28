@@ -48,26 +48,20 @@ public class ListViewRenderers<T>
     }
 
     private readonly Pool<Node> _renderersPool;
-
-    private readonly List<Node> _itemRenderers = [];
-
-    private float _position;
-
     private Range _currentRange;
 
     private readonly ListView<T> _list;
 
-    public List<Node> ItemRenderers => _itemRenderers;
+    public List<Node> ItemRenderers { get; } = [];
 
     public float Position
     {
-        get => _position;
-        set
+        get; set
         {
             value = value.Clamp(0f, Math.Max(ListItemsCount - 1, 0));
-            if (_position != value)
+            if (field != value)
             {
-                _position = value;
+                field = value;
                 RefreshPosition();
             }
         }
@@ -108,7 +102,7 @@ public class ListViewRenderers<T>
 
     public void RefreshPosition()
     {
-        CurrentRange = new Range(_position.Floor(), _position.Ceiling() + _list.ItemsCount);
+        CurrentRange = new Range(Position.Floor(), Position.Ceiling() + _list.ItemsCount);
     }
 
     public void Clear()
@@ -118,9 +112,9 @@ public class ListViewRenderers<T>
 
     public void RefreshCurrentRenderersData()
     {
-        for (int i = 0; i < _itemRenderers.Count; i++)
+        for (int i = 0; i < ItemRenderers.Count; i++)
         {
-            IItemRenderer<T> itemRenderer = (IItemRenderer<T>)_itemRenderers[i];
+            IItemRenderer<T> itemRenderer = (IItemRenderer<T>)ItemRenderers[i];
             itemRenderer.SetData(_list.SharedData, _list.Data[i + CurrentRange.Start], i);
         }
     }
@@ -134,13 +128,13 @@ public class ListViewRenderers<T>
             if (i < oldRange.Start)
             {
                 Node item = NewRenderer(i);
-                _itemRenderers.Insert(num, item);
+                ItemRenderers.Insert(num, item);
                 num++;
             }
             if (i >= oldRange.End)
             {
                 Node item2 = NewRenderer(i);
-                _itemRenderers.Add(item2);
+                ItemRenderers.Add(item2);
             }
         }
     }
@@ -159,15 +153,15 @@ public class ListViewRenderers<T>
 
     private void FreeUnusedRenderers(Range oldRange)
     {
-        for (int num = _itemRenderers.Count - 1; num >= 0; num--)
+        for (int num = ItemRenderers.Count - 1; num >= 0; num--)
         {
             int index = num + oldRange.Start;
             if (!CurrentRange.Contains(index))
             {
-                Node node = _itemRenderers[num];
+                Node node = ItemRenderers[num];
                 node.VisibleAndUpdating = false;
                 _renderersPool.Free(node);
-                _itemRenderers.RemoveAt(num);
+                ItemRenderers.RemoveAt(num);
             }
         }
     }

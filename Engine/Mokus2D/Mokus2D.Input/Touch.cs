@@ -9,10 +9,6 @@ namespace Mokus2D.Input;
 
 public class Touch
 {
-    private bool _active = true;
-
-    private int _id;
-
     private Vector2 _position;
 
     private Vector2 _previousPosition;
@@ -31,12 +27,9 @@ public class Touch
 
     public DateTime StartTimeUTC { get; private set; }
 
-    public bool Active
-    {
-        get => _active; internal set => _active = value;
-    }
+    public bool Active { get; internal set; } = true;
 
-    public int Id => _id;
+    public int Id { get; private set; }
 
     public Vector2 Position
     {
@@ -51,7 +44,7 @@ public class Touch
 
     public void Initialize(CursorPoint point)
     {
-        _id = point.Id;
+        Id = point.Id;
         InitialPosition = _previousPosition = _position = point.Position;
         MaxOffset = Vector2.Zero;
         Type = point.Type;

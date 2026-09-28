@@ -15,15 +15,6 @@ public class PrismaticJoint : Joint
     private float _lowerTranslation;
 
     private float _upperTranslation;
-
-    private float _maxMotorForce;
-
-    private float _motorSpeed;
-
-    private bool _enableLimit;
-
-    private bool _enableMotor;
-
     private LimitState _limitState;
 
     private int _indexA;
@@ -108,13 +99,13 @@ public class PrismaticJoint : Joint
 
     public bool LimitEnabled
     {
-        get => _enableLimit;
+        get;
         set
         {
-            if (value != _enableLimit)
+            if (value != field)
             {
                 WakeBodies();
-                _enableLimit = value;
+                field = value;
                 _impulse.Z = 0f;
             }
         }
@@ -150,31 +141,31 @@ public class PrismaticJoint : Joint
 
     public bool MotorEnabled
     {
-        get => _enableMotor;
+        get;
         set
         {
             WakeBodies();
-            _enableMotor = value;
+            field = value;
         }
     }
 
     public float MotorSpeed
     {
-        get => _motorSpeed;
+        get;
         set
         {
             WakeBodies();
-            _motorSpeed = value;
+            field = value;
         }
     }
 
     public float MaxMotorForce
     {
-        get => _maxMotorForce;
+        get;
         set
         {
             WakeBodies();
-            _maxMotorForce = value;
+            field = value;
         }
     }
 
@@ -308,7 +299,7 @@ public class PrismaticJoint : Joint
         _K.ex = new Vector3(x, num, num2);
         _K.ey = new Vector3(num, num3, num4);
         _K.ez = new Vector3(num2, num4, z);
-        if (_enableLimit)
+        if (LimitEnabled)
         {
             float num5 = Vector2.Dot(_axis, vector3);
             if (Math.Abs(_upperTranslation - _lowerTranslation) < 0.01f)
@@ -342,7 +333,7 @@ public class PrismaticJoint : Joint
             _limitState = LimitState.Inactive;
             _impulse.Z = 0f;
         }
-        if (!_enableMotor)
+        if (!MotorEnabled)
         {
             MotorImpulse = 0f;
         }
@@ -371,12 +362,12 @@ public class PrismaticJoint : Joint
         float invMassB = _invMassB;
         float invIA = _invIA;
         float invIB = _invIB;
-        if (_enableMotor && _limitState != LimitState.Equal)
+        if (MotorEnabled && _limitState != LimitState.Equal)
         {
             float num3 = Vector2.Dot(_axis, v2 - v) + (_a2 * num2) - (_a1 * num);
-            float num4 = _motorMass * (_motorSpeed - num3);
+            float num4 = _motorMass * (MotorSpeed - num3);
             float motorImpulse = MotorImpulse;
-            float num5 = data.step.dt * _maxMotorForce;
+            float num5 = data.step.dt * MaxMotorForce;
             MotorImpulse = MathUtils.Clamp(MotorImpulse + num4, 0f - num5, num5);
             num4 = MotorImpulse - motorImpulse;
             Vector2 vector = num4 * _axis;
@@ -392,7 +383,7 @@ public class PrismaticJoint : Joint
             X = Vector2.Dot(_perp, v2 - v) + (_s2 * num2) - (_s1 * num),
             Y = num2 - num
         };
-        if (_enableLimit && _limitState != LimitState.Inactive)
+        if (LimitEnabled && _limitState != LimitState.Inactive)
         {
             float z = Vector2.Dot(_axis, v2 - v) + (_a2 * num2) - (_a1 * num);
             Vector3 vector3 = new(vector2.X, vector2.Y, z);
@@ -469,7 +460,7 @@ public class PrismaticJoint : Joint
         float num6 = Math.Abs(vector6.Y);
         bool flag = false;
         float z = 0f;
-        if (_enableLimit)
+        if (LimitEnabled)
         {
             float num7 = Vector2.Dot(vector4, vector3);
             if (Math.Abs(_upperTranslation - _lowerTranslation) < 0.01f)

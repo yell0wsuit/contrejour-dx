@@ -18,8 +18,6 @@ public class SpriteLoaderCache : IGraphicsLoader
 
     private readonly IGraphicsLoader _baseLoader;
 
-    private float _currentScaleFactor = 1f;
-
     public string GraphicsRootDirectory
     {
         get => _baseLoader.GraphicsRootDirectory;
@@ -40,17 +38,17 @@ public class SpriteLoaderCache : IGraphicsLoader
 
     public float PrefferedScaleFactor
     {
-        get => _currentScaleFactor;
+        get;
         set
         {
-            if (value != _currentScaleFactor)
+            if (value != field)
             {
-                _currentScaleFactor = value;
+                field = value;
                 _textureNodeData.Clear();
                 _baseLoader.PrefferedScaleFactor = value;
             }
         }
-    }
+    } = 1f;
 
     public event Action<string, object> ResourceLoaded;
 

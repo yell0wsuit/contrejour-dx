@@ -7,8 +7,6 @@ public class Glyph : Sprite
 {
     private static readonly Pool<Glyph> Pool = new(() => new Glyph());
 
-    private CharData _data;
-
     public static int ObjectsInPool => Pool.ObjectsInPool;
 
     public char Symbol { get; private set; }
@@ -17,12 +15,12 @@ public class Glyph : Sprite
 
     public CharData Data
     {
-        get => _data;
+        get;
         set
         {
-            _data = value;
-            Texture = _data.Texture;
-            ResetData(_data);
+            field = value;
+            Texture = field.Texture;
+            ResetData(field);
         }
     }
 

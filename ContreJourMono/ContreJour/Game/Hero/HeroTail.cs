@@ -38,16 +38,9 @@ public class HeroTail : PrimitivesNode
     private readonly List<Vector2> cachedPolygon = new(64);
 
     private VertexPositionColor[] border;
-
-    private float borderWidth = 2f;
-
     public float UpdateSpeed = 1f;
 
-    public float BorderWidth
-    {
-        get => borderWidth;
-        set => borderWidth = value;
-    }
+    public float BorderWidth { get; set; } = 2f;
 
     public Color EndColor
     {
@@ -99,7 +92,7 @@ public class HeroTail : PrimitivesNode
 
     private void Triangulate()
     {
-        Pair<Vector2> pointsPair = ContreDrawUtil.GetPointsPair(Vector2.Zero, middle.Position, Vector2.Zero, (25f - borderWidth) * 2f);
+        Pair<Vector2> pointsPair = ContreDrawUtil.GetPointsPair(Vector2.Zero, middle.Position, Vector2.Zero, (25f - BorderWidth) * 2f);
         Vector2 center = VectorUtil.Center(middle.Position, middle2.Position);
         Pair<Vector2> pointsPair2 = ContreDrawUtil.GetPointsPair(middle.Position, middle2.Position, center, 12.5f);
         Pair<Vector2> pointsPair3 = ContreDrawUtil.GetPointsPair(center, middle2.Position, center, 12.5f);
@@ -123,7 +116,7 @@ public class HeroTail : PrimitivesNode
             border = new VertexPositionColor[surface.Count * 6];
             GraphUtil.CreateGradientBorderColors(border, Color);
         }
-        GraphUtil.CreateGradientBorder(surface, borderWidth, border);
+        GraphUtil.CreateGradientBorder(surface, BorderWidth, border);
         for (int i = 0; i < surface.Count; i++)
         {
             int index = (i % 2 == 0) ? (i / 2) : (surface.Count - 1 - (i / 2));

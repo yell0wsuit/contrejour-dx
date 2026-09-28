@@ -20,16 +20,7 @@ public class UserData
     private static readonly XmlSerializer serializer = new(typeof(UserData));
 
     private static LevelPosition postponedLevel;
-
-    private readonly LevelData[] levelData = new LevelData[Constants.ChaptersCount * 20];
-
-    private readonly int[] unlockedLevels = new int[Constants.ChaptersCount];
-
     private int unlockedChapters;
-
-    private bool _soundDisabled;
-
-    private bool _musicDisabled;
 
     public static UserData Instance
     {
@@ -42,36 +33,36 @@ public class UserData
 
     public LevelData[] LevelData
     {
-        get => levelData;
+        get;
         set
         {
-            for (int i = 0; i < value.Length && i < levelData.Length; i++)
+            for (int i = 0; i < value.Length && i < field.Length; i++)
             {
-                levelData[i] = value[i];
+                field[i] = value[i];
             }
         }
-    }
+    } = new LevelData[Constants.ChaptersCount * 20];
 
     public int[] UnlockedLevels
     {
-        get => unlockedLevels;
+        get;
         set
         {
-            for (int i = 0; i < value.Length && i < unlockedLevels.Length; i++)
+            for (int i = 0; i < value.Length && i < field.Length; i++)
             {
-                unlockedLevels[i] = value[i];
+                field[i] = value[i];
             }
         }
-    }
+    } = new int[Constants.ChaptersCount];
 
     public bool SoundDisabled
     {
-        get => _soundDisabled;
+        get;
         set
         {
-            if (_soundDisabled != value)
+            if (field != value)
             {
-                _soundDisabled = value;
+                field = value;
                 SaveUserData();
             }
         }
@@ -79,12 +70,12 @@ public class UserData
 
     public bool MusicDisabled
     {
-        get => _musicDisabled;
+        get;
         set
         {
-            if (_musicDisabled != value)
+            if (field != value)
             {
-                _musicDisabled = value;
+                field = value;
                 SaveUserData();
             }
         }
@@ -178,12 +169,12 @@ public class UserData
 
     public void SetUnlockedLevelsChapter(int value, int chapter)
     {
-        unlockedLevels[chapter] = value;
+        UnlockedLevels[chapter] = value;
     }
 
     public int GetUnlockedLevels(int chapter)
     {
-        return unlockedLevels[chapter];
+        return UnlockedLevels[chapter];
     }
 
     public void UnlockChapter(int chapter)
@@ -234,7 +225,7 @@ public class UserData
     public int GetStarsEnd(int start, int end)
     {
         int num = 0;
-        for (int i = start; i < Math.Min(levelData.Length, end); i++)
+        for (int i = start; i < Math.Min(LevelData.Length, end); i++)
         {
             LevelData levelData = GetLevelData(i);
             if (levelData != null)
@@ -248,7 +239,7 @@ public class UserData
     public int GetScoreEnd(int start, int end)
     {
         int num = 0;
-        for (int i = start; i < Math.Min(levelData.Length, end); i++)
+        for (int i = start; i < Math.Min(LevelData.Length, end); i++)
         {
             LevelData levelData = GetLevelData(i);
             if (levelData != null)
@@ -276,12 +267,12 @@ public class UserData
 
     public void SetLevelData(LevelData data, int index)
     {
-        levelData[index] = data;
+        LevelData[index] = data;
     }
 
     public LevelData GetLevelData(int index)
     {
-        return levelData[index];
+        return LevelData[index];
     }
 
     public void CompleteAll()

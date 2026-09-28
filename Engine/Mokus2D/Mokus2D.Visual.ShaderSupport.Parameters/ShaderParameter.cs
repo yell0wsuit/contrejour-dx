@@ -13,9 +13,6 @@ public abstract class ShaderParameter<T>
     });
 
     protected readonly EffectParameter Parameter;
-
-    private T _value;
-
     private readonly Flag _valueDirty = new();
 
     public T Value
@@ -24,13 +21,13 @@ public abstract class ShaderParameter<T>
         {
             if (_valueDirty.Use())
             {
-                _value = GetValue();
+                field = GetValue();
             }
-            return _value;
+            return field;
         }
         set
         {
-            _value = value;
+            field = value;
             SetValue(value);
         }
     }

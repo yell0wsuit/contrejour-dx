@@ -4,15 +4,13 @@ namespace Mokus2D.Util.Resources;
 
 public class DisposableBase : IDisposable
 {
-    private bool _isDisposed;
-
-    public bool IsDisposed => _isDisposed;
+    public bool IsDisposed { get; private set; }
 
     public void Dispose()
     {
-        if (!_isDisposed)
+        if (!IsDisposed)
         {
-            _isDisposed = true;
+            IsDisposed = true;
             Dispose(disposing: true);
             GC.SuppressFinalize(this);
         }
@@ -24,9 +22,9 @@ public class DisposableBase : IDisposable
 
     ~DisposableBase()
     {
-        if (!_isDisposed)
+        if (!IsDisposed)
         {
-            _isDisposed = true;
+            IsDisposed = true;
             Dispose(disposing: false);
         }
     }

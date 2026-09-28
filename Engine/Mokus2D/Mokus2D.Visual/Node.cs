@@ -35,9 +35,6 @@ public class Node : DisposableBase, IUpdatable, IConfig
     private readonly Stack<Node> _cachedVisualStack = new(64);
 
     private readonly ConcurrentQueue<Action<Node>> _callLater = new();
-
-    private readonly NodeChildren _children = [];
-
     private readonly ConcurrentQueue<Node> _removeLater = new();
 
     public float ColorRatio;
@@ -75,24 +72,13 @@ public class Node : DisposableBase, IUpdatable, IConfig
     public bool UpdateEnabled = true;
 
     public bool UpdateSelf = true;
-
-    private IDictionary<string, string> _config;
     private bool _firstUpdate = true;
-
-    private int _layer;
-
     private bool _matrixDirty;
 
     private Matrix _nodeMatrix = Matrix.Identity;
 
     private float _opacity = 1f;
-
-    private Node _parent;
-
     private Vector2 _position;
-
-    private RootNode _root;
-
     private float _rotationRadians;
 
     private Vector2 _scaleVec = Vector2.One;
@@ -222,9 +208,9 @@ public class Node : DisposableBase, IUpdatable, IConfig
         }
     }
 
-    public NodeChildren Children => _children;
+    public NodeChildren Children { get; } = [];
 
-    public int Layer => _layer;
+    public int Layer { get; private set; }
 
     public bool RootVisible
     {
@@ -271,10 +257,9 @@ public class Node : DisposableBase, IUpdatable, IConfig
 
     public Node Parent
     {
-        get => _parent;
-        protected set
+        get; protected set
         {
-            _parent = value;
+            field = value;
             SetTransformationDirty();
         }
     }
@@ -290,16 +275,15 @@ public class Node : DisposableBase, IUpdatable, IConfig
 
     public RootNode Root
     {
-        get => _root;
-        internal set
+        get; internal set
         {
-            if (_root == value)
+            if (field == value)
             {
                 return;
             }
-            bool flag = _root == null && value != null;
-            bool flag2 = _root != null && value == null;
-            _root = value;
+            bool flag = field == null && value != null;
+            bool flag2 = field != null && value == null;
+            field = value;
             if (flag)
             {
                 OnAddedToStage();
@@ -316,7 +300,7 @@ public class Node : DisposableBase, IUpdatable, IConfig
 
     public virtual bool IsRoot => Root == this;
 
-    public IDictionary<string, string> Config => _config;
+    public IDictionary<string, string> Config { get; private set; }
 
     public event Action TransformationsRefreshedEvent;
 
@@ -346,7 +330,7 @@ public class Node : DisposableBase, IUpdatable, IConfig
 
     public void CreateConfig()
     {
-        _config ??= new Dictionary<string, string>();
+        Config ??= new Dictionary<string, string>();
     }
 
     public virtual void RefreshProperties()
@@ -367,8 +351,8 @@ public class Node : DisposableBase, IUpdatable, IConfig
     {
         if (config != null)
         {
-            _config ??= new DoubleSourceDictionary<string, string>(new Dictionary<string, string>());
-            ((DoubleSourceDictionary<string, string>)_config).SetSecondSource(config);
+            Config ??= new DoubleSourceDictionary<string, string>(new Dictionary<string, string>());
+            ((DoubleSourceDictionary<string, string>)Config).SetSecondSource(config);
         }
         if (Config != null && Config.GetBool("test"))
         {
@@ -378,19 +362,19 @@ public class Node : DisposableBase, IUpdatable, IConfig
 
     protected void SetMainConfig(IDictionary<string, string> config)
     {
-        if (_config == null)
+        if (Config == null)
         {
             if (config != null)
             {
-                _config = new DoubleSourceDictionary<string, string>(config);
+                Config = new DoubleSourceDictionary<string, string>(config);
             }
             return;
         }
-        if (_config is DoubleSourceDictionary<string, string> doubleSourceDictionary)
+        if (Config is DoubleSourceDictionary<string, string> doubleSourceDictionary)
         {
             if (config == null)
             {
-                _config = doubleSourceDictionary.SecondSource;
+                Config = doubleSourceDictionary.SecondSource;
             }
             else
             {
@@ -440,16 +424,16 @@ public class Node : DisposableBase, IUpdatable, IConfig
 
     public virtual int GetChildIndex(Node child)
     {
-        return _children.IndexOf(child);
+        return Children.IndexOf(child);
     }
 
     public virtual void ChangeChildLayer(Node node, int nodeLayer)
     {
-        if (nodeLayer != node._layer)
+        if (nodeLayer != node.Layer)
         {
-            node._layer = nodeLayer;
+            node.Layer = nodeLayer;
             RemoveFromChildren(node);
-            _children.Add(node);
+            Children.Add(node);
         }
     }
 
@@ -461,9 +445,9 @@ public class Node : DisposableBase, IUpdatable, IConfig
     public virtual void AddChild(Node node, int nodeLayer)
     {
         CheckIfCanAdd(node);
-        node._layer = nodeLayer;
+        node.Layer = nodeLayer;
         SetThisAsParentTo(node);
-        _children.Add(node);
+        Children.Add(node);
     }
 
     private void CheckIfCanAdd(Node node)
@@ -501,7 +485,7 @@ public class Node : DisposableBase, IUpdatable, IConfig
     private void SetThisAsParentTo(Node node)
     {
         node.Parent = this;
-        node.SetRootAndDrawer(_root, Drawer);
+        node.SetRootAndDrawer(Root, Drawer);
     }
 
     public void AddChildBefore(Node node, Node before)
@@ -520,16 +504,16 @@ public class Node : DisposableBase, IUpdatable, IConfig
         {
             throw new InvalidOperationException("node already added to another parent");
         }
-        if (!_children.Empty())
+        if (!Children.Empty())
         {
-            node._layer = index == 0
-                ? Math.Min(_children[0].Layer, node._layer)
-                : index == _children.Count
-                    ? Math.Max(_children.Last().Layer, node.Layer)
-                    : node._layer.Clamp(_children[index - 1]._layer, _children[index]._layer);
+            node.Layer = index == 0
+                ? Math.Min(Children[0].Layer, node.Layer)
+                : index == Children.Count
+                    ? Math.Max(Children.Last().Layer, node.Layer)
+                    : node.Layer.Clamp(Children[index - 1].Layer, Children[index].Layer);
         }
         SetThisAsParentTo(node);
-        _children.Insert(index, node);
+        Children.Insert(index, node);
     }
 
     public Vector2 ZeroToGlobal(bool refreshTransformations = true)
@@ -627,7 +611,7 @@ public class Node : DisposableBase, IUpdatable, IConfig
 
     private void RemoveFromChildren(Node node)
     {
-        if (!_children.Remove(node))
+        if (!Children.Remove(node))
         {
             throw new InvalidOperationException("There is no such child in collection");
         }
@@ -740,7 +724,7 @@ public class Node : DisposableBase, IUpdatable, IConfig
         bool flag;
         do
         {
-            flag = index < _children.Count;
+            flag = index < Children.Count;
             if (!flag)
             {
                 continue;

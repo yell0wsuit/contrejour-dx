@@ -15,13 +15,6 @@ public class WheelJoint : Joint
     private float _motorImpulse;
 
     private float _springImpulse;
-
-    private float _maxMotorTorque;
-
-    private float _motorSpeed;
-
-    private bool _enableMotor;
-
     private int _indexA;
 
     private int _indexB;
@@ -93,21 +86,21 @@ public class WheelJoint : Joint
 
     public float MotorSpeed
     {
-        get => _motorSpeed;
+        get;
         set
         {
             WakeBodies();
-            _motorSpeed = value;
+            field = value;
         }
     }
 
     public float MaxMotorTorque
     {
-        get => _maxMotorTorque;
+        get;
         set
         {
             WakeBodies();
-            _maxMotorTorque = value;
+            field = value;
         }
     }
 
@@ -141,11 +134,11 @@ public class WheelJoint : Joint
 
     public bool MotorEnabled
     {
-        get => _enableMotor;
+        get;
         set
         {
             WakeBodies();
-            _enableMotor = value;
+            field = value;
         }
     }
 
@@ -255,7 +248,7 @@ public class WheelJoint : Joint
         {
             _springImpulse = 0f;
         }
-        if (_enableMotor)
+        if (MotorEnabled)
         {
             _motorMass = invIA + invIB;
             if (_motorMass > 0f)
@@ -304,10 +297,10 @@ public class WheelJoint : Joint
         w -= invIA * num3;
         v2 += invMassB * vector;
         w2 += invIB * num4;
-        float num5 = w2 - w - _motorSpeed;
+        float num5 = w2 - w - MotorSpeed;
         float num6 = (0f - _motorMass) * num5;
         float motorImpulse = _motorImpulse;
-        float num7 = data.step.dt * _maxMotorTorque;
+        float num7 = data.step.dt * MaxMotorTorque;
         _motorImpulse = MathUtils.Clamp(_motorImpulse + num6, 0f - num7, num7);
         num6 = _motorImpulse - motorImpulse;
         w -= invIA * num6;

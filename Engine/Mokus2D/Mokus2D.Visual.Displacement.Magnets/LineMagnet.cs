@@ -9,8 +9,6 @@ namespace Mokus2D.Visual.Displacement.Magnets;
 
 public class LineMagnet : GridMagnetBase
 {
-    private float _maxDistance;
-
     private Vector2 _start;
 
     private Vector2 _end;
@@ -43,12 +41,12 @@ public class LineMagnet : GridMagnetBase
 
     public float MaxDistance
     {
-        get => _maxDistance;
+        get;
         set
         {
-            if (_maxDistance != value)
+            if (field != value)
             {
-                _maxDistance = value;
+                field = value;
                 RefreshBounds();
             }
         }
@@ -78,7 +76,7 @@ public class LineMagnet : GridMagnetBase
     {
         Vector2 closestPoint = relativePosition.GetClosestPoint(Start, End);
         float num = closestPoint.DistanceTo(relativePosition);
-        return num >= _maxDistance
+        return num >= MaxDistance
             ? Vector2.Zero
             : relativePosition == closestPoint
             ? Vector2.Zero
@@ -89,8 +87,8 @@ public class LineMagnet : GridMagnetBase
     {
         Vector2 value = new(Math.Min(Start.X, End.X), Math.Min(Start.Y, End.Y));
         Vector2 value2 = (End - Start).Abs();
-        value -= new Vector2(_maxDistance);
-        value2 += new Vector2(_maxDistance) * 2f;
+        value -= new Vector2(MaxDistance);
+        value2 += new Vector2(MaxDistance) * 2f;
         value2 = VectorExtensions.Ceiling(value2);
         value = VectorExtensions.Floor(value);
         Bounds = new Rectangle((int)value.X, (int)value.Y, (int)value2.X, (int)value2.Y);

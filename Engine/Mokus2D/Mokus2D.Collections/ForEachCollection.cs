@@ -9,16 +9,13 @@ namespace Mokus2D.Collections;
 public class ForEachCollection<T> : IList<T>, ICollection<T>, IEnumerable<T>, IEnumerable, IForEachList
 {
     private readonly List<T> _list;
-
-    private readonly List<T> _toRemove = [];
-
     private readonly List<T> _toAdd = [];
 
     private bool _clean;
 
     private bool _inForEach;
 
-    public List<T> ToRemove => _toRemove;
+    public List<T> ToRemove { get; } = [];
 
     public bool IsReadOnly => ((ICollection<T>)_list).IsReadOnly;
 
@@ -74,10 +71,10 @@ public class ForEachCollection<T> : IList<T>, ICollection<T>, IEnumerable<T>, IE
             _clean = false;
             _list.Clear();
         }
-        if (!_toRemove.Empty())
+        if (!ToRemove.Empty())
         {
-            _list.RemoveListNoGarbage(_toRemove);
-            _toRemove.Clear();
+            _list.RemoveListNoGarbage(ToRemove);
+            ToRemove.Clear();
         }
         if (!_toAdd.Empty())
         {
@@ -139,7 +136,7 @@ public class ForEachCollection<T> : IList<T>, ICollection<T>, IEnumerable<T>, IE
     {
         if (_inForEach)
         {
-            _toRemove.Add((T)value);
+            ToRemove.Add((T)value);
         }
         else
         {
@@ -189,7 +186,7 @@ public class ForEachCollection<T> : IList<T>, ICollection<T>, IEnumerable<T>, IE
             {
                 _toAdd.Clear();
             }
-            _toRemove.Clear();
+            ToRemove.Clear();
             _clean = true;
         }
         else
@@ -321,7 +318,7 @@ public class ForEachCollection<T> : IList<T>, ICollection<T>, IEnumerable<T>, IE
     {
         if (_inForEach)
         {
-            _toRemove.Add(item);
+            ToRemove.Add(item);
             return true;
         }
         return _list.Remove(item);

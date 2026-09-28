@@ -13,19 +13,16 @@ public class Trajectory : ParticleSystem
     public float FadeOutDelay;
 
     public float Impulse = 1f;
-
-    private bool enabled;
-
     private readonly FadeAndHideEffect _fadeEffect;
 
     public bool Enabled
     {
-        get => enabled;
+        get;
         set
         {
-            if (enabled != value)
+            if (field != value)
             {
-                enabled = value;
+                field = value;
                 RefreshOpacity();
             }
         }
@@ -64,6 +61,6 @@ public class Trajectory : ParticleSystem
 
     private void RefreshOpacity()
     {
-        _fadeEffect.IsOn = enabled;
+        _fadeEffect.IsOn = Enabled;
     }
 }

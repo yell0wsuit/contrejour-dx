@@ -10,9 +10,6 @@ namespace ContreJourMono.ContreJour.Game.Hero;
 public class PointAndAngle
 {
     public float Angle;
-
-    private readonly float angleStep;
-
     private readonly float length;
 
     private Vector2 position;
@@ -23,7 +20,7 @@ public class PointAndAngle
 
     private float fawnProgress;
 
-    public float AngleStep => angleStep;
+    public float AngleStep { get; }
 
     public Vector2 Position => VectorExtensions.Rotate(position, Angle);
 
@@ -31,7 +28,7 @@ public class PointAndAngle
     {
         position = new Vector2(length * 0.5f, 0f);
         this.length = length;
-        this.angleStep = angleStep;
+        AngleStep = angleStep;
         this.angleOffset = angleOffset;
     }
 
