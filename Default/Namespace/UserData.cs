@@ -383,7 +383,9 @@ public class UserData
         }
     }
 
-    private static string DataFilePath => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ContreJour", FILE_NAME);
+    public static string DataDirectory { get; set; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ContreJour");
+
+    private static string DataFilePath => Path.Combine(DataDirectory, FILE_NAME);
 
     private static UserData ReadUserData()
     {

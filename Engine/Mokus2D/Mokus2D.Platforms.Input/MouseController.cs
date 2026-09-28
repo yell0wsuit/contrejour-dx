@@ -76,7 +76,7 @@ public static class MouseController
 
 	public static void Update(float time)
 	{
-		if (Mokus2DGame.Instance.IsActive)
+		if (Mokus2DGame.Instance.AcceptsInput)
 		{
 			MouseState state = Mouse.GetState();
 			DispatchScroll(state);

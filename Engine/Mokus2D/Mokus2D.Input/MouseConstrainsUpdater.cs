@@ -12,7 +12,7 @@ public class MouseConstrainsUpdater
 	{
 		get
 		{
-			if (Mokus2DGame.Instance.IsActive)
+			if (Mokus2DGame.Instance.AcceptsInput)
 			{
 				return Mokus2DGame.Instance.IsFullScreen;
 			}

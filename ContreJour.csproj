@@ -6,9 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <!-- Engine projects live in their own folders -->
-    <Compile Remove="Engine/**" />
-    <None Remove="Engine/**" />
+    <!-- Engine and tool projects live in their own folders -->
+    <Compile Remove="Engine/**;tools/**" />
+    <None Remove="Engine/**;tools/**" />
     <None Remove="GameContents/**" />
   </ItemGroup>
 

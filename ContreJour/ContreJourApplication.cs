@@ -56,6 +56,8 @@ public class ContreJourApplication : Mokus2DGame
 
     public static Dictionary<int, FontData> Fonts => fonts;
 
+    protected virtual bool StartFullScreen => true;
+
     // The Windows 8 build blocked play while the app was snapped (window smaller than at launch).
     // Desktop has no snapped view, and macOS shrinks the full screen window below the notch/menu bar
     // after launch, so the original size comparison would block the game permanently.
@@ -120,7 +122,7 @@ public class ContreJourApplication : Mokus2DGame
         Mokus2DGame.Config.AnimationFPS = 30f;
         TintGraphicsConfig graphicsConfig = new TintGraphicsConfig(tintEnabled: false);
         Mokus2DGame.Config.GraphicsConfig = graphicsConfig;
-        base.ApplicationController.IsFullScreen = true;
+        base.ApplicationController.IsFullScreen = StartFullScreen;
         base.ApplicationController.ApplyGraphicsChanges();
         base.ApplicationController.IsFixedTimeStep = false;
         StartApplication();

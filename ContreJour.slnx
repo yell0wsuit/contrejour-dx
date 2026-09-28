@@ -6,4 +6,7 @@
     <Project Path="Engine/Mokus2D/Mokus2D.csproj" />
     <Project Path="Engine/Mokus2D.Integration.Farseer/Mokus2D.Integration.Farseer.csproj" />
   </Folder>
+  <Folder Name="/tools/">
+    <Project Path="tools/Regression/ContreJour.Regression.csproj" />
+  </Folder>
 </Solution>

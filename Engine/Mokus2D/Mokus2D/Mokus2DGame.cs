@@ -111,6 +111,11 @@ public abstract class Mokus2DGame : DisposableBase
 
 	public bool IsActive => ApplicationController.IsActive;
 
+	// Lets automated runs (tools/Regression) ignore the real mouse, keyboard and touch input.
+	public bool InputEnabled { get; set; } = true;
+
+	public bool AcceptsInput => InputEnabled && IsActive;
+
 	public bool IsFullScreen
 	{
 		get
@@ -270,8 +275,11 @@ public abstract class Mokus2DGame : DisposableBase
 		{
 			time = Math.Min(time, MaxUpdateTime.Value);
 		}
-		KeysController.Update(time);
-		if (ApplicationController.IsActive)
+		if (InputEnabled)
+		{
+			KeysController.Update(time);
+		}
+		if (AcceptsInput)
 		{
 			TouchController.Update(time);
 		}
