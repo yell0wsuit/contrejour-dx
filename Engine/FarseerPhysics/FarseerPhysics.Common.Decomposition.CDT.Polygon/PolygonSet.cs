@@ -4,7 +4,7 @@ namespace FarseerPhysics.Common.Decomposition.CDT.Polygon;
 
 internal class PolygonSet
 {
-    protected List<Polygon> _polygons = new List<Polygon>();
+    protected List<Polygon> _polygons = [];
 
     public IEnumerable<Polygon> Polygons => _polygons;
 

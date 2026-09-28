@@ -43,8 +43,8 @@ public class RenderSprite : Sprite
         Anchor = Vector2.Zero;
         if (Mokus2DGame.Config.RenderTargetEnabled)
         {
-            RenderRoot = new RootNode(base.Texture.Width, base.Texture.Height);
-            _renderTarget = (RenderTarget2D)base.Texture;
+            RenderRoot = new RootNode(Texture.Width, Texture.Height);
+            _renderTarget = (RenderTarget2D)Texture;
             InitRoot(spritesScaleFactor, rootScale);
             _container = RenderRoot;
         }
@@ -63,7 +63,7 @@ public class RenderSprite : Sprite
     public override void ResetTexture(Texture2D texture)
     {
         base.ResetTexture(texture);
-        _renderTarget = (RenderTarget2D)base.Texture;
+        _renderTarget = (RenderTarget2D)Texture;
     }
 
     public void SetRootEffect(ISpriteBatchEffect effect)
@@ -93,7 +93,7 @@ public class RenderSprite : Sprite
     protected override void OnAddedToStage()
     {
         base.OnAddedToStage();
-        InitRoot(base.Root.SpritesScaleFactor);
+        InitRoot(Root.SpritesScaleFactor);
     }
 
     public void UpdateAndDraw(float time = 0f)
@@ -106,7 +106,7 @@ public class RenderSprite : Sprite
     {
         if (Mokus2DGame.Config.RenderTargetEnabled)
         {
-            RenderRoot.Position = base.AnchorInPixels;
+            RenderRoot.Position = AnchorInPixels;
             Mokus2DGame.Device.SetRenderTarget(_renderTarget);
             Mokus2DGame.Device.Clear(ClearColor);
             DrawContent();
@@ -159,8 +159,10 @@ public class RenderSprite : Sprite
 
     public void AddDebugLayer(string whiteRect, Color color)
     {
-        LayerColor layerColor = new LayerColor(color, whiteRect);
-        layerColor.OpacityFloat = 0.3f;
+        LayerColor layerColor = new(color, whiteRect)
+        {
+            OpacityFloat = 0.3f
+        };
         AddChild(layerColor, int.MaxValue);
     }
 }

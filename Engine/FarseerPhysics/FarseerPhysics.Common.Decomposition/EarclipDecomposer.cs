@@ -11,7 +11,7 @@ internal static class EarclipDecomposer
     {
         public Triangle(float x1, float y1, float x2, float y2, float x3, float y3)
         {
-            float num = (x2 - x1) * (y3 - y1) - (x3 - x1) * (y2 - y1);
+            float num = ((x2 - x1) * (y3 - y1)) - ((x3 - x1) * (y2 - y1));
             if (num > 0f)
             {
                 Add(new Vector2(x1, y1));
@@ -53,19 +53,15 @@ internal static class EarclipDecomposer
             float num4 = vector2.Y - vector.Y;
             float num5 = vector3.X - vector.X;
             float num6 = vector3.Y - vector.Y;
-            float num7 = num5 * num5 + num6 * num6;
-            float num8 = num5 * num3 + num6 * num4;
-            float num9 = num5 * num + num6 * num2;
-            float num10 = num3 * num3 + num4 * num4;
-            float num11 = num3 * num + num4 * num2;
-            float num12 = 1f / (num7 * num10 - num8 * num8);
-            float num13 = (num10 * num9 - num8 * num11) * num12;
-            float num14 = (num7 * num11 - num8 * num9) * num12;
-            if (num13 > 0f && num14 > 0f)
-            {
-                return num13 + num14 < 1f;
-            }
-            return false;
+            float num7 = (num5 * num5) + (num6 * num6);
+            float num8 = (num5 * num3) + (num6 * num4);
+            float num9 = (num5 * num) + (num6 * num2);
+            float num10 = (num3 * num3) + (num4 * num4);
+            float num11 = (num3 * num) + (num4 * num2);
+            float num12 = 1f / ((num7 * num10) - (num8 * num8));
+            float num13 = ((num10 * num9) - (num8 * num11)) * num12;
+            float num14 = ((num7 * num11) - (num8 * num9)) * num12;
+            return num13 > 0f && num14 > 0f ? num13 + num14 < 1f : false;
         }
     }
 
@@ -78,11 +74,11 @@ internal static class EarclipDecomposer
     {
         if (vertices.Count < 3)
         {
-            return new List<Vertices>();
+            return [];
         }
-        List<Vertices> list = new List<Vertices>();
-        Vertices pin = new Vertices(vertices);
-        if (ResolvePinchPoint(pin, out var poutA, out var poutB, tolerance))
+        List<Vertices> list = [];
+        Vertices pin = new(vertices);
+        if (ResolvePinchPoint(pin, out Vertices poutA, out Vertices poutB, tolerance))
         {
             List<Vertices> list2 = TriangulatePolygon(poutA, tolerance);
             List<Vertices> list3 = TriangulatePolygon(poutB, tolerance);
@@ -120,9 +116,9 @@ internal static class EarclipDecomposer
                 {
                     int num5 = Remainder(l - 1, num2);
                     int num6 = Remainder(l + 1, num2);
-                    Vector2 a = new Vector2(array2[num6] - array2[l], array3[num6] - array3[l]);
-                    Vector2 b = new Vector2(array2[l] - array2[num5], array3[l] - array3[num5]);
-                    Vector2 b2 = new Vector2(array2[num5] - array2[num6], array3[num5] - array3[num6]);
+                    Vector2 a = new(array2[num6] - array2[l], array3[num6] - array3[l]);
+                    Vector2 b = new(array2[l] - array2[num5], array3[l] - array3[num5]);
+                    Vector2 b2 = new(array2[num5] - array2[num6], array3[num5] - array3[num6]);
                     a.Normalize();
                     b.Normalize();
                     b2.Normalize();
@@ -162,15 +158,15 @@ internal static class EarclipDecomposer
                 array5[n] = array3[num8];
                 num8++;
             }
-            int num9 = ((num3 == 0) ? num2 : (num3 - 1));
-            int num10 = ((num3 != num2) ? (num3 + 1) : 0);
-            Triangle triangle = new Triangle(array2[num3], array3[num3], array2[num10], array3[num10], array2[num9], array3[num9]);
+            int num9 = (num3 == 0) ? num2 : (num3 - 1);
+            int num10 = (num3 != num2) ? (num3 + 1) : 0;
+            Triangle triangle = new(array2[num3], array3[num3], array2[num10], array3[num10], array2[num9], array3[num9]);
             array[num] = triangle;
             num++;
             array2 = array4;
             array3 = array5;
         }
-        Triangle triangle2 = new Triangle(array2[1], array3[1], array2[2], array3[2], array2[0], array3[0]);
+        Triangle triangle2 = new(array2[1], array3[1], array2[2], array3[2], array2[0], array3[0]);
         array[num] = triangle2;
         num++;
         for (int num11 = 0; num11 < num; num11++)
@@ -182,8 +178,8 @@ internal static class EarclipDecomposer
 
     private static bool ResolvePinchPoint(Vertices pin, out Vertices poutA, out Vertices poutB, float tolerance)
     {
-        poutA = new Vertices();
-        poutB = new Vertices();
+        poutA = [];
+        poutB = [];
         if (pin.Count < 3)
         {
             return false;
@@ -274,12 +270,12 @@ internal static class EarclipDecomposer
             num5 = xv[i + 1] - xv[i];
             num6 = yv[i + 1] - yv[i];
         }
-        float num7 = num3 * num6 - num5 * num4;
+        float num7 = (num3 * num6) - (num5 * num4);
         if (num7 > 0f)
         {
             return false;
         }
-        Triangle triangle = new Triangle(xv[i], yv[i], xv[num], yv[num], xv[num2], yv[num2]);
+        Triangle triangle = new(xv[i], yv[i], xv[num], yv[num], xv[num2], yv[num2]);
         for (int j = 0; j < xvLength; j++)
         {
             if (j != i && j != num2 && j != num && triangle.IsInside(xv[j], yv[j]))

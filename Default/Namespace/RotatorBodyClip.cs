@@ -37,7 +37,7 @@ public class RotatorBodyClip : FurBodyClip, IClickable, IRestartable, ISnotHolde
 
     protected float lastPointSpeed;
 
-    private static string[] GRASS_SPRITES = new string[3] { "McRotatorGrass0", "McRotatorGrass1", "McRotatorGrass2" };
+    private static string[] GRASS_SPRITES = ["McRotatorGrass0", "McRotatorGrass1", "McRotatorGrass2"];
 
     private float ACTION_TIME = 2.5f;
 
@@ -90,14 +90,14 @@ public class RotatorBodyClip : FurBodyClip, IClickable, IRestartable, ISnotHolde
     private void StopActions()
     {
         circle.Tweener.Stop();
-        circle.FadeTo(0.5f, 40f / 51f);
+        _ = circle.FadeTo(0.5f, 40f / 51f);
         touchPoint.Tweener.Stop();
-        touchPoint.FadeTo(0.5f, 40f / 51f);
+        _ = touchPoint.FadeTo(0.5f, 40f / 51f);
     }
 
     private void RunFadeIn_Out_(Node node, float _in, float _out)
     {
-        node.Tweener.RepeatSequenceForever(ACTION_TIME).FadeTo(_out).Next(ACTION_TIME)
+        _ = node.Tweener.RepeatSequenceForever(ACTION_TIME).FadeTo(_out).Next(ACTION_TIME)
             .FadeTo(_in);
     }
 
@@ -150,14 +150,14 @@ public class RotatorBodyClip : FurBodyClip, IClickable, IRestartable, ISnotHolde
         else
         {
             touchPointSpeed = Maths.StepTo(touchPointSpeed, touchPointNeededSpeed, 0.003f);
-            touchPointAngle += touchPointSpeed * (float)Math.Sign(lastDirection);
+            touchPointAngle += touchPointSpeed * Math.Sign(lastDirection);
         }
         touchPoint.Position = VectorUtil.ToVector(POINT_OFFSET, touchPointAngle - Body.Rotation);
         float num2 = targetAngle - Body.Rotation;
         if (Math.Abs(num2) > 0.0062831854f)
         {
-            int num3 = ((touch != null) ? 20 : 5);
-            Body.AngularVelocity = num2 * (float)num3;
+            int num3 = (touch != null) ? 20 : 5;
+            Body.AngularVelocity = num2 * num3;
         }
         else
         {
@@ -215,13 +215,9 @@ public class RotatorBodyClip : FurBodyClip, IClickable, IRestartable, ISnotHolde
         {
             targetAngle = num;
         }
-        else if (lastDirection < 0f)
-        {
-            targetAngle = Maths.Floor(targetAngle, ANGLE_REMAINDER);
-        }
         else
         {
-            targetAngle = Maths.Ceil(targetAngle, ANGLE_REMAINDER);
+            targetAngle = lastDirection < 0f ? Maths.Floor(targetAngle, ANGLE_REMAINDER) : Maths.Ceil(targetAngle, ANGLE_REMAINDER);
         }
         RunActions();
         touch = null;

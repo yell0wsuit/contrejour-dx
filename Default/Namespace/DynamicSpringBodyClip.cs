@@ -20,11 +20,7 @@ public class DynamicSpringBodyClip : SpringBodyClip
     {
         get
         {
-            if (!(oldPosition != Body.Position))
-            {
-                return oldAngle != Body.Rotation;
-            }
-            return true;
+            return !(oldPosition != Body.Position) ? oldAngle != Body.Rotation : true;
         }
     }
 

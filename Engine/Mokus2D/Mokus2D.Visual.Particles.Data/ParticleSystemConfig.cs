@@ -23,7 +23,7 @@ public class ParticleSystemConfig : ICloneable<ParticleSystemConfig>
     public bool BlendAdditive;
 
     [DataMember]
-    public readonly List<string> ParticleIds = new List<string>();
+    public readonly List<string> ParticleIds = [];
 
     [DataMember]
     public float UpdateSpeed = 1f;
@@ -47,28 +47,28 @@ public class ParticleSystemConfig : ICloneable<ParticleSystemConfig>
     public bool RadialPosition = true;
 
     [DataMember]
-    public RandomRange StartSpeed = new RandomRange(100f, 0f);
+    public RandomRange StartSpeed = new(100f, 0f);
 
     [DataMember]
-    public RandomRange StartSpeedAngle = new RandomRange(0f, 0f);
+    public RandomRange StartSpeedAngle = new(0f, 0f);
 
     [DataMember]
     public bool EndSpeedEnabled = true;
 
     [DataMember]
-    public RandomRange EndSpeed = new RandomRange(0f, 0f);
+    public RandomRange EndSpeed = new(0f, 0f);
 
     [DataMember]
-    public RandomRange EndSpeedAngle = new RandomRange(0f, 0f);
+    public RandomRange EndSpeedAngle = new(0f, 0f);
 
     [DataMember]
     public bool LockRotationToSpeed;
 
     [DataMember]
-    public RandomRange FadeInTime = new RandomRange(0.1f, 0f);
+    public RandomRange FadeInTime = new(0.1f, 0f);
 
     [DataMember]
-    public RandomRange FadeOutTime = new RandomRange(0.1f, 0f);
+    public RandomRange FadeOutTime = new(0.1f, 0f);
 
     [DataMember]
     public RandomRange LifeTime;
@@ -77,25 +77,25 @@ public class ParticleSystemConfig : ICloneable<ParticleSystemConfig>
     public RandomRange? LifeDistance;
 
     [DataMember]
-    public RandomRange StartScale = new RandomRange(1f, 0f);
+    public RandomRange StartScale = new(1f, 0f);
 
     [DataMember]
-    public RandomRange EndScale = new RandomRange(0.5f, 0f);
+    public RandomRange EndScale = new(0.5f, 0f);
 
     [DataMember]
-    public RandomRange StartOpacity = new RandomRange(1f, 0f);
+    public RandomRange StartOpacity = new(1f, 0f);
 
     [DataMember]
-    public RandomRange EndOpacity = new RandomRange(0.5f, 0f);
+    public RandomRange EndOpacity = new(0.5f, 0f);
 
     [DataMember]
-    public RandomRange CreateDelay = new RandomRange(1f, 0f);
+    public RandomRange CreateDelay = new(1f, 0f);
 
     [DataMember]
-    public RandomRange StartRotation = new RandomRange(0f, 0f);
+    public RandomRange StartRotation = new(0f, 0f);
 
     [DataMember]
-    public RandomRange RotationSpeed = new RandomRange(0f, 0f);
+    public RandomRange RotationSpeed = new(0f, 0f);
 
     [DataMember]
     public bool CanFlipX;
@@ -117,10 +117,7 @@ public class ParticleSystemConfig : ICloneable<ParticleSystemConfig>
     [DataMember]
     public Color EndColor
     {
-        get
-        {
-            return _endColor;
-        }
+        get => _endColor;
         set
         {
             if (_endColor != value)
@@ -134,10 +131,7 @@ public class ParticleSystemConfig : ICloneable<ParticleSystemConfig>
     [DataMember]
     public Color StartColor
     {
-        get
-        {
-            return _startColor;
-        }
+        get => _startColor;
         set
         {
             if (value != _startColor)
@@ -161,16 +155,16 @@ public class ParticleSystemConfig : ICloneable<ParticleSystemConfig>
 
     public ParticleData CreateParticleData()
     {
-        Sprite particle = new Sprite(ParticleIds.RandomItem());
-        ParticleData particleData = new ParticleData(particle, this);
+        Sprite particle = new(ParticleIds.RandomItem());
+        ParticleData particleData = new(particle, this);
         Initialize(particleData);
         return particleData;
     }
 
     public void Initialize(ParticleData data)
     {
-        Vector2 vector = ((!RadialPosition) ? new Vector2(Maths.Random(-1f, 1f), Maths.Random(-1f, 1f)) : VectorUtil.ToVector(Maths.Random(1f), Maths.Random((float)Math.PI * 2f)));
-        data.Particle.Position = vector * PositionRange + ParticlesPosition;
+        Vector2 vector = (!RadialPosition) ? new Vector2(Maths.Random(-1f, 1f), Maths.Random(-1f, 1f)) : VectorUtil.ToVector(Maths.Random(1f), Maths.Random((float)Math.PI * 2f));
+        data.Particle.Position = (vector * PositionRange) + ParticlesPosition;
         data.LifeTime = LifeTime.GetValueInRange();
         data.FadeInTime = FadeInTime.GetValueInRange();
         data.FadeOutTime = FadeOutTime.GetValueInRange();
@@ -178,7 +172,7 @@ public class ParticleSystemConfig : ICloneable<ParticleSystemConfig>
         Vector2 vector2 = VectorUtil.ToVector(EndSpeed.GetValueInRange(), EndSpeedAngle.GetValueInRange());
         data.Acceleration = (vector2 - data.Speed) / (data.LifeTime + data.FadeInTime + data.FadeOutTime);
         data.LifeDistance = GetValueInRange(LifeDistance);
-        Vector2 vector3 = new Vector2(1f);
+        Vector2 vector3 = new(1f);
         if (CanFlipX && Maths.Random(2) == 1)
         {
             vector3.X = -1f;
@@ -198,18 +192,14 @@ public class ParticleSystemConfig : ICloneable<ParticleSystemConfig>
         data.RotationSpeed = RotationSpeed.GetValueInRange();
         if (data.Particle is Sprite sprite)
         {
-            sprite.Blend = (BlendAdditive ? BlendState.Additive : Mokus2DGame.Config.DefaultSpriteBatchProperties.Blend);
+            sprite.Blend = BlendAdditive ? BlendState.Additive : Mokus2DGame.Config.DefaultSpriteBatchProperties.Blend;
         }
         data.Initialize();
     }
 
     private float? GetValueInRange(RandomRange? range)
     {
-        if (range.HasValue)
-        {
-            return range.Value.GetValueInRange();
-        }
-        return null;
+        return range.HasValue ? range.Value.GetValueInRange() : null;
     }
 
     public ParticleSystemConfig Clone()

@@ -25,9 +25,6 @@ public class NodeContainer : Node
     protected override void Dispose(bool disposing)
     {
         base.Dispose(disposing);
-        if (_node != null)
-        {
-            _node.Dispose();
-        }
+        _node?.Dispose();
     }
 }

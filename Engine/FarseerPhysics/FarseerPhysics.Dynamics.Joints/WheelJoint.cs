@@ -68,38 +68,23 @@ public class WheelJoint : Joint
 
     public override Vector2 WorldAnchorA
     {
-        get
-        {
-            return base.BodyA.GetWorldPoint(LocalAnchorA);
-        }
-        set
-        {
-            LocalAnchorA = base.BodyA.GetLocalPoint(value);
-        }
+        get => BodyA.GetWorldPoint(LocalAnchorA);
+        set => LocalAnchorA = BodyA.GetLocalPoint(value);
     }
 
     public override Vector2 WorldAnchorB
     {
-        get
-        {
-            return base.BodyB.GetWorldPoint(LocalAnchorB);
-        }
-        set
-        {
-            LocalAnchorB = base.BodyB.GetLocalPoint(value);
-        }
+        get => BodyB.GetWorldPoint(LocalAnchorB);
+        set => LocalAnchorB = BodyB.GetLocalPoint(value);
     }
 
     public Vector2 Axis
     {
-        get
-        {
-            return _axis;
-        }
+        get => _axis;
         set
         {
             _axis = value;
-            LocalXAxis = base.BodyA.GetLocalVector(_axis);
+            LocalXAxis = BodyA.GetLocalVector(_axis);
             _localYAxis = MathUtils.Cross(1f, LocalXAxis);
         }
     }
@@ -108,10 +93,7 @@ public class WheelJoint : Joint
 
     public float MotorSpeed
     {
-        get
-        {
-            return _motorSpeed;
-        }
+        get => _motorSpeed;
         set
         {
             WakeBodies();
@@ -121,10 +103,7 @@ public class WheelJoint : Joint
 
     public float MaxMotorTorque
     {
-        get
-        {
-            return _maxMotorTorque;
-        }
+        get => _maxMotorTorque;
         set
         {
             WakeBodies();
@@ -140,8 +119,8 @@ public class WheelJoint : Joint
     {
         get
         {
-            Body bodyA = base.BodyA;
-            Body bodyB = base.BodyB;
+            Body bodyA = BodyA;
+            Body bodyB = BodyB;
             Vector2 worldPoint = bodyA.GetWorldPoint(LocalAnchorA);
             Vector2 worldPoint2 = bodyB.GetWorldPoint(LocalAnchorB);
             Vector2 value = worldPoint2 - worldPoint;
@@ -154,18 +133,15 @@ public class WheelJoint : Joint
     {
         get
         {
-            float angularVelocity = base.BodyA.AngularVelocity;
-            float angularVelocity2 = base.BodyB.AngularVelocity;
+            float angularVelocity = BodyA.AngularVelocity;
+            float angularVelocity2 = BodyB.AngularVelocity;
             return angularVelocity2 - angularVelocity;
         }
     }
 
     public bool MotorEnabled
     {
-        get
-        {
-            return _enableMotor;
-        }
+        get => _enableMotor;
         set
         {
             WakeBodies();
@@ -175,13 +151,13 @@ public class WheelJoint : Joint
 
     internal WheelJoint()
     {
-        base.JointType = JointType.Wheel;
+        JointType = JointType.Wheel;
     }
 
     public WheelJoint(Body bodyA, Body bodyB, Vector2 anchor, Vector2 axis, bool useWorldCoordinates = false)
         : base(bodyA, bodyB)
     {
-        base.JointType = JointType.Wheel;
+        JointType = JointType.Wheel;
         if (useWorldCoordinates)
         {
             LocalAnchorA = bodyA.GetLocalPoint(anchor);
@@ -202,7 +178,7 @@ public class WheelJoint : Joint
 
     public override Vector2 GetReactionForce(float invDt)
     {
-        return invDt * (_impulse * _ay + _springImpulse * _ax);
+        return invDt * ((_impulse * _ay) + (_springImpulse * _ax));
     }
 
     public override float GetReactionTorque(float invDt)
@@ -212,14 +188,14 @@ public class WheelJoint : Joint
 
     internal override void InitVelocityConstraints(ref SolverData data)
     {
-        _indexA = base.BodyA.IslandIndex;
-        _indexB = base.BodyB.IslandIndex;
-        _localCenterA = base.BodyA._sweep.LocalCenter;
-        _localCenterB = base.BodyB._sweep.LocalCenter;
-        _invMassA = base.BodyA._invMass;
-        _invMassB = base.BodyB._invMass;
-        _invIA = base.BodyA._invI;
-        _invIB = base.BodyB._invI;
+        _indexA = BodyA.IslandIndex;
+        _indexB = BodyB.IslandIndex;
+        _localCenterA = BodyA._sweep.LocalCenter;
+        _localCenterB = BodyB._sweep.LocalCenter;
+        _invMassA = BodyA._invMass;
+        _invMassB = BodyB._invMass;
+        _invIA = BodyA._invI;
+        _invIB = BodyB._invI;
         float invMassA = _invMassA;
         float invMassB = _invMassB;
         float invIA = _invIA;
@@ -232,15 +208,15 @@ public class WheelJoint : Joint
         float a2 = data.positions[_indexB].a;
         Vector2 v2 = data.velocities[_indexB].v;
         float w2 = data.velocities[_indexB].w;
-        Rot q = new Rot(a);
-        Rot q2 = new Rot(a2);
+        Rot q = new(a);
+        Rot q2 = new(a2);
         Vector2 vector = MathUtils.Mul(q, LocalAnchorA - _localCenterA);
         Vector2 vector2 = MathUtils.Mul(q2, LocalAnchorB - _localCenterB);
         Vector2 vector3 = c2 + vector2 - c - vector;
         _ay = MathUtils.Mul(q, _localYAxis);
         _sAy = MathUtils.Cross(vector3 + vector, _ay);
         _sBy = MathUtils.Cross(vector2, _ay);
-        _mass = invMassA + invMassB + invIA * _sAy * _sAy + invIB * _sBy * _sBy;
+        _mass = invMassA + invMassB + (invIA * _sAy * _sAy) + (invIB * _sBy * _sBy);
         if (_mass > 0f)
         {
             _mass = 1f / _mass;
@@ -253,7 +229,7 @@ public class WheelJoint : Joint
             _ax = MathUtils.Mul(q, LocalXAxis);
             _sAx = MathUtils.Cross(vector3 + vector, _ax);
             _sBx = MathUtils.Cross(vector2, _ax);
-            float num = invMassA + invMassB + invIA * _sAx * _sAx + invIB * _sBx * _sBx;
+            float num = invMassA + invMassB + (invIA * _sAx * _sAx) + (invIB * _sBx * _sBx);
             if (num > 0f)
             {
                 _springMass = 1f / num;
@@ -262,7 +238,7 @@ public class WheelJoint : Joint
                 float num4 = 2f * _springMass * DampingRatio * num3;
                 float num5 = _springMass * num3 * num3;
                 float dt = data.step.dt;
-                _gamma = dt * (num4 + dt * num5);
+                _gamma = dt * (num4 + (dt * num5));
                 if (_gamma > 0f)
                 {
                     _gamma = 1f / _gamma;
@@ -295,9 +271,9 @@ public class WheelJoint : Joint
         _impulse *= data.step.dtRatio;
         _springImpulse *= data.step.dtRatio;
         _motorImpulse *= data.step.dtRatio;
-        Vector2 vector4 = _impulse * _ay + _springImpulse * _ax;
-        float num6 = _impulse * _sAy + _springImpulse * _sAx + _motorImpulse;
-        float num7 = _impulse * _sBy + _springImpulse * _sBx + _motorImpulse;
+        Vector2 vector4 = (_impulse * _ay) + (_springImpulse * _ax);
+        float num6 = (_impulse * _sAy) + (_springImpulse * _sAx) + _motorImpulse;
+        float num7 = (_impulse * _sBy) + (_springImpulse * _sBx) + _motorImpulse;
         v -= _invMassA * vector4;
         w -= _invIA * num6;
         v2 += _invMassB * vector4;
@@ -318,8 +294,8 @@ public class WheelJoint : Joint
         float w = data.velocities[_indexA].w;
         Vector2 v2 = data.velocities[_indexB].v;
         float w2 = data.velocities[_indexB].w;
-        float num = Vector2.Dot(_ax, v2 - v) + _sBx * w2 - _sAx * w;
-        float num2 = (0f - _springMass) * (num + _bias + _gamma * _springImpulse);
+        float num = Vector2.Dot(_ax, v2 - v) + (_sBx * w2) - (_sAx * w);
+        float num2 = (0f - _springMass) * (num + _bias + (_gamma * _springImpulse));
         _springImpulse += num2;
         Vector2 vector = num2 * _ax;
         float num3 = num2 * _sAx;
@@ -336,7 +312,7 @@ public class WheelJoint : Joint
         num6 = _motorImpulse - motorImpulse;
         w -= invIA * num6;
         w2 += invIB * num6;
-        float num8 = Vector2.Dot(_ay, v2 - v) + _sBy * w2 - _sAy * w;
+        float num8 = Vector2.Dot(_ay, v2 - v) + (_sBy * w2) - (_sAy * w);
         float num9 = (0f - _mass) * num8;
         _impulse += num9;
         Vector2 vector2 = num9 * _ay;
@@ -358,8 +334,8 @@ public class WheelJoint : Joint
         float a = data.positions[_indexA].a;
         Vector2 c2 = data.positions[_indexB].c;
         float a2 = data.positions[_indexB].a;
-        Rot q = new Rot(a);
-        Rot q2 = new Rot(a2);
+        Rot q = new(a);
+        Rot q2 = new(a2);
         Vector2 vector = MathUtils.Mul(q, LocalAnchorA - _localCenterA);
         Vector2 vector2 = MathUtils.Mul(q2, LocalAnchorB - _localCenterB);
         Vector2 vector3 = c2 - c + vector2 - vector;
@@ -367,8 +343,8 @@ public class WheelJoint : Joint
         float num = MathUtils.Cross(vector3 + vector, vector4);
         float num2 = MathUtils.Cross(vector2, vector4);
         float num3 = Vector2.Dot(vector3, vector4);
-        float num4 = _invMassA + _invMassB + _invIA * _sAy * _sAy + _invIB * _sBy * _sBy;
-        float num5 = ((num4 == 0f) ? 0f : ((0f - num3) / num4));
+        float num4 = _invMassA + _invMassB + (_invIA * _sAy * _sAy) + (_invIB * _sBy * _sBy);
+        float num5 = (num4 == 0f) ? 0f : ((0f - num3) / num4);
         Vector2 vector5 = num5 * vector4;
         float num6 = num5 * num;
         float num7 = num5 * num2;

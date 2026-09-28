@@ -8,7 +8,7 @@ namespace Mokus2D.Effects.Actions.Particles;
 
 public class LinesFlyOut : LinesFlyBase
 {
-    private static readonly Pool<LinesFlyOut> pool = new Pool<LinesFlyOut>(() => new LinesFlyOut());
+    private static readonly Pool<LinesFlyOut> pool = new(() => new LinesFlyOut());
 
     public static LinesFlyOut New(float linesDelay, float particleEffectSeconds, float particlesOffset)
     {
@@ -21,7 +21,7 @@ public class LinesFlyOut : LinesFlyBase
 
     protected new LinesFlyOut Initialize(float linesDelay, float particleEffectSeconds, float particlesOffset)
     {
-        base.Initialize(linesDelay, particleEffectSeconds, particlesOffset);
+        _ = base.Initialize(linesDelay, particleEffectSeconds, particlesOffset);
         return this;
     }
 

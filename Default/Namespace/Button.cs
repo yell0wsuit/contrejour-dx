@@ -24,27 +24,18 @@ public class Button : TouchSprite
 
     public float RealScale
     {
-        get
-        {
-            return realScale;
-        }
+        get => realScale;
         set
         {
             realScale = value;
-            base.Scale = value;
+            Scale = value;
         }
     }
 
     public bool Enabled
     {
-        get
-        {
-            return enabled;
-        }
-        set
-        {
-            enabled = value;
-        }
+        get => enabled;
+        set => enabled = value;
     }
 
     public Sprite Icon => icon;
@@ -103,26 +94,22 @@ public class Button : TouchSprite
         {
             touch.StopPropagation();
         }
-        base.TouchBegin(touch);
+        _ = base.TouchBegin(touch);
         touching = true;
         if (pressed != null)
         {
             pressed.Visible = true;
             pressed.Tweener.Stop();
-            pressed.FadeIn(0.1f);
+            _ = pressed.FadeIn(0.1f);
         }
-        this.ScaleTo(0.1f, realScale * 1.1f);
+        _ = this.ScaleTo(0.1f, realScale * 1.1f);
         return true;
     }
 
     public override bool TouchOut(Touch touch)
     {
         HidePressed();
-        if (!enabled)
-        {
-            return false;
-        }
-        return base.TouchOut(touch);
+        return !enabled ? false : base.TouchOut(touch);
     }
 
     public override void TouchEnd(Touch touch)
@@ -140,7 +127,7 @@ public class Button : TouchSprite
         if (touching)
         {
             touching = false;
-            this.Schedule(0.2f, DoHidePressed);
+            _ = this.Schedule(0.2f, DoHidePressed);
         }
     }
 
@@ -148,11 +135,11 @@ public class Button : TouchSprite
     {
         if (!touching)
         {
-            this.ScaleTo(0.1f, realScale);
+            _ = this.ScaleTo(0.1f, realScale);
             if (pressed != null)
             {
                 pressed.Tweener.Stop();
-                pressed.FadeOutAndHide(0.3f);
+                _ = pressed.FadeOutAndHide(0.3f);
             }
         }
     }
@@ -160,6 +147,6 @@ public class Button : TouchSprite
     protected override void OnAddedToStage()
     {
         base.OnAddedToStage();
-        base.Scale = realScale;
+        Scale = realScale;
     }
 }

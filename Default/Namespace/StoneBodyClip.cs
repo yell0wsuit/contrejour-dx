@@ -14,6 +14,6 @@ public class StoneBodyClip : ContreJourBodyClip
     public override void Update(float time)
     {
         base.Update(time);
-        clip.Color = Color.White * base.Game.LightPower;
+        clip.Color = Color.White * Game.LightPower;
     }
 }

@@ -14,9 +14,9 @@ public class GameBase : Node, IUpdatable
 {
     protected LevelBuilderBase builder;
 
-    protected List<IRemovable> updatables = new List<IRemovable>();
+    protected List<IRemovable> updatables = [];
 
-    protected readonly Node gameRoot = new Node();
+    protected readonly Node gameRoot = new();
 
     protected EventSender levelLoadedEvent;
 
@@ -30,7 +30,7 @@ public class GameBase : Node, IUpdatable
 
     private Vector2 physicsLevelSize = Mokus2DGame.Instance.ScreenSize * Box2DConfig.DefaultConfig.SizeMultiplier;
 
-    private List<object> _toRemove = new List<object>();
+    private List<object> _toRemove = [];
 
     public LevelBuilderBase Builder => builder;
 
@@ -40,14 +40,8 @@ public class GameBase : Node, IUpdatable
 
     public virtual bool Paused
     {
-        get
-        {
-            return paused;
-        }
-        set
-        {
-            paused = value;
-        }
+        get => paused;
+        set => paused = value;
     }
 
     public float TotalTime => totalTime;
@@ -72,10 +66,7 @@ public class GameBase : Node, IUpdatable
 
     public void DoLoadLevel(string levelName)
     {
-        if (_levelsCache == null)
-        {
-            _levelsCache = new LevelsCache();
-        }
+        _levelsCache ??= new LevelsCache();
         Level level = _levelsCache.Load(levelName);
         ProcessLevel(level);
         OnLoadLevelLevel(levelName, level);

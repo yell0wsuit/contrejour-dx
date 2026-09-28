@@ -16,12 +16,14 @@ public class Mokus2DApplication<T> : Microsoft.Xna.Framework.Game where T : Moku
 
     public Mokus2DApplication()
     {
-        WindowsUtil.Initialize(base.Window);
+        WindowsUtil.Initialize(Window);
         _game = new T();
-        _graphics = new GraphicsDeviceManager(this);
-        _graphics.PreferredBackBufferFormat = SurfaceFormat.Color;
-        // Windows 8 apps always ran full screen at native resolution; mirror that with borderless full screen.
-        _graphics.HardwareModeSwitch = false;
+        _graphics = new GraphicsDeviceManager(this)
+        {
+            PreferredBackBufferFormat = SurfaceFormat.Color,
+            // Windows 8 apps always ran full screen at native resolution; mirror that with borderless full screen.
+            HardwareModeSwitch = false
+        };
         DisplayMode displayMode = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode;
         _graphics.PreferredBackBufferWidth = displayMode.Width;
         _graphics.PreferredBackBufferHeight = displayMode.Height;
@@ -31,8 +33,8 @@ public class Mokus2DApplication<T> : Microsoft.Xna.Framework.Game where T : Moku
     protected override void Initialize()
     {
         base.Initialize();
-        base.Content = new MokusContentManager(base.Services);
-        ApplicationController applicationController = new ApplicationController(_game, this, _graphics);
+        Content = new MokusContentManager(Services);
+        ApplicationController applicationController = new(_game, this, _graphics);
         T game = _game;
         game.Initialize(applicationController);
         // Subscribe after the game is set up: resizes applied during Initialize would otherwise
@@ -50,7 +52,7 @@ public class Mokus2DApplication<T> : Microsoft.Xna.Framework.Game where T : Moku
     protected override void Draw(GameTime gameTime)
     {
         base.Draw(gameTime);
-        base.GraphicsDevice.Clear(_game.BackgroundColor);
+        GraphicsDevice.Clear(_game.BackgroundColor);
         T game = _game;
         game.Draw();
     }
@@ -78,7 +80,7 @@ public class Mokus2DApplication<T> : Microsoft.Xna.Framework.Game where T : Moku
 
     private void InitializePlatform()
     {
-        base.Window.ClientSizeChanged += OnApplicationViewChanged;
+        Window.ClientSizeChanged += OnApplicationViewChanged;
     }
 
     private void OnApplicationViewChanged(object sender, EventArgs e)

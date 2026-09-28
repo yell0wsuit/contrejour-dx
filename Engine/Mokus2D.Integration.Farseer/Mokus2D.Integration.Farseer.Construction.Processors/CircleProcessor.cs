@@ -19,8 +19,10 @@ public class CircleProcessor : ShapeProcessor
     {
         Vector2 vector = Constructor.ToPhysics(new Vector2(5f, 0f), item, positionOffset);
         Vector2 vector2 = Constructor.ToPhysics(Vector2.Zero, item, positionOffset);
-        CircleShape circleShape = new CircleShape((vector - vector2).Length(), Constructor.GetDensity(item));
-        circleShape.Position = vector2;
+        CircleShape circleShape = new((vector - vector2).Length(), Constructor.GetDensity(item))
+        {
+            Position = vector2
+        };
         return circleShape;
     }
 }

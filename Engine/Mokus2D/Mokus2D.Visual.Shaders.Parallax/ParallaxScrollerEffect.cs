@@ -19,9 +19,11 @@ public class ParallaxScrollerEffect : TintSpriteEffect
     protected ParallaxScrollerEffect(string path)
         : base(path)
     {
-        MainLayerScale = new ShaderParameterFloat(base.Parameters, "MainLayerScale");
-        ViewPosition = new ShaderParameterVector2(base.Parameters, "ViewPosition");
-        ViewPosition.Value = Vector2.Zero;
+        MainLayerScale = new ShaderParameterFloat(Parameters, "MainLayerScale");
+        ViewPosition = new ShaderParameterVector2(Parameters, "ViewPosition")
+        {
+            Value = Vector2.Zero
+        };
         MainLayerScale.Value = 1f;
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Dynamics.Contacts;
@@ -55,13 +56,13 @@ public class SpringBodyClip : ContreJourBodyClip, IClickable, IRestartable
 
     private const int SUCK_FORCE = 100;
 
-    private static readonly Vector2 BODY_CENTER = new Vector2(0f, 20f);
+    private static readonly Vector2 BODY_CENTER = new(0f, 20f);
 
-    private static readonly Vector2 SMOKE_POINT = new Vector2(0f, 60f);
+    private static readonly Vector2 SMOKE_POINT = new(0f, 60f);
 
-    private static readonly Vector2 SUCK_POINT = new Vector2(0f, 40f);
+    private static readonly Vector2 SUCK_POINT = new(0f, 40f);
 
-    private static readonly Vector2 STICKY_POINT = new Vector2(0f, 40f);
+    private static readonly Vector2 STICKY_POINT = new(0f, 40f);
 
     protected Vector2 bodyCenterVec;
 
@@ -91,14 +92,14 @@ public class SpringBodyClip : ContreJourBodyClip, IClickable, IRestartable
 
     protected virtual Vector2 SmokePoint => SMOKE_POINT;
 
-    public Vector2 WorldSuckPoint => VectorUtil.Rotate(suckPoint, base.BodyAngle) + Body.Position;
+    public Vector2 WorldSuckPoint => VectorUtil.Rotate(suckPoint, BodyAngle) + Body.Position;
 
     public bool DisableHeroFocus => true;
 
     public SpringBodyClip(LevelBuilderBase _builder, object _body, Node _clip, Hashtable _config)
         : base(_builder, _body, _clip, _config)
     {
-        if (!base.Game.BlackSide)
+        if (!Game.BlackSide)
         {
             _clip = _builder.ReplaceClipWith(_clip, GetClipName());
             clip = _clip;
@@ -115,10 +116,12 @@ public class SpringBodyClip : ContreJourBodyClip, IClickable, IRestartable
         startScale = clip.ScaleX;
         suckPoint = builder.ToVec(SUCK_POINT * clip.ScaleX);
         suckDistance = 150f * clip.ScaleX * builder.SizeMult;
-        bodyCenterVec = VectorUtil.Rotate(builder.ToVec(BODY_CENTER * clip.ScaleX), base.InitialBodyAngle);
-        breatheChanger = new CosChanger(0.06f, 0.07f);
-        breatheChanger.MinValue = 0.95f;
-        breatheChanger.MaxValue = 1.04f;
+        bodyCenterVec = VectorUtil.Rotate(builder.ToVec(BODY_CENTER * clip.ScaleX), InitialBodyAngle);
+        breatheChanger = new CosChanger(0.06f, 0.07f)
+        {
+            MinValue = 0.95f,
+            MaxValue = 1.04f
+        };
         foreach (Fixture fixture in Body.FixtureList)
         {
             fixture.Friction = 1f;
@@ -128,8 +131,8 @@ public class SpringBodyClip : ContreJourBodyClip, IClickable, IRestartable
             }
         }
         launchTime = -0.2f;
-        smoke = new WhiteSmoke(base.Game.BlackSide ? "common/McWhiteSmokeBlack" : "common/McWhiteSmoke");
-        if (base.Game.BonusChapter)
+        smoke = new WhiteSmoke(Game.BlackSide ? "common/McWhiteSmokeBlack" : "common/McWhiteSmoke");
+        if (Game.BonusChapter)
         {
             smoke.Color = ContreJourConstants.GreenLightColor;
         }
@@ -149,11 +152,7 @@ public class SpringBodyClip : ContreJourBodyClip, IClickable, IRestartable
 
     public virtual int Priority(Vector2 touchPoint)
     {
-        if (sticked == null || !IsTouchDistance(touchPoint))
-        {
-            return -10;
-        }
-        return 2;
+        return sticked == null || !IsTouchDistance(touchPoint) ? -10 : 2;
     }
 
     public bool AcceptFreeTouches()
@@ -206,7 +205,7 @@ public class SpringBodyClip : ContreJourBodyClip, IClickable, IRestartable
 
     protected virtual string GetClipName()
     {
-        return base.Game.Choose("McSpringView_5", null, "McSpringViewWhite", null, "McSpringView_6");
+        return Game.Choose("McSpringView_5", null, "McSpringViewWhite", null, "McSpringView_6");
     }
 
     private EventSender GetDestroyEvent(Body teleportBody)
@@ -216,15 +215,9 @@ public class SpringBodyClip : ContreJourBodyClip, IClickable, IRestartable
 
     protected virtual void SetSticked(ILaunchable value)
     {
-        if (sticked != null)
-        {
-            sticked.DestroyEvent.RemoveListener(OnTeleport);
-        }
+        sticked?.DestroyEvent.RemoveListener(OnTeleport);
         sticked = value;
-        if (sticked != null)
-        {
-            sticked.DestroyEvent.AddListener(OnTeleport);
-        }
+        sticked?.DestroyEvent.AddListener(OnTeleport);
     }
 
     public void RefreshSmokeAngle()
@@ -234,7 +227,7 @@ public class SpringBodyClip : ContreJourBodyClip, IClickable, IRestartable
 
     protected virtual void CreateShadow()
     {
-        Node node = new Sprite(base.Game.ChooseSide("common/McSpringShadow", "chapter4/McSpringShadowWhite", "common/McSpringShadow_5"));
+        Node node = new Sprite(Game.ChooseSide("common/McSpringShadow", "chapter4/McSpringShadowWhite", "common/McSpringShadow_5"));
         builder.AddChildBefore(node, clip);
         node.Position = clip.Position;
         node.RotationRadians = clip.RotationRadians;
@@ -289,11 +282,7 @@ public class SpringBodyClip : ContreJourBodyClip, IClickable, IRestartable
 
     public bool CanLaunch(object bodyClip)
     {
-        if (bodyClip is ILaunchable)
-        {
-            return ((ILaunchable)bodyClip).CanLaunch();
-        }
-        return false;
+        return bodyClip is ILaunchable ? ((ILaunchable)bodyClip).CanLaunch() : false;
     }
 
     private bool IsTouchDistance(Vector2 touchPosition)
@@ -325,10 +314,10 @@ public class SpringBodyClip : ContreJourBodyClip, IClickable, IRestartable
     {
         sticked.SetSpeedLocked(value: false);
         sticked.HitEnabled = true;
-        base.Game.FocusOnHero();
+        Game.FocusOnHero();
         sticked.Body.BodyType = (BodyType)2;
         ApplyImpulseTo(sticked);
-        launchTime = base.Game.TotalTime;
+        launchTime = Game.TotalTime;
         SetSticked(null);
         SoundManager.PlaySound("perdelkaOut0", 0.7f);
         Spit();
@@ -390,7 +379,7 @@ public class SpringBodyClip : ContreJourBodyClip, IClickable, IRestartable
             vector *= sticked.Body.Mass;
             vector *= Math.Min((suckDistance - num) * 100f, 200f);
             sticked.Body.ApplyForce(vector, sticked.Body.WorldCenter);
-            Vector2 vector2 = VectorUtil.Rotate(new Vector2(1f, 0f), base.BodyAngle);
+            Vector2 vector2 = VectorUtil.Rotate(new Vector2(1f, 0f), BodyAngle);
             float num2 = VectorUtil.Projection(sticked.Body.LinearVelocity, vector2);
             float num3 = VectorUtil.Projection(worldSuckPoint - sticked.Body.Position, vector2);
             if (num2 * num3 < 0f || (Math.Abs(num2) < 10f && Math.Abs(num3) > 1f))
@@ -402,7 +391,7 @@ public class SpringBodyClip : ContreJourBodyClip, IClickable, IRestartable
                 sticked.Body.ApplyForce(vector3, sticked.Body.WorldCenter);
             }
             relativeStickedPosition = sticked.Body.Position - Body.Position;
-            relativeStickedPosition = VectorUtil.Rotate(relativeStickedPosition, 0f - base.BodyAngle);
+            relativeStickedPosition = VectorUtil.Rotate(relativeStickedPosition, 0f - BodyAngle);
             FixClosePosition(relativeStickedPosition);
             CheckFixed(num3);
         }
@@ -410,7 +399,7 @@ public class SpringBodyClip : ContreJourBodyClip, IClickable, IRestartable
 
     private void ApplyRelativePosition(Vector2 relativePosition)
     {
-        Vector2 vector = VectorUtil.Rotate(relativePosition, base.BodyAngle);
+        Vector2 vector = VectorUtil.Rotate(relativePosition, BodyAngle);
         vector += Body.Position;
         sticked.Body.SetTransform(vector, sticked.Body.Rotation);
     }
@@ -420,7 +409,7 @@ public class SpringBodyClip : ContreJourBodyClip, IClickable, IRestartable
         float num = relativePosition.Y - 2.2f;
         if (num > 0f && Math.Abs(relativePosition.X) * 2f > num)
         {
-            relativePosition.X = Maths.StepTo(relativePosition.X, (float)Math.Sign(relativePosition.X) * num / 2f, 0.3f);
+            relativePosition.X = Maths.StepTo(relativePosition.X, Math.Sign(relativePosition.X) * num / 2f, 0.3f);
             ApplyRelativePosition(relativePosition);
         }
         else if (num < 0f)
@@ -486,7 +475,7 @@ public class SpringBodyClip : ContreJourBodyClip, IClickable, IRestartable
     private void ReverseSmoke()
     {
         smoke.ScaleStep = -10.5f;
-        foreach (GravityParticle particle in smoke.Particles)
+        foreach (GravityParticle particle in smoke.Particles.Cast<GravityParticle>())
         {
             Vector2 speed = particle.Speed * -6f;
             float num = speed.Length();
@@ -502,8 +491,8 @@ public class SpringBodyClip : ContreJourBodyClip, IClickable, IRestartable
     {
         //IL_000b: Unknown result type (might be due to invalid IL or missing references)
         //IL_0011: Invalid comparison between Unknown and I4
-        float num = (((int)sticked.Body.BodyType == 2) ? Math.Min(1f, relativeStickedPosition.Y / suckDistance) : 0f);
-        movie.CurrentFrame = 7f + Math.Max(5f * (1f - num) - 1f, 0f);
+        float num = ((int)sticked.Body.BodyType == 2) ? Math.Min(1f, relativeStickedPosition.Y / suckDistance) : 0f;
+        movie.CurrentFrame = 7f + Math.Max((5f * (1f - num)) - 1f, 0f);
         if (Maths.FuzzyEquals(num, 0f))
         {
             movie.Stoped = true;
@@ -512,7 +501,7 @@ public class SpringBodyClip : ContreJourBodyClip, IClickable, IRestartable
 
     private void ProcessCollisionPoint(Body body2, Contact point)
     {
-        if (sticked == null && !(base.Game.TotalTime - launchTime < 0.2f))
+        if (sticked == null && !(Game.TotalTime - launchTime < 0.2f))
         {
             object userData = body2.UserData;
             if (point.IsTouching && (!point.FixtureA.IsSensor || !point.FixtureB.IsSensor) && CanLaunch(userData) && (IsSticky(point.FixtureA) || IsSticky(point.FixtureB) || CheckBodyContactsKeyCount(body2, "base", 2)))
@@ -596,11 +585,7 @@ public class SpringBodyClip : ContreJourBodyClip, IClickable, IRestartable
 
     public bool CheckFixtureKey(Fixture fixture, string key)
     {
-        if (!(fixture.UserData is Hashtable hashtable))
-        {
-            return false;
-        }
-        return hashtable.ContainsKey(key);
+        return fixture.UserData is not Hashtable hashtable ? false : hashtable.ContainsKey(key);
     }
 
     public bool IsSticky(Fixture fixture)

@@ -4,11 +4,11 @@ namespace Mokus2D.Effects.Tween.Easing;
 
 public class Sine
 {
-    public static readonly Func<float, float> EaseIn = (float k) => EaseInFunction(k);
+    public static readonly Func<float, float> EaseIn = EaseInFunction;
 
-    public static readonly Func<float, float> EaseInOut = (float k) => EaseInOutFunction(k);
+    public static readonly Func<float, float> EaseInOut = EaseInOutFunction;
 
-    public static readonly Func<float, float> EaseOut = (float k) => EaseOutFunction(k);
+    public static readonly Func<float, float> EaseOut = EaseOutFunction;
 
     private static float EaseInFunction(float k)
     {

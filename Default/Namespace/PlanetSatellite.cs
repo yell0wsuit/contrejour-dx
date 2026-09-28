@@ -23,9 +23,11 @@ public class PlanetSatellite : Node, IUpdatable
     public PlanetSatellite()
     {
         satellite = new McSatellite();
-        changer = new CosChanger(0.03f, 0.035f);
-        changer.MinValue = -150f;
-        changer.MaxValue = 150f;
+        changer = new CosChanger(0.03f, 0.035f)
+        {
+            MinValue = -150f,
+            MaxValue = 150f
+        };
         AddChild(satellite);
     }
 
@@ -33,10 +35,10 @@ public class PlanetSatellite : Node, IUpdatable
     {
         changer.Update(time);
         satellite.Position = new Vector2(changer.Value, 0f);
-        satellite.Scale = changer.GetValue(0.5f, 1f, changer.Progress - (float)Math.PI / 2f);
+        satellite.Scale = changer.GetValue(0.5f, 1f, changer.Progress - ((float)Math.PI / 2f));
         satellite.OpacityFloat = satellite.Scale;
-        base.RotationDegrees += 20f * time;
-        int nodeLayer = ((!(satellite.Scale < 0.75f)) ? 1 : (-1));
-        base.Parent.ChangeChildLayer(this, nodeLayer);
+        RotationDegrees += 20f * time;
+        int nodeLayer = (!(satellite.Scale < 0.75f)) ? 1 : (-1);
+        Parent.ChangeChildLayer(this, nodeLayer);
     }
 }

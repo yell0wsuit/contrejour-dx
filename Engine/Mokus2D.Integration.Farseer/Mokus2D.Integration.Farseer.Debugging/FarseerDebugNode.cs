@@ -115,7 +115,7 @@ public class FarseerDebugNode : PrimitivesNode
         for (int i = 0; i < 20; i++)
         {
             array[i].Color = color;
-            Vector2 vector = VectorUtil.ToVector(radius, (float)i * ((float)Math.PI * 2f) / 20f) + worldPosition;
+            Vector2 vector = VectorUtil.ToVector(radius, i * ((float)Math.PI * 2f) / 20f) + worldPosition;
             array[i].Position = vector.ToVector3() * _physicsToPixels;
         }
         GraphUtil.DrawTriangleFan(array);
@@ -123,7 +123,7 @@ public class FarseerDebugNode : PrimitivesNode
 
     private Color GetColor(Body body, Fixture fixture)
     {
-        float num = (fixture.IsSensor ? 0.5f : 1f);
+        float num = fixture.IsSensor ? 0.5f : 1f;
         return body.BodyType switch
         {
             BodyType.Dynamic => DYNAMIC_COLOR * num,

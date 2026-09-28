@@ -49,95 +49,52 @@ public sealed class TextureConverter
 
     public VerticesDetectionType PolygonDetectionType
     {
-        get
-        {
-            return _polygonDetectionType;
-        }
-        set
-        {
-            _polygonDetectionType = value;
-        }
+        get => _polygonDetectionType;
+        set => _polygonDetectionType = value;
     }
 
     public bool HoleDetection
     {
-        get
-        {
-            return _holeDetection;
-        }
-        set
-        {
-            _holeDetection = value;
-        }
+        get => _holeDetection;
+        set => _holeDetection = value;
     }
 
     public bool MultipartDetection
     {
-        get
-        {
-            return _multipartDetection;
-        }
-        set
-        {
-            _multipartDetection = value;
-        }
+        get => _multipartDetection;
+        set => _multipartDetection = value;
     }
 
     public bool PixelOffsetOptimization
     {
-        get
-        {
-            return _pixelOffsetOptimization;
-        }
-        set
-        {
-            _pixelOffsetOptimization = value;
-        }
+        get => _pixelOffsetOptimization;
+        set => _pixelOffsetOptimization = value;
     }
 
     public Matrix Transform
     {
-        get
-        {
-            return _transform;
-        }
-        set
-        {
-            _transform = value;
-        }
+        get => _transform;
+        set => _transform = value;
     }
 
     public byte AlphaTolerance
     {
-        get
-        {
-            return (byte)(_alphaTolerance >> 24);
-        }
-        set
-        {
-            _alphaTolerance = (uint)(value << 24);
-        }
+        get => (byte)(_alphaTolerance >> 24);
+        set => _alphaTolerance = (uint)(value << 24);
     }
 
     public float HullTolerance
     {
-        get
-        {
-            return _hullTolerance;
-        }
+        get => _hullTolerance;
         set
         {
             if (value > 4f)
             {
                 _hullTolerance = 4f;
             }
-            else if (value < 0.9f)
-            {
-                _hullTolerance = 0.9f;
-            }
             else
             {
-                _hullTolerance = value;
+                _hullTolerance = value < 0.9f ? 0.9f : value;
             }
         }
     }
@@ -176,54 +133,12 @@ public sealed class TextureConverter
         {
             SetTextureData(data, width.Value);
         }
-        if (alphaTolerance.HasValue)
-        {
-            AlphaTolerance = alphaTolerance.Value;
-        }
-        else
-        {
-            AlphaTolerance = 20;
-        }
-        if (hullTolerance.HasValue)
-        {
-            HullTolerance = hullTolerance.Value;
-        }
-        else
-        {
-            HullTolerance = 1.5f;
-        }
-        if (holeDetection.HasValue)
-        {
-            HoleDetection = holeDetection.Value;
-        }
-        else
-        {
-            HoleDetection = false;
-        }
-        if (multipartDetection.HasValue)
-        {
-            MultipartDetection = multipartDetection.Value;
-        }
-        else
-        {
-            MultipartDetection = false;
-        }
-        if (pixelOffsetOptimization.HasValue)
-        {
-            PixelOffsetOptimization = pixelOffsetOptimization.Value;
-        }
-        else
-        {
-            PixelOffsetOptimization = false;
-        }
-        if (transform.HasValue)
-        {
-            Transform = transform.Value;
-        }
-        else
-        {
-            Transform = Matrix.Identity;
-        }
+        AlphaTolerance = alphaTolerance.HasValue ? alphaTolerance.Value : (byte)20;
+        HullTolerance = hullTolerance.HasValue ? hullTolerance.Value : 1.5f;
+        HoleDetection = holeDetection.HasValue ? holeDetection.Value : false;
+        MultipartDetection = multipartDetection.HasValue ? multipartDetection.Value : false;
+        PixelOffsetOptimization = pixelOffsetOptimization.HasValue ? pixelOffsetOptimization.Value : false;
+        Transform = transform.HasValue ? transform.Value : Matrix.Identity;
     }
 
     private void SetTextureData(uint[] data, int width)
@@ -252,15 +167,17 @@ public sealed class TextureConverter
 
     public static Vertices DetectVertices(uint[] data, int width)
     {
-        TextureConverter textureConverter = new TextureConverter(data, width);
+        TextureConverter textureConverter = new(data, width);
         List<Vertices> list = textureConverter.DetectVertices();
         return list[0];
     }
 
     public static Vertices DetectVertices(uint[] data, int width, bool holeDetection)
     {
-        TextureConverter textureConverter = new TextureConverter(data, width);
-        textureConverter.HoleDetection = holeDetection;
+        TextureConverter textureConverter = new(data, width)
+        {
+            HoleDetection = holeDetection
+        };
         TextureConverter textureConverter2 = textureConverter;
         List<Vertices> list = textureConverter2.DetectVertices();
         return list[0];
@@ -268,14 +185,16 @@ public sealed class TextureConverter
 
     public static List<Vertices> DetectVertices(uint[] data, int width, float hullTolerance, byte alphaTolerance, bool multiPartDetection, bool holeDetection)
     {
-        TextureConverter textureConverter = new TextureConverter(data, width);
-        textureConverter.HullTolerance = hullTolerance;
-        textureConverter.AlphaTolerance = alphaTolerance;
-        textureConverter.MultipartDetection = multiPartDetection;
-        textureConverter.HoleDetection = holeDetection;
+        TextureConverter textureConverter = new(data, width)
+        {
+            HullTolerance = hullTolerance,
+            AlphaTolerance = alphaTolerance,
+            MultipartDetection = multiPartDetection,
+            HoleDetection = holeDetection
+        };
         TextureConverter textureConverter2 = textureConverter;
         List<Vertices> list = textureConverter2.DetectVertices();
-        List<Vertices> list2 = new List<Vertices>();
+        List<Vertices> list2 = [];
         for (int i = 0; i < list.Count; i++)
         {
             list2.Add(list[i]);
@@ -301,10 +220,10 @@ public sealed class TextureConverter
         {
             throw new Exception("'_width' has an invalid value. You have to use SetTextureData(uint[] data, int width) before calling this method.");
         }
-        List<Vertices> detectedPolygons = new List<Vertices>();
+        List<Vertices> detectedPolygons = [];
         Vector2? lastHoleEntrance = null;
         Vector2? entrance = null;
-        List<Vector2> list = new List<Vector2>();
+        List<Vector2> list = [];
         bool flag;
         do
         {
@@ -355,10 +274,7 @@ public sealed class TextureConverter
                                     break;
                                 }
                             case VerticesDetectionType.Separated:
-                                if (vertices.Holes == null)
-                                {
-                                    vertices.Holes = new List<Vertices>();
-                                }
+                                vertices.Holes ??= [];
                                 vertices.Holes.Add(vertices2);
                                 break;
                         }
@@ -414,38 +330,24 @@ public sealed class TextureConverter
     {
         _tempIsSolidX = (int)v.X;
         _tempIsSolidY = (int)v.Y;
-        if (_tempIsSolidX >= 0 && _tempIsSolidX < _width && _tempIsSolidY >= 0 && _tempIsSolidY < _height)
-        {
-            return _data[_tempIsSolidX + _tempIsSolidY * _width] >= _alphaTolerance;
-        }
-        return false;
+        return _tempIsSolidX >= 0 && _tempIsSolidX < _width && _tempIsSolidY >= 0 && _tempIsSolidY < _height
+            ? _data[_tempIsSolidX + (_tempIsSolidY * _width)] >= _alphaTolerance
+            : false;
     }
 
     public bool IsSolid(ref int x, ref int y)
     {
-        if (x >= 0 && x < _width && y >= 0 && y < _height)
-        {
-            return _data[x + y * _width] >= _alphaTolerance;
-        }
-        return false;
+        return x >= 0 && x < _width && y >= 0 && y < _height ? _data[x + (y * _width)] >= _alphaTolerance : false;
     }
 
     public bool IsSolid(ref int index)
     {
-        if (index >= 0 && index < _dataLength)
-        {
-            return _data[index] >= _alphaTolerance;
-        }
-        return false;
+        return index >= 0 && index < _dataLength ? _data[index] >= _alphaTolerance : false;
     }
 
     public bool InBounds(ref Vector2 coord)
     {
-        if (coord.X >= 0f && coord.X < (float)_width && coord.Y >= 0f)
-        {
-            return coord.Y < (float)_height;
-        }
-        return false;
+        return coord.X >= 0f && coord.X < _width && coord.Y >= 0f ? coord.Y < _height : false;
     }
 
     private Vector2? SearchHoleEntrance(Vertices polygon, Vector2? lastHoleEntrance)
@@ -459,7 +361,7 @@ public sealed class TextureConverter
             throw new ArgumentException("'polygon.MainPolygon.Count' can't be less then 3.");
         }
         int num = 0;
-        int num2 = ((!lastHoleEntrance.HasValue) ? ((int)GetTopMostCoord(polygon)) : ((int)lastHoleEntrance.Value.Y));
+        int num2 = (!lastHoleEntrance.HasValue) ? ((int)GetTopMostCoord(polygon)) : ((int)lastHoleEntrance.Value.Y);
         int num3 = (int)GetBottomMostCoord(polygon);
         if (num2 > 0 && num2 < _height && num3 > 0 && num3 < _height)
         {
@@ -488,7 +390,7 @@ public sealed class TextureConverter
                                     {
                                         return result;
                                     }
-                                    result = null;
+
                                     break;
                                 }
                             }
@@ -545,7 +447,7 @@ public sealed class TextureConverter
         {
             throw new ArgumentException("'polygon.Count' can't be less then 3.");
         }
-        Vector2 end = polygon[polygon.Count - 1];
+        Vector2 end = polygon[^1];
         if (higherDetail)
         {
             for (int i = 0; i < polygon.Count; i++)
@@ -656,26 +558,26 @@ public sealed class TextureConverter
 
     private List<float> SearchCrossingEdges(Vertices polygon, int y)
     {
-        List<float> list = new List<float>();
+        List<float> list = [];
         if (polygon.Count > 2)
         {
-            Vector2 vector = polygon[polygon.Count - 1];
+            Vector2 vector = polygon[^1];
             for (int i = 0; i < polygon.Count; i++)
             {
                 Vector2 vector2 = polygon[i];
-                if (((vector2.Y >= (float)y && vector.Y <= (float)y) || (vector2.Y <= (float)y && vector.Y >= (float)y)) && vector2.Y != vector.Y)
+                if (((vector2.Y >= y && vector.Y <= y) || (vector2.Y <= y && vector.Y >= y)) && vector2.Y != vector.Y)
                 {
                     bool flag = true;
                     Vector2 vector3 = vector - vector2;
-                    if (vector2.Y == (float)y)
+                    if (vector2.Y == y)
                     {
                         Vector2 vector4 = polygon[(i + 1) % polygon.Count];
                         Vector2 vector5 = vector2 - vector4;
-                        flag = ((!(vector3.Y > 0f)) ? (vector5.Y >= 0f) : (vector5.Y <= 0f));
+                        flag = (!(vector3.Y > 0f)) ? (vector5.Y >= 0f) : (vector5.Y <= 0f);
                     }
                     if (flag)
                     {
-                        list.Add(((float)y - vector2.Y) / vector3.Y * vector3.X + vector2.X);
+                        list.Add(((y - vector2.Y) / vector3.Y * vector3.X) + vector2.X);
                     }
                 }
                 vector = vector2;
@@ -738,8 +640,8 @@ public sealed class TextureConverter
                     float num3 = Vector2.Distance(value, point);
                     vertex1Index = num;
                     vertex2Index = num + 1;
-                    polygon.Insert(num, num3 * vector + polygon[vertex1Index]);
-                    polygon.Insert(num, num3 * vector + polygon[vertex2Index]);
+                    polygon.Insert(num, (num3 * vector) + polygon[vertex1Index]);
+                    polygon.Insert(num, (num3 * vector) + polygon[vertex2Index]);
                     return true;
                 }
             }
@@ -751,9 +653,9 @@ public sealed class TextureConverter
     {
         bool flag = false;
         bool flag2 = false;
-        Vertices vertices = new Vertices(32);
-        Vertices vertices2 = new Vertices(32);
-        Vertices vertices3 = new Vertices(32);
+        Vertices vertices = new(32);
+        Vertices vertices2 = new(32);
+        Vertices vertices3 = new(32);
         Vector2 current = Vector2.Zero;
         if (entrance == Vector2.Zero || !InBounds(ref entrance))
         {
@@ -765,13 +667,12 @@ public sealed class TextureConverter
         }
         else if (IsSolid(ref entrance))
         {
-            Vector2 foundPixel;
             if (IsNearPixel(ref entrance, ref last))
             {
                 current = last;
                 flag = true;
             }
-            else if (SearchNearPixels(searchingForSolidPixel: false, ref entrance, out foundPixel))
+            else if (SearchNearPixels(searchingForSolidPixel: false, ref entrance, out Vector2 foundPixel))
             {
                 current = foundPixel;
                 flag = true;
@@ -788,7 +689,7 @@ public sealed class TextureConverter
             Vector2 next = entrance;
             while (true)
             {
-                if (SearchForOutstandingVertex(vertices2, out var outstanding))
+                if (SearchForOutstandingVertex(vertices2, out Vector2 outstanding))
                 {
                     if (flag2)
                     {
@@ -814,7 +715,7 @@ public sealed class TextureConverter
                     vertices3.AddRange(vertices2);
                     if (vertices3.Contains(entrance))
                     {
-                        vertices3.Remove(entrance);
+                        _ = vertices3.Remove(entrance);
                     }
                 }
             }
@@ -872,8 +773,7 @@ public sealed class TextureConverter
     private bool SearchNextHullEntrance(List<Vertices> detectedPolygons, Vector2 start, out Vector2? entrance)
     {
         bool flag = false;
-        bool flag2 = false;
-        for (int i = (int)start.X + (int)start.Y * _width; i <= _dataLength; i++)
+        for (int i = (int)start.X + ((int)start.Y * _width); i <= _dataLength; i++)
         {
             if (IsSolid(ref i))
             {
@@ -882,8 +782,8 @@ public sealed class TextureConverter
                     continue;
                 }
                 int num = i % _width;
-                entrance = new Vector2(num, (float)(i - num) / (float)_width);
-                flag2 = false;
+                entrance = new Vector2(num, (i - num) / (float)_width);
+                bool flag2 = false;
                 for (int j = 0; j < detectedPolygons.Count; j++)
                 {
                     if (InPolygon(detectedPolygons[j], entrance.Value))

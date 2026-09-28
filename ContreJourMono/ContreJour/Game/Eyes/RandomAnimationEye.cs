@@ -17,16 +17,16 @@ public class RandomAnimationEye : EyeBase
 
     private const float MAX_TIMEOUT = 10f;
 
-    private static readonly EyeAnimation[] ANIMATIONS = new EyeAnimation[5]
-    {
-        new EyeAnimation("McEyeSmile", null, lockY: true),
-        new EyeAnimation("McEyeBlink"),
-        new EyeAnimation("McEyeBlinkOneTime", null, lockY: true),
-        new EyeAnimation("McEyeWink", null, lockY: true),
-        new EyeAnimation("McEyeAngry")
-    };
+    private static readonly EyeAnimation[] ANIMATIONS =
+    [
+        new("McEyeSmile", null, lockY: true),
+        new("McEyeBlink"),
+        new("McEyeBlinkOneTime", null, lockY: true),
+        new("McEyeWink", null, lockY: true),
+        new("McEyeAngry")
+    ];
 
-    public readonly EventSender AnimationEndEvent = new EventSender();
+    public readonly EventSender AnimationEndEvent = new();
 
     public bool ReturnToDefault = true;
 
@@ -40,11 +40,7 @@ public class RandomAnimationEye : EyeBase
     {
         get
         {
-            if (Animations != null)
-            {
-                return Animations.Length > 0;
-            }
-            return false;
+            return Animations != null ? Animations.Length > 0 : false;
         }
     }
 
@@ -54,11 +50,7 @@ public class RandomAnimationEye : EyeBase
     {
         get
         {
-            if (base.Game != null)
-            {
-                return base.Game.WhiteSide;
-            }
-            return false;
+            return Game != null ? Game.WhiteSide : false;
         }
     }
 
@@ -66,13 +58,9 @@ public class RandomAnimationEye : EyeBase
     {
         get
         {
-            if (base.Game != null)
+            if (Game != null)
             {
-                if (!base.Game.WhiteSide && !base.Game.BlackSide)
-                {
-                    return base.Game.BonusChapter;
-                }
-                return true;
+                return !Game.WhiteSide && !Game.BlackSide ? Game.BonusChapter : true;
             }
             return false;
         }
@@ -80,14 +68,8 @@ public class RandomAnimationEye : EyeBase
 
     public virtual bool AnimationsAllowed
     {
-        get
-        {
-            return _animationsAllowed;
-        }
-        set
-        {
-            _animationsAllowed = value;
-        }
+        get => _animationsAllowed;
+        set => _animationsAllowed = value;
     }
 
     public RandomAnimationEye(ContreJourGame game, bool useMask, Vector2 maskSize)
@@ -112,7 +94,7 @@ public class RandomAnimationEye : EyeBase
     {
         if (HasAnimations)
         {
-            this.Schedule(Maths.Random(3f, 10f), Animate);
+            _ = this.Schedule(Maths.Random(3f, 10f), Animate);
         }
     }
 
@@ -144,10 +126,7 @@ public class RandomAnimationEye : EyeBase
             OnAnimation(animation);
             isPlaying = true;
             SetEyeContent(animation);
-            if (endDispatcher != null)
-            {
-                endDispatcher.EndEvent += clipEndAction;
-            }
+            endDispatcher?.EndEvent += clipEndAction;
         }
     }
 
@@ -157,10 +136,7 @@ public class RandomAnimationEye : EyeBase
 
     private void EndAnimation()
     {
-        if (endDispatcher != null)
-        {
-            endDispatcher.EndEvent -= clipEndAction;
-        }
+        endDispatcher?.EndEvent -= clipEndAction;
         isPlaying = false;
         ScheduleAnimation();
         if (ReturnToDefault)

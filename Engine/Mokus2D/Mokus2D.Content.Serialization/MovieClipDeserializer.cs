@@ -14,7 +14,7 @@ public class MovieClipDeserializer : NodeDeserializerBase<IMovieClipData>
 
     public override IMovieClipData Deserialize(string id, XElement element)
     {
-        MovieClipData movieClipData = new MovieClipData(id);
+        MovieClipData movieClipData = new(id);
         AddConfigAndScaleFactor(movieClipData, element);
         SetTexture(element, movieClipData);
         foreach (XElement item in element.Descendants("frame"))

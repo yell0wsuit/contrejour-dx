@@ -15,7 +15,7 @@ public class ContactSolver
         public static void Initialize(ref Manifold manifold, ref Transform xfA, float radiusA, ref Transform xfB, float radiusB, out Vector2 normal, out FixedArray2<Vector2> points)
         {
             normal = Vector2.Zero;
-            points = default(FixedArray2<Vector2>);
+            points = default;
             if (manifold.PointCount == 0)
             {
                 return;
@@ -32,8 +32,8 @@ public class ContactSolver
                             normal = vector10 - vector9;
                             normal.Normalize();
                         }
-                        Vector2 vector11 = vector9 + radiusA * normal;
-                        Vector2 vector12 = vector10 - radiusB * normal;
+                        Vector2 vector11 = vector9 + (radiusA * normal);
+                        Vector2 vector12 = vector10 - (radiusB * normal);
                         points[0] = 0.5f * (vector11 + vector12);
                         break;
                     }
@@ -44,8 +44,8 @@ public class ContactSolver
                         for (int j = 0; j < manifold.PointCount; j++)
                         {
                             Vector2 vector6 = MathUtils.Mul(ref xfB, manifold.Points[j].LocalPoint);
-                            Vector2 vector7 = vector6 + (radiusA - Vector2.Dot(vector6 - vector5, normal)) * normal;
-                            Vector2 vector8 = vector6 - radiusB * normal;
+                            Vector2 vector7 = vector6 + ((radiusA - Vector2.Dot(vector6 - vector5, normal)) * normal);
+                            Vector2 vector8 = vector6 - (radiusB * normal);
                             points[j] = 0.5f * (vector7 + vector8);
                         }
                         break;
@@ -57,8 +57,8 @@ public class ContactSolver
                         for (int i = 0; i < manifold.PointCount; i++)
                         {
                             Vector2 vector2 = MathUtils.Mul(ref xfA, manifold.Points[i].LocalPoint);
-                            Vector2 vector3 = vector2 + (radiusB - Vector2.Dot(vector2 - vector, normal)) * normal;
-                            Vector2 vector4 = vector2 - radiusA * normal;
+                            Vector2 vector3 = vector2 + ((radiusB - Vector2.Dot(vector2 - vector, normal)) * normal);
+                            Vector2 vector4 = vector2 - (radiusA * normal);
                             points[i] = 0.5f * (vector4 + vector3);
                         }
                         normal = -normal;
@@ -230,13 +230,13 @@ public class ContactSolver
             float a2 = _positions[indexB].a;
             Vector2 v2 = _velocities[indexB].v;
             float w2 = _velocities[indexB].w;
-            Transform xfA = default(Transform);
-            Transform xfB = default(Transform);
+            Transform xfA = default;
+            Transform xfB = default;
             xfA.q.Set(a);
             xfB.q.Set(a2);
             xfA.p = c - MathUtils.Mul(xfA.q, localCenterA);
             xfB.p = c2 - MathUtils.Mul(xfB.q, localCenterB);
-            WorldManifold.Initialize(ref manifold, ref xfA, radiusA, ref xfB, radiusB, out var normal, out var points);
+            WorldManifold.Initialize(ref manifold, ref xfA, radiusA, ref xfB, radiusB, out Vector2 normal, out FixedArray2<Vector2> points);
             contactVelocityConstraint.normal = normal;
             int pointCount = contactVelocityConstraint.pointCount;
             for (int j = 0; j < pointCount; j++)
@@ -246,13 +246,13 @@ public class ContactSolver
                 velocityConstraintPoint.rB = points[j] - c2;
                 float num = MathUtils.Cross(velocityConstraintPoint.rA, contactVelocityConstraint.normal);
                 float num2 = MathUtils.Cross(velocityConstraintPoint.rB, contactVelocityConstraint.normal);
-                float num3 = invMassA + invMassB + invIA * num * num + invIB * num2 * num2;
-                velocityConstraintPoint.normalMass = ((num3 > 0f) ? (1f / num3) : 0f);
+                float num3 = invMassA + invMassB + (invIA * num * num) + (invIB * num2 * num2);
+                velocityConstraintPoint.normalMass = (num3 > 0f) ? (1f / num3) : 0f;
                 Vector2 b = MathUtils.Cross(contactVelocityConstraint.normal, 1f);
                 float num4 = MathUtils.Cross(velocityConstraintPoint.rA, b);
                 float num5 = MathUtils.Cross(velocityConstraintPoint.rB, b);
-                float num6 = invMassA + invMassB + invIA * num4 * num4 + invIB * num5 * num5;
-                velocityConstraintPoint.tangentMass = ((num6 > 0f) ? (1f / num6) : 0f);
+                float num6 = invMassA + invMassB + (invIA * num4 * num4) + (invIB * num5 * num5);
+                velocityConstraintPoint.tangentMass = (num6 > 0f) ? (1f / num6) : 0f;
                 velocityConstraintPoint.velocityBias = 0f;
                 float num7 = Vector2.Dot(contactVelocityConstraint.normal, v2 + MathUtils.Cross(w2, velocityConstraintPoint.rB) - v - MathUtils.Cross(w, velocityConstraintPoint.rA));
                 if (num7 < -1f)
@@ -268,10 +268,10 @@ public class ContactSolver
                 float num9 = MathUtils.Cross(velocityConstraintPoint2.rB, contactVelocityConstraint.normal);
                 float num10 = MathUtils.Cross(velocityConstraintPoint3.rA, contactVelocityConstraint.normal);
                 float num11 = MathUtils.Cross(velocityConstraintPoint3.rB, contactVelocityConstraint.normal);
-                float num12 = invMassA + invMassB + invIA * num8 * num8 + invIB * num9 * num9;
-                float num13 = invMassA + invMassB + invIA * num10 * num10 + invIB * num11 * num11;
-                float num14 = invMassA + invMassB + invIA * num8 * num10 + invIB * num9 * num11;
-                if (num12 * num12 < 1000f * (num12 * num13 - num14 * num14))
+                float num12 = invMassA + invMassB + (invIA * num8 * num8) + (invIB * num9 * num9);
+                float num13 = invMassA + invMassB + (invIA * num10 * num10) + (invIB * num11 * num11);
+                float num14 = invMassA + invMassB + (invIA * num8 * num10) + (invIB * num9 * num11);
+                if (num12 * num12 < 1000f * ((num12 * num13) - (num14 * num14)))
                 {
                     contactVelocityConstraint.K.ex = new Vector2(num12, num14);
                     contactVelocityConstraint.K.ey = new Vector2(num14, num13);
@@ -306,7 +306,7 @@ public class ContactSolver
             for (int j = 0; j < pointCount; j++)
             {
                 VelocityConstraintPoint velocityConstraintPoint = contactVelocityConstraint.points[j];
-                Vector2 vector2 = velocityConstraintPoint.normalImpulse * normal + velocityConstraintPoint.tangentImpulse * vector;
+                Vector2 vector2 = (velocityConstraintPoint.normalImpulse * normal) + (velocityConstraintPoint.tangentImpulse * vector);
                 num -= invIA * MathUtils.Cross(velocityConstraintPoint.rA, vector2);
                 v -= invMassA * vector2;
                 num2 += invIB * MathUtils.Cross(velocityConstraintPoint.rB, vector2);
@@ -373,12 +373,12 @@ public class ContactSolver
             {
                 VelocityConstraintPoint velocityConstraintPoint3 = contactVelocityConstraint.points[0];
                 VelocityConstraintPoint velocityConstraintPoint4 = contactVelocityConstraint.points[1];
-                Vector2 vector4 = new Vector2(velocityConstraintPoint3.normalImpulse, velocityConstraintPoint4.normalImpulse);
+                Vector2 vector4 = new(velocityConstraintPoint3.normalImpulse, velocityConstraintPoint4.normalImpulse);
                 Vector2 value3 = v2 + MathUtils.Cross(num2, velocityConstraintPoint3.rB) - v - MathUtils.Cross(num, velocityConstraintPoint3.rA);
                 Vector2 value4 = v2 + MathUtils.Cross(num2, velocityConstraintPoint4.rB) - v - MathUtils.Cross(num, velocityConstraintPoint4.rA);
                 float num10 = Vector2.Dot(value3, normal);
                 float num11 = Vector2.Dot(value4, normal);
-                Vector2 v3 = new Vector2
+                Vector2 v3 = new()
                 {
                     X = num10 - velocityConstraintPoint3.velocityBias,
                     Y = num11 - velocityConstraintPoint4.velocityBias
@@ -401,8 +401,7 @@ public class ContactSolver
                 {
                     vector5.X = (0f - velocityConstraintPoint3.normalMass) * v3.X;
                     vector5.Y = 0f;
-                    num10 = 0f;
-                    num11 = contactVelocityConstraint.K.ex.Y * vector5.X + v3.Y;
+                    num11 = (contactVelocityConstraint.K.ex.Y * vector5.X) + v3.Y;
                     if (vector5.X >= 0f && num11 >= 0f)
                     {
                         Vector2 vector9 = vector5 - vector4;
@@ -419,8 +418,7 @@ public class ContactSolver
                     {
                         vector5.X = 0f;
                         vector5.Y = (0f - velocityConstraintPoint4.normalMass) * v3.Y;
-                        num10 = contactVelocityConstraint.K.ey.X * vector5.Y + v3.X;
-                        num11 = 0f;
+                        num10 = (contactVelocityConstraint.K.ey.X * vector5.Y) + v3.X;
                         if (vector5.Y >= 0f && num10 >= 0f)
                         {
                             Vector2 vector12 = vector5 - vector4;
@@ -500,21 +498,21 @@ public class ContactSolver
             float num3 = _positions[indexB].a;
             for (int j = 0; j < pointCount; j++)
             {
-                Transform xfA = default(Transform);
-                Transform xfB = default(Transform);
+                Transform xfA = default;
+                Transform xfB = default;
                 xfA.q.Set(num2);
                 xfB.q.Set(num3);
                 xfA.p = c - MathUtils.Mul(xfA.q, localCenterA);
                 xfB.p = c2 - MathUtils.Mul(xfB.q, localCenterB);
-                PositionSolverManifold.Initialize(contactPositionConstraint, xfA, xfB, j, out var normal, out var point, out var separation);
+                PositionSolverManifold.Initialize(contactPositionConstraint, xfA, xfB, j, out Vector2 normal, out Vector2 point, out var separation);
                 Vector2 a = point - c;
                 Vector2 a2 = point - c2;
                 num = Math.Min(num, separation);
                 float num4 = MathUtils.Clamp(0.2f * (separation + 0.005f), -0.2f, 0f);
                 float num5 = MathUtils.Cross(a, normal);
                 float num6 = MathUtils.Cross(a2, normal);
-                float num7 = invMassA + invMassB + invIA * num5 * num5 + invIB * num6 * num6;
-                float num8 = ((num7 > 0f) ? ((0f - num4) / num7) : 0f);
+                float num7 = invMassA + invMassB + (invIA * num5 * num5) + (invIB * num6 * num6);
+                float num8 = (num7 > 0f) ? ((0f - num4) / num7) : 0f;
                 Vector2 vector = num8 * normal;
                 c -= invMassA * vector;
                 num2 -= invIA * MathUtils.Cross(a, vector);
@@ -560,21 +558,21 @@ public class ContactSolver
             float num7 = _positions[indexB].a;
             for (int j = 0; j < pointCount; j++)
             {
-                Transform xfA = default(Transform);
-                Transform xfB = default(Transform);
+                Transform xfA = default;
+                Transform xfB = default;
                 xfA.q.Set(num6);
                 xfB.q.Set(num7);
                 xfA.p = c - MathUtils.Mul(xfA.q, localCenterA);
                 xfB.p = c2 - MathUtils.Mul(xfB.q, localCenterB);
-                PositionSolverManifold.Initialize(contactPositionConstraint, xfA, xfB, j, out var normal, out var point, out var separation);
+                PositionSolverManifold.Initialize(contactPositionConstraint, xfA, xfB, j, out Vector2 normal, out Vector2 point, out var separation);
                 Vector2 a = point - c;
                 Vector2 a2 = point - c2;
                 num = Math.Min(num, separation);
                 float num8 = MathUtils.Clamp(0.2f * (separation + 0.005f), -0.2f, 0f);
                 float num9 = MathUtils.Cross(a, normal);
                 float num10 = MathUtils.Cross(a2, normal);
-                float num11 = num2 + num4 + num3 * num9 * num9 + num5 * num10 * num10;
-                float num12 = ((num11 > 0f) ? ((0f - num8) / num11) : 0f);
+                float num11 = num2 + num4 + (num3 * num9 * num9) + (num5 * num10 * num10);
+                float num12 = (num11 > 0f) ? ((0f - num8) / num11) : 0f;
                 Vector2 vector = num12 * normal;
                 c -= num2 * vector;
                 num6 -= num3 * MathUtils.Cross(a, vector);

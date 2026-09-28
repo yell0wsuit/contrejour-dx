@@ -10,13 +10,7 @@ public static class HardwareCapabilities
 
     private static bool lowMemoryChecked;
 
-    public static long TotalMemory
-    {
-        get
-        {
-            throw new NotImplementedException();
-        }
-    }
+    public static long TotalMemory => throw new NotImplementedException();
 
     public static bool IsLowMemoryDevice
     {

@@ -29,7 +29,7 @@ public class RelsHint : FadeHint
         {
             used = true;
             hiding = true;
-            Hide(0.5f * (float)clip.OpacityByte / 255f);
+            Hide(0.5f * clip.OpacityByte / 255f);
         }
     }
 }

@@ -6,7 +6,7 @@ namespace Mokus2D.Effects.Tweening;
 
 public class EasingData : IEasingData, ICleanable
 {
-    private static readonly Pool<EasingData> Pool = new Pool<EasingData>(() => new EasingData());
+    private static readonly Pool<EasingData> Pool = new(() => new EasingData());
 
     private Func<float, float, float, float> _functionC;
 
@@ -20,29 +20,17 @@ public class EasingData : IEasingData, ICleanable
 
     public static EasingData NewOrNull(Func<float, float, float, float> function, float dataA, float dataB)
     {
-        if (function != null)
-        {
-            return Pool.New().Initialize(function, dataA, dataB);
-        }
-        return null;
+        return function != null ? Pool.New().Initialize(function, dataA, dataB) : null;
     }
 
     public static EasingData NewOrNull(Func<float, float, float> function, float dataA)
     {
-        if (function != null)
-        {
-            return Pool.New().Initialize(function, dataA);
-        }
-        return null;
+        return function != null ? Pool.New().Initialize(function, dataA) : null;
     }
 
     public static EasingData NewOrNull(Func<float, float> function)
     {
-        if (function != null)
-        {
-            return Pool.New().Initialize(function);
-        }
-        return null;
+        return function != null ? Pool.New().Initialize(function) : null;
     }
 
     public static void Free(EasingData data)
@@ -56,11 +44,7 @@ public class EasingData : IEasingData, ICleanable
 
     public EasingData Initialize(Func<float, float, float, float> function, float dataA, float dataB)
     {
-        if (function == null)
-        {
-            throw new NullReferenceException("function can not be null");
-        }
-        _functionC = function;
+        _functionC = function ?? throw new NullReferenceException("function can not be null");
         _dataA = dataA;
         _dataB = dataB;
         return this;
@@ -68,22 +52,14 @@ public class EasingData : IEasingData, ICleanable
 
     public EasingData Initialize(Func<float, float, float> function, float dataA)
     {
-        if (function == null)
-        {
-            throw new NullReferenceException("function can not be null");
-        }
-        _functionB = function;
+        _functionB = function ?? throw new NullReferenceException("function can not be null");
         _dataA = dataA;
         return this;
     }
 
     public EasingData Initialize(Func<float, float> function)
     {
-        if (function == null)
-        {
-            throw new NullReferenceException("function can not be null");
-        }
-        _functionA = function;
+        _functionA = function ?? throw new NullReferenceException("function can not be null");
         return this;
     }
 
@@ -97,11 +73,7 @@ public class EasingData : IEasingData, ICleanable
         {
             return _functionB(ratio, _dataA);
         }
-        if (_functionC != null)
-        {
-            return _functionC(ratio, _dataA, _dataB);
-        }
-        throw new Exception("No ease function selected");
+        return _functionC != null ? _functionC(ratio, _dataA, _dataB) : throw new Exception("No ease function selected");
     }
 
     public void Clean()

@@ -10,9 +10,9 @@ public class PinHole : PrimitivesNode
 {
     protected VertexPositionColorTexture[] vertices = new VertexPositionColorTexture[24];
 
-    public static Vector3 IN_OFFSET = new Vector3(-10f, -10f, 0f);
+    public static Vector3 IN_OFFSET = new(-10f, -10f, 0f);
 
-    public static Vector3 OUT_OFFSET = new Vector3(80f, 80f, 0f);
+    public static Vector3 OUT_OFFSET = new(80f, 80f, 0f);
 
     public PinHole(Vector2 size)
     {
@@ -22,9 +22,9 @@ public class PinHole : PrimitivesNode
 
     public void CreateFatRectOffsetStartColorEndColor(Vector2 size, Vector3 offset, Color startColor, Color endColor)
     {
-        Vector3 vector = new Vector3(size.X, size.Y, 0f);
-        Vector3 vector2 = new Vector3(size.X, 0f, 0f);
-        Vector3 vector3 = new Vector3(0f, size.Y, 0f);
+        Vector3 vector = new(size.X, size.Y, 0f);
+        Vector3 vector2 = new(size.X, 0f, 0f);
+        Vector3 vector3 = new(0f, size.Y, 0f);
         vertices[0].Position = new Vector3(0f, 0f, 0f);
         vertices[1].Position = vector2;
         vertices[2].Position = -offset;

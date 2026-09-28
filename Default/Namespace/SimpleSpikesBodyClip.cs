@@ -44,8 +44,8 @@ public class SimpleSpikesBodyClip : ContreJourBodyClip, IRestartable
         }
         clip.UpdateEnabled = false;
         prickTime = -2f;
-        initialPosition = base.Clip.Position;
-        initialScale = base.Clip.ScaleX;
+        initialPosition = Clip.Position;
+        initialScale = Clip.ScaleX;
         RunActions();
     }
 
@@ -62,7 +62,7 @@ public class SimpleSpikesBodyClip : ContreJourBodyClip, IRestartable
                 float scale = Maths.Random(0.95f, 0.98f) * initialScale;
                 float scale2 = Maths.Random(1.02f, 1.05f) * initialScale;
                 float seconds = Maths.Random(2f, 3f);
-                clip.Tweener.RepeatSequenceForever(seconds).ScaleTo(scale, Cubic.EaseInOut).Next(seconds)
+                _ = clip.Tweener.RepeatSequenceForever(seconds).ScaleTo(scale, Cubic.EaseInOut).Next(seconds)
                     .ScaleTo(scale2, Cubic.EaseInOut);
             }
         }
@@ -76,20 +76,20 @@ public class SimpleSpikesBodyClip : ContreJourBodyClip, IRestartable
     public override void Update(float time)
     {
         base.Update(time);
-        if (!actionsRunning && base.Game.TotalTime - prickTime >= 2f)
+        if (!actionsRunning && Game.TotalTime - prickTime >= 2f)
         {
             RunActions();
-            MovieClip movieClip = (MovieClip)base.Clip;
+            MovieClip movieClip = (MovieClip)Clip;
             movieClip.Rewind = true;
             movieClip.Stoped = false;
         }
         if (floating && actionsRunning)
         {
             float num = Math.Min(time, 1f / 30f);
-            Vector2 vector = initialPosition - base.Clip.Position;
+            Vector2 vector = initialPosition - Clip.Position;
             direction = Maths.StepTo(target: Maths.Atan2(vector.Y, vector.X).SimplifyAngle(direction - (float)Math.PI), maxStep: angleStep * num, value: direction);
             Vector2 vector2 = VectorUtil.ToVector(speed * num, direction);
-            base.Clip.Position = base.Clip.Position + vector2;
+            Clip.Position = Clip.Position + vector2;
         }
     }
 
@@ -106,13 +106,13 @@ public class SimpleSpikesBodyClip : ContreJourBodyClip, IRestartable
         if (body2.UserData is ISpikesDestroyable spikesDestroyable && !point.IsSensor() && spikesDestroyable.CanDie())
         {
             OnHeroHitPoint(spikesDestroyable, point);
-            MovieClip movieClip = (MovieClip)base.Clip;
+            MovieClip movieClip = (MovieClip)Clip;
             movieClip.UpdateEnabled = true;
             movieClip.Repeat = false;
             movieClip.Rewind = false;
             movieClip.Stoped = false;
-            base.Clip.Tweener.Stop();
-            prickTime = base.Game.TotalTime;
+            Clip.Tweener.Stop();
+            prickTime = Game.TotalTime;
             actionsRunning = false;
         }
     }

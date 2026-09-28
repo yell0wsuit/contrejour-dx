@@ -17,23 +17,23 @@ public class ClipFactory
 {
     private const string TextureExtension = "xnb";
 
-    private static readonly ClipFactory instance = new ClipFactory();
+    private static readonly ClipFactory instance = new();
 
-    private static readonly List<TextureSource> textureSources = new List<TextureSource>();
+    private static readonly List<TextureSource> textureSources = [];
 
-    private static TextureSource defaultTextureSource = new TextureSource("mc/hd/", 1f, 640);
+    private static TextureSource defaultTextureSource = new("mc/hd/", 1f, 640);
 
     private static TextureSource currentTextureSource;
 
-    private static readonly XmlSerializer serializer = new XmlSerializer();
+    private static readonly XmlSerializer serializer = new();
 
     public static MokusContentManager content;
 
-    private static readonly Dictionary<string, ClipData> configsCache = new Dictionary<string, ClipData>();
+    private static readonly Dictionary<string, ClipData> configsCache = [];
 
-    private static readonly Dictionary<string, string> fullPaths = new Dictionary<string, string>();
+    private static readonly Dictionary<string, string> fullPaths = [];
 
-    private static Dictionary<object, Dictionary<int, MovieClip>> debugPoints = new Dictionary<object, Dictionary<int, MovieClip>>();
+    private static Dictionary<object, Dictionary<int, MovieClip>> debugPoints = [];
 
     public static ClipFactory Instance => instance;
 
@@ -91,11 +91,9 @@ public class ClipFactory
     public static string GetTexturePath(string name)
     {
         name = CorrectName(name);
-        if (File.Exists(GetPath(name, currentTextureSource, "xnb")))
-        {
-            return Path.Combine(new string[2] { currentTextureSource.Path, name });
-        }
-        return Path.Combine(new string[2] { defaultTextureSource.Path, name });
+        return File.Exists(GetPath(name, currentTextureSource, "xnb"))
+            ? Path.Combine([currentTextureSource.Path, name])
+            : Path.Combine([defaultTextureSource.Path, name]);
     }
 
     private static ClipData GetConfigByName(string name)
@@ -140,11 +138,11 @@ public class ClipFactory
 
     private static string GetPath(string name, TextureSource textureSource)
     {
-        return Path.Combine(new string[2]
-        {
+        return Path.Combine(
+        [
             content.RootDirectory,
             textureSource.Path + name
-        });
+        ]);
     }
 
     private static string GetPath(string name, TextureSource textureSource, string extension)

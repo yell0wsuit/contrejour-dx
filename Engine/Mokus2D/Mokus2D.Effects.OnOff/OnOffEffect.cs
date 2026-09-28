@@ -12,10 +12,7 @@ public abstract class OnOffEffect : IOnOff
 
     public bool On
     {
-        get
-        {
-            return _on;
-        }
+        get => _on;
         set
         {
             if (_on != value)

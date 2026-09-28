@@ -22,14 +22,8 @@ public class DustData : IUpdatable
 
     public bool Dragging
     {
-        get
-        {
-            return dragging;
-        }
-        set
-        {
-            dragging = value;
-        }
+        get => dragging;
+        set => dragging = value;
     }
 
     public bool ShouldRemove => hasRemove;
@@ -51,10 +45,10 @@ public class DustData : IUpdatable
 
     public void Update(float time)
     {
-        float num = time * 3f * Math.Min((float)particle.OpacityByte / 255f, 0.3f);
+        float num = time * 3f * Math.Min(particle.OpacityByte / 255f, 0.3f);
         Vector2 vector = speed * num;
         particle.Position += vector;
-        particle.OpacityFloat -= (dragging ? (alphaDiff * 10f) : alphaDiff);
+        particle.OpacityFloat -= dragging ? (alphaDiff * 10f) : alphaDiff;
         if (particle.OpacityByte <= 0)
         {
             particle.Visible = false;

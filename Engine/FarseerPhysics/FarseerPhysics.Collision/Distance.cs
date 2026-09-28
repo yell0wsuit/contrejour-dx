@@ -19,12 +19,12 @@ public static class Distance
 
     public static void ComputeDistance(out DistanceOutput output, out SimplexCache cache, DistanceInput input)
     {
-        cache = default(SimplexCache);
+        cache = default;
         GJKCalls++;
-        Simplex simplex = default(Simplex);
+        Simplex simplex = default;
         simplex.ReadCache(ref cache, input.ProxyA, ref input.TransformA, input.ProxyB, ref input.TransformB);
-        FixedArray3<int> fixedArray = default(FixedArray3<int>);
-        FixedArray3<int> fixedArray2 = default(FixedArray3<int>);
+        FixedArray3<int> fixedArray = default;
+        FixedArray3<int> fixedArray2 = default;
         int num = 0;
         while (num < 20)
         {
@@ -95,7 +95,7 @@ public static class Distance
             }
             else
             {
-                output.PointB = (output.PointA = 0.5f * (output.PointA + output.PointB));
+                output.PointB = output.PointA = 0.5f * (output.PointA + output.PointB);
                 output.Distance = 0f;
             }
         }

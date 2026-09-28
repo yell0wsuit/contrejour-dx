@@ -8,7 +8,6 @@ using Microsoft.Xna.Framework.Input;
 using Mokus2D.Fonts;
 using Mokus2D.Input;
 using Mokus2D.Util;
-using Mokus2D.Util.Data;
 using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual.Focus;
 using Mokus2D.Visual.Util;
@@ -23,7 +22,7 @@ public class InputLabel : Label, IFocus
 
     private bool _listenersAdded;
 
-    private Mokus2D.Util.Data.Point _textPosition = default(Mokus2D.Util.Data.Point);
+    private Mokus2D.Util.Data.Point _textPosition = default;
 
     private Cursor _cursor;
 
@@ -33,28 +32,19 @@ public class InputLabel : Label, IFocus
 
     private bool _enabled = true;
 
-    private readonly Dictionary<Keys, Action<Keys>> _keyHandlers = new Dictionary<Keys, Action<Keys>>();
+    private readonly Dictionary<Keys, Action<Keys>> _keyHandlers = [];
 
     private int? _maxSymbols;
 
     public int? MaxSymbols
     {
-        get
-        {
-            return _maxSymbols;
-        }
-        set
-        {
-            _maxSymbols = value;
-        }
+        get => _maxSymbols;
+        set => _maxSymbols = value;
     }
 
     public bool Enabled
     {
-        get
-        {
-            return _enabled;
-        }
+        get => _enabled;
         set
         {
             if (_enabled != value)
@@ -70,10 +60,7 @@ public class InputLabel : Label, IFocus
 
     public Color CursorColor
     {
-        get
-        {
-            return _cursor.Color;
-        }
+        get => _cursor.Color;
         set
         {
             _cursor.Color = value;
@@ -83,10 +70,7 @@ public class InputLabel : Label, IFocus
 
     public bool HasFocus
     {
-        get
-        {
-            return _hasFocus;
-        }
+        get => _hasFocus;
         set
         {
             if (_hasFocus != value)
@@ -96,11 +80,11 @@ public class InputLabel : Label, IFocus
                 RefreshKeyboardListeners();
                 if (_hasFocus)
                 {
-                    this.FocusInEvent.Dispatch(this);
+                    FocusInEvent.Dispatch(this);
                 }
                 else
                 {
-                    this.FocusOutEvent.Dispatch(this);
+                    FocusOutEvent.Dispatch(this);
                 }
             }
         }
@@ -108,10 +92,7 @@ public class InputLabel : Label, IFocus
 
     public Mokus2D.Util.Data.Point TextPosition
     {
-        get
-        {
-            return _textPosition;
-        }
+        get => _textPosition;
         set
         {
             if (_textPosition != value)
@@ -127,13 +108,9 @@ public class InputLabel : Label, IFocus
     {
         get
         {
-            if (TextPosition.Y < base.Lines.Count)
+            if (TextPosition.Y < Lines.Count)
             {
-                if (TextPosition.Y == base.Lines.Count - 1)
-                {
-                    return TextPosition.X >= base.Lines.Last().Glyphs.Count;
-                }
-                return false;
+                return TextPosition.Y == Lines.Count - 1 ? TextPosition.X >= Lines.Last().Glyphs.Count : false;
             }
             return true;
         }
@@ -145,11 +122,7 @@ public class InputLabel : Label, IFocus
         {
             if (TextPosition.Y >= 0)
             {
-                if (TextPosition.Y == 0)
-                {
-                    return TextPosition.X <= 0;
-                }
-                return false;
+                return TextPosition.Y == 0 ? TextPosition.X <= 0 : false;
             }
             return true;
         }
@@ -193,11 +166,11 @@ public class InputLabel : Label, IFocus
         {
             if (_positionToEnd)
             {
-                TextPosition = Get2DSymbolPosition(base.TextLength);
+                TextPosition = Get2DSymbolPosition(TextLength);
             }
             _positionToEnd = false;
             _cursorPositionDirty = false;
-            _cursor.Position = GetGlyphLeftTop(_textPosition) + _cursor.ScaledSize / 2f;
+            _cursor.Position = GetGlyphLeftTop(_textPosition) + (_cursor.ScaledSize / 2f);
         }
     }
 
@@ -225,14 +198,14 @@ public class InputLabel : Label, IFocus
     private void RefreshTextPosition()
     {
         Mokus2D.Util.Data.Point textPosition = TextPosition;
-        textPosition.Y = Math.Min(textPosition.Y, base.Lines.Count - 1);
-        textPosition.X = Math.Min(textPosition.X, base.Lines[textPosition.Y].Glyphs.Count);
+        textPosition.Y = Math.Min(textPosition.Y, Lines.Count - 1);
+        textPosition.X = Math.Min(textPosition.X, Lines[textPosition.Y].Glyphs.Count);
         TextPosition = textPosition;
     }
 
     private Cursor CreatCursor()
     {
-        Cursor cursor = new Cursor(base.Font, ScaleFactor);
+        Cursor cursor = new(Font, ScaleFactor);
         AddChild(cursor);
         cursor.Visible = false;
         return cursor;
@@ -255,7 +228,7 @@ public class InputLabel : Label, IFocus
 
     private void RefreshKeyboardListeners()
     {
-        bool flag = base.OnDisplayList && HasFocus;
+        bool flag = OnDisplayList && HasFocus;
         if (flag && !_listenersAdded)
         {
             _listenersAdded = true;
@@ -270,20 +243,20 @@ public class InputLabel : Label, IFocus
 
     private void TryAddSymbol(Keys key)
     {
-        if (MaxSymbols.HasValue && base.TextLength >= MaxSymbols.Value)
+        if (MaxSymbols.HasValue && TextLength >= MaxSymbols.Value)
         {
             return;
         }
         char? c = TextUtil.KeyToChar(key, Mokus2DGame.Keyboard.IsCapital);
         if (((int?)c).HasValue && (AllowedSymbols == null || Enumerable.Contains(AllowedSymbols, c.Value)))
         {
-            CharData charData = base.Font[c.Value];
-            if (charData != null && (!base.MaxWidth.HasValue || !(base.TextSize.X + charData.Width > base.MaxWidth)))
+            CharData charData = Font[c.Value];
+            if (charData != null && (!MaxWidth.HasValue || !(TextSize.X + charData.Width > MaxWidth)))
             {
                 RefreshText();
-                Insert(GetSymbolPosition(TextPosition), c);
+                _ = Insert(GetSymbolPosition(TextPosition), c);
                 TextPosition += new Mokus2D.Util.Data.Point(1, 0);
-                this.TextChangeEvent.Dispatch();
+                TextChangeEvent.Dispatch();
             }
         }
     }
@@ -296,7 +269,7 @@ public class InputLabel : Label, IFocus
             symbolPosition--;
             SafeRemove(symbolPosition, 1);
             TextPosition = Get2DSymbolPosition(symbolPosition);
-            this.TextChangeEvent.Dispatch();
+            TextChangeEvent.Dispatch();
         }
     }
 
@@ -305,15 +278,15 @@ public class InputLabel : Label, IFocus
         if (!CursorAtEnd)
         {
             SafeRemove(GetSymbolPosition(TextPosition), 1);
-            this.TextChangeEvent.Dispatch();
+            TextChangeEvent.Dispatch();
         }
     }
 
     private void SafeRemove(int startIndex, int length)
     {
-        if (startIndex >= 0 && startIndex <= base.TextLength && length >= 0 && startIndex + length <= base.TextLength)
+        if (startIndex >= 0 && startIndex <= TextLength && length >= 0 && startIndex + length <= TextLength)
         {
-            Remove(startIndex, length);
+            _ = Remove(startIndex, length);
         }
     }
 
@@ -321,7 +294,7 @@ public class InputLabel : Label, IFocus
     {
         int symbolPosition = GetSymbolPosition(TextPosition);
         symbolPosition += direction;
-        symbolPosition = symbolPosition.Clamp(0, base.TextLength);
+        symbolPosition = symbolPosition.Clamp(0, TextLength);
         TextPosition = Get2DSymbolPosition(symbolPosition);
     }
 

@@ -46,10 +46,7 @@ public struct PrimitivesDrawing : IDisposable
         }
         oldState = Mokus2DGame.Device.BlendState;
         Mokus2DGame.Device.BlendState = BlendState.NonPremultiplied;
-        if (Effect == null)
-        {
-            Effect = new BasicEffect(Mokus2DGame.Device);
-        }
+        Effect ??= new BasicEffect(Mokus2DGame.Device);
         Effect.Projection = matrix;
         Effect.World = Matrix.Identity;
         Effect.View = Matrix.Identity;
@@ -68,7 +65,7 @@ public struct PrimitivesDrawing : IDisposable
         BeginDrawPrimitives(state, matrix, null);
     }
 
-    public void EndDrawPrimitives()
+    public readonly void EndDrawPrimitives()
     {
         Mokus2DGame.Device.BlendState = oldState;
     }

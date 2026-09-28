@@ -74,11 +74,7 @@ internal struct Simplex
                 {
                     Vector2 a = V[1].W - V[0].W;
                     float num = MathUtils.Cross(a, -V[0].W);
-                    if (num > 0f)
-                    {
-                        return new Vector2(0f - a.Y, a.X);
-                    }
-                    return new Vector2(a.Y, 0f - a.X);
+                    return num > 0f ? new Vector2(0f - a.Y, a.X) : new Vector2(a.Y, 0f - a.X);
                 }
             default:
                 return Vector2.Zero;
@@ -91,7 +87,7 @@ internal struct Simplex
         {
             0 => Vector2.Zero,
             1 => V[0].W,
-            2 => V[0].A * V[0].W + V[1].A * V[1].W,
+            2 => (V[0].A * V[0].W) + (V[1].A * V[1].W),
             3 => Vector2.Zero,
             _ => Vector2.Zero,
         };
@@ -110,11 +106,11 @@ internal struct Simplex
                 pB = V[0].WB;
                 break;
             case 2:
-                pA = V[0].A * V[0].WA + V[1].A * V[1].WA;
-                pB = V[0].A * V[0].WB + V[1].A * V[1].WB;
+                pA = (V[0].A * V[0].WA) + (V[1].A * V[1].WA);
+                pB = (V[0].A * V[0].WB) + (V[1].A * V[1].WB);
                 break;
             case 3:
-                pA = V[0].A * V[0].WA + V[1].A * V[1].WA + V[2].A * V[2].WA;
+                pA = (V[0].A * V[0].WA) + (V[1].A * V[1].WA) + (V[2].A * V[2].WA);
                 pB = pA;
                 break;
             default:

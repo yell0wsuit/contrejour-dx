@@ -29,17 +29,17 @@ public class Node : DisposableBase, IUpdatable, IConfig
 
     public readonly Tweener Tweener;
 
-    private readonly ConcurrentQueue<NodeAndLayer> _addLater = new ConcurrentQueue<NodeAndLayer>();
+    private readonly ConcurrentQueue<NodeAndLayer> _addLater = new();
 
-    private readonly List<Node> _cachedChildrenCopy = new List<Node>(64);
+    private readonly List<Node> _cachedChildrenCopy = new(64);
 
-    private readonly Stack<Node> _cachedVisualStack = new Stack<Node>(64);
+    private readonly Stack<Node> _cachedVisualStack = new(64);
 
-    private readonly ConcurrentQueue<Action<Node>> _callLater = new ConcurrentQueue<Action<Node>>();
+    private readonly ConcurrentQueue<Action<Node>> _callLater = new();
 
-    private readonly NodeChildren _children = new NodeChildren();
+    private readonly NodeChildren _children = [];
 
-    private readonly ConcurrentQueue<Node> _removeLater = new ConcurrentQueue<Node>();
+    private readonly ConcurrentQueue<Node> _removeLater = new();
 
     public float ColorRatio;
 
@@ -115,120 +115,66 @@ public class Node : DisposableBase, IUpdatable, IConfig
 
     public float X
     {
-        get
-        {
-            return Position.X;
-        }
-        set
-        {
-            Position = new Vector2(value, Position.Y);
-        }
+        get => Position.X;
+        set => Position = new Vector2(value, Position.Y);
     }
 
     public float Y
     {
-        get
-        {
-            return Position.Y;
-        }
-        set
-        {
-            Position = new Vector2(Position.X, value);
-        }
+        get => Position.Y;
+        set => Position = new Vector2(Position.X, value);
     }
 
     public float RotationDegrees
     {
-        get
-        {
-            return MathHelper.ToDegrees(RotationRadians);
-        }
-        set
-        {
-            RotationRadians = MathHelper.ToRadians(value);
-        }
+        get => MathHelper.ToDegrees(RotationRadians);
+        set => RotationRadians = MathHelper.ToRadians(value);
     }
 
     public bool VisibleAndUpdating
     {
-        set
-        {
-            Visible = (UpdateChildren = (UpdateEnabled = value));
-        }
+        set => Visible = UpdateChildren = UpdateEnabled = value;
     }
 
     public virtual Color Color { get; set; }
 
     public int OpacityByte
     {
-        get
-        {
-            return (int)(OpacityFloat * 255f);
-        }
-        set
-        {
-            OpacityFloat = (float)value / 255f;
-        }
+        get => (int)(OpacityFloat * 255f);
+        set => OpacityFloat = value / 255f;
     }
 
     public virtual float OpacityFloat
     {
-        get
-        {
-            return _opacity;
-        }
-        set
-        {
-            _opacity = value.Clamp(0f, 1f);
-        }
+        get => _opacity;
+        set => _opacity = value.Clamp(0f, 1f);
     }
 
     public float Scale
     {
         get
         {
-            if (ScaleVec.X == ScaleVec.Y)
-            {
-                return ScaleVec.X;
-            }
-            throw new InvalidOperationException("ScaleVec.X differs from ScaleVec.Y");
+            return ScaleVec.X == ScaleVec.Y ? ScaleVec.X : throw new InvalidOperationException("ScaleVec.X differs from ScaleVec.Y");
         }
-        set
-        {
-            ScaleVec = new Vector2(value, value);
-        }
+
+        set => ScaleVec = new Vector2(value, value);
     }
 
     public float ScaleX
     {
-        get
-        {
-            return ScaleVec.X;
-        }
-        set
-        {
-            ScaleVec = new Vector2(value, ScaleVec.Y);
-        }
+        get => ScaleVec.X;
+        set => ScaleVec = new Vector2(value, ScaleVec.Y);
     }
 
     public float ScaleY
     {
-        get
-        {
-            return ScaleVec.Y;
-        }
-        set
-        {
-            ScaleVec = new Vector2(ScaleVec.X, value);
-        }
+        get => ScaleVec.Y;
+        set => ScaleVec = new Vector2(ScaleVec.X, value);
     }
 
     public virtual bool Visible
     {
-        get
-        {
-            return _visible;
-        }
+        get => _visible;
         set
         {
             if (Visible != value)
@@ -241,18 +187,12 @@ public class Node : DisposableBase, IUpdatable, IConfig
 
     public float XY
     {
-        set
-        {
-            Position = new Vector2(value);
-        }
+        set => Position = new Vector2(value);
     }
 
     public virtual Vector2 Position
     {
-        get
-        {
-            return _position;
-        }
+        get => _position;
         set
         {
             if (_position != value)
@@ -265,10 +205,7 @@ public class Node : DisposableBase, IUpdatable, IConfig
 
     public virtual Vector2 ScaleVec
     {
-        get
-        {
-            return _scaleVec;
-        }
+        get => _scaleVec;
         set
         {
             if (_scaleVec != value)
@@ -281,10 +218,7 @@ public class Node : DisposableBase, IUpdatable, IConfig
 
     public virtual float RotationRadians
     {
-        get
-        {
-            return _rotationRadians;
-        }
+        get => _rotationRadians;
         set
         {
             if (_rotationRadians != value)
@@ -323,11 +257,7 @@ public class Node : DisposableBase, IUpdatable, IConfig
     {
         get
         {
-            if (Visible)
-            {
-                return OnScreenCount > 0;
-            }
-            return false;
+            return Visible ? OnScreenCount > 0 : false;
         }
     }
 
@@ -354,10 +284,7 @@ public class Node : DisposableBase, IUpdatable, IConfig
 
     public Node Parent
     {
-        get
-        {
-            return _parent;
-        }
+        get => _parent;
         protected set
         {
             _parent = value;
@@ -376,10 +303,7 @@ public class Node : DisposableBase, IUpdatable, IConfig
 
     public RootNode Root
     {
-        get
-        {
-            return _root;
-        }
+        get => _root;
         internal set
         {
             if (_root == value)
@@ -392,19 +316,13 @@ public class Node : DisposableBase, IUpdatable, IConfig
             if (flag)
             {
                 OnAddedToStage();
-                if (Controller != null)
-                {
-                    Controller.OnAddedToStage();
-                }
-                this.AddedToStageEvent.Dispatch();
+                Controller?.OnAddedToStage();
+                AddedToStageEvent.Dispatch();
             }
             if (flag2)
             {
                 OnRemovedFromStage();
-                if (Controller != null)
-                {
-                    Controller.OnRemovedFromStage();
-                }
+                Controller?.OnRemovedFromStage();
             }
         }
     }
@@ -439,20 +357,14 @@ public class Node : DisposableBase, IUpdatable, IConfig
         if (_firstUpdate)
         {
             FirstUpdate();
-            if (Controller != null)
-            {
-                Controller.FirstUpdate();
-            }
+            Controller?.FirstUpdate();
             _firstUpdate = false;
         }
     }
 
     public void CreateConfig()
     {
-        if (_config == null)
-        {
-            _config = new Dictionary<string, string>();
-        }
+        _config ??= new Dictionary<string, string>();
     }
 
     public virtual void RefreshProperties()
@@ -473,10 +385,7 @@ public class Node : DisposableBase, IUpdatable, IConfig
     {
         if (config != null)
         {
-            if (_config == null)
-            {
-                _config = new DoubleSourceDictionary<string, string>(new Dictionary<string, string>());
-            }
+            _config ??= new DoubleSourceDictionary<string, string>(new Dictionary<string, string>());
             ((DoubleSourceDictionary<string, string>)_config).SetSecondSource(config);
         }
         if (Config != null && Config.GetBool("test"))
@@ -495,9 +404,8 @@ public class Node : DisposableBase, IUpdatable, IConfig
             }
             return;
         }
-        if (_config is DoubleSourceDictionary<string, string>)
+        if (_config is DoubleSourceDictionary<string, string> doubleSourceDictionary)
         {
-            DoubleSourceDictionary<string, string> doubleSourceDictionary = (DoubleSourceDictionary<string, string>)_config;
             if (config == null)
             {
                 _config = doubleSourceDictionary.SecondSource;
@@ -636,13 +544,11 @@ public class Node : DisposableBase, IUpdatable, IConfig
             {
                 node._layer = Math.Min(_children[0].Layer, node._layer);
             }
-            else if (index == _children.Count)
-            {
-                node._layer = Math.Max(_children.Last().Layer, node.Layer);
-            }
             else
             {
-                node._layer = node._layer.Clamp(_children[index - 1]._layer, _children[index]._layer);
+                node._layer = index == _children.Count
+                    ? Math.Max(_children.Last().Layer, node.Layer)
+                    : node._layer.Clamp(_children[index - 1]._layer, _children[index]._layer);
             }
         }
         SetThisAsParentTo(node);
@@ -719,18 +625,12 @@ public class Node : DisposableBase, IUpdatable, IConfig
 
     public virtual void RemoveFromParent()
     {
-        if (Parent != null)
-        {
-            Parent.RemoveChild(this);
-        }
+        Parent?.RemoveChild(this);
     }
 
     public virtual void RemoveFromParentLater()
     {
-        if (Parent != null)
-        {
-            Parent.RemoveChildLater(this);
-        }
+        Parent?.RemoveChildLater(this);
     }
 
     public virtual void RemoveAllChildren()
@@ -774,10 +674,7 @@ public class Node : DisposableBase, IUpdatable, IConfig
             using (new GarbageTracer(GetType().Name))
             {
                 Update(time);
-                if (Controller != null)
-                {
-                    Controller.Update(time);
-                }
+                Controller?.Update(time);
             }
         }
         if (UpdateChildren)
@@ -828,13 +725,11 @@ public class Node : DisposableBase, IUpdatable, IConfig
 
     private void RefreshChildren()
     {
-        Node result;
-        while (_removeLater.TryDequeue(out result))
+        while (_removeLater.TryDequeue(out Node result))
         {
             RemoveChild(result);
         }
-        NodeAndLayer result2;
-        while (_addLater.TryDequeue(out result2))
+        while (_addLater.TryDequeue(out NodeAndLayer result2))
         {
             if (result2.RemoveFromPreviousParent)
             {
@@ -846,7 +741,7 @@ public class Node : DisposableBase, IUpdatable, IConfig
 
     private void ExecuteCallLaters()
     {
-        if (_callLater.TryDequeue(out var result))
+        if (_callLater.TryDequeue(out Action<Node> result))
         {
             result(this);
         }
@@ -860,7 +755,7 @@ public class Node : DisposableBase, IUpdatable, IConfig
             Draw(CompositeState);
             Drawer.IncreaseNodesDrawnCount();
         }
-        DrawChildrenPart(index, positiveLayers: true);
+        _ = DrawChildrenPart(index, positiveLayers: true);
     }
 
     protected int DrawChildrenPart(int index, bool positiveLayers)
@@ -899,13 +794,10 @@ public class Node : DisposableBase, IUpdatable, IConfig
         RefreshMatrix();
         if (parentState.TransformationDirty || _transformationDirty)
         {
-            if (CompositeState == null)
-            {
-                CompositeState = new VisualState(parentState);
-            }
+            CompositeState ??= new VisualState(parentState);
             CompositeState.Refresh(parentState, ref _nodeMatrix, OpacityFloat, Color, ColorRatio, IgnoreParentOpacity, IgnoreParentColor, IgnoreParentTransformations);
             _transformationDirty = false;
-            this.TransformationsRefreshedEvent.Dispatch();
+            TransformationsRefreshedEvent.Dispatch();
         }
         else
         {
@@ -916,10 +808,7 @@ public class Node : DisposableBase, IUpdatable, IConfig
     protected override void Dispose(bool disposing)
     {
         base.Dispose(disposing);
-        if (Tweener != null)
-        {
-            Tweener.Dispose();
-        }
+        Tweener?.Dispose();
         if (Children == null)
         {
             return;

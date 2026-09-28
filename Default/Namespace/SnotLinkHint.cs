@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 using Mokus2D.Visual;
 
@@ -31,7 +32,7 @@ public class SnotLinkHint : FadeHint
     private void GetSnot()
     {
         List<BodyClip> list = FarseerUtil.QueryBodyClipsCenterRadiusType(builder.World, builder.ToIPhoneVec(clip.Position), 6.6666665f, typeof(SnotBodyClip));
-        foreach (SnotBodyClip item in list)
+        foreach (SnotBodyClip item in list.Cast<SnotBodyClip>())
         {
             item.LinkEvent.AddListener(OnSnotLink);
         }
@@ -55,6 +56,6 @@ public class SnotLinkHint : FadeHint
     public virtual void OnSnotLink()
     {
         hiding = true;
-        Hide(0.5f * (float)clip.OpacityByte / 255f);
+        Hide(0.5f * clip.OpacityByte / 255f);
     }
 }

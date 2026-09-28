@@ -9,11 +9,7 @@ public static class LayoutOrientationExtensions
 {
     public static float GetValue(this Vector2 value, LayoutOrientation orientation)
     {
-        if (orientation != LayoutOrientation.Horizontal)
-        {
-            return value.Y;
-        }
-        return value.X;
+        return orientation != LayoutOrientation.Horizontal ? value.Y : value.X;
     }
 
     public static Vector2 StepTo(this Vector2 value, float target, float step, LayoutOrientation orientation)
@@ -25,19 +21,11 @@ public static class LayoutOrientationExtensions
 
     public static Vector2 Change(this Vector2 vector, float value, LayoutOrientation orientation)
     {
-        if (orientation != LayoutOrientation.Horizontal)
-        {
-            return vector.ChangeY(value);
-        }
-        return vector.ChangeX(value);
+        return orientation != LayoutOrientation.Horizontal ? vector.ChangeY(value) : vector.ChangeX(value);
     }
 
     public static Vector2 Change(this Vector2 vector, Vector2 value, LayoutOrientation orientation)
     {
-        if (orientation != LayoutOrientation.Horizontal)
-        {
-            return vector.ChangeY(value.Y);
-        }
-        return vector.ChangeX(value.X);
+        return orientation != LayoutOrientation.Horizontal ? vector.ChangeY(value.Y) : vector.ChangeX(value.X);
     }
 }

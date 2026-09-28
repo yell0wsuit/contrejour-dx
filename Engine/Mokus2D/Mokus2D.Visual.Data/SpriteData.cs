@@ -11,7 +11,7 @@ public class SpriteData : TextureNodeData, ISpriteData, ITextureNodeData, IConfi
 {
     public FrameData Frame;
 
-    public Vector2 Size => TextureRect.Size() * base.ScaleFactor;
+    public Vector2 Size => TextureRect.Size() * ScaleFactor;
 
     public Vector2 Anchor => Frame.Anchor;
 

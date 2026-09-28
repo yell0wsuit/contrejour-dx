@@ -10,14 +10,11 @@ public class ScaleMultEffect : ScaleEffect
 
     public float ScaleMult
     {
-        get
-        {
-            return _scaleMult;
-        }
+        get => _scaleMult;
         set
         {
             _scaleMult = value;
-            ResetOnValue(base.OffValue * value);
+            ResetOnValue(OffValue * value);
         }
     }
 
@@ -30,6 +27,6 @@ public class ScaleMultEffect : ScaleEffect
     public override void ResetOffValue(Vector2 value)
     {
         base.ResetOffValue(value);
-        ResetOnValue(base.OffValue * ScaleMult);
+        ResetOnValue(OffValue * ScaleMult);
     }
 }

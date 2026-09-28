@@ -10,16 +10,16 @@ namespace Mokus2D.Visual;
 
 public class Scale9Border : Node
 {
-    public static GetSetValue<Scale9Border, Vector2> SizeValue = new GetSetValue<Scale9Border, Vector2>((Scale9Border n) => n.Size, delegate (Scale9Border n, Vector2 v)
+    public static GetSetValue<Scale9Border, Vector2> SizeValue = new(n => n.Size, delegate (Scale9Border n, Vector2 v)
     {
         n.Size = v;
     });
 
-    private static readonly Vector2 CornerAnchor = new Vector2(1f, 0f);
+    private static readonly Vector2 CornerAnchor = new(1f, 0f);
 
-    protected readonly List<ISizeNode> SideSprites = new List<ISizeNode>();
+    protected readonly List<ISizeNode> SideSprites = [];
 
-    protected readonly List<ISizeNode> CornerSprites = new List<ISizeNode>();
+    protected readonly List<ISizeNode> CornerSprites = [];
 
     private readonly ISizeNode _left;
 
@@ -43,10 +43,7 @@ public class Scale9Border : Node
 
     public float BorderWidth
     {
-        get
-        {
-            return _borderWidth;
-        }
+        get => _borderWidth;
         set
         {
             if (_borderWidth != value)
@@ -59,10 +56,7 @@ public class Scale9Border : Node
 
     public Vector2 Size
     {
-        get
-        {
-            return _size;
-        }
+        get => _size;
         set
         {
             if (_size != value)
@@ -127,7 +121,7 @@ public class Scale9Border : Node
 
     private void RefreshBorderWidth()
     {
-        Vector2 value = new Vector2(_borderWidth);
+        Vector2 value = new(_borderWidth);
         foreach (ISizeNode cornerSprite in CornerSprites)
         {
             cornerSprite.SetScaledSize(value);

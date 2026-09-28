@@ -12,7 +12,7 @@ public class WhiteSnow : SnowFall
     protected override void initParams()
     {
         base.initParams();
-        base.ParticlesScale = new RandomRange(1f, 0.4f);
-        base.StartOpacity = new RandomRange(255f, 0f);
+        ParticlesScale = new RandomRange(1f, 0.4f);
+        StartOpacity = new RandomRange(255f, 0f);
     }
 }

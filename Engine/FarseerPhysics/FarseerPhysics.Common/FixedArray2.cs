@@ -10,15 +10,12 @@ public struct FixedArray2<T>
 
     public T this[int index]
     {
-        get
+        readonly get => index switch
         {
-            return index switch
-            {
-                0 => _value0,
-                1 => _value1,
-                _ => throw new IndexOutOfRangeException(),
-            };
-        }
+            0 => _value0,
+            1 => _value1,
+            _ => throw new IndexOutOfRangeException(),
+        };
         set
         {
             switch (index)

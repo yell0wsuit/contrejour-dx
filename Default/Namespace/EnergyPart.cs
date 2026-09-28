@@ -30,11 +30,7 @@ public class EnergyPart : Satellite
     {
         get
         {
-            if (!collected)
-            {
-                return base.TargetPosition;
-            }
-            return game.BonusTarget.BonusTarget();
+            return !collected ? base.TargetPosition : game.BonusTarget.BonusTarget();
         }
     }
 

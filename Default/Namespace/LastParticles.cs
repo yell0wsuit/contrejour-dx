@@ -15,7 +15,7 @@ public class LastParticles : BlackFall
     protected override void initParams()
     {
         base.initParams();
-        base.ParticlesScale = new RandomRange(0.9f, 0.6f);
+        ParticlesScale = new RandomRange(0.9f, 0.6f);
     }
 
     public override void initParticle(GravityParticle gravityParticle)
@@ -25,7 +25,7 @@ public class LastParticles : BlackFall
             gravityParticle.Scale = Maths.Random(3f, 3.5f);
         }
         base.initParticle(gravityParticle);
-        float num = base.ParticlesScale.Value + base.ParticlesScale.Offset;
+        float num = ParticlesScale.Value + ParticlesScale.Offset;
         gravityParticle.OpacityFloat = Math.Max((num - gravityParticle.Scale) / num, 0.05f);
     }
 }

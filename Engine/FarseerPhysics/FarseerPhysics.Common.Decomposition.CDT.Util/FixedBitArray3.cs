@@ -14,16 +14,13 @@ internal struct FixedBitArray3 : IEnumerable<bool>, IEnumerable
 
     public bool this[int index]
     {
-        get
+        readonly get => index switch
         {
-            return index switch
-            {
-                0 => _0,
-                1 => _1,
-                2 => _2,
-                _ => throw new IndexOutOfRangeException(),
-            };
-        }
+            0 => _0,
+            1 => _1,
+            2 => _2,
+            _ => throw new IndexOutOfRangeException(),
+        };
         set
         {
             switch (index)
@@ -79,7 +76,7 @@ internal struct FixedBitArray3 : IEnumerable<bool>, IEnumerable
 
     public void Clear()
     {
-        _0 = (_1 = (_2 = false));
+        _0 = _1 = _2 = false;
     }
 
     public void Clear(bool value)

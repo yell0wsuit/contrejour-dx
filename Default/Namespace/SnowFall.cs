@@ -18,7 +18,7 @@ public class SnowFall : BlackFall
     protected override void initParams()
     {
         base.initParams();
-        base.AngularSpeed = new RandomRange(0f, 0f);
-        base.ParticlesScale = new RandomRange(1.75f, 0.75f);
+        AngularSpeed = new RandomRange(0f, 0f);
+        ParticlesScale = new RandomRange(1.75f, 0.75f);
     }
 }

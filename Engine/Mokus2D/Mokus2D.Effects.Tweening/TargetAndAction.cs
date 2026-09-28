@@ -8,7 +8,7 @@ public struct TargetAndAction(object target, Action<object> action)
 
     public Action<object> Action = action;
 
-    public void Execute()
+    public readonly void Execute()
     {
         Action(Target);
     }

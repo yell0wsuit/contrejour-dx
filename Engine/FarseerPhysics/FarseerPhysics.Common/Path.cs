@@ -16,7 +16,7 @@ public class Path
 
     public Path()
     {
-        ControlPoints = new List<Vector2>();
+        ControlPoints = [];
     }
 
     public Path(Vector2[] vertices)
@@ -39,20 +39,12 @@ public class Path
 
     public int NextIndex(int index)
     {
-        if (index == ControlPoints.Count - 1)
-        {
-            return 0;
-        }
-        return index + 1;
+        return index == ControlPoints.Count - 1 ? 0 : index + 1;
     }
 
     public int PreviousIndex(int index)
     {
-        if (index == 0)
-        {
-            return ControlPoints.Count - 1;
-        }
-        return index - 1;
+        return index == 0 ? ControlPoints.Count - 1 : index - 1;
     }
 
     public void Translate(ref Vector2 vector)
@@ -73,7 +65,7 @@ public class Path
 
     public void Rotate(float value)
     {
-        Matrix.CreateRotationZ(value, out var result);
+        Matrix.CreateRotationZ(value, out Matrix result);
         for (int i = 0; i < ControlPoints.Count; i++)
         {
             ControlPoints[i] = Vector2.Transform(ControlPoints[i], result);
@@ -82,13 +74,13 @@ public class Path
 
     public override string ToString()
     {
-        StringBuilder stringBuilder = new StringBuilder();
+        StringBuilder stringBuilder = new();
         for (int i = 0; i < ControlPoints.Count; i++)
         {
-            stringBuilder.Append(ControlPoints[i].ToString());
+            _ = stringBuilder.Append(ControlPoints[i].ToString());
             if (i < ControlPoints.Count - 1)
             {
-                stringBuilder.Append(" ");
+                _ = stringBuilder.Append(" ");
             }
         }
         return stringBuilder.ToString();
@@ -96,8 +88,8 @@ public class Path
 
     public Vertices GetVertices(int divisions)
     {
-        Vertices vertices = new Vertices();
-        float num = 1f / (float)divisions;
+        Vertices vertices = [];
+        float num = 1f / divisions;
         for (float num2 = 0f; num2 < 1f; num2 += num)
         {
             vertices.Add(GetPosition(num2));
@@ -115,7 +107,7 @@ public class Path
         if (Closed)
         {
             Add(ControlPoints[0]);
-            _deltaT = 1f / (float)(ControlPoints.Count - 1);
+            _deltaT = 1f / (ControlPoints.Count - 1);
             int num = (int)(time / _deltaT);
             int num2 = num - 1;
             if (num2 < 0)
@@ -153,7 +145,7 @@ public class Path
             {
                 num5 -= ControlPoints.Count - 1;
             }
-            float amount = (time - _deltaT * (float)num) / _deltaT;
+            float amount = (time - (_deltaT * num)) / _deltaT;
             result = Vector2.CatmullRom(ControlPoints[num2], ControlPoints[num3], ControlPoints[num4], ControlPoints[num5], amount);
             RemoveAt(ControlPoints.Count - 1);
         }
@@ -196,7 +188,7 @@ public class Path
             {
                 num10 = ControlPoints.Count - 1;
             }
-            float amount2 = (time - _deltaT * (float)num6) / _deltaT;
+            float amount2 = (time - (_deltaT * num6)) / _deltaT;
             result = Vector2.CatmullRom(ControlPoints[num7], ControlPoints[num8], ControlPoints[num9], ControlPoints[num10], amount2);
         }
         return result;
@@ -207,8 +199,8 @@ public class Path
         float time2 = time + 0.0001f;
         Vector2 value = GetPosition(time);
         Vector2 value2 = GetPosition(time2);
-        Vector2.Subtract(ref value, ref value2, out var result);
-        Vector2 value3 = default(Vector2);
+        Vector2.Subtract(ref value, ref value2, out Vector2 result);
+        Vector2 value3 = default;
         value3.X = 0f - result.Y;
         value3.Y = result.X;
         Vector2.Normalize(ref value3, out value3);
@@ -218,19 +210,19 @@ public class Path
     public void Add(Vector2 point)
     {
         ControlPoints.Add(point);
-        _deltaT = 1f / (float)(ControlPoints.Count - 1);
+        _deltaT = 1f / (ControlPoints.Count - 1);
     }
 
     public void Remove(Vector2 point)
     {
-        ControlPoints.Remove(point);
-        _deltaT = 1f / (float)(ControlPoints.Count - 1);
+        _ = ControlPoints.Remove(point);
+        _deltaT = 1f / (ControlPoints.Count - 1);
     }
 
     public void RemoveAt(int index)
     {
         ControlPoints.RemoveAt(index);
-        _deltaT = 1f / (float)(ControlPoints.Count - 1);
+        _deltaT = 1f / (ControlPoints.Count - 1);
     }
 
     public float GetLength()
@@ -250,9 +242,9 @@ public class Path
 
     public List<Vector3> SubdivideEvenly(int divisions)
     {
-        List<Vector3> list = new List<Vector3>();
+        List<Vector3> list = [];
         float length = GetLength();
-        float num = length / (float)divisions + 0.001f;
+        float num = (length / divisions) + 0.001f;
         float num2 = 0f;
         Vector2 value = ControlPoints[0];
         Vector2 position = GetPosition(num2);

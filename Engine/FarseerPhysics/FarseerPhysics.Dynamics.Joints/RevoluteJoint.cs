@@ -58,34 +58,19 @@ public class RevoluteJoint : Joint
 
     public override Vector2 WorldAnchorA
     {
-        get
-        {
-            return base.BodyA.GetWorldPoint(LocalAnchorA);
-        }
-        set
-        {
-            LocalAnchorA = base.BodyA.GetLocalPoint(value);
-        }
+        get => BodyA.GetWorldPoint(LocalAnchorA);
+        set => LocalAnchorA = BodyA.GetLocalPoint(value);
     }
 
     public override Vector2 WorldAnchorB
     {
-        get
-        {
-            return base.BodyB.GetWorldPoint(LocalAnchorB);
-        }
-        set
-        {
-            LocalAnchorB = base.BodyB.GetLocalPoint(value);
-        }
+        get => BodyB.GetWorldPoint(LocalAnchorB);
+        set => LocalAnchorB = BodyB.GetLocalPoint(value);
     }
 
     public float ReferenceAngle
     {
-        get
-        {
-            return _referenceAngle;
-        }
+        get => _referenceAngle;
         set
         {
             WakeBodies();
@@ -93,16 +78,13 @@ public class RevoluteJoint : Joint
         }
     }
 
-    public float JointAngle => base.BodyB._sweep.A - base.BodyA._sweep.A - ReferenceAngle;
+    public float JointAngle => BodyB._sweep.A - BodyA._sweep.A - ReferenceAngle;
 
-    public float JointSpeed => base.BodyB._angularVelocity - base.BodyA._angularVelocity;
+    public float JointSpeed => BodyB._angularVelocity - BodyA._angularVelocity;
 
     public bool LimitEnabled
     {
-        get
-        {
-            return _enableLimit;
-        }
+        get => _enableLimit;
         set
         {
             if (_enableLimit != value)
@@ -116,10 +98,7 @@ public class RevoluteJoint : Joint
 
     public float LowerLimit
     {
-        get
-        {
-            return _lowerAngle;
-        }
+        get => _lowerAngle;
         set
         {
             if (_lowerAngle != value)
@@ -133,10 +112,7 @@ public class RevoluteJoint : Joint
 
     public float UpperLimit
     {
-        get
-        {
-            return _upperAngle;
-        }
+        get => _upperAngle;
         set
         {
             if (_upperAngle != value)
@@ -150,10 +126,7 @@ public class RevoluteJoint : Joint
 
     public bool MotorEnabled
     {
-        get
-        {
-            return _enableMotor;
-        }
+        get => _enableMotor;
         set
         {
             WakeBodies();
@@ -163,10 +136,7 @@ public class RevoluteJoint : Joint
 
     public float MotorSpeed
     {
-        get
-        {
-            return _motorSpeed;
-        }
+        get => _motorSpeed;
         set
         {
             WakeBodies();
@@ -176,10 +146,7 @@ public class RevoluteJoint : Joint
 
     public float MaxMotorTorque
     {
-        get
-        {
-            return _maxMotorTorque;
-        }
+        get => _maxMotorTorque;
         set
         {
             WakeBodies();
@@ -189,10 +156,7 @@ public class RevoluteJoint : Joint
 
     public float MotorImpulse
     {
-        get
-        {
-            return _motorImpulse;
-        }
+        get => _motorImpulse;
         set
         {
             WakeBodies();
@@ -202,24 +166,24 @@ public class RevoluteJoint : Joint
 
     internal RevoluteJoint()
     {
-        base.JointType = JointType.Revolute;
+        JointType = JointType.Revolute;
     }
 
     public RevoluteJoint(Body bodyA, Body bodyB, Vector2 anchorA, Vector2 anchorB, bool useWorldCoordinates = false)
         : base(bodyA, bodyB)
     {
-        base.JointType = JointType.Revolute;
+        JointType = JointType.Revolute;
         if (useWorldCoordinates)
         {
-            LocalAnchorA = base.BodyA.GetLocalPoint(anchorA);
-            LocalAnchorB = base.BodyB.GetLocalPoint(anchorB);
+            LocalAnchorA = BodyA.GetLocalPoint(anchorA);
+            LocalAnchorB = BodyB.GetLocalPoint(anchorB);
         }
         else
         {
             LocalAnchorA = anchorA;
             LocalAnchorB = anchorB;
         }
-        ReferenceAngle = base.BodyB.Rotation - base.BodyA.Rotation;
+        ReferenceAngle = BodyB.Rotation - BodyA.Rotation;
         _impulse = Vector3.Zero;
         _limitState = LimitState.Inactive;
     }
@@ -247,7 +211,7 @@ public class RevoluteJoint : Joint
 
     public override Vector2 GetReactionForce(float invDt)
     {
-        Vector2 vector = new Vector2(_impulse.X, _impulse.Y);
+        Vector2 vector = new(_impulse.X, _impulse.Y);
         return invDt * vector;
     }
 
@@ -258,22 +222,22 @@ public class RevoluteJoint : Joint
 
     internal override void InitVelocityConstraints(ref SolverData data)
     {
-        _indexA = base.BodyA.IslandIndex;
-        _indexB = base.BodyB.IslandIndex;
-        _localCenterA = base.BodyA._sweep.LocalCenter;
-        _localCenterB = base.BodyB._sweep.LocalCenter;
-        _invMassA = base.BodyA._invMass;
-        _invMassB = base.BodyB._invMass;
-        _invIA = base.BodyA._invI;
-        _invIB = base.BodyB._invI;
+        _indexA = BodyA.IslandIndex;
+        _indexB = BodyB.IslandIndex;
+        _localCenterA = BodyA._sweep.LocalCenter;
+        _localCenterB = BodyB._sweep.LocalCenter;
+        _invMassA = BodyA._invMass;
+        _invMassB = BodyB._invMass;
+        _invIA = BodyA._invI;
+        _invIB = BodyB._invI;
         float a = data.positions[_indexA].a;
         Vector2 v = data.velocities[_indexA].v;
         float w = data.velocities[_indexA].w;
         float a2 = data.positions[_indexB].a;
         Vector2 v2 = data.velocities[_indexB].v;
         float w2 = data.velocities[_indexB].w;
-        Rot q = new Rot(a);
-        Rot q2 = new Rot(a2);
+        Rot q = new(a);
+        Rot q2 = new(a2);
         _rA = MathUtils.Mul(q, LocalAnchorA - _localCenterA);
         _rB = MathUtils.Mul(q2, LocalAnchorB - _localCenterB);
         float invMassA = _invMassA;
@@ -281,12 +245,12 @@ public class RevoluteJoint : Joint
         float invIA = _invIA;
         float invIB = _invIB;
         bool flag = invIA + invIB == 0f;
-        _mass.ex.X = invMassA + invMassB + _rA.Y * _rA.Y * invIA + _rB.Y * _rB.Y * invIB;
-        _mass.ey.X = (0f - _rA.Y) * _rA.X * invIA - _rB.Y * _rB.X * invIB;
-        _mass.ez.X = (0f - _rA.Y) * invIA - _rB.Y * invIB;
+        _mass.ex.X = invMassA + invMassB + (_rA.Y * _rA.Y * invIA) + (_rB.Y * _rB.Y * invIB);
+        _mass.ey.X = ((0f - _rA.Y) * _rA.X * invIA) - (_rB.Y * _rB.X * invIB);
+        _mass.ez.X = ((0f - _rA.Y) * invIA) - (_rB.Y * invIB);
         _mass.ex.Y = _mass.ey.X;
-        _mass.ey.Y = invMassA + invMassB + _rA.X * _rA.X * invIA + _rB.X * _rB.X * invIB;
-        _mass.ez.Y = _rA.X * invIA + _rB.X * invIB;
+        _mass.ey.Y = invMassA + invMassB + (_rA.X * _rA.X * invIA) + (_rB.X * _rB.X * invIB);
+        _mass.ez.Y = (_rA.X * invIA) + (_rB.X * invIB);
         _mass.ex.Z = _mass.ez.X;
         _mass.ey.Z = _mass.ez.Y;
         _mass.ez.Z = invIA + invIB;
@@ -334,7 +298,7 @@ public class RevoluteJoint : Joint
         }
         _impulse *= data.step.dtRatio;
         _motorImpulse *= data.step.dtRatio;
-        Vector2 vector = new Vector2(_impulse.X, _impulse.Y);
+        Vector2 vector = new(_impulse.X, _impulse.Y);
         v -= invMassA * vector;
         w -= invIA * (MathUtils.Cross(_rA, vector) + MotorImpulse + _impulse.Z);
         v2 += invMassB * vector;
@@ -371,7 +335,7 @@ public class RevoluteJoint : Joint
         {
             Vector2 vector = v2 + MathUtils.Cross(num2, _rB) - v - MathUtils.Cross(num, _rA);
             float z = num2 - num;
-            Vector3 b = new Vector3(vector.X, vector.Y, z);
+            Vector3 b = new(vector.X, vector.Y, z);
             Vector3 vector2 = -_mass.Solve33(b);
             if (_limitState == LimitState.Equal)
             {
@@ -382,7 +346,7 @@ public class RevoluteJoint : Joint
                 float num6 = _impulse.Z + vector2.Z;
                 if (num6 < 0f)
                 {
-                    Vector2 b2 = -vector + _impulse.Z * new Vector2(_mass.ez.X, _mass.ez.Y);
+                    Vector2 b2 = -vector + (_impulse.Z * new Vector2(_mass.ez.X, _mass.ez.Y));
                     Vector2 vector3 = _mass.Solve22(b2);
                     vector2.X = vector3.X;
                     vector2.Y = vector3.Y;
@@ -401,7 +365,7 @@ public class RevoluteJoint : Joint
                 float num7 = _impulse.Z + vector2.Z;
                 if (num7 > 0f)
                 {
-                    Vector2 b3 = -vector + _impulse.Z * new Vector2(_mass.ez.X, _mass.ez.Y);
+                    Vector2 b3 = -vector + (_impulse.Z * new Vector2(_mass.ez.X, _mass.ez.Y));
                     Vector2 vector4 = _mass.Solve22(b3);
                     vector2.X = vector4.X;
                     vector2.Y = vector4.Y;
@@ -415,7 +379,7 @@ public class RevoluteJoint : Joint
                     _impulse += vector2;
                 }
             }
-            Vector2 vector5 = new Vector2(vector2.X, vector2.Y);
+            Vector2 vector5 = new(vector2.X, vector2.Y);
             v -= invMassA * vector5;
             num -= invIA * (MathUtils.Cross(_rA, vector5) + vector2.Z);
             v2 += invMassB * vector5;
@@ -444,8 +408,8 @@ public class RevoluteJoint : Joint
         float num = data.positions[_indexA].a;
         Vector2 c2 = data.positions[_indexB].c;
         float num2 = data.positions[_indexB].a;
-        Rot q = new Rot(num);
-        Rot q2 = new Rot(num2);
+        Rot q = new(num);
+        Rot q2 = new(num2);
         float num3 = 0f;
         bool flag = _invIA + _invIB == 0f;
         if (_enableLimit && _limitState != LimitState.Inactive && !flag)
@@ -462,14 +426,14 @@ public class RevoluteJoint : Joint
             {
                 float num7 = num4 - _lowerAngle;
                 num3 = 0f - num7;
-                num7 = MathUtils.Clamp(num7 + (float)Math.PI / 90f, (float)Math.PI * -2f / 45f, 0f);
+                num7 = MathUtils.Clamp(num7 + ((float)Math.PI / 90f), (float)Math.PI * -2f / 45f, 0f);
                 num5 = (0f - _motorMass) * num7;
             }
             else if (_limitState == LimitState.AtUpper)
             {
                 float num8 = num4 - _upperAngle;
                 num3 = num8;
-                num8 = MathUtils.Clamp(num8 - (float)Math.PI / 90f, 0f, (float)Math.PI * 2f / 45f);
+                num8 = MathUtils.Clamp(num8 - ((float)Math.PI / 90f), 0f, (float)Math.PI * 2f / 45f);
                 num5 = (0f - _motorMass) * num8;
             }
             num -= _invIA * num5;
@@ -485,11 +449,11 @@ public class RevoluteJoint : Joint
         float invMassB = _invMassB;
         float invIA = _invIA;
         float invIB = _invIB;
-        Mat22 mat = default(Mat22);
-        mat.ex.X = invMassA + invMassB + invIA * vector.Y * vector.Y + invIB * vector2.Y * vector2.Y;
-        mat.ex.Y = (0f - invIA) * vector.X * vector.Y - invIB * vector2.X * vector2.Y;
+        Mat22 mat = default;
+        mat.ex.X = invMassA + invMassB + (invIA * vector.Y * vector.Y) + (invIB * vector2.Y * vector2.Y);
+        mat.ex.Y = ((0f - invIA) * vector.X * vector.Y) - (invIB * vector2.X * vector2.Y);
         mat.ey.X = mat.ex.Y;
-        mat.ey.Y = invMassA + invMassB + invIA * vector.X * vector.X + invIB * vector2.X * vector2.X;
+        mat.ey.Y = invMassA + invMassB + (invIA * vector.X * vector.X) + (invIB * vector2.X * vector2.X);
         Vector2 vector3 = -mat.Solve(b);
         c -= invMassA * vector3;
         num -= invIA * MathUtils.Cross(vector, vector3);
@@ -499,10 +463,6 @@ public class RevoluteJoint : Joint
         data.positions[_indexA].a = num;
         data.positions[_indexB].c = c2;
         data.positions[_indexB].a = num2;
-        if (num9 <= 0.005f)
-        {
-            return num3 <= (float)Math.PI / 90f;
-        }
-        return false;
+        return num9 <= 0.005f ? num3 <= (float)Math.PI / 90f : false;
     }
 }

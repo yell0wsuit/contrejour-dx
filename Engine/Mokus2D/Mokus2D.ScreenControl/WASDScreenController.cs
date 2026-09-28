@@ -10,7 +10,7 @@ namespace Mokus2D.ScreenControl;
 
 public class WASDScreenController : ScreenControllerBase
 {
-    private readonly Dictionary<Keys, Vector2> _directions = new Dictionary<Keys, Vector2>();
+    private readonly Dictionary<Keys, Vector2> _directions = [];
 
     private bool _scrolling;
 
@@ -23,7 +23,7 @@ public class WASDScreenController : ScreenControllerBase
                 _scrolling = value;
                 if (_scrolling)
                 {
-                    this.ScrollStartEvent.Dispatch();
+                    ScrollStartEvent.Dispatch();
                 }
             }
         }
@@ -60,17 +60,14 @@ public class WASDScreenController : ScreenControllerBase
         Vector2 vector = _directions[key];
         if (pressed)
         {
-            base.Direction += vector;
+            Direction += vector;
         }
         else
         {
-            base.Direction -= vector;
+            Direction -= vector;
         }
-        Scrolling = base.Direction != Vector2.Zero;
-        if (ScreenScroller != null)
-        {
-            ScreenScroller.ScrollSpeed = base.Direction * Speed;
-        }
+        Scrolling = Direction != Vector2.Zero;
+        ScreenScroller?.ScrollSpeed = Direction * Speed;
     }
 
     protected override void Dispose(bool disposing)

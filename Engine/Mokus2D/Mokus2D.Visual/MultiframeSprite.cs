@@ -29,12 +29,14 @@ public abstract class MultiframeSprite : Sprite
     protected MultiframeSprite(ISpriteData data)
         : base(data)
     {
-        Frames = new List<FrameData>();
-        Frames.Add(new FrameData
-        {
-            Anchor = data.Anchor,
-            Rect = data.TextureRect
-        });
+        Frames =
+        [
+            new FrameData
+            {
+                Anchor = data.Anchor,
+                Rect = data.TextureRect
+            },
+        ];
         TextureSize = new Vector2(data.TextureRect.Width, data.TextureRect.Height);
         Anchor = data.Anchor;
         ScaleFactor = data.ScaleFactor;

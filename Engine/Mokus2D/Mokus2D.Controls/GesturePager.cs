@@ -32,10 +32,7 @@ public class GesturePager : ITouchListener, IDisposable, IUpdatable
 
     public bool Enabled
     {
-        get
-        {
-            return enabled;
-        }
+        get => enabled;
         set
         {
             enabled = value;
@@ -48,26 +45,14 @@ public class GesturePager : ITouchListener, IDisposable, IUpdatable
 
     public float CurrentPosition
     {
-        get
-        {
-            return currentPosition;
-        }
-        set
-        {
-            currentPosition = value;
-        }
+        get => currentPosition;
+        set => currentPosition = value;
     }
 
     public float PageWidth
     {
-        get
-        {
-            return pageWidth;
-        }
-        set
-        {
-            pageWidth = value;
-        }
+        get => pageWidth;
+        set => pageWidth = value;
     }
 
     public GesturePager()
@@ -98,7 +83,7 @@ public class GesturePager : ITouchListener, IDisposable, IUpdatable
         {
             return false;
         }
-        currentPosition = touchStartPosition - touch.TotalOffset.X / pageWidth;
+        currentPosition = touchStartPosition - (touch.TotalOffset.X / pageWidth);
         if (touch.LastFrameOffset.X != 0f)
         {
             direction = 0f - touch.LastFrameOffset.X.Sign();
@@ -121,9 +106,9 @@ public class GesturePager : ITouchListener, IDisposable, IUpdatable
 
     public void Update(float time)
     {
-        if (currentTouch == null && currentPosition != (float)targetPosition)
+        if (currentTouch == null && currentPosition != targetPosition)
         {
-            float step = Math.Max((currentPosition - (float)targetPosition).Abs() / 10f, MinMoveStep) * time * 60f;
+            float step = Math.Max((currentPosition - targetPosition).Abs() / 10f, MinMoveStep) * time * 60f;
             currentPosition = currentPosition.StepTo(targetPosition, step);
         }
     }
@@ -135,14 +120,7 @@ public class GesturePager : ITouchListener, IDisposable, IUpdatable
 
     private void SetTargetPosition()
     {
-        if (direction < 0f)
-        {
-            targetPosition = (int)Math.Floor(currentPosition);
-        }
-        else
-        {
-            targetPosition = (int)Math.Ceiling(currentPosition);
-        }
+        targetPosition = direction < 0f ? (int)Math.Floor(currentPosition) : (int)Math.Ceiling(currentPosition);
         if (MinPosition.HasValue)
         {
             targetPosition = Math.Max(targetPosition, MinPosition.Value);

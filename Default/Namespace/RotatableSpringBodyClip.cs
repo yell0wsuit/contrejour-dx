@@ -59,7 +59,7 @@ public class RotatableSpringBodyClip : RotatableSpringBase, IRestartable
 
     private ContreJourGame game;
 
-    protected override Vector2 SmokePoint => new Vector2(0f, 40f);
+    protected override Vector2 SmokePoint => new(0f, 40f);
 
     protected override bool IsMoving => rotateTouch != null;
 
@@ -70,9 +70,11 @@ public class RotatableSpringBodyClip : RotatableSpringBase, IRestartable
         Body.BodyType = (BodyType)1;
         bodyCenterVec = Vector2.Zero;
         touchPoint = new McRotatorPoint();
-        circle = new McRotatorCircle();
-        circle.Scale = 1.6f;
-        if (base.Game.BonusChapter)
+        circle = new McRotatorCircle
+        {
+            Scale = 1.6f
+        };
+        if (Game.BonusChapter)
         {
             circle.Color = ContreJourConstants.GreenLightColor;
             touchPoint.Color = ContreJourConstants.GreenLightColor;
@@ -86,8 +88,10 @@ public class RotatableSpringBodyClip : RotatableSpringBase, IRestartable
         touchPointSpeed = Maths.Random(0.02f, 0.03f) / 1.5f;
         touchPointNeededSpeed = touchPointSpeed;
         startSpringWidth = _config.GetFloat("Width");
-        trajectory = new Trajectory(game);
-        trajectory.Impulse = startSpringWidth / 32f;
+        trajectory = new Trajectory(game)
+        {
+            Impulse = startSpringWidth / 32f
+        };
         builder.AddChildAfter(trajectory, circle);
         foreach (Fixture fixture in Body.FixtureList)
         {
@@ -102,11 +106,7 @@ public class RotatableSpringBodyClip : RotatableSpringBase, IRestartable
 
     protected override string GetClipName()
     {
-        if (!base.Game.BonusChapter)
-        {
-            return "McRotatableSpring";
-        }
-        return "McRotatableSpring_6";
+        return !Game.BonusChapter ? "McRotatableSpring" : "McRotatableSpring_6";
     }
 
     public override void Restart()
@@ -121,11 +121,7 @@ public class RotatableSpringBodyClip : RotatableSpringBase, IRestartable
         {
             return base.Priority(touchPoint);
         }
-        if (IsRotatorTouched(touchPoint))
-        {
-            return 0;
-        }
-        return -100;
+        return IsRotatorTouched(touchPoint) ? 0 : -100;
     }
 
     public override float TouchDistance(Vector2 touchPosition)
@@ -145,7 +141,7 @@ public class RotatableSpringBodyClip : RotatableSpringBase, IRestartable
         else
         {
             touchPointSpeed = Maths.StepTo(touchPointSpeed, touchPointNeededSpeed, 0.002f);
-            touchPointAngle += touchPointSpeed * (float)Math.Sign(lastDirection);
+            touchPointAngle += touchPointSpeed * Math.Sign(lastDirection);
         }
         touchPoint.Position = VectorUtil.ToVector(50f, touchPointAngle);
         touchPoint.RotationRadians = touchPointAngle;
@@ -153,7 +149,7 @@ public class RotatableSpringBodyClip : RotatableSpringBase, IRestartable
 
     protected override void SetSticked(ILaunchable value)
     {
-        trajectory.FadeOutDelay = ((value != null) ? 2 : 0);
+        trajectory.FadeOutDelay = (value != null) ? 2 : 0;
         base.SetSticked(value);
         if (value == null)
         {
@@ -183,8 +179,8 @@ public class RotatableSpringBodyClip : RotatableSpringBase, IRestartable
         }
         if (Maths.FuzzyNotEquals(Body.Rotation, targetRotation))
         {
-            int num2 = (((double)Math.Abs(targetRotation - Body.Rotation) > Math.PI / 4.0) ? 5 : 10);
-            Body.AngularVelocity = (targetRotation - Body.Rotation) / time / (float)num2;
+            int num2 = ((double)Math.Abs(targetRotation - Body.Rotation) > Math.PI / 4.0) ? 5 : 10;
+            Body.AngularVelocity = (targetRotation - Body.Rotation) / time / num2;
         }
         else
         {
@@ -192,8 +188,8 @@ public class RotatableSpringBodyClip : RotatableSpringBase, IRestartable
             Body.Rotation = targetRotation;
             RefreshSmokeAngle();
         }
-        trajectory.Angle = Body.Rotation + (float)Math.PI / 2f;
-        trajectory.Position = base.Position + VectorUtil.ToVector(80f, trajectory.Angle);
+        trajectory.Angle = Body.Rotation + ((float)Math.PI / 2f);
+        trajectory.Position = Position + VectorUtil.ToVector(80f, trajectory.Angle);
         UpdateTouchPoint();
         base.Update(time);
     }
@@ -214,11 +210,7 @@ public class RotatableSpringBodyClip : RotatableSpringBase, IRestartable
     private bool IsRotatorTouched(Vector2 touchPosition)
     {
         float num = Body.Position.DistanceTo(touchPosition);
-        if (rotateTouch == null)
-        {
-            return Math.Abs(num - TOUCH_RADIUS) < TOUCH_DISTANCE;
-        }
-        return false;
+        return rotateTouch == null ? Math.Abs(num - TOUCH_RADIUS) < TOUCH_DISTANCE : false;
     }
 
     private float GetTouchAngle()
@@ -243,15 +235,15 @@ public class RotatableSpringBodyClip : RotatableSpringBase, IRestartable
     private void StopActions()
     {
         circle.Tweener.Stop();
-        circle.FadeTo(0.5f, minOpacity);
+        _ = circle.FadeTo(0.5f, minOpacity);
         touchPoint.Tweener.Stop();
-        touchPoint.FadeTo(0.3f, minOpacity);
+        _ = touchPoint.FadeTo(0.3f, minOpacity);
     }
 
     private void RunFadeInOut(Node node, float _in, float _out)
     {
         node.Tweener.Stop();
-        node.Tweener.RepeatSequenceForever(2.5f).FadeTo(_out).Next(2.5f)
+        _ = node.Tweener.RepeatSequenceForever(2.5f).FadeTo(_out).Next(2.5f)
             .FadeTo(_in);
     }
 
@@ -259,6 +251,6 @@ public class RotatableSpringBodyClip : RotatableSpringBase, IRestartable
     {
         RunFadeInOut(circle, 1f, 0.7f);
         touchPoint.Tweener.Stop();
-        touchPoint.FadeIn(0.3f);
+        _ = touchPoint.FadeIn(0.3f);
     }
 }

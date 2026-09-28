@@ -53,7 +53,7 @@ public static class FarseerUtil
     {
         //IL_0001: Unknown result type (might be due to invalid IL or missing references)
         //IL_0007: Invalid comparison between Unknown and I4
-        return (int)body.BodyType == 0;
+        return body.BodyType == 0;
     }
 
     public static bool DynamicObjectPredicate(object objectP)
@@ -134,7 +134,7 @@ public static class FarseerUtil
     public static RevoluteJoint CreateRevoluteJoint(World world, Body body1, Body body2, Vector2 position, bool collideConnected = false, bool limitAngles = false)
     {
         RevoluteJoint val = JointFactory.CreateRevoluteJoint(world, body1, body2, position - body2.Position);
-        ((Joint)val).CollideConnected = collideConnected;
+        val.CollideConnected = collideConnected;
         if (limitAngles)
         {
             val.LowerLimit = 0f;
@@ -147,7 +147,7 @@ public static class FarseerUtil
     public static DistanceJoint CreateDistanceJoint(World world, Body body1, Body body2, float freq, float damping, bool collideConnected = false)
     {
         DistanceJoint val = JointFactory.CreateDistanceJoint(world, body1, body2, Vector2.Zero, Vector2.Zero, false);
-        ((Joint)val).CollideConnected = collideConnected;
+        val.CollideConnected = collideConnected;
         val.Frequency = freq;
         val.DampingRatio = damping;
         return val;
@@ -163,9 +163,7 @@ public static class FarseerUtil
 
     public static Vector2 GetWorldPoint(Contact contact)
     {
-        Vector2 vector = default(Vector2);
-        FixedArray2<Vector2> val = default(FixedArray2<Vector2>);
-        contact.GetWorldManifold(out vector, out val);
+        contact.GetWorldManifold(out Vector2 vector, out FixedArray2<Vector2> val);
         return val[0];
     }
 
@@ -200,11 +198,7 @@ public static class FarseerUtil
 
     public static bool IsSensor(this Contact contact)
     {
-        if (!contact.FixtureA.IsSensor)
-        {
-            return contact.FixtureB.IsSensor;
-        }
-        return true;
+        return !contact.FixtureA.IsSensor ? contact.FixtureB.IsSensor : true;
     }
 
     public static bool IsSensor(this Body body)
@@ -223,7 +217,7 @@ public static class FarseerUtil
     {
         //IL_0003: Unknown result type (might be due to invalid IL or missing references)
         //IL_0009: Expected O, but got Unknown
-        return BodyFromShape(world, (Shape)new CircleShape(radius, density), position, rotation, sensor: false, density, dynamic);
+        return BodyFromShape(world, new CircleShape(radius, density), position, rotation, sensor: false, density, dynamic);
     }
 
     public static Body CreateBox(World world, Vector2 position, List<Vector2> vertices, bool sensor, float density, bool dynamic)
@@ -232,28 +226,28 @@ public static class FarseerUtil
         //IL_0007: Expected O, but got Unknown
         //IL_000a: Unknown result type (might be due to invalid IL or missing references)
         //IL_0010: Expected O, but got Unknown
-        return BodyFromShape(world, (Shape)new PolygonShape(new Vertices((IEnumerable<Vector2>)vertices), density), position, 0f, sensor, density, dynamic);
+        return BodyFromShape(world, new PolygonShape(new Vertices(vertices), density), position, 0f, sensor, density, dynamic);
     }
 
     public static Body CreateBox(World world, Vector2 position, float width, float height, float rotation, bool sensor, float density, bool dynamic)
     {
         //IL_0002: Unknown result type (might be due to invalid IL or missing references)
         //IL_0008: Expected O, but got Unknown
-        PolygonShape shape = new PolygonShape(density);
+        PolygonShape shape = new(density);
         shape.SetAsBox(width / 2f, height / 2f);
         return BodyFromShape(world, (Shape)(object)shape, position, rotation, sensor, density, dynamic);
     }
 
     public static Fixture AddShape(Shape shape, Body body, float density)
     {
-        Fixture val = body.CreateFixture(shape, (object)density);
+        Fixture val = body.CreateFixture(shape, density);
         val.Friction = Box2DConfig.DefaultConfig.Friction;
         return val;
     }
 
     public static Body BodyFromShape(World world, Shape shape, Vector2 position, float rotation, bool sensor, float density, bool dynamic)
     {
-        Body val = BodyFactory.CreateBody(world, (object)null);
+        Body val = BodyFactory.CreateBody(world, null);
         val.BodyType = (BodyType)(dynamic ? 2 : 0);
         val.Position = position;
         val.Rotation = rotation;
@@ -265,8 +259,8 @@ public static class FarseerUtil
 
     public static List<Fixture> Raycast(this World world, Vector2 startPoint, Vector2 endPoint)
     {
-        RaycastQuery raycastQuery = new RaycastQuery();
-        world.RayCast((Func<Fixture, Vector2, Vector2, float, float>)raycastQuery.ReportFixture, startPoint, endPoint);
+        RaycastQuery raycastQuery = new();
+        world.RayCast(raycastQuery.ReportFixture, startPoint, endPoint);
         return raycastQuery.Fixtures;
     }
 
@@ -274,10 +268,10 @@ public static class FarseerUtil
     {
         //IL_0007: Unknown result type (might be due to invalid IL or missing references)
         //IL_000c: Unknown result type (might be due to invalid IL or missing references)
-        List<Fixture> list = new List<Fixture>();
+        List<Fixture> list = [];
         AABB val = CreateAabb(point);
-        AABBQuery aABBQuery = new AABBQuery();
-        world.QueryAABB((Func<Fixture, bool>)aABBQuery.CallbackReportFixture, ref val);
+        AABBQuery aABBQuery = new();
+        world.QueryAABB(aABBQuery.CallbackReportFixture, ref val);
         for (int i = 0; i < aABBQuery.Fixtures.Count; i++)
         {
             Fixture val2 = aABBQuery.Fixtures[i];
@@ -304,7 +298,7 @@ public static class FarseerUtil
         vector *= teleportCoeff;
         body.LinearVelocity = linearVelocity;
         body.AngularVelocity = num2 * num / time;
-        body.SetTransform(body.Position + vector, body.Rotation + num2 * teleportCoeff);
+        body.SetTransform(body.Position + vector, body.Rotation + (num2 * teleportCoeff));
     }
 
     public static BodyClip Query(World world, Vector2 center, float radius, Type type)
@@ -332,7 +326,7 @@ public static class FarseerUtil
     public static List<BodyClip> Query(World world, Vector2 center, float radius, ClipPredicate clipPredicate, object param)
     {
         List<Fixture> list = world.Query(center, radius);
-        List<BodyClip> list2 = new List<BodyClip>();
+        List<BodyClip> list2 = [];
         foreach (Fixture item in list)
         {
             if (item.Body.UserData is BodyClip bodyClip && clipPredicate(bodyClip, param))
@@ -366,8 +360,8 @@ public static class FarseerUtil
 
     public static List<Fixture> Query(this World world, AABB aabb)
     {
-        AABBQuery aABBQuery = new AABBQuery();
-        world.QueryAABB((Func<Fixture, bool>)aABBQuery.CallbackReportFixture, ref aabb);
+        AABBQuery aABBQuery = new();
+        world.QueryAABB(aABBQuery.CallbackReportFixture, ref aabb);
         return aABBQuery.Fixtures;
     }
 
@@ -395,7 +389,7 @@ public static class FarseerUtil
     {
         //IL_0002: Unknown result type (might be due to invalid IL or missing references)
         //IL_0062: Unknown result type (might be due to invalid IL or missing references)
-        AABB result = new AABB
+        AABB result = new()
         {
             LowerBound = center,
             UpperBound = center
@@ -429,7 +423,7 @@ public static class FarseerUtil
     {
         for (int i = 0; i < 2; i++)
         {
-            FixtureFactory.AttachEdge(start, end, groundBody, (object)null);
+            _ = FixtureFactory.AttachEdge(start, end, groundBody, null);
             start += direction;
             end += direction;
         }

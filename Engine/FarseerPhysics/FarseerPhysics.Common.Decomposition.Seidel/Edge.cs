@@ -22,20 +22,11 @@ internal class Edge
     {
         P = p;
         Q = q;
-        if (q.X - p.X != 0f)
-        {
-            Slope = (q.Y - p.Y) / (q.X - p.X);
-        }
-        else
-        {
-            Slope = 0f;
-        }
-        B = p.Y - p.X * Slope;
+        Slope = q.X - p.X != 0f ? (q.Y - p.Y) / (q.X - p.X) : 0f;
+        B = p.Y - (p.X * Slope);
         Above = null;
         Below = null;
-        MPoints = new HashSet<Point>();
-        MPoints.Add(p);
-        MPoints.Add(q);
+        MPoints = [p, q];
     }
 
     public bool IsAbove(Point point)
@@ -57,6 +48,6 @@ internal class Edge
                 return;
             }
         }
-        MPoints.Add(point);
+        _ = MPoints.Add(point);
     }
 }

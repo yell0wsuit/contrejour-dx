@@ -63,7 +63,7 @@ public class ChapterZip : ChapterItem
         {
             highlite.Tweener.Stop();
             highlite.OpacityByte = 0;
-            highlite.Tweener.RepeatSequenceForever(1.5f).FadeIn().Next(1.5f)
+            _ = highlite.Tweener.RepeatSequenceForever(1.5f).FadeIn().Next(1.5f)
                 .FadeOut();
             highlite.Visible = true;
         }

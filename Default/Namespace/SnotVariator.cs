@@ -15,7 +15,7 @@ public class SnotVariator : ContreJourBodyClip, IRemovable
         : base(_snot.Builder, null, null, null)
     {
         snot = _snot;
-        base.Game.AddUpdatable(this);
+        Game.AddUpdatable(this);
         changer = new CosChanger(0f, 150f * builder.SizeMult, 0.1f);
     }
 

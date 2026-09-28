@@ -29,7 +29,7 @@ public class UpdateDrawCounter : FpsCounter
 
     public Label OutputLabel;
 
-    private readonly Dictionary<string, object> _testValues = new Dictionary<string, object>();
+    private readonly Dictionary<string, object> _testValues = [];
 
     private int _drawCalls;
 
@@ -108,31 +108,31 @@ public class UpdateDrawCounter : FpsCounter
         UpdateTime = _updateTime;
         if (OutputLabel != null)
         {
-            OutputLabel.Clear();
-            OutputLabel.Append("FPS: ");
-            if (float.IsInfinity(base.Fps))
+            _ = OutputLabel.Clear();
+            _ = OutputLabel.Append("FPS: ");
+            if (float.IsInfinity(Fps))
             {
-                OutputLabel.Append("Infinity");
+                _ = OutputLabel.Append("Infinity");
             }
             else
             {
-                OutputLabel.Append(base.Fps);
+                _ = OutputLabel.Append(Fps);
             }
-            OutputLabel.AppendLine();
+            _ = OutputLabel.AppendLine();
             AppendLine("U: ", UpdateTime);
             AppendLine("D: ", DrawTime);
             AppendLine("SU: ", StaticUpdatesTime);
             AppendLine("SD: ", StaticDrawsTime);
-            AppendLine("Draw Calls: ", (float)_drawCalls / (float)FramesToCalculate);
-            AppendLine("Triangles: ", (float)_drawnTriangles / (float)FramesToCalculate);
-            AppendLine("Updated Nodes: ", (float)_updatedNodes / (float)FramesToCalculate);
+            AppendLine("Draw Calls: ", _drawCalls / (float)FramesToCalculate);
+            AppendLine("Triangles: ", _drawnTriangles / (float)FramesToCalculate);
+            AppendLine("Updated Nodes: ", _updatedNodes / (float)FramesToCalculate);
             foreach (KeyValuePair<string, object> testValue in _testValues)
             {
-                OutputLabel.AppendLine(string.Format("{0}: {1}", new object[2] { testValue.Key, testValue.Value }));
+                _ = OutputLabel.AppendLine(string.Format("{0}: {1}", new object[2] { testValue.Key, testValue.Value }));
             }
             if (AdditionalText != null)
             {
-                OutputLabel.AppendLine(AdditionalText);
+                _ = OutputLabel.AppendLine(AdditionalText);
             }
         }
         _drawTime = 0f;
@@ -144,9 +144,9 @@ public class UpdateDrawCounter : FpsCounter
 
     private void AppendLine(string name, float value)
     {
-        OutputLabel.Append(name);
-        OutputLabel.Append(value);
-        OutputLabel.AppendLine();
+        _ = OutputLabel.Append(name);
+        _ = OutputLabel.Append(value);
+        _ = OutputLabel.AppendLine();
     }
 
     public void IncreaseUpdates()

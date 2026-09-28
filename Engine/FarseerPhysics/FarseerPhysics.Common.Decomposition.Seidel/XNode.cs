@@ -12,10 +12,6 @@ internal class XNode : Node
 
     public override Sink Locate(Edge edge)
     {
-        if (edge.P.X >= _point.X)
-        {
-            return RightChild.Locate(edge);
-        }
-        return LeftChild.Locate(edge);
+        return edge.P.X >= _point.X ? RightChild.Locate(edge) : LeftChild.Locate(edge);
     }
 }

@@ -20,16 +20,13 @@ public class NamesChanger : Node
 
     protected float currentIndex;
 
-    protected List<Node> names = new List<Node>();
+    protected List<Node> names = [];
 
     protected Vector2 screenSize;
 
     public float CurrentIndex
     {
-        get
-        {
-            return currentIndex;
-        }
+        get => currentIndex;
         set
         {
             if (currentIndex == value)
@@ -41,10 +38,10 @@ public class NamesChanger : Node
                 name.Visible = false;
             }
             currentIndex = value;
-            float num = currentIndex % (float)names.Count;
+            float num = currentIndex % names.Count;
             if (num < 0f)
             {
-                num += (float)names.Count;
+                num += names.Count;
             }
             int num2 = (int)num % names.Count;
             int num3 = (num2 + 1) % names.Count;
@@ -108,29 +105,27 @@ public class NamesChanger : Node
 
     private Node CreateChapterName(int index)
     {
-        if (ContreJourLabelUtil.IsEnglish)
-        {
-            return new Sprite("menu/McChapter{0}Name".FormatThis(index + 1));
-        }
-        return CreateLabelColor(color: index switch
-        {
-            3 => ContreJourConstants.WHITE_LIGHT_COLOR * 1.8f,
-            1 => ContreJourConstants.BLUE_LIGHT_COLOR * 1.8f,
-            5 => ContreJourConstants.GreenLightColor,
-            _ => Color.Black,
-        }, text: "CHAPTER{0}".FormatThis(index + 1));
+        return ContreJourLabelUtil.IsEnglish
+            ? new Sprite("menu/McChapter{0}Name".FormatThis(index + 1))
+            : CreateLabelColor(color: index switch
+            {
+                3 => ContreJourConstants.WHITE_LIGHT_COLOR * 1.8f,
+                1 => ContreJourConstants.BLUE_LIGHT_COLOR * 1.8f,
+                5 => ContreJourConstants.GreenLightColor,
+                _ => Color.Black,
+            }, text: "CHAPTER{0}".FormatThis(index + 1));
     }
 
     private Node CreateLabelColor(string text, Color color)
     {
-        Node node = new Node();
+        Node node = new();
         Label label = ContreJourLabelUtil.CreateMultilineLabel(32f, text);
         label.Color = color;
         Label label2 = ContreJourLabelUtil.CreateMultilineLabel(32f, text);
         label2.Color = Color.Black;
         label2.OpacityByte = 80;
         label2.Position = new Vector2(3f, -3f);
-        label.AnchorY = (label2.AnchorY = 0.5f);
+        label.AnchorY = label2.AnchorY = 0.5f;
         node.AddChild(label2);
         node.AddChild(label);
         return node;

@@ -37,19 +37,19 @@ public class FinishView : MovieStripesView, IDisposable
 
     private const int ENERGY_STEPS = 15;
 
-    private static readonly Vector2 STARS_OFFSET = new Vector2(100f, 120f);
+    private static readonly Vector2 STARS_OFFSET = new(100f, 120f);
 
-    private static readonly Vector2 PORTAL_OFFSET = new Vector2(0f, 0f);
+    private static readonly Vector2 PORTAL_OFFSET = new(0f, 0f);
 
-    private static readonly Vector2 HERO_OFFSET = new Vector2(-180f, -70f);
+    private static readonly Vector2 HERO_OFFSET = new(-180f, -70f);
 
     private readonly Color BLUE_LIGHT_COLOR = ContreJourConstants.BLUE_LIGHT_COLOR;
 
     private readonly Color GREY_COLOR = ContreJourConstants.GREY_COLOR;
 
-    public readonly EventSender NextLevelEvent = new EventSender();
+    public readonly EventSender NextLevelEvent = new();
 
-    protected List<Button> buttons = new List<Button>();
+    protected List<Button> buttons = [];
 
     protected Vector2 center;
 
@@ -92,7 +92,7 @@ public class FinishView : MovieStripesView, IDisposable
     {
         game = _game;
         game.Schedule(CacheTextures, 0.1f);
-        base.Scale = 1.1f;
+        Scale = 1.1f;
         Position = -ContreJourConfig.RootSize * 0.05f;
         CreateHero();
     }
@@ -113,15 +113,15 @@ public class FinishView : MovieStripesView, IDisposable
         score = _score;
         time = _time;
         levelPosition = level;
-        this.Schedule(FinishDuration, OnShow);
+        _ = this.Schedule(FinishDuration, OnShow);
     }
 
     private void OnShow()
     {
         bool flag = levelPosition.Chapter == 1;
-        this.color = (flag ? BLUE_LIGHT_COLOR : GREY_COLOR);
-        Color color = (flag ? Color.Lerp(Color.White, BLUE_LIGHT_COLOR, 0.9f) : GREY_COLOR);
-        Color color2 = (flag ? BLUE_LIGHT_COLOR : ColorUtil.Mult(GREY_COLOR, 0.7f));
+        this.color = flag ? BLUE_LIGHT_COLOR : GREY_COLOR;
+        Color color = flag ? Color.Lerp(Color.White, BLUE_LIGHT_COLOR, 0.9f) : GREY_COLOR;
+        Color color2 = flag ? BLUE_LIGHT_COLOR : ColorUtil.Mult(GREY_COLOR, 0.7f);
         if (game.BonusChapter)
         {
             this.color = ContreJourConstants.GreenLightColor;
@@ -133,11 +133,13 @@ public class FinishView : MovieStripesView, IDisposable
         Vector2 rootSize = ContreJourConfig.RootSize;
         center = new Vector2(rootSize.X / 2f, rootSize.Y / 2f);
         sprite.Position = center;
-        sprite.FadeIn(0.1f);
+        _ = sprite.FadeIn(0.1f);
         sprite.Color = color2;
         sprite.Scale = 1.2f;
-        clickableLayer = new ClickableLayer();
-        clickableLayer.Position = sprite.Position;
+        clickableLayer = new ClickableLayer
+        {
+            Position = sprite.Position
+        };
         AddChild(clickableLayer);
         Button button = Button.ButtonBigWithIcon("menu/McRestartIcon");
         button.TouchEndEvent += delegate
@@ -151,7 +153,7 @@ public class FinishView : MovieStripesView, IDisposable
             MenuEvent.SendEvent();
         };
         button2.Position = new Vector2(85f, -116f);
-        buttons = new List<Button>(new Button[2] { button, button2 });
+        buttons = [button, button2];
         if (levelPosition.SkipAvailable)
         {
             skipButton = Button.ButtonBigWithIcon("menu/McSkipIcon");
@@ -170,7 +172,7 @@ public class FinishView : MovieStripesView, IDisposable
             clickableLayer.AddChild(button3);
             button3.Color = color;
             button3.Visible = false;
-            this.Schedule((float)(num + 2) * 0.1f, delegate
+            _ = this.Schedule((num + 2) * 0.1f, delegate
             {
                 ShowItemWithButton(button3);
             }, null);
@@ -179,23 +181,23 @@ public class FinishView : MovieStripesView, IDisposable
         {
             skipButton.Color = ColorUtil.Mult(color, 1.2f);
         }
-        energies = new List<Sprite>();
+        energies = [];
         for (int num2 = 0; num2 < 3; num2++)
         {
-            Sprite energy = ((num2 < stars) ? ((Sprite)new McEnergyBig()) : ((Sprite)new McEnergyBigInactive()));
-            energy.OpacityByte = ((num2 < stars) ? 255 : 70);
+            Sprite energy = (num2 < stars) ? new McEnergyBig() : new McEnergyBigInactive();
+            energy.OpacityByte = (num2 < stars) ? 255 : 70;
             energy.Scale = 1.7f;
             energy.Visible = false;
             clickableLayer.AddChild(energy);
             energy.Position = STARS_OFFSET + new Vector2(100 * (num2 - 1), 0f);
             energies.Add(energy);
-            this.Schedule((float)num2 * 0.1f, delegate
+            _ = this.Schedule(num2 * 0.1f, delegate
             {
                 ShowItemWithButton(energy);
             }, null);
             if (num2 < stars)
             {
-                this.Schedule(1f + (float)num2 * 0.5f, delegate
+                _ = this.Schedule(1f + (num2 * 0.5f), delegate
                 {
                     BlinkItemWithButton(energy);
                 }, null);
@@ -205,7 +207,7 @@ public class FinishView : MovieStripesView, IDisposable
         label.Color = this.color;
         label.Position = new Vector2(-154f, 120f);
         clickableLayer.AddChild(label);
-        label.FadeIn(0.2f);
+        _ = label.FadeIn(0.2f);
         levelField = ContreJourLabelUtil.CreateLabel(18f, string.Format(Messages.LEVEL, new object[2]
         {
             levelPosition.Chapter + 1,
@@ -216,10 +218,12 @@ public class FinishView : MovieStripesView, IDisposable
         levelField.Anchor = new Vector2(0f, 0.5f);
         levelField.Position = new Vector2(-30f, 46f);
         levelField.OpacityByte = 0;
-        this.Schedule(0.5f, ShowLevel);
-        highlite = new McHeroHighliteMenu();
-        highlite.Scale = 10f;
-        highlite.OpacityFloat = 0.4f;
+        _ = this.Schedule(0.5f, ShowLevel);
+        highlite = new McHeroHighliteMenu
+        {
+            Scale = 10f,
+            OpacityFloat = 0.4f
+        };
         if (flag)
         {
             highlite.Color = BLUE_LIGHT_COLOR;
@@ -239,7 +243,7 @@ public class FinishView : MovieStripesView, IDisposable
         portal.ItemsScale = 0f;
         portal.Scale = 2f;
         portal.ScaleStep = 0.2f;
-        this.Schedule(0.5f, ShowPortal);
+        _ = this.Schedule(0.5f, ShowPortal);
         if (levelPosition.Chapter == 1)
         {
             hero.HotSpot.Color = ColorUtil.Mult(BLUE_LIGHT_COLOR, 1.5f);
@@ -261,8 +265,8 @@ public class FinishView : MovieStripesView, IDisposable
 
     private void ShowLevel()
     {
-        levelField.FadeIn(0.5f);
-        this.Schedule(0.4f, ShowStarsBonus);
+        _ = levelField.FadeIn(0.5f);
+        _ = this.Schedule(0.4f, ShowStarsBonus);
     }
 
     private void PlayBell()
@@ -279,7 +283,7 @@ public class FinishView : MovieStripesView, IDisposable
     {
         portal.Visible = true;
         portal.TargetScale = 1f;
-        this.Schedule(0.3f, ShowHero);
+        _ = this.Schedule(0.3f, ShowHero);
     }
 
     private void ShowHero()
@@ -288,18 +292,18 @@ public class FinishView : MovieStripesView, IDisposable
         portal.TargetScale = 0f;
         portal.ScaleStep = 0.05f;
         hero.Scale = 0f;
-        hero.ScaleTo(0.3f, 1f);
+        _ = hero.ScaleTo(0.3f, 1f);
         float opacityFloat = highlite.OpacityFloat;
         highlite.Visible = true;
         highlite.OpacityByte = 0;
-        highlite.FadeTo(0.2f, opacityFloat);
-        this.Schedule(0.5f, LookAtStar);
+        _ = highlite.FadeTo(0.2f, opacityFloat);
+        _ = this.Schedule(0.5f, LookAtStar);
     }
 
     private void LookAtStar()
     {
         hero.ViewTarget = energies[1].LocalToNode(Vector2.Zero, this);
-        this.Schedule(0.7f, LookAtScore);
+        _ = this.Schedule(0.7f, LookAtScore);
     }
 
     private void LookAtScore()
@@ -308,18 +312,18 @@ public class FinishView : MovieStripesView, IDisposable
         if (newHighScore)
         {
             UserData.Instance.Improved = true;
-            this.Schedule(0.7f, LookAtImproved);
+            _ = this.Schedule(0.7f, LookAtImproved);
         }
         else
         {
-            this.Schedule(0.5f, LookAtPlayer);
+            _ = this.Schedule(0.5f, LookAtPlayer);
         }
     }
 
     private void LookAtImproved()
     {
         hero.ViewTarget = stamp.LocalToNode(Vector2.Zero, this);
-        this.Schedule(0.5f, LookAtPlayer);
+        _ = this.Schedule(0.5f, LookAtPlayer);
     }
 
     private void LookAtPlayer()
@@ -327,25 +331,25 @@ public class FinishView : MovieStripesView, IDisposable
         hero.ViewTarget = hero.Position;
         if (newHighScore || stars == 3)
         {
-            this.Schedule(0.5f, Smile);
+            _ = this.Schedule(0.5f, Smile);
         }
         else
         {
-            this.Schedule(0.5f, Blink);
+            _ = this.Schedule(0.5f, Blink);
         }
     }
 
     private void Blink()
     {
         hero.Eye.Blink();
-        this.Schedule(Maths.Random(3f, 7f), Blink);
+        _ = this.Schedule(Maths.Random(3f, 7f), Blink);
     }
 
     private void Smile()
     {
         SoundManager.PlaySound("laugh0", 0.8f);
         hero.Eye.Smile();
-        this.Schedule(Maths.Random(3f, 7f), Blink);
+        _ = this.Schedule(Maths.Random(3f, 7f), Blink);
     }
 
     private void ShowStarsBonus()
@@ -353,10 +357,10 @@ public class FinishView : MovieStripesView, IDisposable
         starsBonusField = ContreJourLabelUtil.CreateProgressLabel(15f, Messages.ENERGY_BONUS, stars * 1000, 15);
         starsBonusField.Position = new Vector2(-30f, 16f);
         clickableLayer.AddChild(starsBonusField);
-        starsBonusField.FadeIn(0.2f);
+        _ = starsBonusField.FadeIn(0.2f);
         starsBonusField.Color = color;
         starsBonusField.Anchor = new Vector2(0f, 0.5f);
-        this.Schedule(0.4f, ShowTimeBonus);
+        _ = this.Schedule(0.4f, ShowTimeBonus);
     }
 
     private void ShowTimeBonus()
@@ -364,17 +368,19 @@ public class FinishView : MovieStripesView, IDisposable
         ProgressLabel progressLabel = ContreJourLabelUtil.CreateProgressLabel(15f, Messages.TIME_BONUS, UserData.GetTimeBonus(time), 15);
         clickableLayer.AddChild(progressLabel);
         progressLabel.Position = new Vector2(-30f, -12f);
-        progressLabel.FadeIn(0.2f);
+        _ = progressLabel.FadeIn(0.2f);
         progressLabel.Color = color;
         progressLabel.Anchor = new Vector2(0f, 0.5f);
-        this.Schedule(0.4f, ShowLine);
-        this.Schedule(0.6f, ShowTotal);
+        _ = this.Schedule(0.4f, ShowLine);
+        _ = this.Schedule(0.6f, ShowTotal);
     }
 
     private void ShowLine()
     {
-        McTotalLine mcTotalLine = new McTotalLine();
-        mcTotalLine.Color = color;
+        McTotalLine mcTotalLine = new()
+        {
+            Color = color
+        };
         clickableLayer.AddChild(mcTotalLine);
         mcTotalLine.Speed = 2f;
         mcTotalLine.Position = new Vector2(-30f, -26f);
@@ -386,12 +392,12 @@ public class FinishView : MovieStripesView, IDisposable
         totalField = ContreJourLabelUtil.CreateProgressLabel(18f, Messages.TOTAL, score, 15);
         clickableLayer.AddChild(totalField);
         totalField.Position = new Vector2(-30f, -50f);
-        totalField.FadeIn(0.2f);
+        _ = totalField.FadeIn(0.2f);
         totalField.Anchor = new Vector2(0f, 0.5f);
         totalField.Color = color;
         if (newHighScore)
         {
-            this.Schedule(0.7f, ShowNewHighScore);
+            _ = this.Schedule(0.7f, ShowNewHighScore);
         }
     }
 
@@ -407,14 +413,14 @@ public class FinishView : MovieStripesView, IDisposable
         stamp.Scale = 0f;
         stamp.Position = new Vector2(-270f, 100f);
         stamp.RotationDegrees = -170f;
-        stamp.ScaleTo(0.25f, 0.7f, Cubic.EaseIn);
-        stamp.RotateTo(0.4f, 0f, Cubic.EaseOut);
+        _ = stamp.ScaleTo(0.25f, 0.7f, Cubic.EaseIn);
+        _ = stamp.RotateTo(0.4f, 0f, Cubic.EaseOut);
         clickableLayer.AddChild(stamp);
     }
 
     private void BlinkItemWithButton(Sprite button)
     {
-        button.Tweener.StartSequence(0.15f).ScaleTo(button.Scale * 1.2f, Cubic.EaseOut).Next(0.15f)
+        _ = button.Tweener.StartSequence(0.15f).ScaleTo(button.Scale * 1.2f, Cubic.EaseOut).Next(0.15f)
             .ScaleTo(button.Scale, Elastic.EaseIn);
         PlayBell();
     }
@@ -426,7 +432,7 @@ public class FinishView : MovieStripesView, IDisposable
         button.Visible = true;
         float opacityFloat = button.OpacityFloat;
         button.OpacityByte = 0;
-        button.FadeTo(0.3f, opacityFloat);
-        button.ScaleTo(0.6f, scale, Elastic.EaseOut);
+        _ = button.FadeTo(0.3f, opacityFloat);
+        _ = button.ScaleTo(0.6f, scale, Elastic.EaseOut);
     }
 }

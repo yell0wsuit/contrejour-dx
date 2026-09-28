@@ -17,6 +17,6 @@ public class TrialAchievementWindow : PopUpWindow
     {
         Mokus2DGame.Instance.KeysController.StopPropagation();
         Mokus2DGame.Instance.KeysController.RemoveBackKeyListener(OnBack);
-        base.Open = false;
+        Open = false;
     }
 }

@@ -12,23 +12,20 @@ public class QuadTreeNode<T> where T : class, IQuadTreeObject<T>
 
     internal readonly QuadTreeNode<T>[] Nodes = new QuadTreeNode<T>[4];
 
-    internal List<T> Objects = new List<T>();
+    internal List<T> Objects = [];
 
     public QuadTreeNode<T> Parent { get; internal set; }
 
     public QuadTreeNode<T> this[QuadDirection direction]
     {
-        get
+        get => direction switch
         {
-            return direction switch
-            {
-                QuadDirection.NW => Nodes[0],
-                QuadDirection.NE => Nodes[1],
-                QuadDirection.SW => Nodes[2],
-                QuadDirection.SE => Nodes[3],
-                _ => null,
-            };
-        }
+            QuadDirection.NW => Nodes[0],
+            QuadDirection.NE => Nodes[1],
+            QuadDirection.SW => Nodes[2],
+            QuadDirection.SE => Nodes[3],
+            _ => null,
+        };
         set
         {
             switch (direction)
@@ -46,10 +43,7 @@ public class QuadTreeNode<T> where T : class, IQuadTreeObject<T>
                     Nodes[3] = value;
                     break;
             }
-            if (value != null)
-            {
-                value.Parent = this;
-            }
+            value?.Parent = this;
         }
     }
 

@@ -14,7 +14,7 @@ namespace Default.Namespace;
 
 public abstract class FurBodyClip : ContreJourBodyClip
 {
-    protected List<RotatorGrass> grass = new List<RotatorGrass>();
+    protected List<RotatorGrass> grass = [];
 
     protected FurCircle grassSystem;
 
@@ -29,12 +29,14 @@ public abstract class FurBodyClip : ContreJourBodyClip
     {
         if (_clip == null)
         {
-            _clip = new Node();
-            _clip.Scale = _config.GetVector("scale").X;
-            _builder.AddChild(_clip);
+            _clip = new Node
+            {
+                Scale = _config.GetVector("scale").X
+            };
+            _ = _builder.AddChild(_clip);
             clip = _clip;
         }
-        grassStep = (float)Math.PI * 2f / (float)GrassCount();
+        grassStep = (float)Math.PI * 2f / GrassCount();
         trampleAngle = 4f * grassStep;
         baseSprite = new McRotatorBase();
         baseSprite.Scale = Width() / baseSprite.TextureSize.X;
@@ -45,7 +47,7 @@ public abstract class FurBodyClip : ContreJourBodyClip
 
     public FurCircle CreateFur()
     {
-        FurCircle furCircle = new FurCircle(GrassTexture(), GrassCount(), GrassRadius());
+        FurCircle furCircle = new(GrassTexture(), GrassCount(), GrassRadius());
         clip.AddChild(furCircle);
         return furCircle;
     }
@@ -96,15 +98,15 @@ public abstract class FurBodyClip : ContreJourBodyClip
         RotatorGrass rotatorGrass = grass[index];
         angle = angle.SimplifyAngle(rotatorGrass.InitialAngle - (float)Math.PI);
         int num = Math.Sign(rotatorGrass.InitialAngle - angle);
-        rotatorGrass.ContactAngle = (trampleAngle - Math.Abs(angle - rotatorGrass.InitialAngle)) * 1.3f * (float)num;
+        rotatorGrass.ContactAngle = (trampleAngle - Math.Abs(angle - rotatorGrass.InitialAngle)) * 1.3f * num;
     }
 
     public void AddContactAngle(float angle)
     {
         for (int i = 0; i < 3; i++)
         {
-            AddContactAngleIndex(angle, (int)((angle - (float)i * grassStep) / grassStep));
-            AddContactAngleIndex(angle, (int)((angle + (float)(i + 1) * grassStep) / grassStep));
+            AddContactAngleIndex(angle, (int)((angle - (i * grassStep)) / grassStep));
+            AddContactAngleIndex(angle, (int)((angle + ((i + 1) * grassStep)) / grassStep));
         }
     }
 
@@ -112,8 +114,10 @@ public abstract class FurBodyClip : ContreJourBodyClip
     {
         for (int i = 0; i < GrassCount(); i++)
         {
-            RotatorGrass rotatorGrass = new RotatorGrass(grassSystem.Particles[i]);
-            rotatorGrass.InitialAngle = grassSystem.GetItemAngle(i);
+            RotatorGrass rotatorGrass = new(grassSystem.Particles[i])
+            {
+                InitialAngle = grassSystem.GetItemAngle(i)
+            };
             grass.Add(rotatorGrass);
         }
     }

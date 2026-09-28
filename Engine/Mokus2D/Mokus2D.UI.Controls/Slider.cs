@@ -53,78 +53,42 @@ public class Slider : UIComponent, IMouseWheelNode
 
     public Sprite MouseWheelArea
     {
-        set
-        {
-            _wheelController.MouseWheelArea = value;
-        }
+        set => _wheelController.MouseWheelArea = value;
     }
 
     public float MouseWheelSpeed
     {
-        get
-        {
-            return _wheelController.WheelMult;
-        }
-        set
-        {
-            _wheelController.WheelMult = value;
-        }
+        get => _wheelController.WheelMult;
+        set => _wheelController.WheelMult = value;
     }
 
     public float MouseWheelMinScrollSpeed
     {
-        get
-        {
-            return _wheelController.MinScrollSpeed;
-        }
-        set
-        {
-            _wheelController.MinScrollSpeed = value;
-        }
+        get => _wheelController.MinScrollSpeed;
+        set => _wheelController.MinScrollSpeed = value;
     }
 
     public float? MouseWheelMaxScrollSpeed
     {
-        get
-        {
-            return _wheelController.MaxScrollSpeed;
-        }
-        set
-        {
-            _wheelController.MaxScrollSpeed = value;
-        }
+        get => _wheelController.MaxScrollSpeed;
+        set => _wheelController.MaxScrollSpeed = value;
     }
 
     public float MouseWheelScrollSpeedMult
     {
-        get
-        {
-            return _wheelController.ScrollSpeedMult;
-        }
-        set
-        {
-            _wheelController.ScrollSpeedMult = value;
-        }
+        get => _wheelController.ScrollSpeedMult;
+        set => _wheelController.ScrollSpeedMult = value;
     }
 
     public bool MouseWheelEnabled
     {
-        get
-        {
-            return _wheelController.Enabled;
-        }
-        set
-        {
-            _wheelController.Enabled = value;
-        }
+        get => _wheelController.Enabled;
+        set => _wheelController.Enabled = value;
     }
 
     public Sprite ClickArea
     {
-        get
-        {
-            return _clickArea;
-        }
+        get => _clickArea;
         set
         {
             if (_clickArea != value)
@@ -148,10 +112,7 @@ public class Slider : UIComponent, IMouseWheelNode
 
     public float Min
     {
-        get
-        {
-            return _min;
-        }
+        get => _min;
         set
         {
             if (value != _min)
@@ -165,10 +126,7 @@ public class Slider : UIComponent, IMouseWheelNode
 
     public float Max
     {
-        get
-        {
-            return _max;
-        }
+        get => _max;
         set
         {
             if (_max != value)
@@ -182,10 +140,7 @@ public class Slider : UIComponent, IMouseWheelNode
 
     public float Value
     {
-        get
-        {
-            return _value;
-        }
+        get => _value;
         set
         {
             if (_value != value)
@@ -199,26 +154,14 @@ public class Slider : UIComponent, IMouseWheelNode
 
     public bool IsButtonsSpeedIsStatic
     {
-        get
-        {
-            return _buttons.IsStaticScrollSpeed;
-        }
-        set
-        {
-            _buttons.IsStaticScrollSpeed = value;
-        }
+        get => _buttons.IsStaticScrollSpeed;
+        set => _buttons.IsStaticScrollSpeed = value;
     }
 
     public float ButtonsScrollSpeed
     {
-        get
-        {
-            return _buttons.ScrollSpeed;
-        }
-        set
-        {
-            _buttons.ScrollSpeed = value;
-        }
+        get => _buttons.ScrollSpeed;
+        set => _buttons.ScrollSpeed = value;
     }
 
     public float MinMouseWheelValue => Min;
@@ -227,10 +170,7 @@ public class Slider : UIComponent, IMouseWheelNode
 
     public float MouseWheelValue
     {
-        get
-        {
-            return Value;
-        }
+        get => Value;
         set
         {
             if (!value.Between(Min, Max))
@@ -278,7 +218,7 @@ public class Slider : UIComponent, IMouseWheelNode
     {
         Node parent = thumb.Parent;
         thumb.RemoveFromParent();
-        Slider slider = new Slider(thumb, maxWidth, orientation);
+        Slider slider = new(thumb, maxWidth, orientation);
         parent.AddChild(slider);
         slider.Position = thumb.Position;
         thumb.Position = Vector2.Zero;
@@ -295,7 +235,7 @@ public class Slider : UIComponent, IMouseWheelNode
         base.Update(time);
         if (_clickAreaTargetPosition.HasValue)
         {
-            float num = (_clickAreaStatic ? _clickAreaTargetPosition.Value : _thumb.Position.GetValue(Orientation).StepTo(_clickAreaTargetPosition.Value, ClickAreaSpeed * time));
+            float num = _clickAreaStatic ? _clickAreaTargetPosition.Value : _thumb.Position.GetValue(Orientation).StepTo(_clickAreaTargetPosition.Value, ClickAreaSpeed * time);
             if (num == _clickAreaTargetPosition)
             {
                 _clickAreaStatic = true;
@@ -324,7 +264,7 @@ public class Slider : UIComponent, IMouseWheelNode
     protected override void UpdateProperties()
     {
         base.UpdateProperties();
-        float value = ((Max != Min) ? ((Value - Min) / (Max - Min) * _maxWidth) : Min);
+        float value = (Max != Min) ? ((Value - Min) / (Max - Min) * _maxWidth) : Min;
         _thumb.Position = _thumb.Position.Change(value, Orientation);
     }
 
@@ -350,7 +290,7 @@ public class Slider : UIComponent, IMouseWheelNode
     internal void ChangeValueAndDispatch(float value)
     {
         Value = value;
-        this.ChangeEvent.Dispatch(this);
+        ChangeEvent.Dispatch(this);
     }
 
     private void ThumbOnTouchBeginEvent(TouchArguments touchArguments)
@@ -362,13 +302,13 @@ public class Slider : UIComponent, IMouseWheelNode
         Vector2 vector = GlobalToLocal(touchArguments.Touch.InitialPosition);
         _clickOffset = _thumb.Position - vector;
         _wheelController.Refresh();
-        this.StartEvent.Dispatch(this);
+        StartEvent.Dispatch(this);
     }
 
     private void ThumbOnTouchEndEvent(TouchArguments touchArguments)
     {
         IsDragging = false;
-        this.EndEvent.Dispatch(this);
+        EndEvent.Dispatch(this);
     }
 
     private void OnClickAreaTouchBegin(TouchArguments arguments)
@@ -379,7 +319,7 @@ public class Slider : UIComponent, IMouseWheelNode
             _clickAreaTouch = arguments.Touch;
             RefreshClickAreaPosition();
             _wheelController.Refresh();
-            this.StartEvent.Dispatch(this);
+            StartEvent.Dispatch(this);
         }
     }
 
@@ -388,7 +328,7 @@ public class Slider : UIComponent, IMouseWheelNode
         if (_clickAreaTouch == arguments.Touch)
         {
             _clickAreaTouch = null;
-            this.EndEvent.Dispatch(this);
+            EndEvent.Dispatch(this);
         }
     }
 

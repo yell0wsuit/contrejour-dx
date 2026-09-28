@@ -11,20 +11,17 @@ namespace Mokus2D.Parallax;
 
 public class ParallaxVisibilityOptimizer
 {
-    private readonly Vector2 _extension = new Vector2(0f);
+    private readonly Vector2 _extension = new(0f);
 
     private readonly ParallaxScroller _scroller;
 
-    private readonly List<LayerAndOptimizer> _layers = new List<LayerAndOptimizer>();
+    private readonly List<LayerAndOptimizer> _layers = [];
 
     private bool _enabled = true;
 
     public bool Enabled
     {
-        get
-        {
-            return _enabled;
-        }
+        get => _enabled;
         set
         {
             if (_enabled != value)
@@ -74,9 +71,9 @@ public class ParallaxVisibilityOptimizer
         {
             if (item.Parallax != 0f && predicate.NullOrTrue(item.Node))
             {
-                Vector2 position = bounds.LeftTop - item.InitialPosition / item.Parallax;
-                Vector2 size = _scroller.ScreenSize + (bounds.Size - _scroller.ScreenSize) * item.Parallax;
-                LayerVisibilityOptimizer layerVisibilityOptimizer = new LayerVisibilityOptimizer(item.Node, new RectangleFloat(position, size), islandSize);
+                Vector2 position = bounds.LeftTop - (item.InitialPosition / item.Parallax);
+                Vector2 size = _scroller.ScreenSize + ((bounds.Size - _scroller.ScreenSize) * item.Parallax);
+                LayerVisibilityOptimizer layerVisibilityOptimizer = new(item.Node, new RectangleFloat(position, size), islandSize);
                 layerVisibilityOptimizer.Rebuild();
                 _layers.Add(new LayerAndOptimizer(item, layerVisibilityOptimizer));
             }
@@ -101,8 +98,8 @@ public class ParallaxVisibilityOptimizer
         foreach (LayerAndOptimizer layer in _layers)
         {
             Node node = layer.Layer.Node;
-            Vector2 leftTop = -node.Position / node.ScaleVec - _extension;
-            Vector2 size = _scroller.ScreenSize / node.ScaleVec + _extension * 2f;
+            Vector2 leftTop = (-node.Position / node.ScaleVec) - _extension;
+            Vector2 size = (_scroller.ScreenSize / node.ScaleVec) + (_extension * 2f);
             layer.Optimizer.VisibleArea = leftTop.ToRectangle(size);
         }
     }

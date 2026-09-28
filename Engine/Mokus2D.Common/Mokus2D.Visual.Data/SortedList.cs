@@ -23,26 +23,14 @@ public class SortedList<T> : IList<T>, ICollection<T>, IEnumerable<T>, IEnumerab
 
     public T this[int index]
     {
-        get
-        {
-            return Items[index];
-        }
-        set
-        {
-            throw new NotSupportedException();
-        }
+        get => Items[index];
+        set => throw new NotSupportedException();
     }
 
     public int Capacity
     {
-        get
-        {
-            return Items.Capacity;
-        }
-        set
-        {
-            Items.Capacity = value;
-        }
+        get => Items.Capacity;
+        set => Items.Capacity = value;
     }
 
     public int Count => Items.Count;
@@ -58,7 +46,7 @@ public class SortedList<T> : IList<T>, ICollection<T>, IEnumerable<T>, IEnumerab
     public SortedList(Comparison<T> comparison)
     {
         Comparison = comparison;
-        Items = new List<T>();
+        Items = [];
     }
 
     public SortedList(int capacity, Comparison<T> comparison)
@@ -70,7 +58,7 @@ public class SortedList<T> : IList<T>, ICollection<T>, IEnumerable<T>, IEnumerab
     public SortedList(IEnumerable<T> collection, Comparison<T> comparison)
     {
         Comparison = comparison;
-        Items = new List<T>(collection);
+        Items = [.. collection];
         Items.Sort(comparison);
     }
 
@@ -206,7 +194,7 @@ public class SortedList<T> : IList<T>, ICollection<T>, IEnumerable<T>, IEnumerab
 
     public T[] ToArray()
     {
-        return Items.ToArray();
+        return [.. Items];
     }
 
     public List<T>.Enumerator GetEnumerator()

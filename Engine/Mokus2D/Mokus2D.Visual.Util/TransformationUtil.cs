@@ -9,11 +9,7 @@ public static class TransformationUtil
 {
     public static bool ShouldRefreshNode(Node node)
     {
-        if (node.Visible)
-        {
-            return node.OnScreenCount > 0;
-        }
-        return false;
+        return node.Visible ? node.OnScreenCount > 0 : false;
     }
 
     public static void Transform<T>(T[] source, T[] target, ref Matrix matrix) where T : struct, IVertex
@@ -21,7 +17,7 @@ public static class TransformationUtil
         for (int i = 0; i < source.Length; i++)
         {
             Vector2 position = source[i].Position.ToVector2();
-            Vector2.Transform(ref position, ref matrix, out var result);
+            Vector2.Transform(ref position, ref matrix, out Vector2 result);
             target[i].Position = result.ToVector3();
         }
     }

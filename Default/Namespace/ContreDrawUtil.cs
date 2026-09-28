@@ -33,8 +33,7 @@ public static class ContreDrawUtil
 
     public static List<Vector2> CreateBezierLineBezierMaxBezierStep(List<Vector2> line, float maxStep)
     {
-        List<Vector2> list = new List<Vector2>();
-        list.Add(line[0]);
+        List<Vector2> list = [line[0]];
         for (int i = 1; i < line.Count - 1; i++)
         {
             Vector2 vector = line[i - 1].Middle(line[i]);

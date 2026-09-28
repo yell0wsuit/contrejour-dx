@@ -8,10 +8,6 @@ public static class TextUtil
 {
     public static char? KeyToChar(Keys keys, bool isUpper)
     {
-        if (keys == Keys.Back)
-        {
-            return null;
-        }
-        return KeyboardUtil.GetCharsFromKeys(keys, isUpper);
+        return keys == Keys.Back ? null : KeyboardUtil.GetCharsFromKeys(keys, isUpper);
     }
 }

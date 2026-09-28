@@ -13,7 +13,7 @@ public static class AnimationExtensions
 
     public static void SetProgress(this IAnimatedNode node, float progress)
     {
-        node.CurrentFrame = (float)(node.TotalFrames - 1) * progress;
+        node.CurrentFrame = (node.TotalFrames - 1) * progress;
     }
 
     public static void PlayAllOffsprings(this Node node)

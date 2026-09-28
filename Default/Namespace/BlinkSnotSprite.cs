@@ -16,14 +16,8 @@ public class BlinkSnotSprite : SpringSnotSprite
 
     public bool Highlite
     {
-        get
-        {
-            return highlite;
-        }
-        set
-        {
-            highlite = value;
-        }
+        get => highlite;
+        set => highlite = value;
     }
 
     private BlinkSnotSprite(ContreJourGame _game, SnotBodyClipBase _snot, float _startWidth, float _centerWidth, float _endWidth)

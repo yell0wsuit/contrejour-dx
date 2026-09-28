@@ -11,7 +11,7 @@ namespace Default.Namespace;
 
 public class PlanetLiana : Node, ILianaDrawData
 {
-    protected List<Vector2> points = new List<Vector2>();
+    protected List<Vector2> points = [];
 
     protected LianaSprite sprite;
 
@@ -25,14 +25,8 @@ public class PlanetLiana : Node, ILianaDrawData
 
     public bool Stoped
     {
-        get
-        {
-            return stoped;
-        }
-        set
-        {
-            stoped = value;
-        }
+        get => stoped;
+        set => stoped = value;
     }
 
     public LianaSprite Sprite => sprite;

@@ -6,7 +6,7 @@ namespace Mokus2D.Util.Data;
 
 public struct Pair<T>(T first, T second)
 {
-    public static StructGetSet<Pair<T>, T> FirstValue = new StructGetSet<Pair<T>, T>(delegate (ref Pair<T> p)
+    public static StructGetSet<Pair<T>, T> FirstValue = new(delegate (ref Pair<T> p)
     {
         return p.First;
     }, delegate (ref Pair<T> p, T v)
@@ -14,7 +14,7 @@ public struct Pair<T>(T first, T second)
         p.First = v;
     });
 
-    public static StructGetSet<Pair<T>, T> SecondValue = new StructGetSet<Pair<T>, T>(delegate (ref Pair<T> p)
+    public static StructGetSet<Pair<T>, T> SecondValue = new(delegate (ref Pair<T> p)
     {
         return p.Second;
     }, delegate (ref Pair<T> p, T v)
@@ -26,7 +26,7 @@ public struct Pair<T>(T first, T second)
 
     public T Second = second;
 
-    public override int GetHashCode()
+    public override readonly int GetHashCode()
     {
         return (EqualityComparer<T>.Default.GetHashCode(First) * 397) ^ EqualityComparer<T>.Default.GetHashCode(Second);
     }

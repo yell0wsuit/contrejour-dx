@@ -14,7 +14,7 @@ public struct ControllerFilter
         ControllerFlags &= ~controller;
     }
 
-    public bool IsControllerIgnored(ControllerType controller)
+    public readonly bool IsControllerIgnored(ControllerType controller)
     {
         return (ControllerFlags & controller) == controller;
     }

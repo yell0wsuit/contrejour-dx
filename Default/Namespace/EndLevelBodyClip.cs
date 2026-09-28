@@ -20,9 +20,11 @@ public class EndLevelBodyClip : RotatableBodyClip, IRestartable
     public EndLevelBodyClip(LevelBuilderBase _builder, object _body, Node _clip, Hashtable _config)
         : base(_builder, _body, _clip, _config)
     {
-        portal = new Portal((ContreJourGame)builder.Game, Vector2.Zero);
-        portal.Position = clip.Position;
-        portal.Scale = 1.3f;
+        portal = new Portal((ContreJourGame)builder.Game, Vector2.Zero)
+        {
+            Position = clip.Position,
+            Scale = 1.3f
+        };
         builder.Add(portal, 11);
         ((ContreJourGame)builder.Game).EndLevel = this;
         clip.Visible = false;
@@ -42,8 +44,7 @@ public class EndLevelBodyClip : RotatableBodyClip, IRestartable
 
     public override void OnCollisionStartPoint(Body body2, Contact point)
     {
-        HeroBodyClip heroBodyClip = body2.UserData as HeroBodyClip;
-        if (!finishing && heroBodyClip != null && heroBodyClip.CanDie())
+        if (!finishing && body2.UserData is HeroBodyClip heroBodyClip && heroBodyClip.CanDie())
         {
             if (builder.Game.TotalTime <= 5f)
             {

@@ -2,7 +2,7 @@ using System;
 
 namespace Mokus2D.Collections.ForEach;
 
-public struct ForEachListUsing : IDisposable
+public readonly struct ForEachListUsing : IDisposable
 {
     private readonly IForEachList _list;
 
@@ -12,7 +12,7 @@ public struct ForEachListUsing : IDisposable
         _list.StartForEach();
     }
 
-    public void Dispose()
+    public readonly void Dispose()
     {
         _list.EndForEach();
     }

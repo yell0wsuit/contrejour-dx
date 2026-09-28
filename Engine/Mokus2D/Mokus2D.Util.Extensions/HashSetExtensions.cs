@@ -10,7 +10,7 @@ public static class HashSetExtensions
         {
             if (!target.Contains(item))
             {
-                target.Add(item);
+                _ = target.Add(item);
             }
         }
     }
@@ -19,7 +19,7 @@ public static class HashSetExtensions
     {
         foreach (T item in items)
         {
-            target.Add(item);
+            _ = target.Add(item);
         }
     }
 
@@ -29,7 +29,7 @@ public static class HashSetExtensions
         {
             if (!target.Contains(item))
             {
-                target.Add(item);
+                _ = target.Add(item);
             }
         }
     }

@@ -19,9 +19,9 @@ public class ExitConfirmationView : ClickableLayer
 
     private ColorRectangle _background;
 
-    public EventSender<ExitConfirmationView> OnYes = new EventSender<ExitConfirmationView>();
+    public EventSender<ExitConfirmationView> OnYes = new();
 
-    public EventSender<ExitConfirmationView> OnNo = new EventSender<ExitConfirmationView>();
+    public EventSender<ExitConfirmationView> OnNo = new();
 
     private void OnYesButtonClick(TouchArguments touchArguments)
     {
@@ -38,14 +38,14 @@ public class ExitConfirmationView : ClickableLayer
         float num = ContreJourConfig.RootSize.X * 0.5f;
         _yesButton = new Button("menu/McButtonMenuBackground", "menu/McButtonYes", "menu/McButtonYes")
         {
-            Position = new Vector2(num - 80f, 280f)
+            Position = new Vector2(num - 80f, 280f),
+            StopEventPropagation = true
         };
-        _yesButton.StopEventPropagation = true;
         _noButton = new Button("menu/McButtonMenuBackground", "menu/McButtonNo", "menu/McButtonNo")
         {
-            Position = new Vector2(num + 80f, 280f)
+            Position = new Vector2(num + 80f, 280f),
+            StopEventPropagation = true
         };
-        _noButton.StopEventPropagation = true;
         _yesButton.TouchEndEvent += OnYesButtonClick;
         _noButton.TouchEndEvent += OnNoButtonClick;
         _label = ContreJourLabelUtil.CreateLabel(28f, "EXIT_CONFIRM".Localize());

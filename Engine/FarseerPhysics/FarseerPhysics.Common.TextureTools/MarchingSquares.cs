@@ -31,7 +31,7 @@ public static class MarchingSquares
 
         public CxFastListNode<T> Add(T value)
         {
-            CxFastListNode<T> cxFastListNode = new CxFastListNode<T>(value);
+            CxFastListNode<T> cxFastListNode = new(value);
             if (_head == null)
             {
                 cxFastListNode._next = null;
@@ -85,7 +85,7 @@ public static class MarchingSquares
             {
                 return Add(value);
             }
-            CxFastListNode<T> cxFastListNode = new CxFastListNode<T>(value);
+            CxFastListNode<T> cxFastListNode = new(value);
             CxFastListNode<T> next = node._next;
             cxFastListNode._next = next;
             node._next = cxFastListNode;
@@ -114,11 +114,7 @@ public static class MarchingSquares
 
         public bool Empty()
         {
-            if (_head == null)
-            {
-                return true;
-            }
-            return false;
+            return _head == null;
         }
 
         public int Size()
@@ -187,7 +183,7 @@ public static class MarchingSquares
 
         public List<T> GetListOfElements()
         {
-            List<T> list = new List<T>();
+            List<T> list = [];
             CxFastListNode<T> cxFastListNode = Begin();
             if (cxFastListNode != null)
             {
@@ -250,20 +246,20 @@ public static class MarchingSquares
         }
     }
 
-    private static int[] _lookMarch = new int[16]
-    {
+    private static int[] _lookMarch =
+    [
         0, 224, 56, 216, 14, 238, 54, 214, 131, 99,
         187, 91, 141, 109, 181, 85
-    };
+    ];
 
     public static List<Vertices> DetectSquares(AABB domain, float cellWidth, float cellHeight, sbyte[,] f, int lerpCount, bool combine)
     {
-        CxFastList<GeomPoly> cxFastList = new CxFastList<GeomPoly>();
-        List<Vertices> list = new List<Vertices>();
+        CxFastList<GeomPoly> cxFastList = new();
+        List<Vertices> list = [];
         int num = (int)(domain.Extents.X * 2f / cellWidth);
-        bool flag = (float)num == domain.Extents.X * 2f / cellWidth;
+        bool flag = num == domain.Extents.X * 2f / cellWidth;
         int num2 = (int)(domain.Extents.Y * 2f / cellHeight);
-        bool flag2 = (float)num2 == domain.Extents.Y * 2f / cellHeight;
+        bool flag2 = num2 == domain.Extents.Y * 2f / cellHeight;
         if (!flag)
         {
             num++;
@@ -276,23 +272,23 @@ public static class MarchingSquares
         GeomPolyVal[,] array2 = new GeomPolyVal[num + 1, num2 + 1];
         for (int i = 0; i < num + 1; i++)
         {
-            int num3 = ((i != num) ? ((int)((float)i * cellWidth + domain.LowerBound.X)) : ((int)domain.UpperBound.X));
+            int num3 = (i != num) ? ((int)((i * cellWidth) + domain.LowerBound.X)) : ((int)domain.UpperBound.X);
             for (int j = 0; j < num2 + 1; j++)
             {
-                int num4 = ((j != num2) ? ((int)((float)j * cellHeight + domain.LowerBound.Y)) : ((int)domain.UpperBound.Y));
+                int num4 = (j != num2) ? ((int)((j * cellHeight) + domain.LowerBound.Y)) : ((int)domain.UpperBound.Y);
                 array[i, j] = f[num3, num4];
             }
         }
         for (int k = 0; k < num2; k++)
         {
-            float num5 = (float)k * cellHeight + domain.LowerBound.Y;
-            float y = ((k != num2 - 1) ? (num5 + cellHeight) : domain.UpperBound.Y);
+            float num5 = (k * cellHeight) + domain.LowerBound.Y;
+            float y = (k != num2 - 1) ? (num5 + cellHeight) : domain.UpperBound.Y;
             GeomPoly polya = null;
             for (int l = 0; l < num; l++)
             {
-                float num6 = (float)l * cellWidth + domain.LowerBound.X;
-                float x = ((l != num - 1) ? (num6 + cellWidth) : domain.UpperBound.X);
-                GeomPoly poly = new GeomPoly();
+                float num6 = (l * cellWidth) + domain.LowerBound.X;
+                float x = (l != num - 1) ? (num6 + cellWidth) : domain.UpperBound.X;
+                GeomPoly poly = new();
                 int num7 = MarchSquare(f, array, ref poly, l, k, num6, num5, x, y, lerpCount);
                 if (poly.Length != 0)
                 {
@@ -303,7 +299,7 @@ public static class MarchingSquares
                     }
                     else
                     {
-                        cxFastList.Add(poly);
+                        _ = cxFastList.Add(poly);
                     }
                     array2[l, k] = new GeomPolyVal(poly, num7);
                 }
@@ -353,8 +349,8 @@ public static class MarchingSquares
                     num8++;
                     continue;
                 }
-                float num9 = (float)num8 * cellWidth + domain.LowerBound.X;
-                float num10 = (float)m * cellHeight + domain.LowerBound.Y;
+                float num9 = (num8 * cellWidth) + domain.LowerBound.X;
+                float num10 = (m * cellHeight) + domain.LowerBound.Y;
                 CxFastList<Vector2> points = geomPolyVal.GeomP.Points;
                 CxFastList<Vector2> points2 = geomPolyVal2.GeomP.Points;
                 if (geomPolyVal2.GeomP == geomPolyVal.GeomP)
@@ -404,7 +400,7 @@ public static class MarchingSquares
                     geomPolyVal2.GeomP.Length++;
                 }
                 num9 = num8 + 1;
-                while (num9 < (float)num)
+                while (num9 < num)
                 {
                     GeomPolyVal geomPolyVal3 = array2[(int)num9, m];
                     if (geomPolyVal3 == null || geomPolyVal3.GeomP != geomPolyVal.GeomP)
@@ -427,7 +423,7 @@ public static class MarchingSquares
                     geomPolyVal4.GeomP = geomPolyVal2.GeomP;
                     num9 -= 1f;
                 }
-                cxFastList.Remove(geomPolyVal.GeomP);
+                _ = cxFastList.Remove(geomPolyVal.GeomP);
                 geomPolyVal.GeomP = geomPolyVal2.GeomP;
                 num8 = (int)((cxFastListNode.Next().Elem().X - domain.LowerBound.X) / cellWidth) + 1;
             }
@@ -443,8 +439,8 @@ public static class MarchingSquares
     private static float Lerp(float x0, float x1, float v0, float v1)
     {
         float num = v0 - v1;
-        float num2 = ((!(num * num < 1.1920929E-07f)) ? (v0 / num) : 0.5f);
-        return x0 + num2 * (x1 - x0);
+        float num2 = (!(num * num < 1.1920929E-07f)) ? (v0 / num) : 0.5f;
+        return x0 + (num2 * (x1 - x0));
     }
 
     private static float Xlerp(float x0, float x1, float y, float v0, float v1, sbyte[,] f, int c)
@@ -455,11 +451,7 @@ public static class MarchingSquares
             return num;
         }
         sbyte b = f[(int)num, (int)y];
-        if (v0 * (float)b < 0f)
-        {
-            return Xlerp(x0, num, y, v0, b, f, c - 1);
-        }
-        return Xlerp(num, x1, y, b, v1, f, c - 1);
+        return v0 * b < 0f ? Xlerp(x0, num, y, v0, b, f, c - 1) : Xlerp(num, x1, y, b, v1, f, c - 1);
     }
 
     private static float Ylerp(float y0, float y1, float x, float v0, float v1, sbyte[,] f, int c)
@@ -470,11 +462,7 @@ public static class MarchingSquares
             return num;
         }
         sbyte b = f[(int)x, (int)num];
-        if (v0 * (float)b < 0f)
-        {
-            return Ylerp(y0, num, x, v0, b, f, c - 1);
-        }
-        return Ylerp(num, y1, x, b, v1, f, c - 1);
+        return v0 * b < 0f ? Ylerp(y0, num, x, v0, b, f, c - 1) : Ylerp(num, y1, x, b, v1, f, c - 1);
     }
 
     private static float Square(float x)
@@ -485,12 +473,12 @@ public static class MarchingSquares
     private static float VecDsq(Vector2 a, Vector2 b)
     {
         Vector2 vector = a - b;
-        return vector.X * vector.X + vector.Y * vector.Y;
+        return (vector.X * vector.X) + (vector.Y * vector.Y);
     }
 
     private static float VecCross(Vector2 a, Vector2 b)
     {
-        return a.X * b.Y - a.Y * b.X;
+        return (a.X * b.Y) - (a.Y * b.X);
     }
 
     private static int MarchSquare(sbyte[,] f, sbyte[,] fs, ref GeomPoly poly, int ax, int ay, float x0, float y0, float x1, float y1, int bin)
@@ -527,8 +515,8 @@ public static class MarchingSquares
                     if (i == 7 && (num2 & 1) == 0)
                     {
                         CxFastList<Vector2> points = poly.Points;
-                        Vector2 value = new Vector2(x0, Ylerp(y0, y1, x0, b, b4, f, bin));
-                        points.Add(value);
+                        Vector2 value = new(x0, Ylerp(y0, y1, x0, b, b4, f, bin));
+                        _ = points.Add(value);
                     }
                     else
                     {
@@ -574,7 +562,7 @@ public static class MarchingSquares
                     float num = VecCross(a, b2);
                     if (num * num < 1.1920929E-07f)
                     {
-                        points.Erase(cxFastListNode3, cxFastListNode);
+                        _ = points.Erase(cxFastListNode3, cxFastListNode);
                         polya.Length--;
                         cxFastListNode = cxFastListNode3;
                     }
@@ -584,7 +572,7 @@ public static class MarchingSquares
                 while (!points2.Empty())
                 {
                     Vector2 value = points2.Front();
-                    points2.Pop();
+                    _ = points2.Pop();
                     if (!flag && !points2.Empty())
                     {
                         cxFastListNode = points.Insert(cxFastListNode, value);
@@ -607,7 +595,7 @@ public static class MarchingSquares
                 float num2 = VecCross(a2, b3);
                 if (num2 * num2 < 1.1920929E-07f)
                 {
-                    points.Erase(cxFastListNode4, cxFastListNode4.Next());
+                    _ = points.Erase(cxFastListNode4, cxFastListNode4.Next());
                     polya.Length--;
                 }
                 break;

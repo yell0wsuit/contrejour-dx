@@ -107,10 +107,7 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
 
     public bool Enabled
     {
-        get
-        {
-            return enabled;
-        }
+        get => enabled;
         set
         {
             if (enabled != value)
@@ -142,28 +139,23 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
 
     public bool DisableHeroFocus => false;
 
-    public override Vector2 PositionVec => base.Physics.EndBody.Position;
+    public override Vector2 PositionVec => Physics.EndBody.Position;
 
     public SnotBodyClip(LevelBuilderBase _builder, SnotData _body, Node _clip, Hashtable _config)
         : base(_builder, _body, _clip, _config)
     {
-        length = base.Physics.InitialLength;
+        length = Physics.InitialLength;
         linkEvent = new EventSender();
         releaseEvent = new EventSender();
         SetDamping(FreeDamping());
         movable = config.GetBool("movable");
-        if (movable)
-        {
-            snotEye = new MovableSnotEye(targetPoint: new SnotPoint(builder, _body.EyeBody.Position, null, null)
+        snotEye = movable
+            ? new MovableSnotEye(targetPoint: new SnotPoint(builder, _body.EyeBody.Position, null, null)
             {
                 Used = true
-            }, _snot: this, _body: base.Physics.EyeBody);
-        }
-        else
-        {
-            snotEye = new SnotEye(this, base.Physics.EyeBody);
-        }
-        eyeJointDef = new RevoluteJointDef(base.Physics.EyeJoint);
+            }, _snot: this, _body: Physics.EyeBody)
+            : new SnotEye(this, Physics.EyeBody);
+        eyeJointDef = new RevoluteJointDef(Physics.EyeJoint);
         game.AddPositionProvider(new PositionProviderValue(this, 1f));
         stickyJoint = null;
         if (game.BlackSide || game.BonusChapter)
@@ -180,15 +172,15 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
         {
             Schedule(Blink, Maths.Random(1f, 2f));
         }
-        joinedBodyClip = base.Physics.JoinedBody.UserData as DragableBodyClip;
+        joinedBodyClip = Physics.JoinedBody.UserData as DragableBodyClip;
         if (joinedBodyClip != null)
         {
             joinedBodyClip.Snot = this;
             container.RemoveFromParent();
             joinedBodyClip.Clip.RemoveFromParent();
             int layer = joinedBodyClip.Clip.Layer;
-            builder.AddChild(joinedBodyClip.Clip, layer);
-            builder.AddChild(container, layer);
+            _ = builder.AddChild(joinedBodyClip.Clip, layer);
+            _ = builder.AddChild(container, layer);
         }
     }
 
@@ -214,17 +206,17 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
             return false;
         }
         Vector2 source = builder.TouchRootVec(_touch);
-        if (movable && source.DistanceTo(Body.Position) > source.DistanceTo(base.Physics.EyeBody.Position))
+        if (movable && source.DistanceTo(Body.Position) > source.DistanceTo(Physics.EyeBody.Position))
         {
             return false;
         }
         SetZ(Layer() + 1);
         touch = _touch;
-        base.Physics.EndBody.BodyType = (BodyType)0;
-        base.Physics.EndBody.LinearVelocity = default(Vector2);
+        Physics.EndBody.BodyType = 0;
+        Physics.EndBody.LinearVelocity = default;
         SetDamping(3f);
         TryRemoveJoint();
-        base.Physics.EndBody.SetTransform(GetDragTarget().Point, base.Physics.EndBody.Rotation);
+        Physics.EndBody.SetTransform(GetDragTarget().Point, Physics.EndBody.Rotation);
         SoundManager.PlaySound("leapOn1", 0.5f);
         return true;
     }
@@ -261,22 +253,20 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
     {
         //IL_000d: Unknown result type (might be due to invalid IL or missing references)
         LinkableReqParams linkableReqParams = (LinkableReqParams)param;
-        if ((int)clip.Body.BodyType != 0 && linkableReqParams.Position.DistanceTo(clip.Body.Position) < linkableReqParams.Distance && clip is ISnotLinked)
-        {
-            return (clip as ISnotLinked).SnotEnabled;
-        }
-        return false;
+        return clip.Body.BodyType != 0 && linkableReqParams.Position.DistanceTo(clip.Body.Position) < linkableReqParams.Distance && clip is ISnotLinked
+            ? (clip as ISnotLinked).SnotEnabled
+            : false;
     }
 
     public void SetLengthDiff(float value)
     {
         //IL_0037: Unknown result type (might be due to invalid IL or missing references)
         //IL_003d: Expected O, but got Unknown
-        length = base.Physics.InitialLength + value;
-        float num = length / (float)base.Physics.JoitsSize;
-        for (int i = 0; i < base.Physics.JoitsSize; i++)
+        length = Physics.InitialLength + value;
+        float num = length / Physics.JoitsSize;
+        for (int i = 0; i < Physics.JoitsSize; i++)
         {
-            ((DistanceJoint)base.Physics.JointAt(i)).Length = num;
+            ((DistanceJoint)Physics.JointAt(i)).Length = num;
         }
     }
 
@@ -326,7 +316,7 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
 
     public virtual void CreateTail()
     {
-        blackTail = new BlackTail(textureFile: game.BlackSide ? "snotTailTextureBlack" : "McTailTextureGreen", _body: base.Physics.EndBody, _builder: builder);
+        blackTail = new BlackTail(textureFile: game.BlackSide ? "snotTailTextureBlack" : "McTailTextureGreen", _body: Physics.EndBody, _builder: builder);
         builder.Add(blackTail, 3);
         blackTail.Width = 20f;
     }
@@ -363,9 +353,9 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
         }
         if (Dragging)
         {
-            for (int i = 0; i < base.Physics.BodiesSize(); i++)
+            for (int i = 0; i < Physics.BodiesSize(); i++)
             {
-                base.Physics.BodyAt(i).Awake = true;
+                Physics.BodyAt(i).Awake = true;
             }
         }
         if (stickyJoint == null && ((touchEndTime > 0f && game.TotalTime - touchEndTime < 0.3f) || Dragging))
@@ -376,7 +366,7 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
             }
             else
             {
-                BodyAndPoint dragTarget = GetDragTarget(base.Physics.EndBody.Position);
+                BodyAndPoint dragTarget = GetDragTarget(Physics.EndBody.Position);
                 if (dragTarget.Body != null)
                 {
                     UpdateDragBodyPosition(dragTarget, time / 3f);
@@ -392,7 +382,7 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
         if (highlite != null)
         {
             highlite.Position = baseEndClip.Position;
-            highlite.OpacityByte = (int)(80f + highliteChanger.Value * 80f);
+            highlite.OpacityByte = (int)(80f + (highliteChanger.Value * 80f));
             highliteChanger.Update(time);
         }
         if (movable)
@@ -411,16 +401,12 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
 
     public override Vector2 EndPosition()
     {
-        if (stickyJoint == null)
-        {
-            return base.EndPosition();
-        }
-        return ((Joint)stickyJoint).WorldAnchorB;
+        return stickyJoint == null ? base.EndPosition() : stickyJoint.WorldAnchorB;
     }
 
     protected virtual void UpdateDragBodyPosition(BodyAndPoint target, float time)
     {
-        base.Physics.EndBody.Move(target.Point, base.Physics.EndBody.Rotation, MoveTeleportCoeff, time);
+        Physics.EndBody.Move(target.Point, Physics.EndBody.Rotation, MoveTeleportCoeff, time);
         if (target.Body != null)
         {
             JoinToPosition(target.Body, target.Point);
@@ -453,11 +439,7 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
         //IL_0006: Unknown result type (might be due to invalid IL or missing references)
         //IL_000c: Expected O, but got Unknown
         RevoluteJoint val = (RevoluteJoint)edge.Joint;
-        if (((Joint)val).BodyA == edge.Other)
-        {
-            return ((Joint)val).BodyA.GetLocalPoint(val.LocalAnchorA);
-        }
-        return ((Joint)val).BodyB.GetLocalPoint(val.LocalAnchorB);
+        return val.BodyA == edge.Other ? val.BodyA.GetLocalPoint(val.LocalAnchorA) : val.BodyB.GetLocalPoint(val.LocalAnchorB);
     }
 
     public Vector2 ThisLocalAnchor(JointEdge edge)
@@ -465,11 +447,7 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
         //IL_0006: Unknown result type (might be due to invalid IL or missing references)
         //IL_000c: Expected O, but got Unknown
         RevoluteJoint val = (RevoluteJoint)edge.Joint;
-        if (((Joint)val).BodyA != edge.Other)
-        {
-            return ((Joint)val).BodyA.GetLocalPoint(val.LocalAnchorA);
-        }
-        return ((Joint)val).BodyB.GetLocalPoint(val.LocalAnchorB);
+        return val.BodyA != edge.Other ? val.BodyA.GetLocalPoint(val.LocalAnchorA) : val.BodyB.GetLocalPoint(val.LocalAnchorB);
     }
 
     public float MaxLength()
@@ -479,7 +457,7 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
 
     public BodyAndPoint GetDragTarget()
     {
-        return GetDragTarget(builder.TouchRootVec(touch).ClampDistance(base.Physics.EyeBody.Position, MaxLength()));
+        return GetDragTarget(builder.TouchRootVec(touch).ClampDistance(Physics.EyeBody.Position, MaxLength()));
     }
 
     public BodyAndPoint GetDragTarget(Vector2 _position)
@@ -523,7 +501,7 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
                 linked.DestroyEvent.RemoveListener(OnLinkedDestroy);
                 linked = null;
             }
-            if (((Joint)stickyJoint).BodyA != null && ((Joint)stickyJoint).BodyB != null)
+            if (stickyJoint.BodyA != null && stickyJoint.BodyB != null)
             {
                 builder.World.RemoveJoint((Joint)(object)stickyJoint);
             }
@@ -541,10 +519,10 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
 
     public virtual void ApplyDisconnectForce()
     {
-        Vector2 worldStartPoint = base.Physics.GetWorldStartPoint();
-        worldStartPoint -= base.Physics.EndBody.Position;
+        Vector2 worldStartPoint = Physics.GetWorldStartPoint();
+        worldStartPoint -= Physics.EndBody.Position;
         worldStartPoint *= 10f / worldStartPoint.Length();
-        base.Physics.EndBody.ApplyForce(worldStartPoint, base.Physics.EndBody.WorldCenter);
+        Physics.EndBody.ApplyForce(worldStartPoint, Physics.EndBody.WorldCenter);
     }
 
     public virtual float JoinDistance()
@@ -563,9 +541,9 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
         }
         SoundManager.PlayRandomSound(OnSound(), 0.5f);
         SetDamping(JoinedDamping());
-        base.Physics.EndBody.SetTransform(joinPoint, base.Physics.EndBody.Rotation);
-        base.Physics.EndBody.LinearVelocity = Vector2.Zero;
-        stickyJoint = FarseerUtil.CreateRevoluteJoint(base.World, base.Physics.EndBody, joinBody, joinPoint);
+        Physics.EndBody.SetTransform(joinPoint, Physics.EndBody.Rotation);
+        Physics.EndBody.LinearVelocity = Vector2.Zero;
+        stickyJoint = FarseerUtil.CreateRevoluteJoint(World, Physics.EndBody, joinBody, joinPoint);
         eye.Open = true;
         SetZ(Layer() + 1);
         game.FocusOnHero();
@@ -607,36 +585,31 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
         {
             return false;
         }
-        List<Body> processed = new List<Body>();
-        processed.Add(base.Physics.EyeBody);
-        return BodyConnectedToStaticProcessed(base.Physics.EyeBody, ref processed);
+        List<Body> processed = [Physics.EyeBody];
+        return BodyConnectedToStaticProcessed(Physics.EyeBody, ref processed);
     }
 
     public bool ConnectedToStatic(ref List<Body> processed)
     {
-        bool flag = BodyConnectedToStaticProcessed(base.Physics.EyeBody, ref processed);
-        if (!flag && !Dragging)
-        {
-            return BodyConnectedToStaticProcessed(base.Physics.EndBody, ref processed);
-        }
-        return flag;
+        bool flag = BodyConnectedToStaticProcessed(Physics.EyeBody, ref processed);
+        return !flag && !Dragging ? BodyConnectedToStaticProcessed(Physics.EndBody, ref processed) : flag;
     }
 
     public void StopParts()
     {
-        for (int i = 0; i < base.Physics.BodiesSize(); i++)
+        for (int i = 0; i < Physics.BodiesSize(); i++)
         {
-            Body obj = base.Physics.BodyAt(i);
+            Body obj = Physics.BodyAt(i);
             obj.LinearVelocity *= 0.2f;
         }
     }
 
     public virtual void SetDamping(float value)
     {
-        for (int i = 0; i < base.Physics.BodiesSize(); i++)
+        for (int i = 0; i < Physics.BodiesSize(); i++)
         {
-            base.Physics.BodyAt(i).Awake = true;
-            base.Physics.BodyAt(i).LinearDamping = value;
+            Physics.BodyAt(i).Awake = true;
+            Physics.BodyAt(i).LinearDamping = value;
         }
     }
 
@@ -644,8 +617,8 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
     {
         if (!IsConnectedToStatic() && !jointRemoved)
         {
-            builder.World.RemoveJoint((Joint)(object)base.Physics.EyeJoint);
-            base.Physics.EyeJoint = null;
+            builder.World.RemoveJoint((Joint)(object)Physics.EyeJoint);
+            Physics.EyeJoint = null;
             jointRemoved = true;
         }
     }
@@ -656,14 +629,14 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
         {
             touchEndTime = game.TotalTime;
             SetDamping(FreeDamping());
-            base.Physics.EndBody.BodyType = (BodyType)2;
+            Physics.EndBody.BodyType = (BodyType)2;
             SetZ(Layer());
             touch = null;
             if (jointRemoved)
             {
                 jointRemoved = false;
-                base.Physics.EyeBody.LinearVelocity = new Vector2(0f, 0f);
-                base.Physics.EyeJoint = eyeJointDef.Create(builder.World);
+                Physics.EyeBody.LinearVelocity = new Vector2(0f, 0f);
+                Physics.EyeJoint = eyeJointDef.Create(builder.World);
             }
         }
     }

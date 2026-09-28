@@ -5,9 +5,9 @@ namespace Mokus2D.Visual.Optimization;
 public class LazyNode<T> : LazyFactoryNode<T> where T : Node, new()
 {
     public LazyNode(Action<T> initialization, Node parent = null, int layer = 0)
-        : base((Func<T>)delegate
+        : base(delegate
         {
-            T val = new T();
+            T val = new();
             initialization(val);
             return val;
         }, parent, layer)
@@ -15,7 +15,7 @@ public class LazyNode<T> : LazyFactoryNode<T> where T : Node, new()
     }
 
     public LazyNode(Node parent = null, int layer = 0)
-        : base((Func<T>)(() => new T()), parent, layer)
+        : base(() => new T(), parent, layer)
     {
     }
 }

@@ -12,12 +12,14 @@ public static class BlendStates
 
     static BlendStates()
     {
-        RegisteredBlendStates = new Dictionary<string, BlendState>();
-        NonPremultiplied = new BlendState();
-        NonPremultiplied.ColorDestinationBlend = Blend.InverseSourceAlpha;
-        NonPremultiplied.AlphaDestinationBlend = Blend.One;
-        NonPremultiplied.ColorSourceBlend = Blend.SourceAlpha;
-        NonPremultiplied.AlphaSourceBlend = Blend.One;
+        RegisteredBlendStates = [];
+        NonPremultiplied = new BlendState
+        {
+            ColorDestinationBlend = Blend.InverseSourceAlpha,
+            AlphaDestinationBlend = Blend.One,
+            ColorSourceBlend = Blend.SourceAlpha,
+            AlphaSourceBlend = Blend.One
+        };
         RegisteredBlendStates.Add("add", BlendState.Additive);
     }
 

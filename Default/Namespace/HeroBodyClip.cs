@@ -64,7 +64,7 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
 
     private static readonly Color BLACK_TAIL_COLOR = ColorUtil.CreateColor(52, 185, 242, 255);
 
-    public readonly EventSender FinishEvent = new EventSender();
+    public readonly EventSender FinishEvent = new();
 
     private readonly float eyeScale;
 
@@ -166,74 +166,41 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
 
     public bool Removed
     {
-        get
-        {
-            return removed;
-        }
-        set
-        {
-            removed = value;
-        }
+        get => removed;
+        set => removed = value;
     }
 
     public HeroEye Eye => eye;
 
     public bool SpeedLocked
     {
-        get
-        {
-            return speedLocked;
-        }
-        set
-        {
-            speedLocked = value;
-        }
+        get => speedLocked;
+        set => speedLocked = value;
     }
 
     protected virtual float FirstRespawnTime => 0.5f;
 
     public virtual bool EyeAnimationsAllowed
     {
-        get
-        {
-            return eye.AnimationsAllowed;
-        }
-        set
-        {
-            eye.AnimationsAllowed = value;
-        }
+        get => eye.AnimationsAllowed;
+        set => eye.AnimationsAllowed = value;
     }
 
     public bool EyeMoveAllowed
     {
-        get
-        {
-            return eye.MoveAllowed;
-        }
-        set
-        {
-            eye.MoveAllowed = value;
-        }
+        get => eye.MoveAllowed;
+        set => eye.MoveAllowed = value;
     }
 
     public bool HitEnabled
     {
-        get
-        {
-            return hitEnabled;
-        }
-        set
-        {
-            hitEnabled = value;
-        }
+        get => hitEnabled;
+        set => hitEnabled = value;
     }
 
     public int SnotJoinedCount
     {
-        get
-        {
-            return snotJoinedCount;
-        }
+        get => snotJoinedCount;
         set
         {
             if (value != snotJoinedCount)
@@ -249,14 +216,8 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
 
     public bool SnotEnabled
     {
-        get
-        {
-            return snotEnabled;
-        }
-        set
-        {
-            snotEnabled = value;
-        }
+        get => snotEnabled;
+        set => snotEnabled = value;
     }
 
     public EventSender DestroyEvent => teleportEvent;
@@ -267,9 +228,9 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
         : base(_builder, _body, _clip, _config)
     {
         Body.IsBullet = true;
-        if (base.Game.BlackSide || base.Game.WhiteSide || base.Game.BonusChapter)
+        if (Game.BlackSide || Game.WhiteSide || Game.BonusChapter)
         {
-            bodyBackground = (Sprite)ClipTypesCache.CreateNewNode(base.Game.ChooseSide("McHeroBlackView", "McHeroWhiteView", "McHeroBackView", "McHeroBackView", "McHeroView_6"));
+            bodyBackground = (Sprite)ClipTypesCache.CreateNewNode(Game.ChooseSide("McHeroBlackView", "McHeroWhiteView", "McHeroBackView", "McHeroBackView", "McHeroView_6"));
             _builder.ReplaceChildWith(_clip, bodyBackground);
         }
         else
@@ -281,12 +242,12 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
         _clip = new Node();
         clip = _clip;
         _clip.Position = position;
-        shadow = (Sprite)ClipTypesCache.CreateNewNode(base.Game.ChooseSide("McHeroShadow", "McHeroShadowWhite", "McHeroShadow", "McHeroShadow"));
+        shadow = (Sprite)ClipTypesCache.CreateNewNode(Game.ChooseSide("McHeroShadow", "McHeroShadowWhite", "McHeroShadow", "McHeroShadow"));
         _clip.AddChild(shadow);
         _builder.Add(_clip, 10);
         bodyBackground.Parent.RemoveChild(bodyBackground);
         _clip.AddChild(bodyBackground);
-        worldSize = _builder.ToVec(base.Game.LevelSize);
+        worldSize = _builder.ToVec(Game.LevelSize);
         initialPosition = Body.Position;
         Body.SleepingAllowed = false;
         Body.SetGroupIndex(-2);
@@ -294,15 +255,15 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
         snotEnabled = true;
         initializeBody();
         hitEnabled = true;
-        if (base.Game.LevelIndex != 0 || !base.Game.CanShowIntro)
+        if (Game.LevelIndex != 0 || !Game.CanShowIntro)
         {
             initializeBody();
             Schedule(FirstRespawn, FirstRespawnTime);
-            if (base.Game.EndLevel != null)
+            if (Game.EndLevel != null)
             {
-                Schedule(base.Game.EndLevel.ShowPortal, 1.6f);
+                Schedule(Game.EndLevel.ShowPortal, 1.6f);
             }
-            portal = new Portal(base.Game, _clip.Position);
+            portal = new Portal(Game, _clip.Position);
             builder.AddChildBefore(portal, clip);
             portal.ItemsScale = 0f;
             portal.ScaleStep = 0.1f;
@@ -313,32 +274,32 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
         config["hasDust"] = true;
         hotspot = new McHotspotwhite();
         _clip.AddChild(hotspot);
-        eye = new HeroEye(base.Game);
+        eye = new HeroEye(Game);
         eyeScale = eye.Scale;
         _clip.AddChild(eye);
-        if (base.Game.BlackSide || base.Game.BonusChapter)
+        if (Game.BlackSide || Game.BonusChapter)
         {
-            blackTails = new List<BlackTail>();
-            BlackTail blackTail = new BlackTail(this);
+            blackTails = [];
+            BlackTail blackTail = new(this);
             blackTails.Add(blackTail);
             builder.Add(blackTail, 3);
         }
         else
         {
-            tail = new HeroTail(base.Game.WhiteSide ? ContreJourConstants.WHITE_TAIL_COLOR : Color.Black);
+            tail = new HeroTail(Game.WhiteSide ? ContreJourConstants.WHITE_TAIL_COLOR : Color.Black);
             _clip.AddChild(tail, -1);
         }
         breatheScale = 0f;
         sleep = false;
         timeToSleep = 7f;
         eyeClosed = false;
-        base.Game.RegisterHero(this);
+        Game.RegisterHero(this);
         onGround = false;
         targetScale = new Vector2(1f, 1f);
         breatheScaleStep = 0f;
         teleportEvent = new EventSender();
         finishColor = 255f;
-        base.Game.AddShadowSource(this);
+        Game.AddShadowSource(this);
     }
 
     public Vector2 BonusTarget()
@@ -354,7 +315,7 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
     public override void UpdatePosition()
     {
         //IL_000e: Unknown result type (might be due to invalid IL or missing references)
-        if (!disablePositionUpdate && (int)Body.BodyType != 0)
+        if (!disablePositionUpdate && Body.BodyType != 0)
         {
             base.UpdatePosition();
         }
@@ -362,11 +323,7 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
 
     public bool CanDie()
     {
-        if (!restarting)
-        {
-            return snotEnabled;
-        }
-        return false;
+        return !restarting ? snotEnabled : false;
     }
 
     public float DeadEyeScale()
@@ -404,10 +361,7 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
         restartOnEating = eating;
         teleportEvent.SendEvent();
         FadeOutTails();
-        if (tail != null)
-        {
-            tail.FadeOutAndHide(0.1f);
-        }
+        tail?.FadeOutAndHide(0.1f);
         Schedule(HideBody, 0.1f);
     }
 
@@ -419,7 +373,7 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
         FailLevelSpeedPauseEyeAnimation(Body.Position, 1f, 1f, null);
         UpdatePosition();
         disablePositionUpdate = true;
-        new HeroExplosion().Explode(this, base.Game);
+        new HeroExplosion().Explode(this, Game);
     }
 
     public void DoExplode()
@@ -427,24 +381,17 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
         if (!restarting)
         {
             float num = 0.15f;
-            bodyBackground.FadeOut(num);
+            _ = bodyBackground.FadeOut(num);
             HideEye();
-            hotspot.FadeOut(num);
+            _ = hotspot.FadeOut(num);
             Schedule(Hide, num);
-            if (tail != null)
-            {
-                tail.Visible = false;
-            }
+            tail?.Visible = false;
         }
     }
 
     public bool CanTeleport()
     {
-        if (CanDie())
-        {
-            return !eating;
-        }
-        return false;
+        return CanDie() ? !eating : false;
     }
 
     public void Teleport(BodyClip teleport)
@@ -469,18 +416,18 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
     public void SetScaleTime(float scale, float time)
     {
         clip.ScaleY = clip.ScaleX;
-        clip.ScaleTo(time, scale);
+        _ = clip.ScaleTo(time, scale);
     }
 
     private void HideBody()
     {
-        clip.FadeOut(0.2f);
+        _ = clip.FadeOut(0.2f);
         Schedule(Respawn, 0.2f);
     }
 
     public void initializeBody()
     {
-        Body.BodyType = (BodyType)0;
+        Body.BodyType = 0;
         clip.Visible = false;
         Body.SetDensity(0.1f);
     }
@@ -557,7 +504,7 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
         clip.OpacityFloat = 1f;
         clip.Visible = true;
         clip.Scale = 0f;
-        clip.ScaleTo(0.2f, 1f);
+        _ = clip.ScaleTo(0.2f, 1f);
         Schedule(StartPlay, 0.2f);
     }
 
@@ -585,13 +532,13 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
         base.Update(time);
         if (hotspot != null && !finishSet)
         {
-            hotspot.OpacityByte = (int)(base.Game.LightPower * 150f);
-            hotspot.RotationRadians = VectorUtil.Atan2(Body.Position, base.Game.LightPoint);
+            hotspot.OpacityByte = (int)(Game.LightPower * 150f);
+            hotspot.RotationRadians = VectorUtil.Atan2(Body.Position, Game.LightPoint);
         }
         if (blackTails != null)
         {
             int num = 0;
-            List<object> list = new List<object>();
+            List<object> list = [];
             foreach (BlackTail blackTail in blackTails)
             {
                 blackTail.UpdateNode(time);
@@ -619,10 +566,10 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
         onGround = Body != null && OnGround();
         if (onGround)
         {
-            lastOnGroundTime = base.Game.TotalTime;
+            lastOnGroundTime = Game.TotalTime;
         }
-        Body.AngularDamping = ((base.Game.TotalTime - lastOnGroundTime > 0.3f) ? 0.5f : 0f);
-        if (Body != null && (int)Body.BodyType == 0 && !onGround && snotJoinedCount == 0)
+        Body.AngularDamping = (Game.TotalTime - lastOnGroundTime > 0.3f) ? 0.5f : 0f;
+        if (Body != null && Body.BodyType == 0 && !onGround && snotJoinedCount == 0)
         {
             airTime += time;
         }
@@ -641,7 +588,7 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
         TryConfuse();
         UpdateShadow(time);
         float num2 = VectorUtil.Atan2(Body.LinearVelocity);
-        float num3 = (speedLocked ? 0f : Body.LinearVelocity.Length());
+        float num3 = speedLocked ? 0f : Body.LinearVelocity.Length();
         if (!speedyPosted && onGroundTime > 0.2f && num3 >= 11.666667f && hitEnabled)
         {
             XBoxUtil.AwardAchievement("speedy");
@@ -652,7 +599,7 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
             XBoxUtil.AwardAchievement("mighty_bird");
             migthyPosted = true;
         }
-        float num4 = ((snotJoinedCount > 0) ? 33.333332f : 66.666664f);
+        float num4 = (snotJoinedCount > 0) ? 33.333332f : 66.666664f;
         if (num3 > num4)
         {
             num3 = num4;
@@ -665,7 +612,7 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
             tail.LimitAngles = onGround;
             tail.SetMovementDirection(num2);
             tail.Speed = num3;
-            tail.UpdateSpeed = (sleep ? 0.2f : 1f);
+            tail.UpdateSpeed = sleep ? 0.2f : 1f;
         }
         previousSpeed = Body.LinearVelocity;
         velocity = num3;
@@ -686,24 +633,24 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
     public void TryConfuse()
     {
         float num = Body.LinearVelocity.DistanceTo(previousSpeed);
-        bool flag = base.Game.TotalTime - lastOnGroundTime < 0.1f;
+        bool flag = Game.TotalTime - lastOnGroundTime < 0.1f;
         if (!(num >= 4f) || finishSet || speedLocked)
         {
             return;
         }
         bool flag2 = false;
-        if (base.Game.TotalTime - lastHitTime > 0.5f && hitEnabled && flag && Math.Abs(Body.LinearVelocity.Y) < Math.Abs(previousSpeed.Y) && Body.LinearVelocity.Length() < 5f)
+        if (Game.TotalTime - lastHitTime > 0.5f && hitEnabled && flag && Math.Abs(Body.LinearVelocity.Y) < Math.Abs(previousSpeed.Y) && Body.LinearVelocity.Length() < 5f)
         {
             flag2 = true;
             SoundManager.PlaySound("landing1", Math.Min(num / 4f / 3f, 1f) / 10f);
-            lastHitTime = base.Game.TotalTime;
+            lastHitTime = Game.TotalTime;
         }
         if (Math.Abs(Body.LinearVelocity.X - previousSpeed.X) >= 4f && Body.LinearVelocity.X <= 1f)
         {
-            if (!flag2 && flag && hitEnabled && base.Game.TotalTime - lastHitTime > 0.5f)
+            if (!flag2 && flag && hitEnabled && Game.TotalTime - lastHitTime > 0.5f)
             {
                 SoundManager.PlaySound("landing1", Math.Min(num / 4f / 3f, 1f) / 10f);
-                lastHitTime = base.Game.TotalTime;
+                lastHitTime = Game.TotalTime;
             }
             eye.PlayAnimation(new EyeAnimation(null, "McEyeBallHit", lockY: true, lockX: true), force: false);
             eye.AnimationEndEvent.AddListener(OnHitEnd);
@@ -714,7 +661,7 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
     {
         if (onGround)
         {
-            bool flag = base.Game.TotalTime - lastOnGroundTime < 0.2f;
+            bool flag = Game.TotalTime - lastOnGroundTime < 0.2f;
             if (!flag)
             {
                 lastFootPosition = Body.Position.X;
@@ -724,7 +671,7 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
                 lastFootPosition = Body.Position.X;
                 SoundManager.PlayRandomSound(Sounds.FOOT_STEPS);
             }
-            lastOnGroundTime = base.Game.TotalTime;
+            lastOnGroundTime = Game.TotalTime;
         }
     }
 
@@ -741,7 +688,7 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
         {
             Vector2 worldPoint = FarseerUtil.GetWorldPoint(val.Contact);
             BodyClip bodyClip = (BodyClip)val.Other.UserData;
-            if (bodyClip != null && val.Contact.IsTouching && !val.Contact.FixtureA.IsSensor && !val.Contact.FixtureB.IsSensor && worldPoint.Y - Body.Position.Y < -7f / 12f && ((int)val.Other.BodyType == 0 || (int)val.Other.BodyType == 1) && bodyClip.Config != null && !bodyClip.Config.ContainsKey("noShadow"))
+            if (bodyClip != null && val.Contact.IsTouching && !val.Contact.FixtureA.IsSensor && !val.Contact.FixtureB.IsSensor && worldPoint.Y - Body.Position.Y < -7f / 12f && (val.Other.BodyType == 0 || (int)val.Other.BodyType == 1) && bodyClip.Config != null && !bodyClip.Config.ContainsKey("noShadow"))
             {
                 flag = true;
                 num += (worldPoint.X - Body.Position.X) / builder.EngineConfig.SizeMultiplier;
@@ -751,7 +698,7 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
         }
         if (flag)
         {
-            float num3 = num / (float)num2;
+            float num3 = num / num2;
             shadow.Position = VectorUtil.StepTo(shadow.Position, new Vector2(num3, 0f), Math.Min(1f, Math.Abs(num3 / 10f)));
         }
         UpdateShadowOpacityTime(flag, time);
@@ -759,7 +706,7 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
 
     protected void UpdateShadowOpacityTime(bool hasShadow, float time)
     {
-        shadow.OpacityByte = (int)(Maths.StepTo(maxStep: 20f * time * 30f, value: shadow.OpacityByte, target: hasShadow ? bodyBackground.OpacityByte : 0) * base.Game.LightPower);
+        shadow.OpacityByte = (int)(Maths.StepTo(maxStep: 20f * time * 30f, value: shadow.OpacityByte, target: hasShadow ? bodyBackground.OpacityByte : 0) * Game.LightPower);
         shadow.Visible = shadow.OpacityByte > 0;
     }
 
@@ -770,13 +717,13 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
         {
             Body.SetTransform(new Vector2(5f / 6f, Body.Position.Y), Body.Rotation);
         }
-        if (position.X > worldSize.X - 5f / 6f)
+        if (position.X > worldSize.X - (5f / 6f))
         {
-            Body.SetTransform(new Vector2(worldSize.X - 5f / 6f, Body.Position.Y), Body.Rotation);
+            Body.SetTransform(new Vector2(worldSize.X - (5f / 6f), Body.Position.Y), Body.Rotation);
         }
-        if (position.Y > worldSize.Y - 5f / 6f)
+        if (position.Y > worldSize.Y - (5f / 6f))
         {
-            Body.SetTransform(new Vector2(Body.Position.X, worldSize.Y - 5f / 6f), Body.Rotation);
+            Body.SetTransform(new Vector2(Body.Position.X, worldSize.Y - (5f / 6f)), Body.Rotation);
         }
     }
 
@@ -792,7 +739,7 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
     public void TryBreathe(float time)
     {
         //IL_0021: Unknown result type (might be due to invalid IL or missing references)
-        if (velocity < 0.1f && !finishSet && (int)Body.BodyType != 0)
+        if (velocity < 0.1f && !finishSet && Body.BodyType != 0)
         {
             timeToSleep -= time;
             EyeAnimationsAllowed = false;
@@ -803,9 +750,9 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
                 float num = Maths.Cos(breatheScaleStep);
                 breatheScale = num * 0.04f;
                 targetScale.X = 1f + breatheScale;
-                targetScale.Y = 1f + breatheScale / 2f;
+                targetScale.Y = 1f + (breatheScale / 2f);
                 MovieClip movieClip = (MovieClip)eye.CurrentBackground;
-                int num2 = (int)((float)movieClip.TotalFrames * (1f + num) / 2f);
+                int num2 = (int)(movieClip.TotalFrames * (1f + num) / 2f);
                 movieClip.GotoAndStop((int)Maths.StepTo(movieClip.CurrentFrame, num2, 1f));
                 sleepSoundTime += time;
                 if (num2 == 12 && breatheScaleStep > (float)Math.PI && sleepSoundTime >= 1.5f)
@@ -827,13 +774,13 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
         else
         {
             EyeAnimationsAllowed = true;
-            targetScale.X = (targetScale.Y = 1f);
+            targetScale.X = targetScale.Y = 1f;
             timeToSleep = 7f;
         }
         clip.ScaleX = Maths.StepTo(clip.ScaleX, targetScale.X, 0.0005f);
         clip.ScaleY = Maths.StepTo(clip.ScaleY, targetScale.Y, 0.0005f);
         eye.Scale = 1f / clip.ScaleX * eyeScale;
-        float y = clip.Position.Y - bodyBackground.TextureSize.Y * (1f - clip.ScaleY) / 2f - 2f;
+        float y = clip.Position.Y - (bodyBackground.TextureSize.Y * (1f - clip.ScaleY) / 2f) - 2f;
         clip.Position = new Vector2(clip.Position.X, y);
     }
 
@@ -863,7 +810,7 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
     {
         if (blackTails != null)
         {
-            BlackTail blackTail = new BlackTail(this);
+            BlackTail blackTail = new(this);
             blackTails.Insert(0, blackTail);
             builder.Add(blackTail, 3);
         }
@@ -888,7 +835,7 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
         finishSet = true;
         finishSpeed = _finishSpeed;
         finishPosition = targetPosition;
-        Body.BodyType = (BodyType)0;
+        Body.BodyType = 0;
         Body.LinearVelocity = new Vector2(0f, 0f);
         Body.SetSensor(value: true);
         if (eyeAnimation != null)
@@ -900,7 +847,7 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
         {
             if (levelCompleted)
             {
-                base.Game.Finished = true;
+                Game.Finished = true;
             }
             Schedule(OnFinish, 0.5f);
         }
@@ -915,20 +862,17 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
         {
             foreach (BlackTail blackTail in blackTails)
             {
-                blackTail.FadeOut(0.3f);
+                _ = blackTail.FadeOut(0.3f);
             }
         }
-        if (tail != null)
-        {
-            tail.ScaleTo(0.3f, 0f);
-        }
+        tail?.ScaleTo(0.3f, 0f);
     }
 
     protected virtual void DoFinish()
     {
         if (levelCompleted)
         {
-            base.Game.Finish(builder.ToPoint(finishPosition));
+            Game.Finish(builder.ToPoint(finishPosition));
         }
         else
         {
@@ -985,7 +929,7 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
         eating = false;
         if (!restartOnEating)
         {
-            base.Game.Fail(0f);
+            Game.Fail(0f);
         }
         restartOnEating = false;
     }

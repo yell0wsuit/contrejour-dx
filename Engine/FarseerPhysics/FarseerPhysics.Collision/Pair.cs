@@ -8,7 +8,7 @@ internal struct Pair : IComparable<Pair>
 
     public int ProxyIdB;
 
-    public int CompareTo(Pair other)
+    public readonly int CompareTo(Pair other)
     {
         if (ProxyIdA < other.ProxyIdA)
         {

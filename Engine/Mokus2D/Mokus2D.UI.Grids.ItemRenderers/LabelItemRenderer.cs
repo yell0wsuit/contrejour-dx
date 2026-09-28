@@ -12,7 +12,7 @@ public class LabelItemRenderer<T> : Label, IItemRenderer<T>, ICleanable
 
     public void SetData(object sharedData, T itemData, int index)
     {
-        base.TextString = GetText(itemData);
+        TextString = GetText(itemData);
     }
 
     protected virtual string GetText(T itemData)

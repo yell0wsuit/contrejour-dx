@@ -33,10 +33,7 @@ public class AnimationPlayer : IUpdatable
 
     public float MinFrame
     {
-        get
-        {
-            return minFrame;
-        }
+        get => minFrame;
         set
         {
             value = value.Clamp(0f, _owner.TotalFrames - 1);
@@ -54,10 +51,7 @@ public class AnimationPlayer : IUpdatable
 
     public float MaxFrame
     {
-        get
-        {
-            return maxFrame;
-        }
+        get => maxFrame;
         set
         {
             value = value.Clamp(1f, _owner.TotalFrames);
@@ -76,10 +70,7 @@ public class AnimationPlayer : IUpdatable
 
     public float CurrentFrame
     {
-        get
-        {
-            return currentFrame;
-        }
+        get => currentFrame;
         set
         {
             if (currentFrame != value)
@@ -115,19 +106,18 @@ public class AnimationPlayer : IUpdatable
 
     public void Update(float time)
     {
-        IAnimatedNode animatedNode = ((Node)_owner).Parent as IAnimatedNode;
-        if (SyncToParent && animatedNode != null)
+        if (SyncToParent && ((Node)_owner).Parent is IAnimatedNode animatedNode)
         {
             CurrentFrame = animatedNode.CurrentFrame;
         }
         else if (!Stoped)
         {
-            int num = ((!Rewind) ? 1 : (-1));
-            float num2 = time * FPS * Speed * (float)num;
-            float num3 = (CurrentFrame = currentFrame + num2);
+            int num = (!Rewind) ? 1 : (-1);
+            float num2 = time * FPS * Speed * num;
+            float num3 = CurrentFrame = currentFrame + num2;
             if ((num3 > maxFrame && !Rewind) || (num3 < minFrame && Rewind))
             {
-                this.EndEvent.Dispatch();
+                EndEvent.Dispatch();
             }
         }
     }

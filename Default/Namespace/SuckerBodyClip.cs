@@ -34,11 +34,11 @@ public class SuckerBodyClip : ContreJourBodyClip, IClickable, IVectorPositionPro
 
     private const float END_RADIUS = 0.1f;
 
-    private static readonly Vector2 MIN_BORDER_OFFSET = new Vector2(30f);
+    private static readonly Vector2 MIN_BORDER_OFFSET = new(30f);
 
-    public readonly EventSender FinishDragEvent = new EventSender();
+    public readonly EventSender FinishDragEvent = new();
 
-    public readonly EventSender RemoveEvent = new EventSender();
+    public readonly EventSender RemoveEvent = new();
 
     protected readonly Node ghostSprite;
 
@@ -95,9 +95,9 @@ public class SuckerBodyClip : ContreJourBodyClip, IClickable, IVectorPositionPro
         get
         {
             Vector2 position = builder.TouchRootVec(touch);
-            Vector2 vector = base.Builder.ToVec(MIN_BORDER_OFFSET);
-            RectangleFloat levelScreenPhysicsBounds = base.Game.LevelScreenPhysicsBounds;
-            levelScreenPhysicsBounds.Extend(-vector / base.Game.GameRoot.Scale);
+            Vector2 vector = Builder.ToVec(MIN_BORDER_OFFSET);
+            RectangleFloat levelScreenPhysicsBounds = Game.LevelScreenPhysicsBounds;
+            levelScreenPhysicsBounds.Extend(-vector / Game.GameRoot.Scale);
             return levelScreenPhysicsBounds.ClampToBounds(position).ClampDistance(Body.Position, maxDistance);
         }
     }
@@ -121,9 +121,11 @@ public class SuckerBodyClip : ContreJourBodyClip, IClickable, IVectorPositionPro
         config["noShadow"] = "true";
         float num = config.GetFloat("Width");
         maxDistance = num / 2f * builder.SizeMult;
-        maxLength = num / 2f + 13f;
-        ghostSprite = new Node();
-        ghostSprite.OpacityFloat = 0.5f;
+        maxLength = (num / 2f) + 13f;
+        ghostSprite = new Node
+        {
+            OpacityFloat = 0.5f
+        };
         clip.AddChild(ghostSprite);
         ghostNeck = CreateNeck();
         ghostNeck.Color = new Color(10f / 51f, 10f / 51f, 10f / 51f, 1f);
@@ -140,7 +142,7 @@ public class SuckerBodyClip : ContreJourBodyClip, IClickable, IVectorPositionPro
         clip.AddChild(node);
         Sprite node2 = new McSuckerStart();
         clip.AddChild(node2);
-        eye = new MonsterEye(base.Game, _visible: false, Body.Position);
+        eye = new MonsterEye(Game, _visible: false, Body.Position);
         clip.AddChild(eye);
         eye.Visible = false;
         pimpa = new Node();
@@ -153,11 +155,9 @@ public class SuckerBodyClip : ContreJourBodyClip, IClickable, IVectorPositionPro
 
     public override float TouchDistance(Vector2 touchPosition)
     {
-        if (endBody != null)
-        {
-            return Math.Min(touchPosition.DistanceTo(Body.Position), touchPosition.DistanceTo(endBody.Position));
-        }
-        return touchPosition.DistanceTo(Body.Position);
+        return endBody != null
+            ? Math.Min(touchPosition.DistanceTo(Body.Position), touchPosition.DistanceTo(endBody.Position))
+            : touchPosition.DistanceTo(Body.Position);
     }
 
     public int Priority(Vector2 touchPoint)
@@ -289,7 +289,7 @@ public class SuckerBodyClip : ContreJourBodyClip, IClickable, IVectorPositionPro
             ghostSprite.Tweener.Stop();
             ghostSprite.Visible = true;
             touch = _touch;
-            startDragPosition = ((end != null) ? endBody.Position : builder.TouchRootVec(touch));
+            startDragPosition = (end != null) ? endBody.Position : builder.TouchRootVec(touch);
         }
     }
 
@@ -315,7 +315,7 @@ public class SuckerBodyClip : ContreJourBodyClip, IClickable, IVectorPositionPro
         endBody = builder.World.CreateCircle(0.1f, createPosition);
         float num = createPosition.DistanceTo(Body.Position);
         float angle = VectorUtil.Atan2(Body.Position, createPosition);
-        PolygonShape shape = new PolygonShape(builder.EngineConfig.Density);
+        PolygonShape shape = new(builder.EngineConfig.Density);
         shape.SetAsBox(num / 2f, 0.1f, VectorUtil.Rotate(new Vector2(num / 2f, 0f), angle), angle);
         bounceAngle = angle;
         middleFixture = FarseerUtil.AddShape((Shape)(object)shape, Body, builder.EngineConfig.Density);

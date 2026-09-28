@@ -14,7 +14,7 @@ public class FactoryDictionary<TKey, TValue> : Dictionary<TKey, TValue>
 
     public TValue GetOrCreate(TKey key)
     {
-        if (!TryGetValue(key, out var value))
+        if (!TryGetValue(key, out TValue value))
         {
             value = _factory(key);
             Add(key, value);

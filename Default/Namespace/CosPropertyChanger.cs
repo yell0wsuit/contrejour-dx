@@ -17,8 +17,10 @@ public abstract class CosPropertyChanger : IUpdatable
     public CosPropertyChanger(Node target, float minValue, float maxValue, float step)
     {
         this.target = target;
-        changer = new CosChanger(minValue, maxValue, step);
-        changer.Progress = Maths.Random(0f, (float)Math.PI * 2f);
+        changer = new CosChanger(minValue, maxValue, step)
+        {
+            Progress = Maths.Random(0f, (float)Math.PI * 2f)
+        };
     }
 
     public void Update(float time)

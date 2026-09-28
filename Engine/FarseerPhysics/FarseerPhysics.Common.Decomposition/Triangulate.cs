@@ -11,8 +11,7 @@ public static class Triangulate
     {
         if (vertices.Count <= 3)
         {
-            List<Vertices> list = new List<Vertices>();
-            list.Add(vertices);
+            List<Vertices> list = [vertices];
             return list;
         }
         List<Vertices> list2;
@@ -21,7 +20,7 @@ public static class Triangulate
             case TriangulationAlgorithm.Earclip:
                 if (vertices.IsCounterClockWise())
                 {
-                    Vertices vertices4 = new Vertices(vertices);
+                    Vertices vertices4 = new(vertices);
                     vertices4.Reverse();
                     list2 = EarclipDecomposer.ConvexPartition(vertices4, tolerance);
                 }
@@ -33,7 +32,7 @@ public static class Triangulate
             case TriangulationAlgorithm.Bayazit:
                 if (!vertices.IsCounterClockWise())
                 {
-                    Vertices vertices3 = new Vertices(vertices);
+                    Vertices vertices3 = new(vertices);
                     vertices3.Reverse();
                     list2 = BayazitDecomposer.ConvexPartition(vertices3);
                 }
@@ -45,7 +44,7 @@ public static class Triangulate
             case TriangulationAlgorithm.Flipcode:
                 if (!vertices.IsCounterClockWise())
                 {
-                    Vertices vertices2 = new Vertices(vertices);
+                    Vertices vertices2 = new(vertices);
                     vertices2.Reverse();
                     list2 = FlipcodeDecomposer.ConvexPartition(vertices2);
                 }

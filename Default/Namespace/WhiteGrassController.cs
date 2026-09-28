@@ -28,7 +28,7 @@ public class WhiteGrassController : GrassController
 
     public float SmallGrassOffset(int index)
     {
-        return (float)(index * 2 - 1) * plasticine.Width / 3f;
+        return ((index * 2) - 1) * plasticine.Width / 3f;
     }
 
     public WhiteGrassController(PlasticinePartBodyClip _plasticine)
@@ -59,10 +59,6 @@ public class WhiteGrassController : GrassController
 
     public override float GetSmallGrassOffset(int index)
     {
-        if (index != 0)
-        {
-            return plasticine.Width / 2f;
-        }
-        return (0f - plasticine.Width) / 2f;
+        return index != 0 ? plasticine.Width / 2f : (0f - plasticine.Width) / 2f;
     }
 }

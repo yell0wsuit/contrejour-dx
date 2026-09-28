@@ -8,7 +8,7 @@ namespace Mokus2D.Data;
 
 public struct RectangleFloat : IEquatable<RectangleFloat>
 {
-    private static Rectangle emptyRectangle = default(Rectangle);
+    private static Rectangle emptyRectangle = default;
 
     public float X;
 
@@ -20,30 +20,27 @@ public struct RectangleFloat : IEquatable<RectangleFloat>
 
     public static Rectangle Empty => emptyRectangle;
 
-    public Vector2 LeftTop => new Vector2(X, Y);
+    public readonly Vector2 LeftTop => new(X, Y);
 
-    public Vector2 Size => new Vector2(Width, Height);
+    public readonly Vector2 Size => new(Width, Height);
 
     public Vector2 RightBottom => LeftTop + Size;
 
-    public Vector2 LeftBottom => new Vector2(X, Y + Height);
+    public readonly Vector2 LeftBottom => new(X, Y + Height);
 
-    public Vector2 RightTop => new Vector2(X + Width, Y);
+    public readonly Vector2 RightTop => new(X + Width, Y);
 
-    public float Left => X;
+    public readonly float Left => X;
 
-    public float Right => X + Width;
+    public readonly float Right => X + Width;
 
-    public float Top => Y;
+    public readonly float Top => Y;
 
-    public float Bottom => Y + Height;
+    public readonly float Bottom => Y + Height;
 
     public Vector2 Location
     {
-        get
-        {
-            return new Vector2(X, Y);
-        }
+        readonly get => new Vector2(X, Y);
         set
         {
             X = value.X;
@@ -51,17 +48,13 @@ public struct RectangleFloat : IEquatable<RectangleFloat>
         }
     }
 
-    public Vector2 Center => new Vector2(X + Width / 2f, Y + Height / 2f);
+    public readonly Vector2 Center => new(X + (Width / 2f), Y + (Height / 2f));
 
-    public bool IsEmpty
+    public readonly bool IsEmpty
     {
         get
         {
-            if (Width == 0f && Height == 0f && X == 0f)
-            {
-                return Y == 0f;
-            }
-            return false;
+            return Width == 0f && Height == 0f && X == 0f ? Y == 0f : false;
         }
     }
 
@@ -92,11 +85,7 @@ public struct RectangleFloat : IEquatable<RectangleFloat>
 
     public static bool operator ==(RectangleFloat a, RectangleFloat b)
     {
-        if (a.X == b.X && a.Y == b.Y && a.Width == b.Width)
-        {
-            return a.Height == b.Height;
-        }
-        return false;
+        return a.X == b.X && a.Y == b.Y && a.Width == b.Width ? a.Height == b.Height : false;
     }
 
     public static RectangleFloat operator *(RectangleFloat a, float mult)
@@ -104,58 +93,34 @@ public struct RectangleFloat : IEquatable<RectangleFloat>
         return new RectangleFloat(a.LeftTop * mult, a.Size * mult);
     }
 
-    public bool Contains(int x, int y)
+    public readonly bool Contains(int x, int y)
     {
-        if (X <= (float)x && (float)x < X + Width && Y <= (float)y)
-        {
-            return (float)y < Y + Height;
-        }
-        return false;
+        return X <= x && x < X + Width && Y <= y ? y < Y + Height : false;
     }
 
-    public bool Contains(float x, float y)
+    public readonly bool Contains(float x, float y)
     {
-        if (X <= x && x < X + Width && Y <= y)
-        {
-            return y < Y + Height;
-        }
-        return false;
+        return X <= x && x < X + Width && Y <= y ? y < Y + Height : false;
     }
 
-    public bool Contains(Point value)
+    public readonly bool Contains(Point value)
     {
-        if (X <= (float)value.X && (float)value.X < X + Width && Y <= (float)value.Y)
-        {
-            return (float)value.Y < Y + Height;
-        }
-        return false;
+        return X <= value.X && value.X < X + Width && Y <= value.Y ? value.Y < Y + Height : false;
     }
 
-    public bool Contains(Vector2 value)
+    public readonly bool Contains(Vector2 value)
     {
-        if (X <= value.X && value.X < X + Width && Y <= value.Y)
-        {
-            return value.Y < Y + Height;
-        }
-        return false;
+        return X <= value.X && value.X < X + Width && Y <= value.Y ? value.Y < Y + Height : false;
     }
 
-    public bool Contains(RectangleFloat value)
+    public readonly bool Contains(RectangleFloat value)
     {
-        if (X <= value.X && value.X + value.Width <= X + Width && Y <= value.Y)
-        {
-            return value.Y + value.Height <= Y + Height;
-        }
-        return false;
+        return X <= value.X && value.X + value.Width <= X + Width && Y <= value.Y ? value.Y + value.Height <= Y + Height : false;
     }
 
-    public bool Contains(Rectangle value)
+    public readonly bool Contains(Rectangle value)
     {
-        if (X <= (float)value.X && (float)(value.X + value.Width) <= X + Width && Y <= (float)value.Y)
-        {
-            return (float)(value.Y + value.Height) <= Y + Height;
-        }
-        return false;
+        return X <= value.X && value.X + value.Width <= X + Width && Y <= value.Y ? value.Y + value.Height <= Y + Height : false;
     }
 
     public static bool operator !=(RectangleFloat a, RectangleFloat b)
@@ -183,37 +148,29 @@ public struct RectangleFloat : IEquatable<RectangleFloat>
         Height += verticalValue * 2f;
     }
 
-    public bool Equals(RectangleFloat other)
+    public readonly bool Equals(RectangleFloat other)
     {
         return this == other;
     }
 
-    public override bool Equals(object obj)
+    public override readonly bool Equals(object obj)
     {
-        if (!(obj is Rectangle))
-        {
-            return false;
-        }
-        return this == (RectangleFloat)obj;
+        return obj is not Rectangle ? false : this == (RectangleFloat)obj;
     }
 
-    public override string ToString()
+    public override readonly string ToString()
     {
         return string.Format("{{X:{0} Y:{1} Width:{2} Height:{3}}}", new object[4] { X, Y, Width, Height });
     }
 
-    public override int GetHashCode()
+    public override readonly int GetHashCode()
     {
         return (int)X ^ (int)Y ^ (int)Width ^ (int)Height;
     }
 
     public bool Intersects(RectangleFloat value)
     {
-        if (value.Left < Right && Left < value.Right && value.Top < Bottom)
-        {
-            return Top < value.Bottom;
-        }
-        return false;
+        return value.Left < Right && Left < value.Right && value.Top < Bottom ? Top < value.Bottom : false;
     }
 
     public void Intersects(ref RectangleFloat value, out bool result)
@@ -247,7 +204,7 @@ public struct RectangleFloat : IEquatable<RectangleFloat>
 
     public static RectangleFloat Intersect(RectangleFloat value1, RectangleFloat value2)
     {
-        Intersect(ref value1, ref value2, out var result);
+        Intersect(ref value1, ref value2, out RectangleFloat result);
         return result;
     }
 

@@ -36,17 +36,17 @@ public abstract class LongNeckSprite : SpriteBatchNode
 
     private readonly Vector2 _textureRightTopCoordinate;
 
-    private readonly List<Vector2> _first = new List<Vector2>(64);
+    private readonly List<Vector2> _first = new(64);
 
-    private readonly List<Vector2> _second = new List<Vector2>(64);
+    private readonly List<Vector2> _second = new(64);
 
-    private readonly List<Vector2> _firstBezier = new List<Vector2>(64);
+    private readonly List<Vector2> _firstBezier = new(64);
 
-    private readonly List<Vector2> _secondBezier = new List<Vector2>(64);
+    private readonly List<Vector2> _secondBezier = new(64);
 
-    private readonly List<Vector2> _allPoints = new List<Vector2>();
+    private readonly List<Vector2> _allPoints = [];
 
-    private readonly List<Pair<Vector2>> _cachedPairs = new List<Pair<Vector2>>(64);
+    private readonly List<Pair<Vector2>> _cachedPairs = new(64);
 
     protected virtual bool HasRecalculateVertices => true;
 
@@ -55,12 +55,12 @@ public abstract class LongNeckSprite : SpriteBatchNode
     protected LongNeckSprite(ISpriteData spriteData = null)
     {
         _spriteData = spriteData ?? DefaultSpriteData;
-        base.Texture = _spriteData.Texture;
+        Texture = _spriteData.Texture;
         Color = Color.Black;
         Rectangle textureRect = _spriteData.TextureRect;
         Vector2 vector = _spriteData.Texture.Bounds.Size();
-        _textureLeftTopCoordinate = new Vector2((float)textureRect.X / vector.X, (float)textureRect.Y / vector.Y);
-        _textureRightBottomCoordinate = new Vector2((float)textureRect.Right / vector.X, (float)textureRect.Bottom / vector.Y);
+        _textureLeftTopCoordinate = new Vector2(textureRect.X / vector.X, textureRect.Y / vector.Y);
+        _textureRightBottomCoordinate = new Vector2(textureRect.Right / vector.X, textureRect.Bottom / vector.Y);
         _textureLeftBottomCoordinate = new Vector2(_textureLeftTopCoordinate.X, _textureRightBottomCoordinate.Y);
         _textureRightTopCoordinate = new Vector2(_textureRightBottomCoordinate.X, _textureLeftTopCoordinate.Y);
     }
@@ -97,8 +97,8 @@ public abstract class LongNeckSprite : SpriteBatchNode
     public void CreatePolygonsFirstBezierSecondBezier(List<Pair<Vector2>> pairs, List<Vector2> firstBezier, List<Vector2> secondBezier)
     {
         ProcessBezierSecond(firstBezier, secondBezier);
-        TintSpriteVertex tintSpriteVertex = new TintSpriteVertex(Vector2.Transform(firstBezier[0], base.CompositeState.Matrix).ToVector3(), Color, _textureLeftBottomCoordinate, ColorRatio);
-        TintSpriteVertex tintSpriteVertex2 = new TintSpriteVertex(Vector2.Transform(secondBezier[0], base.CompositeState.Matrix).ToVector3(), Color, _textureLeftTopCoordinate, ColorRatio);
+        TintSpriteVertex tintSpriteVertex = new(Vector2.Transform(firstBezier[0], CompositeState.Matrix).ToVector3(), Color, _textureLeftBottomCoordinate, ColorRatio);
+        TintSpriteVertex tintSpriteVertex2 = new(Vector2.Transform(secondBezier[0], CompositeState.Matrix).ToVector3(), Color, _textureLeftTopCoordinate, ColorRatio);
         _vertices[0] = tintSpriteVertex;
         _vertices[1] = tintSpriteVertex2;
         int num = 2;
@@ -106,8 +106,8 @@ public abstract class LongNeckSprite : SpriteBatchNode
         short num3 = 0;
         for (int i = 1; i < firstBezier.Count; i++)
         {
-            TintSpriteVertex tintSpriteVertex3 = new TintSpriteVertex(Vector2.Transform(firstBezier[i], base.CompositeState.Matrix).ToVector3(), Color, _textureRightTopCoordinate, ColorRatio);
-            TintSpriteVertex tintSpriteVertex4 = new TintSpriteVertex(Vector2.Transform(secondBezier[i], base.CompositeState.Matrix).ToVector3(), Color, _textureRightBottomCoordinate, ColorRatio);
+            TintSpriteVertex tintSpriteVertex3 = new(Vector2.Transform(firstBezier[i], CompositeState.Matrix).ToVector3(), Color, _textureRightTopCoordinate, ColorRatio);
+            TintSpriteVertex tintSpriteVertex4 = new(Vector2.Transform(secondBezier[i], CompositeState.Matrix).ToVector3(), Color, _textureRightBottomCoordinate, ColorRatio);
             _vertices[num] = tintSpriteVertex3;
             _vertices[num + 1] = tintSpriteVertex4;
             num += 2;
@@ -143,15 +143,15 @@ public abstract class LongNeckSprite : SpriteBatchNode
     public virtual void CreateVectors(int allPointsSize)
     {
         _indices = new short[(allPointsSize - 2) * 3];
-        _vertices = new TintSpriteVertex[(_indices.Length / 6 + 1) * 2];
+        _vertices = new TintSpriteVertex[((_indices.Length / 6) + 1) * 2];
         AllPointsSize = allPointsSize;
     }
 
     protected override void DrawSprite(VisualState state, Color color)
     {
-        if (base.IsVisibleAndOnScreen)
+        if (IsVisibleAndOnScreen)
         {
-            if (HasRecalculateVertices || base.CompositeState.TransformationDirty)
+            if (HasRecalculateVertices || CompositeState.TransformationDirty)
             {
                 RecalculateVertices();
             }

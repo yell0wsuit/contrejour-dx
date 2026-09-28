@@ -13,10 +13,7 @@ public class PolygonShape : Shape
 
     public Vertices Vertices
     {
-        get
-        {
-            return _vertices;
-        }
+        get => _vertices;
         set
         {
             _vertices = new Vertices(value);
@@ -34,9 +31,9 @@ public class PolygonShape : Shape
             _normals = new Vertices(_vertices.Count);
             for (int i = 0; i < _vertices.Count; i++)
             {
-                int index = ((i + 1 < _vertices.Count) ? (i + 1) : 0);
+                int index = (i + 1 < _vertices.Count) ? (i + 1) : 0;
                 Vector2 vector = _vertices[index] - _vertices[i];
-                Vector2 item = new Vector2(vector.Y, 0f - vector.X);
+                Vector2 item = new(vector.Y, 0f - vector.X);
                 item.Normalize();
                 _normals.Add(item);
             }
@@ -51,7 +48,7 @@ public class PolygonShape : Shape
     public PolygonShape(Vertices vertices, float density)
         : base(density)
     {
-        base.ShapeType = ShapeType.Polygon;
+        ShapeType = ShapeType.Polygon;
         _radius = 0.01f;
         Vertices = vertices;
     }
@@ -59,7 +56,7 @@ public class PolygonShape : Shape
     public PolygonShape(float density)
         : base(density)
     {
-        base.ShapeType = ShapeType.Polygon;
+        ShapeType = ShapeType.Polygon;
         _radius = 0.01f;
         _vertices = new Vertices(Settings.MaxPolygonVertices);
         _normals = new Vertices(Settings.MaxPolygonVertices);
@@ -68,7 +65,7 @@ public class PolygonShape : Shape
     internal PolygonShape()
         : base(0f)
     {
-        base.ShapeType = ShapeType.Polygon;
+        ShapeType = ShapeType.Polygon;
         _radius = 0.01f;
         _vertices = new Vertices(Settings.MaxPolygonVertices);
         _normals = new Vertices(Settings.MaxPolygonVertices);
@@ -86,11 +83,11 @@ public class PolygonShape : Shape
             {
                 zero2 += Vertices[i];
             }
-            zero2 *= 1f / (float)Vertices.Count;
+            zero2 *= 1f / Vertices.Count;
             for (int j = 0; j < Vertices.Count; j++)
             {
                 Vector2 vector = Vertices[j] - zero2;
-                Vector2 vector2 = ((j + 1 < Vertices.Count) ? (Vertices[j + 1] - zero2) : (Vertices[0] - zero2));
+                Vector2 vector2 = (j + 1 < Vertices.Count) ? (Vertices[j + 1] - zero2) : (Vertices[0] - zero2);
                 float num3 = MathUtils.Cross(vector, vector2);
                 float num4 = 0.5f * num3;
                 num += num4;
@@ -99,8 +96,8 @@ public class PolygonShape : Shape
                 float y = vector.Y;
                 float x2 = vector2.X;
                 float y2 = vector2.Y;
-                float num5 = x * x + x2 * x + x2 * x2;
-                float num6 = y * y + y2 * y + y2 * y2;
+                float num5 = (x * x) + (x2 * x) + (x2 * x2);
+                float num6 = (y * y) + (y2 * y) + (y2 * y2);
                 num2 += 1f / 12f * num3 * (num5 + num6);
             }
             MassData.Area = num;
@@ -128,7 +125,7 @@ public class PolygonShape : Shape
 
     public override bool RayCast(out RayCastOutput output, ref RayCastInput input, ref Transform transform, int childIndex)
     {
-        output = default(RayCastOutput);
+        output = default;
         Vector2 vector = MathUtils.MulT(transform.q, input.Point1 - transform.p);
         Vector2 vector2 = MathUtils.MulT(transform.q, input.Point2 - transform.p);
         Vector2 value = vector2 - vector;
@@ -179,7 +176,7 @@ public class PolygonShape : Shape
             vector = Vector2.Min(vector, value);
             vector2 = Vector2.Max(vector2, value);
         }
-        Vector2 vector3 = new Vector2(base.Radius, base.Radius);
+        Vector2 vector3 = new(Radius, Radius);
         aabb.LowerBound = vector - vector3;
         aabb.UpperBound = vector2 + vector3;
     }
@@ -223,7 +220,7 @@ public class PolygonShape : Shape
                 if (flag)
                 {
                     sc = MathUtils.Mul(ref xf, MassData.Centroid);
-                    return MassData.Mass / base.Density;
+                    return MassData.Mass / Density;
                 }
                 return 0f;
             case 1:
@@ -241,16 +238,16 @@ public class PolygonShape : Shape
         int num6 = (num4 + 1) % Vertices.Count;
         float num7 = (0f - array[num3]) / (array[num5] - array[num3]);
         float num8 = (0f - array[num4]) / (array[num6] - array[num4]);
-        Vector2 vector = new Vector2(Vertices[num3].X * (1f - num7) + Vertices[num5].X * num7, Vertices[num3].Y * (1f - num7) + Vertices[num5].Y * num7);
-        Vector2 vector2 = new Vector2(Vertices[num4].X * (1f - num8) + Vertices[num6].X * num8, Vertices[num4].Y * (1f - num8) + Vertices[num6].Y * num8);
+        Vector2 vector = new((Vertices[num3].X * (1f - num7)) + (Vertices[num5].X * num7), (Vertices[num3].Y * (1f - num7)) + (Vertices[num5].Y * num7));
+        Vector2 vector2 = new((Vertices[num4].X * (1f - num8)) + (Vertices[num6].X * num8), (Vertices[num4].Y * (1f - num8)) + (Vertices[num6].Y * num8));
         float num9 = 0f;
-        Vector2 v = new Vector2(0f, 0f);
+        Vector2 v = new(0f, 0f);
         Vector2 vector3 = Vertices[num5];
         i = num5;
         while (i != num6)
         {
             i = (i + 1) % Vertices.Count;
-            Vector2 vector4 = ((i != num6) ? Vertices[i] : vector2);
+            Vector2 vector4 = (i != num6) ? Vertices[i] : vector2;
             Vector2 a = vector3 - vector;
             Vector2 b = vector4 - vector;
             float num10 = MathUtils.Cross(a, b);
@@ -277,22 +274,20 @@ public class PolygonShape : Shape
                 return false;
             }
         }
-        if (base.Radius == shape.Radius)
-        {
-            return MassData == shape.MassData;
-        }
-        return false;
+        return Radius == shape.Radius ? MassData == shape.MassData : false;
     }
 
     public override Shape Clone()
     {
-        PolygonShape polygonShape = new PolygonShape();
-        polygonShape.ShapeType = base.ShapeType;
-        polygonShape._radius = _radius;
-        polygonShape._density = _density;
-        polygonShape._vertices = new Vertices(_vertices);
-        polygonShape._normals = new Vertices(_normals);
-        polygonShape.MassData = MassData;
+        PolygonShape polygonShape = new()
+        {
+            ShapeType = ShapeType,
+            _radius = _radius,
+            _density = _density,
+            _vertices = new Vertices(_vertices),
+            _normals = new Vertices(_normals),
+            MassData = MassData
+        };
         return polygonShape;
     }
 }

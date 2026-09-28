@@ -10,20 +10,14 @@ public class TintSpriteEffect : TextureMatrixEffectBase
 
     public bool TintEnabled
     {
-        get
-        {
-            return _tintEnabled.GetValueBoolean();
-        }
-        set
-        {
-            _tintEnabled.SetValue(value);
-        }
+        get => _tintEnabled.GetValueBoolean();
+        set => _tintEnabled.SetValue(value);
     }
 
     public TintSpriteEffect()
         : base("Mokus2D.Shaders.SpriteShader")
     {
-        _tintEnabled = base.Parameters["TintEnabled"];
+        _tintEnabled = Parameters["TintEnabled"];
     }
 
     protected TintSpriteEffect(string path)

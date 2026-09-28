@@ -14,17 +14,14 @@ public struct FixedArray4<T>
 
     public T this[int index]
     {
-        get
+        readonly get => index switch
         {
-            return index switch
-            {
-                0 => _value0,
-                1 => _value1,
-                2 => _value2,
-                3 => _value3,
-                _ => throw new IndexOutOfRangeException(),
-            };
-        }
+            0 => _value0,
+            1 => _value1,
+            2 => _value2,
+            3 => _value3,
+            _ => throw new IndexOutOfRangeException(),
+        };
         set
         {
             switch (index)

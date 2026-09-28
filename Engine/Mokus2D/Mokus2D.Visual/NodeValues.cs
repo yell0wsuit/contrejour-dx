@@ -57,95 +57,95 @@ public static class NodeValues
         ((Node)n).VisibleAndUpdating = false;
     };
 
-    public static GetSetValue<Node, float> Scale = new GetSetValue<Node, float>((Node n) => n.ScaleX, delegate (Node n, float v)
+    public static GetSetValue<Node, float> Scale = new(n => n.ScaleX, delegate (Node n, float v)
     {
         n.Scale = v;
     });
 
-    public static GetSetValue<ISizeNode, Vector2> ScaledSize = new GetSetValue<ISizeNode, Vector2>((ISizeNode n) => n.ScaledSize(), delegate (ISizeNode n, Vector2 v)
+    public static GetSetValue<ISizeNode, Vector2> ScaledSize = new(n => n.ScaledSize(), delegate (ISizeNode n, Vector2 v)
     {
         n.SetScaledSize(v);
     });
 
-    public static GetSetValue<Node, float> RotationRadians = new GetSetValue<Node, float>((Node n) => n.RotationRadians, delegate (Node n, float v)
+    public static GetSetValue<Node, float> RotationRadians = new(n => n.RotationRadians, delegate (Node n, float v)
     {
         n.RotationRadians = v;
     });
 
-    public static GetSetValue<Node, float> ScaleY = new GetSetValue<Node, float>((Node n) => n.ScaleY, delegate (Node n, float v)
+    public static GetSetValue<Node, float> ScaleY = new(n => n.ScaleY, delegate (Node n, float v)
     {
         n.ScaleY = v;
     });
 
-    public static GetSetValue<Node, float> ScaleX = new GetSetValue<Node, float>((Node n) => n.ScaleX, delegate (Node n, float v)
+    public static GetSetValue<Node, float> ScaleX = new(n => n.ScaleX, delegate (Node n, float v)
     {
         n.ScaleX = v;
     });
 
-    public static GetSetValue<Node, Vector2> ScaleVec = new GetSetValue<Node, Vector2>((Node n) => n.ScaleVec, delegate (Node n, Vector2 v)
+    public static GetSetValue<Node, Vector2> ScaleVec = new(n => n.ScaleVec, delegate (Node n, Vector2 v)
     {
         n.ScaleVec = v;
     });
 
-    public static GetSetValue<Node, float> OpacityFloat = new GetSetValue<Node, float>((Node n) => n.OpacityFloat, delegate (Node n, float v)
+    public static GetSetValue<Node, float> OpacityFloat = new(n => n.OpacityFloat, delegate (Node n, float v)
     {
         n.OpacityFloat = v;
     });
 
-    public static GetSetValue<Node, Color> Color = new GetSetValue<Node, Color>((Node n) => n.Color, delegate (Node n, Color v)
+    public static GetSetValue<Node, Color> Color = new(n => n.Color, delegate (Node n, Color v)
     {
         n.Color = v;
     });
 
-    public static GetSetValue<Node, float> ColorRatio = new GetSetValue<Node, float>((Node n) => n.ColorRatio, delegate (Node n, float v)
+    public static GetSetValue<Node, float> ColorRatio = new(n => n.ColorRatio, delegate (Node n, float v)
     {
         n.ColorRatio = v;
     });
 
-    public static GetSetValue<Node, Vector2> Position = new GetSetValue<Node, Vector2>((Node n) => n.Position, delegate (Node n, Vector2 v)
+    public static GetSetValue<Node, Vector2> Position = new(n => n.Position, delegate (Node n, Vector2 v)
     {
         n.Position = v;
     });
 
-    public static GetSetValue<Node, float> X = new GetSetValue<Node, float>((Node n) => n.X, delegate (Node n, float v)
+    public static GetSetValue<Node, float> X = new(n => n.X, delegate (Node n, float v)
     {
         n.X = v;
     });
 
-    public static GetSetValue<Node, float> Y = new GetSetValue<Node, float>((Node n) => n.Y, delegate (Node n, float v)
+    public static GetSetValue<Node, float> Y = new(n => n.Y, delegate (Node n, float v)
     {
         n.Y = v;
     });
 
-    public static GetSetValue<Node, bool> Visible = new GetSetValue<Node, bool>((Node n) => n.Visible, delegate (Node n, bool v)
+    public static GetSetValue<Node, bool> Visible = new(n => n.Visible, delegate (Node n, bool v)
     {
         n.Visible = v;
     });
 
-    public static GetSetValue<Node, bool> VisibleLater = new GetSetValue<Node, bool>((Node n) => n.Visible, delegate (Node n, bool v)
+    public static GetSetValue<Node, bool> VisibleLater = new(n => n.Visible, delegate (Node n, bool v)
     {
         n.CallLater(v ? Show : Hide);
     });
 
-    public static GetSetValue<Node, bool> VisibleAndUpdating = new GetSetValue<Node, bool>((Node n) => n.Visible, delegate (Node n, bool v)
+    public static GetSetValue<Node, bool> VisibleAndUpdating = new(n => n.Visible, delegate (Node n, bool v)
     {
         n.VisibleAndUpdating = v;
     });
 
-    public static GetSetValue<Node, bool> UpdateChildren = new GetSetValue<Node, bool>((Node n) => n.UpdateChildren, delegate (Node n, bool v)
+    public static GetSetValue<Node, bool> UpdateChildren = new(n => n.UpdateChildren, delegate (Node n, bool v)
     {
         n.UpdateChildren = v;
     });
 
-    public static GetSetValue<Node, bool> IsAnimationDiscrete = new GetSetValue<Node, bool>((Node n) => n is AnimationNode && ((AnimationNode)n).IsChildrenAnimationsDiscrete, IsAnimationDiscreteSetter);
+    public static GetSetValue<Node, bool> IsAnimationDiscrete = new(n => n is AnimationNode && ((AnimationNode)n).IsChildrenAnimationsDiscrete, IsAnimationDiscreteSetter);
 
-    public static GetSetValue<Node, bool> Repeat = new GetSetValue<Node, bool>((Node n) => n is IAnimatedNode && ((IAnimatedNode)n).Repeat, RepeatSetter);
+    public static GetSetValue<Node, bool> Repeat = new(n => n is IAnimatedNode && ((IAnimatedNode)n).Repeat, RepeatSetter);
 
-    public static GetSetValue<Node, bool> Rewind = new GetSetValue<Node, bool>((Node n) => n is IAnimatedNode && ((IAnimatedNode)n).Rewind, RewindSetter);
+    public static GetSetValue<Node, bool> Rewind = new(n => n is IAnimatedNode && ((IAnimatedNode)n).Rewind, RewindSetter);
 
-    public static GetSetValue<Node, bool> Stoped = new GetSetValue<Node, bool>((Node n) => n is IAnimatedNode && ((IAnimatedNode)n).Stoped, StopedSetter);
+    public static GetSetValue<Node, bool> Stoped = new(n => n is IAnimatedNode && ((IAnimatedNode)n).Stoped, StopedSetter);
 
-    public static GetSetValue<Node, float> Speed = new GetSetValue<Node, float>((Node n) => ((IAnimatedNode)n).Speed, delegate (Node n, float v)
+    public static GetSetValue<Node, float> Speed = new(n => ((IAnimatedNode)n).Speed, delegate (Node n, float v)
     {
         ((IAnimatedNode)n).Speed = v;
     });

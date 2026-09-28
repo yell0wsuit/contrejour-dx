@@ -33,25 +33,25 @@ public abstract class LongNeckSprite : PrimitivesNode
 
     protected int allPointsSize;
 
-    private Rectangle textureRect = new Rectangle(0, 0, 0, 0);
+    private Rectangle textureRect = new(0, 0, 0, 0);
 
-    private readonly TextureCoords textureCoords = new TextureCoords();
+    private readonly TextureCoords textureCoords = new();
 
     protected float textureStep = 1f;
 
     protected bool drawBorder = true;
 
-    private readonly List<Vector2> first = new List<Vector2>(64);
+    private readonly List<Vector2> first = new(64);
 
-    private readonly List<Vector2> second = new List<Vector2>(64);
+    private readonly List<Vector2> second = new(64);
 
-    private readonly List<Vector2> firstBezier = new List<Vector2>(64);
+    private readonly List<Vector2> firstBezier = new(64);
 
-    private readonly List<Vector2> secondBezier = new List<Vector2>(64);
+    private readonly List<Vector2> secondBezier = new(64);
 
-    private readonly List<Vector2> allPoints = new List<Vector2>();
+    private readonly List<Vector2> allPoints = [];
 
-    private List<Pair<Vector2>> cachedPairs = new List<Pair<Vector2>>(64);
+    private List<Pair<Vector2>> cachedPairs = new(64);
 
     protected virtual bool HasRecalculateVertices => true;
 
@@ -73,10 +73,7 @@ public abstract class LongNeckSprite : PrimitivesNode
 
     public override Texture2D Texture
     {
-        get
-        {
-            return base.Texture;
-        }
+        get => base.Texture;
         set
         {
             if (value != null)
@@ -90,10 +87,7 @@ public abstract class LongNeckSprite : PrimitivesNode
 
     public Color NeckColor
     {
-        get
-        {
-            return neckColor;
-        }
+        get => neckColor;
         set
         {
             neckColor = value;
@@ -172,8 +166,8 @@ public abstract class LongNeckSprite : PrimitivesNode
 
     protected virtual void RefreshTextureCoords(int i, int start)
     {
-        float num = (float)i * textureStep;
-        float num2 = (float)(i + 1) * textureStep;
+        float num = i * textureStep;
+        float num2 = (i + 1) * textureStep;
         if (num2 > 1f)
         {
             num = (float)((double)num - Math.Floor(num2));
@@ -249,7 +243,7 @@ public abstract class LongNeckSprite : PrimitivesNode
     {
         if (OnScreen)
         {
-            Color color = neckColor.ChangeAlpha((byte)((float)(int)neckColor.A * state.Opacity));
+            Color color = neckColor.ChangeAlpha((byte)(neckColor.A * state.Opacity));
             if (color != drawNeckColor)
             {
                 drawNeckColor = color;

@@ -35,13 +35,11 @@ public class RevoluteJointProcessor : JointProcessorBase
             DebugUtil.Trace("Revolute joint not initialized");
             return;
         }
-        if ((int)bodies[0].BodyType == 2 && (int)bodies[1].BodyType == 0)
+        if ((int)bodies[0].BodyType == 2 && bodies[1].BodyType == 0)
         {
-            Body value = bodies[0];
-            bodies[0] = bodies[1];
-            bodies[1] = value;
+            (bodies[1], bodies[0]) = (bodies[0], bodies[1]);
         }
-        RevoluteJoint val = new RevoluteJoint(bodies[0], bodies[1], position, false);
+        RevoluteJoint val = new(bodies[0], bodies[1], position, false);
         if (config.Exists("motorSpeed"))
         {
             float num = 0f;
@@ -50,7 +48,7 @@ public class RevoluteJointProcessor : JointProcessorBase
                 num += bodies[i].Inertia;
             }
             val.MotorSpeed = config.GetFloat("motorSpeed");
-            val.MaxMotorTorque = (config.Exists("maxMotorTorque") ? config.GetFloat("maxMotorTorque") : (30f * num));
+            val.MaxMotorTorque = config.Exists("maxMotorTorque") ? config.GetFloat("maxMotorTorque") : (30f * num);
             val.MotorEnabled = true;
         }
         if (config.Exists("upperAngle"))
@@ -59,7 +57,7 @@ public class RevoluteJointProcessor : JointProcessorBase
             val.LowerLimit = MathHelper.ToRadians(config.GetFloat("lowerAngle"));
             val.UpperLimit = MathHelper.ToRadians(config.GetFloat("upperAngle"));
         }
-        ((Joint)val).CollideConnected = false;
-        CreateJointConfig(val, config);
+        val.CollideConnected = false;
+        _ = CreateJointConfig(val, config);
     }
 }

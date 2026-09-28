@@ -8,29 +8,21 @@ public class TouchNode : Node, ITouchListener
 
     public bool TouchEnabled
     {
-        get
-        {
-            return _touchDecorator.Enabled;
-        }
-        set
-        {
-            _touchDecorator.Enabled = value;
-        }
+        get => _touchDecorator.Enabled;
+        set => _touchDecorator.Enabled = value;
     }
 
     protected TouchNode()
     {
-        _touchDecorator = new TouchListenerDecorator(this);
-        _touchDecorator.Filter = IsInteractionsEnabled;
+        _touchDecorator = new TouchListenerDecorator(this)
+        {
+            Filter = IsInteractionsEnabled
+        };
     }
 
     private bool IsInteractionsEnabled()
     {
-        if (base.Root != null && base.RootVisible)
-        {
-            return base.RootInteractionsEnabled;
-        }
-        return false;
+        return Root != null && RootVisible ? RootInteractionsEnabled : false;
     }
 
     public virtual bool TouchBegin(Touch touch)

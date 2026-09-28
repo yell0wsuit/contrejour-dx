@@ -13,11 +13,11 @@ namespace Mokus2D.Input;
 
 public class KeysController : IUpdatable
 {
-    private static readonly Comparison<ActionPriority> Comparison = (ActionPriority first, ActionPriority second) => Comparisons.FloatComparizon(first.Priority, second.Priority);
+    private static readonly Comparison<ActionPriority> Comparison = (first, second) => Comparisons.FloatComparizon(first.Priority, second.Priority);
 
-    private readonly SortedList<ActionPriority> _backKeysListeners = new SortedList<ActionPriority>(64, Comparison);
+    private readonly SortedList<ActionPriority> _backKeysListeners = new(64, Comparison);
 
-    private readonly List<ActionPriority> _toRemove = new List<ActionPriority>(64);
+    private readonly List<ActionPriority> _toRemove = new(64);
 
     private bool _isBackPressed;
 
@@ -61,16 +61,12 @@ public class KeysController : IUpdatable
     public bool ContainsListener(Action action)
     {
         ActionPriority item = FindItem(action);
-        if (_backKeysListeners.Contains(item))
-        {
-            return !_toRemove.Contains(item);
-        }
-        return false;
+        return _backKeysListeners.Contains(item) ? !_toRemove.Contains(item) : false;
     }
 
     private ActionPriority FindItem(Action action)
     {
-        return _backKeysListeners.FirstOrDefault((ActionPriority item) => item.Action == action);
+        return _backKeysListeners.FirstOrDefault(item => item.Action == action);
     }
 
     public void RemoveBackKeyListener(Action action)
@@ -81,7 +77,7 @@ public class KeysController : IUpdatable
         }
         else
         {
-            _backKeysListeners.Remove(FindItem(action));
+            _ = _backKeysListeners.Remove(FindItem(action));
         }
     }
 

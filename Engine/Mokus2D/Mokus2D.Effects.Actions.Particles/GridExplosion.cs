@@ -11,7 +11,7 @@ namespace Mokus2D.Effects.Actions.Particles;
 
 public class GridExplosion : GridAction
 {
-    private static readonly Pool<GridExplosion> pool = new Pool<GridExplosion>(() => new GridExplosion());
+    private static readonly Pool<GridExplosion> pool = new(() => new GridExplosion());
 
     private float minRadius;
 
@@ -30,7 +30,7 @@ public class GridExplosion : GridAction
 
     protected GridExplosion Initialize(float seconds, float minRadius, float maxRadius)
     {
-        Initialize();
+        _ = Initialize();
         this.seconds = seconds;
         this.minRadius = minRadius;
         this.maxRadius = maxRadius;
@@ -39,7 +39,7 @@ public class GridExplosion : GridAction
 
     internal override void Start(float time)
     {
-        center = base.Grid.GridSize / 2f;
+        center = Grid.GridSize / 2f;
         maxGridOffset = center.Length();
         base.Start(time);
     }
@@ -49,12 +49,12 @@ public class GridExplosion : GridAction
         Vector2 vector = new Vector2(x, y) - center;
         if (vector != Vector2.Zero)
         {
-            float length = MathHelper.Lerp(minRadius, maxRadius, 1f - vector.Length() / maxGridOffset);
-            vector.Normalize(length);
+            float length = MathHelper.Lerp(minRadius, maxRadius, 1f - (vector.Length() / maxGridOffset));
+            _ = vector.Normalize(length);
         }
         else
         {
-            new Vector2(maxRadius, 0f);
+            _ = new Vector2(maxRadius, 0f);
         }
         throw new NotImplementedException();
     }

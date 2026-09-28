@@ -27,7 +27,7 @@ public static class TimeOfImpact
     public static void CalculateTimeOfImpact(out TOIOutput output, TOIInput input)
     {
         TOICalls++;
-        output = default(TOIOutput);
+        output = default;
         output.State = TOIOutputState.Unknown;
         output.T = input.TMax;
         Sweep sweepA = input.SweepA;
@@ -39,17 +39,17 @@ public static class TimeOfImpact
         float num2 = Math.Max(0.005f, num - 0.015f);
         float num3 = 0f;
         int num4 = 0;
-        _distanceInput = _distanceInput ?? new DistanceInput();
+        _distanceInput ??= new DistanceInput();
         _distanceInput.ProxyA = input.ProxyA;
         _distanceInput.ProxyB = input.ProxyB;
         _distanceInput.UseRadii = false;
         while (true)
         {
-            sweepA.GetTransform(out var xfb, num3);
-            sweepB.GetTransform(out var xfb2, num3);
+            sweepA.GetTransform(out Transform xfb, num3);
+            sweepB.GetTransform(out Transform xfb2, num3);
             _distanceInput.TransformA = xfb;
             _distanceInput.TransformB = xfb2;
-            Distance.ComputeDistance(out var output2, out var cache, _distanceInput);
+            Distance.ComputeDistance(out DistanceOutput output2, out SimplexCache cache, _distanceInput);
             if (output2.Distance <= 0f)
             {
                 output.State = TOIOutputState.Overlapped;
@@ -68,9 +68,7 @@ public static class TimeOfImpact
             int num6 = 0;
             do
             {
-                int indexA;
-                int indexB;
-                float num7 = SeparationFunction.FindMinSeparation(out indexA, out indexB, num5);
+                float num7 = SeparationFunction.FindMinSeparation(out int indexA, out int indexB, num5);
                 if (num7 > num2 + 0.00125f)
                 {
                     output.State = TOIOutputState.Seperated;
@@ -103,7 +101,7 @@ public static class TimeOfImpact
                 float num11 = num5;
                 do
                 {
-                    float num12 = (((num9 & 1) == 0) ? (0.5f * (num10 + num11)) : (num10 + (num2 - num8) * (num11 - num10) / (num7 - num8)));
+                    float num12 = ((num9 & 1) == 0) ? (0.5f * (num10 + num11)) : (num10 + ((num2 - num8) * (num11 - num10) / (num7 - num8)));
                     num9++;
                     TOIRootIters++;
                     float num13 = SeparationFunction.Evaluate(indexA, indexB, num12);

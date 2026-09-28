@@ -23,11 +23,11 @@ public class SpikesFlowerSprite : LongNeckSprite
     {
         if (bodyClip.Game.WhiteSide)
         {
-            base.NeckColor = 10066329.ToRGBColor();
+            NeckColor = 10066329.ToRGBColor();
         }
         else if (bodyClip.Game.BonusChapter)
         {
-            base.NeckColor = ContreJourConstants.GreenSpikesFlower;
+            NeckColor = ContreJourConstants.GreenSpikesFlower;
         }
         spikes = bodyClip;
         basePoints = new Pair<Vector2>(new Vector2(6f, -32f) * _scale, new Vector2(-6f, -32f) * _scale);

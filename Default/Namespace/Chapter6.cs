@@ -14,19 +14,19 @@ public class Chapter6 : ChapterItem
 
     protected override void CreateSprites()
     {
-        ParticleSystem particleSystem = new ParticleSystem("planets/McGreenPlanetFly");
+        ParticleSystem particleSystem = new("planets/McGreenPlanetFly");
         container.AddChild(particleSystem);
         AddAlphaItem(particleSystem);
         AddUpdating(new PlanetSurround(particleSystem));
         background = new Sprite("McChapter6Background");
         blurBackground = new Sprite("McChapter6Background");
         container.AddChild(background);
-        ParticleSystem particleSystem2 = new ParticleSystem("common/McEnergyBall");
+        ParticleSystem particleSystem2 = new("common/McEnergyBall");
         container.AddChild(particleSystem2);
         particleSystem2.Scale = 2f;
         alphaItems.Add(particleSystem2);
         AddUpdating(new PlanetEnergy(particleSystem2, Vector2.Zero, new RandomRange(0.16f, 0.06f)));
-        Sprite node = new Sprite("McChapter6Foreground");
+        Sprite node = new("McChapter6Foreground");
         container.AddChild(node);
     }
 }

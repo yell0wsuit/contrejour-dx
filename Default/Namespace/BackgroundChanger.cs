@@ -24,10 +24,7 @@ public class BackgroundChanger
 
     public float CurrentIndex
     {
-        get
-        {
-            return currentIndex;
-        }
+        get => currentIndex;
         set
         {
             if (currentIndex != value)
@@ -47,7 +44,7 @@ public class BackgroundChanger
     private void RefreshOpacity()
     {
         firstIndex = (int)Maths.ModPositive(currentIndex, ContreJourConstants.PlanetsCount);
-        offset = Maths.PeriodicOffset(currentIndex - (float)firstIndex, ContreJourConstants.PlanetsCount);
+        offset = Maths.PeriodicOffset(currentIndex - firstIndex, ContreJourConstants.PlanetsCount);
         nextIndex = (firstIndex + 1) % ContreJourConstants.PlanetsCount;
         for (int i = 0; i < backgrounds.Count; i++)
         {

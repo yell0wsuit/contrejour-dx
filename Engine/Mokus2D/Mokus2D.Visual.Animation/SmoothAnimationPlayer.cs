@@ -17,13 +17,13 @@ internal class SmoothAnimationPlayer : IAnimationNodePlayer
     {
         bool flag = !node.TweenEdgeFrames || (!node.Repeat && (int)frame == (int)node.MaxFrame) || (int)frame == (int)node.MinFrame;
         int num = (int)(node.Rewind ? Math.Ceiling(frame) : Math.Floor(frame));
-        int num2 = (node.Rewind ? (num - 1) : (num + 1));
-        if (flag && (float)num > node.MaxFrame)
+        int num2 = node.Rewind ? (num - 1) : (num + 1);
+        if (flag && num > node.MaxFrame)
         {
             num = (int)node.MaxFrame;
         }
         num = Maths.ModPositive(num, node.TotalFrames);
-        num2 = (int)Maths.ModPositive((float)num2, (float)node.TotalFrames).Clamp(node.MinFrame, node.MaxFrame);
+        num2 = (int)Maths.ModPositive(num2, (float)node.TotalFrames).Clamp(node.MinFrame, node.MaxFrame);
         if (flag && ((!node.Rewind && num2 < num) || (node.Rewind && num2 > num)))
         {
             num2 = num;
@@ -42,7 +42,7 @@ internal class SmoothAnimationPlayer : IAnimationNodePlayer
             {
                 AnimationFrameData nextData = list2[i];
                 Node child = node.GetChild(animationFrameData.Id);
-                float offset = (child.IsAnimationDiscrete ? 0f : num3);
+                float offset = child.IsAnimationDiscrete ? 0f : num3;
                 ApplyChildFrameData(node, child, animationFrameData, nextData, offset);
             }
         }
@@ -54,7 +54,7 @@ internal class SmoothAnimationPlayer : IAnimationNodePlayer
         {
             child.Visible = previousData.Visible;
         }
-        Vector2 vector = ((node.Root != null) ? node.Root.SpritesScaleFactor.Signs() : Vector2.One);
+        Vector2 vector = (node.Root != null) ? node.Root.SpritesScaleFactor.Signs() : Vector2.One;
         if (!child.IgnoredAnimations.Position)
         {
             child.Position = Vector2.Lerp(previousData.Position, nextData.Position, offset) * vector;

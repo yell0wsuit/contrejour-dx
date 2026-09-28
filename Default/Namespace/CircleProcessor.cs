@@ -17,8 +17,10 @@ public class CircleProcessor : ShapeProcessor
         //IL_002f: Expected O, but got Unknown
         float num = item.GetFloat("radius");
         Vector2 vector = item.GetVector("position");
-        CircleShape val = new CircleShape(num, builder.EngineConfig.Density);
-        val.Position = vector;
+        CircleShape val = new(num, builder.EngineConfig.Density)
+        {
+            Position = vector
+        };
         return (Shape)(object)val;
     }
 }

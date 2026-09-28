@@ -44,10 +44,7 @@ public class DistanceJoint : Joint
 
     public sealed override Vector2 WorldAnchorA
     {
-        get
-        {
-            return base.BodyA.GetWorldPoint(LocalAnchorA);
-        }
+        get => BodyA.GetWorldPoint(LocalAnchorA);
         set
         {
         }
@@ -55,10 +52,7 @@ public class DistanceJoint : Joint
 
     public sealed override Vector2 WorldAnchorB
     {
-        get
-        {
-            return base.BodyB.GetWorldPoint(LocalAnchorB);
-        }
+        get => BodyB.GetWorldPoint(LocalAnchorB);
         set
         {
         }
@@ -72,13 +66,13 @@ public class DistanceJoint : Joint
 
     internal DistanceJoint()
     {
-        base.JointType = JointType.Distance;
+        JointType = JointType.Distance;
     }
 
     public DistanceJoint(Body bodyA, Body bodyB, Vector2 anchorA, Vector2 anchorB, bool useWorldCoordinates = false)
         : base(bodyA, bodyB)
     {
-        base.JointType = JointType.Distance;
+        JointType = JointType.Distance;
         if (useWorldCoordinates)
         {
             LocalAnchorA = bodyA.GetLocalPoint(ref anchorA);
@@ -89,7 +83,7 @@ public class DistanceJoint : Joint
         {
             LocalAnchorA = anchorA;
             LocalAnchorB = anchorB;
-            Length = (base.BodyB.GetWorldPoint(ref anchorB) - base.BodyA.GetWorldPoint(ref anchorA)).Length();
+            Length = (BodyB.GetWorldPoint(ref anchorB) - BodyA.GetWorldPoint(ref anchorA)).Length();
         }
     }
 
@@ -105,14 +99,14 @@ public class DistanceJoint : Joint
 
     internal override void InitVelocityConstraints(ref SolverData data)
     {
-        _indexA = base.BodyA.IslandIndex;
-        _indexB = base.BodyB.IslandIndex;
-        _localCenterA = base.BodyA._sweep.LocalCenter;
-        _localCenterB = base.BodyB._sweep.LocalCenter;
-        _invMassA = base.BodyA._invMass;
-        _invMassB = base.BodyB._invMass;
-        _invIA = base.BodyA._invI;
-        _invIB = base.BodyB._invI;
+        _indexA = BodyA.IslandIndex;
+        _indexB = BodyB.IslandIndex;
+        _localCenterA = BodyA._sweep.LocalCenter;
+        _localCenterB = BodyB._sweep.LocalCenter;
+        _invMassA = BodyA._invMass;
+        _invMassB = BodyB._invMass;
+        _invIA = BodyA._invI;
+        _invIB = BodyB._invI;
         Vector2 c = data.positions[_indexA].c;
         float a = data.positions[_indexA].a;
         Vector2 v = data.velocities[_indexA].v;
@@ -121,8 +115,8 @@ public class DistanceJoint : Joint
         float a2 = data.positions[_indexB].a;
         Vector2 v2 = data.velocities[_indexB].v;
         float w2 = data.velocities[_indexB].w;
-        Rot q = new Rot(a);
-        Rot q2 = new Rot(a2);
+        Rot q = new(a);
+        Rot q2 = new(a2);
         _rA = MathUtils.Mul(q, LocalAnchorA - _localCenterA);
         _rB = MathUtils.Mul(q2, LocalAnchorB - _localCenterB);
         _u = c2 + _rB - c - _rA;
@@ -137,8 +131,8 @@ public class DistanceJoint : Joint
         }
         float num2 = MathUtils.Cross(_rA, _u);
         float num3 = MathUtils.Cross(_rB, _u);
-        float num4 = _invMassA + _invIA * num2 * num2 + _invMassB + _invIB * num3 * num3;
-        _mass = ((num4 != 0f) ? (1f / num4) : 0f);
+        float num4 = _invMassA + (_invIA * num2 * num2) + _invMassB + (_invIB * num3 * num3);
+        _mass = (num4 != 0f) ? (1f / num4) : 0f;
         if (Frequency > 0f)
         {
             float num5 = num - Length;
@@ -146,11 +140,11 @@ public class DistanceJoint : Joint
             float num7 = 2f * _mass * DampingRatio * num6;
             float num8 = _mass * num6 * num6;
             float dt = data.step.dt;
-            _gamma = dt * (num7 + dt * num8);
-            _gamma = ((_gamma != 0f) ? (1f / _gamma) : 0f);
+            _gamma = dt * (num7 + (dt * num8));
+            _gamma = (_gamma != 0f) ? (1f / _gamma) : 0f;
             _bias = num5 * dt * num8 * _gamma;
             num4 += _gamma;
-            _mass = ((num4 != 0f) ? (1f / num4) : 0f);
+            _mass = (num4 != 0f) ? (1f / num4) : 0f;
         }
         else
         {
@@ -178,7 +172,7 @@ public class DistanceJoint : Joint
         Vector2 vector = v + MathUtils.Cross(w, _rA);
         Vector2 vector2 = v2 + MathUtils.Cross(w2, _rB);
         float num = Vector2.Dot(_u, vector2 - vector);
-        float num2 = (0f - _mass) * (num + _bias + _gamma * _impulse);
+        float num2 = (0f - _mass) * (num + _bias + (_gamma * _impulse));
         _impulse += num2;
         Vector2 vector3 = num2 * _u;
         v -= _invMassA * vector3;
@@ -201,8 +195,8 @@ public class DistanceJoint : Joint
         float a = data.positions[_indexA].a;
         Vector2 c2 = data.positions[_indexB].c;
         float a2 = data.positions[_indexB].a;
-        Rot q = new Rot(a);
-        Rot q2 = new Rot(a2);
+        Rot q = new(a);
+        Rot q2 = new(a2);
         Vector2 vector = MathUtils.Mul(q, LocalAnchorA - _localCenterA);
         Vector2 vector2 = MathUtils.Mul(q2, LocalAnchorB - _localCenterB);
         Vector2 vector3 = c2 + vector2 - c - vector;

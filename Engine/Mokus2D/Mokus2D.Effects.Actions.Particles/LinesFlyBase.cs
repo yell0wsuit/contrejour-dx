@@ -13,22 +13,22 @@ public abstract class LinesFlyBase : GridLinesAction
     protected virtual LinesFlyBase Initialize(float linesDelay, float particleEffectSeconds, float particlesOffset)
     {
         this.particlesOffset = particlesOffset;
-        Initialize(linesDelay, particleEffectSeconds);
+        _ = Initialize(linesDelay, particleEffectSeconds);
         return this;
     }
 
     internal override void Start(float time)
     {
-        base.Grid.ResetTransformations();
+        Grid.ResetTransformations();
         CalculateLineDelay();
-        if ((float)base.Grid.Children.Count < base.Grid.GridSize.Length() * 2f)
+        if (Grid.Children.Count < Grid.GridSize.Length() * 2f)
         {
-            base.Grid.CreateParticles();
+            Grid.CreateParticles();
         }
-        for (int i = 0; i < base.Grid.Children.Count; i++)
+        for (int i = 0; i < Grid.Children.Count; i++)
         {
-            Node particle = base.Grid.Children[i];
-            Vector2 particlePosition = base.Grid.GetParticlePosition(i);
+            Node particle = Grid.Children[i];
+            Vector2 particlePosition = Grid.GetParticlePosition(i);
             CreateAction(time, particle, (int)particlePosition.X, (int)particlePosition.Y);
         }
     }

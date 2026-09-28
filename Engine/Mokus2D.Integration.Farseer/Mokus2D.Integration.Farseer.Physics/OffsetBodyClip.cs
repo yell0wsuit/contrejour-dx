@@ -19,11 +19,11 @@ public class OffsetBodyClip : BodyClip
 
     public override void UpdatePosition(float time)
     {
-        base.Clip.Position = Updater.ToPixels(Body.Position) + PositionOffset;
+        Clip.Position = Updater.ToPixels(Body.Position) + PositionOffset;
     }
 
     public override void UpdateRotation(float time)
     {
-        base.Clip.RotationRadians = Body.Rotation + RotationOffset;
+        Clip.RotationRadians = Body.Rotation + RotationOffset;
     }
 }

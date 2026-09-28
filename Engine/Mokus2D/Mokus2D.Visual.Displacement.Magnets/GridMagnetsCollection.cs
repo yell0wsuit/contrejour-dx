@@ -6,7 +6,7 @@ namespace Mokus2D.Visual.Displacement.Magnets;
 
 public class GridMagnetsCollection : GridMagnetBase
 {
-    private readonly List<GridMagnetBase> _magnets = new List<GridMagnetBase>();
+    private readonly List<GridMagnetBase> _magnets = [];
 
     public List<GridMagnetBase> Magnets => _magnets;
 
@@ -18,7 +18,7 @@ public class GridMagnetsCollection : GridMagnetBase
 
     public GridMagnetsCollection(params GridMagnetBase[] magnets)
     {
-        _magnets = new List<GridMagnetBase>();
+        _magnets = [];
         CalculateBounds();
     }
 
@@ -31,7 +31,7 @@ public class GridMagnetsCollection : GridMagnetBase
             bounds.Offset((int)magnet.Position.X, (int)magnet.Position.Y);
             rectangle = Rectangle.Union(rectangle, bounds);
         }
-        base.Bounds = rectangle;
+        Bounds = rectangle;
     }
 
     public override Vector2 GetForce(Vector2 relativePosition)

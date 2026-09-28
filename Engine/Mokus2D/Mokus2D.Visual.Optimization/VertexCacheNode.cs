@@ -17,7 +17,7 @@ public class VertexCacheNode<TVertex> : Node, IDrawer where TVertex : struct, IV
 {
     private const int DefaultVerticesCount = 512;
 
-    private static readonly VisualState OneState = new VisualState
+    private static readonly VisualState OneState = new()
     {
         TransformationDirty = true
     };
@@ -46,34 +46,22 @@ public class VertexCacheNode<TVertex> : Node, IDrawer where TVertex : struct, IV
 
     public BlendState Blend
     {
-        get
-        {
-            return _spriteBatchProperties.Blend;
-        }
-        set
-        {
-            _spriteBatchProperties.Blend = value;
-        }
+        get => _spriteBatchProperties.Blend;
+        set => _spriteBatchProperties.Blend = value;
     }
 
     public SamplerState SamplerState
     {
-        get
-        {
-            return _spriteBatchProperties.SamplerState;
-        }
-        set
-        {
-            _spriteBatchProperties.SamplerState = value;
-        }
+        get => _spriteBatchProperties.SamplerState;
+        set => _spriteBatchProperties.SamplerState = value;
     }
 
     public VertexCacheNode()
     {
-        base.Effect = Mokus2DGame.Config.GraphicsConfig.DefaultEffect;
+        Effect = Mokus2DGame.Config.GraphicsConfig.DefaultEffect;
         ResetDefaultEffect = true;
         UpdateChildrenTransformations = false;
-        base.TransformationsRefreshedEvent += OnTransformationsRefreshed;
+        TransformationsRefreshedEvent += OnTransformationsRefreshed;
     }
 
     internal override void SetRootAndDrawer(RootNode root, IDrawer drawer)
@@ -89,7 +77,7 @@ public class VertexCacheNode<TVertex> : Node, IDrawer where TVertex : struct, IV
 
     private void OnTransformationsRefreshed()
     {
-        _childrenMatrix = base.CompositeState.GetCombinedScreenMatrix(base.Root.Size);
+        _childrenMatrix = CompositeState.GetCombinedScreenMatrix(Root.Size);
     }
 
     public void RefreshVerticesCache()
@@ -100,7 +88,7 @@ public class VertexCacheNode<TVertex> : Node, IDrawer where TVertex : struct, IV
         _drawnNodes = 0;
         RefreshChildrenTransformations(OneState, this);
         int index = DrawChildrenPart(0, positiveLayers: false);
-        DrawChildrenPart(index, positiveLayers: true);
+        _ = DrawChildrenPart(index, positiveLayers: true);
         UpdateChildrenTransformations = false;
         if (_currentVertex > 0)
         {
@@ -133,7 +121,7 @@ public class VertexCacheNode<TVertex> : Node, IDrawer where TVertex : struct, IV
         if (_currentVertex > 0)
         {
             _parentDrawer.EndDraw();
-            SpriteBatchUtil.DrawIndexedPrimitives(Mokus2DGame.Device, ref _childrenMatrix, ref _spriteBatchProperties, base.Effect, _texture, _vertexBuffer, _indexBuffer, _currentVertex, _currentIndex);
+            SpriteBatchUtil.DrawIndexedPrimitives(Mokus2DGame.Device, ref _childrenMatrix, ref _spriteBatchProperties, Effect, _texture, _vertexBuffer, _indexBuffer, _currentVertex, _currentIndex);
         }
     }
 
@@ -141,14 +129,14 @@ public class VertexCacheNode<TVertex> : Node, IDrawer where TVertex : struct, IV
     {
         if (DrawSelf)
         {
-            Draw(base.CompositeState);
+            Draw(CompositeState);
             Drawer.IncreaseNodesDrawnCount();
         }
     }
 
     public void StartEffect(ISpriteBatchEffect effect)
     {
-        if (effect != null && effect != base.Effect)
+        if (effect != null && effect != Effect)
         {
             throw new Exception("Effect of cached nodes must be the same");
         }

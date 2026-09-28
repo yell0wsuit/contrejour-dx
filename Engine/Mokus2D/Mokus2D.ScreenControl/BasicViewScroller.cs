@@ -15,16 +15,13 @@ public class BasicViewScroller : IViewScroller, IUpdatable
 
     public Vector2 ViewPosition
     {
-        get
-        {
-            return _viewPosition;
-        }
+        get => _viewPosition;
         set
         {
             if (_viewPosition != value)
             {
                 _viewPosition = value;
-                this.ViewPositionChangeEvent.Dispatch(ViewPosition);
+                ViewPositionChangeEvent.Dispatch(ViewPosition);
             }
         }
     }

@@ -23,10 +23,7 @@ public class ViewStack : Node
 
     public Node CurrentView
     {
-        get
-        {
-            return _currentView;
-        }
+        get => _currentView;
         set
         {
             if (_currentView != value)
@@ -59,10 +56,7 @@ public class ViewStack : Node
     {
         if (_currentView != view)
         {
-            if (_currentView != null)
-            {
-                _currentView.RemoveFromParent();
-            }
+            _currentView?.RemoveFromParent();
             _currentView = view;
             view.InteractionsEnabled = true;
             view.Visible = true;
@@ -75,7 +69,7 @@ public class ViewStack : Node
     {
         if (_currentView != null)
         {
-            this.BeforeShowEvent.Dispatch(_currentView);
+            BeforeShowEvent.Dispatch(_currentView);
             _currentView.InteractionsEnabled = true;
             AddChild(_currentView);
             if (_currentView is IViewStackPage)
@@ -86,7 +80,7 @@ public class ViewStack : Node
             {
                 ((IShow)_currentView).Show();
             }
-            else if (ShowEffect != null && ShowEffect != null)
+            else if (ShowEffect is not null and not null)
             {
                 ShowEffect(_currentView);
             }
@@ -126,7 +120,7 @@ public class ViewStack : Node
         {
             _previousView.RemoveFromParent();
         }
-        this.AfterHideEvent.Dispatch(_previousView);
+        AfterHideEvent.Dispatch(_previousView);
         _previousView = null;
     }
 }

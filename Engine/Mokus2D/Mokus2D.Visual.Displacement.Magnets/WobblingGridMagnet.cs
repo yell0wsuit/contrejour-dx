@@ -21,10 +21,7 @@ public class WobblingGridMagnet : GridMagnetBase
 
     public float Step
     {
-        get
-        {
-            return _step;
-        }
+        get => _step;
         set
         {
             _step = value;

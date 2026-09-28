@@ -18,10 +18,7 @@ public class LightData
 
     public Vector3 Position
     {
-        get
-        {
-            return _position;
-        }
+        get => _position;
         set
         {
             if (_position != value)
@@ -34,10 +31,7 @@ public class LightData
 
     public float Power
     {
-        get
-        {
-            return _power;
-        }
+        get => _power;
         set
         {
             if (_power != value)
@@ -50,10 +44,7 @@ public class LightData
 
     public Color Color
     {
-        get
-        {
-            return _color;
-        }
+        get => _color;
         set
         {
             if (_color != value)
@@ -66,10 +57,7 @@ public class LightData
 
     public float DistanceRate
     {
-        get
-        {
-            return _distanceRate;
-        }
+        get => _distanceRate;
         set
         {
             if (_distanceRate != value)

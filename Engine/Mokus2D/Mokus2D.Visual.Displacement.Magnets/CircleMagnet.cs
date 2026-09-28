@@ -13,17 +13,14 @@ public class CircleMagnet : GridMagnetBase
 
     public float Radius
     {
-        get
-        {
-            return _radius;
-        }
+        get => _radius;
         set
         {
             if (_radius != value)
             {
                 _radius = value;
                 int num = _radius.Ceiling();
-                base.Bounds = new Rectangle(-num, -num, num * 2, num * 2);
+                Bounds = new Rectangle(-num, -num, num * 2, num * 2);
             }
         }
     }

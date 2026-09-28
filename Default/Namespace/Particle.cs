@@ -29,6 +29,6 @@ public class Particle : MultiframeSprite
 
     public void SetFrameData(FrameData frameData)
     {
-        base.TextureRectangle = frameData.Rect;
+        TextureRectangle = frameData.Rect;
     }
 }

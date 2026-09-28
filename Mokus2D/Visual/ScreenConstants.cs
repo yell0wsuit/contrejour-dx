@@ -8,9 +8,9 @@ public static class ScreenConstants
 {
     public static class OsSizes
     {
-        public static Vector2 IPhoneRetina = new Vector2(960f, 640f);
+        public static Vector2 IPhoneRetina = new(960f, 640f);
 
-        public static Vector2 W7 = new Vector2(800f, 480f);
+        public static Vector2 W7 = new(800f, 480f);
     }
 
     [StructLayout(LayoutKind.Sequential, Size = 1)]
@@ -19,7 +19,7 @@ public static class ScreenConstants
         public static float fromIPhone2ByHeight = OsSizes.W7.Y / OsSizes.IPhoneRetina.Y;
     }
 
-    public static readonly Vector2 WP7_LEVEL_SIZE = new Vector2(OsSizes.IPhoneRetina.X / Scales.fromIPhone2ByHeight, OsSizes.IPhoneRetina.Y);
+    public static readonly Vector2 WP7_LEVEL_SIZE = new(OsSizes.IPhoneRetina.X / Scales.fromIPhone2ByHeight, OsSizes.IPhoneRetina.Y);
 
     public static readonly Vector2 IPhoneScreenCenter = OsSizes.IPhoneRetina / 2f;
 

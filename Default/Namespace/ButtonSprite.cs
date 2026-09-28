@@ -12,14 +12,8 @@ public class ButtonSprite : TouchEffect
 
     public float TargetScale
     {
-        get
-        {
-            return targetScale;
-        }
-        set
-        {
-            targetScale = value;
-        }
+        get => targetScale;
+        set => targetScale = value;
     }
 
     public ButtonSprite(TouchSprite _sprite)
@@ -31,11 +25,11 @@ public class ButtonSprite : TouchEffect
 
     public override void OnAction(Node node)
     {
-        node.ScaleTo(effectTime, targetScale);
+        _ = node.ScaleTo(effectTime, targetScale);
     }
 
     public override void OffAction(Node node)
     {
-        node.ScaleTo(effectTime, initialScale);
+        _ = node.ScaleTo(effectTime, initialScale);
     }
 }

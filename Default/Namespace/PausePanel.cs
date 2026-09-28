@@ -25,7 +25,7 @@ public class PausePanel : Node, IDisposable
 
     private const float playOffset = -306f;
 
-    private readonly LayerColor backgroundLayer = new LayerColor(Color.Black, "menu/whitePixel");
+    private readonly LayerColor backgroundLayer = new(Color.Black, "menu/whitePixel");
 
     protected int buttonIndex;
 
@@ -53,7 +53,7 @@ public class PausePanel : Node, IDisposable
     {
         game = _game;
         SoundManager.MusicDisableEvent += OnMusicDisable;
-        Color color = (game.BlackSide ? ColorUtil.Mult(ContreJourConstants.BLUE_LIGHT_COLOR, 1.5f) : ContreJourConstants.GREY_COLOR);
+        Color color = game.BlackSide ? ColorUtil.Mult(ContreJourConstants.BLUE_LIGHT_COLOR, 1.5f) : ContreJourConstants.GREY_COLOR;
         if (game.BonusChapter)
         {
             color = ContreJourConstants.GreenLightColor;
@@ -80,30 +80,30 @@ public class PausePanel : Node, IDisposable
         clickableLayer.AddChild(restartButton);
         restartButton.TouchEndEvent += OnRestartClick;
         float num = -156f;
-        restartButton.Position = new Vector2(num, winSize.Y / 2f + 120f);
+        restartButton.Position = new Vector2(num, (winSize.Y / 2f) + 120f);
         restartButton.Color = color;
         restartButton.RealScale = realScale;
         Button button2 = Button.ButtonBigWithIcon("menu/McMenuIcon");
         clickableLayer.AddChild(button2);
         button2.TouchEndEvent += OnMenuClick;
-        button2.Position = new Vector2(num, winSize.Y / 2f + 0f);
+        button2.Position = new Vector2(num, (winSize.Y / 2f) + 0f);
         button2.Color = color;
         button2.RealScale = realScale;
         Button button3 = Button.ButtonBigWithIcon("menu/McSkipIcon");
         clickableLayer.AddChild(button3);
         button3.TouchEndEvent += OnSkipClick;
-        button3.Position = new Vector2(num, winSize.Y / 2f - 120f);
+        button3.Position = new Vector2(num, (winSize.Y / 2f) - 120f);
         button3.Color = color;
         button3.RealScale = realScale;
         soundButton = new ToggleButton("menu/McSoundIcon", "menu/McDisabledIcon");
         clickableLayer.AddChild(soundButton);
-        soundButton.Position = new Vector2(num + -60f, winSize.Y / 2f - -240f);
+        soundButton.Position = new Vector2(num + -60f, (winSize.Y / 2f) - -240f);
         soundButton.Color = color;
         soundButton.RealScale = 1.4f;
         soundButton.ToggleIcon.IgnoreParentColor = true;
         musicButton = new ToggleButton("menu/McMusicIcon", "menu/McDisabledIcon");
         clickableLayer.AddChild(musicButton);
-        musicButton.Position = new Vector2(num + 60f, winSize.Y / 2f - -240f);
+        musicButton.Position = new Vector2(num + 60f, (winSize.Y / 2f) - -240f);
         musicButton.Color = color;
         musicButton.ToggleIcon.IgnoreParentColor = true;
         musicButton.RealScale = 1.4f;
@@ -112,7 +112,7 @@ public class PausePanel : Node, IDisposable
         RefreshSoundButtons();
         soundButton.TouchEndEvent += OnSoundClick;
         musicButton.TouchEndEvent += OnMusicClick;
-        buttons = new List<Button>(new Button[4] { button, restartButton, button2, button3 });
+        buttons = [button, restartButton, button2, button3];
         scoreLabel = ContreJourLabelUtil.CreateLabel(15f);
         scoreLabel.Position = new Vector2(-160f, 30f);
         AddChild(scoreLabel);
@@ -147,19 +147,19 @@ public class PausePanel : Node, IDisposable
         {
             levelLabel.Visible = false;
             scoreLabel.Visible = false;
-            buttons.RemoveLast();
+            _ = buttons.RemoveLast();
             return;
         }
         LevelData levelDataByFile = UserData.Instance.GetLevelDataByFile(levelIndex);
         LevelPosition levelPosition = UserData.Instance.GetLevelPosition(levelIndex);
         if (levelPosition.Chapter == Constants.NormalChaptersCount - 1 && levelPosition.Index == 19 && UserData.Instance.GetLevelDataByPosition(levelPosition) == null)
         {
-            buttons.RemoveLast();
+            _ = buttons.RemoveLast();
             restartButton.Visible = false;
         }
         if (!levelPosition.SkipAvailable)
         {
-            buttons.RemoveLast();
+            _ = buttons.RemoveLast();
             restartButton.Visible = false;
         }
         string textString = string.Format(Messages.LEVEL, new object[3]
@@ -169,7 +169,7 @@ public class PausePanel : Node, IDisposable
             null
         });
         levelLabel.TextString = textString;
-        scoreLabel.AppendFormat(Messages.BEST_SCORE, levelDataByFile?.Score ?? 0);
+        _ = scoreLabel.AppendFormat(Messages.BEST_SCORE, levelDataByFile?.Score ?? 0);
     }
 
     public void Show()
@@ -180,14 +180,14 @@ public class PausePanel : Node, IDisposable
             Visible = true;
             backgroundLayer.Tweener.Stop();
             backgroundLayer.OpacityFloat = 0f;
-            backgroundLayer.FadeTo(0.35f, 0.35f);
-            this.MoveTo(0.35f, new Vector2(winSize.X + 10f, 0f), Cubic.EaseOut);
+            _ = backgroundLayer.FadeTo(0.35f, 0.35f);
+            _ = this.MoveTo(0.35f, new Vector2(winSize.X + 10f, 0f), Cubic.EaseOut);
             buttonIndex = 0;
-            this.Schedule(0.15f, ProcessNextButton);
+            _ = this.Schedule(0.15f, ProcessNextButton);
             scoreLabel.Visible = true;
-            scoreLabel.FadeIn(0.35f);
+            _ = scoreLabel.FadeIn(0.35f);
             levelLabel.Visible = true;
-            levelLabel.FadeIn(0.35f);
+            _ = levelLabel.FadeIn(0.35f);
             soundButton.Visible = false;
             musicButton.Visible = false;
         }
@@ -211,11 +211,11 @@ public class PausePanel : Node, IDisposable
         buttonIndex++;
         if (buttonIndex < buttons.Count)
         {
-            this.Schedule(0.1f, ProcessNextButton);
+            _ = this.Schedule(0.1f, ProcessNextButton);
         }
         else
         {
-            this.Schedule(0.1f, ShowMusic);
+            _ = this.Schedule(0.1f, ShowMusic);
         }
     }
 
@@ -237,8 +237,8 @@ public class PausePanel : Node, IDisposable
     {
         button.Scale = 0f;
         button.Visible = true;
-        button.FadeIn(0.3f);
-        button.ScaleTo(0.5f, button.RealScale, Elastic.EaseOut);
+        _ = button.FadeIn(0.3f);
+        _ = button.ScaleTo(0.5f, button.RealScale, Elastic.EaseOut);
     }
 
     public void Hide()
@@ -246,8 +246,8 @@ public class PausePanel : Node, IDisposable
         if (open)
         {
             open = false;
-            backgroundLayer.FadeOut(0.35f);
-            this.MoveTo(0.5f, new Vector2(winSize.X + 300f, 0f), Cubic.EaseIn).OnComplete(OnHide);
+            _ = backgroundLayer.FadeOut(0.35f);
+            _ = this.MoveTo(0.5f, new Vector2(winSize.X + 300f, 0f), Cubic.EaseIn).OnComplete(OnHide);
         }
     }
 

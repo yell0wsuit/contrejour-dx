@@ -5,7 +5,7 @@ namespace Mokus2D.Visual.Focus;
 
 public static class FocusManager
 {
-    private static readonly HashSet<IFocus> FocusItems = new HashSet<IFocus>();
+    private static readonly HashSet<IFocus> FocusItems = [];
 
     private static readonly Action<IFocus> FocusInHandler = OnFocusIn;
 
@@ -15,14 +15,14 @@ public static class FocusManager
 
     public static void AddItem(IFocus item)
     {
-        FocusItems.Add(item);
+        _ = FocusItems.Add(item);
         item.FocusInEvent += FocusInHandler;
         item.FocusOutEvent += FocusOutHandler;
     }
 
     public static void RemoveItem(IFocus item)
     {
-        FocusItems.Remove(item);
+        _ = FocusItems.Remove(item);
         item.FocusInEvent -= FocusInHandler;
         item.FocusOutEvent -= FocusOutHandler;
     }

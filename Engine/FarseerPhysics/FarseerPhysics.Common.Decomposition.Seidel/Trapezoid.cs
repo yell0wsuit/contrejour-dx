@@ -41,53 +41,29 @@ internal class Trapezoid
     public void UpdateLeft(Trapezoid ul, Trapezoid ll)
     {
         UpperLeft = ul;
-        if (ul != null)
-        {
-            ul.UpperRight = this;
-        }
+        ul?.UpperRight = this;
         LowerLeft = ll;
-        if (ll != null)
-        {
-            ll.LowerRight = this;
-        }
+        ll?.LowerRight = this;
     }
 
     public void UpdateRight(Trapezoid ur, Trapezoid lr)
     {
         UpperRight = ur;
-        if (ur != null)
-        {
-            ur.UpperLeft = this;
-        }
+        ur?.UpperLeft = this;
         LowerRight = lr;
-        if (lr != null)
-        {
-            lr.LowerLeft = this;
-        }
+        lr?.LowerLeft = this;
     }
 
     public void UpdateLeftRight(Trapezoid ul, Trapezoid ll, Trapezoid ur, Trapezoid lr)
     {
         UpperLeft = ul;
-        if (ul != null)
-        {
-            ul.UpperRight = this;
-        }
+        ul?.UpperRight = this;
         LowerLeft = ll;
-        if (ll != null)
-        {
-            ll.LowerRight = this;
-        }
+        ll?.LowerRight = this;
         UpperRight = ur;
-        if (ur != null)
-        {
-            ur.UpperLeft = this;
-        }
+        ur?.UpperLeft = this;
         LowerRight = lr;
-        if (lr != null)
-        {
-            lr.LowerLeft = this;
-        }
+        lr?.LowerLeft = this;
     }
 
     public void TrimNeighbors()
@@ -95,47 +71,33 @@ internal class Trapezoid
         if (Inside)
         {
             Inside = false;
-            if (UpperLeft != null)
-            {
-                UpperLeft.TrimNeighbors();
-            }
-            if (LowerLeft != null)
-            {
-                LowerLeft.TrimNeighbors();
-            }
-            if (UpperRight != null)
-            {
-                UpperRight.TrimNeighbors();
-            }
-            if (LowerRight != null)
-            {
-                LowerRight.TrimNeighbors();
-            }
+            UpperLeft?.TrimNeighbors();
+            LowerLeft?.TrimNeighbors();
+            UpperRight?.TrimNeighbors();
+            LowerRight?.TrimNeighbors();
         }
     }
 
     public bool Contains(Point point)
     {
-        if (point.X > LeftPoint.X && point.X < RightPoint.X && Top.IsAbove(point))
-        {
-            return Bottom.IsBelow(point);
-        }
-        return false;
+        return point.X > LeftPoint.X && point.X < RightPoint.X && Top.IsAbove(point) ? Bottom.IsBelow(point) : false;
     }
 
     public List<Point> GetVertices()
     {
-        List<Point> list = new List<Point>(4);
-        list.Add(LineIntersect(Top, LeftPoint.X));
-        list.Add(LineIntersect(Bottom, LeftPoint.X));
-        list.Add(LineIntersect(Bottom, RightPoint.X));
-        list.Add(LineIntersect(Top, RightPoint.X));
+        List<Point> list =
+        [
+            LineIntersect(Top, LeftPoint.X),
+            LineIntersect(Bottom, LeftPoint.X),
+            LineIntersect(Bottom, RightPoint.X),
+            LineIntersect(Top, RightPoint.X),
+        ];
         return list;
     }
 
     private Point LineIntersect(Edge edge, float x)
     {
-        float y = edge.Slope * x + edge.B;
+        float y = (edge.Slope * x) + edge.B;
         return new Point(x, y);
     }
 

@@ -32,7 +32,7 @@ public class SpikesFlowerBodyClip : ContreJourBodyClip, IVectorPositionProvider
 
     protected Node container;
 
-    private static readonly Vector2 EYE_POSITION = new Vector2(0f, 30f);
+    private static readonly Vector2 EYE_POSITION = new(0f, 30f);
 
     public FlowerEye Eye => eye;
 
@@ -41,9 +41,9 @@ public class SpikesFlowerBodyClip : ContreJourBodyClip, IVectorPositionProvider
     public SpikesFlowerBodyClip(ContreJourLevelBuilder _builder, object _body, Node _clip, Hashtable _config)
         : base(_builder, _body, _clip, _config)
     {
-        if (base.Game.WhiteSide || base.Game.BonusChapter)
+        if (Game.WhiteSide || Game.BonusChapter)
         {
-            _clip = _builder.ReplaceClipWith(_clip, base.Game.Choose(null, null, "McSpikesViewWhite", null, "McSpikesView_6"));
+            _clip = _builder.ReplaceClipWith(_clip, Game.Choose(null, null, "McSpikesViewWhite", null, "McSpikesView_6"));
             clip = _clip;
         }
         container = new Node();
@@ -54,17 +54,19 @@ public class SpikesFlowerBodyClip : ContreJourBodyClip, IVectorPositionProvider
         };
         container.AddChild(node);
         movie = (ISpikesView)_clip;
-        movie.left.Stoped = (movie.right.Stoped = true);
-        movie.left.Speed = (movie.right.Speed = 1.5f);
+        movie.left.Stoped = movie.right.Stoped = true;
+        movie.left.Speed = movie.right.Speed = 1.5f;
         drawing = new SpikesFlowerSprite(this, clip.ScaleY);
         container.AddChild(drawing, -1);
     }
 
     private void CreateEye()
     {
-        Vector2 point = container.LocalToNode(EYE_POSITION, base.Game.Root);
-        eye = new FlowerEye(base.Game, _visible: true, builder.ToVec(point));
-        eye.Scale = clip.ScaleY * 0.7f;
+        Vector2 point = container.LocalToNode(EYE_POSITION, Game.Root);
+        eye = new FlowerEye(Game, _visible: true, builder.ToVec(point))
+        {
+            Scale = clip.ScaleY * 0.7f
+        };
         container.AddChild(eye);
         eye.RefreshRootAngle();
         eye.Position = EYE_POSITION;
@@ -92,8 +94,8 @@ public class SpikesFlowerBodyClip : ContreJourBodyClip, IVectorPositionProvider
                 UserData.Instance.FeedMonster++;
             }
             hero.Clip.Parent.ChangeChildLayer(hero.Clip, -1);
-            movie.left.Stoped = (movie.right.Stoped = false);
-            movie.left.Rewind = (movie.right.Rewind = false);
+            movie.left.Stoped = movie.right.Stoped = false;
+            movie.left.Rewind = movie.right.Rewind = false;
             movie.left.EndEvent += OnCloseEnd;
             eye.PositionProvider = this;
             SoundManager.PlaySound("deathByFlowerOut4", 0.5f);
@@ -111,9 +113,9 @@ public class SpikesFlowerBodyClip : ContreJourBodyClip, IVectorPositionProvider
     private void Open()
     {
         SoundManager.PlaySound("deathByFlowerOut10", 0.7f);
-        movie.left.Rewind = (movie.right.Rewind = true);
-        movie.left.Stoped = (movie.right.Stoped = false);
-        movie.left.Repeat = (movie.right.Repeat = false);
+        movie.left.Rewind = movie.right.Rewind = true;
+        movie.left.Stoped = movie.right.Stoped = false;
+        movie.left.Repeat = movie.right.Repeat = false;
         eye.PositionProvider = null;
         CreateDeadEye();
     }
@@ -121,17 +123,17 @@ public class SpikesFlowerBodyClip : ContreJourBodyClip, IVectorPositionProvider
     public void CreateDeadEye()
     {
         Body val = builder.World.CreateCircle(16f * builder.EngineConfig.SizeMultiplier * hero.DeadEyeScale(), Body.Position, 0f, builder.EngineConfig.Density, dynamic: true);
-        Node node = ((base.Game.WhiteSide || base.Game.BonusChapter) ? ((Node)new McEyeDeadBlack()) : ((Node)new McEyeDead()));
-        if (base.Game.BonusChapter)
+        Node node = (Game.WhiteSide || Game.BonusChapter) ? new McEyeDeadBlack() : new McEyeDead();
+        if (Game.BonusChapter)
         {
             node.Color = ContreJourConstants.GreenLightColor;
         }
-        BodyClip bodyClip = new BodyClip(builder, val, node, null);
+        BodyClip bodyClip = new(builder, val, node, null);
         builder.Add(node, 10);
         node.Scale = 0f;
-        node.Tweener.StartSequence(0.3f).ScaleTo(hero.DeadEyeScale()).Next(2f)
+        _ = node.Tweener.StartSequence(0.3f).ScaleTo(hero.DeadEyeScale()).Next(2f)
             .FadeOut();
         Schedule(bodyClip.Destroy, 2.3f);
-        val.ApplyLinearImpulse(VectorUtil.Rotate(new Vector2(Maths.Random(), 3f), base.BodyAngle) * (float)Math.Pow(hero.DeadEyeScale(), 2.0), val.WorldCenter);
+        val.ApplyLinearImpulse(VectorUtil.Rotate(new Vector2(Maths.Random(), 3f), BodyAngle) * (float)Math.Pow(hero.DeadEyeScale(), 2.0), val.WorldCenter);
     }
 }

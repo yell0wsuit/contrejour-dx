@@ -18,13 +18,13 @@ public class PlasticineUtil
 
     private const float MAX_ANGLE = (float)Math.PI / 8f;
 
-    public static object LIMIT = new object();
+    public static object LIMIT = new();
 
     public static PolygonShape CreateSurfaceBox(float width)
     {
         //IL_0005: Unknown result type (might be due to invalid IL or missing references)
         //IL_000b: Expected O, but got Unknown
-        PolygonShape val = new PolygonShape(0.3f);
+        PolygonShape val = new(0.3f);
         val.SetAsBox(width / 2f, 5f / 12f);
         return val;
     }
@@ -34,7 +34,7 @@ public class PlasticineUtil
         Body val = FarseerUtil.CreateBox(world, position, width, 5f / 6f, angle, sensor: false, 0.3f, dynamic: false);
         val.BodyType = (BodyType)1;
         float y = -0.625f;
-        Fixture val2 = FixtureFactory.AttachEdge(new Vector2((0f - width) / 2f, y), new Vector2(width / 2f, y), val, (object)0.3f);
+        Fixture val2 = FixtureFactory.AttachEdge(new Vector2((0f - width) / 2f, y), new Vector2(width / 2f, y), val, 0.3f);
         PlasticineConstants.ApplyStaticBodiesFilter(val2);
         val2.UserData = LIMIT;
         PlasticineConstants.ApplyStaticBodiesFilter(val);
@@ -49,7 +49,7 @@ public class PlasticineUtil
         PlasticineItem plasticineItem = start;
         for (int i = 0; i < count; i++)
         {
-            plasticineItem = ((direction >= 0) ? plasticineItem.NextItem : plasticineItem.PreviousItem);
+            plasticineItem = (direction >= 0) ? plasticineItem.NextItem : plasticineItem.PreviousItem;
         }
         return plasticineItem;
     }

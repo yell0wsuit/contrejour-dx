@@ -17,46 +17,25 @@ public class WhiteSmoke : GravityParticleSystem
 
     public float OpacityStep
     {
-        get
-        {
-            return opacityStep;
-        }
-        set
-        {
-            opacityStep = value;
-        }
+        get => opacityStep;
+        set => opacityStep = value;
     }
 
     public float ScaleStep
     {
-        get
-        {
-            return scaleStep;
-        }
-        set
-        {
-            scaleStep = value;
-        }
+        get => scaleStep;
+        set => scaleStep = value;
     }
 
     public float MaxOpacity
     {
-        get
-        {
-            return maxOpacity;
-        }
-        set
-        {
-            maxOpacity = value;
-        }
+        get => maxOpacity;
+        set => maxOpacity = value;
     }
 
     public virtual Vector2 SmokePosition
     {
-        get
-        {
-            return new Vector2(horizontalPosition.Value, verticalPosition.Value);
-        }
+        get => new Vector2(horizontalPosition.Value, verticalPosition.Value);
         set
         {
             horizontalPosition.Value = value.X;
@@ -72,8 +51,8 @@ public class WhiteSmoke : GravityParticleSystem
     public WhiteSmoke(string textureName, int maxParticles)
         : base(Mokus2DGame.LoadSpriteData(textureName), maxParticles)
     {
-        base.Speed = new RandomRange(250f, 80f);
-        base.ParticlesScale = new RandomRange(2f, 1f);
+        Speed = new RandomRange(250f, 80f);
+        ParticlesScale = new RandomRange(2f, 1f);
         maxOpacity = 255f;
     }
 
@@ -94,7 +73,7 @@ public class WhiteSmoke : GravityParticleSystem
         if (particle.Tag != null)
         {
             particle.OpacityByte = (int)Maths.StepTo(particle.OpacityByte, maxOpacity, maxOpacity / 4f);
-            if ((float)particle.OpacityByte >= maxOpacity)
+            if (particle.OpacityByte >= maxOpacity)
             {
                 particle.Tag = null;
             }

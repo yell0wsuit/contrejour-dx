@@ -10,13 +10,13 @@ public class ParticleSystem : Node
 {
     public ParticleSystemConfig ParticlesConfig;
 
-    private readonly List<ParticleData> _visibleParticles = new List<ParticleData>();
+    private readonly List<ParticleData> _visibleParticles = [];
 
-    private readonly List<ParticleData> _invisibleParticles = new List<ParticleData>();
+    private readonly List<ParticleData> _invisibleParticles = [];
 
-    private readonly List<ParticleData> _reusableParticles = new List<ParticleData>();
+    private readonly List<ParticleData> _reusableParticles = [];
 
-    private readonly List<ParticleData> _toHide = new List<ParticleData>();
+    private readonly List<ParticleData> _toHide = [];
 
     private float _timeToCreate;
 
@@ -84,7 +84,7 @@ public class ParticleSystem : Node
 
     internal override void SetInstanceConfig(IDictionary<string, string> config)
     {
-        if (base.Config == null)
+        if (Config == null)
         {
             SetMainConfig(new Dictionary<string, string>());
         }
@@ -111,7 +111,7 @@ public class ParticleSystem : Node
 
     private void CreateParticle()
     {
-        ParticleData particleData = null;
+        ParticleData particleData;
         if (!_reusableParticles.Empty())
         {
             particleData = RefreshLastParticle(_reusableParticles);
@@ -152,7 +152,7 @@ public class ParticleSystem : Node
         _toHide.Clear();
         if (_visibleParticles.Empty() && _invisibleParticles.Count >= ParticlesConfig.MaxParticles)
         {
-            this.FinishEvent.Dispatch();
+            FinishEvent.Dispatch();
         }
     }
 }

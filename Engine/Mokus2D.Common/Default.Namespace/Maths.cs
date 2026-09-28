@@ -16,7 +16,7 @@ public static class Maths
 
     private const int DegreesInCircle = 360;
 
-    private static Random randomGenerator = new Random((int)DateTime.Now.Ticks);
+    private static Random randomGenerator = new((int)DateTime.Now.Ticks);
 
     public static Random RandomGenerator => randomGenerator;
 
@@ -38,20 +38,12 @@ public static class Maths
 
     public static float InverseLerp(this float value, float from, float to)
     {
-        if (to == from)
-        {
-            return from;
-        }
-        return (value - from) / (to - from);
+        return to == from ? from : (value - from) / (to - from);
     }
 
     public static float StepTo(float value, float target, float maxStep)
     {
-        if (Math.Abs(target - value) <= maxStep)
-        {
-            return target;
-        }
-        return value + (float)Math.Sign(target - value) * maxStep;
+        return Math.Abs(target - value) <= maxStep ? target : value + (Math.Sign(target - value) * maxStep);
     }
 
     public static float Max(float a, float b, float c, float d)
@@ -130,11 +122,7 @@ public static class Maths
     public static float Round(float source, float module)
     {
         float num = ModPositive(source, module);
-        if (num < module / 2f)
-        {
-            return source - num;
-        }
-        return source - num + module;
+        return num < module / 2f ? source - num : source - num + module;
     }
 
     public static float PeriodicOffset(float value, float period)
@@ -144,11 +132,7 @@ public static class Maths
 
     public static bool Between(float value, float min, float max)
     {
-        if (value >= min)
-        {
-            return value <= max;
-        }
-        return false;
+        return value >= min ? value <= max : false;
     }
 
     public static float Random(float min, float max)
@@ -158,7 +142,7 @@ public static class Maths
 
     public static float Lerp(float value1, float value2, float amount)
     {
-        return value1 + (value2 - value1) * amount;
+        return value1 + ((value2 - value1) * amount);
     }
 
     public static float Clamp(float value, float min, float max)

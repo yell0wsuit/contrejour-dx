@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Dynamics.Contacts;
@@ -29,7 +30,7 @@ public class EnergyBodyClip : BodyClip, IRestartable
     {
         _clip.Visible = false;
         contreJourBuilder = (ContreJourLevelBuilder)builder;
-        energyParts = new List<object>();
+        energyParts = [];
         collectEvent = new EventSender();
         CreateParts();
     }
@@ -38,14 +39,14 @@ public class EnergyBodyClip : BodyClip, IRestartable
     {
         for (int i = 0; i < 5; i++)
         {
-            EnergyPart item = new EnergyPart((ContreJourGame)builder.Game, this, (float)Math.PI * 2f / 5f * (float)i, clip.Position);
+            EnergyPart item = new((ContreJourGame)builder.Game, this, (float)Math.PI * 2f / 5f * i, clip.Position);
             energyParts.Add(item);
         }
     }
 
     public override void OnCollisionStartPoint(Body body2, Contact point)
     {
-        if (!(body2.UserData is HeroBodyClip heroBodyClip) || collected || !heroBodyClip.CanDie())
+        if (body2.UserData is not HeroBodyClip heroBodyClip || collected || !heroBodyClip.CanDie())
         {
             return;
         }
@@ -53,7 +54,7 @@ public class EnergyBodyClip : BodyClip, IRestartable
         collectEvent.SendEvent();
         SoundManager.PlayRandomSound(Sounds.BONUS, 0.5f);
         contreJourBuilder.ContreJour.CollectStar();
-        foreach (EnergyPart energyPart in energyParts)
+        foreach (EnergyPart energyPart in energyParts.Cast<EnergyPart>())
         {
             energyPart.Collect();
         }

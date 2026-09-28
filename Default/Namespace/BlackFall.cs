@@ -25,12 +25,12 @@ public class BlackFall : GravityParticleSystem
     protected virtual void initParams()
     {
         Vector2 w7FromIPhoneSize = ScreenConstants.W7FromIPhoneSize;
-        base.HorizontalPosition = new RandomRange(w7FromIPhoneSize.X / 2f, w7FromIPhoneSize.X / 2f);
-        base.VerticalPosition = new RandomRange(w7FromIPhoneSize.Y + 20f, 0f);
-        base.Speed = new RandomRange(5f, 0f);
-        base.Angle = new RandomRange(-70f, 15f);
-        base.AngularSpeed = new RandomRange(0f, 10f);
-        base.ParticlesScale = new RandomRange(1f, 0.6f);
+        HorizontalPosition = new RandomRange(w7FromIPhoneSize.X / 2f, w7FromIPhoneSize.X / 2f);
+        VerticalPosition = new RandomRange(w7FromIPhoneSize.Y + 20f, 0f);
+        Speed = new RandomRange(5f, 0f);
+        Angle = new RandomRange(-70f, 15f);
+        AngularSpeed = new RandomRange(0f, 10f);
+        ParticlesScale = new RandomRange(1f, 0.6f);
         bottomLeftBound = new Vector2(-20f, -20f);
         topRightBound = new Vector2(w7FromIPhoneSize.X + 20f, w7FromIPhoneSize.Y + 20f);
     }
@@ -38,7 +38,7 @@ public class BlackFall : GravityParticleSystem
     public override void initParticle(GravityParticle gravityParticle)
     {
         base.initParticle(gravityParticle);
-        float num = SpeedMult * (gravityParticle.Scale - (base.ParticlesScale.Value - base.ParticlesScale.Offset)) + 1f;
+        float num = (SpeedMult * (gravityParticle.Scale - (ParticlesScale.Value - ParticlesScale.Offset))) + 1f;
         gravityParticle.Speed *= num;
     }
 }

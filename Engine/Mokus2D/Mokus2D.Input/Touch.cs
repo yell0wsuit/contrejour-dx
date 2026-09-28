@@ -33,24 +33,14 @@ public class Touch
 
     public bool Active
     {
-        get
-        {
-            return _active;
-        }
-        internal set
-        {
-            _active = value;
-        }
+        get => _active; internal set => _active = value;
     }
 
     public int Id => _id;
 
     public Vector2 Position
     {
-        get
-        {
-            return _position;
-        }
+        get => _position;
         set
         {
             _previousPosition = _position;
@@ -62,7 +52,7 @@ public class Touch
     public void Initialize(CursorPoint point)
     {
         _id = point.Id;
-        InitialPosition = (_previousPosition = (_position = point.Position));
+        InitialPosition = _previousPosition = _position = point.Position;
         MaxOffset = Vector2.Zero;
         Type = point.Type;
         StartTimeUTC = DateTime.UtcNow;

@@ -19,7 +19,7 @@ public static class VectorUtil
     public static Pair<Vector2> GetOrthoPoints(Vector2 center, Vector2 direction, float width)
     {
         Vector2 value = direction.Rotate90();
-        Normalize(ref value, width / 2f);
+        _ = Normalize(ref value, width / 2f);
         return new Pair<Vector2>(center + value, center - value);
     }
 
@@ -65,7 +65,7 @@ public static class VectorUtil
     {
         float num = Maths.Cos(angle);
         float num2 = Maths.Sin(angle);
-        return new Vector2(point.X * num - point.Y * num2, point.Y * num + point.X * num2);
+        return new Vector2((point.X * num) - (point.Y * num2), (point.Y * num) + (point.X * num2));
     }
 
     public static void RotateMinus90(ref Vector2 point)
@@ -120,16 +120,12 @@ public static class VectorUtil
 
     public static Vector2 EnsureLength(this Vector2 vec, float minLength)
     {
-        if (vec.LengthSquared() < minLength * minLength)
-        {
-            return vec.Normalize(minLength);
-        }
-        return vec;
+        return vec.LengthSquared() < minLength * minLength ? vec.Normalize(minLength) : vec;
     }
 
     public static Vector2 ClampLength(this Vector2 vec, float maxLength)
     {
-        ClampLength(ref vec, maxLength);
+        _ = ClampLength(ref vec, maxLength);
         return vec;
     }
 
@@ -145,11 +141,7 @@ public static class VectorUtil
 
     public static bool FuzzyEquals(this Vector2 a, Vector2 b, float delta = 0.0001f)
     {
-        if (Maths.FuzzyEquals(a.X, b.X, delta))
-        {
-            return Maths.FuzzyEquals(a.Y, b.Y, delta);
-        }
-        return false;
+        return Maths.FuzzyEquals(a.X, b.X, delta) ? Maths.FuzzyEquals(a.Y, b.Y, delta) : false;
     }
 
     public static Vector2 Clamp(this Vector2 position, Vector2 minValue, Vector2 maxValue)
@@ -161,7 +153,7 @@ public static class VectorUtil
     {
         Vector2 vector = end - start;
         Vector2 vector2 = point - start;
-        return vector.X * vector2.Y - vector.Y * vector2.X;
+        return (vector.X * vector2.Y) - (vector.Y * vector2.X);
     }
 
     public static Vector2 VectorProjection(Vector2 source, Vector2 target)
@@ -201,6 +193,6 @@ public static class VectorUtil
             return segmentEnd;
         }
         float num3 = (float)(num / num2);
-        return segmentStart + num3 * vector2;
+        return segmentStart + (num3 * vector2);
     }
 }

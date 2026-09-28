@@ -7,7 +7,6 @@ using Microsoft.Xna.Framework.Input.Touch;
 using Mokus2D.Input;
 using Mokus2D.PlatformSupport.Input;
 using Mokus2D.Util;
-using Mokus2D.Util.Extensions;
 using Mokus2D.Util.MathUtils;
 
 namespace Mokus2D.Platforms.Input;
@@ -33,7 +32,7 @@ public static class CursorPointsFiller
         bool flag = false;
         foreach (TouchLocation item in TouchPanel.GetState())
         {
-            if (item.State == TouchLocationState.Pressed || item.State == TouchLocationState.Moved)
+            if (item.State is TouchLocationState.Pressed or TouchLocationState.Moved)
             {
                 cursorPoints.Add(new CursorPoint(item.Position, item.Id, TouchType.Touch));
                 if (item.Position == new Vector2(state.X, state.Y))
@@ -43,8 +42,8 @@ public static class CursorPointsFiller
             }
         }
         bool mouseButtonsSwapped = GetMouseButtonsSwapped();
-        ButtonState buttonState = (mouseButtonsSwapped ? state.RightButton : state.LeftButton);
-        ButtonState buttonState2 = (mouseButtonsSwapped ? state.LeftButton : state.RightButton);
+        ButtonState buttonState = mouseButtonsSwapped ? state.RightButton : state.LeftButton;
+        ButtonState buttonState2 = mouseButtonsSwapped ? state.LeftButton : state.RightButton;
         if (buttonState == ButtonState.Pressed && !flag)
         {
             cursorPoints.Add(new CursorPoint(mousePosition, -1, TouchType.LeftMouseButton));

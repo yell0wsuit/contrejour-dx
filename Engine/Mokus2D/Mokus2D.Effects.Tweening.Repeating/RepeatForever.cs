@@ -5,7 +5,7 @@ namespace Mokus2D.Effects.Tweening.Repeating;
 
 public class RepeatForever : ITween, ICleanable, IUpdatable
 {
-    private static readonly Pool<RepeatForever> Pool = new Pool<RepeatForever>(() => new RepeatForever());
+    private static readonly Pool<RepeatForever> Pool = new(() => new RepeatForever());
 
     private ITween _tween;
 

@@ -5,7 +5,7 @@ namespace Mokus2D.Effects.Tweening.TweenToFrameData;
 
 public struct NodeTweenData(Node node, AnimationFrameData targetFrame)
 {
-    public NodeData StartData = new NodeData(node);
+    public NodeData StartData = new(node);
 
     public AnimationFrameData TargetFrame = targetFrame;
 }

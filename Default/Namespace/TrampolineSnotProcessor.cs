@@ -12,7 +12,7 @@ public class TrampolineSnotProcessor(LevelBuilderBase _builder) : BridgeSnotProc
 {
     private const float SPRING_K = 800f;
 
-    protected List<TrampolinePartBodyClip> parts = new List<TrampolinePartBodyClip>();
+    protected List<TrampolinePartBodyClip> parts = [];
 
     private static readonly float START_RADIUS = 5f * Box2DConfig.DefaultConfig.SizeMultiplier;
 
@@ -69,7 +69,7 @@ public class TrampolineSnotProcessor(LevelBuilderBase _builder) : BridgeSnotProc
     {
         Body val = base.CreatePartBodyEndIndexTotalDensity(start, end, index, total, density);
         PlasticineConstants.ApplyActiveBodiesFilter(val);
-        TrampolinePartBodyClip item = new TrampolinePartBodyClip(builder, val);
+        TrampolinePartBodyClip item = new(builder, val);
         parts.Add(item);
         val.AngularDamping = 20f;
         Body val2 = null;
@@ -98,8 +98,8 @@ public class TrampolineSnotProcessor(LevelBuilderBase _builder) : BridgeSnotProc
         }
         Vector2 vector = item.GetVector("end");
         Vector2 vector2 = item.GetVector("start");
-        FarseerUtil.CreateRevoluteJoint(builder.World, builder.GroundBody, snotData.EndBody, vector);
-        FarseerUtil.CreateRevoluteJoint(builder.World, builder.GroundBody, snotData.FirstBody, vector2);
+        _ = FarseerUtil.CreateRevoluteJoint(builder.World, builder.GroundBody, snotData.EndBody, vector);
+        _ = FarseerUtil.CreateRevoluteJoint(builder.World, builder.GroundBody, snotData.FirstBody, vector2);
         builder.World.RemoveBody(snotData.EyeBody);
         snotData.EyeBody = null;
         return snotData;

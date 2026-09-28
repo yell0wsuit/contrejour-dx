@@ -17,40 +17,22 @@ public class Bouncer : IUpdatable
 
     public float Amplitude
     {
-        get
-        {
-            return amplitude;
-        }
-        set
-        {
-            amplitude = value;
-        }
+        get => amplitude;
+        set => amplitude = value;
     }
 
     public float CurrentAmplitude => currentAmplitude;
 
     public float AmplitudeStep
     {
-        get
-        {
-            return amplitudeStep;
-        }
-        set
-        {
-            amplitudeStep = value;
-        }
+        get => amplitudeStep;
+        set => amplitudeStep = value;
     }
 
     public float Step
     {
-        get
-        {
-            return changer.Step;
-        }
-        set
-        {
-            changer.Step = value;
-        }
+        get => changer.Step;
+        set => changer.Step = value;
     }
 
     public float Value => changer.Value * currentAmplitude;

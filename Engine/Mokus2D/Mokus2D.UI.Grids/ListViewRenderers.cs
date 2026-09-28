@@ -16,7 +16,7 @@ public class ListViewRenderers<T>
 
         internal int End = end;
 
-        public bool Contains(int index)
+        public readonly bool Contains(int index)
         {
             return index.Between(Start, End - 1);
         }
@@ -31,29 +31,21 @@ public class ListViewRenderers<T>
             return !(a == b);
         }
 
-        private bool Equals(Range other)
+        private readonly bool Equals(Range other)
         {
-            if (Start == other.Start)
-            {
-                return End == other.End;
-            }
-            return false;
+            return Start == other.Start ? End == other.End : false;
         }
 
         public override bool Equals(object obj)
         {
-            if (object.ReferenceEquals(null, obj))
+            if (ReferenceEquals(null, obj))
             {
                 return false;
             }
-            if (obj is Range)
-            {
-                return Equals((Range)obj);
-            }
-            return false;
+            return obj is Range ? Equals((Range)obj) : false;
         }
 
-        public override int GetHashCode()
+        public override readonly int GetHashCode()
         {
             return (Start * 397) ^ End;
         }
@@ -61,7 +53,7 @@ public class ListViewRenderers<T>
 
     private readonly Pool<Node> _renderersPool;
 
-    private readonly List<Node> _itemRenderers = new List<Node>();
+    private readonly List<Node> _itemRenderers = [];
 
     private float _position;
 
@@ -73,10 +65,7 @@ public class ListViewRenderers<T>
 
     public float Position
     {
-        get
-        {
-            return _position;
-        }
+        get => _position;
         set
         {
             value = value.Clamp(0f, Math.Max(ListItemsCount - 1, 0));
@@ -90,10 +79,7 @@ public class ListViewRenderers<T>
 
     private Range CurrentRange
     {
-        get
-        {
-            return _currentRange;
-        }
+        get => _currentRange;
         set
         {
             value.Start = Math.Max(value.Start, 0);
@@ -103,7 +89,7 @@ public class ListViewRenderers<T>
                 Range currentRange = _currentRange;
                 _currentRange = value;
                 Refresh(currentRange);
-                this.RenderersChanged.Dispatch();
+                RenderersChanged.Dispatch();
             }
         }
     }
@@ -112,11 +98,7 @@ public class ListViewRenderers<T>
     {
         get
         {
-            if (_list.Data != null)
-            {
-                return _list.Data.Count;
-            }
-            return 0;
+            return _list.Data != null ? _list.Data.Count : 0;
         }
     }
 

@@ -29,26 +29,14 @@ public class SnotData
 
     public Body EyeBody
     {
-        get
-        {
-            return eyeBody;
-        }
-        set
-        {
-            eyeBody = value;
-        }
+        get => eyeBody;
+        set => eyeBody = value;
     }
 
     public RevoluteJoint EyeJoint
     {
-        get
-        {
-            return eyeJoint;
-        }
-        set
-        {
-            eyeJoint = value;
-        }
+        get => eyeJoint;
+        set => eyeJoint = value;
     }
 
     public Body JoinedBody => joinedBody;
@@ -59,14 +47,8 @@ public class SnotData
 
     public SnotBodyClipBase Snot
     {
-        get
-        {
-            return snot;
-        }
-        set
-        {
-            snot = value;
-        }
+        get => snot;
+        set => snot = value;
     }
 
     public RopeMetrics Metrics => metrics;

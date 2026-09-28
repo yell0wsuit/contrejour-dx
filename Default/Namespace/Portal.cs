@@ -22,10 +22,7 @@ public class Portal : ParticleSystem
 
     public float TargetScale
     {
-        get
-        {
-            return targetScale;
-        }
+        get => targetScale;
         set
         {
             if (targetScale != value)
@@ -41,10 +38,7 @@ public class Portal : ParticleSystem
 
     public float SpeedValue
     {
-        get
-        {
-            return parts[0].SpeedValue;
-        }
+        get => parts[0].SpeedValue;
         set
         {
             for (int i = 0; i < 5; i++)
@@ -56,10 +50,7 @@ public class Portal : ParticleSystem
 
     public float ItemsScale
     {
-        get
-        {
-            return itemsScale;
-        }
+        get => itemsScale;
         set
         {
             if (Maths.FuzzyNotEquals(itemsScale, value))
@@ -72,14 +63,8 @@ public class Portal : ParticleSystem
 
     public float ScaleStep
     {
-        get
-        {
-            return scaleStep;
-        }
-        set
-        {
-            scaleStep = value;
-        }
+        get => scaleStep;
+        set => scaleStep = value;
     }
 
     public Portal(ContreJourGame game, Vector2 position)
@@ -90,12 +75,12 @@ public class Portal : ParticleSystem
     public Portal(ContreJourGame game, Vector2 position, string textureName)
         : base(Mokus2DGame.LoadSpriteData(textureName))
     {
-        parts = new List<Satellite>();
-        base.Blend = BlendState.Additive;
+        parts = [];
+        Blend = BlendState.Additive;
         scaleStep = 0.05f;
         for (int i = 0; i < 5; i++)
         {
-            Satellite item = new Satellite(game, AddParticle(), null, (float)Math.PI * 2f / 5f * (float)i, position);
+            Satellite item = new(game, AddParticle(), null, (float)Math.PI * 2f / 5f * i, position);
             parts.Add(item);
         }
         SpeedValue = 40f;

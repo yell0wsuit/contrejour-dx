@@ -7,9 +7,9 @@ namespace Default.Namespace;
 
 public class BlackSnotSprite : SpringSnotSprite
 {
-    private readonly Color END_COLOR = new Color(0, 254, 254, 255);
+    private readonly Color END_COLOR = new(0, 254, 254, 255);
 
-    private readonly Color START_COLOR = new Color(0, 94, 118, 255);
+    private readonly Color START_COLOR = new(0, 94, 118, 255);
 
     public BlackSnotSprite(ContreJourGame _game, SnotBodyClipBase _snot, float _startWidth, float _centerWidth, float _endWidth)
         : base(_game, _snot, _startWidth, _centerWidth, _endWidth)
@@ -51,7 +51,7 @@ public class BlackSnotSprite : SpringSnotSprite
 
     public virtual Color GetIntermidiateColorLineSize(int index, int lineSize)
     {
-        return Color.Lerp(initialStartColor(), initialEndColor(), (float)index / (float)lineSize);
+        return Color.Lerp(initialStartColor(), initialEndColor(), index / (float)lineSize);
     }
 
     public override void CreateVectors(int _allPointsSize)

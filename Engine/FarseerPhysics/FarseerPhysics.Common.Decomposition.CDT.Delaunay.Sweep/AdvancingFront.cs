@@ -30,12 +30,12 @@ internal class AdvancingFront
 
     public override string ToString()
     {
-        StringBuilder stringBuilder = new StringBuilder();
+        StringBuilder stringBuilder = new();
         for (AdvancingFrontNode advancingFrontNode = Head; advancingFrontNode != Tail; advancingFrontNode = advancingFrontNode.Next)
         {
-            stringBuilder.Append(advancingFrontNode.Point.X).Append("->");
+            _ = stringBuilder.Append(advancingFrontNode.Point.X).Append("->");
         }
-        stringBuilder.Append(Tail.Point.X);
+        _ = stringBuilder.Append(Tail.Point.X);
         return stringBuilder.ToString();
     }
 

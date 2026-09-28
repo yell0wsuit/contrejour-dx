@@ -18,7 +18,7 @@ public abstract class ResourcesLoaderBase : IGraphicsLoader
 
     protected const string ExtensionSeparator = ".";
 
-    protected readonly Dictionary<Type, IGraphicsDeserializer> _deserializers = new Dictionary<Type, IGraphicsDeserializer>();
+    protected readonly Dictionary<Type, IGraphicsDeserializer> _deserializers = [];
 
     private string _resourcesSuffix;
 
@@ -32,23 +32,13 @@ public abstract class ResourcesLoaderBase : IGraphicsLoader
 
     public float PrefferedScaleFactor
     {
-        get
-        {
-            return _prefferedScaleFactor;
-        }
+        get => _prefferedScaleFactor;
         set
         {
             if (_prefferedScaleFactor != value)
             {
                 _prefferedScaleFactor = value;
-                if (value != 1f)
-                {
-                    _resourcesSuffix = ContentUtil.GetResourcesSuffix(value);
-                }
-                else
-                {
-                    _resourcesSuffix = null;
-                }
+                _resourcesSuffix = value != 1f ? ContentUtil.GetResourcesSuffix(value) : null;
             }
         }
     }
@@ -100,7 +90,7 @@ public abstract class ResourcesLoaderBase : IGraphicsLoader
 
     protected void DispatchResourceLoaded(string name, object data)
     {
-        this.ResourceLoaded.Dispatch(name, data);
+        ResourceLoaded.Dispatch(name, data);
     }
 
     private XDocument GetXml(string name)
@@ -109,7 +99,7 @@ public abstract class ResourcesLoaderBase : IGraphicsLoader
         try
         {
             using Stream stream = Mokus2DGame.FileLoader.OpenFile(fullPath);
-            using StreamReader textReader = new StreamReader(stream);
+            using StreamReader textReader = new(stream);
             return XDocument.Load(textReader);
         }
         catch (FileNotFoundException)
@@ -120,10 +110,8 @@ public abstract class ResourcesLoaderBase : IGraphicsLoader
 
     private string GetFullPath(string name)
     {
-        if (IsAbsolutePath)
-        {
-            return PathUtil.Combine(GraphicsRootDirectory, name);
-        }
-        return PathUtil.Combine(Mokus2DGame.ContentManager.RootDirectory, GraphicsRootDirectory, name);
+        return IsAbsolutePath
+            ? PathUtil.Combine(GraphicsRootDirectory, name)
+            : PathUtil.Combine(Mokus2DGame.ContentManager.RootDirectory, GraphicsRootDirectory, name);
     }
 }

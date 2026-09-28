@@ -37,11 +37,7 @@ public class SnotEye : ContreJourBodyClip, IClickable
 
     public virtual int Priority(Vector2 touchPoint)
     {
-        if (!snot.Joined)
-        {
-            return -10;
-        }
-        return 1;
+        return !snot.Joined ? -10 : 1;
     }
 
     public virtual bool TouchBegan(Touch touch)
@@ -87,6 +83,6 @@ public class SnotEye : ContreJourBodyClip, IClickable
 
     protected virtual void FreeTouch(Touch touch)
     {
-        base.Game.FreeTouch(touch);
+        Game.FreeTouch(touch);
     }
 }

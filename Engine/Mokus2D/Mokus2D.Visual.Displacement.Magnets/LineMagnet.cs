@@ -17,10 +17,7 @@ public class LineMagnet : GridMagnetBase
 
     public Vector2 Start
     {
-        get
-        {
-            return _start;
-        }
+        get => _start;
         set
         {
             if (_start != value)
@@ -33,10 +30,7 @@ public class LineMagnet : GridMagnetBase
 
     public Vector2 End
     {
-        get
-        {
-            return _end;
-        }
+        get => _end;
         set
         {
             if (_end != value)
@@ -49,10 +43,7 @@ public class LineMagnet : GridMagnetBase
 
     public float MaxDistance
     {
-        get
-        {
-            return _maxDistance;
-        }
+        get => _maxDistance;
         set
         {
             if (_maxDistance != value)
@@ -91,21 +82,19 @@ public class LineMagnet : GridMagnetBase
         {
             return Vector2.Zero;
         }
-        if (relativePosition == closestPoint)
-        {
-            return Vector2.Zero;
-        }
-        return (relativePosition - closestPoint).Normalize((MaxDistance - num) / MaxDistance * Power);
+        return relativePosition == closestPoint
+            ? Vector2.Zero
+            : (relativePosition - closestPoint).Normalize((MaxDistance - num) / MaxDistance * Power);
     }
 
     private void RefreshBounds()
     {
-        Vector2 value = new Vector2(Math.Min(Start.X, End.X), Math.Min(Start.Y, End.Y));
+        Vector2 value = new(Math.Min(Start.X, End.X), Math.Min(Start.Y, End.Y));
         Vector2 value2 = (End - Start).Abs();
         value -= new Vector2(_maxDistance);
         value2 += new Vector2(_maxDistance) * 2f;
         value2 = VectorExtensions.Ceiling(value2);
         value = VectorExtensions.Floor(value);
-        base.Bounds = new Rectangle((int)value.X, (int)value.Y, (int)value2.X, (int)value2.Y);
+        Bounds = new Rectangle((int)value.X, (int)value.Y, (int)value2.X, (int)value2.Y);
     }
 }

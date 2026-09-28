@@ -8,7 +8,7 @@ namespace Mokus2D.Integration.Farseer.Util;
 
 public class RaycastQuery
 {
-    private readonly List<Fixture> _fixtures = new List<Fixture>();
+    private readonly List<Fixture> _fixtures = [];
 
     public List<Fixture> Fixtures => _fixtures;
 

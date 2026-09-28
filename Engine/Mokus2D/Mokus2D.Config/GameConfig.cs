@@ -15,7 +15,7 @@ public class GameConfig
 
     public float MouseSpeed = 1f;
 
-    public readonly DebugConfig DebugConfig = new DebugConfig();
+    public readonly DebugConfig DebugConfig = new();
 
     private SpriteBatchProperties? _defaultSpriteBatchProperties;
 
@@ -23,21 +23,16 @@ public class GameConfig
 
     private IGraphicsConfig _graphicsConfig;
 
-    public SpriteBatchProperties DefaultSpriteBatchProperties = new SpriteBatchProperties(BlendState.AlphaBlend, SamplerState.LinearClamp);
+    public SpriteBatchProperties DefaultSpriteBatchProperties = new(BlendState.AlphaBlend, SamplerState.LinearClamp);
 
     public IGraphicsConfig GraphicsConfig
     {
         get
         {
-            if (_graphicsConfig == null)
-            {
-                _graphicsConfig = new TintGraphicsConfig();
-            }
+            _graphicsConfig ??= new TintGraphicsConfig();
             return _graphicsConfig;
         }
-        set
-        {
-            _graphicsConfig = value;
-        }
+
+        set => _graphicsConfig = value;
     }
 }

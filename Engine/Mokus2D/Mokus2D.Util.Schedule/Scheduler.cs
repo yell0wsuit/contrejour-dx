@@ -12,9 +12,9 @@ public class Scheduler : Updater
         public float TimeLeft = timeLeft;
     }
 
-    private readonly List<SchedulerTask> _tasks = new List<SchedulerTask>();
+    private readonly List<SchedulerTask> _tasks = [];
 
-    private readonly List<Action> _toRun = new List<Action>();
+    private readonly List<Action> _toRun = [];
 
     public void Schedule(Action action)
     {
@@ -23,13 +23,13 @@ public class Scheduler : Updater
 
     public void Schedule(Action action, float seconds)
     {
-        SchedulerTask item = new SchedulerTask(action, seconds);
+        SchedulerTask item = new(action, seconds);
         _tasks.Add(item);
     }
 
     public void Cancel(Action action)
     {
-        _tasks.RemoveAll((SchedulerTask t) => t.Action == action);
+        _ = _tasks.RemoveAll(t => t.Action == action);
     }
 
     public override void Update(float time)

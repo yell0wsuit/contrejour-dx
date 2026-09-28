@@ -28,7 +28,7 @@ public class ClipFactory : IClipFactory
         string text = config.GetString("clip");
         if (text != null)
         {
-            string name = (string.IsNullOrEmpty(_namespace) ? text : (_namespace + "." + text));
+            string name = string.IsNullOrEmpty(_namespace) ? text : (_namespace + "." + text);
             Type type = _clipsAssembly.GetType(name);
             Node node = (Node)Activator.CreateInstance(type);
             _clipsNode.AddChild(node);

@@ -16,11 +16,11 @@ public class MaskRoot : RootNode
 
     public override void AddChild(Node node, int nodeLayer)
     {
-        base.Children.Add(node);
+        Children.Add(node);
     }
 
     public override void RemoveChild(Node node)
     {
-        base.Children.Remove(node);
+        _ = Children.Remove(node);
     }
 }

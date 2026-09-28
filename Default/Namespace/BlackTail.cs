@@ -27,9 +27,9 @@ public class BlackTail : PrimitivesNode, IUpdatable
 
     private const float TAIL_WIDTH = 40f;
 
-    protected VertexPositionColorTexture[] vertices = new VertexPositionColorTexture[0];
+    protected VertexPositionColorTexture[] vertices = [];
 
-    protected List<Vector2> bezierPoints = new List<Vector2>();
+    protected List<Vector2> bezierPoints = [];
 
     protected Body body;
 
@@ -45,7 +45,7 @@ public class BlackTail : PrimitivesNode, IUpdatable
 
     protected Vector2 currentCenter;
 
-    protected List<int> removeFrames = new List<int>();
+    protected List<int> removeFrames = [];
 
     protected int currentFrame;
 
@@ -61,50 +61,26 @@ public class BlackTail : PrimitivesNode, IUpdatable
 
     public float Width
     {
-        get
-        {
-            return width;
-        }
-        set
-        {
-            width = value;
-        }
+        get => width;
+        set => width = value;
     }
 
     public int Frames
     {
-        get
-        {
-            return frames;
-        }
-        set
-        {
-            frames = value;
-        }
+        get => frames;
+        set => frames = value;
     }
 
     public Body Body
     {
-        get
-        {
-            return body;
-        }
-        set
-        {
-            body = value;
-        }
+        get => body;
+        set => body = value;
     }
 
     public Vector2 Target
     {
-        get
-        {
-            return target;
-        }
-        set
-        {
-            target = value;
-        }
+        get => target;
+        set => target = value;
     }
 
     public override float OpacityFloat
@@ -121,10 +97,7 @@ public class BlackTail : PrimitivesNode, IUpdatable
 
     public bool Moving
     {
-        get
-        {
-            return moving;
-        }
+        get => moving;
         set
         {
             if (moving != value)
@@ -177,7 +150,7 @@ public class BlackTail : PrimitivesNode, IUpdatable
                 if (flag)
                 {
                     int segments = (int)Math.Ceiling(num / 3f);
-                    List<Vector2> list = new List<Vector2>();
+                    List<Vector2> list = [];
                     BezierUtil.GetBezierPoints(previousCenter, previousPosition, currentCenter, segments, insertLast: false, list);
                     for (int i = 0; i < list.Count; i++)
                     {
@@ -231,20 +204,20 @@ public class BlackTail : PrimitivesNode, IUpdatable
         int num = currentFrame - FramesToLive(time);
         while (removeFrames.Count > 0 && removeFrames.Last() <= num)
         {
-            removeFrames.RemoveLast();
-            bezierPoints.RemoveLast();
+            _ = removeFrames.RemoveLast();
+            _ = bezierPoints.RemoveLast();
         }
     }
 
     public List<Pair<Vector2>> CreatePairs()
     {
-        List<Pair<Vector2>> list = new List<Pair<Vector2>>();
+        List<Pair<Vector2>> list = [];
         int num = bezierPoints.Count + 1;
         for (int num2 = bezierPoints.Count - 1; num2 >= 0; num2--)
         {
-            Vector2 start = ((num2 == bezierPoints.Count - 1) ? bezierPoints[bezierPoints.Count - 1] : bezierPoints[num2 + 1]);
-            Vector2 end = ((num2 == 0) ? currentPosition : bezierPoints[num2 - 1]);
-            float num3 = width * (1f - (float)(num2 + 1) / (float)num);
+            Vector2 start = (num2 == bezierPoints.Count - 1) ? bezierPoints[^1] : bezierPoints[num2 + 1];
+            Vector2 end = (num2 == 0) ? currentPosition : bezierPoints[num2 - 1];
+            float num3 = width * (1f - ((num2 + 1) / (float)num));
             if (num3 > 1f)
             {
                 list.Add(ContreDrawUtil.GetPointsPair(bezierPoints[num2], start, end, num3));

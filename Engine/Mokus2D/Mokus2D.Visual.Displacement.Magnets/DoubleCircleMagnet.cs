@@ -32,11 +32,11 @@ public class DoubleCircleMagnet : CircleMagnet
             return Vector2.Zero;
         }
         float num2 = relativePosition.Length();
-        if (num2 > base.Radius)
+        if (num2 > Radius)
         {
             return Vector2.Zero;
         }
-        float num3 = Math.Min(num - ExcludeRadius, base.Radius - num2);
-        return relativePosition.Normalize(num3 / base.Radius * Power);
+        float num3 = Math.Min(num - ExcludeRadius, Radius - num2);
+        return relativePosition.Normalize(num3 / Radius * Power);
     }
 }

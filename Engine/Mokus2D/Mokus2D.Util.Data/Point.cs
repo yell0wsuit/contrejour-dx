@@ -9,9 +9,9 @@ namespace Mokus2D.Util.Data;
 
 public struct Point
 {
-    public static readonly Point Zero = default(Point);
+    public static readonly Point Zero = default;
 
-    public static readonly Point One = new Point(1);
+    public static readonly Point One = new(1);
 
     public int X;
 
@@ -56,12 +56,12 @@ public struct Point
 
     public static Point operator /(Point point, float divider)
     {
-        return new Point((int)((float)point.X / divider), (int)((float)point.Y / divider));
+        return new Point((int)(point.X / divider), (int)(point.Y / divider));
     }
 
     public static Vector2 operator %(Point point, float divider)
     {
-        return new Vector2((float)point.X % divider, (float)point.Y % divider);
+        return new Vector2(point.X % divider, point.Y % divider);
     }
 
     public static bool operator ==(Point a, Point b)
@@ -71,20 +71,12 @@ public struct Point
 
     public static bool operator !=(Point a, Point b)
     {
-        if (a.X == b.X)
-        {
-            return a.Y != b.Y;
-        }
-        return true;
+        return a.X == b.X ? a.Y != b.Y : true;
     }
 
-    public bool Equals(Point other)
+    public readonly bool Equals(Point other)
     {
-        if (X == other.X)
-        {
-            return Y == other.Y;
-        }
-        return false;
+        return X == other.X ? Y == other.Y : false;
     }
 
     public override bool Equals(object obj)
@@ -97,12 +89,12 @@ public struct Point
         return result;
     }
 
-    public override int GetHashCode()
+    public override readonly int GetHashCode()
     {
         return X.GetHashCode() + Y.GetHashCode();
     }
 
-    public override string ToString()
+    public override readonly string ToString()
     {
         CultureInfo currentCulture = CultureInfo.CurrentCulture;
         return string.Format(currentCulture, "{{X:{0} Y:{1}}}", new object[2]
@@ -112,13 +104,9 @@ public struct Point
         });
     }
 
-    public bool Between(Point a, Point b)
+    public readonly bool Between(Point a, Point b)
     {
-        if (X.Between(a.X, b.X))
-        {
-            return Y.Between(a.Y, b.Y);
-        }
-        return false;
+        return X.Between(a.X, b.X) ? Y.Between(a.Y, b.Y) : false;
     }
 
     public static implicit operator Vector2(Point src)

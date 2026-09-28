@@ -12,7 +12,7 @@ public static class Setters
 
     static Setters()
     {
-        Pools = new Dictionary<Type, Pool<ValueSetter>>();
+        Pools = [];
         InitializePool(() => new FloatSetter());
         InitializePool(() => new ColorSetter());
         InitializePool(() => new IntSetter());
@@ -23,7 +23,7 @@ public static class Setters
 
     private static void InitializePool<T>(Func<ValueSetter<T>> activator)
     {
-        Pool<ValueSetter> value = new Pool<ValueSetter>(activator);
+        Pool<ValueSetter> value = new(activator);
         Pools.Add(typeof(T), value);
     }
 

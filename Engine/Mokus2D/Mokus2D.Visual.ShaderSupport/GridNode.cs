@@ -19,13 +19,13 @@ public class GridNode : Node
 
     private readonly RectangleFloat _screenBounds;
 
-    private readonly List<GridNodeCell> _visibleCells = new List<GridNodeCell>();
+    private readonly List<GridNodeCell> _visibleCells = [];
 
-    private readonly List<GridNodeCell> _toRemove = new List<GridNodeCell>();
+    private readonly List<GridNodeCell> _toRemove = [];
 
-    protected Point LeftTopCell = new Point(-1, -1);
+    protected Point LeftTopCell = new(-1, -1);
 
-    protected Point RightBottomCell = new Point(-1, -1);
+    protected Point RightBottomCell = new(-1, -1);
 
     public Node DebugRoot;
 
@@ -36,7 +36,7 @@ public class GridNode : Node
         _screenBounds = screenBounds;
         _gridSize = VectorExtensions.Ceiling(_bounds.Size / _cellSize).ToPoint();
         _children = new GridNodeCell[_gridSize.X, _gridSize.Y];
-        base.TransformationsRefreshedEvent += OnTransformationRefreshed;
+        TransformationsRefreshedEvent += OnTransformationRefreshed;
     }
 
     public override void AddChild(Node node, int nodeLayer)
@@ -45,8 +45,10 @@ public class GridNode : Node
         GridNodeCell gridNodeCell = _children[cellIndex.X, cellIndex.Y];
         if (gridNodeCell == null)
         {
-            gridNodeCell = new GridNodeCell(cellIndex);
-            gridNodeCell.Visible = false;
+            gridNodeCell = new GridNodeCell(cellIndex)
+            {
+                Visible = false
+            };
             _children[cellIndex.X, cellIndex.Y] = gridNodeCell;
             base.AddChild(gridNodeCell, 0);
             if (cellIndex.Between(LeftTopCell, RightBottomCell))
@@ -66,7 +68,7 @@ public class GridNode : Node
 
     protected override void DrawWithChildren()
     {
-        Draw(base.CompositeState);
+        Draw(CompositeState);
         DrawChildrenCells();
     }
 
@@ -93,7 +95,7 @@ public class GridNode : Node
 
     private Point GetLocalCellIndex(Vector2 position)
     {
-        position = ((DebugRoot == null) ? GlobalToLocal(position, refreshTransformations: false) : DebugRoot.LocalToNode(position, this, refreshTransformations: false));
+        position = (DebugRoot == null) ? GlobalToLocal(position, refreshTransformations: false) : DebugRoot.LocalToNode(position, this, refreshTransformations: false);
         return GetCellIndex(position);
     }
 

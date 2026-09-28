@@ -80,7 +80,7 @@ public class PlasticinePartBodyClip : ContreJourBodyClip, IClickable, IRestartab
 
     protected ContreJourGame game;
 
-    protected List<DustData> dust = new List<DustData>(64);
+    protected List<DustData> dust = new(64);
 
     protected PlasticineItem item;
 
@@ -138,48 +138,27 @@ public class PlasticinePartBodyClip : ContreJourBodyClip, IClickable, IRestartab
 
     public PlasticineItem Item
     {
-        get
-        {
-            return item;
-        }
-        set
-        {
-            item = value;
-        }
+        get => item;
+        set => item = value;
     }
 
     public bool UpdateParent
     {
-        get
-        {
-            return updateParent;
-        }
-        set
-        {
-            updateParent = value;
-        }
+        get => updateParent;
+        set => updateParent = value;
     }
 
     public PlasticineBodyClip Parent => parent;
 
     public PlasticinePartHighlite Highlite
     {
-        get
-        {
-            return highlite;
-        }
-        set
-        {
-            highlite = value;
-        }
+        get => highlite;
+        set => highlite = value;
     }
 
     public bool Dragging
     {
-        get
-        {
-            return dragging;
-        }
+        get => dragging;
         set
         {
             if (value != dragging)
@@ -200,14 +179,8 @@ public class PlasticinePartBodyClip : ContreJourBodyClip, IClickable, IRestartab
 
     public bool IsRotationDirty
     {
-        get
-        {
-            return isRotationDirty;
-        }
-        set
-        {
-            isRotationDirty = value;
-        }
+        get => isRotationDirty;
+        set => isRotationDirty = value;
     }
 
     public float InitialAngle => initialAngle;
@@ -237,7 +210,7 @@ public class PlasticinePartBodyClip : ContreJourBodyClip, IClickable, IRestartab
         targetPosition = initialPosition;
         targetAngle = Body.Rotation;
         initialAngle = Body.Rotation;
-        float num = (game.WhiteSide ? ((float)Math.PI / 3f) : ((float)Math.PI / 5f));
+        float num = game.WhiteSide ? ((float)Math.PI / 3f) : ((float)Math.PI / 5f);
         if (Maths.Between(value, 0f - num, num))
         {
             isFloor = true;
@@ -280,7 +253,7 @@ public class PlasticinePartBodyClip : ContreJourBodyClip, IClickable, IRestartab
     public void SetWideBorder(PlasticineWideBorder _border, int _index)
     {
         index = _index;
-        verticesOffset = index * 2 * 2 + 2;
+        verticesOffset = (index * 2 * 2) + 2;
         border = _border;
     }
 
@@ -298,23 +271,14 @@ public class PlasticinePartBodyClip : ContreJourBodyClip, IClickable, IRestartab
     {
         parent.Changed = true;
         SetDirtyNoSibling();
-        if (next != null)
-        {
-            next.SetDirtyNoSibling();
-        }
-        if (previous != null)
-        {
-            previous.SetDirtyNoSibling();
-        }
+        next?.SetDirtyNoSibling();
+        previous?.SetDirtyNoSibling();
     }
 
     public void SetDirtyNoSibling()
     {
         dirty = true;
-        if (highlite != null)
-        {
-            highlite.SetDirty();
-        }
+        highlite?.SetDirty();
     }
 
     public int Priority(Vector2 touchPoint)
@@ -396,23 +360,17 @@ public class PlasticinePartBodyClip : ContreJourBodyClip, IClickable, IRestartab
     public override void Update(float time)
     {
         lastTime = time;
-        if (previous == null)
-        {
-            previous = item.PreviousItem.BodyClip;
-        }
+        previous ??= item.PreviousItem.BodyClip;
         if (next == null)
         {
             next = item.NextItem.BodyClip;
             SetDirty();
         }
         MoveToTargetPosition(time);
-        if (grassController != null)
-        {
-            grassController.Update(time);
-        }
+        grassController?.Update(time);
         if (dust.Count > 0)
         {
-            List<object> list = new List<object>();
+            List<object> list = [];
             foreach (DustData item in dust)
             {
                 if (dragging)
@@ -450,10 +408,7 @@ public class PlasticinePartBodyClip : ContreJourBodyClip, IClickable, IRestartab
             SetBezierPointsOffsetIndexOffset(inBorder, -5f / 12f, 1);
             SetBezierPointsOffsetIndexOffset(outBorder, 7f / 12f, 0);
             SetBezierPointsOffsetIndexOffset(outBorder, 0.65f, 1);
-            if (fillSprite != null)
-            {
-                fillSprite.Vertices[fillIndex].Position = item.GetCenterOffset(-5f / 48f).ToVector3();
-            }
+            fillSprite?.Vertices[fillIndex].Position = item.GetCenterOffset(-5f / 48f).ToVector3();
             dirty = false;
         }
     }
@@ -514,7 +469,7 @@ public class PlasticinePartBodyClip : ContreJourBodyClip, IClickable, IRestartab
     public void UpdateCircle()
     {
         float num = VectorUtil.Projection(Body.Position - initialPosition, normal) / builder.EngineConfig.SizeMultiplier;
-        float num2 = ((num > 0f) ? (num / circleSize / 2f) : 0f);
+        float num2 = (num > 0f) ? (num / circleSize / 2f) : 0f;
         circle.Scale = circleScale + num2;
     }
 
@@ -528,18 +483,12 @@ public class PlasticinePartBodyClip : ContreJourBodyClip, IClickable, IRestartab
 
     public void OnTouchWith(float offset, BodyClip objectP)
     {
-        if (grassController != null)
-        {
-            grassController.OnTouchWith(offset, objectP);
-        }
+        grassController?.OnTouchWith(offset, objectP);
     }
 
     public void ScareFlyes(int offset)
     {
-        if (grassController != null)
-        {
-            grassController.ScareFlyes(offset);
-        }
+        grassController?.ScareFlyes(offset);
     }
 
     public void CreateGrass(ContreJourLevelBuilder _builder, PlasticineBodyClip _parent, Body _body)
@@ -580,9 +529,7 @@ public class PlasticinePartBodyClip : ContreJourBodyClip, IClickable, IRestartab
         BodyClip bodyClip = (BodyClip)body2.UserData;
         if (bodyClip != null)
         {
-            Vector2 vector = default(Vector2);
-            FixedArray2<Vector2> val = default(FixedArray2<Vector2>);
-            point.GetWorldManifold(out vector, out val);
+            point.GetWorldManifold(out Vector2 vector, out FixedArray2<Vector2> val);
             Vector2 localPoint = Body.GetLocalPoint(val[0]);
             float x = localPoint.X;
             item.UpdateTouchesBodyClipDistance(x, bodyClip, 1.3333334f);
@@ -604,7 +551,7 @@ public class PlasticinePartBodyClip : ContreJourBodyClip, IClickable, IRestartab
         if (num >= 1f && Maths.Random() < 0.33f)
         {
             position = Body.GetWorldPoint(position);
-            DustData dustData = new DustData(game, body2.LinearVelocity, builder.ToIPadPoint(position), num, (!game.WhiteSide) ? 1 : 2);
+            DustData dustData = new(game, body2.LinearVelocity, builder.ToIPadPoint(position), num, (!game.WhiteSide) ? 1 : 2);
             dust.Add(dustData);
         }
     }

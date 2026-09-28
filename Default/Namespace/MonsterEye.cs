@@ -34,46 +34,28 @@ public class MonsterEye : RandomAnimationEye, IPositionDepedent
 
     private bool open;
 
-    public static readonly EyeAnimation[] SNOT_ANIMATIONS = new EyeAnimation[2]
-    {
-        new EyeAnimation("McEyeBlinkMonster"),
-        new EyeAnimation("McEyeBlinkOneTimeMonster")
-    };
+    public static readonly EyeAnimation[] SNOT_ANIMATIONS =
+    [
+        new("McEyeBlinkMonster"),
+        new("McEyeBlinkOneTimeMonster")
+    ];
 
     public IVectorPositionProvider PositionProvider
     {
-        get
-        {
-            return positionProvider;
-        }
-        set
-        {
-            positionProvider = value;
-        }
+        get => positionProvider;
+        set => positionProvider = value;
     }
 
     public IVectorPositionProvider RandomPositionProvider
     {
-        get
-        {
-            return randomPositionProvider;
-        }
-        set
-        {
-            randomPositionProvider = value;
-        }
+        get => randomPositionProvider;
+        set => randomPositionProvider = value;
     }
 
     public bool ProviderEnabled
     {
-        get
-        {
-            return providerEnabled;
-        }
-        set
-        {
-            providerEnabled = value;
-        }
+        get => providerEnabled;
+        set => providerEnabled = value;
     }
 
     protected override EyeAnimation[] Animations => SNOT_ANIMATIONS;
@@ -82,10 +64,7 @@ public class MonsterEye : RandomAnimationEye, IPositionDepedent
 
     public bool Open
     {
-        get
-        {
-            return open;
-        }
+        get => open;
         set
         {
             if (open != value)
@@ -112,11 +91,8 @@ public class MonsterEye : RandomAnimationEye, IPositionDepedent
         providerEnabled = true;
         Open = _visible;
         Visible = _visible;
-        this.Schedule(0.1f, ChangePositionProvider);
-        if (base.Game != null)
-        {
-            base.Game.AddPositionDependent(this);
-        }
+        _ = this.Schedule(0.1f, ChangePositionProvider);
+        Game?.AddPositionDependent(this);
         clipPosition = position;
         startAngle = 0f;
     }
@@ -144,8 +120,8 @@ public class MonsterEye : RandomAnimationEye, IPositionDepedent
 
     protected override void CreateDefaultView()
     {
-        string name = (base.BlackEye ? "McEyeMonsterBlack" : "McEyeMonster");
-        string name2 = base.Game.ChooseSide("McEyeBallMonsterBlack", "McEyeBallMonsterWhite", "McEyeBallMonster", "McEyeBallMonster", "McEyeBallMonster_6");
+        string name = BlackEye ? "McEyeMonsterBlack" : "McEyeMonster";
+        string name2 = Game.ChooseSide("McEyeBallMonsterBlack", "McEyeBallMonsterWhite", "McEyeBallMonster", "McEyeBallMonster", "McEyeBallMonster_6");
         background = (Sprite)ClipTypesCache.CreateNewNode(name);
         eyeBall = (Sprite)ClipTypesCache.CreateNewNode(name2);
     }
@@ -157,9 +133,9 @@ public class MonsterEye : RandomAnimationEye, IPositionDepedent
 
     protected virtual void ChangePositionProvider()
     {
-        if (base.Game != null)
+        if (Game != null)
         {
-            randomPositionProvider = base.Game.GetRandomPositionProvider();
+            randomPositionProvider = Game.GetRandomPositionProvider();
         }
         CallLater(ScheduleChangePositionProvider);
     }
@@ -167,7 +143,7 @@ public class MonsterEye : RandomAnimationEye, IPositionDepedent
     private void ScheduleChangePositionProvider(Node node)
     {
         Tweener.Stop(100);
-        this.Schedule(Maths.Random(3f, 15f), ChangePositionProvider, 100);
+        _ = this.Schedule(Maths.Random(3f, 15f), ChangePositionProvider, 100);
     }
 
     public override void Update(float time)
@@ -178,14 +154,14 @@ public class MonsterEye : RandomAnimationEye, IPositionDepedent
             if (vectorPositionProvider != null)
             {
                 Vector2 zero = Vector2.Zero;
-                if (base.Game != null)
+                if (Game != null)
                 {
-                    zero = base.Game.Builder.ToRootChild(Vector2.Zero, this);
-                    clipPosition = base.Game.Builder.ToIPhoneVec(zero);
+                    zero = Game.Builder.ToRootChild(Vector2.Zero, this);
+                    clipPosition = Game.Builder.ToIPhoneVec(zero);
                 }
                 Vector2 vector = vectorPositionProvider.PositionVec - clipPosition;
-                base.ViewAngle = Maths.Atan2(vector.Y, vector.X) - startAngle;
-                base.ViewDistance = Math.Min(vector.Length() / 6.6666665f, 1f);
+                ViewAngle = Maths.Atan2(vector.Y, vector.X) - startAngle;
+                ViewDistance = Math.Min(vector.Length() / 6.6666665f, 1f);
             }
         }
         base.Update(time);

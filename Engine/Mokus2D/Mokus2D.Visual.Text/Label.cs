@@ -6,7 +6,6 @@ using Microsoft.Xna.Framework;
 
 using Mokus2D.Data;
 using Mokus2D.Fonts;
-using Mokus2D.Util.Data;
 using Mokus2D.Util.Extensions;
 using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual.Data;
@@ -29,15 +28,15 @@ public class Label : AnchorNode, IDataReloadable
 
     public static bool IgnoreMissingSymbolsDefault = false;
 
-    private static readonly Vector2 DefaultMargins = new Vector2(2f);
+    private static readonly Vector2 DefaultMargins = new(2f);
 
     private FontData _font;
 
-    private readonly StringBuilder _text = new StringBuilder();
+    private readonly StringBuilder _text = new();
 
-    private readonly List<Glyph> _glyphs = new List<Glyph>(64);
+    private readonly List<Glyph> _glyphs = new(64);
 
-    private readonly List<LabelLine> _lines = new List<LabelLine>(64);
+    private readonly List<LabelLine> _lines = new(64);
 
     private float _lineSpacing;
 
@@ -67,11 +66,7 @@ public class Label : AnchorNode, IDataReloadable
     {
         get
         {
-            if (!IgnoreMissingSymbols.HasValue)
-            {
-                return IgnoreMissingSymbolsDefault;
-            }
-            return IgnoreMissingSymbols.Value;
+            return !IgnoreMissingSymbols.HasValue ? IgnoreMissingSymbolsDefault : IgnoreMissingSymbols.Value;
         }
     }
 
@@ -97,20 +92,13 @@ public class Label : AnchorNode, IDataReloadable
     {
         get
         {
-            if (!DynamicClickArea)
-            {
-                return TextureSize;
-            }
-            return TextSize;
+            return !DynamicClickArea ? TextureSize : TextSize;
         }
     }
 
     public TextAlign Align
     {
-        get
-        {
-            return _align;
-        }
+        get => _align;
         set
         {
             if (_align != value)
@@ -123,10 +111,7 @@ public class Label : AnchorNode, IDataReloadable
 
     public override Vector2 Anchor
     {
-        get
-        {
-            return base.Anchor;
-        }
+        get => base.Anchor;
         set
         {
             if (base.Anchor != value)
@@ -142,10 +127,7 @@ public class Label : AnchorNode, IDataReloadable
 
     public FontData Font
     {
-        get
-        {
-            return _font;
-        }
+        get => _font;
         set
         {
             if (_font != value)
@@ -158,24 +140,18 @@ public class Label : AnchorNode, IDataReloadable
 
     public string TextString
     {
-        get
-        {
-            return _text.ToString();
-        }
+        get => _text.ToString();
         set
         {
-            _text.Clear();
-            _text.Append(value);
+            _ = _text.Clear();
+            _ = _text.Append(value);
             SetTextDirty();
         }
     }
 
     public float LineSpacing
     {
-        get
-        {
-            return _lineSpacing;
-        }
+        get => _lineSpacing;
         set
         {
             if (_lineSpacing != value)
@@ -188,22 +164,13 @@ public class Label : AnchorNode, IDataReloadable
 
     public bool LimitWidth
     {
-        get
-        {
-            return MaxWidth.HasValue;
-        }
-        set
-        {
-            MaxWidth = (value ? new float?(TextureSize.X) : ((float?)null));
-        }
+        get => MaxWidth.HasValue;
+        set => MaxWidth = value ? new float?(TextureSize.X) : null;
     }
 
     public float? MaxWidth
     {
-        get
-        {
-            return _maxWidth;
-        }
+        get => _maxWidth;
         set
         {
             if (_maxWidth != value)
@@ -216,10 +183,7 @@ public class Label : AnchorNode, IDataReloadable
 
     public char this[int index]
     {
-        get
-        {
-            return _text[index];
-        }
+        get => _text[index];
         set
         {
             SetTextDirty();
@@ -276,7 +240,7 @@ public class Label : AnchorNode, IDataReloadable
 
     public Mokus2D.Util.Data.Point Get2DSymbolPosition(int position)
     {
-        Mokus2D.Util.Data.Point result = default(Mokus2D.Util.Data.Point);
+        Mokus2D.Util.Data.Point result = default;
         for (int i = 0; _lines[i].Glyphs.Count + 1 < position; i++)
         {
             position -= _lines[i].Glyphs.Count + 1;
@@ -297,34 +261,34 @@ public class Label : AnchorNode, IDataReloadable
 
     public void SetText(char value)
     {
-        Clear();
-        Append(value);
+        _ = Clear();
+        _ = Append(value);
     }
 
     public void SetText(float value)
     {
-        Clear();
-        Append(value);
+        _ = Clear();
+        _ = Append(value);
     }
 
     public void SetText(int value)
     {
-        Clear();
-        Append(value);
+        _ = Clear();
+        _ = Append(value);
     }
 
     public void RemoveFirstLine()
     {
         int? num = _text.IndexOf('\n');
-        int length = ((!num.HasValue) ? _text.Length : (num.Value + 1));
-        _text.Remove(0, length);
+        int length = (!num.HasValue) ? _text.Length : (num.Value + 1);
+        _ = _text.Remove(0, length);
         SetTextDirty();
     }
 
     public override void Update(float time)
     {
         base.Update(time);
-        if (base.Root == null)
+        if (Root == null)
         {
             return;
         }
@@ -333,7 +297,7 @@ public class Label : AnchorNode, IDataReloadable
         {
             if (_lines.Count > 0)
             {
-                base.AnchorY = _lineAnchor.Value / (float)_lines.Count;
+                AnchorY = _lineAnchor.Value / _lines.Count;
             }
             _lineAnchor = null;
         }
@@ -359,10 +323,10 @@ public class Label : AnchorNode, IDataReloadable
         {
             DoRefreshText();
             _textDirty = false;
-            if (base.ProcessMouseOver)
+            if (ProcessMouseOver)
             {
-                base.ProcessMouseOver = false;
-                base.ProcessMouseOver = true;
+                ProcessMouseOver = false;
+                ProcessMouseOver = true;
             }
         }
         catch (IndexOutOfRangeException)
@@ -379,7 +343,7 @@ public class Label : AnchorNode, IDataReloadable
             switch (Align)
             {
                 case TextAlign.Center:
-                    result.Offset((0f - result.Width) / 2f + TextureSize.X / 2f, 0f);
+                    result.Offset(((0f - result.Width) / 2f) + (TextureSize.X / 2f), 0f);
                     break;
                 case TextAlign.Right:
                     result.Offset(0f - result.Width + TextureSize.X, 0f);
@@ -391,17 +355,13 @@ public class Label : AnchorNode, IDataReloadable
 
     private bool FontHasTexture()
     {
-        if (_font != null)
-        {
-            return !_font.Texture.Name.IsEmpty();
-        }
-        return false;
+        return _font != null ? !_font.Texture.Name.IsEmpty() : false;
     }
 
     public Vector2 GetGlyphLeftTop(Mokus2D.Util.Data.Point positionInText)
     {
         Vector2 result = StartGlyphsPosition();
-        result.Y += (Font.RealHeight * ScaleFactor + LineSpacing) * base.Root.SpritesScaleFactor.Y.Sign() * (float)positionInText.Y;
+        result.Y += ((Font.RealHeight * ScaleFactor) + LineSpacing) * Root.SpritesScaleFactor.Y.Sign() * positionInText.Y;
         LabelLine labelLine = _lines[positionInText.Y];
         result.X += GetLineHorizontalOffset(labelLine);
         for (int i = 0; i < positionInText.X; i++)
@@ -425,7 +385,7 @@ public class Label : AnchorNode, IDataReloadable
     private void DoRefreshPositions()
     {
         Vector2 vector = StartGlyphsPosition();
-        float num = base.Root.SpritesScaleFactor.Y.Sign();
+        float num = Root.SpritesScaleFactor.Y.Sign();
         float num2 = Font.RealHeight / 2f * ScaleFactor;
         foreach (LabelLine line in _lines)
         {
@@ -433,10 +393,10 @@ public class Label : AnchorNode, IDataReloadable
             for (int i = 0; i < line.Glyphs.Count; i++)
             {
                 Glyph glyph = line.Glyphs[i];
-                glyph.Position = vector + new Vector2(glyph.Width / 2f + lineHorizontalOffset, num2 * num);
+                glyph.Position = vector + new Vector2((glyph.Width / 2f) + lineHorizontalOffset, num2 * num);
                 vector.X += glyph.Width;
             }
-            vector.Y += (Font.RealHeight * ScaleFactor + LineSpacing) * num;
+            vector.Y += ((Font.RealHeight * ScaleFactor) + LineSpacing) * num;
             vector.X = StartGlyphsPosition().X;
         }
     }
@@ -451,14 +411,7 @@ public class Label : AnchorNode, IDataReloadable
                 if (bounds.Width != 0f && bounds.Height != 0f)
                 {
                     bounds.Offset(glyph.Position);
-                    if (!_symbolsBounds.HasValue)
-                    {
-                        _symbolsBounds = bounds;
-                    }
-                    else
-                    {
-                        _symbolsBounds = RectangleFloat.Union(_symbolsBounds.Value, bounds);
-                    }
+                    _symbolsBounds = !_symbolsBounds.HasValue ? bounds : RectangleFloat.Union(_symbolsBounds.Value, bounds);
                 }
             }
         }
@@ -466,7 +419,7 @@ public class Label : AnchorNode, IDataReloadable
 
     protected virtual Vector2 StartGlyphsPosition()
     {
-        return -base.AnchorInPixels * base.Root.SpritesScaleFactor + DefaultMargins;
+        return (-AnchorInPixels * Root.SpritesScaleFactor) + DefaultMargins;
     }
 
     private float GetLineHorizontalOffset(LabelLine line)
@@ -493,7 +446,7 @@ public class Label : AnchorNode, IDataReloadable
 
     protected virtual void DoRefreshText()
     {
-        Vector2 vector = new Vector2(0f, DefaultMargins.Y * 2f + Font.RealHeight * ScaleFactor + _lineSpacing);
+        Vector2 vector = new(0f, (DefaultMargins.Y * 2f) + (Font.RealHeight * ScaleFactor) + _lineSpacing);
         float num = DefaultMargins.X * 2f;
         int num2 = 0;
         LabelLine cleanLine = GetCleanLine(num2);
@@ -514,7 +467,7 @@ public class Label : AnchorNode, IDataReloadable
             {
                 if (i != _text.Length - 1)
                 {
-                    vector.Y += _font.RealHeight * ScaleFactor + _lineSpacing;
+                    vector.Y += (_font.RealHeight * ScaleFactor) + _lineSpacing;
                 }
                 vector.X = Math.Max(num, vector.X);
                 cleanLine.Width = num;
@@ -529,7 +482,7 @@ public class Label : AnchorNode, IDataReloadable
                 Glyph glyph = RefreshGlyph(num3, c, charData);
                 if (MaxWidth.HasValue && num + glyph.Width >= MaxWidth)
                 {
-                    glyph.Initialize(_font['…'], ScaleFactor, '…');
+                    _ = glyph.Initialize(_font['…'], ScaleFactor, '…');
                     flag = true;
                 }
                 glyph.Visible = true;
@@ -594,7 +547,7 @@ public class Label : AnchorNode, IDataReloadable
         else
         {
             glyph = _glyphs[index];
-            glyph.Initialize(data, ScaleFactor, symbol);
+            _ = glyph.Initialize(data, ScaleFactor, symbol);
         }
         glyph.Scale = 1f;
         glyph.OpacityFloat = 1f;
@@ -605,351 +558,351 @@ public class Label : AnchorNode, IDataReloadable
     public Label Append(char value, int repeatCount)
     {
         SetTextDirty();
-        _text.Append(value, repeatCount);
+        _ = _text.Append(value, repeatCount);
         return this;
     }
 
     public Label Append(char[] value, int startIndex, int charCount)
     {
         SetTextDirty();
-        _text.Append(value, startIndex, charCount);
+        _ = _text.Append(value, startIndex, charCount);
         return this;
     }
 
     public Label Append(string value)
     {
         SetTextDirty();
-        _text.Append(value);
+        _ = _text.Append(value);
         return this;
     }
 
     public Label Append(string value, int startIndex, int count)
     {
         SetTextDirty();
-        _text.Append(value, startIndex, count);
+        _ = _text.Append(value, startIndex, count);
         return this;
     }
 
     public Label AppendLine()
     {
         SetTextDirty();
-        _text.Append('\n');
+        _ = _text.Append('\n');
         return this;
     }
 
     public Label AppendLine(string value)
     {
         SetTextDirty();
-        _text.Append(value);
-        AppendLine();
+        _ = _text.Append(value);
+        _ = AppendLine();
         return this;
     }
 
     public Label Insert(int index, string value, int count)
     {
         SetTextDirty();
-        _text.Insert(index, value, count);
+        _ = _text.Insert(index, value, count);
         return this;
     }
 
     public Label Remove(int startIndex, int length)
     {
         SetTextDirty();
-        _text.Remove(startIndex, length);
+        _ = _text.Remove(startIndex, length);
         return this;
     }
 
     public Label Append(bool value)
     {
         SetTextDirty();
-        _text.Append(value);
+        _ = _text.Append(value);
         return this;
     }
 
     public Label Append(sbyte value)
     {
         SetTextDirty();
-        _text.Append(value);
+        _ = _text.Append(value);
         return this;
     }
 
     public Label Append(byte value)
     {
         SetTextDirty();
-        _text.Append(value);
+        _ = _text.Append(value);
         return this;
     }
 
     public Label Append(char value)
     {
         SetTextDirty();
-        _text.Append(value);
+        _ = _text.Append(value);
         return this;
     }
 
     public Label Append(short value)
     {
         SetTextDirty();
-        _text.Append(value);
+        _ = _text.Append(value);
         return this;
     }
 
     public Label Append(int value)
     {
         SetTextDirty();
-        _text.Append(value);
+        _ = _text.Append(value);
         return this;
     }
 
     public Label Append(long value)
     {
         SetTextDirty();
-        _text.Append(value);
+        _ = _text.Append(value);
         return this;
     }
 
     public Label Append(float value)
     {
         SetTextDirty();
-        _text.Append(value);
+        _ = _text.Append(value);
         return this;
     }
 
     public Label Append(double value)
     {
         SetTextDirty();
-        _text.Append(value);
+        _ = _text.Append(value);
         return this;
     }
 
     public Label Append(decimal value)
     {
         SetTextDirty();
-        _text.Append(value);
+        _ = _text.Append(value);
         return this;
     }
 
     public Label Append(ushort value)
     {
         SetTextDirty();
-        _text.Append(value);
+        _ = _text.Append(value);
         return this;
     }
 
     public Label Append(uint value)
     {
         SetTextDirty();
-        _text.Append(value);
+        _ = _text.Append(value);
         return this;
     }
 
     public Label Append(ulong value)
     {
         SetTextDirty();
-        _text.Append(value);
+        _ = _text.Append(value);
         return this;
     }
 
     public Label Append(object value)
     {
         SetTextDirty();
-        _text.Append(value);
+        _ = _text.Append(value);
         return this;
     }
 
     public Label Append(char[] value)
     {
         SetTextDirty();
-        _text.Append(value);
+        _ = _text.Append(value);
         return this;
     }
 
     public Label Insert(int index, string value)
     {
         SetTextDirty();
-        _text.Insert(index, value);
+        _ = _text.Insert(index, value);
         return this;
     }
 
     public Label Insert(int index, bool value)
     {
         SetTextDirty();
-        _text.Insert(index, value);
+        _ = _text.Insert(index, value);
         return this;
     }
 
     public Label Insert(int index, sbyte value)
     {
         SetTextDirty();
-        _text.Insert(index, value);
+        _ = _text.Insert(index, value);
         return this;
     }
 
     public Label Insert(int index, byte value)
     {
         SetTextDirty();
-        _text.Insert(index, value);
+        _ = _text.Insert(index, value);
         return this;
     }
 
     public Label Insert(int index, short value)
     {
         SetTextDirty();
-        _text.Insert(index, value);
+        _ = _text.Insert(index, value);
         return this;
     }
 
     public Label Insert(int index, char value)
     {
         SetTextDirty();
-        _text.Insert(index, value);
+        _ = _text.Insert(index, value);
         return this;
     }
 
     public Label Insert(int index, char[] value)
     {
         SetTextDirty();
-        _text.Insert(index, value);
+        _ = _text.Insert(index, value);
         return this;
     }
 
     public Label Insert(int index, char[] value, int startIndex, int charCount)
     {
         SetTextDirty();
-        _text.Insert(index, value, startIndex, charCount);
+        _ = _text.Insert(index, value, startIndex, charCount);
         return this;
     }
 
     public Label Insert(int index, int value)
     {
         SetTextDirty();
-        _text.Insert(index, value);
+        _ = _text.Insert(index, value);
         return this;
     }
 
     public Label Insert(int index, long value)
     {
         SetTextDirty();
-        _text.Insert(index, value);
+        _ = _text.Insert(index, value);
         return this;
     }
 
     public Label Insert(int index, float value)
     {
         SetTextDirty();
-        _text.Insert(index, value);
+        _ = _text.Insert(index, value);
         return this;
     }
 
     public Label Insert(int index, double value)
     {
         SetTextDirty();
-        _text.Insert(index, value);
+        _ = _text.Insert(index, value);
         return this;
     }
 
     public Label Insert(int index, decimal value)
     {
         SetTextDirty();
-        _text.Insert(index, value);
+        _ = _text.Insert(index, value);
         return this;
     }
 
     public Label Insert(int index, ushort value)
     {
         SetTextDirty();
-        _text.Insert(index, value);
+        _ = _text.Insert(index, value);
         return this;
     }
 
     public Label Insert(int index, uint value)
     {
         SetTextDirty();
-        _text.Insert(index, value);
+        _ = _text.Insert(index, value);
         return this;
     }
 
     public Label Insert(int index, ulong value)
     {
         SetTextDirty();
-        _text.Insert(index, value);
+        _ = _text.Insert(index, value);
         return this;
     }
 
     public Label Insert(int index, object value)
     {
         SetTextDirty();
-        _text.Insert(index, value);
+        _ = _text.Insert(index, value);
         return this;
     }
 
     public Label AppendFormat(string format, object arg0)
     {
         SetTextDirty();
-        _text.AppendFormat(format, new object[1] { arg0 });
+        _ = _text.AppendFormat(format, new object[1] { arg0 });
         return this;
     }
 
     public Label AppendFormat(string format, object arg0, object arg1)
     {
         SetTextDirty();
-        _text.AppendFormat(format, new object[2] { arg0, arg1 });
+        _ = _text.AppendFormat(format, new object[2] { arg0, arg1 });
         return this;
     }
 
     public Label AppendFormat(string format, object arg0, object arg1, object arg2)
     {
         SetTextDirty();
-        _text.AppendFormat(format, new object[3] { arg0, arg1, arg2 });
+        _ = _text.AppendFormat(format, new object[3] { arg0, arg1, arg2 });
         return this;
     }
 
     public Label AppendFormat(string format, params object[] args)
     {
         SetTextDirty();
-        _text.AppendFormat(format, args);
+        _ = _text.AppendFormat(format, args);
         return this;
     }
 
     public Label AppendFormat(IFormatProvider provider, string format, params object[] args)
     {
         SetTextDirty();
-        _text.AppendFormat(provider, format, args);
+        _ = _text.AppendFormat(provider, format, args);
         return this;
     }
 
     public Label Replace(string oldValue, string newValue)
     {
         SetTextDirty();
-        _text.Replace(oldValue, newValue);
+        _ = _text.Replace(oldValue, newValue);
         return this;
     }
 
     public Label Replace(string oldValue, string newValue, int startIndex, int count)
     {
         SetTextDirty();
-        _text.Replace(oldValue, newValue, startIndex, count);
+        _ = _text.Replace(oldValue, newValue, startIndex, count);
         return this;
     }
 
     public Label Replace(char oldChar, char newChar)
     {
         SetTextDirty();
-        _text.Replace(oldChar, newChar);
+        _ = _text.Replace(oldChar, newChar);
         return this;
     }
 
     public Label Replace(char oldChar, char newChar, int startIndex, int count)
     {
         SetTextDirty();
-        _text.Replace(oldChar, newChar, startIndex, count);
+        _ = _text.Replace(oldChar, newChar, startIndex, count);
         return this;
     }
 
     public Label Clear()
     {
         SetTextDirty();
-        _text.Clear();
+        _ = _text.Clear();
         return this;
     }
 
@@ -978,7 +931,7 @@ public class Label : AnchorNode, IDataReloadable
 
     public void SetVerticalAnchorToLine(int lineNumber, float inLineAnchor = 0.5f)
     {
-        _lineAnchor = (float)lineNumber + inLineAnchor;
+        _lineAnchor = lineNumber + inLineAnchor;
     }
 
     protected override void BeginDraw(VisualState state)

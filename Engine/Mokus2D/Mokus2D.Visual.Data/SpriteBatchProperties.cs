@@ -8,44 +8,32 @@ public struct SpriteBatchProperties(BlendState blend, SamplerState samplerState)
 
     public SamplerState SamplerState = samplerState;
 
-    public bool Equals(SpriteBatchProperties other)
+    public readonly bool Equals(SpriteBatchProperties other)
     {
-        if (Blend == other.Blend)
-        {
-            return object.Equals(SamplerState, other.SamplerState);
-        }
-        return false;
+        return Blend == other.Blend ? Equals(SamplerState, other.SamplerState) : false;
     }
 
     public override bool Equals(object obj)
     {
-        if (object.ReferenceEquals(null, obj))
+        if (ReferenceEquals(null, obj))
         {
             return false;
         }
-        if (object.ReferenceEquals(this, obj))
+        if (ReferenceEquals(this, obj))
         {
             return true;
         }
-        if ((object)obj.GetType() != GetType())
-        {
-            return false;
-        }
-        return Equals((SpriteBatchProperties)obj);
+        return (object)obj.GetType() != GetType() ? false : Equals((SpriteBatchProperties)obj);
     }
 
-    public override int GetHashCode()
+    public override readonly int GetHashCode()
     {
         return (Blend.GetHashCode() * 397) ^ ((SamplerState != null) ? SamplerState.GetHashCode() : 0);
     }
 
     public static bool operator ==(SpriteBatchProperties value1, SpriteBatchProperties value2)
     {
-        if (value1.Blend == value2.Blend)
-        {
-            return value1.SamplerState == value2.SamplerState;
-        }
-        return false;
+        return value1.Blend == value2.Blend ? value1.SamplerState == value2.SamplerState : false;
     }
 
     public static bool operator !=(SpriteBatchProperties value1, SpriteBatchProperties value2)

@@ -17,10 +17,7 @@ public class ColorRectangle : PrimitivesNode
 
     public Vector2 Size
     {
-        get
-        {
-            return size;
-        }
+        get => size;
         set
         {
             if (size != value)
@@ -81,7 +78,7 @@ public class ColorRectangle : PrimitivesNode
     protected override void DrawPrimitives()
     {
         TryRefreshSize();
-        if (size.X > 0f && size.Y > 0f && base.OpacityByte > 0)
+        if (size.X > 0f && size.Y > 0f && OpacityByte > 0)
         {
             GraphUtil.DrawTriangleStrip(vertices);
         }

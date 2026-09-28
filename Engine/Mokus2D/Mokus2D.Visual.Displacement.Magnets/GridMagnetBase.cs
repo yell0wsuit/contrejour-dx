@@ -21,11 +21,7 @@ public abstract class GridMagnetBase : IGridMagnet, IUpdatable
     {
         get
         {
-            if (Action != null)
-            {
-                return Action.Finished;
-            }
-            return false;
+            return Action != null ? Action.Finished : false;
         }
     }
 
@@ -56,10 +52,7 @@ public abstract class GridMagnetBase : IGridMagnet, IUpdatable
 
     public virtual void Update(float time)
     {
-        if (Action != null)
-        {
-            Action.Update(time);
-        }
+        Action?.Update(time);
     }
 
     protected float LimitPower(float currentPower)

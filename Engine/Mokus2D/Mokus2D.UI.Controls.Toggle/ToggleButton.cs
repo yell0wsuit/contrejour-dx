@@ -18,10 +18,7 @@ public class ToggleButton : Button
 
     public bool Toggle
     {
-        get
-        {
-            return _toggle;
-        }
+        get => _toggle;
         set
         {
             if (_toggle != value)
@@ -46,7 +43,7 @@ public class ToggleButton : Button
 
     protected override void RefreshButton()
     {
-        Effect.On = (base.Pressed && HighliteOnPressed) || _toggle || base.MouseOver;
+        Effect.On = (Pressed && HighliteOnPressed) || _toggle || MouseOver;
     }
 
     protected override void OnTouchBegin(TouchArguments touchArguments)
@@ -60,13 +57,13 @@ public class ToggleButton : Button
 
     protected override void OnTouchEnd(TouchArguments obj)
     {
-        if (base.Pressed)
+        if (Pressed)
         {
             if (!ToggleOnTouchBegin)
             {
                 ChangeToggle();
             }
-            base.Pressed = false;
+            Pressed = false;
         }
         base.OnTouchEnd(obj);
     }
@@ -74,6 +71,6 @@ public class ToggleButton : Button
     private void ChangeToggle()
     {
         Toggle = !Toggle;
-        this.ToggleChangeEvent.Dispatch(this);
+        ToggleChangeEvent.Dispatch(this);
     }
 }

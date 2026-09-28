@@ -11,10 +11,6 @@ public static class PointExtensions
 
     public static bool Between(this Point point, Point leftTop, Point rightBottom)
     {
-        if (point.X >= leftTop.X && point.Y >= leftTop.Y && point.X <= rightBottom.X)
-        {
-            return point.Y <= rightBottom.Y;
-        }
-        return false;
+        return point.X >= leftTop.X && point.Y >= leftTop.Y && point.X <= rightBottom.X ? point.Y <= rightBottom.Y : false;
     }
 }

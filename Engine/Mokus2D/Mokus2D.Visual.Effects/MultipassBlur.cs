@@ -26,7 +26,7 @@ public class MultipassBlur
 
     private readonly Sprite _textureSprite;
 
-    private readonly BlurEffect _blurEffect = new BlurEffect();
+    private readonly BlurEffect _blurEffect = new();
 
     public RenderTarget2D CurrentTarget { get; private set; }
 
@@ -38,10 +38,12 @@ public class MultipassBlur
         _firstTarget = GraphicsUtil.CreateRenderTarget(_size);
         _secondTarget = GraphicsUtil.CreateRenderTarget(_size);
         _root = new RootNode((int)_size.X, (int)_size.Y);
-        _textureSprite = new Sprite(texture);
-        _textureSprite.Anchor = Vector2.Zero;
-        _textureSprite.Effect = _blurEffect;
-        _textureSprite.ResetDefaultEffect = true;
+        _textureSprite = new Sprite(texture)
+        {
+            Anchor = Vector2.Zero,
+            Effect = _blurEffect,
+            ResetDefaultEffect = true
+        };
         _root.AddChild(_textureSprite);
         CurrentTarget = _firstTarget;
     }
@@ -70,13 +72,6 @@ public class MultipassBlur
 
     private void SwapTargets()
     {
-        if (CurrentTarget == _firstTarget)
-        {
-            CurrentTarget = _secondTarget;
-        }
-        else
-        {
-            CurrentTarget = _firstTarget;
-        }
+        CurrentTarget = CurrentTarget == _firstTarget ? _secondTarget : _firstTarget;
     }
 }

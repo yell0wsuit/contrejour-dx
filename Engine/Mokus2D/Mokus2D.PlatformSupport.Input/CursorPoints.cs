@@ -6,7 +6,7 @@ namespace Mokus2D.PlatformSupport.Input;
 
 public static class CursorPoints
 {
-    private static readonly List<CursorPoint> Points = new List<CursorPoint>(64);
+    private static readonly List<CursorPoint> Points = new(64);
 
     public static List<CursorPoint> GetCursorPoints()
     {

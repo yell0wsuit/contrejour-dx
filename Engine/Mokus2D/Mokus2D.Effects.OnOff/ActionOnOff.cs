@@ -10,10 +10,7 @@ public class ActionOnOff : IOnOff
 
     public bool On
     {
-        get
-        {
-            return _isOn;
-        }
+        get => _isOn;
         set
         {
             if (_isOn != value)

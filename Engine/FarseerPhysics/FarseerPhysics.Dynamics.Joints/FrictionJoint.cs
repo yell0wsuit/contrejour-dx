@@ -40,26 +40,14 @@ public class FrictionJoint : Joint
 
     public override Vector2 WorldAnchorA
     {
-        get
-        {
-            return base.BodyA.GetWorldPoint(LocalAnchorA);
-        }
-        set
-        {
-            LocalAnchorA = base.BodyA.GetLocalPoint(value);
-        }
+        get => BodyA.GetWorldPoint(LocalAnchorA);
+        set => LocalAnchorA = BodyA.GetLocalPoint(value);
     }
 
     public override Vector2 WorldAnchorB
     {
-        get
-        {
-            return base.BodyB.GetWorldPoint(LocalAnchorB);
-        }
-        set
-        {
-            LocalAnchorB = base.BodyB.GetLocalPoint(value);
-        }
+        get => BodyB.GetWorldPoint(LocalAnchorB);
+        set => LocalAnchorB = BodyB.GetLocalPoint(value);
     }
 
     public float MaxForce { get; set; }
@@ -68,17 +56,17 @@ public class FrictionJoint : Joint
 
     internal FrictionJoint()
     {
-        base.JointType = JointType.Friction;
+        JointType = JointType.Friction;
     }
 
     public FrictionJoint(Body bodyA, Body bodyB, Vector2 anchor, bool useWorldCoordinates = false)
         : base(bodyA, bodyB)
     {
-        base.JointType = JointType.Friction;
+        JointType = JointType.Friction;
         if (useWorldCoordinates)
         {
-            LocalAnchorA = base.BodyA.GetLocalPoint(anchor);
-            LocalAnchorB = base.BodyB.GetLocalPoint(anchor);
+            LocalAnchorA = BodyA.GetLocalPoint(anchor);
+            LocalAnchorB = BodyB.GetLocalPoint(anchor);
         }
         else
         {
@@ -99,33 +87,33 @@ public class FrictionJoint : Joint
 
     internal override void InitVelocityConstraints(ref SolverData data)
     {
-        _indexA = base.BodyA.IslandIndex;
-        _indexB = base.BodyB.IslandIndex;
-        _localCenterA = base.BodyA._sweep.LocalCenter;
-        _localCenterB = base.BodyB._sweep.LocalCenter;
-        _invMassA = base.BodyA._invMass;
-        _invMassB = base.BodyB._invMass;
-        _invIA = base.BodyA._invI;
-        _invIB = base.BodyB._invI;
+        _indexA = BodyA.IslandIndex;
+        _indexB = BodyB.IslandIndex;
+        _localCenterA = BodyA._sweep.LocalCenter;
+        _localCenterB = BodyB._sweep.LocalCenter;
+        _invMassA = BodyA._invMass;
+        _invMassB = BodyB._invMass;
+        _invIA = BodyA._invI;
+        _invIB = BodyB._invI;
         float a = data.positions[_indexA].a;
         Vector2 v = data.velocities[_indexA].v;
         float w = data.velocities[_indexA].w;
         float a2 = data.positions[_indexB].a;
         Vector2 v2 = data.velocities[_indexB].v;
         float w2 = data.velocities[_indexB].w;
-        Rot q = new Rot(a);
-        Rot q2 = new Rot(a2);
+        Rot q = new(a);
+        Rot q2 = new(a2);
         _rA = MathUtils.Mul(q, LocalAnchorA - _localCenterA);
         _rB = MathUtils.Mul(q2, LocalAnchorB - _localCenterB);
         float invMassA = _invMassA;
         float invMassB = _invMassB;
         float invIA = _invIA;
         float invIB = _invIB;
-        Mat22 mat = default(Mat22);
-        mat.ex.X = invMassA + invMassB + invIA * _rA.Y * _rA.Y + invIB * _rB.Y * _rB.Y;
-        mat.ex.Y = (0f - invIA) * _rA.X * _rA.Y - invIB * _rB.X * _rB.Y;
+        Mat22 mat = default;
+        mat.ex.X = invMassA + invMassB + (invIA * _rA.Y * _rA.Y) + (invIB * _rB.Y * _rB.Y);
+        mat.ex.Y = ((0f - invIA) * _rA.X * _rA.Y) - (invIB * _rB.X * _rB.Y);
         mat.ey.X = mat.ex.Y;
-        mat.ey.Y = invMassA + invMassB + invIA * _rA.X * _rA.X + invIB * _rB.X * _rB.X;
+        mat.ey.Y = invMassA + invMassB + (invIA * _rA.X * _rA.X) + (invIB * _rB.X * _rB.X);
         _linearMass = mat.Inverse;
         _angularMass = invIA + invIB;
         if (_angularMass > 0f)
@@ -134,7 +122,7 @@ public class FrictionJoint : Joint
         }
         _linearImpulse *= data.step.dtRatio;
         _angularImpulse *= data.step.dtRatio;
-        Vector2 vector = new Vector2(_linearImpulse.X, _linearImpulse.Y);
+        Vector2 vector = new(_linearImpulse.X, _linearImpulse.Y);
         v -= invMassA * vector;
         w -= invIA * (MathUtils.Cross(_rA, vector) + _angularImpulse);
         v2 += invMassB * vector;

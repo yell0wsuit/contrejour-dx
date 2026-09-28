@@ -15,10 +15,7 @@ public class BiDictionary<TKey, TValue> : IDictionary<TKey, TValue>, ICollection
 
     public TValue this[TKey key]
     {
-        get
-        {
-            return _firstToSecond[key];
-        }
+        get => _firstToSecond[key];
         set
         {
             _firstToSecond[key] = value;
@@ -91,13 +88,13 @@ public class BiDictionary<TKey, TValue> : IDictionary<TKey, TValue>, ICollection
 
     public bool Remove(TKey key)
     {
-        _secondToFirst.Remove(_firstToSecond[key]);
+        _ = _secondToFirst.Remove(_firstToSecond[key]);
         return _firstToSecond.Remove(key);
     }
 
     public bool Remove(TValue value)
     {
-        _firstToSecond.Remove(_secondToFirst[value]);
+        _ = _firstToSecond.Remove(_secondToFirst[value]);
         return _secondToFirst.Remove(value);
     }
 

@@ -40,14 +40,8 @@ public class TeleportBodyClip : BodyClip
 
     public TeleportBodyClip Sibling
     {
-        get
-        {
-            return sibling;
-        }
-        set
-        {
-            sibling = value;
-        }
+        get => sibling;
+        set => sibling = value;
     }
 
     public EventSender UseEvent => useEvent;
@@ -58,11 +52,7 @@ public class TeleportBodyClip : BodyClip
         useEvent = new EventSender();
         ContreJourGame contreJourGame = (ContreJourGame)_builder.Game;
         limitSpeed = config.GetBool("limitSpeed");
-        string text = config.GetString("color");
-        if (text == null)
-        {
-            text = "0";
-        }
+        string text = config.GetString("color") ?? "0";
         portal = new Portal(textureName: (!(text != "0")) ? (contreJourGame.BlackSide ? "common/McTeleportPartBlue" : "common/McTeleportPart") : "common/McTeleportPartBlue", game: contreJourGame, position: _clip.Position);
         if (contreJourGame.BonusChapter)
         {
@@ -84,7 +74,7 @@ public class TeleportBodyClip : BodyClip
         {
             contreJourGame.RegisterTeleportColor(this, text);
         }
-        teleportables = new List<BodyClip>();
+        teleportables = [];
     }
 
     public void Use()
@@ -135,7 +125,7 @@ public class TeleportBodyClip : BodyClip
         BodyClip bodyClip = (BodyClip)body2.UserData;
         if (teleportables.Exists(bodyClip))
         {
-            teleportables.Remove(bodyClip);
+            _ = teleportables.Remove(bodyClip);
         }
     }
 
@@ -163,7 +153,7 @@ public class TeleportBodyClip : BodyClip
         if (limitSpeed)
         {
             Vector2 vec = bodyClip.Body.LinearVelocity;
-            VectorUtil.ClampLength(ref vec, 23.333334f);
+            _ = VectorUtil.ClampLength(ref vec, 23.333334f);
             bodyClip.Body.LinearVelocity = vec;
         }
         teleporting = false;

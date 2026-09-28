@@ -10,11 +10,7 @@ public abstract class PhysicsLogic : FilterData
 
     public override bool IsActiveOn(Body body)
     {
-        if (body.PhysicsLogicFilter.IsPhysicsLogicIgnored(_type))
-        {
-            return false;
-        }
-        return base.IsActiveOn(body);
+        return body.PhysicsLogicFilter.IsPhysicsLogicIgnored(_type) ? false : base.IsActiveOn(body);
     }
 
     public PhysicsLogic(World world, PhysicsLogicType type)

@@ -60,7 +60,7 @@ public static class GraphUtil
 
     public static Vector2 StringToVector(string source)
     {
-        string[] array = source.Split(new char[1] { ',' });
+        string[] array = source.Split([',']);
         return new Vector2((float)Convert.ToDouble(array[0]), (float)Convert.ToDouble(array[1]));
     }
 
@@ -68,11 +68,11 @@ public static class GraphUtil
     {
         DrawLineStrip(device, new VertexPositionColor[5]
         {
-            new VertexPositionColor(new Vector3(x, y, 0f), color),
-            new VertexPositionColor(new Vector3(x + width - 1f, y, 0f), color),
-            new VertexPositionColor(new Vector3(x + width - 1f, y + height - 1f, 0f), color),
-            new VertexPositionColor(new Vector3(x, y + height - 1f, 0f), color),
-            new VertexPositionColor(new Vector3(x, y, 0f), color)
+            new(new Vector3(x, y, 0f), color),
+            new(new Vector3(x + width - 1f, y, 0f), color),
+            new(new Vector3(x + width - 1f, y + height - 1f, 0f), color),
+            new(new Vector3(x, y + height - 1f, 0f), color),
+            new(new Vector3(x, y, 0f), color)
         });
     }
 
@@ -111,7 +111,7 @@ public static class GraphUtil
         for (short num = 0; num < count / 6; num++)
         {
             short num2 = (short)(num * 6);
-            short num3 = (indices[num2] = (short)(num2 / 3));
+            short num3 = indices[num2] = (short)(num2 / 3);
             indices[num2 + 1] = (short)(num3 + 1);
             indices[num2 + 2] = (short)(num3 + 2);
             indices[num2 + 3] = (short)(num3 + 1);
@@ -122,7 +122,7 @@ public static class GraphUtil
 
     public static short[] CreateTriangleFanIndices(short count)
     {
-        short[] array = new short[(count - 3) * 3 + 3];
+        short[] array = new short[((count - 3) * 3) + 3];
         for (short num = 0; num < count - 2; num++)
         {
             short num2 = (short)(num * 3);
@@ -178,7 +178,7 @@ public static class GraphUtil
     {
         for (int i = 0; i < polygon.Count - 1; i += 2)
         {
-            int index = ((i != polygon.Count - 2) ? (i + 2) : 0);
+            int index = (i != polygon.Count - 2) ? (i + 2) : 0;
             GetBezierPoints(polygon[i], polygon[i + 1], polygon[index], segments, insertLast: false, i, result);
         }
     }
@@ -188,10 +188,10 @@ public static class GraphUtil
         float num = 0f;
         for (int i = 0; i < segments; i++)
         {
-            float x = (float)Math.Pow(1f - num, 2.0) * origin.X + 2f * (1f - num) * num * control.X + num * num * destination.X;
-            float y = (float)Math.Pow(1f - num, 2.0) * origin.Y + 2f * (1f - num) * num * control.Y + num * num * destination.Y;
+            float x = ((float)Math.Pow(1f - num, 2.0) * origin.X) + (2f * (1f - num) * num * control.X) + (num * num * destination.X);
+            float y = ((float)Math.Pow(1f - num, 2.0) * origin.Y) + (2f * (1f - num) * num * control.Y) + (num * num * destination.Y);
             result[index + i] = new Vector2(x, y);
-            num += 1f / (float)segments;
+            num += 1f / segments;
         }
         if (insertLast)
         {
@@ -240,7 +240,7 @@ public static class GraphUtil
     {
         for (int i = 0; i < colors.Count; i++)
         {
-            colors[i] = ((i % 2 != 0) ? endColor : startColor);
+            colors[i] = (i % 2 != 0) ? endColor : startColor;
         }
     }
 
@@ -288,7 +288,7 @@ public static class GraphUtil
     public static void CreateGradientColors(int start, int end, Color fromColor, Color toColor, Color outColor, VertexPositionColorTexture[] colors)
     {
         Color color = fromColor;
-        ColorDiff colorSub = toColor.Sub(fromColor) * (1f / ((float)end - (float)start));
+        ColorDiff colorSub = toColor.Sub(fromColor) * (1f / (end - (float)start));
         Color color2 = color.Add(colorSub);
         for (int i = start; i < end; i++)
         {
@@ -311,7 +311,7 @@ public static class GraphUtil
             colors.Resize(end);
         }
         Color color = startColor;
-        ColorDiff colorSub = endColor.Sub(startColor) * (1f / ((float)end - (float)start));
+        ColorDiff colorSub = endColor.Sub(startColor) * (1f / (end - (float)start));
         Color color2 = color.Add(colorSub);
         for (int i = start; i < end; i++)
         {
@@ -333,11 +333,11 @@ public static class GraphUtil
 
     public static void GetCircleRadiusSegmentsResult(Vector2 center, float radius, int segments, ref VertexPositionColorTexture[] result)
     {
-        float num = (float)Math.PI * 2f / (float)segments;
+        float num = (float)Math.PI * 2f / segments;
         float num2 = 0f;
         for (int i = 0; i < segments; i++)
         {
-            result[i].Position = new Vector3(radius * Maths.Cos(num2) + center.X, radius * Maths.Sin(num2) + center.Y, 0f);
+            result[i].Position = new Vector3((radius * Maths.Cos(num2)) + center.X, (radius * Maths.Sin(num2)) + center.Y, 0f);
             num2 += num;
         }
     }
@@ -399,7 +399,7 @@ public static class GraphUtil
             array[i].Color = color;
             array[i].TextureCoordinate = textureCoords[i];
         }
-        int primitiveCount = ((loopType == PrimitiveType.TriangleList) ? (vertices.Count / 3) : (vertices.Count - 2));
+        int primitiveCount = (loopType == PrimitiveType.TriangleList) ? (vertices.Count / 3) : (vertices.Count - 2);
         Mokus2DGame.Device.DrawUserPrimitives(loopType, array, 0, primitiveCount);
     }
 
@@ -451,7 +451,7 @@ public static class GraphUtil
         for (int i = 0; i < size; i++)
         {
             int num = i * 6;
-            float num2 = (float)i * step;
+            float num2 = i * step;
             float x = num2 + step;
             vertices[num].TextureCoordinate = new Vector2(num2, 0f);
             vertices[num + 1].TextureCoordinate = new Vector2(x, 0f);
@@ -478,7 +478,7 @@ public static class GraphUtil
         {
             Vector2 vector = surface[i];
             Vector2 vector2 = surface[(i + 1) % surface.Count];
-            float num2 = (vector2 - vector).Length() / textureWidth + num;
+            float num2 = ((vector2 - vector).Length() / textureWidth) + num;
             int num3 = i * 6;
             vertices[num3] = new Vector2(0f, 0f);
             vertices[num3 + 1] = new Vector2(1f, 0f);
@@ -486,7 +486,7 @@ public static class GraphUtil
             vertices[num3 + 3] = new Vector2(0f, 1f);
             vertices[num3 + 4] = new Vector2(1f, 1f);
             vertices[num3 + 5] = new Vector2(1f, 0f);
-            num = num2 - (float)(int)num2;
+            num = num2 - (int)num2;
         }
     }
 

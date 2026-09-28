@@ -29,10 +29,7 @@ public class SuckerNeckSprite : LongNeckSprite
 
     public float Length
     {
-        get
-        {
-            return length;
-        }
+        get => length;
         set
         {
             if (Maths.FuzzyNotEquals(length, value))
@@ -50,7 +47,7 @@ public class SuckerNeckSprite : LongNeckSprite
         middle = start;
         end = start;
         bouncer = new Bouncer(6f, 5f, 5f);
-        base.Effect = Mokus2DGame.Config.GraphicsConfig.DefaultEffect;
+        Effect = Mokus2DGame.Config.GraphicsConfig.DefaultEffect;
     }
 
     public override void Update(float time)
@@ -84,8 +81,8 @@ public class SuckerNeckSprite : LongNeckSprite
 
     public void RefreshMiddle()
     {
-        float num = ((frame % 4 > 1) ? 1 : (-1));
-        middle = new Pair<Vector2>(new Vector2(length / 2f, -1f + bouncer.CurrentAmplitude * num), new Vector2(length / 2f, 1f + bouncer.CurrentAmplitude * num));
+        float num = (frame % 4 > 1) ? 1 : (-1);
+        middle = new Pair<Vector2>(new Vector2(length / 2f, -1f + (bouncer.CurrentAmplitude * num)), new Vector2(length / 2f, 1f + (bouncer.CurrentAmplitude * num)));
     }
 
     public override void GetPairs(List<Pair<Vector2>> result)

@@ -12,7 +12,7 @@ public class ClickListener : ITouchListener
 {
     private const float DEFAULT_RADIUS = 20f;
 
-    protected readonly EventSender<Touch> clickEvent = new EventSender<Touch>();
+    protected readonly EventSender<Touch> clickEvent = new();
 
     protected bool enabled;
 
@@ -20,32 +20,20 @@ public class ClickListener : ITouchListener
 
     protected float radius;
 
-    protected Dictionary<Touch, Vector2> startPositions = new Dictionary<Touch, Vector2>();
+    protected Dictionary<Touch, Vector2> startPositions = [];
 
     public EventSender ClickEvent => clickEvent;
 
     public float Radius
     {
-        get
-        {
-            return radius;
-        }
-        set
-        {
-            radius = value;
-        }
+        get => radius;
+        set => radius = value;
     }
 
     public virtual bool Enabled
     {
-        get
-        {
-            return enabled;
-        }
-        set
-        {
-            enabled = value;
-        }
+        get => enabled;
+        set => enabled = value;
     }
 
     public ClickListener(int priority = 0)
@@ -66,7 +54,7 @@ public class ClickListener : ITouchListener
     {
         if (IsOutStartPosition(touch, startPositions[touch]))
         {
-            startPositions.Remove(touch);
+            _ = startPositions.Remove(touch);
             return false;
         }
         return true;
@@ -80,7 +68,7 @@ public class ClickListener : ITouchListener
             {
                 clickEvent.SendEvent(touch);
             }
-            startPositions.Remove(touch);
+            _ = startPositions.Remove(touch);
         }
     }
 

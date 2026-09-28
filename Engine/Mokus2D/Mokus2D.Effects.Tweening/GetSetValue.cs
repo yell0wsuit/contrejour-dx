@@ -31,7 +31,7 @@ public class GetSetValue<TObject, TValue> : GetSetValue<TValue> where TObject : 
     private readonly Action<TObject, TValue> _setter;
 
     public GetSetValue(Func<TObject, TValue> getter, Action<TObject, TValue> setter)
-        : base((Func<object, TValue>)((object o) => getter((TObject)o)), (Action<object, TValue>)delegate (object o, TValue v)
+        : base(o => getter((TObject)o), delegate (object o, TValue v)
         {
             setter((TObject)o, v);
         })

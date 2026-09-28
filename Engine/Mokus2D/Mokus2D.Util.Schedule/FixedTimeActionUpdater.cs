@@ -22,10 +22,7 @@ public class FixedTimeActionUpdater : Updater
         while (_currentTime >= _stepTime)
         {
             base.Update(_stepTime);
-            if (_updateAction != null)
-            {
-                _updateAction(_stepTime);
-            }
+            _updateAction?.Invoke(_stepTime);
             _currentTime -= _stepTime;
         }
     }

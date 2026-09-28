@@ -9,14 +9,8 @@ public abstract class TouchAnimation : AnimationNode, ITouchListener
 
     public bool TouchEnabled
     {
-        get
-        {
-            return _touchDecorator.Enabled;
-        }
-        set
-        {
-            _touchDecorator.Enabled = value;
-        }
+        get => _touchDecorator.Enabled;
+        set => _touchDecorator.Enabled = value;
     }
 
     protected TouchAnimation(string name)
@@ -33,11 +27,7 @@ public abstract class TouchAnimation : AnimationNode, ITouchListener
 
     private bool IsInteractionsEnabled()
     {
-        if (base.Root != null && base.RootVisible)
-        {
-            return base.RootInteractionsEnabled;
-        }
-        return false;
+        return Root != null && RootVisible ? RootInteractionsEnabled : false;
     }
 
     public virtual bool TouchBegin(Touch touch)
@@ -56,8 +46,10 @@ public abstract class TouchAnimation : AnimationNode, ITouchListener
 
     private TouchListenerDecorator CreateTouchDecorator()
     {
-        TouchListenerDecorator touchListenerDecorator = new TouchListenerDecorator(this);
-        touchListenerDecorator.Filter = IsInteractionsEnabled;
+        TouchListenerDecorator touchListenerDecorator = new(this)
+        {
+            Filter = IsInteractionsEnabled
+        };
         return touchListenerDecorator;
     }
 }

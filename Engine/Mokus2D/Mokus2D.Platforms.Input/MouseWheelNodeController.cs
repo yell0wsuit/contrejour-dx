@@ -24,10 +24,7 @@ public class MouseWheelNodeController<T> : NodeController<T> where T : Node, IMo
 
     public Sprite MouseWheelArea
     {
-        set
-        {
-            _mouseWheelArea = value;
-        }
+        set => _mouseWheelArea = value;
     }
 
     public MouseWheelNodeController(T node, float wheelMult, float minScrollSpeed, float scrollSpeedMult)
@@ -105,7 +102,7 @@ public class MouseWheelNodeController<T> : NodeController<T> where T : Node, IMo
         {
             num2 = targetValue.GetValueOrDefault();
         }
-        _targetValue = num2 + (float)value * WheelMult;
+        _targetValue = num2 + (value * WheelMult);
     }
 
     private void OnMouseWheelValueChange(float obj)

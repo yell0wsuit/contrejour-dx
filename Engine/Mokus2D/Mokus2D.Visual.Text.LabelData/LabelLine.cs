@@ -6,9 +6,9 @@ namespace Mokus2D.Visual.Text.LabelData;
 
 public class LabelLine : ICleanable
 {
-    private static readonly Pool<LabelLine> Pool = new Pool<LabelLine>(() => new LabelLine());
+    private static readonly Pool<LabelLine> Pool = new(() => new LabelLine());
 
-    public readonly List<Glyph> Glyphs = new List<Glyph>();
+    public readonly List<Glyph> Glyphs = [];
 
     public static int ObjectsInPool => Pool.ObjectsInPool;
 

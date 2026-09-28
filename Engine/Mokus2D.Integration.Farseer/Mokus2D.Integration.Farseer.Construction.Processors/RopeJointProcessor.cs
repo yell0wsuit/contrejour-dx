@@ -9,7 +9,7 @@ namespace Mokus2D.Integration.Farseer.Construction.Processors;
 
 public class RopeJointProcessor : JointProcessor
 {
-    private static readonly Vector2 EndOffset = new Vector2(10f, 0f);
+    private static readonly Vector2 EndOffset = new(10f, 0f);
 
     public RopeJointProcessor(PhysicsConstructor constructor)
         : base(constructor)
@@ -21,8 +21,10 @@ public class RopeJointProcessor : JointProcessor
         Vector2 source = item.ZeroToGlobal();
         Vector2 target = item.LocalToGlobal(EndOffset);
         float maxLength = Constructor.ToPhysics(source.DistanceTo(target));
-        RopeJoint ropeJoint = new RopeJoint(GetBodyA(item), GetBodyB(item), Vector2.Zero, Vector2.Zero);
-        ropeJoint.MaxLength = maxLength;
+        RopeJoint ropeJoint = new(GetBodyA(item), GetBodyB(item), Vector2.Zero, Vector2.Zero)
+        {
+            MaxLength = maxLength
+        };
         return ropeJoint;
     }
 }

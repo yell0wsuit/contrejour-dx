@@ -11,10 +11,6 @@ internal class RayDataComparer : IComparer<float>
         {
             return 1;
         }
-        if (num < 0f)
-        {
-            return -1;
-        }
-        return 0;
+        return num < 0f ? -1 : 0;
     }
 }

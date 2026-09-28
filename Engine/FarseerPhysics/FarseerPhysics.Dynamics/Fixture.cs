@@ -45,10 +45,7 @@ public class Fixture : IDisposable
 
     public short CollisionGroup
     {
-        get
-        {
-            return _collisionGroup;
-        }
+        get => _collisionGroup;
         set
         {
             if (_collisionGroup != value)
@@ -61,10 +58,7 @@ public class Fixture : IDisposable
 
     public Category CollidesWith
     {
-        get
-        {
-            return _collidesWith;
-        }
+        get => _collidesWith;
         set
         {
             if (_collidesWith != value)
@@ -77,10 +71,7 @@ public class Fixture : IDisposable
 
     public Category CollisionCategories
     {
-        get
-        {
-            return _collisionCategories;
-        }
+        get => _collisionCategories;
         set
         {
             if (_collisionCategories != value)
@@ -95,16 +86,10 @@ public class Fixture : IDisposable
 
     public bool IsSensor
     {
-        get
-        {
-            return _isSensor;
-        }
+        get => _isSensor;
         set
         {
-            if (Body != null)
-            {
-                Body.Awake = true;
-            }
+            Body?.Awake = true;
             _isSensor = value;
         }
     }
@@ -115,26 +100,14 @@ public class Fixture : IDisposable
 
     public float Friction
     {
-        get
-        {
-            return _friction;
-        }
-        set
-        {
-            _friction = value;
-        }
+        get => _friction;
+        set => _friction = value;
     }
 
     public float Restitution
     {
-        get
-        {
-            return _restitution;
-        }
-        set
-        {
-            _restitution = value;
-        }
+        get => _restitution;
+        set => _restitution = value;
     }
 
     public int FixtureId { get; internal set; }
@@ -147,7 +120,7 @@ public class Fixture : IDisposable
         _collisionCategories = Settings.DefaultFixtureCollisionCategories;
         _collidesWith = Settings.DefaultFixtureCollidesWith;
         _collisionGroup = 0;
-        _collisionIgnores = new HashSet<int>();
+        _collisionIgnores = [];
         IgnoreCCDWith = Settings.DefaultFixtureIgnoreCCDWith;
         Friction = 0.2f;
         Restitution = 0f;
@@ -176,7 +149,7 @@ public class Fixture : IDisposable
     {
         if (_collisionIgnores.Contains(fixture.FixtureId))
         {
-            _collisionIgnores.Remove(fixture.FixtureId);
+            _ = _collisionIgnores.Remove(fixture.FixtureId);
             Refilter();
         }
     }
@@ -185,7 +158,7 @@ public class Fixture : IDisposable
     {
         if (!_collisionIgnores.Contains(fixture.FixtureId))
         {
-            _collisionIgnores.Add(fixture.FixtureId);
+            _ = _collisionIgnores.Add(fixture.FixtureId);
             Refilter();
         }
     }
@@ -233,10 +206,7 @@ public class Fixture : IDisposable
             Body.ResetMassData();
         }
         Body._world._worldHasNewFixture = true;
-        if (Body._world.FixtureAdded != null)
-        {
-            Body._world.FixtureAdded(this);
-        }
+        Body._world.FixtureAdded?.Invoke(this);
     }
 
     public bool TestPoint(ref Vector2 point)
@@ -263,10 +233,7 @@ public class Fixture : IDisposable
         OnCollision = null;
         OnSeparation = null;
         AfterCollision = null;
-        if (Body._world.FixtureRemoved != null)
-        {
-            Body._world.FixtureRemoved(this);
-        }
+        Body._world.FixtureRemoved?.Invoke(this);
         Body._world.FixtureAdded = null;
         Body._world.FixtureRemoved = null;
         OnSeparation = null;
@@ -278,7 +245,7 @@ public class Fixture : IDisposable
         ProxyCount = Shape.ChildCount;
         for (int i = 0; i < ProxyCount; i++)
         {
-            FixtureProxy proxy = default(FixtureProxy);
+            FixtureProxy proxy = default;
             Shape.ComputeAABB(out proxy.AABB, ref xf, i);
             proxy.Fixture = this;
             proxy.ChildIndex = i;
@@ -304,8 +271,8 @@ public class Fixture : IDisposable
             for (int i = 0; i < ProxyCount; i++)
             {
                 FixtureProxy fixtureProxy = Proxies[i];
-                Shape.ComputeAABB(out var aabb, ref transform1, fixtureProxy.ChildIndex);
-                Shape.ComputeAABB(out var aabb2, ref transform2, fixtureProxy.ChildIndex);
+                Shape.ComputeAABB(out AABB aabb, ref transform1, fixtureProxy.ChildIndex);
+                Shape.ComputeAABB(out AABB aabb2, ref transform2, fixtureProxy.ChildIndex);
                 fixtureProxy.AABB.Combine(ref aabb, ref aabb2);
                 Vector2 displacement = transform2.p - transform1.p;
                 broadPhase.MoveProxy(fixtureProxy.ProxyId, ref fixtureProxy.AABB, displacement);
@@ -315,11 +282,9 @@ public class Fixture : IDisposable
 
     internal bool CompareTo(Fixture fixture)
     {
-        if (_collidesWith == fixture._collidesWith && _collisionCategories == fixture._collisionCategories && _collisionGroup == fixture._collisionGroup && Friction == fixture.Friction && IsSensor == fixture.IsSensor && Restitution == fixture.Restitution && UserData == fixture.UserData && IgnoreCCDWith == fixture.IgnoreCCDWith)
-        {
-            return SequenceEqual(_collisionIgnores, fixture._collisionIgnores);
-        }
-        return false;
+        return _collidesWith == fixture._collidesWith && _collisionCategories == fixture._collisionCategories && _collisionGroup == fixture._collisionGroup && Friction == fixture.Friction && IsSensor == fixture.IsSensor && Restitution == fixture.Restitution && UserData == fixture.UserData && IgnoreCCDWith == fixture.IgnoreCCDWith
+            ? SequenceEqual(_collisionIgnores, fixture._collisionIgnores)
+            : false;
     }
 
     private bool SequenceEqual<T>(HashSet<T> first, HashSet<T> second)
@@ -328,40 +293,40 @@ public class Fixture : IDisposable
         {
             return false;
         }
-        using (IEnumerator<T> enumerator = first.GetEnumerator())
+        using IEnumerator<T> enumerator = first.GetEnumerator();
+        using IEnumerator<T> enumerator2 = second.GetEnumerator();
+        while (enumerator.MoveNext())
         {
-            using IEnumerator<T> enumerator2 = second.GetEnumerator();
-            while (enumerator.MoveNext())
-            {
-                if (!enumerator2.MoveNext() || !object.Equals(enumerator.Current, enumerator2.Current))
-                {
-                    return false;
-                }
-            }
-            if (enumerator2.MoveNext())
+            if (!enumerator2.MoveNext() || !Equals(enumerator.Current, enumerator2.Current))
             {
                 return false;
             }
+        }
+        if (enumerator2.MoveNext())
+        {
+            return false;
         }
         return true;
     }
 
     public Fixture CloneOnto(Body body)
     {
-        Fixture fixture = new Fixture();
-        fixture.Body = body;
-        fixture.Shape = Shape.Clone();
-        fixture.UserData = UserData;
-        fixture.Restitution = Restitution;
-        fixture.Friction = Friction;
-        fixture.IsSensor = IsSensor;
-        fixture._collisionGroup = _collisionGroup;
-        fixture._collisionCategories = _collisionCategories;
-        fixture._collidesWith = _collidesWith;
-        fixture.IgnoreCCDWith = IgnoreCCDWith;
+        Fixture fixture = new()
+        {
+            Body = body,
+            Shape = Shape.Clone(),
+            UserData = UserData,
+            Restitution = Restitution,
+            Friction = Friction,
+            IsSensor = IsSensor,
+            _collisionGroup = _collisionGroup,
+            _collisionCategories = _collisionCategories,
+            _collidesWith = _collidesWith,
+            IgnoreCCDWith = IgnoreCCDWith
+        };
         foreach (int collisionIgnore in _collisionIgnores)
         {
-            fixture._collisionIgnores.Add(collisionIgnore);
+            _ = fixture._collisionIgnores.Add(collisionIgnore);
         }
         fixture.RegisterFixture();
         return fixture;

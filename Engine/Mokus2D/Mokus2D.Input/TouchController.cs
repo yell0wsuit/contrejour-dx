@@ -16,29 +16,29 @@ public class TouchController : IUpdatable
 {
     public const int MaxTouches = 16;
 
-    private static readonly Pool<Touch> poolTouches = new Pool<Touch>(() => new Touch());
+    private static readonly Pool<Touch> poolTouches = new(() => new Touch());
 
-    private static readonly Pool<List<ITouchListener>> poolListeners = new Pool<List<ITouchListener>>(() => new List<ITouchListener>());
+    private static readonly Pool<List<ITouchListener>> poolListeners = new(() => []);
 
     public Matrix TransformMatrix = Matrix.Identity;
 
-    private readonly List<ITouchListener> listenersCopy = new List<ITouchListener>(64);
+    private readonly List<ITouchListener> listenersCopy = new(64);
 
-    private readonly List<Touch> newTouches = new List<Touch>(16);
+    private readonly List<Touch> newTouches = new(16);
 
-    private readonly SortedList<int> prioritiesList = new SortedList<int>(64, Comparisons.IntReverseComparizon);
+    private readonly SortedList<int> prioritiesList = new(64, Comparisons.IntReverseComparizon);
 
-    private readonly List<Touch> toBegin = new List<Touch>(16);
+    private readonly List<Touch> toBegin = new(16);
 
-    private readonly List<Touch> toEnd = new List<Touch>(16);
+    private readonly List<Touch> toEnd = new(16);
 
-    private readonly List<Touch> toMove = new List<Touch>(16);
+    private readonly List<Touch> toMove = new(16);
 
-    private readonly Dictionary<int, List<ITouchListener>> listeners = new Dictionary<int, List<ITouchListener>>();
+    private readonly Dictionary<int, List<ITouchListener>> listeners = [];
 
-    private readonly Dictionary<ITouchListener, int> priorities = new Dictionary<ITouchListener, int>(64);
+    private readonly Dictionary<ITouchListener, int> priorities = new(64);
 
-    private readonly Dictionary<Touch, List<ITouchListener>> touches = new Dictionary<Touch, List<ITouchListener>>(16);
+    private readonly Dictionary<Touch, List<ITouchListener>> touches = new(16);
 
     public void Update(float time)
     {
@@ -113,22 +113,22 @@ public class TouchController : IUpdatable
     public void RemoveListener(ITouchListener listener)
     {
         int priority = priorities[listener];
-        priorities.Remove(listener);
+        _ = priorities.Remove(listener);
         foreach (KeyValuePair<Touch, List<ITouchListener>> touch in touches)
         {
             if (touch.Value.Contains(listener))
             {
-                touch.Value.Remove(listener);
+                _ = touch.Value.Remove(listener);
             }
         }
-        GetListeners(priority).Remove(listener);
+        _ = GetListeners(priority).Remove(listener);
     }
 
     private List<ITouchListener> GetListeners(int priority)
     {
         if (!listeners.ContainsKey(priority))
         {
-            listeners[priority] = new List<ITouchListener>();
+            listeners[priority] = [];
             prioritiesList.Add(priority);
         }
         return listeners[priority];
@@ -139,7 +139,7 @@ public class TouchController : IUpdatable
         foreach (Touch item in toEnd)
         {
             List<ITouchListener> list = touches[item];
-            touches.Remove(item);
+            _ = touches.Remove(item);
             poolTouches.Free(item);
             if (!item.Stoped)
             {

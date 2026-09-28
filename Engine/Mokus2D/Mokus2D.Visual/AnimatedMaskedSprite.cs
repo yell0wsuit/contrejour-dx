@@ -22,10 +22,7 @@ public class AnimatedMaskedSprite : MaskedSprite
     public override void Update(float time)
     {
         maskRoot.UpdateNode(time);
-        if (RenderRoot != null)
-        {
-            RenderRoot.UpdateNode(time);
-        }
+        RenderRoot?.UpdateNode(time);
         RedrawTexture();
     }
 }

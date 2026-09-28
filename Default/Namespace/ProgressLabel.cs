@@ -14,17 +14,11 @@ public class ProgressLabel : ContreJourLabel
 
     public int Value
     {
-        get
-        {
-            return value;
-        }
-        set
-        {
-            this.value = value;
-        }
+        get => value;
+        set => this.value = value;
     }
 
-    public int CurrentValue => (int)((float)value * (float)currentStep / (float)steps);
+    public int CurrentValue => (int)(value * (float)currentStep / steps);
 
     public ProgressLabel(float size, string _format, int _value, int _steps)
         : base(size)
@@ -40,8 +34,8 @@ public class ProgressLabel : ContreJourLabel
         base.Update(time);
         if (currentStep <= steps)
         {
-            Clear();
-            AppendFormat(format, CurrentValue);
+            _ = Clear();
+            _ = AppendFormat(format, CurrentValue);
             currentStep++;
         }
     }

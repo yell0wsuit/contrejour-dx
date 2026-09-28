@@ -46,11 +46,7 @@ public class ContreJourLevelBuilder : LevelBuilderBase
 
     public override string GetViewType(Hashtable config)
     {
-        if (ContreJour.BlackSide && config.Exists("blackViewType"))
-        {
-            return config.GetString("blackViewType");
-        }
-        return base.GetViewType(config);
+        return ContreJour.BlackSide && config.Exists("blackViewType") ? config.GetString("blackViewType") : base.GetViewType(config);
     }
 
     public override void Update(float time)

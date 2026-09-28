@@ -20,7 +20,7 @@ public class CosChanger
 
     public float Value => value;
 
-    public bool IsMax => Math.Abs((double)Progress % (Math.PI * 2.0)) < (double)Step;
+    public bool IsMax => Math.Abs(Progress % (Math.PI * 2.0)) < Step;
 
     public CosChanger(float minValue, float maxValue, float step, float? progressCoef = null)
     {

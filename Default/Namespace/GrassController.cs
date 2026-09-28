@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 using Microsoft.Xna.Framework;
 
@@ -86,11 +87,7 @@ public class GrassController : IGrassController, IUpdatable
     {
         get
         {
-            if (!touched)
-            {
-                return 1f;
-            }
-            return 4f;
+            return !touched ? 1f : 4f;
         }
     }
 
@@ -98,11 +95,7 @@ public class GrassController : IGrassController, IUpdatable
     {
         get
         {
-            if (!touched)
-            {
-                return 1f;
-            }
-            return 2.5f;
+            return !touched ? 1f : 2.5f;
         }
     }
 
@@ -139,7 +132,7 @@ public class GrassController : IGrassController, IUpdatable
 
     public void CreateSmallGrass()
     {
-        smallGrasses = new List<GrassAndPosition>();
+        smallGrasses = [];
         for (int i = 0; i < 3; i++)
         {
             int frame = Math.Min(SmallGrassFrame, game.Grass.TotalFrames - 1);
@@ -159,7 +152,7 @@ public class GrassController : IGrassController, IUpdatable
         }
         UpdateGrassRotation(time);
         UpdateGrassPosition();
-        foreach (FlyController flye in flyes)
+        foreach (FlyController flye in flyes.Cast<FlyController>())
         {
             flye.Update(time);
         }
@@ -181,7 +174,7 @@ public class GrassController : IGrassController, IUpdatable
             float num4 = 2.6666667f;
             if (num3 / touchStartOffset <= 0f && Math.Abs(num3) < num4)
             {
-                touchDistance = (float)Math.Sign(num3) * Math.Min(Math.Abs(num3 / 1.3333334f), 1f);
+                touchDistance = Math.Sign(num3) * Math.Min(Math.Abs(num3 / 1.3333334f), 1f);
                 float num5 = (0f - Math.Min(num3 / 2f, 1f)) * TrampleAngle;
                 num += num5 * 3f / 2f;
                 num2 += num5 * 2f;
@@ -217,11 +210,11 @@ public class GrassController : IGrassController, IUpdatable
 
     public void CreateFlyes()
     {
-        flyes = new List<object>();
-        int num = ((game.RoseChapter || game.BonusChapter) ? 1 : 2);
+        flyes = [];
+        int num = (game.RoseChapter || game.BonusChapter) ? 1 : 2;
         for (int i = 0; i < num; i++)
         {
-            Vector2 vec = new Vector2(Maths.Random(0f - plasticine.Width, plasticine.Width), Maths.Random(1.3333334f, 2f));
+            Vector2 vec = new(Maths.Random(0f - plasticine.Width, plasticine.Width), Maths.Random(1.3333334f, 2f));
             vec += plasticine.Body.Position;
             Particle particle = game.Flyes.AddParticle(builder.ToIPadPoint(vec));
             flyes.Add(new FlyController(game, plasticine, particle));
@@ -233,7 +226,7 @@ public class GrassController : IGrassController, IUpdatable
         ScareFlyes(offset);
         if (touchingObject == null || (objectP != touchingObject && Math.Abs(offset) < Math.Abs(touchOffset)))
         {
-            touchStartOffset = (float)Math.Sign(offset) * 1.3333334f;
+            touchStartOffset = Math.Sign(offset) * 1.3333334f;
             touchingObject = objectP;
         }
         if (touchingObject == objectP)
@@ -248,9 +241,9 @@ public class GrassController : IGrassController, IUpdatable
     {
         if (Maths.FuzzyEquals(offset, 0f))
         {
-            offset = ((Maths.Random() > 0.5f) ? 1 : (-1));
+            offset = (Maths.Random() > 0.5f) ? 1 : (-1);
         }
-        foreach (FlyController flye in flyes)
+        foreach (FlyController flye in flyes.Cast<FlyController>())
         {
             flye.Scare(-Math.Sign(offset));
         }

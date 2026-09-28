@@ -32,11 +32,7 @@ public class Vertices : List<Vector2>
 
     public int NextIndex(int index)
     {
-        if (index + 1 <= base.Count - 1)
-        {
-            return index + 1;
-        }
-        return 0;
+        return index + 1 <= Count - 1 ? index + 1 : 0;
     }
 
     public Vector2 NextVertex(int index)
@@ -46,11 +42,7 @@ public class Vertices : List<Vector2>
 
     public int PreviousIndex(int index)
     {
-        if (index - 1 >= 0)
-        {
-            return index - 1;
-        }
-        return base.Count - 1;
+        return index - 1 >= 0 ? index - 1 : Count - 1;
     }
 
     public Vector2 PreviousVertex(int index)
@@ -60,14 +52,14 @@ public class Vertices : List<Vector2>
 
     public float GetSignedArea()
     {
-        if (base.Count < 3)
+        if (Count < 3)
         {
             return 0f;
         }
         float num = 0f;
-        for (int i = 0; i < base.Count; i++)
+        for (int i = 0; i < Count; i++)
         {
-            int index = (i + 1) % base.Count;
+            int index = (i + 1) % Count;
             Vector2 vector = base[i];
             Vector2 vector2 = base[index];
             num += vector.X * vector2.Y;
@@ -79,26 +71,22 @@ public class Vertices : List<Vector2>
     public float GetArea()
     {
         float signedArea = GetSignedArea();
-        if (!(signedArea < 0f))
-        {
-            return signedArea;
-        }
-        return 0f - signedArea;
+        return !(signedArea < 0f) ? signedArea : 0f - signedArea;
     }
 
     public Vector2 GetCentroid()
     {
-        if (base.Count < 3)
+        if (Count < 3)
         {
             return new Vector2(float.NaN, float.NaN);
         }
         Vector2 zero = Vector2.Zero;
         float num = 0f;
-        for (int i = 0; i < base.Count; i++)
+        for (int i = 0; i < Count; i++)
         {
             Vector2 vector = base[i];
-            Vector2 vector2 = ((i + 1 < base.Count) ? base[i + 1] : base[0]);
-            float num2 = 0.5f * (vector.X * vector2.Y - vector.Y * vector2.X);
+            Vector2 vector2 = (i + 1 < Count) ? base[i + 1] : base[0];
+            float num2 = 0.5f * ((vector.X * vector2.Y) - (vector.Y * vector2.X));
             num += num2;
             zero += num2 * (1f / 3f) * (vector + vector2);
         }
@@ -107,9 +95,9 @@ public class Vertices : List<Vector2>
 
     public AABB GetAABB()
     {
-        Vector2 lowerBound = new Vector2(float.MaxValue, float.MaxValue);
-        Vector2 upperBound = new Vector2(float.MinValue, float.MinValue);
-        for (int i = 0; i < base.Count; i++)
+        Vector2 lowerBound = new(float.MaxValue, float.MaxValue);
+        Vector2 upperBound = new(float.MinValue, float.MinValue);
+        for (int i = 0; i < Count; i++)
         {
             if (base[i].X < lowerBound.X)
             {
@@ -128,7 +116,7 @@ public class Vertices : List<Vector2>
                 upperBound.Y = base[i].Y;
             }
         }
-        AABB result = default(AABB);
+        AABB result = default;
         result.LowerBound = lowerBound;
         result.UpperBound = upperBound;
         return result;
@@ -141,7 +129,7 @@ public class Vertices : List<Vector2>
 
     public void Translate(ref Vector2 value)
     {
-        for (int i = 0; i < base.Count; i++)
+        for (int i = 0; i < Count; i++)
         {
             base[i] = Vector2.Add(base[i], value);
         }
@@ -162,7 +150,7 @@ public class Vertices : List<Vector2>
 
     public void Scale(ref Vector2 value)
     {
-        for (int i = 0; i < base.Count; i++)
+        for (int i = 0; i < Count; i++)
         {
             base[i] = Vector2.Multiply(base[i], value);
         }
@@ -180,10 +168,10 @@ public class Vertices : List<Vector2>
     {
         float num = (float)Math.Cos(value);
         float num2 = (float)Math.Sin(value);
-        for (int i = 0; i < base.Count; i++)
+        for (int i = 0; i < Count; i++)
         {
             Vector2 vector = base[i];
-            base[i] = new Vector2(vector.X * num + vector.Y * (0f - num2), vector.X * num2 + vector.Y * num);
+            base[i] = new Vector2((vector.X * num) + (vector.Y * (0f - num2)), (vector.X * num2) + (vector.Y * num));
         }
         if (Holes == null || Holes.Count <= 0)
         {
@@ -197,24 +185,24 @@ public class Vertices : List<Vector2>
 
     public bool IsConvex()
     {
-        if (base.Count < 3)
+        if (Count < 3)
         {
             return false;
         }
-        if (base.Count == 3)
+        if (Count == 3)
         {
             return true;
         }
-        for (int i = 0; i < base.Count; i++)
+        for (int i = 0; i < Count; i++)
         {
-            int num = ((i + 1 < base.Count) ? (i + 1) : 0);
+            int num = (i + 1 < Count) ? (i + 1) : 0;
             Vector2 vector = base[num] - base[i];
-            for (int j = 0; j < base.Count; j++)
+            for (int j = 0; j < Count; j++)
             {
                 if (j != i && j != num)
                 {
                     Vector2 vector2 = base[j] - base[i];
-                    float num2 = vector.X * vector2.Y - vector.Y * vector2.X;
+                    float num2 = (vector.X * vector2.Y) - (vector.Y * vector2.X);
                     if (num2 <= 0f)
                     {
                         return false;
@@ -227,16 +215,12 @@ public class Vertices : List<Vector2>
 
     public bool IsCounterClockWise()
     {
-        if (base.Count < 3)
-        {
-            return false;
-        }
-        return GetSignedArea() > 0f;
+        return Count < 3 ? false : GetSignedArea() > 0f;
     }
 
     public void ForceCounterClockWise()
     {
-        if (base.Count >= 3 && !IsCounterClockWise())
+        if (Count >= 3 && !IsCounterClockWise())
         {
             Reverse();
         }
@@ -244,19 +228,19 @@ public class Vertices : List<Vector2>
 
     public bool IsSimple()
     {
-        if (base.Count < 3)
+        if (Count < 3)
         {
             return false;
         }
-        for (int i = 0; i < base.Count; i++)
+        for (int i = 0; i < Count; i++)
         {
             Vector2 a = base[i];
             Vector2 a2 = NextVertex(i);
-            for (int j = i + 1; j < base.Count; j++)
+            for (int j = i + 1; j < Count; j++)
             {
                 Vector2 b = base[j];
                 Vector2 b2 = NextVertex(j);
-                if (LineTools.LineIntersect2(ref a, ref a2, ref b, ref b2, out var _))
+                if (LineTools.LineIntersect2(ref a, ref a2, ref b, ref b2, out Vector2 _))
                 {
                     return false;
                 }
@@ -267,7 +251,7 @@ public class Vertices : List<Vector2>
 
     public PolygonError CheckPolygon()
     {
-        if (base.Count < 3 || base.Count > Settings.MaxPolygonVertices)
+        if (Count < 3 || Count > Settings.MaxPolygonVertices)
         {
             return PolygonError.InvalidAmountOfVertices;
         }
@@ -283,25 +267,21 @@ public class Vertices : List<Vector2>
         {
             return PolygonError.NotConvex;
         }
-        for (int i = 0; i < base.Count; i++)
+        for (int i = 0; i < Count; i++)
         {
-            int index = ((i + 1 < base.Count) ? (i + 1) : 0);
+            int index = (i + 1 < Count) ? (i + 1) : 0;
             if ((base[index] - base[i]).LengthSquared() <= 1.4210855E-14f)
             {
                 return PolygonError.SideTooSmall;
             }
         }
-        if (!IsCounterClockWise())
-        {
-            return PolygonError.NotCounterClockWise;
-        }
-        return PolygonError.NoError;
+        return !IsCounterClockWise() ? PolygonError.NotCounterClockWise : PolygonError.NoError;
     }
 
     public void ProjectToAxis(ref Vector2 axis, out float min, out float max)
     {
-        max = (min = Vector2.Dot(axis, base[0]));
-        for (int i = 0; i < base.Count; i++)
+        max = min = Vector2.Dot(axis, base[0]);
+        for (int i = 0; i < Count; i++)
         {
             float num = Vector2.Dot(base[i], axis);
             if (num < min)
@@ -318,7 +298,7 @@ public class Vertices : List<Vector2>
     public int PointInPolygon(ref Vector2 point)
     {
         int num = 0;
-        for (int i = 0; i < base.Count; i++)
+        for (int i = 0; i < Count; i++)
         {
             Vector2 a = base[i];
             Vector2 b = base[NextIndex(i)];
@@ -340,32 +320,24 @@ public class Vertices : List<Vector2>
                 num--;
             }
         }
-        if (num != 0)
-        {
-            return 1;
-        }
-        return -1;
+        return num != 0 ? 1 : -1;
     }
 
     public bool PointInPolygonAngle(ref Vector2 point)
     {
         double num = 0.0;
-        for (int i = 0; i < base.Count; i++)
+        for (int i = 0; i < Count; i++)
         {
             Vector2 p = base[i] - point;
             Vector2 p2 = base[NextIndex(i)] - point;
             num += MathUtils.VectorAngle(ref p, ref p2);
         }
-        if (Math.Abs(num) < Math.PI)
-        {
-            return false;
-        }
-        return true;
+        return Math.Abs(num) >= Math.PI;
     }
 
     public void Transform(ref Matrix transform)
     {
-        for (int i = 0; i < base.Count; i++)
+        for (int i = 0; i < Count; i++)
         {
             base[i] = Vector2.Transform(base[i], transform);
         }
@@ -373,7 +345,7 @@ public class Vertices : List<Vector2>
         {
             for (int j = 0; j < Holes.Count; j++)
             {
-                Vector2[] array = Holes[j].ToArray();
+                Vector2[] array = [.. Holes[j]];
                 Vector2.Transform(array, ref transform, array);
                 Holes[j] = new Vertices(array);
             }
@@ -382,13 +354,13 @@ public class Vertices : List<Vector2>
 
     public override string ToString()
     {
-        StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 0; i < base.Count; i++)
+        StringBuilder stringBuilder = new();
+        for (int i = 0; i < Count; i++)
         {
-            stringBuilder.Append(base[i].ToString());
-            if (i < base.Count - 1)
+            _ = stringBuilder.Append(base[i].ToString());
+            if (i < Count - 1)
             {
-                stringBuilder.Append(" ");
+                _ = stringBuilder.Append(" ");
             }
         }
         return stringBuilder.ToString();

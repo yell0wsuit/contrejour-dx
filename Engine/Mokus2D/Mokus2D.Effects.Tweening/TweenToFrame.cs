@@ -14,9 +14,9 @@ namespace Mokus2D.Effects.Tweening;
 
 public class TweenToFrame : IntervalTweenBase
 {
-    private static readonly Pool<TweenToFrame> Pool = new Pool<TweenToFrame>(() => new TweenToFrame());
+    private static readonly Pool<TweenToFrame> Pool = new(() => new TweenToFrame());
 
-    private readonly Dictionary<Node, NodeTweenData> _data = new Dictionary<Node, NodeTweenData>();
+    private readonly Dictionary<Node, NodeTweenData> _data = [];
 
     private bool _animationWasEnabled;
 

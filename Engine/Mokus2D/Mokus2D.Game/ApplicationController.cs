@@ -7,7 +7,6 @@ using Microsoft.Xna.Framework.Input.Touch;
 
 using Mokus2D.Content;
 using Mokus2D.Platforms.Input;
-using Mokus2D.Util.Data;
 using Mokus2D.Util.Resources;
 
 namespace Mokus2D.Game;
@@ -22,40 +21,25 @@ public class ApplicationController : DisposableBase
 
     public MokusContentManager Content => (MokusContentManager)Application.Content;
 
-    public Vector2 WindowSize => new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
+    public Vector2 WindowSize => new(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
 
     public bool IsFullScreen
     {
-        get
-        {
-            return _graphics.IsFullScreen;
-        }
-        set
-        {
-            _graphics.IsFullScreen = value;
-        }
+        get => _graphics.IsFullScreen;
+        set => _graphics.IsFullScreen = value;
     }
 
     public Rectangle ClientBounds => Application.Window.ClientBounds;
 
     public bool IsFixedTimeStep
     {
-        get
-        {
-            return Application.IsFixedTimeStep;
-        }
-        set
-        {
-            Application.IsFixedTimeStep = value;
-        }
+        get => Application.IsFixedTimeStep;
+        set => Application.IsFixedTimeStep = value;
     }
 
-    public Mokus2D.Util.Data.Point PrefferedBackBufferSize
+    public Util.Data.Point PrefferedBackBufferSize
     {
-        get
-        {
-            return new Mokus2D.Util.Data.Point(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
-        }
+        get => new Util.Data.Point(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
         set
         {
             _graphics.PreferredBackBufferWidth = value.X;
@@ -63,56 +47,32 @@ public class ApplicationController : DisposableBase
         }
     }
 
-    public Mokus2D.Util.Data.Point BackBufferSize => new Mokus2D.Util.Data.Point(GraphicsDevice.PresentationParameters.BackBufferWidth, GraphicsDevice.PresentationParameters.BackBufferHeight);
+    public Util.Data.Point BackBufferSize => new(GraphicsDevice.PresentationParameters.BackBufferWidth, GraphicsDevice.PresentationParameters.BackBufferHeight);
 
     public bool SynchronizeWithVerticalRetrace
     {
-        get
-        {
-            return _graphics.SynchronizeWithVerticalRetrace;
-        }
-        set
-        {
-            _graphics.SynchronizeWithVerticalRetrace = value;
-        }
+        get => _graphics.SynchronizeWithVerticalRetrace;
+        set => _graphics.SynchronizeWithVerticalRetrace = value;
     }
 
     public bool IsMouseVisible
     {
-        get
-        {
-            return Application.IsMouseVisible;
-        }
-        set
-        {
-            Application.IsMouseVisible = value;
-        }
+        get => Application.IsMouseVisible;
+        set => Application.IsMouseVisible = value;
     }
 
     public string ContentRootDirectory
     {
-        get
-        {
-            return Application.Content.RootDirectory;
-        }
-        set
-        {
-            Application.Content.RootDirectory = value;
-        }
+        get => Application.Content.RootDirectory;
+        set => Application.Content.RootDirectory = value;
     }
 
     public bool IsActive => Application.IsActive;
 
     public TimeSpan TargetElapsedTime
     {
-        get
-        {
-            return Application.TargetElapsedTime;
-        }
-        set
-        {
-            Application.TargetElapsedTime = value;
-        }
+        get => Application.TargetElapsedTime;
+        set => Application.TargetElapsedTime = value;
     }
 
     public GraphicsDevice GraphicsDevice => Application.GraphicsDevice;

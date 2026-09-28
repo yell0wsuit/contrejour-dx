@@ -76,10 +76,7 @@ public class Body : IDisposable
 
     public BodyType BodyType
     {
-        get
-        {
-            return _bodyType;
-        }
+        get => _bodyType;
         set
         {
             if (_bodyType == value)
@@ -121,10 +118,7 @@ public class Body : IDisposable
 
     public Vector2 LinearVelocity
     {
-        get
-        {
-            return _linearVelocity;
-        }
+        get => _linearVelocity;
         set
         {
             if (_bodyType != BodyType.Static)
@@ -140,10 +134,7 @@ public class Body : IDisposable
 
     public float AngularVelocity
     {
-        get
-        {
-            return _angularVelocity;
-        }
+        get => _angularVelocity;
         set
         {
             if (_bodyType != BodyType.Static)
@@ -159,36 +150,21 @@ public class Body : IDisposable
 
     public float LinearDamping
     {
-        get
-        {
-            return _linearDamping;
-        }
-        set
-        {
-            _linearDamping = value;
-        }
+        get => _linearDamping;
+        set => _linearDamping = value;
     }
 
     public float AngularDamping
     {
-        get
-        {
-            return _angularDamping;
-        }
-        set
-        {
-            _angularDamping = value;
-        }
+        get => _angularDamping;
+        set => _angularDamping = value;
     }
 
     public bool IsBullet { get; set; }
 
     public bool SleepingAllowed
     {
-        get
-        {
-            return _sleepingAllowed;
-        }
+        get => _sleepingAllowed;
         set
         {
             if (!value)
@@ -201,10 +177,7 @@ public class Body : IDisposable
 
     public bool Awake
     {
-        get
-        {
-            return _awake;
-        }
+        get => _awake;
         set
         {
             if (value)
@@ -227,10 +200,7 @@ public class Body : IDisposable
 
     public bool Enabled
     {
-        get
-        {
-            return _enabled;
-        }
+        get => _enabled;
         set
         {
             if (value == _enabled)
@@ -267,10 +237,7 @@ public class Body : IDisposable
 
     public bool FixedRotation
     {
-        get
-        {
-            return _fixedRotation;
-        }
+        get => _fixedRotation;
         set
         {
             if (_fixedRotation != value)
@@ -290,50 +257,26 @@ public class Body : IDisposable
 
     public Vector2 Position
     {
-        get
-        {
-            return _xf.p;
-        }
-        set
-        {
-            SetTransform(ref value, Rotation);
-        }
+        get => _xf.p;
+        set => SetTransform(ref value, Rotation);
     }
 
     public float Rotation
     {
-        get
-        {
-            return _sweep.A;
-        }
-        set
-        {
-            SetTransform(ref _xf.p, value);
-        }
+        get => _sweep.A;
+        set => SetTransform(ref _xf.p, value);
     }
 
     public bool IsStatic
     {
-        get
-        {
-            return _bodyType == BodyType.Static;
-        }
-        set
-        {
-            BodyType = ((!value) ? BodyType.Dynamic : BodyType.Static);
-        }
+        get => _bodyType == BodyType.Static;
+        set => BodyType = (!value) ? BodyType.Dynamic : BodyType.Static;
     }
 
     public bool IsKinematic
     {
-        get
-        {
-            return _bodyType == BodyType.Kinematic;
-        }
-        set
-        {
-            BodyType = (value ? BodyType.Kinematic : BodyType.Dynamic);
-        }
+        get => _bodyType == BodyType.Kinematic;
+        set => BodyType = value ? BodyType.Kinematic : BodyType.Dynamic;
     }
 
     public bool IgnoreGravity { get; set; }
@@ -342,17 +285,14 @@ public class Body : IDisposable
 
     public Vector2 LocalCenter
     {
-        get
-        {
-            return _sweep.LocalCenter;
-        }
+        get => _sweep.LocalCenter;
         set
         {
             if (_bodyType == BodyType.Dynamic)
             {
                 Vector2 c = _sweep.C;
                 _sweep.LocalCenter = value;
-                _sweep.C0 = (_sweep.C = MathUtils.Mul(ref _xf, ref _sweep.LocalCenter));
+                _sweep.C0 = _sweep.C = MathUtils.Mul(ref _xf, ref _sweep.LocalCenter);
                 Vector2 vector = _sweep.C - c;
                 _linearVelocity += new Vector2((0f - _angularVelocity) * vector.Y, _angularVelocity * vector.X);
             }
@@ -361,10 +301,7 @@ public class Body : IDisposable
 
     public float Mass
     {
-        get
-        {
-            return _mass;
-        }
+        get => _mass;
         set
         {
             if (_bodyType == BodyType.Dynamic)
@@ -381,15 +318,12 @@ public class Body : IDisposable
 
     public float Inertia
     {
-        get
-        {
-            return _inertia + Mass * Vector2.Dot(_sweep.LocalCenter, _sweep.LocalCenter);
-        }
+        get => _inertia + (Mass * Vector2.Dot(_sweep.LocalCenter, _sweep.LocalCenter));
         set
         {
             if (_bodyType == BodyType.Dynamic && value > 0f && !_fixedRotation)
             {
-                _inertia = value - Mass * Vector2.Dot(LocalCenter, LocalCenter);
+                _inertia = value - (Mass * Vector2.Dot(LocalCenter, LocalCenter));
                 _invI = 1f / _inertia;
             }
         }
@@ -405,11 +339,7 @@ public class Body : IDisposable
                 Fixture fixture = FixtureList[i];
                 num += fixture.Restitution;
             }
-            if (FixtureList.Count <= 0)
-            {
-                return 0f;
-            }
-            return num / (float)FixtureList.Count;
+            return FixtureList.Count <= 0 ? 0f : num / FixtureList.Count;
         }
         set
         {
@@ -431,11 +361,7 @@ public class Body : IDisposable
                 Fixture fixture = FixtureList[i];
                 num += fixture.Friction;
             }
-            if (FixtureList.Count <= 0)
-            {
-                return 0f;
-            }
-            return num / (float)FixtureList.Count;
+            return FixtureList.Count <= 0 ? 0f : num / FixtureList.Count;
         }
         set
         {
@@ -553,7 +479,7 @@ public class Body : IDisposable
 
     public Body(World world, Vector2? position = null, float rotation = 0f, object userdata = null)
     {
-        FixtureList = new List<Fixture>();
+        FixtureList = [];
         BodyId = _bodyIdCounter++;
         _world = world;
         UserData = userdata;
@@ -604,7 +530,7 @@ public class Body : IDisposable
             IBroadPhase broadPhase = _world.ContactManager.BroadPhase;
             fixture.DestroyProxies(broadPhase);
         }
-        FixtureList.Remove(fixture);
+        _ = FixtureList.Remove(fixture);
         fixture.Destroy();
         fixture.Body = null;
         ResetMassData();
@@ -665,7 +591,7 @@ public class Body : IDisposable
                 Awake = true;
             }
             _force += force;
-            _torque += (point.X - _sweep.C.X) * force.Y - (point.Y - _sweep.C.Y) * force.X;
+            _torque += ((point.X - _sweep.C.X) * force.Y) - ((point.Y - _sweep.C.Y) * force.X);
         }
     }
 
@@ -712,7 +638,7 @@ public class Body : IDisposable
                 Awake = true;
             }
             _linearVelocity += _invMass * impulse;
-            _angularVelocity += _invI * ((point.X - _sweep.C.X) * impulse.Y - (point.Y - _sweep.C.Y) * impulse.X);
+            _angularVelocity += _invI * (((point.X - _sweep.C.X) * impulse.Y) - ((point.Y - _sweep.C.Y) * impulse.X));
         }
     }
 
@@ -755,7 +681,7 @@ public class Body : IDisposable
         }
         if (BodyType == BodyType.Static)
         {
-            _sweep.C0 = (_sweep.C = _xf.p);
+            _sweep.C0 = _sweep.C = _xf.p;
             return;
         }
         if (_mass > 0f)
@@ -780,7 +706,7 @@ public class Body : IDisposable
         }
         Vector2 c = _sweep.C;
         _sweep.LocalCenter = zero;
-        _sweep.C0 = (_sweep.C = MathUtils.Mul(ref _xf, ref _sweep.LocalCenter));
+        _sweep.C0 = _sweep.C = MathUtils.Mul(ref _xf, ref _sweep.LocalCenter);
         Vector2 vector = _sweep.C - c;
         _linearVelocity += new Vector2((0f - _angularVelocity) * vector.Y, _angularVelocity * vector.X);
     }
@@ -847,7 +773,7 @@ public class Body : IDisposable
 
     internal void SynchronizeFixtures()
     {
-        Transform transform = default(Transform);
+        Transform transform = default;
         transform.q.Set(_sweep.A0);
         transform.p = _sweep.C0 - MathUtils.Mul(transform.q, _sweep.LocalCenter);
         IBroadPhase broadPhase = _world.ContactManager.BroadPhase;
@@ -922,22 +848,24 @@ public class Body : IDisposable
 
     public Body Clone(World world = null)
     {
-        Body body = new Body(world ?? _world, Position, Rotation, UserData);
-        body._bodyType = _bodyType;
-        body._linearVelocity = _linearVelocity;
-        body._angularVelocity = _angularVelocity;
-        body.GravityScale = GravityScale;
-        body.UserData = UserData;
-        body._enabled = _enabled;
-        body._fixedRotation = _fixedRotation;
-        body._sleepingAllowed = _sleepingAllowed;
-        body._linearDamping = _linearDamping;
-        body._angularDamping = _angularDamping;
-        body._awake = _awake;
-        body.IsBullet = IsBullet;
-        body.IgnoreCCD = IgnoreCCD;
-        body.IgnoreGravity = IgnoreGravity;
-        body._torque = _torque;
+        Body body = new(world ?? _world, Position, Rotation, UserData)
+        {
+            _bodyType = _bodyType,
+            _linearVelocity = _linearVelocity,
+            _angularVelocity = _angularVelocity,
+            GravityScale = GravityScale,
+            UserData = UserData,
+            _enabled = _enabled,
+            _fixedRotation = _fixedRotation,
+            _sleepingAllowed = _sleepingAllowed,
+            _linearDamping = _linearDamping,
+            _angularDamping = _angularDamping,
+            _awake = _awake,
+            IsBullet = IsBullet,
+            IgnoreCCD = IgnoreCCD,
+            IgnoreGravity = IgnoreGravity,
+            _torque = _torque
+        };
         return body;
     }
 
@@ -947,7 +875,7 @@ public class Body : IDisposable
         int count = FixtureList.Count;
         for (int i = 0; i < count; i++)
         {
-            FixtureList[i].CloneOnto(body);
+            _ = FixtureList[i].CloneOnto(body);
         }
         return body;
     }

@@ -11,12 +11,12 @@ public class BlueLights : GravityParticleSystem
         : base("common/McGroundPartBlack")
     {
         Vector2 w7FromIPhoneSize = ScreenConstants.W7FromIPhoneSize;
-        base.HorizontalPosition = new RandomRange(w7FromIPhoneSize.X / 2f, w7FromIPhoneSize.X / 2f);
-        base.VerticalPosition = new RandomRange(0f, 0f);
-        base.Speed = new RandomRange(0.5f, 0f);
-        base.Angle = new RandomRange(90f, 15f);
-        base.AngularSpeed = new RandomRange(0f, 0f);
-        base.ParticlesScale = new RandomRange(1.3f, 1f);
+        HorizontalPosition = new RandomRange(w7FromIPhoneSize.X / 2f, w7FromIPhoneSize.X / 2f);
+        VerticalPosition = new RandomRange(0f, 0f);
+        Speed = new RandomRange(0.5f, 0f);
+        Angle = new RandomRange(90f, 15f);
+        AngularSpeed = new RandomRange(0f, 0f);
+        ParticlesScale = new RandomRange(1.3f, 1f);
         bottomLeftBound = new Vector2(0f, 0f);
         topRightBound = new Vector2(w7FromIPhoneSize.X, w7FromIPhoneSize.Y);
     }
@@ -24,7 +24,7 @@ public class BlueLights : GravityParticleSystem
     public override void initParticle(GravityParticle gravityParticle)
     {
         base.initParticle(gravityParticle);
-        gravityParticle.OpacityByte = (int)(40f + 20f * gravityParticle.Scale);
+        gravityParticle.OpacityByte = (int)(40f + (20f * gravityParticle.Scale));
         float num = 20f * gravityParticle.Scale;
         gravityParticle.Speed *= num;
     }

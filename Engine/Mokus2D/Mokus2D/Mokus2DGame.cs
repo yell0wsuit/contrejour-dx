@@ -10,7 +10,6 @@ using Mokus2D.FileSystem;
 using Mokus2D.Game;
 using Mokus2D.Input;
 using Mokus2D.Util;
-using Mokus2D.Util.Data;
 using Mokus2D.Util.Resources;
 using Mokus2D.Util.Schedule;
 using Mokus2D.Visual;
@@ -25,29 +24,29 @@ namespace Mokus2D;
 
 public abstract class Mokus2DGame : DisposableBase
 {
-    public readonly KeysController KeysController = new KeysController();
+    public readonly KeysController KeysController = new();
 
-    public readonly Scheduler Scheduler = new Scheduler();
+    public readonly Scheduler Scheduler = new();
 
-    public readonly TouchController TouchController = new TouchController();
+    public readonly TouchController TouchController = new();
 
     public readonly SpriteClicksListener SpriteClicksListener;
 
     public Tweener Tweener;
 
-    private readonly GarbageTracer _schedulerGarbageTracer = new GarbageTracer("Scheduler", start: false);
+    private readonly GarbageTracer _schedulerGarbageTracer = new("Scheduler", start: false);
 
-    private readonly GarbageTracer _touchGarbageTracer = new GarbageTracer("TouchController", start: false);
+    private readonly GarbageTracer _touchGarbageTracer = new("TouchController", start: false);
 
-    public readonly UpdateDrawCounter PerformanceCounter = new UpdateDrawCounter(60);
+    public readonly UpdateDrawCounter PerformanceCounter = new(60);
 
     private GameConfig _config;
 
-    private readonly FontsManager _fontsManager = new FontsManager();
+    private readonly FontsManager _fontsManager = new();
 
     private BatchSelector _batchSelector;
 
-    private readonly KeyboardController _keyboard = new KeyboardController();
+    private readonly KeyboardController _keyboard = new();
 
     public Color BackgroundColor = Color.Black;
 
@@ -55,15 +54,15 @@ public abstract class Mokus2DGame : DisposableBase
 
     private RootNode _root;
 
-    private GarbageTracer _gameDrawGarbageTracer = new GarbageTracer("Game.Draw", start: false);
+    private GarbageTracer _gameDrawGarbageTracer = new("Game.Draw", start: false);
 
-    private GarbageTracer _gameUpdateGarbageTracer = new GarbageTracer("Game.Update", start: false);
+    private GarbageTracer _gameUpdateGarbageTracer = new("Game.Update", start: false);
 
-    private GarbageTracer _rootGarbageTracer = new GarbageTracer("Root.Update", start: false);
+    private GarbageTracer _rootGarbageTracer = new("Root.Update", start: false);
 
     private IFileLoader _fileLoader = new FileLoader();
 
-    private readonly ConcurrentDelayedActions _mainThreadActions = new ConcurrentDelayedActions();
+    private readonly ConcurrentDelayedActions _mainThreadActions = new();
 
     public static Mokus2DGame Instance { get; private set; }
 
@@ -87,14 +86,8 @@ public abstract class Mokus2DGame : DisposableBase
 
     public static IFileLoader FileLoader
     {
-        get
-        {
-            return Instance._fileLoader;
-        }
-        set
-        {
-            Instance._fileLoader = value;
-        }
+        get => Instance._fileLoader;
+        set => Instance._fileLoader = value;
     }
 
     public static FontsManager FontsManager => Instance._fontsManager;
@@ -120,46 +113,28 @@ public abstract class Mokus2DGame : DisposableBase
 
     public bool IsFullScreen
     {
-        get
-        {
-            return ApplicationController.IsFullScreen;
-        }
-        set
-        {
-            ApplicationController.IsFullScreen = value;
-        }
+        get => ApplicationController.IsFullScreen;
+        set => ApplicationController.IsFullScreen = value;
     }
 
-    public Mokus2D.Util.Data.Point PrefferedBackBufferSize
+    public Util.Data.Point PrefferedBackBufferSize
     {
-        get
-        {
-            return ApplicationController.PrefferedBackBufferSize;
-        }
-        set
-        {
-            ApplicationController.PrefferedBackBufferSize = value;
-        }
+        get => ApplicationController.PrefferedBackBufferSize;
+        set => ApplicationController.PrefferedBackBufferSize = value;
     }
 
     public RootNode Root
     {
         get
         {
-            if (_root == null)
-            {
-                _root = CreateRootNode();
-            }
+            _root ??= CreateRootNode();
             return _root;
         }
     }
 
     public string ContentRootDirectory
     {
-        set
-        {
-            ApplicationController.ContentRootDirectory = value;
-        }
+        set => ApplicationController.ContentRootDirectory = value;
     }
 
     public Rectangle ClientBounds => ApplicationController.ClientBounds;
@@ -256,7 +231,7 @@ public abstract class Mokus2DGame : DisposableBase
     {
         IsExiting = true;
         Keyboard.OnGameExit();
-        this.Exiting.Dispatch();
+        Exiting.Dispatch();
     }
 
     public void ApplyGraphicsChanges()
@@ -319,9 +294,6 @@ public abstract class Mokus2DGame : DisposableBase
     protected override void Dispose(bool disposing)
     {
         base.Dispose(disposing);
-        if (ApplicationController != null)
-        {
-            ApplicationController.Dispose();
-        }
+        ApplicationController?.Dispose();
     }
 }

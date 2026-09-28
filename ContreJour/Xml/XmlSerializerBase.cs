@@ -8,7 +8,7 @@ namespace ContreJour.Xml;
 
 public abstract class XmlSerializerBase
 {
-    private readonly Dictionary<string, string> _aliases = new Dictionary<string, string>();
+    private readonly Dictionary<string, string> _aliases = [];
 
     public void AddAlias(string source, string alias)
     {
@@ -38,7 +38,7 @@ public abstract class XmlSerializerBase
             IList list = target as IList;
             while (list.Count < num + 1)
             {
-                list.Add(null);
+                _ = list.Add(null);
             }
             list[num] = targetValue;
         }
@@ -54,10 +54,6 @@ public abstract class XmlSerializerBase
 
     private string UnprocessAttributeName(string attributeName)
     {
-        if (attributeName.StartsWith("__"))
-        {
-            return attributeName.Substring(2);
-        }
-        return UnprocessValue(attributeName);
+        return attributeName.StartsWith("__") ? attributeName[2..] : UnprocessValue(attributeName);
     }
 }

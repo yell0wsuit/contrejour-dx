@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -19,9 +18,9 @@ public class PlasticineBorder : PrimitivesNode, IOpacity
 
     private static readonly Color OUT_COLOR = new Color(255, 255, 255) * 0f;
 
-    private static readonly Color IN_COLOR = new Color(0, 0, 0, 0);
+    private static readonly Color IN_COLOR = new(0, 0, 0, 0);
 
-    private static readonly Color CENTER_COLOR = new Color(127, 127, 127);
+    private static readonly Color CENTER_COLOR = new(127, 127, 127);
 
     private float WIDTH = 4f;
 
@@ -39,7 +38,7 @@ public class PlasticineBorder : PrimitivesNode, IOpacity
 
     public PlasticineBorder(List<Vector2> initialPolygon)
     {
-        List<Vector2> surface = new List<Vector2>();
+        List<Vector2> surface = [];
         ContreDrawUtil.CreateBezierSurfaceSurfaceSegments(initialPolygon, ref surface, 3);
         polygonSize = surface.Count;
         outBorder = new VertexPositionColorTexture[surface.Count * 6];
@@ -88,13 +87,7 @@ public class PlasticineBorder : PrimitivesNode, IOpacity
 
     int IOpacity.OpacityByte
     {
-        get
-        {
-            return base.OpacityByte;
-        }
-        set
-        {
-            base.OpacityByte = value;
-        }
+        get => OpacityByte;
+        set => OpacityByte = value;
     }
 }

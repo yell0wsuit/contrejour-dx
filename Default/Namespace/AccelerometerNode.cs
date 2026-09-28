@@ -19,7 +19,7 @@ public class AccelerometerNode : Node
 
     protected bool accelerometerUsed;
 
-    protected Vector2 maxAccOffset = new Vector2((float)Math.PI / 22f, 80f);
+    protected Vector2 maxAccOffset = new((float)Math.PI / 22f, 80f);
 
     private Vector2 speed = Vector2.Zero;
 
@@ -28,7 +28,7 @@ public class AccelerometerNode : Node
 
     private void UpdateOffset(Vector2 acceleration)
     {
-        Vector2 vector = default(Vector2);
+        Vector2 vector = default;
         vector.X = Maths.Clamp((0f - acceleration.Y) * 3f * maxAccOffset.X, 0f - maxAccOffset.X, maxAccOffset.X);
         vector.Y = Maths.Clamp((acceleration.X + 0.7f) * maxAccOffset.Y * 2f, 0f - maxAccOffset.Y, maxAccOffset.Y);
         if (!accelerometerUsed)

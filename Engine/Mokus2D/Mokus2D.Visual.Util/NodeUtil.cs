@@ -74,7 +74,7 @@ public static class NodeUtil
         node.RotationRadians = num;
         node.ScaleX = vector2.Length();
         node.ScaleY = vector3.Length();
-        float angle = vector3.Atan2() - (float)Math.PI / 2f;
+        float angle = vector3.Atan2() - ((float)Math.PI / 2f);
         if (!Maths.FuzzyEquals(Maths.SimplifyAngle(angle), Maths.SimplifyAngle(num), 0.1f))
         {
             node.ScaleY *= -1f;

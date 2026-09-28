@@ -37,14 +37,14 @@ public class Quad<T> : IQuad where T : struct, IVertex
     {
         Vector2 initialPosition = -anchorInPixels;
         Vector2 initialPosition2 = size - anchorInPixels;
-        Vector2 initialPosition3 = new Vector2(initialPosition2.X, initialPosition.Y);
-        Vector2 initialPosition4 = new Vector2(initialPosition.X, initialPosition2.Y);
+        Vector2 initialPosition3 = new(initialPosition2.X, initialPosition.Y);
+        Vector2 initialPosition4 = new(initialPosition.X, initialPosition2.Y);
         SetVertexPosition(ref LeftTop, initialPosition, ref matrix, cleanBounds: true);
         SetVertexPosition(ref RightTop, initialPosition3, ref matrix, cleanBounds: false);
         SetVertexPosition(ref LeftBottom, initialPosition4, ref matrix, cleanBounds: false);
         SetVertexPosition(ref RightBottom, initialPosition2, ref matrix, cleanBounds: false);
-        _bounds.Width = (int)(_rightBottom.X - (float)_bounds.X + 1f);
-        _bounds.Height = (int)(_rightBottom.Y - (float)_bounds.Y + 1f);
+        _bounds.Width = (int)(_rightBottom.X - _bounds.X + 1f);
+        _bounds.Height = (int)(_rightBottom.Y - _bounds.Y + 1f);
     }
 
     public void SetPositions(Vector2 leftTop, Vector2 rightBottom)
@@ -58,7 +58,7 @@ public class Quad<T> : IQuad where T : struct, IVertex
 
     public void RefreshBounds()
     {
-        _bounds = default(Rectangle);
+        _bounds = default;
         _bounds.X = (int)Maths.Min(LeftTop.Position.X, RightTop.Position.X, LeftBottom.Position.X, RightBottom.Position.X);
         _bounds.Y = (int)Maths.Min(LeftTop.Position.Y, RightTop.Position.Y, LeftBottom.Position.Y, RightBottom.Position.Y);
         _bounds.Width = (int)Maths.Max(LeftTop.Position.X, RightTop.Position.X, LeftBottom.Position.X, RightBottom.Position.X) - _bounds.X + 1;
@@ -67,7 +67,7 @@ public class Quad<T> : IQuad where T : struct, IVertex
 
     private void SetVertexPosition(ref T vertex, Vector2 initialPosition, ref Matrix matrix, bool cleanBounds)
     {
-        Vector2.Transform(ref initialPosition, ref matrix, out var result);
+        Vector2.Transform(ref initialPosition, ref matrix, out Vector2 result);
         vertex.Position = result.ToVector3();
         if (cleanBounds)
         {
@@ -83,8 +83,8 @@ public class Quad<T> : IQuad where T : struct, IVertex
 
     public void RefreshTextureRect(Rectangle textureRect, Vector2 textureSize)
     {
-        Vector2 textureCoordinate = new Vector2((float)textureRect.X / textureSize.X, (float)textureRect.Y / textureSize.Y);
-        Vector2 textureCoordinate2 = new Vector2((float)textureRect.Right / textureSize.X, (float)textureRect.Bottom / textureSize.Y);
+        Vector2 textureCoordinate = new(textureRect.X / textureSize.X, textureRect.Y / textureSize.Y);
+        Vector2 textureCoordinate2 = new(textureRect.Right / textureSize.X, textureRect.Bottom / textureSize.Y);
         LeftTop.TextureCoordinate = textureCoordinate;
         RightBottom.TextureCoordinate = textureCoordinate2;
         LeftBottom.TextureCoordinate = new Vector2(textureCoordinate.X, textureCoordinate2.Y);

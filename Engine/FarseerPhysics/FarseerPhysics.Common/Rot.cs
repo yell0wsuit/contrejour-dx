@@ -22,17 +22,17 @@ public struct Rot(float angle)
         c = 1f;
     }
 
-    public float GetAngle()
+    public readonly float GetAngle()
     {
         return (float)Math.Atan2(s, c);
     }
 
-    public Vector2 GetXAxis()
+    public readonly Vector2 GetXAxis()
     {
         return new Vector2(c, s);
     }
 
-    public Vector2 GetYAxis()
+    public readonly Vector2 GetYAxis()
     {
         return new Vector2(0f - s, c);
     }

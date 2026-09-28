@@ -19,14 +19,14 @@ public class ScaleBackground : BackgroundBase
     {
         initialScale.X = node.ScaleX;
         initialScale.Y = node.ScaleY;
-        currentStep = (config.Exists("angleOffset") ? (config.GetFloat("angleOffset") * 10f) : 0f);
+        currentStep = config.Exists("angleOffset") ? (config.GetFloat("angleOffset") * 10f) : 0f;
     }
 
     public override void Update(float time)
     {
         base.Update(time);
         currentStep += 0.02f;
-        node.ScaleX = initialScale.X + Maths.Cos(currentStep) * 0.05f + 0.05f;
-        node.ScaleY = initialScale.Y + Maths.Cos(currentStep) * 0.05f + 0.05f;
+        node.ScaleX = initialScale.X + (Maths.Cos(currentStep) * 0.05f) + 0.05f;
+        node.ScaleY = initialScale.Y + (Maths.Cos(currentStep) * 0.05f) + 0.05f;
     }
 }

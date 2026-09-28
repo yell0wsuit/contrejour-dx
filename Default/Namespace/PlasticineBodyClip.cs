@@ -42,14 +42,8 @@ public class PlasticineBodyClip : ContreJourBodyClip, IRestartable
 
     public bool Changed
     {
-        get
-        {
-            return changed;
-        }
-        set
-        {
-            changed = value;
-        }
+        get => changed;
+        set => changed = value;
     }
 
     public PlasticineBodyClip(LevelBuilderBase _builder, List<Vector2> points, Node _clip, Hashtable _config)
@@ -59,10 +53,10 @@ public class PlasticineBodyClip : ContreJourBodyClip, IRestartable
         contreJourGame.RegisterPlasticine(this);
         clipContent = (PlasticineSprite)ReflectUtil.CreateInstance(contreJourGame.ChooseSide(typeof(BlackPlasticineSprite), typeof(WhitePlasticineSprite), typeof(PlasticineSprite)));
         Create(points);
-        builder.AddChild(clipContent);
+        _ = builder.AddChild(clipContent);
         firstItem.BodyClip.UpdateParent = true;
         wideBorder = new PlasticineWideBorder();
-        builder.AddChild(wideBorder);
+        _ = builder.AddChild(wideBorder);
         InitBorder(contreJourGame);
         InitFillSprite();
         if (!contreJourGame.RoseChapter)
@@ -71,10 +65,10 @@ public class PlasticineBodyClip : ContreJourBodyClip, IRestartable
         }
         if (highlite != null)
         {
-            builder.AddChild(highlite);
+            _ = builder.AddChild(highlite);
         }
         changed = false;
-        draggingItems = new Dictionary<Touch, DraggingItem>();
+        draggingItems = [];
     }
 
     public void Restart()
@@ -134,7 +128,7 @@ public class PlasticineBodyClip : ContreJourBodyClip, IRestartable
             nextItem = nextItem.NextItem;
         }
         while (nextItem != firstItem);
-        Color borderOutColor = (game.BlackSide ? PlasticineConstants.BLACK_BORDER_OUT_COLOR : ((!game.WhiteSide) ? new Color(0, 0, 0, 0) : PlasticineConstants.WHITE_GROUND_OUT_COLOR));
+        Color borderOutColor = game.BlackSide ? PlasticineConstants.BLACK_BORDER_OUT_COLOR : ((!game.WhiteSide) ? new Color(0, 0, 0, 0) : PlasticineConstants.WHITE_GROUND_OUT_COLOR);
         wideBorder.SetSizeBorderColorBorderOutColor(num, clipContent.Color, borderOutColor);
     }
 
@@ -160,11 +154,13 @@ public class PlasticineBodyClip : ContreJourBodyClip, IRestartable
     public bool PointInside(Vector2 point)
     {
         float num = 30f;
-        List<Vector2> list = new List<Vector2>();
-        list.Add(new Vector2(point.X + num, point.Y));
-        list.Add(new Vector2(point.X, point.Y + num));
-        list.Add(new Vector2(point.X - num, point.Y));
-        list.Add(new Vector2(point.X, point.Y - num));
+        List<Vector2> list =
+        [
+            new Vector2(point.X + num, point.Y),
+            new Vector2(point.X, point.Y + num),
+            new Vector2(point.X - num, point.Y),
+            new Vector2(point.X, point.Y - num),
+        ];
         for (int i = 0; i < list.Count; i++)
         {
             List<Fixture> list2 = FarseerUtil.Raycast(endPoint: list[i], world: builder.World, startPoint: point);
@@ -198,15 +194,11 @@ public class PlasticineBodyClip : ContreJourBodyClip, IRestartable
 
     public PlasticineBorder CreateOutBorder(float offset)
     {
-        List<Vector2> polygon = new List<Vector2>();
+        List<Vector2> polygon = [];
         GetBorderVerticesOffset(ref polygon, offset);
-        if (!base.Game.BlackSide)
+        if (!Game.BlackSide)
         {
-            if (!base.Game.BonusChapter)
-            {
-                return new PlasticineBorder(polygon);
-            }
-            return new GreenPlasticineBorder(polygon);
+            return !Game.BonusChapter ? new PlasticineBorder(polygon) : new GreenPlasticineBorder(polygon);
         }
         return new BlackPlasticineBorder(polygon);
     }
@@ -230,7 +222,7 @@ public class PlasticineBodyClip : ContreJourBodyClip, IRestartable
         item.NextItem.NextItem.BodyClip.ScareFlyes(0);
         item.PreviousItem.BodyClip.ScareFlyes(0);
         item.PreviousItem.PreviousItem.BodyClip.ScareFlyes(0);
-        DraggingItem value = new DraggingItem(builder, item, touch);
+        DraggingItem value = new(builder, item, touch);
         draggingItems[touch] = value;
         return true;
     }
@@ -238,7 +230,7 @@ public class PlasticineBodyClip : ContreJourBodyClip, IRestartable
     public void StopDragTouch(PlasticineItem item, Touch touch)
     {
         DraggingItem draggingItem = draggingItems[touch];
-        draggingItems.Remove(touch);
+        _ = draggingItems.Remove(touch);
         draggingItem.Finish();
     }
 
@@ -252,10 +244,7 @@ public class PlasticineBodyClip : ContreJourBodyClip, IRestartable
             nextItem = nextItem.NextItem;
         }
         while (nextItem != firstItem);
-        if (highlite != null)
-        {
-            highlite.Update(time);
-        }
+        highlite?.Update(time);
         if (changed)
         {
             changed = false;

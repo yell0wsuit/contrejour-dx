@@ -6,7 +6,7 @@ public class SidePanelParticles : LastParticles
 {
     public SidePanelParticles()
     {
-        base.ParticlesScale = new RandomRange(1.5f, 0.6f);
+        ParticlesScale = new RandomRange(1.5f, 0.6f);
         SpeedMult = 10f;
     }
 }

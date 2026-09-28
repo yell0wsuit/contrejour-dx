@@ -37,8 +37,8 @@ public static class SeparationFunction
         int count = cache.Count;
         _sweepA = sweepA;
         _sweepB = sweepB;
-        _sweepA.GetTransform(out var xfb, t1);
-        _sweepB.GetTransform(out var xfb2, t1);
+        _sweepA.GetTransform(out Transform xfb, t1);
+        _sweepB.GetTransform(out Transform xfb2, t1);
         if (count == 1)
         {
             _type = SeparationFunctionType.Points;
@@ -91,8 +91,8 @@ public static class SeparationFunction
 
     public static float FindMinSeparation(out int indexA, out int indexB, float t)
     {
-        _sweepA.GetTransform(out var xfb, t);
-        _sweepB.GetTransform(out var xfb2, t);
+        _sweepA.GetTransform(out Transform xfb, t);
+        _sweepB.GetTransform(out Transform xfb2, t);
         switch (_type)
         {
             case SeparationFunctionType.Points:
@@ -138,8 +138,8 @@ public static class SeparationFunction
 
     public static float Evaluate(int indexA, int indexB, float t)
     {
-        _sweepA.GetTransform(out var xfb, t);
-        _sweepB.GetTransform(out var xfb2, t);
+        _sweepA.GetTransform(out Transform xfb, t);
+        _sweepB.GetTransform(out Transform xfb2, t);
         switch (_type)
         {
             case SeparationFunctionType.Points:

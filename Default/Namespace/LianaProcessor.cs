@@ -22,7 +22,7 @@ public class LianaProcessor : JointProcessorBase
 
     public void JoinBodyTo(Body body1, Body body2)
     {
-        FarseerUtil.CreateDistanceJoint(builder.World, body1, body2, 4f, 0.2f);
+        _ = FarseerUtil.CreateDistanceJoint(builder.World, body1, body2, 4f, 0.2f);
     }
 
     public Body CreateBodyDynamic(Vector2 position, bool dynamic)

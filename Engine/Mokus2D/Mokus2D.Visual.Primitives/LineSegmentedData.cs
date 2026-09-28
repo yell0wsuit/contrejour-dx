@@ -12,7 +12,7 @@ namespace Mokus2D.Visual.Primitives;
 
 public class LineSegmentedData<T> : ISegmentedSpriteData<T>, IUpdatable where T : struct, IVertex
 {
-    protected readonly List<Vector2> Line = new List<Vector2>();
+    protected readonly List<Vector2> Line = [];
 
     private readonly float _width;
 
@@ -22,10 +22,7 @@ public class LineSegmentedData<T> : ISegmentedSpriteData<T>, IUpdatable where T 
 
     public Vector2 this[int i]
     {
-        get
-        {
-            return Line[i];
-        }
+        get => Line[i];
         set
         {
             if (Line[i] != value)
@@ -67,7 +64,7 @@ public class LineSegmentedData<T> : ISegmentedSpriteData<T>, IUpdatable where T 
             {
                 AddOrthoPoints(sprite, lines, i, line[i], line[i - 1], line[i + 1], ref matrix);
             }
-            AddOrthoPoints(sprite, lines, line.Count - 1, line.Last(), line[line.Count - 2], line.Last(), ref matrix);
+            AddOrthoPoints(sprite, lines, line.Count - 1, line.Last(), line[^2], line.Last(), ref matrix);
         }
     }
 
@@ -79,7 +76,7 @@ public class LineSegmentedData<T> : ISegmentedSpriteData<T>, IUpdatable where T 
             vector = Vector2.One;
         }
         Pair<Vector2> orthoPoints = VectorUtil.GetOrthoPoints(center, vector, _width);
-        Pair<T> defaultPair = sprite.GetDefaultPair((float)index / (float)(PairsCount - 1));
+        Pair<T> defaultPair = sprite.GetDefaultPair(index / (float)(PairsCount - 1));
         defaultPair.First.Position = orthoPoints.First.Transform(ref matrix).ToVector3();
         defaultPair.Second.Position = orthoPoints.Second.Transform(ref matrix).ToVector3();
         lines.Add(defaultPair);

@@ -22,21 +22,15 @@ public static class ReflectionHelperExtensions
         {
             return true;
         }
-        if ((object)typeInfo.BaseType != null)
-        {
-            return typeInfo.BaseType.IsGenericDefinition(genericType);
-        }
-        return false;
+        return typeInfo.BaseType is not null ? typeInfo.BaseType.IsGenericDefinition(genericType) : false;
     }
 
     private static bool IsCurrentGenericDefinition(Type targetType, Type genericType)
     {
         TypeInfo typeInfo = genericType.GetTypeInfo();
-        if (!typeInfo.IsInterface)
-        {
-            return (object)targetType.GetGenericTypeDefinition() == genericType;
-        }
-        return HasGenericInterface(targetType, genericType);
+        return !typeInfo.IsInterface
+            ? (object)targetType.GetGenericTypeDefinition() == genericType
+            : HasGenericInterface(targetType, genericType);
     }
 
     private static bool HasGenericInterface(Type targetType, Type genericInterface)

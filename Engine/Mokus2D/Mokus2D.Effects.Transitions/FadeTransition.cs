@@ -13,7 +13,7 @@ namespace Mokus2D.Effects.Transitions;
 
 public class FadeTransition : ITween, ICleanable, IUpdatable
 {
-    private static readonly Pool<FadeTransition> pool = new Pool<FadeTransition>(() => new FadeTransition());
+    private static readonly Pool<FadeTransition> pool = new(() => new FadeTransition());
 
     private Node toRemove;
 
@@ -60,7 +60,7 @@ public class FadeTransition : ITween, ICleanable, IUpdatable
 
     public FadeTransition(string spriteId, float hideSeconds, float showSeconds, Node toRemove, Func<Node> nodeFactory, int framesToWait = 0)
     {
-        Initialize(spriteId, hideSeconds, showSeconds, toRemove, nodeFactory, framesToWait);
+        _ = Initialize(spriteId, hideSeconds, showSeconds, toRemove, nodeFactory, framesToWait);
     }
 
     public FadeTransition Initialize(string spriteId, float hideSeconds, float showSeconds, Node toRemove, Func<Node> nodeFactory, int framesToWait = 0)
@@ -80,7 +80,7 @@ public class FadeTransition : ITween, ICleanable, IUpdatable
 
     internal void Start(float time)
     {
-        layer.FadeIn(hideSeconds).OnComplete(OnCurrentActionFinished);
+        _ = layer.FadeIn(hideSeconds).OnComplete(OnCurrentActionFinished);
     }
 
     public void Update(float time)
@@ -88,13 +88,13 @@ public class FadeTransition : ITween, ICleanable, IUpdatable
         if (dispatch)
         {
             dispatch = false;
-            this.MiddleEvent.Dispatch();
+            MiddleEvent.Dispatch();
         }
         if (currentActionFinished)
         {
             if (currentFrame >= framesToWait)
             {
-                layer.FadeOut(showSeconds).OnComplete(OnCurrentActionFinished);
+                _ = layer.FadeOut(showSeconds).OnComplete(OnCurrentActionFinished);
                 currentActionFinished = false;
             }
             currentFrame++;
@@ -132,7 +132,7 @@ public class FadeTransition : ITween, ICleanable, IUpdatable
     {
         toRemove = null;
         nodeFactory = null;
-        this.MiddleEvent = null;
+        MiddleEvent = null;
         dispatch = false;
         currentFrame = 0;
         replaced = false;

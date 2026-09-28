@@ -20,19 +20,19 @@ public class World
 
     private bool _stepComplete;
 
-    private HashSet<Body> _bodyAddList = new HashSet<Body>();
+    private HashSet<Body> _bodyAddList = [];
 
-    private HashSet<Body> _bodyRemoveList = new HashSet<Body>();
+    private HashSet<Body> _bodyRemoveList = [];
 
-    private HashSet<Joint> _jointAddList = new HashSet<Joint>();
+    private HashSet<Joint> _jointAddList = [];
 
-    private HashSet<Joint> _jointRemoveList = new HashSet<Joint>();
+    private HashSet<Joint> _jointRemoveList = [];
 
     private Func<Fixture, bool> _queryAABBCallback;
 
     private Func<int, bool> _queryAABBCallbackWrapper;
 
-    private TOIInput _input = new TOIInput();
+    private TOIInput _input = new();
 
     private Fixture _myFixture;
 
@@ -42,13 +42,13 @@ public class World
 
     private List<Fixture> _testPointAllFixtures;
 
-    private Stopwatch _watch = new Stopwatch();
+    private Stopwatch _watch = new();
 
     private Func<Fixture, Vector2, Vector2, float, float> _rayCastCallback;
 
     private Func<RayCastInput, int, float> _rayCastCallbackWrapper;
 
-    internal Queue<Contact> _contactPool = new Queue<Contact>(256);
+    internal Queue<Contact> _contactPool = new(256);
 
     internal bool _worldHasNewFixture;
 
@@ -106,8 +106,8 @@ public class World
     {
         Island = new Island();
         Enabled = true;
-        ControllerList = new List<Controller>();
-        BreakableBodyList = new List<BreakableBody>();
+        ControllerList = [];
+        BreakableBodyList = [];
         BodyList = new List<Body>(32);
         JointList = new List<Joint>(32);
         _queryAABBCallbackWrapper = QueryAABBCallbackWrapper;
@@ -125,7 +125,7 @@ public class World
         foreach (Joint jointRemove in _jointRemoveList)
         {
             bool collideConnected = jointRemove.CollideConnected;
-            JointList.Remove(jointRemove);
+            _ = JointList.Remove(jointRemove);
             Body bodyA = jointRemove.BodyA;
             Body bodyB = jointRemove.BodyB;
             bodyA.Awake = true;
@@ -133,14 +133,8 @@ public class World
             {
                 bodyB.Awake = true;
             }
-            if (jointRemove.EdgeA.Prev != null)
-            {
-                jointRemove.EdgeA.Prev.Next = jointRemove.EdgeA.Next;
-            }
-            if (jointRemove.EdgeA.Next != null)
-            {
-                jointRemove.EdgeA.Next.Prev = jointRemove.EdgeA.Prev;
-            }
+            jointRemove.EdgeA.Prev?.Next = jointRemove.EdgeA.Next;
+            jointRemove.EdgeA.Next?.Prev = jointRemove.EdgeA.Prev;
             if (jointRemove.EdgeA == bodyA.JointList)
             {
                 bodyA.JointList = jointRemove.EdgeA.Next;
@@ -149,14 +143,8 @@ public class World
             jointRemove.EdgeA.Next = null;
             if (!jointRemove.IsFixedType())
             {
-                if (jointRemove.EdgeB.Prev != null)
-                {
-                    jointRemove.EdgeB.Prev.Next = jointRemove.EdgeB.Next;
-                }
-                if (jointRemove.EdgeB.Next != null)
-                {
-                    jointRemove.EdgeB.Next.Prev = jointRemove.EdgeB.Prev;
-                }
+                jointRemove.EdgeB.Prev?.Next = jointRemove.EdgeB.Next;
+                jointRemove.EdgeB.Next?.Prev = jointRemove.EdgeB.Prev;
                 if (jointRemove.EdgeB == bodyB.JointList)
                 {
                     bodyB.JointList = jointRemove.EdgeB.Next;
@@ -174,10 +162,7 @@ public class World
                     }
                 }
             }
-            if (JointRemoved != null)
-            {
-                JointRemoved(jointRemove);
-            }
+            JointRemoved?.Invoke(jointRemove);
         }
         _jointRemoveList.Clear();
     }
@@ -195,10 +180,7 @@ public class World
             jointAdd.EdgeA.Other = jointAdd.BodyB;
             jointAdd.EdgeA.Prev = null;
             jointAdd.EdgeA.Next = jointAdd.BodyA.JointList;
-            if (jointAdd.BodyA.JointList != null)
-            {
-                jointAdd.BodyA.JointList.Prev = jointAdd.EdgeA;
-            }
+            jointAdd.BodyA.JointList?.Prev = jointAdd.EdgeA;
             jointAdd.BodyA.JointList = jointAdd.EdgeA;
             if (!jointAdd.IsFixedType())
             {
@@ -206,10 +188,7 @@ public class World
                 jointAdd.EdgeB.Other = jointAdd.BodyA;
                 jointAdd.EdgeB.Prev = null;
                 jointAdd.EdgeB.Next = jointAdd.BodyB.JointList;
-                if (jointAdd.BodyB.JointList != null)
-                {
-                    jointAdd.BodyB.JointList.Prev = jointAdd.EdgeB;
-                }
+                jointAdd.BodyB.JointList?.Prev = jointAdd.EdgeB;
                 jointAdd.BodyB.JointList = jointAdd.EdgeB;
                 Body bodyA = jointAdd.BodyA;
                 Body bodyB = jointAdd.BodyB;
@@ -224,10 +203,7 @@ public class World
                     }
                 }
             }
-            if (JointAdded != null)
-            {
-                JointAdded(jointAdd);
-            }
+            JointAdded?.Invoke(jointAdd);
         }
         _jointAddList.Clear();
     }
@@ -241,10 +217,7 @@ public class World
         foreach (Body bodyAdd in _bodyAddList)
         {
             BodyList.Add(bodyAdd);
-            if (BodyAdded != null)
-            {
-                BodyAdded(bodyAdd);
-            }
+            BodyAdded?.Invoke(bodyAdd);
         }
         _bodyAddList.Clear();
     }
@@ -279,11 +252,8 @@ public class World
                 bodyRemove.FixtureList[i].Destroy();
             }
             bodyRemove.FixtureList = null;
-            BodyList.Remove(bodyRemove);
-            if (BodyRemoved != null)
-            {
-                BodyRemoved(bodyRemove);
-            }
+            _ = BodyList.Remove(bodyRemove);
+            BodyRemoved?.Invoke(bodyRemove);
         }
         _bodyRemoveList.Clear();
     }
@@ -299,10 +269,10 @@ public class World
         FixtureProxy proxy = ContactManager.BroadPhase.GetProxy(proxyId);
         Fixture fixture = proxy.Fixture;
         int childIndex = proxy.ChildIndex;
-        if (fixture.RayCast(out var output, ref rayCastInput, childIndex))
+        if (fixture.RayCast(out RayCastOutput output, ref rayCastInput, childIndex))
         {
             float fraction = output.Fraction;
-            Vector2 arg = (1f - fraction) * rayCastInput.Point1 + fraction * rayCastInput.Point2;
+            Vector2 arg = ((1f - fraction) * rayCastInput.Point1) + (fraction * rayCastInput.Point2);
             return _rayCastCallback(fixture, arg, output.Normal, fraction);
         }
         return rayCastInput.MaxFraction;
@@ -432,7 +402,7 @@ public class World
                 contact._toi = 1f;
             }
         }
-        TimeStep subStep = default(TimeStep);
+        TimeStep subStep = default;
         while (true)
         {
             Contact contact2 = null;
@@ -489,9 +459,9 @@ public class World
                     _input.SweepA = body._sweep;
                     _input.SweepB = body2._sweep;
                     _input.TMax = 1f;
-                    TimeOfImpact.CalculateTimeOfImpact(out var output, _input);
+                    TimeOfImpact.CalculateTimeOfImpact(out TOIOutput output, _input);
                     float t = output.T;
-                    num2 = (contact3._toi = ((output.State != TOIOutputState.Touching) ? 1f : Math.Min(alpha + (1f - alpha) * t, 1f)));
+                    num2 = contact3._toi = (output.State != TOIOutputState.Touching) ? 1f : Math.Min(alpha + ((1f - alpha) * t), 1f);
                     contact3.TOIFlag = true;
                 }
                 if (num2 < num)
@@ -533,7 +503,7 @@ public class World
             body3._island = true;
             body4._island = true;
             contact2.IslandFlag = true;
-            Body[] array = new Body[2] { body3, body4 };
+            Body[] array = [body3, body4];
             for (int l = 0; l < 2; l++)
             {
                 Body body5 = array[l];
@@ -614,7 +584,7 @@ public class World
     {
         if (!_bodyAddList.Contains(body))
         {
-            _bodyAddList.Add(body);
+            _ = _bodyAddList.Add(body);
         }
     }
 
@@ -622,7 +592,7 @@ public class World
     {
         if (!_bodyRemoveList.Contains(body))
         {
-            _bodyRemoveList.Add(body);
+            _ = _bodyRemoveList.Add(body);
         }
     }
 
@@ -630,7 +600,7 @@ public class World
     {
         if (!_jointAddList.Contains(joint))
         {
-            _jointAddList.Add(joint);
+            _ = _jointAddList.Add(joint);
         }
     }
 
@@ -638,7 +608,7 @@ public class World
     {
         if (!_jointRemoveList.Contains(joint))
         {
-            _jointRemoveList.Add(joint);
+            _ = _jointRemoveList.Add(joint);
         }
     }
 
@@ -667,25 +637,25 @@ public class World
                 ContactManager.FindNewContacts();
                 _worldHasNewFixture = false;
             }
-            NewContactsTime = (float)_watch.ElapsedTicks - AddRemoveTime;
-            TimeStep step = default(TimeStep);
-            step.inv_dt = ((dt > 0f) ? (1f / dt) : 0f);
+            NewContactsTime = _watch.ElapsedTicks - AddRemoveTime;
+            TimeStep step = default;
+            step.inv_dt = (dt > 0f) ? (1f / dt) : 0f;
             step.dt = dt;
             step.dtRatio = _invDt0 * dt;
             for (int i = 0; i < ControllerList.Count; i++)
             {
                 ControllerList[i].Update(dt);
             }
-            ControllersUpdateTime = (float)_watch.ElapsedTicks - (AddRemoveTime + NewContactsTime);
+            ControllersUpdateTime = _watch.ElapsedTicks - (AddRemoveTime + NewContactsTime);
             ContactManager.Collide();
-            ContactsUpdateTime = (float)_watch.ElapsedTicks - (AddRemoveTime + NewContactsTime + ControllersUpdateTime);
+            ContactsUpdateTime = _watch.ElapsedTicks - (AddRemoveTime + NewContactsTime + ControllersUpdateTime);
             Solve(ref step);
-            SolveUpdateTime = (float)_watch.ElapsedTicks - (AddRemoveTime + NewContactsTime + ControllersUpdateTime + ContactsUpdateTime);
+            SolveUpdateTime = _watch.ElapsedTicks - (AddRemoveTime + NewContactsTime + ControllersUpdateTime + ContactsUpdateTime);
             if (Settings.ContinuousPhysics)
             {
                 SolveTOI(ref step);
             }
-            ContinuousPhysicsTime = (float)_watch.ElapsedTicks - (AddRemoveTime + NewContactsTime + ControllersUpdateTime + ContactsUpdateTime + SolveUpdateTime);
+            ContinuousPhysicsTime = _watch.ElapsedTicks - (AddRemoveTime + NewContactsTime + ControllersUpdateTime + ContactsUpdateTime + SolveUpdateTime);
             ClearForces();
             for (int j = 0; j < BreakableBodyList.Count; j++)
             {
@@ -717,7 +687,7 @@ public class World
 
     public List<Fixture> QueryAABB(ref AABB aabb)
     {
-        List<Fixture> affected = new List<Fixture>();
+        List<Fixture> affected = [];
         QueryAABB(delegate (Fixture fixture)
         {
             affected.Add(fixture);
@@ -728,7 +698,7 @@ public class World
 
     public void RayCast(Func<Fixture, Vector2, Vector2, float, float> callback, Vector2 point1, Vector2 point2)
     {
-        RayCastInput input = new RayCastInput
+        RayCastInput input = new()
         {
             MaxFraction = 1f,
             Point1 = point1,
@@ -741,7 +711,7 @@ public class World
 
     public List<Fixture> RayCast(Vector2 point1, Vector2 point2)
     {
-        List<Fixture> affected = new List<Fixture>();
+        List<Fixture> affected = [];
         RayCast(delegate (Fixture f, Vector2 p, Vector2 n, float fr)
         {
             affected.Add(f);
@@ -754,21 +724,15 @@ public class World
     {
         controller.World = this;
         ControllerList.Add(controller);
-        if (ControllerAdded != null)
-        {
-            ControllerAdded(controller);
-        }
+        ControllerAdded?.Invoke(controller);
     }
 
     public void RemoveController(Controller controller)
     {
         if (ControllerList.Contains(controller))
         {
-            ControllerList.Remove(controller);
-            if (ControllerRemoved != null)
-            {
-                ControllerRemoved(controller);
-            }
+            _ = ControllerList.Remove(controller);
+            ControllerRemoved?.Invoke(controller);
         }
     }
 
@@ -779,13 +743,13 @@ public class World
 
     public void RemoveBreakableBody(BreakableBody breakableBody)
     {
-        BreakableBodyList.Remove(breakableBody);
+        _ = BreakableBodyList.Remove(breakableBody);
     }
 
     public Fixture TestPoint(Vector2 point)
     {
-        Vector2 vector = new Vector2(1.1920929E-07f, 1.1920929E-07f);
-        AABB aabb = default(AABB);
+        Vector2 vector = new(1.1920929E-07f, 1.1920929E-07f);
+        AABB aabb = default;
         aabb.LowerBound = point - vector;
         aabb.UpperBound = point + vector;
         _myFixture = null;
@@ -806,12 +770,12 @@ public class World
 
     public List<Fixture> TestPointAll(Vector2 point)
     {
-        Vector2 vector = new Vector2(1.1920929E-07f, 1.1920929E-07f);
-        AABB aabb = default(AABB);
+        Vector2 vector = new(1.1920929E-07f, 1.1920929E-07f);
+        AABB aabb = default;
         aabb.LowerBound = point - vector;
         aabb.UpperBound = point + vector;
         _point2 = point;
-        _testPointAllFixtures = new List<Fixture>();
+        _testPointAllFixtures = [];
         QueryAABB(TestPointAllCallback, ref aabb);
         return _testPointAllFixtures;
     }

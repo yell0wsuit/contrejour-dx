@@ -9,7 +9,7 @@ namespace Mokus2D.Visual.Data;
 
 public class ClipData : IMovieClipData, ISpriteData, ITextureNodeData, IConfig
 {
-    private readonly List<FrameData> frames = new List<FrameData>();
+    private readonly List<FrameData> frames = [];
 
     private float scaleFactor = 1f;
 
@@ -27,14 +27,8 @@ public class ClipData : IMovieClipData, ISpriteData, ITextureNodeData, IConfig
 
     public float ScaleFactor
     {
-        get
-        {
-            return scaleFactor;
-        }
-        set
-        {
-            scaleFactor = value;
-        }
+        get => scaleFactor;
+        set => scaleFactor = value;
     }
 
     public string Id { get; private set; }
@@ -45,10 +39,7 @@ public class ClipData : IMovieClipData, ISpriteData, ITextureNodeData, IConfig
 
     public Vector2 Size
     {
-        get
-        {
-            return new Vector2(Width, Height);
-        }
+        get => new Vector2(Width, Height);
         set
         {
             Width = (int)value.X;
@@ -60,14 +51,8 @@ public class ClipData : IMovieClipData, ISpriteData, ITextureNodeData, IConfig
 
     public string TextureName
     {
-        get
-        {
-            return Texture.Name;
-        }
-        set
-        {
-            Texture.Name = value;
-        }
+        get => Texture.Name;
+        set => Texture.Name = value;
     }
 
     public Texture2D Texture { get; set; }
@@ -79,12 +64,12 @@ public class ClipData : IMovieClipData, ISpriteData, ITextureNodeData, IConfig
     public void Initialize()
     {
         Anchor = new Vector2(Anchor.X, 1f - Anchor.Y);
-        FrameData item = default(FrameData);
-        for (int i = 0; (float)i < TileData.Y; i++)
+        FrameData item = default;
+        for (int i = 0; i < TileData.Y; i++)
         {
-            for (int j = 0; (float)j < TileData.X; j++)
+            for (int j = 0; j < TileData.X; j++)
             {
-                Rectangle rect = new Rectangle(j * Width, i * Height, Width, Height);
+                Rectangle rect = new(j * Width, i * Height, Width, Height);
                 item.Anchor = Vector2.Zero;
                 item.Rect = rect;
                 Frames.Add(item);

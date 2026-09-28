@@ -15,22 +15,13 @@ public class MaskedSprite : RenderSprite
 
     public bool UpdateMask
     {
-        get
-        {
-            return maskRoot.UpdateChildren;
-        }
-        set
-        {
-            maskRoot.UpdateChildren = value;
-        }
+        get => maskRoot.UpdateChildren;
+        set => maskRoot.UpdateChildren = value;
     }
 
     public SpriteBatchNode Mask
     {
-        get
-        {
-            return mask;
-        }
+        get => mask;
         set
         {
             if (mask != null)
@@ -60,11 +51,13 @@ public class MaskedSprite : RenderSprite
     public MaskedSprite(Vector2 size)
         : base(size)
     {
-        blendState = new BlendState();
-        blendState.ColorDestinationBlend = Microsoft.Xna.Framework.Graphics.Blend.SourceAlpha;
-        blendState.AlphaDestinationBlend = Microsoft.Xna.Framework.Graphics.Blend.SourceAlpha;
-        blendState.ColorSourceBlend = Microsoft.Xna.Framework.Graphics.Blend.Zero;
-        blendState.AlphaSourceBlend = Microsoft.Xna.Framework.Graphics.Blend.Zero;
+        blendState = new BlendState
+        {
+            ColorDestinationBlend = Microsoft.Xna.Framework.Graphics.Blend.SourceAlpha,
+            AlphaDestinationBlend = Microsoft.Xna.Framework.Graphics.Blend.SourceAlpha,
+            ColorSourceBlend = Microsoft.Xna.Framework.Graphics.Blend.Zero,
+            AlphaSourceBlend = Microsoft.Xna.Framework.Graphics.Blend.Zero
+        };
         maskRoot = new MaskRoot((int)size.X, (int)size.Y);
     }
 
@@ -75,12 +68,12 @@ public class MaskedSprite : RenderSprite
             base.DrawContent();
             if (Mokus2DGame.Config.RenderTargetEnabled)
             {
-                maskRoot.ScaleX = Math.Sign(base.Root.ScaleX);
-                maskRoot.ScaleY = Math.Sign(base.Root.ScaleY);
-                maskRoot.SpritesScaleFactor = base.Root.SpritesScaleFactor;
+                maskRoot.ScaleX = Math.Sign(Root.ScaleX);
+                maskRoot.ScaleY = Math.Sign(Root.ScaleY);
+                maskRoot.SpritesScaleFactor = Root.SpritesScaleFactor;
                 BlendState blend = mask.Blend;
                 mask.Blend = blendState;
-                maskRoot.Position = base.AnchorInPixels;
+                maskRoot.Position = AnchorInPixels;
                 maskRoot.DrawAll();
                 mask.Blend = blend;
             }

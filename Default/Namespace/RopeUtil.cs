@@ -9,7 +9,7 @@ public class RopeUtil
     public static RopeMetrics GetRopeMetricsByLengthMaxPartSizeMinParts(float distance, float maxPartSize, int minParts)
     {
         int num = Math.Max((int)Math.Ceiling(distance / maxPartSize), minParts);
-        return new RopeMetrics(num, distance / (float)num);
+        return new RopeMetrics(num, distance / num);
     }
 
     public static RopeMetricsWithCoords GetRopeMetricsEndMaxPartSizeMinPartsLength(Vector2 start, Vector2 end, float maxPartSize, int minParts, float length)

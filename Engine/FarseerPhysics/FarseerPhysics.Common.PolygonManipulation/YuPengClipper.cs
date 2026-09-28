@@ -30,11 +30,7 @@ public static class YuPengClipper
 
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
-            return Equals(obj as Edge);
+            return obj == null ? false : Equals(obj as Edge);
         }
 
         public bool Equals(Edge e)
@@ -43,11 +39,7 @@ public static class YuPengClipper
             {
                 return false;
             }
-            if (VectorEqual(EdgeStart, e.EdgeStart))
-            {
-                return VectorEqual(EdgeEnd, e.EdgeEnd);
-            }
-            return false;
+            return VectorEqual(EdgeStart, e.EdgeStart) ? VectorEqual(EdgeEnd, e.EdgeEnd) : false;
         }
 
         public override int GetHashCode()
@@ -75,10 +67,10 @@ public static class YuPengClipper
 
     private static List<Vertices> Execute(Vertices subject, Vertices clip, PolyClipType clipType, out PolyClipError error)
     {
-        CalculateIntersections(subject, clip, out var slicedPoly, out var slicedPoly2);
+        CalculateIntersections(subject, clip, out Vertices slicedPoly, out Vertices slicedPoly2);
         Vector2 value = subject.GetAABB().LowerBound;
         Vector2 value2 = clip.GetAABB().LowerBound;
-        Vector2.Min(ref value, ref value2, out var result);
+        Vector2.Min(ref value, ref value2, out Vector2 result);
         result = Vector2.One - result;
         if (result != Vector2.Zero)
         {
@@ -87,15 +79,15 @@ public static class YuPengClipper
         }
         slicedPoly.ForceCounterClockWise();
         slicedPoly2.ForceCounterClockWise();
-        CalculateSimplicalChain(slicedPoly, out var coeff, out var simplicies);
-        CalculateSimplicalChain(slicedPoly2, out var coeff2, out var simplicies2);
-        CalculateResultChain(coeff, simplicies, coeff2, simplicies2, clipType, out var resultSimplices);
-        error = BuildPolygonsFromChain(resultSimplices, out var result2);
+        CalculateSimplicalChain(slicedPoly, out List<float> coeff, out List<Edge> simplicies);
+        CalculateSimplicalChain(slicedPoly2, out List<float> coeff2, out List<Edge> simplicies2);
+        CalculateResultChain(coeff, simplicies, coeff2, simplicies2, clipType, out List<Edge> resultSimplices);
+        error = BuildPolygonsFromChain(resultSimplices, out List<Vertices> result2);
         result *= -1f;
         for (int i = 0; i < result2.Count; i++)
         {
             result2[i].Translate(ref result);
-            SimplifyTools.CollinearSimplify(result2[i]);
+            _ = SimplifyTools.CollinearSimplify(result2[i]);
         }
         return result2;
     }
@@ -112,12 +104,12 @@ public static class YuPengClipper
             {
                 Vector2 vector3 = polygon2[j];
                 Vector2 vector4 = polygon2[polygon2.NextIndex(j)];
-                if (!LineTools.LineIntersect(vector, vector2, vector3, vector4, out var intersectionPoint))
+                if (!LineTools.LineIntersect(vector, vector2, vector3, vector4, out Vector2 intersectionPoint))
                 {
                     continue;
                 }
                 float alpha = GetAlpha(vector, vector2, intersectionPoint);
-                if (alpha > 0f && alpha < 1f)
+                if (alpha is > 0f and < 1f)
                 {
                     int k;
                     for (k = slicedPoly1.IndexOf(vector) + 1; k < slicedPoly1.Count && GetAlpha(vector, vector2, slicedPoly1[k]) <= alpha; k++)
@@ -126,7 +118,7 @@ public static class YuPengClipper
                     slicedPoly1.Insert(k, intersectionPoint);
                 }
                 alpha = GetAlpha(vector3, vector4, intersectionPoint);
-                if (alpha > 0f && alpha < 1f)
+                if (alpha is > 0f and < 1f)
                 {
                     int l;
                     for (l = slicedPoly2.IndexOf(vector3) + 1; l < slicedPoly2.Count && GetAlpha(vector3, vector4, slicedPoly2[l]) <= alpha; l++)
@@ -158,8 +150,8 @@ public static class YuPengClipper
 
     private static void CalculateSimplicalChain(Vertices poly, out List<float> coeff, out List<Edge> simplicies)
     {
-        simplicies = new List<Edge>();
-        coeff = new List<float>();
+        simplicies = [];
+        coeff = [];
         for (int i = 0; i < poly.Count; i++)
         {
             simplicies.Add(new Edge(poly[i], poly[poly.NextIndex(i)]));
@@ -169,7 +161,7 @@ public static class YuPengClipper
 
     private static void CalculateResultChain(List<float> poly1Coeff, List<Edge> poly1Simplicies, List<float> poly2Coeff, List<Edge> poly2Simplicies, PolyClipType clipType, out List<Edge> resultSimplices)
     {
-        resultSimplices = new List<Edge>();
+        resultSimplices = [];
         for (int i = 0; i < poly1Simplicies.Count; i++)
         {
             float num = 0f;
@@ -205,17 +197,15 @@ public static class YuPengClipper
         }
         for (int k = 0; k < poly2Simplicies.Count; k++)
         {
-            float num2 = 0f;
             if (resultSimplices.Contains(poly2Simplicies[k]) || resultSimplices.Contains(-poly2Simplicies[k]))
             {
                 continue;
             }
             if (poly1Simplicies.Contains(-poly2Simplicies[k]) && clipType == PolyClipType.Union)
             {
-                num2 = 1f;
                 continue;
             }
-            num2 = 0f;
+            float num2 = 0f;
             for (int l = 0; l < poly1Simplicies.Count; l++)
             {
                 if (!poly1Simplicies.Contains(poly2Simplicies[k]) && !poly1Simplicies.Contains(-poly2Simplicies[k]))
@@ -223,7 +213,7 @@ public static class YuPengClipper
                     num2 += CalculateBeta(poly2Simplicies[k].GetCenter(), poly1Simplicies[l], poly1Coeff[l]);
                 }
             }
-            if (clipType == PolyClipType.Intersect || clipType == PolyClipType.Difference)
+            if (clipType is PolyClipType.Intersect or PolyClipType.Difference)
             {
                 if (num2 == 1f)
                 {
@@ -239,20 +229,18 @@ public static class YuPengClipper
 
     private static PolyClipError BuildPolygonsFromChain(List<Edge> simplicies, out List<Vertices> result)
     {
-        result = new List<Vertices>();
+        result = [];
         PolyClipError result2 = PolyClipError.None;
         while (simplicies.Count > 0)
         {
-            Vertices vertices = new Vertices();
-            vertices.Add(simplicies[0].EdgeStart);
-            vertices.Add(simplicies[0].EdgeEnd);
+            Vertices vertices = [simplicies[0].EdgeStart, simplicies[0].EdgeEnd];
             simplicies.RemoveAt(0);
             bool flag = false;
             int num = 0;
             int count = simplicies.Count;
             while (!flag && simplicies.Count > 0)
             {
-                if (VectorEqual(vertices[vertices.Count - 1], simplicies[num].EdgeStart))
+                if (VectorEqual(vertices[^1], simplicies[num].EdgeStart))
                 {
                     if (VectorEqual(simplicies[num].EdgeEnd, vertices[0]))
                     {
@@ -265,7 +253,7 @@ public static class YuPengClipper
                     simplicies.RemoveAt(num);
                     num--;
                 }
-                else if (VectorEqual(vertices[vertices.Count - 1], simplicies[num].EdgeEnd))
+                else if (VectorEqual(vertices[^1], simplicies[num].EdgeEnd))
                 {
                     if (VectorEqual(simplicies[num].EdgeStart, vertices[0]))
                     {
@@ -282,7 +270,7 @@ public static class YuPengClipper
                 {
                     if (count == simplicies.Count)
                     {
-                        result = new List<Vertices>();
+                        result = [];
                         return PolyClipError.BrokenResult;
                     }
                     num = 0;
@@ -324,30 +312,21 @@ public static class YuPengClipper
         {
             return -1f;
         }
-        if (num > 0f)
-        {
-            return 1f;
-        }
-        return 0f;
+        return num > 0f ? 1f : 0f;
     }
 
     private static bool PointInSimplex(Vector2 point, Edge edge)
     {
-        Vertices vertices = new Vertices();
-        vertices.Add(Vector2.Zero);
-        vertices.Add(edge.EdgeStart);
-        vertices.Add(edge.EdgeEnd);
+        Vertices vertices = [Vector2.Zero, edge.EdgeStart, edge.EdgeEnd];
         return vertices.PointInPolygon(ref point) == 1;
     }
 
     private static bool PointOnLineSegment(Vector2 start, Vector2 end, Vector2 point)
     {
         Vector2 value = end - start;
-        if (MathUtils.Area(ref start, ref end, ref point) == 0f && Vector2.Dot(point - start, value) >= 0f)
-        {
-            return Vector2.Dot(point - end, value) <= 0f;
-        }
-        return false;
+        return MathUtils.Area(ref start, ref end, ref point) == 0f && Vector2.Dot(point - start, value) >= 0f
+            ? Vector2.Dot(point - end, value) <= 0f
+            : false;
     }
 
     private static bool VectorEqual(Vector2 vec1, Vector2 vec2)

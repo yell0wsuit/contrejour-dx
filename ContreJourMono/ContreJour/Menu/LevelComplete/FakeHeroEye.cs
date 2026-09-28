@@ -12,7 +12,7 @@ public class FakeHeroEye : RandomAnimationEye
 {
     protected override float ViewRadius => 12f;
 
-    protected override EyeAnimation[] Animations => new EyeAnimation[0];
+    protected override EyeAnimation[] Animations => [];
 
     public FakeHeroEye()
         : base(null, useMask: true, new Vector2(80f, 80f))

@@ -16,11 +16,7 @@ public struct MassData : IEquatable<MassData>
 
     public static bool operator ==(MassData left, MassData right)
     {
-        if (left.Area == right.Area && left.Mass == right.Mass && left.Centroid == right.Centroid)
-        {
-            return left.Inertia == right.Inertia;
-        }
-        return false;
+        return left.Area == right.Area && left.Mass == right.Mass && left.Centroid == right.Centroid ? left.Inertia == right.Inertia : false;
     }
 
     public static bool operator !=(MassData left, MassData right)
@@ -28,25 +24,21 @@ public struct MassData : IEquatable<MassData>
         return !(left == right);
     }
 
-    public bool Equals(MassData other)
+    public readonly bool Equals(MassData other)
     {
         return this == other;
     }
 
     public override bool Equals(object obj)
     {
-        if (object.ReferenceEquals(null, obj))
+        if (ReferenceEquals(null, obj))
         {
             return false;
         }
-        if ((object)obj.GetType() != typeof(MassData))
-        {
-            return false;
-        }
-        return Equals((MassData)obj);
+        return (object)obj.GetType() != typeof(MassData) ? false : Equals((MassData)obj);
     }
 
-    public override int GetHashCode()
+    public override readonly int GetHashCode()
     {
         int hashCode = Area.GetHashCode();
         hashCode = (hashCode * 397) ^ Centroid.GetHashCode();

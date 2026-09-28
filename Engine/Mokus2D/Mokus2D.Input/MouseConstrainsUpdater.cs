@@ -8,17 +8,13 @@ namespace Mokus2D.Input;
 
 public class MouseConstrainsUpdater
 {
-    private readonly Flag _applied = new Flag(on: false);
+    private readonly Flag _applied = new(on: false);
 
     protected virtual bool ShouldApplyConstrains
     {
         get
         {
-            if (Mokus2DGame.Instance.AcceptsInput)
-            {
-                return Mokus2DGame.Instance.IsFullScreen;
-            }
-            return false;
+            return Mokus2DGame.Instance.AcceptsInput ? Mokus2DGame.Instance.IsFullScreen : false;
         }
     }
 
@@ -39,7 +35,7 @@ public class MouseConstrainsUpdater
         }
         else if (_applied.Use())
         {
-            Rectangle rect2 = new Rectangle(int.MinValue, int.MinValue, int.MaxValue, int.MaxValue);
+            Rectangle rect2 = new(int.MinValue, int.MinValue, int.MaxValue, int.MaxValue);
             ClipCursor(ref rect2);
         }
     }

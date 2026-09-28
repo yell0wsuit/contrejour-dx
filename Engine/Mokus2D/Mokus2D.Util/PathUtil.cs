@@ -9,11 +9,11 @@ public static class PathUtil
         string text = parts[0];
         for (int i = 1; i < parts.Length; i++)
         {
-            text = Path.Combine(new string[2]
-            {
+            text = Path.Combine(
+            [
                 text,
                 parts[i]
-            });
+            ]);
         }
         return text;
     }

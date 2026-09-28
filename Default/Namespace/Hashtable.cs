@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 
 using Microsoft.Xna.Framework;
 
@@ -19,20 +18,12 @@ public class Hashtable : Dictionary<object, object>
             string text = array[i];
             if (!hashtable.Keys.Contains(text))
             {
-                if (checkForNull)
-                {
-                    throw new Exception("Hashtable key `" + key + "` not found - at `" + text + "`.");
-                }
-                return null;
+                return checkForNull ? throw new Exception("Hashtable key `" + key + "` not found - at `" + text + "`.") : null;
             }
             object obj = hashtable[text];
             if (obj == null)
             {
-                if (checkForNull)
-                {
-                    throw new Exception("Hashtable key `" + key + "` is null - at `" + text + "`.");
-                }
-                return null;
+                return checkForNull ? throw new Exception("Hashtable key `" + key + "` is null - at `" + text + "`.") : null;
             }
             if (i == array.Length - 1)
             {
@@ -75,11 +66,7 @@ public class Hashtable : Dictionary<object, object>
 
     public bool GetBool(string key)
     {
-        if (Exists(key))
-        {
-            return Convert.ToBoolean(GetObject(key));
-        }
-        return false;
+        return Exists(key) ? Convert.ToBoolean(GetObject(key)) : false;
     }
 
     public int GetInt(string key)
@@ -109,61 +96,37 @@ public class Hashtable : Dictionary<object, object>
 
     public string GetString(string key, string defaultValue)
     {
-        if (!Exists(key))
-        {
-            return defaultValue;
-        }
-        return GetString(key);
+        return !Exists(key) ? defaultValue : GetString(key);
     }
 
     public float GetFloat(string key, float defaultValue)
     {
-        if (!Exists(key))
-        {
-            return defaultValue;
-        }
-        return GetFloat(key);
+        return !Exists(key) ? defaultValue : GetFloat(key);
     }
 
     public bool GetBool(string key, bool defaultValue)
     {
-        if (!Exists(key))
-        {
-            return defaultValue;
-        }
-        return GetBool(key);
+        return !Exists(key) ? defaultValue : GetBool(key);
     }
 
     public int GetInt(string key, int defaultValue)
     {
-        if (!Exists(key))
-        {
-            return defaultValue;
-        }
-        return GetInt(key);
+        return !Exists(key) ? defaultValue : GetInt(key);
     }
 
     public List<object> GetArrayList(string key, List<object> defaultValue)
     {
-        if (!Exists(key))
-        {
-            return defaultValue;
-        }
-        return GetArrayList(key);
+        return !Exists(key) ? defaultValue : GetArrayList(key);
     }
 
     public Vector2 GetVector(string key, Vector2 defaultValue)
     {
-        if (!Exists(key))
-        {
-            return defaultValue;
-        }
-        return GetVector(key);
+        return !Exists(key) ? defaultValue : GetVector(key);
     }
 
     public override string ToString()
     {
-        using StringWriter stringWriter = new StringWriter();
+        using StringWriter stringWriter = new();
         using (Enumerator enumerator = GetEnumerator())
         {
             while (enumerator.MoveNext())
@@ -175,8 +138,8 @@ public class Hashtable : Dictionary<object, object>
                     text = current.Value.ToString();
                     if (current.Value is Hashtable)
                     {
-                        StringWriter stringWriter2 = new StringWriter();
-                        using (StringReader stringReader = new StringReader(text))
+                        StringWriter stringWriter2 = new();
+                        using (StringReader stringReader = new(text))
                         {
                             string text2;
                             while ((text2 = stringReader.ReadLine()) != null)

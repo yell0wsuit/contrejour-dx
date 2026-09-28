@@ -9,15 +9,11 @@ namespace Mokus2D.Visual.Text;
 
 public class FontsManager
 {
-    private readonly Dictionary<string, SortedList<FontData>> _fonts = new Dictionary<string, SortedList<FontData>>();
+    private readonly Dictionary<string, SortedList<FontData>> _fonts = [];
 
     public FontData GetFontData(string fontName, float size)
     {
-        SortedList<FontData> sortedList = _fonts.TryGetValue(fontName) ?? _fonts.TryGetValue(RemoveSpaces(fontName));
-        if (sortedList == null)
-        {
-            throw new Exception("Font not found, try calling FontClass.Register() static method in application OnInitialize()");
-        }
+        SortedList<FontData> sortedList = (_fonts.TryGetValue(fontName) ?? _fonts.TryGetValue(RemoveSpaces(fontName))) ?? throw new Exception("Font not found, try calling FontClass.Register() static method in application OnInitialize()");
         foreach (FontData item in sortedList)
         {
             if (item.FontSize >= size)
@@ -37,7 +33,7 @@ public class FontsManager
     {
         foreach (SortedList<FontData> value in _fonts.Values)
         {
-            List<FontData> list = new List<FontData>(value);
+            List<FontData> list = [.. value];
             value.Clear();
             foreach (FontData item2 in list)
             {

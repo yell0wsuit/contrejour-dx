@@ -13,7 +13,7 @@ public static class SimplifyTools
         {
             return vertices;
         }
-        Vertices vertices2 = new Vertices(vertices.Count);
+        Vertices vertices2 = new(vertices.Count);
         for (int i = 0; i < vertices.Count; i++)
         {
             Vector2 a = vertices.PreviousVertex(i);
@@ -39,7 +39,7 @@ public static class SimplifyTools
             array[i] = true;
         }
         SimplifySection(vertices, 0, vertices.Count - 1, array, distanceTolerance);
-        Vertices vertices2 = new Vertices(vertices.Count);
+        Vertices vertices2 = new(vertices.Count);
         for (int j = 0; j < vertices.Count; j++)
         {
             if (array[j])
@@ -94,15 +94,15 @@ public static class SimplifyTools
         int num = vertices.Count;
         for (int i = 0; i < vertices.Count; i++)
         {
-            int index = ((i == 0) ? (vertices.Count - 1) : (i - 1));
+            int index = (i == 0) ? (vertices.Count - 1) : (i - 1);
             int index2 = i;
-            int index3 = ((i != vertices.Count - 1) ? (i + 1) : 0);
+            int index3 = (i != vertices.Count - 1) ? (i + 1) : 0;
             float num2 = vertices[index2].X - vertices[index].X;
             float num3 = vertices[index2].Y - vertices[index].Y;
             float num4 = vertices[index3].Y - vertices[index2].X;
             float num5 = vertices[index3].Y - vertices[index2].Y;
-            float num6 = (float)Math.Sqrt(num2 * num2 + num3 * num3);
-            float num7 = (float)Math.Sqrt(num4 * num4 + num5 * num5);
+            float num6 = (float)Math.Sqrt((num2 * num2) + (num3 * num3));
+            float num7 = (float)Math.Sqrt((num4 * num4) + (num5 * num5));
             if ((!(num6 > 0f) || !(num7 > 0f)) && num > 3)
             {
                 array[i] = true;
@@ -112,8 +112,8 @@ public static class SimplifyTools
             num3 /= num6;
             num4 /= num7;
             num5 /= num7;
-            float value = num2 * num5 - num4 * num3;
-            float num8 = num2 * num4 + num3 * num5;
+            float value = (num2 * num5) - (num4 * num3);
+            float num8 = (num2 * num4) + (num3 * num5);
             if (Math.Abs(value) < tolerance && num8 > 0f && num > 3)
             {
                 array[i] = true;
@@ -129,7 +129,7 @@ public static class SimplifyTools
             return vertices;
         }
         int num9 = 0;
-        Vertices vertices2 = new Vertices(num);
+        Vertices vertices2 = new(num);
         for (int j = 0; j < vertices.Count; j++)
         {
             if (!array[j] && num != 0 && num9 != num)
@@ -143,11 +143,7 @@ public static class SimplifyTools
 
     public static Vertices MergeIdenticalPoints(Vertices vertices)
     {
-        HashSet<Vector2> hashSet = new HashSet<Vector2>();
-        foreach (Vector2 vertex in vertices)
-        {
-            hashSet.Add(vertex);
-        }
+        HashSet<Vector2> hashSet = [.. vertices];
         return new Vertices(hashSet);
     }
 
@@ -158,7 +154,7 @@ public static class SimplifyTools
             return vertices;
         }
         float num = distance * distance;
-        Vertices vertices2 = new Vertices(vertices.Count);
+        Vertices vertices2 = new(vertices.Count);
         for (int i = 0; i < vertices.Count; i++)
         {
             Vector2 vector = vertices[i];
@@ -181,7 +177,7 @@ public static class SimplifyTools
         {
             return vertices;
         }
-        Vertices vertices2 = new Vertices(vertices.Count);
+        Vertices vertices2 = new(vertices.Count);
         for (int i = 0; i < vertices.Count; i++)
         {
             if (i % nth != 0)
@@ -202,14 +198,14 @@ public static class SimplifyTools
         {
             throw new ArgumentOutOfRangeException("areaTolerance", "must be equal to or greater than zero.");
         }
-        Vertices vertices2 = new Vertices(vertices.Count);
-        Vector2 a = vertices[vertices.Count - 2];
-        Vector2 b = vertices[vertices.Count - 1];
+        Vertices vertices2 = new(vertices.Count);
+        Vector2 a = vertices[^2];
+        Vector2 b = vertices[^1];
         areaTolerance *= 2f;
         int num = 0;
         while (num < vertices.Count)
         {
-            Vector2 b2 = ((num == vertices.Count - 1) ? vertices2[0] : vertices[num]);
+            Vector2 b2 = (num == vertices.Count - 1) ? vertices2[0] : vertices[num];
             MathUtils.Cross(ref a, ref b, out var c);
             MathUtils.Cross(ref b, ref b2, out var c2);
             MathUtils.Cross(ref a, ref b2, out var c3);

@@ -116,7 +116,7 @@ public static class FarseerUtil
 
     public static Vector2 GetWorldPoint(this Contact contact)
     {
-        contact.GetWorldManifold(out var _, out var points);
+        contact.GetWorldManifold(out Vector2 _, out FixedArray2<Vector2> points);
         return points[0];
     }
 
@@ -151,11 +151,7 @@ public static class FarseerUtil
 
     public static bool IsSensor(this Contact contact)
     {
-        if (!contact.FixtureA.IsSensor)
-        {
-            return contact.FixtureB.IsSensor;
-        }
-        return true;
+        return !contact.FixtureA.IsSensor ? contact.FixtureB.IsSensor : true;
     }
 
     public static bool IsSensor(this Body body)
@@ -172,20 +168,20 @@ public static class FarseerUtil
 
     public static Body CreateCircle(this World world, float radius, Vector2 position, float rotation = 0f, float density = 0f, bool dynamic = false)
     {
-        CircleShape shape = new CircleShape(radius, density);
+        CircleShape shape = new(radius, density);
         return BodyFromShape(world, shape, position, rotation, sensor: false, density, dynamic);
     }
 
     public static Body CreateBox(World world, Vector2 position, List<Vector2> vertices, bool sensor, float density, bool dynamic)
     {
-        Vertices vertices2 = new Vertices(vertices);
-        PolygonShape shape = new PolygonShape(vertices2, density);
+        Vertices vertices2 = new(vertices);
+        PolygonShape shape = new(vertices2, density);
         return BodyFromShape(world, shape, position, 0f, sensor, density, dynamic);
     }
 
     public static Body CreateBox(World world, Vector2 position, float width, float height, float rotation = 0f, bool sensor = false, float density = 1f, bool dynamic = false)
     {
-        PolygonShape shape = new PolygonShape(density);
+        PolygonShape shape = new(density);
         shape.SetAsBox(width / 2f, height / 2f);
         return BodyFromShape(world, shape, position, rotation, sensor, density, dynamic);
     }
@@ -200,7 +196,7 @@ public static class FarseerUtil
     public static Body BodyFromShape(World world, Shape shape, Vector2 position, float rotation, bool sensor, float density, bool dynamic)
     {
         Body body = BodyFactory.CreateBody(world);
-        body.BodyType = (dynamic ? BodyType.Dynamic : BodyType.Static);
+        body.BodyType = dynamic ? BodyType.Dynamic : BodyType.Static;
         body.Position = position;
         body.Rotation = rotation;
         Fixture fixture = AddShape(shape, body, density);
@@ -211,16 +207,16 @@ public static class FarseerUtil
 
     public static List<Fixture> Raycast(this World world, Vector2 startPoint, Vector2 endPoint)
     {
-        RaycastQuery raycastQuery = new RaycastQuery();
+        RaycastQuery raycastQuery = new();
         world.RayCast(raycastQuery.ReportFixture, startPoint, endPoint);
         return raycastQuery.Fixtures;
     }
 
     public static List<Fixture> Query(this World world, Vector2 point)
     {
-        List<Fixture> list = new List<Fixture>();
+        List<Fixture> list = [];
         AABB aabb = CreateOnePixelAabb(point);
-        AABBQuery aABBQuery = new AABBQuery();
+        AABBQuery aABBQuery = new();
         world.QueryAABB(aABBQuery.CallbackReportFixture, ref aabb);
         for (int i = 0; i < aABBQuery.Fixtures.Count; i++)
         {
@@ -261,7 +257,7 @@ public static class FarseerUtil
             body.LinearVelocity = linearVelocity;
             body.AngularVelocity = num2 * num / time;
         }
-        body.SetTransform(body.Position + vector, body.Rotation + num2 * teleportCoeff);
+        body.SetTransform(body.Position + vector, body.Rotation + (num2 * teleportCoeff));
     }
 
     public static BodyClip Query(World world, Vector2 center, float radius, Type type)
@@ -290,7 +286,7 @@ public static class FarseerUtil
     public static List<BodyClip> Query(World world, Vector2 center, float radius, ClipPredicate clipPredicate, object param)
     {
         List<Fixture> list = world.Query(center, radius);
-        List<BodyClip> list2 = new List<BodyClip>();
+        List<BodyClip> list2 = [];
         foreach (Fixture item in list)
         {
             if (item.Body.UserData is BodyClip bodyClip && clipPredicate(bodyClip, param))
@@ -327,7 +323,7 @@ public static class FarseerUtil
 
     public static List<Fixture> Query(this World world, ref AABB aabb)
     {
-        AABBQuery aABBQuery = new AABBQuery();
+        AABBQuery aABBQuery = new();
         world.QueryAABB(aABBQuery.CallbackReportFixture, ref aabb);
         return aABBQuery.Fixtures;
     }
@@ -354,7 +350,7 @@ public static class FarseerUtil
 
     public static AABB CreateAABB(Vector2 center, float width, float height)
     {
-        AABB result = new AABB
+        AABB result = new()
         {
             LowerBound = center,
             UpperBound = center
@@ -368,7 +364,7 @@ public static class FarseerUtil
     {
         for (int i = 0; i < 2; i++)
         {
-            FixtureFactory.AttachEdge(start, end, groundBody);
+            _ = FixtureFactory.AttachEdge(start, end, groundBody);
             start += direction;
             end += direction;
         }

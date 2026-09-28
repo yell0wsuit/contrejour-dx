@@ -6,6 +6,6 @@ public static class ResourcesUtil
 
     public static string GetShortObjectName(string objectId)
     {
-        return objectId.Substring(objectId.IndexOf('/') + 1);
+        return objectId[(objectId.IndexOf('/') + 1)..];
     }
 }

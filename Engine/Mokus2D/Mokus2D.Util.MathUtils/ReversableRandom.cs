@@ -5,7 +5,7 @@ namespace Mokus2D.Util.MathUtils;
 
 public class ReversableRandom(int seed) : Random(seed)
 {
-    private readonly List<double> _values = new List<double>();
+    private readonly List<double> _values = [];
 
     private int _step;
 
@@ -23,7 +23,7 @@ public class ReversableRandom(int seed) : Random(seed)
 
     public override int Next(int maxValue)
     {
-        return (int)(NextDouble() * (double)maxValue);
+        return (int)(NextDouble() * maxValue);
     }
 
     public override int Next()

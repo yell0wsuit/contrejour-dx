@@ -6,11 +6,11 @@ namespace Mokus2D.Visual.Util;
 
 public static class MatrixCache
 {
-    private static readonly Dictionary<Vector2, Matrix> Cache = new Dictionary<Vector2, Matrix>();
+    private static readonly Dictionary<Vector2, Matrix> Cache = [];
 
     public static Matrix GetScreenMatrix(Vector2 screenSize)
     {
-        if (!Cache.TryGetValue(screenSize, out var value))
+        if (!Cache.TryGetValue(screenSize, out Matrix value))
         {
             value = CreateScreenMatrix(screenSize);
             Cache[screenSize] = value;

@@ -25,10 +25,7 @@ public class LazyFactoryNode<T> where T : Node
     private T CreateNode()
     {
         T val = _factory();
-        if (_parent != null)
-        {
-            _parent.AddChild(val, _layer);
-        }
+        _parent?.AddChild(val, _layer);
         return val;
     }
 }

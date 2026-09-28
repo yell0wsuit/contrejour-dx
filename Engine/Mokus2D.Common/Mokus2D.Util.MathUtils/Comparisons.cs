@@ -14,11 +14,7 @@ public static class Comparisons
         {
             return 1;
         }
-        if (result > 0)
-        {
-            return -1;
-        }
-        return 0;
+        return result > 0 ? -1 : 0;
     }
 
     public static int IntReverseComparizon(int first, int second)
@@ -32,11 +28,7 @@ public static class Comparisons
         {
             return 1;
         }
-        if (second > first)
-        {
-            return -1;
-        }
-        return 0;
+        return second > first ? -1 : 0;
     }
 
     public static int IntComparizon(int first, int second)
@@ -50,11 +42,7 @@ public static class Comparisons
         {
             return 1;
         }
-        if (second > first)
-        {
-            return -1;
-        }
-        return 0;
+        return second > first ? -1 : 0;
     }
 
     public static int DoubleComparizon(double first, double second)
@@ -63,10 +51,6 @@ public static class Comparisons
         {
             return 1;
         }
-        if (second > first)
-        {
-            return -1;
-        }
-        return 0;
+        return second > first ? -1 : 0;
     }
 }

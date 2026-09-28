@@ -8,7 +8,7 @@ namespace Mokus2D.Collections;
 
 public class ForEachDebugList<T> : IList<T>, ICollection<T>, IEnumerable<T>, IEnumerable, IForEachList
 {
-    private readonly List<T> _list = new List<T>();
+    private readonly List<T> _list = [];
 
     private bool _inForEach;
 
@@ -18,10 +18,7 @@ public class ForEachDebugList<T> : IList<T>, ICollection<T>, IEnumerable<T>, IEn
 
     T IList<T>.this[int index]
     {
-        get
-        {
-            return _list[index];
-        }
+        get => _list[index];
         set
         {
             ThrowIfInForEach();
@@ -35,10 +32,7 @@ public class ForEachDebugList<T> : IList<T>, ICollection<T>, IEnumerable<T>, IEn
 
     public T this[int index]
     {
-        get
-        {
-            return _list[index];
-        }
+        get => _list[index];
         set
         {
             ThrowIfInForEach();
@@ -48,14 +42,8 @@ public class ForEachDebugList<T> : IList<T>, ICollection<T>, IEnumerable<T>, IEn
 
     public int Capacity
     {
-        get
-        {
-            return _list.Capacity;
-        }
-        set
-        {
-            _list.Capacity = value;
-        }
+        get => _list.Capacity;
+        set => _list.Capacity = value;
     }
 
     IEnumerator IEnumerable.GetEnumerator()
@@ -313,7 +301,7 @@ public class ForEachDebugList<T> : IList<T>, ICollection<T>, IEnumerable<T>, IEn
 
     public T[] ToArray()
     {
-        return _list.ToArray();
+        return [.. _list];
     }
 
     public void TrimExcess()

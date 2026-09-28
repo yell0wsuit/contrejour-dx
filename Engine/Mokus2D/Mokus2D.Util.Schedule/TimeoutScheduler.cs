@@ -27,7 +27,7 @@ public class TimeoutScheduler : IUpdatable
             _currentTimeout -= time;
             if (_currentTimeout <= 0f)
             {
-                this.TimeoutEvent.Dispatch();
+                TimeoutEvent.Dispatch();
             }
         }
     }

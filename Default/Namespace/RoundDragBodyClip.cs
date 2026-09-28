@@ -17,7 +17,7 @@ public class RoundDragBodyClip : DragableBodyClip
 
     protected Sprite middleSprite;
 
-    private static readonly Vector2 TOUCH_CENTER_OFFSET = new Vector2(42f, 42f);
+    private static readonly Vector2 TOUCH_CENTER_OFFSET = new(42f, 42f);
 
     public override Vector2 PositionVec => base.PositionVec + TouchOffset();
 

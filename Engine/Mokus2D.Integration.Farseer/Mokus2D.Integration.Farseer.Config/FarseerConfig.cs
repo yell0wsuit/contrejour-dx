@@ -4,7 +4,7 @@ namespace Mokus2D.Integration.Farseer.Config;
 
 public class FarseerConfig
 {
-    public static readonly FarseerConfig DefaultConfig = new FarseerConfig();
+    public static readonly FarseerConfig DefaultConfig = new();
 
     public float PhysicsToPixels = 30f;
 
@@ -14,5 +14,5 @@ public class FarseerConfig
 
     public float Friction = 1f;
 
-    public Vector2 Gravity = new Vector2(0f, 10f);
+    public Vector2 Gravity = new(0f, 10f);
 }

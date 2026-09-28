@@ -12,7 +12,7 @@ public class AnimationData : ConfigData
 
     private Dictionary<string, Dictionary<string, string>> _instanceConfigs;
 
-    private readonly List<List<AnimationFrameData>> _frames = new List<List<AnimationFrameData>>();
+    private readonly List<List<AnimationFrameData>> _frames = [];
 
     public List<AnimationFrameData> this[int index] => _frames[index];
 
@@ -20,20 +20,13 @@ public class AnimationData : ConfigData
 
     public void AddInstanceConfig(string childName, Dictionary<string, string> config)
     {
-        if (_instanceConfigs == null)
-        {
-            _instanceConfigs = new Dictionary<string, Dictionary<string, string>>();
-        }
+        _instanceConfigs ??= [];
         _instanceConfigs[childName] = config;
     }
 
     public Dictionary<string, string> GetInstanceConfig(string childName)
     {
-        if (_instanceConfigs != null)
-        {
-            return _instanceConfigs.TryGetValue(childName);
-        }
-        return null;
+        return _instanceConfigs != null ? _instanceConfigs.TryGetValue(childName) : null;
     }
 
     public AnimationFrameData GetChildFrameData(int frame, string childName)

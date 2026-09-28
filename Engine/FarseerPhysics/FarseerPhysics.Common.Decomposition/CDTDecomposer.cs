@@ -13,7 +13,7 @@ internal static class CDTDecomposer
 {
     public static List<Vertices> ConvexPartition(Vertices vertices)
     {
-        Polygon polygon = new Polygon();
+        Polygon polygon = new();
         foreach (Vector2 vertex in vertices)
         {
             polygon.Points.Add(new TriangulationPoint(vertex.X, vertex.Y));
@@ -22,7 +22,7 @@ internal static class CDTDecomposer
         {
             foreach (Vertices hole in vertices.Holes)
             {
-                Polygon polygon2 = new Polygon();
+                Polygon polygon2 = new();
                 foreach (Vector2 item in hole)
                 {
                     polygon2.Points.Add(new TriangulationPoint(item.X, item.Y));
@@ -30,13 +30,13 @@ internal static class CDTDecomposer
                 polygon.AddHole(polygon2);
             }
         }
-        DTSweepContext dTSweepContext = new DTSweepContext();
+        DTSweepContext dTSweepContext = new();
         dTSweepContext.PrepareTriangulation(polygon);
         DTSweep.Triangulate(dTSweepContext);
-        List<Vertices> list = new List<Vertices>();
+        List<Vertices> list = [];
         foreach (DelaunayTriangle triangle in polygon.Triangles)
         {
-            Vertices vertices2 = new Vertices();
+            Vertices vertices2 = [];
             foreach (TriangulationPoint point in triangle.Points)
             {
                 vertices2.Add(new Vector2((float)point.X, (float)point.Y));

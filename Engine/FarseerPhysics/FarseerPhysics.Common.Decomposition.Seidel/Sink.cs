@@ -13,11 +13,7 @@ internal class Sink : Node
 
     public static Sink Isink(Trapezoid trapezoid)
     {
-        if (trapezoid.Sink == null)
-        {
-            return new Sink(trapezoid);
-        }
-        return trapezoid.Sink;
+        return trapezoid.Sink == null ? new Sink(trapezoid) : trapezoid.Sink;
     }
 
     public override Sink Locate(Edge edge)

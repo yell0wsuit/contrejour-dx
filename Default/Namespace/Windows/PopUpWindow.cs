@@ -9,22 +9,19 @@ namespace Default.Namespace.Windows;
 
 public class PopUpWindow : Node
 {
-    public readonly EventSender OpenChangeEvent = new EventSender();
+    public readonly EventSender OpenChangeEvent = new();
 
     private FadeEffect howerEffect;
 
     private bool open;
 
-    protected readonly Node container = new Node();
+    protected readonly Node container = new();
 
-    protected readonly ClickableLayer clickableLayer = new ClickableLayer();
+    protected readonly ClickableLayer clickableLayer = new();
 
     public bool Open
     {
-        get
-        {
-            return open;
-        }
+        get => open;
         set
         {
             if (open != value)
@@ -36,14 +33,14 @@ public class PopUpWindow : Node
                     OnOpen();
                     Visible = true;
                     howerEffect.IsOn = true;
-                    this.Schedule(howerEffect.EffectTime, ShowItems);
+                    _ = this.Schedule(howerEffect.EffectTime, ShowItems);
                     container.Visible = false;
                     UpdateEnabled = true;
                 }
                 else
                 {
                     howerEffect.IsOn = true;
-                    this.Schedule(howerEffect.EffectTime, HideItems);
+                    _ = this.Schedule(howerEffect.EffectTime, HideItems);
                     clickableLayer.InteractionsEnabled = false;
                 }
                 OpenChangeEvent.SendEvent();
@@ -56,7 +53,7 @@ public class PopUpWindow : Node
         AddChild(container);
         clickableLayer.InteractionsEnabled = false;
         container.AddChild(clickableLayer, 1);
-        LayerColor layerColor = new LayerColor(Color.Black, "menu/whitePixel");
+        LayerColor layerColor = new(Color.Black, "menu/whitePixel");
         AddChild(layerColor);
         howerEffect = new FadeEffect(layerColor);
         layerColor.Visible = false;
@@ -71,14 +68,14 @@ public class PopUpWindow : Node
 
     private void HideItems()
     {
-        this.Schedule(howerEffect.EffectTime, Disable);
+        _ = this.Schedule(howerEffect.EffectTime, Disable);
         howerEffect.IsOn = false;
         container.Visible = false;
     }
 
     private void Disable()
     {
-        UpdateEnabled = (Visible = false);
+        UpdateEnabled = Visible = false;
     }
 
     private void ShowItems()

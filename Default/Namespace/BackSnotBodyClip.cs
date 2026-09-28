@@ -32,7 +32,7 @@ public class BackSnotBodyClip : SnotBodyClipBase, IClickable
 
     protected bool stabilizeCalculated;
 
-    public override Body EyeBody => base.Physics.EndBody;
+    public override Body EyeBody => Physics.EndBody;
 
     public bool DisableHeroFocus => true;
 
@@ -48,7 +48,7 @@ public class BackSnotBodyClip : SnotBodyClipBase, IClickable
         eye.Scale = vector.X / 10.24f;
         baseClip.Scale = eye.Scale;
         baseEndClip.Scale = eye.Scale;
-        Mokus2DGame.LoadResource<MovieClipData>("chapter1/McBackSnotEyeBlink");
+        _ = Mokus2DGame.LoadResource<MovieClipData>("chapter1/McBackSnotEyeBlink");
     }
 
     public int Priority(Vector2 touchPoint)
@@ -68,9 +68,9 @@ public class BackSnotBodyClip : SnotBodyClipBase, IClickable
 
     public bool TouchBegan(Touch touch)
     {
-        Vector2 vector = base.Physics.GetWorldStartPoint() - base.Physics.EndBody.Position;
+        Vector2 vector = Physics.GetWorldStartPoint() - Physics.EndBody.Position;
         vector *= 0.7f / vector.Length();
-        base.Physics.EndBody.ApplyLinearImpulse(vector, base.Physics.EndBody.WorldCenter);
+        Physics.EndBody.ApplyLinearImpulse(vector, Physics.EndBody.WorldCenter);
         eye.PlayAnimation(new EyeAnimation("McBackSnotEyeBlink"), force: false);
         eye.RandomPositionProvider = game.GetTouchProvider(touch);
         SoundManager.PlayRandomSound(Sounds.BACK_SNOT, Maths.Random(0.3f, 0.5f));
@@ -114,33 +114,35 @@ public class BackSnotBodyClip : SnotBodyClipBase, IClickable
         base.Update(time);
         if (eye != null)
         {
-            Mokus2DGame.LoadMovieClipData("chapter1/McBackSnotEyeBlink");
+            _ = Mokus2DGame.LoadMovieClipData("chapter1/McBackSnotEyeBlink");
             if (!stabilizeCalculated)
             {
                 stabilizeCalculated = true;
                 stabilize = Maths.FuzzyNotEquals((float)Math.Ceiling(Maths.SimplifyAngleDegrees(rotationOffset, -180f) / 90f), 0f);
             }
-            for (int i = 0; i < base.Physics.BodiesSize(); i++)
+            for (int i = 0; i < Physics.BodiesSize(); i++)
             {
-                base.Physics.BodyAt(i).GravityScale = ((!stabilize) ? 1 : 0);
+                Physics.BodyAt(i).GravityScale = (!stabilize) ? 1 : 0;
             }
-            base.Physics.EndBody.GravityScale = (stabilize ? 0.2f : 0f);
-            float module = force / 4f * 3f + force * Maths.Cos(forceProgress) / 4f;
+            Physics.EndBody.GravityScale = stabilize ? 0.2f : 0f;
+            float module = (force / 4f * 3f) + (force * Maths.Cos(forceProgress) / 4f);
             forceProgress += forceStep;
-            base.Physics.EndBody.ApplyForce(VectorUtil.ToVector(module, eye.ViewAngle), base.Physics.EndBody.WorldCenter);
+            Physics.EndBody.ApplyForce(VectorUtil.ToVector(module, eye.ViewAngle), Physics.EndBody.WorldCenter);
         }
     }
 
     public override SnotSprite CreateClip()
     {
         Vector2 vector = config.GetVector("scale");
-        BackSnotSprite backSnotSprite = new BackSnotSprite(this, 9f * vector.X * builder.EngineConfig.SizeMultiplier, 4f * vector.X * builder.EngineConfig.SizeMultiplier, 9f * vector.X * builder.EngineConfig.SizeMultiplier);
-        backSnotSprite.NeckColor = 3947580.ToRGBColor();
+        BackSnotSprite backSnotSprite = new(this, 9f * vector.X * builder.EngineConfig.SizeMultiplier, 4f * vector.X * builder.EngineConfig.SizeMultiplier, 9f * vector.X * builder.EngineConfig.SizeMultiplier)
+        {
+            NeckColor = 3947580.ToRGBColor()
+        };
         return backSnotSprite;
     }
 
     protected override MonsterEye CreateEye()
     {
-        return new BackSnotEye((ContreJourGame)builder.Game, _visible: true, base.Physics.EndBody.Position);
+        return new BackSnotEye((ContreJourGame)builder.Game, _visible: true, Physics.EndBody.Position);
     }
 }

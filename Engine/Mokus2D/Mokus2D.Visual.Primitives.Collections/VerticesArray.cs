@@ -8,9 +8,9 @@ public class VerticesArray<T> : Pow2Array<T> where T : struct, IVertex
 {
     public void FillColor(Color color)
     {
-        for (int i = 0; i < base.Length; i++)
+        for (int i = 0; i < Length; i++)
         {
-            base.Items[i].Color = color;
+            Items[i].Color = color;
         }
     }
 }

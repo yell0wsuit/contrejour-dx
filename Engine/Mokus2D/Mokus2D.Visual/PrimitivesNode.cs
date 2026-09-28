@@ -12,19 +12,13 @@ public abstract class PrimitivesNode : Node
 
     public virtual Texture2D Texture
     {
-        get
-        {
-            return texture;
-        }
-        set
-        {
-            texture = value;
-        }
+        get => texture;
+        set => texture = value;
     }
 
     public override void Draw(VisualState state)
     {
-        Matrix combinedScreenMatrix = state.GetCombinedScreenMatrix(base.Root.Size);
+        Matrix combinedScreenMatrix = state.GetCombinedScreenMatrix(Root.Size);
         Drawer.EndDraw();
         using (new PrimitivesDrawing(state, combinedScreenMatrix, Texture))
         {

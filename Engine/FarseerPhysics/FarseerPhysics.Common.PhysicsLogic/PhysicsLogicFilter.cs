@@ -14,7 +14,7 @@ public struct PhysicsLogicFilter
         ControllerIgnores &= ~type;
     }
 
-    public bool IsPhysicsLogicIgnored(PhysicsLogicType type)
+    public readonly bool IsPhysicsLogicIgnored(PhysicsLogicType type)
     {
         return (ControllerIgnores & type) == type;
     }

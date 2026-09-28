@@ -12,7 +12,7 @@ namespace Mokus2D.Effects.Actions.Particles;
 
 public class LinesFlyIn : LinesFlyBase
 {
-    private static readonly Pool<LinesFlyIn> pool = new Pool<LinesFlyIn>(() => new LinesFlyIn());
+    private static readonly Pool<LinesFlyIn> pool = new(() => new LinesFlyIn());
 
     public static LinesFlyIn New(float linesDelay, float particleEffectSeconds, float particlesOffset)
     {
@@ -25,7 +25,7 @@ public class LinesFlyIn : LinesFlyBase
 
     protected new LinesFlyIn Initialize(float linesDelay, float particleEffectSeconds, float particlesOffset)
     {
-        base.Initialize(linesDelay, particleEffectSeconds, particlesOffset);
+        _ = base.Initialize(linesDelay, particleEffectSeconds, particlesOffset);
         return this;
     }
 
@@ -37,12 +37,12 @@ public class LinesFlyIn : LinesFlyBase
     protected override ITween CreateDelayedParticleUpdater(Node particle, int x, int y)
     {
         _ = particle.Position;
-        int num = Maths.Random(2) * 2 - 1;
+        int num = (Maths.Random(2) * 2) - 1;
         float num2 = particlesOffset * Maths.Random(0.7f, 1.3f);
         particle.Position += new Vector2(0f, 0f - num2);
         particle.Scale = Maths.Random(0.2f, 0.5f);
         particle.OpacityFloat = 0f;
-        particle.RotationRadians = (float)((double)num * Math.PI);
+        particle.RotationRadians = (float)(num * Math.PI);
         _ = particleEffectSeconds;
         throw new NotImplementedException();
     }

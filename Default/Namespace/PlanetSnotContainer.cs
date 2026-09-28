@@ -8,14 +8,11 @@ public class PlanetSnotContainer : Node, IDepthDependent
 {
     private readonly PlanetSnot _snot;
 
-    private readonly PlanetSnotEye _eye = new PlanetSnotEye(null, _visible: true, Vector2.Zero);
+    private readonly PlanetSnotEye _eye = new(null, _visible: true, Vector2.Zero);
 
     public float Depth
     {
-        set
-        {
-            _snot.Depth = value;
-        }
+        set => _snot.Depth = value;
     }
 
     public PlanetSnotContainer()

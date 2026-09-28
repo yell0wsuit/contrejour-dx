@@ -55,7 +55,7 @@ public class RegressionApplication : ContreJourApplication
         Done
     }
 
-    private readonly StringBuilder _checkpoints = new StringBuilder();
+    private readonly StringBuilder _checkpoints = new();
 
     private Phase _phase = Phase.Startup;
 
@@ -146,7 +146,7 @@ public class RegressionApplication : ContreJourApplication
                 HashFrame();
                 if (++_frame % CheckpointInterval == 0)
                 {
-                    _checkpoints.Append(' ').Append((_hash & 0xFFFFFF).ToString("x6"));
+                    _ = _checkpoints.Append(' ').Append((_hash & 0xFFFFFF).ToString("x6"));
                 }
                 if (_frame >= RecordedFrames)
                 {
@@ -160,7 +160,7 @@ public class RegressionApplication : ContreJourApplication
     // more files than that, but the game can't load the unlisted ones.
     private static List<int> PlayableLevels()
     {
-        List<int> levels = new List<int>();
+        List<int> levels = [];
         foreach (List<int> chapter in LevelsMenu.LevelsList)
         {
             levels.AddRange(chapter);
@@ -176,7 +176,7 @@ public class RegressionApplication : ContreJourApplication
         _frame = 0;
         _hash = FnvOffset;
         _error = null;
-        _checkpoints.Clear();
+        _ = _checkpoints.Clear();
         _phase = Phase.Settle;
         LoadLevel(level);
     }

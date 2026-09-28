@@ -15,9 +15,9 @@ public class OneFileResourcesLoader : ResourcesLoader
 
     private const string Sprites = "sprites";
 
-    private static readonly List<Type> SeparateFileTypes = new List<Type>(new Type[1] { typeof(ParticleSystemConfig) });
+    private static readonly List<Type> SeparateFileTypes = [typeof(ParticleSystemConfig)];
 
-    private readonly Dictionary<string, IGraphicsDeserializer> _deserializerByType = new Dictionary<string, IGraphicsDeserializer>();
+    private readonly Dictionary<string, IGraphicsDeserializer> _deserializerByType = [];
 
     public OneFileResourcesLoader()
     {
@@ -34,13 +34,13 @@ public class OneFileResourcesLoader : ResourcesLoader
             return base.GetFileName<T>(resourceName, resourcesSuffix);
         }
         string textureName = GetTextureName(resourceName);
-        textureName = (((object)typeof(T) != typeof(AnimationData)) ? (textureName + "sprites" + resourcesSuffix) : (textureName + "animations"));
+        textureName = ((object)typeof(T) != typeof(AnimationData)) ? (textureName + "sprites" + resourcesSuffix) : (textureName + "animations");
         return textureName + ".xml";
     }
 
     private static string GetTextureName(string resourceName)
     {
-        return resourceName.Substring(0, resourceName.IndexOf("/") + 1);
+        return resourceName[..(resourceName.IndexOf("/") + 1)];
     }
 
     protected override T ProcessXml<T>(string name, XDocument xml)
@@ -49,7 +49,7 @@ public class OneFileResourcesLoader : ResourcesLoader
         {
             return base.ProcessXml<T>(name, xml);
         }
-        T val = default(T);
+        T val = default;
         string textureName = GetTextureName(name);
         foreach (XElement item in xml.Root.Elements())
         {
@@ -63,10 +63,6 @@ public class OneFileResourcesLoader : ResourcesLoader
                 val = (T)obj;
             }
         }
-        if (val == null)
-        {
-            throw new Exception($"Cannot find resource {name}");
-        }
-        return val;
+        return val == null ? throw new Exception($"Cannot find resource {name}") : val;
     }
 }

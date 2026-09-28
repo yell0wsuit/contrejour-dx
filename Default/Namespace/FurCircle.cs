@@ -14,19 +14,16 @@ public class FurCircle : ParticleSystem
 
     public float Radius
     {
-        get
-        {
-            return radius;
-        }
+        get => radius;
         set
         {
             if (Maths.FuzzyNotEquals(radius, value))
             {
                 radius = value;
-                for (int i = 0; i < base.Particles.Count; i++)
+                for (int i = 0; i < Particles.Count; i++)
                 {
                     float itemAngle = GetItemAngle(i);
-                    Particle particle = base.Particles[i];
+                    Particle particle = Particles[i];
                     particle.RotationDegrees = MathHelper.ToDegrees(itemAngle) - 90f;
                     particle.Position = VectorUtil.ToVector(value, itemAngle);
                 }
@@ -39,12 +36,12 @@ public class FurCircle : ParticleSystem
     public FurCircle(string textureName, int maxParticles, float _radius)
         : base(textureName, maxParticles)
     {
-        angleStep = 1f / (float)maxParticles * 2f * (float)Math.PI;
+        angleStep = 1f / maxParticles * 2f * (float)Math.PI;
         Radius = _radius;
     }
 
     public float GetItemAngle(int i)
     {
-        return (float)i * angleStep;
+        return i * angleStep;
     }
 }

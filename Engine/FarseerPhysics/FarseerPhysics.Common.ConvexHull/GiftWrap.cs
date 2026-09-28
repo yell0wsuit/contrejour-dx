@@ -52,7 +52,7 @@ public static class GiftWrap
             num4 = num5;
         }
         while (num5 != num);
-        Vertices vertices2 = new Vertices(num3);
+        Vertices vertices2 = new(num3);
         for (int k = 0; k < num3; k++)
         {
             vertices2.Add(vertices[array[k]]);

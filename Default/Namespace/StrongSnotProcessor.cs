@@ -32,15 +32,15 @@ public class StrongSnotProcessor : SnotProcessor
 
     public override float GetDensityTotal(int index, int total)
     {
-        return 0.13f + ((float)total - (float)index) / (float)total * 0.13f;
+        return 0.13f + ((total - (float)index) / total * 0.13f);
     }
 
     public override Joint JoinBodiesEndBodyStartEndIndexTotal(Body startBody, Body endBody, Vector2 start, Vector2 end, int index, int total)
     {
         RevoluteJoint val = JointFactory.CreateRevoluteJoint(builder.World, startBody, endBody, endBody.Position - end);
-        ((Joint)val).CollideConnected = false;
+        val.CollideConnected = false;
         val.LimitEnabled = false;
-        ((Joint)val).Broke += joint_Broke;
+        val.Broke += joint_Broke;
         return (Joint)(object)val;
     }
 

@@ -22,21 +22,18 @@ public struct FixedArray8<T>
 
     public T this[int index]
     {
-        get
+        readonly get => index switch
         {
-            return index switch
-            {
-                0 => _value0,
-                1 => _value1,
-                2 => _value2,
-                3 => _value3,
-                4 => _value4,
-                5 => _value5,
-                6 => _value6,
-                7 => _value7,
-                _ => throw new IndexOutOfRangeException(),
-            };
-        }
+            0 => _value0,
+            1 => _value1,
+            2 => _value2,
+            3 => _value3,
+            4 => _value4,
+            5 => _value5,
+            6 => _value6,
+            7 => _value7,
+            _ => throw new IndexOutOfRangeException(),
+        };
         set
         {
             switch (index)

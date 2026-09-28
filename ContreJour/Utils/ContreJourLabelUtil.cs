@@ -13,11 +13,11 @@ namespace ContreJour.Utils;
 
 public static class ContreJourLabelUtil
 {
-    private static readonly List<string> SmallAsianLanguages = new List<string>(new string[2] { "ja", "ko" });
+    private static readonly List<string> SmallAsianLanguages = ["ja", "ko"];
 
-    private static readonly List<string> Locales = new List<string>(new string[8] { "de", "es", "fr", "it", "nl", "ru", "uk", "zh" });
+    private static readonly List<string> Locales = ["de", "es", "fr", "it", "nl", "ru", "uk", "zh"];
 
-    public static readonly string CultureName = CultureInfo.CurrentCulture.Name.Substring(0, 2);
+    public static readonly string CultureName = CultureInfo.CurrentCulture.Name[..2];
 
     private static readonly bool IsSmallAsian = SmallAsianLanguages.Contains(CultureName);
 
@@ -49,7 +49,7 @@ public static class ContreJourLabelUtil
         float scale = label.Scale * num;
         label.Scale = scale;
         label.Align = TextAlign.Center;
-        Vector2 anchor = new Vector2(0.5f, 0.5f);
+        Vector2 anchor = new(0.5f, 0.5f);
         label.Anchor = anchor;
         label.SetVerticalAnchorToLine(0);
         return label;
@@ -57,15 +57,19 @@ public static class ContreJourLabelUtil
 
     public static Label CreateLabel(float size, string text, bool applyScale = true)
     {
-        ContreJourLabel contreJourLabel = new ContreJourLabel(size);
-        contreJourLabel.TextString = text.Localize();
+        ContreJourLabel contreJourLabel = new(size)
+        {
+            TextString = text.Localize()
+        };
         return ProcessLabel(contreJourLabel, applyScale);
     }
 
     public static Label CreateMultilineLabel(float size, string text)
     {
-        ContreJourLabel contreJourLabel = new ContreJourLabel(size);
-        contreJourLabel.TextString = text.Localize();
+        ContreJourLabel contreJourLabel = new(size)
+        {
+            TextString = text.Localize()
+        };
         Label label = ProcessLabel(contreJourLabel);
         label.LineSpacing = -6f;
         label.SetVerticalAnchorToLine(0);
@@ -85,17 +89,17 @@ public static class ContreJourLabelUtil
         foreach (KeyValuePair<int, FontData> font in ContreJourApplication.Fonts)
         {
             num = Math.Max(num, font.Key);
-            if ((float)font.Key >= size)
+            if (font.Key >= size)
             {
                 fontData = font.Value;
-                scale *= size / (float)font.Key;
+                scale *= size / font.Key;
                 break;
             }
         }
         if (fontData == null)
         {
             fontData = ContreJourApplication.Fonts[num];
-            scale *= size / (float)num;
+            scale *= size / num;
         }
         return fontData;
     }

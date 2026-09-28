@@ -16,11 +16,11 @@ public class BezierSegmentedData<T> : ISegmentedSpriteData<T>, IUpdatable where 
 
     private readonly int _bezierSegmentsCount;
 
-    private readonly List<Pair<T>> _originalLines = new List<Pair<T>>();
+    private readonly List<Pair<T>> _originalLines = [];
 
-    private readonly List<Vector2> _firstBezierPoints = new List<Vector2>();
+    private readonly List<Vector2> _firstBezierPoints = [];
 
-    private readonly List<Vector2> _secondBezierPoints = new List<Vector2>();
+    private readonly List<Vector2> _secondBezierPoints = [];
 
     private int _spriteSegmentsCount;
 
@@ -49,14 +49,7 @@ public class BezierSegmentedData<T> : ISegmentedSpriteData<T>, IUpdatable where 
     {
         _spriteSegmentsCount = _originalData.PairsCount - 1;
         int num = _bezierSegmentsCount * (_spriteSegmentsCount - 1);
-        if (num <= 0)
-        {
-            PairsCount = _originalData.PairsCount;
-        }
-        else
-        {
-            PairsCount = num + 3;
-        }
+        PairsCount = num <= 0 ? _originalData.PairsCount : num + 3;
     }
 
     public void FillLines(SegmentedSprite<T> sprite, List<Pair<T>> lines, ref Matrix matrix)
@@ -89,7 +82,7 @@ public class BezierSegmentedData<T> : ISegmentedSpriteData<T>, IUpdatable where 
             BezierUtil.GetBezierPoints(start.Second.Position.ToVector2(), start2.Second.Position.ToVector2(), pair.Second.Position.ToVector2(), _bezierSegmentsCount, insertLast: false, _secondBezierPoints);
             for (int j = 0; j < _bezierSegmentsCount; j++)
             {
-                Pair<T> item = LerpVertices(start, pair, (float)j / (float)_bezierSegmentsCount);
+                Pair<T> item = LerpVertices(start, pair, j / (float)_bezierSegmentsCount);
                 item.First.Position = _firstBezierPoints[j].ToVector3();
                 item.Second.Position = _secondBezierPoints[j].ToVector3();
                 lines.Add(item);

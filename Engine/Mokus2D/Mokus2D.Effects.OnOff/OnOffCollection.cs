@@ -9,7 +9,7 @@ public class OnOffCollection : OnOffEffect
     public OnOffCollection(params IOnOff[] effects)
         : base(null)
     {
-        _effects = new List<IOnOff>(effects);
+        _effects = [.. effects];
     }
 
     public void Add(IOnOff onOff)

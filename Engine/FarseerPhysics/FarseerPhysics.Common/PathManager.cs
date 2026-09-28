@@ -23,13 +23,13 @@ public static class PathManager
         Vertices vertices = path.GetVertices(subdivisions);
         if (path.Closed)
         {
-            ChainShape shape = new ChainShape(vertices, createLoop: true);
-            body.CreateFixture(shape);
+            ChainShape shape = new(vertices, createLoop: true);
+            _ = body.CreateFixture(shape);
             return;
         }
         for (int i = 1; i < vertices.Count; i++)
         {
-            body.CreateFixture(new EdgeShape(vertices[i], vertices[i - 1]));
+            _ = body.CreateFixture(new EdgeShape(vertices[i], vertices[i - 1]));
         }
     }
 
@@ -43,24 +43,26 @@ public static class PathManager
         List<Vertices> list = Triangulate.ConvexPartition(new Vertices(vertices), TriangulationAlgorithm.Bayazit);
         foreach (Vertices item in list)
         {
-            body.CreateFixture(new PolygonShape(item, density));
+            _ = body.CreateFixture(new PolygonShape(item, density));
         }
     }
 
     public static List<Body> EvenlyDistributeShapesAlongPath(World world, Path path, IEnumerable<Shape> shapes, BodyType type, int copies, object userData = null)
     {
         List<Vector3> list = path.SubdivideEvenly(copies);
-        List<Body> list2 = new List<Body>();
+        List<Body> list2 = [];
         for (int i = 0; i < list.Count; i++)
         {
-            Body body = new Body(world);
-            body.BodyType = type;
-            body.Position = new Vector2(list[i].X, list[i].Y);
-            body.Rotation = list[i].Z;
-            body.UserData = userData;
+            Body body = new(world)
+            {
+                BodyType = type,
+                Position = new Vector2(list[i].X, list[i].Y),
+                Rotation = list[i].Z,
+                UserData = userData
+            };
             foreach (Shape shape in shapes)
             {
-                body.CreateFixture(shape);
+                _ = body.CreateFixture(shape);
             }
             list2.Add(body);
         }
@@ -69,8 +71,7 @@ public static class PathManager
 
     public static List<Body> EvenlyDistributeShapesAlongPath(World world, Path path, Shape shape, BodyType type, int copies, object userData)
     {
-        List<Shape> list = new List<Shape>(1);
-        list.Add(shape);
+        List<Shape> list = [shape];
         return EvenlyDistributeShapesAlongPath(world, path, list, type, copies, userData);
     }
 
@@ -89,18 +90,22 @@ public static class PathManager
 
     public static List<RevoluteJoint> AttachBodiesWithRevoluteJoint(World world, List<Body> bodies, Vector2 localAnchorA, Vector2 localAnchorB, bool connectFirstAndLast, bool collideConnected)
     {
-        List<RevoluteJoint> list = new List<RevoluteJoint>(bodies.Count + 1);
+        List<RevoluteJoint> list = new(bodies.Count + 1);
         for (int i = 1; i < bodies.Count; i++)
         {
-            RevoluteJoint revoluteJoint = new RevoluteJoint(bodies[i], bodies[i - 1], localAnchorA, localAnchorB);
-            revoluteJoint.CollideConnected = collideConnected;
+            RevoluteJoint revoluteJoint = new(bodies[i], bodies[i - 1], localAnchorA, localAnchorB)
+            {
+                CollideConnected = collideConnected
+            };
             world.AddJoint(revoluteJoint);
             list.Add(revoluteJoint);
         }
         if (connectFirstAndLast)
         {
-            RevoluteJoint revoluteJoint2 = new RevoluteJoint(bodies[0], bodies[bodies.Count - 1], localAnchorA, localAnchorB);
-            revoluteJoint2.CollideConnected = collideConnected;
+            RevoluteJoint revoluteJoint2 = new(bodies[0], bodies[^1], localAnchorA, localAnchorB)
+            {
+                CollideConnected = collideConnected
+            };
             world.AddJoint(revoluteJoint2);
             list.Add(revoluteJoint2);
         }

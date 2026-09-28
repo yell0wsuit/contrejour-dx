@@ -11,26 +11,14 @@ public class LevelData
 
     public int Score
     {
-        get
-        {
-            return _score;
-        }
-        set
-        {
-            _score = value;
-        }
+        get => _score;
+        set => _score = value;
     }
 
     public int StarsCount
     {
-        get
-        {
-            return _starsCount;
-        }
-        set
-        {
-            _starsCount = value;
-        }
+        get => _starsCount;
+        set => _starsCount = value;
     }
 
     public LevelData()

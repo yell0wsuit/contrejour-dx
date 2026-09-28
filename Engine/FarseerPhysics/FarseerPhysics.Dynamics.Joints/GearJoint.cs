@@ -88,10 +88,7 @@ public class GearJoint : Joint
 
     public override Vector2 WorldAnchorA
     {
-        get
-        {
-            return _bodyA.GetWorldPoint(_localAnchorA);
-        }
+        get => _bodyA.GetWorldPoint(_localAnchorA);
         set
         {
         }
@@ -99,10 +96,7 @@ public class GearJoint : Joint
 
     public override Vector2 WorldAnchorB
     {
-        get
-        {
-            return _bodyB.GetWorldPoint(_localAnchorB);
-        }
+        get => _bodyB.GetWorldPoint(_localAnchorB);
         set
         {
         }
@@ -110,14 +104,8 @@ public class GearJoint : Joint
 
     public float Ratio
     {
-        get
-        {
-            return _ratio;
-        }
-        set
-        {
-            _ratio = value;
-        }
+        get => _ratio;
+        set => _ratio = value;
     }
 
     public Joint JointA { get; private set; }
@@ -126,9 +114,9 @@ public class GearJoint : Joint
 
     public GearJoint(Body bodyA, Body bodyB, Joint jointA, Joint jointB, float ratio = 1f)
     {
-        base.JointType = JointType.Gear;
-        base.BodyA = bodyA;
-        base.BodyB = bodyB;
+        JointType = JointType.Gear;
+        BodyA = bodyA;
+        BodyB = bodyB;
         JointA = jointA;
         JointB = jointB;
         Ratio = ratio;
@@ -189,7 +177,7 @@ public class GearJoint : Joint
             num2 = Vector2.Dot(vector2 - localAnchorD, _localAxisD);
         }
         _ratio = ratio;
-        _constant = num + _ratio * num2;
+        _constant = num + (_ratio * num2);
         _impulse = 0f;
     }
 
@@ -235,10 +223,10 @@ public class GearJoint : Joint
         float a4 = data.positions[_indexD].a;
         Vector2 v4 = data.velocities[_indexD].v;
         float w4 = data.velocities[_indexD].w;
-        Rot q = new Rot(a);
-        Rot q2 = new Rot(a2);
-        Rot q3 = new Rot(a3);
-        Rot q4 = new Rot(a4);
+        Rot q = new(a);
+        Rot q2 = new(a2);
+        Rot q3 = new(a3);
+        Rot q4 = new(a4);
         _mass = 0f;
         if (_typeA == JointType.Revolute)
         {
@@ -255,7 +243,7 @@ public class GearJoint : Joint
             _JvAC = vector;
             _JwC = MathUtils.Cross(a5, vector);
             _JwA = MathUtils.Cross(a6, vector);
-            _mass += _mC + _mA + _iC * _JwC * _JwC + _iA * _JwA * _JwA;
+            _mass += _mC + _mA + (_iC * _JwC * _JwC) + (_iA * _JwA * _JwA);
         }
         if (_typeB == JointType.Revolute)
         {
@@ -272,9 +260,9 @@ public class GearJoint : Joint
             _JvBD = _ratio * vector2;
             _JwD = _ratio * MathUtils.Cross(a7, vector2);
             _JwB = _ratio * MathUtils.Cross(a8, vector2);
-            _mass += _ratio * _ratio * (_mD + _mB) + _iD * _JwD * _JwD + _iB * _JwB * _JwB;
+            _mass += (_ratio * _ratio * (_mD + _mB)) + (_iD * _JwD * _JwD) + (_iB * _JwB * _JwB);
         }
-        _mass = ((_mass > 0f) ? (1f / _mass) : 0f);
+        _mass = (_mass > 0f) ? (1f / _mass) : 0f;
         v += _mA * _impulse * _JvAC;
         w += _iA * _impulse * _JwA;
         v2 += _mB * _impulse * _JvBD;
@@ -304,7 +292,7 @@ public class GearJoint : Joint
         Vector2 v4 = data.velocities[_indexD].v;
         float w4 = data.velocities[_indexD].w;
         float num = Vector2.Dot(_JvAC, v - v3) + Vector2.Dot(_JvBD, v2 - v4);
-        num += _JwA * w - _JwC * w3 + (_JwB * w2 - _JwD * w4);
+        num += (_JwA * w) - (_JwC * w3) + ((_JwB * w2) - (_JwD * w4));
         float num2 = (0f - _mass) * num;
         _impulse += num2;
         v += _mA * num2 * _JvAC;
@@ -335,10 +323,10 @@ public class GearJoint : Joint
         float a3 = data.positions[_indexC].a;
         Vector2 c4 = data.positions[_indexD].c;
         float a4 = data.positions[_indexD].a;
-        Rot q = new Rot(a);
-        Rot q2 = new Rot(a2);
-        Rot q3 = new Rot(a3);
-        Rot q4 = new Rot(a4);
+        Rot q = new(a);
+        Rot q2 = new(a2);
+        Rot q3 = new(a3);
+        Rot q4 = new(a4);
         float num = 0f;
         Vector2 vector;
         float num2;
@@ -360,7 +348,7 @@ public class GearJoint : Joint
             vector = vector2;
             num3 = MathUtils.Cross(a5, vector2);
             num2 = MathUtils.Cross(vector3, vector2);
-            num += _mC + _mA + _iC * num3 * num3 + _iA * num2 * num2;
+            num += _mC + _mA + (_iC * num3 * num3) + (_iA * num2 * num2);
             Vector2 vector4 = _localAnchorC - _lcC;
             Vector2 vector5 = MathUtils.MulT(q3, vector3 + (c - c3));
             num4 = Vector2.Dot(vector5 - vector4, _localAxisC);
@@ -385,12 +373,12 @@ public class GearJoint : Joint
             vector6 = _ratio * vector7;
             num6 = _ratio * MathUtils.Cross(a6, vector7);
             num5 = _ratio * MathUtils.Cross(vector8, vector7);
-            num += _ratio * _ratio * (_mD + _mB) + _iD * num6 * num6 + _iB * num5 * num5;
+            num += (_ratio * _ratio * (_mD + _mB)) + (_iD * num6 * num6) + (_iB * num5 * num5);
             Vector2 vector9 = _localAnchorD - _lcD;
             Vector2 vector10 = MathUtils.MulT(q4, vector8 + (c2 - c4));
             num7 = Vector2.Dot(vector10 - vector9, _localAxisD);
         }
-        float num8 = num4 + _ratio * num7 - _constant;
+        float num8 = num4 + (_ratio * num7) - _constant;
         float num9 = 0f;
         if (num > 0f)
         {

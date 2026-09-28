@@ -15,9 +15,9 @@ namespace Default.Namespace;
 
 public class ChapterLocked : ChapterItem
 {
-    private static readonly Color TABLO_COLOR = new Color(40, 127, 157, 255);
+    private static readonly Color TABLO_COLOR = new(40, 127, 157, 255);
 
-    public readonly EventSender ExplodeEvent = new EventSender();
+    public readonly EventSender ExplodeEvent = new();
 
     protected bool exploding;
 
@@ -38,7 +38,7 @@ public class ChapterLocked : ChapterItem
                 exploding = true;
                 SoundManager.PlaySound("boom0", 0.7f);
                 Actions.ShakeWithDurationOffsetCount(this, 0.4f, 5f, 20);
-                this.Schedule(0.4f, DoExplode);
+                _ = this.Schedule(0.4f, DoExplode);
             }
         }
     }
@@ -46,13 +46,15 @@ public class ChapterLocked : ChapterItem
     public ChapterLocked(int _index, MainMenu _menu)
         : base(_index, _menu)
     {
-        explosion = new Explosion("common/McSmokeBlack");
-        explosion.RotationDegrees = 90f;
-        explosion.ScaleStep = -0.5f;
-        explosion.HorizontalPosition = new RandomRange(0f, 20f);
-        explosion.VerticalPosition = new RandomRange(0f, 20f);
-        explosion.Speed = new RandomRange(220f, 60f);
-        explosion.ParticlesScale = new RandomRange(1f, 0.5f);
+        explosion = new Explosion("common/McSmokeBlack")
+        {
+            RotationDegrees = 90f,
+            ScaleStep = -0.5f,
+            HorizontalPosition = new RandomRange(0f, 20f),
+            VerticalPosition = new RandomRange(0f, 20f),
+            Speed = new RandomRange(220f, 60f),
+            ParticlesScale = new RandomRange(1f, 0.5f)
+        };
         explosion.CreateOnStartPosition(75);
     }
 
@@ -68,23 +70,18 @@ public class ChapterLocked : ChapterItem
     {
         background = new McPlanetLocked();
         container.AddChild(background);
-        tablo = new Tablo();
-        tablo.Position = new Vector2(-74f, 28f);
-        tablo.Color = ((index == 1) ? ContreJourConstants.BLUE_LIGHT_COLOR : ContreJourConstants.GREY_COLOR);
+        tablo = new Tablo
+        {
+            Position = new Vector2(-74f, 28f),
+            Color = (index == 1) ? ContreJourConstants.BLUE_LIGHT_COLOR : ContreJourConstants.GREY_COLOR
+        };
         container.AddChild(tablo);
         background.Color = tablo.Color;
         Label label = ContreJourLabelUtil.CreateLabel(20f, UserData.StarsToUnlock(index).ToString());
         label.Anchor = new Vector2(0.5f, 0.5f);
         label.Align = TextAlign.Left;
         label.Scale *= 0.8f;
-        if (index == 1)
-        {
-            label.Color = Color.Lerp(ContreJourConstants.GREY_COLOR, tablo.Color, 0.7f);
-        }
-        else
-        {
-            label.Color = tablo.Color;
-        }
+        label.Color = index == 1 ? Color.Lerp(ContreJourConstants.GREY_COLOR, tablo.Color, 0.7f) : tablo.Color;
         tablo.AddChild(label);
         label.Position = new Vector2(60f, 46f);
         Node node = new McEnergyIcon();
@@ -106,13 +103,13 @@ public class ChapterLocked : ChapterItem
 
     private void DoExplode()
     {
-        this.FadeOut(0.35f);
-        TargetChapter.FadeIn(0.3f);
+        _ = this.FadeOut(0.35f);
+        _ = TargetChapter.FadeIn(0.3f);
         explosion.IgnoreParentOpacity = true;
-        base.Parent.AddChild(explosion);
+        Parent.AddChild(explosion);
         explosion.Position = Position;
-        this.Schedule(1f, ExplodeEvent.SendEvent);
-        this.Schedule(1.5f, NodeValues.RemoveFromParent);
+        _ = this.Schedule(1f, ExplodeEvent.SendEvent);
+        _ = this.Schedule(1.5f, NodeValues.RemoveFromParent);
     }
 
     public override void Update(float time)

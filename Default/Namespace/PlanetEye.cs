@@ -28,11 +28,11 @@ public class PlanetEye : BackSnotEye, IVectorPositionProvider
 
     protected Vector2 speed;
 
-    protected override EyeAnimation[] Animations => new EyeAnimation[2]
-    {
-        new EyeAnimation("McPlanetEyeBlink"),
-        new EyeAnimation("McPlanetEyeBlinkOneTime")
-    };
+    protected override EyeAnimation[] Animations =>
+    [
+        new("McPlanetEyeBlink"),
+        new("McPlanetEyeBlinkOneTime")
+    ];
 
     public override float EyeStep => 0.25f;
 
@@ -44,8 +44,8 @@ public class PlanetEye : BackSnotEye, IVectorPositionProvider
         : base(_game, _visible, position)
     {
         eyePosition = Vector2.Zero;
-        Mokus2DGame.LoadMovieClipData("planets/McPlanetEyeBlink");
-        Mokus2DGame.LoadMovieClipData("planets/McPlanetEyeBlinkOneTime");
+        _ = Mokus2DGame.LoadMovieClipData("planets/McPlanetEyeBlink");
+        _ = Mokus2DGame.LoadMovieClipData("planets/McPlanetEyeBlinkOneTime");
         UpdateEnabled = true;
     }
 
@@ -62,14 +62,14 @@ public class PlanetEye : BackSnotEye, IVectorPositionProvider
 
     protected override void ScheduleAnimation()
     {
-        this.Schedule(Maths.Random(3f, 10f), Animate);
+        _ = this.Schedule(Maths.Random(3f, 10f), Animate);
     }
 
     protected override void ChangePositionProvider()
     {
         base.ChangePositionProvider();
         float module = Maths.Random(-10f, 10f);
-        float num = Maths.Random(0f - MaxAngle(), MaxAngle()) - (float)Math.PI / 4f;
+        float num = Maths.Random(0f - MaxAngle(), MaxAngle()) - ((float)Math.PI / 4f);
         eyePosition = VectorUtil.ToVector(module, num);
         positionProvider = this;
         speed = VectorUtil.ToVector(Maths.Random(2f), num + (float)Math.PI);
@@ -83,7 +83,9 @@ public class PlanetEye : BackSnotEye, IVectorPositionProvider
     protected override void CreateDefaultView()
     {
         background = new McPlanetEye();
-        eyeBall = new McPlanet1EyeBall();
-        eyeBall.Scale = 1.15f;
+        eyeBall = new McPlanet1EyeBall
+        {
+            Scale = 1.15f
+        };
     }
 }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 using Microsoft.Xna.Framework;
 
@@ -25,10 +26,10 @@ public class LianaBodyClip : ContreJourBodyClip
         clipContent = new LianaSprite(data, black);
         clip = clipContent;
         _builder.Add(clipContent, -3);
-        parts = new List<object>();
+        parts = [];
         for (int i = 1; i < data.Bodies.Count - 1; i++)
         {
-            LianaPart item = new LianaPart(data.Bodies[i]);
+            LianaPart item = new(data.Bodies[i]);
             parts.Add(item);
         }
     }
@@ -36,7 +37,7 @@ public class LianaBodyClip : ContreJourBodyClip
     public override void Update(float time)
     {
         base.Update(time);
-        foreach (LianaPart part in parts)
+        foreach (LianaPart part in parts.Cast<LianaPart>())
         {
             part.Update(time);
         }

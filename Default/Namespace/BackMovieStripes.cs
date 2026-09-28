@@ -13,7 +13,7 @@ public class BackMovieStripes : MovieStripesView
 
     protected Button backButton;
 
-    public readonly EventSender BackEvent = new EventSender();
+    public readonly EventSender BackEvent = new();
 
     protected ClickableLayer clickableLayer;
 
@@ -21,7 +21,7 @@ public class BackMovieStripes : MovieStripesView
         : base(blackSide: false, fade: false)
     {
         backButton = new Button("menu/McBackIcon");
-        backButton.FadeIn(2f);
+        _ = backButton.FadeIn(2f);
         backButton.OpacityByte = 0;
         _ = ScreenConstants.W7FromIPhoneSize;
         backButton.Position = ContreJourConfig.BackButtonPosition;
@@ -38,7 +38,7 @@ public class BackMovieStripes : MovieStripesView
     public void ShowBack()
     {
         backButton.Visible = true;
-        backButton.FadeIn(2f);
+        _ = backButton.FadeIn(2f);
     }
 
     private void OnBackClick(TouchArguments touchArguments)

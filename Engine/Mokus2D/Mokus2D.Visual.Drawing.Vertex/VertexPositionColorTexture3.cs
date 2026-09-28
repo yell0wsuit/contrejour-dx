@@ -23,42 +23,21 @@ public struct VertexPositionColorTexture3 : IVertex, IVertexType
 
     public Vector2 DepthTextureCoordinate;
 
-    VertexDeclaration IVertexType.VertexDeclaration => VertexDeclaration;
+    readonly VertexDeclaration IVertexType.VertexDeclaration => VertexDeclaration;
 
     Vector3 IVertex.Position
     {
-        get
-        {
-            return Position;
-        }
-        set
-        {
-            Position = value;
-        }
+        readonly get => Position; set => Position = value;
     }
 
     Color IVertex.Color
     {
-        get
-        {
-            return Color;
-        }
-        set
-        {
-            Color = value;
-        }
+        readonly get => Color; set => Color = value;
     }
 
     Vector2 IVertex.TextureCoordinate
     {
-        get
-        {
-            return TextureCoordinate;
-        }
-        set
-        {
-            TextureCoordinate = value;
-        }
+        readonly get => TextureCoordinate; set => TextureCoordinate = value;
     }
 
     static VertexPositionColorTexture3()
@@ -82,11 +61,9 @@ public struct VertexPositionColorTexture3 : IVertex, IVertexType
 
     public static bool operator ==(VertexPositionColorTexture3 left, VertexPositionColorTexture3 right)
     {
-        if (left.Position == right.Position && left.Color == right.Color && left.TextureCoordinate == right.TextureCoordinate && left.NormalMapTextureCoordinate == right.NormalMapTextureCoordinate)
-        {
-            return left.DepthTextureCoordinate == right.DepthTextureCoordinate;
-        }
-        return false;
+        return left.Position == right.Position && left.Color == right.Color && left.TextureCoordinate == right.TextureCoordinate && left.NormalMapTextureCoordinate == right.NormalMapTextureCoordinate
+            ? left.DepthTextureCoordinate == right.DepthTextureCoordinate
+            : false;
     }
 
     public static bool operator !=(VertexPositionColorTexture3 left, VertexPositionColorTexture3 right)
@@ -94,17 +71,13 @@ public struct VertexPositionColorTexture3 : IVertex, IVertexType
         return !(left == right);
     }
 
-    public override string ToString()
+    public override readonly string ToString()
     {
         return string.Format(CultureInfo.CurrentCulture, "{{Position:{0} Color:{1} TextureCoordinate:{2}}}", new object[3] { Position, Color, TextureCoordinate });
     }
 
-    public override bool Equals(object obj)
+    public override readonly bool Equals(object obj)
     {
-        if (obj == null || (object)obj.GetType() != GetType())
-        {
-            return false;
-        }
-        return this == (VertexPositionColorTexture3)obj;
+        return obj == null || (object)obj.GetType() != GetType() ? false : this == (VertexPositionColorTexture3)obj;
     }
 }

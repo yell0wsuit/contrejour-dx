@@ -10,11 +10,11 @@ namespace Mokus2D.UI.Controls.Toggle;
 
 public class ToggleButtonGroup<T>
 {
-    private readonly List<ToggleButton> _buttons = new List<ToggleButton>();
+    private readonly List<ToggleButton> _buttons = [];
 
     private ToggleButton _selectedButton;
 
-    private readonly BiDictionary<ToggleButton, T> _data = new BiDictionary<ToggleButton, T>();
+    private readonly BiDictionary<ToggleButton, T> _data = [];
 
     public bool DeselectEnabled = true;
 
@@ -28,34 +28,19 @@ public class ToggleButtonGroup<T>
 
     public T SelectedValue
     {
-        get
-        {
-            return _data[_selectedButton];
-        }
-        set
-        {
-            SelectedButton = _data.GetKey(value);
-        }
+        get => _data[_selectedButton];
+        set => SelectedButton = _data.GetKey(value);
     }
 
     public int SelectedIndex
     {
-        get
-        {
-            return _buttons.IndexOf(_selectedButton);
-        }
-        set
-        {
-            SelectedButton = _buttons[value];
-        }
+        get => _buttons.IndexOf(_selectedButton);
+        set => SelectedButton = _buttons[value];
     }
 
     public ToggleButton SelectedButton
     {
-        get
-        {
-            return _selectedButton;
-        }
+        get => _selectedButton;
         set
         {
             _selectingButton = null;
@@ -118,12 +103,12 @@ public class ToggleButtonGroup<T>
             SelectedButton = toggleButton;
             toggleButton.Toggle = true;
             T argument = _data.TryGetValue(toggleButton);
-            this.SelectedButtonChangeEvent.Dispatch(SelectedButton, argument);
+            SelectedButtonChangeEvent.Dispatch(SelectedButton, argument);
         }
         else if (DeselectEnabled)
         {
             _selectedButton = null;
-            this.SelectedButtonChangeEvent.Dispatch(null, default(T));
+            SelectedButtonChangeEvent.Dispatch(null, default);
         }
         else
         {
@@ -136,21 +121,21 @@ public class ToggleButtonGroup<T>
         DoRemoveButton(button);
         if (_data.ContainsKey(button))
         {
-            _data.Remove(button);
+            _ = _data.Remove(button);
         }
     }
 
     public void RemoveValue(T value)
     {
         DoRemoveButton(_data[value]);
-        _data.Remove(value);
+        _ = _data.Remove(value);
     }
 
     private void DoRemoveButton(ToggleButton button)
     {
         button.ToggleChangeEvent -= OnButtonToggleChangeEvent;
         button.TouchBeginEvent -= OnButtonTouchBegin;
-        _buttons.Remove(button);
+        _ = _buttons.Remove(button);
         if (_selectedButton == button)
         {
             _selectedButton = null;

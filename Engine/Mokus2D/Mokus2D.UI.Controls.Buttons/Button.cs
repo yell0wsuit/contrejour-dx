@@ -24,10 +24,7 @@ public class Button
 
     public bool Pressed
     {
-        get
-        {
-            return _pressed;
-        }
+        get => _pressed;
         set
         {
             if (_pressed != value)
@@ -40,10 +37,7 @@ public class Button
 
     public bool HighliteOnMouseOver
     {
-        get
-        {
-            return _highliteOnMouseOver;
-        }
+        get => _highliteOnMouseOver;
         set
         {
             _highliteOnMouseOver = value;
@@ -120,7 +114,7 @@ public class Button
     {
         Pressed = true;
         _pressTouch = touchArguments.Touch;
-        this.TouchBeginEvent.Dispatch(this, touchArguments.Touch);
+        TouchBeginEvent.Dispatch(this, touchArguments.Touch);
     }
 
     protected virtual void OnTouchEnd(TouchArguments obj)
@@ -129,7 +123,7 @@ public class Button
         {
             Pressed = false;
             _pressTouch = null;
-            this.ClickEvent.Dispatch(this, obj.Touch);
+            ClickEvent.Dispatch(this, obj.Touch);
         }
     }
 }

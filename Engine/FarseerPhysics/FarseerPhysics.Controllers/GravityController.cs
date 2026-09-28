@@ -27,8 +27,8 @@ public class GravityController : Controller
         Strength = strength;
         MaxRadius = float.MaxValue;
         GravityType = GravityType.DistanceSquared;
-        Points = new List<Vector2>();
-        Bodies = new List<Body>();
+        Points = [];
+        Bodies = [];
     }
 
     public GravityController(float strength, float maxRadius, float minRadius)
@@ -38,8 +38,8 @@ public class GravityController : Controller
         MaxRadius = maxRadius;
         Strength = strength;
         GravityType = GravityType.DistanceSquared;
-        Points = new List<Vector2>();
-        Bodies = new List<Body>();
+        Points = [];
+        Bodies = [];
     }
 
     public override void Update(float dt)

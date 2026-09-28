@@ -13,16 +13,16 @@ public class TextureCoords
 
     public Vector2 Size => size;
 
-    public void Refresh(Texture2D texture, Rectangle textureCoords, Vector2 margins = default(Vector2))
+    public void Refresh(Texture2D texture, Rectangle textureCoords, Vector2 margins = default)
     {
         int width = texture.Width;
         int height = texture.Height;
-        lt = new Vector2(((float)textureCoords.Left + margins.X) / (float)width, ((float)textureCoords.Top + margins.X) / (float)height);
-        size = new Vector2(((float)textureCoords.Width - margins.X * 2f) / (float)width, ((float)textureCoords.Height - margins.Y * 2f) / (float)height);
+        lt = new Vector2((textureCoords.Left + margins.X) / width, (textureCoords.Top + margins.X) / height);
+        size = new Vector2((textureCoords.Width - (margins.X * 2f)) / width, (textureCoords.Height - (margins.Y * 2f)) / height);
     }
 
     public Vector2 GetTexturePosition(Vector2 position)
     {
-        return Lt + Size * position;
+        return Lt + (Size * position);
     }
 }

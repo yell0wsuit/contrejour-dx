@@ -87,7 +87,7 @@ public class Triangulate
         int num2 = 0;
         while (num2 < count)
         {
-            num += contour[index].X * contour[num2].Y - contour[num2].X * contour[index].Y;
+            num += (contour[index].X * contour[num2].Y) - (contour[num2].X * contour[index].Y);
             index = num2++;
         }
         return num * 0.5f;
@@ -107,14 +107,10 @@ public class Triangulate
         float num10 = Py - By;
         float num11 = Px - Cx;
         float num12 = Py - Cy;
-        float num13 = num * num10 - num2 * num9;
-        float num14 = num5 * num8 - num6 * num7;
-        float num15 = num3 * num12 - num4 * num11;
-        if (num13 >= 0f && num15 >= 0f)
-        {
-            return num14 >= 0f;
-        }
-        return false;
+        float num13 = (num * num10) - (num2 * num9);
+        float num14 = (num5 * num8) - (num6 * num7);
+        float num15 = (num3 * num12) - (num4 * num11);
+        return num13 >= 0f && num15 >= 0f ? num14 >= 0f : false;
     }
 
     private static bool Snip(List<Vector2> contour, int u, int v, int w, int n, ref int[] V)
@@ -125,7 +121,7 @@ public class Triangulate
         float y2 = contour[V[v]].Y;
         float x3 = contour[V[w]].X;
         float y3 = contour[V[w]].Y;
-        if (1E-10f > (x2 - x) * (y3 - y) - (y2 - y) * (x3 - x))
+        if (1E-10f > ((x2 - x) * (y3 - y)) - ((y2 - y) * (x3 - x)))
         {
             return false;
         }

@@ -18,7 +18,7 @@ public class FontData : TextureNodeData
 
     public readonly float RealHeight;
 
-    private readonly Dictionary<char, CharData> _chars = new Dictionary<char, CharData>();
+    private readonly Dictionary<char, CharData> _chars = [];
 
     public CharData this[char key] => _chars.TryGetValue(key);
 

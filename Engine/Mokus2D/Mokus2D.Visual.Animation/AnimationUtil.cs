@@ -53,7 +53,7 @@ public static class AnimationUtil
         {
             child.Visible = data.Visible;
         }
-        Vector2 vector = ((node.Root != null) ? node.Root.SpritesScaleFactor.Signs() : Vector2.One);
+        Vector2 vector = (node.Root != null) ? node.Root.SpritesScaleFactor.Signs() : Vector2.One;
         if (!child.IgnoredAnimations.Position)
         {
             child.Position = data.Position * vector;

@@ -12,9 +12,9 @@ public static class ItemRenderersUtil
         {
             num = 0f - itemPosition;
         }
-        else if (itemPosition > (float)(itemsCount - 1))
+        else if (itemPosition > itemsCount - 1)
         {
-            num = itemPosition - (float)(itemsCount - 1);
+            num = itemPosition - (itemsCount - 1);
         }
         itemRenderer.OpacityFloat = (num / maxOffset).Lerp(1f, 0f);
     }

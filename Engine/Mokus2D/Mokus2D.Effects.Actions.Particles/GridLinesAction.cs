@@ -15,7 +15,7 @@ public abstract class GridLinesAction : GridAction
 
     protected GridLinesAction Initialize(float linesDelay, float particleEffectSeconds)
     {
-        Initialize();
+        _ = Initialize();
         this.linesDelay = linesDelay;
         this.particleEffectSeconds = particleEffectSeconds;
         return this;
@@ -29,7 +29,7 @@ public abstract class GridLinesAction : GridAction
 
     protected void CalculateLineDelay()
     {
-        oneLineDelay = linesDelay / base.Grid.GridSize.Y;
+        oneLineDelay = linesDelay / Grid.GridSize.Y;
     }
 
     protected override ITween CreateParticleUpdater(Node particle, int x, int y)
@@ -39,7 +39,7 @@ public abstract class GridLinesAction : GridAction
 
     protected virtual float GetLineDelay(int y)
     {
-        return (float)y * oneLineDelay;
+        return y * oneLineDelay;
     }
 
     protected abstract ITween CreateDelayedParticleUpdater(Node particle, int x, int y);

@@ -1,6 +1,5 @@
 using Microsoft.Xna.Framework;
 
-using Mokus2D.Util.Data;
 using Mokus2D.Util.Extensions;
 using Mokus2D.Visual;
 
@@ -25,7 +24,7 @@ public class TileLayout : LayoutBase
         for (int i = 0; i < Container.Children.Count; i++)
         {
             Node node = Container.Children[i];
-            Vector2 position = new Mokus2D.Util.Data.Point
+            Vector2 position = new Util.Data.Point
             {
                 X = i % _maxItems,
                 Y = i / _maxItems
@@ -36,10 +35,6 @@ public class TileLayout : LayoutBase
 
     private Vector2 Size(Node child)
     {
-        if (ItemSize.HasValue)
-        {
-            return ItemSize.Value;
-        }
-        return ((ISizeNode)child).ScaledSize();
+        return ItemSize.HasValue ? ItemSize.Value : ((ISizeNode)child).ScaledSize();
     }
 }

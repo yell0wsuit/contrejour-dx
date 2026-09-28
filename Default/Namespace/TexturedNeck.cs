@@ -9,13 +9,13 @@ namespace Default.Namespace;
 
 public class TexturedNeck : SpriteBatchNode
 {
-    protected List<Vector2> vertices = new List<Vector2>();
+    protected List<Vector2> vertices = [];
 
-    protected List<Vector2> textureCoords = new List<Vector2>();
+    protected List<Vector2> textureCoords = [];
 
     public TexturedNeck(string textureFile)
     {
-        base.Texture = ClipFactory.GetTexture(textureFile);
+        Texture = ClipFactory.GetTexture(textureFile);
     }
 
     public void AddPoint(Vector2 point)
@@ -28,7 +28,7 @@ public class TexturedNeck : SpriteBatchNode
     {
         for (int i = textureCoords.Count; i < vertices.Count; i++)
         {
-            Vector2 item = new Vector2(i / 2, i % 2);
+            Vector2 item = new(i / 2, i % 2);
             textureCoords.Add(item);
         }
     }

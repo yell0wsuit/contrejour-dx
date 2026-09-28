@@ -18,7 +18,7 @@ public class AsymptoticVector2 : IValueProcessor<Vector2>
 
     public Vector2 GetValue(Vector2 value)
     {
-        Vector2 result = default(Vector2);
+        Vector2 result = default;
         result.X = AsymptoticFloat.GetValue(value.X, Bounds.Left, Bounds.Right, Offset);
         result.Y = AsymptoticFloat.GetValue(value.X, Bounds.Top, Bounds.Bottom, Offset);
         return result;

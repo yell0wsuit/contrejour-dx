@@ -19,7 +19,7 @@ public class IntroPlayer : Node
 
     private const float FADE_TIME = 0.8f;
 
-    private static readonly Color LAST_COLOR = new Color(16, 16, 16);
+    private static readonly Color LAST_COLOR = new(16, 16, 16);
 
     protected ContreJourGame game;
 
@@ -33,9 +33,9 @@ public class IntroPlayer : Node
     {
         game = _game;
         textPosition = new Vector2(0.5f * game.LevelSize.X, 0.7f * game.LevelSize.Y);
-        this.Schedule(2f, PlayItem);
-        messages = new List<string>(new string[3] { "MUSIC_BY", "GRAPHICS_BY", "DIRECTED_BY" });
-        rightMessages = new List<string>(new string[3] { "DAVID_LEON", "MIHAI_MAKSYM", "BY_MAKSYM_HRYNIV" });
+        _ = this.Schedule(2f, PlayItem);
+        messages = ["MUSIC_BY", "GRAPHICS_BY", "DIRECTED_BY"];
+        rightMessages = ["DAVID_LEON", "MIHAI_MAKSYM", "BY_MAKSYM_HRYNIV"];
     }
 
     private void PlayItem()
@@ -43,9 +43,9 @@ public class IntroPlayer : Node
         if (messages.Count > 0)
         {
             ShowMessageRightMessageIndex(messages.Last(), rightMessages.Last(), 4 - messages.Count);
-            messages.RemoveLast();
-            rightMessages.RemoveLast();
-            this.Schedule(3.75f, PlayItem);
+            _ = messages.RemoveLast();
+            _ = rightMessages.RemoveLast();
+            _ = this.Schedule(3.75f, PlayItem);
         }
         else
         {
@@ -55,7 +55,7 @@ public class IntroPlayer : Node
 
     public void PlayInspired()
     {
-        this.Schedule(6f, PlayLogo);
+        _ = this.Schedule(6f, PlayLogo);
     }
 
     private void PlayLogo()
@@ -77,7 +77,7 @@ public class IntroPlayer : Node
         label2.Position = new Vector2(10f, 0f);
         label2.Color = gREY_COLOR;
         label2.AnchorX = 0f;
-        Node node = new Node();
+        Node node = new();
         AddChild(node);
         node.Position = textPosition;
         node.AddChild(label);
@@ -89,7 +89,7 @@ public class IntroPlayer : Node
     public void FadeItemShowTime(Node item, float time)
     {
         item.OpacityFloat = 0f;
-        item.Tweener.StartSequence(0.8f).Tween(NodeValues.OpacityFloat, 1f).Next(time)
+        _ = item.Tweener.StartSequence(0.8f).Tween(NodeValues.OpacityFloat, 1f).Next(time)
             .Next(0.8f)
             .Tween(NodeValues.OpacityFloat, 0f)
             .OnComplete(NodeValues.Hide);

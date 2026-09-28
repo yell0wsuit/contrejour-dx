@@ -16,54 +16,33 @@ public class SpriteFader
 
     public ushort EnabledOpacity
     {
-        get
-        {
-            return enabledOpacity;
-        }
-        set
-        {
-            enabledOpacity = value;
-        }
+        get => enabledOpacity;
+        set => enabledOpacity = value;
     }
 
     public ushort DisabledOpacity
     {
-        get
-        {
-            return disabledOpacity;
-        }
-        set
-        {
-            disabledOpacity = value;
-        }
+        get => disabledOpacity;
+        set => disabledOpacity = value;
     }
 
     public bool Enabled
     {
-        get
-        {
-            return enabled;
-        }
+        get => enabled;
         set
         {
             if (enabled != value)
             {
                 enabled = value;
-                target.Tweener.StartSequence(duration).Tween(NodeValues.OpacityFloat, (int)(enabled ? enabledOpacity : disabledOpacity));
+                _ = target.Tweener.StartSequence(duration).Tween(NodeValues.OpacityFloat, enabled ? enabledOpacity : disabledOpacity);
             }
         }
     }
 
     public float Duration
     {
-        get
-        {
-            return duration;
-        }
-        set
-        {
-            duration = value;
-        }
+        get => duration;
+        set => duration = value;
     }
 
     public SpriteFader(Node _target)

@@ -5,9 +5,9 @@ namespace Mokus2D.Events;
 
 public class EventSender
 {
-    protected List<Action> listeners = new List<Action>(64);
+    protected List<Action> listeners = new(64);
 
-    private List<Action> listenersCopy = new List<Action>(64);
+    private List<Action> listenersCopy = new(64);
 
     public bool Enabled { get; set; }
 
@@ -54,14 +54,14 @@ public class EventSender
 
     public void RemoveListener(Action selector)
     {
-        listeners.Remove(selector);
+        _ = listeners.Remove(selector);
     }
 }
 public class EventSender<T> : EventSender
 {
-    protected List<Action<T>> parameterListeners = new List<Action<T>>(64);
+    protected List<Action<T>> parameterListeners = new(64);
 
-    private List<Action<T>> parameterListenersCopy = new List<Action<T>>(64);
+    private List<Action<T>> parameterListenersCopy = new(64);
 
     public void SendEvent(T eventObject)
     {
@@ -84,7 +84,7 @@ public class EventSender<T> : EventSender
     public override void SendEvent()
     {
         base.SendEvent();
-        SendObject(default(T));
+        SendObject(default);
     }
 
     private void SendObject(T eventObject)
@@ -104,7 +104,7 @@ public class EventSender<T> : EventSender
 
     public void RemoveListener(Action<T> action)
     {
-        parameterListeners.Remove(action);
+        _ = parameterListeners.Remove(action);
     }
 
     public override void RemoveListeners()

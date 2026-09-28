@@ -12,7 +12,7 @@ internal class Polygon : Triangulatable
 
     protected PolygonPoint _last;
 
-    protected List<TriangulationPoint> _points = new List<TriangulationPoint>();
+    protected List<TriangulationPoint> _points = [];
 
     protected List<TriangulationPoint> _steinerPoints;
 
@@ -40,7 +40,7 @@ internal class Polygon : Triangulatable
     }
 
     public Polygon(IEnumerable<PolygonPoint> points)
-        : this((points as IList<PolygonPoint>) ?? ((IList<PolygonPoint>)points.ToArray()))
+        : this((points as IList<PolygonPoint>) ?? points.ToArray())
     {
     }
 
@@ -60,10 +60,7 @@ internal class Polygon : Triangulatable
 
     public void ClearTriangles()
     {
-        if (_triangles != null)
-        {
-            _triangles.Clear();
-        }
+        _triangles?.Clear();
     }
 
     public void PrepareTriangulation(TriangulationContext tcx)
@@ -78,9 +75,9 @@ internal class Polygon : Triangulatable
         }
         for (int i = 0; i < _points.Count - 1; i++)
         {
-            tcx.NewConstraint(_points[i], _points[i + 1]);
+            _ = tcx.NewConstraint(_points[i], _points[i + 1]);
         }
-        tcx.NewConstraint(_points[0], _points[_points.Count - 1]);
+        _ = tcx.NewConstraint(_points[0], _points[^1]);
         tcx.Points.AddRange(_points);
         if (_holes != null)
         {
@@ -88,9 +85,9 @@ internal class Polygon : Triangulatable
             {
                 for (int j = 0; j < hole._points.Count - 1; j++)
                 {
-                    tcx.NewConstraint(hole._points[j], hole._points[j + 1]);
+                    _ = tcx.NewConstraint(hole._points[j], hole._points[j + 1]);
                 }
-                tcx.NewConstraint(hole._points[0], hole._points[hole._points.Count - 1]);
+                _ = tcx.NewConstraint(hole._points[0], hole._points[^1]);
                 tcx.Points.AddRange(hole._points);
             }
         }
@@ -102,36 +99,24 @@ internal class Polygon : Triangulatable
 
     public void AddSteinerPoint(TriangulationPoint point)
     {
-        if (_steinerPoints == null)
-        {
-            _steinerPoints = new List<TriangulationPoint>();
-        }
+        _steinerPoints ??= [];
         _steinerPoints.Add(point);
     }
 
     public void AddSteinerPoints(List<TriangulationPoint> points)
     {
-        if (_steinerPoints == null)
-        {
-            _steinerPoints = new List<TriangulationPoint>();
-        }
+        _steinerPoints ??= [];
         _steinerPoints.AddRange(points);
     }
 
     public void ClearSteinerPoints()
     {
-        if (_steinerPoints != null)
-        {
-            _steinerPoints.Clear();
-        }
+        _steinerPoints?.Clear();
     }
 
     public void AddHole(Polygon poly)
     {
-        if (_holes == null)
-        {
-            _holes = new List<Polygon>();
-        }
+        _holes ??= [];
         _holes.Add(poly);
     }
 
@@ -181,6 +166,6 @@ internal class Polygon : Triangulatable
         PolygonPoint previous = p.Previous;
         previous.Next = next;
         next.Previous = previous;
-        _points.Remove(p);
+        _ = _points.Remove(p);
     }
 }

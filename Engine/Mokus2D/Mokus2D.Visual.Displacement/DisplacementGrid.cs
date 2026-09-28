@@ -29,10 +29,7 @@ public class DisplacementGrid : SpriteBatchNode
 
     public Vector2 this[int w, int h]
     {
-        get
-        {
-            return _gridNodes[GetIndex(w, h)];
-        }
+        get => _gridNodes[GetIndex(w, h)];
         set
         {
             short index = GetIndex(w, h);
@@ -62,7 +59,7 @@ public class DisplacementGrid : SpriteBatchNode
     public DisplacementGrid(Texture2D texture, Rectangle textureRect, Size gridSize, float scaleFactor = 1f)
         : base(texture)
     {
-        base.Effect = new DefaultEffect(Mokus2DGame.Device);
+        Effect = new DefaultEffect(Mokus2DGame.Device);
         ResetDefaultEffect = true;
         ScaleFactor = scaleFactor;
         TextureRect = textureRect;
@@ -77,13 +74,13 @@ public class DisplacementGrid : SpriteBatchNode
 
     public void ResetTexture(Texture2D texture)
     {
-        base.Texture = texture;
+        Texture = texture;
     }
 
     private void InitializeGrid(Texture2D texture, Rectangle textureRect)
     {
         InitializeIndices();
-        Vector2 vector = new Vector2(texture.Width, texture.Height);
+        Vector2 vector = new(texture.Width, texture.Height);
         Vector2 vector2 = new Vector2(TextureRect.X, textureRect.Y) / vector;
         Vector2 vector3 = GridSize - new Vector2(1f);
         Vector2 vector4 = TextureRect.Size() / (vector * vector3);
@@ -92,8 +89,8 @@ public class DisplacementGrid : SpriteBatchNode
         {
             for (int j = 0; j < GridSize.Height; j++)
             {
-                Vector2 vector6 = new Vector2(i, j);
-                Vector2 textureCoordinate = vector2 + vector4 * vector6;
+                Vector2 vector6 = new(i, j);
+                Vector2 textureCoordinate = vector2 + (vector4 * vector6);
                 SetVertexData(i, j, Color.White, textureCoordinate);
                 this[i, j] = vector5 * vector6;
             }
@@ -110,7 +107,7 @@ public class DisplacementGrid : SpriteBatchNode
                 short index2 = GetIndex(i, j + 1);
                 short num = (short)(index + 1);
                 short num2 = (short)(index2 + 1);
-                int num3 = (i + j * (GridSize.Width - 1)) * 6;
+                int num3 = (i + (j * (GridSize.Width - 1))) * 6;
                 _indices[num3] = index;
                 _indices[num3 + 1] = num;
                 _indices[num3 + 2] = num2;
@@ -130,7 +127,7 @@ public class DisplacementGrid : SpriteBatchNode
 
     private short GetIndex(int w, int h)
     {
-        return (short)(w + h * GridSize.Width);
+        return (short)(w + (h * GridSize.Width));
     }
 
     protected override void DrawSprite(VisualState state, Color color)
@@ -148,7 +145,7 @@ public class DisplacementGrid : SpriteBatchNode
         Matrix matrix = state.Matrix;
         for (int i = 0; i < _gridNodes.Length; i++)
         {
-            Vector2.Transform(ref _gridNodes[i], ref matrix, out var result);
+            Vector2.Transform(ref _gridNodes[i], ref matrix, out Vector2 result);
             _vertices[i].Position = result.ToVector3();
         }
     }

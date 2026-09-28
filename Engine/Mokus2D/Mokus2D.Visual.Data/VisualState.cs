@@ -19,28 +19,16 @@ public class VisualState
 
     public Vector2 SpritesScaleFactor
     {
-        get
-        {
-            return _spritesScaleFactor;
-        }
-        set
-        {
-            _spritesScaleFactor = value;
-        }
+        get => _spritesScaleFactor;
+        set => _spritesScaleFactor = value;
     }
 
     public float ColorRatio { get; private set; }
 
     public float Opacity
     {
-        get
-        {
-            return _opacity;
-        }
-        set
-        {
-            _opacity = value;
-        }
+        get => _opacity;
+        set => _opacity = value;
     }
 
     public Color GetColor(bool premultiply)
@@ -72,14 +60,14 @@ public class VisualState
 
     public void Refresh(VisualState parentState, ref Matrix matrix, float nodeOpacity, Color nodeColor, float colorRatio, bool ignoreParentOpacity, bool ignoreParentColor, bool ignoreParentTransformations)
     {
-        Matrix = (ignoreParentTransformations ? matrix : (matrix * parentState.Matrix));
+        Matrix = ignoreParentTransformations ? matrix : (matrix * parentState.Matrix);
         RefreshValues(parentState, nodeOpacity, nodeColor, colorRatio, ignoreParentOpacity, ignoreParentColor);
         TransformationDirty = true;
     }
 
     public void RefreshValues(VisualState parentState, float nodeOpacity, Color nodeColor, float colorRatio, bool ignoreParentOpacity, bool ignoreParentColor)
     {
-        _opacity = (ignoreParentOpacity ? nodeOpacity : (nodeOpacity * parentState._opacity));
+        _opacity = ignoreParentOpacity ? nodeOpacity : (nodeOpacity * parentState._opacity);
         if (!ignoreParentColor)
         {
             if (Mokus2DGame.Config.GraphicsConfig.UseColorRatio)

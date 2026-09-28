@@ -13,14 +13,8 @@ public class OneFrameSprite : Sprite
 
     public FrameData FrameData
     {
-        get
-        {
-            return frameData;
-        }
-        set
-        {
-            frameData = value;
-        }
+        get => frameData;
+        set => frameData = value;
     }
 
     public OneFrameSprite(IMovieClipData data, int frame)

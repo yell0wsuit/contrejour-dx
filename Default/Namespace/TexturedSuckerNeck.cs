@@ -11,13 +11,13 @@ public class TexturedSuckerNeck : SuckerNeckSprite
     public TexturedSuckerNeck(string textureName)
     {
         Texture = ClipFactory.GetTexture(textureName);
-        base.NeckColor = Color.White;
+        NeckColor = Color.White;
     }
 
     public override void CreateVectors(int _allPointsSize)
     {
         base.CreateVectors(_allPointsSize);
-        GraphUtil.CreateTextureCoordsVerticesStep(_allPointsSize / 2 - 1, vertices, 0.75f);
+        GraphUtil.CreateTextureCoordsVerticesStep((_allPointsSize / 2) - 1, vertices, 0.75f);
     }
 
     public override void Bounce()

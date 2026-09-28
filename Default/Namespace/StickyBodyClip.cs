@@ -38,7 +38,7 @@ public class StickyBodyClip : ContreJourBodyClip
         CircleShape val = null;
         foreach (Fixture fixture in Body.FixtureList)
         {
-            if ((int)fixture.Shape.ShapeType == 0)
+            if (fixture.Shape.ShapeType == 0)
             {
                 val = (CircleShape)fixture.Shape;
                 break;

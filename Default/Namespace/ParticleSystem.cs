@@ -12,11 +12,11 @@ namespace Default.Namespace;
 
 public class ParticleSystem : MultiframeSprite
 {
-    private readonly List<Particle> _particles = new List<Particle>();
+    private readonly List<Particle> _particles = [];
 
-    private readonly List<Particle> _invisibleParticles = new List<Particle>();
+    private readonly List<Particle> _invisibleParticles = [];
 
-    private readonly List<Particle> _cachedInvisible = new List<Particle>();
+    private readonly List<Particle> _cachedInvisible = [];
 
     private bool _paused;
 
@@ -24,14 +24,8 @@ public class ParticleSystem : MultiframeSprite
 
     public bool Paused
     {
-        get
-        {
-            return _paused;
-        }
-        set
-        {
-            _paused = value;
-        }
+        get => _paused;
+        set => _paused = value;
     }
 
     public ParticleSystem(string textureName)
@@ -70,7 +64,7 @@ public class ParticleSystem : MultiframeSprite
     {
         for (int i = 0; i < count; i++)
         {
-            AddParticle(new Vector2(0f, 0f));
+            _ = AddParticle(new Vector2(0f, 0f));
         }
     }
 
@@ -80,7 +74,7 @@ public class ParticleSystem : MultiframeSprite
         {
             _particles.Add(particle);
             AddChild(particle);
-            _invisibleParticles.RemoveLast();
+            _ = _invisibleParticles.RemoveLast();
             particle.Visible = true;
             OnShowParticle(particle);
         }
@@ -103,7 +97,7 @@ public class ParticleSystem : MultiframeSprite
 
     public Particle AddParticleWithFrame(int frame)
     {
-        if (frame >= base.TotalFrames)
+        if (frame >= TotalFrames)
         {
             throw new ArgumentOutOfRangeException("frame");
         }
@@ -112,14 +106,7 @@ public class ParticleSystem : MultiframeSprite
         AddChild(particle);
         FrameData frameData = Frames[frame];
         particle.SetFrameData(frameData);
-        if (base.TotalFrames > 1)
-        {
-            particle.AnchorInPixels = (Anchor + frameData.Anchor) * ((IMovieClipData)Data).Size * Data.ScaleFactor;
-        }
-        else
-        {
-            particle.AnchorInPixels = Anchor * Size;
-        }
+        particle.AnchorInPixels = TotalFrames > 1 ? (Anchor + frameData.Anchor) * ((IMovieClipData)Data).Size * Data.ScaleFactor : Anchor * Size;
         return particle;
     }
 
@@ -141,7 +128,7 @@ public class ParticleSystem : MultiframeSprite
 
     public Particle AddParticle()
     {
-        return AddParticleWithFrame(Maths.Random(base.TotalFrames));
+        return AddParticleWithFrame(Maths.Random(TotalFrames));
     }
 
     public virtual Particle AddParticle(Vector2 position)
@@ -153,8 +140,8 @@ public class ParticleSystem : MultiframeSprite
 
     public virtual Particle CreateParticle()
     {
-        Particle particle = ((Data is IMovieClipData) ? new Particle(this, (IMovieClipData)Data) : new Particle(this, (ISpriteData)Data));
-        particle.Blend = base.Blend;
+        Particle particle = (Data is IMovieClipData) ? new Particle(this, (IMovieClipData)Data) : new Particle(this, (ISpriteData)Data);
+        particle.Blend = Blend;
         return particle;
     }
 
@@ -177,7 +164,7 @@ public class ParticleSystem : MultiframeSprite
         _invisibleParticles.AddItemsNoGarbage(_cachedInvisible);
         foreach (Particle item in _cachedInvisible)
         {
-            _particles.Remove(item);
+            _ = _particles.Remove(item);
             RemoveChild(item);
         }
     }
@@ -198,12 +185,12 @@ public class ParticleSystem : MultiframeSprite
     {
         if (_particles.Contains(particle))
         {
-            _particles.Remove(particle);
+            _ = _particles.Remove(particle);
             RemoveChild(particle);
         }
         if (_invisibleParticles.Contains(particle))
         {
-            _invisibleParticles.Remove(particle);
+            _ = _invisibleParticles.Remove(particle);
         }
     }
 }

@@ -1,6 +1,6 @@
 namespace Mokus2D.Util.Data;
 
-public struct ElementAndIndex<T>(T element, int index)
+public readonly struct ElementAndIndex<T>(T element, int index)
 {
     public readonly T Element = element;
 

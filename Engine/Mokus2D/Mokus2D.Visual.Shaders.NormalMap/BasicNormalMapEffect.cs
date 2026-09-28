@@ -12,6 +12,6 @@ public class BasicNormalMapEffect : NormalMapEffectBase
         : base("Mokus2D.Shaders.BasicNormalMap", 5)
     {
         LightsCount.Value = lightsCount;
-        LightTextureColorRatio = new ShaderParameterFloat(base.Parameters, "LightTextureColorRatio");
+        LightTextureColorRatio = new ShaderParameterFloat(Parameters, "LightTextureColorRatio");
     }
 }

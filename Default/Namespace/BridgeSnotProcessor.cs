@@ -29,7 +29,7 @@ public class BridgeSnotProcessor : StrongSnotProcessor
     public override Body CreatePartBodyEndIndexTotalDensity(Vector2 start, Vector2 end, int index, int total, float density)
     {
         Vector2 position = end;
-        List<Vector2> list = new List<Vector2>();
+        List<Vector2> list = [];
         GetLocalPartPositionsTotalStartEnd(index, total, ref start, ref end);
         Pair<Vector2> pointsPairStartEndWidthResult = ContreDrawUtil.GetPointsPairStartEndWidthResult(start, start, end, 1f / 3f);
         Pair<Vector2> pointsPairStartEndWidthResult2 = ContreDrawUtil.GetPointsPairStartEndWidthResult(end, start, end, 1f / 3f);

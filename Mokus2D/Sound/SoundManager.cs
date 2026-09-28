@@ -22,50 +22,26 @@ public static class SoundManager
 
     public static bool SoundEnabled
     {
-        get
-        {
-            return soundEnabled;
-        }
-        set
-        {
-            soundEnabled = value;
-        }
+        get => soundEnabled;
+        set => soundEnabled = value;
     }
 
     public static bool MusicEnabled
     {
-        get
-        {
-            return musicEnabled;
-        }
-        set
-        {
-            musicEnabled = value;
-        }
+        get => musicEnabled;
+        set => musicEnabled = value;
     }
 
     public static bool Loop
     {
-        get
-        {
-            return loop;
-        }
-        set
-        {
-            loop = value;
-        }
+        get => loop;
+        set => loop = value;
     }
 
     public static bool HasControl
     {
-        get
-        {
-            return _hasControl;
-        }
-        set
-        {
-            _hasControl = value;
-        }
+        get => _hasControl;
+        set => _hasControl = value;
     }
 
     public static event Action MusicDisableEvent;

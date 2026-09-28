@@ -11,33 +11,29 @@ namespace Mokus2D.Input;
 
 public class KeyboardController : IUpdatable
 {
-    private readonly HashSet<Keys> _pressedKeys = new HashSet<Keys>();
+    private readonly HashSet<Keys> _pressedKeys = [];
 
-    private readonly HashSet<Keys> _removedKeys = new HashSet<Keys>();
+    private readonly HashSet<Keys> _removedKeys = [];
 
-    private readonly HashSet<Keys> _newKeys = new HashSet<Keys>();
+    private readonly HashSet<Keys> _newKeys = [];
 
-    private readonly Dictionary<Keys, List<Action<Keys, bool>>> _actions = new Dictionary<Keys, List<Action<Keys, bool>>>();
+    private readonly Dictionary<Keys, List<Action<Keys, bool>>> _actions = [];
 
-    private readonly FactoryDictionary<Keys, ForEachList<Action<Keys>>> _delayActions = new FactoryDictionary<Keys, ForEachList<Action<Keys>>>((Keys k) => new ForEachList<Action<Keys>>());
+    private readonly FactoryDictionary<Keys, ForEachList<Action<Keys>>> _delayActions = new(k => []);
 
-    private readonly List<Action<Keys, bool>> _currentActions = new List<Action<Keys, bool>>();
+    private readonly List<Action<Keys, bool>> _currentActions = [];
 
     private readonly KeyboardDelayListener _delayListener;
 
-    private readonly Flag _stopDelayEvent = new Flag(on: false);
+    private readonly Flag _stopDelayEvent = new(on: false);
 
-    private readonly HashSet<Keys> _currentPressedKeys = new HashSet<Keys>();
+    private readonly HashSet<Keys> _currentPressedKeys = [];
 
     public bool IsShiftPressed
     {
         get
         {
-            if (!_currentPressedKeys.Contains(Keys.LeftShift))
-            {
-                return _currentPressedKeys.Contains(Keys.RightShift);
-            }
-            return true;
+            return !_currentPressedKeys.Contains(Keys.LeftShift) ? _currentPressedKeys.Contains(Keys.RightShift) : true;
         }
     }
 
@@ -45,11 +41,7 @@ public class KeyboardController : IUpdatable
     {
         get
         {
-            if (!IsShiftPressed)
-            {
-                return Keyboard.GetState().IsKeyDown(Keys.CapsLock);
-            }
-            return true;
+            return !IsShiftPressed ? Keyboard.GetState().IsKeyDown(Keys.CapsLock) : true;
         }
     }
 
@@ -67,7 +59,7 @@ public class KeyboardController : IUpdatable
         _removedKeys.Clear();
         foreach (Keys pressedKey in _pressedKeys)
         {
-            _removedKeys.Add(pressedKey);
+            _ = _removedKeys.Add(pressedKey);
         }
         Keys[] pressedKeys = Keyboard.GetState().GetPressedKeys();
         Keys[] array = pressedKeys;
@@ -75,17 +67,17 @@ public class KeyboardController : IUpdatable
         {
             if (!_pressedKeys.Contains(item))
             {
-                _pressedKeys.Add(item);
-                _newKeys.Add(item);
+                _ = _pressedKeys.Add(item);
+                _ = _newKeys.Add(item);
             }
             else
             {
-                _removedKeys.Remove(item);
+                _ = _removedKeys.Remove(item);
             }
         }
         foreach (Keys removedKey in _removedKeys)
         {
-            _pressedKeys.Remove(removedKey);
+            _ = _pressedKeys.Remove(removedKey);
         }
         foreach (Keys removedKey2 in _removedKeys)
         {
@@ -117,7 +109,7 @@ public class KeyboardController : IUpdatable
         List<Action<Keys, bool>> list = _actions.TryGetValue(key);
         if (list == null)
         {
-            list = new List<Action<Keys, bool>>();
+            list = [];
             _actions.Add(key, list);
         }
         list.Add(action);
@@ -157,13 +149,13 @@ public class KeyboardController : IUpdatable
 
     public void RemoveDelayListener(Keys key, Action<Keys> action)
     {
-        _delayActions.TryGetValue(key)?.SafeRemove(action);
+        _ = (_delayActions.TryGetValue(key)?.SafeRemove(action));
     }
 
     public void RemoveListener(Keys key, Action<Keys, bool> action)
     {
         List<Action<Keys, bool>> list = _actions[key];
-        list.Remove(action);
+        _ = list.Remove(action);
     }
 
     public void Update(float time)
@@ -179,7 +171,7 @@ public class KeyboardController : IUpdatable
 
     private void OnKeyPressedWithDelay(Keys keys)
     {
-        this.KeyPressedEvent.Dispatch(keys);
+        KeyPressedEvent.Dispatch(keys);
         if (_stopDelayEvent.Use())
         {
             return;
@@ -206,11 +198,11 @@ public class KeyboardController : IUpdatable
     {
         if (value)
         {
-            _currentPressedKeys.Add(key);
+            _ = _currentPressedKeys.Add(key);
         }
         else
         {
-            _currentPressedKeys.Remove(key);
+            _ = _currentPressedKeys.Remove(key);
         }
         List<Action<Keys, bool>> list = _actions.TryGetValue(key);
         if (list != null)
@@ -222,6 +214,6 @@ public class KeyboardController : IUpdatable
             }
             _currentActions.Clear();
         }
-        this.KeyStateChangedEvent.Dispatch(key, value);
+        KeyStateChangedEvent.Dispatch(key, value);
     }
 }

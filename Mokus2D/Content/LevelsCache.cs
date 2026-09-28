@@ -17,9 +17,9 @@ public class LevelsCache
 {
     private readonly string clip_root = "Levels/";
 
-    private XmlSerializer serializer = new XmlSerializer(typeof(ContreJourApplication).GetTypeInfo().Assembly);
+    private XmlSerializer serializer = new(typeof(ContreJourApplication).GetTypeInfo().Assembly);
 
-    private Dictionary<string, Level> cache = new Dictionary<string, Level>();
+    private Dictionary<string, Level> cache = [];
 
     private MokusContentManager content;
 
@@ -28,7 +28,7 @@ public class LevelsCache
     private string correctName(string name)
     {
         string[] array = name.Split('/', '\\');
-        return array[array.Length - 1];
+        return array[^1];
     }
 
     public LevelsCache()
@@ -54,15 +54,15 @@ public class LevelsCache
         Level level;
         if (!cache.ContainsKey(name))
         {
-            string path = Path.ChangeExtension(Path.Combine(new string[2]
-            {
-                Path.Combine(new string[2] { content.RootDirectory, clip_root }),
-                Path.Combine(new string[2]
-                {
+            string path = Path.ChangeExtension(Path.Combine(
+            [
+                Path.Combine([content.RootDirectory, clip_root]),
+                Path.Combine(
+                [
                     ContreJourConfig.AspectRatio.LevelsFolder,
                     name
-                })
-            }), "xml");
+                ])
+            ]), "xml");
             Stream stream = Mokus2DGame.FileLoader.OpenFile(path);
             level = (Level)serializer.DeserializeFile(stream);
             cache[name] = level;

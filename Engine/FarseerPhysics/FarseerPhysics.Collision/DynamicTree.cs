@@ -11,9 +11,9 @@ public class DynamicTree<T>
 {
     internal const int NullNode = -1;
 
-    private Stack<int> _raycastStack = new Stack<int>(256);
+    private Stack<int> _raycastStack = new(256);
 
-    private Stack<int> _queryStack = new Stack<int>(256);
+    private Stack<int> _queryStack = new(256);
 
     private int _freeList;
 
@@ -29,11 +29,7 @@ public class DynamicTree<T>
     {
         get
         {
-            if (_root == -1)
-            {
-                return 0;
-            }
-            return _nodes[_root].Height;
+            return _root == -1 ? 0 : _nodes[_root].Height;
         }
     }
 
@@ -88,20 +84,24 @@ public class DynamicTree<T>
         _nodes = new TreeNode<T>[_nodeCapacity];
         for (int i = 0; i < _nodeCapacity - 1; i++)
         {
-            _nodes[i] = new TreeNode<T>();
-            _nodes[i].ParentOrNext = i + 1;
-            _nodes[i].Height = 1;
+            _nodes[i] = new TreeNode<T>
+            {
+                ParentOrNext = i + 1,
+                Height = 1
+            };
         }
-        _nodes[_nodeCapacity - 1] = new TreeNode<T>();
-        _nodes[_nodeCapacity - 1].ParentOrNext = -1;
-        _nodes[_nodeCapacity - 1].Height = 1;
+        _nodes[_nodeCapacity - 1] = new TreeNode<T>
+        {
+            ParentOrNext = -1,
+            Height = 1
+        };
         _freeList = 0;
     }
 
     public int AddProxy(ref AABB aabb, T userData)
     {
         int num = AllocateNode();
-        Vector2 vector = new Vector2(0.1f, 0.1f);
+        Vector2 vector = new(0.1f, 0.1f);
         _nodes[num].AABB.LowerBound = aabb.LowerBound - vector;
         _nodes[num].AABB.UpperBound = aabb.UpperBound + vector;
         _nodes[num].UserData = userData;
@@ -124,7 +124,7 @@ public class DynamicTree<T>
         }
         RemoveLeaf(proxyId);
         AABB aABB = aabb;
-        Vector2 vector = new Vector2(0.1f, 0.1f);
+        Vector2 vector = new(0.1f, 0.1f);
         aABB.LowerBound -= vector;
         aABB.UpperBound += vector;
         Vector2 vector2 = 2f * displacement;
@@ -198,13 +198,13 @@ public class DynamicTree<T>
         vector.Normalize();
         Vector2 value2 = MathUtils.Abs(new Vector2(0f - vector.Y, vector.X));
         float num = input.MaxFraction;
-        AABB b = default(AABB);
-        Vector2 value3 = value + num * (point - value);
+        AABB b = default;
+        Vector2 value3 = value + (num * (point - value));
         Vector2.Min(ref value, ref value3, out b.LowerBound);
         Vector2.Max(ref value, ref value3, out b.UpperBound);
         _raycastStack.Clear();
         _raycastStack.Push(_root);
-        RayCastInput arg = default(RayCastInput);
+        RayCastInput arg = default;
         while (_raycastStack.Count > 0)
         {
             int num2 = _raycastStack.Pop();
@@ -237,7 +237,7 @@ public class DynamicTree<T>
                 if (num4 > 0f)
                 {
                     num = num4;
-                    Vector2 value4 = value + num * (point - value);
+                    Vector2 value4 = value + (num * (point - value));
                     b.LowerBound = Vector2.Min(value, value4);
                     b.UpperBound = Vector2.Max(value, value4);
                 }
@@ -260,13 +260,17 @@ public class DynamicTree<T>
             Array.Copy(nodes, _nodes, _nodeCount);
             for (int i = _nodeCount; i < _nodeCapacity - 1; i++)
             {
-                _nodes[i] = new TreeNode<T>();
-                _nodes[i].ParentOrNext = i + 1;
-                _nodes[i].Height = -1;
+                _nodes[i] = new TreeNode<T>
+                {
+                    ParentOrNext = i + 1,
+                    Height = -1
+                };
             }
-            _nodes[_nodeCapacity - 1] = new TreeNode<T>();
-            _nodes[_nodeCapacity - 1].ParentOrNext = -1;
-            _nodes[_nodeCapacity - 1].Height = -1;
+            _nodes[_nodeCapacity - 1] = new TreeNode<T>
+            {
+                ParentOrNext = -1,
+                Height = -1
+            };
             _freeList = _nodeCount;
         }
         int freeList = _freeList;
@@ -275,7 +279,7 @@ public class DynamicTree<T>
         _nodes[freeList].Child1 = -1;
         _nodes[freeList].Child2 = -1;
         _nodes[freeList].Height = 0;
-        _nodes[freeList].UserData = default(T);
+        _nodes[freeList].UserData = default;
         _nodeCount++;
         return freeList;
     }
@@ -303,7 +307,7 @@ public class DynamicTree<T>
             int child = _nodes[num].Child1;
             int child2 = _nodes[num].Child2;
             float perimeter = _nodes[num].AABB.Perimeter;
-            AABB aABB = default(AABB);
+            AABB aABB = default;
             aABB.Combine(ref _nodes[num].AABB, ref aabb);
             float perimeter2 = aABB.Perimeter;
             float num2 = 2f * perimeter2;
@@ -311,13 +315,13 @@ public class DynamicTree<T>
             float num4;
             if (_nodes[child].IsLeaf())
             {
-                AABB aABB2 = default(AABB);
+                AABB aABB2 = default;
                 aABB2.Combine(ref aabb, ref _nodes[child].AABB);
                 num4 = aABB2.Perimeter + num3;
             }
             else
             {
-                AABB aABB3 = default(AABB);
+                AABB aABB3 = default;
                 aABB3.Combine(ref aabb, ref _nodes[child].AABB);
                 float perimeter3 = _nodes[child].AABB.Perimeter;
                 float perimeter4 = aABB3.Perimeter;
@@ -326,13 +330,13 @@ public class DynamicTree<T>
             float num5;
             if (_nodes[child2].IsLeaf())
             {
-                AABB aABB4 = default(AABB);
+                AABB aABB4 = default;
                 aABB4.Combine(ref aabb, ref _nodes[child2].AABB);
                 num5 = aABB4.Perimeter + num3;
             }
             else
             {
-                AABB aABB5 = default(AABB);
+                AABB aABB5 = default;
                 aABB5.Combine(ref aabb, ref _nodes[child2].AABB);
                 float perimeter5 = _nodes[child2].AABB.Perimeter;
                 float perimeter6 = aABB5.Perimeter;
@@ -342,13 +346,13 @@ public class DynamicTree<T>
             {
                 break;
             }
-            num = ((!(num4 < num5)) ? child2 : child);
+            num = (!(num4 < num5)) ? child2 : child;
         }
         int num6 = num;
         int parentOrNext = _nodes[num6].ParentOrNext;
         int num7 = AllocateNode();
         _nodes[num7].ParentOrNext = parentOrNext;
-        _nodes[num7].UserData = default(T);
+        _nodes[num7].UserData = default;
         _nodes[num7].AABB.Combine(ref aabb, ref _nodes[num6].AABB);
         _nodes[num7].Height = _nodes[num6].Height + 1;
         if (parentOrNext != -1)
@@ -393,7 +397,7 @@ public class DynamicTree<T>
         }
         int parentOrNext = _nodes[leaf].ParentOrNext;
         int parentOrNext2 = _nodes[parentOrNext].ParentOrNext;
-        int num = ((_nodes[parentOrNext].Child1 != leaf) ? _nodes[parentOrNext].Child1 : _nodes[parentOrNext].Child2);
+        int num = (_nodes[parentOrNext].Child1 != leaf) ? _nodes[parentOrNext].Child1 : _nodes[parentOrNext].Child2;
         if (parentOrNext2 != -1)
         {
             if (_nodes[parentOrNext2].Child1 == parentOrNext)
@@ -575,7 +579,7 @@ public class DynamicTree<T>
             {
                 int height = _nodes[child].Height;
                 int height2 = _nodes[child2].Height;
-                Math.Max(height, height2);
+                _ = Math.Max(height, height2);
                 default(AABB).Combine(ref _nodes[child].AABB, ref _nodes[child2].AABB);
                 ValidateMetrics(child);
                 ValidateMetrics(child2);
@@ -627,7 +631,7 @@ public class DynamicTree<T>
                 for (int k = j + 1; k < num; k++)
                 {
                     AABB aabb2 = _nodes[array[k]].AABB;
-                    AABB aABB = default(AABB);
+                    AABB aABB = default;
                     aABB.Combine(ref aabb, ref aabb2);
                     float perimeter = aABB.Perimeter;
                     if (perimeter < num2)

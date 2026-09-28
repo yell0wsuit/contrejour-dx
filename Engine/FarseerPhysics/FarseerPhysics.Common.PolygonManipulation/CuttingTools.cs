@@ -14,10 +14,10 @@ public static class CuttingTools
     {
         Vector2 localPoint = fixture.Body.GetLocalPoint(ref entryPoint);
         Vector2 localPoint2 = fixture.Body.GetLocalPoint(ref exitPoint);
-        if (!(fixture.Shape is PolygonShape polygonShape))
+        if (fixture.Shape is not PolygonShape polygonShape)
         {
-            first = new Vertices();
-            second = new Vertices();
+            first = [];
+            second = [];
             return;
         }
         foreach (Vector2 vertex in polygonShape.Vertices)
@@ -31,17 +31,17 @@ public static class CuttingTools
                 localPoint2 += new Vector2(0f, 1.1920929E-07f);
             }
         }
-        Vertices vertices = new Vertices(polygonShape.Vertices);
+        Vertices vertices = new(polygonShape.Vertices);
         Vertices[] array = new Vertices[2];
         for (int i = 0; i < array.Length; i++)
         {
             array[i] = new Vertices(vertices.Count);
         }
-        int[] array2 = new int[2] { -1, -1 };
+        int[] array2 = [-1, -1];
         int num = -1;
         for (int j = 0; j < vertices.Count; j++)
         {
-            int num2 = ((!(Vector2.Dot(MathUtils.Cross(localPoint2 - localPoint, 1f), vertices[j] - localPoint) > 1.1920929E-07f)) ? 1 : 0);
+            int num2 = (!(Vector2.Dot(MathUtils.Cross(localPoint2 - localPoint, 1f), vertices[j] - localPoint) > 1.1920929E-07f)) ? 1 : 0;
             if (num != num2)
             {
                 if (num == 0)
@@ -74,14 +74,14 @@ public static class CuttingTools
         }
         for (int k = 0; k < 2; k++)
         {
-            Vector2 vector = ((array2[k] <= 0) ? (array[k][array[k].Count - 1] - array[k][0]) : (array[k][array2[k] - 1] - array[k][array2[k]]));
+            Vector2 vector = (array2[k] <= 0) ? (array[k][^1] - array[k][0]) : (array[k][array2[k] - 1] - array[k][array2[k]]);
             vector.Normalize();
             if (!vector.IsValid())
             {
                 vector = Vector2.One;
             }
             array[k][array2[k]] += 1.1920929E-07f * vector;
-            vector = ((array2[k] >= array[k].Count - 2) ? (array[k][0] - array[k][array[k].Count - 1]) : (array[k][array2[k] + 2] - array[k][array2[k] + 1]));
+            vector = (array2[k] >= array[k].Count - 2) ? (array[k][0] - array[k][^1]) : (array[k][array2[k] + 2] - array[k][array2[k] + 1]);
             vector.Normalize();
             if (!vector.IsValid())
             {
@@ -95,9 +95,9 @@ public static class CuttingTools
 
     public static bool Cut(World world, Vector2 start, Vector2 end)
     {
-        List<Fixture> fixtures = new List<Fixture>();
-        List<Vector2> entryPoints = new List<Vector2>();
-        List<Vector2> exitPoints = new List<Vector2>();
+        List<Fixture> fixtures = [];
+        List<Vector2> entryPoints = [];
+        List<Vector2> exitPoints = [];
         if (world.TestPoint(start) != null || world.TestPoint(end) != null)
         {
             return false;
@@ -121,7 +121,7 @@ public static class CuttingTools
         {
             if (fixtures[num].Shape.ShapeType == ShapeType.Polygon && fixtures[num].Body.BodyType != BodyType.Static)
             {
-                SplitShape(fixtures[num], entryPoints[num], exitPoints[num], out var first, out var second);
+                SplitShape(fixtures[num], entryPoints[num], exitPoints[num], out Vertices first, out Vertices second);
                 if (first.CheckPolygon() == PolygonError.NoError)
                 {
                     Body body = BodyFactory.CreatePolygon(world, first, fixtures[num].Shape.Density, fixtures[num].Body.Position);

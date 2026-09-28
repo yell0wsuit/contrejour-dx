@@ -9,142 +9,82 @@ public class GravityParticleSystem : ParticleSystem
 {
     protected Vector2 gravity;
 
-    protected RandomRange speed = default(RandomRange);
+    protected RandomRange speed = default;
 
-    protected RandomRange angle = default(RandomRange);
+    protected RandomRange angle = default;
 
-    protected RandomRange horizontalPosition = default(RandomRange);
+    protected RandomRange horizontalPosition = default;
 
-    protected RandomRange verticalPosition = default(RandomRange);
+    protected RandomRange verticalPosition = default;
 
-    protected RandomRange angularSpeed = default(RandomRange);
+    protected RandomRange angularSpeed = default;
 
-    private RandomRange particlesScale = new RandomRange(1f, 0f);
+    private RandomRange particlesScale = new(1f, 0f);
 
-    protected RandomRange startOpacity = new RandomRange(255f, 0f);
+    protected RandomRange startOpacity = new(255f, 0f);
 
-    protected Vector2 bottomLeftBound = new Vector2(float.NegativeInfinity, float.NegativeInfinity);
+    protected Vector2 bottomLeftBound = new(float.NegativeInfinity, float.NegativeInfinity);
 
-    protected Vector2 topRightBound = new Vector2(float.PositiveInfinity, float.PositiveInfinity);
+    protected Vector2 topRightBound = new(float.PositiveInfinity, float.PositiveInfinity);
 
     public RandomRange Speed
     {
-        get
-        {
-            return speed;
-        }
-        set
-        {
-            speed = value;
-        }
+        get => speed;
+        set => speed = value;
     }
 
     public RandomRange Angle
     {
-        get
-        {
-            return angle;
-        }
-        set
-        {
-            angle = value;
-        }
+        get => angle;
+        set => angle = value;
     }
 
     public RandomRange AngularSpeed
     {
-        get
-        {
-            return angularSpeed;
-        }
-        set
-        {
-            angularSpeed = value;
-        }
+        get => angularSpeed;
+        set => angularSpeed = value;
     }
 
     public RandomRange ParticlesScale
     {
-        get
-        {
-            return particlesScale;
-        }
-        set
-        {
-            particlesScale = value;
-        }
+        get => particlesScale;
+        set => particlesScale = value;
     }
 
     public RandomRange HorizontalPosition
     {
-        get
-        {
-            return horizontalPosition;
-        }
-        set
-        {
-            horizontalPosition = value;
-        }
+        get => horizontalPosition;
+        set => horizontalPosition = value;
     }
 
     public RandomRange VerticalPosition
     {
-        get
-        {
-            return verticalPosition;
-        }
-        set
-        {
-            verticalPosition = value;
-        }
+        get => verticalPosition;
+        set => verticalPosition = value;
     }
 
     public Vector2 TopRightBound
     {
-        get
-        {
-            return topRightBound;
-        }
-        set
-        {
-            topRightBound = value;
-        }
+        get => topRightBound;
+        set => topRightBound = value;
     }
 
     public Vector2 BottomLeftBound
     {
-        get
-        {
-            return bottomLeftBound;
-        }
-        set
-        {
-            bottomLeftBound = value;
-        }
+        get => bottomLeftBound;
+        set => bottomLeftBound = value;
     }
 
     public RandomRange StartOpacity
     {
-        get
-        {
-            return startOpacity;
-        }
-        set
-        {
-            startOpacity = value;
-        }
+        get => startOpacity;
+        set => startOpacity = value;
     }
 
     public Vector2 Gravity
     {
-        get
-        {
-            return gravity;
-        }
-        set
-        {
-            gravity = value;
-        }
+        get => gravity;
+        set => gravity = value;
     }
 
     public GravityParticleSystem(string textureName)
@@ -195,23 +135,23 @@ public class GravityParticleSystem : ParticleSystem
 
     public void CreateOnStartPosition(int count)
     {
-        while (base.Particles.Count < count)
+        while (Particles.Count < count)
         {
-            AddParticle(new Vector2(horizontalPosition.GetValueInRange(), verticalPosition.GetValueInRange()));
+            _ = AddParticle(new Vector2(horizontalPosition.GetValueInRange(), verticalPosition.GetValueInRange()));
         }
     }
 
     public void CreateBetweenBounds(int count)
     {
-        while (base.Particles.Count < count)
+        while (Particles.Count < count)
         {
-            AddParticle(new Vector2(Maths.Random(bottomLeftBound.X, topRightBound.X), Maths.Random(bottomLeftBound.Y, topRightBound.Y)));
+            _ = AddParticle(new Vector2(Maths.Random(bottomLeftBound.X, topRightBound.X), Maths.Random(bottomLeftBound.Y, topRightBound.Y)));
         }
     }
 
     public override Particle CreateParticle()
     {
-        GravityParticle gravityParticle = ((Data is IMovieClipData) ? new GravityParticle(this, (IMovieClipData)Data) : new GravityParticle(this, (ISpriteData)Data));
+        GravityParticle gravityParticle = (Data is IMovieClipData) ? new GravityParticle(this, (IMovieClipData)Data) : new GravityParticle(this, (ISpriteData)Data);
         initParticle(gravityParticle);
         return gravityParticle;
     }

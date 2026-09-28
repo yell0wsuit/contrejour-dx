@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -14,7 +15,7 @@ public class PlasticineHighliteBorder : PrimitivesNode
 
     protected VertexPositionColor[] vertices;
 
-    protected List<object> parts = new List<object>();
+    protected List<object> parts = [];
 
     protected ContreJourGame game;
 
@@ -33,7 +34,7 @@ public class PlasticineHighliteBorder : PrimitivesNode
         int num = 0;
         do
         {
-            PlasticinePartHighlite plasticinePartHighlite = new PlasticinePartHighlite(plasticineItem.BodyClip, this, num * 2 * 2 + 2);
+            PlasticinePartHighlite plasticinePartHighlite = new(plasticineItem.BodyClip, this, (num * 2 * 2) + 2);
             parts.Add(plasticinePartHighlite);
             plasticinePartHighlite.SetDirty();
             plasticineItem = plasticineItem.NextItem;
@@ -51,11 +52,11 @@ public class PlasticineHighliteBorder : PrimitivesNode
 
     public override void Update(float time)
     {
-        foreach (PlasticinePartHighlite part in parts)
+        foreach (PlasticinePartHighlite part in parts.Cast<PlasticinePartHighlite>())
         {
             part.Update(time);
         }
-        foreach (PlasticinePartHighlite part2 in parts)
+        foreach (PlasticinePartHighlite part2 in parts.Cast<PlasticinePartHighlite>())
         {
             part2.TryRefresh();
         }

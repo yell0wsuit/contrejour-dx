@@ -42,26 +42,14 @@ public class RopeJoint : Joint
 
     public sealed override Vector2 WorldAnchorA
     {
-        get
-        {
-            return base.BodyA.GetWorldPoint(LocalAnchorA);
-        }
-        set
-        {
-            LocalAnchorA = base.BodyA.GetLocalPoint(value);
-        }
+        get => BodyA.GetWorldPoint(LocalAnchorA);
+        set => LocalAnchorA = BodyA.GetLocalPoint(value);
     }
 
     public sealed override Vector2 WorldAnchorB
     {
-        get
-        {
-            return base.BodyB.GetWorldPoint(LocalAnchorB);
-        }
-        set
-        {
-            LocalAnchorB = base.BodyB.GetLocalPoint(value);
-        }
+        get => BodyB.GetWorldPoint(LocalAnchorB);
+        set => LocalAnchorB = BodyB.GetLocalPoint(value);
     }
 
     public float MaxLength { get; set; }
@@ -70,13 +58,13 @@ public class RopeJoint : Joint
 
     internal RopeJoint()
     {
-        base.JointType = JointType.Rope;
+        JointType = JointType.Rope;
     }
 
     public RopeJoint(Body bodyA, Body bodyB, Vector2 anchorA, Vector2 anchorB, bool useWorldCoordinates = false)
         : base(bodyA, bodyB)
     {
-        base.JointType = JointType.Rope;
+        JointType = JointType.Rope;
         if (useWorldCoordinates)
         {
             LocalAnchorA = bodyA.GetLocalPoint(anchorA);
@@ -102,14 +90,14 @@ public class RopeJoint : Joint
 
     internal override void InitVelocityConstraints(ref SolverData data)
     {
-        _indexA = base.BodyA.IslandIndex;
-        _indexB = base.BodyB.IslandIndex;
-        _localCenterA = base.BodyA._sweep.LocalCenter;
-        _localCenterB = base.BodyB._sweep.LocalCenter;
-        _invMassA = base.BodyA._invMass;
-        _invMassB = base.BodyB._invMass;
-        _invIA = base.BodyA._invI;
-        _invIB = base.BodyB._invI;
+        _indexA = BodyA.IslandIndex;
+        _indexB = BodyB.IslandIndex;
+        _localCenterA = BodyA._sweep.LocalCenter;
+        _localCenterB = BodyB._sweep.LocalCenter;
+        _invMassA = BodyA._invMass;
+        _invMassB = BodyB._invMass;
+        _invIA = BodyA._invI;
+        _invIB = BodyB._invI;
         Vector2 c = data.positions[_indexA].c;
         float a = data.positions[_indexA].a;
         Vector2 v = data.velocities[_indexA].v;
@@ -118,28 +106,21 @@ public class RopeJoint : Joint
         float a2 = data.positions[_indexB].a;
         Vector2 v2 = data.velocities[_indexB].v;
         float w2 = data.velocities[_indexB].w;
-        Rot q = new Rot(a);
-        Rot q2 = new Rot(a2);
+        Rot q = new(a);
+        Rot q2 = new(a2);
         _rA = MathUtils.Mul(q, LocalAnchorA - _localCenterA);
         _rB = MathUtils.Mul(q2, LocalAnchorB - _localCenterB);
         _u = c2 + _rB - c - _rA;
         _length = _u.Length();
         float num = _length - MaxLength;
-        if (num > 0f)
-        {
-            State = LimitState.AtUpper;
-        }
-        else
-        {
-            State = LimitState.Inactive;
-        }
+        State = num > 0f ? LimitState.AtUpper : LimitState.Inactive;
         if (_length > 0.005f)
         {
             _u *= 1f / _length;
             float num2 = MathUtils.Cross(_rA, _u);
             float num3 = MathUtils.Cross(_rB, _u);
-            float num4 = _invMassA + _invIA * num2 * num2 + _invMassB + _invIB * num3 * num3;
-            _mass = ((num4 != 0f) ? (1f / num4) : 0f);
+            float num4 = _invMassA + (_invIA * num2 * num2) + _invMassB + (_invIB * num3 * num3);
+            _mass = (num4 != 0f) ? (1f / num4) : 0f;
             _impulse *= data.step.dtRatio;
             Vector2 vector = _impulse * _u;
             v -= _invMassA * vector;
@@ -194,8 +175,8 @@ public class RopeJoint : Joint
         float a = data.positions[_indexA].a;
         Vector2 c2 = data.positions[_indexB].c;
         float a2 = data.positions[_indexB].a;
-        Rot q = new Rot(a);
-        Rot q2 = new Rot(a2);
+        Rot q = new(a);
+        Rot q2 = new(a2);
         Vector2 vector = MathUtils.Mul(q, LocalAnchorA - _localCenterA);
         Vector2 vector2 = MathUtils.Mul(q2, LocalAnchorB - _localCenterB);
         Vector2 vector3 = c2 + vector2 - c - vector;

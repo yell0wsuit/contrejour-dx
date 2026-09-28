@@ -13,9 +13,9 @@ internal static class BayazitDecomposer
 
     private static List<Vertices> TriangulatePolygon(Vertices vertices)
     {
-        List<Vertices> list = new List<Vertices>();
-        Vector2 vector = default(Vector2);
-        Vector2 vector2 = default(Vector2);
+        List<Vertices> list = [];
+        Vector2 vector = default;
+        Vector2 vector2 = default;
         int num = 0;
         int i = 0;
         for (int j = 0; j < vertices.Count; j++)
@@ -25,7 +25,7 @@ internal static class BayazitDecomposer
                 continue;
             }
             float num3;
-            float num2 = (num3 = float.MaxValue);
+            float num2 = num3 = float.MaxValue;
             for (int k = 0; k < vertices.Count; k++)
             {
                 Vector2 vector3;
@@ -81,7 +81,7 @@ internal static class BayazitDecomposer
                     if (CanSee(j, l, vertices))
                     {
                         double num7 = 1f / (SquareDist(At(j, vertices), At(l, vertices)) + 1f);
-                        num7 = ((!Reflex(l, vertices)) ? (num7 + 1.0) : ((!RightOn(At(l - 1, vertices), At(l, vertices), At(j, vertices)) || !LeftOn(At(l + 1, vertices), At(l, vertices), At(j, vertices))) ? (num7 + 2.0) : (num7 + 3.0)));
+                        num7 = (!Reflex(l, vertices)) ? (num7 + 1.0) : ((!RightOn(At(l - 1, vertices), At(l, vertices), At(j, vertices)) || !LeftOn(At(l + 1, vertices), At(l, vertices), At(j, vertices))) ? (num7 + 2.0) : (num7 + 3.0));
                         if (num7 > num5)
                         {
                             num6 = l;
@@ -113,7 +113,7 @@ internal static class BayazitDecomposer
     private static Vector2 At(int i, Vertices vertices)
     {
         int count = vertices.Count;
-        return vertices[(i < 0) ? (count - 1 - (-i - 1) % count) : (i % count)];
+        return vertices[(i < 0) ? (count - 1 - ((-i - 1) % count)) : (i % count)];
     }
 
     private static Vertices Copy(int i, int j, Vertices vertices)
@@ -122,7 +122,7 @@ internal static class BayazitDecomposer
         {
             j += vertices.Count;
         }
-        Vertices vertices2 = new Vertices(j);
+        Vertices vertices2 = new(j);
         while (i <= j)
         {
             vertices2.Add(At(i, vertices));
@@ -157,7 +157,7 @@ internal static class BayazitDecomposer
         }
         for (int k = 0; k < vertices.Count; k++)
         {
-            if ((k + 1) % vertices.Count != i && k != i && (k + 1) % vertices.Count != j && k != j && LineTools.LineIntersect(At(i, vertices), At(j, vertices), At(k, vertices), At(k + 1, vertices), out var _))
+            if ((k + 1) % vertices.Count != i && k != i && (k + 1) % vertices.Count != j && k != j && LineTools.LineIntersect(At(i, vertices), At(j, vertices), At(k, vertices), At(k + 1, vertices), out Vector2 _))
             {
                 return false;
             }
@@ -199,6 +199,6 @@ internal static class BayazitDecomposer
     {
         float num = b.X - a.X;
         float num2 = b.Y - a.Y;
-        return num * num + num2 * num2;
+        return (num * num) + (num2 * num2);
     }
 }

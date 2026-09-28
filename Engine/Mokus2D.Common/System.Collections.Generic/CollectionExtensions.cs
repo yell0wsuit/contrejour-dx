@@ -12,7 +12,7 @@ public static class MokusCollectionExtensions
 {
     public static TValue TryGetValue<TKey, TValue>(this IDictionary<TKey, TValue> source, TKey key)
     {
-        source.TryGetValue(key, out var value);
+        _ = source.TryGetValue(key, out TValue value);
         return value;
     }
 
@@ -28,20 +28,12 @@ public static class MokusCollectionExtensions
 
     public static float GetFloat(this IDictionary<string, string> source, string key, float defaultValue)
     {
-        if (source == null || !source.ContainsKey(key))
-        {
-            return defaultValue;
-        }
-        return source.GetFloat(key);
+        return source == null || !source.ContainsKey(key) ? defaultValue : source.GetFloat(key);
     }
 
     public static string GetString(this IDictionary<string, string> source, string key, string defaultValue = null)
     {
-        if (source == null || !source.ContainsKey(key))
-        {
-            return defaultValue;
-        }
-        return source[key];
+        return source == null || !source.ContainsKey(key) ? defaultValue : source[key];
     }
 
     public static float GetFloat(this IDictionary<string, string> source, string key)
@@ -51,20 +43,12 @@ public static class MokusCollectionExtensions
 
     public static bool GetBool(this IDictionary<string, string> source, string key, bool defaultValue = false)
     {
-        if (source.ContainsKey(key))
-        {
-            return System.Convert.ToBoolean(source[key]);
-        }
-        return defaultValue;
+        return source.ContainsKey(key) ? System.Convert.ToBoolean(source[key]) : defaultValue;
     }
 
     public static int GetInt(this IDictionary<string, string> source, string key, int defaultValue)
     {
-        if (source == null || !source.ContainsKey(key))
-        {
-            return defaultValue;
-        }
-        return source.GetInt(key);
+        return source == null || !source.ContainsKey(key) ? defaultValue : source.GetInt(key);
     }
 
     public static int GetInt(this IDictionary<string, string> source, string key)
@@ -79,7 +63,7 @@ public static class MokusCollectionExtensions
 
     public static void SortOn<T>(this List<T> list, Func<T, float> field)
     {
-        list.Sort((T i, T j) => Comparisons.FloatComparizon(field(i), field(j)));
+        list.Sort((i, j) => Comparisons.FloatComparizon(field(i), field(j)));
     }
 
     public static bool NullOrEmpty<T>(this IList<T> list)
@@ -145,7 +129,7 @@ public static class MokusCollectionExtensions
                 return val;
             }
         }
-        return default(T);
+        return default;
     }
 
     public static T Last<T>(this IList<T> source)
@@ -167,7 +151,7 @@ public static class MokusCollectionExtensions
                 return item;
             }
         }
-        return default(T);
+        return default;
     }
 
     public static T First<T>(this IList<T> source)
@@ -219,7 +203,7 @@ public static class MokusCollectionExtensions
         EnsureCapacity(source, newCount);
         while (source.Count < newCount)
         {
-            source.Add(default(T));
+            source.Add(default);
         }
     }
 
@@ -237,7 +221,7 @@ public static class MokusCollectionExtensions
     {
         foreach (object item in toRemove)
         {
-            source.Remove((T)item);
+            _ = source.Remove((T)item);
         }
     }
 
@@ -245,7 +229,7 @@ public static class MokusCollectionExtensions
     {
         for (int i = 0; i < toRemove.Count; i++)
         {
-            source.Remove(toRemove[i]);
+            _ = source.Remove(toRemove[i]);
         }
     }
 
@@ -282,7 +266,7 @@ public static class MokusCollectionExtensions
 
     public static List<TTarget> Convert<TSource, TTarget>(this List<TSource> source, Func<TSource, TTarget> converter)
     {
-        List<TTarget> result = new List<TTarget>(source.Count);
+        List<TTarget> result = new(source.Count);
         source.Convert(result, converter);
         return result;
     }
@@ -297,7 +281,7 @@ public static class MokusCollectionExtensions
 
     public static List<TTarget> Convert<TSource, TTarget>(this IList<TSource> source, Func<TSource, TTarget> converter)
     {
-        List<TTarget> result = new List<TTarget>(source.Count);
+        List<TTarget> result = new(source.Count);
         source.Convert(result, converter);
         return result;
     }
@@ -361,7 +345,7 @@ public static class MokusCollectionExtensions
     public static void AddItemsNoGarbage<T>(this List<T> list, IList<T> items, int start, int end)
     {
         EnsureCapacity(list, list.Count + Math.Abs(end - start) + 1);
-        int num = ((end >= start) ? 1 : (-1));
+        int num = (end >= start) ? 1 : (-1);
         for (int i = start; i != end + num; i += num)
         {
             list.Add(items[i]);
@@ -371,7 +355,7 @@ public static class MokusCollectionExtensions
     public static void AddCastedItemsNoGarbage<T1, T2>(this List<T1> list, IList<T2> items, int start, int end)
     {
         EnsureCapacity(list, list.Count + Math.Abs(end - start) + 1);
-        int num = ((end >= start) ? 1 : (-1));
+        int num = (end >= start) ? 1 : (-1);
         for (int i = start; i != end + num; i += num)
         {
             list.Add((T1)(object)items[i]);
@@ -426,7 +410,7 @@ public static class MokusCollectionExtensions
 
     public static List<object> Filter(IList objects, Predicate<object> match)
     {
-        List<object> list = new List<object>();
+        List<object> list = [];
         foreach (object @object in objects)
         {
             if (match(@object))

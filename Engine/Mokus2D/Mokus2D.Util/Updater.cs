@@ -24,7 +24,7 @@ public class Updater : IUpdatable
 
     public bool Paused;
 
-    private readonly LinkedList<IUpdatable> _updatables = new LinkedList<IUpdatable>();
+    private readonly LinkedList<IUpdatable> _updatables = new();
 
     private float _totalGameTime;
 
@@ -35,12 +35,12 @@ public class Updater : IUpdatable
 
     public void AddUpdatable(IUpdatable updatable)
     {
-        _updatables.AddLast(updatable);
+        _ = _updatables.AddLast(updatable);
     }
 
     public void RemoveUpdatable(IUpdatable updatable)
     {
-        _updatables.Remove(updatable);
+        _ = _updatables.Remove(updatable);
     }
 
     public virtual void Update(float time)

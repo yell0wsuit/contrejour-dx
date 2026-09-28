@@ -52,7 +52,7 @@ public class PulleyJoint : Joint
     {
         get
         {
-            Vector2 worldPoint = base.BodyA.GetWorldPoint(LocalAnchorA);
+            Vector2 worldPoint = BodyA.GetWorldPoint(LocalAnchorA);
             Vector2 worldAnchorA = WorldAnchorA;
             return (worldPoint - worldAnchorA).Length();
         }
@@ -62,7 +62,7 @@ public class PulleyJoint : Joint
     {
         get
         {
-            Vector2 worldPoint = base.BodyB.GetWorldPoint(LocalAnchorB);
+            Vector2 worldPoint = BodyB.GetWorldPoint(LocalAnchorB);
             Vector2 worldAnchorB = WorldAnchorB;
             return (worldPoint - worldAnchorB).Length();
         }
@@ -74,19 +74,19 @@ public class PulleyJoint : Joint
 
     internal PulleyJoint()
     {
-        base.JointType = JointType.Pulley;
+        JointType = JointType.Pulley;
     }
 
     public PulleyJoint(Body bodyA, Body bodyB, Vector2 anchorA, Vector2 anchorB, Vector2 worldAnchorA, Vector2 worldAnchorB, float ratio, bool useWorldCoordinates = false)
         : base(bodyA, bodyB)
     {
-        base.JointType = JointType.Pulley;
+        JointType = JointType.Pulley;
         WorldAnchorA = worldAnchorA;
         WorldAnchorB = worldAnchorB;
         if (useWorldCoordinates)
         {
-            LocalAnchorA = base.BodyA.GetLocalPoint(anchorA);
-            LocalAnchorB = base.BodyB.GetLocalPoint(anchorB);
+            LocalAnchorA = BodyA.GetLocalPoint(anchorA);
+            LocalAnchorB = BodyB.GetLocalPoint(anchorB);
             LengthA = (anchorA - worldAnchorA).Length();
             LengthB = (anchorB - worldAnchorB).Length();
         }
@@ -94,11 +94,11 @@ public class PulleyJoint : Joint
         {
             LocalAnchorA = anchorA;
             LocalAnchorB = anchorB;
-            LengthA = (anchorA - base.BodyA.GetLocalPoint(worldAnchorA)).Length();
-            LengthB = (anchorB - base.BodyB.GetLocalPoint(worldAnchorB)).Length();
+            LengthA = (anchorA - BodyA.GetLocalPoint(worldAnchorA)).Length();
+            LengthB = (anchorB - BodyB.GetLocalPoint(worldAnchorB)).Length();
         }
         Ratio = ratio;
-        Constant = LengthA + ratio * LengthB;
+        Constant = LengthA + (ratio * LengthB);
         _impulse = 0f;
     }
 
@@ -115,14 +115,14 @@ public class PulleyJoint : Joint
 
     internal override void InitVelocityConstraints(ref SolverData data)
     {
-        _indexA = base.BodyA.IslandIndex;
-        _indexB = base.BodyB.IslandIndex;
-        _localCenterA = base.BodyA._sweep.LocalCenter;
-        _localCenterB = base.BodyB._sweep.LocalCenter;
-        _invMassA = base.BodyA._invMass;
-        _invMassB = base.BodyB._invMass;
-        _invIA = base.BodyA._invI;
-        _invIB = base.BodyB._invI;
+        _indexA = BodyA.IslandIndex;
+        _indexB = BodyB.IslandIndex;
+        _localCenterA = BodyA._sweep.LocalCenter;
+        _localCenterB = BodyB._sweep.LocalCenter;
+        _invMassA = BodyA._invMass;
+        _invMassB = BodyB._invMass;
+        _invIA = BodyA._invI;
+        _invIB = BodyB._invI;
         Vector2 c = data.positions[_indexA].c;
         float a = data.positions[_indexA].a;
         Vector2 v = data.velocities[_indexA].v;
@@ -131,8 +131,8 @@ public class PulleyJoint : Joint
         float a2 = data.positions[_indexB].a;
         Vector2 v2 = data.velocities[_indexB].v;
         float w2 = data.velocities[_indexB].w;
-        Rot q = new Rot(a);
-        Rot q2 = new Rot(a2);
+        Rot q = new(a);
+        Rot q2 = new(a2);
         _rA = MathUtils.Mul(q, LocalAnchorA - _localCenterA);
         _rB = MathUtils.Mul(q2, LocalAnchorB - _localCenterB);
         _uA = c + _rA - WorldAnchorA;
@@ -157,9 +157,9 @@ public class PulleyJoint : Joint
         }
         float num3 = MathUtils.Cross(_rA, _uA);
         float num4 = MathUtils.Cross(_rB, _uB);
-        float num5 = _invMassA + _invIA * num3 * num3;
-        float num6 = _invMassB + _invIB * num4 * num4;
-        _mass = num5 + Ratio * Ratio * num6;
+        float num5 = _invMassA + (_invIA * num3 * num3);
+        float num6 = _invMassB + (_invIB * num4 * num4);
+        _mass = num5 + (Ratio * Ratio * num6);
         if (_mass > 0f)
         {
             _mass = 1f / _mass;
@@ -185,7 +185,7 @@ public class PulleyJoint : Joint
         float w2 = data.velocities[_indexB].w;
         Vector2 value = v + MathUtils.Cross(w, _rA);
         Vector2 value2 = v2 + MathUtils.Cross(w2, _rB);
-        float num = 0f - Vector2.Dot(_uA, value) - Ratio * Vector2.Dot(_uB, value2);
+        float num = 0f - Vector2.Dot(_uA, value) - (Ratio * Vector2.Dot(_uB, value2));
         float num2 = (0f - _mass) * num;
         _impulse += num2;
         Vector2 vector = (0f - num2) * _uA;
@@ -206,8 +206,8 @@ public class PulleyJoint : Joint
         float a = data.positions[_indexA].a;
         Vector2 c2 = data.positions[_indexB].c;
         float a2 = data.positions[_indexB].a;
-        Rot q = new Rot(a);
-        Rot q2 = new Rot(a2);
+        Rot q = new(a);
+        Rot q2 = new(a2);
         Vector2 vector = MathUtils.Mul(q, LocalAnchorA - _localCenterA);
         Vector2 vector2 = MathUtils.Mul(q2, LocalAnchorB - _localCenterB);
         Vector2 vector3 = c + vector - WorldAnchorA;
@@ -232,14 +232,14 @@ public class PulleyJoint : Joint
         }
         float num3 = MathUtils.Cross(vector, vector3);
         float num4 = MathUtils.Cross(vector2, vector4);
-        float num5 = _invMassA + _invIA * num3 * num3;
-        float num6 = _invMassB + _invIB * num4 * num4;
-        float num7 = num5 + Ratio * Ratio * num6;
+        float num5 = _invMassA + (_invIA * num3 * num3);
+        float num6 = _invMassB + (_invIB * num4 * num4);
+        float num7 = num5 + (Ratio * Ratio * num6);
         if (num7 > 0f)
         {
             num7 = 1f / num7;
         }
-        float num8 = Constant - num - Ratio * num2;
+        float num8 = Constant - num - (Ratio * num2);
         float num9 = Math.Abs(num8);
         float num10 = (0f - num7) * num8;
         Vector2 vector5 = (0f - num10) * vector3;

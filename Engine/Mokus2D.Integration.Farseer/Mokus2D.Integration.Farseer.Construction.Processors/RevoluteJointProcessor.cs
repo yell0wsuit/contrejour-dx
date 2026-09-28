@@ -21,7 +21,7 @@ public class RevoluteJointProcessor : JointProcessor
     public override Joint Process(Node item)
     {
         Vector2 anchor = Constructor.ToPhysics(item);
-        RevoluteJoint revoluteJoint = new RevoluteJoint(GetBodyA(item), GetBodyB(item), anchor, useWorldCoordinates: true);
+        RevoluteJoint revoluteJoint = new(GetBodyA(item), GetBodyB(item), anchor, useWorldCoordinates: true);
         if (item.Config.GetBool("limitEnabled"))
         {
             revoluteJoint.LimitEnabled = true;

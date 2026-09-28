@@ -7,7 +7,7 @@ namespace Mokus2D.Util.Schedule;
 
 public class ConcurrentDelayedActions : DisposableBase
 {
-    private readonly ConcurrentQueue<Action> _actions = new ConcurrentQueue<Action>();
+    private readonly ConcurrentQueue<Action> _actions = new();
 
     public void Add(Action action)
     {
@@ -18,7 +18,7 @@ public class ConcurrentDelayedActions : DisposableBase
     {
         do
         {
-            if (_actions.TryDequeue(out var result))
+            if (_actions.TryDequeue(out Action result))
             {
                 result();
             }
@@ -31,7 +31,7 @@ public class ConcurrentDelayedActions : DisposableBase
         base.Dispose(disposing);
         while (!_actions.IsEmpty)
         {
-            _actions.TryDequeue(out var _);
+            _ = _actions.TryDequeue(out _);
         }
     }
 }

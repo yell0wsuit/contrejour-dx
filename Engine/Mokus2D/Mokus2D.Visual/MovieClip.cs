@@ -19,88 +19,46 @@ public class MovieClip : MultiframeSprite, IAnimatedNode
 
     public bool Rewind
     {
-        get
-        {
-            return _player.Rewind;
-        }
-        set
-        {
-            _player.Rewind = value;
-        }
+        get => _player.Rewind;
+        set => _player.Rewind = value;
     }
 
     public bool Repeat
     {
-        get
-        {
-            return _player.Repeat;
-        }
-        set
-        {
-            _player.Repeat = value;
-        }
+        get => _player.Repeat;
+        set => _player.Repeat = value;
     }
 
     public float Speed
     {
-        get
-        {
-            return _player.Speed;
-        }
-        set
-        {
-            _player.Speed = value;
-        }
+        get => _player.Speed;
+        set => _player.Speed = value;
     }
 
     public bool Stoped
     {
-        get
-        {
-            return _player.Stoped;
-        }
-        set
-        {
-            _player.Stoped = value;
-        }
+        get => _player.Stoped;
+        set => _player.Stoped = value;
     }
 
     public float MinFrame
     {
-        get
-        {
-            return _player.MinFrame;
-        }
-        set
-        {
-            _player.MinFrame = value;
-        }
+        get => _player.MinFrame;
+        set => _player.MinFrame = value;
     }
 
     public float MaxFrame
     {
-        get
-        {
-            return _player.MaxFrame;
-        }
-        set
-        {
-            _player.MaxFrame = value;
-        }
+        get => _player.MaxFrame;
+        set => _player.MaxFrame = value;
     }
 
     public int FrameValue => _player.FrameValue;
 
     public float CurrentFrame
     {
-        get
-        {
-            return _player.CurrentFrame;
-        }
-        set
-        {
-            _player.CurrentFrame = value;
-        }
+        get => _player.CurrentFrame;
+        set => _player.CurrentFrame = value;
     }
 
     public event Action<IAnimatedNode> EndEvent;
@@ -122,7 +80,7 @@ public class MovieClip : MultiframeSprite, IAnimatedNode
 
     private void OnEnd()
     {
-        this.EndEvent.Dispatch(this);
+        EndEvent.Dispatch(this);
     }
 
     public override void ResetData(string id)

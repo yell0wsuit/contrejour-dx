@@ -10,18 +10,18 @@ public struct ReverseListEnumerator<T> : IEnumerator<T>, IEnumerator, IDisposabl
 
     private int _currentIndex;
 
-    public T Current => _list[_currentIndex];
+    public readonly T Current => _list[_currentIndex];
 
     object IEnumerator.Current => Current;
 
     public ReverseListEnumerator(IList<T> list)
     {
-        this = default(ReverseListEnumerator<T>);
+        this = default;
         _list = list;
         Reset();
     }
 
-    public void RemoveCurrent()
+    public readonly void RemoveCurrent()
     {
         _list.RemoveAt(_currentIndex);
     }
@@ -37,7 +37,7 @@ public struct ReverseListEnumerator<T> : IEnumerator<T>, IEnumerator, IDisposabl
         _currentIndex = _list.Count;
     }
 
-    public void Dispose()
+    public readonly void Dispose()
     {
     }
 }

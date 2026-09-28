@@ -12,9 +12,11 @@ public class AlphaForeground : ForegroundBase, IUpdatable
         : base(_builder, _body, _clip, _config)
     {
         float num = _config.GetFloat("alphaStep");
-        changer = new CosChanger(num, num);
-        changer.MaxValue = _config.GetFloat("maximumAlpha");
-        changer.MinValue = _config.GetFloat("minimumAlpha");
+        changer = new CosChanger(num, num)
+        {
+            MaxValue = _config.GetFloat("maximumAlpha"),
+            MinValue = _config.GetFloat("minimumAlpha")
+        };
     }
 
     public override void Update(float time)

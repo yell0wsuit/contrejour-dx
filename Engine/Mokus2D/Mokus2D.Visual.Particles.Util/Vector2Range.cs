@@ -24,8 +24,8 @@ public struct Vector2Range
         Offset = offset;
     }
 
-    public Vector2 GetValueInRange()
+    public readonly Vector2 GetValueInRange()
     {
-        return Value + Maths.Random(-1f, 1f) * Offset;
+        return Value + (Maths.Random(-1f, 1f) * Offset);
     }
 }

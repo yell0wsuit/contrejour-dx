@@ -21,11 +21,7 @@ public static class ReflectUtil
     public static object SafeCreateInstance(string typeName, Type mainAssemblyClass)
     {
         Type type = GetType(typeName, mainAssemblyClass);
-        if ((object)type != null)
-        {
-            return Activator.CreateInstance(type);
-        }
-        return null;
+        return type is not null ? Activator.CreateInstance(type) : null;
     }
 
     private static Type GetType(string typeName, Type mainAssemblyClass)
@@ -54,7 +50,7 @@ public static class ReflectUtil
     public static void SetValue(object o, string name, object value)
     {
         FieldInfo field = ReflectionExtensions.GetField(o.GetType().GetTypeInfo(), name);
-        if ((object)field != null)
+        if (field is not null)
         {
             value = Convert.ChangeType(value, field.FieldType, CultureInfo.InvariantCulture.NumberFormat);
             field.SetValue(o, value);

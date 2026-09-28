@@ -12,9 +12,9 @@ public abstract class Joint
 
     public bool Enabled = true;
 
-    internal JointEdge EdgeA = new JointEdge();
+    internal JointEdge EdgeA = new();
 
-    internal JointEdge EdgeB = new JointEdge();
+    internal JointEdge EdgeB = new();
 
     internal bool IslandFlag;
 
@@ -34,10 +34,7 @@ public abstract class Joint
 
     public float Breakpoint
     {
-        get
-        {
-            return _breakpoint;
-        }
+        get => _breakpoint;
         set
         {
             _breakpoint = value;
@@ -72,23 +69,15 @@ public abstract class Joint
 
     protected void WakeBodies()
     {
-        if (BodyA != null)
-        {
-            BodyA.Awake = true;
-        }
-        if (BodyB != null)
-        {
-            BodyB.Awake = true;
-        }
+        BodyA?.Awake = true;
+        BodyB?.Awake = true;
     }
 
     public bool IsFixedType()
     {
-        if (JointType != JointType.FixedRevolute && JointType != JointType.FixedDistance && JointType != JointType.FixedPrismatic && JointType != JointType.FixedLine && JointType != JointType.FixedMouse && JointType != JointType.FixedAngle)
-        {
-            return JointType == JointType.FixedFriction;
-        }
-        return true;
+        return JointType is not JointType.FixedRevolute and not JointType.FixedDistance and not JointType.FixedPrismatic and not JointType.FixedLine and not JointType.FixedMouse and not JointType.FixedAngle
+            ? JointType == JointType.FixedFriction
+            : true;
     }
 
     internal abstract void InitVelocityConstraints(ref SolverData data);
@@ -103,10 +92,7 @@ public abstract class Joint
         if (!((double)Math.Abs(num) <= _breakpointSquared))
         {
             Enabled = false;
-            if (this.Broke != null)
-            {
-                this.Broke(this, (float)Math.Sqrt(num));
-            }
+            Broke?.Invoke(this, (float)Math.Sqrt(num));
         }
     }
 

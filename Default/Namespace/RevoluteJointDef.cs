@@ -16,8 +16,8 @@ public class RevoluteJointDef
 
     public RevoluteJointDef(RevoluteJoint joint)
     {
-        BodyA = ((Joint)joint).BodyA;
-        BodyB = ((Joint)joint).BodyB;
+        BodyA = joint.BodyA;
+        BodyB = joint.BodyB;
         LocalAnchorB = joint.LocalAnchorB;
     }
 

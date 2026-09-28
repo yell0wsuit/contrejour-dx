@@ -43,7 +43,7 @@ public class LevelItem : Button, IBoundsNode, ISizeNode
             OpacityFloat = 0.5f;
         }
         LevelData levelData = UserData.Instance.GetLevelData(levelPosition.GlobalPosition());
-        base.Enabled = unlocked;
+        Enabled = unlocked;
         if (unlocked)
         {
             for (int i = 0; i < 3; i++)
@@ -52,7 +52,7 @@ public class LevelItem : Button, IBoundsNode, ISizeNode
                 AddChild(new Sprite(flag ? "menu/McLevelEnergy" : "menu/McLevelEnergyInactive")
                 {
                     IgnoreParentColor = flag,
-                    Position = new Vector2(36f, 22f * (-1f + (float)i))
+                    Position = new Vector2(36f, 22f * (-1f + i))
                 });
             }
         }
@@ -87,12 +87,12 @@ public class LevelItem : Button, IBoundsNode, ISizeNode
 
     public Node CreateDigitChapter(int character, int chapter)
     {
-        Sprite sprite = new Sprite($"menu/McLevels{character}");
+        Sprite sprite = new($"menu/McLevels{character}");
         Color color = Color.Lerp(Color.White, ContreJourConstants.BLUE_LIGHT_COLOR, 0.5f);
-        sprite.Color = ((chapter == 1) ? color : ContreJourConstants.GREY_COLOR);
+        sprite.Color = (chapter == 1) ? color : ContreJourConstants.GREY_COLOR;
         if (!unlocked)
         {
-            sprite.OpacityByte = ((chapter == 1) ? 150 : 80);
+            sprite.OpacityByte = (chapter == 1) ? 150 : 80;
         }
         return sprite;
     }

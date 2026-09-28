@@ -22,14 +22,8 @@ public class CharData : ISpriteData, ITextureNodeData, IConfig
 
     public Texture2D Texture
     {
-        get
-        {
-            return _font.Texture;
-        }
-        set
-        {
-            throw new NotImplementedException();
-        }
+        get => _font.Texture;
+        set => throw new NotImplementedException();
     }
 
     public float ScaleFactor => _font.ScaleFactor;
@@ -42,7 +36,7 @@ public class CharData : ISpriteData, ITextureNodeData, IConfig
     {
         _font = font;
         TextureRect = textureRect;
-        Anchor = new Vector2(anchor.X / (float)textureRect.Width, anchor.Y / (float)textureRect.Height);
+        Anchor = new Vector2(anchor.X / textureRect.Width, anchor.Y / textureRect.Height);
         Width = width;
     }
 }

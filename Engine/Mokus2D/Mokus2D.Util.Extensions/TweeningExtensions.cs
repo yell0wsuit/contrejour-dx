@@ -19,7 +19,7 @@ public static class TweeningExtensions
     {
         if (action != null)
         {
-            tween.OnComplete(action);
+            _ = tween.OnComplete(action);
         }
         return tween;
     }
@@ -86,11 +86,9 @@ public static class TweeningExtensions
 
     public static Sequence TweenToColorThroughZero(this Node node, float time, Color color, int targetColorRatio = 1)
     {
-        if (node.ColorRatio == 0f)
-        {
-            return node.Tweener.StartSequence(time).Tween(NodeValues.Color, color).Tween(NodeValues.ColorRatio, targetColorRatio);
-        }
-        return node.TweenColorRatio(time / 2f, 0f).SetAfter(NodeValues.Color, color).Next(time / 2f)
+        return node.ColorRatio == 0f
+            ? node.Tweener.StartSequence(time).Tween(NodeValues.Color, color).Tween(NodeValues.ColorRatio, targetColorRatio)
+            : node.TweenColorRatio(time / 2f, 0f).SetAfter(NodeValues.Color, color).Next(time / 2f)
             .Tween(NodeValues.ColorRatio, targetColorRatio);
     }
 
@@ -109,7 +107,7 @@ public static class TweeningExtensions
     {
         node.OpacityFloat = 0f;
         node.Visible = true;
-        node.Tweener.StartSequence(tweenTime).Tween(NodeValues.OpacityFloat, visibleOpacity).Next(visibleTime)
+        _ = node.Tweener.StartSequence(tweenTime).Tween(NodeValues.OpacityFloat, visibleOpacity).Next(visibleTime)
             .Next(tweenTime)
             .Tween(NodeValues.OpacityFloat, 0f)
             .OnComplete(NodeValues.Hide);
@@ -187,8 +185,8 @@ public static class TweeningExtensions
 
     public static Task<bool> ScheduleAsync(this Node node, float time, int? tag = null)
     {
-        TaskCompletionSource<bool> taskCompletition = new TaskCompletionSource<bool>();
-        node.Tweener.Start(time, tag).OnComplete((Action<object>)delegate
+        TaskCompletionSource<bool> taskCompletition = new();
+        _ = node.Tweener.Start(time, tag).OnComplete((Action<object>)delegate
         {
             taskCompletition.SetResult(result: true);
         });

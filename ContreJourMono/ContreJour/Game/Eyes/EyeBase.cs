@@ -36,7 +36,7 @@ public abstract class EyeBase : Node
 
     private readonly bool useMask;
 
-    private readonly Vector2 maskSize = new Vector2(50f, 50f);
+    private readonly Vector2 maskSize = new(50f, 50f);
 
     private float viewDistance;
 
@@ -50,28 +50,19 @@ public abstract class EyeBase : Node
 
     private readonly AnimatedMaskedSprite mask;
 
-    private readonly Node content = new Node();
+    private readonly Node content = new();
 
     public virtual float EyeStep
     {
-        get
-        {
-            return eyeStep;
-        }
-        set
-        {
-            eyeStep = value;
-        }
+        get => eyeStep;
+        set => eyeStep = value;
     }
 
     public Node CurrentBackground => currentBackground;
 
     public float ViewDistance
     {
-        get
-        {
-            return viewDistance;
-        }
+        get => viewDistance;
         set
         {
             if (value != viewDistance)
@@ -84,10 +75,7 @@ public abstract class EyeBase : Node
 
     public float ViewAngle
     {
-        get
-        {
-            return viewAngle;
-        }
+        get => viewAngle;
         set
         {
             if (value != viewAngle)
@@ -147,11 +135,7 @@ public abstract class EyeBase : Node
 
     private Node Create(string name)
     {
-        if (name == null)
-        {
-            return null;
-        }
-        return ClipTypesCache.CreateNewNode(ProcessName(name));
+        return name == null ? null : ClipTypesCache.CreateNewNode(ProcessName(name));
     }
 
     protected virtual void CreateDefaultView()
@@ -174,7 +158,7 @@ public abstract class EyeBase : Node
         endDispatcher = null;
         currentBackground = background;
         currentEyeBall = eyeBall;
-        lockX = (lockY = false);
+        lockX = lockY = false;
         RefreshLayout();
     }
 

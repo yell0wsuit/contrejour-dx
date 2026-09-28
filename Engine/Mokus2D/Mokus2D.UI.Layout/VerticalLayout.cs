@@ -7,7 +7,7 @@ namespace Mokus2D.UI.Layout;
 
 public class VerticalLayout : LineLayout
 {
-    public float TotalHeight => base.TotalSize;
+    public float TotalHeight => TotalSize;
 
     public VerticalLayout(Node container)
         : base(container)

@@ -11,7 +11,7 @@ namespace Mokus2D.Effects.Tweening;
 
 public class Tweener : DisposableBase, IUpdatable, ICleanable
 {
-    private struct TweenAndTag(ITween tween, int? tag)
+    private readonly struct TweenAndTag(ITween tween, int? tag)
     {
         public readonly ITween Tween = tween;
 
@@ -22,7 +22,7 @@ public class Tweener : DisposableBase, IUpdatable, ICleanable
 
     private readonly object _defaultTarget;
 
-    private readonly ForEachList<TweenAndTag> _tweens = new ForEachList<TweenAndTag>();
+    private readonly ForEachList<TweenAndTag> _tweens = [];
 
     public Tweener(object defaultTarget)
     {
@@ -32,7 +32,7 @@ public class Tweener : DisposableBase, IUpdatable, ICleanable
     public TweenObject RepeatForever(float seconds, int? tag = null, object target = null)
     {
         TweenObject tweenObject = Create(seconds, target);
-        RepeatForever tween = Mokus2D.Effects.Tweening.Repeating.RepeatForever.New(tweenObject);
+        RepeatForever tween = Repeating.RepeatForever.New(tweenObject);
         Start(tween, tag);
         return tweenObject;
     }
@@ -40,7 +40,7 @@ public class Tweener : DisposableBase, IUpdatable, ICleanable
     public Sequence RepeatSequenceForever(float seconds, int? tag = null, object target = null)
     {
         Sequence sequence = CreateSequence(seconds, target);
-        RepeatForever tween = Mokus2D.Effects.Tweening.Repeating.RepeatForever.New(sequence);
+        RepeatForever tween = Repeating.RepeatForever.New(sequence);
         Start(tween, tag);
         return sequence;
     }
@@ -78,7 +78,7 @@ public class Tweener : DisposableBase, IUpdatable, ICleanable
     public Sequence CreateSequence(ITween tween)
     {
         Sequence sequence = Sequence.New(_defaultTarget);
-        sequence.Next(tween);
+        _ = sequence.Next(tween);
         return sequence;
     }
 
@@ -139,7 +139,7 @@ public class Tweener : DisposableBase, IUpdatable, ICleanable
                     if (tween.Tween.Finished)
                     {
                         tween.Tween.Free();
-                        _tweens.Remove(tween);
+                        _ = _tweens.Remove(tween);
                     }
                 }
             }
@@ -208,7 +208,7 @@ public class Tweener : DisposableBase, IUpdatable, ICleanable
 
     public void StopObjectSequences(object o)
     {
-        Stop((ITween t) => t is Sequence && ((Sequence)t).Target == o);
+        Stop(t => t is Sequence && ((Sequence)t).Target == o);
     }
 
     public void Stop(Predicate<ITween> predicate)

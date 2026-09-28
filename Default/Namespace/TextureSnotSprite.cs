@@ -18,22 +18,13 @@ public class TextureSnotSprite : SpringSnotSprite
 
     public float TargetOpacity
     {
-        get
-        {
-            return targetOpacity;
-        }
-        set
-        {
-            targetOpacity = value;
-        }
+        get => targetOpacity;
+        set => targetOpacity = value;
     }
 
     public Color TextureColor
     {
-        get
-        {
-            return textureColor;
-        }
+        get => textureColor;
         set
         {
             if (textureColor != value)
@@ -54,7 +45,7 @@ public class TextureSnotSprite : SpringSnotSprite
         targetOpacity = 255f;
         opacity = 255f;
         textureColor = new Color(255, 255, 255);
-        base.NeckColor = Color.White;
+        NeckColor = Color.White;
     }
 
     public TextureSnotSprite(ContreJourGame _game, SnotBodyClipBase _snot, float _startWidth, float _centerWidth, float _endWidth)
@@ -71,7 +62,7 @@ public class TextureSnotSprite : SpringSnotSprite
     public override void CreateVectors(int _allPointsSize)
     {
         base.CreateVectors(_allPointsSize);
-        GraphUtil.CreateTextureCoordsVerticesStep(_allPointsSize / 2 - 1, vertices, 0.1f);
+        GraphUtil.CreateTextureCoordsVerticesStep((_allPointsSize / 2) - 1, vertices, 0.1f);
     }
 
     protected override void RefreshTextureCoords(int i, int start)

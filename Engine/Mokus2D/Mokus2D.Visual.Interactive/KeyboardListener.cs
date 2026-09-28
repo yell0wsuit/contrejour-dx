@@ -12,14 +12,11 @@ public class KeyboardListener : DisposableBase
 {
     private bool _enabled = true;
 
-    private readonly FactoryDictionary<Keys, List<Action<Keys, bool>>> _keysList = new FactoryDictionary<Keys, List<Action<Keys, bool>>>((Keys k) => new List<Action<Keys, bool>>());
+    private readonly FactoryDictionary<Keys, List<Action<Keys, bool>>> _keysList = new(k => []);
 
     public bool Enabled
     {
-        get
-        {
-            return _enabled;
-        }
+        get => _enabled;
         set
         {
             if (!_enabled)
@@ -70,7 +67,7 @@ public class KeyboardListener : DisposableBase
 
     public void RemoveListener(Keys key, Action<Keys, bool> listener)
     {
-        _keysList[key].Remove(listener);
+        _ = _keysList[key].Remove(listener);
         if (Enabled)
         {
             Mokus2DGame.Keyboard.RemoveListener(key, listener);

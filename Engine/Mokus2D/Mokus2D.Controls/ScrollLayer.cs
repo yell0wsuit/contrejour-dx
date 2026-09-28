@@ -42,10 +42,7 @@ public class ScrollLayer : ClickableLayer, ITouchListener
 
     public float ReturnCoeff
     {
-        get
-        {
-            return _returnCoeff;
-        }
+        get => _returnCoeff;
         set
         {
             if (_returnCoeff != value)
@@ -59,7 +56,7 @@ public class ScrollLayer : ClickableLayer, ITouchListener
 
     public void RefreshBorders()
     {
-        MinPosition = (MaxPosition = Position);
+        MinPosition = MaxPosition = Position;
     }
 
     public override bool TouchMove(Touch touch)
@@ -102,7 +99,7 @@ public class ScrollLayer : ClickableLayer, ITouchListener
 
     private Vector2 GetTouchPosition()
     {
-        return base.Parent.GlobalToLocal(_scrollTouch.Position);
+        return Parent.GlobalToLocal(_scrollTouch.Position);
     }
 
     public new void TouchEnd(Touch touch)
@@ -126,21 +123,21 @@ public class ScrollLayer : ClickableLayer, ITouchListener
         }
         if (InertiaHorizontal)
         {
-            base.X += _inertia.X;
+            X += _inertia.X;
             _inertia.X = _inertia.X.StepTo(0f, GetTimeValue(2f, time));
-            if (!base.X.Between(MinPosition.X, MaxPosition.X))
+            if (!X.Between(MinPosition.X, MaxPosition.X))
             {
-                base.X = GetReturnValue(base.X, MinPosition.X, MaxPosition.X, time);
+                X = GetReturnValue(X, MinPosition.X, MaxPosition.X, time);
                 _inertia.X = _inertia.X.StepTo(0f, GetTimeValue(3f, time));
             }
         }
         if (InertiaVertical)
         {
-            base.Y += _inertia.Y;
+            Y += _inertia.Y;
             _inertia.Y = _inertia.Y.StepTo(0f, GetTimeValue(2f, time));
-            if (!base.Y.Between(MinPosition.Y, MaxPosition.Y))
+            if (!Y.Between(MinPosition.Y, MaxPosition.Y))
             {
-                base.Y = GetReturnValue(base.Y, MinPosition.Y, MaxPosition.Y, time);
+                Y = GetReturnValue(Y, MinPosition.Y, MaxPosition.Y, time);
                 _inertia.Y = _inertia.Y.StepTo(0f, GetTimeValue(3f, time));
             }
         }
@@ -152,11 +149,7 @@ public class ScrollLayer : ClickableLayer, ITouchListener
         {
             return StepToBorder(current, min, time);
         }
-        if (current > max)
-        {
-            return StepToBorder(current, max, time);
-        }
-        return current;
+        return current > max ? StepToBorder(current, max, time) : current;
     }
 
     private float StepToBorder(float current, float max, float time)
@@ -169,11 +162,11 @@ public class ScrollLayer : ClickableLayer, ITouchListener
     {
         if (!InertiaHorizontal)
         {
-            base.X = base.X.Clamp(MinPosition.X, MaxPosition.X);
+            X = X.Clamp(MinPosition.X, MaxPosition.X);
         }
         if (!InertiaVertical)
         {
-            base.Y = base.Y.Clamp(MinPosition.Y, MaxPosition.Y);
+            Y = Y.Clamp(MinPosition.Y, MaxPosition.Y);
         }
     }
 }

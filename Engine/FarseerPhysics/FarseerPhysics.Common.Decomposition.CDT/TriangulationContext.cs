@@ -6,9 +6,9 @@ namespace FarseerPhysics.Common.Decomposition.CDT;
 
 internal abstract class TriangulationContext
 {
-    public readonly List<TriangulationPoint> Points = new List<TriangulationPoint>(200);
+    public readonly List<TriangulationPoint> Points = new(200);
 
-    public readonly List<DelaunayTriangle> Triangles = new List<DelaunayTriangle>();
+    public readonly List<DelaunayTriangle> Triangles = [];
 
     private int _stepTime = -1;
 

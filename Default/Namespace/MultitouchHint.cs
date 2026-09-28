@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 using Mokus2D.Visual;
 
@@ -17,7 +18,7 @@ public class MultitouchHint : FadeHint
     {
         snots = FarseerUtil.QueryBodyClipsCenterRadiusType(builder.World, builder.ToIPhoneVec(clip.Position), 6.6666665f, typeof(StrongSnotBodyClip));
         hasToRun = false;
-        foreach (StrongSnotBodyClip snot in snots)
+        foreach (StrongSnotBodyClip snot in snots.Cast<StrongSnotBodyClip>())
         {
             snot.LinkEvent.AddListener(OnSnotLink);
             snot.ReleaseEvent.AddListener(OnSnotRelease);
@@ -49,7 +50,7 @@ public class MultitouchHint : FadeHint
         joinCount--;
         if (clip.Visible && !hiding)
         {
-            Hide(0.5f * (float)clip.OpacityByte / 255f);
+            Hide(0.5f * clip.OpacityByte / 255f);
         }
     }
 }

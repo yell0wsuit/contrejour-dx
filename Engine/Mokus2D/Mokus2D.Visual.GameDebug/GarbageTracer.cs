@@ -13,7 +13,7 @@ public struct GarbageTracer : IDisposable
 
     public GarbageTracer(string name, bool start = true)
     {
-        this = default(GarbageTracer);
+        this = default;
         name.Intern();
         _name = name;
     }
@@ -37,7 +37,7 @@ public struct GarbageTracer : IDisposable
     }
 
     [Conditional("DEBUG")]
-    public void End()
+    public readonly void End()
     {
         if (Mokus2DGame.Config.DebugConfig.DebugGarbageGeneration)
         {
@@ -49,7 +49,7 @@ public struct GarbageTracer : IDisposable
         }
     }
 
-    public void Dispose()
+    public readonly void Dispose()
     {
     }
 }

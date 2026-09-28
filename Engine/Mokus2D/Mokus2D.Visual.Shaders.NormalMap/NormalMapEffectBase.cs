@@ -57,23 +57,14 @@ public abstract class NormalMapEffectBase : TextureMatrixEffectBase
 
     public Node TransformationNode
     {
-        get
-        {
-            return _transformationNode;
-        }
+        get => _transformationNode;
         set
         {
             if (_transformationNode != value)
             {
-                if (_transformationNode != null)
-                {
-                    _transformationNode.TransformationsRefreshedEvent -= OnTransformationsRefreshed;
-                }
+                _transformationNode?.TransformationsRefreshedEvent -= OnTransformationsRefreshed;
                 _transformationNode = value;
-                if (_transformationNode != null)
-                {
-                    _transformationNode.TransformationsRefreshedEvent += OnTransformationsRefreshed;
-                }
+                _transformationNode?.TransformationsRefreshedEvent += OnTransformationsRefreshed;
                 _transformationDirty = true;
             }
         }
@@ -89,21 +80,21 @@ public abstract class NormalMapEffectBase : TextureMatrixEffectBase
         _lightPowerValues = new float[MaxLightsCount];
         _lightDistanceRateValues = new float[MaxLightsCount];
         _lightColorValues = new Vector4[MaxLightsCount];
-        _lightPosition = base.Parameters["LightPosition"];
-        _lightPower = base.Parameters["LightPower"];
-        _lightColor = base.Parameters["LightColor"];
-        _lightDistanceRate = base.Parameters["LightDistanceRate"];
-        AmbientLightPower = new ShaderParameterFloat(base.Parameters, "AmbientLightPower");
-        AmbientLightVector = new ShaderParameterVector3(base.Parameters, "AmbientLightVector");
-        AmbientLightColor = new ShaderParameterColor(base.Parameters, "AmbientLightColor");
-        MaxLightPower = new ShaderParameterFloat(base.Parameters, "MaxLightPower");
-        DiffuseLightPower = new ShaderParameterFloat(base.Parameters, "DiffuseLightPower");
+        _lightPosition = Parameters["LightPosition"];
+        _lightPower = Parameters["LightPower"];
+        _lightColor = Parameters["LightColor"];
+        _lightDistanceRate = Parameters["LightDistanceRate"];
+        AmbientLightPower = new ShaderParameterFloat(Parameters, "AmbientLightPower");
+        AmbientLightVector = new ShaderParameterVector3(Parameters, "AmbientLightVector");
+        AmbientLightColor = new ShaderParameterColor(Parameters, "AmbientLightColor");
+        MaxLightPower = new ShaderParameterFloat(Parameters, "MaxLightPower");
+        DiffuseLightPower = new ShaderParameterFloat(Parameters, "DiffuseLightPower");
         _lightsData[0] = new LightData(this, 0, new Vector3(640f, 360f, 100f), 1f, Color.Red);
         for (int i = 1; i < maxLightsCount; i++)
         {
             _lightsData[i] = new LightData(this, i, new Vector3(0f), 0f);
         }
-        LightsCount = new ShaderParameterInt(base.Parameters, "LightsCount");
+        LightsCount = new ShaderParameterInt(Parameters, "LightsCount");
     }
 
     public override void Apply(Matrix matrix, Texture2D texture)

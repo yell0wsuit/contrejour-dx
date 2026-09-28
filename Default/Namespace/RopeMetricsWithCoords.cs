@@ -18,11 +18,11 @@ public class RopeMetricsWithCoords : RopeMetrics
         start = _start;
         end = _end;
         partOffset = _end - _start;
-        partOffset *= 1f / (float)_parts;
+        partOffset *= 1f / _parts;
     }
 
     public Vector2 GetPositionByIndex(int index)
     {
-        return start + partOffset * index;
+        return start + (partOffset * index);
     }
 }

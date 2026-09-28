@@ -4,9 +4,9 @@ namespace FarseerPhysics.Collision;
 
 public class DistanceInput
 {
-    public DistanceProxy ProxyA = new DistanceProxy();
+    public DistanceProxy ProxyA = new();
 
-    public DistanceProxy ProxyB = new DistanceProxy();
+    public DistanceProxy ProxyB = new();
 
     public Transform TransformA;
 

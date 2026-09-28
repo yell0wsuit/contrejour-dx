@@ -9,15 +9,15 @@ namespace Mokus2D.Input;
 
 public class SpriteClicksListener : ITouchListener
 {
-    private readonly Pool<List<IClickableNode>> _listPool = new Pool<List<IClickableNode>>(() => new List<IClickableNode>());
+    private readonly Pool<List<IClickableNode>> _listPool = new(() => []);
 
-    private readonly SortedDictionary<int, ForEachList<IClickableNode>> _sprites = new SortedDictionary<int, ForEachList<IClickableNode>>();
+    private readonly SortedDictionary<int, ForEachList<IClickableNode>> _sprites = [];
 
-    private readonly List<ForEachList<IClickableNode>> _spritesByPriority = new List<ForEachList<IClickableNode>>();
+    private readonly List<ForEachList<IClickableNode>> _spritesByPriority = [];
 
-    private readonly List<IClickableNode> _toRemove = new List<IClickableNode>();
+    private readonly List<IClickableNode> _toRemove = [];
 
-    private readonly Dictionary<Touch, List<IClickableNode>> _touchedSprites = new Dictionary<Touch, List<IClickableNode>>();
+    private readonly Dictionary<Touch, List<IClickableNode>> _touchedSprites = [];
 
     public SpriteClicksListener()
     {
@@ -106,7 +106,7 @@ public class SpriteClicksListener : ITouchListener
     public void Remove(IClickableNode sprite)
     {
         ForEachList<IClickableNode> orCreatePriorityList = GetOrCreatePriorityList(sprite);
-        orCreatePriorityList.Remove(sprite);
+        _ = orCreatePriorityList.Remove(sprite);
     }
 
     private ForEachList<IClickableNode> GetOrCreatePriorityList(IClickableNode sprite)
@@ -114,7 +114,7 @@ public class SpriteClicksListener : ITouchListener
         ForEachList<IClickableNode> forEachList = _sprites.TryGetValue(sprite.ClickablePriority);
         if (forEachList == null)
         {
-            forEachList = new ForEachList<IClickableNode>();
+            forEachList = [];
             _sprites.Add(sprite.ClickablePriority, forEachList);
         }
         return forEachList;

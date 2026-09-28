@@ -42,7 +42,7 @@ public class FlyWings : Node
         bottomContainer.RotationRadians = IDLE_ROTATION;
         StartActionDiff(top, 0f - ROTATION_DIFF);
         StartActionDiff(bottom, ROTATION_DIFF);
-        base.ScaleY = 0.7f;
+        ScaleY = 0.7f;
     }
 
     public void SetFlying(bool value)
@@ -50,19 +50,19 @@ public class FlyWings : Node
         if (flying != value)
         {
             flying = value;
-            float num = (flying ? ROTATION : IDLE_ROTATION);
-            topContainer.RotateTo(0.5f, num);
-            bottom.RotateTo(0.5f, 0f - num);
-            float y = (flying ? 1f : 0.5f);
-            top.ScaleTo(0.5f, new Vector2(1f, y));
-            bottom.ScaleTo(0.5f, new Vector2(1f, y));
-            this.ScaleTo(0.5f, new Vector2(y: flying ? 1f : 0.7f, x: base.ScaleX));
+            float num = flying ? ROTATION : IDLE_ROTATION;
+            _ = topContainer.RotateTo(0.5f, num);
+            _ = bottom.RotateTo(0.5f, 0f - num);
+            float y = flying ? 1f : 0.5f;
+            _ = top.ScaleTo(0.5f, new Vector2(1f, y));
+            _ = bottom.ScaleTo(0.5f, new Vector2(1f, y));
+            _ = this.ScaleTo(0.5f, new Vector2(y: flying ? 1f : 0.7f, x: ScaleX));
         }
     }
 
     public void StartActionDiff(Sprite wing, float diff)
     {
-        wing.Tweener.RepeatSequenceForever(1.5f).Tween(NodeValues.RotationRadians, diff, Cubic.EaseInOut).Next(1.5f)
+        _ = wing.Tweener.RepeatSequenceForever(1.5f).Tween(NodeValues.RotationRadians, diff, Cubic.EaseInOut).Next(1.5f)
             .Tween(NodeValues.RotationRadians, 0f - diff, Cubic.EaseInOut);
     }
 }

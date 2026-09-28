@@ -8,14 +8,8 @@ public class LevelPosition
 
     public int Index
     {
-        get
-        {
-            return index;
-        }
-        set
-        {
-            index = value;
-        }
+        get => index;
+        set => index = value;
     }
 
     public int Chapter => chapter;
@@ -26,25 +20,17 @@ public class LevelPosition
     {
         get
         {
-            if (!IsEndGame)
-            {
-                return chapter;
-            }
-            return Constants.NormalChaptersCount - 1;
+            return !IsEndGame ? chapter : Constants.NormalChaptersCount - 1;
         }
     }
 
-    public static LevelPosition EndGame => new LevelPosition(0, -1);
+    public static LevelPosition EndGame => new(0, -1);
 
     public bool SkipAvailable
     {
         get
         {
-            if (Chapter == 5 && Index >= (UserData.Instance.UnlockedChapters - 1) * LevelsMenu.COLUMNS - 1)
-            {
-                return false;
-            }
-            return true;
+            return Chapter != 5 || Index < ((UserData.Instance.UnlockedChapters - 1) * LevelsMenu.COLUMNS) - 1;
         }
     }
 
@@ -62,6 +48,6 @@ public class LevelPosition
 
     public int GlobalPosition()
     {
-        return chapter * 20 + index;
+        return (chapter * 20) + index;
     }
 }

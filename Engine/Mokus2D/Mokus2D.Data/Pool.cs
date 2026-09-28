@@ -7,7 +7,7 @@ public class Pool<T>
 {
     private Func<T> _activator;
 
-    private readonly List<T> _items = new List<T>(64);
+    private readonly List<T> _items = new(64);
 
     public int? MaxCount;
 
@@ -43,7 +43,7 @@ public class Pool<T>
             lock (_items)
             {
                 result = _items.Last();
-                _items.RemoveLast();
+                _ = _items.RemoveLast();
             }
         }
         else

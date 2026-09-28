@@ -8,10 +8,6 @@ public class FakeHeroEyeWhite : FakeHeroEyeBlack
 
     protected override string ProcessName(string name)
     {
-        if (name == "McFakeHeroEyeBall")
-        {
-            return EyeBall;
-        }
-        return base.ProcessName(name);
+        return name == "McFakeHeroEyeBall" ? EyeBall : base.ProcessName(name);
     }
 }

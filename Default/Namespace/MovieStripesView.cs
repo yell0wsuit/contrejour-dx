@@ -22,9 +22,9 @@ public class MovieStripesView : Node
 
     protected LayerColor FadeRectangle;
 
-    public readonly EventSender RestartEvent = new EventSender();
+    public readonly EventSender RestartEvent = new();
 
-    public readonly EventSender MenuEvent = new EventSender();
+    public readonly EventSender MenuEvent = new();
 
     protected float FinishDuration = 0.8f;
 
@@ -64,11 +64,8 @@ public class MovieStripesView : Node
 
     public void Show()
     {
-        if (FadeRectangle != null)
-        {
-            FadeRectangle.FadeTo(FinishDuration, _blackSide ? 0.6f : 0.3f);
-        }
-        topSquare.MoveTo(FinishDuration, new Vector2(topSquare.Position.X, topSquare.Position.Y - StripesHeightIphone), Cubic.EaseIn);
-        bottomSquare.MoveTo(FinishDuration, new Vector2(bottomSquare.Position.X, bottomSquare.Position.Y + StripesHeightIphone), Cubic.EaseIn);
+        FadeRectangle?.FadeTo(FinishDuration, _blackSide ? 0.6f : 0.3f);
+        _ = topSquare.MoveTo(FinishDuration, new Vector2(topSquare.Position.X, topSquare.Position.Y - StripesHeightIphone), Cubic.EaseIn);
+        _ = bottomSquare.MoveTo(FinishDuration, new Vector2(bottomSquare.Position.X, bottomSquare.Position.Y + StripesHeightIphone), Cubic.EaseIn);
     }
 }

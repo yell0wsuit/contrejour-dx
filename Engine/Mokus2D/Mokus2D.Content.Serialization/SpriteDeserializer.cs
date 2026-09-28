@@ -15,7 +15,7 @@ public class SpriteDeserializer : NodeDeserializerBase<ISpriteData>
 
     public override ISpriteData Deserialize(string id, XElement element)
     {
-        SpriteData spriteData = new SpriteData(id);
+        SpriteData spriteData = new(id);
         AddConfigAndScaleFactor(spriteData, element);
         SetTexture(element, spriteData);
         spriteData.Frame = GetFrame(element.Descendants("frame").First());

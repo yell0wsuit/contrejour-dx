@@ -42,53 +42,31 @@ public class PlasticinePartHighlite : IUpdatable
 
     private static readonly Color NO_LIGHT_BORDER_OUT_BLUE = ContreJourConstants.BLUE_LIGHT_COLOR.ChangeAlpha(0);
 
-    public static readonly Color NO_LIGHT_BORDER_OUT = new Color(0, 0, 0, 0);
+    public static readonly Color NO_LIGHT_BORDER_OUT = new(0, 0, 0, 0);
 
     public float LightLength
     {
-        get
-        {
-            return lightLength;
-        }
-        set
-        {
-            lightLength = value;
-        }
+        get => lightLength;
+        set => lightLength = value;
     }
 
     public Vector2 LightBottom
     {
-        get
-        {
-            return lightBottom;
-        }
-        set
-        {
-            lightBottom = value;
-        }
+        get => lightBottom;
+        set => lightBottom = value;
     }
 
     public bool HasLight
     {
-        get
-        {
-            return hasLight;
-        }
-        set
-        {
-            hasLight = value;
-        }
+        get => hasLight;
+        set => hasLight = value;
     }
 
     private bool MirrorLight
     {
         get
         {
-            if (!game.WhiteSide && !game.BlackSide)
-            {
-                return game.BonusChapter;
-            }
-            return true;
+            return !game.WhiteSide && !game.BlackSide ? game.BonusChapter : true;
         }
     }
 
@@ -100,7 +78,7 @@ public class PlasticinePartHighlite : IUpdatable
         _plasticine.Highlite = this;
         parent = _parent;
         index = _index;
-        noLightBorderOut = (game.BlackSide ? NO_LIGHT_BORDER_OUT_BLUE : NO_LIGHT_BORDER_OUT);
+        noLightBorderOut = game.BlackSide ? NO_LIGHT_BORDER_OUT_BLUE : NO_LIGHT_BORDER_OUT;
         noLightBorderOut = NO_LIGHT_BORDER_OUT;
     }
 
@@ -111,7 +89,7 @@ public class PlasticinePartHighlite : IUpdatable
 
     private void RefreshPositions()
     {
-        float num = Math.Abs((VectorUtil.Atan2(NextBodyClip().Body.Position, game.LightPoint) - (float)Math.PI / 2f).SimplifyAngle(NextBodyClip().Body.Rotation - (float)Math.PI) - NextBodyClip().Body.Rotation);
+        float num = Math.Abs((VectorUtil.Atan2(NextBodyClip().Body.Position, game.LightPoint) - ((float)Math.PI / 2f)).SimplifyAngle(NextBodyClip().Body.Rotation - (float)Math.PI) - NextBodyClip().Body.Rotation);
         hasLight = num < 1.3463969f;
         if (MirrorLight && num > (float)Math.PI / 2f)
         {
@@ -121,14 +99,14 @@ public class PlasticinePartHighlite : IUpdatable
         lightLength = 0f;
         if (hasLight)
         {
-            lightLength = 1.2f * Math.Max(1f - num / 1.3463969f, 0f);
+            lightLength = 1.2f * Math.Max(1f - (num / 1.3463969f), 0f);
         }
         if (MirrorLight)
         {
             lightLength = Math.Max(lightLength, 0.1f);
             hasLight = true;
         }
-        Vector2 vector = new Vector2(0f, 0f - lightLength + 7f / 12f);
+        Vector2 vector = new(0f, 0f - lightLength + (7f / 12f));
         Vector2 worldPoint = NextBodyClip().Body.GetWorldPoint(vector);
         lightBottom = builder.ToPoint(worldPoint);
     }
@@ -165,16 +143,16 @@ public class PlasticinePartHighlite : IUpdatable
         LightColor lightColor = game.LightColor;
         if (plasticine.Index == 0)
         {
-            vertices[0].Color = (array[0].Color = (flag ? lightColor.LightOutColor : mainColor));
-            vertices[1].Color = (flag ? lightColor.LightInColor : mainColor);
-            array[1].Color = (flag ? lightColor.LightBorderColor : noLightBorderOut);
+            vertices[0].Color = array[0].Color = flag ? lightColor.LightOutColor : mainColor;
+            vertices[1].Color = flag ? lightColor.LightInColor : mainColor;
+            array[1].Color = flag ? lightColor.LightBorderColor : noLightBorderOut;
         }
-        vertices[index].Color = (array[index].Color = (flag ? lightColor.LightOutColor : mainColor));
-        vertices[index + 1].Color = (flag ? lightColor.LightInColor : mainColor);
-        array[index + 1].Color = (flag ? lightColor.LightBorderColor : noLightBorderOut);
-        vertices[index + 2].Color = (array[index + 2].Color = (hasLight ? lightColor.LightOutColor : mainColor));
-        vertices[index + 3].Color = (hasLight ? lightColor.LightInColor : mainColor);
-        array[index + 3].Color = (hasLight ? lightColor.LightBorderColor : noLightBorderOut);
+        vertices[index].Color = array[index].Color = flag ? lightColor.LightOutColor : mainColor;
+        vertices[index + 1].Color = flag ? lightColor.LightInColor : mainColor;
+        array[index + 1].Color = flag ? lightColor.LightBorderColor : noLightBorderOut;
+        vertices[index + 2].Color = array[index + 2].Color = hasLight ? lightColor.LightOutColor : mainColor;
+        vertices[index + 3].Color = hasLight ? lightColor.LightInColor : mainColor;
+        array[index + 3].Color = hasLight ? lightColor.LightBorderColor : noLightBorderOut;
     }
 
     public PlasticinePartHighlite PreviousHighlite()
@@ -210,19 +188,19 @@ public class PlasticinePartHighlite : IUpdatable
         if (plasticine.Index == 0)
         {
             vertices[0].Position = inBorder[0].Position;
-            vertices[1].Position = (flag ? PreviousHighlite().LightBottom.ToVector3() : vertices[0].Position);
+            vertices[1].Position = flag ? PreviousHighlite().LightBottom.ToVector3() : vertices[0].Position;
         }
         vertices[index].Position = inBorder[index].Position;
         vertices[index + 2].Position = inBorder[index + 2].Position;
-        vertices[index + 1].Position = (flag ? PreviousHighlite().LightBottom.Middle(lightBottom).ToVector3() : vertices[index].Position);
-        vertices[index + 3].Position = (hasLight ? lightBottom.ToVector3() : vertices[index + 2].Position);
+        vertices[index + 1].Position = flag ? PreviousHighlite().LightBottom.Middle(lightBottom).ToVector3() : vertices[index].Position;
+        vertices[index + 3].Position = hasLight ? lightBottom.ToVector3() : vertices[index + 2].Position;
     }
 
     private void SetColors(ref List<Color> target, Color first, Color second)
     {
         for (int i = 0; i < 4; i++)
         {
-            int num = index + i * 2;
+            int num = index + (i * 2);
             target[num] = first;
             target[num + 1] = second;
         }

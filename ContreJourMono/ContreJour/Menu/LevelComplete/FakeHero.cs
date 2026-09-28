@@ -18,7 +18,7 @@ public class FakeHero : Node
 
     private readonly Sprite background;
 
-    private readonly CosChanger breatheChanger = new CosChanger(0f, 0.07f, 0.04f);
+    private readonly CosChanger breatheChanger = new(0f, 0.07f, 0.04f);
 
     private readonly FakeHeroEye eye;
 
@@ -46,10 +46,7 @@ public class FakeHero : Node
 
     public float Speed
     {
-        get
-        {
-            return speed;
-        }
+        get => speed;
         set
         {
             speed = value;
@@ -61,10 +58,7 @@ public class FakeHero : Node
 
     public new Vector2 Position
     {
-        get
-        {
-            return base.Position;
-        }
+        get => base.Position;
         set
         {
             base.Position = value;
@@ -77,7 +71,7 @@ public class FakeHero : Node
         set
         {
             viewTarget = value;
-            Vector2 vector = base.Parent.LocalToNode(value, this);
+            Vector2 vector = Parent.LocalToNode(value, this);
             eye.ViewAngle = (float)Math.Atan2(vector.Y, vector.X);
             eye.ViewDistance = vector.Length() / 200f;
         }
@@ -102,12 +96,12 @@ public class FakeHero : Node
 
     public void LookAt(Node node)
     {
-        ViewTarget = node.LocalToNode(Vector2.Zero, base.Parent);
+        ViewTarget = node.LocalToNode(Vector2.Zero, Parent);
     }
 
     protected virtual string ProcessName(string name)
     {
-        return Path.Combine(new string[2] { TextureFolder, name });
+        return Path.Combine([TextureFolder, name]);
     }
 
     protected virtual FakeHeroEye CreateEye()
@@ -133,7 +127,7 @@ public class FakeHero : Node
         if (breathing)
         {
             breatheChanger.Update(time);
-            ScaleVec = new Vector2(1f + breatheChanger.Value, 1f + breatheChanger.Value / 2f);
+            ScaleVec = new Vector2(1f + breatheChanger.Value, 1f + (breatheChanger.Value / 2f));
             base.Position = realPosition + new Vector2(0f, breatheChanger.Value / 4f * background.TextureSize.X * background.ScaleX);
         }
     }

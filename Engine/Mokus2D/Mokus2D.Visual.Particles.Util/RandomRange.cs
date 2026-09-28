@@ -26,34 +26,26 @@ public struct RandomRange : IEquatable<RandomRange>
         Offset = randomRange;
     }
 
-    public float GetValueInRange()
+    public readonly float GetValueInRange()
     {
-        return Value + Maths.Random(-1f, 1f) * Offset;
+        return Value + (Maths.Random(-1f, 1f) * Offset);
     }
 
-    public bool Equals(RandomRange other)
+    public readonly bool Equals(RandomRange other)
     {
-        if (Value.Equals(other.Value))
-        {
-            return Offset.Equals(other.Offset);
-        }
-        return false;
+        return Value.Equals(other.Value) ? Offset.Equals(other.Offset) : false;
     }
 
     public override bool Equals(object obj)
     {
-        if (object.ReferenceEquals(null, obj))
+        if (ReferenceEquals(null, obj))
         {
             return false;
         }
-        if (obj is RandomRange)
-        {
-            return Equals((RandomRange)obj);
-        }
-        return false;
+        return obj is RandomRange ? Equals((RandomRange)obj) : false;
     }
 
-    public override int GetHashCode()
+    public override readonly int GetHashCode()
     {
         return (Value.GetHashCode() * 397) ^ Offset.GetHashCode();
     }

@@ -18,10 +18,7 @@ public class VisibleIsland
 
     public bool Visible
     {
-        get
-        {
-            return _visible;
-        }
+        get => _visible;
         set
         {
             if (_visible != value)

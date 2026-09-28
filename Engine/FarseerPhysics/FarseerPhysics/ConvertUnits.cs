@@ -21,7 +21,7 @@ public static class ConvertUnits
 
     public static float ToDisplayUnits(int simUnits)
     {
-        return (float)simUnits * _displayUnitsToSimUnitsRatio;
+        return simUnits * _displayUnitsToSimUnitsRatio;
     }
 
     public static Vector2 ToDisplayUnits(Vector2 simUnits)
@@ -63,7 +63,7 @@ public static class ConvertUnits
 
     public static float ToSimUnits(int displayUnits)
     {
-        return (float)displayUnits * _simUnitsToDisplayUnitsRatio;
+        return displayUnits * _simUnitsToDisplayUnitsRatio;
     }
 
     public static Vector2 ToSimUnits(Vector2 displayUnits)

@@ -23,9 +23,9 @@ public class MagneticDisplacementGrid : DisplacementGrid
 
     private MagneticNodeData[,] _nodesData;
 
-    private readonly List<IGridMagnet> _magnets = new List<IGridMagnet>(64);
+    private readonly List<IGridMagnet> _magnets = new(64);
 
-    private readonly List<IGridMagnet> _toRemove = new List<IGridMagnet>(64);
+    private readonly List<IGridMagnet> _toRemove = new(64);
 
     private bool _targetsDirty;
 
@@ -60,7 +60,7 @@ public class MagneticDisplacementGrid : DisplacementGrid
 
     public void RemoveMagnet(IGridMagnet magnet)
     {
-        _magnets.Remove(magnet);
+        _ = _magnets.Remove(magnet);
     }
 
     public void ClearMagnets()
@@ -106,13 +106,13 @@ public class MagneticDisplacementGrid : DisplacementGrid
         Vector2 vector = magnet.Position + MagnetsOffset;
         Vector2 position = VectorExtensions.Ceiling((vector + magnet.Bounds.LeftTop()) / NodeSize);
         Vector2 position2 = VectorExtensions.Floor((vector + magnet.Bounds.RightBottom()) / NodeSize);
-        int num = (StaticBorders ? 1 : 0);
-        int num2 = ((!StaticBorders) ? 1 : 2);
+        int num = StaticBorders ? 1 : 0;
+        int num2 = (!StaticBorders) ? 1 : 2;
         position = position.Clamp(new Vector2(num), GridSize);
         position2 = position2.Clamp(Vector2.Zero, GridSize - new Vector2(num2));
-        for (int i = (int)position.X; (float)i <= position2.X; i++)
+        for (int i = (int)position.X; i <= position2.X; i++)
         {
-            for (int j = (int)position.Y; (float)j <= position2.Y; j++)
+            for (int j = (int)position.Y; j <= position2.Y; j++)
             {
                 MagneticNodeData magneticNodeData = _nodesData[i, j];
                 Vector2 vector2 = magnet.GetForce(magneticNodeData.DefaultPosition - vector) * PowerMult;

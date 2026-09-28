@@ -16,16 +16,13 @@ public class ChainShape : Shape
 
     private bool _hasNextVertex;
 
-    private static EdgeShape _edgeShape = new EdgeShape();
+    private static EdgeShape _edgeShape = new();
 
     public override int ChildCount => Vertices.Count - 1;
 
     public Vector2 PrevVertex
     {
-        get
-        {
-            return _prevVertex;
-        }
+        get => _prevVertex;
         set
         {
             _prevVertex = value;
@@ -35,10 +32,7 @@ public class ChainShape : Shape
 
     public Vector2 NextVertex
     {
-        get
-        {
-            return _nextVertex;
-        }
+        get => _nextVertex;
         set
         {
             _nextVertex = value;
@@ -49,14 +43,14 @@ public class ChainShape : Shape
     public ChainShape()
         : base(0f)
     {
-        base.ShapeType = ShapeType.Chain;
+        ShapeType = ShapeType.Chain;
         _radius = 0.01f;
     }
 
     public ChainShape(Vertices vertices, bool createLoop = false)
         : base(0f)
     {
-        base.ShapeType = ShapeType.Chain;
+        ShapeType = ShapeType.Chain;
         _radius = 0.01f;
         for (int i = 1; i < vertices.Count; i++)
         {
@@ -67,7 +61,7 @@ public class ChainShape : Shape
         if (createLoop)
         {
             Vertices.Add(vertices[0]);
-            PrevVertex = Vertices[Vertices.Count - 2];
+            PrevVertex = Vertices[^2];
             NextVertex = Vertices[1];
         }
     }
@@ -102,7 +96,7 @@ public class ChainShape : Shape
 
     public EdgeShape GetChildEdge(int index)
     {
-        EdgeShape edgeShape = new EdgeShape();
+        EdgeShape edgeShape = new();
         GetChildEdge(edgeShape, index);
         return edgeShape;
     }
@@ -160,25 +154,23 @@ public class ChainShape : Shape
                 return false;
             }
         }
-        if (PrevVertex == shape.PrevVertex)
-        {
-            return NextVertex == shape.NextVertex;
-        }
-        return false;
+        return PrevVertex == shape.PrevVertex ? NextVertex == shape.NextVertex : false;
     }
 
     public override Shape Clone()
     {
-        ChainShape chainShape = new ChainShape();
-        chainShape.ShapeType = base.ShapeType;
-        chainShape._density = _density;
-        chainShape._radius = _radius;
-        chainShape.PrevVertex = _prevVertex;
-        chainShape.NextVertex = _nextVertex;
-        chainShape._hasNextVertex = _hasNextVertex;
-        chainShape._hasPrevVertex = _hasPrevVertex;
-        chainShape.Vertices = new Vertices(Vertices);
-        chainShape.MassData = MassData;
+        ChainShape chainShape = new()
+        {
+            ShapeType = ShapeType,
+            _density = _density,
+            _radius = _radius,
+            PrevVertex = _prevVertex,
+            NextVertex = _nextVertex,
+            _hasNextVertex = _hasNextVertex,
+            _hasPrevVertex = _hasPrevVertex,
+            Vertices = new Vertices(Vertices),
+            MassData = MassData
+        };
         return chainShape;
     }
 }

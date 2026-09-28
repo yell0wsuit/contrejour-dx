@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Xml.Linq;
 
@@ -16,7 +17,7 @@ public class XmlSerializer : XmlSerializerBase
 
     public override object DeserializeFile(Stream stream)
     {
-        using StreamReader textReader = new StreamReader(stream);
+        using StreamReader textReader = new(stream);
         XDocument xDocument = XDocument.Load(textReader);
         return Deserialize(xDocument.Root);
     }
@@ -30,14 +31,11 @@ public class XmlSerializer : XmlSerializerBase
             return null;
         }
         Type type = null;
-        if ((object)_assembly != null)
+        if (_assembly is not null)
         {
             type = _assembly.GetType(value);
         }
-        if ((object)type == null)
-        {
-            type = Type.GetType(value);
-        }
+        type ??= Type.GetType(value);
         object obj = Activator.CreateInstance(type);
         foreach (XAttribute item in element.Attributes())
         {
@@ -46,7 +44,7 @@ public class XmlSerializer : XmlSerializerBase
                 SetObjectValue(obj, item.Value, item.Name.ToString());
             }
         }
-        foreach (XElement item2 in element.Nodes())
+        foreach (XElement item2 in element.Nodes().Cast<XElement>())
         {
             SetObjectValue(obj, Deserialize(item2), item2.Name.ToString());
         }

@@ -11,7 +11,7 @@ public static class Program
     {
         // Content paths are relative to the install folder, as they were inside the appx package.
         Environment.CurrentDirectory = AppContext.BaseDirectory;
-        using Mokus2DApplication<ContreJourApplication> game = new Mokus2DApplication<ContreJourApplication>();
+        using Mokus2DApplication<ContreJourApplication> game = new();
         game.Run();
     }
 }

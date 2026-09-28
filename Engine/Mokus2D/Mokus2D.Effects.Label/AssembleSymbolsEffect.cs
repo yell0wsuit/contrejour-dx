@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework;
 using Mokus2D.Effects.Tween.Easing;
 using Mokus2D.Effects.Tweening;
 using Mokus2D.Visual;
-using Mokus2D.Visual.Text;
 using Mokus2D.Visual.Text.LabelData;
 
 namespace Mokus2D.Effects.Label;
@@ -29,7 +28,7 @@ public class AssembleSymbolsEffect : DelayedSymbolsEffect
         TweenTime = tweenTime;
     }
 
-    protected override ICompletableTween PlayGlyphEffect(Mokus2D.Visual.Text.Label label, int tag, Glyph glyph, float delay)
+    protected override ICompletableTween PlayGlyphEffect(Visual.Text.Label label, int tag, Glyph glyph, float delay)
     {
         Vector2 position = glyph.Position;
         Vector2 scaleVec = glyph.ScaleVec;

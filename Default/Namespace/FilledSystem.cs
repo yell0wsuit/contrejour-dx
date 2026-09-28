@@ -27,7 +27,7 @@ public class FilledSystem : ParticleSystem
         {
             for (int j = 0; j < num2; j++)
             {
-                AddParticle(new Vector2((float)i * TextureSize.X / 1f, (float)j * TextureSize.Y / 1f));
+                _ = AddParticle(new Vector2(i * TextureSize.X / 1f, j * TextureSize.Y / 1f));
             }
         }
     }

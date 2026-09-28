@@ -6,11 +6,11 @@ public struct TimeCalculator : IDisposable
 {
     private DateTime _start;
 
-    public float ElapsedSeconds => (float)(DateTime.UtcNow - _start).TotalSeconds;
+    public readonly float ElapsedSeconds => (float)(DateTime.UtcNow - _start).TotalSeconds;
 
     public static TimeCalculator Create()
     {
-        TimeCalculator result = default(TimeCalculator);
+        TimeCalculator result = default;
         result.Start();
         return result;
     }
@@ -20,7 +20,7 @@ public struct TimeCalculator : IDisposable
         _start = DateTime.UtcNow;
     }
 
-    public void Dispose()
+    public readonly void Dispose()
     {
     }
 }

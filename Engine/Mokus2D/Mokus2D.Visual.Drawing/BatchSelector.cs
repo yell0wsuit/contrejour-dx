@@ -26,7 +26,7 @@ public class BatchSelector : IDrawer
 
     private Vector2 _currentScreenSize;
 
-    private readonly Dictionary<Type, ISimpleSpriteBatch> _batches = new Dictionary<Type, ISimpleSpriteBatch>();
+    private readonly Dictionary<Type, ISimpleSpriteBatch> _batches = [];
 
     private bool _spriteBatchDirty = true;
 

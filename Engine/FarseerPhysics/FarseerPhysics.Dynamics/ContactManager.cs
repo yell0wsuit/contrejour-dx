@@ -13,7 +13,7 @@ public class ContactManager
 
     public CollisionFilterDelegate ContactFilter;
 
-    public List<Contact> ContactList = new List<Contact>(128);
+    public List<Contact> ContactList = new(128);
 
     public EndContactDelegate EndContact;
 
@@ -71,19 +71,13 @@ public class ContactManager
             contact._nodeA.Other = body2;
             contact._nodeA.Prev = null;
             contact._nodeA.Next = body.ContactList;
-            if (body.ContactList != null)
-            {
-                body.ContactList.Prev = contact._nodeA;
-            }
+            body.ContactList?.Prev = contact._nodeA;
             body.ContactList = contact._nodeA;
             contact._nodeB.Contact = contact;
             contact._nodeB.Other = body;
             contact._nodeB.Prev = null;
             contact._nodeB.Next = body2.ContactList;
-            if (body2.ContactList != null)
-            {
-                body2.ContactList.Prev = contact._nodeB;
-            }
+            body2.ContactList?.Prev = contact._nodeB;
             body2.ContactList = contact._nodeB;
             if (!fixture.IsSensor && !fixture2.IsSensor)
             {
@@ -114,32 +108,17 @@ public class ContactManager
             {
                 fixtureB.OnSeparation(fixtureB, fixtureA);
             }
-            if (EndContact != null)
-            {
-                EndContact(contact);
-            }
+            EndContact?.Invoke(contact);
         }
-        ContactList.Remove(contact);
-        if (contact._nodeA.Prev != null)
-        {
-            contact._nodeA.Prev.Next = contact._nodeA.Next;
-        }
-        if (contact._nodeA.Next != null)
-        {
-            contact._nodeA.Next.Prev = contact._nodeA.Prev;
-        }
+        _ = ContactList.Remove(contact);
+        contact._nodeA.Prev?.Next = contact._nodeA.Next;
+        contact._nodeA.Next?.Prev = contact._nodeA.Prev;
         if (contact._nodeA == body.ContactList)
         {
             body.ContactList = contact._nodeA.Next;
         }
-        if (contact._nodeB.Prev != null)
-        {
-            contact._nodeB.Prev.Next = contact._nodeB.Next;
-        }
-        if (contact._nodeB.Next != null)
-        {
-            contact._nodeB.Next.Prev = contact._nodeB.Prev;
-        }
+        contact._nodeB.Prev?.Next = contact._nodeB.Next;
+        contact._nodeB.Next?.Prev = contact._nodeB.Prev;
         if (contact._nodeB == body2.ContactList)
         {
             body2.ContactList = contact._nodeB.Next;
@@ -215,22 +194,14 @@ public class ContactManager
             {
                 return false;
             }
-            if (fixtureA.IsFixtureIgnored(fixtureB) || fixtureB.IsFixtureIgnored(fixtureA))
-            {
-                return false;
-            }
-            return true;
+            return !fixtureA.IsFixtureIgnored(fixtureB) && !fixtureB.IsFixtureIgnored(fixtureA);
         }
         if (fixtureA.CollisionGroup == fixtureB.CollisionGroup && fixtureA.CollisionGroup != 0)
         {
             return fixtureA.CollisionGroup > 0;
         }
         bool flag = (fixtureA.CollidesWith & fixtureB.CollisionCategories) != Category.None && (fixtureA.CollisionCategories & fixtureB.CollidesWith) != 0;
-        if (flag && (fixtureA.IsFixtureIgnored(fixtureB) || fixtureB.IsFixtureIgnored(fixtureA)))
-        {
-            return false;
-        }
-        return flag;
+        return flag && (fixtureA.IsFixtureIgnored(fixtureB) || fixtureB.IsFixtureIgnored(fixtureA)) ? false : flag;
     }
 
     internal void UpdateContacts(ContactEdge contactEdge, bool value)

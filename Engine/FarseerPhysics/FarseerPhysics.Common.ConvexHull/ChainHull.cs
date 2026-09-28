@@ -11,15 +11,11 @@ public static class ChainHull
         public override int Compare(Vector2 a, Vector2 b)
         {
             int num = a.X.CompareTo(b.X);
-            if (num == 0)
-            {
-                return a.Y.CompareTo(b.Y);
-            }
-            return num;
+            return num == 0 ? a.Y.CompareTo(b.Y) : num;
         }
     }
 
-    private static PointComparer _pointComparer = new PointComparer();
+    private static PointComparer _pointComparer = new();
 
     public static Vertices GetConvexHull(Vertices vertices)
     {
@@ -27,7 +23,7 @@ public static class ChainHull
         {
             return vertices;
         }
-        Vertices vertices2 = new Vertices(vertices);
+        Vertices vertices2 = new(vertices);
         vertices2.Sort(_pointComparer);
         Vector2[] array = new Vector2[vertices2.Count];
         int num = -1;
@@ -58,7 +54,7 @@ public static class ChainHull
         }
         num = -1;
         int num3 = vertices2.Count - 1;
-        float x2 = vertices2[vertices2.Count - 1].X;
+        float x2 = vertices2[^1].X;
         i = vertices2.Count - 2;
         while (i >= 0 && vertices2[i].X == x2)
         {

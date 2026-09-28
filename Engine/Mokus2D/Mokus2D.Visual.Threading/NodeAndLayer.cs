@@ -1,6 +1,6 @@
 namespace Mokus2D.Visual.Threading;
 
-public struct NodeAndLayer(Node node, int layer, bool removeFromPreviousParent)
+public readonly struct NodeAndLayer(Node node, int layer, bool removeFromPreviousParent)
 {
     public readonly int Layer = layer;
 

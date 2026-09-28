@@ -12,15 +12,15 @@ public struct AABB
 
     public Vector2 UpperBound;
 
-    public float Width => UpperBound.X - LowerBound.X;
+    public readonly float Width => UpperBound.X - LowerBound.X;
 
-    public float Height => UpperBound.Y - LowerBound.Y;
+    public readonly float Height => UpperBound.Y - LowerBound.Y;
 
-    public Vector2 Center => 0.5f * (LowerBound + UpperBound);
+    public readonly Vector2 Center => 0.5f * (LowerBound + UpperBound);
 
-    public Vector2 Extents => 0.5f * (UpperBound - LowerBound);
+    public readonly Vector2 Extents => 0.5f * (UpperBound - LowerBound);
 
-    public float Perimeter
+    public readonly float Perimeter
     {
         get
         {
@@ -30,26 +30,28 @@ public struct AABB
         }
     }
 
-    public Vertices Vertices
+    public readonly Vertices Vertices
     {
         get
         {
-            Vertices vertices = new Vertices(4);
-            vertices.Add(UpperBound);
-            vertices.Add(new Vector2(UpperBound.X, LowerBound.Y));
-            vertices.Add(LowerBound);
-            vertices.Add(new Vector2(LowerBound.X, UpperBound.Y));
+            Vertices vertices =
+            [
+                UpperBound,
+                new Vector2(UpperBound.X, LowerBound.Y),
+                LowerBound,
+                new Vector2(LowerBound.X, UpperBound.Y),
+            ];
             return vertices;
         }
     }
 
-    public AABB Q1 => new AABB(Center, UpperBound);
+    public AABB Q1 => new(Center, UpperBound);
 
-    public AABB Q2 => new AABB(new Vector2(LowerBound.X, Center.Y), new Vector2(Center.X, UpperBound.Y));
+    public AABB Q2 => new(new Vector2(LowerBound.X, Center.Y), new Vector2(Center.X, UpperBound.Y));
 
-    public AABB Q3 => new AABB(LowerBound, Center);
+    public AABB Q3 => new(LowerBound, Center);
 
-    public AABB Q4 => new AABB(new Vector2(Center.X, LowerBound.Y), new Vector2(UpperBound.X, Center.Y));
+    public AABB Q4 => new(new Vector2(Center.X, LowerBound.Y), new Vector2(UpperBound.X, Center.Y));
 
     public AABB(Vector2 min, Vector2 max)
     {
@@ -68,7 +70,7 @@ public struct AABB
         UpperBound = center + new Vector2(width / 2f, height / 2f);
     }
 
-    public bool IsValid()
+    public readonly bool IsValid()
     {
         Vector2 vector = UpperBound - LowerBound;
         return vector.X >= 0f && vector.Y >= 0f && LowerBound.IsValid() && UpperBound.IsValid();
@@ -86,20 +88,16 @@ public struct AABB
         UpperBound = Vector2.Max(aabb1.UpperBound, aabb2.UpperBound);
     }
 
-    public bool Contains(ref AABB aabb)
+    public readonly bool Contains(ref AABB aabb)
     {
         return true && LowerBound.X <= aabb.LowerBound.X && LowerBound.Y <= aabb.LowerBound.Y && aabb.UpperBound.X <= UpperBound.X && aabb.UpperBound.Y <= UpperBound.Y;
     }
 
-    public bool Contains(ref Vector2 point)
+    public readonly bool Contains(ref Vector2 point)
     {
         if (point.X > LowerBound.X + 1.1920929E-07f && point.X < UpperBound.X - 1.1920929E-07f)
         {
-            if (point.Y > LowerBound.Y + 1.1920929E-07f)
-            {
-                return point.Y < UpperBound.Y - 1.1920929E-07f;
-            }
-            return false;
+            return point.Y > LowerBound.Y + 1.1920929E-07f ? point.Y < UpperBound.Y - 1.1920929E-07f : false;
         }
         return false;
     }
@@ -112,16 +110,12 @@ public struct AABB
         {
             return false;
         }
-        if (vector2.X > 0f || vector2.Y > 0f)
-        {
-            return false;
-        }
-        return true;
+        return vector2.X <= 0f && vector2.Y <= 0f;
     }
 
-    public bool RayCast(out RayCastOutput output, ref RayCastInput input, bool doInteriorCheck = true)
+    public readonly bool RayCast(out RayCastOutput output, ref RayCastInput input, bool doInteriorCheck = true)
     {
-        output = default(RayCastOutput);
+        output = default;
         float num = float.MinValue;
         float num2 = float.MaxValue;
         Vector2 point = input.Point1;
@@ -130,10 +124,10 @@ public struct AABB
         Vector2 zero = Vector2.Zero;
         for (int i = 0; i < 2; i++)
         {
-            float num3 = ((i == 0) ? vector.X : vector.Y);
-            float num4 = ((i == 0) ? LowerBound.X : LowerBound.Y);
-            float num5 = ((i == 0) ? UpperBound.X : UpperBound.Y);
-            float num6 = ((i == 0) ? point.X : point.Y);
+            float num3 = (i == 0) ? vector.X : vector.Y;
+            float num4 = (i == 0) ? LowerBound.X : LowerBound.Y;
+            float num5 = (i == 0) ? UpperBound.X : UpperBound.Y;
+            float num6 = (i == 0) ? point.X : point.Y;
             if (num3 < 1.1920929E-07f)
             {
                 if (num6 < num4 || num5 < num6)
@@ -142,7 +136,7 @@ public struct AABB
                 }
                 continue;
             }
-            float num7 = ((i == 0) ? v.X : v.Y);
+            float num7 = (i == 0) ? v.X : v.Y;
             float num8 = 1f / num7;
             float a = (num4 - num6) * num8;
             float b = (num5 - num6) * num8;

@@ -24,7 +24,7 @@ public sealed class RealExplosion : PhysicsLogic
 
     public int MinRays = 5;
 
-    private List<ShapeData> _data = new List<ShapeData>();
+    private List<ShapeData> _data = [];
 
     private RayDataComparer _rdc;
 
@@ -32,12 +32,12 @@ public sealed class RealExplosion : PhysicsLogic
         : base(world, PhysicsLogicType.Explosion)
     {
         _rdc = new RayDataComparer();
-        _data = new List<ShapeData>();
+        _data = [];
     }
 
     public Dictionary<Fixture, Vector2> Activate(Vector2 pos, float radius, float maxForce)
     {
-        AABB aabb = default(AABB);
+        AABB aabb = default;
         aabb.LowerBound = pos + new Vector2(0f - radius, 0f - radius);
         aabb.UpperBound = pos + new Vector2(radius, radius);
         Fixture[] shapes = new Fixture[MaxShapes];
@@ -64,9 +64,9 @@ public sealed class RealExplosion : PhysicsLogic
         }, ref aabb);
         if (exit)
         {
-            return new Dictionary<Fixture, Vector2>();
+            return [];
         }
-        Dictionary<Fixture, Vector2> dictionary = new Dictionary<Fixture, Vector2>(shapeCount + containedShapeCount);
+        Dictionary<Fixture, Vector2> dictionary = new(shapeCount + containedShapeCount);
         float[] array = new float[shapeCount * 2];
         int num = 0;
         for (int num2 = 0; num2 < shapeCount; num2++)
@@ -74,7 +74,7 @@ public sealed class RealExplosion : PhysicsLogic
             PolygonShape polygonShape;
             if (shapes[num2].Shape is CircleShape circleShape)
             {
-                Vertices vertices = new Vertices();
+                Vertices vertices = [];
                 Vector2 item = Vector2.Zero + new Vector2(circleShape.Radius, 0f);
                 vertices.Add(item);
                 item = Vector2.Zero + new Vector2(0f, circleShape.Radius);
@@ -132,19 +132,19 @@ public sealed class RealExplosion : PhysicsLogic
         Array.Sort(array, 0, num, _rdc);
         _data.Clear();
         bool flag = true;
-        ShapeData item2 = default(ShapeData);
+        ShapeData item2 = default;
         for (int num11 = 0; num11 < num; num11++)
         {
             Fixture fixture = null;
-            int num12 = ((num11 != num - 1) ? (num11 + 1) : 0);
+            int num12 = (num11 != num - 1) ? (num11 + 1) : 0;
             if (array[num11] == array[num12])
             {
                 continue;
             }
-            float num13 = ((num11 != num - 1) ? (array[num11 + 1] + array[num11]) : (array[0] + (float)Math.PI * 2f + array[num11]));
+            float num13 = (num11 != num - 1) ? (array[num11 + 1] + array[num11]) : (array[0] + ((float)Math.PI * 2f) + array[num11]);
             num13 /= 2f;
             Vector2 point = pos;
-            Vector2 point2 = radius * new Vector2((float)Math.Cos(num13), (float)Math.Sin(num13)) + pos;
+            Vector2 point2 = (radius * new Vector2((float)Math.Cos(num13), (float)Math.Sin(num13))) + pos;
             bool hitClosest = false;
             World.RayCast(delegate (Fixture f, Vector2 p, Vector2 n, float fr)
             {
@@ -189,7 +189,7 @@ public sealed class RealExplosion : PhysicsLogic
                 ShapeData value3 = _data[index2];
                 while (_data.Count > 0 && _data.Last().Min >= _data.Last().Max)
                 {
-                    value3.Min = _data.Last().Min - (float)Math.PI * 2f;
+                    value3.Min = _data.Last().Min - ((float)Math.PI * 2f);
                     _data[index2] = value3;
                 }
                 flag = false;
@@ -199,7 +199,7 @@ public sealed class RealExplosion : PhysicsLogic
                 flag = true;
             }
         }
-        RayCastInput input = default(RayCastInput);
+        RayCastInput input = default;
         for (int num14 = 0; num14 < _data.Count; num14++)
         {
             if (!IsActiveOn(_data[num14].Body))
@@ -208,16 +208,16 @@ public sealed class RealExplosion : PhysicsLogic
             }
             float num15 = _data[num14].Max - _data[num14].Min;
             float num16 = MathHelper.Min((float)Math.PI / 90f, EdgeRatio * num15);
-            int num17 = (int)Math.Ceiling((num15 - 2f * num16 - (float)(MinRays - 1) * MaxAngle) / MaxAngle);
+            int num17 = (int)Math.Ceiling((num15 - (2f * num16) - ((MinRays - 1) * MaxAngle)) / MaxAngle);
             if (num17 < 0)
             {
                 num17 = 0;
             }
-            float num18 = (num15 - num16 * 2f) / ((float)MinRays + (float)num17 - 1f);
+            float num18 = (num15 - (num16 * 2f)) / (MinRays + (float)num17 - 1f);
             for (float num19 = _data[num14].Min + num16; num19 < _data[num14].Max || MathUtils.FloatEquals(num19, _data[num14].Max, 0.0001f); num19 += num18)
             {
                 Vector2 vector3 = pos;
-                Vector2 vector4 = pos + radius * new Vector2((float)Math.Cos(num19), (float)Math.Sin(num19));
+                Vector2 vector4 = pos + (radius * new Vector2((float)Math.Cos(num19), (float)Math.Sin(num19)));
                 Vector2 point3 = Vector2.Zero;
                 float num20 = float.MaxValue;
                 List<Fixture> fixtureList = _data[num14].Body.FixtureList;
@@ -227,12 +227,12 @@ public sealed class RealExplosion : PhysicsLogic
                     input.Point1 = vector3;
                     input.Point2 = vector4;
                     input.MaxFraction = 50f;
-                    if (fixture2.RayCast(out var output, ref input, 0) && num20 > output.Fraction)
+                    if (fixture2.RayCast(out RayCastOutput output, ref input, 0) && num20 > output.Fraction)
                     {
                         num20 = output.Fraction;
-                        point3 = output.Fraction * vector4 + (1f - output.Fraction) * vector3;
+                        point3 = (output.Fraction * vector4) + ((1f - output.Fraction) * vector3);
                     }
-                    float num22 = num15 / (float)(MinRays + num17) * maxForce * 180f / (float)Math.PI * (1f - Math.Min(1f, num20));
+                    float num22 = num15 / (MinRays + num17) * maxForce * 180f / (float)Math.PI * (1f - Math.Min(1f, num20));
                     Vector2 impulse = Vector2.Dot(num22 * new Vector2((float)Math.Cos(num19), (float)Math.Sin(num19)), -output.Normal) * new Vector2((float)Math.Cos(num19), (float)Math.Sin(num19));
                     _data[num14].Body.ApplyLinearImpulse(ref impulse, ref point3);
                     if (dictionary.ContainsKey(fixture2))
@@ -255,7 +255,7 @@ public sealed class RealExplosion : PhysicsLogic
             Fixture fixture3 = containedShapes[num23];
             if (IsActiveOn(fixture3.Body))
             {
-                float num24 = (float)MinRays * maxForce * 180f / (float)Math.PI;
+                float num24 = MinRays * maxForce * 180f / (float)Math.PI;
                 Vector2 point4;
                 if (fixture3.Shape is CircleShape circleShape2)
                 {

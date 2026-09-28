@@ -82,7 +82,7 @@ public class FlyBodyClip : ContreJourBodyClip, IClickable
 
     protected float heroScaredTime;
 
-    private static readonly Vector2 WINGS_POSITION = new Vector2(8f, 2f);
+    private static readonly Vector2 WINGS_POSITION = new(8f, 2f);
 
     public bool DisableHeroFocus => true;
 
@@ -92,9 +92,11 @@ public class FlyBodyClip : ContreJourBodyClip, IClickable
         bodySprite = new McFlyBody();
         _clip = bodySprite;
         clip = _clip;
-        _builder.AddChild(_clip);
-        eye = new FlyEye(base.Game, _visible: true, Body.Position);
-        eye.Scale = 0.65f;
+        _ = _builder.AddChild(_clip);
+        eye = new FlyEye(Game, _visible: true, Body.Position)
+        {
+            Scale = 0.65f
+        };
         clip.AddChild(eye);
         scaredTime = 0f;
         Schedule(StartFly, Maths.Random(7f, 11f));
@@ -128,14 +130,14 @@ public class FlyBodyClip : ContreJourBodyClip, IClickable
     {
         SoundManager.PlaySound("fly", Maths.Random(0.15f, 0.35f));
         eye.PlayAnimation(new EyeAnimation("McEyeBlinkMonster"), force: false);
-        eye.RandomPositionProvider = base.Game.GetTouchProvider(touch);
+        eye.RandomPositionProvider = Game.GetTouchProvider(touch);
         Scare(builder.TouchRootVec(touch));
         return false;
     }
 
     public void Scare(Vector2 scarePoint)
     {
-        scaredTime = base.Game.TotalTime + 2f;
+        scaredTime = Game.TotalTime + 2f;
         if (!freeFlight)
         {
             StartFly();
@@ -161,9 +163,9 @@ public class FlyBodyClip : ContreJourBodyClip, IClickable
 
     public void SetFlying(bool value)
     {
-        float num = (value ? 0f : MathHelper.ToRadians(30f));
-        leftWings.RotateTo(0.5f, num);
-        rightWings.RotateTo(0.5f, 0f - num);
+        float num = value ? 0f : MathHelper.ToRadians(30f);
+        _ = leftWings.RotateTo(0.5f, num);
+        _ = rightWings.RotateTo(0.5f, 0f - num);
         leftWings.SetFlying(value);
         rightWings.SetFlying(value);
     }
@@ -178,7 +180,7 @@ public class FlyBodyClip : ContreJourBodyClip, IClickable
         {
             SoundManager.PlaySound("fly", 0.3f);
             Body.LinearDamping = 0.7f;
-            backTime = base.Game.TotalTime + Maths.Random(30f, 45f);
+            backTime = Game.TotalTime + Maths.Random(30f, 45f);
             Schedule(ToBackground, 0.3f);
         }
         Fly();
@@ -201,7 +203,7 @@ public class FlyBodyClip : ContreJourBodyClip, IClickable
         Body.LinearVelocity = Vector2.Zero;
         DoFlyImpulse(angle, impulse);
         freeFlight = false;
-        clip.ScaleTo(1.2f, 1f);
+        _ = clip.ScaleTo(1.2f, 1f);
         Schedule(StartFly, Maths.Random(10f, 20f));
         Schedule(ToForeground, 0.3f);
     }
@@ -215,7 +217,7 @@ public class FlyBodyClip : ContreJourBodyClip, IClickable
     {
         if (freeFlight)
         {
-            if (base.Game.TotalTime < backTime || Body.Position.Y < initialPosition.Y)
+            if (Game.TotalTime < backTime || Body.Position.Y < initialPosition.Y)
             {
                 FlyOut();
                 ScheduleFly();
@@ -239,7 +241,7 @@ public class FlyBodyClip : ContreJourBodyClip, IClickable
 
     public void FlyOutAngle(float impulseMult, float angle)
     {
-        TweeningExtensions.ScaleTo(scale: Maths.Random(0.6f, 0.95f), node: clip, time: 1.2f);
+        _ = TweeningExtensions.ScaleTo(scale: Maths.Random(0.6f, 0.95f), node: clip, time: 1.2f);
         DoFlyImpulse(angle, Maths.Random(3f, 6f) * impulseMult);
     }
 
@@ -258,7 +260,7 @@ public class FlyBodyClip : ContreJourBodyClip, IClickable
             TryStop();
         }
         eye.ProviderEnabled = true;
-        if (freeFlight && base.Game.TotalTime >= scaredTime)
+        if (freeFlight && Game.TotalTime >= scaredTime)
         {
             float num = Body.LinearVelocity.Length();
             if (num > 1f)
@@ -272,10 +274,10 @@ public class FlyBodyClip : ContreJourBodyClip, IClickable
         {
             CheckOutOfBorder();
         }
-        if (Body.Position.DistanceTo(base.Game.HeroPositionVec) < 1.6666666f && heroScaredTime < base.Game.TotalTime)
+        if (Body.Position.DistanceTo(Game.HeroPositionVec) < 1.6666666f && heroScaredTime < Game.TotalTime)
         {
-            heroScaredTime = base.Game.TotalTime + 2f;
-            Scare(base.Game.HeroPositionVec);
+            heroScaredTime = Game.TotalTime + 2f;
+            Scare(Game.HeroPositionVec);
         }
     }
 
@@ -285,11 +287,11 @@ public class FlyBodyClip : ContreJourBodyClip, IClickable
         {
             DoFlyImpulse(Maths.Random(0f, (float)Math.PI / 4f), Maths.Random(3f, 6f));
         }
-        else if (clip.Position.X > base.Game.LevelSize.X - 50f)
+        else if (clip.Position.X > Game.LevelSize.X - 50f)
         {
             DoFlyImpulse(Maths.Random((float)Math.PI * 3f / 4f, (float)Math.PI), Maths.Random(3f, 6f));
         }
-        else if (clip.Position.Y > base.Game.LevelSize.Y - 50f)
+        else if (clip.Position.Y > Game.LevelSize.Y - 50f)
         {
             DoFlyImpulse(Maths.Random((float)Math.PI * -3f / 4f, -(float)Math.PI / 4f), Maths.Random(3f, 6f));
         }

@@ -28,16 +28,13 @@ public class ZXZoomer : DisposableBase, IUpdatable
 
     public float Zoom
     {
-        get
-        {
-            return _zoom;
-        }
+        get => _zoom;
         private set
         {
             if (_zoom != value)
             {
                 _zoom = value;
-                this.ZoomChangeEvent.Dispatch(value);
+                ZoomChangeEvent.Dispatch(value);
             }
         }
     }
@@ -54,7 +51,7 @@ public class ZXZoomer : DisposableBase, IUpdatable
     {
         if (Enabled)
         {
-            float value = Zoom + ZoomSpeed * _zoomDirection.Sign() * time;
+            float value = Zoom + (ZoomSpeed * _zoomDirection.Sign() * time);
             value = Maths.Clamp(value, ZoomMin, ZoomMax);
             Zoom = value;
         }
@@ -62,7 +59,7 @@ public class ZXZoomer : DisposableBase, IUpdatable
 
     private void OnKeyPressed(Keys key, bool pressed)
     {
-        int num = ((key != Keys.Z) ? 1 : (-1));
+        int num = (key != Keys.Z) ? 1 : (-1);
         if (pressed)
         {
             _zoomDirection += num;

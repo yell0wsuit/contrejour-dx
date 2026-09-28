@@ -7,7 +7,7 @@ namespace Mokus2D.Content.Serialization;
 
 public class ParicleConfigDeserializer : IGraphicsDeserializer<ParticleSystemConfig>, IGraphicsDeserializer
 {
-    private readonly XmlSerializer _xmlSerializer = new XmlSerializer(typeof(ParticleSystemConfig));
+    private readonly XmlSerializer _xmlSerializer = new(typeof(ParticleSystemConfig));
 
     public bool UseSuffix => false;
 

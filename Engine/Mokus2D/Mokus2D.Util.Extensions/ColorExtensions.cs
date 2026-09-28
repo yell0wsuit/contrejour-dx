@@ -13,7 +13,7 @@ public static class ColorExtensions
     {
         if (hexString.StartsWith("#"))
         {
-            hexString = hexString.Substring(1);
+            hexString = hexString[1..];
         }
         uint hex = uint.Parse(hexString, NumberStyles.HexNumber, CultureInfo.InvariantCulture);
         _ = Color.White;
@@ -21,11 +21,9 @@ public static class ColorExtensions
         {
             return hex.ToARGBColor();
         }
-        if (hexString.Length == 6)
-        {
-            return hex.ToRGBColor();
-        }
-        throw new InvalidOperationException("Invald hex representation of an ARGB or RGB color value.");
+        return hexString.Length == 6
+            ? hex.ToRGBColor()
+            : throw new InvalidOperationException("Invald hex representation of an ARGB or RGB color value.");
     }
 
     public static Color ToRGBColor(this int hex)
@@ -67,7 +65,7 @@ public static class ColorExtensions
 
     public static Vector4 ToVector4(this Color color)
     {
-        return new Vector4((int)color.R, (int)color.G, (int)color.B, (int)color.A) / 255f;
+        return new Vector4(color.R, color.G, color.B, color.A) / 255f;
     }
 
     public static Color ChangeAlpha(this Color color, byte alpha)
@@ -89,7 +87,7 @@ public static class ColorExtensions
 
     public static Color Mult(this Color color1, Color color2)
     {
-        return new Color(MultColorPart((int)color1.R, (int)color2.R), MultColorPart((int)color1.G, (int)color2.G), MultColorPart((int)color1.B, (int)color2.B), MultColorPart((int)color1.A, (int)color2.A));
+        return new Color(MultColorPart(color1.R, color2.R), MultColorPart(color1.G, color2.G), MultColorPart(color1.B, color2.B), MultColorPart(color1.A, color2.A));
     }
 
     private static int MultColorPart(float part1, float part2)

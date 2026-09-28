@@ -23,11 +23,11 @@ public class LevelsMenu : ClickableLayer
 
     public static Vector2 BORDER_OFFSET_IPHONE = new Vector2(120f, 80f) * 2f;
 
-    public static Vector2 BORDER_OFFSET = new Vector2(200f, 220f);
+    public static Vector2 BORDER_OFFSET = new(200f, 220f);
 
-    private static readonly Vector2 GetMorePosition = new Vector2(0f, -120f);
+    private static readonly Vector2 GetMorePosition = new(0f, -120f);
 
-    public static List<List<int>> LEVELS_LIST = new List<List<int>>();
+    public static List<List<int>> LEVELS_LIST = [];
 
     private float RowOffset = 120f;
 
@@ -59,7 +59,7 @@ public class LevelsMenu : ClickableLayer
         }
     };
 
-    public readonly EventSender GetMoreEvent = new EventSender();
+    public readonly EventSender GetMoreEvent = new();
 
     public float InitialScale = 1f;
 
@@ -74,10 +74,7 @@ public class LevelsMenu : ClickableLayer
         set
         {
             base.Position = value;
-            if (adsButton != null)
-            {
-                adsButton.Position = adsButtonPosition + (Position - initialPosition) * 0.7f;
-            }
+            adsButton?.Position = adsButtonPosition + ((Position - initialPosition) * 0.7f);
         }
     }
 
@@ -91,7 +88,7 @@ public class LevelsMenu : ClickableLayer
             {
                 for (int i = 0; i < Constants.ChaptersCount; i++)
                 {
-                    LEVELS_LIST.Add(new List<int>());
+                    LEVELS_LIST.Add([]);
                     for (int j = 0; j < 20; j++)
                     {
                         LEVELS_LIST[i].Add(LEVELS[i, j]);
@@ -112,7 +109,7 @@ public class LevelsMenu : ClickableLayer
         Vector2 w7FromIPhoneSize = ScreenConstants.W7FromIPhoneSize;
         Vector2 bORDER_OFFSET_IPHONE = BORDER_OFFSET_IPHONE;
         Vector2 vector = new Vector2(bORDER_OFFSET_IPHONE.X, w7FromIPhoneSize.Y - bORDER_OFFSET_IPHONE.Y) - ScreenConstants.W7FromIPhoneScreenCenter;
-        Vector2 vector2 = new Vector2((w7FromIPhoneSize.X - bORDER_OFFSET_IPHONE.X * 2f) / (float)(COLUMNS - 1), (w7FromIPhoneSize.Y - bORDER_OFFSET_IPHONE.Y * 2f) / (float)(ROWS - 1));
+        Vector2 vector2 = new((w7FromIPhoneSize.X - (bORDER_OFFSET_IPHONE.X * 2f)) / (COLUMNS - 1), (w7FromIPhoneSize.Y - (bORDER_OFFSET_IPHONE.Y * 2f)) / (ROWS - 1));
         if (!Constants.IsTrial && UserData.Instance.LastLevelOpen && chapter == 4)
         {
             vector = CreateRoseButton(vector, w7FromIPhoneSize, bORDER_OFFSET_IPHONE);
@@ -128,12 +125,12 @@ public class LevelsMenu : ClickableLayer
             {
                 flag3 = i >= (ROWS - LockedRows) * COLUMNS;
             }
-            LevelItem levelItem = new LevelItem(level, flag2 && !flag3, flag3)
+            LevelItem levelItem = new(level, flag2 && !flag3, flag3)
             {
                 RealScale = 1.0925f
             };
             AddChild(levelItem);
-            levelItem.Position = vector + new Vector2(vector2.X * (float)(i % COLUMNS), (0f - vector2.Y) * (float)(i / COLUMNS));
+            levelItem.Position = vector + new Vector2(vector2.X * (i % COLUMNS), (0f - vector2.Y) * (i / COLUMNS));
             levelItem.TouchEndEvent += OnLevelClick;
             if (flag)
             {
@@ -152,8 +149,8 @@ public class LevelsMenu : ClickableLayer
 
     private Sprite CreateUnlockButton()
     {
-        adsButtonPosition = new Vector2(0f, (0f - RowOffset) / 2f * (float)(4 - LockedRows));
-        Sprite sprite = new Sprite("McGetMoreLevelsButton");
+        adsButtonPosition = new Vector2(0f, (0f - RowOffset) / 2f * (4 - LockedRows));
+        Sprite sprite = new("McGetMoreLevelsButton");
         AddChild(sprite);
         sprite.Position = adsButtonPosition;
         sprite.Scale = 1.45f;
@@ -172,7 +169,7 @@ public class LevelsMenu : ClickableLayer
 
     private Sprite CreateGetMoreButton(int chapter)
     {
-        TouchSprite touchSprite = new TouchSprite("McGetMoreLevelsButton");
+        TouchSprite touchSprite = new("McGetMoreLevelsButton");
         Node node;
         if (ContreJourLabelUtil.IsEnglish)
         {
@@ -203,20 +200,24 @@ public class LevelsMenu : ClickableLayer
 
     private Vector2 CreateRoseButton(Vector2 position, Vector2 winSize, Vector2 borderOffset)
     {
-        Button button = new Button("menu/McRoseButton", null, null);
+        Button button = new("menu/McRoseButton", null, null);
         AddChild(button);
-        button.Position = new Vector2(winSize.X / 2f, borderOffset.Y - button.Size.Y / 2f - 15f) - ScreenConstants.W7FromIPhoneScreenCenter;
+        button.Position = new Vector2(winSize.X / 2f, borderOffset.Y - (button.Size.Y / 2f) - 15f) - ScreenConstants.W7FromIPhoneScreenCenter;
         button.TouchEndEvent += OnRoseClick;
         button.RealScale = 1.15f;
-        position.Y += button.Size.Y / 2f - 15f;
-        base.Scale = 0.85f;
-        InitialScale = base.Scale;
-        Node node = new McVenzel();
-        node.Position = button.Position + new Vector2(56f, 0f);
-        node.Scale = 1.15f;
+        position.Y += (button.Size.Y / 2f) - 15f;
+        Scale = 0.85f;
+        InitialScale = Scale;
+        Node node = new McVenzel
+        {
+            Position = button.Position + new Vector2(56f, 0f),
+            Scale = 1.15f
+        };
         AddChild(node);
-        node = new McVenzel();
-        node.ScaleX = -1f;
+        node = new McVenzel
+        {
+            ScaleX = -1f
+        };
         node.ScaleVec *= 1.15f;
         node.Position = button.Position - new Vector2(56f, 0f);
         AddChild(node);
@@ -247,18 +248,18 @@ public class LevelsMenu : ClickableLayer
 
     private void OnRoseClick(TouchArguments touchArguments)
     {
-        if (base.Scale == InitialScale)
+        if (Scale == InitialScale)
         {
-            this.SelectLevelEvent.Dispatch(169);
+            SelectLevelEvent.Dispatch(169);
         }
     }
 
     private void OnLevelClick(TouchArguments touchArguments)
     {
         InteractionsEnabled = false;
-        if (base.Scale == InitialScale)
+        if (Scale == InitialScale)
         {
-            this.SelectLevelEvent.Dispatch(((LevelItem)touchArguments.Target).Level);
+            SelectLevelEvent.Dispatch(((LevelItem)touchArguments.Target).Level);
         }
     }
 }

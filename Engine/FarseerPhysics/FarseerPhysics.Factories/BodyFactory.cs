@@ -25,7 +25,7 @@ public static class BodyFactory
     public static Body CreateEdge(World world, Vector2 start, Vector2 end, object userData = null)
     {
         Body body = CreateBody(world);
-        FixtureFactory.AttachEdge(start, end, body, userData);
+        _ = FixtureFactory.AttachEdge(start, end, body, userData);
         return body;
     }
 
@@ -37,7 +37,7 @@ public static class BodyFactory
     public static Body CreateChainShape(World world, Vertices vertices, Vector2 position, object userData = null)
     {
         Body body = CreateBody(world, position);
-        FixtureFactory.AttachChainShape(vertices, body, userData);
+        _ = FixtureFactory.AttachChainShape(vertices, body, userData);
         return body;
     }
 
@@ -49,7 +49,7 @@ public static class BodyFactory
     public static Body CreateLoopShape(World world, Vertices vertices, Vector2 position, object userData = null)
     {
         Body body = CreateBody(world, position);
-        FixtureFactory.AttachLoopShape(vertices, body, userData);
+        _ = FixtureFactory.AttachLoopShape(vertices, body, userData);
         return body;
     }
 
@@ -71,8 +71,8 @@ public static class BodyFactory
         Body body = CreateBody(world, position);
         body.UserData = userData;
         Vertices vertices = PolygonTools.CreateRectangle(width / 2f, height / 2f);
-        PolygonShape shape = new PolygonShape(vertices, density);
-        body.CreateFixture(shape);
+        PolygonShape shape = new(vertices, density);
+        _ = body.CreateFixture(shape);
         return body;
     }
 
@@ -84,7 +84,7 @@ public static class BodyFactory
     public static Body CreateCircle(World world, float radius, float density, Vector2 position, object userData = null)
     {
         Body body = CreateBody(world, position);
-        FixtureFactory.AttachCircle(radius, density, body, userData);
+        _ = FixtureFactory.AttachCircle(radius, density, body, userData);
         return body;
     }
 
@@ -96,7 +96,7 @@ public static class BodyFactory
     public static Body CreateEllipse(World world, float xRadius, float yRadius, int edges, float density, Vector2 position, object userData = null)
     {
         Body body = CreateBody(world, position);
-        FixtureFactory.AttachEllipse(xRadius, yRadius, edges, density, body, userData);
+        _ = FixtureFactory.AttachEllipse(xRadius, yRadius, edges, density, body, userData);
         return body;
     }
 
@@ -108,7 +108,7 @@ public static class BodyFactory
     public static Body CreatePolygon(World world, Vertices vertices, float density, Vector2 position, object userData = null)
     {
         Body body = CreateBody(world, position);
-        FixtureFactory.AttachPolygon(vertices, density, body, userData);
+        _ = FixtureFactory.AttachPolygon(vertices, density, body, userData);
         return body;
     }
 
@@ -120,7 +120,7 @@ public static class BodyFactory
     public static Body CreateCompoundPolygon(World world, List<Vertices> list, float density, Vector2 position, object userData = null)
     {
         Body body = CreateBody(world, position);
-        FixtureFactory.AttachCompoundPolygon(list, density, body, userData);
+        _ = FixtureFactory.AttachCompoundPolygon(list, density, body, userData);
         return body;
     }
 
@@ -154,16 +154,19 @@ public static class BodyFactory
     public static Body CreateCapsule(World world, float height, float endRadius, float density, object userData = null)
     {
         Vertices item = PolygonTools.CreateRectangle(endRadius, height / 2f);
-        List<Vertices> list = new List<Vertices>();
-        list.Add(item);
+        List<Vertices> list = [item];
         Body body = CreateCompoundPolygon(world, list, density, userData);
         body.UserData = userData;
-        CircleShape circleShape = new CircleShape(endRadius, density);
-        circleShape.Position = new Vector2(0f, height / 2f);
-        body.CreateFixture(circleShape);
-        CircleShape circleShape2 = new CircleShape(endRadius, density);
-        circleShape2.Position = new Vector2(0f, 0f - height / 2f);
-        body.CreateFixture(circleShape2);
+        CircleShape circleShape = new(endRadius, density)
+        {
+            Position = new Vector2(0f, height / 2f)
+        };
+        _ = body.CreateFixture(circleShape);
+        CircleShape circleShape2 = new(endRadius, density)
+        {
+            Position = new Vector2(0f, 0f - (height / 2f))
+        };
+        _ = body.CreateFixture(circleShape2);
         return body;
     }
 
@@ -198,7 +201,7 @@ public static class BodyFactory
     public static BreakableBody CreateBreakableBody(World world, Vertices vertices, float density, Vector2 position)
     {
         List<Vertices> vertices2 = Triangulate.ConvexPartition(vertices, TriangulationAlgorithm.Earclip);
-        BreakableBody breakableBody = new BreakableBody(vertices2, world, density);
+        BreakableBody breakableBody = new(vertices2, world, density);
         breakableBody.MainBody.Position = position;
         world.AddBreakableBody(breakableBody);
         return breakableBody;
@@ -206,7 +209,7 @@ public static class BodyFactory
 
     public static BreakableBody CreateBreakableBody(World world, IEnumerable<Shape> shapes, Vector2 position)
     {
-        BreakableBody breakableBody = new BreakableBody(shapes, world);
+        BreakableBody breakableBody = new(shapes, world);
         breakableBody.MainBody.Position = position;
         world.AddBreakableBody(breakableBody);
         return breakableBody;
@@ -215,14 +218,14 @@ public static class BodyFactory
     public static Body CreateLineArc(World world, float radians, int sides, float radius, Vector2 position, float angle, bool closed)
     {
         Body body = CreateBody(world);
-        FixtureFactory.AttachLineArc(radians, sides, radius, position, angle, closed, body);
+        _ = FixtureFactory.AttachLineArc(radians, sides, radius, position, angle, closed, body);
         return body;
     }
 
     public static Body CreateSolidArc(World world, float density, float radians, int sides, float radius, Vector2 position, float angle)
     {
         Body body = CreateBody(world);
-        FixtureFactory.AttachSolidArc(density, radians, sides, radius, position, angle, body);
+        _ = FixtureFactory.AttachSolidArc(density, radians, sides, radius, position, angle, body);
         return body;
     }
 }

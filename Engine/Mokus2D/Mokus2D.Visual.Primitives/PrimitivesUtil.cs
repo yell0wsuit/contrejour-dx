@@ -19,8 +19,8 @@ public static class PrimitivesUtil
     {
         for (int i = 0; i < line.Count; i++)
         {
-            Vector2 start = ((i == 0) ? line[0] : line[i - 1]);
-            Vector2 end = ((i == line.Count - 1) ? line[i] : line[i + 1]);
+            Vector2 start = (i == 0) ? line[0] : line[i - 1];
+            Vector2 end = (i == line.Count - 1) ? line[i] : line[i + 1];
             Pair<Vector2> orthoPoints = VectorUtil.GetOrthoPoints(line[i], start, end, width);
             pairs.Add(orthoPoints);
         }
@@ -33,7 +33,7 @@ public static class PrimitivesUtil
             ref readonly T reference = ref result[i * 2];
             Vector3 position = line[i].First.ToVector3();
             reference.Position = position;
-            ref readonly T reference2 = ref result[i * 2 + 1];
+            ref readonly T reference2 = ref result[(i * 2) + 1];
             Vector3 position2 = line[i].Second.ToVector3();
             reference2.Position = position2;
         }
@@ -47,10 +47,10 @@ public static class PrimitivesUtil
         for (int i = 0; i < count / 2; i++)
         {
             ref readonly T reference = ref vertices[i * 2];
-            Vector2 textureCoordinate = vector + vector2 * i;
+            Vector2 textureCoordinate = vector + (vector2 * i);
             reference.TextureCoordinate = textureCoordinate;
-            ref readonly T reference2 = ref vertices[i * 2 + 1];
-            Vector2 textureCoordinate2 = vector3 + vector2 * i;
+            ref readonly T reference2 = ref vertices[(i * 2) + 1];
+            Vector2 textureCoordinate2 = vector3 + (vector2 * i);
             reference2.TextureCoordinate = textureCoordinate2;
         }
     }

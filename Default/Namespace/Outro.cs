@@ -26,7 +26,7 @@ public class Outro : Node, ITouchListener, IDisposable
 
     private const float CREDITS_STEP = 30f;
 
-    private static readonly float SPEED = (ContreJourLabelUtil.IsAsian ? 30 : 15);
+    private static readonly float SPEED = ContreJourLabelUtil.IsAsian ? 30 : 15;
 
     protected LayerColor background;
 
@@ -54,17 +54,14 @@ public class Outro : Node, ITouchListener, IDisposable
 
     public bool TextVisible
     {
-        get
-        {
-            return textVisible;
-        }
+        get => textVisible;
         set
         {
             if (textVisible != value)
             {
                 textVisible = value;
                 text.Tweener.Stop();
-                text.FadeTo(2f, value ? 1f : 0f);
+                _ = text.FadeTo(2f, value ? 1f : 0f);
             }
         }
     }
@@ -75,9 +72,11 @@ public class Outro : Node, ITouchListener, IDisposable
         minY = -150f;
         margins = 20f;
         maxY = 760f;
-        background = new LayerColor(Color.Black, "menu/whitePixel");
-        background.OpacityByte = 0;
-        background.FadeTo(2f, 0.5882353f);
+        background = new LayerColor(Color.Black, "menu/whitePixel")
+        {
+            OpacityByte = 0
+        };
+        _ = background.FadeTo(2f, 0.5882353f);
         AddChild(background);
         text = new Node();
         textPosition = ScreenConstants.W7FromIPhoneScreenCenter;

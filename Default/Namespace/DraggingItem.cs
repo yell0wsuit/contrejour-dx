@@ -83,7 +83,7 @@ public class DraggingItem
         Vector2 vector = builder.ToVec(currentTouchPosition);
         float num = vector.DistanceTo(dragItem.Body.Position);
         PlasticineItem previousItem = dragItem;
-        bool flag = false;
+        bool flag;
         do
         {
             previousItem = previousItem.PreviousItem;
@@ -111,11 +111,7 @@ public class DraggingItem
             while (flag);
             previousItem = previousItem.PreviousItem;
         }
-        if (previousItem != dragItem && Math.Abs(previousItem.BodyClip.InitialAngle - dragItem.BodyClip.InitialAngle) >= (float)Math.PI / 8f)
-        {
-            return true;
-        }
-        return false;
+        return previousItem != dragItem && Math.Abs(previousItem.BodyClip.InitialAngle - dragItem.BodyClip.InitialAngle) >= (float)Math.PI / 8f;
     }
 
     public bool UpdateWithTouch(Touch touch)
@@ -183,20 +179,24 @@ public class DraggingItem
         Pair<Vector2> topPointsResultWidth2 = GetTopPointsResultWidth(currentDragPoint, 0.3f / builder.EngineConfig.SizeMultiplier);
         Vector2 item = VectorUtil.Center(baseAnchors.First, topPointsResultWidth.First);
         Vector2 item2 = VectorUtil.Center(baseAnchors.Second, topPointsResultWidth.Second);
-        List<Vector2> list = new List<Vector2>();
-        List<Vector2> list2 = new List<Vector2>();
-        list2.Add(basePoints.First);
-        list2.Add(baseAnchors.First);
-        list2.Add(item);
-        list2.Add(topPointsResultWidth.First);
-        list2.Add(topPointsResultWidth2.First);
+        List<Vector2> list = [];
+        List<Vector2> list2 =
+        [
+            basePoints.First,
+            baseAnchors.First,
+            item,
+            topPointsResultWidth.First,
+            topPointsResultWidth2.First,
+        ];
         BezierUtil.AddBezierPoints(list, list2, 3);
-        list2 = new List<Vector2>();
-        list2.Add(topPointsResultWidth2.Second);
-        list2.Add(topPointsResultWidth.Second);
-        list2.Add(item2);
-        list2.Add(baseAnchors.Second);
-        list2.Add(basePoints.Second);
+        list2 =
+        [
+            topPointsResultWidth2.Second,
+            topPointsResultWidth.Second,
+            item2,
+            baseAnchors.Second,
+            basePoints.Second,
+        ];
         BezierUtil.AddBezierPoints(list, list2, 3);
         for (int i = 0; i < list.Count; i++)
         {

@@ -23,7 +23,7 @@ public class PhysicsUpdater : PhysicsTransform, IUpdatable
     public PhysicsUpdater(World _world, FarseerConfig config = null)
         : base(0f)
     {
-        config = config ?? FarseerConfig.DefaultConfig;
+        config ??= FarseerConfig.DefaultConfig;
         base.PhysicsToPixels = config.PhysicsToPixels;
         world = _world;
         listener = new ContactListener(world);

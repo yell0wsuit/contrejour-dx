@@ -7,11 +7,7 @@ public static class XNAExtensions
 {
     public static bool IsLandscape(this DisplayOrientation orientation)
     {
-        if (orientation != DisplayOrientation.LandscapeLeft)
-        {
-            return orientation == DisplayOrientation.LandscapeRight;
-        }
-        return true;
+        return orientation != DisplayOrientation.LandscapeLeft ? orientation == DisplayOrientation.LandscapeRight : true;
     }
 
     public static Vector2 Position(this MouseState state)

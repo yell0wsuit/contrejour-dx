@@ -44,11 +44,7 @@ public class MovableSnotEye : SnotEye, IRestartable
 
     public override int Priority(Vector2 touchPoint)
     {
-        if (!snot.Joined)
-        {
-            return 0;
-        }
-        return 1;
+        return !snot.Joined ? 0 : 1;
     }
 
     protected override void CheckTouchDistance(Touch touch, float distance)
@@ -92,10 +88,7 @@ public class MovableSnotEye : SnotEye, IRestartable
         {
             EndSnotDrag();
         }
-        if (targetPoint != null)
-        {
-            targetPoint.Enabled = snot.Linked == null;
-        }
+        targetPoint?.Enabled = snot.Linked == null;
     }
 
     private void EndSnotDrag()
@@ -122,7 +115,7 @@ public class MovableSnotEye : SnotEye, IRestartable
                 snot.Physics.EndBody.ApplyForce((Body.Position - vector) * 3f);
             }
             vector2 = vector;
-            foreach (SnotPoint snotPoint in base.Game.SnotPoints)
+            foreach (SnotPoint snotPoint in Game.SnotPoints)
             {
                 if (!snotPoint.Used && vector2.DistanceTo(snotPoint.Body.Position) < 50f * builder.SizeMult)
                 {
@@ -150,7 +143,7 @@ public class MovableSnotEye : SnotEye, IRestartable
 
     public override bool TouchBegan(Touch touch)
     {
-        base.TouchBegan(touch);
+        _ = base.TouchBegan(touch);
         targetPosition = targetPoint.Body.Position;
         snot.StopParts();
         return true;

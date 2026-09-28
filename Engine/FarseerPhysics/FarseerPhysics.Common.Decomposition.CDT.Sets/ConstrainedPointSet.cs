@@ -19,8 +19,7 @@ internal class ConstrainedPointSet : PointSet
     public ConstrainedPointSet(List<TriangulationPoint> points, IEnumerable<TriangulationPoint> constraints)
         : base(points)
     {
-        _constrainedPointList = new List<TriangulationPoint>();
-        _constrainedPointList.AddRange(constraints);
+        _constrainedPointList = [.. constraints];
     }
 
     public override void PrepareTriangulation(TriangulationContext tcx)
@@ -32,16 +31,16 @@ internal class ConstrainedPointSet : PointSet
             while (enumerator.MoveNext())
             {
                 TriangulationPoint current = enumerator.Current;
-                enumerator.MoveNext();
+                _ = enumerator.MoveNext();
                 TriangulationPoint current2 = enumerator.Current;
-                tcx.NewConstraint(current, current2);
+                _ = tcx.NewConstraint(current, current2);
             }
         }
         else
         {
             for (int i = 0; i < EdgeIndex.Length; i += 2)
             {
-                tcx.NewConstraint(base.Points[EdgeIndex[i]], base.Points[EdgeIndex[i + 1]]);
+                _ = tcx.NewConstraint(Points[EdgeIndex[i]], Points[EdgeIndex[i + 1]]);
             }
         }
     }

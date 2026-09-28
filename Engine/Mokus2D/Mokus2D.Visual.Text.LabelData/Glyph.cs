@@ -5,7 +5,7 @@ namespace Mokus2D.Visual.Text.LabelData;
 
 public class Glyph : Sprite
 {
-    private static readonly Pool<Glyph> Pool = new Pool<Glyph>(() => new Glyph());
+    private static readonly Pool<Glyph> Pool = new(() => new Glyph());
 
     private CharData _data;
 
@@ -17,14 +17,11 @@ public class Glyph : Sprite
 
     public CharData Data
     {
-        get
-        {
-            return _data;
-        }
+        get => _data;
         set
         {
             _data = value;
-            base.Texture = _data.Texture;
+            Texture = _data.Texture;
             ResetData(_data);
         }
     }
@@ -46,7 +43,7 @@ public class Glyph : Sprite
     public void ReloadData(FontData data)
     {
         Data = data[Symbol];
-        base.Texture = data.Texture;
+        Texture = data.Texture;
     }
 
     public override void ReloadData()

@@ -16,11 +16,7 @@ public class AsymptoticFloat : IValueProcessor<float>
         {
             return min - Maths.AsymptoticTo(asymptoticOffset, min - value);
         }
-        if (value > max)
-        {
-            return max + Maths.AsymptoticTo(asymptoticOffset, value - max);
-        }
-        return value;
+        return value > max ? max + Maths.AsymptoticTo(asymptoticOffset, value - max) : value;
     }
 
     public AsymptoticFloat(float min, float max, float offset)

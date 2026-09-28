@@ -16,7 +16,7 @@ public class LocalizationBundle
 
     private readonly string _locale;
 
-    private readonly Dictionary<string, string> _messages = new Dictionary<string, string>();
+    private readonly Dictionary<string, string> _messages = [];
 
     public string CurrentLocale => CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
 

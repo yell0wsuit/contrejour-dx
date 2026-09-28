@@ -18,7 +18,7 @@ public static class Constants
 
         public const float friction = 1f;
 
-        public static readonly Vector2 gravity = new Vector2(0f, 10f);
+        public static readonly Vector2 gravity = new(0f, 10f);
     }
 
     public const string CONFIG = "config";
@@ -51,9 +51,9 @@ public static class Constants
 
     private static bool isTrialGet;
 
-    public static readonly int ChaptersCount = (IsTrial ? 2 : 5);
+    public static readonly int ChaptersCount = IsTrial ? 2 : 5;
 
-    public static readonly int NormalChaptersCount = (IsTrial ? 2 : 5);
+    public static readonly int NormalChaptersCount = IsTrial ? 2 : 5;
 
     public static bool IsTrial => false;
 
@@ -61,11 +61,7 @@ public static class Constants
     {
         get
         {
-            if (!isTrial)
-            {
-                return 20;
-            }
-            return 10;
+            return !isTrial ? 20 : 10;
         }
     }
 }

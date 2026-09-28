@@ -14,7 +14,7 @@ public static class FarseerExtensions
 {
     public static void SetVelocityX(this Body body, float value, bool resetDynamics = false)
     {
-        Vector2 linearVelocity = new Vector2(value, body.LinearVelocity.Y);
+        Vector2 linearVelocity = new(value, body.LinearVelocity.Y);
         if (resetDynamics)
         {
             body.ResetDynamics();
@@ -24,7 +24,7 @@ public static class FarseerExtensions
 
     public static void SetVelocityY(this Body body, float value, bool resetDynamics = false)
     {
-        Vector2 linearVelocity = new Vector2(body.LinearVelocity.X, value);
+        Vector2 linearVelocity = new(body.LinearVelocity.X, value);
         if (resetDynamics)
         {
             body.ResetDynamics();
@@ -44,11 +44,7 @@ public static class FarseerExtensions
 
     public static IDictionary<string, string> GetConfig(this Body body)
     {
-        if (body.UserData is BodyClip bodyClip)
-        {
-            return bodyClip.Config;
-        }
-        return body.UserData as IDictionary<string, string>;
+        return body.UserData is BodyClip bodyClip ? bodyClip.Config : body.UserData as IDictionary<string, string>;
     }
 
     public static void SetAsBox(this PolygonShape shape, float halfWidth, float halfHeight)

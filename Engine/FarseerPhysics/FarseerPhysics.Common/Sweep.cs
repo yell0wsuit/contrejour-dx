@@ -18,12 +18,12 @@ public struct Sweep
 
     public Vector2 LocalCenter;
 
-    public void GetTransform(out Transform xfb, float beta)
+    public readonly void GetTransform(out Transform xfb, float beta)
     {
-        xfb = default(Transform);
-        xfb.p.X = (1f - beta) * C0.X + beta * C.X;
-        xfb.p.Y = (1f - beta) * C0.Y + beta * C.Y;
-        float angle = (1f - beta) * A0 + beta * A;
+        xfb = default;
+        xfb.p.X = ((1f - beta) * C0.X) + (beta * C.X);
+        xfb.p.Y = ((1f - beta) * C0.Y) + (beta * C.Y);
+        float angle = ((1f - beta) * A0) + (beta * A);
         xfb.q.Set(angle);
         xfb.p -= MathUtils.Mul(xfb.q, LocalCenter);
     }

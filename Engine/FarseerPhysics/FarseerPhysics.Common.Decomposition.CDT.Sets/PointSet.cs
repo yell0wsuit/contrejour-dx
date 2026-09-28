@@ -14,7 +14,7 @@ internal class PointSet : Triangulatable
 
     public PointSet(List<TriangulationPoint> points)
     {
-        Points = new List<TriangulationPoint>(points);
+        Points = [.. points];
     }
 
     public void AddTriangle(DelaunayTriangle t)

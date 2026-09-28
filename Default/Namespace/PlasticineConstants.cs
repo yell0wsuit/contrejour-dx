@@ -40,17 +40,17 @@ public static class PlasticineConstants
 
     public const float PLASTICINE_WIDTH = 0.6f;
 
-    public static readonly LightColor BLUE = new LightColor(new Color(0f, 0f, 0f, 1f), ContreJourConstants.BLUE_LIGHT_COLOR.ChangeAlpha(1f));
+    public static readonly LightColor BLUE = new(new Color(0f, 0f, 0f, 1f), ContreJourConstants.BLUE_LIGHT_COLOR.ChangeAlpha(1f));
 
-    public static readonly LightColor Green = new LightColor(new Color(0f, 0f, 0f, 1f), ContreJourConstants.GreenLightColor.ChangeAlpha(1f));
+    public static readonly LightColor Green = new(new Color(0f, 0f, 0f, 1f), ContreJourConstants.GreenLightColor.ChangeAlpha(1f));
 
-    public static readonly LightColor LAST_LIGHT = new LightColor(new Color(0f, 0f, 0f, 1f), new Color(2f / 51f, 2f / 51f, 2f / 51f, 1f));
+    public static readonly LightColor LAST_LIGHT = new(new Color(0f, 0f, 0f, 1f), new Color(2f / 51f, 2f / 51f, 2f / 51f, 1f));
 
-    public static readonly LightColor WHITE = new LightColor(new Color(0f, 0f, 0f, 1f), ContreJourConstants.WHITE_LIGHT_COLOR.ChangeAlpha(1f));
+    public static readonly LightColor WHITE = new(new Color(0f, 0f, 0f, 1f), ContreJourConstants.WHITE_LIGHT_COLOR.ChangeAlpha(1f));
 
     public static readonly Color WHITE_GROUND_COLOR = 13421772.ToRGBColor();
 
-    public static readonly LightColor BLACK_LIGHT = new LightColor(WHITE_GROUND_COLOR, 10658466.ToRGBColor());
+    public static readonly LightColor BLACK_LIGHT = new(WHITE_GROUND_COLOR, 10658466.ToRGBColor());
 
     public static readonly Color WHITE_GROUND_OUT_COLOR = WHITE_GROUND_COLOR.ChangeAlpha(0);
 

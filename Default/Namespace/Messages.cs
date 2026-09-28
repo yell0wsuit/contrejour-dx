@@ -7,9 +7,9 @@ namespace Default.Namespace;
 
 public static class Messages
 {
-    private static readonly LocalizationBundle Bundle = new LocalizationBundle("values");
+    private static readonly LocalizationBundle Bundle = new("values");
 
-    private static readonly LocalizationBundle DefaultBundle = new LocalizationBundle("values", string.Empty);
+    private static readonly LocalizationBundle DefaultBundle = new("values", string.Empty);
 
     public static readonly string LEVEL = "LEVEL".Localize();
 
@@ -35,10 +35,6 @@ public static class Messages
             return string.Empty;
         }
         string text = Bundle.GetLocalizedMessage(id) ?? DefaultBundle.GetLocalizedMessage(id);
-        if (string.IsNullOrEmpty(text))
-        {
-            return id;
-        }
-        return Regex.Replace(text.Trim(), "\\n\\s*", "\n");
+        return string.IsNullOrEmpty(text) ? id : Regex.Replace(text.Trim(), "\\n\\s*", "\n");
     }
 }

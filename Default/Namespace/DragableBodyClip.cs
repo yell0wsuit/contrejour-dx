@@ -110,7 +110,7 @@ public class DragableBodyClip : ContreJourBodyClip, IClickable, IRestartable, IS
         CreateBoundsClip(num);
         SetAlpha(150f);
         Body.BodyType = (BodyType)1;
-        _dragShape = (CircleShape)Body.FixtureList.First((Fixture f) => !((CircleShape)f.Shape).Position.FuzzyEquals(Vector2.Zero, 0.1f)).Shape;
+        _dragShape = (CircleShape)Body.FixtureList.First(f => !((CircleShape)f.Shape).Position.FuzzyEquals(Vector2.Zero, 0.1f)).Shape;
     }
 
     public bool UseForZoom()
@@ -125,7 +125,7 @@ public class DragableBodyClip : ContreJourBodyClip, IClickable, IRestartable, IS
 
     protected override void FirstUpdate()
     {
-        _dragBounds = base.Game.LevelScreenPhysicsBounds;
+        _dragBounds = Game.LevelScreenPhysicsBounds;
         _dragBounds.Offset(-_dragShape.Position);
         _dragBounds.Extend(-2f / 3f);
     }
@@ -229,11 +229,11 @@ public class DragableBodyClip : ContreJourBodyClip, IClickable, IRestartable, IS
             Vector2 vec = targetPosition - Body.Position;
             if (limitSpeed)
             {
-                VectorUtil.ClampLength(ref vec, 26.666666f * time);
+                _ = VectorUtil.ClampLength(ref vec, 26.666666f * time);
             }
             else
             {
-                VectorUtil.ClampLength(ref vec, 60f * time);
+                _ = VectorUtil.ClampLength(ref vec, 60f * time);
             }
             Vector2 linearVelocity = vec;
             linearVelocity *= 0.5f / time;
@@ -246,7 +246,7 @@ public class DragableBodyClip : ContreJourBodyClip, IClickable, IRestartable, IS
     private void DragStrongSnot(Vector2 speed)
     {
         HeroBodyClip heroBodyClip = (HeroBodyClip)Snot.Linked;
-        if (Math.Abs(heroBodyClip.Body.LinearVelocity.X) < 1f / 6f && heroBodyClip.Body.Position.Y < Snot.Position.Y - ((StrongSnotBodyClip)Snot).NormalDistance * 0.8f && heroBodyClip.Body.LinearVelocity.Y > speed.Y)
+        if (Math.Abs(heroBodyClip.Body.LinearVelocity.X) < 1f / 6f && heroBodyClip.Body.Position.Y < Snot.Position.Y - (((StrongSnotBodyClip)Snot).NormalDistance * 0.8f) && heroBodyClip.Body.LinearVelocity.Y > speed.Y)
         {
             heroBodyClip.Body.LinearVelocity = new Vector2(heroBodyClip.Body.LinearVelocity.X, speed.Y * 2f);
         }
@@ -255,7 +255,7 @@ public class DragableBodyClip : ContreJourBodyClip, IClickable, IRestartable, IS
     protected virtual Vector2 GetDragPosition(Vector2 offset)
     {
         float num = Maths.Clamp(VectorUtil.Projection(offset, axis), lowerLimit, upperLimit);
-        return axis * num + initialPosition;
+        return (axis * num) + initialPosition;
     }
 
     public override void Update(float time)
@@ -270,7 +270,7 @@ public class DragableBodyClip : ContreJourBodyClip, IClickable, IRestartable, IS
         MoveToTarget(time);
         if (Maths.FuzzyNotEquals(time, 0f) && (int)Body.BodyType == 2)
         {
-            Body.BodyType = (BodyType)0;
+            Body.BodyType = 0;
             Body.SetTransform(initialPosition, Body.Rotation);
         }
         SetAlpha(Maths.StepTo(target: draging ? 255f : 150f, value: currentAlpha, maxStep: 5f));

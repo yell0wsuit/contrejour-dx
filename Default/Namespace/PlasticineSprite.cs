@@ -8,7 +8,7 @@ namespace Default.Namespace;
 
 public class PlasticineSprite : PrimitivesNode
 {
-    private static readonly Color COLOR = new Color(0, 0, 0, 255);
+    private static readonly Color COLOR = new(0, 0, 0, 255);
 
     private VertexPositionColor[] vertices;
 
@@ -16,10 +16,7 @@ public class PlasticineSprite : PrimitivesNode
 
     public override Color Color
     {
-        get
-        {
-            return base.Color;
-        }
+        get => base.Color;
         set
         {
             if (Color != value)

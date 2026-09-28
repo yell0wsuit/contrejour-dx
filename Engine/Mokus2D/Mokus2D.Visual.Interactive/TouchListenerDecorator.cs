@@ -14,11 +14,7 @@ public class TouchListenerDecorator : TouchListenerBase
     {
         get
         {
-            if (Filter != null)
-            {
-                return Filter();
-            }
-            return true;
+            return Filter != null ? Filter() : true;
         }
     }
 
@@ -30,20 +26,12 @@ public class TouchListenerDecorator : TouchListenerBase
 
     public override bool TouchBegin(Touch touch)
     {
-        if (FilterValue)
-        {
-            return _listener.TouchBegin(touch);
-        }
-        return false;
+        return FilterValue ? _listener.TouchBegin(touch) : false;
     }
 
     public override bool TouchMove(Touch touch)
     {
-        if (FilterValue)
-        {
-            return _listener.TouchMove(touch);
-        }
-        return false;
+        return FilterValue ? _listener.TouchMove(touch) : false;
     }
 
     public override void TouchEnd(Touch touch)

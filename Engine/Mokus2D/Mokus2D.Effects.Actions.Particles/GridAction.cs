@@ -12,13 +12,7 @@ namespace Mokus2D.Effects.Actions.Particles;
 
 public abstract class GridAction : ITween, ICleanable, IUpdatable
 {
-    protected GridSystem Grid
-    {
-        get
-        {
-            throw new NotImplementedException();
-        }
-    }
+    protected GridSystem Grid => throw new NotImplementedException();
 
     public bool Finished { get; private set; }
 
@@ -34,9 +28,9 @@ public abstract class GridAction : ITween, ICleanable, IUpdatable
     internal virtual void Start(float time)
     {
         Vector2 gridSize = Grid.GridSize;
-        for (int i = 0; (float)i < gridSize.Y; i++)
+        for (int i = 0; i < gridSize.Y; i++)
         {
-            for (int j = 0; (float)j < gridSize.X; j++)
+            for (int j = 0; j < gridSize.X; j++)
             {
                 Node particle = Grid.GetParticle(j, i);
                 CreateAction(time, particle, j, i);
@@ -46,7 +40,7 @@ public abstract class GridAction : ITween, ICleanable, IUpdatable
 
     protected void CreateAction(float time, Node particle, int x, int y)
     {
-        CreateParticleUpdater(particle, x, y);
+        _ = CreateParticleUpdater(particle, x, y);
     }
 
     protected abstract ITween CreateParticleUpdater(Node particle, int x, int y);

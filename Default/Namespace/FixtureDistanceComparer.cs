@@ -8,11 +8,11 @@ using Mokus2D.Util.Extensions;
 
 namespace Default.Namespace;
 
-internal struct FixtureDistanceComparer(Vector2 center) : IComparer<Fixture>
+internal readonly struct FixtureDistanceComparer(Vector2 center) : IComparer<Fixture>
 {
     private readonly Vector2 center = center;
 
-    public int Compare(Fixture x, Fixture y)
+    public readonly int Compare(Fixture x, Fixture y)
     {
         float num = x.Body.Position.DistanceTo(center);
         float num2 = y.Body.Position.DistanceTo(center);
@@ -20,10 +20,6 @@ internal struct FixtureDistanceComparer(Vector2 center) : IComparer<Fixture>
         {
             return -1;
         }
-        if (num == num2)
-        {
-            return 0;
-        }
-        return 2;
+        return num == num2 ? 0 : 2;
     }
 }

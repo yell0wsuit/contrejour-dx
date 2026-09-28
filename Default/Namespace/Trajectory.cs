@@ -26,10 +26,7 @@ public class Trajectory : ParticleSystem
 
     public bool Enabled
     {
-        get
-        {
-            return enabled;
-        }
+        get => enabled;
         set
         {
             if (enabled != value)
@@ -43,16 +40,18 @@ public class Trajectory : ParticleSystem
     public Trajectory(ContreJourGame _game)
         : base(_game.BlackSide ? "chapter2/McTrampolinePathBlack" : "common/McTrampolinePath", 7)
     {
-        enabledOpacity = ((_game.Chapter == 4) ? 0.7f : 0.5f);
+        enabledOpacity = (_game.Chapter == 4) ? 0.7f : 0.5f;
         Visible = false;
         OpacityFloat = 0f;
         int num = 0;
-        _fadeEffect = new FadeAndHideEffect(this, 0.5f);
-        _fadeEffect.Clean = true;
-        _fadeEffect.SetOn(value: false);
-        foreach (Particle particle in base.Particles)
+        _fadeEffect = new FadeAndHideEffect(this, 0.5f)
         {
-            particle.OpacityFloat = 1 - Math.Abs(num - 3) / 4;
+            Clean = true
+        };
+        _fadeEffect.SetOn(value: false);
+        foreach (Particle particle in Particles)
+        {
+            particle.OpacityFloat = 1 - (Math.Abs(num - 3) / 4);
             num++;
         }
     }
@@ -63,9 +62,9 @@ public class Trajectory : ParticleSystem
         float num = Maths.Cos(Angle);
         float num2 = Maths.Sin(Angle);
         int num3 = 0;
-        foreach (Particle particle in base.Particles)
+        foreach (Particle particle in Particles)
         {
-            particle.Position = new Vector2(num * (Impulse * (float)num3 * 30f), num2 * (Impulse * (float)num3 * 30f) - 2.2f * (float)num3 * (float)num3);
+            particle.Position = new Vector2(num * (Impulse * num3 * 30f), (num2 * (Impulse * num3 * 30f)) - (2.2f * num3 * num3));
             num3++;
         }
     }

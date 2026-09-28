@@ -41,12 +41,12 @@ public class OnOffTweenEffect<TValue> : OnOffTimeEffect
 
     protected override void SetOn()
     {
-        TweenTo(OnValue, on: true);
+        _ = TweenTo(OnValue, on: true);
     }
 
     protected override void SetOff()
     {
-        TweenTo(OffValue, on: false);
+        _ = TweenTo(OffValue, on: false);
     }
 
     protected TweenObject TweenTo(TValue targetValue, bool on)
@@ -55,7 +55,7 @@ public class OnOffTweenEffect<TValue> : OnOffTimeEffect
         TweenObject tweenObject = Target.Tweener.Start(GetDuration(on), Tag).Tween(_valueSetter, targetValue, Easing);
         if (OnComplete != null)
         {
-            tweenObject.OnComplete(OnComplete);
+            _ = tweenObject.OnComplete(OnComplete);
         }
         return tweenObject;
     }

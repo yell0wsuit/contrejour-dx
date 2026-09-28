@@ -10,14 +10,8 @@ public class MagnetChangePower : MagnetIntervalActionBase
 
     public float StartPower
     {
-        get
-        {
-            return _startPower;
-        }
-        set
-        {
-            _startPower = value;
-        }
+        get => _startPower;
+        set => _startPower = value;
     }
 
     public MagnetChangePower(GridMagnetBase gridMagnet, float timeout, float targetPower)

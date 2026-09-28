@@ -24,11 +24,7 @@ public class JoinableSpringBodyClip : RotatableSpringBase
     {
         get
         {
-            if (rotator != null)
-            {
-                return rotator.Body.AngularVelocity != 0f;
-            }
-            return false;
+            return rotator != null ? rotator.Body.AngularVelocity != 0f : false;
         }
     }
 
@@ -58,10 +54,7 @@ public class JoinableSpringBodyClip : RotatableSpringBase
 
     private void CreateRotatorJoint()
     {
-        if (rotatorJoint == null)
-        {
-            rotatorJoint = FarseerUtil.CreateRevoluteJoint(builder.World, Body, rotator.Body, Body.Position, collideConnected: false, limitAngles: true);
-        }
+        rotatorJoint ??= FarseerUtil.CreateRevoluteJoint(builder.World, Body, rotator.Body, Body.Position, collideConnected: false, limitAngles: true);
     }
 
     public override void Update(float time)

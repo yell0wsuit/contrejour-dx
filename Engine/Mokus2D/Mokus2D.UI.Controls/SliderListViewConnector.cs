@@ -14,10 +14,7 @@ public class SliderListViewConnector
 
     public Sprite MouseWheelArea
     {
-        set
-        {
-            _slider.MouseWheelArea = value;
-        }
+        set => _slider.MouseWheelArea = value;
     }
 
     public SliderListViewConnector(Slider slider, IListView listView)

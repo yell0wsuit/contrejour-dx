@@ -60,7 +60,7 @@ public class SnotProcessor : JointProcessorBase
         RopeMetricsWithCoords ropeMetricsEndItem = GetRopeMetricsEndItem(vector, item.GetVector("end"), item);
         Body val = GetBodyByWorld(vector);
         BodyClip bodyClip = val.UserData as BodyClip;
-        if (bodyClip != null && (bodyClip is PlasticinePartBodyClip || bodyClip is EnergyBodyClip))
+        if (bodyClip is not null and (PlasticinePartBodyClip or EnergyBodyClip))
         {
             val = builder.GroundBody;
         }
@@ -73,11 +73,11 @@ public class SnotProcessor : JointProcessorBase
         PlasticineConstants.ApplyActiveBodiesFilter(val2);
         RevoluteJoint eyeJoint = FarseerUtil.CreateRevoluteJoint(builder.World, val, val2, vector);
         Body previousBody = val2;
-        List<Body> list = new List<Body>();
-        List<Joint> list2 = new List<Joint>();
+        List<Body> list = [];
+        List<Joint> list2 = [];
         for (int i = 0; i < ropeMetricsEndItem.Parts; i++)
         {
-            BodyAndJoint result = default(BodyAndJoint);
+            BodyAndJoint result = default;
             CreatePartStartEndResultIndexTotal(previousBody, ropeMetricsEndItem.GetPositionByIndex(i), ropeMetricsEndItem.GetPositionByIndex(i + 1), ref result, i, ropeMetricsEndItem.Parts);
             previousBody = result.Body;
             list.Add(result.Body);
@@ -98,11 +98,7 @@ public class SnotProcessor : JointProcessorBase
 
     public virtual float GetDensityTotal(int index, int total)
     {
-        if (index != total - 1)
-        {
-            return 0.13f;
-        }
-        return 0.221f;
+        return index != total - 1 ? 0.13f : 0.221f;
     }
 
     public void CreatePartStartEndResultIndexTotal(Body previousBody, Vector2 start, Vector2 end, ref BodyAndJoint result, int index, int total)

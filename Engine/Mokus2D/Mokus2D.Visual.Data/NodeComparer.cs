@@ -10,10 +10,6 @@ internal class NodeComparer : IComparer<Node>
         {
             return 0;
         }
-        if (x.Layer > y.Layer)
-        {
-            return 1;
-        }
-        return -1;
+        return x.Layer > y.Layer ? 1 : -1;
     }
 }

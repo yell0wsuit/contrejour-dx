@@ -19,7 +19,7 @@ public class AnimationDeserializer : GraphicsDeserializerBase<AnimationData>
 
     public override AnimationData Deserialize(string id, XElement element)
     {
-        AnimationData animationData = new AnimationData();
+        AnimationData animationData = new();
         XAttribute xAttribute = element.Attribute("precalculatedBounds");
         if (xAttribute != null)
         {
@@ -43,18 +43,20 @@ public class AnimationDeserializer : GraphicsDeserializerBase<AnimationData>
 
     private List<AnimationFrameData> GetAnimationFrame(XElement element)
     {
-        List<AnimationFrameData> list = new List<AnimationFrameData>();
+        List<AnimationFrameData> list = [];
         foreach (XElement item2 in element.Elements())
         {
-            AnimationFrameData animationFrameData = new AnimationFrameData();
-            animationFrameData.Id = item2.Name.ToString();
-            animationFrameData.Alpha = AttributToFloat(item2.Attribute("alpha"), 1f);
-            animationFrameData.Position = VectorFromString((string?)item2.Attribute("position"), Vector2.Zero);
-            animationFrameData.Rotation = AttributToFloat(item2.Attribute("rotation"), 0f);
-            animationFrameData.Scale = VectorFromString((string?)item2.Attribute("scale"), Vector2.One);
-            animationFrameData.Color = AttributToInt(item2.Attribute("color"), 16777215).ToRGBColor();
-            animationFrameData.ColorRatio = AttributToFloat(item2.Attribute("colorRatio"), 0f);
-            animationFrameData.Visible = AttributeToBool(item2.Attribute("visible"), defaultValue: true);
+            AnimationFrameData animationFrameData = new()
+            {
+                Id = item2.Name.ToString(),
+                Alpha = AttributToFloat(item2.Attribute("alpha"), 1f),
+                Position = VectorFromString((string?)item2.Attribute("position"), Vector2.Zero),
+                Rotation = AttributToFloat(item2.Attribute("rotation"), 0f),
+                Scale = VectorFromString((string?)item2.Attribute("scale"), Vector2.One),
+                Color = AttributToInt(item2.Attribute("color"), 16777215).ToRGBColor(),
+                ColorRatio = AttributToFloat(item2.Attribute("colorRatio"), 0f),
+                Visible = AttributeToBool(item2.Attribute("visible"), defaultValue: true)
+            };
             AnimationFrameData item = animationFrameData;
             list.Add(item);
         }

@@ -7,7 +7,7 @@ namespace Mokus2D.UI.Controls;
 
 public abstract class UIComponent : Node
 {
-    private readonly Flag _propertiesDirty = new Flag();
+    private readonly Flag _propertiesDirty = new();
 
     public event Action PropertiesUpdatedEvent;
 
@@ -22,7 +22,7 @@ public abstract class UIComponent : Node
         if (_propertiesDirty.Use())
         {
             UpdateProperties();
-            this.PropertiesUpdatedEvent.Dispatch();
+            PropertiesUpdatedEvent.Dispatch();
         }
     }
 

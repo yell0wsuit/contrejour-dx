@@ -35,9 +35,9 @@ public class PlasticineItem : LinkedListItem
 
     private float Width => width;
 
-    public PlasticineItem NextItem => (PlasticineItem)base.Next;
+    public PlasticineItem NextItem => (PlasticineItem)Next;
 
-    public PlasticineItem PreviousItem => (PlasticineItem)base.Previous;
+    public PlasticineItem PreviousItem => (PlasticineItem)Previous;
 
     public Body Body => BodyClip.Body;
 
@@ -55,7 +55,7 @@ public class PlasticineItem : LinkedListItem
         innerPosition = GetBorderVec(-1f / 3f);
         outerPosition = GetBorderVec(1.3333334f);
         normalVec = outerPosition - innerPosition;
-        ortoAngle = 0f - Maths.Atan2(normalVec.Y, normalVec.X) + (float)Math.PI / 2f;
+        ortoAngle = 0f - Maths.Atan2(normalVec.Y, normalVec.X) + ((float)Math.PI / 2f);
         ortogonalVec = normalVec.Rotate90();
     }
 
@@ -64,14 +64,14 @@ public class PlasticineItem : LinkedListItem
         BodyClip.OnTouchWith(offset, objectP);
         PlasticineItem previousItem = PreviousItem;
         float num;
-        for (num = width / 2f + offset + previousItem.Width / 2f; num < maxDistance; num += previousItem.Width / 2f)
+        for (num = (width / 2f) + offset + (previousItem.Width / 2f); num < maxDistance; num += previousItem.Width / 2f)
         {
             previousItem.BodyClip.OnTouchWith(num, objectP);
             num += previousItem.Width / 2f;
             previousItem = previousItem.PreviousItem;
         }
         previousItem = NextItem;
-        num = offset - width / 2f - previousItem.Width / 2f;
+        num = offset - (width / 2f) - (previousItem.Width / 2f);
         while (Math.Abs(num) < maxDistance)
         {
             previousItem.BodyClip.OnTouchWith(num, objectP);
@@ -90,7 +90,7 @@ public class PlasticineItem : LinkedListItem
     {
         Vector2 vector = touchPosition;
         vector -= initialPosition;
-        float num = ((!(VectorUtil.Projection(vector, BodyClip.Normal) < 0f)) ? 1.3333334f : (1f / 3f));
+        float num = (!(VectorUtil.Projection(vector, BodyClip.Normal) < 0f)) ? 1.3333334f : (1f / 3f);
         float value = 0f - VectorUtil.Projection(vector, ortogonalVec);
         if (Math.Abs(value) > 0.4f)
         {
@@ -101,7 +101,7 @@ public class PlasticineItem : LinkedListItem
             return initialPosition + vector;
         }
         vector.Normalize();
-        return vector * num + initialPosition;
+        return (vector * num) + initialPosition;
     }
 
     public Vector2 GetSurfaceCenterVec()
@@ -142,7 +142,7 @@ public class PlasticineItem : LinkedListItem
 
     public Vector2 GetBorderVec(float offset)
     {
-        return Body.GetWorldPoint(new Vector2(width / 2f, 5f / 12f + offset));
+        return Body.GetWorldPoint(new Vector2(width / 2f, (5f / 12f) + offset));
     }
 
     public Vector2 GetBorder(float offset)

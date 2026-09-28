@@ -12,7 +12,7 @@ public abstract class IntervalTweenBase : ICompletableTween, ITween, ICleanable,
 
     private float _elapsed;
 
-    private readonly Queue<Action> _onComplete = new Queue<Action>(64);
+    private readonly Queue<Action> _onComplete = new(64);
 
     private bool _started;
 

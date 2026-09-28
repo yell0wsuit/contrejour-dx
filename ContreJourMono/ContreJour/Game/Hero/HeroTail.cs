@@ -37,17 +37,17 @@ public class HeroTail : PrimitivesNode
 
     private List<PointAndAngle> points;
 
-    private PointAndAngle middle = new PointAndAngle(30f, 0.02f, 0f);
+    private PointAndAngle middle = new(30f, 0.02f, 0f);
 
-    private PointAndAngle middle2 = new PointAndAngle(50f, 0.019f, (float)Math.PI / 2f);
+    private PointAndAngle middle2 = new(50f, 0.019f, (float)Math.PI / 2f);
 
-    private PointAndAngle end = new PointAndAngle(70f, 0.018f, (float)Math.PI);
+    private PointAndAngle end = new(70f, 0.018f, (float)Math.PI);
 
     private VertexPositionColor[] vertices;
 
-    private List<Vector2> surface = new List<Vector2>(10);
+    private List<Vector2> surface = new(10);
 
-    private readonly List<Vector2> cachedPolygon = new List<Vector2>(64);
+    private readonly List<Vector2> cachedPolygon = new(64);
 
     private VertexPositionColor[] border;
 
@@ -57,14 +57,8 @@ public class HeroTail : PrimitivesNode
 
     public float BorderWidth
     {
-        get
-        {
-            return borderWidth;
-        }
-        set
-        {
-            borderWidth = value;
-        }
+        get => borderWidth;
+        set => borderWidth = value;
     }
 
     public Color EndColor
@@ -81,7 +75,7 @@ public class HeroTail : PrimitivesNode
     {
         Color = color;
         surface.Resize(10);
-        points = new List<PointAndAngle>(new PointAndAngle[3] { middle, middle2, end });
+        points = [middle, middle2, end];
     }
 
     public HeroTail()
@@ -144,7 +138,7 @@ public class HeroTail : PrimitivesNode
         GraphUtil.CreateGradientBorder(surface, borderWidth, border);
         for (int i = 0; i < surface.Count; i++)
         {
-            int index = ((i % 2 == 0) ? (i / 2) : (surface.Count - 1 - i / 2));
+            int index = (i % 2 == 0) ? (i / 2) : (surface.Count - 1 - (i / 2));
             ref VertexPositionColor reference = ref vertices[i];
             reference = new VertexPositionColor(surface[index].ToVector3(), Color);
         }

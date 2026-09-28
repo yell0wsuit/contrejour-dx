@@ -27,9 +27,9 @@ public class HeroEye : RandomAnimationEye
 
     private const string EyeBallGreen = "McEyeBall_6";
 
-    private static readonly Color START_COLOR = new Color(255, 255, 255);
+    private static readonly Color START_COLOR = new(255, 255, 255);
 
-    private static readonly Color BONUS_COLOR = new Color(143, 238, 255);
+    private static readonly Color BONUS_COLOR = new(143, 238, 255);
 
     protected bool isDefaultColor;
 
@@ -43,16 +43,13 @@ public class HeroEye : RandomAnimationEye
 
     public bool MoveAllowed
     {
-        get
-        {
-            return moveAllowed;
-        }
+        get => moveAllowed;
         set
         {
             moveAllowed = value;
             if (!value)
             {
-                base.ViewDistance = 0f;
+                ViewDistance = 0f;
             }
         }
     }
@@ -65,15 +62,17 @@ public class HeroEye : RandomAnimationEye
         moveAllowed = true;
         colorTime = 0f;
         colorProgress = 0f;
-        sounds = new Dictionary<string, List<string>>();
-        sounds["McEyeSmile"] = new List<string>(new string[3] { "laugh0", "laugh1", "laughl3" });
-        sounds["McEyeWink"] = new List<string>(new string[3] { "suspicious0", "suspicious1", "suspicious3" });
-        sounds["McEyeAngry"] = new List<string>(new string[1] { "angry2" });
-        sounds["McEyeBlinkOneTime"] = new List<string>(new string[1] { "clip0" });
-        sounds["McEyeBlink"] = new List<string>(new string[1] { "clip1" });
-        if (!base.BlackEye)
+        sounds = new Dictionary<string, List<string>>
         {
-            base.Scale = 1.07f;
+            ["McEyeSmile"] = ["laugh0", "laugh1", "laughl3"],
+            ["McEyeWink"] = ["suspicious0", "suspicious1", "suspicious3"],
+            ["McEyeAngry"] = ["angry2"],
+            ["McEyeBlinkOneTime"] = ["clip0"],
+            ["McEyeBlink"] = ["clip1"]
+        };
+        if (!BlackEye)
+        {
+            Scale = 1.07f;
         }
     }
 
@@ -81,8 +80,8 @@ public class HeroEye : RandomAnimationEye
     {
         if (moveAllowed)
         {
-            base.ViewAngle = VectorUtil.Atan2(velocity);
-            base.ViewDistance = velocity.Length() / 3f;
+            ViewAngle = VectorUtil.Atan2(velocity);
+            ViewDistance = velocity.Length() / 3f;
         }
     }
 
@@ -115,7 +114,7 @@ public class HeroEye : RandomAnimationEye
     {
         if (!TryPlaySound(animation.Background))
         {
-            TryPlaySound(animation.EyeBall);
+            _ = TryPlaySound(animation.EyeBall);
         }
     }
 
@@ -155,13 +154,13 @@ public class HeroEye : RandomAnimationEye
 
     protected override void CreateDefaultView()
     {
-        if (!base.BlackEye)
+        if (!BlackEye)
         {
             base.CreateDefaultView();
             return;
         }
         background = new McEyeBlack();
-        eyeBall = (Sprite)ClipTypesCache.CreateNewNode(base.Game.ChooseSide("McEyeBallBlack", "McEyeBallWhite", null, null, "McEyeBall_6"));
+        eyeBall = (Sprite)ClipTypesCache.CreateNewNode(Game.ChooseSide("McEyeBallBlack", "McEyeBallWhite", null, null, "McEyeBall_6"));
     }
 
     protected override string ProcessName(string _name)
@@ -169,11 +168,11 @@ public class HeroEye : RandomAnimationEye
         string text = base.ProcessName(_name);
         if (text == "McEyeBallHitBlack")
         {
-            if (base.IsWhite)
+            if (IsWhite)
             {
                 return "McEyeBallHitWhite";
             }
-            if (base.Game.BonusChapter)
+            if (Game.BonusChapter)
             {
                 return "McEyeBallHit_6";
             }

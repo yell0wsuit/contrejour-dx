@@ -14,10 +14,7 @@ public class ToggleButton : Button
 
     public bool Toggle
     {
-        get
-        {
-            return toggle;
-        }
+        get => toggle;
         set
         {
             if (toggle != value)
@@ -90,11 +87,11 @@ public class ToggleButton : Button
         if (toggle || touching)
         {
             toggleIcon.Visible = true;
-            toggleIcon.FadeIn(0.2f);
+            _ = toggleIcon.FadeIn(0.2f);
         }
         else
         {
-            toggleIcon.FadeOutAndHide(0.2f);
+            _ = toggleIcon.FadeOutAndHide(0.2f);
         }
     }
 }

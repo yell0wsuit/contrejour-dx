@@ -19,9 +19,9 @@ public class DisplacementEffect : TextureMatrixEffectBase
     public DisplacementEffect()
         : base("Mokus2D.Shaders.Displacement")
     {
-        _displacementTexture = base.Parameters["DisplacementTexture"];
-        _textureSize = base.Parameters["TextureSize"];
-        MaxDisplacement = new ShaderParameterFloat(base.Parameters, "MaxDisplacement");
+        _displacementTexture = Parameters["DisplacementTexture"];
+        _textureSize = Parameters["TextureSize"];
+        MaxDisplacement = new ShaderParameterFloat(Parameters, "MaxDisplacement");
     }
 
     public override void Apply(Matrix matrix, Texture2D texture)

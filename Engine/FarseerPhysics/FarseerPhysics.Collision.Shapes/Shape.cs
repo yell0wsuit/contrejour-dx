@@ -20,10 +20,7 @@ public abstract class Shape
 
     public float Density
     {
-        get
-        {
-            return _density;
-        }
+        get => _density;
         set
         {
             _density = value;
@@ -33,10 +30,7 @@ public abstract class Shape
 
     public float Radius
     {
-        get
-        {
-            return _radius;
-        }
+        get => _radius;
         set
         {
             _radius = value;
@@ -75,11 +69,7 @@ public abstract class Shape
         {
             return ((EdgeShape)this).CompareTo((EdgeShape)shape);
         }
-        if (shape is ChainShape && this is ChainShape)
-        {
-            return ((ChainShape)this).CompareTo((ChainShape)shape);
-        }
-        return false;
+        return shape is ChainShape && this is ChainShape ? ((ChainShape)this).CompareTo((ChainShape)shape) : false;
     }
 
     public abstract float ComputeSubmergedArea(ref Vector2 normal, float offset, ref Transform xf, out Vector2 sc);

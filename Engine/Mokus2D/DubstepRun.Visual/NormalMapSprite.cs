@@ -21,10 +21,10 @@ public class NormalMapSprite : Sprite<VertexPositionColorTexture2>
     {
         _normalMapData = Mokus2DGame.LoadSpriteData(normalMapName);
         Quad<VertexPositionColorTexture2> quad = (Quad<VertexPositionColorTexture2>)Quad;
-        quad.LeftTop.NormalMapTextureCoordinate = _normalMapData.TextureRect.LeftTop() / base.Texture.Bounds.Size();
-        quad.RightTop.NormalMapTextureCoordinate = _normalMapData.TextureRect.RightTop() / base.Texture.Bounds.Size();
-        quad.LeftBottom.NormalMapTextureCoordinate = _normalMapData.TextureRect.LeftBottom() / base.Texture.Bounds.Size();
-        quad.RightBottom.NormalMapTextureCoordinate = _normalMapData.TextureRect.RightBottom() / base.Texture.Bounds.Size();
+        quad.LeftTop.NormalMapTextureCoordinate = _normalMapData.TextureRect.LeftTop() / Texture.Bounds.Size();
+        quad.RightTop.NormalMapTextureCoordinate = _normalMapData.TextureRect.RightTop() / Texture.Bounds.Size();
+        quad.LeftBottom.NormalMapTextureCoordinate = _normalMapData.TextureRect.LeftBottom() / Texture.Bounds.Size();
+        quad.RightBottom.NormalMapTextureCoordinate = _normalMapData.TextureRect.RightBottom() / Texture.Bounds.Size();
     }
 
     protected override void RefreshQuad()

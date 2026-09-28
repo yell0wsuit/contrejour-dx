@@ -15,14 +15,8 @@ public abstract class SpriteBatchNode : Node
 
     public BlendState Blend
     {
-        get
-        {
-            return SpriteBatchProperties.Blend;
-        }
-        set
-        {
-            SpriteBatchProperties.Blend = value;
-        }
+        get => SpriteBatchProperties.Blend;
+        set => SpriteBatchProperties.Blend = value;
     }
 
     protected SpriteBatchNode()

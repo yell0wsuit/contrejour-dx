@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 using ContreJour.Clips.menu;
 using ContreJour.Clips.planets;
@@ -15,9 +16,9 @@ namespace Default.Namespace;
 
 public class ChapterItem : Node
 {
-    private readonly List<IUpdatable> updating = new List<IUpdatable>();
+    private readonly List<IUpdatable> updating = [];
 
-    protected List<object> alphaItems = new List<object>();
+    protected List<object> alphaItems = [];
 
     protected Sprite backLight;
 
@@ -31,11 +32,11 @@ public class ChapterItem : Node
 
     protected float depth;
 
-    protected List<object> depthDependent = new List<object>();
+    protected List<object> depthDependent = [];
 
     protected bool enabled;
 
-    protected List<object> hidingItems = new List<object>();
+    protected List<object> hidingItems = [];
 
     protected int index;
 
@@ -49,10 +50,7 @@ public class ChapterItem : Node
 
     public virtual float Depth
     {
-        get
-        {
-            return depth;
-        }
+        get => depth;
         set
         {
             if (depth != value)
@@ -65,26 +63,14 @@ public class ChapterItem : Node
 
     public Color LightColor
     {
-        get
-        {
-            return lightColor;
-        }
-        set
-        {
-            lightColor = value;
-        }
+        get => lightColor;
+        set => lightColor = value;
     }
 
     public bool Enabled
     {
-        get
-        {
-            return enabled;
-        }
-        set
-        {
-            enabled = value;
-        }
+        get => enabled;
+        set => enabled = value;
     }
 
     public int Index => index;
@@ -110,7 +96,7 @@ public class ChapterItem : Node
         CreateSprites();
         AddChild(blurBackground);
         hidingItems.Add(background);
-        offset = (float)index * (float)Math.PI * 2f / (float)ContreJourConstants.PlanetsCount;
+        offset = index * (float)Math.PI * 2f / ContreJourConstants.PlanetsCount;
         CreateClickListener();
         enabled = true;
     }
@@ -130,9 +116,11 @@ public class ChapterItem : Node
 
     protected virtual void CreateClickListener()
     {
-        clickListener = new RadiusClickListener(this, 90f);
-        clickListener.Radius = 40f;
-        clickListener.DisableDrag = true;
+        clickListener = new RadiusClickListener(this, 90f)
+        {
+            Radius = 40f,
+            DisableDrag = true
+        };
         clickListener.ClickEvent.AddListener(OnClick);
     }
 
@@ -147,8 +135,10 @@ public class ChapterItem : Node
 
     protected virtual void CreateBackLight()
     {
-        backLight = new McChapterLight();
-        backLight.Scale = 2.5f;
+        backLight = new McChapterLight
+        {
+            Scale = 2.5f
+        };
         AddChild(backLight);
         AddAlphaItem(backLight);
     }
@@ -172,24 +162,21 @@ public class ChapterItem : Node
 
     protected virtual void RefreshDepth()
     {
-        if (backLight != null)
-        {
-            backLight.Color = lightColor;
-        }
+        backLight?.Color = lightColor;
         Color color = ColorUtil.Mult(lightColor, (1f - depth) * 0.3f);
         blurBackground.Color = color;
-        float num = Maths.Clamp((depth - 0.7f) * (float)base.OpacityByte / 0.3f, 0f, 255f);
-        foreach (Node alphaItem in alphaItems)
+        float num = Maths.Clamp((depth - 0.7f) * OpacityByte / 0.3f, 0f, 255f);
+        foreach (Node alphaItem in alphaItems.Cast<Node>())
         {
             alphaItem.OpacityByte = (int)num;
             alphaItem.Visible = num > 0f;
         }
-        float num2 = Maths.Clamp((1f - depth) / 0.2f * (float)base.OpacityByte, 0f, 255f);
+        float num2 = Maths.Clamp((1f - depth) / 0.2f * OpacityByte, 0f, 255f);
         blurBackground.OpacityByte = (int)num2;
         blurBackground.Visible = num2 > 0f;
         background.OpacityByte = (int)Maths.Clamp(num * 3f, 0f, 255f);
         container.Visible = num > 0f;
-        foreach (IDepthDependent item in depthDependent)
+        foreach (IDepthDependent item in depthDependent.Cast<IDepthDependent>())
         {
             item.Depth = depth;
         }
@@ -212,7 +199,7 @@ public class ChapterItem : Node
 
     public void OnSelect()
     {
-        this.SelectEvent.Dispatch(index);
+        SelectEvent.Dispatch(index);
     }
 
     ~ChapterItem()

@@ -12,9 +12,9 @@ internal class DelaunayTriangle
 
     public FixedBitArray3 EdgeIsDelaunay;
 
-    public FarseerPhysics.Common.Decomposition.CDT.Util.FixedArray3<DelaunayTriangle> Neighbors;
+    public Util.FixedArray3<DelaunayTriangle> Neighbors;
 
-    public FarseerPhysics.Common.Decomposition.CDT.Util.FixedArray3<TriangulationPoint> Points;
+    public Util.FixedArray3<TriangulationPoint> Points;
 
     public bool IsInterior { get; set; }
 
@@ -28,11 +28,7 @@ internal class DelaunayTriangle
     public int IndexOf(TriangulationPoint p)
     {
         int num = Points.IndexOf(p);
-        if (num == -1)
-        {
-            throw new Exception("Calling index with a point that doesn't exist in triangle");
-        }
-        return num;
+        return num == -1 ? throw new Exception("Calling index with a point that doesn't exist in triangle") : num;
     }
 
     public int IndexCW(TriangulationPoint p)
@@ -57,29 +53,17 @@ internal class DelaunayTriangle
 
     public bool Contains(TriangulationPoint p)
     {
-        if (p != Points[0] && p != Points[1])
-        {
-            return p == Points[2];
-        }
-        return true;
+        return p != Points[0] && p != Points[1] ? p == Points[2] : true;
     }
 
     public bool Contains(DTSweepConstraint e)
     {
-        if (Contains(e.P))
-        {
-            return Contains(e.Q);
-        }
-        return false;
+        return Contains(e.P) ? Contains(e.Q) : false;
     }
 
     public bool Contains(TriangulationPoint p, TriangulationPoint q)
     {
-        if (Contains(p))
-        {
-            return Contains(q);
-        }
-        return false;
+        return Contains(p) ? Contains(q) : false;
     }
 
     private void MarkNeighbor(TriangulationPoint p1, TriangulationPoint p2, DelaunayTriangle t)
@@ -119,10 +103,10 @@ internal class DelaunayTriangle
 
     public void ClearNeighbors()
     {
-        ref FarseerPhysics.Common.Decomposition.CDT.Util.FixedArray3<DelaunayTriangle> neighbors = ref Neighbors;
-        ref FarseerPhysics.Common.Decomposition.CDT.Util.FixedArray3<DelaunayTriangle> neighbors2 = ref Neighbors;
-        DelaunayTriangle delaunayTriangle = (Neighbors[2] = null);
-        DelaunayTriangle value = (neighbors2[1] = delaunayTriangle);
+        ref Util.FixedArray3<DelaunayTriangle> neighbors = ref Neighbors;
+        ref Util.FixedArray3<DelaunayTriangle> neighbors2 = ref Neighbors;
+        DelaunayTriangle delaunayTriangle = Neighbors[2] = null;
+        DelaunayTriangle value = neighbors2[1] = delaunayTriangle;
         neighbors[0] = value;
     }
 
@@ -149,10 +133,10 @@ internal class DelaunayTriangle
             Neighbors[i]?.ClearNeighbor(this);
         }
         ClearNeighbors();
-        ref FarseerPhysics.Common.Decomposition.CDT.Util.FixedArray3<TriangulationPoint> points = ref Points;
-        ref FarseerPhysics.Common.Decomposition.CDT.Util.FixedArray3<TriangulationPoint> points2 = ref Points;
-        TriangulationPoint triangulationPoint = (Points[2] = null);
-        TriangulationPoint value = (points2[1] = triangulationPoint);
+        ref Util.FixedArray3<TriangulationPoint> points = ref Points;
+        ref Util.FixedArray3<TriangulationPoint> points2 = ref Points;
+        TriangulationPoint triangulationPoint = Points[2] = null;
+        TriangulationPoint value = points2[1] = triangulationPoint;
         points[0] = value;
     }
 
@@ -296,11 +280,7 @@ internal class DelaunayTriangle
         {
             return 1;
         }
-        if (flag && flag2)
-        {
-            return 2;
-        }
-        return -1;
+        return flag && flag2 ? 2 : -1;
     }
 
     public bool GetConstrainedEdgeCCW(TriangulationPoint p)

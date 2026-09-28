@@ -38,9 +38,9 @@ public class MainMenu : AccelerometerMenu, IActivatedDependent
 
     protected LevelsMenu levelsMenu;
 
-    public readonly EventSender<int> LevelSelectEvent = new EventSender<int>();
+    public readonly EventSender<int> LevelSelectEvent = new();
 
-    public readonly EventSender ExitEvent = new EventSender();
+    public readonly EventSender ExitEvent = new();
 
     protected Sprite ground;
 
@@ -98,25 +98,25 @@ public class MainMenu : AccelerometerMenu, IActivatedDependent
 
     private static readonly Color GreenColor = 12573952.ToRGBColor();
 
-    private static readonly Color[] FONT_COLORS = new Color[6]
-    {
+    private static readonly Color[] FONT_COLORS =
+    [
         GREY_COLOR,
         Color.Lerp(Color.White, BLUE_COLOR, 0.8f),
         ContreJourConditions.Trial(Color.Lerp(Color.White, BLUE_COLOR, 0.8f), GREY_COLOR),
         GREY_COLOR,
         GREY_COLOR,
         GreenColor
-    };
+    ];
 
-    private static readonly Color[] BackColors = (Constants.IsTrial ? new Color[3] { GREY_COLOR, BLUE_COLOR, BLUE_COLOR } : new Color[6]
-    {
+    private static readonly Color[] BackColors = Constants.IsTrial ? [GREY_COLOR, BLUE_COLOR, BLUE_COLOR] :
+    [
         GREY_COLOR,
         BLUE_COLOR,
         ContreJourConditions.Trial(BLUE_COLOR, GREY_COLOR),
         ColorUtil.Mult(GREY_COLOR, 0.5f),
         GREY_COLOR,
         GreenColor
-    });
+    ];
 
     private Vector2 namesPosition;
 
@@ -141,10 +141,12 @@ public class MainMenu : AccelerometerMenu, IActivatedDependent
         AddChild(clickableLayer, 5);
         if (ContreJourConfig.BackButtonVisible)
         {
-            backButton = new Button("menu/McBackIcon");
-            backButton.Position = ContreJourConfig.BackButtonPosition;
-            backButton.RealScale = 1.2f;
-            backButton.Visible = false;
+            backButton = new Button("menu/McBackIcon")
+            {
+                Position = ContreJourConfig.BackButtonPosition,
+                RealScale = 1.2f,
+                Visible = false
+            };
             clickableLayer.AddChild(backButton);
             backButton.TouchEndEvent += delegate
             {
@@ -286,16 +288,18 @@ public class MainMenu : AccelerometerMenu, IActivatedDependent
     public void CreateBackgrounds()
     {
         List<string> list = Backgrounds();
-        backgroundImages = new List<Sprite>();
+        backgroundImages = [];
         background = new Node();
         AddChild(background, -2);
         background.Scale = 1.3f;
         int num = 1;
         foreach (string item in list)
         {
-            Sprite sprite = new Sprite(item);
-            sprite.Scale = 2.2f;
-            sprite.Position = new Vector2(0f, winSize.Y + 20f);
+            Sprite sprite = new(item)
+            {
+                Scale = 2.2f,
+                Position = new Vector2(0f, winSize.Y + 20f)
+            };
             sprite.Scale *= 0.9375f;
             sprite.OpacityFloat = 0f;
             sprite.Visible = false;
@@ -308,7 +312,7 @@ public class MainMenu : AccelerometerMenu, IActivatedDependent
         blackLayer.OpacityByte = 0;
         blackLayer.Visible = false;
         ground = new McMenuGroundPhone();
-        McMenuGroundPhone mcMenuGroundPhone = new McMenuGroundPhone();
+        McMenuGroundPhone mcMenuGroundPhone = new();
         ground.AddChild(mcMenuGroundPhone);
         mcMenuGroundPhone.Position = new Vector2(ground.Size.X - 2f, winSize.Y + 4f);
         mcMenuGroundPhone.RotationDegrees = 180f;
@@ -340,7 +344,14 @@ public class MainMenu : AccelerometerMenu, IActivatedDependent
 
     public List<string> Backgrounds()
     {
-        return new List<string>(new string[5] { "menuBackgrounds/McBackground4Content", "menuBackgrounds/McBackgroundContent1_5", "menu/McMenuBackground3", "menu2/McChapter4MenuBackground", "menu2/McChapter5MenuBackground" });
+        return
+        [
+            "menuBackgrounds/McBackground4Content",
+            "menuBackgrounds/McBackgroundContent1_5",
+            "menu/McMenuBackground3",
+            "menu2/McChapter4MenuBackground",
+            "menu2/McChapter5MenuBackground",
+        ];
     }
 
     private void OnChapterSelect(int chapter)
@@ -359,22 +370,22 @@ public class MainMenu : AccelerometerMenu, IActivatedDependent
 
     public void HideScore()
     {
-        starsField.FadeOut(0.3f);
-        starsIcon.FadeOut(0.3f);
+        _ = starsField.FadeOut(0.3f);
+        _ = starsIcon.FadeOut(0.3f);
     }
 
     public void ShowScore()
     {
         RefreshScore();
-        starsField.FadeIn(0.3f);
-        starsIcon.FadeIn(0.3f);
+        _ = starsField.FadeIn(0.3f);
+        _ = starsIcon.FadeIn(0.3f);
     }
 
     public void RefreshScore()
     {
-        int num = (inChapter ? UserData.Instance.GetChapterStars(currentChapter) : UserData.Instance.TotalStars);
-        int num2 = (inChapter ? UserData.Instance.GetChapterScore(currentChapter) : UserData.Instance.TotalScore);
-        int num3 = (inChapter ? 60 : (ContreJourConstants.LEVEL_COUNT * 3));
+        int num = inChapter ? UserData.Instance.GetChapterStars(currentChapter) : UserData.Instance.TotalStars;
+        int num2 = inChapter ? UserData.Instance.GetChapterScore(currentChapter) : UserData.Instance.TotalScore;
+        int num3 = inChapter ? 60 : (ContreJourConstants.LEVEL_COUNT * 3);
         string textString = string.Format(Messages.STARS_AND_SCORE, new object[3] { num, num3, num2 });
         starsField.TextString = textString;
     }
@@ -385,10 +396,10 @@ public class MainMenu : AccelerometerMenu, IActivatedDependent
         blackLayer.Tweener.Stop();
         inChapter = true;
         spinner.Enabled = false;
-        spinner.ScaleTo(0.3f, 5f).OnComplete(ShowLevels);
-        names.FadeOut(0.1f).OnComplete(NodeValues.Hide);
+        _ = spinner.ScaleTo(0.3f, 5f).OnComplete(ShowLevels);
+        _ = names.FadeOut(0.1f).OnComplete(NodeValues.Hide);
         blackLayer.Visible = true;
-        blackLayer.FadeIn(0.3f);
+        _ = blackLayer.FadeIn(0.3f);
     }
 
     public void ShowLevels()
@@ -397,12 +408,12 @@ public class MainMenu : AccelerometerMenu, IActivatedDependent
         spinner.Visible = false;
         if (ContreJourConfig.BackButtonVisible)
         {
-            this.Schedule(0.3f, OnLevelsShow);
+            _ = this.Schedule(0.3f, OnLevelsShow);
         }
-        blackLayer.FadeOut(2f).OnComplete(NodeValues.Hide);
+        _ = blackLayer.FadeOut(2f).OnComplete(NodeValues.Hide);
         CreateLevelsMenu();
         levelsMenu.Scale = levelsMenu.InitialScale * 0.5f;
-        levelsMenu.ScaleTo(0.3f, levelsMenu.InitialScale);
+        _ = levelsMenu.ScaleTo(0.3f, levelsMenu.InitialScale);
         levelsMenu.Position = winSize / 2f;
         levelsMenu.Show();
     }
@@ -432,8 +443,8 @@ public class MainMenu : AccelerometerMenu, IActivatedDependent
     {
         backButton.Visible = true;
         backButton.OpacityByte = 0;
-        backButton.FadeIn(0.3f);
-        this.Schedule(0.3f, EnableBack);
+        _ = backButton.FadeIn(0.3f);
+        _ = this.Schedule(0.3f, EnableBack);
     }
 
     private void EnableBack()
@@ -464,14 +475,11 @@ public class MainMenu : AccelerometerMenu, IActivatedDependent
         blackLayer.Tweener.Stop();
         if (ContreJourConfig.BackButtonVisible)
         {
-            backButton.FadeOut(0.3f);
+            _ = backButton.FadeOut(0.3f);
             backButton.Enabled = false;
         }
-        blackLayer.FadeIn(0.3f).OnComplete(ShowPlanets);
-        if (levelsMenu != null)
-        {
-            levelsMenu.ScaleTo(0.3f, 0.5f);
-        }
+        _ = blackLayer.FadeIn(0.3f).OnComplete(ShowPlanets);
+        levelsMenu?.ScaleTo(0.3f, 0.5f);
         blackLayer.Visible = true;
     }
 
@@ -481,7 +489,7 @@ public class MainMenu : AccelerometerMenu, IActivatedDependent
         SoundManager.PlayMusic("menu");
         names.Tweener.Stop();
         names.Visible = true;
-        names.FadeTo(0.3f, 1f);
+        _ = names.FadeTo(0.3f, 1f);
         accelerometerUsed = false;
         inChapter = false;
         ShowScore();
@@ -494,9 +502,9 @@ public class MainMenu : AccelerometerMenu, IActivatedDependent
             RemoveChild(levelsMenu);
         }
         levelsMenu = null;
-        blackLayer.FadeOutAndHide(1f);
+        _ = blackLayer.FadeOutAndHide(1f);
         spinner.Visible = true;
-        spinner.ScaleTo(0.3f, 1f);
+        _ = spinner.ScaleTo(0.3f, 1f);
         spinner.Enabled = true;
     }
 
@@ -544,10 +552,7 @@ public class MainMenu : AccelerometerMenu, IActivatedDependent
         if (!currentWindow.Open)
         {
             clickableLayer.InteractionsEnabled = true;
-            if (levelsMenu != null)
-            {
-                levelsMenu.InteractionsEnabled = true;
-            }
+            levelsMenu?.InteractionsEnabled = true;
             spinner.Enabled = !inChapter;
             currentWindow = null;
         }
@@ -564,10 +569,7 @@ public class MainMenu : AccelerometerMenu, IActivatedDependent
         window.Open = true;
         clickableLayer.InteractionsEnabled = false;
         spinner.Enabled = false;
-        if (levelsMenu != null)
-        {
-            levelsMenu.InteractionsEnabled = false;
-        }
+        levelsMenu?.InteractionsEnabled = false;
     }
 
     public void RefreshPosition()
@@ -580,12 +582,12 @@ public class MainMenu : AccelerometerMenu, IActivatedDependent
         }
         else if (!inLevel && levelsMenu != null)
         {
-            levelsMenu.Position = new Vector2(accelerometerOffset.X * 1.05f * RADIUS / 2f, accelerometerOffset.Y * 0.25f) + winSize / 2f;
+            levelsMenu.Position = new Vector2(accelerometerOffset.X * 1.05f * RADIUS / 2f, accelerometerOffset.Y * 0.25f) + (winSize / 2f);
         }
         accelerometerUsed = true;
-        Vector2 vector = new Vector2((0f - accelerometerOffset.X) * 1.05f * RADIUS, (0f - accelerometerOffset.Y) * 0.1f);
+        Vector2 vector = new((0f - accelerometerOffset.X) * 1.05f * RADIUS, (0f - accelerometerOffset.Y) * 0.1f);
         background.Position = vector + new Vector2(-60f, -50f);
-        Vector2 vector2 = new Vector2(accelerometerOffset.X * 0.3f * RADIUS, accelerometerOffset.Y * 0.07f);
+        Vector2 vector2 = new(accelerometerOffset.X * 0.3f * RADIUS, accelerometerOffset.Y * 0.07f);
         names.Position = namesPosition + vector2;
         foreground.Position = vector2 * 0.2f;
     }

@@ -27,14 +27,7 @@ public class BodyClip : DisposableBase, IUpdatable
 
     public virtual Body Body
     {
-        get
-        {
-            return _body;
-        }
-        protected set
-        {
-            SetBody(value);
-        }
+        get => _body; protected set => SetBody(value);
     }
 
     public float BodyAngle => _body.Rotation;
@@ -56,10 +49,7 @@ public class BodyClip : DisposableBase, IUpdatable
     {
         if (_body != value)
         {
-            if (_body != null)
-            {
-                _body.UserData = null;
-            }
+            _body?.UserData = null;
             _body = value;
             if (_body != null)
             {

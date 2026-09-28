@@ -1,6 +1,6 @@
 namespace Mokus2D.Util.Data;
 
-public struct ElementIndexValue<TElement, TValue>(TElement element, int index, TValue value)
+public readonly struct ElementIndexValue<TElement, TValue>(TElement element, int index, TValue value)
 {
     public readonly TElement Element = element;
 

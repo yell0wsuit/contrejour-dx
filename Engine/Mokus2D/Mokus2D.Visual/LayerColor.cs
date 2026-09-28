@@ -29,7 +29,7 @@ public class LayerColor : SpriteBatchNode, IDataReloadable
     {
         _quad = Mokus2DGame.Config.GraphicsConfig.CreateDefaultQuad();
         _spriteData = spriteData;
-        base.Texture = _spriteData.Texture;
+        Texture = _spriteData.Texture;
         Color = color;
         ColorRatio = 1f;
     }
@@ -42,7 +42,7 @@ public class LayerColor : SpriteBatchNode, IDataReloadable
 
     public void RefreshQuad()
     {
-        Vector2 size = base.Root.Size;
+        Vector2 size = Root.Size;
         _quad.RefreshColor(Color, ColorRatio);
         _quad.RefreshTextureRect(_spriteData.TextureRect, _spriteData.Texture.Bounds.Size());
         _quad.SetPositions(new Vector2(-10f, -10f), new Vector2(size.X + 10f, size.Y + 10f));
@@ -50,7 +50,7 @@ public class LayerColor : SpriteBatchNode, IDataReloadable
 
     public override void Draw(VisualState state)
     {
-        if (base.Texture.IsDisposed)
+        if (Texture.IsDisposed)
         {
             ReloadData();
         }
@@ -59,15 +59,15 @@ public class LayerColor : SpriteBatchNode, IDataReloadable
 
     protected override void DrawSprite(VisualState state, Color color)
     {
-        _quad.RefreshColor(color, base.CompositeState.ColorRatio);
+        _quad.RefreshColor(color, CompositeState.ColorRatio);
         _quad.Draw(Drawer);
     }
 
     public void ReloadData()
     {
         _spriteData = Mokus2DGame.LoadSpriteData(_spriteData.Id);
-        base.Texture = _spriteData.Texture;
-        if (base.OnDisplayList)
+        Texture = _spriteData.Texture;
+        if (OnDisplayList)
         {
             RefreshQuad();
         }

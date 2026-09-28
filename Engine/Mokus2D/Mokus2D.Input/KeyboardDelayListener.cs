@@ -21,9 +21,9 @@ public class KeyboardDelayListener : IUpdatable
         }
     }
 
-    private static readonly Pool<KeyData> DataPool = new Pool<KeyData>(() => new KeyData());
+    private static readonly Pool<KeyData> DataPool = new(() => new KeyData());
 
-    private readonly Dictionary<Keys, KeyData> _pressedTimes = new Dictionary<Keys, KeyData>();
+    private readonly Dictionary<Keys, KeyData> _pressedTimes = [];
 
     public float RepeatDelay;
 
@@ -48,12 +48,12 @@ public class KeyboardDelayListener : IUpdatable
         if (pressed)
         {
             _pressedTimes.Add(keys, DataPool.New());
-            this.KeyPressedEvent.Dispatch(keys);
+            KeyPressedEvent.Dispatch(keys);
         }
         else
         {
             KeyData obj = _pressedTimes[keys];
-            _pressedTimes.Remove(keys);
+            _ = _pressedTimes.Remove(keys);
             DataPool.Free(obj);
         }
     }
@@ -67,7 +67,7 @@ public class KeyboardDelayListener : IUpdatable
             if (value.Time > RepeatDelay)
             {
                 value.Time -= RepeatTime;
-                this.KeyPressedEvent.Dispatch(pressedTime.Key);
+                KeyPressedEvent.Dispatch(pressedTime.Key);
             }
         }
     }

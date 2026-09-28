@@ -12,9 +12,9 @@ namespace Mokus2D.Config.Defaults;
 
 public class SpriteLoaderCache : IGraphicsLoader
 {
-    private readonly Dictionary<string, object> _data = new Dictionary<string, object>();
+    private readonly Dictionary<string, object> _data = [];
 
-    private readonly Dictionary<string, object> _textureNodeData = new Dictionary<string, object>();
+    private readonly Dictionary<string, object> _textureNodeData = [];
 
     private readonly IGraphicsLoader _baseLoader;
 
@@ -22,46 +22,25 @@ public class SpriteLoaderCache : IGraphicsLoader
 
     public string GraphicsRootDirectory
     {
-        get
-        {
-            return _baseLoader.GraphicsRootDirectory;
-        }
-        set
-        {
-            _baseLoader.GraphicsRootDirectory = value;
-        }
+        get => _baseLoader.GraphicsRootDirectory;
+        set => _baseLoader.GraphicsRootDirectory = value;
     }
 
     public bool IsAbsolutePath
     {
-        get
-        {
-            return _baseLoader.IsAbsolutePath;
-        }
-        set
-        {
-            _baseLoader.IsAbsolutePath = value;
-        }
+        get => _baseLoader.IsAbsolutePath;
+        set => _baseLoader.IsAbsolutePath = value;
     }
 
     public bool FallbackToDefaultScaleFactor
     {
-        get
-        {
-            return _baseLoader.FallbackToDefaultScaleFactor;
-        }
-        set
-        {
-            _baseLoader.FallbackToDefaultScaleFactor = value;
-        }
+        get => _baseLoader.FallbackToDefaultScaleFactor;
+        set => _baseLoader.FallbackToDefaultScaleFactor = value;
     }
 
     public float PrefferedScaleFactor
     {
-        get
-        {
-            return _currentScaleFactor;
-        }
+        get => _currentScaleFactor;
         set
         {
             if (value != _currentScaleFactor)
@@ -88,7 +67,7 @@ public class SpriteLoaderCache : IGraphicsLoader
     public T Load<T>(string name)
     {
         name = FixName(name);
-        Dictionary<string, object> dictionary = (typeof(ITextureNodeData).GetTypeInfo().IsAssignableFrom(typeof(T).GetTypeInfo()) ? _textureNodeData : _data);
+        Dictionary<string, object> dictionary = typeof(ITextureNodeData).GetTypeInfo().IsAssignableFrom(typeof(T).GetTypeInfo()) ? _textureNodeData : _data;
         T val;
         if (!dictionary.ContainsKey(name))
         {
@@ -122,11 +101,11 @@ public class SpriteLoaderCache : IGraphicsLoader
 
     private void BaseLoaderOnResourceLoaded(string name, object data)
     {
-        Dictionary<string, object> dictionary = ((data is ITextureNodeData) ? _textureNodeData : _data);
+        Dictionary<string, object> dictionary = (data is ITextureNodeData) ? _textureNodeData : _data;
         if (!dictionary.ContainsKey(name) || !FallbackToDefaultScaleFactor)
         {
             dictionary[name] = data;
-            this.ResourceLoaded.Dispatch(name, data);
+            ResourceLoaded.Dispatch(name, data);
         }
     }
 }

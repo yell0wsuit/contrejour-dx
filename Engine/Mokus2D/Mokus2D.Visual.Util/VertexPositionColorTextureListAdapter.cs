@@ -15,24 +15,12 @@ public class VertexPositionColorTextureListAdapter : IList<Vector2>, ICollection
 
     public int Count => source.Length;
 
-    public bool IsReadOnly
-    {
-        get
-        {
-            throw new NotImplementedException();
-        }
-    }
+    public bool IsReadOnly => throw new NotImplementedException();
 
     public Vector2 this[int index]
     {
-        get
-        {
-            return source[index].Position.ToVector2();
-        }
-        set
-        {
-            source[index].Position = value.ToVector3();
-        }
+        get => source[index].Position.ToVector2();
+        set => source[index].Position = value.ToVector3();
     }
 
     public VertexPositionColorTextureListAdapter(VertexPositionColorTexture[] source)

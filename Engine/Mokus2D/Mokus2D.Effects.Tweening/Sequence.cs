@@ -9,9 +9,9 @@ namespace Mokus2D.Effects.Tweening;
 
 public class Sequence : ITween<Sequence>, ICompletableTween, ITween, ICleanable, IUpdatable
 {
-    private static readonly Pool<Sequence> Pool = new Pool<Sequence>(() => new Sequence());
+    private static readonly Pool<Sequence> Pool = new(() => new Sequence());
 
-    private readonly List<ITween> _tweens = new List<ITween>();
+    private readonly List<ITween> _tweens = [];
 
     private int _currentIndex;
 
@@ -102,67 +102,67 @@ public class Sequence : ITween<Sequence>, ICompletableTween, ITween, ICleanable,
 
     public Sequence Tween<TValue>(GetSetValue<TValue> getSet, TValue targetValue, Func<float, float, float, float> easing, float easingParamA, float easingParamB)
     {
-        LastTween.Tween(getSet, targetValue, easing, easingParamA, easingParamB);
+        _ = LastTween.Tween(getSet, targetValue, easing, easingParamA, easingParamB);
         return this;
     }
 
     public Sequence Tween<T>(GetSetValue<T> getSet, T targetValue, Func<float, float, float> easing, float easingParam)
     {
-        LastTween.Tween(getSet, targetValue, easing, easingParam);
+        _ = LastTween.Tween(getSet, targetValue, easing, easingParam);
         return this;
     }
 
     public Sequence Tween<T>(GetSetValue<T> getSet, T targetValue, Func<float, float> easing)
     {
-        LastTween.Tween(getSet, targetValue, easing);
+        _ = LastTween.Tween(getSet, targetValue, easing);
         return this;
     }
 
     public Sequence Tween<T>(GetSetValue<T> getSet, T targetValue)
     {
-        LastTween.Tween(getSet, targetValue);
+        _ = LastTween.Tween(getSet, targetValue);
         return this;
     }
 
     public Sequence Set<T>(GetSetValue<T> getSet, T targetValue)
     {
-        LastTween.Set(getSet, targetValue);
+        _ = LastTween.Set(getSet, targetValue);
         return this;
     }
 
     public Sequence SetAfter<T>(GetSetValue<T> getSet, T targetValue)
     {
-        LastTween.SetAfter(getSet, targetValue);
+        _ = LastTween.SetAfter(getSet, targetValue);
         return this;
     }
 
     public Sequence Ease(Func<float, float> easing)
     {
-        LastTween.Ease(easing);
+        _ = LastTween.Ease(easing);
         return this;
     }
 
     public Sequence Ease(Func<float, float, float> easing, float easingParam)
     {
-        LastTween.Ease(easing, easingParam);
+        _ = LastTween.Ease(easing, easingParam);
         return this;
     }
 
     public Sequence Ease(Func<float, float, float, float> easing, float easingParamA, float easingParamB)
     {
-        LastTween.Ease(easing, easingParamA, easingParamB);
+        _ = LastTween.Ease(easing, easingParamA, easingParamB);
         return this;
     }
 
     public Sequence OnComplete(Action<object> action)
     {
-        LastTween.OnComplete(action);
+        _ = LastTween.OnComplete(action);
         return this;
     }
 
     public Sequence OnComplete(Action action)
     {
-        LastTween.OnComplete(action);
+        _ = LastTween.OnComplete(action);
         return this;
     }
 }

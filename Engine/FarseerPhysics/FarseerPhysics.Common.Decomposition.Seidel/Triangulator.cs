@@ -24,9 +24,9 @@ internal class Triangulator
     public Triangulator(List<Point> polyLine, float sheer)
     {
         _sheer = sheer;
-        Triangles = new List<List<Point>>();
-        Trapezoids = new List<Trapezoid>();
-        _xMonoPoly = new List<MonotoneMountain>();
+        Triangles = [];
+        Trapezoids = [];
+        _xMonoPoly = [];
         _edgeList = InitEdges(polyLine);
         _trapezoidalMap = new TrapezoidalMap();
         _boundingBox = _trapezoidalMap.BoundingBox(_edgeList);
@@ -41,7 +41,7 @@ internal class Triangulator
             List<Trapezoid> list = _queryGraph.FollowEdge(edge);
             foreach (Trapezoid item2 in list)
             {
-                _trapezoidalMap.Map.Remove(item2);
+                _ = _trapezoidalMap.Map.Remove(item2);
                 bool flag = item2.Contains(edge.P);
                 bool flag2 = item2.Contains(edge.Q);
                 Trapezoid[] array;
@@ -68,7 +68,7 @@ internal class Triangulator
                 Trapezoid[] array2 = array;
                 foreach (Trapezoid item in array2)
                 {
-                    _trapezoidalMap.Map.Add(item);
+                    _ = _trapezoidalMap.Map.Add(item);
                 }
             }
             _trapezoidalMap.Clear();
@@ -96,9 +96,9 @@ internal class Triangulator
             {
                 continue;
             }
-            MonotoneMountain monotoneMountain = new MonotoneMountain();
-            List<Point> list = new List<Point>(edge.MPoints);
-            list.Sort((Point p1, Point p2) => p1.X.CompareTo(p2.X));
+            MonotoneMountain monotoneMountain = new();
+            List<Point> list = [.. edge.MPoints];
+            list.Sort((p1, p2) => p1.X.CompareTo(p2.X));
             foreach (Point item in list)
             {
                 monotoneMountain.Add(item);
@@ -122,18 +122,18 @@ internal class Triangulator
 
     private List<Edge> InitEdges(List<Point> points)
     {
-        List<Edge> list = new List<Edge>();
+        List<Edge> list = [];
         for (int i = 0; i < points.Count - 1; i++)
         {
             list.Add(new Edge(points[i], points[i + 1]));
         }
-        list.Add(new Edge(points[0], points[points.Count - 1]));
+        list.Add(new Edge(points[0], points[^1]));
         return OrderSegments(list);
     }
 
     private List<Edge> OrderSegments(List<Edge> edgeInput)
     {
-        List<Edge> list = new List<Edge>();
+        List<Edge> list = [];
         foreach (Edge item in edgeInput)
         {
             Point point = ShearTransform(item.P);
@@ -153,20 +153,18 @@ internal class Triangulator
 
     private static void Shuffle<T>(IList<T> list)
     {
-        Random random = new Random();
+        Random random = new();
         int num = list.Count;
         while (num > 1)
         {
             num--;
             int index = random.Next(num + 1);
-            T value = list[index];
-            list[index] = list[num];
-            list[num] = value;
+            (list[num], list[index]) = (list[index], list[num]);
         }
     }
 
     private Point ShearTransform(Point point)
     {
-        return new Point(point.X + _sheer * point.Y, point.Y);
+        return new Point(point.X + (_sheer * point.Y), point.Y);
     }
 }

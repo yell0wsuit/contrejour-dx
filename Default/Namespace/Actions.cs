@@ -9,23 +9,23 @@ public class Actions
 {
     public static void ShakeWithDurationPositionOffsetCountScaleDiff(Node node, float time, Vector2 position, float offset, int count, float scaleDiff)
     {
-        Sequence sequence = node.Tweener.StartSequence(time / (float)count);
+        Sequence sequence = node.Tweener.StartSequence(time / count);
         for (int i = 0; i < count; i++)
         {
             bool flag = i == count - 1;
-            sequence.Tween(targetValue: position + (flag ? Vector2.Zero : new Vector2(Maths.Random(0f - offset, offset), Maths.Random(0f - offset, offset))), getSet: NodeValues.Position);
+            _ = sequence.Tween(targetValue: position + (flag ? Vector2.Zero : new Vector2(Maths.Random(0f - offset, offset), Maths.Random(0f - offset, offset))), getSet: NodeValues.Position);
             if (scaleDiff != 0f)
             {
                 float num = 1f;
                 if (!flag)
                 {
-                    num = num + (float)i / (float)count * scaleDiff + ((i % 2 != 0) ? 0.05f : (-0.05f));
+                    num = num + (i / (float)count * scaleDiff) + ((i % 2 != 0) ? 0.05f : (-0.05f));
                 }
-                sequence.Tween(NodeValues.Scale, num);
+                _ = sequence.Tween(NodeValues.Scale, num);
             }
             if (!flag)
             {
-                sequence = sequence.Next(time / (float)count);
+                sequence = sequence.Next(time / count);
             }
         }
     }

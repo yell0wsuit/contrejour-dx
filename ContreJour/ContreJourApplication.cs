@@ -13,7 +13,6 @@ using Default.Namespace;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input.Touch;
 
 using Mokus2D;
 using Mokus2D.Config.Tint;
@@ -21,7 +20,6 @@ using Mokus2D.Fonts;
 using Mokus2D.Game;
 using Mokus2D.Sound;
 using Mokus2D.UI.Containers;
-using Mokus2D.Util.Data;
 using Mokus2D.Util.Extensions;
 using Mokus2D.Visual;
 using Mokus2D.Visual.Text;
@@ -52,7 +50,7 @@ public class ContreJourApplication : Mokus2DGame
 
     private Vector2 _initialSize;
 
-    private static readonly Dictionary<int, FontData> fonts = new Dictionary<int, FontData>();
+    private static readonly Dictionary<int, FontData> fonts = [];
 
     private Label _upsLabel;
 
@@ -67,15 +65,10 @@ public class ContreJourApplication : Mokus2DGame
     // after launch, so the original size comparison would block the game permanently.
     private bool IsFullscreen => true;
 
-    private bool MultitouchSupported
-    {
-        get
-        {
-            // The Windows 8 build refused to run without a multitouch screen. On desktop the mouse
-            // is fed through the engine's cursor input instead, so don't block the game.
-            return true;
-        }
-    }
+    private bool MultitouchSupported =>
+        // The Windows 8 build refused to run without a multitouch screen. On desktop the mouse
+        // is fed through the engine's cursor input instead, so don't block the game.
+        true;
 
     public override void OnResumeComplete()
     {
@@ -101,19 +94,19 @@ public class ContreJourApplication : Mokus2DGame
 
     private void StartApplication()
     {
-        Mokus2DGame.Config.GraphicsLoader.FallbackToDefaultScaleFactor = true;
-        if (base.ApplicationController.BackBufferSize.X >= 1200)
+        Config.GraphicsLoader.FallbackToDefaultScaleFactor = true;
+        if (ApplicationController.BackBufferSize.X >= 1200)
         {
-            Mokus2DGame.Config.GraphicsLoader.PrefferedScaleFactor = 0.5f;
+            Config.GraphicsLoader.PrefferedScaleFactor = 0.5f;
         }
-        base.ContentRootDirectory = "Assets/Content";
-        Mokus2DGame.Config.GraphicsLoader.GraphicsRootDirectory = "Graphics";
+        ContentRootDirectory = "Assets/Content";
+        Config.GraphicsLoader.GraphicsRootDirectory = "Graphics";
         SoundManager.MusicPath = Path.Combine(AppContext.BaseDirectory, "Assets", "Content", "Music");
     }
 
     private void LoadMusic()
     {
-        SoundManager.PreloadSongs(new string[6] { "chapter1", "chapter2", "chapter3", "chapter4", "chapter5", "menu" });
+        SoundManager.PreloadSongs(["chapter1", "chapter2", "chapter3", "chapter4", "chapter5", "menu"]);
         LoadSounds();
     }
 
@@ -121,26 +114,28 @@ public class ContreJourApplication : Mokus2DGame
     {
         base.Initialize(applicationController);
         PlatformInitialize();
-        Mokus2DGame.Config.RenderTargetEnabled = false;
-        Mokus2DGame.Config.DefaultSpriteBatchProperties.Blend = BlendState.AlphaBlend;
-        Mokus2DGame.Config.AnimationFPS = 30f;
-        TintGraphicsConfig graphicsConfig = new TintGraphicsConfig(tintEnabled: false);
-        Mokus2DGame.Config.GraphicsConfig = graphicsConfig;
-        base.ApplicationController.IsFullScreen = StartFullScreen;
-        base.ApplicationController.ApplyGraphicsChanges();
-        base.ApplicationController.IsFixedTimeStep = false;
+        Config.RenderTargetEnabled = false;
+        Config.DefaultSpriteBatchProperties.Blend = BlendState.AlphaBlend;
+        Config.AnimationFPS = 30f;
+        TintGraphicsConfig graphicsConfig = new(tintEnabled: false);
+        Config.GraphicsConfig = graphicsConfig;
+        ApplicationController.IsFullScreen = StartFullScreen;
+        ApplicationController.ApplyGraphicsChanges();
+        ApplicationController.IsFixedTimeStep = false;
         StartApplication();
         SegoePrint28Label.Register();
         ContreJourConfig.AspectRatio = ChooseAspectRatio();
-        _gameContainer = new ViewStack();
-        _gameContainer.ShowEffect = ShowView;
-        _gameContainer.HideEffect = HideView;
+        _gameContainer = new ViewStack
+        {
+            ShowEffect = ShowView,
+            HideEffect = HideView
+        };
         _gameContainer.BeforeShowEvent += OnChangeView;
-        SetRootScaleAndPosition(base.ApplicationController.BackBufferSize);
+        SetRootScaleAndPosition(ApplicationController.BackBufferSize);
         applicationController.IsMouseVisible = true;
-        base.Root.AddChild(_gameContainer);
+        Root.AddChild(_gameContainer);
         _blackForeground = new LayerColor(Color.Black, "menu/whitePixel");
-        base.Root.AddChild(_blackForeground);
+        Root.AddChild(_blackForeground);
         _initialSize = applicationController.BackBufferSize;
         BlockGameIfNeeded();
         ShowSplash();
@@ -169,7 +164,7 @@ public class ContreJourApplication : Mokus2DGame
     private void HideView(Node view, Action continuation)
     {
         _blackForeground.Visible = true;
-        _blackForeground.FadeIn(0.5f).OnComplete((Action)delegate
+        _ = _blackForeground.FadeIn(0.5f).OnComplete((Action)delegate
         {
             OnViewHide(view, continuation);
         });
@@ -194,54 +189,60 @@ public class ContreJourApplication : Mokus2DGame
 
     private void ShowView(Node view)
     {
-        _blackForeground.FadeOutAndHide(1f);
+        _ = _blackForeground.FadeOutAndHide(1f);
     }
 
     private void Test()
     {
-        McPuddle mcPuddle = new McPuddle();
-        mcPuddle.XY = 200f;
+        McPuddle mcPuddle = new()
+        {
+            XY = 200f
+        };
         mcPuddle.CurrentFrame = mcPuddle.TotalFrames - 1;
-        base.Root.AddChild(mcPuddle);
+        Root.AddChild(mcPuddle);
     }
 
     private void SetRootScaleAndPosition(Mokus2D.Util.Data.Point size)
     {
-        base.Root.Position = new Vector2(0f, base.ApplicationController.BackBufferSize.Y);
-        base.Root.ScaleY = -1f;
+        Root.Position = new Vector2(0f, ApplicationController.BackBufferSize.Y);
+        Root.ScaleY = -1f;
         _gameContainer.Scale = ScreenConstants.Scales.fromIPhone2ByHeight;
-        float num = (float)size.X / ScreenConstants.OsSizes.W7.X;
+        float num = size.X / ScreenConstants.OsSizes.W7.X;
         _gameContainer.Scale *= num;
-        float num2 = (float)size.X / (float)size.Y;
+        float num2 = size.X / (float)size.Y;
         Vector2 vector = size;
         if (num2 > AspectRatio.Ratio16x9.Ratio)
         {
-            float num3 = (float)size.Y * AspectRatio.Ratio16x9.Ratio;
-            float num4 = ((float)size.X - num3) / 2f;
-            base.Root.X = num4;
-            _gameContainer.Scale *= num3 / (float)size.X;
+            float num3 = size.Y * AspectRatio.Ratio16x9.Ratio;
+            float num4 = (size.X - num3) / 2f;
+            Root.X = num4;
+            _gameContainer.Scale *= num3 / size.X;
             vector.X = num3;
-            whitePixel whitePixel2 = new whitePixel();
-            whitePixel2.ScaledSize = new Vector2(num4, size.Y);
-            whitePixel2.X = 0f - num4;
-            whitePixel2.Y = size.Y;
-            whitePixel2.Color = Color.Black;
+            whitePixel whitePixel2 = new()
+            {
+                ScaledSize = new Vector2(num4, size.Y),
+                X = 0f - num4,
+                Y = size.Y,
+                Color = Color.Black
+            };
             whitePixel node = whitePixel2;
-            whitePixel whitePixel3 = new whitePixel();
-            whitePixel3.ScaledSize = new Vector2(num4, size.Y);
-            whitePixel3.X = num3;
-            whitePixel3.Y = size.Y;
-            whitePixel3.Color = Color.Black;
+            whitePixel whitePixel3 = new()
+            {
+                ScaledSize = new Vector2(num4, size.Y),
+                X = num3,
+                Y = size.Y,
+                Color = Color.Black
+            };
             whitePixel node2 = whitePixel3;
-            base.Root.AddChild(node, 1);
-            base.Root.AddChild(node2, 1);
+            Root.AddChild(node, 1);
+            Root.AddChild(node2, 1);
         }
         ContreJourConfig.RootSize = vector / _gameContainer.Scale;
     }
 
     private AspectRatio ChooseAspectRatio()
     {
-        float num = (float)base.ApplicationController.BackBufferSize.X / (float)base.ApplicationController.BackBufferSize.Y;
+        float num = ApplicationController.BackBufferSize.X / (float)ApplicationController.BackBufferSize.Y;
         AspectRatio[] all = AspectRatio.All;
         for (int i = 0; i < all.Length; i++)
         {
@@ -265,10 +266,7 @@ public class ContreJourApplication : Mokus2DGame
             return;
         }
         _gameContainer.VisibleAndUpdating = true;
-        if (_blockedGamePanel != null)
-        {
-            _blockedGamePanel.VisibleAndUpdating = false;
-        }
+        _blockedGamePanel?.VisibleAndUpdating = false;
         SoundManager.HasControl = true;
         _gameContainer.InteractionsEnabled = true;
     }
@@ -278,33 +276,25 @@ public class ContreJourApplication : Mokus2DGame
         if (_blockedGamePanel == null)
         {
             _blockedGamePanel = new petitInformation();
-            base.Root.AddChild(_blockedGamePanel, 2);
+            Root.AddChild(_blockedGamePanel, 2);
             _blockedGamePanel.Position = _initialSize / 2f;
         }
         _blockedGamePanel.VisibleAndUpdating = true;
-        _blockedGamePanel.ScaleVec = _initialSize / base.ApplicationController.WindowSize;
-        float num = (base.ApplicationController.WindowSize / _blockedGamePanel.Size).Min();
+        _blockedGamePanel.ScaleVec = _initialSize / ApplicationController.WindowSize;
+        float num = (ApplicationController.WindowSize / _blockedGamePanel.Size).Min();
         _blockedGamePanel.ScaleVec *= num;
-        if (!MultitouchSupported)
-        {
-            _blockedGamePanel.CurrentState = petitInformation.State.TouchMessage;
-        }
-        else
-        {
-            _blockedGamePanel.CurrentState = petitInformation.State.FullscreenMessage;
-        }
+        _blockedGamePanel.CurrentState = !MultitouchSupported ? petitInformation.State.TouchMessage : petitInformation.State.FullscreenMessage;
     }
 
     protected override RootNode CreateRootNode()
     {
-        return new RootNode(base.ApplicationController.BackBufferSize, new Vector2(1f, -1f));
+        return new RootNode(ApplicationController.BackBufferSize, new Vector2(1f, -1f));
     }
 
     private void ShowSplash()
     {
-        List<Action> list = new List<Action>();
-        list.Add(LoadMusic);
-        Splash splash = new Splash(list.ToArray());
+        List<Action> list = [LoadMusic];
+        Splash splash = new([.. list]);
         _gameContainer.CurrentView = splash;
         splash.EndEvent.AddListener(OnSplashExit);
         _currentView = splash;
@@ -343,7 +333,7 @@ public class ContreJourApplication : Mokus2DGame
 
     private MainMenu CreateMainMenu()
     {
-        MainMenu mainMenu = new MainMenu();
+        MainMenu mainMenu = new();
         mainMenu.LevelSelectEvent.AddListener(LoadLevel);
         mainMenu.ExitEvent.AddListener(OnMainMenuExit);
         return mainMenu;
@@ -360,7 +350,7 @@ public class ContreJourApplication : Mokus2DGame
 
     private Splash CreateSplash()
     {
-        Splash splash = new Splash();
+        Splash splash = new();
         splash.EndEvent.AddListener(OnSplashExit);
         return splash;
     }
@@ -386,8 +376,10 @@ public class ContreJourApplication : Mokus2DGame
     private ContreJourGame ProcessLoadLevel()
     {
         int chapter = LevelsMenu.GetLevelPosition(lastLevel).Chapter;
-        ContreJourGame contreJourGame = new ContreJourGame(chapter);
-        contreJourGame.CanShowIntro = canShowIntro;
+        ContreJourGame contreJourGame = new(chapter)
+        {
+            CanShowIntro = canShowIntro
+        };
         contreJourGame.BackEvent.AddListener(OnLevelBack);
         contreJourGame.RestartEvent.AddListener(RestartLevel);
         contreJourGame.NextLevelEvent.AddListener(NextLevel);
@@ -443,17 +435,13 @@ public class ContreJourApplication : Mokus2DGame
 
     public bool IsFirstLevel(Node node)
     {
-        if (node is ContreJourGame)
-        {
-            return ((ContreJourGame)node).LevelIndex == 0;
-        }
-        return false;
+        return node is ContreJourGame ? ((ContreJourGame)node).LevelIndex == 0 : false;
     }
 
     private static void LoadSounds()
     {
-        SoundManager.PreloadSounds(new string[45]
-        {
+        SoundManager.PreloadSounds(
+        [
             "angry2",
             "backgroundEyeHit0",
             "begin5",
@@ -499,7 +487,7 @@ public class ContreJourApplication : Mokus2DGame
             "suspicious3",
             "teleport",
             Sounds.IntroSound
-        });
+        ]);
     }
 
     public override void OnApplicationViewChanged(EventArgs args)

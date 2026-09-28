@@ -5,11 +5,11 @@ namespace FarseerPhysics.Common.Decomposition.CDT.Util;
 
 internal class PointGenerator
 {
-    private static readonly Random RNG = new Random();
+    private static readonly Random RNG = new();
 
     public static List<TriangulationPoint> UniformDistribution(int n, double scale)
     {
-        List<TriangulationPoint> list = new List<TriangulationPoint>();
+        List<TriangulationPoint> list = [];
         for (int i = 0; i < n; i++)
         {
             list.Add(new TriangulationPoint(scale * (0.5 - RNG.NextDouble()), scale * (0.5 - RNG.NextDouble())));
@@ -19,16 +19,15 @@ internal class PointGenerator
 
     public static List<TriangulationPoint> UniformGrid(int n, double scale)
     {
-        double num = 0.0;
-        double num2 = scale / (double)n;
+        double num2 = scale / n;
         double num3 = 0.5 * scale;
-        List<TriangulationPoint> list = new List<TriangulationPoint>();
+        List<TriangulationPoint> list = [];
         for (int i = 0; i < n + 1; i++)
         {
-            num = num3 - (double)i * num2;
+            double num = num3 - (i * num2);
             for (int j = 0; j < n + 1; j++)
             {
-                list.Add(new TriangulationPoint(num, num3 - (double)j * num2));
+                list.Add(new TriangulationPoint(num, num3 - (j * num2)));
             }
         }
         return list;

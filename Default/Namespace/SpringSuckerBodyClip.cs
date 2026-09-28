@@ -17,7 +17,7 @@ namespace Default.Namespace;
 
 public class SpringSuckerBodyClip : SuckerBodyClip
 {
-    public readonly EventSender ContactEvent = new EventSender();
+    public readonly EventSender ContactEvent = new();
 
     protected Vector2 parallel;
 
@@ -43,11 +43,7 @@ public class SpringSuckerBodyClip : SuckerBodyClip
     {
         get
         {
-            if (touch == null)
-            {
-                return config.GetBool("auto");
-            }
-            return false;
+            return touch == null ? config.GetBool("auto") : false;
         }
     }
 
@@ -115,8 +111,7 @@ public class SpringSuckerBodyClip : SuckerBodyClip
     public override void OnCollisionStartPoint(Body body2, Contact point)
     {
         base.OnCollisionStartPoint(body2, point);
-        HeroBodyClip heroBodyClip = body2.UserData as HeroBodyClip;
-        if (end != null && (point.FixtureA == middleFixture || point.FixtureB == middleFixture) && heroBodyClip != null)
+        if (end != null && (point.FixtureA == middleFixture || point.FixtureB == middleFixture) && body2.UserData is HeroBodyClip heroBodyClip)
         {
             Vector2 linearVelocity = heroBodyClip.Body.LinearVelocity;
             float num = VectorUtil.Atan2(linearVelocity);
@@ -127,7 +122,7 @@ public class SpringSuckerBodyClip : SuckerBodyClip
             linearVelocity += vector;
             heroBodyClip.Body.LinearVelocity = linearVelocity;
             float num2 = (VectorUtil.Atan2(Body.Position, body2.Position) - bounceAngle).SimplifyAngle(-(float)Math.PI);
-            float num3 = JUMP_IMPULSE + (float)heroBodyClip.SnotJoinedCount * SNOT_JUMP_IMPULSE;
+            float num3 = JUMP_IMPULSE + (heroBodyClip.SnotJoinedCount * SNOT_JUMP_IMPULSE);
             if (num2 < 0f)
             {
                 num3 *= -1f;

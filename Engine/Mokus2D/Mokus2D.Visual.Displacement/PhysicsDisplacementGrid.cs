@@ -26,10 +26,7 @@ public class PhysicsDisplacementGrid : DisplacementGrid
 
     public float DampingRatio
     {
-        get
-        {
-            return _dampingRatio;
-        }
+        get => _dampingRatio;
         set
         {
             if (!value.Between(0f, 1f))

@@ -31,27 +31,17 @@ public class DoubleSourceDictionary<TKey, TValue> : IDictionary<TKey, TValue>, I
     {
         get
         {
-            if (SecondSource != null && SecondSource.TryGetValue(key, out var value))
-            {
-                return value;
-            }
-            return _mainSource[key];
+            return SecondSource != null && SecondSource.TryGetValue(key, out TValue value) ? value : _mainSource[key];
         }
-        set
-        {
-            throw new NotImplementedException();
-        }
+
+        set => throw new NotImplementedException();
     }
 
     public ICollection<TKey> Keys
     {
         get
         {
-            if (SecondSource == null)
-            {
-                return _mainSource.Keys;
-            }
-            throw new NotImplementedException();
+            return SecondSource == null ? _mainSource.Keys : throw new NotImplementedException();
         }
     }
 
@@ -59,11 +49,7 @@ public class DoubleSourceDictionary<TKey, TValue> : IDictionary<TKey, TValue>, I
     {
         get
         {
-            if (SecondSource == null)
-            {
-                return _mainSource.Values;
-            }
-            throw new NotImplementedException();
+            return SecondSource == null ? _mainSource.Values : throw new NotImplementedException();
         }
     }
 
@@ -84,11 +70,7 @@ public class DoubleSourceDictionary<TKey, TValue> : IDictionary<TKey, TValue>, I
 
     public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
     {
-        if (SecondSource == null)
-        {
-            return _mainSource.GetEnumerator();
-        }
-        throw new NotImplementedException();
+        return SecondSource == null ? _mainSource.GetEnumerator() : throw new NotImplementedException();
     }
 
     public void Add(KeyValuePair<TKey, TValue> item)
@@ -105,11 +87,7 @@ public class DoubleSourceDictionary<TKey, TValue> : IDictionary<TKey, TValue>, I
     {
         if (!_mainSource.Contains(item))
         {
-            if (SecondSource != null)
-            {
-                return SecondSource.Contains(item);
-            }
-            return false;
+            return SecondSource != null ? SecondSource.Contains(item) : false;
         }
         return true;
     }
@@ -128,11 +106,7 @@ public class DoubleSourceDictionary<TKey, TValue> : IDictionary<TKey, TValue>, I
     {
         if (!_mainSource.ContainsKey(key))
         {
-            if (SecondSource != null)
-            {
-                return SecondSource.ContainsKey(key);
-            }
-            return false;
+            return SecondSource != null ? SecondSource.ContainsKey(key) : false;
         }
         return true;
     }
@@ -149,19 +123,11 @@ public class DoubleSourceDictionary<TKey, TValue> : IDictionary<TKey, TValue>, I
 
     public bool TryGetValue(TKey key, out TValue value)
     {
-        if (SecondSource != null && SecondSource.TryGetValue(key, out value))
-        {
-            return true;
-        }
-        return _mainSource.TryGetValue(key, out value);
+        return SecondSource != null && SecondSource.TryGetValue(key, out value) ? true : _mainSource.TryGetValue(key, out value);
     }
 
     IEnumerator IEnumerable.GetEnumerator()
     {
-        if (SecondSource == null)
-        {
-            return _mainSource.GetEnumerator();
-        }
-        throw new NotImplementedException();
+        return SecondSource == null ? (IEnumerator)_mainSource.GetEnumerator() : throw new NotImplementedException();
     }
 }

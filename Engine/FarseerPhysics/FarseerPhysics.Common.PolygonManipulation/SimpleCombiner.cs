@@ -12,7 +12,7 @@ public static class SimpleCombiner
         {
             return triangles;
         }
-        List<Vertices> list = new List<Vertices>();
+        List<Vertices> list = [];
         bool[] array = new bool[triangles.Count];
         for (int i = 0; i < triangles.Count; i++)
         {
@@ -44,7 +44,7 @@ public static class SimpleCombiner
                 flag = false;
                 continue;
             }
-            Vertices vertices2 = new Vertices(3);
+            Vertices vertices2 = new(3);
             for (int k = 0; k < 3; k++)
             {
                 vertices2.Add(triangles[num2][k]);
@@ -72,7 +72,7 @@ public static class SimpleCombiner
             }
             if (num < maxPolys)
             {
-                SimplifyTools.MergeParallelEdges(vertices2, tolerance);
+                _ = SimplifyTools.MergeParallelEdges(vertices2, tolerance);
                 if (vertices2.Count >= 3)
                 {
                     list.Add(new Vertices(vertices2));
@@ -159,7 +159,7 @@ public static class SimpleCombiner
         {
             num5 = 2;
         }
-        Vertices vertices2 = new Vertices(vertices.Count + 1);
+        Vertices vertices2 = new(vertices.Count + 1);
         for (int j = 0; j < vertices.Count; j++)
         {
             vertices2.Add(vertices[j]);

@@ -14,14 +14,8 @@ public class SnotChain
 
     public float Diff
     {
-        get
-        {
-            return diff;
-        }
-        set
-        {
-            diff = value;
-        }
+        get => diff;
+        set => diff = value;
     }
 
     public static object CreateWithSnotDistance(SnotBodyClip _snot, float _distance)

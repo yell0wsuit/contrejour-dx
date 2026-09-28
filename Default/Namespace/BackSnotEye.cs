@@ -8,11 +8,11 @@ namespace Default.Namespace;
 
 public class BackSnotEye : MonsterEye
 {
-    public static readonly EyeAnimation[] BACK_SNOT_ANIMATIONS = new EyeAnimation[2]
-    {
-        new EyeAnimation("McBackSnotEyeBlink"),
-        new EyeAnimation("McBackSnotEyeBlinkOneTime")
-    };
+    public static readonly EyeAnimation[] BACK_SNOT_ANIMATIONS =
+    [
+        new("McBackSnotEyeBlink"),
+        new("McBackSnotEyeBlinkOneTime")
+    ];
 
     protected override EyeAnimation[] Animations => BACK_SNOT_ANIMATIONS;
 
@@ -32,8 +32,10 @@ public class BackSnotEye : MonsterEye
 
     protected override void CreateDefaultView()
     {
-        background = new McBackSnotEye();
-        background.Test = true;
+        background = new McBackSnotEye
+        {
+            Test = true
+        };
         eyeBall = new McBackSnotEyeBall();
     }
 }

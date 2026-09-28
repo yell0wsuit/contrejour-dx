@@ -22,9 +22,6 @@ public class DoubleNodeFrameOnOff : FrameOnOff
     protected override void SetOff()
     {
         base.SetOff();
-        if (_targetB != null)
-        {
-            _targetB.GotoAndStop(OffFrame);
-        }
+        _targetB?.GotoAndStop(OffFrame);
     }
 }

@@ -11,7 +11,7 @@ public class ResourcesLoader : ResourcesLoaderBase
 
     protected override string GetFileName<T>(string resourceName, string resourcesSuffix)
     {
-        string text = (((object)typeof(T) == typeof(FontData)) ? "font" : "xml");
+        string text = ((object)typeof(T) == typeof(FontData)) ? "font" : "xml";
         IGraphicsDeserializer graphicsDeserializer = _deserializers[typeof(T)];
         string text2 = resourceName;
         if (graphicsDeserializer.UseSuffix)

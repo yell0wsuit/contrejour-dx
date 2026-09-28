@@ -12,7 +12,7 @@ internal abstract class Node
 
     protected Node(Node left, Node right)
     {
-        ParentList = new List<Node>();
+        ParentList = [];
         LeftChild = left;
         RightChild = right;
         left?.ParentList.Add(this);

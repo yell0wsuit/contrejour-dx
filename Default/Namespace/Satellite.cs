@@ -33,37 +33,21 @@ public class Satellite : IUpdatable, IRemovable
 
     public float SpeedValue
     {
-        get
-        {
-            return speedValue;
-        }
-        set
-        {
-            speedValue = value;
-        }
+        get => speedValue;
+        set => speedValue = value;
     }
 
     public float AngleStep
     {
-        get
-        {
-            return angleStep;
-        }
-        set
-        {
-            angleStep = value;
-        }
+        get => angleStep;
+        set => angleStep = value;
     }
 
     protected virtual Vector2 TargetPosition
     {
         get
         {
-            if (target == null)
-            {
-                return initialPosition;
-            }
-            return game.Builder.ToIPadPoint(target.Body.Position);
+            return target == null ? initialPosition : game.Builder.ToIPadPoint(target.Body.Position);
         }
     }
 

@@ -30,10 +30,7 @@ public class Sprite : AnchorNode, ITextureNode, IAnchorNode, ISizeNode, IBlendab
 
     protected Rectangle TextureRectangle
     {
-        get
-        {
-            return _textureRectangle;
-        }
+        get => _textureRectangle;
         set
         {
             _textureRectangle = value;
@@ -46,10 +43,7 @@ public class Sprite : AnchorNode, ITextureNode, IAnchorNode, ISizeNode, IBlendab
 
     public override Vector2 Anchor
     {
-        get
-        {
-            return base.Anchor;
-        }
+        get => base.Anchor;
         set
         {
             base.Anchor = value;
@@ -103,7 +97,7 @@ public class Sprite : AnchorNode, ITextureNode, IAnchorNode, ISizeNode, IBlendab
 
     public override void Draw(VisualState state)
     {
-        if (base.Texture.IsDisposed)
+        if (Texture.IsDisposed)
         {
             ReloadData();
         }
@@ -112,7 +106,7 @@ public class Sprite : AnchorNode, ITextureNode, IAnchorNode, ISizeNode, IBlendab
 
     public virtual void ResetTexture(Texture2D texture)
     {
-        base.Texture = texture;
+        Texture = texture;
         RefreshTexture();
         SetQuadDirty();
     }
@@ -140,21 +134,21 @@ public class Sprite : AnchorNode, ITextureNode, IAnchorNode, ISizeNode, IBlendab
 
     protected void RefreshTexture()
     {
-        TextureRectangle = new Rectangle(0, 0, base.Texture.Width, base.Texture.Height);
+        TextureRectangle = new Rectangle(0, 0, Texture.Width, Texture.Height);
     }
 
     protected void InitializeConfig(IConfig data)
     {
         SetMainConfig(data.Config);
-        if (base.Config != null)
+        if (Config != null)
         {
-            if (base.Config.ContainsKey("premultiply"))
+            if (Config.ContainsKey("premultiply"))
             {
-                base.Blend = (base.Config.GetBool("premultiply") ? BlendState.AlphaBlend : BlendState.NonPremultiplied);
+                Blend = Config.GetBool("premultiply") ? BlendState.AlphaBlend : BlendState.NonPremultiplied;
             }
-            if (base.Config.ContainsKey("clickable"))
+            if (Config.ContainsKey("clickable"))
             {
-                base.Clickable = base.Config.GetBool("clickable");
+                Clickable = Config.GetBool("clickable");
             }
         }
     }
@@ -171,7 +165,7 @@ public class Sprite : AnchorNode, ITextureNode, IAnchorNode, ISizeNode, IBlendab
 
     protected virtual Vector2 GetCurrentAnchor()
     {
-        return base.AnchorInPixels;
+        return AnchorInPixels;
     }
 
     protected void SetTextureRectangleDirty()
@@ -187,7 +181,7 @@ public class Sprite : AnchorNode, ITextureNode, IAnchorNode, ISizeNode, IBlendab
     protected override void RefreshTransformations(VisualState parentState)
     {
         base.RefreshTransformations(parentState);
-        if (base.CompositeState.TransformationDirty || _quadDirty)
+        if (CompositeState.TransformationDirty || _quadDirty)
         {
             RefreshQuad();
             _quadDirty = false;
@@ -196,18 +190,18 @@ public class Sprite : AnchorNode, ITextureNode, IAnchorNode, ISizeNode, IBlendab
 
     protected virtual void RefreshQuad()
     {
-        Vector2 spritesScaleFactor = base.Root.SpritesScaleFactor;
-        Quad.RefreshTransformation(base.CompositeState.Matrix, GetCurrentAnchor() * spritesScaleFactor, GetTileRectangle().Size() * ScaleFactor * spritesScaleFactor);
+        Vector2 spritesScaleFactor = Root.SpritesScaleFactor;
+        Quad.RefreshTransformation(CompositeState.Matrix, GetCurrentAnchor() * spritesScaleFactor, GetTileRectangle().Size() * ScaleFactor * spritesScaleFactor);
     }
 
     protected override void DrawSprite(VisualState state, Color color)
     {
-        if (base.Texture != null && (!base.Texture.IsDisposed || !IgnoreIfTextureDisposed))
+        if (Texture != null && (!Texture.IsDisposed || !IgnoreIfTextureDisposed))
         {
-            Quad.RefreshColor(color, base.CompositeState.ColorRatio);
+            Quad.RefreshColor(color, CompositeState.ColorRatio);
             if (_textureRectangleDirty)
             {
-                Quad.RefreshTextureRect(GetTileRectangle(), base.Texture.Bounds.Size());
+                Quad.RefreshTextureRect(GetTileRectangle(), Texture.Bounds.Size());
                 _textureRectangleDirty = false;
             }
             Quad.Draw(Drawer);

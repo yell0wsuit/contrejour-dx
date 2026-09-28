@@ -23,7 +23,7 @@ public class ParallaxScroller : IEnumerable<ParallaxLayer>, IEnumerable, IViewPo
 
     private Vector2 _zoomCenter = Vector2.Zero;
 
-    private readonly List<ParallaxLayer> _layers = new List<ParallaxLayer>();
+    private readonly List<ParallaxLayer> _layers = [];
 
     private Vector2? _fieldZoomPosition;
 
@@ -31,10 +31,7 @@ public class ParallaxScroller : IEnumerable<ParallaxLayer>, IEnumerable, IViewPo
 
     public float ZoomDistance
     {
-        get
-        {
-            return _zoomDistance;
-        }
+        get => _zoomDistance;
         set
         {
             if (_zoomDistance != value)
@@ -43,41 +40,26 @@ public class ParallaxScroller : IEnumerable<ParallaxLayer>, IEnumerable, IViewPo
                 _zoomDistance = value;
                 RefreshZoom();
                 FixZoomPosition(mainLayerScale, MainLayerScale);
-                this.ZoomChanged.Dispatch();
+                ZoomChanged.Dispatch();
             }
         }
     }
 
     public float MainLayerScale
     {
-        get
-        {
-            return 1f / (1f + ZoomDistance);
-        }
-        set
-        {
-            ZoomDistance = (1f - value) / value;
-        }
+        get => 1f / (1f + ZoomDistance);
+        set => ZoomDistance = (1f - value) / value;
     }
 
     public Vector2 CenterPosition
     {
-        get
-        {
-            return ViewPosition + _screenSize / MainLayerScale / 2f;
-        }
-        set
-        {
-            ViewPosition = value - _screenSize / MainLayerScale / 2f;
-        }
+        get => ViewPosition + (_screenSize / MainLayerScale / 2f);
+        set => ViewPosition = value - (_screenSize / MainLayerScale / 2f);
     }
 
     public Vector2 ViewPosition
     {
-        get
-        {
-            return _viewPosition;
-        }
+        get => _viewPosition;
         set
         {
             if (_viewPosition != value)
@@ -85,19 +67,16 @@ public class ParallaxScroller : IEnumerable<ParallaxLayer>, IEnumerable, IViewPo
                 _fieldZoomPosition = null;
                 _viewPosition = value;
                 RefreshViewPosition();
-                this.ViewPositionChanged.Dispatch();
+                ViewPositionChanged.Dispatch();
             }
         }
     }
 
-    public RectangleFloat ViewBounds => new RectangleFloat(ViewPosition, ScreenSize / MainLayerScale);
+    public RectangleFloat ViewBounds => new(ViewPosition, ScreenSize / MainLayerScale);
 
     public Vector2 ZoomCenter
     {
-        get
-        {
-            return _zoomCenter;
-        }
+        get => _zoomCenter;
         set
         {
             if (_zoomCenter != value)
@@ -114,11 +93,7 @@ public class ParallaxScroller : IEnumerable<ParallaxLayer>, IEnumerable, IViewPo
 
     public static float GetConfigParallax(Node node)
     {
-        if (node.Config != null)
-        {
-            return node.Config.GetFloat("parallax", 1f);
-        }
-        return 1f;
+        return node.Config != null ? node.Config.GetFloat("parallax", 1f) : 1f;
     }
 
     public ParallaxScroller(Vector2 screenSize)
@@ -129,13 +104,13 @@ public class ParallaxScroller : IEnumerable<ParallaxLayer>, IEnumerable, IViewPo
 
     public ParallaxLayer FindLayer(Node node)
     {
-        return _layers.Find((ParallaxLayer l) => l.Node == node);
+        return _layers.Find(l => l.Node == node);
     }
 
     public void RemoveLayer(Node node)
     {
         ParallaxLayer item = FindLayer(node);
-        _layers.Remove(item);
+        _ = _layers.Remove(item);
     }
 
     public void AddChildrenByConfigs(Node parent)
@@ -159,7 +134,7 @@ public class ParallaxScroller : IEnumerable<ParallaxLayer>, IEnumerable, IViewPo
 
     public void Add(Node layer, float parallax, Vector2 initialPosition)
     {
-        ParallaxLayer parallaxLayer = new ParallaxLayer(layer, parallax, initialPosition);
+        ParallaxLayer parallaxLayer = new(layer, parallax, initialPosition);
         _layers.Add(parallaxLayer);
         RefreshLayerZoom(parallaxLayer);
         RefreshLayerPosition(parallaxLayer);
@@ -175,7 +150,7 @@ public class ParallaxScroller : IEnumerable<ParallaxLayer>, IEnumerable, IViewPo
 
     private void RefreshLayerPosition(ParallaxLayer layer)
     {
-        Vector2 vector = layer.InitialPosition - ViewPosition * layer.Parallax;
+        Vector2 vector = layer.InitialPosition - (ViewPosition * layer.Parallax);
         float layerScale = GetLayerScale(layer);
         layer.Node.Position = vector * layerScale;
     }
@@ -185,9 +160,9 @@ public class ParallaxScroller : IEnumerable<ParallaxLayer>, IEnumerable, IViewPo
         Vector2? fieldZoomPosition = _fieldZoomPosition;
         if (!fieldZoomPosition.HasValue)
         {
-            fieldZoomPosition = ViewPosition + ZoomCenter / oldZoom;
+            fieldZoomPosition = ViewPosition + (ZoomCenter / oldZoom);
         }
-        Vector2 vector = ViewPosition + ZoomCenter / newZoom;
+        Vector2 vector = ViewPosition + (ZoomCenter / newZoom);
         ViewPosition += fieldZoomPosition.Value - vector;
         _fieldZoomPosition = fieldZoomPosition;
     }
@@ -208,11 +183,7 @@ public class ParallaxScroller : IEnumerable<ParallaxLayer>, IEnumerable, IViewPo
 
     private float GetLayerScale(ParallaxLayer layer)
     {
-        if (layer.Parallax == 0f)
-        {
-            return 1f;
-        }
-        return layer.ParallaxDistance / (layer.ParallaxDistance + ZoomDistance);
+        return layer.Parallax == 0f ? 1f : layer.ParallaxDistance / (layer.ParallaxDistance + ZoomDistance);
     }
 
     public IEnumerator<ParallaxLayer> GetEnumerator()

@@ -39,13 +39,13 @@ public class RotatableBodyClip : BodyClip
         if (!destroying)
         {
             scaleProgress += scaleStep;
-            clip.ScaleX = 1f + Maths.Cos(scaleProgress) * scaleDiff;
-            clip.ScaleX = (float)scaleSign * clip.ScaleY;
+            clip.ScaleX = 1f + (Maths.Cos(scaleProgress) * scaleDiff);
+            clip.ScaleX = scaleSign * clip.ScaleY;
         }
     }
 
     public void UpdateRotation(float time)
     {
-        clip.RotationDegrees += (float)rotationDirection * angleDiff;
+        clip.RotationDegrees += rotationDirection * angleDiff;
     }
 }

@@ -13,7 +13,7 @@ public class BezierLineSegmentedData<T> : LineSegmentedData<T>, ISegmentedSprite
 {
     private readonly int _bezierSegmentsCount;
 
-    private readonly List<Vector2> _bezierLine = new List<Vector2>();
+    private readonly List<Vector2> _bezierLine = [];
 
     public override int PairsCount => BezierUtil.GetBezierLinePointsCount(Line.Count, _bezierSegmentsCount);
 

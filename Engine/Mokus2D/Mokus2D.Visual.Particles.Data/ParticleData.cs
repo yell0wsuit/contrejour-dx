@@ -44,11 +44,7 @@ public class ParticleData : IUpdatable
     {
         get
         {
-            if (!CheckValue(LifeDistance))
-            {
-                return Time >= _totalTime;
-            }
-            return true;
+            return !CheckValue(LifeDistance) ? Time >= _totalTime : true;
         }
     }
 
@@ -110,10 +106,6 @@ public class ParticleData : IUpdatable
 
     private bool CheckValue(float? value)
     {
-        if (value.HasValue)
-        {
-            return value <= 0f;
-        }
-        return false;
+        return value.HasValue ? value <= 0f : false;
     }
 }

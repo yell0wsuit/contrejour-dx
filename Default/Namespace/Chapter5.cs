@@ -18,7 +18,7 @@ public class Chapter5(int _index, MainMenu _menu) : ChapterItem(_index, _menu)
 
     protected Node foregroundContainer;
 
-    protected List<CosPropertyChanger> changers = new List<CosPropertyChanger>();
+    protected List<CosPropertyChanger> changers = [];
 
     protected Node planetForeground;
 
@@ -41,10 +41,10 @@ public class Chapter5(int _index, MainMenu _menu) : ChapterItem(_index, _menu)
         {
             Node node = new Sprite($"menu2/McHole{i}");
             container.AddChild(node);
-            CosOpacityChanger item = new CosOpacityChanger(node, 0f, 1f, Maths.Random(0.02f, 0.07f) / 255f);
+            CosOpacityChanger item = new(node, 0f, 1f, Maths.Random(0.02f, 0.07f) / 255f);
             changers.Add(item);
         }
-        ParticleSystem particleSystem = new ParticleSystem(Mokus2DGame.LoadSpriteData("common/McEnergyBall"));
+        ParticleSystem particleSystem = new(Mokus2DGame.LoadSpriteData("common/McEnergyBall"));
         container.AddChild(particleSystem);
         AddUpdating(new PlanetEnergy(particleSystem, new Vector2(35f, 120f)));
         particleSystem.Scale = 0.55f;
@@ -74,23 +74,23 @@ public class Chapter5(int _index, MainMenu _menu) : ChapterItem(_index, _menu)
         foreground.Position = -rootSize / 2f;
         foregroundContainer.Position = -foreground.Position;
         menu.AddForeground(foregroundContainer);
-        AddForegroundPositionScaleAngle(new McLeafView4(), new Vector2(rootSize.X - 1024f + 624f, rootSize.Y - 27f), new Vector2(1.72f, 1.29f), 171f);
-        AddForegroundPositionScaleAngle(new McLeafView3(), new Vector2(rootSize.X - 1024f + 731f, rootSize.Y - 54f), new Vector2(2.37f, 2.37f), -172f);
-        AddForegroundPositionScaleAngle(new McLeafView5(), new Vector2(rootSize.X - 1024f + 1008f, rootSize.Y - 55f), new Vector2(3.31f, 3.31f), -22f);
-        AddForegroundPositionScaleAngleRotationOffset(new McLeafView1(), new Vector2(rootSize.X - 1024f + 1095f, rootSize.Y - 124f), new Vector2(2.71f, 2.71f), 0f, 5f);
-        AddForegroundPositionScaleAngleRotationOffset(new McLeafView0(), new Vector2(rootSize.X - 1024f + 1113f, rootSize.Y - 193f), new Vector2(2.38f, 2.38f), -30f, -3f);
-        AddForegroundPositionScaleAngleRotationOffset(new McLeafView0(), new Vector2(rootSize.X - 1024f + 1072f, 168f), new Vector2(2.45f, 2.45f), -52f, 1f);
-        AddForegroundPositionScaleAngleRotationOffset(new McLeafView2(), new Vector2(rootSize.X - 1024f + 1092f, 207f), new Vector2(2.17f, 2.17f), -14f, -3f);
-        AddForegroundPositionScaleAngle(new McLeafView4(), new Vector2(409f, 42f), new Vector2(-1.7f, 1.4f), 0f);
-        AddForegroundPositionScaleAngle(new McLeafView3(), new Vector2(340f, 48f), new Vector2(-2.68f, 2.68f), 4f);
-        AddForegroundPositionScaleAngle(new McLeafView5(), new Vector2(262f, 45f), new Vector2(-2.13f, 2.13f), 0f);
-        AddForegroundPositionScaleAngleRotationOffset(new McLeafView2(), new Vector2(-124f, rootSize.Y - 402f), new Vector2(-2.97f, 2.97f), 0f, 4f);
-        AddForegroundPositionScaleAngleRotationOffset(new McLeafView1(), new Vector2(-182f, rootSize.Y - 364f), new Vector2(-2.76f, 2.76f), -12f, -3f);
+        _ = AddForegroundPositionScaleAngle(new McLeafView4(), new Vector2(rootSize.X - 1024f + 624f, rootSize.Y - 27f), new Vector2(1.72f, 1.29f), 171f);
+        _ = AddForegroundPositionScaleAngle(new McLeafView3(), new Vector2(rootSize.X - 1024f + 731f, rootSize.Y - 54f), new Vector2(2.37f, 2.37f), -172f);
+        _ = AddForegroundPositionScaleAngle(new McLeafView5(), new Vector2(rootSize.X - 1024f + 1008f, rootSize.Y - 55f), new Vector2(3.31f, 3.31f), -22f);
+        _ = AddForegroundPositionScaleAngleRotationOffset(new McLeafView1(), new Vector2(rootSize.X - 1024f + 1095f, rootSize.Y - 124f), new Vector2(2.71f, 2.71f), 0f, 5f);
+        _ = AddForegroundPositionScaleAngleRotationOffset(new McLeafView0(), new Vector2(rootSize.X - 1024f + 1113f, rootSize.Y - 193f), new Vector2(2.38f, 2.38f), -30f, -3f);
+        _ = AddForegroundPositionScaleAngleRotationOffset(new McLeafView0(), new Vector2(rootSize.X - 1024f + 1072f, 168f), new Vector2(2.45f, 2.45f), -52f, 1f);
+        _ = AddForegroundPositionScaleAngleRotationOffset(new McLeafView2(), new Vector2(rootSize.X - 1024f + 1092f, 207f), new Vector2(2.17f, 2.17f), -14f, -3f);
+        _ = AddForegroundPositionScaleAngle(new McLeafView4(), new Vector2(409f, 42f), new Vector2(-1.7f, 1.4f), 0f);
+        _ = AddForegroundPositionScaleAngle(new McLeafView3(), new Vector2(340f, 48f), new Vector2(-2.68f, 2.68f), 4f);
+        _ = AddForegroundPositionScaleAngle(new McLeafView5(), new Vector2(262f, 45f), new Vector2(-2.13f, 2.13f), 0f);
+        _ = AddForegroundPositionScaleAngleRotationOffset(new McLeafView2(), new Vector2(-124f, rootSize.Y - 402f), new Vector2(-2.97f, 2.97f), 0f, 4f);
+        _ = AddForegroundPositionScaleAngleRotationOffset(new McLeafView1(), new Vector2(-182f, rootSize.Y - 364f), new Vector2(-2.76f, 2.76f), -12f, -3f);
     }
 
     public void AddLianaMiddleEndReduce(Vector2 start, Vector2 middle, Vector2 end, bool reduce)
     {
-        PlanetLiana planetLiana = new PlanetLiana(start, middle, end);
+        PlanetLiana planetLiana = new(start, middle, end);
         container.AddChild(planetLiana);
         AddUpdating(planetLiana);
         if (reduce)
@@ -112,7 +112,7 @@ public class Chapter5(int _index, MainMenu _menu) : ChapterItem(_index, _menu)
         foregroundContainer.Visible = foreground.OpacityByte > 0;
         if (foregroundContainer.Visible)
         {
-            foregroundContainer.Scale = 10f - (depth - 0.8f) * 5f * 9f;
+            foregroundContainer.Scale = 10f - ((depth - 0.8f) * 5f * 9f);
         }
     }
 
@@ -129,8 +129,8 @@ public class Chapter5(int _index, MainMenu _menu) : ChapterItem(_index, _menu)
 
     private Node AddForegroundPositionScaleAngleRotationOffset(Node node, Vector2 position, Vector2 scale, float angle, float _offset)
     {
-        AddForegroundPositionScaleAngle(node, position, scale, angle);
-        CosRotationChanger item = new CosRotationChanger(node, _offset, Maths.Random(0.005f, 0.01f));
+        _ = AddForegroundPositionScaleAngle(node, position, scale, angle);
+        CosRotationChanger item = new(node, _offset, Maths.Random(0.005f, 0.01f));
         changers.Add(item);
         return node;
     }

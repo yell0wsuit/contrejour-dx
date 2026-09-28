@@ -26,14 +26,11 @@ public sealed class BuoyancyController : Controller
 
     private float _offset;
 
-    private Dictionary<int, Body> _uniqueBodies = new Dictionary<int, Body>();
+    private Dictionary<int, Body> _uniqueBodies = [];
 
     public AABB Container
     {
-        get
-        {
-            return _container;
-        }
+        get => _container;
         set
         {
             _container = value;
@@ -77,11 +74,10 @@ public sealed class BuoyancyController : Controller
             for (int num3 = 0; num3 < value.FixtureList.Count; num3++)
             {
                 Fixture fixture = value.FixtureList[num3];
-                if (fixture.Shape.ShapeType == ShapeType.Polygon || fixture.Shape.ShapeType == ShapeType.Circle)
+                if (fixture.Shape.ShapeType is ShapeType.Polygon or ShapeType.Circle)
                 {
                     Shape shape = fixture.Shape;
-                    Vector2 sc;
-                    float num4 = shape.ComputeSubmergedArea(ref _normal, _offset, ref value._xf, out sc);
+                    float num4 = shape.ComputeSubmergedArea(ref _normal, _offset, ref value._xf, out Vector2 sc);
                     num += num4;
                     zero.X += num4 * sc.X;
                     zero.Y += num4 * sc.Y;

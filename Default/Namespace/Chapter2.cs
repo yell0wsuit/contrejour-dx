@@ -23,19 +23,19 @@ public class Chapter2 : ChapterItem
     {
         background = new McPlanet2Background();
         blurBackground = new McChapter2Blur();
-        CreateBouncingSprite("planets/McPlanetSpringBack", 45, new Vector2(-69f, 26f), 0.8f);
-        CreateBouncingSprite("planets/McPlanetSpringBack", -150, new Vector2(26f, -73f), 0.7f);
+        _ = CreateBouncingSprite("planets/McPlanetSpringBack", 45, new Vector2(-69f, 26f), 0.8f);
+        _ = CreateBouncingSprite("planets/McPlanetSpringBack", -150, new Vector2(26f, -73f), 0.7f);
         container.AddChild(background);
-        ParticleSystem particleSystem = new ParticleSystem(Mokus2DGame.LoadSpriteData("common/McEnergyBall"));
+        ParticleSystem particleSystem = new(Mokus2DGame.LoadSpriteData("common/McEnergyBall"));
         container.AddChild(particleSystem);
         particleSystem.Scale = 0.55f;
         AddUpdating(new PlanetEnergy(particleSystem, new Vector2(-136f, -92f)));
         alphaItems.Add(particleSystem);
         CreateSmoke();
-        CreateBouncingSprite("planets/McPlanetSpringView", -50, new Vector2(70f, 35f), 0.9f);
-        CreateBouncingSprite("planets/McPlanetSpringView", -190, new Vector2(-14f, -74f), 0.9f);
-        CreateBouncingSprite("planets/McPlanetSpringView", 90, new Vector2(-78f, -3f), 0.8f);
-        PlanetSatellite planetSatellite = new PlanetSatellite();
+        _ = CreateBouncingSprite("planets/McPlanetSpringView", -50, new Vector2(70f, 35f), 0.9f);
+        _ = CreateBouncingSprite("planets/McPlanetSpringView", -190, new Vector2(-14f, -74f), 0.9f);
+        _ = CreateBouncingSprite("planets/McPlanetSpringView", 90, new Vector2(-78f, -3f), 0.8f);
+        PlanetSatellite planetSatellite = new();
         container.AddChild(planetSatellite);
         AddUpdating(planetSatellite);
         alphaItems.Add(planetSatellite);
@@ -43,10 +43,12 @@ public class Chapter2 : ChapterItem
 
     protected BouncingSprite CreateBouncingSprite(string spriteName, int rotation, Vector2 position, float scale)
     {
-        BouncingSprite bouncingSprite = new BouncingSprite(spriteName);
-        bouncingSprite.RotationDegrees = rotation;
-        bouncingSprite.Position = position;
-        bouncingSprite.Scale = scale;
+        BouncingSprite bouncingSprite = new(spriteName)
+        {
+            RotationDegrees = rotation,
+            Position = position,
+            Scale = scale
+        };
         bouncingSprite.MaxBounceEvent += OnSpringSpit;
         container.AddChild(bouncingSprite);
         AddUpdating(bouncingSprite);
@@ -83,7 +85,7 @@ public class Chapter2 : ChapterItem
         {
             GravityParticle gravityParticle = (GravityParticle)springSmoke.AddOrGetInvisible();
             gravityParticle.Position = spring.LocalToNode(SmokeCoords(), this);
-            gravityParticle.Speed = VectorUtil.ToVector(15f, MathHelper.ToRadians(spring.RotationDegrees) + (float)Math.PI / 2f);
+            gravityParticle.Speed = VectorUtil.ToVector(15f, MathHelper.ToRadians(spring.RotationDegrees) + ((float)Math.PI / 2f));
         }
     }
 }

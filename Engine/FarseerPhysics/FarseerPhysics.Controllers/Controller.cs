@@ -18,11 +18,7 @@ public abstract class Controller : FilterData
 
     public override bool IsActiveOn(Body body)
     {
-        if (body.ControllerFilter.IsControllerIgnored(_type))
-        {
-            return false;
-        }
-        return base.IsActiveOn(body);
+        return body.ControllerFilter.IsControllerIgnored(_type) ? false : base.IsActiveOn(body);
     }
 
     public abstract void Update(float dt);

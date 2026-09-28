@@ -22,7 +22,7 @@ public struct NodeData
 
     public NodeData(Node node)
     {
-        this = default(NodeData);
+        this = default;
         Position = node.Position;
         Rotation = node.RotationDegrees;
         Scale = node.ScaleVec;

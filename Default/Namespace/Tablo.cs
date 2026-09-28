@@ -13,18 +13,15 @@ public class Tablo : Sprite
 
     public bool Open
     {
-        get
-        {
-            return open;
-        }
+        get => open;
         set
         {
             if (value != open)
             {
                 open = value;
                 Tweener.Stop();
-                float targetValue = (open ? 1 : 0);
-                float targetValue2 = (open ? 0f : ((float)Math.PI / 2f));
+                float targetValue = open ? 1 : 0;
+                float targetValue2 = open ? 0f : ((float)Math.PI / 2f);
                 TweenObject tweenObject = Tweener.Start(0.2f).Tween(NodeValues.Scale, targetValue).Tween(NodeValues.RotationRadians, targetValue2);
                 if (open)
                 {
@@ -32,7 +29,7 @@ public class Tablo : Sprite
                 }
                 else
                 {
-                    tweenObject.OnComplete(NodeValues.Hide);
+                    _ = tweenObject.OnComplete(NodeValues.Hide);
                 }
             }
         }
@@ -41,8 +38,8 @@ public class Tablo : Sprite
     public Tablo(string clipName)
         : base(clipName)
     {
-        base.Scale = 0f;
-        base.RotationDegrees = -90f;
+        Scale = 0f;
+        RotationDegrees = -90f;
     }
 
     public Tablo()

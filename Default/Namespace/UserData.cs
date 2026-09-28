@@ -5,7 +5,6 @@ using System.Xml.Serialization;
 using Mokus2D.Sound;
 using Mokus2D.Util;
 using Mokus2D.Util.Data;
-using Mokus2D.Util.Extensions;
 
 namespace Default.Namespace;
 
@@ -19,11 +18,11 @@ public class UserData
 
     private const int MinUnlockedChapters = 1;
 
-    private static readonly int[] STARS_TO_UNLOCK = new int[5] { 0, 30, 70, 120, 180 };
+    private static readonly int[] STARS_TO_UNLOCK = [0, 30, 70, 120, 180];
 
     private static UserData instance;
 
-    private static readonly XmlSerializer serializer = new XmlSerializer(typeof(UserData));
+    private static readonly XmlSerializer serializer = new(typeof(UserData));
 
     private static bool levelPostponed;
 
@@ -43,20 +42,14 @@ public class UserData
     {
         get
         {
-            if (instance == null)
-            {
-                instance = ReadUserData();
-            }
+            instance ??= ReadUserData();
             return instance;
         }
     }
 
     public LevelData[] LevelData
     {
-        get
-        {
-            return levelData;
-        }
+        get => levelData;
         set
         {
             for (int i = 0; i < value.Length && i < levelData.Length; i++)
@@ -68,10 +61,7 @@ public class UserData
 
     public int[] UnlockedLevels
     {
-        get
-        {
-            return unlockedLevels;
-        }
+        get => unlockedLevels;
         set
         {
             for (int i = 0; i < value.Length && i < unlockedLevels.Length; i++)
@@ -83,10 +73,7 @@ public class UserData
 
     public bool SoundDisabled
     {
-        get
-        {
-            return _soundDisabled;
-        }
+        get => _soundDisabled;
         set
         {
             if (_soundDisabled != value)
@@ -99,10 +86,7 @@ public class UserData
 
     public bool MusicDisabled
     {
-        get
-        {
-            return _musicDisabled;
-        }
+        get => _musicDisabled;
         set
         {
             if (_musicDisabled != value)
@@ -161,14 +145,8 @@ public class UserData
 
     public int UnlockedChapters
     {
-        get
-        {
-            return Math.Max(unlockedChapters, 1);
-        }
-        set
-        {
-            unlockedChapters = Math.Max(1, value);
-        }
+        get => Math.Max(unlockedChapters, 1);
+        set => unlockedChapters = Math.Max(1, value);
     }
 
     public int TotalStars => GetStarsEnd(0, ContreJourConstants.LEVEL_COUNT);
@@ -263,7 +241,7 @@ public class UserData
     public int GetStarsEnd(int start, int end)
     {
         int num = 0;
-        for (int i = start; i < Math.Min(this.levelData.Length, end); i++)
+        for (int i = start; i < Math.Min(levelData.Length, end); i++)
         {
             LevelData levelData = GetLevelData(i);
             if (levelData != null)
@@ -277,7 +255,7 @@ public class UserData
     public int GetScoreEnd(int start, int end)
     {
         int num = 0;
-        for (int i = start; i < Math.Min(this.levelData.Length, end); i++)
+        for (int i = start; i < Math.Min(levelData.Length, end); i++)
         {
             LevelData levelData = GetLevelData(i);
             if (levelData != null)
@@ -317,7 +295,7 @@ public class UserData
     {
         for (int i = 0; i < Constants.ChaptersCount * 20; i++)
         {
-            CompleteLevel(new LevelPosition(i / 20, i % 20), 2, 100f);
+            _ = CompleteLevel(new LevelPosition(i / 20, i % 20), 2, 100f);
         }
         XBoxUtil.AwardAchievement("blue_lantern");
         XBoxUtil.AwardAchievement("fast_perfect");
@@ -342,7 +320,7 @@ public class UserData
     {
         SkipLevel(position);
         LevelData levelData = GetLevelDataByPosition(position) ?? new LevelData();
-        int num = GetTimeBonus(time) + stars * 1000;
+        int num = GetTimeBonus(time) + (stars * 1000);
         RefreshHighscores = true;
         bool flag = num > levelData.Score;
         bool flag2 = stars > levelData.StarsCount;
@@ -351,7 +329,7 @@ public class UserData
             SetLevelData(new LevelData(Math.Max(num, levelData.Score), Math.Max(stars, levelData.StarsCount)), position.GlobalPosition());
             if (flag2)
             {
-                this.TotalStarsChanged.Dispatch(TotalStars);
+                TotalStarsChanged.Dispatch(TotalStars);
             }
             if (flag)
             {
@@ -370,7 +348,7 @@ public class UserData
     public void PostLevelAchievements()
     {
         int totalStars = TotalStars;
-        if (totalStars >= 90 && totalStars >= 180)
+        if (totalStars is >= 90 and >= 180)
         {
             XBoxUtil.AwardAchievement("blue_lantern");
             if (totalStars >= 300)
@@ -406,9 +384,9 @@ public class UserData
     {
         if (instance != null)
         {
-            MemoryStream memoryStream = new MemoryStream();
+            MemoryStream memoryStream = new();
             serializer.Serialize(memoryStream, instance);
-            Directory.CreateDirectory(Path.GetDirectoryName(DataFilePath));
+            _ = Directory.CreateDirectory(Path.GetDirectoryName(DataFilePath));
             File.WriteAllBytes(DataFilePath, CryptUtils.RunProtector(memoryStream.ToArray(), encrypt: true));
         }
     }

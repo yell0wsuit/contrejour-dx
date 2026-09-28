@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 using ContreJour;
 using ContreJour.Config;
@@ -58,11 +59,7 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
             {
                 return 0;
             }
-            if (!(num < num2))
-            {
-                return 1;
-            }
-            return -1;
+            return !(num < num2) ? 1 : -1;
         }
     }
 
@@ -80,9 +77,9 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
 
     public const float CLICK_RADIUS = 1.1666666f;
 
-    public readonly List<SnotPoint> SnotPoints = new List<SnotPoint>(64);
+    public readonly List<SnotPoint> SnotPoints = new(64);
 
-    public readonly EventSender RestartEvent = new EventSender();
+    public readonly EventSender RestartEvent = new();
 
     private readonly PausePanel pausePanel;
 
@@ -90,7 +87,7 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
 
     protected EventSender backEvent;
 
-    protected List<BackgroundBase> backgrounds = new List<BackgroundBase>();
+    protected List<BackgroundBase> backgrounds = [];
 
     protected bool blackSide;
 
@@ -118,7 +115,7 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
 
     protected ParticleSystem flyes;
 
-    protected List<ForegroundBase> foregrounds = new List<ForegroundBase>();
+    protected List<ForegroundBase> foregrounds = [];
 
     protected int frame;
 
@@ -150,7 +147,7 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
 
     protected GravityParticleSystem particles;
 
-    protected List<PlasticineBodyClip> plasticine = new List<PlasticineBodyClip>(8);
+    protected List<PlasticineBodyClip> plasticine = new(8);
 
     protected List<object> positionDependent;
 
@@ -184,20 +181,20 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
 
     protected float zoomOutTime;
 
-    public static readonly int[] MIN_ZOOM_LEVELS = new int[23]
-    {
+    public static readonly int[] MIN_ZOOM_LEVELS =
+    [
         51, 53, 52, 54, 49, 37, 74, 79, 80, 76,
         55, 77, 86, 87, 83, 94, 84, 91, 95, 85,
         92, 93, 89
-    };
+    ];
 
-    public static readonly int[] LOW_FPS_LEVELS = new int[6] { 4, 6, 44, 53, 54, 12 };
+    public static readonly int[] LOW_FPS_LEVELS = [4, 6, 44, 53, 54, 12];
 
     private int screenDragDisableCount;
 
-    private List<object> _toRemove = new List<object>();
+    private List<object> _toRemove = [];
 
-    private readonly Scheduler _scheduler = new Scheduler();
+    private readonly Scheduler _scheduler = new();
 
     public RectangleFloat LevelScreenPhysicsBounds { get; private set; }
 
@@ -210,30 +207,21 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
             if (Paused != value)
             {
                 clickableLayer.InteractionsEnabled = !value;
-                base.GameRoot.UpdateEnabled = !value;
+                GameRoot.UpdateEnabled = !value;
                 paused = value;
                 if (!value && ContreJourConfig.BackButtonVisible)
                 {
                     pauseButton.Enabled = true;
                 }
-                if (particles != null)
-                {
-                    particles.Paused = value;
-                }
+                particles?.Paused = value;
             }
         }
     }
 
     public int Frame
     {
-        get
-        {
-            return frame;
-        }
-        set
-        {
-            frame = value;
-        }
+        get => frame;
+        set => frame = value;
     }
 
     public WindManager WindManager => windManager;
@@ -256,10 +244,7 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
 
     public float FlyOpacity
     {
-        get
-        {
-            return flyOpacity;
-        }
+        get => flyOpacity;
         set
         {
             if (Maths.FuzzyNotEquals(flyOpacity, value))
@@ -275,14 +260,8 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
 
     public Vector2 LightPoint
     {
-        get
-        {
-            return lightPoint;
-        }
-        set
-        {
-            lightPoint = value;
-        }
+        get => lightPoint;
+        set => lightPoint = value;
     }
 
     public bool LightPowerChanged => lightPowerChanged;
@@ -301,26 +280,14 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
 
     public EndLevelBodyClip EndLevel
     {
-        get
-        {
-            return endLevel;
-        }
-        set
-        {
-            endLevel = value;
-        }
+        get => endLevel;
+        set => endLevel = value;
     }
 
     public bool TouchEnabled
     {
-        get
-        {
-            return touchEnabled;
-        }
-        set
-        {
-            touchEnabled = value;
-        }
+        get => touchEnabled;
+        set => touchEnabled = value;
     }
 
     public int LevelIndex => levelIndex;
@@ -329,14 +296,8 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
 
     public IBonusAcceptable BonusTarget
     {
-        get
-        {
-            return bonusTarget ?? hero;
-        }
-        set
-        {
-            bonusTarget = value;
-        }
+        get => bonusTarget ?? hero;
+        set => bonusTarget = value;
     }
 
     public bool CanShowIntro { get; set; }
@@ -345,14 +306,8 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
 
     public bool SnotSend
     {
-        get
-        {
-            return snotSend;
-        }
-        set
-        {
-            snotSend = value;
-        }
+        get => snotSend;
+        set => snotSend = value;
     }
 
     public ClickableLayer ClickableLayer => clickableLayer;
@@ -361,26 +316,14 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
 
     public bool RestartEnabled
     {
-        get
-        {
-            return restartEnabled;
-        }
-        set
-        {
-            restartEnabled = value;
-        }
+        get => restartEnabled;
+        set => restartEnabled = value;
     }
 
     public bool Finished
     {
-        get
-        {
-            return finished;
-        }
-        set
-        {
-            finished = value;
-        }
+        get => finished;
+        set => finished = value;
     }
 
     public new ContreJourLevelBuilder Builder => (ContreJourLevelBuilder)base.Builder;
@@ -395,10 +338,7 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
 
     public float LightPower
     {
-        get
-        {
-            return lightPower;
-        }
+        get => lightPower;
         set
         {
             if (Maths.FuzzyNotEquals(lightPower, value))
@@ -412,28 +352,28 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
 
     public ContreJourGame(int _chapter)
     {
-        freeDisabledTouches = new List<Touch>();
+        freeDisabledTouches = [];
         chapter = _chapter;
         blackSide = chapter == 1;
         whiteSide = chapter == 3;
         touchEnabled = true;
         Vector2 w7FromIPhoneSize = ScreenConstants.W7FromIPhoneSize;
-        Vector2 vector = new Vector2(w7FromIPhoneSize.X, w7FromIPhoneSize.Y);
-        Vector2 point = (blackSide ? new Vector2(w7FromIPhoneSize.X / 2f, w7FromIPhoneSize.Y * 2f) : vector);
+        Vector2 vector = new(w7FromIPhoneSize.X, w7FromIPhoneSize.Y);
+        Vector2 point = blackSide ? new Vector2(w7FromIPhoneSize.X / 2f, w7FromIPhoneSize.Y * 2f) : vector;
         lightPoint = Box2DConfig.DefaultConfig.ToVec(point);
         lightPower = 1f;
         lightColor = ChooseSide(PlasticineConstants.BLUE, PlasticineConstants.BLACK_LIGHT, PlasticineConstants.LAST_LIGHT, PlasticineConstants.WHITE, PlasticineConstants.Green);
         startLightColor = lightColor;
         flyOpacity = 255f;
         Mokus2DGame.Instance.TouchController.AddListener(this);
-        draggingItems = new Dictionary<Touch, IClickable>();
+        draggingItems = [];
         providersValue = 0f;
-        positionProviders = new List<object>();
-        positionDependent = new List<object>();
+        positionProviders = [];
+        positionDependent = [];
         windManager = new WindManager(whiteSide ? 0.02f : 0.03f);
         alphaBackground = new Node();
         gameRoot.AddChild(alphaBackground, -10);
-        freeTouches = new List<Touch>();
+        freeTouches = [];
         backEvent = new EventSender();
         nextLevelEvent = new EventSender();
         clickableLayer = new ClickableLayer();
@@ -442,12 +382,14 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
         AddChild(restartLayer, 100);
         restartLayer.Visible = false;
         Color color = ColorUtil.Mult(ContreJourConstants.BLUE_LIGHT_COLOR, 2f);
-        buttonsColor = (blackSide ? color : ContreJourConstants.GREY_COLOR);
+        buttonsColor = blackSide ? color : ContreJourConstants.GREY_COLOR;
         _ = ScreenConstants.W7FromIPhoneSize;
         if (ContreJourConfig.BackButtonVisible)
         {
-            pauseButton = new Button("menu/McPauseIcon");
-            pauseButton.RealScale = 1.3f;
+            pauseButton = new Button("menu/McPauseIcon")
+            {
+                RealScale = 1.3f
+            };
             pauseButton.TouchEndEvent += delegate
             {
                 OnBackPress();
@@ -458,18 +400,20 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
         }
         pausePanel = new PausePanel(this);
         AddChild(pausePanel, 15);
-        texturesToUnload = new List<string>();
+        texturesToUnload = [];
         finishView = new FinishView(this);
         starsCollected = 0;
-        teleports = new Hashtable();
-        base.GameRoot.Schedule(1.5f, EnableRestart);
+        teleports = [];
+        _ = GameRoot.Schedule(1.5f, EnableRestart);
         Mokus2DGame.Instance.KeysController.AddBackKeyListener(OnBackPress);
     }
 
     public override LevelBuilderBase CreateLevelBuilder()
     {
-        ContreJourLevelBuilder contreJourLevelBuilder = new ContreJourLevelBuilder(this);
-        contreJourLevelBuilder.NamespacePrefix = "Default.Namespace.";
+        ContreJourLevelBuilder contreJourLevelBuilder = new(this)
+        {
+            NamespacePrefix = "Default.Namespace."
+        };
         return contreJourLevelBuilder;
     }
 
@@ -498,14 +442,14 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
         base.ProcessLevel(level);
         Hashtable levelProperties = level.levelProperties;
         levelSize = new Vector2(levelProperties.GetFloat("Width"), levelProperties.GetFloat("Height"));
-        base.GameRoot.Scale = ContreJourConfig.RootSize.X / levelSize.X;
-        float num = base.GameRoot.Scale * levelSize.Y;
-        base.GameRoot.Y = ContreJourConfig.RootSize.Y - num;
-        Vector2 point = levelSize.AddY(base.GameRoot.Y / base.GameRoot.Scale);
-        LevelScreenPhysicsBounds = new RectangleFloat(Builder.ToVec(new Vector2(0f, (0f - base.GameRoot.Y) / base.GameRoot.Scale)), Builder.ToVec(point));
+        GameRoot.Scale = ContreJourConfig.RootSize.X / levelSize.X;
+        float num = GameRoot.Scale * levelSize.Y;
+        GameRoot.Y = ContreJourConfig.RootSize.Y - num;
+        Vector2 point = levelSize.AddY(GameRoot.Y / GameRoot.Scale);
+        LevelScreenPhysicsBounds = new RectangleFloat(Builder.ToVec(new Vector2(0f, (0f - GameRoot.Y) / GameRoot.Scale)), Builder.ToVec(point));
         LevelScreenBounds = LevelScreenPhysicsBounds * (1f / builder.SizeMult);
-        alphaBackground.Scale = Math.Max(levelSize.X / ScreenConstants.OsSizes.IPhoneRetina.X, (LevelSize.Y + base.GameRoot.Y / base.GameRoot.Scale) / ScreenConstants.OsSizes.IPhoneRetina.Y);
-        alphaBackground.Y = (0f - base.GameRoot.Y) / base.GameRoot.Scale;
+        alphaBackground.Scale = Math.Max(levelSize.X / ScreenConstants.OsSizes.IPhoneRetina.X, (LevelSize.Y + (GameRoot.Y / GameRoot.Scale)) / ScreenConstants.OsSizes.IPhoneRetina.Y);
+        alphaBackground.Y = (0f - GameRoot.Y) / GameRoot.Scale;
         Builder.Add(energy, 9);
         CreateBackgrounds(level);
         CreateParticles();
@@ -520,7 +464,7 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
 
     private void CreateBackgrounds(Level level)
     {
-        foreach (Hashtable array in level.LevelProperties.GetArrayList("backgrounds"))
+        foreach (Hashtable array in level.LevelProperties.GetArrayList("backgrounds").Cast<Hashtable>())
         {
             ProcessBackgroundItem(array);
         }
@@ -567,7 +511,7 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
         }
         if (draggingItems.ContainsKey(touch))
         {
-            draggingItems[touch].TouchMove(touch);
+            _ = draggingItems[touch].TouchMove(touch);
         }
         return true;
     }
@@ -576,24 +520,24 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
     {
         if (freeTouches.Exists(touch))
         {
-            freeTouches.Remove(touch);
+            _ = freeTouches.Remove(touch);
         }
-        freeDisabledTouches.Remove(touch);
+        _ = freeDisabledTouches.Remove(touch);
         if (draggingItems.ContainsKey(touch))
         {
             IClickable clickable = draggingItems[touch];
-            draggingItems.Remove(touch);
+            _ = draggingItems.Remove(touch);
             clickable.TouchEnd(touch);
         }
-        foreach (PositionProviderValue positionProvider in positionProviders)
+        foreach (PositionProviderValue positionProvider in positionProviders.Cast<PositionProviderValue>())
         {
-            if (!(positionProvider.Provider is TouchPositionProvider) || (positionProvider.Provider as TouchPositionProvider).Touch != touch)
+            if (positionProvider.Provider is not TouchPositionProvider || (positionProvider.Provider as TouchPositionProvider).Touch != touch)
             {
                 continue;
             }
             RemovePositionProvider(positionProvider);
             {
-                foreach (IPositionDepedent item in positionDependent)
+                foreach (IPositionDepedent item in positionDependent.Cast<IPositionDepedent>())
                 {
                     item.ProviderRemove(positionProvider.Provider);
                 }
@@ -637,29 +581,17 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
         {
             return white ?? normal;
         }
-        if (BlackSide)
-        {
-            return blue ?? normal;
-        }
-        return normal;
+        return BlackSide ? blue ?? normal : normal;
     }
 
     public T ChooseSide<T>(T black, T white, T last, T normal, T green)
     {
-        if (BonusChapter)
-        {
-            return green;
-        }
-        return ChooseSide(black, white, last, normal);
+        return BonusChapter ? green : ChooseSide(black, white, last, normal);
     }
 
     public T ChooseSide<T>(T black, T white, T last, T normal)
     {
-        if (RoseChapter)
-        {
-            return last;
-        }
-        return ChooseSide(black, white, normal);
+        return RoseChapter ? last : ChooseSide(black, white, normal);
     }
 
     public T ChooseSide<T>(T black, T white, T normal)
@@ -668,11 +600,7 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
         {
             return black;
         }
-        if (whiteSide)
-        {
-            return white;
-        }
-        return normal;
+        return whiteSide ? white : normal;
     }
 
     public void AddShadowSource(BodyClip source)
@@ -685,11 +613,7 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
 
     public int GetRandomColor()
     {
-        if (!(Maths.Random() < 0.3f))
-        {
-            return 0;
-        }
-        return 255;
+        return !(Maths.Random() < 0.3f) ? 0 : 255;
     }
 
     public void CollectStar()
@@ -699,10 +623,7 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
 
     public void HardRestart()
     {
-        if (hero != null)
-        {
-            hero.Removed = true;
-        }
+        hero?.Removed = true;
         RestartEvent.SendEvent();
         DisableEvents();
     }
@@ -737,7 +658,7 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
 
     public void Restart()
     {
-        if (levelIndex == 0 || levelIndex == 66)
+        if (levelIndex is 0 or 66)
         {
             HardRestart();
         }
@@ -746,12 +667,12 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
             RestartEnabled = false;
             restartLayer.Visible = true;
             restartLayer.OpacityByte = 0;
-            restartLayer.Tweener.StartSequence(0.3f).FadeTo(0.5882353f, Cubic.EaseIn).Next(0.1f)
+            _ = restartLayer.Tweener.StartSequence(0.3f).FadeTo(0.5882353f, Cubic.EaseIn).Next(0.1f)
                 .Next(0.6f)
                 .FadeOut(Cubic.EaseOut)
                 .AndHide();
             SoftRestart();
-            base.GameRoot.Schedule(1.5f, EnableRestart);
+            _ = GameRoot.Schedule(1.5f, EnableRestart);
         }
     }
 
@@ -765,20 +686,14 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
 
     public void Back()
     {
-        if (hero != null)
-        {
-            hero.Removed = true;
-        }
+        hero?.Removed = true;
         backEvent.SendEvent();
         DisableEvents();
     }
 
     public void Skip()
     {
-        if (hero != null)
-        {
-            hero.Removed = true;
-        }
+        hero?.Removed = true;
         LevelPosition position = LevelsMenu.GetLevelPosition(levelIndex);
         UserData.Instance.SkipLevel(position);
         nextLevelEvent.SendEvent();
@@ -808,9 +723,9 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
     private void RefreshLightColor()
     {
         lightColor = startLightColor.Clone();
-        lightColor.LightOutColor.R = (byte)((float)(int)lightColor.LightOutColor.R * lightPower);
-        lightColor.LightOutColor.G = (byte)((float)(int)lightColor.LightOutColor.G * lightPower);
-        lightColor.LightOutColor.B = (byte)((float)(int)lightColor.LightOutColor.B * lightPower);
+        lightColor.LightOutColor.R = (byte)(lightColor.LightOutColor.R * lightPower);
+        lightColor.LightOutColor.G = (byte)(lightColor.LightOutColor.G * lightPower);
+        lightColor.LightOutColor.B = (byte)(lightColor.LightOutColor.B * lightPower);
     }
 
     public void RegisterPlasticine(PlasticineBodyClip item)
@@ -825,11 +740,7 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
 
     public TeleportBodyClip GetTeleport(string color)
     {
-        if (teleports.ContainsKey(color))
-        {
-            return (TeleportBodyClip)teleports.GetObject(color);
-        }
-        return null;
+        return teleports.ContainsKey(color) ? (TeleportBodyClip)teleports.GetObject(color) : null;
     }
 
     public void RegisterTeleportColor(TeleportBodyClip teleport, string color)
@@ -923,7 +834,7 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
         }
         if (hashtable.Exists("type"))
         {
-            BackgroundBase item = (BackgroundBase)ReflectUtil.CreateInstance(typeName: "Default.Namespace." + hashtable.GetString("type"), mainAssemblyClass: typeof(ContreJourApplication), parameters: new object[3] { node, hashtable, this });
+            BackgroundBase item = (BackgroundBase)ReflectUtil.CreateInstance(typeName: "Default.Namespace." + hashtable.GetString("type"), mainAssemblyClass: typeof(ContreJourApplication), parameters: [node, hashtable, this]);
             backgrounds.Add(item);
         }
     }
@@ -1023,7 +934,7 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
         endLevel.SetVisible(value: true);
         endLevel.ShowPortal();
         energy.Visible = true;
-        energy.FadeIn(2f);
+        _ = energy.FadeIn(2f);
     }
 
     public void Fail(float restartTime)
@@ -1034,7 +945,7 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
         }
         else
         {
-            base.GameRoot.Schedule(restartTime, Restart);
+            _ = GameRoot.Schedule(restartTime, Restart);
         }
     }
 
@@ -1046,7 +957,7 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
         int num = UserData.Instance.CompleteLevel(levelPosition, starsCollected, totalTime);
         bool newHighScore = levelDataByPosition != null && (levelDataByPosition.Score < num || levelDataByPosition.StarsCount < starsCollected);
         pauseButton.InteractionsEnabled = false;
-        pauseButton.FadeOutAndHide(0.3f);
+        _ = pauseButton.FadeOutAndHide(0.3f);
         finishView.Show(levelPosition, starsCollected, num, totalTime, newHighScore);
         finishView.NextLevelEvent.AddListener(nextLevelEvent.SendEvent);
         FinishWithViewPosition(finishView, zoomPoint);
@@ -1066,15 +977,12 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
             view.MenuEvent.AddListener(backEvent.SendEvent);
         }
         Vector2 rootSize = ContreJourConfig.RootSize;
-        ZoomToScaleRightTopLeftBottomTime(rightTop: new Vector2(0f, 30f), leftBottom: new Vector2(rootSize.X * -0.29999995f, rootSize.Y * -0.29999995f - 30f), zoomPoint: zoomPoint * gameRoot.Scale, scale: 1.3f, time: 2.4f);
+        ZoomToScaleRightTopLeftBottomTime(rightTop: new Vector2(0f, 30f), leftBottom: new Vector2(rootSize.X * -0.29999995f, (rootSize.Y * -0.29999995f) - 30f), zoomPoint: zoomPoint * gameRoot.Scale, scale: 1.3f, time: 2.4f);
     }
 
     public void HidePause()
     {
-        if (pauseButton != null)
-        {
-            pauseButton.Enabled = false;
-        }
+        pauseButton?.Enabled = false;
     }
 
     public void ZoomOut(float time)
@@ -1091,10 +999,10 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
     public void ZoomToScaleRightTopLeftBottomTime(Vector2 zoomPoint, float scale, Vector2 rightTop, Vector2 leftBottom, float time)
     {
         Vector2 w7FromIPhoneSize = ScreenConstants.W7FromIPhoneSize;
-        Vector2 position = new Vector2(w7FromIPhoneSize.X / 2f - zoomPoint.X * scale, w7FromIPhoneSize.Y / 2f - zoomPoint.Y * scale);
+        Vector2 position = new((w7FromIPhoneSize.X / 2f) - (zoomPoint.X * scale), (w7FromIPhoneSize.Y / 2f) - (zoomPoint.Y * scale));
         position.X = position.X.Clamp(leftBottom.X, rightTop.X);
         position.Y = position.Y.Clamp(leftBottom.Y, rightTop.Y);
-        gameRoot.MoveTo(time, position, Cubic.EaseInOut).ScaleTo(scale * gameRoot.Scale, Cubic.EaseInOut);
+        _ = gameRoot.MoveTo(time, position, Cubic.EaseInOut).ScaleTo(scale * gameRoot.Scale, Cubic.EaseInOut);
     }
 
     public void RegisterHero(HeroBodyClip _hero)
@@ -1105,7 +1013,7 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
 
     private void RemovePositionProvider(PositionProviderValue provider)
     {
-        positionProviders.Remove(provider);
+        _ = positionProviders.Remove(provider);
         providersValue -= provider.Value;
     }
 
@@ -1116,7 +1024,7 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
 
     public TouchPositionProvider GetTouchProvider(Touch touch)
     {
-        foreach (PositionProviderValue positionProvider in positionProviders)
+        foreach (PositionProviderValue positionProvider in positionProviders.Cast<PositionProviderValue>())
         {
             if (positionProvider.Provider is TouchPositionProvider touchPositionProvider && touchPositionProvider.Touch == touch)
             {
@@ -1130,7 +1038,7 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
     {
         providersValue += provider.Value;
         positionProviders.Add(provider);
-        foreach (IPositionDepedent item in positionDependent)
+        foreach (IPositionDepedent item in positionDependent.Cast<IPositionDepedent>())
         {
             item.ProviderAdded(provider.Provider);
         }
@@ -1167,10 +1075,7 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
         {
             item.UpdateGraphics(time);
         }
-        if (grass != null)
-        {
-            grass.Update(time);
-        }
+        grass?.Update(time);
         lightPowerChanged = false;
         _toRemove.Clear();
         foreach (Touch freeTouch in freeTouches)
@@ -1205,7 +1110,7 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
     {
         if (ProcessTouchIsFree(touch, isFree: true))
         {
-            freeTouches.Remove(touch);
+            _ = freeTouches.Remove(touch);
         }
     }
 
@@ -1218,16 +1123,16 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
     {
         //IL_002c: Unknown result type (might be due to invalid IL or missing references)
         //IL_0031: Unknown result type (might be due to invalid IL or missing references)
-        if (base.Root == null)
+        if (Root == null)
         {
             return false;
         }
         Vector2 vector = Builder.TouchRootVec(touch);
         float num = 1.5f;
         AABB val = FarseerUtil.CreateAABB(vector, num * 2f, num * 2f);
-        AABBQuery aABBQuery = new AABBQuery();
-        Builder.World.QueryAABB((Func<Fixture, bool>)aABBQuery.CallbackReportFixture, ref val);
-        List<BodyClip> list = new List<BodyClip>();
+        AABBQuery aABBQuery = new();
+        Builder.World.QueryAABB(aABBQuery.CallbackReportFixture, ref val);
+        List<BodyClip> list = [];
         for (int i = 0; i < aABBQuery.Fixtures.Count; i++)
         {
             if (aABBQuery.Fixtures[i].Body.UserData is BodyClip bodyClip && bodyClip is IClickable clickable && (!isFree || clickable.AcceptFreeTouches()))
@@ -1239,7 +1144,7 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
         if (list.Count != 0)
         {
             list.Sort(new ClickableComparer(vector));
-            foreach (IClickable item in list)
+            foreach (IClickable item in list.Cast<IClickable>())
             {
                 if (item.TouchBegan(touch))
                 {
@@ -1264,7 +1169,7 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
 
     public void FreeTouch(Touch touch)
     {
-        draggingItems.Remove(touch);
+        _ = draggingItems.Remove(touch);
         if (freeTouches.NotExists(touch))
         {
             freeTouches.Add(touch);

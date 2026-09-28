@@ -19,7 +19,7 @@ public class AnimationOnOff : ActionOnOff
     public override void SetOn(bool value)
     {
         base.SetOn(value);
-        _animation.CurrentFrame = (value ? _animation.LastFrame() : 0);
+        _animation.CurrentFrame = value ? _animation.LastFrame() : 0;
     }
 
     private void OnAction(bool value)

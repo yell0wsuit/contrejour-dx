@@ -22,10 +22,7 @@ public class RotatorGrass
 
     public float InitialAngle
     {
-        get
-        {
-            return initialAngle;
-        }
+        get => initialAngle;
         set
         {
             initialAngle = value;
@@ -36,32 +33,22 @@ public class RotatorGrass
 
     public float ContactAngle
     {
-        get
-        {
-            return contactAngle;
-        }
-        set
-        {
-            contactAngle = value;
-        }
+        get => contactAngle;
+        set => contactAngle = value;
     }
 
     public Particle Particle
     {
-        get
-        {
-            return particle;
-        }
-        set
-        {
-            particle = value;
-        }
+        get => particle;
+        set => particle = value;
     }
 
     public RotatorGrass(Particle _particle)
     {
-        rotationChanger = new CosChanger(-15f, 15f, Maths.Random(0.005f, 0.01f));
-        rotationChanger.Progress = Maths.Random(0f, (float)Math.PI * 2f);
+        rotationChanger = new CosChanger(-15f, 15f, Maths.Random(0.005f, 0.01f))
+        {
+            Progress = Maths.Random(0f, (float)Math.PI * 2f)
+        };
         particle = _particle;
         contactAngle = 0f;
         currentContactAngle = 0f;
@@ -70,14 +57,7 @@ public class RotatorGrass
     public void UpdateAngle(float time, float angle)
     {
         rotationChanger.Update(time);
-        if (Math.Abs(currentContactAngle) > Math.Abs(contactAngle))
-        {
-            currentContactAngle = Maths.StepTo(currentContactAngle, contactAngle, 0.05f);
-        }
-        else
-        {
-            currentContactAngle = contactAngle;
-        }
+        currentContactAngle = Math.Abs(currentContactAngle) > Math.Abs(contactAngle) ? Maths.StepTo(currentContactAngle, contactAngle, 0.05f) : contactAngle;
         float num = initialDegrees + angle + rotationChanger.Value + MathHelper.ToDegrees(currentContactAngle);
         float maxStep = Math.Min(Math.Abs(particle.RotationDegrees - num) / 7f, 3f);
         particle.RotationDegrees = Maths.StepTo(particle.RotationDegrees, num, maxStep);

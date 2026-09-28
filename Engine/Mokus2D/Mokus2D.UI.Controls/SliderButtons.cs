@@ -58,7 +58,7 @@ public class SliderButtons : IUpdatable
     {
         if (_scrollDirection != 0)
         {
-            float num = (float)_scrollDirection * ScrollSpeed * time;
+            float num = _scrollDirection * ScrollSpeed * time;
             if (IsStaticScrollSpeed)
             {
                 num *= _slider.Max - _slider.Min;

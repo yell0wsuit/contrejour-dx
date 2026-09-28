@@ -7,7 +7,7 @@ public static class IReqHelper
 {
     public static List<object> Filter(IList objects, IReq req)
     {
-        List<object> list = new List<object>();
+        List<object> list = [];
         foreach (object @object in objects)
         {
             if (req.Meet(@object))

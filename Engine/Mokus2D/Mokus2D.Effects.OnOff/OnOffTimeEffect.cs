@@ -18,10 +18,6 @@ public abstract class OnOffTimeEffect : OnOffEffect
 
     protected float GetDuration(bool on)
     {
-        if (DurationProvider != null)
-        {
-            return DurationProvider(on);
-        }
-        return Duration;
+        return DurationProvider != null ? DurationProvider(on) : Duration;
     }
 }

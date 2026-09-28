@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework;
 using Mokus2D.Effects.Tween.Easing;
 using Mokus2D.Effects.Tweening;
 using Mokus2D.Visual;
-using Mokus2D.Visual.Text;
 using Mokus2D.Visual.Text.LabelData;
 
 namespace Mokus2D.Effects.Label;
@@ -20,7 +19,7 @@ public class DisassembleSymbolsEffect : AssembleSymbolsEffect
     {
     }
 
-    protected override ICompletableTween PlayGlyphEffect(Mokus2D.Visual.Text.Label label, int tag, Glyph glyph, float delay)
+    protected override ICompletableTween PlayGlyphEffect(Visual.Text.Label label, int tag, Glyph glyph, float delay)
     {
         return label.Tweener.StartSequence(delay, tag, glyph).Next(TweenTime).Tween(NodeValues.Position, glyph.Position + TweenOffset)
             .Tween(NodeValues.ScaleVec, glyph.ScaleVec * TweenScale)

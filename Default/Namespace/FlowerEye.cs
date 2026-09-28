@@ -27,7 +27,7 @@ public class FlowerEye : MonsterEye
         baseNode = new Sprite(_game.Choose("common/McFlowerHead", null, "chapter4/McFlowerHeadWhite", null, "chapter6/McFlowerHead_6"));
         if (!_game.WhiteSide)
         {
-            base.Scale = 0.85f;
+            Scale = 0.85f;
         }
         AddChild(baseNode, -1);
     }
@@ -35,6 +35,6 @@ public class FlowerEye : MonsterEye
     public override void Update(float time)
     {
         base.Update(time);
-        base.Position = initialPosition + currentEyeBall.Position * 2f;
+        base.Position = initialPosition + (currentEyeBall.Position * 2f);
     }
 }

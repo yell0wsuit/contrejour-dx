@@ -30,32 +30,20 @@ public class BodyClip : Updatable
 
     protected bool destroyLaterCalled;
 
-    private readonly Flag _firstUpdate = new Flag();
+    private readonly Flag _firstUpdate = new();
 
     public Hashtable Config
     {
-        get
-        {
-            return config;
-        }
-        set
-        {
-            config = value;
-        }
+        get => config;
+        set => config = value;
     }
 
     public Node Clip => clip;
 
     public float RotationOffset
     {
-        get
-        {
-            return rotationOffset;
-        }
-        set
-        {
-            rotationOffset = value;
-        }
+        get => rotationOffset;
+        set => rotationOffset = value;
     }
 
     public LevelBuilderBase Builder => builder;
@@ -72,16 +60,10 @@ public class BodyClip : Updatable
 
     public virtual Body Body
     {
-        get
-        {
-            return body;
-        }
+        get => body;
         protected set
         {
-            if (body != null)
-            {
-                body.UserData = null;
-            }
+            body?.UserData = null;
             body = value;
             if (body != null)
             {
@@ -95,10 +77,7 @@ public class BodyClip : Updatable
     {
         //IL_0056: Unknown result type (might be due to invalid IL or missing references)
         //IL_0060: Expected O, but got Unknown
-        if (config == null)
-        {
-            config = new Hashtable();
-        }
+        config ??= [];
         rotationOffset = config.GetFloat("rotationOffset", 0f);
         rotationOffsetRadians = rotationOffset.ToRadians();
         this.config = config;
@@ -119,7 +98,7 @@ public class BodyClip : Updatable
 
     public List<string> TexturesToUnload()
     {
-        return new List<string>();
+        return [];
     }
 
     private Vector2 Scale()

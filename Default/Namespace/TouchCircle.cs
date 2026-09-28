@@ -56,14 +56,8 @@ public class TouchCircle : BodyClip
 
     public bool Enabled
     {
-        get
-        {
-            return enabled;
-        }
-        set
-        {
-            enabled = value;
-        }
+        get => enabled;
+        set => enabled = value;
     }
 
     public bool Free => free;
@@ -126,10 +120,7 @@ public class TouchCircle : BodyClip
 
     public void RefreshClosestPlasticineDefaultItem(ClosestItem item, PlasticinePartBodyClip defaultItem)
     {
-        if (item.Clip == null)
-        {
-            item.Clip = defaultItem;
-        }
+        item.Clip ??= defaultItem;
         float num = Body.Position.DistanceTo(item.Clip.Body.Position);
         float num2 = Body.Position.DistanceTo(defaultItem.Body.Position);
         if (num > num2)
@@ -138,8 +129,8 @@ public class TouchCircle : BodyClip
             item.Clip = defaultItem;
         }
         PlasticineItem plasticineItem = item.Clip.Item;
-        bool flag = false;
         bool flag2 = false;
+        bool flag;
         do
         {
             flag = false;

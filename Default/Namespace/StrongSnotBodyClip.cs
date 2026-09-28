@@ -39,13 +39,13 @@ public class StrongSnotBodyClip : SnotBodyClip
 
     public float NormalDistance => normalDistance;
 
-    public new Vector2 Position => base.Physics.FirstBody.Position;
+    public new Vector2 Position => Physics.FirstBody.Position;
 
     public StrongSnotBodyClip(LevelBuilderBase _builder, SnotData _body, Node _clip, Hashtable _config)
         : base(_builder, _body, _clip, _config)
     {
         normalDistance = CurrentDistance();
-        maxSnotDistance = Math.Max(normalDistance * 1.25f, normalDistance + 30f * builder.EngineConfig.SizeMultiplier);
+        maxSnotDistance = Math.Max(normalDistance * 1.25f, normalDistance + (30f * builder.EngineConfig.SizeMultiplier));
         extremeSnotDistance = normalDistance * 2f;
         targetColor = 255f;
     }
@@ -76,9 +76,9 @@ public class StrongSnotBodyClip : SnotBodyClip
 
     public void EnsureSpeedY(float value)
     {
-        for (int i = 0; i < base.Physics.BodiesSize(); i++)
+        for (int i = 0; i < Physics.BodiesSize(); i++)
         {
-            Body val = base.Physics.BodyAt(i);
+            Body val = Physics.BodyAt(i);
             if (val.LinearVelocity.Y > value)
             {
                 val.LinearVelocity = new Vector2(val.LinearVelocity.X, value);
@@ -98,7 +98,7 @@ public class StrongSnotBodyClip : SnotBodyClip
 
     public float CurrentDistance()
     {
-        return (base.Physics.FirstBody.Position - base.Physics.EndBody.Position).Length();
+        return (Physics.FirstBody.Position - Physics.EndBody.Position).Length();
     }
 
     public override float JoinedDamping()
@@ -109,14 +109,14 @@ public class StrongSnotBodyClip : SnotBodyClip
     protected override void UpdateDragBodyPosition(BodyAndPoint target, float time)
     {
         base.UpdateDragBodyPosition(target, time);
-        Body val = base.Physics.EndBody;
-        int num = base.Physics.BodiesSize() - 2;
+        Body val = Physics.EndBody;
+        int num = Physics.BodiesSize() - 2;
         while (num >= 0)
         {
-            Body val2 = base.Physics.BodyAt(num);
-            if ((val.Position - val2.Position).Length() > base.Physics.Metrics.PartSize * 1.2f)
+            Body val2 = Physics.BodyAt(num);
+            if ((val.Position - val2.Position).Length() > Physics.Metrics.PartSize * 1.2f)
             {
-                val2.Position = val2.Position.ClampDistance(val.Position, base.Physics.Metrics.PartSize * 1.2f);
+                val2.Position = val2.Position.ClampDistance(val.Position, Physics.Metrics.PartSize * 1.2f);
                 val = val2;
                 num--;
                 continue;
@@ -131,10 +131,12 @@ public class StrongSnotBodyClip : SnotBodyClip
         //IL_002f: Expected O, but got Unknown
         if (base.TouchBegan(_touch))
         {
-            dragJoint = new FixedMouseJoint(base.Physics.EndBody, base.Physics.EndBody.Position);
-            dragJoint.MaxForce = 100f;
-            dragJoint.Frequency = 100f;
-            ((Joint)dragJoint).WorldAnchorB = GetDragTarget().Point;
+            dragJoint = new FixedMouseJoint(Physics.EndBody, Physics.EndBody.Position)
+            {
+                MaxForce = 100f,
+                Frequency = 100f,
+                WorldAnchorB = GetDragTarget().Point
+            };
             return true;
         }
         return false;
@@ -190,15 +192,11 @@ public class StrongSnotBodyClip : SnotBodyClip
         {
             return false;
         }
-        if (!(linked is HeroBodyClip))
+        if (linked is not HeroBodyClip)
         {
             return true;
         }
-        if (!((HeroBodyClip)linked).OnGround())
-        {
-            return linked.SnotJoinedCount > 1;
-        }
-        return true;
+        return !((HeroBodyClip)linked).OnGround() ? linked.SnotJoinedCount > 1 : true;
     }
 
     public override void SetDamping(float value)

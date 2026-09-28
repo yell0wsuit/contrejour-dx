@@ -35,7 +35,7 @@ public class FlyBase : IUpdatable
 
     public virtual void Update(float time)
     {
-        Vector2 vector = new Vector2(Math.Min(Math.Abs((targetPosition.X - particle.Position.X) / (targetPosition.Y - particle.Position.Y) * stepY), 1f), stepY);
+        Vector2 vector = new(Math.Min(Math.Abs((targetPosition.X - particle.Position.X) / (targetPosition.Y - particle.Position.Y) * stepY), 1f), stepY);
         particle.Position = VectorUtil.StepTo(particle.Position, targetPosition, vector.Length());
         verticalStep += verticalStepDiff;
         opacityChanger.Update(time);

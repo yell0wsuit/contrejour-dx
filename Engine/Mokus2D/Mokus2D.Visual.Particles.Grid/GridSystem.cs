@@ -38,24 +38,26 @@ public class GridSystem : Node
 
     public static GridSystem CreateGrid(Node source, Vector2 size, Vector2 gridSize, RootNode root = null)
     {
-        RenderSprite renderSprite = ((root != null) ? new RenderSprite(size, root) : new RenderSprite(size));
+        RenderSprite renderSprite = (root != null) ? new RenderSprite(size, root) : new RenderSprite(size);
         return CreateGrid(source, gridSize, renderSprite);
     }
 
     private static IMovieClipData CreateGrid(Texture2D texture, Vector2 gridSize)
     {
         gridSize = gridSize.ToIntVector();
-        MovieClipData movieClipData = new MovieClipData(null);
-        movieClipData.Texture = texture;
-        Vector2 size = GetCellSize(texture, gridSize);
-        for (int i = 0; (float)i < gridSize.Y; i++)
+        MovieClipData movieClipData = new(null)
         {
-            for (int j = 0; (float)j < gridSize.X; j++)
+            Texture = texture
+        };
+        Vector2 size = GetCellSize(texture, gridSize);
+        for (int i = 0; i < gridSize.Y; i++)
+        {
+            for (int j = 0; j < gridSize.X; j++)
             {
-                FrameData item = new FrameData
+                FrameData item = new()
                 {
                     Anchor = new Vector2(0.5f),
-                    Rect = new Rectangle((int)((float)j * size.X), (int)((float)i * size.Y), (int)size.X, (int)size.Y)
+                    Rect = new Rectangle((int)(j * size.X), (int)(i * size.Y), (int)size.X, (int)size.Y)
                 };
                 movieClipData.Frames.Add(item);
             }
@@ -66,7 +68,7 @@ public class GridSystem : Node
 
     private static Vector2 GetCellSize(Texture2D texture, Vector2 gridSize)
     {
-        return new Vector2((float)Math.Ceiling((float)texture.Width / (float)(int)gridSize.X), (float)Math.Ceiling((float)texture.Height / (float)(int)gridSize.Y));
+        return new Vector2((float)Math.Ceiling(texture.Width / (float)(int)gridSize.X), (float)Math.Ceiling(texture.Height / (float)(int)gridSize.Y));
     }
 
     public GridSystem(Texture2D texture, Vector2 gridSize, bool createParticles = true)
@@ -82,14 +84,14 @@ public class GridSystem : Node
 
     public Node GetParticle(int x, int y)
     {
-        return base.Children[(int)((float)y * gridSize.X + (float)x)];
+        return Children[(int)((y * gridSize.X) + x)];
     }
 
     public void CreateParticles()
     {
-        for (int i = 0; (float)i < gridSize.Y; i++)
+        for (int i = 0; i < gridSize.Y; i++)
         {
-            for (int j = 0; (float)j < gridSize.X; j++)
+            for (int j = 0; j < gridSize.X; j++)
             {
                 Node particle = AddParticle(j, i);
                 ResetParticlePosition(particle, j, i);
@@ -99,9 +101,9 @@ public class GridSystem : Node
 
     public void ResetTransformations()
     {
-        for (int i = 0; (float)i < gridSize.Y; i++)
+        for (int i = 0; i < gridSize.Y; i++)
         {
-            for (int j = 0; (float)j < gridSize.X; j++)
+            for (int j = 0; j < gridSize.X; j++)
             {
                 Node particle = GetParticle(j, i);
                 particle.ScaleVec = Vector2.One;
@@ -114,12 +116,12 @@ public class GridSystem : Node
 
     private void ResetParticlePosition(Node particle, int x, int y)
     {
-        particle.Position = new Vector2((float)x * cellSize.X, (float)y * cellSize.Y);
+        particle.Position = new Vector2(x * cellSize.X, y * cellSize.Y);
     }
 
     public Node AddParticle(int x, int y)
     {
-        return AddParticle((int)((float)y * gridSize.X + (float)x));
+        return AddParticle((int)((y * gridSize.X) + x));
     }
 
     public virtual Node AddParticle(int frame)
@@ -128,13 +130,13 @@ public class GridSystem : Node
         {
             throw new ArgumentOutOfRangeException("frame");
         }
-        OneFrameSprite oneFrameSprite = new OneFrameSprite(data, frame);
+        OneFrameSprite oneFrameSprite = new(data, frame);
         AddChild(oneFrameSprite);
         return oneFrameSprite;
     }
 
     public Vector2 GetParticlePosition(int index)
     {
-        return new Vector2((float)index % gridSize.X, (float)(int)((float)index / gridSize.X) % gridSize.Y);
+        return new Vector2(index % gridSize.X, (int)(index / gridSize.X) % gridSize.Y);
     }
 }

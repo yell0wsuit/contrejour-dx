@@ -127,7 +127,7 @@ public abstract class AbstractForceController : Controller
                 {
                     return 0f;
                 }
-                return DecayEnd - DecayStart / num - DecayStart;
+                return DecayEnd - (DecayStart / num) - DecayStart;
             case DecayModes.InverseSquare:
                 if (num < DecayStart)
                 {

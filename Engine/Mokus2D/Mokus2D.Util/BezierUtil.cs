@@ -18,7 +18,7 @@ public static class BezierUtil
             return originalLineCount;
         }
         int num = originalLineCount - 2;
-        return num * bezierSegments + 3;
+        return (num * bezierSegments) + 3;
     }
 
     public static void CreateBezierLine(List<Vector2> source, List<Vector2> target, int bezierSegments)
@@ -74,10 +74,10 @@ public static class BezierUtil
         float num = 0f;
         for (int i = 0; i < segments; i++)
         {
-            float x = (float)Math.Pow(1f - num, 2.0) * origin.X + 2f * (1f - num) * num * control.X + num * num * destination.X;
-            float y = (float)Math.Pow(1f - num, 2.0) * origin.Y + 2f * (1f - num) * num * control.Y + num * num * destination.Y;
+            float x = ((float)Math.Pow(1f - num, 2.0) * origin.X) + (2f * (1f - num) * num * control.X) + (num * num * destination.X);
+            float y = ((float)Math.Pow(1f - num, 2.0) * origin.Y) + (2f * (1f - num) * num * control.Y) + (num * num * destination.Y);
             result.Add(new Vector2(x, y));
-            num += 1f / (float)segments;
+            num += 1f / segments;
         }
         if (insertLast)
         {

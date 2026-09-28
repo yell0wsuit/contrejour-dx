@@ -10,10 +10,7 @@ public abstract class LiveTileAnimation : AnimationNode
 
     public int Count
     {
-        set
-        {
-            _countLabel.SetText(value);
-        }
+        set => _countLabel.SetText(value);
     }
 
     protected LiveTileAnimation(string name)

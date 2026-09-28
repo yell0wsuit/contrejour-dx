@@ -95,10 +95,6 @@ public static class Settings
 
     public static float MixRestitution(float restitution1, float restitution2)
     {
-        if (!(restitution1 > restitution2))
-        {
-            return restitution2;
-        }
-        return restitution1;
+        return !(restitution1 > restitution2) ? restitution2 : restitution1;
     }
 }

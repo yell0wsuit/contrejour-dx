@@ -11,11 +11,11 @@ namespace Mokus2D.Visual.Primitives;
 
 public abstract class LongNeckLineSprite : LongNeckSprite
 {
-    private readonly List<Vector2> pointsData = new List<Vector2>();
+    private readonly List<Vector2> pointsData = [];
 
-    private readonly List<Vector2> controlPoints = new List<Vector2>();
+    private readonly List<Vector2> controlPoints = [];
 
-    private readonly List<Vector2> bezierLine = new List<Vector2>();
+    private readonly List<Vector2> bezierLine = [];
 
     private float _width = 15f;
 
@@ -23,14 +23,8 @@ public abstract class LongNeckLineSprite : LongNeckSprite
 
     public float Width
     {
-        get
-        {
-            return _width;
-        }
-        set
-        {
-            _width = value;
-        }
+        get => _width;
+        set => _width = value;
     }
 
     protected abstract void GetPoints(List<Vector2> points);
@@ -59,7 +53,7 @@ public abstract class LongNeckLineSprite : LongNeckSprite
             orthoPoints = VectorUtil.GetOrthoPoints(bezierLine[i], bezierLine[i], bezierLine[i + 1], _width);
             target.Add(orthoPoints);
         }
-        orthoPoints = VectorUtil.GetOrthoPoints(bezierLine.Last(), bezierLine[bezierLine.Count - 2], bezierLine.Last(), _width);
+        orthoPoints = VectorUtil.GetOrthoPoints(bezierLine.Last(), bezierLine[^2], bezierLine.Last(), _width);
         target.Add(orthoPoints);
     }
 

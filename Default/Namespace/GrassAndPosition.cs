@@ -12,14 +12,8 @@ public class GrassAndPosition
 
     public Vector2 Position
     {
-        get
-        {
-            return position;
-        }
-        set
-        {
-            position = value;
-        }
+        get => position;
+        set => position = value;
     }
 
     public GrassAndPosition(Particle particle, Vector2 position)

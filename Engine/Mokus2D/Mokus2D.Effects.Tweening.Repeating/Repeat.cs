@@ -8,7 +8,7 @@ namespace Mokus2D.Effects.Tweening.Repeating;
 
 public class Repeat : ITween, ICleanable, IUpdatable
 {
-    private static readonly Pool<Repeat> Pool = new Pool<Repeat>(() => new Repeat());
+    private static readonly Pool<Repeat> Pool = new(() => new Repeat());
 
     private ITween _tween;
 
@@ -16,7 +16,7 @@ public class Repeat : ITween, ICleanable, IUpdatable
 
     private int _timesExecuted;
 
-    private readonly Queue<Action> _onComplete = new Queue<Action>();
+    private readonly Queue<Action> _onComplete = new();
 
     public bool Finished => _timesExecuted >= _times;
 

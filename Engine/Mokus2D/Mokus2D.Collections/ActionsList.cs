@@ -28,7 +28,7 @@ public class ActionsList<T> : List<T>
 
     private void Initialize()
     {
-        AddAction = base.Add;
+        AddAction = Add;
         AddFunction = delegate (T arg)
         {
             Add(arg);

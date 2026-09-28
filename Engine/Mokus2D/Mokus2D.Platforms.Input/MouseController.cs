@@ -49,7 +49,7 @@ public static class MouseController
 
     static MouseController()
     {
-        MouseEventNodes = new Dictionary<IMouseOverNode, LinkedListNode<IMouseOverNode>>();
+        MouseEventNodes = [];
         MouseOverNodes = new LinkedList<IMouseOverNode>();
         MouseOutNodes = new LinkedList<IMouseOverNode>();
         MouseOverAction = delegate (IMouseOverNode n)
@@ -72,7 +72,7 @@ public static class MouseController
     public static void RemoveMouseOverNode(IMouseOverNode node)
     {
         LinkedListNode<IMouseOverNode> linkedListNode = MouseEventNodes[node];
-        MouseEventNodes.Remove(node);
+        _ = MouseEventNodes.Remove(node);
         linkedListNode.List.Remove(linkedListNode);
     }
 
@@ -83,9 +83,9 @@ public static class MouseController
             MouseState state = Mouse.GetState();
             DispatchScroll(state);
             CursorPosition = new Vector2(state.X, state.Y).Transform(ref Mokus2DGame.Instance.TouchController.TransformMatrix);
-            ProcessButton(state.LeftButton, ref _leftPressed, MouseController.LeftButtonPress, MouseController.LeftButtonRelease);
-            ProcessButton(state.RightButton, ref _rightPressed, MouseController.RightButtonPress, MouseController.RightButtonRelease);
-            ProcessButton(state.MiddleButton, ref _middlePressed, MouseController.MiddleButtonPress, MouseController.MiddleButtonRelease);
+            ProcessButton(state.LeftButton, ref _leftPressed, LeftButtonPress, LeftButtonRelease);
+            ProcessButton(state.RightButton, ref _rightPressed, RightButtonPress, RightButtonRelease);
+            ProcessButton(state.MiddleButton, ref _middlePressed, MiddleButtonPress, MiddleButtonRelease);
             ProcessMouseOver();
         }
     }
@@ -117,7 +117,7 @@ public static class MouseController
     {
         if (state.ScrollWheelValue != _scrollWheelValue)
         {
-            MouseController.ScrollEvent.Dispatch(state.ScrollWheelValue - _scrollWheelValue);
+            ScrollEvent.Dispatch(state.ScrollWheelValue - _scrollWheelValue);
             _scrollWheelValue = state.ScrollWheelValue;
         }
     }

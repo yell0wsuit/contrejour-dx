@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 using ContreJour.Clips.level1;
 using ContreJour.Config;
@@ -18,9 +19,9 @@ namespace Default.Namespace;
 
 public class RoseBodyClip : StickyBodyClip, IBonusAcceptable, IBodyClip
 {
-    private static readonly Vector2 HERO_JUMP_IMPULSE = new Vector2(0f, 2f);
+    private static readonly Vector2 HERO_JUMP_IMPULSE = new(0f, 2f);
 
-    private static readonly Vector2 PUDDLE_OFFSET = new Vector2(-80f, -1f);
+    private static readonly Vector2 PUDDLE_OFFSET = new(-80f, -1f);
 
     protected bool bonusHidden;
 
@@ -57,15 +58,17 @@ public class RoseBodyClip : StickyBodyClip, IBonusAcceptable, IBodyClip
     public RoseBodyClip(LevelBuilderBase _builder, object _body, Node _clip, Hashtable _config)
         : base(_builder, _body, _clip, _config)
     {
-        Node node = new Node();
+        Node node = new();
         _builder.ReplaceChildWith(_clip, node);
         node.Position = _clip.Position;
         clip = node;
         game = (ContreJourGame)_builder.Game;
-        finalRose = new FinalRose();
-        finalRose.Stoped = true;
-        finalRose.Repeat = false;
-        finalRose.Speed = 0f;
+        finalRose = new FinalRose
+        {
+            Stoped = true,
+            Repeat = false,
+            Speed = 0f
+        };
         game.BonusTarget = this;
         clip.AddChild((Node)finalRose);
         if (game.CanShowIntro)
@@ -118,7 +121,7 @@ public class RoseBodyClip : StickyBodyClip, IBonusAcceptable, IBodyClip
             skipButton.Y = ContreJourConfig.RootSize.Y - ContreJourConfig.BackButtonPosition.Y;
         }
         intro = new IntroPlayer(game);
-        builder.AddChild(intro);
+        _ = builder.AddChild(intro);
         stalk = new McStebloAnimation();
         headLight = new McRoseHeadLight();
         headBack = new McRoseHeadBack();
@@ -136,24 +139,26 @@ public class RoseBodyClip : StickyBodyClip, IBonusAcceptable, IBodyClip
             Position = clip.Position,
             Speed = 0.5f
         };
-        builder.AddChild(leaf1);
+        _ = builder.AddChild(leaf1);
         leaf2 = new McLystok2();
         ((Node)finalRose).Visible = false;
-        roseParts = new List<IAnimatedNode>(new IAnimatedNode[3] { stalk, headDown, leaf2 });
-        puddle = new McPuddle();
-        puddle.Position = clip.Position + PUDDLE_OFFSET;
-        puddle.Repeat = false;
-        puddle.Visible = false;
-        puddle.Stoped = true;
-        puddle.Speed = 0.7f;
-        builder.AddChild(puddle);
+        roseParts = [stalk, headDown, leaf2];
+        puddle = new McPuddle
+        {
+            Position = clip.Position + PUDDLE_OFFSET,
+            Repeat = false,
+            Visible = false,
+            Stoped = true,
+            Speed = 0.7f
+        };
+        _ = builder.AddChild(puddle);
         foreach (IAnimatedNode rosePart in roseParts)
         {
             rosePart.Repeat = false;
             rosePart.Stoped = true;
             clip.AddChild((Node)rosePart);
         }
-        builder.AddChild(leafMain);
+        _ = builder.AddChild(leafMain);
         leafMain.Repeat = false;
         leafMain.Stoped = true;
         leafMain.Position = clip.Position;
@@ -166,7 +171,7 @@ public class RoseBodyClip : StickyBodyClip, IBonusAcceptable, IBodyClip
         leaf1.EndEvent += OnLeaf1Fall;
         game.TouchEnabled = false;
         headLight.OpacityByte = 150;
-        headLight.Tweener.StartSequence(2.5f).FadeTo(10f / 51f).Next(2.5f)
+        _ = headLight.Tweener.StartSequence(2.5f).FadeTo(10f / 51f).Next(2.5f)
             .FadeTo(20f / 51f)
             .Next(2.5f)
             .FadeTo(0.11764706f)
@@ -233,10 +238,10 @@ public class RoseBodyClip : StickyBodyClip, IBonusAcceptable, IBodyClip
         game.Hero.SetEyeTargetAngle(MathHelper.ToRadians(160f));
         Schedule(FinishMovie, 1.5f);
         skipButton.TouchEndEvent -= OnSkipClick;
-        skipButton.FadeOutAndHide(0.3f);
+        _ = skipButton.FadeOutAndHide(0.3f);
         finished = true;
         ((Node)finalRose).Visible = true;
-        foreach (Node rosePart in roseParts)
+        foreach (Node rosePart in roseParts.Cast<Node>())
         {
             clip.RemoveChild(rosePart);
         }

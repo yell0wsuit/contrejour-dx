@@ -24,7 +24,7 @@ public class BreakableBody
 
     public Body MainBody;
 
-    public List<Fixture> Parts = new List<Fixture>(8);
+    public List<Fixture> Parts = new(8);
 
     public float Strength = 500f;
 
@@ -33,11 +33,13 @@ public class BreakableBody
         _world = world;
         ContactManager contactManager = _world.ContactManager;
         contactManager.PostSolve = (PostSolveDelegate)Delegate.Combine(contactManager.PostSolve, new PostSolveDelegate(PostSolve));
-        MainBody = new Body(_world);
-        MainBody.BodyType = BodyType.Dynamic;
+        MainBody = new Body(_world)
+        {
+            BodyType = BodyType.Dynamic
+        };
         foreach (Vertices vertex in vertices)
         {
-            PolygonShape shape = new PolygonShape(vertex, density);
+            PolygonShape shape = new(vertex, density);
             Fixture item = MainBody.CreateFixture(shape);
             Parts.Add(item);
         }
@@ -48,8 +50,10 @@ public class BreakableBody
         _world = world;
         ContactManager contactManager = _world.ContactManager;
         contactManager.PostSolve = (PostSolveDelegate)Delegate.Combine(contactManager.PostSolve, new PostSolveDelegate(PostSolve));
-        MainBody = new Body(_world);
-        MainBody.BodyType = BodyType.Dynamic;
+        MainBody = new Body(_world)
+        {
+            BodyType = BodyType.Dynamic
+        };
         foreach (Shape shape in shapes)
         {
             Fixture item = MainBody.CreateFixture(shape);

@@ -12,7 +12,7 @@ namespace Mokus2D.UI.Layout.Anchors;
 
 public class AnchorPositionCalculator
 {
-    private readonly Dictionary<string, AnimationData> _originalAnimationData = new Dictionary<string, AnimationData>();
+    private readonly Dictionary<string, AnimationData> _originalAnimationData = [];
 
     public readonly Vector2 DevelopmentSize;
 
@@ -49,7 +49,7 @@ public class AnchorPositionCalculator
     public void ApplyPositionAndSize(ISizeNode sizeNode, Vector2 leftTopAnchor, Vector2 rightBottomAnchor)
     {
         Node node = (Node)sizeNode;
-        Vector2 developmentPosition = node.Position + sizeNode.Size * node.ScaleVec;
+        Vector2 developmentPosition = node.Position + (sizeNode.Size * node.ScaleVec);
         ApplyPosition(node, leftTopAnchor);
         Vector2 position = GetPosition(developmentPosition, rightBottomAnchor);
         node.ScaleVec = (position - node.Position) / sizeNode.Size;
@@ -58,7 +58,7 @@ public class AnchorPositionCalculator
     public Vector2 GetPosition(Vector2 developmentPosition, Vector2 anchor)
     {
         Vector2 vector = CurrentSize - DevelopmentSize;
-        return developmentPosition + anchor * vector;
+        return developmentPosition + (anchor * vector);
     }
 
     public void AdjustHeight(Node node, float bottomPosition)

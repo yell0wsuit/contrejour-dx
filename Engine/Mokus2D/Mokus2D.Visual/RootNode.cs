@@ -25,14 +25,8 @@ public class RootNode : Node
 
     public Vector2 SpritesScaleFactor
     {
-        get
-        {
-            return RootState.SpritesScaleFactor;
-        }
-        set
-        {
-            RootState.SpritesScaleFactor = value;
-        }
+        get => RootState.SpritesScaleFactor;
+        set => RootState.SpritesScaleFactor = value;
     }
 
     public void ResetUpdateThread()
@@ -42,14 +36,14 @@ public class RootNode : Node
     public RootNode(int width, int height, Vector2 spritesScaleFactor)
     {
         ResetUpdateThread();
-        base.Root = this;
+        Root = this;
         _transformCalculator = new OneThreadTransformCalculator(this);
         _batchSelector = Mokus2DGame.BatchSelector;
         Drawer = _batchSelector;
         Size = new Vector2(width, height);
         ScreenRect = new Rectangle(0, 0, width, height);
         RootState = new VisualState(spritesScaleFactor);
-        base.CompositeState = new VisualState(RootState);
+        CompositeState = new VisualState(RootState);
     }
 
     public RootNode(int width, int height)
@@ -74,7 +68,7 @@ public class RootNode : Node
 
     public override Vector2 GlobalToLocal(Vector2 source, bool refreshTransformations = true)
     {
-        Matrix matrix = Matrix.Invert(base.NodeMatrix);
+        Matrix matrix = Matrix.Invert(NodeMatrix);
         return source.Transform(ref matrix);
     }
 

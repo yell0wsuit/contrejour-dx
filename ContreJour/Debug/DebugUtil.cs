@@ -1,5 +1,3 @@
-using System.Diagnostics;
-
 namespace ContreJour.Debug;
 
 public static class DebugUtil

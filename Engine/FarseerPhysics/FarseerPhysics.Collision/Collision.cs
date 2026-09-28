@@ -12,7 +12,7 @@ public static class Collision
 {
     private class EPCollider
     {
-        private TempPolygon _polygonB = new TempPolygon();
+        private TempPolygon _polygonB = new();
 
         private Transform _xf;
 
@@ -249,9 +249,9 @@ public static class Collision
             {
                 return;
             }
-            EPAxis ePAxis3 = ((ePAxis2.Type == EPAxisType.Unknown) ? ePAxis : ((!(ePAxis2.Separation > 0.98f * ePAxis.Separation + 0.001f)) ? ePAxis : ePAxis2));
-            FixedArray2<ClipVertex> vIn = default(FixedArray2<ClipVertex>);
-            ReferenceFace referenceFace = default(ReferenceFace);
+            EPAxis ePAxis3 = (ePAxis2.Type == EPAxisType.Unknown) ? ePAxis : ((!(ePAxis2.Separation > (0.98f * ePAxis.Separation) + 0.001f)) ? ePAxis : ePAxis2);
+            FixedArray2<ClipVertex> vIn = default;
+            ReferenceFace referenceFace = default;
             if (ePAxis3.Type == EPAxisType.EdgeA)
             {
                 manifold.Type = ManifoldType.FaceA;
@@ -267,7 +267,7 @@ public static class Collision
                     }
                 }
                 int num7 = num4;
-                int num8 = ((num7 + 1 < _polygonB.Count) ? (num7 + 1) : 0);
+                int num8 = (num7 + 1 < _polygonB.Count) ? (num7 + 1) : 0;
                 ClipVertex value = vIn[0];
                 value.V = _polygonB.Vertices[num7];
                 value.ID.Features.IndexA = 0;
@@ -317,7 +317,7 @@ public static class Collision
                 value4.ID.Features.TypeB = 1;
                 vIn[1] = value4;
                 referenceFace.i1 = ePAxis3.Index;
-                referenceFace.i2 = ((referenceFace.i1 + 1 < _polygonB.Count) ? (referenceFace.i1 + 1) : 0);
+                referenceFace.i2 = (referenceFace.i1 + 1 < _polygonB.Count) ? (referenceFace.i1 + 1) : 0;
                 referenceFace.v1 = _polygonB.Vertices[referenceFace.i1];
                 referenceFace.v2 = _polygonB.Vertices[referenceFace.i2];
                 referenceFace.normal = _polygonB.Normals[referenceFace.i1];
@@ -326,12 +326,12 @@ public static class Collision
             referenceFace.sideNormal2 = -referenceFace.sideNormal1;
             referenceFace.sideOffset1 = Vector2.Dot(referenceFace.sideNormal1, referenceFace.v1);
             referenceFace.sideOffset2 = Vector2.Dot(referenceFace.sideNormal2, referenceFace.v2);
-            int num9 = ClipSegmentToLine(out var vOut, ref vIn, referenceFace.sideNormal1, referenceFace.sideOffset1, referenceFace.i1);
+            int num9 = ClipSegmentToLine(out FixedArray2<ClipVertex> vOut, ref vIn, referenceFace.sideNormal1, referenceFace.sideOffset1, referenceFace.i1);
             if (num9 < 2)
             {
                 return;
             }
-            num9 = ClipSegmentToLine(out var vOut2, ref vOut, referenceFace.sideNormal2, referenceFace.sideOffset2, referenceFace.i2);
+            num9 = ClipSegmentToLine(out FixedArray2<ClipVertex> vOut2, ref vOut, referenceFace.sideNormal2, referenceFace.sideOffset2, referenceFace.i2);
             if (num9 < 2)
             {
                 return;
@@ -375,9 +375,9 @@ public static class Collision
 
         private EPAxis ComputeEdgeSeparation()
         {
-            EPAxis result = default(EPAxis);
+            EPAxis result = default;
             result.Type = EPAxisType.EdgeA;
-            result.Index = ((!_front) ? 1 : 0);
+            result.Index = (!_front) ? 1 : 0;
             result.Separation = float.MaxValue;
             for (int i = 0; i < _polygonB.Count; i++)
             {
@@ -392,11 +392,11 @@ public static class Collision
 
         private EPAxis ComputePolygonSeparation()
         {
-            EPAxis result = default(EPAxis);
+            EPAxis result = default;
             result.Type = EPAxisType.Unknown;
             result.Index = -1;
             result.Separation = float.MinValue;
-            Vector2 value = new Vector2(0f - _normal.Y, _normal.X);
+            Vector2 value = new(0f - _normal.Y, _normal.X);
             for (int i = 0; i < _polygonB.Count; i++)
             {
                 Vector2 vector = -_polygonB.Normals[i];
@@ -437,20 +437,20 @@ public static class Collision
 
     public static bool TestOverlap(Shape shapeA, int indexA, Shape shapeB, int indexB, ref Transform xfA, ref Transform xfB)
     {
-        _input = _input ?? new DistanceInput();
+        _input ??= new DistanceInput();
         _input.ProxyA.Set(shapeA, indexA);
         _input.ProxyB.Set(shapeB, indexB);
         _input.TransformA = xfA;
         _input.TransformB = xfB;
         _input.UseRadii = true;
-        Distance.ComputeDistance(out var output, out var _, _input);
+        Distance.ComputeDistance(out DistanceOutput output, out SimplexCache _, _input);
         return output.Distance < 1.1920929E-06f;
     }
 
     public static void GetPointStates(out FixedArray2<PointState> state1, out FixedArray2<PointState> state2, ref Manifold manifold1, ref Manifold manifold2)
     {
-        state1 = default(FixedArray2<PointState>);
-        state2 = default(FixedArray2<PointState>);
+        state1 = default;
+        state2 = default;
         for (int i = 0; i < manifold1.PointCount; i++)
         {
             ContactID id = manifold1.Points[i].Id;
@@ -513,7 +513,7 @@ public static class Collision
         {
             Vector2 vector2 = polygonA.Normals[i];
             Vector2 vector3 = vector - polygonA.Vertices[i];
-            float num4 = vector2.X * vector3.X + vector2.Y * vector3.Y;
+            float num4 = (vector2.X * vector3.X) + (vector2.Y * vector3.Y);
             if (num4 > num3)
             {
                 return;
@@ -525,7 +525,7 @@ public static class Collision
             }
         }
         int num5 = num;
-        int index = ((num5 + 1 < count) ? (num5 + 1) : 0);
+        int index = (num5 + 1 < count) ? (num5 + 1) : 0;
         Vector2 vector4 = polygonA.Vertices[num5];
         Vector2 vector5 = polygonA.Vertices[index];
         if (num2 < 1.1920929E-07f)
@@ -540,19 +540,19 @@ public static class Collision
             manifold.Points[0] = value;
             return;
         }
-        float num6 = (vector.X - vector4.X) * (vector5.X - vector4.X) + (vector.Y - vector4.Y) * (vector5.Y - vector4.Y);
-        float num7 = (vector.X - vector5.X) * (vector4.X - vector5.X) + (vector.Y - vector5.Y) * (vector4.Y - vector5.Y);
+        float num6 = ((vector.X - vector4.X) * (vector5.X - vector4.X)) + ((vector.Y - vector4.Y) * (vector5.Y - vector4.Y));
+        float num7 = ((vector.X - vector5.X) * (vector4.X - vector5.X)) + ((vector.Y - vector5.Y) * (vector4.Y - vector5.Y));
         if (num6 <= 0f)
         {
-            float num8 = (vector.X - vector4.X) * (vector.X - vector4.X) + (vector.Y - vector4.Y) * (vector.Y - vector4.Y);
+            float num8 = ((vector.X - vector4.X) * (vector.X - vector4.X)) + ((vector.Y - vector4.Y) * (vector.Y - vector4.Y));
             if (!(num8 > num3 * num3))
             {
                 manifold.PointCount = 1;
                 manifold.Type = ManifoldType.FaceA;
                 manifold.LocalNormal = vector - vector4;
-                float num9 = 1f / (float)Math.Sqrt(manifold.LocalNormal.X * manifold.LocalNormal.X + manifold.LocalNormal.Y * manifold.LocalNormal.Y);
-                manifold.LocalNormal.X = manifold.LocalNormal.X * num9;
-                manifold.LocalNormal.Y = manifold.LocalNormal.Y * num9;
+                float num9 = 1f / (float)Math.Sqrt((manifold.LocalNormal.X * manifold.LocalNormal.X) + (manifold.LocalNormal.Y * manifold.LocalNormal.Y));
+                manifold.LocalNormal.X *= num9;
+                manifold.LocalNormal.Y *= num9;
                 manifold.LocalPoint = vector4;
                 ManifoldPoint value2 = manifold.Points[0];
                 value2.LocalPoint = circleB.Position;
@@ -562,15 +562,15 @@ public static class Collision
         }
         else if (num7 <= 0f)
         {
-            float num10 = (vector.X - vector5.X) * (vector.X - vector5.X) + (vector.Y - vector5.Y) * (vector.Y - vector5.Y);
+            float num10 = ((vector.X - vector5.X) * (vector.X - vector5.X)) + ((vector.Y - vector5.Y) * (vector.Y - vector5.Y));
             if (!(num10 > num3 * num3))
             {
                 manifold.PointCount = 1;
                 manifold.Type = ManifoldType.FaceA;
                 manifold.LocalNormal = vector - vector5;
-                float num11 = 1f / (float)Math.Sqrt(manifold.LocalNormal.X * manifold.LocalNormal.X + manifold.LocalNormal.Y * manifold.LocalNormal.Y);
-                manifold.LocalNormal.X = manifold.LocalNormal.X * num11;
-                manifold.LocalNormal.Y = manifold.LocalNormal.Y * num11;
+                float num11 = 1f / (float)Math.Sqrt((manifold.LocalNormal.X * manifold.LocalNormal.X) + (manifold.LocalNormal.Y * manifold.LocalNormal.Y));
+                manifold.LocalNormal.X *= num11;
+                manifold.LocalNormal.Y *= num11;
                 manifold.LocalPoint = vector5;
                 ManifoldPoint value3 = manifold.Points[0];
                 value3.LocalPoint = circleB.Position;
@@ -583,7 +583,7 @@ public static class Collision
             Vector2 vector6 = 0.5f * (vector4 + vector5);
             Vector2 vector7 = vector - vector6;
             Vector2 vector8 = polygonA.Normals[num5];
-            float num12 = vector7.X * vector8.X + vector7.Y * vector8.Y;
+            float num12 = (vector7.X * vector8.X) + (vector7.Y * vector8.Y);
             if (!(num12 > num3))
             {
                 manifold.PointCount = 1;
@@ -602,14 +602,12 @@ public static class Collision
     {
         manifold.PointCount = 0;
         float num = polyA.Radius + polyB.Radius;
-        int edgeIndex = 0;
-        float num2 = FindMaxSeparation(out edgeIndex, polyA, ref transformA, polyB, ref transformB);
+        float num2 = FindMaxSeparation(out int edgeIndex, polyA, ref transformA, polyB, ref transformB);
         if (num2 > num)
         {
             return;
         }
-        int edgeIndex2 = 0;
-        float num3 = FindMaxSeparation(out edgeIndex2, polyB, ref transformB, polyA, ref transformA);
+        float num3 = FindMaxSeparation(out int edgeIndex2, polyB, ref transformB, polyA, ref transformA);
         if (num3 > num)
         {
             return;
@@ -620,7 +618,7 @@ public static class Collision
         Transform xf2;
         int num4;
         bool flag;
-        if (num3 > 0.98f * num2 + 0.001f)
+        if (num3 > (0.98f * num2) + 0.001f)
         {
             polygonShape = polyB;
             poly = polyA;
@@ -640,30 +638,30 @@ public static class Collision
             manifold.Type = ManifoldType.FaceA;
             flag = false;
         }
-        FindIncidentEdge(out var c, polygonShape, ref xf, num4, poly, ref xf2);
+        FindIncidentEdge(out FixedArray2<ClipVertex> c, polygonShape, ref xf, num4, poly, ref xf2);
         int count = polygonShape.Vertices.Count;
         int num5 = num4;
-        int num6 = ((num4 + 1 < count) ? (num4 + 1) : 0);
+        int num6 = (num4 + 1 < count) ? (num4 + 1) : 0;
         Vector2 vector = polygonShape.Vertices[num5];
         Vector2 vector2 = polygonShape.Vertices[num6];
         Vector2 v = vector2 - vector;
         v.Normalize();
-        Vector2 localNormal = new Vector2(v.Y, 0f - v.X);
+        Vector2 localNormal = new(v.Y, 0f - v.X);
         Vector2 localPoint = 0.5f * (vector + vector2);
         Vector2 vector3 = MathUtils.Mul(xf.q, v);
         float y = vector3.Y;
         float num7 = 0f - vector3.X;
         vector = MathUtils.Mul(ref xf, vector);
         vector2 = MathUtils.Mul(ref xf, vector2);
-        float num8 = y * vector.X + num7 * vector.Y;
-        float offset = 0f - (vector3.X * vector.X + vector3.Y * vector.Y) + num;
-        float offset2 = vector3.X * vector2.X + vector3.Y * vector2.Y + num;
-        int num9 = ClipSegmentToLine(out var vOut, ref c, -vector3, offset, num5);
+        float num8 = (y * vector.X) + (num7 * vector.Y);
+        float offset = 0f - ((vector3.X * vector.X) + (vector3.Y * vector.Y)) + num;
+        float offset2 = (vector3.X * vector2.X) + (vector3.Y * vector2.Y) + num;
+        int num9 = ClipSegmentToLine(out FixedArray2<ClipVertex> vOut, ref c, -vector3, offset, num5);
         if (num9 < 2)
         {
             return;
         }
-        num9 = ClipSegmentToLine(out var vOut2, ref vOut, vector3, offset2, num6);
+        num9 = ClipSegmentToLine(out FixedArray2<ClipVertex> vOut2, ref vOut, vector3, offset2, num6);
         if (num9 < 2)
         {
             return;
@@ -674,7 +672,7 @@ public static class Collision
         for (int i = 0; i < 2; i++)
         {
             Vector2 v2 = vOut2[i].V;
-            float num11 = y * v2.X + num7 * v2.Y - num8;
+            float num11 = (y * v2.X) + (num7 * v2.Y) - num8;
             if (num11 <= num)
             {
                 ManifoldPoint value = manifold.Points[num10];
@@ -705,7 +703,7 @@ public static class Collision
         float num = Vector2.Dot(value, vertex2 - vector);
         float num2 = Vector2.Dot(value, vector - vertex);
         float num3 = edgeA.Radius + circleB.Radius;
-        ContactFeature features = default(ContactFeature);
+        ContactFeature features = default;
         features.IndexB = 0;
         features.TypeB = 0;
         Vector2 vector2;
@@ -736,7 +734,7 @@ public static class Collision
             manifold.Type = ManifoldType.Circles;
             manifold.LocalNormal = Vector2.Zero;
             manifold.LocalPoint = vector2;
-            ManifoldPoint value4 = new ManifoldPoint
+            ManifoldPoint value4 = new()
             {
                 Id =
                 {
@@ -774,7 +772,7 @@ public static class Collision
             manifold.Type = ManifoldType.Circles;
             manifold.LocalNormal = Vector2.Zero;
             manifold.LocalPoint = vector2;
-            ManifoldPoint value6 = new ManifoldPoint
+            ManifoldPoint value6 = new()
             {
                 Id =
                 {
@@ -787,12 +785,12 @@ public static class Collision
             return;
         }
         Vector2.Dot(ref value, ref value, out var result3);
-        vector2 = 1f / result3 * (num * vertex + num2 * vertex2);
+        vector2 = 1f / result3 * ((num * vertex) + (num2 * vertex2));
         value2 = vector - vector2;
         Vector2.Dot(ref value2, ref value2, out var result4);
         if (!(result4 > num3 * num3))
         {
-            Vector2 vector5 = new Vector2(0f - value.Y, value.X);
+            Vector2 vector5 = new(0f - value.Y, value.X);
             if (Vector2.Dot(vector5, vector - vertex) < 0f)
             {
                 vector5 = new Vector2(0f - vector5.X, 0f - vector5.Y);
@@ -804,7 +802,7 @@ public static class Collision
             manifold.Type = ManifoldType.FaceA;
             manifold.LocalNormal = vector5;
             manifold.LocalPoint = vertex;
-            ManifoldPoint value7 = new ManifoldPoint
+            ManifoldPoint value7 = new()
             {
                 Id =
                 {
@@ -819,18 +817,18 @@ public static class Collision
 
     public static void CollideEdgeAndPolygon(ref Manifold manifold, EdgeShape edgeA, ref Transform xfA, PolygonShape polygonB, ref Transform xfB)
     {
-        EPCollider ePCollider = new EPCollider();
+        EPCollider ePCollider = new();
         ePCollider.Collide(ref manifold, edgeA, ref xfA, polygonB, ref xfB);
     }
 
     private static int ClipSegmentToLine(out FixedArray2<ClipVertex> vOut, ref FixedArray2<ClipVertex> vIn, Vector2 normal, float offset, int vertexIndexA)
     {
-        vOut = default(FixedArray2<ClipVertex>);
+        vOut = default;
         ClipVertex value = vIn[0];
         ClipVertex value2 = vIn[1];
         int num = 0;
-        float num2 = normal.X * value.V.X + normal.Y * value.V.Y - offset;
-        float num3 = normal.X * value2.V.X + normal.Y * value2.V.Y - offset;
+        float num2 = (normal.X * value.V.X) + (normal.Y * value.V.Y) - offset;
+        float num3 = (normal.X * value2.V.X) + (normal.Y * value2.V.Y) - offset;
         if (num2 <= 0f)
         {
             vOut[num++] = value;
@@ -843,8 +841,8 @@ public static class Collision
         {
             float num4 = num2 / (num2 - num3);
             ClipVertex value3 = vOut[num];
-            value3.V.X = value.V.X + num4 * (value2.V.X - value.V.X);
-            value3.V.Y = value.V.Y + num4 * (value2.V.Y - value.V.Y);
+            value3.V.X = value.V.X + (num4 * (value2.V.X - value.V.X));
+            value3.V.Y = value.V.Y + (num4 * (value2.V.Y - value.V.Y));
             value3.ID.Features.IndexA = (byte)vertexIndexA;
             value3.ID.Features.IndexB = value.ID.Features.IndexB;
             value3.ID.Features.TypeA = 0;
@@ -897,9 +895,9 @@ public static class Collision
             }
         }
         float num4 = EdgeSeparation(poly1, ref xf1, num, poly2, ref xf2);
-        int num5 = ((num - 1 >= 0) ? (num - 1) : (count - 1));
+        int num5 = (num - 1 >= 0) ? (num - 1) : (count - 1);
         float num6 = EdgeSeparation(poly1, ref xf1, num5, poly2, ref xf2);
-        int num7 = ((num + 1 < count) ? (num + 1) : 0);
+        int num7 = (num + 1 < count) ? (num + 1) : 0;
         float num8 = EdgeSeparation(poly1, ref xf1, num7, poly2, ref xf2);
         int num9;
         int num10;
@@ -923,7 +921,7 @@ public static class Collision
         }
         while (true)
         {
-            num = ((num9 != -1) ? ((num10 + 1 < count) ? (num10 + 1) : 0) : ((num10 - 1 >= 0) ? (num10 - 1) : (count - 1)));
+            num = (num9 != -1) ? ((num10 + 1 < count) ? (num10 + 1) : 0) : ((num10 - 1 >= 0) ? (num10 - 1) : (count - 1));
             num4 = EdgeSeparation(poly1, ref xf1, num, poly2, ref xf2);
             if (!(num4 > num11))
             {
@@ -938,7 +936,7 @@ public static class Collision
 
     private static void FindIncidentEdge(out FixedArray2<ClipVertex> c, PolygonShape poly1, ref Transform xf1, int edge1, PolygonShape poly2, ref Transform xf2)
     {
-        c = default(FixedArray2<ClipVertex>);
+        c = default;
         Vertices normals = poly1.Normals;
         int count = poly2.Vertices.Count;
         Vertices vertices = poly2.Vertices;
@@ -956,7 +954,7 @@ public static class Collision
             }
         }
         int num4 = num;
-        int num5 = ((num4 + 1 < count) ? (num4 + 1) : 0);
+        int num5 = (num4 + 1 < count) ? (num4 + 1) : 0;
         ClipVertex value2 = c[0];
         value2.V = MathUtils.Mul(ref xf2, vertices[num4]);
         value2.ID.Features.IndexA = (byte)edge1;

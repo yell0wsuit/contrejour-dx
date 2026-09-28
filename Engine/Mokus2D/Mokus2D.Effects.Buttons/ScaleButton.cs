@@ -10,26 +10,14 @@ public class ScaleButton : Button
 {
     public Vector2 DefaultScale
     {
-        get
-        {
-            return ((ScaleMultEffect)Effect).OffValue;
-        }
-        set
-        {
-            ((ScaleMultEffect)Effect).ResetOffValue(value);
-        }
+        get => ((ScaleMultEffect)Effect).OffValue;
+        set => ((ScaleMultEffect)Effect).ResetOffValue(value);
     }
 
     public float ScaleMult
     {
-        get
-        {
-            return ((ScaleMultEffect)Effect).ScaleMult;
-        }
-        set
-        {
-            ((ScaleMultEffect)Effect).ScaleMult = value;
-        }
+        get => ((ScaleMultEffect)Effect).ScaleMult;
+        set => ((ScaleMultEffect)Effect).ScaleMult = value;
     }
 
     public ScaleButton(Sprite target, float targetScale, float seconds)

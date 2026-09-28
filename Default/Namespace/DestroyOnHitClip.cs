@@ -1,3 +1,5 @@
+using System.Linq;
+
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Dynamics.Contacts;
 
@@ -21,14 +23,8 @@ public class DestroyOnHitClip : BodyClip
 
     public int SnotJoinedCount
     {
-        get
-        {
-            return snotJoinedCount;
-        }
-        set
-        {
-            snotJoinedCount = value;
-        }
+        get => snotJoinedCount;
+        set => snotJoinedCount = value;
     }
 
     public DestroyOnHitClip(LevelBuilderBase _builder, object _body, Node _clip, Hashtable _config)
@@ -64,9 +60,9 @@ public class DestroyOnHitClip : BodyClip
         explosion.CreateOnStartPosition(25);
         Vector2 textureSize = ((Sprite)clip).TextureSize;
         int num = 0;
-        foreach (GravityParticle particle in explosion.Particles)
+        foreach (GravityParticle particle in explosion.Particles.Cast<GravityParticle>())
         {
-            Vector2 source = new Vector2(0f, (float)num * textureSize.Y / 25f - textureSize.Y / 2f);
+            Vector2 source = new(0f, (num * textureSize.Y / 25f) - (textureSize.Y / 2f));
             particle.Position = builder.ToRootChild(source, clip) - clip.Position;
             num++;
         }

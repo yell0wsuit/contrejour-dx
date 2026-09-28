@@ -12,8 +12,8 @@ public abstract class TextureMatrixEffectBase : SpriteBatchEffectBase
     protected TextureMatrixEffectBase(string path)
         : base(path)
     {
-        _texture = base.Parameters["Texture"];
-        _matrix = base.Parameters["Matrix"];
+        _texture = Parameters["Texture"];
+        _matrix = Parameters["Matrix"];
     }
 
     public override void Apply(Matrix matrix, Texture2D texture)

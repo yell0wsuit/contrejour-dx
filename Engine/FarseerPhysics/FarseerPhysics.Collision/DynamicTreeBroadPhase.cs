@@ -28,7 +28,7 @@ public class DynamicTreeBroadPhase : IBroadPhase
 
     private int _queryProxyId;
 
-    private DynamicTree<FixtureProxy> _tree = new DynamicTree<FixtureProxy>();
+    private DynamicTree<FixtureProxy> _tree = new();
 
     public int ProxyCount => _proxyCount;
 
@@ -133,8 +133,8 @@ public class DynamicTreeBroadPhase : IBroadPhase
 
     public bool TestOverlap(int proxyIdA, int proxyIdB)
     {
-        _tree.GetFatAABB(proxyIdA, out var fatAABB);
-        _tree.GetFatAABB(proxyIdB, out var fatAABB2);
+        _tree.GetFatAABB(proxyIdA, out AABB fatAABB);
+        _tree.GetFatAABB(proxyIdB, out AABB fatAABB2);
         return AABB.TestOverlap(ref fatAABB, ref fatAABB2);
     }
 
@@ -146,7 +146,7 @@ public class DynamicTreeBroadPhase : IBroadPhase
             _queryProxyId = _moveBuffer[i];
             if (_queryProxyId != -1)
             {
-                _tree.GetFatAABB(_queryProxyId, out var fatAABB);
+                _tree.GetFatAABB(_queryProxyId, out AABB fatAABB);
                 _tree.Query(_queryCallback, ref fatAABB);
             }
         }

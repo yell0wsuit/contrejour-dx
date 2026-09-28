@@ -54,8 +54,10 @@ public class RenderRootNode : RootNode
 
     public LayerColor AddDebugLayer(string whiteRect, Color color)
     {
-        LayerColor layerColor = new LayerColor(color, whiteRect);
-        layerColor.OpacityFloat = 0.5f;
+        LayerColor layerColor = new(color, whiteRect)
+        {
+            OpacityFloat = 0.5f
+        };
         AddChild(layerColor, int.MaxValue);
         return layerColor;
     }

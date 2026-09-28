@@ -17,11 +17,11 @@ namespace Mokus2D.Visual;
 
 public abstract class AnchorNode : SpriteBatchNode, ITouchDispatchNode, IClickableNode, ITouchNode, IMouseOverNode, IBoundsNode, ISizeNode
 {
-    public readonly StopPropagationConfig StopPropagation = new StopPropagationConfig();
+    public readonly StopPropagationConfig StopPropagation = new();
 
     public bool TouchOutResult;
 
-    private Vector2 _anchor = new Vector2(0.5f);
+    private Vector2 _anchor = new(0.5f);
 
     private DirtyProperty<RectangleFloat> _bounds;
 
@@ -41,11 +41,7 @@ public abstract class AnchorNode : SpriteBatchNode, ITouchDispatchNode, IClickab
     {
         get
         {
-            if (!ProcessMouseOver)
-            {
-                throw new NodeException("Mouse over is not being processed");
-            }
-            return _isMouseOver;
+            return !ProcessMouseOver ? throw new NodeException("Mouse over is not being processed") : _isMouseOver;
         }
     }
 
@@ -55,94 +51,49 @@ public abstract class AnchorNode : SpriteBatchNode, ITouchDispatchNode, IClickab
 
     public Vector2 ScaledSize
     {
-        get
-        {
-            return Size * ScaleVec;
-        }
-        set
-        {
-            ScaleVec = value / Size;
-        }
+        get => Size * ScaleVec;
+        set => ScaleVec = value / Size;
     }
 
     public float ScaledHeight
     {
-        get
-        {
-            return ScaledSize.Y;
-        }
-        set
-        {
-            ScaledSize = ScaledSize.ChangeY(value);
-        }
+        get => ScaledSize.Y;
+        set => ScaledSize = ScaledSize.ChangeY(value);
     }
 
     public float ScaledWidth
     {
-        get
-        {
-            return ScaledSize.X;
-        }
-        set
-        {
-            ScaledSize = ScaledSize.ChangeX(value);
-        }
+        get => ScaledSize.X;
+        set => ScaledSize = ScaledSize.ChangeX(value);
     }
 
     public virtual Vector2 Anchor
     {
-        get
-        {
-            return _anchor;
-        }
-        set
-        {
-            _anchor = value;
-        }
+        get => _anchor;
+        set => _anchor = value;
     }
 
     public float AnchorX
     {
-        get
-        {
-            return Anchor.X;
-        }
-        set
-        {
-            Anchor = new Vector2(value, Anchor.Y);
-        }
+        get => Anchor.X;
+        set => Anchor = new Vector2(value, Anchor.Y);
     }
 
     public float AnchorY
     {
-        get
-        {
-            return Anchor.Y;
-        }
-        set
-        {
-            Anchor = new Vector2(Anchor.X, value);
-        }
+        get => Anchor.Y;
+        set => Anchor = new Vector2(Anchor.X, value);
     }
 
     public Vector2 AnchorInPixels
     {
-        get
-        {
-            return _anchor * Size;
-        }
-        set
-        {
-            _anchor = value / Size;
-        }
+        get => _anchor * Size;
+        set => _anchor = value / Size;
     }
 
     public bool Clickable
     {
-        get
-        {
-            return _clickable;
-        }
+        get => _clickable;
         set
         {
             if (value != _clickable)
@@ -155,10 +106,7 @@ public abstract class AnchorNode : SpriteBatchNode, ITouchDispatchNode, IClickab
 
     public bool ProcessMouseOver
     {
-        get
-        {
-            return _processMouseOver;
-        }
+        get => _processMouseOver;
         set
         {
             if (value != _processMouseOver)
@@ -206,23 +154,19 @@ public abstract class AnchorNode : SpriteBatchNode, ITouchDispatchNode, IClickab
 
     protected virtual RectangleFloat CalculateBounds()
     {
-        float x = (0f - GetScaledAnchor(Anchor.X, base.Root.SpritesScaleFactor.X)) * Size.X;
-        float y = (0f - GetScaledAnchor(Anchor.Y, base.Root.SpritesScaleFactor.Y)) * Size.Y;
+        float x = (0f - GetScaledAnchor(Anchor.X, Root.SpritesScaleFactor.X)) * Size.X;
+        float y = (0f - GetScaledAnchor(Anchor.Y, Root.SpritesScaleFactor.Y)) * Size.Y;
         return new RectangleFloat(x, y, Size.X, Size.Y);
     }
 
     private float GetScaledAnchor(float anchor, float scaleFactor)
     {
-        if (!(scaleFactor > 0f))
-        {
-            return 1f - anchor;
-        }
-        return anchor;
+        return !(scaleFactor > 0f) ? 1f - anchor : anchor;
     }
 
     private void RefreshClickableState()
     {
-        bool flag = _clickable && base.Root != null;
+        bool flag = _clickable && Root != null;
         if (flag != _clickableAdded)
         {
             if (flag)
@@ -239,7 +183,7 @@ public abstract class AnchorNode : SpriteBatchNode, ITouchDispatchNode, IClickab
 
     private void RefreshProcessMouseOverState()
     {
-        bool flag = ProcessMouseOver && base.Root != null;
+        bool flag = ProcessMouseOver && Root != null;
         if (flag != _processMouseOverAdded)
         {
             if (flag)
@@ -270,7 +214,7 @@ public abstract class AnchorNode : SpriteBatchNode, ITouchDispatchNode, IClickab
 
     public virtual bool TouchBegin(Touch touch)
     {
-        this.TouchBeginEvent.Dispatch(new TouchArguments(touch, this));
+        TouchBeginEvent.Dispatch(new TouchArguments(touch, this));
         if (StopPropagation.TouchBegin)
         {
             touch.StopPropagation();
@@ -280,19 +224,19 @@ public abstract class AnchorNode : SpriteBatchNode, ITouchDispatchNode, IClickab
 
     public virtual bool TouchMove(Touch touch)
     {
-        this.TouchMoveEvent.Dispatch(new TouchArguments(touch, this));
+        TouchMoveEvent.Dispatch(new TouchArguments(touch, this));
         return true;
     }
 
     public virtual bool TouchOut(Touch touch)
     {
-        this.TouchOutEvent.Dispatch(new TouchArguments(touch, this));
+        TouchOutEvent.Dispatch(new TouchArguments(touch, this));
         return TouchOutResult;
     }
 
     public virtual void TouchEnd(Touch touch)
     {
-        this.TouchEndEvent.Dispatch(new TouchArguments(touch, this));
+        TouchEndEvent.Dispatch(new TouchArguments(touch, this));
         if (StopPropagation.TouchEnd)
         {
             touch.StopPropagation();
@@ -302,12 +246,12 @@ public abstract class AnchorNode : SpriteBatchNode, ITouchDispatchNode, IClickab
     public void MouseOver()
     {
         _isMouseOver = true;
-        this.MouseOverEvent.Dispatch();
+        MouseOverEvent.Dispatch();
     }
 
     public void MouseOut()
     {
         _isMouseOver = false;
-        this.MouseOutEvent.Dispatch();
+        MouseOutEvent.Dispatch();
     }
 }

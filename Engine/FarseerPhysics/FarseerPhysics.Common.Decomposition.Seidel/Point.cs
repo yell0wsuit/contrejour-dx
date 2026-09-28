@@ -40,21 +40,17 @@ internal class Point
 
     public float Cross(Point p)
     {
-        return X * p.Y - Y * p.X;
+        return (X * p.Y) - (Y * p.X);
     }
 
     public float Dot(Point p)
     {
-        return X * p.X + Y * p.Y;
+        return (X * p.X) + (Y * p.Y);
     }
 
     public bool Neq(Point p)
     {
-        if (p.X == X)
-        {
-            return p.Y != Y;
-        }
-        return true;
+        return p.X == X ? p.Y != Y : true;
     }
 
     public float Orient2D(Point pb, Point pc)
@@ -63,6 +59,6 @@ internal class Point
         float num2 = pb.X - pc.X;
         float num3 = Y - pc.Y;
         float num4 = pb.Y - pc.Y;
-        return num * num4 - num3 * num2;
+        return (num * num4) - (num3 * num2);
     }
 }

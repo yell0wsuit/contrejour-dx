@@ -37,9 +37,9 @@ public class TrampolineBodyClip : SnotBodyClipBase
 
     private const float DRAG_FORCE = 500f;
 
-    public readonly EventSender DragEvent = new EventSender();
+    public readonly EventSender DragEvent = new();
 
-    public readonly EventSender HeroTouchEvent = new EventSender();
+    public readonly EventSender HeroTouchEvent = new();
 
     protected Vector2 center;
 
@@ -57,7 +57,7 @@ public class TrampolineBodyClip : SnotBodyClipBase
 
     protected Vector2 initialPosition;
 
-    protected List<Body> launchBodies = new List<Body>();
+    protected List<Body> launchBodies = [];
 
     protected float maxDistance;
 
@@ -77,14 +77,8 @@ public class TrampolineBodyClip : SnotBodyClipBase
 
     public bool Dragging
     {
-        get
-        {
-            return dragging;
-        }
-        set
-        {
-            dragging = value;
-        }
+        get => dragging;
+        set => dragging = value;
     }
 
     public override Body Body
@@ -103,29 +97,31 @@ public class TrampolineBodyClip : SnotBodyClipBase
     public TrampolineBodyClip(LevelBuilderBase _builder, SnotData _body, Node _clip, Hashtable _config)
         : base(_builder, _body, _clip, _config)
     {
-        for (int i = 2; i < base.Physics.BodiesSize() - 2; i++)
+        for (int i = 2; i < Physics.BodiesSize() - 2; i++)
         {
-            if (base.Physics.BodyAt(i).UserData is TrampolinePartBodyClip trampolinePartBodyClip)
+            if (Physics.BodyAt(i).UserData is TrampolinePartBodyClip trampolinePartBodyClip)
             {
                 trampolinePartBodyClip.Parent = this;
             }
         }
         part.Parent = this;
-        center = base.Physics.GetWorldStartPoint() + base.Physics.EndBody.Position;
-        startTrampolineWidth = (base.Physics.GetWorldStartPoint() - base.Physics.EndBody.Position).Length();
+        center = Physics.GetWorldStartPoint() + Physics.EndBody.Position;
+        startTrampolineWidth = (Physics.GetWorldStartPoint() - Physics.EndBody.Position).Length();
         center *= 0.5f;
-        normal = base.Physics.EndBody.Position - base.Physics.GetWorldStartPoint();
+        normal = Physics.EndBody.Position - Physics.GetWorldStartPoint();
         normal = normal.Rotate90();
         normal *= 1f / normal.Length();
         impulseMultiplier = startTrampolineWidth / 6.533333f;
         startDistance = impulseMultiplier * 1.621671f;
         maxDistance = impulseMultiplier * 5f;
         centerDistanceDiff = maxDistance - startDistance;
-        trajectory = new Trajectory(game);
-        trajectory.Impulse = impulseMultiplier;
+        trajectory = new Trajectory(game)
+        {
+            Impulse = impulseMultiplier
+        };
         builder.Add(trajectory, 11);
         trajectory.Position = builder.ToIPadPoint(center);
-        trajectory.Angle = _config.GetFloat("rotation").ToRadians() + (float)Math.PI / 2f;
+        trajectory.Angle = _config.GetFloat("rotation").ToRadians() + ((float)Math.PI / 2f);
         timeFromLaunch = 0.3f;
         SetJointsDamping(1f);
     }
@@ -142,7 +138,7 @@ public class TrampolineBodyClip : SnotBodyClipBase
 
     public Body CenterBody()
     {
-        return base.Physics.BodyAt(base.Physics.BodiesSize() / 2);
+        return Physics.BodyAt(Physics.BodiesSize() / 2);
     }
 
     public void StartDrag(Touch _touch)
@@ -189,10 +185,7 @@ public class TrampolineBodyClip : SnotBodyClipBase
     public override void Update(float time)
     {
         base.Update(time);
-        if (part != null)
-        {
-            part.Update(time);
-        }
+        part?.Update(time);
         timeFromLaunch += time;
         if (dragging)
         {
@@ -224,10 +217,10 @@ public class TrampolineBodyClip : SnotBodyClipBase
         trajectory.Enabled = trajectory.Impulse > impulseMultiplier;
         dragTarget += center;
         dragTarget = VectorUtil.StepTo(worldCenter, dragTarget, 1.6666666f);
-        ((Joint)dragJoint).WorldAnchorB = dragTarget;
-        for (int i = 0; i < base.Physics.BodiesSize(); i++)
+        dragJoint.WorldAnchorB = dragTarget;
+        for (int i = 0; i < Physics.BodiesSize(); i++)
         {
-            for (ContactEdge val = base.Physics.BodyAt(i).ContactList; val != null; val = val.Next)
+            for (ContactEdge val = Physics.BodyAt(i).ContactList; val != null; val = val.Next)
             {
                 if (!val.Other.FixtureList[0].IsSensor)
                 {
@@ -249,11 +242,11 @@ public class TrampolineBodyClip : SnotBodyClipBase
         {
             return;
         }
-        List<Body> list = new List<Body>();
+        List<Body> list = [];
         launchBodies.Clear();
-        for (int i = 0; i < base.Physics.BodiesSize(); i++)
+        for (int i = 0; i < Physics.BodiesSize(); i++)
         {
-            Body val = base.Physics.BodyAt(i);
+            Body val = Physics.BodyAt(i);
             ContactEdge val2 = val.ContactList;
             float num2 = (val.WorldCenter - center).Length();
             list.Add(val);
@@ -313,9 +306,9 @@ public class TrampolineBodyClip : SnotBodyClipBase
     {
         //IL_0010: Unknown result type (might be due to invalid IL or missing references)
         //IL_0016: Expected O, but got Unknown
-        for (int i = 1; i < base.Physics.JoitsSize; i++)
+        for (int i = 1; i < Physics.JoitsSize; i++)
         {
-            ((DistanceJoint)base.Physics.JointAt(i)).DampingRatio = value;
+            ((DistanceJoint)Physics.JointAt(i)).DampingRatio = value;
         }
     }
 
@@ -334,11 +327,9 @@ public class TrampolineBodyClip : SnotBodyClipBase
         {
             return new WhiteTrampolineSprite(game, this, startWidth, centerWidth, endWidth);
         }
-        if (game.BlackSide)
-        {
-            return new BlackTrampolineSprite(game, this, startWidth, centerWidth, endWidth);
-        }
-        return new SnotSprite(this, startWidth, centerWidth, endWidth);
+        return game.BlackSide
+            ? new BlackTrampolineSprite(game, this, startWidth, centerWidth, endWidth)
+            : new SnotSprite(this, startWidth, centerWidth, endWidth);
     }
 
     public override string BaseEndClipName()

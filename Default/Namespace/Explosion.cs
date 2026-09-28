@@ -13,26 +13,14 @@ public class Explosion : GravityParticleSystem
 
     public float ScaleStep
     {
-        get
-        {
-            return scaleStep;
-        }
-        set
-        {
-            scaleStep = value;
-        }
+        get => scaleStep;
+        set => scaleStep = value;
     }
 
     public float OpacityStep
     {
-        get
-        {
-            return opacityStep;
-        }
-        set
-        {
-            opacityStep = value;
-        }
+        get => opacityStep;
+        set => opacityStep = value;
     }
 
     public Explosion(string textureName)
@@ -40,10 +28,10 @@ public class Explosion : GravityParticleSystem
     {
         opacityStep = 300f;
         scaleStep = 6f;
-        base.StartOpacity = new RandomRange(220f, 35f);
-        base.Speed = new RandomRange(140f, 20f);
-        base.ParticlesScale = new RandomRange(2f, 1f);
-        base.Angle = new RandomRange(0f, 3600f);
+        StartOpacity = new RandomRange(220f, 35f);
+        Speed = new RandomRange(140f, 20f);
+        ParticlesScale = new RandomRange(2f, 1f);
+        Angle = new RandomRange(0f, 3600f);
     }
 
     public override void initParticle(GravityParticle gravityParticle)

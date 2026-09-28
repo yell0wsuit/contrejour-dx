@@ -13,7 +13,7 @@ public class FadeHint : HintBase, IRemovable, IRestartable
 
     protected bool hiding;
 
-    protected List<Action> callAfters = new List<Action>();
+    protected List<Action> callAfters = [];
 
     public override bool ShouldRemove => false;
 
@@ -30,7 +30,7 @@ public class FadeHint : HintBase, IRemovable, IRestartable
     public virtual void Restart()
     {
         clip.Tweener.Stop();
-        clip.FadeOutAndHide(0.2f);
+        _ = clip.FadeOutAndHide(0.2f);
         hasToRun = true;
         hiding = false;
         foreach (Action callAfter in callAfters)
@@ -71,7 +71,7 @@ public class FadeHint : HintBase, IRemovable, IRestartable
         {
             clip.Visible = true;
             clip.Tweener.Stop();
-            clip.FadeIn(2f);
+            _ = clip.FadeIn(2f);
             if (HasToHide())
             {
                 CallAfterDelay(Hide, 5f);
@@ -82,7 +82,7 @@ public class FadeHint : HintBase, IRemovable, IRestartable
     public void Hide(float time)
     {
         clip.Tweener.Stop();
-        clip.FadeOutAndHide(time);
+        _ = clip.FadeOutAndHide(time);
     }
 
     public void Hide()
@@ -90,7 +90,7 @@ public class FadeHint : HintBase, IRemovable, IRestartable
         if (!hiding)
         {
             hiding = true;
-            Hide((float)clip.OpacityByte / 255f);
+            Hide(clip.OpacityByte / 255f);
         }
     }
 }

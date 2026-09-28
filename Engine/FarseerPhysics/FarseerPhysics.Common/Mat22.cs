@@ -16,7 +16,7 @@ public struct Mat22
             float x2 = ey.X;
             float y = ex.Y;
             float y2 = ey.Y;
-            float num = x * y2 - x2 * y;
+            float num = (x * y2) - (x2 * y);
             if (num != 0f)
             {
                 num = 1f / num;
@@ -71,18 +71,18 @@ public struct Mat22
         ey.Y = 0f;
     }
 
-    public Vector2 Solve(Vector2 b)
+    public readonly Vector2 Solve(Vector2 b)
     {
         float x = ex.X;
         float x2 = ey.X;
         float y = ex.Y;
         float y2 = ey.Y;
-        float num = x * y2 - x2 * y;
+        float num = (x * y2) - (x2 * y);
         if (num != 0f)
         {
             num = 1f / num;
         }
-        return new Vector2(num * (y2 * b.X - x2 * b.Y), num * (x * b.Y - y * b.X));
+        return new Vector2(num * ((y2 * b.X) - (x2 * b.Y)), num * ((x * b.Y) - (y * b.X)));
     }
 
     public static void Add(ref Mat22 A, ref Mat22 B, out Mat22 R)

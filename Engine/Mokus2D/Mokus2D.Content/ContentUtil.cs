@@ -8,10 +8,6 @@ public static class ContentUtil
 
     public static string GetResourcesSuffix(float scaleFactor)
     {
-        if (scaleFactor == 1f)
-        {
-            return string.Empty;
-        }
-        return $"_x{(1f / scaleFactor).ToString(CultureInfo.InvariantCulture)}".Replace('.', '_');
+        return scaleFactor == 1f ? string.Empty : $"_x{(1f / scaleFactor).ToString(CultureInfo.InvariantCulture)}".Replace('.', '_');
     }
 }

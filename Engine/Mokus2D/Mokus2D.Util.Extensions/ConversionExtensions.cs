@@ -20,11 +20,7 @@ public static class ConversionExtensions
     {
         if (type.IsGenericDefinition(typeof(Nullable<>)))
         {
-            if (source == null)
-            {
-                return (T)(object)null;
-            }
-            return (T)Convert.ChangeType(source, Nullable.GetUnderlyingType(type), formatProvider);
+            return source == null ? (T)(object)null : (T)Convert.ChangeType(source, Nullable.GetUnderlyingType(type), formatProvider);
         }
         return (T)Convert.ChangeType(source, type, formatProvider);
     }
@@ -38,11 +34,7 @@ public static class ConversionExtensions
     {
         if (type.IsGenericDefinition(typeof(Nullable<>)))
         {
-            if (source == null)
-            {
-                return null;
-            }
-            return Convert.ChangeType(source, Nullable.GetUnderlyingType(type), formatProvider);
+            return source == null ? null : Convert.ChangeType(source, Nullable.GetUnderlyingType(type), formatProvider);
         }
         return Convert.ChangeType(source, type, formatProvider);
     }

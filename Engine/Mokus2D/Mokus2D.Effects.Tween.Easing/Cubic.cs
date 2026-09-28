@@ -4,11 +4,11 @@ namespace Mokus2D.Effects.Tween.Easing;
 
 public class Cubic
 {
-    public static readonly Func<float, float> EaseIn = (float k) => EaseInFunction(k);
+    public static readonly Func<float, float> EaseIn = EaseInFunction;
 
-    public static readonly Func<float, float> EaseInOut = (float k) => EaseInOutFunction(k);
+    public static readonly Func<float, float> EaseInOut = EaseInOutFunction;
 
-    public static readonly Func<float, float> EaseOut = (float k) => EaseOutFunction(k);
+    public static readonly Func<float, float> EaseOut = EaseOutFunction;
 
     private static float EaseInFunction(float k)
     {
@@ -17,15 +17,11 @@ public class Cubic
 
     private static float EaseInOutFunction(float k)
     {
-        if (!((k *= 2f) < 1f))
-        {
-            return 0.5f * ((k -= 2f) * k * k + 2f);
-        }
-        return 0.5f * k * k * k;
+        return !((k *= 2f) < 1f) ? 0.5f * (((k -= 2f) * k * k) + 2f) : 0.5f * k * k * k;
     }
 
     private static float EaseOutFunction(float k)
     {
-        return (k -= 1f) * k * k + 1f;
+        return ((k -= 1f) * k * k) + 1f;
     }
 }

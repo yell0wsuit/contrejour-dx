@@ -32,10 +32,10 @@ public class BodyClipCreator : IPhysicsConfigProcessor
         string text = config.GetString("bodyClip");
         if (text != null)
         {
-            string name = (string.IsNullOrEmpty(_bodyClipsNamespace) ? text : (_bodyClipsNamespace + "." + text));
+            string name = string.IsNullOrEmpty(_bodyClipsNamespace) ? text : (_bodyClipsNamespace + "." + text);
             Type type = _bodyClipsAssembly.GetType(name);
             Node node = _clipFactory.CreateClip(config, body);
-            Activator.CreateInstance(type, _updater, body, node, config);
+            _ = Activator.CreateInstance(type, _updater, body, node, config);
         }
     }
 }

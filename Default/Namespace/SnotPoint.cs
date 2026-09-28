@@ -16,14 +16,11 @@ public class SnotPoint : ContreJourBodyClip
 
     public bool Enabled = true;
 
-    public readonly EventSender UnuseEvent = new EventSender();
+    public readonly EventSender UnuseEvent = new();
 
     public bool Used
     {
-        get
-        {
-            return used;
-        }
+        get => used;
         set
         {
             if (used != value)
@@ -61,8 +58,8 @@ public class SnotPoint : ContreJourBodyClip
     {
         Body = builder.World.CreateCircle(Radius * builder.SizeMult, position);
         Body.SetSensor(value: true);
-        base.Game.SnotPoints.Add(this);
+        Game.SnotPoints.Add(this);
         clip = new Sprite("chapter6/McSnotPoint");
-        builder.AddChild(clip, 3);
+        _ = builder.AddChild(clip, 3);
     }
 }

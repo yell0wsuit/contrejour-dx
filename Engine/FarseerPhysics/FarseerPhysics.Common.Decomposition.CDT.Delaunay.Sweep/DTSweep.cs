@@ -151,12 +151,14 @@ internal static class DTSweep
 
     private static AdvancingFrontNode NewFrontTriangle(DTSweepContext tcx, TriangulationPoint point, AdvancingFrontNode node)
     {
-        DelaunayTriangle delaunayTriangle = new DelaunayTriangle(point, node.Point, node.Next.Point);
+        DelaunayTriangle delaunayTriangle = new(point, node.Point, node.Next.Point);
         delaunayTriangle.MarkNeighbor(node.Triangle);
         tcx.Triangles.Add(delaunayTriangle);
-        AdvancingFrontNode advancingFrontNode = new AdvancingFrontNode(point);
-        advancingFrontNode.Next = node.Next;
-        advancingFrontNode.Prev = node;
+        AdvancingFrontNode advancingFrontNode = new(point)
+        {
+            Next = node.Next,
+            Prev = node
+        };
         node.Next.Prev = advancingFrontNode;
         node.Next = advancingFrontNode;
         tcx.AddNode(advancingFrontNode);
@@ -347,7 +349,7 @@ internal static class DTSweep
         }
         else if (orientation == orientation2)
         {
-            triangle = ((orientation != Orientation.CW) ? triangle.NeighborCW(point) : triangle.NeighborCCW(point));
+            triangle = (orientation != Orientation.CW) ? triangle.NeighborCW(point) : triangle.NeighborCCW(point);
             EdgeEvent(tcx, ep, eq, triangle, point);
         }
         else
@@ -379,8 +381,8 @@ internal static class DTSweep
                 {
                     t.MarkConstrainedEdge(ep, eq);
                     delaunayTriangle.MarkConstrainedEdge(ep, eq);
-                    Legalize(tcx, t);
-                    Legalize(tcx, delaunayTriangle);
+                    _ = Legalize(tcx, t);
+                    _ = Legalize(tcx, delaunayTriangle);
                 }
             }
             else
@@ -404,6 +406,7 @@ internal static class DTSweep
         {
             Orientation.CW => ot.PointCCW(op),
             Orientation.CCW => ot.PointCW(op),
+            Orientation.Collinear => throw new NotImplementedException(),
             _ => throw new PointOnEdgeException("Point on constrained edge not supported yet"),
         };
     }
@@ -415,13 +418,13 @@ internal static class DTSweep
         {
             index = ot.EdgeIndex(p, op);
             ot.EdgeIsDelaunay[index] = true;
-            Legalize(tcx, ot);
+            _ = Legalize(tcx, ot);
             ot.EdgeIsDelaunay.Clear();
             return t;
         }
         index = t.EdgeIndex(p, op);
         t.EdgeIsDelaunay[index] = true;
-        Legalize(tcx, t);
+        _ = Legalize(tcx, t);
         t.EdgeIsDelaunay.Clear();
         return ot;
     }
@@ -455,7 +458,7 @@ internal static class DTSweep
         while (next.HasPrev && !LargeHole_DontFill(next))
         {
             double num = HoleAngle(next);
-            if (num > Math.PI / 2.0 || num < -Math.PI / 2.0)
+            if (num is > (Math.PI / 2.0) or < (-Math.PI / 2.0))
             {
                 break;
             }
@@ -486,23 +489,19 @@ internal static class DTSweep
             return false;
         }
         AdvancingFrontNode prev2 = prev.Prev;
-        if (prev2 != null && !AngleExceedsPlus90DegreesOrIsNegative(node.Point, next.Point, prev2.Point))
-        {
-            return false;
-        }
-        return true;
+        return prev2 == null || AngleExceedsPlus90DegreesOrIsNegative(node.Point, next.Point, prev2.Point);
     }
 
     private static bool AngleExceeds90Degrees(TriangulationPoint origin, TriangulationPoint pa, TriangulationPoint pb)
     {
         double num = Angle(origin, pa, pb);
-        return num > Math.PI / 2.0 || num < -Math.PI / 2.0;
+        return num is > (Math.PI / 2.0) or < (-Math.PI / 2.0);
     }
 
     private static bool AngleExceedsPlus90DegreesOrIsNegative(TriangulationPoint origin, TriangulationPoint pa, TriangulationPoint pb)
     {
         double num = Angle(origin, pa, pb);
-        return num > Math.PI / 2.0 || num < 0.0;
+        return num is > (Math.PI / 2.0) or < 0.0;
     }
 
     private static double Angle(TriangulationPoint origin, TriangulationPoint pa, TriangulationPoint pb)
@@ -513,21 +512,14 @@ internal static class DTSweep
         double num2 = pa.Y - y;
         double num3 = pb.X - x;
         double num4 = pb.Y - y;
-        double y2 = num * num4 - num2 * num3;
-        double x2 = num * num3 + num2 * num4;
+        double y2 = (num * num4) - (num2 * num3);
+        double x2 = (num * num3) + (num2 * num4);
         return Math.Atan2(y2, x2);
     }
 
     private static void FillBasin(DTSweepContext tcx, AdvancingFrontNode node)
     {
-        if (TriangulationUtil.Orient2d(node.Point, node.Next.Point, node.Next.Next.Point) == Orientation.CCW)
-        {
-            tcx.Basin.leftNode = node;
-        }
-        else
-        {
-            tcx.Basin.leftNode = node.Next;
-        }
+        tcx.Basin.leftNode = TriangulationUtil.Orient2d(node.Point, node.Next.Point, node.Next.Next.Point) == Orientation.CCW ? node : node.Next;
         tcx.Basin.bottomNode = tcx.Basin.leftNode;
         while (tcx.Basin.bottomNode.HasNext && tcx.Basin.bottomNode.Point.Y >= tcx.Basin.bottomNode.Next.Point.Y)
         {
@@ -570,7 +562,7 @@ internal static class DTSweep
         }
         else if (node.Next != tcx.Basin.rightNode)
         {
-            node = ((!(node.Prev.Point.Y < node.Next.Point.Y)) ? node.Next : node.Prev);
+            node = (!(node.Prev.Point.Y < node.Next.Point.Y)) ? node.Next : node.Prev;
         }
         else
         {
@@ -586,12 +578,8 @@ internal static class DTSweep
 
     private static bool IsShallow(DTSweepContext tcx, AdvancingFrontNode node)
     {
-        double num = ((!tcx.Basin.leftHighest) ? (tcx.Basin.rightNode.Point.Y - node.Point.Y) : (tcx.Basin.leftNode.Point.Y - node.Point.Y));
-        if (tcx.Basin.width > num)
-        {
-            return true;
-        }
-        return false;
+        double num = (!tcx.Basin.leftHighest) ? (tcx.Basin.rightNode.Point.Y - node.Point.Y) : (tcx.Basin.leftNode.Point.Y - node.Point.Y);
+        return tcx.Basin.width > num;
     }
 
     private static double HoleAngle(AdvancingFrontNode node)
@@ -602,7 +590,7 @@ internal static class DTSweep
         double num2 = node.Next.Point.Y - y;
         double num3 = node.Prev.Point.X - x;
         double num4 = node.Prev.Point.Y - y;
-        return Math.Atan2(num * num4 - num2 * num3, num * num3 + num2 * num4);
+        return Math.Atan2((num * num4) - (num2 * num3), (num * num3) + (num2 * num4));
     }
 
     private static double BasinAngle(AdvancingFrontNode node)
@@ -614,7 +602,7 @@ internal static class DTSweep
 
     private static void Fill(DTSweepContext tcx, AdvancingFrontNode node)
     {
-        DelaunayTriangle delaunayTriangle = new DelaunayTriangle(node.Prev.Point, node.Point, node.Next.Point);
+        DelaunayTriangle delaunayTriangle = new(node.Prev.Point, node.Point, node.Next.Point);
         delaunayTriangle.MarkNeighbor(node.Prev.Triangle);
         delaunayTriangle.MarkNeighbor(node.Triangle);
         tcx.Triangles.Add(delaunayTriangle);

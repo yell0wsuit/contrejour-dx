@@ -28,7 +28,7 @@ public class SegmentedSprite<T> : SpriteBatchNode where T : struct, IVertex
 
     private bool _firstDraw = true;
 
-    private readonly List<Pair<T>> _lines = new List<Pair<T>>();
+    private readonly List<Pair<T>> _lines = [];
 
     private readonly Vector2 _leftTop;
 
@@ -54,10 +54,10 @@ public class SegmentedSprite<T> : SpriteBatchNode where T : struct, IVertex
         _vertices = new T[GetVerticesCount()];
         _indices = new short[GetIndicesCount()];
         GraphUtil.FillSegmentsIndices(_indices, _indices.Length);
-        _leftTop = base.Texture.GetTextureCoords(spriteData.TextureRect.LeftTop());
-        _leftBottom = base.Texture.GetTextureCoords(spriteData.TextureRect.LeftBottom());
-        _rightTop = base.Texture.GetTextureCoords(spriteData.TextureRect.RightTop());
-        _rightBottom = base.Texture.GetTextureCoords(spriteData.TextureRect.RightBottom());
+        _leftTop = Texture.GetTextureCoords(spriteData.TextureRect.LeftTop());
+        _leftBottom = Texture.GetTextureCoords(spriteData.TextureRect.LeftBottom());
+        _rightTop = Texture.GetTextureCoords(spriteData.TextureRect.RightTop());
+        _rightBottom = Texture.GetTextureCoords(spriteData.TextureRect.RightBottom());
     }
 
     private int GetIndicesCount()
@@ -67,7 +67,7 @@ public class SegmentedSprite<T> : SpriteBatchNode where T : struct, IVertex
 
     private int GetVerticesCount()
     {
-        return _currentSegmentsCount * 2 + 2;
+        return (_currentSegmentsCount * 2) + 2;
     }
 
     private int GetSegmentsCount()
@@ -96,7 +96,7 @@ public class SegmentedSprite<T> : SpriteBatchNode where T : struct, IVertex
 
     protected override void DrawSprite(VisualState state, Color color)
     {
-        if (Data.IsDirty || base.CompositeState.TransformationDirty || _firstDraw)
+        if (Data.IsDirty || CompositeState.TransformationDirty || _firstDraw)
         {
             _lines.Clear();
             int segmentsCount = GetSegmentsCount();
@@ -105,11 +105,11 @@ public class SegmentedSprite<T> : SpriteBatchNode where T : struct, IVertex
                 ResizeArrays(segmentsCount);
             }
             _color = color;
-            Data.FillLines(this, _lines, ref base.CompositeState.Matrix);
+            Data.FillLines(this, _lines, ref CompositeState.Matrix);
             for (int i = 0; i < _lines.Count; i++)
             {
                 _vertices[i * 2] = _lines[i].First;
-                _vertices[i * 2 + 1] = _lines[i].Second;
+                _vertices[(i * 2) + 1] = _lines[i].Second;
             }
             _firstDraw = false;
         }

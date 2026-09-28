@@ -43,11 +43,7 @@ public class JointProcessorBase : TypeProcessorBase
         {
             return val2;
         }
-        if (bodiesByWorldReqResult.Count > 0)
-        {
-            return bodiesByWorldReqResult[0];
-        }
-        return builder.GroundBody;
+        return bodiesByWorldReqResult.Count > 0 ? bodiesByWorldReqResult[0] : builder.GroundBody;
     }
 
     private Body TryGetBodyByType(List<Body> bodies, Predicate<object> type)
@@ -55,17 +51,13 @@ public class JointProcessorBase : TypeProcessorBase
         //IL_001d: Unknown result type (might be due to invalid IL or missing references)
         //IL_0023: Expected O, but got Unknown
         List<object> list = MokusCollectionExtensions.Filter(bodies.ToArray(), type);
-        if (list.Count > 0)
-        {
-            return (Body)list[0];
-        }
-        return null;
+        return list.Count > 0 ? (Body)list[0] : null;
     }
 
     public List<Body> GetBodiesByWorldReqResult(Vector2 position, Predicate<Body> match)
     {
-        List<Body> list = new List<Body>();
-        List<Body> list2 = new List<Body>();
+        List<Body> list = [];
+        List<Body> list2 = [];
         foreach (Fixture item in builder.World.Query(position))
         {
             Body body = item.Body;

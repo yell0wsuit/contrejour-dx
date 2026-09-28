@@ -11,7 +11,7 @@ public class VelocityLimitController : Controller
 
     public bool LimitLinearVelocity = true;
 
-    private List<Body> _bodies = new List<Body>();
+    private List<Body> _bodies = [];
 
     private float _maxAngularSqared;
 
@@ -23,10 +23,7 @@ public class VelocityLimitController : Controller
 
     public float MaxAngularVelocity
     {
-        get
-        {
-            return _maxAngularVelocity;
-        }
+        get => _maxAngularVelocity;
         set
         {
             _maxAngularVelocity = value;
@@ -36,10 +33,7 @@ public class VelocityLimitController : Controller
 
     public float MaxLinearVelocity
     {
-        get
-        {
-            return _maxLinearVelocity;
-        }
+        get => _maxLinearVelocity;
         set
         {
             _maxLinearVelocity = value;
@@ -57,11 +51,11 @@ public class VelocityLimitController : Controller
     public VelocityLimitController(float maxLinearVelocity, float maxAngularVelocity)
         : base(ControllerType.VelocityLimitController)
     {
-        if (maxLinearVelocity == 0f || maxLinearVelocity == float.MaxValue)
+        if (maxLinearVelocity is 0f or float.MaxValue)
         {
             LimitLinearVelocity = false;
         }
-        if (maxAngularVelocity == 0f || maxAngularVelocity == float.MaxValue)
+        if (maxAngularVelocity is 0f or float.MaxValue)
         {
             LimitAngularVelocity = false;
         }
@@ -81,7 +75,7 @@ public class VelocityLimitController : Controller
             {
                 float num = dt * body._linearVelocity.X;
                 float num2 = dt * body._linearVelocity.Y;
-                float num3 = num * num + num2 * num2;
+                float num3 = (num * num) + (num2 * num2);
                 if (num3 > dt * _maxLinearSqared)
                 {
                     float num4 = (float)Math.Sqrt(num3);
@@ -109,6 +103,6 @@ public class VelocityLimitController : Controller
 
     public void RemoveBody(Body body)
     {
-        _bodies.Remove(body);
+        _ = _bodies.Remove(body);
     }
 }

@@ -15,13 +15,13 @@ public class LineSprite<T> : SpriteBatchNode where T : struct, ITintVertex
 {
     private readonly ISpriteData _spriteData;
 
-    private readonly List<Vector2> _line = new List<Vector2>();
+    private readonly List<Vector2> _line = [];
 
-    private readonly List<Pair<Vector2>> _pairs = new List<Pair<Vector2>>();
+    private readonly List<Pair<Vector2>> _pairs = [];
 
-    private readonly VerticesArray<T> _localVertices = new VerticesArray<T>();
+    private readonly VerticesArray<T> _localVertices = new();
 
-    private readonly VerticesArray<T> _globalVertices = new VerticesArray<T>();
+    private readonly VerticesArray<T> _globalVertices = new();
 
     private bool _pointsDirty;
 
@@ -33,7 +33,7 @@ public class LineSprite<T> : SpriteBatchNode where T : struct, ITintVertex
     {
         _width = width;
         _spriteData = Mokus2DGame.LoadSpriteData(id);
-        base.Texture = _spriteData.Texture;
+        Texture = _spriteData.Texture;
     }
 
     public virtual void Clear()
@@ -62,11 +62,11 @@ public class LineSprite<T> : SpriteBatchNode where T : struct, ITintVertex
             _globalVertices.SetLength(_localVertices.Length);
             PrimitivesUtil.FillLineTexture(_globalVertices.Items, _globalVertices.Length, _spriteData);
         }
-        if (base.CompositeState.TransformationDirty || _pointsDirty)
+        if (CompositeState.TransformationDirty || _pointsDirty)
         {
             for (int i = 0; i < _localVertices.Length; i++)
             {
-                _globalVertices.Items[i].Position = _localVertices.Items[i].Position.Transform(ref base.CompositeState.Matrix);
+                _globalVertices.Items[i].Position = _localVertices.Items[i].Position.Transform(ref CompositeState.Matrix);
             }
         }
         _pointsDirty = false;
@@ -88,7 +88,7 @@ public class LineSprite<T> : SpriteBatchNode where T : struct, ITintVertex
 
     private void RefreshColor(Color color)
     {
-        PrimitivesUtil.FillColor(_globalVertices, color, base.CompositeState.ColorRatio);
+        PrimitivesUtil.FillColor(_globalVertices, color, CompositeState.ColorRatio);
         _pointsColor = color;
     }
 }

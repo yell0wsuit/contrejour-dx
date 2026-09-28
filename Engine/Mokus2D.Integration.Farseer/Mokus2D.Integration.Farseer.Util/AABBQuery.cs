@@ -16,7 +16,7 @@ public class AABBQuery
     }
 
     public AABBQuery()
-        : this(new List<Fixture>())
+        : this([])
     {
     }
 

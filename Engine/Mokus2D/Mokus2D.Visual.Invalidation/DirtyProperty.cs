@@ -14,10 +14,7 @@ public struct DirtyProperty<T> where T : IEquatable<T>
 
     public T Value
     {
-        get
-        {
-            return _value;
-        }
+        readonly get => _value;
         set
         {
             if (!_value.Equals(value))
@@ -28,11 +25,11 @@ public struct DirtyProperty<T> where T : IEquatable<T>
         }
     }
 
-    public bool Dirty => _dirty;
+    public readonly bool Dirty => _dirty;
 
     public DirtyProperty(T value)
     {
-        this = default(DirtyProperty<T>);
+        this = default;
         _value = value;
         _dirty = true;
     }

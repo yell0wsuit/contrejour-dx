@@ -17,13 +17,13 @@ public class Island
 
     private ContactManager _contactManager;
 
-    private ContactSolver _contactSolver = new ContactSolver();
+    private ContactSolver _contactSolver = new();
 
     private Contact[] _contacts;
 
     private Joint[] _joints;
 
-    private Stopwatch _watch = new Stopwatch();
+    private Stopwatch _watch = new();
 
     public Body[] Bodies;
 
@@ -97,18 +97,18 @@ public class Island
                 }
                 else
                 {
-                    linearVelocity += dt * (body.GravityScale * gravity + body._invMass * body._force);
+                    linearVelocity += dt * ((body.GravityScale * gravity) + (body._invMass * body._force));
                 }
                 num += dt * body._invI * body._torque;
-                linearVelocity *= MathUtils.Clamp(1f - dt * body.LinearDamping, 0f, 1f);
-                num *= MathUtils.Clamp(1f - dt * body.AngularDamping, 0f, 1f);
+                linearVelocity *= MathUtils.Clamp(1f - (dt * body.LinearDamping), 0f, 1f);
+                num *= MathUtils.Clamp(1f - (dt * body.AngularDamping), 0f, 1f);
             }
             _positions[i].c = c;
             _positions[i].a = a;
             _velocities[i].v = linearVelocity;
             _velocities[i].w = num;
         }
-        SolverData data = new SolverData
+        SolverData data = new()
         {
             step = step,
             positions = _positions,
@@ -320,18 +320,9 @@ public class Island
         for (int i = 0; i < ContactCount; i++)
         {
             Contact contact = _contacts[i];
-            if (contact.FixtureA.AfterCollision != null)
-            {
-                contact.FixtureA.AfterCollision(contact.FixtureA, contact.FixtureB, contact, constraints[i]);
-            }
-            if (contact.FixtureB.AfterCollision != null)
-            {
-                contact.FixtureB.AfterCollision(contact.FixtureB, contact.FixtureA, contact, constraints[i]);
-            }
-            if (_contactManager.PostSolve != null)
-            {
-                _contactManager.PostSolve(contact, constraints[i]);
-            }
+            contact.FixtureA.AfterCollision?.Invoke(contact.FixtureA, contact.FixtureB, contact, constraints[i]);
+            contact.FixtureB.AfterCollision?.Invoke(contact.FixtureB, contact.FixtureA, contact, constraints[i]);
+            _contactManager.PostSolve?.Invoke(contact, constraints[i]);
         }
     }
 }

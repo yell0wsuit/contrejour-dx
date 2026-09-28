@@ -42,7 +42,7 @@ public static class Program
         }
         UserData.DataDirectory = dataDirectory;
 
-        using Mokus2DApplication<RegressionApplication> game = new Mokus2DApplication<RegressionApplication>();
+        using Mokus2DApplication<RegressionApplication> game = new();
         game.Run();
         return RegressionApplication.Failed ? 1 : 0;
     }

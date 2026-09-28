@@ -27,9 +27,9 @@ internal class MonotoneMountain
         _tail = null;
         _head = null;
         _positive = false;
-        _convexPoints = new HashSet<Point>();
-        _monoPoly = new List<Point>();
-        Triangles = new List<List<Point>>();
+        _convexPoints = [];
+        _monoPoly = [];
+        Triangles = [];
     }
 
     public void Add(Point point)
@@ -72,13 +72,13 @@ internal class MonotoneMountain
         while (next.Neq(_tail))
         {
             float num = Angle(next);
-            if (num >= 3.1f || num <= -3.1f || num == 0f)
+            if (num is >= 3.1f or <= -3.1f or 0f)
             {
                 Remove(next);
             }
             else if (IsConvex(next))
             {
-                _convexPoints.Add(next);
+                _ = _convexPoints.Add(next);
             }
             next = next.Next;
         }
@@ -90,36 +90,29 @@ internal class MonotoneMountain
         while (_convexPoints.Count != 0)
         {
             IEnumerator<Point> enumerator = _convexPoints.GetEnumerator();
-            enumerator.MoveNext();
+            _ = enumerator.MoveNext();
             Point current = enumerator.Current;
-            _convexPoints.Remove(current);
+            _ = _convexPoints.Remove(current);
             Point prev = current.Prev;
             Point item = current;
             Point next = current.Next;
-            List<Point> list = new List<Point>(3);
-            list.Add(prev);
-            list.Add(item);
-            list.Add(next);
+            List<Point> list = [prev, item, next];
             Triangles.Add(list);
             Remove(current);
             if (Valid(prev))
             {
-                _convexPoints.Add(prev);
+                _ = _convexPoints.Add(prev);
             }
             if (Valid(next))
             {
-                _convexPoints.Add(next);
+                _ = _convexPoints.Add(next);
             }
         }
     }
 
     private bool Valid(Point p)
     {
-        if (p.Neq(_head) && p.Neq(_tail))
-        {
-            return IsConvex(p);
-        }
-        return false;
+        return p.Neq(_head) && p.Neq(_tail) ? IsConvex(p) : false;
     }
 
     private void GenMonoPoly()
@@ -146,10 +139,6 @@ internal class MonotoneMountain
 
     private bool IsConvex(Point p)
     {
-        if (_positive != Angle(p) >= 0f)
-        {
-            return false;
-        }
-        return true;
+        return _positive == Angle(p) >= 0f;
     }
 }

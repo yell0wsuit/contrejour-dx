@@ -16,14 +16,8 @@ public class TextureNodeData : ConfigData, ITextureNodeData, IConfig
 
     public float ScaleFactor
     {
-        get
-        {
-            return scaleFactor;
-        }
-        set
-        {
-            scaleFactor = value;
-        }
+        get => scaleFactor;
+        set => scaleFactor = value;
     }
 
     public TextureNodeData(string id)

@@ -7,11 +7,7 @@ public class FileLoader : IFileLoader
 {
     public Stream OpenFile(string path)
     {
-        Stream stream = OpenStream(path);
-        if (stream == null)
-        {
-            throw new FileNotFoundException(path);
-        }
+        Stream stream = OpenStream(path) ?? throw new FileNotFoundException(path);
         return stream;
     }
 

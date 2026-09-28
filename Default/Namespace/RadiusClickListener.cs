@@ -15,25 +15,15 @@ public class RadiusClickListener : ClickListener
 
     public bool DisableDrag
     {
-        get
-        {
-            return disableDrag;
-        }
-        set
-        {
-            disableDrag = value;
-        }
+        get => disableDrag;
+        set => disableDrag = value;
     }
 
     public override bool Enabled
     {
         get
         {
-            if (base.Enabled)
-            {
-                return target.RootVisible;
-            }
-            return false;
+            return base.Enabled ? target.RootVisible : false;
         }
     }
 
@@ -46,18 +36,14 @@ public class RadiusClickListener : ClickListener
 
     private bool SpriteContainsPoint(Touch touch)
     {
-        if (target.Root == null)
-        {
-            return false;
-        }
-        return target.GlobalToLocal(touch.Position).Length() < clickRadius;
+        return target.Root == null ? false : target.GlobalToLocal(touch.Position).Length() < clickRadius;
     }
 
     public override bool TouchBegin(Touch touch)
     {
         if (SpriteContainsPoint(touch))
         {
-            base.TouchBegin(touch);
+            _ = base.TouchBegin(touch);
             return true;
         }
         return false;

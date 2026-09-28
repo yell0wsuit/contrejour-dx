@@ -16,14 +16,8 @@ public class WindData
 
     public float WindOffset
     {
-        get
-        {
-            return windOffset;
-        }
-        set
-        {
-            windOffset = value;
-        }
+        get => windOffset;
+        set => windOffset = value;
     }
 
     public float Diff => diff;
@@ -38,6 +32,6 @@ public class WindData
 
     public float GetAngle(float wind)
     {
-        return minAngle + diff * wind;
+        return minAngle + (diff * wind);
     }
 }

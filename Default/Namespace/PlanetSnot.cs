@@ -42,20 +42,14 @@ public class PlanetSnot : LongNeckSprite, IDepthDependent
 
     protected Vector2 middleInit;
 
-    private static readonly Vector2 END = new Vector2(0f, 80f);
+    private static readonly Vector2 END = new(0f, 80f);
 
-    private static readonly Vector2 MIDDLE = new Vector2(0f, 30f);
+    private static readonly Vector2 MIDDLE = new(0f, 30f);
 
     public float Depth
     {
-        get
-        {
-            return depth;
-        }
-        set
-        {
-            depth = value;
-        }
+        get => depth;
+        set => depth = value;
     }
 
     public PlanetSnot(PlanetSnotEye eye)

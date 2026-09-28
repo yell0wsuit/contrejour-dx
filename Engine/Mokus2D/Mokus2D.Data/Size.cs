@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework;
 
 namespace Mokus2D.Data;
 
-public struct Size
+public readonly struct Size
 {
     public readonly int Width;
 

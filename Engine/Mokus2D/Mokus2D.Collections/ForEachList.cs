@@ -10,9 +10,9 @@ public class ForEachList<T> : IList<T>, ICollection<T>, IEnumerable<T>, IEnumera
 {
     private readonly List<T> _list;
 
-    private readonly List<T> _toRemove = new List<T>();
+    private readonly List<T> _toRemove = [];
 
-    private readonly List<T> _toAdd = new List<T>();
+    private readonly List<T> _toAdd = [];
 
     private bool _clean;
 
@@ -24,10 +24,7 @@ public class ForEachList<T> : IList<T>, ICollection<T>, IEnumerable<T>, IEnumera
 
     T IList<T>.this[int index]
     {
-        get
-        {
-            return _list[index];
-        }
+        get => _list[index];
         set
         {
             ThrowIfForEach();
@@ -37,10 +34,7 @@ public class ForEachList<T> : IList<T>, ICollection<T>, IEnumerable<T>, IEnumera
 
     public T this[int index]
     {
-        get
-        {
-            return _list[index];
-        }
+        get => _list[index];
         set
         {
             ThrowIfForEach();
@@ -50,14 +44,8 @@ public class ForEachList<T> : IList<T>, ICollection<T>, IEnumerable<T>, IEnumera
 
     public int Capacity
     {
-        get
-        {
-            return _list.Capacity;
-        }
-        set
-        {
-            _list.Capacity = value;
-        }
+        get => _list.Capacity;
+        set => _list.Capacity = value;
     }
 
     public int Count => _list.Count;
@@ -71,7 +59,7 @@ public class ForEachList<T> : IList<T>, ICollection<T>, IEnumerable<T>, IEnumera
 
     public ForEachList()
     {
-        _list = new List<T>();
+        _list = [];
     }
 
     public void StartForEach()
@@ -396,7 +384,7 @@ public class ForEachList<T> : IList<T>, ICollection<T>, IEnumerable<T>, IEnumera
     public T[] ToArray()
     {
         ThrowIfForEach();
-        return _list.ToArray();
+        return [.. _list];
     }
 
     public void TrimExcess()

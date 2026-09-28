@@ -32,7 +32,7 @@ public class FpsCounter : IUpdatable
     protected virtual void CalculateFps()
     {
         currentFrame = 0;
-        fps = (float)FramesToCalculate / seconds;
+        fps = FramesToCalculate / seconds;
         seconds = 0f;
     }
 

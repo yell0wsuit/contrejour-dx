@@ -64,32 +64,32 @@ public class Terrain
 
     public void Initialize()
     {
-        _topLeft = new Vector2(Center.X - Width * 0.5f, Center.Y - (0f - Height) * 0.5f);
-        _localWidth = Width * (float)PointsPerUnit;
-        _localHeight = Height * (float)PointsPerUnit;
+        _topLeft = new Vector2(Center.X - (Width * 0.5f), Center.Y - ((0f - Height) * 0.5f));
+        _localWidth = Width * PointsPerUnit;
+        _localHeight = Height * PointsPerUnit;
         _terrainMap = new sbyte[(int)_localWidth + 1, (int)_localHeight + 1];
-        for (int i = 0; (float)i < _localWidth; i++)
+        for (int i = 0; i < _localWidth; i++)
         {
-            for (int j = 0; (float)j < _localHeight; j++)
+            for (int j = 0; j < _localHeight; j++)
             {
                 _terrainMap[i, j] = 1;
             }
         }
-        _xnum = (int)(_localWidth / (float)CellSize);
-        _ynum = (int)(_localHeight / (float)CellSize);
+        _xnum = (int)(_localWidth / CellSize);
+        _ynum = (int)(_localHeight / CellSize);
         _bodyMap = new List<Body>[_xnum, _ynum];
         _dirtyArea = new AABB(new Vector2(float.MaxValue, float.MaxValue), new Vector2(float.MinValue, float.MinValue));
     }
 
-    public void ApplyData(sbyte[,] data, Vector2 offset = default(Vector2))
+    public void ApplyData(sbyte[,] data, Vector2 offset = default)
     {
         for (int i = 0; i < data.GetUpperBound(0); i++)
         {
             for (int j = 0; j < data.GetUpperBound(1); j++)
             {
-                if ((float)i + offset.X >= 0f && (float)i + offset.X < _localWidth && (float)j + offset.Y >= 0f && (float)j + offset.Y < _localHeight)
+                if (i + offset.X >= 0f && i + offset.X < _localWidth && j + offset.Y >= 0f && j + offset.Y < _localHeight)
                 {
-                    _terrainMap[(int)((float)i + offset.X), (int)((float)j + offset.Y)] = data[i, j];
+                    _terrainMap[(int)(i + offset.X), (int)(j + offset.Y)] = data[i, j];
                 }
             }
         }
@@ -125,22 +125,22 @@ public class Terrain
 
     public void RegenerateTerrain()
     {
-        int num = (int)(_dirtyArea.LowerBound.X / (float)CellSize);
+        int num = (int)(_dirtyArea.LowerBound.X / CellSize);
         if (num < 0)
         {
             num = 0;
         }
-        int num2 = (int)(_dirtyArea.UpperBound.X / (float)CellSize) + 1;
+        int num2 = (int)(_dirtyArea.UpperBound.X / CellSize) + 1;
         if (num2 > _xnum)
         {
             num2 = _xnum;
         }
-        int num3 = (int)(_dirtyArea.LowerBound.Y / (float)CellSize);
+        int num3 = (int)(_dirtyArea.LowerBound.Y / CellSize);
         if (num3 < 0)
         {
             num3 = 0;
         }
-        int num4 = (int)(_dirtyArea.UpperBound.Y / (float)CellSize) + 1;
+        int num4 = (int)(_dirtyArea.UpperBound.Y / CellSize) + 1;
         if (num4 > _ynum)
         {
             num4 = _ynum;
@@ -172,13 +172,13 @@ public class Terrain
     {
         float num = gx * CellSize;
         float num2 = gy * CellSize;
-        List<Vertices> list = MarchingSquares.DetectSquares(new AABB(new Vector2(num, num2), new Vector2(num + (float)CellSize, num2 + (float)CellSize)), SubCellSize, SubCellSize, _terrainMap, Iterations, combine: true);
+        List<Vertices> list = MarchingSquares.DetectSquares(new AABB(new Vector2(num, num2), new Vector2(num + CellSize, num2 + CellSize)), SubCellSize, SubCellSize, _terrainMap, Iterations, combine: true);
         if (list.Count == 0)
         {
             return;
         }
-        _bodyMap[gx, gy] = new List<Body>();
-        Vector2 value = new Vector2(1f / (float)PointsPerUnit, 1f / (float)(-PointsPerUnit));
+        _bodyMap[gx, gy] = [];
+        Vector2 value = new(1f / PointsPerUnit, 1f / -PointsPerUnit);
         foreach (Vertices item in list)
         {
             item.Scale(ref value);

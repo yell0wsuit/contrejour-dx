@@ -15,15 +15,15 @@ public class PlanetsSpinner : Node, IDisposable
 {
     private const float PlanetsDistance = 550f;
 
-    public readonly EventSender<int> SelectEvent = new EventSender<int>();
+    public readonly EventSender<int> SelectEvent = new();
 
-    private readonly List<ChapterItem> chapters = new List<ChapterItem>();
+    private readonly List<ChapterItem> chapters = [];
 
     private float currentIndex;
 
     private ChapterLocked explodingChapter;
 
-    private GesturePager pager = new GesturePager();
+    private GesturePager pager = new();
 
     public Vector2 AccelerometerOffset = Vector2.Zero;
 
@@ -37,10 +37,7 @@ public class PlanetsSpinner : Node, IDisposable
 
     public float CurrentIndex
     {
-        get
-        {
-            return currentIndex;
-        }
+        get => currentIndex;
         set
         {
             currentIndex = value;
@@ -51,14 +48,8 @@ public class PlanetsSpinner : Node, IDisposable
 
     public bool Enabled
     {
-        get
-        {
-            return pager.Enabled;
-        }
-        set
-        {
-            pager.Enabled = value;
-        }
+        get => pager.Enabled;
+        set => pager.Enabled = value;
     }
 
     public bool Exploding => exploding;
@@ -78,14 +69,8 @@ public class PlanetsSpinner : Node, IDisposable
 
     private void CreatePlanets(MainMenu menu)
     {
-        List<Type> list = new List<Type>(new Type[5]
-        {
-            typeof(Chapter1),
-            typeof(Chapter2),
-            typeof(Chapter3),
-            typeof(Chapter4),
-            typeof(Chapter5)
-        });
+        List<Type> list = [typeof(Chapter1), typeof(Chapter2), typeof(Chapter3), typeof(Chapter4), typeof(Chapter5)
+];
         int totalStars = UserData.Instance.TotalStars;
         for (int i = 0; i < list.Count; i++)
         {
@@ -116,8 +101,10 @@ public class PlanetsSpinner : Node, IDisposable
         exploding = true;
         pager.Enabled = false;
         UserData.Instance.UnlockChapter(chapter.Index);
-        explodingChapter = new ChapterLocked(chapter.Index, menu);
-        explodingChapter.TargetChapter = chapter;
+        explodingChapter = new ChapterLocked(chapter.Index, menu)
+        {
+            TargetChapter = chapter
+        };
         chapter.AddChild(explodingChapter);
         explodingChapter.ExplodeEvent.AddListener(delegate
         {
@@ -133,7 +120,7 @@ public class PlanetsSpinner : Node, IDisposable
         if (!hasExplodingChapter)
         {
             pager.CurrentPosition = index - 1;
-            this.Schedule(0.3f, delegate
+            _ = this.Schedule(0.3f, delegate
             {
                 pager.SetTargetPosition(index);
             }, null);
@@ -151,13 +138,13 @@ public class PlanetsSpinner : Node, IDisposable
         for (int i = 0; i < chapters.Count; i++)
         {
             ChapterItem chapterItem = chapters[i];
-            float num = Maths.PeriodicOffset((float)i - currentIndex, ContreJourConstants.PlanetsCount);
+            float num = Maths.PeriodicOffset(i - currentIndex, ContreJourConstants.PlanetsCount);
             chapterItem.Visible = Math.Abs(num) < 1.5f;
             if (chapterItem.Visible)
             {
                 chapterItem.Scale = (chapterItem.Depth = (float)Math.Cos(num)) * 1.5f * PlanetsScale;
                 float num3 = chapterItem.Scale * chapterItem.Scale;
-                chapterItem.X = num * 550f + AccelerometerOffset.X * 200f * num3;
+                chapterItem.X = (num * 550f) + (AccelerometerOffset.X * 200f * num3);
                 chapterItem.Y = AccelerometerOffset.Y * num3 / 4f;
             }
         }

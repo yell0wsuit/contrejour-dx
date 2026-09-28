@@ -40,7 +40,7 @@ public abstract class GraphicsDeserializerBase<T> : IGraphicsDeserializer<T>, IG
         XElement xElement = element.Element("config");
         if (xElement != null)
         {
-            Dictionary<string, string> dictionary = new Dictionary<string, string>();
+            Dictionary<string, string> dictionary = [];
             {
                 foreach (XAttribute item in xElement.Attributes())
                 {
@@ -54,11 +54,11 @@ public abstract class GraphicsDeserializerBase<T> : IGraphicsDeserializer<T>, IG
 
     protected void SetTexture(XElement document, TextureNodeData result)
     {
-        string assetName = (result.TextureName = Path.Combine(new string[2]
-        {
+        string assetName = result.TextureName = Path.Combine(
+        [
             loader.GraphicsRootDirectory,
             (string?)document.Attribute("texture")
-        }));
+        ]);
         result.Texture = Mokus2DGame.ContentManager.Load<Texture2D>(assetName);
     }
 
@@ -83,46 +83,30 @@ public abstract class GraphicsDeserializerBase<T> : IGraphicsDeserializer<T>, IG
         {
             return Rectangle.Empty;
         }
-        string[] array = attribute.Split(new char[1] { ' ' });
+        string[] array = attribute.Split([' ']);
         Vector2 vector = VectorFromString(array[0]);
-        string[] array2 = array[1].Split(new char[1] { 'x' });
+        string[] array2 = array[1].Split(['x']);
         return new Rectangle((int)vector.X, (int)vector.Y, Convert.ToInt32(array2[0]), Convert.ToInt32(array2[1]));
     }
 
     protected bool AttributeToBool(XAttribute attribute, bool defaultValue)
     {
-        if (attribute != null)
-        {
-            return ToBool((string?)attribute);
-        }
-        return defaultValue;
+        return attribute != null ? ToBool((string?)attribute) : defaultValue;
     }
 
     protected int AttributToInt(XAttribute attribute, int defaultValue)
     {
-        if (attribute != null)
-        {
-            return ToInt((string?)attribute);
-        }
-        return defaultValue;
+        return attribute != null ? ToInt((string?)attribute) : defaultValue;
     }
 
     protected float AttributToFloat(XAttribute attribute, float defaultValue)
     {
-        if (attribute != null)
-        {
-            return ToSingle((string?)attribute);
-        }
-        return defaultValue;
+        return attribute != null ? ToSingle((string?)attribute) : defaultValue;
     }
 
     protected Vector2 VectorFromString(string attribute, Vector2 defaultValue)
     {
-        if (attribute != null)
-        {
-            return VectorFromString(attribute);
-        }
-        return defaultValue;
+        return attribute != null ? VectorFromString(attribute) : defaultValue;
     }
 
     protected Vector2 VectorFromString(string attribute)
@@ -131,7 +115,7 @@ public abstract class GraphicsDeserializerBase<T> : IGraphicsDeserializer<T>, IG
         {
             return Vector2.Zero;
         }
-        string[] array = attribute.Split(new char[1] { ',' });
+        string[] array = attribute.Split([',']);
         return new Vector2(ToSingle(array[0]), ToSingle(array[1]));
     }
 
@@ -144,7 +128,7 @@ public abstract class GraphicsDeserializerBase<T> : IGraphicsDeserializer<T>, IG
     {
         if (value[0] == '#')
         {
-            value = value.Substring(1);
+            value = value[1..];
             return int.Parse(value, NumberStyles.HexNumber);
         }
         return Convert.ToInt32(value, CultureInfo.InvariantCulture.NumberFormat);

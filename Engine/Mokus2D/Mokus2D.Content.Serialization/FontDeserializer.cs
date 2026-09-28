@@ -20,7 +20,7 @@ public class FontDeserializer : GraphicsDeserializerBase<FontData>
         string fontName = (string?)element.Attribute("name");
         float fontSize = ToSingle((string?)element.Attribute("size"));
         float realHeight = ToSingle((string?)element.Attribute("realHeight"));
-        FontData fontData = new FontData(id, fontName, fontSize, realHeight);
+        FontData fontData = new(id, fontName, fontSize, realHeight);
         AddConfig(fontData, element);
         SetScaleFactor(fontData, element);
         SetTexture(element, fontData);

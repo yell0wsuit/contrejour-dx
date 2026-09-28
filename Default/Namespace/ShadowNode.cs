@@ -15,9 +15,9 @@ public class ShadowNode : SpriteBatchNode
 
     protected List<Vector2> fillPoints;
 
-    private readonly Color IN_COLOR = new Color(0, 0, 0, 50);
+    private readonly Color IN_COLOR = new(0, 0, 0, 50);
 
-    private readonly Color OUT_COLOR = new Color(0, 0, 0, 0);
+    private readonly Color OUT_COLOR = new(0, 0, 0, 0);
 
     private ShadowNode()
     {

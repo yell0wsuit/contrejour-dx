@@ -22,54 +22,26 @@ public struct ParallaxVertex : ITintVertex, IVertex, IVertexType
 
     public static readonly VertexDeclaration VertexDeclaration;
 
-    VertexDeclaration IVertexType.VertexDeclaration => VertexDeclaration;
+    readonly VertexDeclaration IVertexType.VertexDeclaration => VertexDeclaration;
 
     Vector3 IVertex.Position
     {
-        get
-        {
-            return Position;
-        }
-        set
-        {
-            Position = value;
-        }
+        readonly get => Position; set => Position = value;
     }
 
     Color IVertex.Color
     {
-        get
-        {
-            return Color;
-        }
-        set
-        {
-            Color = value;
-        }
+        readonly get => Color; set => Color = value;
     }
 
     Vector2 IVertex.TextureCoordinate
     {
-        get
-        {
-            return TextureCoordinate;
-        }
-        set
-        {
-            TextureCoordinate = value;
-        }
+        readonly get => TextureCoordinate; set => TextureCoordinate = value;
     }
 
     float ITintVertex.ColorRatio
     {
-        get
-        {
-            return ColorRatio;
-        }
-        set
-        {
-            ColorRatio = value;
-        }
+        readonly get => ColorRatio; set => ColorRatio = value;
     }
 
     static ParallaxVertex()
@@ -87,7 +59,7 @@ public struct ParallaxVertex : ITintVertex, IVertex, IVertexType
 
     public ParallaxVertex(Vector3 position, Color color, Vector2 textureCoordinate, float colorRatio, float parallax)
     {
-        this = default(ParallaxVertex);
+        this = default;
         Position = position;
         Color = color;
         TextureCoordinate = textureCoordinate;
@@ -97,11 +69,9 @@ public struct ParallaxVertex : ITintVertex, IVertex, IVertexType
 
     public static bool operator ==(ParallaxVertex left, ParallaxVertex right)
     {
-        if (left.Position == right.Position && left.Color == right.Color && left.TextureCoordinate == right.TextureCoordinate && left.ColorRatio == right.ColorRatio)
-        {
-            return left.Parallax == right.Parallax;
-        }
-        return false;
+        return left.Position == right.Position && left.Color == right.Color && left.TextureCoordinate == right.TextureCoordinate && left.ColorRatio == right.ColorRatio
+            ? left.Parallax == right.Parallax
+            : false;
     }
 
     public static bool operator !=(ParallaxVertex left, ParallaxVertex right)
@@ -109,17 +79,13 @@ public struct ParallaxVertex : ITintVertex, IVertex, IVertexType
         return !(left == right);
     }
 
-    public override string ToString()
+    public override readonly string ToString()
     {
         return string.Format(CultureInfo.CurrentCulture, "{{Position:{0} Color:{1} TextureCoordinate:{2}}}", new object[3] { Position, Color, TextureCoordinate });
     }
 
-    public override bool Equals(object obj)
+    public override readonly bool Equals(object obj)
     {
-        if (obj == null || (object)obj.GetType() != GetType())
-        {
-            return false;
-        }
-        return this == (ParallaxVertex)obj;
+        return obj == null || (object)obj.GetType() != GetType() ? false : this == (ParallaxVertex)obj;
     }
 }

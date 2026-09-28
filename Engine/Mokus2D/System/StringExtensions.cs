@@ -26,7 +26,7 @@ public static class StringExtensions
 
     public static List<string> ToList(this string s, params char[] p)
     {
-        return new List<string>(s.Split(p));
+        return [.. s.Split(p)];
     }
 
     public static byte[] ToBytesBase64(this string s)
@@ -46,17 +46,17 @@ public static class StringExtensions
 
     public static string Repeat(this string str, int count)
     {
-        StringBuilder stringBuilder = new StringBuilder();
+        StringBuilder stringBuilder = new();
         while (count-- > 0)
         {
-            stringBuilder.Append(str);
+            _ = stringBuilder.Append(str);
         }
         return stringBuilder.ToString();
     }
 
     public static void Split(this StringBuilder input, char separator, List<StringBuilder> result)
     {
-        StringBuilder stringBuilder = new StringBuilder();
+        StringBuilder stringBuilder = new();
         for (int i = 0; i < input.Length; i++)
         {
             if (input[i] == separator)
@@ -66,7 +66,7 @@ public static class StringExtensions
             }
             else
             {
-                stringBuilder.Append(input[i]);
+                _ = stringBuilder.Append(input[i]);
             }
         }
         if (stringBuilder.Length > 0)

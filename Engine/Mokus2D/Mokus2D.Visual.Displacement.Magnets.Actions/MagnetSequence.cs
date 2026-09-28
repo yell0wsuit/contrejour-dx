@@ -21,7 +21,7 @@ public class MagnetSequence : MagnetAction
         magnetAction.Update(time);
         if (magnetAction.Finished)
         {
-            _actions.Dequeue();
+            _ = _actions.Dequeue();
         }
     }
 }

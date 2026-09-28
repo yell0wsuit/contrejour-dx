@@ -14,7 +14,7 @@ internal class TrapezoidalMap
 
     public TrapezoidalMap()
     {
-        Map = new HashSet<Trapezoid>();
+        Map = [];
         _margin = 50f;
         _bCross = null;
         _cross = null;
@@ -28,13 +28,13 @@ internal class TrapezoidalMap
 
     public Trapezoid[] Case1(Trapezoid t, Edge e)
     {
-        Trapezoid[] array = new Trapezoid[4]
-        {
-            new Trapezoid(t.LeftPoint, e.P, t.Top, t.Bottom),
-            new Trapezoid(e.P, e.Q, t.Top, e),
-            new Trapezoid(e.P, e.Q, e, t.Bottom),
-            new Trapezoid(e.Q, t.RightPoint, t.Top, t.Bottom)
-        };
+        Trapezoid[] array =
+        [
+            new(t.LeftPoint, e.P, t.Top, t.Bottom),
+            new(e.P, e.Q, t.Top, e),
+            new(e.P, e.Q, e, t.Bottom),
+            new(e.Q, t.RightPoint, t.Top, t.Bottom)
+        ];
         array[0].UpdateLeft(t.UpperLeft, t.LowerLeft);
         array[1].UpdateLeftRight(array[0], null, array[3], null);
         array[2].UpdateLeftRight(null, array[0], null, array[3]);
@@ -44,13 +44,13 @@ internal class TrapezoidalMap
 
     public Trapezoid[] Case2(Trapezoid t, Edge e)
     {
-        Point rightPoint = ((e.Q.X != t.RightPoint.X) ? t.RightPoint : e.Q);
-        Trapezoid[] array = new Trapezoid[3]
-        {
-            new Trapezoid(t.LeftPoint, e.P, t.Top, t.Bottom),
-            new Trapezoid(e.P, rightPoint, t.Top, e),
-            new Trapezoid(e.P, rightPoint, e, t.Bottom)
-        };
+        Point rightPoint = (e.Q.X != t.RightPoint.X) ? t.RightPoint : e.Q;
+        Trapezoid[] array =
+        [
+            new(t.LeftPoint, e.P, t.Top, t.Bottom),
+            new(e.P, rightPoint, t.Top, e),
+            new(e.P, rightPoint, e, t.Bottom)
+        ];
         array[0].UpdateLeft(t.UpperLeft, t.LowerLeft);
         array[1].UpdateLeftRight(array[0], null, t.UpperRight, null);
         array[2].UpdateLeftRight(null, array[0], null, t.LowerRight);
@@ -63,8 +63,8 @@ internal class TrapezoidalMap
 
     public Trapezoid[] Case3(Trapezoid t, Edge e)
     {
-        Point leftPoint = ((e.P.X != t.LeftPoint.X) ? t.LeftPoint : e.P);
-        Point rightPoint = ((e.Q.X != t.RightPoint.X) ? t.RightPoint : e.Q);
+        Point leftPoint = (e.P.X != t.LeftPoint.X) ? t.LeftPoint : e.P;
+        Point rightPoint = (e.Q.X != t.RightPoint.X) ? t.RightPoint : e.Q;
         Trapezoid[] array = new Trapezoid[2];
         if (_cross == t.Top)
         {
@@ -97,7 +97,7 @@ internal class TrapezoidalMap
 
     public Trapezoid[] Case4(Trapezoid t, Edge e)
     {
-        Point leftPoint = ((e.P.X != t.LeftPoint.X) ? t.LeftPoint : e.P);
+        Point leftPoint = (e.P.X != t.LeftPoint.X) ? t.LeftPoint : e.P;
         Trapezoid[] array = new Trapezoid[3];
         if (_cross == t.Top)
         {
@@ -163,8 +163,8 @@ internal class TrapezoidalMap
                 point2 = new Point(point2.X, edge3.Q.Y - _margin);
             }
         }
-        Edge edge = new Edge(new Point(point2.X, point.Y), new Point(point.X, point.Y));
-        Edge edge2 = new Edge(new Point(point2.X, point2.Y), new Point(point.X, point2.Y));
+        Edge edge = new(new Point(point2.X, point.Y), new Point(point.X, point.Y));
+        Edge edge2 = new(new Point(point2.X, point2.Y), new Point(point.X, point2.Y));
         Point p = edge2.P;
         Point q = edge.Q;
         return new Trapezoid(p, q, edge, edge2);

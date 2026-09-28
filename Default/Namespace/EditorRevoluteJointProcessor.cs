@@ -33,10 +33,8 @@ public class EditorRevoluteJointProcessor : RevoluteJointProcessor
             else
             {
                 List<Body> bodiesByWorldReqResult2 = GetBodiesByWorldReqResult(vector, FarseerUtil.StaticBodyPredicate);
-                Body item2 = ((bodiesByWorldReqResult2.Count > 0) ? bodiesByWorldReqResult2.First() : builder.GroundBody);
-                List<Body> list = new List<Body>();
-                list.Add(item2);
-                list.Add(bodiesByWorldReqResult.First());
+                Body item2 = (bodiesByWorldReqResult2.Count > 0) ? bodiesByWorldReqResult2.First() : builder.GroundBody;
+                List<Body> list = [item2, bodiesByWorldReqResult.First()];
                 CreateRevoluteJointPositionConfig(list, vector, hashtable);
             }
         }

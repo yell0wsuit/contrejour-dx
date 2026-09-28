@@ -8,26 +8,14 @@ public class RopeMetrics
 
     public int Parts
     {
-        get
-        {
-            return parts;
-        }
-        set
-        {
-            parts = value;
-        }
+        get => parts;
+        set => parts = value;
     }
 
     public float PartSize
     {
-        get
-        {
-            return partSize;
-        }
-        set
-        {
-            partSize = value;
-        }
+        get => partSize;
+        set => partSize = value;
     }
 
     public RopeMetrics(int _parts, float _partSize)

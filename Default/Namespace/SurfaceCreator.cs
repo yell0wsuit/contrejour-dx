@@ -47,9 +47,9 @@ public class SurfaceCreator
             Vector2 vector = vertices[i];
             Vector2 vector2 = vertices[i + 1];
             float width = vector.DistanceTo(vector2);
-            PlasticinePartBodyClip bodyClip = new PlasticinePartBodyClip(builder, PlasticineUtil.CreateSurfaceBodyWidthAnglePosition(angle: VectorUtil.Atan2(vector, vector2), position: GetPartCenterEnd(vector, vector2), world: builder.World, width: 0.6f), parent, width, !flag && (num > 0 || builder.ContreJour.WhiteSide || builder.ContreJour.RoseChapter || builder.ContreJour.BonusChapter));
+            PlasticinePartBodyClip bodyClip = new(builder, PlasticineUtil.CreateSurfaceBodyWidthAnglePosition(angle: VectorUtil.Atan2(vector, vector2), position: GetPartCenterEnd(vector, vector2), world: builder.World, width: 0.6f), parent, width, !flag && (num > 0 || builder.ContreJour.WhiteSide || builder.ContreJour.RoseChapter || builder.ContreJour.BonusChapter));
             num--;
-            PlasticineItem plasticineItem3 = new PlasticineItem(bodyClip, width);
+            PlasticineItem plasticineItem3 = new(bodyClip, width);
             if (leftItem == null || plasticineItem3.InitialPosition.X < leftItem.InitialPosition.X)
             {
                 leftItem = plasticineItem3;
@@ -73,13 +73,13 @@ public class SurfaceCreator
         Vector2 point = end - start;
         Vector2 vector = VectorUtil.Center(start, end);
         VectorUtil.RotateMinus90(ref point);
-        VectorUtil.Normalize(ref point, 5f / 12f);
+        _ = VectorUtil.Normalize(ref point, 5f / 12f);
         return vector + point;
     }
 
     private static void GetBezierVerticesControlEndWidth(Vector2 start, Vector2 control, Vector2 end, float width, ref List<Vector2> result)
     {
-        Bezier bezier = new Bezier(start, control, end);
+        Bezier bezier = new(start, control, end);
         RopeMetrics ropeMetricsByLengthMaxPartSizeMinParts = RopeUtil.GetRopeMetricsByLengthMaxPartSizeMinParts(bezier.Length, width, 3);
         List<float> timesSequenceWithStepStartShift = bezier.GetTimesSequenceWithStepStartShift(ropeMetricsByLengthMaxPartSizeMinParts.PartSize, ropeMetricsByLengthMaxPartSizeMinParts.PartSize);
         for (int i = 0; i < ropeMetricsByLengthMaxPartSizeMinParts.Parts; i++)
@@ -91,15 +91,15 @@ public class SurfaceCreator
 
     public static List<Vector2> GetVertices(List<Vector2> points, float width)
     {
-        List<Vector2> list = new List<Vector2>();
+        List<Vector2> list = [];
         for (int i = 0; i < points.Count - 1; i++)
         {
             list.Add(VectorUtil.Center(points[i], points[i + 1]));
         }
-        Vector2 item = VectorUtil.Center(points[points.Count - 1], points[0]);
+        Vector2 item = VectorUtil.Center(points[^1], points[0]);
         list.Add(item);
         list.Insert(0, item);
-        List<Vector2> result = new List<Vector2>();
+        List<Vector2> result = [];
         result.Capacity = list.Count * 5;
         for (int j = 0; j < list.Count - 1; j++)
         {

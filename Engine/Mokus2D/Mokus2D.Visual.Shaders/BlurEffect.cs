@@ -11,38 +11,26 @@ public class BlurEffect : TextureMatrixEffectBase
 
     public bool IsVertical
     {
-        get
-        {
-            return _isVertical.GetValueBoolean();
-        }
-        set
-        {
-            _isVertical.SetValue(value);
-        }
+        get => _isVertical.GetValueBoolean();
+        set => _isVertical.SetValue(value);
     }
 
     public bool IsHorizontal
     {
-        get
-        {
-            return !IsVertical;
-        }
-        set
-        {
-            IsVertical = !value;
-        }
+        get => !IsVertical;
+        set => IsVertical = !value;
     }
 
     public BlurEffect()
         : base("Mokus2D.Shaders.Blur")
     {
-        _pixelWidth = base.Parameters["PixelWidth"];
-        _isVertical = base.Parameters["IsVertical"];
+        _pixelWidth = Parameters["PixelWidth"];
+        _isVertical = Parameters["IsVertical"];
     }
 
     public override void Apply(Matrix matrix, Texture2D texture)
     {
-        _pixelWidth.SetValue(1f / (float)texture.Width);
+        _pixelWidth.SetValue(1f / texture.Width);
         base.Apply(matrix, texture);
     }
 

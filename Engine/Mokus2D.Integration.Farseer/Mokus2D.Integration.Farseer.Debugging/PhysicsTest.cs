@@ -9,7 +9,7 @@ namespace Mokus2D.Integration.Farseer.Debugging;
 
 public class PhysicsTest : Node
 {
-    private readonly World world = new World(new Vector2(0f, 10f));
+    private readonly World world = new(new Vector2(0f, 10f));
 
     private readonly FarseerDebugNode debugNode;
 
@@ -21,9 +21,9 @@ public class PhysicsTest : Node
         CreateRectangle(new Vector2(1f, 1f));
         CreateRectangle(new Vector2(2f, 2f));
         Body body = BodyFactory.CreateBody(world, Vector2.Zero);
-        FixtureFactory.AttachRectangle(10f, 2f, 0.5f, new Vector2(0f, 10f), body);
-        FixtureFactory.AttachRectangle(10f, 2f, 0.5f, Vector2.Zero, body);
-        FixtureFactory.AttachCircle(1f, 2f, body);
+        _ = FixtureFactory.AttachRectangle(10f, 2f, 0.5f, new Vector2(0f, 10f), body);
+        _ = FixtureFactory.AttachRectangle(10f, 2f, 0.5f, Vector2.Zero, body);
+        _ = FixtureFactory.AttachCircle(1f, 2f, body);
         body.BodyType = BodyType.Static;
     }
 

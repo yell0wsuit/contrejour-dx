@@ -19,11 +19,11 @@ public class FadeEffect : TouchEffect
     public override void OnAction(Node node)
     {
         node.Visible = true;
-        node.FadeIn(effectTime);
+        _ = node.FadeIn(effectTime);
     }
 
     public override void OffAction(Node node)
     {
-        node.FadeOutAndHide(effectTime);
+        _ = node.FadeOutAndHide(effectTime);
     }
 }

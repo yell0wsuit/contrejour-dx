@@ -10,7 +10,7 @@ namespace Default.Namespace;
 
 public class PlanetSnotEye : PlanetEye
 {
-    protected override EyeAnimation[] Animations => MonsterEye.SNOT_ANIMATIONS;
+    protected override EyeAnimation[] Animations => SNOT_ANIMATIONS;
 
     protected override float ViewRadius => 7f;
 

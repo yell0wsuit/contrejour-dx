@@ -9,7 +9,7 @@ public class DistanceProxy
 {
     internal float Radius;
 
-    internal Vertices Vertices = new Vertices();
+    internal Vertices Vertices = [];
 
     public void Set(Shape shape, int index)
     {

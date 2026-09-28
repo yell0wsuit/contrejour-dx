@@ -30,7 +30,7 @@ public class FadeAndHideEffect : OnOffTweenEffect<float>
     protected override void SetOn()
     {
         VisibleSetter.SetValue(Target, value: true);
-        this.VisibleChangeEvent.Dispatch(this);
+        VisibleChangeEvent.Dispatch(this);
         if (ResetZeroOpacity)
         {
             Target.OpacityFloat = 0f;
@@ -40,18 +40,18 @@ public class FadeAndHideEffect : OnOffTweenEffect<float>
 
     protected override void SetOff()
     {
-        TweenTo(base.OffValue, on: false).SetAfter(VisibleSetter, targetValue: false).OnComplete(_onHide);
+        _ = TweenTo(OffValue, on: false).SetAfter(VisibleSetter, targetValue: false).OnComplete(_onHide);
     }
 
     private void OnHide()
     {
-        this.VisibleChangeEvent.Dispatch(this);
+        VisibleChangeEvent.Dispatch(this);
     }
 
     public override void SetOn(bool value)
     {
         base.SetOn(value);
         VisibleSetter.SetValue(Target, value);
-        this.VisibleChangeEvent.Dispatch(this);
+        VisibleChangeEvent.Dispatch(this);
     }
 }

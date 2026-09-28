@@ -26,6 +26,6 @@ public class RotatingSprite : Sprite
 
     public override void Update(float time)
     {
-        base.RotationDegrees += Speed * time;
+        RotationDegrees += Speed * time;
     }
 }

@@ -20,14 +20,8 @@ public class SpringSnotSprite : SnotSprite
 
     public bool Active
     {
-        get
-        {
-            return active;
-        }
-        set
-        {
-            active = value;
-        }
+        get => active;
+        set => active = value;
     }
 
     public SpringSnotSprite(ContreJourGame _game, SnotBodyClipBase _snot, float _startWidth, float _centerWidth, float _endWidth)
@@ -48,7 +42,7 @@ public class SpringSnotSprite : SnotSprite
             previousActiveProgress = activeProgress;
         }
         _ = snot.StartPosition;
-        snot.EndPosition();
+        _ = snot.EndPosition();
     }
 
     public virtual Color BaseCircleColor()

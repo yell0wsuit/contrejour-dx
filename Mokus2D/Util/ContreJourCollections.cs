@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 
 using Microsoft.Xna.Framework;
 
@@ -10,11 +11,7 @@ public static class ContreJourCollections
 {
     public static List<Vector2> ToVectorList(this List<object> source)
     {
-        List<Vector2> list = new List<Vector2>();
-        foreach (Vector2 item in source)
-        {
-            list.Add(item);
-        }
+        List<Vector2> list = [.. source.Cast<Vector2>()];
         return list;
     }
 
@@ -27,20 +24,12 @@ public static class ContreJourCollections
             string text = array[i];
             if (!dictionary.ContainsKey(text))
             {
-                if (checkForNull)
-                {
-                    throw new Exception("Hashtable key `" + key + "` not found - at `" + text + "`.");
-                }
-                return null;
+                return checkForNull ? throw new Exception("Hashtable key `" + key + "` not found - at `" + text + "`.") : null;
             }
             object obj = dictionary[text];
             if (obj == null)
             {
-                if (checkForNull)
-                {
-                    throw new Exception("Hashtable key `" + key + "` is null - at `" + text + "`.");
-                }
-                return null;
+                return checkForNull ? throw new Exception("Hashtable key `" + key + "` is null - at `" + text + "`.") : null;
             }
             if (i == array.Length - 1)
             {
@@ -83,11 +72,7 @@ public static class ContreJourCollections
 
     public static bool GetBool(this Dictionary<object, object> source, string key)
     {
-        if (source.Exists(key))
-        {
-            return Convert.ToBoolean(source.GetObject(key));
-        }
-        return false;
+        return source.Exists(key) ? Convert.ToBoolean(source.GetObject(key)) : false;
     }
 
     public static int GetInt(this Dictionary<object, object> source, string key)
@@ -117,55 +102,31 @@ public static class ContreJourCollections
 
     public static string GetString(this Dictionary<object, object> source, string key, string defaultValue)
     {
-        if (!source.Exists(key))
-        {
-            return defaultValue;
-        }
-        return source.GetString(key);
+        return !source.Exists(key) ? defaultValue : source.GetString(key);
     }
 
     public static float GetFloat(this Dictionary<object, object> source, string key, float defaultValue)
     {
-        if (!source.Exists(key))
-        {
-            return defaultValue;
-        }
-        return source.GetFloat(key);
+        return !source.Exists(key) ? defaultValue : source.GetFloat(key);
     }
 
     public static bool GetBool(this Dictionary<object, object> source, string key, bool defaultValue)
     {
-        if (!source.Exists(key))
-        {
-            return defaultValue;
-        }
-        return source.GetBool(key);
+        return !source.Exists(key) ? defaultValue : source.GetBool(key);
     }
 
     public static int GetInt(this Dictionary<object, object> source, string key, int defaultValue)
     {
-        if (!source.Exists(key))
-        {
-            return defaultValue;
-        }
-        return source.GetInt(key);
+        return !source.Exists(key) ? defaultValue : source.GetInt(key);
     }
 
     public static List<object> GetArrayList(this Dictionary<object, object> source, string key, List<object> defaultValue)
     {
-        if (!source.Exists(key))
-        {
-            return defaultValue;
-        }
-        return source.GetArrayList(key);
+        return !source.Exists(key) ? defaultValue : source.GetArrayList(key);
     }
 
     public static Vector2 GetVector(this Dictionary<object, object> source, string key, Vector2 defaultValue)
     {
-        if (!source.Exists(key))
-        {
-            return defaultValue;
-        }
-        return source.GetVector(key);
+        return !source.Exists(key) ? defaultValue : source.GetVector(key);
     }
 }

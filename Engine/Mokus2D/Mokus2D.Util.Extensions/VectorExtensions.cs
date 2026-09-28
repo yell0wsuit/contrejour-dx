@@ -11,19 +11,19 @@ public static class VectorExtensions
 {
     public static Vector2 ToVector2(this string value)
     {
-        string[] array = value.Split(new char[1] { ',' });
+        string[] array = value.Split([',']);
         return new Vector2(Convert.ToSingle(array[0], CultureInfo.InvariantCulture.NumberFormat), Convert.ToSingle(array[1], CultureInfo.InvariantCulture.NumberFormat));
     }
 
     public static Vector2 Transform(this Vector2 source, ref Matrix matrix)
     {
-        Vector2.Transform(ref source, ref matrix, out var result);
+        Vector2.Transform(ref source, ref matrix, out Vector2 result);
         return result;
     }
 
     public static Vector3 Transform(this Vector3 source, ref Matrix matrix)
     {
-        Vector3.Transform(ref source, ref matrix, out var result);
+        Vector3.Transform(ref source, ref matrix, out Vector3 result);
         return result;
     }
 
@@ -164,11 +164,7 @@ public static class VectorExtensions
 
     public static bool Between(this Vector2 vector, Vector2 min, Vector2 max)
     {
-        if (vector.X.Between(min.X, max.X))
-        {
-            return vector.Y.Between(min.Y, max.Y);
-        }
-        return false;
+        return vector.X.Between(min.X, max.X) ? vector.Y.Between(min.Y, max.Y) : false;
     }
 
     public static Vector2 Rotate90(this Vector2 vector)
@@ -180,11 +176,7 @@ public static class VectorExtensions
 
     public static bool IsNaN(this Vector2 source)
     {
-        if (!float.IsNaN(source.X))
-        {
-            return float.IsNaN(source.Y);
-        }
-        return true;
+        return !float.IsNaN(source.X) ? float.IsNaN(source.Y) : true;
     }
 
     public static Vector2 Signs(this Vector2 source)

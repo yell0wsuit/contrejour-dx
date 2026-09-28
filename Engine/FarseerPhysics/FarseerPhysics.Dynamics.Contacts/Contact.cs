@@ -25,7 +25,7 @@ public class Contact
 
     private ContactType _type;
 
-    private static EdgeShape _edge = new EdgeShape();
+    private static EdgeShape _edge = new();
 
     private static ContactType[,] _registers = new ContactType[4, 4]
     {
@@ -55,9 +55,9 @@ public class Contact
         }
     };
 
-    internal ContactEdge _nodeA = new ContactEdge();
+    internal ContactEdge _nodeA = new();
 
-    internal ContactEdge _nodeB = new ContactEdge();
+    internal ContactEdge _nodeB = new();
 
     internal int _toiCount;
 
@@ -159,7 +159,7 @@ public class Contact
         {
             Shape shape = FixtureA.Shape;
             Shape shape2 = FixtureB.Shape;
-            flag2 = FarseerPhysics.Collision.Collision.TestOverlap(shape, ChildIndexA, shape2, ChildIndexB, ref body._xf, ref body2._xf);
+            flag2 = Collision.Collision.TestOverlap(shape, ChildIndexA, shape2, ChildIndexB, ref body._xf, ref body2._xf);
             Manifold.PointCount = 0;
         }
         else
@@ -236,10 +236,7 @@ public class Contact
             {
                 FixtureB.OnSeparation(FixtureB, FixtureA);
             }
-            if (contactManager.EndContact != null)
-            {
-                contactManager.EndContact(this);
-            }
+            contactManager.EndContact?.Invoke(this);
         }
         if (!flag && contactManager.PreSolve != null)
         {
@@ -252,33 +249,33 @@ public class Contact
         switch (_type)
         {
             case ContactType.Polygon:
-                FarseerPhysics.Collision.Collision.CollidePolygons(ref manifold, (PolygonShape)FixtureA.Shape, ref transformA, (PolygonShape)FixtureB.Shape, ref transformB);
+                Collision.Collision.CollidePolygons(ref manifold, (PolygonShape)FixtureA.Shape, ref transformA, (PolygonShape)FixtureB.Shape, ref transformB);
                 break;
             case ContactType.PolygonAndCircle:
-                FarseerPhysics.Collision.Collision.CollidePolygonAndCircle(ref manifold, (PolygonShape)FixtureA.Shape, ref transformA, (CircleShape)FixtureB.Shape, ref transformB);
+                Collision.Collision.CollidePolygonAndCircle(ref manifold, (PolygonShape)FixtureA.Shape, ref transformA, (CircleShape)FixtureB.Shape, ref transformB);
                 break;
             case ContactType.EdgeAndCircle:
-                FarseerPhysics.Collision.Collision.CollideEdgeAndCircle(ref manifold, (EdgeShape)FixtureA.Shape, ref transformA, (CircleShape)FixtureB.Shape, ref transformB);
+                Collision.Collision.CollideEdgeAndCircle(ref manifold, (EdgeShape)FixtureA.Shape, ref transformA, (CircleShape)FixtureB.Shape, ref transformB);
                 break;
             case ContactType.EdgeAndPolygon:
-                FarseerPhysics.Collision.Collision.CollideEdgeAndPolygon(ref manifold, (EdgeShape)FixtureA.Shape, ref transformA, (PolygonShape)FixtureB.Shape, ref transformB);
+                Collision.Collision.CollideEdgeAndPolygon(ref manifold, (EdgeShape)FixtureA.Shape, ref transformA, (PolygonShape)FixtureB.Shape, ref transformB);
                 break;
             case ContactType.ChainAndCircle:
                 {
                     ChainShape chainShape2 = (ChainShape)FixtureA.Shape;
                     chainShape2.GetChildEdge(_edge, ChildIndexA);
-                    FarseerPhysics.Collision.Collision.CollideEdgeAndCircle(ref manifold, _edge, ref transformA, (CircleShape)FixtureB.Shape, ref transformB);
+                    Collision.Collision.CollideEdgeAndCircle(ref manifold, _edge, ref transformA, (CircleShape)FixtureB.Shape, ref transformB);
                     break;
                 }
             case ContactType.ChainAndPolygon:
                 {
                     ChainShape chainShape = (ChainShape)FixtureA.Shape;
                     chainShape.GetChildEdge(_edge, ChildIndexA);
-                    FarseerPhysics.Collision.Collision.CollideEdgeAndPolygon(ref manifold, _edge, ref transformA, (PolygonShape)FixtureB.Shape, ref transformB);
+                    Collision.Collision.CollideEdgeAndPolygon(ref manifold, _edge, ref transformA, (PolygonShape)FixtureB.Shape, ref transformB);
                     break;
                 }
             case ContactType.Circle:
-                FarseerPhysics.Collision.Collision.CollideCircles(ref manifold, (CircleShape)FixtureA.Shape, ref transformA, (CircleShape)FixtureB.Shape, ref transformB);
+                Collision.Collision.CollideCircles(ref manifold, (CircleShape)FixtureA.Shape, ref transformA, (CircleShape)FixtureB.Shape, ref transformB);
                 break;
         }
     }
@@ -291,7 +288,7 @@ public class Contact
         Contact contact;
         if (contactPool.Count <= 0)
         {
-            contact = (((shapeType < shapeType2 && (shapeType != ShapeType.Edge || shapeType2 != ShapeType.Polygon)) || (shapeType2 == ShapeType.Edge && shapeType == ShapeType.Polygon)) ? new Contact(fixtureB, indexB, fixtureA, indexA) : new Contact(fixtureA, indexA, fixtureB, indexB));
+            contact = ((shapeType < shapeType2 && (shapeType != ShapeType.Edge || shapeType2 != ShapeType.Polygon)) || (shapeType2 == ShapeType.Edge && shapeType == ShapeType.Polygon)) ? new Contact(fixtureB, indexB, fixtureA, indexA) : new Contact(fixtureA, indexA, fixtureB, indexB);
         }
         else
         {

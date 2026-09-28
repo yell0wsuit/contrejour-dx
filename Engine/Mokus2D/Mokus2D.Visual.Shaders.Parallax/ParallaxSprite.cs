@@ -49,6 +49,6 @@ public class ParallaxSprite : Sprite, IParallaxSprite
     protected override void DrawSprite(VisualState state, Color color)
     {
         base.DrawSprite(state, color);
-        this.GetRootScale();
+        _ = this.GetRootScale();
     }
 }

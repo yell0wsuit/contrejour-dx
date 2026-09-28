@@ -1,12 +1,10 @@
 using System.Collections.Generic;
 
-using Default.Namespace;
-
 namespace Mokus2D.Util;
 
 public static class XBoxUtil
 {
-    private static List<string> awardedAchievements = new List<string>(64);
+    private static List<string> awardedAchievements = new(64);
 
     private static bool achievementShown;
 
@@ -14,7 +12,7 @@ public static class XBoxUtil
     {
         if (!Default.Namespace.Constants.IsTrial)
         {
-            awardedAchievements.Contains(achievement);
+            _ = awardedAchievements.Contains(achievement);
         }
     }
 }

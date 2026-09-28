@@ -39,7 +39,7 @@ public class EndRoseBodyClip : StickyBodyClip, IBonusAcceptable, IBodyClip
         : base(_builder, _body, _clip, _config)
     {
         _clip.Scale /= 1.28f;
-        base.Game.BonusTarget = this;
+        Game.BonusTarget = this;
         movie = (MovieClip)clip;
         movie.Rewind = true;
         movie.Repeat = false;
@@ -48,7 +48,7 @@ public class EndRoseBodyClip : StickyBodyClip, IBonusAcceptable, IBodyClip
         {
             movie.MaxFrame *= 0.55f;
         }
-        maxTime = (saved ? 4f : 2.9629629f);
+        maxTime = saved ? 4f : 2.9629629f;
         movie.Color = Color.Black;
         colorChanger = new CosChanger(-0.1f, 0f, 0.05f);
         builder.RegisterObject(this, "rose");
@@ -66,17 +66,19 @@ public class EndRoseBodyClip : StickyBodyClip, IBonusAcceptable, IBodyClip
 
     public Vector2 BonusTarget()
     {
-        return clip.Position + new Vector2(28f, 78f) + new Vector2(-20f, 20f) * movie.CurrentFrame / movie.MaxFrame;
+        return clip.Position + new Vector2(28f, 78f) + (new Vector2(-20f, 20f) * movie.CurrentFrame / movie.MaxFrame);
     }
 
     private void AddLight(float direction)
     {
-        Sprite sprite = new McRoseLight();
-        sprite.Position = new Vector2(22f, 114f) + clip.Position;
-        sprite.Blend = BlendState.Additive;
-        sprite.OpacityByte = 120;
-        builder.AddChild(sprite);
-        sprite.FadeIn(2f);
+        Sprite sprite = new McRoseLight
+        {
+            Position = new Vector2(22f, 114f) + clip.Position,
+            Blend = BlendState.Additive,
+            OpacityByte = 120
+        };
+        _ = builder.AddChild(sprite);
+        _ = sprite.FadeIn(2f);
     }
 
     public void ShowLights()
@@ -87,9 +89,11 @@ public class EndRoseBodyClip : StickyBodyClip, IBonusAcceptable, IBodyClip
 
     public void DropTear()
     {
-        McTear mcTear = new McTear();
-        mcTear.Repeat = false;
-        builder.AddChild(mcTear);
+        McTear mcTear = new()
+        {
+            Repeat = false
+        };
+        _ = builder.AddChild(mcTear);
         mcTear.Position = clip.Position;
         mcTear.Speed = 0.7f;
     }
@@ -99,14 +103,14 @@ public class EndRoseBodyClip : StickyBodyClip, IBonusAcceptable, IBodyClip
         base.Update(time);
         if (startTime != 0f)
         {
-            float num = Maths.EaseInOut(Maths.Clamp((base.Game.TotalTime - startTime) / maxTime, 0f, 1f), movie.MaxFrame);
-            movie.CurrentFrame = (goingDown ? (movie.MaxFrame - num) : num);
+            float num = Maths.EaseInOut(Maths.Clamp((Game.TotalTime - startTime) / maxTime, 0f, 1f), movie.MaxFrame);
+            movie.CurrentFrame = goingDown ? (movie.MaxFrame - num) : num;
             if (movie.CurrentFrame == movie.MaxFrame)
             {
                 if (!saved && !goingDown)
                 {
                     goingDown = true;
-                    startTime = base.Game.TotalTime;
+                    startTime = Game.TotalTime;
                 }
                 else if (saved && !rised)
                 {
@@ -141,6 +145,6 @@ public class EndRoseBodyClip : StickyBodyClip, IBonusAcceptable, IBodyClip
 
     private void Start()
     {
-        startTime = base.Game.TotalTime;
+        startTime = Game.TotalTime;
     }
 }

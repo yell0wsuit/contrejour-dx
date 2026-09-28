@@ -20,7 +20,7 @@ public class TeleportPortal : ParticleSystem
         for (int i = 0; i < 5; i++)
         {
             Particle particle = portal.Particles[i];
-            Particle particle2 = base.Particles[i];
+            Particle particle2 = Particles[i];
             particle2.Position = particle.Position;
             particle2.Scale = particle.Scale;
         }

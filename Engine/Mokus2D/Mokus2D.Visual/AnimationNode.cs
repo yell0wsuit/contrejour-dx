@@ -26,7 +26,7 @@ public abstract class AnimationNode : Node, IAnimatedNode, IConfig, IBoundsNode,
 
     public bool TweenEdgeFrames = true;
 
-    internal readonly BiDictionary<string, Node> AnimatedChildren = new BiDictionary<string, Node>();
+    internal readonly BiDictionary<string, Node> AnimatedChildren = [];
 
     private IAnimationNodePlayer _animationPlayer = AnimationNodePlayers.Discrete;
 
@@ -36,14 +36,8 @@ public abstract class AnimationNode : Node, IAnimatedNode, IConfig, IBoundsNode,
 
     public bool IsChildrenAnimationsDiscrete
     {
-        get
-        {
-            return _animationPlayer == AnimationNodePlayers.Discrete;
-        }
-        set
-        {
-            _animationPlayer = (value ? AnimationNodePlayers.Discrete : AnimationNodePlayers.Smooth);
-        }
+        get => _animationPlayer == AnimationNodePlayers.Discrete;
+        set => _animationPlayer = value ? AnimationNodePlayers.Discrete : AnimationNodePlayers.Smooth;
     }
 
     public RectangleFloat Bounds => PrecalculatedBounds;
@@ -54,24 +48,15 @@ public abstract class AnimationNode : Node, IAnimatedNode, IConfig, IBoundsNode,
 
     public Vector2 ScaledSize
     {
-        get
-        {
-            return Size * ScaleVec;
-        }
-        set
-        {
-            ScaleVec = value / Size;
-        }
+        get => Size * ScaleVec;
+        set => ScaleVec = value / Size;
     }
 
     public ICollection<string> ChildrenNames => AnimatedChildren.Keys;
 
     public AnimationData AnimationData
     {
-        get
-        {
-            return _animationData;
-        }
+        get => _animationData;
         set
         {
             if (_animationData != value)
@@ -86,34 +71,19 @@ public abstract class AnimationNode : Node, IAnimatedNode, IConfig, IBoundsNode,
 
     public bool Rewind
     {
-        get
-        {
-            return _player.Rewind;
-        }
-        set
-        {
-            _player.Rewind = value;
-        }
+        get => _player.Rewind;
+        set => _player.Rewind = value;
     }
 
     public bool Repeat
     {
-        get
-        {
-            return _player.Repeat;
-        }
-        set
-        {
-            _player.Repeat = value;
-        }
+        get => _player.Repeat;
+        set => _player.Repeat = value;
     }
 
     public float Speed
     {
-        get
-        {
-            return _player.Speed;
-        }
+        get => _player.Speed;
         set
         {
             _player.Speed = value;
@@ -126,38 +96,20 @@ public abstract class AnimationNode : Node, IAnimatedNode, IConfig, IBoundsNode,
 
     public bool Stoped
     {
-        get
-        {
-            return _player.Stoped;
-        }
-        set
-        {
-            _player.Stoped = value;
-        }
+        get => _player.Stoped;
+        set => _player.Stoped = value;
     }
 
     public float MinFrame
     {
-        get
-        {
-            return _player.MinFrame;
-        }
-        set
-        {
-            _player.MinFrame = value;
-        }
+        get => _player.MinFrame;
+        set => _player.MinFrame = value;
     }
 
     public float MaxFrame
     {
-        get
-        {
-            return _player.MaxFrame;
-        }
-        set
-        {
-            _player.MaxFrame = value;
-        }
+        get => _player.MaxFrame;
+        set => _player.MaxFrame = value;
     }
 
     public int FrameValue => _player.FrameValue;
@@ -166,14 +118,8 @@ public abstract class AnimationNode : Node, IAnimatedNode, IConfig, IBoundsNode,
 
     public float CurrentFrame
     {
-        get
-        {
-            return _player.CurrentFrame;
-        }
-        set
-        {
-            _player.CurrentFrame = value;
-        }
+        get => _player.CurrentFrame;
+        set => _player.CurrentFrame = value;
     }
 
     public List<AnimationFrameData> CurrentFrameData => _animationData[(int)CurrentFrame];
@@ -200,7 +146,7 @@ public abstract class AnimationNode : Node, IAnimatedNode, IConfig, IBoundsNode,
 
     protected virtual void Initialize()
     {
-        foreach (Node child in base.Children)
+        foreach (Node child in Children)
         {
             child.OnParentInitialized();
         }
@@ -209,11 +155,7 @@ public abstract class AnimationNode : Node, IAnimatedNode, IConfig, IBoundsNode,
     public AnimationFrameData GetChildFrameData(Node child)
     {
         AnimationFrameData childFrameData = GetChildFrameData(GetChildIndex(child));
-        if (childFrameData != null && childFrameData.Id == child.Name)
-        {
-            return childFrameData;
-        }
-        return GetChildFrameData(child.Name);
+        return childFrameData != null && childFrameData.Id == child.Name ? childFrameData : GetChildFrameData(child.Name);
     }
 
     public AnimationFrameData GetChildFrameData(string childName)
@@ -229,17 +171,13 @@ public abstract class AnimationNode : Node, IAnimatedNode, IConfig, IBoundsNode,
     public AnimationFrameData GetChildFrameData(int childIndex)
     {
         List<AnimationFrameData> list = AnimationData[(int)CurrentFrame];
-        if (list.Count > childIndex)
-        {
-            return list[childIndex];
-        }
-        return null;
+        return list.Count > childIndex ? list[childIndex] : null;
     }
 
     public void ReplaceChild(string childName, Node newChild)
     {
         Node child = GetChild(childName, throwOnNotFound: false);
-        int index = base.Children.Count;
+        int index = Children.Count;
         if (child != null && child.Parent == this)
         {
             index = GetChildIndex(child);
@@ -267,20 +205,17 @@ public abstract class AnimationNode : Node, IAnimatedNode, IConfig, IBoundsNode,
     public void IgnoreAnimations(string childName)
     {
         Node child = GetChild(childName, throwOnNotFound: false);
-        if (child != null)
-        {
-            child.IgnoredAnimations = IgnoredAnimationProperties.All;
-        }
+        child?.IgnoredAnimations = IgnoredAnimationProperties.All;
     }
 
     public void RemoveListeners()
     {
-        this.EndEvent = null;
+        EndEvent = null;
     }
 
     private void OnEnd()
     {
-        this.EndEvent.Dispatch(this);
+        EndEvent.Dispatch(this);
     }
 
     public string GetChildName(Node child)
@@ -290,17 +225,13 @@ public abstract class AnimationNode : Node, IAnimatedNode, IConfig, IBoundsNode,
 
     public Node GetOffspring(string id, bool throwOnNotFound = true)
     {
-        string[] array = id.Split(new char[1] { '.' });
+        string[] array = id.Split(['.']);
         AnimationNode animationNode = this;
         for (int i = 0; i < array.Length - 1; i++)
         {
             animationNode = (AnimationNode)animationNode.GetChild(array[i], throwOnNotFound);
         }
-        if (animationNode == null && !throwOnNotFound)
-        {
-            return null;
-        }
-        return animationNode.GetChild(array.Last(), throwOnNotFound);
+        return animationNode == null && !throwOnNotFound ? null : animationNode.GetChild(array.Last(), throwOnNotFound);
     }
 
     public bool HasChild(string id)
@@ -311,17 +242,13 @@ public abstract class AnimationNode : Node, IAnimatedNode, IConfig, IBoundsNode,
     public Node GetChild(string id, bool throwOnNotFound = true)
     {
         Node node = AnimatedChildren.TryGetValue(id);
-        if (node == null && throwOnNotFound)
-        {
-            throw new ChildNotFoundException(id);
-        }
-        return node;
+        return node == null && throwOnNotFound ? throw new ChildNotFoundException(id) : node;
     }
 
     protected override void OnAddedToStage()
     {
         base.OnAddedToStage();
-        if (base.Root.SpritesScaleFactor.X < 0f || base.Root.SpritesScaleFactor.Y < 0f)
+        if (Root.SpritesScaleFactor.X < 0f || Root.SpritesScaleFactor.Y < 0f)
         {
             ApplyFrameData(CurrentFrame);
         }
@@ -331,7 +258,7 @@ public abstract class AnimationNode : Node, IAnimatedNode, IConfig, IBoundsNode,
     {
         AnimatedChildren[id] = child;
         child.Name = id;
-        AnimationFrameData data = _animationData[0][base.Children.Count];
+        AnimationFrameData data = _animationData[0][Children.Count];
         AnimationUtil.ApplyChildFrameData(this, child, data);
         child.SetInstanceConfig(_animationData.GetInstanceConfig(id));
         AddChild(child);
@@ -353,10 +280,10 @@ public abstract class AnimationNode : Node, IAnimatedNode, IConfig, IBoundsNode,
     {
         base.SetInstanceConfig(config);
         AnimationUtil.ApplyAnimationConfig(this);
-        if (base.Config != null)
+        if (Config != null)
         {
-            TweenEdgeFrames = base.Config.GetBool("tweenEdgeFrames", defaultValue: true);
-            IsChildrenAnimationsDiscrete = !base.Config.GetBool("smooth");
+            TweenEdgeFrames = Config.GetBool("tweenEdgeFrames", defaultValue: true);
+            IsChildrenAnimationsDiscrete = !Config.GetBool("smooth");
         }
     }
 
@@ -364,7 +291,7 @@ public abstract class AnimationNode : Node, IAnimatedNode, IConfig, IBoundsNode,
     {
         if (AnimatedChildren.ContainsValue(node))
         {
-            AnimatedChildren.Remove(node);
+            _ = AnimatedChildren.Remove(node);
         }
         base.RemoveChild(node);
     }
@@ -410,7 +337,7 @@ public abstract class AnimationNode : Node, IAnimatedNode, IConfig, IBoundsNode,
 
     public void ShowAndPlayFromStart()
     {
-        base.VisibleAndUpdating = true;
+        VisibleAndUpdating = true;
         PlayFromStart();
     }
 

@@ -16,11 +16,11 @@ public class ListView<T> : Node, IListView
 
     private readonly float _height;
 
-    public readonly Node ItemsContainer = new Node();
+    public readonly Node ItemsContainer = new();
 
     private readonly ListViewLayout<T> _layout;
 
-    private IList<T> _data = new List<T>();
+    private IList<T> _data = [];
 
     public object SharedData;
 
@@ -32,20 +32,13 @@ public class ListView<T> : Node, IListView
     {
         get
         {
-            if (Data != null)
-            {
-                return Data.Count;
-            }
-            return 0;
+            return Data != null ? Data.Count : 0;
         }
     }
 
     public IList<T> Data
     {
-        get
-        {
-            return _data;
-        }
+        get => _data;
         set
         {
             _data = value;
@@ -57,10 +50,7 @@ public class ListView<T> : Node, IListView
 
     public float ItemsPosition
     {
-        get
-        {
-            return _itemsPosition;
-        }
+        get => _itemsPosition;
         set
         {
             if (_itemsPosition != value)
@@ -84,11 +74,11 @@ public class ListView<T> : Node, IListView
     protected static int GetItemsCout(string animationId, float height)
     {
         AnimationData animationData = Mokus2DGame.LoadAnimation(animationId);
-        return (int)(height / (float)animationData.PrecalculatedBounds.Height);
+        return (int)(height / animationData.PrecalculatedBounds.Height);
     }
 
     public ListView(Type itemRendererType, int itemsCount, float height)
-        : this((Func<Node>)(() => (Node)Activator.CreateInstance(itemRendererType)), itemsCount, height)
+        : this(() => (Node)Activator.CreateInstance(itemRendererType), itemsCount, height)
     {
         SharedData = this;
     }
@@ -100,15 +90,17 @@ public class ListView<T> : Node, IListView
         _height = height;
         _renderers = new ListViewRenderers<T>(itemRendererFactory, this);
         _renderers.RenderersChanged += OnRenderersChanged;
-        _layout = new ListViewLayout<T>(this, ItemsContainer);
-        _layout.FixedSize = height / (float)itemsCount;
+        _layout = new ListViewLayout<T>(this, ItemsContainer)
+        {
+            FixedSize = height / itemsCount
+        };
         AddChild(ItemsContainer);
     }
 
     private void RefreshDataAndDispatchChange()
     {
         RefreshData();
-        this.DataChangedEvent.Dispatch();
+        DataChangedEvent.Dispatch();
     }
 
     public void Add(T item)
@@ -159,7 +151,7 @@ public class ListView<T> : Node, IListView
         for (int i = 0; i < _renderers.ItemRenderers.Count; i++)
         {
             IItemRenderer<T> itemRenderer = (IItemRenderer<T>)_renderers.ItemRenderers[i];
-            itemRenderer.RefreshPosition(topOffset + (float)i, ItemsCount);
+            itemRenderer.RefreshPosition(topOffset + i, ItemsCount);
         }
     }
 

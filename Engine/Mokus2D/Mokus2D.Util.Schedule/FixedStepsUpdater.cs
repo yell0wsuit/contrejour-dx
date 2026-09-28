@@ -14,14 +14,8 @@ public class FixedStepsUpdater
 
     public int UpdateStep
     {
-        get
-        {
-            return _updateStep;
-        }
-        set
-        {
-            _updateStep = value % _periodSteps;
-        }
+        get => _updateStep;
+        set => _updateStep = value % _periodSteps;
     }
 
     public FixedStepsUpdater(Action updateAction, int periodSteps, int updateStep = 0)

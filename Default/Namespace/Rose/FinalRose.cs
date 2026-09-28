@@ -12,7 +12,7 @@ public class FinalRose : Node, IAnimatedNode
 {
     private const int RoseFrames = 79;
 
-    private readonly List<IAnimatedNode> parts = new List<IAnimatedNode>();
+    private readonly List<IAnimatedNode> parts = [];
 
     private readonly AnimationPlayer player;
 
@@ -22,74 +22,38 @@ public class FinalRose : Node, IAnimatedNode
 
     public bool Rewind
     {
-        get
-        {
-            return player.Rewind;
-        }
-        set
-        {
-            player.Rewind = value;
-        }
+        get => player.Rewind;
+        set => player.Rewind = value;
     }
 
     public bool Repeat
     {
-        get
-        {
-            return player.Repeat;
-        }
-        set
-        {
-            player.Repeat = value;
-        }
+        get => player.Repeat;
+        set => player.Repeat = value;
     }
 
     public float Speed
     {
-        get
-        {
-            return player.Speed;
-        }
-        set
-        {
-            player.Speed = value;
-        }
+        get => player.Speed;
+        set => player.Speed = value;
     }
 
     public bool Stoped
     {
-        get
-        {
-            return player.Stoped;
-        }
-        set
-        {
-            player.Stoped = value;
-        }
+        get => player.Stoped;
+        set => player.Stoped = value;
     }
 
     public float MinFrame
     {
-        get
-        {
-            return player.MinFrame;
-        }
-        set
-        {
-            player.MinFrame = value;
-        }
+        get => player.MinFrame;
+        set => player.MinFrame = value;
     }
 
     public float MaxFrame
     {
-        get
-        {
-            return player.MaxFrame;
-        }
-        set
-        {
-            player.MaxFrame = value;
-        }
+        get => player.MaxFrame;
+        set => player.MaxFrame = value;
     }
 
     public int FrameValue => player.FrameValue;
@@ -98,14 +62,8 @@ public class FinalRose : Node, IAnimatedNode
 
     public float CurrentFrame
     {
-        get
-        {
-            return player.CurrentFrame;
-        }
-        set
-        {
-            player.CurrentFrame = value;
-        }
+        get => player.CurrentFrame;
+        set => player.CurrentFrame = value;
     }
 
     public event Action<IAnimatedNode> EndEvent;
@@ -119,7 +77,7 @@ public class FinalRose : Node, IAnimatedNode
         head = new McRoseHeadDown();
         AddChildPart(head);
         AddPart(head.content);
-        McLystokMain mcLystokMain = new McLystokMain
+        McLystokMain mcLystokMain = new()
         {
             MaxFrame = 79f
         };
@@ -130,7 +88,7 @@ public class FinalRose : Node, IAnimatedNode
 
     private void PlayerOnEndEvent()
     {
-        this.EndEvent.Dispatch(this);
+        EndEvent.Dispatch(this);
     }
 
     public override void Update(float time)

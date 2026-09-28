@@ -12,11 +12,11 @@ public class FakeHeroWhite : FakeHeroBlack
 
     protected override string ProcessName(string name)
     {
-        return Path.Combine(new string[2]
-        {
-            FakeHero.TextureFolder,
+        return Path.Combine(
+        [
+            TextureFolder,
             name + "White"
-        });
+        ]);
     }
 
     protected override FakeHeroEye CreateEye()

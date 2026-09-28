@@ -28,8 +28,8 @@ public class PhysicsConstructor : PhysicsTransform
 
     private const string Joint = "joint";
 
-    private static readonly Category[] Categories = new Category[32]
-    {
+    private static readonly Category[] Categories =
+    [
         Category.None,
         Category.Cat1,
         Category.Cat2,
@@ -62,7 +62,7 @@ public class PhysicsConstructor : PhysicsTransform
         Category.Cat29,
         Category.Cat30,
         Category.Cat31
-    };
+    ];
 
     public float Density = 1f;
 
@@ -72,13 +72,13 @@ public class PhysicsConstructor : PhysicsTransform
 
     public readonly World World;
 
-    private readonly Dictionary<string, ShapeProcessor> _processors = new Dictionary<string, ShapeProcessor>();
+    private readonly Dictionary<string, ShapeProcessor> _processors = [];
 
-    private readonly Dictionary<string, JointProcessor> _jointProcessors = new Dictionary<string, JointProcessor>();
+    private readonly Dictionary<string, JointProcessor> _jointProcessors = [];
 
     private Body _bodyToAttach;
 
-    private readonly Dictionary<string, Body> _createdBodies = new Dictionary<string, Body>();
+    private readonly Dictionary<string, Body> _createdBodies = [];
 
     public Node PhysicsContainer => _physicsContainer;
 
@@ -104,15 +104,11 @@ public class PhysicsConstructor : PhysicsTransform
         return _createdBodies[name];
     }
 
-    public Vector2 ToPhysics(Vector2 position, Node item, Vector2 positionOffset = default(Vector2))
+    public Vector2 ToPhysics(Vector2 position, Node item, Vector2 positionOffset = default)
     {
         Vector2 pixels = item.LocalToNode(position, PhysicsContainer) + positionOffset;
         pixels = ToPhysics(pixels);
-        if (_bodyToAttach != null)
-        {
-            return _bodyToAttach.GetLocalPoint(pixels);
-        }
-        return pixels;
+        return _bodyToAttach != null ? _bodyToAttach.GetLocalPoint(pixels) : pixels;
     }
 
     public void CreatePhysics(Node parent, List<Body> result = null, List<Joint> joints = null)
@@ -123,7 +119,7 @@ public class PhysicsConstructor : PhysicsTransform
 
     private void CreateBodies(Node parent, List<Body> result)
     {
-        Body body = new Body(World);
+        Body body = new(World);
         foreach (Node child in parent.Children)
         {
             InitializeBody(child, body);
@@ -190,10 +186,7 @@ public class PhysicsConstructor : PhysicsTransform
         body.IsSensor = config.GetBool("sensor");
         SetCollisionProperties(config, body);
         body.UserData = config;
-        if (ConfigProcessor != null)
-        {
-            ConfigProcessor.ProcessConfig(config, body);
-        }
+        ConfigProcessor?.ProcessConfig(config, body);
     }
 
     private static void SetCollisionProperties(IDictionary<string, string> config, Body body)
@@ -202,7 +195,7 @@ public class PhysicsConstructor : PhysicsTransform
         if (!string.IsNullOrEmpty(text))
         {
             Category category = Category.None;
-            string[] array = text.Split(new char[1] { ',' });
+            string[] array = text.Split([',']);
             string[] array2 = array;
             foreach (string s in array2)
             {
@@ -241,9 +234,9 @@ public class PhysicsConstructor : PhysicsTransform
         }
     }
 
-    public List<ShapeAndConfig> CreateShapes(Node parent, Vector2 positionOffset = default(Vector2))
+    public List<ShapeAndConfig> CreateShapes(Node parent, Vector2 positionOffset = default)
     {
-        List<ShapeAndConfig> result = new List<ShapeAndConfig>();
+        List<ShapeAndConfig> result = [];
         CreateShape(parent, result, positionOffset);
         foreach (Node child in parent.Children)
         {
@@ -252,7 +245,7 @@ public class PhysicsConstructor : PhysicsTransform
         return result;
     }
 
-    private void CreateShape(Node child, List<ShapeAndConfig> result, Vector2 positionOffset = default(Vector2))
+    private void CreateShape(Node child, List<ShapeAndConfig> result, Vector2 positionOffset = default)
     {
         string name = child.GetType().Name;
         IDictionary<string, string> config = child.Config;

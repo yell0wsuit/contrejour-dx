@@ -33,7 +33,7 @@ public class TimeoutHint : FadeHint
         {
             hasToRun = true;
             showing = true;
-            Schedule(base.Hide, 10f);
+            Schedule(Hide, 10f);
         }
     }
 }

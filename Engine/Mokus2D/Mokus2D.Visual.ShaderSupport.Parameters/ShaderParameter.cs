@@ -7,7 +7,7 @@ namespace Mokus2D.Visual.ShaderSupport.Parameters;
 
 public abstract class ShaderParameter<T>
 {
-    public static readonly GetSetValue<ShaderParameter<T>, T> GetSet = new GetSetValue<ShaderParameter<T>, T>((ShaderParameter<T> o) => o.Value, delegate (ShaderParameter<T> o, T v)
+    public static readonly GetSetValue<ShaderParameter<T>, T> GetSet = new(o => o.Value, delegate (ShaderParameter<T> o, T v)
     {
         o.Value = v;
     });
@@ -16,7 +16,7 @@ public abstract class ShaderParameter<T>
 
     private T _value;
 
-    private Flag _valueDirty = new Flag();
+    private Flag _valueDirty = new();
 
     public T Value
     {

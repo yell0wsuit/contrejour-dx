@@ -26,6 +26,6 @@ public class TweenPositionApplier : ILayoutPositionApplier
             int? tag2 = _tag;
             tweener.Stop(tag2.Value);
         }
-        node.Tweener.Start(_effectTime, _tag).Tween(NodeValues.Position, position);
+        _ = node.Tweener.Start(_effectTime, _tag).Tween(NodeValues.Position, position);
     }
 }

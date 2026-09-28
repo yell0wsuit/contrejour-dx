@@ -42,16 +42,13 @@ public class Scale9Node : Node, ISizeNode, IDataReloadable
 
     private float _overlap;
 
-    private readonly Flag _anchorsDirty = new Flag(on: false);
+    private readonly Flag _anchorsDirty = new(on: false);
 
-    private readonly Dictionary<Sprite, Vector2> _childrenAnchors = new Dictionary<Sprite, Vector2>();
+    private readonly Dictionary<Sprite, Vector2> _childrenAnchors = [];
 
     public float Overlap
     {
-        get
-        {
-            return _overlap;
-        }
+        get => _overlap;
         set
         {
             _overlap = value;
@@ -61,34 +58,19 @@ public class Scale9Node : Node, ISizeNode, IDataReloadable
 
     public float Width
     {
-        get
-        {
-            return Size.X;
-        }
-        set
-        {
-            Size = new Vector2(value, Size.Y);
-        }
+        get => Size.X;
+        set => Size = new Vector2(value, Size.Y);
     }
 
     public float Height
     {
-        get
-        {
-            return Size.Y;
-        }
-        set
-        {
-            Size = new Vector2(Size.X, value);
-        }
+        get => Size.Y;
+        set => Size = new Vector2(Size.X, value);
     }
 
     public Vector2 Size
     {
-        get
-        {
-            return _size;
-        }
+        get => _size;
         set
         {
             if (_size != value)
@@ -145,7 +127,7 @@ public class Scale9Node : Node, ISizeNode, IDataReloadable
 
     private Vector2 RefreshMiddleScale()
     {
-        Vector2 vector = new Vector2(_size.X - _leftSize - _rightSize, _size.Y - _topSize - _bottomSize);
+        Vector2 vector = new(_size.X - _leftSize - _rightSize, _size.Y - _topSize - _bottomSize);
         Middle.ScaleVec = (vector + new Vector2(Overlap)) / Middle.Size;
         return vector;
     }
@@ -173,10 +155,7 @@ public class Scale9Node : Node, ISizeNode, IDataReloadable
 
     private void TrySetPosition(Sprite node, Vector2 position)
     {
-        if (node != null)
-        {
-            node.Position = position;
-        }
+        node?.Position = position;
     }
 
     private Sprite TryAddChild(Sprite value, Vector2 anchor)

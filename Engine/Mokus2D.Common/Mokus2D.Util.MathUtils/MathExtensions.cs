@@ -24,7 +24,7 @@ public static class MathExtensions
 
     public static float Fraction(this float value)
     {
-        return value - (float)(int)value;
+        return value - (int)value;
     }
 
     public static float Abs(this float value)

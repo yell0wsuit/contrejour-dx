@@ -15,14 +15,8 @@ public class TrampolinePartBodyClip : ContreJourBodyClip, IClickable
 
     public TrampolineBodyClip Parent
     {
-        get
-        {
-            return parent;
-        }
-        set
-        {
-            parent = value;
-        }
+        get => parent;
+        set => parent = value;
     }
 
     public bool DisableHeroFocus => false;
@@ -74,9 +68,6 @@ public class TrampolinePartBodyClip : ContreJourBodyClip, IClickable
 
     public override void OnCollisionStartPoint(Body body2, Contact point)
     {
-        if (parent != null)
-        {
-            parent.OnCollisionStart(body2);
-        }
+        parent?.OnCollisionStart(body2);
     }
 }

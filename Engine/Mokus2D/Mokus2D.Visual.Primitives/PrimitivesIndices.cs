@@ -4,7 +4,7 @@ namespace Mokus2D.Visual.Primitives;
 
 public static class PrimitivesIndices
 {
-    private static readonly Pow2Array<short> LineIndices = new Pow2Array<short>();
+    private static readonly Pow2Array<short> LineIndices = new();
 
     public static short[] GetLineIndices(int segmentsCount)
     {

@@ -10,17 +10,17 @@ internal static class SeidelDecomposer
 {
     public static List<Vertices> ConvexPartition(Vertices vertices, float sheer = 0.001f)
     {
-        List<FarseerPhysics.Common.Decomposition.Seidel.Point> list = new List<FarseerPhysics.Common.Decomposition.Seidel.Point>(vertices.Count);
+        List<Seidel.Point> list = new(vertices.Count);
         foreach (Vector2 vertex in vertices)
         {
-            list.Add(new FarseerPhysics.Common.Decomposition.Seidel.Point(vertex.X, vertex.Y));
+            list.Add(new Seidel.Point(vertex.X, vertex.Y));
         }
-        Triangulator triangulator = new Triangulator(list, sheer);
-        List<Vertices> list2 = new List<Vertices>();
-        foreach (List<FarseerPhysics.Common.Decomposition.Seidel.Point> triangle in triangulator.Triangles)
+        Triangulator triangulator = new(list, sheer);
+        List<Vertices> list2 = [];
+        foreach (List<Seidel.Point> triangle in triangulator.Triangles)
         {
-            Vertices vertices2 = new Vertices(triangle.Count);
-            foreach (FarseerPhysics.Common.Decomposition.Seidel.Point item in triangle)
+            Vertices vertices2 = new(triangle.Count);
+            foreach (Seidel.Point item in triangle)
             {
                 vertices2.Add(new Vector2(item.X, item.Y));
             }
@@ -31,18 +31,18 @@ internal static class SeidelDecomposer
 
     public static List<Vertices> ConvexPartitionTrapezoid(Vertices vertices, float sheer = 0.001f)
     {
-        List<FarseerPhysics.Common.Decomposition.Seidel.Point> list = new List<FarseerPhysics.Common.Decomposition.Seidel.Point>(vertices.Count);
+        List<Seidel.Point> list = new(vertices.Count);
         foreach (Vector2 vertex in vertices)
         {
-            list.Add(new FarseerPhysics.Common.Decomposition.Seidel.Point(vertex.X, vertex.Y));
+            list.Add(new Seidel.Point(vertex.X, vertex.Y));
         }
-        Triangulator triangulator = new Triangulator(list, sheer);
-        List<Vertices> list2 = new List<Vertices>();
+        Triangulator triangulator = new(list, sheer);
+        List<Vertices> list2 = [];
         foreach (Trapezoid trapezoid in triangulator.Trapezoids)
         {
-            Vertices vertices2 = new Vertices();
-            List<FarseerPhysics.Common.Decomposition.Seidel.Point> vertices3 = trapezoid.GetVertices();
-            foreach (FarseerPhysics.Common.Decomposition.Seidel.Point item in vertices3)
+            Vertices vertices2 = [];
+            List<Seidel.Point> vertices3 = trapezoid.GetVertices();
+            foreach (Seidel.Point item in vertices3)
             {
                 vertices2.Add(new Vector2(item.X, item.Y));
             }

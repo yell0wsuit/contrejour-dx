@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 using ContreJour.Content;
 using ContreJour.Debug;
@@ -63,14 +64,8 @@ public class LevelBuilderBase : Updatable, IDisposable
 
     public Box2DConfig EngineConfig
     {
-        get
-        {
-            return engineConfig;
-        }
-        set
-        {
-            engineConfig = value;
-        }
+        get => engineConfig;
+        set => engineConfig = value;
     }
 
     public World World => world;
@@ -83,36 +78,21 @@ public class LevelBuilderBase : Updatable, IDisposable
 
     public float PhysicsSpeed
     {
-        get
-        {
-            return physicsSpeed;
-        }
-        set
-        {
-            physicsSpeed = value;
-        }
+        get => physicsSpeed;
+        set => physicsSpeed = value;
     }
 
     public int DefaultZ
     {
-        get
-        {
-            return defaultZ;
-        }
-        set
-        {
-            defaultZ = value;
-        }
+        get => defaultZ;
+        set => defaultZ = value;
     }
 
     public float SizeMult => engineConfig.SizeMultiplier;
 
     public Vector2 LevelSize
     {
-        get
-        {
-            return levelSize;
-        }
+        get => levelSize;
         set
         {
             levelSize = value;
@@ -128,20 +108,20 @@ public class LevelBuilderBase : Updatable, IDisposable
     {
         //IL_0055: Unknown result type (might be due to invalid IL or missing references)
         //IL_005f: Expected O, but got Unknown
-        createdObjects = new Dictionary<string, object>();
+        createdObjects = [];
         defaultZ = 0;
         engineConfig = Box2DConfig.DefaultConfig;
         Settings.PositionIterations = engineConfig.PositionIterations;
         Settings.VelocityIterations = engineConfig.VelocityIterations;
         Settings.ContinuousPhysics = false;
         world = new World(engineConfig.Gravity);
-        groundBody = BodyFactory.CreateBody(world, new Vector2(0f, 0f), 0f, (object)null);
+        groundBody = BodyFactory.CreateBody(world, new Vector2(0f, 0f), 0f, null);
         maxWorldUpdateTime = 1f / 30f;
         physicsSpeed = 1f;
         game = _game;
-        processors = new List<object>();
+        processors = [];
         updater = new PhysicsUpdater(world);
-        clips = new Dictionary<string, BodyClip>();
+        clips = [];
         AddProcessors();
     }
 
@@ -169,11 +149,7 @@ public class LevelBuilderBase : Updatable, IDisposable
 
     public object GetObject(string key)
     {
-        if (!createdObjects.ContainsKey(key))
-        {
-            return null;
-        }
-        return createdObjects[key];
+        return !createdObjects.ContainsKey(key) ? null : createdObjects[key];
     }
 
     public void AddForeground(Node child)
@@ -326,9 +302,9 @@ public class LevelBuilderBase : Updatable, IDisposable
     {
         Hashtable levelProperties = level.LevelProperties;
         LevelSize = new Vector2(levelProperties.GetFloat("Width"), levelProperties.GetFloat("Height"));
-        foreach (Hashtable item in level.Items)
+        foreach (Hashtable item in level.Items.Cast<Hashtable>())
         {
-            foreach (Hashtable item2 in (List<object>)item["children"])
+            foreach (Hashtable item2 in ((List<object>)item["children"]).Cast<Hashtable>())
             {
                 if (!ProcessItem(item2))
                 {
@@ -341,7 +317,7 @@ public class LevelBuilderBase : Updatable, IDisposable
     public bool ProcessItem(Hashtable item)
     {
         bool result = false;
-        foreach (TypeProcessorBase processor in processors)
+        foreach (TypeProcessorBase processor in processors.Cast<TypeProcessorBase>())
         {
             if (processor.Match(item))
             {
@@ -362,11 +338,7 @@ public class LevelBuilderBase : Updatable, IDisposable
         {
             return config.GetString("iPhoneViewType");
         }
-        if (config.Exists("viewType"))
-        {
-            return config.GetString("viewType");
-        }
-        return null;
+        return config.Exists("viewType") ? config.GetString("viewType") : null;
     }
 
     private string GetClipType(Hashtable config)
@@ -375,11 +347,7 @@ public class LevelBuilderBase : Updatable, IDisposable
         {
             return config.GetString("iPhoneClipType");
         }
-        if (config.Exists("clipType"))
-        {
-            return config.GetString("clipType");
-        }
-        return null;
+        return config.Exists("clipType") ? config.GetString("clipType") : null;
     }
 
     public virtual LevelBuilderBase GetBuilder()
@@ -415,8 +383,8 @@ public class LevelBuilderBase : Updatable, IDisposable
             if (!hashtable.Exists("skipClip"))
             {
                 string clipType = GetClipType(hashtable);
-                Type type = ((clipType != null) ? Type.GetType(NamespacePrefix + clipType) : typeof(BodyClip));
-                if ((object)type == null)
+                Type type = (clipType != null) ? Type.GetType(NamespacePrefix + clipType) : typeof(BodyClip);
+                if (type is null)
                 {
                     DebugUtil.Trace("type not found {0}", null, clipType);
                     return null;

@@ -24,11 +24,11 @@ internal class DTSweepContext : TriangulationContext
 
     private const float ALPHA = 0.3f;
 
-    public DTSweepBasin Basin = new DTSweepBasin();
+    public DTSweepBasin Basin = new();
 
-    public DTSweepEdgeEvent EdgeEvent = new DTSweepEdgeEvent();
+    public DTSweepEdgeEvent EdgeEvent = new();
 
-    private DTSweepPointComparator _comparator = new DTSweepPointComparator();
+    private DTSweepPointComparator _comparator = new();
 
     public AdvancingFront aFront;
 
@@ -43,7 +43,7 @@ internal class DTSweepContext : TriangulationContext
 
     public void RemoveFromList(DelaunayTriangle triangle)
     {
-        Triangles.Remove(triangle);
+        _ = Triangles.Remove(triangle);
     }
 
     public void MeshClean(DelaunayTriangle triangle)
@@ -58,7 +58,7 @@ internal class DTSweepContext : TriangulationContext
             return;
         }
         triangle.IsInterior = true;
-        base.Triangulatable.AddTriangle(triangle);
+        Triangulatable.AddTriangle(triangle);
         for (int i = 0; i < 3; i++)
         {
             if (!triangle.EdgeIsConstrained[i])
@@ -91,13 +91,17 @@ internal class DTSweepContext : TriangulationContext
 
     public void CreateAdvancingFront()
     {
-        DelaunayTriangle delaunayTriangle = new DelaunayTriangle(Points[0], Tail, Head);
+        DelaunayTriangle delaunayTriangle = new(Points[0], Tail, Head);
         Triangles.Add(delaunayTriangle);
-        AdvancingFrontNode advancingFrontNode = new AdvancingFrontNode(delaunayTriangle.Points[1]);
-        advancingFrontNode.Triangle = delaunayTriangle;
-        AdvancingFrontNode advancingFrontNode2 = new AdvancingFrontNode(delaunayTriangle.Points[0]);
-        advancingFrontNode2.Triangle = delaunayTriangle;
-        AdvancingFrontNode tail = new AdvancingFrontNode(delaunayTriangle.Points[2]);
+        AdvancingFrontNode advancingFrontNode = new(delaunayTriangle.Points[1])
+        {
+            Triangle = delaunayTriangle
+        };
+        AdvancingFrontNode advancingFrontNode2 = new(delaunayTriangle.Points[0])
+        {
+            Triangle = delaunayTriangle
+        };
+        AdvancingFrontNode tail = new(delaunayTriangle.Points[2]);
         aFront = new AdvancingFront(advancingFrontNode, tail);
         aFront.AddNode(advancingFrontNode2);
         aFront.Head.Next = advancingFrontNode2;
@@ -113,10 +117,7 @@ internal class DTSweepContext : TriangulationContext
             if (t.Neighbors[i] == null)
             {
                 AdvancingFrontNode advancingFrontNode = aFront.LocatePoint(t.PointCW(t.Points[i]));
-                if (advancingFrontNode != null)
-                {
-                    advancingFrontNode.Triangle = t;
-                }
+                advancingFrontNode?.Triangle = t;
             }
         }
     }
@@ -125,9 +126,9 @@ internal class DTSweepContext : TriangulationContext
     {
         base.PrepareTriangulation(t);
         double x;
-        double num = (x = Points[0].X);
+        double num = x = Points[0].X;
         double y;
-        double num2 = (y = Points[0].Y);
+        double num2 = y = Points[0].Y;
         foreach (TriangulationPoint point in Points)
         {
             if (point.X > num)
@@ -149,8 +150,8 @@ internal class DTSweepContext : TriangulationContext
         }
         double num3 = 0.30000001192092896 * (num - x);
         double num4 = 0.30000001192092896 * (num2 - y);
-        TriangulationPoint head = new TriangulationPoint(num + num3, y - num4);
-        TriangulationPoint tail = new TriangulationPoint(x - num3, y - num4);
+        TriangulationPoint head = new(num + num3, y - num4);
+        TriangulationPoint tail = new(x - num3, y - num4);
         Head = head;
         Tail = tail;
         Points.Sort(_comparator);
@@ -158,7 +159,7 @@ internal class DTSweepContext : TriangulationContext
 
     public void FinalizeTriangulation()
     {
-        base.Triangulatable.AddTriangles(Triangles);
+        Triangulatable.AddTriangles(Triangles);
         Triangles.Clear();
     }
 

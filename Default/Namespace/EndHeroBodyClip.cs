@@ -29,7 +29,7 @@ public class EndHeroBodyClip : HeroBodyClip
 
     protected bool animationsAllowed;
 
-    protected List<EnergyPart> energy = new List<EnergyPart>();
+    protected List<EnergyPart> energy = [];
 
     protected float energySpeed;
 
@@ -47,19 +47,16 @@ public class EndHeroBodyClip : HeroBodyClip
 
     private new bool EyeAnimationsAllowed
     {
-        set
-        {
-            base.EyeAnimationsAllowed = value && animationsAllowed;
-        }
+        set => base.EyeAnimationsAllowed = value && animationsAllowed;
     }
 
     public EndHeroBodyClip(LevelBuilderBase _builder, object _body, Sprite _clip, Hashtable _config)
         : base(_builder, _body, _clip, _config)
     {
-        base.Game.Energy.Blend = BlendState.Additive;
+        Game.Energy.Blend = BlendState.Additive;
         EyeAnimationsAllowed = false;
         animationsAllowed = true;
-        base.Game.BackEvent.AddListener(OnBack);
+        Game.BackEvent.AddListener(OnBack);
     }
 
     public void AddStripesView()
@@ -67,23 +64,20 @@ public class EndHeroBodyClip : HeroBodyClip
         if (ContreJourConfig.BackButtonVisible)
         {
             stripesView = new BackMovieStripes();
-            ((BackMovieStripes)stripesView).BackEvent.AddListener(base.Game.Back);
+            ((BackMovieStripes)stripesView).BackEvent.AddListener(Game.Back);
         }
         else
         {
             stripesView = new MovieStripesView(blackSide: false, fade: false);
         }
-        base.Game.AddView(stripesView);
-        base.Game.HidePause();
+        Game.AddView(stripesView);
+        Game.HidePause();
         stripesView.Show();
     }
 
     private void OnBack()
     {
-        if (outro != null)
-        {
-            outro.Dispose();
-        }
+        outro?.Dispose();
     }
 
     protected override void DoFinish()
@@ -109,12 +103,12 @@ public class EndHeroBodyClip : HeroBodyClip
         }
         if (hasToStop && !stoped && Math.Abs(shakePosition - clip.Position.X - STOP_OFFSET) < 10f && (double)Math.Abs(Body.LinearVelocity.X) < 0.1)
         {
-            Body.BodyType = (BodyType)0;
+            Body.BodyType = 0;
             Body.LinearVelocity = Vector2.Zero;
             Body.AngularVelocity = 0f;
             stoped = true;
             sleep = true;
-            base.EyeMoveAllowed = false;
+            EyeMoveAllowed = false;
             SoundManager.PlaySound("petitkoIsHoping", 0.3f);
             Schedule(LookAtRose, 0.2f);
             if (UserData.Instance.RoseSaved)
@@ -154,7 +148,7 @@ public class EndHeroBodyClip : HeroBodyClip
         eye.ReturnToDefault = false;
         ((MovieClip)eye.CurrentBackground).MaxFrame = 18f;
         ((MovieClip)eye.CurrentBackground).Repeat = false;
-        tail.RotateTo(2f, tail.RotationRadians - 70.ToRadians(), Cubic.EaseInOut);
+        _ = tail.RotateTo(2f, tail.RotationRadians - 70.ToRadians(), Cubic.EaseInOut);
         Schedule(ShowOutro, 1f);
     }
 
@@ -172,15 +166,15 @@ public class EndHeroBodyClip : HeroBodyClip
 
     private void ShowOutro()
     {
-        outro = new Outro(base.Game, UserData.Instance.RoseSaved);
-        base.Game.AddChild(outro, 15);
+        outro = new Outro(Game, UserData.Instance.RoseSaved);
+        Game.AddChild(outro, 15);
     }
 
     protected override void FinishLevelSpeed(Vector2 targetPosition, float _finishSpeed)
     {
         if (levelCompleted)
         {
-            base.Game.RestartEnabled = false;
+            Game.RestartEnabled = false;
             FinishLevelSpeedEyeAnimation(targetPosition, _finishSpeed, null);
         }
         else
@@ -196,12 +190,12 @@ public class EndHeroBodyClip : HeroBodyClip
             Actions.ShakeWithDurationPositionOffsetCountScaleDiff(clip, 8f, clip.Position, 4f, 50, 0.1f);
             Schedule(AfterShake, 8f);
             CreateLights();
-            base.Game.ZoomToScaleTime(clip.Position, 1.6f, 10f);
-            base.Game.TouchEnabled = false;
+            Game.ZoomToScaleTime(clip.Position, 1.6f, 10f);
+            Game.TouchEnabled = false;
             animationsAllowed = false;
             EyeAnimationsAllowed = false;
             AddStripesView();
-            base.Game.RenewGround();
+            Game.RenewGround();
             Schedule(PlayShakeSound, 7f);
         }
     }
@@ -213,17 +207,17 @@ public class EndHeroBodyClip : HeroBodyClip
 
     public void CreateLights()
     {
-        float num = (float)UserData.Instance.TotalStars * (1f / 3f);
-        for (int i = 1; (float)i < num; i++)
+        float num = UserData.Instance.TotalStars * (1f / 3f);
+        for (int i = 1; i < num; i++)
         {
-            Schedule(delay: 8f * (float)Math.Sin((float)i / num * ((float)Math.PI / 2f)), action: CreateLight);
+            Schedule(delay: 8f * (float)Math.Sin(i / num * ((float)Math.PI / 2f)), action: CreateLight);
         }
         energySpeed = 200f;
     }
 
     private void CreateLight()
     {
-        EnergyPart energyPart = new EnergyPart(base.Game, this, Maths.Random(0f, (float)Math.PI * 2f), clip.Position);
+        EnergyPart energyPart = new(Game, this, Maths.Random(0f, (float)Math.PI * 2f), clip.Position);
         energyPart.Collect();
         energyPart.SpeedValue = Math.Min(energySpeed, 600f);
         energySpeed += 10f;

@@ -9,21 +9,21 @@ namespace Mokus2D.Effects.Tweening;
 
 public class TweenObject : IntervalTweenBase, ITween<TweenObject>, ICompletableTween, ITween, ICleanable, IUpdatable
 {
-    private static readonly Pool<TweenObject> Pool = new Pool<TweenObject>(() => new TweenObject());
+    private static readonly Pool<TweenObject> Pool = new(() => new TweenObject());
 
     private object _target;
 
     private EasingData _easing;
 
-    private readonly List<ValueSetter> _properties = new List<ValueSetter>();
+    private readonly List<ValueSetter> _properties = [];
 
-    private readonly List<ValueSetter> _onStart = new List<ValueSetter>();
+    private readonly List<ValueSetter> _onStart = [];
 
-    private readonly List<ValueSetter> _onEnd = new List<ValueSetter>();
+    private readonly List<ValueSetter> _onEnd = [];
 
-    private readonly Queue<Action<object>> _onCompleteWith = new Queue<Action<object>>(64);
+    private readonly Queue<Action<object>> _onCompleteWith = new(64);
 
-    private readonly Queue<TargetAndAction> _onCompleteWithTarget = new Queue<TargetAndAction>(64);
+    private readonly Queue<TargetAndAction> _onCompleteWithTarget = new(64);
 
     public static TweenObject New(object target, float seconds)
     {

@@ -30,26 +30,22 @@ internal class TriangulationUtil
         }
         double num13 = num3 * num9;
         double num14 = num8 * num4;
-        double num15 = num * num + num2 * num2;
-        double num16 = num3 * num3 + num4 * num4;
-        double num17 = num8 * num8 + num9 * num9;
-        double num18 = num15 * (num13 - num14) + num16 * num12 + num17 * num7;
+        double num15 = (num * num) + (num2 * num2);
+        double num16 = (num3 * num3) + (num4 * num4);
+        double num17 = (num8 * num8) + (num9 * num9);
+        double num18 = (num15 * (num13 - num14)) + (num16 * num12) + (num17 * num7);
         return num18 > 0.0;
     }
 
     public static bool InScanArea(TriangulationPoint pa, TriangulationPoint pb, TriangulationPoint pc, TriangulationPoint pd)
     {
-        double num = (pa.X - pb.X) * (pd.Y - pb.Y) - (pd.X - pb.X) * (pa.Y - pb.Y);
+        double num = ((pa.X - pb.X) * (pd.Y - pb.Y)) - ((pd.X - pb.X) * (pa.Y - pb.Y));
         if (num >= 0.0 - EPSILON)
         {
             return false;
         }
-        double num2 = (pa.X - pc.X) * (pd.Y - pc.Y) - (pd.X - pc.X) * (pa.Y - pc.Y);
-        if (num2 <= EPSILON)
-        {
-            return false;
-        }
-        return true;
+        double num2 = ((pa.X - pc.X) * (pd.Y - pc.Y)) - ((pd.X - pc.X) * (pa.Y - pc.Y));
+        return num2 > EPSILON;
     }
 
     public static Orientation Orient2d(TriangulationPoint pa, TriangulationPoint pb, TriangulationPoint pc)
@@ -61,10 +57,6 @@ internal class TriangulationUtil
         {
             return Orientation.Collinear;
         }
-        if (num3 > 0.0)
-        {
-            return Orientation.CCW;
-        }
-        return Orientation.CW;
+        return num3 > 0.0 ? Orientation.CCW : Orientation.CW;
     }
 }

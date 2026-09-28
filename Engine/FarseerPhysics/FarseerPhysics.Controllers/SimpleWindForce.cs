@@ -24,7 +24,7 @@ public class SimpleWindForce : AbstractForceController
             Vector2 vector;
             if (ForceType == ForceTypes.Point)
             {
-                vector = body.Position - base.Position;
+                vector = body.Position - Position;
             }
             else
             {
@@ -35,9 +35,9 @@ public class SimpleWindForce : AbstractForceController
                     vector = new Vector2(0f, 1f);
                 }
             }
-            if (base.Variation != 0f)
+            if (Variation != 0f)
             {
-                float num = (float)Randomize.NextDouble() * MathHelper.Clamp(base.Variation, 0f, 1f);
+                float num = (float)Randomize.NextDouble() * MathHelper.Clamp(Variation, 0f, 1f);
                 vector.Normalize();
                 body.ApplyForce(vector * strength * decayMultiplier * num);
             }

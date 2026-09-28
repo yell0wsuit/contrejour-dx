@@ -6,7 +6,7 @@ namespace Default.Namespace;
 
 public abstract class TouchEffect
 {
-    public readonly EventSender ChangeEvent = new EventSender();
+    public readonly EventSender ChangeEvent = new();
 
     protected Node Node;
 
@@ -16,22 +16,13 @@ public abstract class TouchEffect
 
     public float EffectTime
     {
-        get
-        {
-            return effectTime;
-        }
-        set
-        {
-            effectTime = value;
-        }
+        get => effectTime;
+        set => effectTime = value;
     }
 
     public bool IsOn
     {
-        get
-        {
-            return isOn;
-        }
+        get => isOn;
         set
         {
             if (value != isOn)

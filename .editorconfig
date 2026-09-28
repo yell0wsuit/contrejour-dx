@@ -33,3 +33,10 @@ tab_width = 4
 dotnet_separate_import_directive_groups = true
 dotnet_sort_system_directives_first = true
 dotnet_analyzer_diagnostic.category-Style.severity = warning
+
+# Every file already uses file-scoped namespaces.
+csharp_style_namespace_declarations = file_scoped:warning
+
+# Namespaces are part of the type names that level and clip content looks up at runtime
+# (Type.GetType("Default.Namespace." + name), ContreJour.Clips.*), so they can't follow folders.
+dotnet_diagnostic.IDE0130.severity = none
