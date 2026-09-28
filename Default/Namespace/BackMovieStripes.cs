@@ -28,7 +28,7 @@ public class BackMovieStripes : MovieStripesView
         AddChild(clickableLayer, 5);
         clickableLayer.AddChild(backButton);
         backButton.TouchEndEvent += OnBackClick;
-        backButton.Color = ContreJourConstants.GREY_COLOR;
+        backButton.Color = ContreJourConstants.GreyColor;
         backButton.Visible = false;
         ShowBack();
     }

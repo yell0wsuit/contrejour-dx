@@ -9,7 +9,7 @@ namespace Default.Namespace;
 
 public class LevelItem : Button, IBoundsNode, ISizeNode
 {
-    public const float EFFECT_TIME = 0.1f;
+    public const float EffectTime = 0.1f;
     protected int index;
 
     protected int level;
@@ -51,7 +51,7 @@ public class LevelItem : Button, IBoundsNode, ISizeNode
         }
         else if (levelPosition.Chapter == 1)
         {
-            base.Color = Color.Lerp(Color.White, ContreJourConstants.BLUE_LIGHT_COLOR, 0.7f);
+            base.Color = Color.Lerp(Color.White, ContreJourConstants.BlueLightColor, 0.7f);
         }
     }
 
@@ -81,8 +81,8 @@ public class LevelItem : Button, IBoundsNode, ISizeNode
     public Node CreateDigitChapter(int character, int chapter)
     {
         Sprite sprite = new($"menu/McLevels{character}");
-        Color color = Color.Lerp(Color.White, ContreJourConstants.BLUE_LIGHT_COLOR, 0.5f);
-        sprite.Color = (chapter == 1) ? color : ContreJourConstants.GREY_COLOR;
+        Color color = Color.Lerp(Color.White, ContreJourConstants.BlueLightColor, 0.5f);
+        sprite.Color = (chapter == 1) ? color : ContreJourConstants.GreyColor;
         if (!unlocked)
         {
             sprite.OpacityByte = (chapter == 1) ? 150 : 80;

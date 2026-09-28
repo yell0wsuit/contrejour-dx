@@ -17,7 +17,7 @@ public class SnotProcessor(LevelBuilderBase builder, string type, float _partSiz
         public Joint Joint;
     }
 
-    public const float END_BODY_DENSITY = 0.221f;
+    public const float EndBodyDensity = 0.221f;
 
     public const float DAMPING = 0.1f;
 
@@ -25,11 +25,11 @@ public class SnotProcessor(LevelBuilderBase builder, string type, float _partSiz
 
     public const float DENSITY = 0.13f;
 
-    public const float JOINT_CIRCLE_RADIUS = 1f / 6f;
+    public const float JointCircleRadius = 1f / 6f;
 
-    public const float PART_SIZE = 1.3333334f;
+    public const float PartSize = 1.3333334f;
 
-    public const float LINEAR_DAMPING = 1f;
+    public const float DefaultLinearDamping = 1f;
 
     protected float partSize = _partSize;
 
@@ -87,7 +87,7 @@ public class SnotProcessor(LevelBuilderBase builder, string type, float _partSiz
 
     public virtual float LinearDamping()
     {
-        return 1f;
+        return DefaultLinearDamping;
     }
 
     public virtual float GetDensityTotal(int index, int total)

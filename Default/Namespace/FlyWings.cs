@@ -20,11 +20,11 @@ public class FlyWings : Node
 
     protected bool flying;
 
-    private static readonly float ROTATION_DIFF = 5.ToRadians();
+    private static readonly float RotationDiff = 5.ToRadians();
 
     private static readonly float ROTATION = 25.ToRadians();
 
-    private static readonly float IDLE_ROTATION = 10.ToRadians();
+    private static readonly float IdleRotation = 10.ToRadians();
 
     public FlyWings()
     {
@@ -38,10 +38,10 @@ public class FlyWings : Node
         bottom.ScaleY = 0.5f;
         AddChild(topContainer);
         AddChild(bottomContainer);
-        topContainer.RotationRadians = 0f - IDLE_ROTATION;
-        bottomContainer.RotationRadians = IDLE_ROTATION;
-        StartActionDiff(top, 0f - ROTATION_DIFF);
-        StartActionDiff(bottom, ROTATION_DIFF);
+        topContainer.RotationRadians = 0f - IdleRotation;
+        bottomContainer.RotationRadians = IdleRotation;
+        StartActionDiff(top, 0f - RotationDiff);
+        StartActionDiff(bottom, RotationDiff);
         ScaleY = 0.7f;
     }
 
@@ -50,7 +50,7 @@ public class FlyWings : Node
         if (flying != value)
         {
             flying = value;
-            float num = flying ? ROTATION : IDLE_ROTATION;
+            float num = flying ? ROTATION : IdleRotation;
             _ = topContainer.RotateTo(0.5f, num);
             _ = bottom.RotateTo(0.5f, 0f - num);
             float y = flying ? 1f : 0.5f;

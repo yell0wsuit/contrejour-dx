@@ -22,7 +22,7 @@ public class LevelBuilderBase : Updatable, IDisposable
 {
     public const int FOREGROUND = 10;
 
-    public const float MAX_UPDATE_TIME = 1f / 30f;
+    public const float MaxUpdateTime = 1f / 30f;
 
     public const int BACKGROUND = -10;
 

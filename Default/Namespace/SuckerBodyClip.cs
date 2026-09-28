@@ -22,7 +22,7 @@ namespace Default.Namespace;
 
 public class SuckerBodyClip : ContreJourBodyClip, IClickable, IVectorPositionProvider, IRestartable
 {
-    private static readonly Vector2 MIN_BORDER_OFFSET = new(30f);
+    private static readonly Vector2 MinBorderOffset = new(30f);
 
     public readonly EventSender FinishDragEvent = new();
 
@@ -83,7 +83,7 @@ public class SuckerBodyClip : ContreJourBodyClip, IClickable, IVectorPositionPro
         get
         {
             Vector2 position = builder.TouchRootVec(touch);
-            Vector2 vector = Builder.ToVec(MIN_BORDER_OFFSET);
+            Vector2 vector = Builder.ToVec(MinBorderOffset);
             RectangleFloat levelScreenPhysicsBounds = Game.LevelScreenPhysicsBounds;
             levelScreenPhysicsBounds.Extend(-vector / Game.GameRoot.Scale);
             return levelScreenPhysicsBounds.ClampToBounds(position).ClampDistance(Body.Position, maxDistance);

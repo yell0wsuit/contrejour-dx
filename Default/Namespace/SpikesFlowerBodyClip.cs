@@ -28,7 +28,7 @@ public class SpikesFlowerBodyClip : ContreJourBodyClip, IVectorPositionProvider
 
     protected Node container;
 
-    private static readonly Vector2 EYE_POSITION = new(0f, 30f);
+    private static readonly Vector2 EyePosition = new(0f, 30f);
 
     public FlowerEye Eye => eye;
 
@@ -58,14 +58,14 @@ public class SpikesFlowerBodyClip : ContreJourBodyClip, IVectorPositionProvider
 
     private void CreateEye()
     {
-        Vector2 point = container.LocalToNode(EYE_POSITION, Game.Root);
+        Vector2 point = container.LocalToNode(EyePosition, Game.Root);
         eye = new FlowerEye(Game, visible: true, builder.ToVec(point))
         {
             Scale = clip.ScaleY * 0.7f
         };
         container.AddChild(eye);
         eye.RefreshRootAngle();
-        eye.Position = EYE_POSITION;
+        eye.Position = EyePosition;
     }
 
     public override void Update(float time)

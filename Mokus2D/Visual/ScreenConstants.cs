@@ -19,7 +19,7 @@ public static class ScreenConstants
         public static readonly float fromIPhone2ByHeight = OsSizes.W7.Y / OsSizes.IPhoneRetina.Y;
     }
 
-    public static readonly Vector2 WP7_LEVEL_SIZE = new(OsSizes.IPhoneRetina.X / Scales.fromIPhone2ByHeight, OsSizes.IPhoneRetina.Y);
+    public static readonly Vector2 Wp7LevelSize = new(OsSizes.IPhoneRetina.X / Scales.fromIPhone2ByHeight, OsSizes.IPhoneRetina.Y);
 
     public static readonly Vector2 IPhoneScreenCenter = OsSizes.IPhoneRetina / 2f;
 

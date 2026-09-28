@@ -34,9 +34,9 @@ public class PlasticinePartHighlite : IUpdatable
 
     protected Color noLightBorderOut;
 
-    private static readonly Color NO_LIGHT_BORDER_OUT_BLUE = ContreJourConstants.BLUE_LIGHT_COLOR.ChangeAlpha(0);
+    private static readonly Color NoLightBorderOutBlue = ContreJourConstants.BlueLightColor.ChangeAlpha(0);
 
-    public static readonly Color NO_LIGHT_BORDER_OUT = new(0, 0, 0, 0);
+    public static readonly Color NoLightBorderOut = new(0, 0, 0, 0);
 
     public float LightLength
     {
@@ -66,8 +66,8 @@ public class PlasticinePartHighlite : IUpdatable
         plasticine.Highlite = this;
         this.parent = parent;
         this.index = index;
-        noLightBorderOut = game.BlackSide ? NO_LIGHT_BORDER_OUT_BLUE : NO_LIGHT_BORDER_OUT;
-        noLightBorderOut = NO_LIGHT_BORDER_OUT;
+        noLightBorderOut = game.BlackSide ? NoLightBorderOutBlue : NoLightBorderOut;
+        noLightBorderOut = NoLightBorderOut;
     }
 
     public void SetDirty()

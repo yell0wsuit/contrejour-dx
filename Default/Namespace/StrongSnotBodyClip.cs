@@ -40,7 +40,7 @@ public class StrongSnotBodyClip : SnotBodyClip
 
     public override string[] OnSound()
     {
-        return Sounds.ROPE_ON;
+        return Sounds.RopeOn;
     }
 
     public override float JoinDistance()

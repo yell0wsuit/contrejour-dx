@@ -48,7 +48,7 @@ public class PausePanel : Node, IDisposable
     {
         this.game = game;
         SoundManager.MusicDisableEvent += OnMusicDisable;
-        Color color = this.game.BlackSide ? ColorUtil.Mult(ContreJourConstants.BLUE_LIGHT_COLOR, 1.5f) : ContreJourConstants.GREY_COLOR;
+        Color color = this.game.BlackSide ? ColorUtil.Mult(ContreJourConstants.BlueLightColor, 1.5f) : ContreJourConstants.GreyColor;
         if (this.game.BonusChapter)
         {
             color = ContreJourConstants.GreenLightColor;
@@ -159,7 +159,7 @@ public class PausePanel : Node, IDisposable
         }
         string textString = string.Format(CultureInfo.CurrentCulture, Messages.LevelFormat, levelPosition.Chapter + 1, levelPosition.Index + 1, null);
         levelLabel.TextString = textString;
-        _ = scoreLabel.AppendFormat(Messages.BEST_SCORE, levelDataByFile?.Score ?? 0);
+        _ = scoreLabel.AppendFormat(Messages.BestScore, levelDataByFile?.Score ?? 0);
     }
 
     public void Show()

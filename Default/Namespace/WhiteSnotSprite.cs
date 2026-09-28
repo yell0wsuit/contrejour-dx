@@ -6,12 +6,12 @@ public class WhiteSnotSprite(ContreJourGame game, SnotBodyClipBase snot, float s
 {
     public override Color InitialStartColor()
     {
-        return ContreJourConstants.WHITE_SNOT_START_COLOR;
+        return ContreJourConstants.WhiteSnotStartColor;
     }
 
     public override Color InitialEndColor()
     {
-        return ContreJourConstants.WHITE_SNOT_END_COLOR;
+        return ContreJourConstants.WhiteSnotEndColor;
     }
 
     public override Color EndColor()

@@ -118,7 +118,7 @@ public class PlasticineBodyClip : ContreJourBodyClip, IRestartable
             nextItem = nextItem.NextItem;
         }
         while (nextItem != firstItem);
-        Color borderOutColor = game.BlackSide ? PlasticineConstants.BLACK_BORDER_OUT_COLOR : ((!game.WhiteSide) ? new Color(0, 0, 0, 0) : PlasticineConstants.WHITE_GROUND_OUT_COLOR);
+        Color borderOutColor = game.BlackSide ? PlasticineConstants.BlackBorderOutColor : ((!game.WhiteSide) ? new Color(0, 0, 0, 0) : PlasticineConstants.WhiteGroundOutColor);
         wideBorder.SetSizeBorderColorBorderOutColor(num, clipContent.Color, borderOutColor);
     }
 

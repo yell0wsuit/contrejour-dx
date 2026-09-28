@@ -7,9 +7,9 @@ namespace Default.Namespace;
 
 public class BlackSnotSprite : SpringSnotSprite
 {
-    private readonly Color END_COLOR = new(0, 254, 254, 255);
+    private readonly Color DefaultEndColor = new(0, 254, 254, 255);
 
-    private readonly Color START_COLOR = new(0, 94, 118, 255);
+    private readonly Color StartColor = new(0, 94, 118, 255);
 
     public BlackSnotSprite(ContreJourGame game, SnotBodyClipBase snot, float startWidth, float centerWidth, float endWidth)
         : base(game, snot, startWidth, centerWidth, endWidth)
@@ -24,12 +24,12 @@ public class BlackSnotSprite : SpringSnotSprite
 
     public virtual Color InitialStartColor()
     {
-        return START_COLOR;
+        return StartColor;
     }
 
     public virtual Color InitialEndColor()
     {
-        return END_COLOR;
+        return DefaultEndColor;
     }
 
     public override Color BaseCircleColor()

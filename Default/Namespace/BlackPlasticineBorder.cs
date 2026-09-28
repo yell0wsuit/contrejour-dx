@@ -25,6 +25,6 @@ public class BlackPlasticineBorder(List<Vector2> initialPolygon) : PlasticineBor
 
     public override Color CenterColor()
     {
-        return PlasticineConstants.BLACK_BORDER_COLOR;
+        return PlasticineConstants.BlackBorderColor;
     }
 }

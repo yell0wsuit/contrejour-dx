@@ -246,7 +246,7 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
         }
         else
         {
-            tail = new HeroTail(Game.WhiteSide ? ContreJourConstants.WHITE_TAIL_COLOR : Color.Black);
+            tail = new HeroTail(Game.WhiteSide ? ContreJourConstants.WhiteTailColor : Color.Black);
             clip.AddChild(tail, -1);
         }
         breatheScale = 0f;
@@ -624,7 +624,7 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
             else if (flag && Math.Abs(Body.Position.X - lastFootPosition) > 1f)
             {
                 lastFootPosition = Body.Position.X;
-                SoundManager.PlayRandomSound(Sounds.FOOT_STEPS);
+                SoundManager.PlayRandomSound(Sounds.FootSteps);
             }
             lastOnGroundTime = Game.TotalTime;
         }

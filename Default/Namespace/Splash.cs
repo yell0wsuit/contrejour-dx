@@ -251,7 +251,7 @@ public class Splash : Node, ITouchListener, IDisposable
         };
         layerColor.AddChild(sprite);
         Label label = ContreJourLabelUtil.CreateMultilineLabel(22f, "USE_HEADPHONES");
-        label.Color = ContreJourConstants.GREY_COLOR;
+        label.Color = ContreJourConstants.GreyColor;
         sprite.AddChild(label);
         label.Position = new Vector2(-100f, -160f);
         label.Align = TextAlign.Center;

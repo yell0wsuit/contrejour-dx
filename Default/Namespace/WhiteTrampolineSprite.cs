@@ -6,11 +6,11 @@ public class WhiteTrampolineSprite(ContreJourGame game, SnotBodyClipBase snot, f
 {
     public override Color MiddleColor()
     {
-        return ContreJourConstants.WHITE_SNOT_END_COLOR;
+        return ContreJourConstants.WhiteSnotEndColor;
     }
 
     public override Color StartColor()
     {
-        return ContreJourConstants.WHITE_SNOT_START_COLOR;
+        return ContreJourConstants.WhiteSnotStartColor;
     }
 }

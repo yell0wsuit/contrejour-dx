@@ -15,9 +15,9 @@ public class ShadowNode : SpriteBatchNode
 
     protected List<Vector2> fillPoints;
 
-    private readonly Color IN_COLOR = new(0, 0, 0, 50);
+    private readonly Color InColor = new(0, 0, 0, 50);
 
-    private readonly Color OUT_COLOR = new(0, 0, 0, 0);
+    private readonly Color OutColor = new(0, 0, 0, 0);
 
     private ShadowNode()
     {
@@ -49,12 +49,12 @@ public class ShadowNode : SpriteBatchNode
 
     public void AddBorderColors()
     {
-        borderColors.Add(OUT_COLOR);
-        borderColors.Add(OUT_COLOR);
-        borderColors.Add(IN_COLOR);
-        borderColors.Add(OUT_COLOR);
-        borderColors.Add(IN_COLOR);
-        borderColors.Add(IN_COLOR);
+        borderColors.Add(OutColor);
+        borderColors.Add(OutColor);
+        borderColors.Add(InColor);
+        borderColors.Add(OutColor);
+        borderColors.Add(InColor);
+        borderColors.Add(InColor);
     }
 
     public void Clear()

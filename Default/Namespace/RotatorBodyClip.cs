@@ -37,21 +37,21 @@ public class RotatorBodyClip : FurBodyClip, IClickable, IRestartable, ISnotHolde
 
     protected float lastPointSpeed;
 
-    private readonly float ACTION_TIME = 2.5f;
+    private readonly float ActionTime = 2.5f;
 
-    private readonly int GRASS_COUNT = 26;
+    private readonly int DefaultGrassCount = 26;
 
-    private readonly float MAX_TOUCH_RADIUS = 3f;
+    private readonly float MaxTouchRadius = 3f;
 
-    private readonly float MIN_TOUCH_RADIUS = 1f / 3f;
+    private readonly float MinTouchRadius = 1f / 3f;
 
-    private readonly float ANGLE_REMAINDER = (float)Math.PI / 8f;
+    private readonly float AngleRemainder = (float)Math.PI / 8f;
 
     private readonly float WIDTH = 120f;
 
-    private readonly float POINT_OFFSET = 48f;
+    private readonly float PointOffset = 48f;
 
-    private readonly int GRASS_RADIUS = 60;
+    private readonly int DefaultGrassRadius = 60;
 
     public bool Rotating => Body.AngularVelocity != 0f;
 
@@ -93,7 +93,7 @@ public class RotatorBodyClip : FurBodyClip, IClickable, IRestartable, ISnotHolde
 
     private void RunFadeIn_Out_(Node node, float _in, float _out)
     {
-        _ = node.Tweener.RepeatSequenceForever(ACTION_TIME).FadeTo(_out).Next(ACTION_TIME)
+        _ = node.Tweener.RepeatSequenceForever(ActionTime).FadeTo(_out).Next(ActionTime)
             .FadeTo(_in);
     }
 
@@ -110,12 +110,12 @@ public class RotatorBodyClip : FurBodyClip, IClickable, IRestartable, ISnotHolde
 
     public override int GrassCount()
     {
-        return GRASS_COUNT;
+        return DefaultGrassCount;
     }
 
     public override int GrassRadius()
     {
-        return GRASS_RADIUS;
+        return DefaultGrassRadius;
     }
 
     public override float Width()
@@ -148,7 +148,7 @@ public class RotatorBodyClip : FurBodyClip, IClickable, IRestartable, ISnotHolde
             touchPointSpeed = Maths.StepTo(touchPointSpeed, touchPointNeededSpeed, 0.003f);
             touchPointAngle += touchPointSpeed * Math.Sign(lastDirection);
         }
-        touchPoint.Position = VectorUtil.ToVector(POINT_OFFSET, touchPointAngle - Body.Rotation);
+        touchPoint.Position = VectorUtil.ToVector(PointOffset, touchPointAngle - Body.Rotation);
         float num2 = targetAngle - Body.Rotation;
         if (Math.Abs(num2) > 0.0062831854f)
         {
@@ -173,7 +173,7 @@ public class RotatorBodyClip : FurBodyClip, IClickable, IRestartable, ISnotHolde
 
     public bool TouchBegan(Touch touch)
     {
-        if (Maths.Between(Body.Position.DistanceTo(builder.TouchRootVec(touch)) / clip.Scale, MIN_TOUCH_RADIUS, MAX_TOUCH_RADIUS))
+        if (Maths.Between(Body.Position.DistanceTo(builder.TouchRootVec(touch)) / clip.Scale, MinTouchRadius, MaxTouchRadius))
         {
             this.touch = touch;
             startTouchAngle = VectorUtil.Atan2(Body.Position, builder.TouchRootVec(this.touch)) - Body.Rotation;
@@ -206,10 +206,10 @@ public class RotatorBodyClip : FurBodyClip, IClickable, IRestartable, ISnotHolde
     {
         touchPointSpeed = lastPointSpeed;
         SetTouching(value: false);
-        float num = Maths.Round(targetAngle, ANGLE_REMAINDER);
-        targetAngle = Math.Abs(num - targetAngle) < ANGLE_REMAINDER / 5f
+        float num = Maths.Round(targetAngle, AngleRemainder);
+        targetAngle = Math.Abs(num - targetAngle) < AngleRemainder / 5f
             ? num
-            : lastDirection < 0f ? Maths.Floor(targetAngle, ANGLE_REMAINDER) : Maths.Ceil(targetAngle, ANGLE_REMAINDER);
+            : lastDirection < 0f ? Maths.Floor(targetAngle, AngleRemainder) : Maths.Ceil(targetAngle, AngleRemainder);
         RunActions();
         this.touch = null;
     }

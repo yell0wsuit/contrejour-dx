@@ -15,9 +15,9 @@ namespace Default.Namespace;
 
 public class RotatableSpringBodyClip : RotatableSpringBase, IRestartable
 {
-    private static readonly float TOUCH_RADIUS = 80f * Box2DConfig.DefaultConfig.SizeMultiplier;
+    private static readonly float TouchRadius = 80f * Box2DConfig.DefaultConfig.SizeMultiplier;
 
-    private static readonly float TOUCH_DISTANCE = 40f * Box2DConfig.DefaultConfig.SizeMultiplier;
+    private static readonly float TouchDistanceLimit = 40f * Box2DConfig.DefaultConfig.SizeMultiplier;
 
     private Touch rotateTouch;
 
@@ -107,13 +107,13 @@ public class RotatableSpringBodyClip : RotatableSpringBase, IRestartable
 
     public override int Priority(Vector2 touchPosition)
     {
-        return touchPosition.DistanceTo(Body.Position) < TOUCH_DISTANCE ? base.Priority(touchPosition) : IsRotatorTouched(touchPosition) ? 0 : -100;
+        return touchPosition.DistanceTo(Body.Position) < TouchDistanceLimit ? base.Priority(touchPosition) : IsRotatorTouched(touchPosition) ? 0 : -100;
     }
 
     public override float TouchDistance(Vector2 touchPosition)
     {
         float num = touchPosition.DistanceTo(Body.Position);
-        return Math.Min(num, Math.Abs(num - TOUCH_RADIUS));
+        return Math.Min(num, Math.Abs(num - TouchRadius));
     }
 
     private void UpdateTouchPoint()
@@ -196,7 +196,7 @@ public class RotatableSpringBodyClip : RotatableSpringBase, IRestartable
     private bool IsRotatorTouched(Vector2 touchPosition)
     {
         float num = Body.Position.DistanceTo(touchPosition);
-        return rotateTouch == null && Math.Abs(num - TOUCH_RADIUS) < TOUCH_DISTANCE;
+        return rotateTouch == null && Math.Abs(num - TouchRadius) < TouchDistanceLimit;
     }
 
     private float GetTouchAngle()

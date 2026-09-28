@@ -60,7 +60,7 @@ public class IntroPlayer : Node
 
     public void ShowMessageRightMessageIndex(string message, string rightMessage)
     {
-        Color gREY_COLOR = ContreJourConstants.GREY_COLOR;
+        Color gREY_COLOR = ContreJourConstants.GreyColor;
         Label label = ContreJourLabelUtil.CreateMultilineLabel(15f, message);
         label.AnchorX = 1f;
         label.Color = gREY_COLOR;

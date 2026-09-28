@@ -387,7 +387,7 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
 
     public virtual string[] OnSound()
     {
-        return Sounds.LEAP_ON;
+        return Sounds.LeapOn;
     }
 
     public virtual float DragDistanceMultiplier()
@@ -454,7 +454,7 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
     {
         if (stickyJoint != null)
         {
-            SoundManager.PlayRandomSound(Sounds.LEAP_OUT, 0.5f);
+            SoundManager.PlayRandomSound(Sounds.LeapOut, 0.5f);
             SetDamping(FreeDamping());
             if (linked != null)
             {

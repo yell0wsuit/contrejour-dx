@@ -8,7 +8,7 @@ internal sealed class PolygonGenerator
 {
     private static readonly Random RNG = new();
 
-    private static readonly double PI_2 = Math.PI * 2.0;
+    private static readonly double Pi2 = Math.PI * 2.0;
 
     public static Polygon.Polygon RandomCircleSweep(double scale, int vertexCount)
     {
@@ -23,7 +23,7 @@ internal sealed class PolygonGenerator
                 num = (num < scale / 10.0) ? (scale / 10.0) : num;
             }
             while (num < scale / 10.0 || num > scale / 2.0);
-            PolygonPoint polygonPoint = new(num * Math.Cos(PI_2 * i / vertexCount), num * Math.Sin(PI_2 * i / vertexCount));
+            PolygonPoint polygonPoint = new(num * Math.Cos(Pi2 * i / vertexCount), num * Math.Sin(Pi2 * i / vertexCount));
             array[i] = polygonPoint;
         }
         return new Polygon.Polygon(array);
@@ -42,7 +42,7 @@ internal sealed class PolygonGenerator
                 num = (num < scale / 10.0) ? (scale / 10.0) : num;
             }
             while (num < scale / 10.0 || num > scale / 2.0);
-            PolygonPoint polygonPoint = new(num * Math.Cos(PI_2 * i / vertexCount), num * Math.Sin(PI_2 * i / vertexCount));
+            PolygonPoint polygonPoint = new(num * Math.Cos(Pi2 * i / vertexCount), num * Math.Sin(Pi2 * i / vertexCount));
             array[i] = polygonPoint;
         }
         return new Polygon.Polygon(array);

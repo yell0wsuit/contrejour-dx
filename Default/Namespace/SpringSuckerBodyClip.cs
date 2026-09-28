@@ -23,11 +23,11 @@ public class SpringSuckerBodyClip : SuckerBodyClip
 
     protected Vector2 normal;
 
-    private readonly float JUMP_IMPULSE = 1f;
+    private readonly float JumpImpulse = 1f;
 
-    private readonly float SNOT_JUMP_IMPULSE = 0.2f;
+    private readonly float SnotJumpImpulse = 0.2f;
 
-    private readonly float SPEED_MULT = 0.75f;
+    private readonly float SpeedMult = 0.75f;
 
     private bool touched;
 
@@ -110,11 +110,11 @@ public class SpringSuckerBodyClip : SuckerBodyClip
             linearVelocity = VectorUtil.ToVector(angle: (float)Math.PI + bounceAngle - (num - bounceAngle - (float)Math.PI), module: linearVelocity.Length());
             Vector2 vector = VectorUtil.VectorProjection(linearVelocity, parallel);
             linearVelocity = VectorUtil.VectorProjection(linearVelocity, normal);
-            linearVelocity *= SPEED_MULT;
+            linearVelocity *= SpeedMult;
             linearVelocity += vector;
             heroBodyClip.Body.LinearVelocity = linearVelocity;
             float num2 = (VectorUtil.Atan2(Body.Position, body2.Position) - bounceAngle).SimplifyAngle(-(float)Math.PI);
-            float num3 = JUMP_IMPULSE + (heroBodyClip.SnotJoinedCount * SNOT_JUMP_IMPULSE);
+            float num3 = JumpImpulse + (heroBodyClip.SnotJoinedCount * SnotJumpImpulse);
             if (num2 < 0f)
             {
                 num3 *= -1f;

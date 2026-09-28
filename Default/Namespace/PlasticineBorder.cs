@@ -16,11 +16,11 @@ public class PlasticineBorder : PrimitivesNode, IOpacity
 
     protected int polygonSize;
 
-    private static readonly Color OUT_COLOR = new Color(255, 255, 255) * 0f;
+    private static readonly Color DefaultOutColor = new Color(255, 255, 255) * 0f;
 
-    private static readonly Color IN_COLOR = new(0, 0, 0, 0);
+    private static readonly Color DefaultInColor = new(0, 0, 0, 0);
 
-    private static readonly Color CENTER_COLOR = new(127, 127, 127);
+    private static readonly Color DefaultCenterColor = new(127, 127, 127);
 
     private readonly float WIDTH = 4f;
 
@@ -56,17 +56,17 @@ public class PlasticineBorder : PrimitivesNode, IOpacity
 
     public virtual Color OutColor()
     {
-        return OUT_COLOR;
+        return DefaultOutColor;
     }
 
     public virtual Color InColor()
     {
-        return IN_COLOR;
+        return DefaultInColor;
     }
 
     public virtual Color CenterColor()
     {
-        return CENTER_COLOR;
+        return DefaultCenterColor;
     }
 
     public void CreateColors()

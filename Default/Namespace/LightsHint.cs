@@ -6,13 +6,13 @@ namespace Default.Namespace;
 
 public class LightsHint : FadeHint
 {
-    private static readonly float QUERY_RADIUS = 6.6666665f;
+    private static readonly float QueryRadius = 6.6666665f;
 
     [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "Level content creates this by reflection with this signature.")]
     public LightsHint(ContreJourLevelBuilder builder, object body, Sprite clip, Hashtable config)
         : base(builder, null, clip, config)
     {
-        ((EnergyBodyClip)FarseerUtil.Query(this.builder.World, this.builder.ToIPhoneVec(this.clip.Position), QUERY_RADIUS, typeof(EnergyBodyClip))).CollectEvent.AddListener(OnEnergyCollected);
+        ((EnergyBodyClip)FarseerUtil.Query(this.builder.World, this.builder.ToIPhoneVec(this.clip.Position), QueryRadius, typeof(EnergyBodyClip))).CollectEvent.AddListener(OnEnergyCollected);
     }
 
     public override bool HasToHide()

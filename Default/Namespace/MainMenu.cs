@@ -74,29 +74,29 @@ public class MainMenu : AccelerometerMenu, IActivatedDependent
 
     private static int loadedLevel = -1;
 
-    private static readonly Color BLUE_COLOR = ContreJourConstants.BLUE_LIGHT_COLOR;
+    private static readonly Color BlueColor = ContreJourConstants.BlueLightColor;
 
-    private static readonly Color GREY_COLOR = ContreJourConstants.GREY_COLOR;
+    private static readonly Color GreyColor = ContreJourConstants.GreyColor;
 
     private static readonly Color GreenColor = 12573952.ToRGBColor();
 
-    private static readonly Color[] FONT_COLORS =
+    private static readonly Color[] FontColors =
     [
-        GREY_COLOR,
-        Color.Lerp(Color.White, BLUE_COLOR, 0.8f),
-        ContreJourConditions.Trial(Color.Lerp(Color.White, BLUE_COLOR, 0.8f), GREY_COLOR),
-        GREY_COLOR,
-        GREY_COLOR,
+        GreyColor,
+        Color.Lerp(Color.White, BlueColor, 0.8f),
+        ContreJourConditions.Trial(Color.Lerp(Color.White, BlueColor, 0.8f), GreyColor),
+        GreyColor,
+        GreyColor,
         GreenColor
     ];
 
-    private static readonly Color[] BackColors = Constants.IsTrial ? [GREY_COLOR, BLUE_COLOR, BLUE_COLOR] :
+    private static readonly Color[] BackColors = Constants.IsTrial ? [GreyColor, BlueColor, BlueColor] :
     [
-        GREY_COLOR,
-        BLUE_COLOR,
-        ContreJourConditions.Trial(BLUE_COLOR, GREY_COLOR),
-        ColorUtil.Mult(GREY_COLOR, 0.5f),
-        GREY_COLOR,
+        GreyColor,
+        BlueColor,
+        ContreJourConditions.Trial(BlueColor, GreyColor),
+        ColorUtil.Mult(GreyColor, 0.5f),
+        GreyColor,
         GreenColor
     ];
 
@@ -293,10 +293,10 @@ public class MainMenu : AccelerometerMenu, IActivatedDependent
         ground.ScaleX = (winSize.X + 8f) / ground.Size.X;
         ground.Position = new Vector2(-2f, -2f);
         AddChild(ground, 3);
-        backgroundImages[1].Color = BLUE_COLOR;
+        backgroundImages[1].Color = BlueColor;
         if (Constants.IsTrial)
         {
-            backgroundImages[2].Color = BLUE_COLOR;
+            backgroundImages[2].Color = BlueColor;
         }
         backgroundChanger = new BackgroundChanger(backgroundImages);
     }
@@ -359,7 +359,7 @@ public class MainMenu : AccelerometerMenu, IActivatedDependent
     {
         int num = inChapter ? UserData.Instance.GetChapterStars(currentChapter) : UserData.Instance.TotalStars;
         int num2 = inChapter ? UserData.Instance.GetChapterScore(currentChapter) : UserData.Instance.TotalScore;
-        int num3 = inChapter ? 60 : (ContreJourConstants.LEVEL_COUNT * 3);
+        int num3 = inChapter ? 60 : (ContreJourConstants.LevelCount * 3);
         string textString = string.Format(CultureInfo.CurrentCulture, Messages.StarsAndScoreFormat, num, num3, num2);
         starsField.TextString = textString;
     }
@@ -507,7 +507,7 @@ public class MainMenu : AccelerometerMenu, IActivatedDependent
         Color color2 = Color.Lerp(Color.White, color, 0.7f);
         ground.Color = color;
         logo.Color = color2;
-        Color color3 = Color.Lerp(FONT_COLORS[backgroundChanger.NextIndex], FONT_COLORS[backgroundChanger.FirstIndex], 1f - backgroundChanger.Offset);
+        Color color3 = Color.Lerp(FontColors[backgroundChanger.NextIndex], FontColors[backgroundChanger.FirstIndex], 1f - backgroundChanger.Offset);
         starsField.Color = color3;
         soundButton.Color = color2;
         musicButton.Color = color2;

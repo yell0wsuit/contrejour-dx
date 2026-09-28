@@ -36,7 +36,7 @@ public class FlyBodyClip : ContreJourBodyClip, IClickable
 
     protected float heroScaredTime;
 
-    private static readonly Vector2 WINGS_POSITION = new(8f, 2f);
+    private static readonly Vector2 WingsPosition = new(8f, 2f);
 
     public bool DisableHeroFocus => true;
 
@@ -57,8 +57,8 @@ public class FlyBodyClip : ContreJourBodyClip, IClickable
         initialPosition = Body.Position;
         leftWings = new FlyWings();
         rightWings = new FlyWings();
-        leftWings.Position = new Vector2(0f - WINGS_POSITION.X, WINGS_POSITION.Y);
-        rightWings.Position = WINGS_POSITION;
+        leftWings.Position = new Vector2(0f - WingsPosition.X, WingsPosition.Y);
+        rightWings.Position = WingsPosition;
         rightWings.ScaleX = -1f;
         this.clip.AddChild(leftWings);
         this.clip.AddChild(rightWings);

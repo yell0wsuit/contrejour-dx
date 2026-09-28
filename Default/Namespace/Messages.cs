@@ -14,19 +14,19 @@ public static class Messages
 
     public static readonly string LEVEL = "LEVEL".Localize();
 
-    public static readonly string BEST_SCORE = "BEST_SCORE".Localize();
+    public static readonly string BestScore = "BEST_SCORE".Localize();
 
-    public static readonly string ENERGY_BONUS = "ENERGY_BONUS".Localize();
+    public static readonly string EnergyBonus = "ENERGY_BONUS".Localize();
 
-    public static readonly string TIME_BONUS = "TIME_BONUS".Localize();
+    public static readonly string TimeBonus = "TIME_BONUS".Localize();
 
     public static readonly string TOTAL = "TOTAL".Localize();
 
-    public static readonly string STARS_AND_SCORE = "STARS_AND_SCORE".Localize();
+    public static readonly string StarsAndScore = "STARS_AND_SCORE".Localize();
 
     public static readonly CompositeFormat LevelFormat = CompositeFormat.Parse(LEVEL);
 
-    public static readonly CompositeFormat StarsAndScoreFormat = CompositeFormat.Parse(STARS_AND_SCORE);
+    public static readonly CompositeFormat StarsAndScoreFormat = CompositeFormat.Parse(StarsAndScore);
 
     public static string CompleteText(int stars)
     {

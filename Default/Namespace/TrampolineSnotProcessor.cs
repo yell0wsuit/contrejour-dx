@@ -12,9 +12,9 @@ public class TrampolineSnotProcessor(LevelBuilderBase builder) : BridgeSnotProce
 {
     protected List<TrampolinePartBodyClip> parts = [];
 
-    private static readonly float START_RADIUS = 5f * Box2DConfig.DefaultConfig.SizeMultiplier;
+    private static readonly float StartRadius = 5f * Box2DConfig.DefaultConfig.SizeMultiplier;
 
-    public readonly float PART_ANGLE = MathHelper.ToRadians(15f);
+    public readonly float PartAngle = MathHelper.ToRadians(15f);
 
     public override float GetDensityTotal(int index, int total)
     {
@@ -73,11 +73,11 @@ public class TrampolineSnotProcessor(LevelBuilderBase builder) : BridgeSnotProce
         Body val2 = null;
         if (index == 0)
         {
-            val2 = builder.World.CreateCircle(START_RADIUS, startPoint + new Vector2(0f, START_RADIUS));
+            val2 = builder.World.CreateCircle(StartRadius, startPoint + new Vector2(0f, StartRadius));
         }
         else if (index == total - 1)
         {
-            val2 = builder.World.CreateCircle(START_RADIUS, endPoint + new Vector2(0f, START_RADIUS));
+            val2 = builder.World.CreateCircle(StartRadius, endPoint + new Vector2(0f, StartRadius));
         }
         if (val2 != null)
         {

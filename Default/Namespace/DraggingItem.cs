@@ -13,7 +13,7 @@ namespace Default.Namespace;
 
 public class DraggingItem
 {
-    public const int DRAG_COUNT = 7;
+    public const int DragCount = 7;
 
     protected Pair<Vector2> baseAnchors;
 

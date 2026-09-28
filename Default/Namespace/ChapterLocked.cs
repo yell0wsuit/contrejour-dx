@@ -73,7 +73,7 @@ public class ChapterLocked : ChapterItem
         tablo = new Tablo
         {
             Position = new Vector2(-74f, 28f),
-            Color = (index == 1) ? ContreJourConstants.BLUE_LIGHT_COLOR : ContreJourConstants.GREY_COLOR
+            Color = (index == 1) ? ContreJourConstants.BlueLightColor : ContreJourConstants.GreyColor
         };
         container.AddChild(tablo);
         background.Color = tablo.Color;
@@ -81,7 +81,7 @@ public class ChapterLocked : ChapterItem
         label.Anchor = new Vector2(0.5f, 0.5f);
         label.Align = TextAlign.Left;
         label.Scale *= 0.8f;
-        label.Color = index == 1 ? Color.Lerp(ContreJourConstants.GREY_COLOR, tablo.Color, 0.7f) : tablo.Color;
+        label.Color = index == 1 ? Color.Lerp(ContreJourConstants.GreyColor, tablo.Color, 0.7f) : tablo.Color;
         tablo.AddChild(label);
         label.Position = new Vector2(60f, 46f);
         McEnergyIcon node = new();

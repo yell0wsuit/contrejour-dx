@@ -16,11 +16,11 @@ namespace Mokus2D.Integration.Farseer.Debugging;
 
 public class FarseerDebugNode(World world, float physicsToPixels) : PrimitivesNode
 {
-    private readonly Color STATIC_COLOR = ColorUtil.CreateColor(255, 0, 255, 200);
+    private readonly Color StaticColor = ColorUtil.CreateColor(255, 0, 255, 200);
 
-    private readonly Color DYNAMIC_COLOR = ColorUtil.CreateColor(0, 255, 0, 200);
+    private readonly Color DynamicColor = ColorUtil.CreateColor(0, 255, 0, 200);
 
-    private readonly Color KINEMATIC_COLOR = ColorUtil.CreateColor(0, 0, 255, 200);
+    private readonly Color KinematicColor = ColorUtil.CreateColor(0, 0, 255, 200);
 
     private readonly World world = world;
 
@@ -116,9 +116,9 @@ public class FarseerDebugNode(World world, float physicsToPixels) : PrimitivesNo
         float num = fixture.IsSensor ? 0.5f : 1f;
         return body.BodyType switch
         {
-            BodyType.Dynamic => DYNAMIC_COLOR * num,
-            BodyType.Kinematic => KINEMATIC_COLOR * num,
-            BodyType.Static => STATIC_COLOR * num,
+            BodyType.Dynamic => DynamicColor * num,
+            BodyType.Kinematic => KinematicColor * num,
+            BodyType.Static => StaticColor * num,
             _ => throw new InvalidOperationException("Unknown body type"),
         };
     }

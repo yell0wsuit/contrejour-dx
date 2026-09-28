@@ -10,14 +10,14 @@ public class PinHole : PrimitivesNode
 {
     protected VertexPositionColorTexture[] vertices = new VertexPositionColorTexture[24];
 
-    public static readonly Vector3 IN_OFFSET = new(-10f, -10f, 0f);
+    public static readonly Vector3 InOffset = new(-10f, -10f, 0f);
 
-    public static readonly Vector3 OUT_OFFSET = new(80f, 80f, 0f);
+    public static readonly Vector3 OutOffset = new(80f, 80f, 0f);
 
     public PinHole(Vector2 size)
     {
-        CreateFatRectOffsetStartColorEndColor(size, OUT_OFFSET, Color.Green, Color.Black);
-        CreateFatRectOffsetStartColorEndColor(size, IN_OFFSET, Color.Green, new Color(0, 0, 0, 0));
+        CreateFatRectOffsetStartColorEndColor(size, OutOffset, Color.Green, Color.Black);
+        CreateFatRectOffsetStartColorEndColor(size, InOffset, Color.Green, new Color(0, 0, 0, 0));
     }
 
     public void CreateFatRectOffsetStartColorEndColor(Vector2 size, Vector3 offset, Color startColor, Color endColor)

@@ -6,7 +6,7 @@ namespace Default.Namespace;
 
 public class SpringBridgeHint : FadeHint
 {
-    private static readonly float QUERY_RADIUS = 100f * Box2DConfig.DefaultConfig.SizeMultiplier;
+    private static readonly float QueryRadius = 100f * Box2DConfig.DefaultConfig.SizeMultiplier;
 
     protected SpringSuckerBodyClip sucker;
 
@@ -14,7 +14,7 @@ public class SpringBridgeHint : FadeHint
     public SpringBridgeHint(ContreJourLevelBuilder builder, object body, Sprite clip, Hashtable config)
         : base(builder, null, clip, config)
     {
-        sucker = (SpringSuckerBodyClip)FarseerUtil.Query(this.builder.World, this.builder.ToIPhoneVec(this.clip.Position), QUERY_RADIUS, typeof(SpringSuckerBodyClip));
+        sucker = (SpringSuckerBodyClip)FarseerUtil.Query(this.builder.World, this.builder.ToIPhoneVec(this.clip.Position), QueryRadius, typeof(SpringSuckerBodyClip));
         Restart();
     }
 

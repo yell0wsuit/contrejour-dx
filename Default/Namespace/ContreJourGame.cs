@@ -54,16 +54,16 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
         }
     }
 
-    public const float RESTART_TIME = 1.5f;
+    public const float RestartTime = 1.5f;
 
-    public const float WIND_STEP_WHITE = 0.02f;
+    public const float WindStepWhite = 0.02f;
 
-    public const float WIND_STEP = 0.03f;
-    public const float ZOOM_SCALE = 1.3f;
+    public const float WindStep = 0.03f;
+    public const float ZoomScale = 1.3f;
 
-    public const float CLICK_RADIUS_IPHONE = 1.5f;
+    public const float ClickRadiusIphone = 1.5f;
 
-    public const float CLICK_RADIUS = 1.1666666f;
+    public const float ClickRadius = 1.1666666f;
 
     public readonly List<SnotPoint> SnotPoints = new(64);
 
@@ -166,14 +166,14 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
 
     protected float zoomOutTime;
 
-    public static readonly int[] MIN_ZOOM_LEVELS =
+    public static readonly int[] MinZoomLevels =
     [
         51, 53, 52, 54, 49, 37, 74, 79, 80, 76,
         55, 77, 86, 87, 83, 94, 84, 91, 95, 85,
         92, 93, 89
     ];
 
-    public static readonly int[] LOW_FPS_LEVELS = [4, 6, 44, 53, 54, 12];
+    public static readonly int[] LowFpsLevels = [4, 6, 44, 53, 54, 12];
 
     private readonly List<object> _toRemove = [];
 
@@ -345,7 +345,7 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
         Vector2 point = blackSide ? new Vector2(w7FromIPhoneSize.X / 2f, w7FromIPhoneSize.Y * 2f) : vector;
         lightPoint = Box2DConfig.DefaultConfig.ToVec(point);
         lightPower = 1f;
-        lightColor = ChooseSide(PlasticineConstants.BLUE, PlasticineConstants.BLACK_LIGHT, PlasticineConstants.LAST_LIGHT, PlasticineConstants.WHITE, PlasticineConstants.Green);
+        lightColor = ChooseSide(PlasticineConstants.BLUE, PlasticineConstants.BlackLight, PlasticineConstants.LastLight, PlasticineConstants.WHITE, PlasticineConstants.Green);
         startLightColor = lightColor;
         flyOpacity = 255f;
         Mokus2DGame.Instance.TouchController.AddListener(this);
@@ -364,8 +364,8 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
         restartLayer = new LayerColor(Color.Black, "menu/whitePixel");
         AddChild(restartLayer, 100);
         restartLayer.Visible = false;
-        Color color = ColorUtil.Mult(ContreJourConstants.BLUE_LIGHT_COLOR, 2f);
-        buttonsColor = blackSide ? color : ContreJourConstants.GREY_COLOR;
+        Color color = ColorUtil.Mult(ContreJourConstants.BlueLightColor, 2f);
+        buttonsColor = blackSide ? color : ContreJourConstants.GreyColor;
         _ = ScreenConstants.W7FromIPhoneSize;
         if (ContreJourConfig.BackButtonVisible)
         {

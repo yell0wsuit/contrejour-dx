@@ -23,7 +23,7 @@ public class MonsterEye : RandomAnimationEye, IPositionDepedent
     protected IVectorPositionProvider randomPositionProvider;
 
     protected bool providerEnabled;
-    public static readonly EyeAnimation[] SNOT_ANIMATIONS =
+    public static readonly EyeAnimation[] SnotAnimations =
     [
         new("McEyeBlinkMonster"),
         new("McEyeBlinkOneTimeMonster")
@@ -47,7 +47,7 @@ public class MonsterEye : RandomAnimationEye, IPositionDepedent
         set => providerEnabled = value;
     }
 
-    protected override EyeAnimation[] Animations => SNOT_ANIMATIONS;
+    protected override EyeAnimation[] Animations => SnotAnimations;
 
     public bool HasToUpdate => Visible;
 

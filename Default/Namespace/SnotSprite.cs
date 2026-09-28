@@ -12,7 +12,7 @@ namespace Default.Namespace;
 
 public class SnotSprite : LongNeckSprite
 {
-    public const int CIRCLE_SEGMENTS = 12;
+    public const int CircleSegments = 12;
 
     protected SnotBodyClipBase snot;
 

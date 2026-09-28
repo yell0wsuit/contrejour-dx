@@ -21,13 +21,13 @@ public class LevelsMenu : ClickableLayer
 
     public static readonly int COLUMNS = 20 / ROWS;
 
-    public static readonly Vector2 BORDER_OFFSET_IPHONE = new Vector2(120f, 80f) * 2f;
+    public static readonly Vector2 BorderOffsetIphone = new Vector2(120f, 80f) * 2f;
 
-    public static readonly Vector2 BORDER_OFFSET = new(200f, 220f);
+    public static readonly Vector2 BorderOffset = new(200f, 220f);
 
     private static readonly Vector2 GetMorePosition = new(0f, -120f);
 
-    public static readonly List<List<int>> LEVELS_LIST = [];
+    private static readonly List<List<int>> LevelsCache = [];
 
     private readonly float RowOffset = 120f;
 
@@ -84,18 +84,18 @@ public class LevelsMenu : ClickableLayer
     {
         get
         {
-            if (LEVELS_LIST.Count == 0)
+            if (LevelsCache.Count == 0)
             {
                 for (int i = 0; i < Constants.ChaptersCount; i++)
                 {
-                    LEVELS_LIST.Add([]);
+                    LevelsCache.Add([]);
                     for (int j = 0; j < 20; j++)
                     {
-                        LEVELS_LIST[i].Add(LEVELS[i, j]);
+                        LevelsCache[i].Add(LEVELS[i, j]);
                     }
                 }
             }
-            return LEVELS_LIST;
+            return LevelsCache;
         }
     }
 
@@ -107,7 +107,7 @@ public class LevelsMenu : ClickableLayer
         Position = initialPosition;
         List<int> list = LevelsList[chapter];
         Vector2 w7FromIPhoneSize = ScreenConstants.W7FromIPhoneSize;
-        Vector2 bORDER_OFFSET_IPHONE = BORDER_OFFSET_IPHONE;
+        Vector2 bORDER_OFFSET_IPHONE = BorderOffsetIphone;
         Vector2 vector = new Vector2(bORDER_OFFSET_IPHONE.X, w7FromIPhoneSize.Y - bORDER_OFFSET_IPHONE.Y) - ScreenConstants.W7FromIPhoneScreenCenter;
         Vector2 vector2 = new((w7FromIPhoneSize.X - (bORDER_OFFSET_IPHONE.X * 2f)) / (COLUMNS - 1), (w7FromIPhoneSize.Y - (bORDER_OFFSET_IPHONE.Y * 2f)) / (ROWS - 1));
         if (!Constants.IsTrial && UserData.Instance.LastLevelOpen && chapter == 4)
@@ -193,7 +193,7 @@ public class LevelsMenu : ClickableLayer
         touchSprite.Position = GetMorePosition;
         if (chapter == 1)
         {
-            touchSprite.Color = Color.Lerp(Color.White, ContreJourConstants.BLUE_LIGHT_COLOR, 0.7f);
+            touchSprite.Color = Color.Lerp(Color.White, ContreJourConstants.BlueLightColor, 0.7f);
         }
         return touchSprite;
     }

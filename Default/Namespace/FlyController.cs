@@ -7,11 +7,11 @@ namespace Default.Namespace;
 
 public class FlyController : FlyBase
 {
-    protected const float MIN_VERTICAL_OFFSET = -5f;
+    protected const float MinVerticalOffset = -5f;
 
-    protected const float MAX_VERTICAL_OFFSET = 20f;
+    protected const float MaxVerticalOffset = 20f;
 
-    protected const float MAX_HORIZONTAL_OFFSET = 20f;
+    protected const float MaxHorizontalOffset = 20f;
 
     protected IWindManager windProvider;
 

@@ -13,7 +13,7 @@ public class RoundDragBodyClip(ContreJourLevelBuilder _builder, object body, Nod
 
     protected Sprite middleSprite;
 
-    private static readonly Vector2 TOUCH_CENTER_OFFSET = new(42f, 42f);
+    private static readonly Vector2 TouchCenterOffset = new(42f, 42f);
 
     public override Vector2 PositionVec => base.PositionVec + TouchOffset();
 
@@ -40,7 +40,7 @@ public class RoundDragBodyClip(ContreJourLevelBuilder _builder, object body, Nod
 
     protected override Vector2 TouchOffset()
     {
-        return builder.ToVec(TOUCH_CENTER_OFFSET);
+        return builder.ToVec(TouchCenterOffset);
     }
 
     protected override Vector2 GetDragPosition(Vector2 offset)

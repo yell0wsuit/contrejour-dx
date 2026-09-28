@@ -24,15 +24,15 @@ namespace Default.Namespace;
 
 public class FinishView : MovieStripesView, IDisposable
 {
-    private static readonly Vector2 STARS_OFFSET = new(100f, 120f);
+    private static readonly Vector2 StarsOffset = new(100f, 120f);
 
-    private static readonly Vector2 PORTAL_OFFSET = new(0f, 0f);
+    private static readonly Vector2 PortalOffset = new(0f, 0f);
 
-    private static readonly Vector2 HERO_OFFSET = new(-180f, -70f);
+    private static readonly Vector2 HeroOffset = new(-180f, -70f);
 
-    private readonly Color BLUE_LIGHT_COLOR = ContreJourConstants.BLUE_LIGHT_COLOR;
+    private readonly Color BlueLightColor = ContreJourConstants.BlueLightColor;
 
-    private readonly Color GREY_COLOR = ContreJourConstants.GREY_COLOR;
+    private readonly Color GreyColor = ContreJourConstants.GreyColor;
 
     public readonly EventSender NextLevelEvent = new();
 
@@ -106,9 +106,9 @@ public class FinishView : MovieStripesView, IDisposable
     private void OnShow()
     {
         bool flag = levelPosition.Chapter == 1;
-        this.color = flag ? BLUE_LIGHT_COLOR : GREY_COLOR;
-        Color color = flag ? Color.Lerp(Color.White, BLUE_LIGHT_COLOR, 0.9f) : GREY_COLOR;
-        Color color2 = flag ? BLUE_LIGHT_COLOR : ColorUtil.Mult(GREY_COLOR, 0.7f);
+        this.color = flag ? BlueLightColor : GreyColor;
+        Color color = flag ? Color.Lerp(Color.White, BlueLightColor, 0.9f) : GreyColor;
+        Color color2 = flag ? BlueLightColor : ColorUtil.Mult(GreyColor, 0.7f);
         if (game.BonusChapter)
         {
             this.color = ContreJourConstants.GreenLightColor;
@@ -176,7 +176,7 @@ public class FinishView : MovieStripesView, IDisposable
             energy.Scale = 1.7f;
             energy.Visible = false;
             clickableLayer.AddChild(energy);
-            energy.Position = STARS_OFFSET + new Vector2(100 * (num2 - 1), 0f);
+            energy.Position = StarsOffset + new Vector2(100 * (num2 - 1), 0f);
             energies.Add(energy);
             _ = this.Schedule(num2 * 0.1f, delegate
             {
@@ -209,7 +209,7 @@ public class FinishView : MovieStripesView, IDisposable
         };
         if (flag)
         {
-            highlite.Color = BLUE_LIGHT_COLOR;
+            highlite.Color = BlueLightColor;
             highlite.OpacityByte = 140;
         }
         else if (game.BonusChapter)
@@ -217,11 +217,11 @@ public class FinishView : MovieStripesView, IDisposable
             highlite.Color = ContreJourConstants.GreenLightColor;
         }
         AddChild(highlite);
-        highlite.Position = center + HERO_OFFSET;
+        highlite.Position = center + HeroOffset;
         highlite.Visible = false;
         portal = new MenuPortal(Vector2.Zero);
         AddChild(portal);
-        portal.Position = center + HERO_OFFSET + PORTAL_OFFSET;
+        portal.Position = center + HeroOffset + PortalOffset;
         portal.Visible = false;
         portal.ItemsScale = 0f;
         portal.Scale = 2f;
@@ -229,7 +229,7 @@ public class FinishView : MovieStripesView, IDisposable
         _ = this.Schedule(0.5f, ShowPortal);
         if (levelPosition.Chapter == 1)
         {
-            hero.HotSpot.Color = ColorUtil.Mult(BLUE_LIGHT_COLOR, 1.5f);
+            hero.HotSpot.Color = ColorUtil.Mult(BlueLightColor, 1.5f);
         }
         hero.Position = portal.Position;
     }
@@ -325,7 +325,7 @@ public class FinishView : MovieStripesView, IDisposable
 
     private void ShowStarsBonus()
     {
-        starsBonusField = ContreJourLabelUtil.CreateProgressLabel(15f, Messages.ENERGY_BONUS, stars * 1000, 15);
+        starsBonusField = ContreJourLabelUtil.CreateProgressLabel(15f, Messages.EnergyBonus, stars * 1000, 15);
         starsBonusField.Position = new Vector2(-30f, 16f);
         clickableLayer.AddChild(starsBonusField);
         _ = starsBonusField.FadeIn(0.2f);
@@ -336,7 +336,7 @@ public class FinishView : MovieStripesView, IDisposable
 
     private void ShowTimeBonus()
     {
-        ProgressLabel progressLabel = ContreJourLabelUtil.CreateProgressLabel(15f, Messages.TIME_BONUS, UserData.GetTimeBonus(time), 15);
+        ProgressLabel progressLabel = ContreJourLabelUtil.CreateProgressLabel(15f, Messages.TimeBonus, UserData.GetTimeBonus(time), 15);
         clickableLayer.AddChild(progressLabel);
         progressLabel.Position = new Vector2(-30f, -12f);
         _ = progressLabel.FadeIn(0.2f);

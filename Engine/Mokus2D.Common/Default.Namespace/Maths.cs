@@ -8,7 +8,7 @@ public static class Maths
 
     public const float PI3 = (float)Math.PI / 3f;
 
-    public const float PI_X_2 = (float)Math.PI * 2f;
+    public const float PiX2 = (float)Math.PI * 2f;
 
     public const float PI2 = (float)Math.PI / 2f;
 

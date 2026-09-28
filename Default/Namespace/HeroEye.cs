@@ -16,9 +16,9 @@ namespace Default.Namespace;
 
 public class HeroEye : RandomAnimationEye
 {
-    private static readonly Color START_COLOR = new(255, 255, 255);
+    private static readonly Color StartColor = new(255, 255, 255);
 
-    private static readonly Color BONUS_COLOR = new(143, 238, 255);
+    private static readonly Color BonusColor = new(143, 238, 255);
 
     protected bool isDefaultColor;
 
@@ -90,12 +90,12 @@ public class HeroEye : RandomAnimationEye
             if (Maths.FuzzyEquals(colorProgress, 0f))
             {
                 isDefaultColor = true;
-                RefreshColor(START_COLOR);
+                RefreshColor(StartColor);
             }
         }
         if (!isDefaultColor)
         {
-            RefreshColor(Color.Lerp(START_COLOR, BONUS_COLOR, colorProgress));
+            RefreshColor(Color.Lerp(StartColor, BonusColor, colorProgress));
         }
     }
 

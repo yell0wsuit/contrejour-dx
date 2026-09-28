@@ -18,7 +18,7 @@ namespace Default.Namespace;
 
 public class PlasticinePartBodyClip : ContreJourBodyClip, IClickable, IRestartable, IGrassControllerContainer
 {
-    public const float GRASS_TRAMPLE_DISTANCE = 1.3333334f;
+    public const float GrassTrampleDistance = 1.3333334f;
     protected int globalIndex;
 
     protected int index;

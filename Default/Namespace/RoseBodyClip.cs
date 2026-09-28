@@ -19,9 +19,9 @@ namespace Default.Namespace;
 
 public class RoseBodyClip : StickyBodyClip, IBonusAcceptable, IBodyClip
 {
-    private static readonly Vector2 HERO_JUMP_IMPULSE = new(0f, 2f);
+    private static readonly Vector2 HeroJumpImpulse = new(0f, 2f);
 
-    private static readonly Vector2 PUDDLE_OFFSET = new(-80f, -1f);
+    private static readonly Vector2 PuddleOffset = new(-80f, -1f);
 
     protected bool bonusHidden;
 
@@ -145,7 +145,7 @@ public class RoseBodyClip : StickyBodyClip, IBonusAcceptable, IBodyClip
         roseParts = [stalk, headDown, leaf2];
         puddle = new McPuddle
         {
-            Position = clip.Position + PUDDLE_OFFSET,
+            Position = clip.Position + PuddleOffset,
             Repeat = false,
             Visible = false,
             Stoped = true,
@@ -212,7 +212,7 @@ public class RoseBodyClip : StickyBodyClip, IBonusAcceptable, IBodyClip
         game.Hero.Body.SetSensor(value: true);
         game.Hero.Clip.Visible = true;
         game.Hero.EyeAnimationsAllowed = false;
-        game.Hero.Body.ApplyLinearImpulse(HERO_JUMP_IMPULSE, game.Hero.Body.WorldCenter);
+        game.Hero.Body.ApplyLinearImpulse(HeroJumpImpulse, game.Hero.Body.WorldCenter);
         game.Hero.Body.FixedRotation = true;
         Schedule(OnHeroJump, 0.5f);
         Schedule(LookAtRose, 2.5f);

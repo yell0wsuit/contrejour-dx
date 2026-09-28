@@ -6,18 +6,18 @@ namespace Default.Namespace;
 
 public class BlackTrampolineSprite(ContreJourGame game, SnotBodyClipBase snot, float startWidth, float centerWidth, float endWidth) : BlackSnotSprite(game, snot, startWidth, centerWidth, endWidth)
 {
-    private Color MIDDLE_COLOR = new(0, 254, 254, 255);
+    private Color DefaultMiddleColor = new(0, 254, 254, 255);
 
-    private Color START_TRAMPOLINE_COLOR = new(0, 94, 118, 255);
+    private Color StartTrampolineColor = new(0, 94, 118, 255);
 
     public virtual Color MiddleColor()
     {
-        return MIDDLE_COLOR;
+        return DefaultMiddleColor;
     }
 
     public virtual Color StartColor()
     {
-        return START_TRAMPOLINE_COLOR;
+        return StartTrampolineColor;
     }
 
     public override Color GetIntermidiateColorLineSize(int index, int lineSize)

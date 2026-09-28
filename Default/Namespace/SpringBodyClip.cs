@@ -18,11 +18,11 @@ namespace Default.Namespace;
 
 public class SpringBodyClip : ContreJourBodyClip, IClickable, IRestartable
 {
-    private static readonly Vector2 BODY_CENTER = new(0f, 20f);
+    private static readonly Vector2 BodyCenter = new(0f, 20f);
 
-    private static readonly Vector2 SMOKE_POINT = new(0f, 60f);
+    private static readonly Vector2 DefaultSmokePoint = new(0f, 60f);
 
-    private static readonly Vector2 SUCK_POINT = new(0f, 40f);
+    private static readonly Vector2 SuckPoint = new(0f, 40f);
 
     protected Vector2 bodyCenterVec;
 
@@ -50,7 +50,7 @@ public class SpringBodyClip : ContreJourBodyClip, IClickable, IRestartable
 
     protected float timeToSmoke;
 
-    protected virtual Vector2 SmokePoint => SMOKE_POINT;
+    protected virtual Vector2 SmokePoint => DefaultSmokePoint;
 
     public Vector2 WorldSuckPoint => VectorUtil.Rotate(suckPoint, BodyAngle) + Body.Position;
 
@@ -74,9 +74,9 @@ public class SpringBodyClip : ContreJourBodyClip, IClickable, IRestartable
         movie.MinFrame = 7f;
         CreateShadow();
         startScale = this.clip.ScaleX;
-        suckPoint = this.builder.ToVec(SUCK_POINT * this.clip.ScaleX);
+        suckPoint = this.builder.ToVec(SuckPoint * this.clip.ScaleX);
         suckDistance = 150f * this.clip.ScaleX * this.builder.SizeMult;
-        bodyCenterVec = VectorUtil.Rotate(this.builder.ToVec(BODY_CENTER * this.clip.ScaleX), InitialBodyAngle);
+        bodyCenterVec = VectorUtil.Rotate(this.builder.ToVec(BodyCenter * this.clip.ScaleX), InitialBodyAngle);
         breatheChanger = new CosChanger(0.06f, 0.07f)
         {
             MinValue = 0.95f,

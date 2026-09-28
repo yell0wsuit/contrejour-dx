@@ -19,29 +19,29 @@ namespace Default.Namespace;
 
 public class DragableBodyClip : ContreJourBodyClip, IClickable, IRestartable, ISnotHolder
 {
-    public const float RESTART_SPEED = 26.666666f;
+    public const float RestartSpeed = 26.666666f;
 
-    public const float MAX_SPEED = 60f;
+    public const float MaxSpeed = 60f;
 
-    public const float FIX_HERO_SPEED_X = 1f / 6f;
+    public const float FixHeroSpeedX = 1f / 6f;
 
-    public const float FIX_HERO_SPEED = -1.3333334f;
+    public const float FixHeroSpeed = -1.3333334f;
 
-    public const float ALPHA_STEP = 5f;
+    public const float AlphaStep = 5f;
 
-    public const float MAX_ALPHA = 255f;
+    public const float MaxAlpha = 255f;
 
-    public const float MIN_ALPHA = 150f;
+    public const float MinAlpha = 150f;
 
-    public const float SPEED_PROPORTION = 0.5f;
+    public const float SpeedProportion = 0.5f;
 
-    public const float MOVE_PROPORTION = 0.5f;
+    public const float MoveProportion = 0.5f;
 
-    public const float FUZZY_PRECISSION = 1f / 30f;
+    public const float FuzzyPrecission = 1f / 30f;
 
-    public const float TOUCH_DISTANCE_IPHONE = 2.3333333f;
+    public const float TouchDistanceIphone = 2.3333333f;
 
-    public const float TOUCH_DISTANCE = 1.6666666f;
+    public const float TouchDistance = 1.6666666f;
 
     public const float OFFSET = 3.4f;
 

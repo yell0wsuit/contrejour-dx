@@ -11,7 +11,7 @@ namespace Default.Namespace;
 
 public class PlasticineHighliteBorder : PrimitivesNode
 {
-    public const int HIGHLITE_PART_VERTICES_COUNT = 4;
+    public const int HighlitePartVerticesCount = 4;
 
     protected VertexPositionColor[] vertices;
 

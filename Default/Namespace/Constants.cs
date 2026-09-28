@@ -18,15 +18,15 @@ public static class Constants
 
     public const int RoseChapter = 4;
 
-    public const int LEVELS_IN_CHAPTER = 20;
+    public const int LevelsInChapter = 20;
 
     public const int TrialLevelsInChapter = 10;
 
-    public const int K_GAME_AUTOROTATION_NONE = 0;
+    public const int KGameAutorotationNone = 0;
 
-    public const int K_GAME_AUTOROTATION_CC_DIRECTOR = 1;
+    public const int KGameAutorotationCcDirector = 1;
 
-    public const int K_GAME_AUTOROTATION_UI_VIEW_CONTROLLER = 2;
+    public const int KGameAutorotationUiViewController = 2;
 
     public static readonly int ChaptersCount = IsTrial ? 2 : 5;
 

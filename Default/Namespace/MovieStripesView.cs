@@ -50,7 +50,7 @@ public class MovieStripesView : Node
         }
         if (blackSide)
         {
-            FadeRectangle.Color = ContreJourConstants.BLUE_LIGHT_COLOR;
+            FadeRectangle.Color = ContreJourConstants.BlueLightColor;
         }
         AddChild(topSquare);
         AddChild(bottomSquare);

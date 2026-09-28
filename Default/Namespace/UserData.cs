@@ -12,8 +12,8 @@ namespace Default.Namespace;
 
 public class UserData
 {
-    private const string FILE_NAME = "contreJourData.xml";
-    private static readonly int[] STARS_TO_UNLOCK = [0, 30, 70, 120, 180];
+    private const string FileName = "contreJourData.xml";
+    private static readonly int[] StarsToUnlockByChapter = [0, 30, 70, 120, 180];
 
     private static UserData instance;
 
@@ -133,9 +133,9 @@ public class UserData
         set => unlockedChapters = Math.Max(1, value);
     }
 
-    public int TotalStars => GetStarsEnd(0, ContreJourConstants.LEVEL_COUNT);
+    public int TotalStars => GetStarsEnd(0, ContreJourConstants.LevelCount);
 
-    public int TotalScore => GetScoreEnd(0, ContreJourConstants.LEVEL_COUNT);
+    public int TotalScore => GetScoreEnd(0, ContreJourConstants.LevelCount);
 
     public bool RoseSaved => TotalStars >= 240;
 
@@ -159,7 +159,7 @@ public class UserData
 
     public static int StarsToUnlock(int chapter)
     {
-        return STARS_TO_UNLOCK[chapter];
+        return StarsToUnlockByChapter[chapter];
     }
 
     public static int GetTimeBonus(float time)
@@ -348,7 +348,7 @@ public class UserData
 
     public static string DataDirectory { get; set; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ContreJour");
 
-    private static string DataFilePath => Path.Combine(DataDirectory, FILE_NAME);
+    private static string DataFilePath => Path.Combine(DataDirectory, FileName);
 
     private static UserData ReadUserData()
     {

@@ -2,7 +2,7 @@ namespace Default.Namespace;
 
 public class ForegroundProcessor(LevelBuilderBase builder) : TypeProcessorBase("foreground", builder)
 {
-    private static readonly int STATIC_RESULT = 1;
+    private static readonly int StaticResult = 1;
 
     public override object ProcessItem(Hashtable item)
     {
@@ -15,6 +15,6 @@ public class ForegroundProcessor(LevelBuilderBase builder) : TypeProcessorBase("
         {
             hashtable["skipClip"] = "true";
         }
-        return STATIC_RESULT;
+        return StaticResult;
     }
 }

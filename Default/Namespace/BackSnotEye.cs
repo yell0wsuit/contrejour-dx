@@ -8,13 +8,13 @@ namespace Default.Namespace;
 
 public class BackSnotEye : MonsterEye
 {
-    public static readonly EyeAnimation[] BACK_SNOT_ANIMATIONS =
+    public static readonly EyeAnimation[] BackSnotAnimations =
     [
         new("McBackSnotEyeBlink"),
         new("McBackSnotEyeBlinkOneTime")
     ];
 
-    protected override EyeAnimation[] Animations => BACK_SNOT_ANIMATIONS;
+    protected override EyeAnimation[] Animations => BackSnotAnimations;
 
     protected override float ViewRadius => 30f;
 

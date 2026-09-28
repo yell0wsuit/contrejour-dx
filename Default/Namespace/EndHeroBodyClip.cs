@@ -19,7 +19,7 @@ namespace Default.Namespace;
 
 public class EndHeroBodyClip : HeroBodyClip
 {
-    private static readonly float STOP_OFFSET = 124f;
+    private static readonly float StopOffset = 124f;
 
     protected bool animationsAllowed;
 
@@ -95,7 +95,7 @@ public class EndHeroBodyClip : HeroBodyClip
             linearVelocity.X = Math.Min(linearVelocity.X, -0.05f);
             Body.LinearVelocity = linearVelocity;
         }
-        if (hasToStop && !stoped && Math.Abs(shakePosition - clip.Position.X - STOP_OFFSET) < 10f && (double)Math.Abs(Body.LinearVelocity.X) < 0.1)
+        if (hasToStop && !stoped && Math.Abs(shakePosition - clip.Position.X - StopOffset) < 10f && (double)Math.Abs(Body.LinearVelocity.X) < 0.1)
         {
             Body.BodyType = 0;
             Body.LinearVelocity = Vector2.Zero;

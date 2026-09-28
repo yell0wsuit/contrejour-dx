@@ -105,8 +105,8 @@ public class NamesChanger : Node
             ? new Sprite("menu/McChapter{0}Name".FormatThis(index + 1))
             : CreateLabelColor(color: index switch
             {
-                3 => ContreJourConstants.WHITE_LIGHT_COLOR * 1.8f,
-                1 => ContreJourConstants.BLUE_LIGHT_COLOR * 1.8f,
+                3 => ContreJourConstants.WhiteLightColor * 1.8f,
+                1 => ContreJourConstants.BlueLightColor * 1.8f,
                 5 => ContreJourConstants.GreenLightColor,
                 _ => Color.Black,
             }, text: "CHAPTER{0}".FormatThis(index + 1));
