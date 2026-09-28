@@ -95,7 +95,7 @@ public class QuadTree<T> where T : class, IQuadTreeObject<T>
     {
         if (!node.Bounds.Contains(quadObject.Bounds))
         {
-            throw new Exception("This should not happen, child does not fit within node bounds");
+            throw new InvalidOperationException("This should not happen, child does not fit within node bounds");
         }
         if (!node.HasChildNodes() && node.Objects.Count + 1 > maxObjectsPerLeaf)
         {

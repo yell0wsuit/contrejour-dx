@@ -37,7 +37,7 @@ public static class PathManager
     {
         if (!path.Closed)
         {
-            throw new Exception("The path must be closed to convert to a polygon.");
+            throw new ArgumentException("The path must be closed to convert to a polygon.");
         }
         List<Vector2> vertices = path.GetVertices(subdivisions);
         List<Vertices> list = Triangulate.ConvexPartition([.. vertices], TriangulationAlgorithm.Bayazit);

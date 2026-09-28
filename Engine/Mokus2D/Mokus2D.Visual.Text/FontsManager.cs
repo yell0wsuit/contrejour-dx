@@ -13,7 +13,7 @@ public class FontsManager
 
     public FontData GetFontData(string fontName, float size)
     {
-        SortedCollection<FontData> sortedList = (_fonts.TryGetValue(fontName) ?? _fonts.TryGetValue(RemoveSpaces(fontName))) ?? throw new Exception("Font not found, try calling FontClass.Register() static method in application OnInitialize()");
+        SortedCollection<FontData> sortedList = (_fonts.TryGetValue(fontName) ?? _fonts.TryGetValue(RemoveSpaces(fontName))) ?? throw new InvalidOperationException("Font not found, try calling FontClass.Register() static method in application OnInitialize()");
         foreach (FontData item in sortedList)
         {
             if (item.FontSize >= size)

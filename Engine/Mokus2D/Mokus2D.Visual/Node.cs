@@ -408,7 +408,7 @@ public class Node : DisposableBase, IUpdatable, IConfig
             }
             return;
         }
-        throw new Exception("Config reset not allowed");
+        throw new InvalidOperationException("Config reset not allowed");
     }
 
     protected virtual void FirstUpdate()
@@ -528,7 +528,7 @@ public class Node : DisposableBase, IUpdatable, IConfig
     {
         if (node.Parent != null)
         {
-            throw new Exception("node already added to another parent");
+            throw new InvalidOperationException("node already added to another parent");
         }
         if (!_children.Empty())
         {

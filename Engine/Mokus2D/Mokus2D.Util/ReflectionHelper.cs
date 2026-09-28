@@ -44,7 +44,7 @@ public class ReflectionHelper
     {
         currentMemberInfo = FindField(target.GetType(), fieldName);
         return currentMemberInfo is null
-            ? throw new NullReferenceException(string.Format(CultureInfo.InvariantCulture, "Sorry, There is no such field = {0} in class type {1}", new object[2]
+            ? throw new MissingFieldException(string.Format(CultureInfo.InvariantCulture, "Sorry, There is no such field = {0} in class type {1}", new object[2]
             {
                 fieldName,
                 target.GetType().FullName
@@ -55,7 +55,7 @@ public class ReflectionHelper
     public ReflectionHelper FieldOrProperty(string fieldName)
     {
         currentMemberInfo = FindField(target.GetType(), fieldName);
-        currentMemberInfo ??= FindProperty(target.GetType(), fieldName) ?? throw new NullReferenceException(string.Format(CultureInfo.InvariantCulture, "Sorry, There is no such field or property = {0} in class type {1}", new object[2]
+        currentMemberInfo ??= FindProperty(target.GetType(), fieldName) ?? throw new MissingMemberException(string.Format(CultureInfo.InvariantCulture, "Sorry, There is no such field or property = {0} in class type {1}", new object[2]
             {
                 fieldName,
                 target.GetType().FullName
@@ -78,7 +78,7 @@ public class ReflectionHelper
     {
         currentMemberInfo = FindProperty(target.GetType(), propertyName);
         return currentMemberInfo is null
-            ? throw new NullReferenceException(string.Format(CultureInfo.InvariantCulture, "Sorry, There is no such property = {0} in class type {1}", new object[2]
+            ? throw new MissingMemberException(string.Format(CultureInfo.InvariantCulture, "Sorry, There is no such property = {0} in class type {1}", new object[2]
             {
                 propertyName,
                 target.GetType().FullName
@@ -95,7 +95,7 @@ public class ReflectionHelper
     {
         if (currentMemberInfo is null)
         {
-            throw new NullReferenceException("Modified member is null.");
+            throw new InvalidOperationException("Modified member is null.");
         }
         Type type = currentMemberInfo.GetType();
         TypeInfo typeInfo = type.GetTypeInfo();

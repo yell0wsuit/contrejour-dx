@@ -20,7 +20,7 @@ public struct FixedArray4<T>
             1 => _value1,
             2 => _value2,
             3 => _value3,
-            _ => throw new IndexOutOfRangeException(),
+            _ => throw new ArgumentOutOfRangeException(nameof(index)),
         };
         set
         {
@@ -39,7 +39,7 @@ public struct FixedArray4<T>
                     _value3 = value;
                     break;
                 default:
-                    throw new IndexOutOfRangeException();
+                    throw new ArgumentOutOfRangeException(nameof(index));
             }
         }
     }

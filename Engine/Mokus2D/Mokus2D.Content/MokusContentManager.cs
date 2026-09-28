@@ -75,7 +75,7 @@ public class MokusContentManager : ContentManager
         }
         catch (OutOfMemoryException innerException)
         {
-            throw new Exception("Out of memory while loading {0}".FormatThis(assetName), innerException);
+            throw new InsufficientMemoryException("Out of memory while loading {0}".FormatThis(assetName), innerException);
         }
         if (val is Texture2D texture2D)
         {

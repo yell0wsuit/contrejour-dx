@@ -19,7 +19,7 @@ internal struct FixedBitArray3 : IEnumerable<bool>, IEnumerable
             0 => _0,
             1 => _1,
             2 => _2,
-            _ => throw new IndexOutOfRangeException(),
+            _ => throw new ArgumentOutOfRangeException(nameof(index)),
         };
         set
         {
@@ -35,7 +35,7 @@ internal struct FixedBitArray3 : IEnumerable<bool>, IEnumerable
                     _2 = value;
                     break;
                 default:
-                    throw new IndexOutOfRangeException();
+                    throw new ArgumentOutOfRangeException(nameof(index));
             }
         }
     }

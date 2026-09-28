@@ -484,7 +484,7 @@ public class Label : AnchorNode, IDataReloadable
             }
             else if (!ShouldIgnoreMissingSymbols)
             {
-                throw new Exception("Symbol not found: " + c);
+                throw new KeyNotFoundException("Symbol not found: " + c);
             }
         }
         vector.X = Math.Max(num, vector.X);

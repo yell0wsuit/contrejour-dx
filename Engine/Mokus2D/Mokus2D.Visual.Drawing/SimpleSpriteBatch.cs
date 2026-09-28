@@ -80,7 +80,7 @@ public class SimpleSpriteBatch<T> : ISimpleSpriteBatch<T>, ISimpleSpriteBatch wh
         _currentIndex = 0;
         if (_texture.IsDisposed)
         {
-            throw new Exception("Texture is disposed " + Mokus2DGame.ContentManager.GetDisposedTextureName(_texture));
+            throw new ObjectDisposedException(Mokus2DGame.ContentManager.GetDisposedTextureName(_texture), "Texture is disposed.");
         }
     }
 

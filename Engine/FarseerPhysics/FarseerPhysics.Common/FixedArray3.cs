@@ -17,7 +17,7 @@ public struct FixedArray3<T>
             0 => _value0,
             1 => _value1,
             2 => _value2,
-            _ => throw new IndexOutOfRangeException(),
+            _ => throw new ArgumentOutOfRangeException(nameof(index)),
         };
         set
         {
@@ -33,7 +33,7 @@ public struct FixedArray3<T>
                     _value2 = value;
                     break;
                 default:
-                    throw new IndexOutOfRangeException();
+                    throw new ArgumentOutOfRangeException(nameof(index));
             }
         }
     }

@@ -32,7 +32,7 @@ internal sealed class DelaunayTriangle
     public int IndexOf(TriangulationPoint p)
     {
         int num = Points.IndexOf(p);
-        return num == -1 ? throw new Exception("Calling index with a point that doesn't exist in triangle") : num;
+        return num == -1 ? throw new ArgumentException("Calling index with a point that doesn't exist in triangle") : num;
     }
 
     public int IndexCW(TriangulationPoint p)

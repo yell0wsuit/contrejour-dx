@@ -63,6 +63,6 @@ public class OneFileResourcesLoader : ResourcesLoader
                 val = (T)obj;
             }
         }
-        return val == null ? throw new Exception($"Cannot find resource {name}") : val;
+        return val == null ? throw new KeyNotFoundException($"Cannot find resource {name}") : val;
     }
 }

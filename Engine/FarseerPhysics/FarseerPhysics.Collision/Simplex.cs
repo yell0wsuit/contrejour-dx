@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 
 using FarseerPhysics.Common;
 
@@ -118,7 +119,7 @@ internal struct Simplex
                 pB = pA;
                 break;
             default:
-                throw new Exception();
+                throw new UnreachableException();
         }
     }
 

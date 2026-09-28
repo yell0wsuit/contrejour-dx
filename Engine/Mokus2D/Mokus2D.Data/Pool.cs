@@ -26,7 +26,7 @@ public class Pool<T>
     {
         if (_activator != null)
         {
-            throw new Exception("activator is already set");
+            throw new InvalidOperationException("activator is already set");
         }
         _activator = activator;
     }
@@ -35,7 +35,7 @@ public class Pool<T>
     {
         if (MaxCount.HasValue && _items.Count >= MaxCount)
         {
-            throw new Exception("Pool is full");
+            throw new InvalidOperationException("Pool is full");
         }
         T result;
         if (_items.Count > 0)

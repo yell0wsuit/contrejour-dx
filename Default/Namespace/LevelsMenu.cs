@@ -243,7 +243,7 @@ public class LevelsMenu : ClickableLayer
                 return new LevelPosition(i, num);
             }
         }
-        throw new Exception("InvalidIndex: invalid level index");
+        throw new ArgumentOutOfRangeException(nameof(level), level, "Invalid level index.");
     }
 
     private void OnRoseClick(TouchArguments touchArguments)

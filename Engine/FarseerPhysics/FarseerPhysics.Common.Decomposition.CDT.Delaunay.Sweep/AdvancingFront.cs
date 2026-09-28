@@ -94,7 +94,7 @@ internal sealed class AdvancingFront
                 {
                     if (point != advancingFrontNode.Next.Point)
                     {
-                        throw new Exception("Failed to find Node for given afront point");
+                        throw new InvalidOperationException("Failed to find Node for given afront point");
                     }
                     advancingFrontNode = advancingFrontNode.Next;
                 }

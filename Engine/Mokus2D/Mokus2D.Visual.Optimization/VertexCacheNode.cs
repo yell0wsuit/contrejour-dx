@@ -138,7 +138,7 @@ public class VertexCacheNode<TVertex> : Node, IDrawer where TVertex : struct, IV
     {
         if (effect != null && effect != Effect)
         {
-            throw new Exception("Effect of cached nodes must be the same");
+            throw new InvalidOperationException("Effect of cached nodes must be the same");
         }
     }
 
@@ -165,13 +165,13 @@ public class VertexCacheNode<TVertex> : Node, IDrawer where TVertex : struct, IV
         }
         else if (_texture != texture)
         {
-            throw new Exception("Texture reset is not allowed");
+            throw new NotSupportedException("Texture reset is not allowed");
         }
     }
 
     public void EndDraw()
     {
-        throw new Exception("EndDraw not allowed");
+        throw new NotSupportedException("EndDraw not allowed");
     }
 
     public void IncreaseNodesDrawnCount()
@@ -184,7 +184,7 @@ public class VertexCacheNode<TVertex> : Node, IDrawer where TVertex : struct, IV
     {
         if ((object)typeof(TVertex) != type)
         {
-            throw new Exception("Type of vertex doesn't match");
+            throw new InvalidOperationException("Type of vertex doesn't match");
         }
     }
 }

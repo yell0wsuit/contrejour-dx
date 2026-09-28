@@ -80,7 +80,7 @@ public class VisibleIsland
     {
         if (_inLoop)
         {
-            throw new Exception("Cannot modify children while in loop");
+            throw new InvalidOperationException("Cannot modify children while in loop");
         }
     }
 }

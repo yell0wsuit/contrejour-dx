@@ -24,12 +24,12 @@ public static class ContreJourCollections
             string text = array[i];
             if (!dictionary.ContainsKey(text))
             {
-                return checkForNull ? throw new Exception("Hashtable key `" + key + "` not found - at `" + text + "`.") : null;
+                return checkForNull ? throw new KeyNotFoundException("Hashtable key `" + key + "` not found - at `" + text + "`.") : null;
             }
             object obj = dictionary[text];
             if (obj == null)
             {
-                return checkForNull ? throw new Exception("Hashtable key `" + key + "` is null - at `" + text + "`.") : null;
+                return checkForNull ? throw new InvalidOperationException("Hashtable key `" + key + "` is null - at `" + text + "`.") : null;
             }
             if (i == array.Length - 1)
             {

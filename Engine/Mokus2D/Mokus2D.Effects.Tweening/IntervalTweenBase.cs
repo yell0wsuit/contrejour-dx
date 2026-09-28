@@ -42,10 +42,7 @@ public abstract class IntervalTweenBase : ICompletableTween, ITween, ICleanable,
 
     ICompletableTween ICompletableTween.OnComplete(Action action)
     {
-        if (action == null)
-        {
-            throw new NullReferenceException("action can not be null");
-        }
+        ArgumentNullException.ThrowIfNull(action);
         _onComplete.Enqueue(action);
         return this;
     }

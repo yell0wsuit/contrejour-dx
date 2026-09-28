@@ -196,19 +196,19 @@ public sealed class TextureConverter
     {
         if (_data == null)
         {
-            throw new Exception("'_data' can't be null. You have to use SetTextureData(uint[] data, int width) before calling this method.");
+            throw new InvalidOperationException("'_data' can't be null. You have to use SetTextureData(uint[] data, int width) before calling this method.");
         }
         if (_data.Length < 4)
         {
-            throw new Exception("'_data' length can't be less then 4. Your texture must be at least 2 x 2 pixels in size. You have to use SetTextureData(uint[] data, int width) before calling this method.");
+            throw new InvalidOperationException("'_data' length can't be less then 4. Your texture must be at least 2 x 2 pixels in size. You have to use SetTextureData(uint[] data, int width) before calling this method.");
         }
         if (_width < 2)
         {
-            throw new Exception("'_width' can't be less then 2. Your texture must be at least 2 x 2 pixels in size. You have to use SetTextureData(uint[] data, int width) before calling this method.");
+            throw new InvalidOperationException("'_width' can't be less then 2. Your texture must be at least 2 x 2 pixels in size. You have to use SetTextureData(uint[] data, int width) before calling this method.");
         }
         if (_data.Length % _width != 0)
         {
-            throw new Exception("'_width' has an invalid value. You have to use SetTextureData(uint[] data, int width) before calling this method.");
+            throw new InvalidOperationException("'_width' has an invalid value. You have to use SetTextureData(uint[] data, int width) before calling this method.");
         }
         List<Vertices> detectedPolygons = [];
         Vector2? lastHoleEntrance = null;
@@ -282,7 +282,7 @@ public sealed class TextureConverter
         while (flag);
         if (detectedPolygons == null || (detectedPolygons != null && detectedPolygons.Count == 0))
         {
-            throw new Exception("Couldn't detect any vertices.");
+            throw new InvalidOperationException("Couldn't detect any vertices.");
         }
         if (PolygonDetectionType == VerticesDetectionType.Separated)
         {

@@ -18,12 +18,12 @@ public class Hashtable : Dictionary<object, object>
             string text = array[i];
             if (!hashtable.ContainsKey(text))
             {
-                return checkForNull ? throw new Exception("Hashtable key `" + key + "` not found - at `" + text + "`.") : null;
+                return checkForNull ? throw new KeyNotFoundException("Hashtable key `" + key + "` not found - at `" + text + "`.") : null;
             }
             object obj = hashtable[text];
             if (obj == null)
             {
-                return checkForNull ? throw new Exception("Hashtable key `" + key + "` is null - at `" + text + "`.") : null;
+                return checkForNull ? throw new InvalidOperationException("Hashtable key `" + key + "` is null - at `" + text + "`.") : null;
             }
             if (i == array.Length - 1)
             {

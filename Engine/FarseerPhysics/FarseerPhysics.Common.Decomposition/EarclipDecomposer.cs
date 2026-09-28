@@ -84,7 +84,7 @@ internal static class EarclipDecomposer
             List<Vertices> list3 = TriangulatePolygon(poutB, tolerance);
             if (list2.Count == -1 || list3.Count == -1)
             {
-                throw new Exception("Can't triangulate your polygon.");
+                throw new InvalidOperationException("Can't triangulate your polygon.");
             }
             for (int i = 0; i < list2.Count; i++)
             {

@@ -101,7 +101,7 @@ public class Path
     {
         if (ControlPoints.Count < 2)
         {
-            throw new Exception("You need at least 2 control points to calculate a position.");
+            throw new InvalidOperationException("You need at least 2 control points to calculate a position.");
         }
         Vector2 result;
         if (Closed)

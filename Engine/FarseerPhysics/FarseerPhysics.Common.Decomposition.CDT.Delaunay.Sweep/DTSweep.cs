@@ -368,7 +368,7 @@ internal static class DTSweep
         }
         if (t.GetConstrainedEdgeAcross(p))
         {
-            throw new Exception("Intersecting Constraints");
+            throw new InvalidOperationException("Intersecting Constraints");
         }
         if (TriangulationUtil.InScanArea(p, t.PointCCW(p), t.PointCW(p), triangulationPoint))
         {
@@ -435,7 +435,7 @@ internal static class DTSweep
         TriangulationPoint triangulationPoint = delaunayTriangle.OppositePoint(t, p);
         if (delaunayTriangle == null)
         {
-            throw new Exception("[BUG:FIXME] FLIP failed due to missing triangle");
+            throw new InvalidOperationException("[BUG:FIXME] FLIP failed due to missing triangle");
         }
         if (TriangulationUtil.InScanArea(eq, flipTriangle.PointCCW(eq), flipTriangle.PointCW(eq), triangulationPoint))
         {

@@ -31,7 +31,7 @@ public class PhysicsDisplacementGrid : DisplacementGrid
         {
             if (!value.Between(0f, 1f))
             {
-                throw new Exception("Damping should be between 0 and 1");
+                throw new ArgumentOutOfRangeException(nameof(value), "Damping should be between 0 and 1");
             }
             _dampingRatio = value;
         }

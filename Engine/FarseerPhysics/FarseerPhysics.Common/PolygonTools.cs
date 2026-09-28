@@ -38,11 +38,11 @@ public static class PolygonTools
     {
         if (yRadius > height / 2f || xRadius > width / 2f)
         {
-            throw new Exception("Rounding amount can't be more than half the height and width respectively.");
+            throw new ArgumentException("Rounding amount can't be more than half the height and width respectively.");
         }
         if (segments < 0)
         {
-            throw new Exception("Segments must be zero or more.");
+            throw new ArgumentOutOfRangeException(nameof(segments), "Segments must be zero or more.");
         }
         Vertices vertices = [];
         if (segments == 0)

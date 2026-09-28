@@ -44,7 +44,7 @@ public class EasingData : IEasingData, ICleanable
 
     public EasingData Initialize(Func<float, float, float, float> function, float dataA, float dataB)
     {
-        _functionC = function ?? throw new NullReferenceException("function can not be null");
+        _functionC = function ?? throw new ArgumentNullException(nameof(function));
         _dataA = dataA;
         _dataB = dataB;
         return this;
@@ -52,14 +52,14 @@ public class EasingData : IEasingData, ICleanable
 
     public EasingData Initialize(Func<float, float, float> function, float dataA)
     {
-        _functionB = function ?? throw new NullReferenceException("function can not be null");
+        _functionB = function ?? throw new ArgumentNullException(nameof(function));
         _dataA = dataA;
         return this;
     }
 
     public EasingData Initialize(Func<float, float> function)
     {
-        _functionA = function ?? throw new NullReferenceException("function can not be null");
+        _functionA = function ?? throw new ArgumentNullException(nameof(function));
         return this;
     }
 
@@ -69,7 +69,7 @@ public class EasingData : IEasingData, ICleanable
             ? _functionA(ratio)
             : _functionB != null
             ? _functionB(ratio, _dataA)
-            : _functionC != null ? _functionC(ratio, _dataA, _dataB) : throw new Exception("No ease function selected");
+            : _functionC != null ? _functionC(ratio, _dataA, _dataB) : throw new InvalidOperationException("No ease function selected");
     }
 
     public void Clean()

@@ -30,7 +30,7 @@ public class SliderButtons : IUpdatable
     {
         if (_initialized)
         {
-            throw new Exception("SliderButtons is already initialized");
+            throw new InvalidOperationException("SliderButtons is already initialized");
         }
         _upButton = upButton;
         _downButton = downButton;

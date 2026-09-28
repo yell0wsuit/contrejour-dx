@@ -41,20 +41,14 @@ public class TweenObject : IntervalTweenBase, ITween<TweenObject>, ICompletableT
 
     public TweenObject OnComplete(object target, Action<object> action)
     {
-        if (action == null)
-        {
-            throw new NullReferenceException("action can not be null");
-        }
+        ArgumentNullException.ThrowIfNull(action);
         _onCompleteWithTarget.Enqueue(new TargetAndAction(target, action));
         return this;
     }
 
     public TweenObject OnComplete(Action<object> action)
     {
-        if (action == null)
-        {
-            throw new NullReferenceException("action can not be null");
-        }
+        ArgumentNullException.ThrowIfNull(action);
         _onCompleteWith.Enqueue(action);
         return this;
     }
