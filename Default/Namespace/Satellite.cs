@@ -43,19 +43,19 @@ public class Satellite : IUpdatable, IRemovable
 
     public bool ShouldRemove => hasRemove;
 
-    public Satellite(ContreJourGame _game, Particle _clip, BodyClip parent, float _direction, Vector2 position)
+    public Satellite(ContreJourGame game, Particle clip, BodyClip parent, float direction, Vector2 position)
     {
         target = parent;
         initialPosition = position;
-        clip = _clip;
+        this.clip = clip;
         speedValue = Maths.Random(15f, 25f) * 2f;
         angleStep = Maths.Random(0.18f, 0.28f);
-        direction = _direction;
-        clip.Position = position;
-        if (_game != null)
+        this.direction = direction;
+        this.clip.Position = position;
+        if (game != null)
         {
-            game = _game;
-            game.AddUpdatable(this);
+            this.game = game;
+            this.game.AddUpdatable(this);
         }
         hasRemove = false;
     }

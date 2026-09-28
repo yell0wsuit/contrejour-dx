@@ -76,8 +76,8 @@ public class TrampolineBodyClip : SnotBodyClipBase
         }
     }
 
-    public TrampolineBodyClip(LevelBuilderBase _builder, SnotData _body, Node _clip, Hashtable _config)
-        : base(_builder, _body, _clip, _config)
+    public TrampolineBodyClip(LevelBuilderBase builder, SnotData body, Node clip, Hashtable config)
+        : base(builder, body, clip, config)
     {
         for (int i = 2; i < Physics.BodiesSize() - 2; i++)
         {
@@ -101,9 +101,9 @@ public class TrampolineBodyClip : SnotBodyClipBase
         {
             Impulse = impulseMultiplier
         };
-        builder.Add(trajectory, 11);
-        trajectory.Position = builder.ToIPadPoint(center);
-        trajectory.Angle = _config.GetFloat("rotation").ToRadians() + ((float)Math.PI / 2f);
+        this.builder.Add(trajectory, 11);
+        trajectory.Position = this.builder.ToIPadPoint(center);
+        trajectory.Angle = config.GetFloat("rotation").ToRadians() + ((float)Math.PI / 2f);
         timeFromLaunch = 0.3f;
         SetJointsDamping(1f);
     }
@@ -123,9 +123,9 @@ public class TrampolineBodyClip : SnotBodyClipBase
         return Physics.BodyAt(Physics.BodiesSize() / 2);
     }
 
-    public void StartDrag(Touch _touch)
+    public void StartDrag(Touch touch)
     {
-        touch = _touch;
+        this.touch = touch;
         DragEvent.SendEvent();
         dragging = true;
         Body val = CenterBody();

@@ -43,13 +43,13 @@ public class PlasticineItem : LinkedListItem
 
     public PlasticinePartBodyClip BodyClip => (PlasticinePartBodyClip)item;
 
-    public PlasticineItem(PlasticinePartBodyClip _bodyClip, float _width)
-        : base(_bodyClip)
+    public PlasticineItem(PlasticinePartBodyClip bodyClip, float width)
+        : base(bodyClip)
     {
-        _bodyClip.Item = this;
-        _bodyClip.SetDirty();
-        width = _width;
-        world = _bodyClip.World;
+        bodyClip.Item = this;
+        bodyClip.SetDirty();
+        this.width = width;
+        world = bodyClip.World;
         initialPosition = Body.Position;
         initialAngle = Body.Rotation;
         innerPosition = GetBorderVec(-1f / 3f);

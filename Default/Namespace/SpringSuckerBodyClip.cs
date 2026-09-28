@@ -39,8 +39,8 @@ public class SpringSuckerBodyClip : SuckerBodyClip
 
     private bool CanAutocreate => touch == null && config.GetBool("auto");
 
-    public SpringSuckerBodyClip(LevelBuilderBase _builder, object _body, Node _clip, Hashtable _config)
-        : base(_builder, _body, _clip, _config)
+    public SpringSuckerBodyClip(LevelBuilderBase builder, object body, Node clip, Hashtable config)
+        : base(builder, body, clip, config)
     {
         AutoCreate();
     }

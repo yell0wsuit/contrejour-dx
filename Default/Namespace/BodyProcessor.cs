@@ -8,13 +8,13 @@ public class BodyProcessor : ShapeProcessor
 {
     protected Hashtable processors;
 
-    public BodyProcessor(LevelBuilderBase _builder)
-        : base("body", _builder)
+    public BodyProcessor(LevelBuilderBase builder)
+        : base("body", builder)
     {
         processors = new Hashtable
         {
-            ["circle"] = new CircleProcessor(_builder),
-            ["polygon"] = new PolygonProcessor(_builder)
+            ["circle"] = new CircleProcessor(builder),
+            ["polygon"] = new PolygonProcessor(builder)
         };
     }
 

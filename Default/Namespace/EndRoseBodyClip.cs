@@ -35,12 +35,12 @@ public class EndRoseBodyClip : StickyBodyClip, IBonusAcceptable, IBodyClip
 
     protected bool started;
 
-    public EndRoseBodyClip(LevelBuilderBase _builder, object _body, Sprite _clip, Hashtable _config)
-        : base(_builder, _body, _clip, _config)
+    public EndRoseBodyClip(LevelBuilderBase builder, object body, Sprite clip, Hashtable config)
+        : base(builder, body, clip, config)
     {
-        _clip.Scale /= 1.28f;
+        clip.Scale /= 1.28f;
         Game.BonusTarget = this;
-        movie = (MovieClip)clip;
+        movie = (MovieClip)this.clip;
         movie.Rewind = true;
         movie.Repeat = false;
         saved = UserData.Instance.RoseSaved;
@@ -51,7 +51,7 @@ public class EndRoseBodyClip : StickyBodyClip, IBonusAcceptable, IBodyClip
         maxTime = saved ? 4f : 2.9629629f;
         movie.Color = Color.Black;
         colorChanger = new CosChanger(-0.1f, 0f, 0.05f);
-        builder.RegisterObject(this, "rose");
+        this.builder.RegisterObject(this, "rose");
     }
 
     public void ApplyBonus()

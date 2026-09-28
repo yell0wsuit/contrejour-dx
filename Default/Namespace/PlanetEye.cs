@@ -30,8 +30,8 @@ public class PlanetEye : BackSnotEye, IVectorPositionProvider
 
     public Vector2 PositionVec => eyePosition;
 
-    public PlanetEye(ContreJourGame _game, bool _visible, Vector2 position)
-        : base(_game, _visible, position)
+    public PlanetEye(ContreJourGame game, bool visible, Vector2 position)
+        : base(game, visible, position)
     {
         eyePosition = Vector2.Zero;
         _ = Mokus2DGame.LoadMovieClipData("planets/McPlanetEyeBlink");

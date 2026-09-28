@@ -86,17 +86,17 @@ public class ChapterItem : Node
 
     public event Action<int> SelectEvent;
 
-    public ChapterItem(int _index, MainMenu _menu)
+    public ChapterItem(int index, MainMenu menu)
     {
-        menu = _menu;
-        index = _index;
+        this.menu = menu;
+        this.index = index;
         depth = -1f;
         container = new Node();
         AddChild(container);
         CreateSprites();
         AddChild(blurBackground);
         hidingItems.Add(background);
-        offset = index * (float)Math.PI * 2f / ContreJourConstants.PlanetsCount;
+        offset = this.index * (float)Math.PI * 2f / ContreJourConstants.PlanetsCount;
         CreateClickListener();
         enabled = true;
     }

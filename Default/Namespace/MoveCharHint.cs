@@ -6,7 +6,7 @@ using Mokus2D.Visual;
 
 namespace Default.Namespace;
 
-public class MoveCharHint(ContreJourLevelBuilder _builder, object _body, Sprite _clip, Hashtable _config) : FadeHint(_builder, _body, _clip, _config)
+public class MoveCharHint(ContreJourLevelBuilder builder, object body, Sprite clip, Hashtable config) : FadeHint(builder, body, clip, config)
 {
     protected Vector2 initialPosition;
 

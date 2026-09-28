@@ -330,15 +330,15 @@ public class ContreJourApplication : Mokus2DGame
         SoundManager.StopMusic();
     }
 
-    public void LoadLevel(int _level)
+    public void LoadLevel(int level)
     {
-        bool flag = IsFirstLevel(_currentView) || _level == 0;
+        bool flag = IsFirstLevel(_currentView) || level == 0;
         Func<ContreJourGame> func = ProcessLoadLevel;
         if (flag)
         {
             func = CleanLoad(func);
         }
-        lastLevel = _level;
+        lastLevel = level;
         ChangeScene(func);
     }
 

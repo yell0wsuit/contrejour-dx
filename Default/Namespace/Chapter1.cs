@@ -10,7 +10,7 @@ using Mokus2D.Visual;
 
 namespace Default.Namespace;
 
-public class Chapter1(int _index, MainMenu _menu) : ChapterItem(_index, _menu)
+public class Chapter1(int index, MainMenu menu) : ChapterItem(index, menu)
 {
     protected Sprite foreground;
 
@@ -45,7 +45,7 @@ public class Chapter1(int _index, MainMenu _menu) : ChapterItem(_index, _menu)
             .FadeTo(31f / 51f);
         Sprite node = new McRoseForeground();
         container.AddChild(node);
-        eye = new PlanetEye(null, _visible: true, Vector2.Zero)
+        eye = new PlanetEye(null, visible: true, Vector2.Zero)
         {
             Scale = 0.9f,
             Position = new Vector2(10f, -10f)

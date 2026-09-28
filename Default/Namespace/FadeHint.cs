@@ -19,13 +19,13 @@ public class FadeHint : HintBase, IRemovable, IRestartable
     public override bool ShouldRemove => false;
 
     [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "Level content creates this by reflection with this signature.")]
-    public FadeHint(ContreJourLevelBuilder _builder, object _body, Sprite _clip, Hashtable _config)
-        : base(_builder, null, _clip, _config)
+    public FadeHint(ContreJourLevelBuilder builder, object body, Sprite clip, Hashtable config)
+        : base(builder, null, clip, config)
     {
-        _builder.ContreJour.AddUpdatable(this);
-        _builder.ContreJour.AddTextureToUnload(_clip.Texture.Name);
-        clip.OpacityByte = 0;
-        clip.Visible = false;
+        builder.ContreJour.AddUpdatable(this);
+        builder.ContreJour.AddTextureToUnload(clip.Texture.Name);
+        this.clip.OpacityByte = 0;
+        this.clip.Visible = false;
         hasToRun = true;
     }
 

@@ -10,8 +10,8 @@ public class ButtonSprite : TouchEffect
 
     public float TargetScale { get; set; }
 
-    public ButtonSprite(TouchSprite _sprite)
-        : base(_sprite)
+    public ButtonSprite(TouchSprite sprite)
+        : base(sprite)
     {
         initialScale = Node.Scale;
         TargetScale = initialScale * 1.1f;

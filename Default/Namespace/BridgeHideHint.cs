@@ -7,8 +7,8 @@ namespace Default.Namespace;
 public class BridgeHideHint : SuckerHintBase
 {
     [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "Level content creates this by reflection with this signature.")]
-    public BridgeHideHint(ContreJourLevelBuilder _builder, object _body, Sprite _clip, Hashtable _config)
-        : base(_builder, null, _clip, _config)
+    public BridgeHideHint(ContreJourLevelBuilder builder, object body, Sprite clip, Hashtable config)
+        : base(builder, null, clip, config)
     {
         hasToRun = false;
         sucker.FinishDragEvent.AddListener(OnFinishDrag);

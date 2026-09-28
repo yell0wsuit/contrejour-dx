@@ -11,7 +11,7 @@ using Mokus2D.Visual.Particles.Util;
 
 namespace Default.Namespace;
 
-public class DestroyOnHitClip(LevelBuilderBase _builder, object _body, Node _clip, Hashtable _config) : BodyClip(_builder, _body, _clip, _config)
+public class DestroyOnHitClip(LevelBuilderBase _builder, object body, Node _clip, Hashtable config) : BodyClip(_builder, body, _clip, config)
 {
     protected Explosion explosion;
 

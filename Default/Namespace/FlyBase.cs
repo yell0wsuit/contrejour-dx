@@ -23,13 +23,13 @@ public class FlyBase : IUpdatable
 
     protected float verticalStepDiff;
 
-    public FlyBase(Particle _particle, float _scale)
+    public FlyBase(Particle particle, float scale)
     {
-        particle = _particle;
-        particle.Scale = _scale;
-        initialPosition = _particle.Position;
+        this.particle = particle;
+        this.particle.Scale = scale;
+        initialPosition = particle.Position;
         targetPosition = initialPosition;
-        opacityChanger = new CosOpacityChanger(particle, 0f, Maths.Random(0.5f, 0.6f), Maths.Random(0.01f, 0.07f));
+        opacityChanger = new CosOpacityChanger(this.particle, 0f, Maths.Random(0.5f, 0.6f), Maths.Random(0.01f, 0.07f));
         InitParams();
     }
 

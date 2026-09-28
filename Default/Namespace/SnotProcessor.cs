@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework;
 
 namespace Default.Namespace;
 
-public class SnotProcessor(LevelBuilderBase _builder, string _type, float _partSize) : JointProcessorBase(_type, _builder)
+public class SnotProcessor(LevelBuilderBase _builder, string type, float _partSize) : JointProcessorBase(type, _builder)
 {
     public struct BodyAndJoint
     {
@@ -33,13 +33,13 @@ public class SnotProcessor(LevelBuilderBase _builder, string _type, float _partS
 
     protected float partSize = _partSize;
 
-    public SnotProcessor(LevelBuilderBase _builder)
-        : this(_builder, "snot")
+    public SnotProcessor(LevelBuilderBase builder)
+        : this(builder, "snot")
     {
     }
 
-    public SnotProcessor(LevelBuilderBase _builder, string _type)
-        : this(_builder, _type, 1.6f)
+    public SnotProcessor(LevelBuilderBase builder, string type)
+        : this(builder, type, 1.6f)
     {
     }
 

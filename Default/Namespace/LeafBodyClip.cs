@@ -9,12 +9,12 @@ public class LeafBodyClip : ForegroundBase
 
     protected float initialRotation;
 
-    public LeafBodyClip(ContreJourLevelBuilder _builder, object _body, Sprite _clip, Hashtable _config)
-        : base(_builder, _body, _clip, _config)
+    public LeafBodyClip(ContreJourLevelBuilder builder, object body, Sprite clip, Hashtable config)
+        : base(builder, body, clip, config)
     {
-        float num = _config.GetFloat("angleOffset", 0f);
-        rotationChanger = new CosChanger(0f - num, num, _config.GetFloat("rotationSpeed") / 30f);
-        initialRotation = clip.RotationDegrees;
+        float num = config.GetFloat("angleOffset", 0f);
+        rotationChanger = new CosChanger(0f - num, num, config.GetFloat("rotationSpeed") / 30f);
+        initialRotation = this.clip.RotationDegrees;
     }
 
     public override void Update(float time)

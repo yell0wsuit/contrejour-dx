@@ -14,20 +14,20 @@ public class HeroExplosion
 
     protected ContreJourGame game;
 
-    public void Explode(HeroBodyClip _bodyClip, ContreJourGame _game)
+    public void Explode(HeroBodyClip bodyClip, ContreJourGame game)
     {
-        bodyClip = _bodyClip;
-        bodyClip.Body.BodyType = 0;
-        game = _game;
-        Sequence sequence = bodyClip.Clip.Tweener.StartSequence();
-        HeroEye eye = bodyClip.Eye;
+        this.bodyClip = bodyClip;
+        this.bodyClip.Body.BodyType = 0;
+        this.game = game;
+        Sequence sequence = this.bodyClip.Clip.Tweener.StartSequence();
+        HeroEye eye = this.bodyClip.Eye;
         eye.SetDefaultView();
         eye.AnimationsAllowed = false;
-        bodyClip.Clip.Scale = bodyClip.Clip.ScaleX;
+        this.bodyClip.Clip.Scale = this.bodyClip.Clip.ScaleX;
         for (int i = 0; i < 15; i++)
         {
             Vector2 position = new(Maths.Random(-2f, 2f), Maths.Random(-2f, 2f));
-            position += bodyClip.Clip.Position;
+            position += this.bodyClip.Clip.Position;
             sequence = TweeningExtensions.ScaleTo(scale: 1f + (i / 15f / 5f) + ((i % 2 != 0) ? 0.05f : (-0.05f)), tweenObject: sequence.Next(0.02f)).MoveTo(position);
         }
         _ = sequence.OnComplete(DoExplode);

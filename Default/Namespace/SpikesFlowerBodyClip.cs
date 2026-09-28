@@ -34,32 +34,32 @@ public class SpikesFlowerBodyClip : ContreJourBodyClip, IVectorPositionProvider
 
     public override Vector2 PositionVec => Body.Position;
 
-    public SpikesFlowerBodyClip(ContreJourLevelBuilder _builder, object _body, Node _clip, Hashtable _config)
-        : base(_builder, _body, _clip, _config)
+    public SpikesFlowerBodyClip(ContreJourLevelBuilder builder, object body, Node clip, Hashtable config)
+        : base(builder, body, clip, config)
     {
         if (Game.WhiteSide || Game.BonusChapter)
         {
-            _clip = LevelBuilderBase.ReplaceClipWith(_clip, Game.Choose(null, null, "McSpikesViewWhite", null, "McSpikesView_6"));
-            clip = _clip;
+            clip = LevelBuilderBase.ReplaceClipWith(clip, Game.Choose(null, null, "McSpikesViewWhite", null, "McSpikesView_6"));
+            this.clip = clip;
         }
         container = new Node();
-        clip.AddChild(container, -1);
+        this.clip.AddChild(container, -1);
         Node node = new McSpikesFlowerShadow
         {
-            Scale = clip.ScaleY
+            Scale = this.clip.ScaleY
         };
         container.AddChild(node);
-        movie = (ISpikesView)_clip;
+        movie = (ISpikesView)clip;
         movie.Left.Stoped = movie.Right.Stoped = true;
         movie.Left.Speed = movie.Right.Speed = 1.5f;
-        drawing = new SpikesFlowerSprite(this, clip.ScaleY);
+        drawing = new SpikesFlowerSprite(this, this.clip.ScaleY);
         container.AddChild(drawing, -1);
     }
 
     private void CreateEye()
     {
         Vector2 point = container.LocalToNode(EYE_POSITION, Game.Root);
-        eye = new FlowerEye(Game, _visible: true, builder.ToVec(point))
+        eye = new FlowerEye(Game, visible: true, builder.ToVec(point))
         {
             Scale = clip.ScaleY * 0.7f
         };

@@ -11,10 +11,10 @@ public class SpringBridgeHint : FadeHint
     protected SpringSuckerBodyClip sucker;
 
     [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "Level content creates this by reflection with this signature.")]
-    public SpringBridgeHint(ContreJourLevelBuilder _builder, object _body, Sprite _clip, Hashtable _config)
-        : base(_builder, null, _clip, _config)
+    public SpringBridgeHint(ContreJourLevelBuilder builder, object body, Sprite clip, Hashtable config)
+        : base(builder, null, clip, config)
     {
-        sucker = (SpringSuckerBodyClip)FarseerUtil.Query(builder.World, builder.ToIPhoneVec(clip.Position), QUERY_RADIUS, typeof(SpringSuckerBodyClip));
+        sucker = (SpringSuckerBodyClip)FarseerUtil.Query(this.builder.World, this.builder.ToIPhoneVec(this.clip.Position), QUERY_RADIUS, typeof(SpringSuckerBodyClip));
         Restart();
     }
 

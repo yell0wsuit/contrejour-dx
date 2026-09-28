@@ -64,11 +64,11 @@ public class GrassController : IGrassController, IUpdatable
         return Maths.Random(0f - plasticine.Width, plasticine.Width);
     }
 
-    public GrassController(PlasticinePartBodyClip _plasticine)
+    public GrassController(PlasticinePartBodyClip plasticine)
     {
-        plasticine = _plasticine;
-        builder = (ContreJourLevelBuilder)plasticine.Builder;
-        game = (ContreJourGame)plasticine.Builder.Game;
+        this.plasticine = plasticine;
+        builder = (ContreJourLevelBuilder)this.plasticine.Builder;
+        game = (ContreJourGame)this.plasticine.Builder.Game;
         startAngle = Maths.Random(-(float)Math.PI / 12f, (float)Math.PI / 12f);
         touched = false;
         touchDistance = 0f;
@@ -209,8 +209,8 @@ public class GrassController : IGrassController, IUpdatable
         }
     }
 
-    public static void RandomizeClipMinScaleMaxScale(Particle _clip, float minScale, float maxScale)
+    public static void RandomizeClipMinScaleMaxScale(Particle clip, float minScale, float maxScale)
     {
-        _clip.Scale = Maths.Random(minScale, maxScale);
+        clip.Scale = Maths.Random(minScale, maxScale);
     }
 }

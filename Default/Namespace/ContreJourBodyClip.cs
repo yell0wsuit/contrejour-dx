@@ -11,10 +11,10 @@ public class ContreJourBodyClip : BodyClip
 
     public ContreJourGame Game { get; }
 
-    public ContreJourBodyClip(LevelBuilderBase _builder, object _body, Node _clip, Hashtable _config)
-        : base(_builder, _body, _clip, _config)
+    public ContreJourBodyClip(LevelBuilderBase builder, object body, Node clip, Hashtable config)
+        : base(builder, body, clip, config)
     {
-        contreJourBuilder = (ContreJourLevelBuilder)_builder;
+        contreJourBuilder = (ContreJourLevelBuilder)builder;
         Game = contreJourBuilder.ContreJour;
     }
 

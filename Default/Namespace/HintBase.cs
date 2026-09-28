@@ -18,17 +18,17 @@ public class HintBase : BodyClip, IRemovable
     public virtual bool ShouldRemove => false;
 
     [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "Level content creates this by reflection with this signature.")]
-    public HintBase(ContreJourLevelBuilder _builder, object _body, Sprite _clip, Hashtable _config)
-        : base(_builder, null, _clip, _config)
+    public HintBase(ContreJourLevelBuilder builder, object body, Sprite clip, Hashtable config)
+        : base(builder, null, clip, config)
     {
-        contreJour = _builder.ContreJour;
-        _builder.Game.AddUpdatable(this);
-        contreJour.AddTextureToUnload(_clip.Texture.Name);
-        AddText(config.GetHashtable("textData"));
+        contreJour = builder.ContreJour;
+        builder.Game.AddUpdatable(this);
+        contreJour.AddTextureToUnload(clip.Texture.Name);
+        AddText(this.config.GetHashtable("textData"));
         int num = 0;
-        while (config.Exists("textData" + num))
+        while (this.config.Exists("textData" + num))
         {
-            Hashtable hashtable = config.GetHashtable("textData" + num);
+            Hashtable hashtable = this.config.GetHashtable("textData" + num);
             if (hashtable != null)
             {
                 AddText(hashtable);

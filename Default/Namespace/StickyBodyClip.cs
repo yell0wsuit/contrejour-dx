@@ -18,8 +18,8 @@ public class StickyBodyClip : ContreJourBodyClip
 
     private Vector2 offset;
 
-    public StickyBodyClip(LevelBuilderBase _builder, object _body, Node _clip, Hashtable _config)
-        : base(_builder, _body, _clip, _config)
+    public StickyBodyClip(LevelBuilderBase builder, object body, Node clip, Hashtable config)
+        : base(builder, body, clip, config)
     {
         Body.BodyType = (BodyType)1;
     }

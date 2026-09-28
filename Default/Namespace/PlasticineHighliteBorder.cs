@@ -27,7 +27,7 @@ public class PlasticineHighliteBorder : PrimitivesNode
 
     public Color MainColor => border.Color;
 
-    public PlasticineHighliteBorder(PlasticineItem firstItem, PlasticineWideBorder _border)
+    public PlasticineHighliteBorder(PlasticineItem firstItem, PlasticineWideBorder border)
     {
         PlasticineItem plasticineItem = firstItem;
         game = (ContreJourGame)plasticineItem.BodyClip.Builder.Game;
@@ -41,8 +41,8 @@ public class PlasticineHighliteBorder : PrimitivesNode
             num++;
         }
         while (plasticineItem != firstItem);
-        border = _border;
-        vertices = new VertexPositionColor[border.OutBorder.Length];
+        this.border = border;
+        vertices = new VertexPositionColor[this.border.OutBorder.Length];
     }
 
     public VertexPositionColor[] OutBorder()

@@ -10,7 +10,7 @@ using Mokus2D.Visual.Particles.Util;
 
 namespace Default.Namespace;
 
-public class Chapter2(int _index, MainMenu _menu) : ChapterItem(_index, _menu)
+public class Chapter2(int index, MainMenu menu) : ChapterItem(index, menu)
 {
     protected WhiteSmoke springSmoke;
 

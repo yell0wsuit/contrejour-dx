@@ -29,11 +29,11 @@ public class StrongSnotBodyClip : SnotBodyClip
 
     public new Vector2 Position => Physics.FirstBody.Position;
 
-    public StrongSnotBodyClip(LevelBuilderBase _builder, SnotData _body, Node _clip, Hashtable _config)
-        : base(_builder, _body, _clip, _config)
+    public StrongSnotBodyClip(LevelBuilderBase builder, SnotData body, Node clip, Hashtable config)
+        : base(builder, body, clip, config)
     {
         normalDistance = CurrentDistance();
-        maxSnotDistance = Math.Max(normalDistance * 1.25f, normalDistance + (30f * builder.EngineConfig.SizeMultiplier));
+        maxSnotDistance = Math.Max(normalDistance * 1.25f, normalDistance + (30f * this.builder.EngineConfig.SizeMultiplier));
         extremeSnotDistance = normalDistance * 2f;
         targetColor = 255f;
     }

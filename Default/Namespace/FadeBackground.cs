@@ -8,11 +8,11 @@ public class FadeBackground : BackgroundBase
 
     protected Sprite sprite;
 
-    public FadeBackground(Node _node, Hashtable _config, ContreJourGame _game)
-        : base(_node, _config, _game)
+    public FadeBackground(Node node, Hashtable config, ContreJourGame game)
+        : base(node, config, game)
     {
-        sprite = (Sprite)_node;
-        if (!game.CanShowIntro)
+        sprite = (Sprite)node;
+        if (!this.game.CanShowIntro)
         {
             sprite.OpacityByte = 0;
             sprite.Visible = false;

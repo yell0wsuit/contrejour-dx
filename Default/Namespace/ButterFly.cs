@@ -11,8 +11,8 @@ public class ButterFly : FlyBase
     private readonly float step;
 
     [SuppressMessage("Style", "IDE0290:Use primary constructor", Justification = "Its random draws must run after the base constructor's, in this order.")]
-    public ButterFly(Particle _particle, float _scale)
-        : base(_particle, _scale)
+    public ButterFly(Particle particle, float scale)
+        : base(particle, scale)
     {
         step = Maths.Random(0.01f, 0.03f);
     }

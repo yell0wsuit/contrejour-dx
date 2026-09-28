@@ -22,17 +22,17 @@ public class LianaSprite : LongNeckSprite
 
     private readonly float MAX_PART_LENGHT = 4f / 15f;
 
-    public LianaSprite(ILianaDrawData _data, Color neckColor, float _width)
+    public LianaSprite(ILianaDrawData data, Color neckColor, float width)
     {
-        data = _data;
-        width = _width * (1f / 30f);
+        this.data = data;
+        this.width = width * (1f / 30f);
         base.Color = neckColor;
         CreateParts();
         Update(0f);
     }
 
-    public LianaSprite(ILianaDrawData _data, Color _color)
-        : this(_data, _color, UnusedBorderWidth())
+    public LianaSprite(ILianaDrawData data, Color color)
+        : this(data, color, UnusedBorderWidth())
     {
     }
 

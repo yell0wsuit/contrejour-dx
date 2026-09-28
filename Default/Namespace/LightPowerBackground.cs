@@ -4,7 +4,7 @@ using Mokus2D.Visual;
 
 namespace Default.Namespace;
 
-public class LightPowerBackground(Node _node, Hashtable _config, ContreJourGame _game) : BackgroundBase(_node, _config, _game)
+public class LightPowerBackground(Node _node, Hashtable config, ContreJourGame _game) : BackgroundBase(_node, config, _game)
 {
     public override void Update(float time)
     {

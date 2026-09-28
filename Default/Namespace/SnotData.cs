@@ -59,16 +59,16 @@ public class SnotData
 
     public Body EndBody => bodies.Last();
 
-    public SnotData(Body _eyeBody, RevoluteJoint _eyeJoint, Body _joinedBody, Vector2 _localStartAnchor, List<Body> _bodies, List<Joint> _joints, RopeMetrics _metrics)
+    public SnotData(Body eyeBody, RevoluteJoint eyeJoint, Body joinedBody, Vector2 localStartAnchor, List<Body> bodies, List<Joint> joints, RopeMetrics metrics)
     {
-        eyeBody = _eyeBody;
-        eyeJoint = _eyeJoint;
-        bodies = _bodies;
-        joints = _joints;
-        joinedBody = _joinedBody;
-        localStartAnchor = _localStartAnchor;
+        this.eyeBody = eyeBody;
+        this.eyeJoint = eyeJoint;
+        this.bodies = bodies;
+        this.joints = joints;
+        this.joinedBody = joinedBody;
+        this.localStartAnchor = localStartAnchor;
         initialLength = (EndBody.Position - EyeBody.Position).Length();
-        metrics = _metrics;
+        this.metrics = metrics;
     }
 
     public Body BodyAt(int i)

@@ -13,10 +13,10 @@ public class MultitouchHint : FadeHint
     protected List<BodyClip> snots;
 
     [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "Level content creates this by reflection with this signature.")]
-    public MultitouchHint(ContreJourLevelBuilder _builder, object _body, Sprite _clip, Hashtable _config)
-        : base(_builder, null, _clip, _config)
+    public MultitouchHint(ContreJourLevelBuilder builder, object body, Sprite clip, Hashtable config)
+        : base(builder, null, clip, config)
     {
-        snots = FarseerUtil.QueryBodyClipsCenterRadiusType(builder.World, builder.ToIPhoneVec(clip.Position), 6.6666665f, typeof(StrongSnotBodyClip));
+        snots = FarseerUtil.QueryBodyClipsCenterRadiusType(this.builder.World, this.builder.ToIPhoneVec(this.clip.Position), 6.6666665f, typeof(StrongSnotBodyClip));
         hasToRun = false;
         foreach (StrongSnotBodyClip snot in snots.Cast<StrongSnotBodyClip>())
         {

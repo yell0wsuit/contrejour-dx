@@ -17,17 +17,17 @@ public class EndLevelBodyClip : RotatableBodyClip, IRestartable
 
     protected float scale;
 
-    public EndLevelBodyClip(LevelBuilderBase _builder, object _body, Node _clip, Hashtable _config)
-        : base(_builder, _body, _clip, _config)
+    public EndLevelBodyClip(LevelBuilderBase builder, object body, Node clip, Hashtable config)
+        : base(builder, body, clip, config)
     {
-        portal = new Portal((ContreJourGame)builder.Game, Vector2.Zero)
+        portal = new Portal((ContreJourGame)this.builder.Game, Vector2.Zero)
         {
-            Position = clip.Position,
+            Position = this.clip.Position,
             Scale = 1.3f
         };
-        builder.Add(portal, 11);
-        ((ContreJourGame)builder.Game).EndLevel = this;
-        clip.Visible = false;
+        this.builder.Add(portal, 11);
+        ((ContreJourGame)this.builder.Game).EndLevel = this;
+        this.clip.Visible = false;
         portal.ItemsScale = 0f;
     }
 

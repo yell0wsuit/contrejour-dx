@@ -30,17 +30,17 @@ public class SimpleSpikesBodyClip : ContreJourBodyClip, IRestartable
 
     protected float initialScale;
 
-    public SimpleSpikesBodyClip(LevelBuilderBase _builder, object _body, Node _clip, Hashtable _config)
-        : base(_builder, _body, _clip, _config)
+    public SimpleSpikesBodyClip(LevelBuilderBase builder, object body, Node clip, Hashtable config)
+        : base(builder, body, clip, config)
     {
-        ContreJourGame contreJourGame = (ContreJourGame)_builder.Game;
-        string text = _config.GetString("viewType");
+        ContreJourGame contreJourGame = (ContreJourGame)builder.Game;
+        string text = config.GetString("viewType");
         floating = text.Contains("Circle");
         if (!contreJourGame.BlackSide)
         {
-            clip = LevelBuilderBase.ReplaceClipWith(_clip, text + contreJourGame.ChooseSide(null, "White", "_5", "Black", "_6"));
+            this.clip = LevelBuilderBase.ReplaceClipWith(clip, text + contreJourGame.ChooseSide(null, "White", "_5", "Black", "_6"));
         }
-        clip.UpdateEnabled = false;
+        this.clip.UpdateEnabled = false;
         prickTime = -2f;
         initialPosition = Clip.Position;
         initialScale = Clip.ScaleX;

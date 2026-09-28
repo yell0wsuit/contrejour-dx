@@ -59,15 +59,15 @@ public class RotatorBodyClip : FurBodyClip, IClickable, IRestartable, ISnotHolde
 
     public Vector2 SnotPosition => Body.Position;
 
-    public RotatorBodyClip(ContreJourLevelBuilder _builder, object _body, Node _clip, Hashtable _config)
-        : base(_builder, _body, _clip, _config)
+    public RotatorBodyClip(ContreJourLevelBuilder builder, object body, Node clip, Hashtable config)
+        : base(builder, body, clip, config)
     {
         lastDirection = 1f;
         Body.BodyType = (BodyType)1;
         circle = new McRotatorCircle();
-        clip.AddChild(circle);
+        this.clip.AddChild(circle);
         touchPoint = new McRotatorPoint();
-        clip.AddChild(touchPoint);
+        this.clip.AddChild(touchPoint);
         touchPointSpeed = Maths.Random(0.02f, 0.03f);
         touchPointNeededSpeed = touchPointSpeed;
         RunActions();

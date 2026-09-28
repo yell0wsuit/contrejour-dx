@@ -90,21 +90,21 @@ public class DragableBodyClip : ContreJourBodyClip, IClickable, IRestartable, IS
         }
     }
 
-    public DragableBodyClip(ContreJourLevelBuilder _builder, object _body, Node _clip, Hashtable _config)
-        : base(_builder, _body, _clip, _config)
+    public DragableBodyClip(ContreJourLevelBuilder builder, object body, Node clip, Hashtable config)
+        : base(builder, body, clip, config)
     {
         //IL_00f7: Unknown result type (might be due to invalid IL or missing references)
         //IL_0101: Expected O, but got Unknown
-        _clip = LevelBuilderBase.ReplaceClipWith(_clip, ReplaceClipName(_builder));
-        clip = _clip;
-        _clip.Parent.ChangeChildLayer(_clip, 2);
+        clip = LevelBuilderBase.ReplaceClipWith(clip, ReplaceClipName(builder));
+        this.clip = clip;
+        clip.Parent.ChangeChildLayer(clip, 2);
         dragStartEvent = new EventSender();
-        float num = _config.GetFloat("scaleX");
+        float num = config.GetFloat("scaleX");
         initialPosition = Body.Position;
         targetPosition = initialPosition;
         upperLimit = 3.4f * num;
         lowerLimit = -3.4f * num;
-        axis = VectorUtil.ToVector(1f, MathHelper.ToRadians(0f - config.GetFloat("rotation")));
+        axis = VectorUtil.ToVector(1f, MathHelper.ToRadians(0f - this.config.GetFloat("rotation")));
         CreateBoundsClip(num);
         SetAlpha(150f);
         Body.BodyType = (BodyType)1;
@@ -173,9 +173,9 @@ public class DragableBodyClip : ContreJourBodyClip, IClickable, IRestartable, IS
         limitSpeed = true;
     }
 
-    protected virtual string ReplaceClipName(ContreJourLevelBuilder _builder)
+    protected virtual string ReplaceClipName(ContreJourLevelBuilder builder)
     {
-        return _builder.ContreJour.ChooseSide(null, "McDragViewWhite", "McDragView_5", "McDragView_5");
+        return builder.ContreJour.ChooseSide(null, "McDragViewWhite", "McDragView_5", "McDragView_5");
     }
 
     protected virtual void CreateBoundsClip(float scale)
@@ -209,9 +209,9 @@ public class DragableBodyClip : ContreJourBodyClip, IClickable, IRestartable, IS
         middle.OpacityByte = (int)currentAlpha;
     }
 
-    public bool ProcessTouch(Touch _touch)
+    public bool ProcessTouch(Touch touch)
     {
-        return builder.TouchRootVec(_touch).DistanceTo(Body.Position + TouchOffset()) < 2.3333333f;
+        return builder.TouchRootVec(touch).DistanceTo(Body.Position + TouchOffset()) < 2.3333333f;
     }
 
     public void UpdateTouchPosition()

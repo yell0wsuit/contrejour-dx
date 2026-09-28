@@ -34,12 +34,12 @@ public class FlyController : FlyBase
     protected float windOffset;
 
     [SuppressMessage("Style", "IDE0290:Use primary constructor", Justification = "Its random draws must run after the base constructor's, in this order.")]
-    public FlyController(IWindManager _windProvider, IGrassControllerContainer _grassControllerContainer, Particle _particle, float? scale = null, float? windOffsetRange = null)
-        : base(_particle, scale ?? Maths.Random(0.8f, 1.2f))
+    public FlyController(IWindManager windProvider, IGrassControllerContainer grassControllerContainer, Particle particle, float? scale = null, float? windOffsetRange = null)
+        : base(particle, scale ?? Maths.Random(0.8f, 1.2f))
     {
-        windProvider = _windProvider;
+        this.windProvider = windProvider;
         initialGroundY = -1f;
-        grassControllerContainer = _grassControllerContainer;
+        this.grassControllerContainer = grassControllerContainer;
         scareOffset = new Vector2(Maths.Random(10f, 30f), Maths.Random(30f, 50f));
         scared = 0;
         scareTime = 0f;

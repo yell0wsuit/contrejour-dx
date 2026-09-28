@@ -53,10 +53,10 @@ public class RotatableSpringBodyClip : RotatableSpringBase, IRestartable
 
     protected override bool IsMoving => rotateTouch != null;
 
-    public RotatableSpringBodyClip(LevelBuilderBase _builder, object _body, Node _clip, Hashtable _config)
-        : base(_builder, _body, _clip, _config)
+    public RotatableSpringBodyClip(LevelBuilderBase builder, object body, Node clip, Hashtable config)
+        : base(builder, body, clip, config)
     {
-        game = (ContreJourGame)builder.Game;
+        game = (ContreJourGame)this.builder.Game;
         Body.BodyType = (BodyType)1;
         bodyCenterVec = Vector2.Zero;
         touchPoint = new McRotatorPoint();
@@ -70,19 +70,19 @@ public class RotatableSpringBodyClip : RotatableSpringBase, IRestartable
             touchPoint.Color = ContreJourConstants.GreenLightColor;
             minOpacity = 0.9f;
         }
-        builder.AddChildAfter(circle, clip);
+        this.builder.AddChildAfter(circle, this.clip);
         circle.AddChild(touchPoint);
         touchPoint.IgnoreParentOpacity = true;
-        circle.Position = clip.Position;
+        circle.Position = this.clip.Position;
         touchPoint.Position = new Vector2(50f, 0f);
         touchPointSpeed = Maths.Random(0.02f, 0.03f) / 1.5f;
         touchPointNeededSpeed = touchPointSpeed;
-        startSpringWidth = _config.GetFloat("Width");
+        startSpringWidth = config.GetFloat("Width");
         trajectory = new Trajectory(game)
         {
             Impulse = startSpringWidth / 32f
         };
-        builder.AddChildAfter(trajectory, circle);
+        this.builder.AddChildAfter(trajectory, circle);
         foreach (Fixture fixture in Body.FixtureList)
         {
             if (fixture.UserData is Hashtable && ((Hashtable)fixture.UserData).GetString("id", null) == "touch")

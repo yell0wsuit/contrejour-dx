@@ -20,12 +20,12 @@ public class LevelItem : Button, IBoundsNode, ISizeNode
 
     public int Index => index;
 
-    public LevelItem(int _level, bool unlocked, bool trialLocked)
+    public LevelItem(int level, bool unlocked, bool trialLocked)
         : base(unlocked ? "menu/McLevelItemBackground" : "menu/McLevelItemInactive", "menu/McLevelItemSelected", null)
     {
-        LevelPosition levelPosition = LevelsMenu.GetLevelPosition(_level);
+        LevelPosition levelPosition = LevelsMenu.GetLevelPosition(level);
         this.unlocked = unlocked;
-        level = _level;
+        this.level = level;
         index = levelPosition.Index;
         if (!trialLocked)
         {

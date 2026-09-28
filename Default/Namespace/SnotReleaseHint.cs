@@ -9,8 +9,8 @@ public class SnotReleaseHint : SnotLinkHint
     protected bool used;
 
     [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "Level content creates this by reflection with this signature.")]
-    public SnotReleaseHint(ContreJourLevelBuilder _builder, object _body, Sprite _clip, Hashtable _config)
-        : base(_builder, null, _clip, _config)
+    public SnotReleaseHint(ContreJourLevelBuilder builder, object body, Sprite clip, Hashtable config)
+        : base(builder, null, clip, config)
     {
         hasToRun = false;
     }

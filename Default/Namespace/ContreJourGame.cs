@@ -333,12 +333,12 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
         }
     }
 
-    public ContreJourGame(int _chapter)
+    public ContreJourGame(int chapter)
     {
         freeDisabledTouches = [];
-        chapter = _chapter;
-        blackSide = chapter == 1;
-        whiteSide = chapter == 3;
+        this.chapter = chapter;
+        blackSide = this.chapter == 1;
+        whiteSide = this.chapter == 3;
         touchEnabled = true;
         Vector2 w7FromIPhoneSize = ScreenConstants.W7FromIPhoneSize;
         Vector2 vector = new(w7FromIPhoneSize.X, w7FromIPhoneSize.Y);
@@ -962,10 +962,10 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
         _ = gameRoot.MoveTo(time, position, Cubic.EaseInOut).ScaleTo(scale * gameRoot.Scale, Cubic.EaseInOut);
     }
 
-    public void RegisterHero(HeroBodyClip _hero)
+    public void RegisterHero(HeroBodyClip hero)
     {
-        Hero = _hero;
-        AddPositionProvider(new PositionProviderValue(_hero, 5f));
+        Hero = hero;
+        AddPositionProvider(new PositionProviderValue(hero, 5f));
     }
 
     private void RemovePositionProvider(PositionProviderValue provider)

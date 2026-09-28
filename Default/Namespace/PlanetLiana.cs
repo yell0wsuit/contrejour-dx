@@ -31,12 +31,12 @@ public class PlanetLiana : Node, ILianaDrawData
 
     public LianaSprite Sprite => sprite;
 
-    public PlanetLiana(Vector2 start, Vector2 _middle, Vector2 end)
+    public PlanetLiana(Vector2 start, Vector2 middle, Vector2 end)
     {
         Box2DConfig defaultConfig = Box2DConfig.DefaultConfig;
         points.Add(defaultConfig.ToVec(start));
-        middle = defaultConfig.ToVec(_middle);
-        points.Add(middle);
+        this.middle = defaultConfig.ToVec(middle);
+        points.Add(this.middle);
         points.Add(defaultConfig.ToVec(end));
         sprite = new LianaSprite(this, new Color(50, 50, 50, 255), Maths.Random(2f, 4f));
         AddChild(sprite);

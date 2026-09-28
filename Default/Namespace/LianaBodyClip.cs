@@ -15,17 +15,17 @@ public class LianaBodyClip : ContreJourBodyClip
 
     protected LianaSprite clipContent;
 
-    public LianaBodyClip(LevelBuilderBase _builder, LianaData data, Node _clip, Hashtable _config)
-        : base(_builder, data.Bodies[0], _clip, _config)
+    public LianaBodyClip(LevelBuilderBase builder, LianaData data, Node clip, Hashtable config)
+        : base(builder, data.Bodies[0], clip, config)
     {
         Color black = Color.Black;
-        if (_config.ContainsKey("alpha"))
+        if (config.ContainsKey("alpha"))
         {
-            black.A = (byte)_config.GetInt("alpha");
+            black.A = (byte)config.GetInt("alpha");
         }
         clipContent = new LianaSprite(data, black);
-        clip = clipContent;
-        _builder.Add(clipContent, -3);
+        this.clip = clipContent;
+        builder.Add(clipContent, -3);
         parts = [];
         for (int i = 1; i < data.Bodies.Count - 1; i++)
         {

@@ -25,21 +25,21 @@ public class ToggleButton : Button
         }
     }
 
-    public ToggleButton(string _iconName, string _toggleName)
-        : base(_iconName)
+    public ToggleButton(string iconName, string toggleName)
+        : base(iconName)
     {
-        CreateToggle(_toggleName);
+        CreateToggle(toggleName);
     }
 
-    public ToggleButton(string backgroundFile, string _iconName, string _toggleName)
-        : base(backgroundFile, "menu/McButtonPressed", _iconName)
+    public ToggleButton(string backgroundFile, string iconName, string toggleName)
+        : base(backgroundFile, "menu/McButtonPressed", iconName)
     {
-        CreateToggle(_toggleName);
+        CreateToggle(toggleName);
     }
 
-    public void CreateToggle(string _toggleName)
+    public void CreateToggle(string toggleName)
     {
-        toggleIcon = new Sprite(_toggleName);
+        toggleIcon = new Sprite(toggleName);
         AddChild(toggleIcon);
         toggleIcon.Visible = false;
         toggleIcon.OpacityByte = 0;

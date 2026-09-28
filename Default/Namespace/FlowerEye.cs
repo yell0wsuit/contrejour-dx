@@ -19,11 +19,11 @@ public class FlowerEye : MonsterEye
         }
     }
 
-    public FlowerEye(ContreJourGame _game, bool _visible, Vector2 position)
-        : base(_game, _visible, position)
+    public FlowerEye(ContreJourGame game, bool visible, Vector2 position)
+        : base(game, visible, position)
     {
-        baseNode = new Sprite(_game.Choose("common/McFlowerHead", null, "chapter4/McFlowerHeadWhite", null, "chapter6/McFlowerHead_6"));
-        if (!_game.WhiteSide)
+        baseNode = new Sprite(game.Choose("common/McFlowerHead", null, "chapter4/McFlowerHeadWhite", null, "chapter6/McFlowerHead_6"));
+        if (!game.WhiteSide)
         {
             Scale = 0.85f;
         }

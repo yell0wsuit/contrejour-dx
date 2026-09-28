@@ -18,8 +18,8 @@ public class BackSnotEye : MonsterEye
 
     protected override float ViewRadius => 30f;
 
-    public BackSnotEye(ContreJourGame _game, bool _visible, Vector2 position)
-        : base(_game, _visible, position)
+    public BackSnotEye(ContreJourGame game, bool visible, Vector2 position)
+        : base(game, visible, position)
     {
         eyeStep = 1.5f;
     }

@@ -33,11 +33,11 @@ public class FurCircle : ParticleSystem
 
     public float AngleStep => angleStep;
 
-    public FurCircle(string textureName, int maxParticles, float _radius)
+    public FurCircle(string textureName, int maxParticles, float radius)
         : base(textureName, maxParticles)
     {
         angleStep = 1f / maxParticles * 2f * (float)Math.PI;
-        Radius = _radius;
+        Radius = radius;
     }
 
     public float GetItemAngle(int i)

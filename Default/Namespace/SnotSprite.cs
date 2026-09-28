@@ -30,15 +30,15 @@ public class SnotSprite : LongNeckSprite
 
     protected List<Vector2> surface;
 
-    public SnotSprite(SnotBodyClipBase _snot, float _startWidth, float _centerWidth, float _endWidth)
+    public SnotSprite(SnotBodyClipBase snot, float startWidth, float centerWidth, float endWidth)
     {
-        snot = _snot;
-        data = snot.Physics;
-        startWidth = _startWidth;
-        endWidth = _endWidth;
-        startWidthPixels = startWidth / (1f / 30f);
-        endWidthPixels = endWidth / (1f / 30f);
-        centerWidth = _centerWidth;
+        this.snot = snot;
+        data = this.snot.Physics;
+        this.startWidth = startWidth;
+        this.endWidth = endWidth;
+        startWidthPixels = this.startWidth / (1f / 30f);
+        endWidthPixels = this.endWidth / (1f / 30f);
+        this.centerWidth = centerWidth;
     }
 
     public override void GetPairs(List<Pair<Vector2>> target)

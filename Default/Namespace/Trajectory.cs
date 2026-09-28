@@ -28,8 +28,8 @@ public class Trajectory : ParticleSystem
         }
     }
 
-    public Trajectory(ContreJourGame _game)
-        : base(_game.BlackSide ? "chapter2/McTrampolinePathBlack" : "common/McTrampolinePath", 7)
+    public Trajectory(ContreJourGame game)
+        : base(game.BlackSide ? "chapter2/McTrampolinePathBlack" : "common/McTrampolinePath", 7)
     {
         Visible = false;
         OpacityFloat = 0f;

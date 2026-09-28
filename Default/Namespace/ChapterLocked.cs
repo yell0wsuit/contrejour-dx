@@ -43,8 +43,8 @@ public class ChapterLocked : ChapterItem
         }
     }
 
-    public ChapterLocked(int _index, MainMenu _menu)
-        : base(_index, _menu)
+    public ChapterLocked(int index, MainMenu menu)
+        : base(index, menu)
     {
         explosion = new Explosion("common/McSmokeBlack")
         {

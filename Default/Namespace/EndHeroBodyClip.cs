@@ -44,8 +44,8 @@ public class EndHeroBodyClip : HeroBodyClip
         set => base.EyeAnimationsAllowed = value && animationsAllowed;
     }
 
-    public EndHeroBodyClip(LevelBuilderBase _builder, object _body, Sprite _clip, Hashtable _config)
-        : base(_builder, _body, _clip, _config)
+    public EndHeroBodyClip(LevelBuilderBase builder, object body, Sprite clip, Hashtable config)
+        : base(builder, body, clip, config)
     {
         Game.Energy.Blend = BlendState.Additive;
         EyeAnimationsAllowed = false;

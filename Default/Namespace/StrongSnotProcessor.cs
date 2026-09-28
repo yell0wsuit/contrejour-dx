@@ -10,13 +10,13 @@ namespace Default.Namespace;
 
 public class StrongSnotProcessor : SnotProcessor
 {
-    public StrongSnotProcessor(LevelBuilderBase _builder)
-        : base(_builder, "strongSnot", 2f / 3f)
+    public StrongSnotProcessor(LevelBuilderBase builder)
+        : base(builder, "strongSnot", 2f / 3f)
     {
     }
 
-    public StrongSnotProcessor(LevelBuilderBase _builder, string _type, float _partSize)
-        : base(_builder, _type, _partSize)
+    public StrongSnotProcessor(LevelBuilderBase builder, string type, float partSize)
+        : base(builder, type, partSize)
     {
     }
 

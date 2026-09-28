@@ -38,38 +38,38 @@ public class Button : TouchSprite
 
     public Sprite Icon => icon;
 
-    public Button(string backgroundFile, string _pressedName, string _iconName)
+    public Button(string backgroundFile, string pressedName, string iconName)
         : base(backgroundFile)
     {
         realScale = 1f;
         enabled = true;
-        if (_pressedName != null)
+        if (pressedName != null)
         {
-            pressed = new Sprite(_pressedName);
+            pressed = new Sprite(pressedName);
             AddChild(pressed);
             pressed.Visible = false;
             pressed.OpacityByte = 0;
         }
-        if (_iconName != null)
+        if (iconName != null)
         {
-            icon = new Sprite(_iconName);
+            icon = new Sprite(iconName);
             AddChild(icon);
         }
     }
 
-    public Button(string backgroundFile, string _iconName)
-        : this(backgroundFile, "menu/McButtonPressed", _iconName)
+    public Button(string backgroundFile, string iconName)
+        : this(backgroundFile, "menu/McButtonPressed", iconName)
     {
     }
 
-    public Button(string _iconName)
-        : this("menu/McButtonBackground", _iconName)
+    public Button(string iconName)
+        : this("menu/McButtonBackground", iconName)
     {
     }
 
-    public static Button ButtonBigWithIcon(string _iconName)
+    public static Button ButtonBigWithIcon(string iconName)
     {
-        return new Button("menu/McButtonBackgroundBig", "menu/McButtonPressedBig", _iconName);
+        return new Button("menu/McButtonBackgroundBig", "menu/McButtonPressedBig", iconName);
     }
 
     public override bool TouchBegin(Touch touch)

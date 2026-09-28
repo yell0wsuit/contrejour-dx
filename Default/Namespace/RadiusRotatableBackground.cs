@@ -13,11 +13,11 @@ public class RadiusRotatableBackground : RotatableBackground
 
     protected float rotation;
 
-    public RadiusRotatableBackground(Node _node, Hashtable _config, ContreJourGame _game)
-        : base(_node, _config, _game)
+    public RadiusRotatableBackground(Node node, Hashtable config, ContreJourGame game)
+        : base(node, config, game)
     {
         radius = 40f;
-        centerPosition = node.Position;
+        centerPosition = this.node.Position;
         centerPosition.X += radius;
         rotationStep = 0.2f;
         rotation = 0f;

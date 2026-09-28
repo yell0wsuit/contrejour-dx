@@ -34,8 +34,8 @@ public class TextureSnotSprite : SpringSnotSprite
         }
     }
 
-    public TextureSnotSprite(ContreJourGame _game, SnotBodyClipBase _snot, float _startWidth, float _centerWidth, float _endWidth, string textureFile)
-        : base(_game, _snot, _startWidth, _centerWidth, _endWidth)
+    public TextureSnotSprite(ContreJourGame game, SnotBodyClipBase snot, float startWidth, float centerWidth, float endWidth, string textureFile)
+        : base(game, snot, startWidth, centerWidth, endWidth)
     {
         Texture = ClipFactory.GetTexture(textureFile);
         targetOpacity = 255f;
@@ -44,8 +44,8 @@ public class TextureSnotSprite : SpringSnotSprite
         NeckColor = Color.White;
     }
 
-    public TextureSnotSprite(ContreJourGame _game, SnotBodyClipBase _snot, float _startWidth, float _centerWidth, float _endWidth)
-        : this(_game, _snot, _startWidth, _centerWidth, _endWidth, _game.ChooseSide("blackStrongSnotTexture", "whiteStrongSnotTexture", "strongSnotTexture", "strongSnotTexture", "greenStrongSnotTexture"))
+    public TextureSnotSprite(ContreJourGame game, SnotBodyClipBase snot, float startWidth, float centerWidth, float endWidth)
+        : this(game, snot, startWidth, centerWidth, endWidth, game.ChooseSide("blackStrongSnotTexture", "whiteStrongSnotTexture", "strongSnotTexture", "strongSnotTexture", "greenStrongSnotTexture"))
     {
     }
 

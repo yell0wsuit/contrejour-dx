@@ -74,12 +74,12 @@ public class MonsterEye : RandomAnimationEye, IPositionDepedent
         }
     }
 
-    public MonsterEye(ContreJourGame _game, bool _visible, Vector2 position)
-        : base(_game)
+    public MonsterEye(ContreJourGame game, bool visible, Vector2 position)
+        : base(game)
     {
         providerEnabled = true;
-        Open = _visible;
-        Visible = _visible;
+        Open = visible;
+        Visible = visible;
         _ = this.Schedule(0.1f, ChangePositionProvider);
         Game?.AddPositionDependent(this);
         clipPosition = position;

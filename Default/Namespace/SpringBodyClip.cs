@@ -56,27 +56,27 @@ public class SpringBodyClip : ContreJourBodyClip, IClickable, IRestartable
 
     public bool DisableHeroFocus => true;
 
-    public SpringBodyClip(LevelBuilderBase _builder, object _body, Node _clip, Hashtable _config)
-        : base(_builder, _body, _clip, _config)
+    public SpringBodyClip(LevelBuilderBase builder, object body, Node clip, Hashtable config)
+        : base(builder, body, clip, config)
     {
         if (!Game.BlackSide)
         {
-            _clip = LevelBuilderBase.ReplaceClipWith(_clip, GetClipName());
-            clip = _clip;
+            clip = LevelBuilderBase.ReplaceClipWith(clip, GetClipName());
+            this.clip = clip;
         }
-        clip.Parent.ChangeChildLayer(_clip, 2);
+        this.clip.Parent.ChangeChildLayer(clip, 2);
         Body.IsBullet = true;
-        config["noShadow"] = "true";
-        config["noSound"] = "true";
-        movie = (MovieClip)clip;
+        this.config["noShadow"] = "true";
+        this.config["noSound"] = "true";
+        movie = (MovieClip)this.clip;
         movie.Stoped = true;
         movie.Repeat = false;
         movie.MinFrame = 7f;
         CreateShadow();
-        startScale = clip.ScaleX;
-        suckPoint = builder.ToVec(SUCK_POINT * clip.ScaleX);
-        suckDistance = 150f * clip.ScaleX * builder.SizeMult;
-        bodyCenterVec = VectorUtil.Rotate(builder.ToVec(BODY_CENTER * clip.ScaleX), InitialBodyAngle);
+        startScale = this.clip.ScaleX;
+        suckPoint = this.builder.ToVec(SUCK_POINT * this.clip.ScaleX);
+        suckDistance = 150f * this.clip.ScaleX * this.builder.SizeMult;
+        bodyCenterVec = VectorUtil.Rotate(this.builder.ToVec(BODY_CENTER * this.clip.ScaleX), InitialBodyAngle);
         breatheChanger = new CosChanger(0.06f, 0.07f)
         {
             MinValue = 0.95f,
@@ -98,10 +98,10 @@ public class SpringBodyClip : ContreJourBodyClip, IClickable, IRestartable
         }
         smoke.ScaleDownOnDestroy = false;
         RefreshSmokeAngle();
-        builder.Add(smoke, 11);
+        this.builder.Add(smoke, 11);
         CreateSmoke();
         timeToSmoke = Maths.Random(1.5f, 2.3f);
-        clip.AddedToStageEvent += RefreshPoints;
+        this.clip.AddedToStageEvent += RefreshPoints;
         SetThinSmokeRange();
     }
 
@@ -295,11 +295,11 @@ public class SpringBodyClip : ContreJourBodyClip, IClickable, IRestartable
         ApplyImpulseTo(25f * num, bodyClip.Body);
     }
 
-    public void ApplyImpulseTo(float impulse, Body _body)
+    public void ApplyImpulseTo(float impulse, Body body)
     {
-        impulse = impulse * _body.Mass * startScale;
-        _body.LinearVelocity = Vector2.Zero;
-        _body.ApplyLinearImpulse(VectorUtil.ToVector(impulse, MathHelper.ToRadians(clip.RotationDegrees + 90f)), _body.WorldCenter);
+        impulse = impulse * body.Mass * startScale;
+        body.LinearVelocity = Vector2.Zero;
+        body.ApplyLinearImpulse(VectorUtil.ToVector(impulse, MathHelper.ToRadians(clip.RotationDegrees + 90f)), body.WorldCenter);
     }
 
     public void Spit()

@@ -74,11 +74,11 @@ public class FinishView : MovieStripesView, IDisposable
 
     protected ProgressLabel totalField;
 
-    public FinishView(ContreJourGame _game)
-        : base(_game.BlackSide, fade: true)
+    public FinishView(ContreJourGame game)
+        : base(game.BlackSide, fade: true)
     {
-        game = _game;
-        game.Schedule(CacheTextures, 0.1f);
+        this.game = game;
+        this.game.Schedule(CacheTextures, 0.1f);
         Scale = 1.1f;
         Position = -ContreJourConfig.RootSize * 0.05f;
         CreateHero();
@@ -92,13 +92,13 @@ public class FinishView : MovieStripesView, IDisposable
         }
     }
 
-    public void Show(LevelPosition level, int _stars, int _score, float _time, bool _newHighScore)
+    public void Show(LevelPosition level, int stars, int score, float time, bool newHighScore)
     {
         Show();
-        newHighScore = _newHighScore;
-        stars = _stars;
-        score = _score;
-        time = _time;
+        this.newHighScore = newHighScore;
+        this.stars = stars;
+        this.score = score;
+        this.time = time;
         levelPosition = level;
         _ = this.Schedule(FinishDuration, OnShow);
     }

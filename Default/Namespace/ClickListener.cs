@@ -70,9 +70,9 @@ public class ClickListener : ITouchListener
         }
     }
 
-    protected virtual bool IsOutStartPosition(Touch touch, Vector2 _startPosition)
+    protected virtual bool IsOutStartPosition(Touch touch, Vector2 startPosition)
     {
-        return (touch.Position - _startPosition).Length() > radius;
+        return (touch.Position - startPosition).Length() > radius;
     }
 
     public void Remove()

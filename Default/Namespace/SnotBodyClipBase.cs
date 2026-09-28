@@ -41,17 +41,17 @@ public class SnotBodyClipBase : ContreJourBodyClip
     public virtual Body EyeBody => Physics.EyeBody;
 
     [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "Level content creates this by reflection with this signature.")]
-    public SnotBodyClipBase(LevelBuilderBase _builder, SnotData _body, Node _clip, Hashtable _config)
-        : base(_builder, _body.EndBody, null, _config)
+    public SnotBodyClipBase(LevelBuilderBase builder, SnotData body, Node clip, Hashtable config)
+        : base(builder, body.EndBody, null, config)
     {
-        Physics = _body;
-        game = (ContreJourGame)builder.Game;
+        Physics = body;
+        game = (ContreJourGame)this.builder.Game;
         container = new Node();
         Physics.Snot = this;
         InitSizes();
         clipContent = CreateClip();
         baseClip = ClipTypesCache.CreateNewNode(BaseClipName());
-        baseClip.Position = builder.ToIPadPoint(Physics.GetWorldStartPoint());
+        baseClip.Position = this.builder.ToIPadPoint(Physics.GetWorldStartPoint());
         baseEndClip = ClipTypesCache.CreateNewNode(BaseEndClipName());
         Physics.EndBody.ApplyLinearImpulse(new Vector2(Maths.Random(), Maths.Random()) * Physics.EndBody.Mass);
         eye = CreateEye();
@@ -96,7 +96,7 @@ public class SnotBodyClipBase : ContreJourBodyClip
 
     protected virtual MonsterEye CreateEye()
     {
-        return new MonsterEye((ContreJourGame)builder.Game, _visible: false, Physics.EyeBody.Position);
+        return new MonsterEye((ContreJourGame)builder.Game, visible: false, Physics.EyeBody.Position);
     }
 
     public virtual SnotSprite CreateClip()

@@ -19,7 +19,7 @@ public class SpikesFlowerSprite : LongNeckSprite
 
     protected float childScale;
 
-    public SpikesFlowerSprite(SpikesFlowerBodyClip bodyClip, float _scale)
+    public SpikesFlowerSprite(SpikesFlowerBodyClip bodyClip, float scale)
     {
         if (bodyClip.Game.WhiteSide)
         {
@@ -30,9 +30,9 @@ public class SpikesFlowerSprite : LongNeckSprite
             NeckColor = ContreJourConstants.GreenSpikesFlower;
         }
         spikes = bodyClip;
-        basePoints = new Pair<Vector2>(new Vector2(6f, -32f) * _scale, new Vector2(-6f, -32f) * _scale);
-        centerPoints = new Pair<Vector2>(new Vector2(-3f, 0f) * _scale, new Vector2(3f, 0f) * _scale);
-        childScale = _scale;
+        basePoints = new Pair<Vector2>(new Vector2(6f, -32f) * scale, new Vector2(-6f, -32f) * scale);
+        centerPoints = new Pair<Vector2>(new Vector2(-3f, 0f) * scale, new Vector2(3f, 0f) * scale);
+        childScale = scale;
     }
 
     public override void GetPairs(List<Pair<Vector2>> target)

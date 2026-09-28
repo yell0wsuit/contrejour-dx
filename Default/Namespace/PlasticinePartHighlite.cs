@@ -58,14 +58,14 @@ public class PlasticinePartHighlite : IUpdatable
 
     private bool MirrorLight => game.WhiteSide || game.BlackSide || game.BonusChapter;
 
-    public PlasticinePartHighlite(PlasticinePartBodyClip _plasticine, PlasticineHighliteBorder _parent, int _index)
+    public PlasticinePartHighlite(PlasticinePartBodyClip plasticine, PlasticineHighliteBorder parent, int index)
     {
-        plasticine = _plasticine;
-        builder = plasticine.Builder;
+        this.plasticine = plasticine;
+        builder = this.plasticine.Builder;
         game = (ContreJourGame)builder.Game;
-        _plasticine.Highlite = this;
-        parent = _parent;
-        index = _index;
+        plasticine.Highlite = this;
+        this.parent = parent;
+        this.index = index;
         noLightBorderOut = game.BlackSide ? NO_LIGHT_BORDER_OUT_BLUE : NO_LIGHT_BORDER_OUT;
         noLightBorderOut = NO_LIGHT_BORDER_OUT;
     }

@@ -7,7 +7,7 @@ using Mokus2D.Input;
 
 namespace Default.Namespace;
 
-public class TrampolinePartBodyClip(LevelBuilderBase _builder, object _body) : ContreJourBodyClip(_builder, _body, null, null), IClickable
+public class TrampolinePartBodyClip(LevelBuilderBase builder, object body) : ContreJourBodyClip(builder, body, null, null), IClickable
 {
     protected TrampolineBodyClip parent;
 

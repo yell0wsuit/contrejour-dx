@@ -18,8 +18,8 @@ public class SnotChain(SnotBodyClip _snot, float _distance)
         set => diff = value;
     }
 
-    public static object CreateWithSnotDistance(SnotBodyClip _snot, float _distance)
+    public static object CreateWithSnotDistance(SnotBodyClip snot, float distance)
     {
-        return new SnotChain(_snot, _distance);
+        return new SnotChain(snot, distance);
     }
 }

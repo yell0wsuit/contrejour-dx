@@ -11,7 +11,7 @@ using Mokus2D.Util.MathUtils;
 
 namespace Default.Namespace;
 
-public class MovableSnotEye(SnotBodyClip _snot, Body _body, SnotPoint targetPoint) : SnotEye(_snot, _body), IRestartable
+public class MovableSnotEye(SnotBodyClip _snot, Body body, SnotPoint targetPoint) : SnotEye(_snot, body), IRestartable
 {
     private bool moving;
 

@@ -7,7 +7,7 @@ using Mokus2D.Visual;
 
 namespace Default.Namespace;
 
-public class Chapter3(int _index, MainMenu _menu) : ChapterItem(_index, _menu)
+public class Chapter3(int index, MainMenu menu) : ChapterItem(index, menu)
 {
     protected override void CreateSprites()
     {

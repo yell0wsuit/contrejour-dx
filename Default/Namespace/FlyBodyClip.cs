@@ -40,18 +40,18 @@ public class FlyBodyClip : ContreJourBodyClip, IClickable
 
     public bool DisableHeroFocus => true;
 
-    public FlyBodyClip(LevelBuilderBase _builder, object _body, Node _clip, Hashtable _config)
-        : base(_builder, _body, _clip, _config)
+    public FlyBodyClip(LevelBuilderBase builder, object body, Node clip, Hashtable config)
+        : base(builder, body, clip, config)
     {
         bodySprite = new McFlyBody();
-        _clip = bodySprite;
-        clip = _clip;
-        _ = _builder.AddChild(_clip);
-        eye = new FlyEye(Game, _visible: true, Body.Position)
+        clip = bodySprite;
+        this.clip = clip;
+        _ = builder.AddChild(clip);
+        eye = new FlyEye(Game, visible: true, Body.Position)
         {
             Scale = 0.65f
         };
-        clip.AddChild(eye);
+        this.clip.AddChild(eye);
         scaredTime = 0f;
         Schedule(StartFly, Maths.Random(7f, 11f));
         initialPosition = Body.Position;
@@ -60,8 +60,8 @@ public class FlyBodyClip : ContreJourBodyClip, IClickable
         leftWings.Position = new Vector2(0f - WINGS_POSITION.X, WINGS_POSITION.Y);
         rightWings.Position = WINGS_POSITION;
         rightWings.ScaleX = -1f;
-        clip.AddChild(leftWings);
-        clip.AddChild(rightWings);
+        this.clip.AddChild(leftWings);
+        this.clip.AddChild(rightWings);
         Body.GravityScale = 0f;
     }
 

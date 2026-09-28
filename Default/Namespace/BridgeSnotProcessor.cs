@@ -12,13 +12,13 @@ namespace Default.Namespace;
 
 public class BridgeSnotProcessor : StrongSnotProcessor
 {
-    public BridgeSnotProcessor(LevelBuilderBase _builder)
-        : base(_builder, "bridgeSnot", 5f / 6f)
+    public BridgeSnotProcessor(LevelBuilderBase builder)
+        : base(builder, "bridgeSnot", 5f / 6f)
     {
     }
 
-    public BridgeSnotProcessor(LevelBuilderBase _builder, string _type, float _partSize)
-        : base(_builder, _type, _partSize)
+    public BridgeSnotProcessor(LevelBuilderBase builder, string type, float partSize)
+        : base(builder, type, partSize)
     {
     }
 

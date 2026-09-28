@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 
 namespace Default.Namespace;
 
-public class BlackTrampolineSprite(ContreJourGame _game, SnotBodyClipBase _snot, float _startWidth, float _centerWidth, float _endWidth) : BlackSnotSprite(_game, _snot, _startWidth, _centerWidth, _endWidth)
+public class BlackTrampolineSprite(ContreJourGame game, SnotBodyClipBase snot, float startWidth, float centerWidth, float endWidth) : BlackSnotSprite(game, snot, startWidth, centerWidth, endWidth)
 {
     private Color MIDDLE_COLOR = new(0, 254, 254, 255);
 

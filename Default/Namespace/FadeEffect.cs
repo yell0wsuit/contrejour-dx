@@ -6,8 +6,8 @@ namespace Default.Namespace;
 
 public class FadeEffect : TouchEffect
 {
-    public FadeEffect(TouchSprite _sprite)
-        : base(_sprite)
+    public FadeEffect(TouchSprite sprite)
+        : base(sprite)
     {
     }
 

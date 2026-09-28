@@ -43,13 +43,13 @@ public class RotatorGrass
         set => particle = value;
     }
 
-    public RotatorGrass(Particle _particle)
+    public RotatorGrass(Particle particle)
     {
         rotationChanger = new CosChanger(-15f, 15f, Maths.Random(0.005f, 0.01f))
         {
             Progress = Maths.Random(0f, (float)Math.PI * 2f)
         };
-        particle = _particle;
+        this.particle = particle;
         contactAngle = 0f;
         currentContactAngle = 0f;
     }

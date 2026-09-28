@@ -14,8 +14,8 @@ public class PlanetSnotEye : PlanetEye
 
     protected override float ViewRadius => 7f;
 
-    public PlanetSnotEye(ContreJourGame _game, bool _visible, Vector2 position)
-        : base(_game, _visible, position)
+    public PlanetSnotEye(ContreJourGame game, bool visible, Vector2 position)
+        : base(game, visible, position)
     {
         UpdateEnabled = true;
     }

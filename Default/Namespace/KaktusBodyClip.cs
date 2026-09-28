@@ -4,14 +4,14 @@ namespace Default.Namespace;
 
 public class KaktusBodyClip : ContreJourBodyClip
 {
-    public KaktusBodyClip(ContreJourLevelBuilder _builder, object _body, Sprite _clip, Hashtable _config)
-        : base(_builder, _body, _clip, _config)
+    public KaktusBodyClip(ContreJourLevelBuilder builder, object body, Sprite clip, Hashtable config)
+        : base(builder, body, clip, config)
     {
-        string text = _builder.ContreJour.ChooseSide("Black", null, "_5", null, "_6");
+        string text = builder.ContreJour.ChooseSide("Black", null, "_5", null, "_6");
         if (text != null)
         {
-            _clip = (Sprite)LevelBuilderBase.ReplaceClipWith(_clip, config.GetString("viewType") + text);
+            clip = (Sprite)LevelBuilderBase.ReplaceClipWith(clip, this.config.GetString("viewType") + text);
         }
-        _clip.Parent.ChangeChildLayer(_clip, -2);
+        clip.Parent.ChangeChildLayer(clip, -2);
     }
 }

@@ -20,13 +20,13 @@ public class PhysicsUpdater : PhysicsTransform, IUpdatable
 
     public new float PhysicsToPixels => config.PhysicsToPixels;
 
-    public PhysicsUpdater(World _world, FarseerConfig config = null)
+    public PhysicsUpdater(World world, FarseerConfig config = null)
         : base(0f)
     {
         config ??= FarseerConfig.DefaultConfig;
         base.PhysicsToPixels = config.PhysicsToPixels;
-        world = _world;
-        listener = new ContactListener(world);
+        this.world = world;
+        listener = new ContactListener(this.world);
         this.config = config;
     }
 

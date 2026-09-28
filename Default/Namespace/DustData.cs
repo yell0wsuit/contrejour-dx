@@ -28,19 +28,19 @@ public class DustData : IUpdatable
 
     public bool ShouldRemove => hasRemove;
 
-    public DustData(ContreJourGame _game, Vector2 bodySpeed, Vector2 position, float _speed, float alphaMult)
+    public DustData(ContreJourGame game, Vector2 bodySpeed, Vector2 position, float speed, float alphaMult)
     {
-        game = _game;
+        this.game = game;
         alphaDiff = Maths.Random(0.6f, 1.2f) / 255f;
-        particle = game.Dust.AddOrGetInvisible();
+        particle = this.game.Dust.AddOrGetInvisible();
         particle.Visible = true;
         position.Y -= 10f;
         particle.Position = position;
         particle.Scale = Maths.Random(0.5f, 1.5f);
         particle.OpacityFloat = Maths.Random(0.1f * alphaMult, 0.2f * alphaMult);
-        speed = Box2DConfig.DefaultConfig.ToPoint(bodySpeed);
-        speed.X *= Maths.Random(0.2f, 0.4f);
-        speed.Y = Math.Min(Maths.Random(5f, 20f) * _speed, 40f);
+        this.speed = Box2DConfig.DefaultConfig.ToPoint(bodySpeed);
+        this.speed.X *= Maths.Random(0.2f, 0.4f);
+        this.speed.Y = Math.Min(Maths.Random(5f, 20f) * speed, 40f);
     }
 
     public void Update(float time)

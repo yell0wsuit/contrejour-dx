@@ -24,23 +24,23 @@ public abstract class FurBodyClip : ContreJourBodyClip
 
     protected Sprite baseSprite;
 
-    public FurBodyClip(LevelBuilderBase _builder, object _body, Node _clip, Hashtable _config)
-        : base(_builder, _body, _clip, _config)
+    public FurBodyClip(LevelBuilderBase builder, object body, Node clip, Hashtable config)
+        : base(builder, body, clip, config)
     {
-        if (_clip == null)
+        if (clip == null)
         {
-            _clip = new Node
+            clip = new Node
             {
-                Scale = _config.GetVector("scale").X
+                Scale = config.GetVector("scale").X
             };
-            _ = _builder.AddChild(_clip);
-            clip = _clip;
+            _ = builder.AddChild(clip);
+            this.clip = clip;
         }
         grassStep = (float)Math.PI * 2f / GrassCount();
         trampleAngle = 4f * grassStep;
         baseSprite = new McRotatorBase();
         baseSprite.Scale = Width() / baseSprite.TextureSize.X;
-        clip.AddChild(baseSprite);
+        this.clip.AddChild(baseSprite);
         grassSystem = CreateFur();
         CreateGrass();
     }

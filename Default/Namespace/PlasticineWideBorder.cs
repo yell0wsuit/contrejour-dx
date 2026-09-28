@@ -16,9 +16,9 @@ public class PlasticineWideBorder : PrimitivesNode
 
     public VertexPositionColor[] InBorder => inBorder;
 
-    public void SetSizeBorderColorBorderOutColor(int value, Color _borderColor, Color borderOutColor)
+    public void SetSizeBorderColorBorderOutColor(int value, Color borderColor, Color borderOutColor)
     {
-        Color = _borderColor;
+        Color = borderColor;
         int num = (value * 2 * 2) + 2;
         outBorder = new VertexPositionColor[num];
         inBorder = new VertexPositionColor[num];

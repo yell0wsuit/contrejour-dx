@@ -39,11 +39,11 @@ public class Bouncer : IUpdatable
     public float Value => changer.Value * currentAmplitude;
 
     [SuppressMessage("Style", "IDE0290:Use primary constructor", Justification = "Its random draws must run after the base constructor's, in this order.")]
-    public Bouncer(float _amplitude, float _amplitudeStep, float step)
+    public Bouncer(float amplitude, float amplitudeStep, float step)
     {
         changer = new CosChanger(-1f, 1f, step);
-        amplitude = _amplitude;
-        amplitudeStep = _amplitudeStep;
+        this.amplitude = amplitude;
+        this.amplitudeStep = amplitudeStep;
     }
 
     public void Start()

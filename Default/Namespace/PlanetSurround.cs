@@ -23,7 +23,7 @@ public class PlanetSurround : IUpdatable
         {
             float num = Maths.Random((float)Math.PI * -2f, (float)Math.PI * 2f);
             Vector2 position = new(orbit.GetValueInRange() * (float)Math.Cos(num), orbit.GetValueInRange() * (float)Math.Sin(num));
-            ButterFly item = new(_scale: startScale.GetValueInRange(), _particle: system.AddParticle(position));
+            ButterFly item = new(scale: startScale.GetValueInRange(), particle: system.AddParticle(position));
             parts.Add(item);
         }
     }

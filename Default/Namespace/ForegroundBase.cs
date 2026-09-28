@@ -8,10 +8,10 @@ namespace Default.Namespace;
 public class ForegroundBase : BodyClip, IUpdatable
 {
     [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "Level content creates this by reflection with this signature.")]
-    public ForegroundBase(ContreJourLevelBuilder _builder, object _body, Node _clip, Hashtable _config)
-        : base(_builder, null, _clip, _config)
+    public ForegroundBase(ContreJourLevelBuilder builder, object body, Node clip, Hashtable config)
+        : base(builder, null, clip, config)
     {
-        _builder.ContreJour.AddForeground(this);
+        builder.ContreJour.AddForeground(this);
     }
 
     public override void Update(float time)

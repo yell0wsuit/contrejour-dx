@@ -5,7 +5,7 @@ using Mokus2D.Visual.Particles.Util;
 
 namespace Default.Namespace;
 
-public class Chapter6(int _index, MainMenu _menu) : ChapterItem(_index, _menu)
+public class Chapter6(int index, MainMenu menu) : ChapterItem(index, menu)
 {
     protected override void CreateSprites()
     {

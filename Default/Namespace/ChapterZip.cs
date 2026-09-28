@@ -5,7 +5,7 @@ using Mokus2D.Visual;
 
 namespace Default.Namespace;
 
-public class ChapterZip(int _index, MainMenu _menu) : ChapterItem(_index, _menu)
+public class ChapterZip(int index, MainMenu menu) : ChapterItem(index, menu)
 {
     protected Tablo arrow;
 

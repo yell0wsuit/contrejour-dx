@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework;
 
 namespace Default.Namespace;
 
-public class WhiteTrampolineSprite(ContreJourGame _game, SnotBodyClipBase _snot, float _startWidth, float _centerWidth, float _endWidth) : BlackTrampolineSprite(_game, _snot, _startWidth, _centerWidth, _endWidth)
+public class WhiteTrampolineSprite(ContreJourGame game, SnotBodyClipBase snot, float startWidth, float centerWidth, float endWidth) : BlackTrampolineSprite(game, snot, startWidth, centerWidth, endWidth)
 {
     public override Color MiddleColor()
     {

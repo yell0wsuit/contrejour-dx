@@ -12,13 +12,13 @@ public class RopeMetricsWithCoords : RopeMetrics
 
     public Vector2 PartOffset => partOffset;
 
-    public RopeMetricsWithCoords(int _parts, float _partSize, Vector2 _start, Vector2 _end)
-        : base(_parts, _partSize)
+    public RopeMetricsWithCoords(int parts, float partSize, Vector2 start, Vector2 end)
+        : base(parts, partSize)
     {
-        start = _start;
-        end = _end;
-        partOffset = _end - _start;
-        partOffset *= 1f / _parts;
+        this.start = start;
+        this.end = end;
+        partOffset = end - start;
+        partOffset *= 1f / parts;
     }
 
     public Vector2 GetPositionByIndex(int index)

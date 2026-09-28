@@ -11,10 +11,10 @@ public class RelsHint : FadeHint
     protected bool used;
 
     [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "Level content creates this by reflection with this signature.")]
-    public RelsHint(ContreJourLevelBuilder _builder, object _body, Sprite _clip, Hashtable _config)
-        : base(_builder, null, _clip, _config)
+    public RelsHint(ContreJourLevelBuilder builder, object body, Sprite clip, Hashtable config)
+        : base(builder, null, clip, config)
     {
-        rels = (DragableBodyClip)FarseerUtil.Query(builder.World, builder.ToVec(clip.Position), 6.6666665f, typeof(DragableBodyClip));
+        rels = (DragableBodyClip)FarseerUtil.Query(this.builder.World, this.builder.ToVec(this.clip.Position), 6.6666665f, typeof(DragableBodyClip));
         rels.DragStartEvent.AddListener(OnDragStart);
     }
 

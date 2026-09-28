@@ -17,9 +17,9 @@ public class WindManager : IUpdatable
     protected float step;
 
     [SuppressMessage("Style", "IDE0290:Use primary constructor", Justification = "Its random draws must run after the base constructor's, in this order.")]
-    public WindManager(float _step)
+    public WindManager(float step)
     {
-        step = _step;
+        this.step = step;
         currentWind = 0f;
         currentWindStep = 0f;
         windValue = GetRandomValue();

@@ -158,19 +158,19 @@ public class PlasticinePartBodyClip : ContreJourBodyClip, IClickable, IRestartab
 
     public bool DisableHeroFocus => true;
 
-    public PlasticinePartBodyClip(LevelBuilderBase _builder, object _body, PlasticineBodyClip _parent, float _width, bool hasGrass)
-        : base(_builder, _body, null, null)
+    public PlasticinePartBodyClip(LevelBuilderBase builder, object body, PlasticineBodyClip parent, float width, bool hasGrass)
+        : base(builder, body, null, null)
     {
         //IL_0046: Unknown result type (might be due to invalid IL or missing references)
         //IL_0183: Unknown result type (might be due to invalid IL or missing references)
         //IL_0189: Expected O, but got Unknown
         //IL_00d5: Unknown result type (might be due to invalid IL or missing references)
         //IL_00df: Expected O, but got Unknown
-        width = _width;
-        builder = _builder;
-        parent = _parent;
-        game = (ContreJourGame)_builder.Game;
-        float value = ((Body)_body).Rotation.SimplifyAngle(-(float)Math.PI / 2f);
+        this.width = width;
+        this.builder = builder;
+        this.parent = parent;
+        game = (ContreJourGame)builder.Game;
+        float value = ((Body)body).Rotation.SimplifyAngle(-(float)Math.PI / 2f);
         initialPosition = Body.Position;
         targetPosition = initialPosition;
         targetAngle = Body.Rotation;
@@ -181,7 +181,7 @@ public class PlasticinePartBodyClip : ContreJourBodyClip, IClickable, IRestartab
             isFloor = true;
             if (hasGrass)
             {
-                CreateGrass((ContreJourLevelBuilder)_builder);
+                CreateGrass((ContreJourLevelBuilder)builder);
             }
         }
         globalIndex = i++;
@@ -191,8 +191,8 @@ public class PlasticinePartBodyClip : ContreJourBodyClip, IClickable, IRestartab
         isTop = Maths.Between(value, (float)Math.PI / 2f, 4.712389f);
         normal = GetSurfaceCenter() - Body.WorldCenter;
         parallel = Body.GetWorldPoint(new Vector2(1f, 0f)) - Body.WorldCenter;
-        parent = _parent;
-        PlasticineConstants.ApplyStaticBodiesFilter((Body)_body);
+        this.parent = parent;
+        PlasticineConstants.ApplyStaticBodiesFilter((Body)body);
         dynamic = 0;
     }
 
@@ -215,11 +215,11 @@ public class PlasticinePartBodyClip : ContreJourBodyClip, IClickable, IRestartab
         this.fillIndex = fillIndex;
     }
 
-    public void SetWideBorder(PlasticineWideBorder _border, int _index)
+    public void SetWideBorder(PlasticineWideBorder border, int index)
     {
-        index = _index;
-        verticesOffset = (index * 2 * 2) + 2;
-        border = _border;
+        this.index = index;
+        verticesOffset = (this.index * 2 * 2) + 2;
+        this.border = border;
     }
 
     public bool UseForZoom()
@@ -456,11 +456,11 @@ public class PlasticinePartBodyClip : ContreJourBodyClip, IClickable, IRestartab
         grassController?.ScareFlyes(offset);
     }
 
-    public void CreateGrass(ContreJourLevelBuilder _builder)
+    public void CreateGrass(ContreJourLevelBuilder builder)
     {
-        if (!_builder.ContreJour.BlackSide)
+        if (!builder.ContreJour.BlackSide)
         {
-            grassController = (GrassController)ReflectUtil.CreateInstance(_builder.ContreJour.ChooseSide(null, typeof(WhiteGrassController), typeof(WhiteGrassController), typeof(GrassController), typeof(WhiteGrassController)), this);
+            grassController = (GrassController)ReflectUtil.CreateInstance(builder.ContreJour.ChooseSide(null, typeof(WhiteGrassController), typeof(WhiteGrassController), typeof(GrassController), typeof(WhiteGrassController)), this);
         }
     }
 

@@ -4,7 +4,7 @@ using Mokus2D.Util;
 
 namespace Default.Namespace;
 
-public class PolygonProcessor(LevelBuilderBase _builder) : ShapeProcessor("polygon", _builder)
+public class PolygonProcessor(LevelBuilderBase builder) : ShapeProcessor("polygon", builder)
 {
     public override Shape CreateShape(Hashtable item)
     {

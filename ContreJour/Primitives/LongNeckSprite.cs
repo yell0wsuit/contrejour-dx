@@ -207,11 +207,11 @@ public abstract class LongNeckSprite : PrimitivesNode
         }
     }
 
-    public virtual void CreateVectors(int _allPointsSize)
+    public virtual void CreateVectors(int allPointsSize)
     {
-        vertices = new VertexPositionColorTexture[(_allPointsSize - 2) * 3];
-        allPointsSize = _allPointsSize;
-        border = new VertexPositionColorTexture[allPointsSize * 6];
+        vertices = new VertexPositionColorTexture[(allPointsSize - 2) * 3];
+        this.allPointsSize = allPointsSize;
+        border = new VertexPositionColorTexture[this.allPointsSize * 6];
         SetBorderColors();
         SetNeckColors();
     }

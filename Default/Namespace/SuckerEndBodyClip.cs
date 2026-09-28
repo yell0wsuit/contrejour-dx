@@ -4,7 +4,7 @@ using Mokus2D.Input;
 
 namespace Default.Namespace;
 
-public class SuckerEndBodyClip(SuckerBodyClip _sucker, object _body) : ContreJourBodyClip(_sucker.Builder, _body, null, null), IClickable
+public class SuckerEndBodyClip(SuckerBodyClip _sucker, object body) : ContreJourBodyClip(_sucker.Builder, body, null, null), IClickable
 {
     protected Touch touch;
 

@@ -17,13 +17,13 @@ public class LianaPart : IUpdatable
 
     protected float forceAngle;
 
-    public LianaPart(Body _body)
+    public LianaPart(Body body)
     {
-        body = _body;
-        float num = Maths.Random(0.05f, 0.1f) * body.Mass;
+        this.body = body;
+        float num = Maths.Random(0.05f, 0.1f) * this.body.Mass;
         forceChanger = new CosChanger(0f - num, num, Maths.Random(0.01f, 0.02f));
         forceAngle = Maths.Random(0f, (float)Math.PI * 2f);
-        body.GravityScale = 0f;
+        this.body.GravityScale = 0f;
     }
 
     public void Update(float time)

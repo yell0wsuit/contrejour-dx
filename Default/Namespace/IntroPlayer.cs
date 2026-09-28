@@ -21,10 +21,10 @@ public class IntroPlayer : Node
 
     protected Vector2 textPosition;
 
-    public IntroPlayer(ContreJourGame _game)
+    public IntroPlayer(ContreJourGame game)
     {
-        game = _game;
-        textPosition = new Vector2(0.5f * game.LevelSize.X, 0.7f * game.LevelSize.Y);
+        this.game = game;
+        textPosition = new Vector2(0.5f * this.game.LevelSize.X, 0.7f * this.game.LevelSize.Y);
         _ = this.Schedule(2f, PlayItem);
         messages = ["MUSIC_BY", "GRAPHICS_BY", "DIRECTED_BY"];
         rightMessages = ["DAVID_LEON", "MIHAI_MAKSYM", "BY_MAKSYM_HRYNIV"];

@@ -6,7 +6,7 @@ using Mokus2D.Visual;
 
 namespace Default.Namespace;
 
-public class Chapter4(int _index, MainMenu _menu) : Chapter2(_index, _menu)
+public class Chapter4(int index, MainMenu menu) : Chapter2(index, menu)
 {
     protected Sprite shadow;
 

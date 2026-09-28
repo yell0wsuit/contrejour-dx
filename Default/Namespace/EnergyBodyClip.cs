@@ -23,11 +23,11 @@ public class EnergyBodyClip : BodyClip, IRestartable
 
     public EventSender CollectEvent => collectEvent;
 
-    public EnergyBodyClip(LevelBuilderBase _builder, object _body, Node _clip, Hashtable _config)
-        : base(_builder, _body, _clip, _config)
+    public EnergyBodyClip(LevelBuilderBase builder, object body, Node clip, Hashtable config)
+        : base(builder, body, clip, config)
     {
-        _clip.Visible = false;
-        contreJourBuilder = (ContreJourLevelBuilder)builder;
+        clip.Visible = false;
+        contreJourBuilder = (ContreJourLevelBuilder)this.builder;
         energyParts = [];
         collectEvent = new EventSender();
         CreateParts();

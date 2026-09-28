@@ -38,25 +38,25 @@ public class TeleportBodyClip : BodyClip
 
     public EventSender UseEvent => useEvent;
 
-    public TeleportBodyClip(LevelBuilderBase _builder, object _body, Node _clip, Hashtable _config)
-        : base(_builder, _body, null, _config)
+    public TeleportBodyClip(LevelBuilderBase builder, object body, Node clip, Hashtable config)
+        : base(builder, body, null, config)
     {
         useEvent = new EventSender();
-        ContreJourGame contreJourGame = (ContreJourGame)_builder.Game;
-        limitSpeed = config.GetBool("limitSpeed");
-        string text = config.GetString("color") ?? "0";
-        portal = new Portal(textureName: (!(text != "0")) ? (contreJourGame.BlackSide ? "common/McTeleportPartBlue" : "common/McTeleportPart") : "common/McTeleportPartBlue", game: contreJourGame, position: _clip.Position);
+        ContreJourGame contreJourGame = (ContreJourGame)builder.Game;
+        limitSpeed = this.config.GetBool("limitSpeed");
+        string text = this.config.GetString("color") ?? "0";
+        portal = new Portal(textureName: (!(text != "0")) ? (contreJourGame.BlackSide ? "common/McTeleportPartBlue" : "common/McTeleportPart") : "common/McTeleportPartBlue", game: contreJourGame, position: clip.Position);
         if (contreJourGame.BonusChapter)
         {
             portal.Color = ContreJourConstants.GreenLightColor;
         }
-        portalPosition = _clip.Position;
-        _builder.RemoveChild(_clip);
-        _builder.Add(portal, -2);
+        portalPosition = clip.Position;
+        builder.RemoveChild(clip);
+        builder.Add(portal, -2);
         portal.TargetScale = 1f;
         portal.SpeedValue = Maths.Random(20f, 35f);
         portal.ScaleStep = 0.2f;
-        _builder.Add(new TeleportPortal(portal), -2);
+        builder.Add(new TeleportPortal(portal), -2);
         sibling = contreJourGame.GetTeleport(text);
         if (sibling != null)
         {

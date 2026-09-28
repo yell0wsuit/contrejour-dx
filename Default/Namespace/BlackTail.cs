@@ -97,30 +97,30 @@ public class BlackTail : PrimitivesNode, IUpdatable
 
     public int Length => bezierPoints.Count;
 
-    public BlackTail(Body _body, ContreJourLevelBuilder _builder)
-        : this(_body, _builder, _builder.ContreJour.BonusChapter ? "McTailTextureGreen" : "McTailTexture")
+    public BlackTail(Body body, ContreJourLevelBuilder builder)
+        : this(body, builder, builder.ContreJour.BonusChapter ? "McTailTextureGreen" : "McTailTexture")
     {
     }
 
-    public BlackTail(Body _body, LevelBuilderBase _builder, string textureFile)
+    public BlackTail(Body body, LevelBuilderBase builder, string textureFile)
     {
         UpdateEnabled = false;
-        body = _body;
-        builder = _builder;
+        this.body = body;
+        this.builder = builder;
         frames = 40;
-        previousPosition = _builder.ToPoint(body.Position);
+        previousPosition = builder.ToPoint(this.body.Position);
         currentFrame = 0;
         width = 40f;
         Texture = ClipFactory.GetTexture(textureFile);
     }
 
-    public BlackTail(BodyClip _clip, string textureFile)
-        : this(_clip.Body, _clip.Builder, textureFile)
+    public BlackTail(BodyClip clip, string textureFile)
+        : this(clip.Body, clip.Builder, textureFile)
     {
     }
 
-    public BlackTail(ContreJourBodyClip _clip)
-        : this(_clip.Body, (ContreJourLevelBuilder)_clip.Builder)
+    public BlackTail(ContreJourBodyClip clip)
+        : this(clip.Body, (ContreJourLevelBuilder)clip.Builder)
     {
     }
 

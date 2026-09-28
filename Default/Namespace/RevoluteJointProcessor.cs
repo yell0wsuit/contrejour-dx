@@ -11,13 +11,13 @@ namespace Default.Namespace;
 
 public class RevoluteJointProcessor : JointProcessorBase
 {
-    public RevoluteJointProcessor(LevelBuilderBase _builder)
-        : base("revoluteJoint", _builder)
+    public RevoluteJointProcessor(LevelBuilderBase builder)
+        : base("revoluteJoint", builder)
     {
     }
 
-    public RevoluteJointProcessor(string _type, LevelBuilderBase _builder)
-        : base(_type, _builder)
+    public RevoluteJointProcessor(string type, LevelBuilderBase builder)
+        : base(type, builder)
     {
     }
 

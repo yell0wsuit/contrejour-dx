@@ -20,10 +20,10 @@ public class JoinableSpringBodyClip : RotatableSpringBase
 
     protected override bool IsMoving => rotator != null && rotator.Body.AngularVelocity != 0f;
 
-    public JoinableSpringBodyClip(LevelBuilderBase _builder, object _body, Node _clip, Hashtable _config)
-        : base(_builder, _body, _clip, _config)
+    public JoinableSpringBodyClip(LevelBuilderBase builder, object body, Node clip, Hashtable config)
+        : base(builder, body, clip, config)
     {
-        rotator = (RotatorBodyClip)FarseerUtil.Query(builder.World, Body.Position, 1.6666666f, typeof(RotatorBodyClip));
+        rotator = (RotatorBodyClip)FarseerUtil.Query(this.builder.World, Body.Position, 1.6666666f, typeof(RotatorBodyClip));
         relativeRotatorPosition = rotator.Body.GetLocalPoint(Body.Position);
         relativeAngle = rotator.Body.Rotation - Body.Rotation;
     }

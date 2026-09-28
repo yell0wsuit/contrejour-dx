@@ -12,7 +12,7 @@ using Mokus2D.Visual;
 
 namespace Default.Namespace;
 
-public class Chapter5(int _index, MainMenu _menu) : ChapterItem(_index, _menu)
+public class Chapter5(int index, MainMenu _menu) : ChapterItem(index, _menu)
 {
     protected Node foreground;
 

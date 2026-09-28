@@ -11,8 +11,8 @@ public class BlackSnotSprite : SpringSnotSprite
 
     private readonly Color START_COLOR = new(0, 94, 118, 255);
 
-    public BlackSnotSprite(ContreJourGame _game, SnotBodyClipBase _snot, float _startWidth, float _centerWidth, float _endWidth)
-        : base(_game, _snot, _startWidth, _centerWidth, _endWidth)
+    public BlackSnotSprite(ContreJourGame game, SnotBodyClipBase snot, float startWidth, float centerWidth, float endWidth)
+        : base(game, snot, startWidth, centerWidth, endWidth)
     {
         borderWidth = 3f;
     }

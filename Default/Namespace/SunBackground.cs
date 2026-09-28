@@ -6,17 +6,17 @@ public class SunBackground : MoveBackground
 {
     protected float currentOpacity;
 
-    public SunBackground(Node _node, Hashtable _config, ContreJourGame _game)
-        : base(_node, _config, _game)
+    public SunBackground(Node node, Hashtable config, ContreJourGame game)
+        : base(node, config, game)
     {
-        if (game.CanShowIntro)
+        if (this.game.CanShowIntro)
         {
             currentOpacity = 255f;
             return;
         }
         currentOpacity = 0f;
-        _node.Tweener.Stop();
-        game.FlyOpacity = 0f;
+        node.Tweener.Stop();
+        this.game.FlyOpacity = 0f;
     }
 
     public override void Update(float time)

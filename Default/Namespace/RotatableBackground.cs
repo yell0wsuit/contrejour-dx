@@ -6,10 +6,10 @@ public class RotatableBackground : MoveBackground
 {
     protected float rotationStep;
 
-    public RotatableBackground(Node _node, Hashtable _config, ContreJourGame _game)
-        : base(_node, _config, _game)
+    public RotatableBackground(Node node, Hashtable config, ContreJourGame game)
+        : base(node, config, game)
     {
-        rotationStep = config.GetFloat("speed") / 2f;
+        rotationStep = this.config.GetFloat("speed") / 2f;
     }
 
     public override void Update(float time)

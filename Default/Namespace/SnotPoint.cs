@@ -31,16 +31,16 @@ public class SnotPoint : ContreJourBodyClip
         }
     }
 
-    public SnotPoint(LevelBuilderBase _builder, object _body, Node _clip, Hashtable _config)
-        : base(_builder, _body, _clip, _config)
+    public SnotPoint(LevelBuilderBase builder, object body, Node clip, Hashtable config)
+        : base(builder, body, clip, config)
     {
         Body val = Body;
-        builder.World.RemoveBody(Body);
+        this.builder.World.RemoveBody(Body);
         Create(val.Position);
     }
 
-    public SnotPoint(LevelBuilderBase _builder, Vector2 position, Node _clip, Hashtable _config)
-        : base(_builder, null, _clip, _config)
+    public SnotPoint(LevelBuilderBase builder, Vector2 position, Node clip, Hashtable config)
+        : base(builder, null, clip, config)
     {
         Create(position);
     }

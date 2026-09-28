@@ -10,19 +10,19 @@ public class MoveBackground : BackgroundBase
 {
     protected Vector2 moveOffset;
 
-    public MoveBackground(Node _node, Hashtable _config, ContreJourGame _game)
-        : base(_node, _config, _game)
+    public MoveBackground(Node node, Hashtable config, ContreJourGame game)
+        : base(node, config, game)
     {
-        if (_config.Exists("moveOffset"))
+        if (config.Exists("moveOffset"))
         {
-            moveOffset = _config.Exists("moveOffset") ? GraphUtil.StringToVector(_config.GetString("moveOffset")) : Vector2.Zero;
-            if (game.CanShowIntro)
+            moveOffset = config.Exists("moveOffset") ? GraphUtil.StringToVector(config.GetString("moveOffset")) : Vector2.Zero;
+            if (this.game.CanShowIntro)
             {
-                _ = _node.MoveTo(60f, _node.Position + moveOffset);
+                _ = node.MoveTo(60f, node.Position + moveOffset);
             }
             else
             {
-                _node.Position += moveOffset;
+                node.Position += moveOffset;
             }
         }
     }

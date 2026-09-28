@@ -13,8 +13,8 @@ public class EndLastLevelBodyClip : EndLevelBodyClip
     protected bool bounce;
 
     [SuppressMessage("Style", "IDE0290:Use primary constructor", Justification = "Its random draws must run after the base constructor's, in this order.")]
-    public EndLastLevelBodyClip(LevelBuilderBase _builder, object _body, Node _clip, Hashtable _config)
-        : base(_builder, _body, _clip, _config)
+    public EndLastLevelBodyClip(LevelBuilderBase builder, object body, Node clip, Hashtable config)
+        : base(builder, body, clip, config)
     {
         scaleChanger = new CosChanger(-0.2f, 0.2f, 0.3f);
     }

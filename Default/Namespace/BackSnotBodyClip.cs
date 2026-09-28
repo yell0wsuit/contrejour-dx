@@ -32,15 +32,15 @@ public class BackSnotBodyClip : SnotBodyClipBase, IClickable
 
     public bool DisableHeroFocus => true;
 
-    public BackSnotBodyClip(LevelBuilderBase _builder, SnotData _body, Node _clip, Hashtable _config)
-        : base(_builder, _body, _clip, _config)
+    public BackSnotBodyClip(LevelBuilderBase builder, SnotData body, Node clip, Hashtable config)
+        : base(builder, body, clip, config)
     {
         force = 0.25f;
         forceProgress = Maths.Random(0f, (float)Math.PI * 2f);
         forceStep = Maths.Random(0.01f, 0.02f);
         stabilize = false;
         stabilizeCalculated = false;
-        Vector2 vector = config.GetVector("scale");
+        Vector2 vector = this.config.GetVector("scale");
         eye.Scale = vector.X / 10.24f;
         baseClip.Scale = eye.Scale;
         baseEndClip.Scale = eye.Scale;
@@ -139,6 +139,6 @@ public class BackSnotBodyClip : SnotBodyClipBase, IClickable
 
     protected override MonsterEye CreateEye()
     {
-        return new BackSnotEye((ContreJourGame)builder.Game, _visible: true, Physics.EndBody.Position);
+        return new BackSnotEye((ContreJourGame)builder.Game, visible: true, Physics.EndBody.Position);
     }
 }

@@ -4,7 +4,7 @@ using Mokus2D.Visual;
 
 namespace Default.Namespace;
 
-public class DynamicSpringBodyClip(LevelBuilderBase _builder, object _body, Node _clip, Hashtable _config) : SpringBodyClip(_builder, _body, _clip, _config)
+public class DynamicSpringBodyClip(LevelBuilderBase builder, object body, Node clip, Hashtable config) : SpringBodyClip(builder, body, clip, config)
 {
     protected Vector2 relativePosition;
 

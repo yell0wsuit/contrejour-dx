@@ -184,30 +184,30 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
 
     public override Vector2 PositionVec => Body.Position;
 
-    public HeroBodyClip(LevelBuilderBase _builder, object _body, Node _clip, Hashtable _config)
-        : base(_builder, _body, _clip, _config)
+    public HeroBodyClip(LevelBuilderBase builder, object body, Node clip, Hashtable config)
+        : base(builder, body, clip, config)
     {
         Body.IsBullet = true;
         if (Game.BlackSide || Game.WhiteSide || Game.BonusChapter)
         {
             bodyBackground = (Sprite)ClipTypesCache.CreateNewNode(Game.ChooseSide("McHeroBlackView", "McHeroWhiteView", "McHeroBackView", "McHeroBackView", "McHeroView_6"));
-            LevelBuilderBase.ReplaceChildWith(_clip, bodyBackground);
+            LevelBuilderBase.ReplaceChildWith(clip, bodyBackground);
         }
         else
         {
-            bodyBackground = (Sprite)_clip;
+            bodyBackground = (Sprite)clip;
         }
-        Vector2 position = _clip.Position;
+        Vector2 position = clip.Position;
         bodyBackground.Position = Vector2.Zero;
-        _clip = new Node();
-        clip = _clip;
-        _clip.Position = position;
+        clip = new Node();
+        this.clip = clip;
+        clip.Position = position;
         shadow = (Sprite)ClipTypesCache.CreateNewNode(Game.ChooseSide("McHeroShadow", "McHeroShadowWhite", "McHeroShadow", "McHeroShadow"));
-        _clip.AddChild(shadow);
-        _builder.Add(_clip, 10);
+        clip.AddChild(shadow);
+        builder.Add(clip, 10);
         bodyBackground.Parent.RemoveChild(bodyBackground);
-        _clip.AddChild(bodyBackground);
-        worldSize = _builder.ToVec(Game.LevelSize);
+        clip.AddChild(bodyBackground);
+        worldSize = builder.ToVec(Game.LevelSize);
         initialPosition = Body.Position;
         Body.SleepingAllowed = false;
         Body.SetGroupIndex(-2);
@@ -223,31 +223,31 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
             {
                 Schedule(Game.EndLevel.ShowPortal, 1.6f);
             }
-            portal = new Portal(Game, _clip.Position);
-            builder.AddChildBefore(portal, clip);
+            portal = new Portal(Game, clip.Position);
+            this.builder.AddChildBefore(portal, this.clip);
             portal.ItemsScale = 0f;
             portal.ScaleStep = 0.1f;
         }
         onGroundTime = 0f;
         airTime = 0f;
         maxAirTime = 0f;
-        config["hasDust"] = true;
+        this.config["hasDust"] = true;
         hotspot = new McHotspotwhite();
-        _clip.AddChild(hotspot);
+        clip.AddChild(hotspot);
         eye = new HeroEye(Game);
         eyeScale = eye.Scale;
-        _clip.AddChild(eye);
+        clip.AddChild(eye);
         if (Game.BlackSide || Game.BonusChapter)
         {
             blackTails = [];
             BlackTail blackTail = new(this);
             blackTails.Add(blackTail);
-            builder.Add(blackTail, 3);
+            this.builder.Add(blackTail, 3);
         }
         else
         {
             tail = new HeroTail(Game.WhiteSide ? ContreJourConstants.WHITE_TAIL_COLOR : Color.Black);
-            _clip.AddChild(tail, -1);
+            clip.AddChild(tail, -1);
         }
         breatheScale = 0f;
         sleep = false;
@@ -781,14 +781,14 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
         }
     }
 
-    protected void FinishLevelSpeedEyeAnimation(Vector2 targetPosition, float _finishSpeed, string eyeAnimation)
+    protected void FinishLevelSpeedEyeAnimation(Vector2 targetPosition, float finishSpeed, string eyeAnimation)
     {
         if (removed)
         {
             return;
         }
         finishSet = true;
-        finishSpeed = _finishSpeed;
+        this.finishSpeed = finishSpeed;
         finishPosition = targetPosition;
         Body.BodyType = 0;
         Body.LinearVelocity = new Vector2(0f, 0f);
@@ -835,27 +835,27 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
         }
     }
 
-    protected virtual void FinishLevelSpeed(Vector2 targetPosition, float _finishSpeed)
+    protected virtual void FinishLevelSpeed(Vector2 targetPosition, float finishSpeed)
     {
-        FinishLevelSpeedEyeAnimation(targetPosition, _finishSpeed, "McEyeClose");
+        FinishLevelSpeedEyeAnimation(targetPosition, finishSpeed, "McEyeClose");
     }
 
-    public void CompleteLevelSpeed(Vector2 targetPosition, float _finishSpeed)
+    public void CompleteLevelSpeed(Vector2 targetPosition, float finishSpeed)
     {
         levelCompleted = true;
-        FinishLevelSpeed(targetPosition, _finishSpeed);
+        FinishLevelSpeed(targetPosition, finishSpeed);
     }
 
-    public void FailLevelSpeedPause(Vector2 targetPosition, float _finishSpeed, float pause)
+    public void FailLevelSpeedPause(Vector2 targetPosition, float finishSpeed, float pause)
     {
         finishPause = pause;
-        FinishLevelSpeed(targetPosition, _finishSpeed);
+        FinishLevelSpeed(targetPosition, finishSpeed);
     }
 
-    public void FailLevelSpeedPauseEyeAnimation(Vector2 targetPosition, float _finishSpeed, float pause, string eyeAnimation)
+    public void FailLevelSpeedPauseEyeAnimation(Vector2 targetPosition, float finishSpeed, float pause, string eyeAnimation)
     {
         finishPause = pause;
-        FinishLevelSpeedEyeAnimation(targetPosition, _finishSpeed, eyeAnimation);
+        FinishLevelSpeedEyeAnimation(targetPosition, finishSpeed, eyeAnimation);
     }
 
     private void Hide()

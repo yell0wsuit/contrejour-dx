@@ -22,14 +22,14 @@ public class EnergyPart : Satellite
 
     protected override Vector2 TargetPosition => !collected ? base.TargetPosition : game.BonusTarget.BonusTarget();
 
-    public EnergyPart(ContreJourGame _game, BodyClip parent, float _direction, Vector2 position)
-        : this(_game, parent, _game.Energy.AddOrGetInvisible(), _direction, position)
+    public EnergyPart(ContreJourGame game, BodyClip parent, float direction, Vector2 position)
+        : this(game, parent, game.Energy.AddOrGetInvisible(), direction, position)
     {
     }
 
     [SuppressMessage("Style", "IDE0290:Use primary constructor", Justification = "Its random draws must run after the base constructor's, in this order.")]
-    public EnergyPart(ContreJourGame _game, BodyClip parent, Particle particle, float _direction, Vector2 position)
-        : base(_game, particle, parent, _direction, position)
+    public EnergyPart(ContreJourGame game, BodyClip parent, Particle particle, float direction, Vector2 position)
+        : base(game, particle, parent, direction, position)
     {
         timeToEnd = Maths.Random(1f, 2f);
         collected = false;

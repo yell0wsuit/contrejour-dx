@@ -44,12 +44,12 @@ public class PausePanel : Node, IDisposable
 
     protected Vector2 winSize;
 
-    public PausePanel(ContreJourGame _game)
+    public PausePanel(ContreJourGame game)
     {
-        game = _game;
+        this.game = game;
         SoundManager.MusicDisableEvent += OnMusicDisable;
-        Color color = game.BlackSide ? ColorUtil.Mult(ContreJourConstants.BLUE_LIGHT_COLOR, 1.5f) : ContreJourConstants.GREY_COLOR;
-        if (game.BonusChapter)
+        Color color = this.game.BlackSide ? ColorUtil.Mult(ContreJourConstants.BLUE_LIGHT_COLOR, 1.5f) : ContreJourConstants.GREY_COLOR;
+        if (this.game.BonusChapter)
         {
             color = ContreJourConstants.GreenLightColor;
         }

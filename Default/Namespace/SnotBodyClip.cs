@@ -104,19 +104,19 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
 
     public override Vector2 PositionVec => Physics.EndBody.Position;
 
-    public SnotBodyClip(LevelBuilderBase _builder, SnotData _body, Node _clip, Hashtable _config)
-        : base(_builder, _body, _clip, _config)
+    public SnotBodyClip(LevelBuilderBase builder, SnotData body, Node clip, Hashtable config)
+        : base(builder, body, clip, config)
     {
         length = Physics.InitialLength;
         linkEvent = new EventSender();
         releaseEvent = new EventSender();
         SetDamping(FreeDamping());
-        movable = config.GetBool("movable");
+        movable = this.config.GetBool("movable");
         snotEye = movable
-            ? new MovableSnotEye(targetPoint: new SnotPoint(builder, _body.EyeBody.Position, null, null)
+            ? new MovableSnotEye(targetPoint: new SnotPoint(this.builder, body.EyeBody.Position, null, null)
             {
                 Used = true
-            }, _snot: this, _body: Physics.EyeBody)
+            }, _snot: this, body: Physics.EyeBody)
             : new SnotEye(this, Physics.EyeBody);
         eyeJointDef = new RevoluteJointDef(Physics.EyeJoint);
         game.AddPositionProvider(new PositionProviderValue(this, 1f));
@@ -126,7 +126,7 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
             CreateTail();
         }
         touchEndTime = -1f;
-        dynamicDrag = config.GetBool("dynamicDrag");
+        dynamicDrag = this.config.GetBool("dynamicDrag");
         if (game.LevelIndex == 169)
         {
             Schedule(Blink, Maths.Random(5f, 8f));
@@ -142,8 +142,8 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
             container.RemoveFromParent();
             joinedBodyClip.Clip.RemoveFromParent();
             int layer = joinedBodyClip.Clip.Layer;
-            _ = builder.AddChild(joinedBodyClip.Clip, layer);
-            _ = builder.AddChild(container, layer);
+            _ = this.builder.AddChild(joinedBodyClip.Clip, layer);
+            _ = this.builder.AddChild(container, layer);
         }
     }
 
@@ -246,9 +246,9 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
         return 0f;
     }
 
-    public virtual void CreateHighlite(ContreJourGame _game)
+    public virtual void CreateHighlite(ContreJourGame game)
     {
-        if (!_game.BlackSide && !game.WhiteSide && !game.BonusChapter)
+        if (!game.BlackSide && !this.game.WhiteSide && !this.game.BonusChapter)
         {
             highlite = new McSnotEndHighlite();
             highliteChanger = new CosChanger(0.05f, 0.1f);
@@ -277,7 +277,7 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
 
     public virtual void CreateTail()
     {
-        blackTail = new BlackTail(textureFile: game.BlackSide ? "snotTailTextureBlack" : "McTailTextureGreen", _body: Physics.EndBody, _builder: builder);
+        blackTail = new BlackTail(textureFile: game.BlackSide ? "snotTailTextureBlack" : "McTailTextureGreen", body: Physics.EndBody, builder: builder);
         builder.Add(blackTail, 3);
         blackTail.Width = 20f;
     }
@@ -421,14 +421,14 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
         return GetDragTarget(builder.TouchRootVec(touch).ClampDistance(Physics.EyeBody.Position, MaxLength()));
     }
 
-    public BodyAndPoint GetDragTarget(Vector2 _position)
+    public BodyAndPoint GetDragTarget(Vector2 position)
     {
-        List<BodyClip> list = FarseerUtil.Query(param: new LinkableReqParams(JoinDistance(), _position), world: builder.World, center: _position, radius: JoinDistance(), clipPredicate: LinkableReq);
+        List<BodyClip> list = FarseerUtil.Query(param: new LinkableReqParams(JoinDistance(), position), world: builder.World, center: position, radius: JoinDistance(), clipPredicate: LinkableReq);
         if (list.Count == 0)
         {
-            return new BodyAndPoint(null, _position);
+            return new BodyAndPoint(null, position);
         }
-        BodyClip bodyClip = (BodyClip)Arrays.MaxItem(list, ClosestReq, _position);
+        BodyClip bodyClip = (BodyClip)Arrays.MaxItem(list, ClosestReq, position);
         return new BodyAndPoint(bodyClip.Body, bodyClip.Body.Position);
     }
 
@@ -511,15 +511,15 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
         linkEvent.SendEvent();
     }
 
-    public static bool BodyConnectedToStaticProcessed(Body _body, ref List<Body> processed)
+    public static bool BodyConnectedToStaticProcessed(Body body, ref List<Body> processed)
     {
         //IL_0001: Unknown result type (might be due to invalid IL or missing references)
         //IL_0007: Invalid comparison between Unknown and I4
-        if ((int)_body.BodyType != 2)
+        if ((int)body.BodyType != 2)
         {
             return true;
         }
-        for (JointEdge val = _body.JointList; val != null; val = val.Next)
+        for (JointEdge val = body.JointList; val != null; val = val.Next)
         {
             if (processed.NotExists(val.Other))
             {

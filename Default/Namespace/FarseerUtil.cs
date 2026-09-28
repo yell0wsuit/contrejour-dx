@@ -105,9 +105,9 @@ public static class FarseerUtil
         }
     }
 
-    public static Fixture FixtureById(string _id, Body body)
+    public static Fixture FixtureById(string id, Body body)
     {
-        return GetFixture(body, IdString, _id);
+        return GetFixture(body, IdString, id);
     }
 
     public static void SetDensity(this Body body, float value)

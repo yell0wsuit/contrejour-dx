@@ -20,8 +20,8 @@ public class RotatableBodyClip : BodyClip
 
     protected int scaleSign;
 
-    public RotatableBodyClip(LevelBuilderBase _builder, object _body, Node _clip, Hashtable _config)
-        : base(_builder, _body, _clip, _config)
+    public RotatableBodyClip(LevelBuilderBase builder, object body, Node clip, Hashtable config)
+        : base(builder, body, clip, config)
     {
         scaleDiff = Maths.Random(0.1f, 0.25f);
         scaleStep = Maths.Random(0.02f, 0.05f);
@@ -30,7 +30,7 @@ public class RotatableBodyClip : BodyClip
         destroying = false;
         rotationDirection = 1;
         scaleSign = 1;
-        clip.RotationDegrees = Maths.Random(360);
+        this.clip.RotationDegrees = Maths.Random(360);
     }
 
     public override void Update(float time)

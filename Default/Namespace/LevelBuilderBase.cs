@@ -104,7 +104,7 @@ public class LevelBuilderBase : Updatable, IDisposable
 
     public Node GameRoot => game.GameRoot;
 
-    public LevelBuilderBase(GameBase _game)
+    public LevelBuilderBase(GameBase game)
     {
         //IL_0055: Unknown result type (might be due to invalid IL or missing references)
         //IL_005f: Expected O, but got Unknown
@@ -118,7 +118,7 @@ public class LevelBuilderBase : Updatable, IDisposable
         groundBody = BodyFactory.CreateBody(world, new Vector2(0f, 0f), 0f, null);
         maxWorldUpdateTime = 1f / 30f;
         physicsSpeed = 1f;
-        game = _game;
+        this.game = game;
         processors = [];
         updater = new PhysicsUpdater(world);
         clips = [];

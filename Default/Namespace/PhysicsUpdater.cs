@@ -10,10 +10,10 @@ public class PhysicsUpdater : Updatable
 
     public World World => world;
 
-    public PhysicsUpdater(World _world)
+    public PhysicsUpdater(World world)
     {
-        world = _world;
-        listener = new ContactListener(world);
+        this.world = world;
+        listener = new ContactListener(this.world);
     }
 
     public override void Update(float time)

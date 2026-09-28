@@ -54,9 +54,9 @@ public class TouchCircle(Touch _touch, LevelBuilderBase _builder) : BodyClip(_bu
 
     public new Vector2 Position => builder.TouchRootPoint(touch);
 
-    public static Body CreateBody(LevelBuilderBase _builder, Touch _touch)
+    public static Body CreateBody(LevelBuilderBase builder, Touch touch)
     {
-        Body result = _builder.World.CreateCircle(4f, _builder.TouchRootVec(_touch), 0f, 0f, dynamic: true);
+        Body result = builder.World.CreateCircle(4f, builder.TouchRootVec(touch), 0f, 0f, dynamic: true);
         result.SetSensor(value: true);
         return result;
     }

@@ -43,14 +43,14 @@ public class DraggingItem
 
     protected PlasticineItem right;
 
-    public DraggingItem(LevelBuilderBase _builder, PlasticineItem _item, Touch _touch)
+    public DraggingItem(LevelBuilderBase builder, PlasticineItem item, Touch touch)
     {
-        currentTouch = _touch;
-        dragItem = _item;
-        builder = _builder;
-        game = (ContreJourGame)_builder.Game;
-        initialTouchPosition = builder.TouchRootVec(_touch);
-        lastTouchPosition = builder.TouchRootPoint(_touch);
+        currentTouch = touch;
+        dragItem = item;
+        this.builder = builder;
+        game = (ContreJourGame)builder.Game;
+        initialTouchPosition = this.builder.TouchRootVec(touch);
+        lastTouchPosition = this.builder.TouchRootPoint(touch);
         initialPosition = dragItem.Body.Position;
         left = PlasticineUtil.GetItemCountDirection(dragItem, 7, -1);
         right = PlasticineUtil.GetItemCountDirection(dragItem, 7, 1);

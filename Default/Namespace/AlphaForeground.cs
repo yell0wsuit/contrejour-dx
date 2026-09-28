@@ -8,14 +8,14 @@ public class AlphaForeground : ForegroundBase, IUpdatable
 {
     protected CosChanger changer;
 
-    public AlphaForeground(ContreJourLevelBuilder _builder, object _body, Node _clip, Hashtable _config)
-        : base(_builder, _body, _clip, _config)
+    public AlphaForeground(ContreJourLevelBuilder builder, object body, Node clip, Hashtable config)
+        : base(builder, body, clip, config)
     {
-        float num = _config.GetFloat("alphaStep");
+        float num = config.GetFloat("alphaStep");
         changer = new CosChanger(num, num)
         {
-            MaxValue = _config.GetFloat("maximumAlpha"),
-            MinValue = _config.GetFloat("minimumAlpha")
+            MaxValue = config.GetFloat("maximumAlpha"),
+            MinValue = config.GetFloat("minimumAlpha")
         };
     }
 

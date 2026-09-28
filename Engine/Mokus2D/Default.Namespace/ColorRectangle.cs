@@ -52,10 +52,10 @@ public class ColorRectangle : PrimitivesNode
         }
     }
 
-    public ColorRectangle(Color _color, Vector2 _size)
+    public ColorRectangle(Color color, Vector2 size)
     {
-        Color = _color;
-        Size = _size;
+        Color = color;
+        Size = size;
         RefreshColors();
     }
 

@@ -36,17 +36,17 @@ public class PlasticineBodyClip : ContreJourBodyClip, IRestartable
         set => changed = value;
     }
 
-    public PlasticineBodyClip(LevelBuilderBase _builder, List<Vector2> points, Node _clip, Hashtable _config)
-        : base(_builder, null, _clip, _config)
+    public PlasticineBodyClip(LevelBuilderBase builder, List<Vector2> points, Node clip, Hashtable config)
+        : base(builder, null, clip, config)
     {
-        ContreJourGame contreJourGame = (ContreJourGame)_builder.Game;
+        ContreJourGame contreJourGame = (ContreJourGame)builder.Game;
         contreJourGame.RegisterPlasticine(this);
         clipContent = (PlasticineSprite)ReflectUtil.CreateInstance(contreJourGame.ChooseSide(typeof(BlackPlasticineSprite), typeof(WhitePlasticineSprite), typeof(PlasticineSprite)));
         Create(points);
-        _ = builder.AddChild(clipContent);
+        _ = this.builder.AddChild(clipContent);
         firstItem.BodyClip.UpdateParent = true;
         wideBorder = new PlasticineWideBorder();
-        _ = builder.AddChild(wideBorder);
+        _ = this.builder.AddChild(wideBorder);
         InitBorder(contreJourGame);
         InitFillSprite();
         if (!contreJourGame.RoseChapter)
@@ -55,7 +55,7 @@ public class PlasticineBodyClip : ContreJourBodyClip, IRestartable
         }
         if (highlite != null)
         {
-            _ = builder.AddChild(highlite);
+            _ = this.builder.AddChild(highlite);
         }
         changed = false;
         draggingItems = [];

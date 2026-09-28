@@ -55,14 +55,14 @@ public class RoseBodyClip : StickyBodyClip, IBonusAcceptable, IBodyClip
 
     protected MovieClip stalk;
 
-    public RoseBodyClip(LevelBuilderBase _builder, object _body, Node _clip, Hashtable _config)
-        : base(_builder, _body, _clip, _config)
+    public RoseBodyClip(LevelBuilderBase builder, object body, Node clip, Hashtable config)
+        : base(builder, body, clip, config)
     {
         Node node = new();
-        LevelBuilderBase.ReplaceChildWith(_clip, node);
-        node.Position = _clip.Position;
-        clip = node;
-        game = (ContreJourGame)_builder.Game;
+        LevelBuilderBase.ReplaceChildWith(clip, node);
+        node.Position = clip.Position;
+        this.clip = node;
+        game = (ContreJourGame)builder.Game;
         finalRose = new FinalRose
         {
             Stoped = true,
@@ -70,7 +70,7 @@ public class RoseBodyClip : StickyBodyClip, IBonusAcceptable, IBodyClip
             Speed = 0f
         };
         game.BonusTarget = this;
-        clip.AddChild((Node)finalRose);
+        this.clip.AddChild((Node)finalRose);
         if (game.CanShowIntro)
         {
             PlayIntro();
