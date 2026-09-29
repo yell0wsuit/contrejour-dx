@@ -2,9 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
-
 using Mokus2D.Interfaces;
 using Mokus2D.Util.Extensions;
 using Mokus2D.Util.MathUtils;
@@ -40,8 +37,8 @@ namespace Mokus2D.Input
                 return;
             }
             _inUpdate = true;
-            ButtonState back = GamePad.GetState(PlayerIndex.One).Buttons.Back;
-            if (back == ButtonState.Pressed && !_isBackPressed)
+            bool back = Mokus2DGame.Input.IsBackPressed;
+            if (back && !_isBackPressed)
             {
                 foreach (ActionPriority backKeysListener in _backKeysListeners)
                 {
@@ -52,7 +49,7 @@ namespace Mokus2D.Input
                     }
                 }
             }
-            _isBackPressed = back == ButtonState.Pressed;
+            _isBackPressed = back;
             _stoped = false;
             _inUpdate = false;
             _backKeysListeners.RemoveListNoGarbage(_toRemove);

@@ -45,7 +45,8 @@ namespace ContreJour.Desktop.MonoGame
                 CullMode = CullMode.None
             };
             GraphicsDevice.DepthStencilState = DepthStencilState.None;
-            ApplicationController applicationController = new(host, GraphicsDevice, content);
+            MonoGameInputSource input = new();
+            ApplicationController applicationController = new(host, input, GraphicsDevice, content);
             _game.Initialize(applicationController);
             // Subscribe after the game is set up: resizes applied during Initialize would otherwise
             // reach the game before its views exist (Win8 view-state events only arrived later).

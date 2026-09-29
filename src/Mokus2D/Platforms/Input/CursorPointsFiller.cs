@@ -1,12 +1,9 @@
 using System.Collections.Generic;
 
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Input.Touch;
 
 using Mokus2D.Input;
 using Mokus2D.PlatformSupport.Input;
-using Mokus2D.Util;
 using Mokus2D.Util.MathUtils;
 
 namespace Mokus2D.Platforms.Input
@@ -15,36 +12,34 @@ namespace Mokus2D.Platforms.Input
     {
         private static Vector2? _mousePosition;
 
+        private static readonly List<TouchPoint> Touches = [];
 
         public static void FillPoints(List<CursorPoint> cursorPoints)
         {
-            MouseState state = Mouse.GetState();
-            Vector2 mousePosition = state.Position();
-            mousePosition = AdjustMouseSpeed(mousePosition);
+            MouseSnapshot mouse = Mokus2DGame.Input.GetMouse();
+            Vector2 mousePosition = AdjustMouseSpeed(mouse.Position);
             bool flag = false;
-            foreach (TouchLocation item in TouchPanel.GetState())
+            Mokus2DGame.Input.GetTouches(Touches);
+            foreach (TouchPoint item in Touches)
             {
-                if (item.State is TouchLocationState.Pressed or TouchLocationState.Moved)
+                cursorPoints.Add(new CursorPoint(item.Position, item.Id, TouchType.Touch));
+                if (item.Position == mouse.Position)
                 {
-                    cursorPoints.Add(new CursorPoint(item.Position, item.Id, TouchType.Touch));
-                    if (item.Position == new Vector2(state.X, state.Y))
-                    {
-                        flag = true;
-                    }
+                    flag = true;
                 }
             }
             bool mouseButtonsSwapped = GetMouseButtonsSwapped();
-            ButtonState buttonState = mouseButtonsSwapped ? state.RightButton : state.LeftButton;
-            ButtonState buttonState2 = mouseButtonsSwapped ? state.LeftButton : state.RightButton;
-            if (buttonState == ButtonState.Pressed && !flag)
+            bool leftDown = mouseButtonsSwapped ? mouse.Right : mouse.Left;
+            bool rightDown = mouseButtonsSwapped ? mouse.Left : mouse.Right;
+            if (leftDown && !flag)
             {
                 cursorPoints.Add(new CursorPoint(mousePosition, -1, TouchType.LeftMouseButton));
             }
-            if (buttonState2 == ButtonState.Pressed)
+            if (rightDown)
             {
                 cursorPoints.Add(new CursorPoint(mousePosition, -2, TouchType.RightMouseButton));
             }
-            if (state.MiddleButton == ButtonState.Pressed)
+            if (mouse.Middle)
             {
                 cursorPoints.Add(new CursorPoint(mousePosition, -3, TouchType.MiddleMouseButton));
             }
@@ -63,7 +58,7 @@ namespace Mokus2D.Platforms.Input
                 {
                     vector *= Mokus2DGame.Config.MouseSpeed;
                     mousePosition = _mousePosition.Value + vector;
-                    Mouse.SetPosition((int)mousePosition.X, (int)mousePosition.Y);
+                    Mokus2DGame.Input.SetMousePosition((int)mousePosition.X, (int)mousePosition.Y);
                 }
             }
             _mousePosition = mousePosition;

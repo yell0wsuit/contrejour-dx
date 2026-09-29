@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 
-using Microsoft.Xna.Framework.Input;
-
 using Mokus2D.Collections;
 using Mokus2D.Interfaces;
 using Mokus2D.Util;
@@ -11,31 +9,33 @@ namespace Mokus2D.Input
 {
     public class KeyboardController : IUpdatable
     {
-        private readonly HashSet<Keys> _pressedKeys = [];
+        private readonly HashSet<Key> _pressedKeys = [];
 
-        private readonly HashSet<Keys> _removedKeys = [];
+        private readonly HashSet<Key> _removedKeys = [];
 
-        private readonly HashSet<Keys> _newKeys = [];
+        private readonly HashSet<Key> _newKeys = [];
 
-        private readonly Dictionary<Keys, List<Action<Keys, bool>>> _actions = [];
+        private readonly Dictionary<Key, List<Action<Key, bool>>> _actions = [];
 
-        private readonly FactoryDictionary<Keys, ForEachCollection<Action<Keys>>> _delayActions = new(k => []);
+        private readonly FactoryDictionary<Key, ForEachCollection<Action<Key>>> _delayActions = new(k => []);
 
-        private readonly List<Action<Keys, bool>> _currentActions = [];
+        private readonly List<Action<Key, bool>> _currentActions = [];
 
         private readonly KeyboardDelayListener _delayListener;
 
         private readonly Flag _stopDelayEvent = new(on: false);
 
-        private readonly HashSet<Keys> _currentPressedKeys = [];
+        private readonly HashSet<Key> _currentPressedKeys = [];
 
-        public bool IsShiftPressed => _currentPressedKeys.Contains(Keys.LeftShift) || _currentPressedKeys.Contains(Keys.RightShift);
+        private readonly List<Key> _polledKeys = [];
 
-        public bool IsCapital => IsShiftPressed || Keyboard.GetState().IsKeyDown(Keys.CapsLock);
+        public bool IsShiftPressed => _currentPressedKeys.Contains(Key.LeftShift) || _currentPressedKeys.Contains(Key.RightShift);
 
-        public event Action<Keys, bool> KeyStateChangedEvent;
+        public bool IsCapital => IsShiftPressed || Mokus2DGame.Input.IsKeyDown(Key.CapsLock);
 
-        public event Action<Keys> KeyPressedEvent;
+        public event Action<Key, bool> KeyStateChangedEvent;
+
+        public event Action<Key> KeyPressedEvent;
 
         private static void Initialize()
         {
@@ -45,13 +45,12 @@ namespace Mokus2D.Input
         {
             _newKeys.Clear();
             _removedKeys.Clear();
-            foreach (Keys pressedKey in _pressedKeys)
+            foreach (Key pressedKey in _pressedKeys)
             {
                 _ = _removedKeys.Add(pressedKey);
             }
-            Keys[] pressedKeys = Keyboard.GetState().GetPressedKeys();
-            Keys[] array = pressedKeys;
-            foreach (Keys item in array)
+            Mokus2DGame.Input.GetPressedKeys(_polledKeys);
+            foreach (Key item in _polledKeys)
             {
                 if (!_pressedKeys.Contains(item))
                 {
@@ -63,15 +62,15 @@ namespace Mokus2D.Input
                     _ = _removedKeys.Remove(item);
                 }
             }
-            foreach (Keys removedKey in _removedKeys)
+            foreach (Key removedKey in _removedKeys)
             {
                 _ = _pressedKeys.Remove(removedKey);
             }
-            foreach (Keys removedKey2 in _removedKeys)
+            foreach (Key removedKey2 in _removedKeys)
             {
                 DispatchKeyEvent(removedKey2, value: false);
             }
-            foreach (Keys newKey in _newKeys)
+            foreach (Key newKey in _newKeys)
             {
                 DispatchKeyEvent(newKey, value: true);
             }
@@ -92,9 +91,9 @@ namespace Mokus2D.Input
             Initialize();
         }
 
-        public void AddListener(Keys key, Action<Keys, bool> action)
+        public void AddListener(Key key, Action<Key, bool> action)
         {
-            List<Action<Keys, bool>> list = _actions.GetValueOrDefault(key);
+            List<Action<Key, bool>> list = _actions.GetValueOrDefault(key);
             if (list == null)
             {
                 list = [];
@@ -103,28 +102,28 @@ namespace Mokus2D.Input
             list.Add(action);
         }
 
-        public bool IsPressed(Keys key)
+        public bool IsPressed(Key key)
         {
             return _currentPressedKeys.Contains(key);
         }
 
         public void RemoveAllListeners()
         {
-            foreach (KeyValuePair<Keys, List<Action<Keys, bool>>> action in _actions)
+            foreach (KeyValuePair<Key, List<Action<Key, bool>>> action in _actions)
             {
                 action.Value.Clear();
             }
         }
 
-        public void RemoveListeners(Keys key)
+        public void RemoveListeners(Key key)
         {
-            List<Action<Keys, bool>> list = _actions[key];
+            List<Action<Key, bool>> list = _actions[key];
             list.Clear();
         }
 
-        public void AddDelayListener(Keys key, Action<Keys> action, bool addFirst = false)
+        public void AddDelayListener(Key key, Action<Key> action, bool addFirst = false)
         {
-            ForEachCollection<Action<Keys>> orCreate = _delayActions.GetOrCreate(key);
+            ForEachCollection<Action<Key>> orCreate = _delayActions.GetOrCreate(key);
             if (addFirst)
             {
                 orCreate.Insert(0, action);
@@ -135,14 +134,14 @@ namespace Mokus2D.Input
             }
         }
 
-        public void RemoveDelayListener(Keys key, Action<Keys> action)
+        public void RemoveDelayListener(Key key, Action<Key> action)
         {
             _ = _delayActions.GetValueOrDefault(key)?.Remove(action);
         }
 
-        public void RemoveListener(Keys key, Action<Keys, bool> action)
+        public void RemoveListener(Key key, Action<Key, bool> action)
         {
-            List<Action<Keys, bool>> list = _actions[key];
+            List<Action<Key, bool>> list = _actions[key];
             _ = list.Remove(action);
         }
 
@@ -157,21 +156,21 @@ namespace Mokus2D.Input
             _stopDelayEvent.SetOn();
         }
 
-        private void OnKeyPressedWithDelay(Keys keys)
+        private void OnKeyPressedWithDelay(Key keys)
         {
             KeyPressedEvent.Dispatch(keys);
             if (_stopDelayEvent.Use())
             {
                 return;
             }
-            ForEachCollection<Action<Keys>> forEachList = _delayActions.GetValueOrDefault(keys);
+            ForEachCollection<Action<Key>> forEachList = _delayActions.GetValueOrDefault(keys);
             if (forEachList == null)
             {
                 return;
             }
             using (forEachList.Using())
             {
-                foreach (Action<Keys> item in forEachList)
+                foreach (Action<Key> item in forEachList)
                 {
                     item(keys);
                     if (_stopDelayEvent.Use())
@@ -182,14 +181,14 @@ namespace Mokus2D.Input
             }
         }
 
-        private void DispatchKeyEvent(Keys key, bool value)
+        private void DispatchKeyEvent(Key key, bool value)
         {
             _ = value ? _currentPressedKeys.Add(key) : _currentPressedKeys.Remove(key);
-            List<Action<Keys, bool>> list = _actions.GetValueOrDefault(key);
+            List<Action<Key, bool>> list = _actions.GetValueOrDefault(key);
             if (list != null)
             {
                 _currentActions.AddRange(list);
-                foreach (Action<Keys, bool> currentAction in _currentActions)
+                foreach (Action<Key, bool> currentAction in _currentActions)
                 {
                     currentAction(key, value);
                 }

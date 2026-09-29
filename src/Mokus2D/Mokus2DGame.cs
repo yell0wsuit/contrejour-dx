@@ -80,6 +80,8 @@ namespace Mokus2D
 
         public static KeyboardController Keyboard => Instance._keyboard;
 
+        public static IInputSource Input => Instance.ApplicationController.Input;
+
         public static GameConfig Config => Instance._config;
 
         public static GraphicsDevice Device => Instance.ApplicationController.GraphicsDevice;

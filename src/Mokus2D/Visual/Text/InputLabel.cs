@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
 
 using Mokus2D.Fonts;
 using Mokus2D.Input;
@@ -26,7 +25,7 @@ namespace Mokus2D.Visual.Text
         private bool _cursorPositionDirty = true;
 
         private bool _positionToEnd = true;
-        private readonly Dictionary<Keys, Action<Keys>> _keyHandlers = [];
+        private readonly Dictionary<Key, Action<Key>> _keyHandlers = [];
 
         public int? MaxSymbols { get; set; }
 
@@ -208,7 +207,7 @@ namespace Mokus2D.Visual.Text
             }
         }
 
-        private void TryAddSymbol(Keys key)
+        private void TryAddSymbol(Key key)
         {
             if (MaxSymbols.HasValue && TextLength >= MaxSymbols.Value)
             {
@@ -228,7 +227,7 @@ namespace Mokus2D.Visual.Text
             }
         }
 
-        private void OnBackspace(Keys keys)
+        private void OnBackspace(Key keys)
         {
             if (!CursorAtStart)
             {
@@ -240,7 +239,7 @@ namespace Mokus2D.Visual.Text
             }
         }
 
-        private void OnDelete(Keys keys)
+        private void OnDelete(Key keys)
         {
             if (!CursorAtEnd)
             {
@@ -265,9 +264,9 @@ namespace Mokus2D.Visual.Text
             TextPosition = Get2DSymbolPosition(symbolPosition);
         }
 
-        private void OnKeyPressed(Keys keys)
+        private void OnKeyPressed(Key keys)
         {
-            Action<Keys> action = _keyHandlers.GetValueOrDefault(keys);
+            Action<Key> action = _keyHandlers.GetValueOrDefault(keys);
             if (action != null)
             {
                 action(keys);
@@ -286,21 +285,21 @@ namespace Mokus2D.Visual.Text
 
         private void AddKeyHandlers()
         {
-            _keyHandlers.Add(Keys.Enter, OnEnter);
-            _keyHandlers.Add(Keys.Escape, OnEscape);
-            _keyHandlers.Add(Keys.Back, OnBackspace);
-            _keyHandlers.Add(Keys.Delete, OnDelete);
-            _keyHandlers.Add(Keys.Left, delegate
+            _keyHandlers.Add(Key.Enter, OnEnter);
+            _keyHandlers.Add(Key.Escape, OnEscape);
+            _keyHandlers.Add(Key.Back, OnBackspace);
+            _keyHandlers.Add(Key.Delete, OnDelete);
+            _keyHandlers.Add(Key.Left, delegate
             {
                 MoveHorizontal(-1);
             });
-            _keyHandlers.Add(Keys.Right, delegate
+            _keyHandlers.Add(Key.Right, delegate
             {
                 MoveHorizontal(1);
             });
         }
 
-        private void OnEscape(Keys obj)
+        private void OnEscape(Key obj)
         {
             if (HasFocus)
             {
@@ -308,7 +307,7 @@ namespace Mokus2D.Visual.Text
             }
         }
 
-        private void OnEnter(Keys obj)
+        private void OnEnter(Key obj)
         {
         }
     }
