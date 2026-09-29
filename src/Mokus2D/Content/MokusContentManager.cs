@@ -9,7 +9,6 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 using Mokus2D.Util;
-using Mokus2D.Util.Extensions;
 
 namespace Mokus2D.Content
 {
@@ -59,7 +58,7 @@ namespace Mokus2D.Content
 
         public override T Load<T>(string assetName)
         {
-            T val = (T)_loadedAssets.TryGetValue(assetName);
+            T val = (T)_loadedAssets.GetValueOrDefault(assetName);
             if (val != null)
             {
                 return val;
@@ -70,7 +69,7 @@ namespace Mokus2D.Content
             }
             catch (OutOfMemoryException innerException)
             {
-                throw new InsufficientMemoryException("Out of memory while loading {0}".FormatThis(assetName), innerException);
+                throw new InsufficientMemoryException(string.Format(CultureInfo.InvariantCulture, "Out of memory while loading {0}", assetName), innerException);
             }
             if (val is Texture2D texture2D)
             {

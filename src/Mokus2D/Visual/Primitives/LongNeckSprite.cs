@@ -122,7 +122,7 @@ namespace Mokus2D.Visual.Primitives
         {
             _allPoints.Clear();
             _allPoints.Capacity = firstBezier.Count + secondBezier.Count;
-            _allPoints.AddItemsNoGarbage(secondBezier);
+            _allPoints.AddRange(secondBezier);
             _allPoints.AddItemsNoGarbage(firstBezier, firstBezier.Count - 1, 0);
             TryCreateVectors(_allPoints);
         }

@@ -8,7 +8,6 @@ using Microsoft.Xna.Framework.Input;
 using Mokus2D.Fonts;
 using Mokus2D.Input;
 using Mokus2D.Util;
-using Mokus2D.Util.Extensions;
 using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual.Focus;
 using Mokus2D.Visual.Util;
@@ -92,7 +91,7 @@ namespace Mokus2D.Visual.Text
             }
         }
 
-        public bool CursorAtEnd => TextPosition.Y >= Lines.Count || (TextPosition.Y == Lines.Count - 1 && TextPosition.X >= Lines.Last().Glyphs.Count);
+        public bool CursorAtEnd => TextPosition.Y >= Lines.Count || (TextPosition.Y == Lines.Count - 1 && TextPosition.X >= Lines[^1].Glyphs.Count);
 
         public bool CursorAtStart => TextPosition.Y < 0 || (TextPosition.Y == 0 && TextPosition.X <= 0);
 
@@ -268,7 +267,7 @@ namespace Mokus2D.Visual.Text
 
         private void OnKeyPressed(Keys keys)
         {
-            Action<Keys> action = _keyHandlers.TryGetValue(keys);
+            Action<Keys> action = _keyHandlers.GetValueOrDefault(keys);
             if (action != null)
             {
                 action(keys);

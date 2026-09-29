@@ -10,7 +10,7 @@ namespace Mokus2D.Visual.Displacement.Magnets.Actions
 
         private readonly List<MagnetAction> _toRemove = [];
 
-        public override bool Finished => _actions.Empty();
+        public override bool Finished => _actions.Count == 0;
 
         public override void Update(float time)
         {

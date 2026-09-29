@@ -7,7 +7,6 @@ using Microsoft.Xna.Framework.Graphics;
 
 using Mokus2D;
 using Mokus2D.Content;
-using Mokus2D.Util.Extensions;
 using Mokus2D.Util.Xml;
 using Mokus2D.Visual.Data;
 
@@ -64,14 +63,13 @@ namespace ContreJour.Gameplay
             currentTextureSource = textureSources[i - 1];
             if (currentTextureSource == defaultTextureSource)
             {
-                defaultTextureSource = textureSources.Last();
+                defaultTextureSource = textureSources[^1];
             }
         }
 
         private static string CorrectName(string name)
         {
-            name = name.Split('/', '\\').Last().Split('.')
-                .First();
+            name = name.Split('/', '\\')[^1].Split('.')[0];
             return name;
         }
 

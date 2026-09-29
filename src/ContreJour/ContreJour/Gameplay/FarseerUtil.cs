@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 
 using FarseerPhysics.Collision;
@@ -344,7 +345,7 @@ namespace ContreJour.Gameplay
 
         public static Fixture GetClosestFixture(this World world, Vector2 center, float width, float height)
         {
-            return world.Query(center, width, height).Min(new FixtureDistanceComparer(center));
+            return world.Query(center, width, height).Max(new FixtureDistanceComparer(center));
         }
 
         public static List<Fixture> Query(this World world, Vector2 center, float width, float height)

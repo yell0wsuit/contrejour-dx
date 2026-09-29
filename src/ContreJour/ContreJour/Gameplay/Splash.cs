@@ -78,10 +78,10 @@ namespace ContreJour.Gameplay
 
         private void SplashStarted()
         {
-            afterLogo.Each(delegate (Action action)
+            foreach (Action action in afterLogo)
             {
                 action();
-            });
+            }
         }
 
         private void PlaySplashSound()

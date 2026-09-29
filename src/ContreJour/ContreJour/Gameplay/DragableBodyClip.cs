@@ -102,7 +102,7 @@ namespace ContreJour.Gameplay
             CreateBoundsClip(num);
             SetAlpha(150f);
             Body.BodyType = (BodyType)1;
-            _dragShape = (CircleShape)Body.FixtureList.First(f => !((CircleShape)f.Shape).Position.FuzzyEquals(Vector2.Zero, 0.1f)).Shape;
+            _dragShape = (CircleShape)Body.FixtureList.Find(f => !((CircleShape)f.Shape).Position.FuzzyEquals(Vector2.Zero, 0.1f)).Shape;
         }
 
         public bool UseForZoom()

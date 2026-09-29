@@ -110,7 +110,7 @@ namespace Mokus2D.Parallax
 
         private VisibleIsland GetIsland(Util.Data.Point cellIndex)
         {
-            return InBounds(cellIndex) ? _inBoundsIslands[cellIndex.X, cellIndex.Y] : _outOfBoundsIslands.TryGetValue(cellIndex);
+            return InBounds(cellIndex) ? _inBoundsIslands[cellIndex.X, cellIndex.Y] : _outOfBoundsIslands.GetValueOrDefault(cellIndex);
         }
 
         private bool InBounds(Util.Data.Point cellIndex)

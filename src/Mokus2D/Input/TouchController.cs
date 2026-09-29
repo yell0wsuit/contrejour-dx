@@ -175,7 +175,7 @@ namespace Mokus2D.Input
                     listenersCopy.Clear();
                     SendMove(item, list);
                     list.Clear();
-                    list.AddItemsNoGarbage(listenersCopy);
+                    list.AddRange(listenersCopy);
                 }
             }
         }
@@ -221,7 +221,7 @@ namespace Mokus2D.Input
             foreach (int priorities in prioritiesList)
             {
                 listenersCopy.Clear();
-                listenersCopy.AddItemsNoGarbage(listeners[priorities]);
+                listenersCopy.AddRange(listeners[priorities]);
                 foreach (ITouchListener item in listenersCopy)
                 {
                     if (item.TouchBegin(touch))

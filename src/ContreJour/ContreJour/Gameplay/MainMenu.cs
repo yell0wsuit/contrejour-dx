@@ -200,11 +200,11 @@ namespace ContreJour.Gameplay
             button.StopEventPropagation = true;
             button.AnchorY = 1f;
             button.RealScale = 0.765f;
-            button.Children.Each(delegate (Node child)
+            foreach (Node child in button.Children)
             {
                 child.Y = button.TextureSize.Y / 2f;
                 child.Scale = 2f;
-            });
+            }
             clickableLayer.AddChild(button);
         }
 

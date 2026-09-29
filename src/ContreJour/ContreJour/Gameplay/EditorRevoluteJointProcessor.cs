@@ -4,8 +4,6 @@ using FarseerPhysics.Dynamics;
 
 using Microsoft.Xna.Framework;
 
-using Mokus2D.Util.Extensions;
-
 namespace ContreJour.Gameplay
 {
     public class EditorRevoluteJointProcessor(LevelBuilderBase builder) : RevoluteJointProcessor("editorRevoluteJoint", builder)
@@ -15,7 +13,7 @@ namespace ContreJour.Gameplay
             Hashtable hashtable = item.GetHashtable("config");
             Vector2 vector = item.GetVector("position");
             List<Body> bodiesByWorldReqResult = GetBodiesByWorldReqResult(vector, FarseerUtil.DynamicBodyPredicate);
-            bodiesByWorldReqResult.AddItemsNoGarbage(GetBodiesByWorldReqResult(vector, FarseerUtil.StaticBodyPredicate));
+            bodiesByWorldReqResult.AddRange(GetBodiesByWorldReqResult(vector, FarseerUtil.StaticBodyPredicate));
             if (hashtable.Exists("rotationLocked"))
             {
                 hashtable["upperAngle"] = "0";
@@ -30,8 +28,8 @@ namespace ContreJour.Gameplay
                 else
                 {
                     List<Body> bodiesByWorldReqResult2 = GetBodiesByWorldReqResult(vector, FarseerUtil.StaticBodyPredicate);
-                    Body item2 = (bodiesByWorldReqResult2.Count > 0) ? bodiesByWorldReqResult2.First() : Builder.GroundBody;
-                    List<Body> list = [item2, bodiesByWorldReqResult.First()];
+                    Body item2 = (bodiesByWorldReqResult2.Count > 0) ? bodiesByWorldReqResult2[0] : Builder.GroundBody;
+                    List<Body> list = [item2, bodiesByWorldReqResult[0]];
                     CreateRevoluteJointPositionConfig(list, vector, hashtable);
                 }
             }

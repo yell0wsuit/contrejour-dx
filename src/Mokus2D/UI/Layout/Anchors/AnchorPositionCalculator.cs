@@ -91,7 +91,7 @@ namespace Mokus2D.UI.Layout.Anchors
         {
             AnimationNode animationNode = (AnimationNode)node.Parent;
             string id = ((IId)animationNode).Id;
-            AnimationData animationData = _originalAnimationData.TryGetValue(id);
+            AnimationData animationData = _originalAnimationData.GetValueOrDefault(id);
             if (animationData == null)
             {
                 animationData = animationNode.AnimationData.DeepClone();

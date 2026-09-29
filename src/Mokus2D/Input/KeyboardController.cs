@@ -6,7 +6,6 @@ using Microsoft.Xna.Framework.Input;
 using Mokus2D.Collections;
 using Mokus2D.Interfaces;
 using Mokus2D.Util;
-using Mokus2D.Util.Extensions;
 
 namespace Mokus2D.Input
 {
@@ -95,7 +94,7 @@ namespace Mokus2D.Input
 
         public void AddListener(Keys key, Action<Keys, bool> action)
         {
-            List<Action<Keys, bool>> list = _actions.TryGetValue(key);
+            List<Action<Keys, bool>> list = _actions.GetValueOrDefault(key);
             if (list == null)
             {
                 list = [];
@@ -138,7 +137,7 @@ namespace Mokus2D.Input
 
         public void RemoveDelayListener(Keys key, Action<Keys> action)
         {
-            _ = (_delayActions.TryGetValue(key)?.SafeRemove(action));
+            _ = _delayActions.GetValueOrDefault(key)?.Remove(action);
         }
 
         public void RemoveListener(Keys key, Action<Keys, bool> action)
@@ -165,7 +164,7 @@ namespace Mokus2D.Input
             {
                 return;
             }
-            ForEachCollection<Action<Keys>> forEachList = _delayActions.TryGetValue(keys);
+            ForEachCollection<Action<Keys>> forEachList = _delayActions.GetValueOrDefault(keys);
             if (forEachList == null)
             {
                 return;
@@ -186,10 +185,10 @@ namespace Mokus2D.Input
         private void DispatchKeyEvent(Keys key, bool value)
         {
             _ = value ? _currentPressedKeys.Add(key) : _currentPressedKeys.Remove(key);
-            List<Action<Keys, bool>> list = _actions.TryGetValue(key);
+            List<Action<Keys, bool>> list = _actions.GetValueOrDefault(key);
             if (list != null)
             {
-                _currentActions.AddItemsNoGarbage(list);
+                _currentActions.AddRange(list);
                 foreach (Action<Keys, bool> currentAction in _currentActions)
                 {
                     currentAction(key, value);

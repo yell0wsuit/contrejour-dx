@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using Mokus2D.Data;
 using Mokus2D.Effects.Tween.ValueSetters;
 using Mokus2D.Interfaces;
-using Mokus2D.Util.Extensions;
 
 namespace Mokus2D.Effects.Tweening
 {
@@ -91,11 +90,11 @@ namespace Mokus2D.Effects.Tweening
         {
             SetTargetValues(_onEnd);
             base.Finish();
-            while (!_onCompleteWith.Empty())
+            while (_onCompleteWith.Count != 0)
             {
                 _onCompleteWith.Dequeue()(_target);
             }
-            while (!_onCompleteWithTarget.Empty())
+            while (_onCompleteWithTarget.Count != 0)
             {
                 _onCompleteWithTarget.Dequeue().Execute();
             }

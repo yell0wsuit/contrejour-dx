@@ -1,11 +1,11 @@
 using System.Collections.Generic;
+using System.Globalization;
 
 using ContreJour.Clips.menu;
 using ContreJour.Utils;
 
 using Microsoft.Xna.Framework;
 
-using Mokus2D.Util.Extensions;
 using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual;
 using Mokus2D.Visual.Text;
@@ -99,14 +99,14 @@ namespace ContreJour.Gameplay
         private static Node CreateChapterName(int index)
         {
             return ContreJourLabelUtil.IsEnglish
-                ? new Sprite("menu/McChapter{0}Name".FormatThis(index + 1))
+                ? new Sprite(string.Format(CultureInfo.InvariantCulture, "menu/McChapter{0}Name", index + 1))
                 : CreateLabelColor(color: index switch
                 {
                     3 => ContreJourConstants.WhiteLightColor * 1.8f,
                     1 => ContreJourConstants.BlueLightColor * 1.8f,
                     5 => ContreJourConstants.GreenLightColor,
                     _ => Color.Black,
-                }, text: "CHAPTER{0}".FormatThis(index + 1));
+                }, text: string.Format(CultureInfo.InvariantCulture, "CHAPTER{0}", index + 1));
         }
 
         private static Node CreateLabelColor(string text, Color color)

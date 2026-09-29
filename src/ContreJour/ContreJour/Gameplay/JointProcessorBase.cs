@@ -6,8 +6,6 @@ using FarseerPhysics.Dynamics.Joints;
 
 using Microsoft.Xna.Framework;
 
-using Mokus2D.Util.Extensions;
-
 namespace ContreJour.Gameplay
 {
     public class JointProcessorBase(string type, LevelBuilderBase builder) : TypeProcessorBase(type, builder)
@@ -41,10 +39,7 @@ namespace ContreJour.Gameplay
 
         private static Body TryGetBodyByType(List<Body> bodies, Predicate<object> type)
         {
-            //IL_001d: Unknown result type (might be due to invalid IL or missing references)
-            //IL_0023: Expected O, but got Unknown
-            List<object> list = MokusCollectionExtensions.Filter(bodies.ToArray(), type);
-            return list.Count > 0 ? (Body)list[0] : null;
+            return bodies.Find(type);
         }
 
         public List<Body> GetBodiesByWorldReqResult(Vector2 position, Predicate<Body> match)
@@ -54,7 +49,7 @@ namespace ContreJour.Gameplay
             foreach (Fixture item in Builder.World.Query(position))
             {
                 Body body = item.Body;
-                if (!list2.Exists(body) && (match == null || match(body)))
+                if (!list2.Contains(body) && (match == null || match(body)))
                 {
                     list.Add(body);
                     list2.Add(body);

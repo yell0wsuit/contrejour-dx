@@ -1,4 +1,4 @@
-using Mokus2D.Util.Extensions;
+using System.Globalization;
 
 namespace ContreJour.Gameplay
 {
@@ -22,7 +22,7 @@ namespace ContreJour.Gameplay
 
         public static string GetChapterPerfect(int chapter)
         {
-            return "chapter{0}_perfect".FormatThis(chapter + 1);
+            return string.Format(CultureInfo.InvariantCulture, "chapter{0}_perfect", chapter + 1);
         }
     }
 }

@@ -4,7 +4,6 @@ using Mokus2D.Collections;
 using Mokus2D.Data;
 using Mokus2D.Effects.Tweening.Repeating;
 using Mokus2D.Interfaces;
-using Mokus2D.Util.Extensions;
 using Mokus2D.Util.Resources;
 
 namespace Mokus2D.Effects.Tweening
@@ -148,7 +147,7 @@ namespace Mokus2D.Effects.Tweening
         {
             lock (_tweens)
             {
-                if (_tweens.Empty())
+                if (_tweens.Count == 0)
                 {
                     return;
                 }

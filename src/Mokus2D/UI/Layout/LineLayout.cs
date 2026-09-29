@@ -2,7 +2,6 @@ using System.Collections.Generic;
 
 using Microsoft.Xna.Framework;
 
-using Mokus2D.Util.Extensions;
 using Mokus2D.Visual;
 
 namespace Mokus2D.UI.Layout
@@ -25,7 +24,7 @@ namespace Mokus2D.UI.Layout
         {
             Vector2 currentPosition = Vector2.Zero;
             TotalSize = 0f;
-            if (LayoutNodes.Empty())
+            if (LayoutNodes.Count == 0)
             {
                 return;
             }

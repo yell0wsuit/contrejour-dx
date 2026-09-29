@@ -58,7 +58,7 @@ namespace Mokus2D.Visual.Primitives
             _originalData.FillLines(sprite, _originalLines, ref matrix);
             if (_originalLines.Count < 3)
             {
-                lines.AddItemsNoGarbage(_originalLines);
+                lines.AddRange(_originalLines);
             }
             else
             {
@@ -91,7 +91,7 @@ namespace Mokus2D.Visual.Primitives
             _firstBezierPoints.Clear();
             _secondBezierPoints.Clear();
             lines.Add(pair);
-            lines.Add(_originalLines.Last());
+            lines.Add(_originalLines[^1]);
         }
 
         protected virtual Pair<T> LerpVertices(Pair<T> value1, Pair<T> value2, float amount)

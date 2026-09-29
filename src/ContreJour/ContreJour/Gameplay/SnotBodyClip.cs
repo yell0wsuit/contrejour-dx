@@ -513,7 +513,7 @@ namespace ContreJour.Gameplay
             }
             for (JointEdge val = body.JointList; val != null; val = val.Next)
             {
-                if (processed.NotExists(val.Other))
+                if (!processed.Contains(val.Other))
                 {
                     processed.Add(val.Other);
                     if (val.Other.UserData is SnotBodyClip snot)

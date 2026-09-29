@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 
-using Mokus2D.Util.Extensions;
-
 namespace Mokus2D.Collections
 {
     public class BiDictionary<TKey, TValue> : IDictionary<TKey, TValue>, ICollection<KeyValuePair<TKey, TValue>>, IEnumerable<KeyValuePair<TKey, TValue>>, IEnumerable
@@ -44,7 +42,7 @@ namespace Mokus2D.Collections
 
         public TKey TryGetKey(TValue value)
         {
-            return _secondToFirst.TryGetValue(value);
+            return _secondToFirst.GetValueOrDefault(value);
         }
 
         public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()

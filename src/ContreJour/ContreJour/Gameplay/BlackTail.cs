@@ -169,7 +169,7 @@ namespace ContreJour.Gameplay
         public void RemoveTail()
         {
             int num = currentFrame - FramesToLive();
-            while (removeFrames.Count > 0 && removeFrames.Last() <= num)
+            while (removeFrames.Count > 0 && removeFrames[^1] <= num)
             {
                 _ = removeFrames.RemoveLast();
                 _ = bezierPoints.RemoveLast();

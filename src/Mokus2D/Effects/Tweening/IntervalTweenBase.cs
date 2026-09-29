@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 using Mokus2D.Data;
 using Mokus2D.Interfaces;
-using Mokus2D.Util.Extensions;
 
 namespace Mokus2D.Effects.Tweening
 {
@@ -27,7 +26,7 @@ namespace Mokus2D.Effects.Tweening
 
         protected virtual void Finish()
         {
-            while (!_onComplete.Empty())
+            while (_onComplete.Count != 0)
             {
                 Action action = _onComplete.Dequeue();
                 action();

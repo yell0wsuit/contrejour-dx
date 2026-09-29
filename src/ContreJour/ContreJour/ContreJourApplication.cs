@@ -226,7 +226,7 @@ namespace ContreJour
                     return result;
                 }
             }
-            return AspectRatio.All.Last();
+            return AspectRatio.All[^1];
         }
 
         private void BlockGameIfNeeded()

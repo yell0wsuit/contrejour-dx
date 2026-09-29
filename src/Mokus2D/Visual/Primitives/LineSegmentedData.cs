@@ -59,7 +59,7 @@ namespace Mokus2D.Visual.Primitives
                 {
                     AddOrthoPoints(sprite, lines, i, line[i], line[i - 1], line[i + 1], ref matrix);
                 }
-                AddOrthoPoints(sprite, lines, line.Count - 1, line.Last(), line[^2], line.Last(), ref matrix);
+                AddOrthoPoints(sprite, lines, line.Count - 1, line[^1], line[^2], line[^1], ref matrix);
             }
         }
 

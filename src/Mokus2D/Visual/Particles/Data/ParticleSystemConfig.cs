@@ -148,7 +148,7 @@ namespace Mokus2D.Visual.Particles.Data
         public bool FadeColor => _fadeColor;
 
         [DataMember]
-        public bool IsEmpty => ParticleIds.Empty();
+        public bool IsEmpty => ParticleIds.Count == 0;
 
         private void RefreshFadeColor()
         {

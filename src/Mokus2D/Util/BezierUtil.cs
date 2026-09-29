@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 using Microsoft.Xna.Framework;
 
-using Mokus2D.Util.Extensions;
 using Mokus2D.Util.MathUtils;
 
 namespace Mokus2D.Util
@@ -26,10 +25,10 @@ namespace Mokus2D.Util
         {
             if (source.Count < 3)
             {
-                target.AddItemsNoGarbage(source);
+                target.AddRange(source);
                 return;
             }
-            target.Add(source.First());
+            target.Add(source[0]);
             for (int i = 0; i < source.Count - 2; i++)
             {
                 Vector2 origin = VectorUtil.Center(source[i], source[i + 1]);
@@ -37,19 +36,19 @@ namespace Mokus2D.Util
                 Vector2 control = source[i + 1];
                 GetBezierPoints(origin, control, destination, bezierSegments, i == source.Count - 3, target);
             }
-            target.Add(source.Last());
+            target.Add(source[^1]);
         }
 
         public static void AddControlPoints(List<Vector2> target, List<Vector2> points)
         {
-            target.Add(points.First());
-            target.Add(points.First());
+            target.Add(points[0]);
+            target.Add(points[0]);
             for (int i = 0; i < points.Count - 1; i++)
             {
                 target.Add(VectorUtil.Center(points[i], points[i + 1]));
                 target.Add(points[i + 1]);
             }
-            target.Add(points.Last());
+            target.Add(points[^1]);
         }
 
         public static void AddBezierPoints(List<Vector2> target, List<Vector2> points, int segments)
@@ -58,7 +57,7 @@ namespace Mokus2D.Util
             {
                 GetBezierPoints(points[i], points[i + 1], points[i + 2], segments, insertLast: false, target);
             }
-            target.Add(points.Last());
+            target.Add(points[^1]);
         }
 
         public static void AddBezierPoints(List<Vector2> target, List<Vector2> points, List<int> segmentsVector)
@@ -67,7 +66,7 @@ namespace Mokus2D.Util
             {
                 GetBezierPoints(points[i], points[i + 1], points[i + 2], segmentsVector[i / 2], insertLast: false, target);
             }
-            target.Add(points.Last());
+            target.Add(points[^1]);
         }
 
         public static void GetBezierPoints(Vector2 origin, Vector2 control, Vector2 destination, int segments, bool insertLast, List<Vector2> result)

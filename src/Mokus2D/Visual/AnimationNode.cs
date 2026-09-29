@@ -228,7 +228,7 @@ namespace Mokus2D.Visual
             {
                 animationNode = (AnimationNode)animationNode.GetChild(array[i], throwOnNotFound);
             }
-            return animationNode == null && !throwOnNotFound ? null : animationNode.GetChild(array.Last(), throwOnNotFound);
+            return animationNode == null && !throwOnNotFound ? null : animationNode.GetChild(array[^1], throwOnNotFound);
         }
 
         public bool HasChild(string id)
@@ -238,7 +238,7 @@ namespace Mokus2D.Visual
 
         public Node GetChild(string id, bool throwOnNotFound = true)
         {
-            Node node = AnimatedChildren.TryGetValue(id);
+            _ = AnimatedChildren.TryGetValue(id, out Node node);
             return node == null && throwOnNotFound ? throw new ChildNotFoundException(id) : node;
         }
 

@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 using FarseerPhysics.Collision.Shapes;
 using FarseerPhysics.Dynamics;
@@ -109,7 +111,7 @@ namespace Mokus2D.Integration.Farseer.Construction
             {
                 InitializeBody(child, body);
                 AttachShapes(body, child);
-                if (!body.FixtureList.Empty())
+                if (body.FixtureList.Count != 0)
                 {
                     IDictionary<string, string> config = child.Config;
                     if (config != null)
@@ -120,7 +122,7 @@ namespace Mokus2D.Integration.Farseer.Construction
                     body = new Body(World);
                 }
             }
-            if (body.FixtureList.Empty())
+            if (body.FixtureList.Count == 0)
             {
                 World.RemoveBody(body);
             }
@@ -184,7 +186,7 @@ namespace Mokus2D.Integration.Farseer.Construction
                 string[] array2 = array;
                 foreach (string s in array2)
                 {
-                    category |= Categories[s.ToInt()];
+                    category |= Categories[Convert.ToInt32(s, CultureInfo.InvariantCulture)];
                 }
                 body.CollisionCategories = category;
             }
@@ -235,9 +237,9 @@ namespace Mokus2D.Integration.Farseer.Construction
             string name = child.GetType().Name;
             IDictionary<string, string> config = child.Config;
             Shape shape = ProcessByType(child, positionOffset, name);
-            if (shape == null && config != null && config.HasKey("shape"))
+            if (shape == null && config != null && config.TryGetValue("shape", out string shapeName))
             {
-                shape = ProcessByType(child, positionOffset, config["shape"]);
+                shape = ProcessByType(child, positionOffset, shapeName);
             }
             if (shape != null)
             {

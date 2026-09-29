@@ -246,7 +246,7 @@ namespace ContreJour.Gameplay
             {
                 HeroTouchEvent.SendEvent();
             }
-            if (timeFromLaunch < 0.3f && launchBodies.NotExists(launchBody))
+            if (timeFromLaunch < 0.3f && !launchBodies.Contains(launchBody))
             {
                 launchBodies.Add(launchBody);
                 Vector2 vector = impulseVec;

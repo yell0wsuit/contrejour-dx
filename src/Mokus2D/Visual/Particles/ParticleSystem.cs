@@ -77,8 +77,8 @@ namespace Mokus2D.Visual.Particles
 
         public void Refresh()
         {
-            _reusableParticles.AddItemsNoGarbage(_visibleParticles);
-            _reusableParticles.AddItemsNoGarbage(_invisibleParticles);
+            _reusableParticles.AddRange(_visibleParticles);
+            _reusableParticles.AddRange(_invisibleParticles);
             _visibleParticles.Clear();
             _invisibleParticles.Clear();
         }
@@ -113,11 +113,11 @@ namespace Mokus2D.Visual.Particles
         private void CreateParticle()
         {
             ParticleData particleData;
-            if (!_reusableParticles.Empty())
+            if (_reusableParticles.Count != 0)
             {
                 particleData = RefreshLastParticle(_reusableParticles);
             }
-            else if (!_invisibleParticles.Empty())
+            else if (_invisibleParticles.Count != 0)
             {
                 particleData = RefreshLastParticle(_invisibleParticles);
             }
@@ -149,9 +149,9 @@ namespace Mokus2D.Visual.Particles
                 }
             }
             _visibleParticles.RemoveListNoGarbage(_toHide);
-            _invisibleParticles.AddItemsNoGarbage(_toHide);
+            _invisibleParticles.AddRange(_toHide);
             _toHide.Clear();
-            if (_visibleParticles.Empty() && _invisibleParticles.Count >= ParticlesConfig.MaxParticles)
+            if (_visibleParticles.Count == 0 && _invisibleParticles.Count >= ParticlesConfig.MaxParticles)
             {
                 FinishEvent.Dispatch();
             }

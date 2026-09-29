@@ -4,8 +4,6 @@ using System.Globalization;
 using System.IO;
 using System.Xml.Linq;
 
-using Mokus2D.Util.Extensions;
-
 namespace Mokus2D.Localization
 {
     public class LocalizationBundle
@@ -27,7 +25,7 @@ namespace Mokus2D.Localization
 
         public string GetLocalizedMessage(string value)
         {
-            return _messages.TryGetValue(value);
+            return _messages.GetValueOrDefault(value);
         }
 
         private void Load()
@@ -52,11 +50,11 @@ namespace Mokus2D.Localization
         private Stream GetStream(string locale)
         {
             string text = _name;
-            if (locale.IsNotEmpty())
+            if (!string.IsNullOrEmpty(locale))
             {
                 text = text + "." + locale;
             }
-            string path = "{0}/{1}.xml".FormatThis("Resources", text, locale);
+            string path = $"Resources/{text}.xml";
             return Mokus2DGame.FileLoader.OpenFile(path);
         }
     }

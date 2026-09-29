@@ -190,7 +190,7 @@ namespace ContreJour.Primitives
         {
             allPoints.Clear();
             allPoints.Capacity = firstBezier.Count + secondBezier.Count;
-            allPoints.AddItemsNoGarbage(secondBezier);
+            allPoints.AddRange(secondBezier);
             allPoints.AddItemsNoGarbage(firstBezier, firstBezier.Count - 1, 0);
             TryCreateVectors(allPoints);
             GraphUtil.CreateGradientBorderWidthVertices(allPoints, BorderWidth, Border);

@@ -44,7 +44,7 @@ namespace Mokus2D.Data
             {
                 lock (_items)
                 {
-                    result = _items.Last();
+                    result = _items[^1];
                     _ = _items.RemoveLast();
                 }
             }

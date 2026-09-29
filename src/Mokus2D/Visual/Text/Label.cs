@@ -56,7 +56,7 @@ namespace Mokus2D.Visual.Text
             {
                 RefreshText();
                 RefreshPositions();
-                if (!_symbolsBounds.HasValue && !Lines.Empty() && !Lines.First().Glyphs.Empty())
+                if (!_symbolsBounds.HasValue && Lines.Count != 0 && Lines[0].Glyphs.Count != 0)
                 {
                     CalculateSymbolsBounds();
                 }

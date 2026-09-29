@@ -4,7 +4,6 @@ using System.Diagnostics;
 
 using Mokus2D.Data;
 using Mokus2D.Interfaces;
-using Mokus2D.Util.Extensions;
 
 namespace Mokus2D.Effects.Tweening
 {
@@ -20,7 +19,7 @@ namespace Mokus2D.Effects.Tweening
 
         private ITween Current => _tweens[_currentIndex];
 
-        private TweenObject LastTween => (TweenObject)_tweens.Last();
+        private TweenObject LastTween => (TweenObject)_tweens[^1];
 
         public bool Finished => _currentIndex >= _tweens.Count;
 

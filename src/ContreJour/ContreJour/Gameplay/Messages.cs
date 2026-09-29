@@ -1,8 +1,8 @@
+using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
 
 using Mokus2D.Localization;
-using Mokus2D.Util.Extensions;
 
 namespace ContreJour.Gameplay
 {
@@ -30,7 +30,7 @@ namespace ContreJour.Gameplay
 
         public static string CompleteText(int stars)
         {
-            return "COMPLETE_TEXT_{0}".FormatThis(stars).Localize();
+            return string.Format(CultureInfo.InvariantCulture, "COMPLETE_TEXT_{0}", stars).Localize();
         }
 
         public static string Localize(this string id)

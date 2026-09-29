@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 
-using Mokus2D.Util.Extensions;
-
 namespace Mokus2D.Events
 {
     public class EventSender
@@ -25,7 +23,7 @@ namespace Mokus2D.Events
                 return;
             }
             listenersCopy.Clear();
-            listenersCopy.AddItemsNoGarbage(listeners);
+            listenersCopy.AddRange(listeners);
             foreach (Action item in listenersCopy)
             {
                 item();
@@ -92,7 +90,7 @@ namespace Mokus2D.Events
         private void SendObject(T eventObject)
         {
             parameterListenersCopy.Clear();
-            parameterListenersCopy.AddItemsNoGarbage(parameterListeners);
+            parameterListenersCopy.AddRange(parameterListeners);
             foreach (Action<T> item in parameterListenersCopy)
             {
                 item(eventObject);

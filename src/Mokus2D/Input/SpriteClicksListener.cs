@@ -53,7 +53,7 @@ namespace Mokus2D.Input
                 }
             }
             _spritesByPriority.Clear();
-            if (!list.Empty())
+            if (list.Count != 0)
             {
                 _touchedSprites[touch] = list;
                 return true;
@@ -112,7 +112,7 @@ namespace Mokus2D.Input
 
         private ForEachCollection<IClickableNode> GetOrCreatePriorityList(IClickableNode sprite)
         {
-            ForEachCollection<IClickableNode> forEachList = _sprites.TryGetValue(sprite.ClickablePriority);
+            ForEachCollection<IClickableNode> forEachList = _sprites.GetValueOrDefault(sprite.ClickablePriority);
             if (forEachList == null)
             {
                 forEachList = [];

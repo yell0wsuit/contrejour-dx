@@ -7,7 +7,6 @@ using FarseerPhysics.Dynamics.Contacts;
 using Microsoft.Xna.Framework;
 
 using Mokus2D.Events;
-using Mokus2D.Util.Extensions;
 using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual;
 
@@ -74,7 +73,7 @@ namespace ContreJour.Gameplay
                 return;
             }
             BodyClip bodyClip = (BodyClip)body2.UserData;
-            if (!teleportables.Exists(bodyClip) && bodyClip is ITeleportable teleportable && teleportable.CanTeleport())
+            if (!teleportables.Contains(bodyClip) && bodyClip is ITeleportable teleportable && teleportable.CanTeleport())
             {
                 teleportables.Add(bodyClip);
                 teleportable.Teleport(this);
@@ -94,7 +93,7 @@ namespace ContreJour.Gameplay
         public override void OnCollisionEndPoint(Body body2, Contact point)
         {
             BodyClip bodyClip = (BodyClip)body2.UserData;
-            if (teleportables.Exists(bodyClip))
+            if (teleportables.Contains(bodyClip))
             {
                 _ = teleportables.Remove(bodyClip);
             }

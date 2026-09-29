@@ -5,7 +5,6 @@ using Mokus2D.Collections;
 using Mokus2D.Input;
 using Mokus2D.UI.Controls.Buttons;
 using Mokus2D.Util;
-using Mokus2D.Util.Extensions;
 
 namespace Mokus2D.UI.Controls.Toggle
 {
@@ -101,7 +100,7 @@ namespace Mokus2D.UI.Controls.Toggle
             {
                 SelectedButton = toggleButton;
                 toggleButton.Toggle = true;
-                T argument = _data.TryGetValue(toggleButton);
+                _ = _data.TryGetValue(toggleButton, out T argument);
                 SelectedButtonChangeEvent.Dispatch(SelectedButton, argument);
             }
             else if (DeselectEnabled)
@@ -138,9 +137,9 @@ namespace Mokus2D.UI.Controls.Toggle
             if (_selectedButton == button)
             {
                 _selectedButton = null;
-                if (!DeselectEnabled && !_buttons.Empty())
+                if (!DeselectEnabled && _buttons.Count != 0)
                 {
-                    SelectedButton = _buttons.First();
+                    SelectedButton = _buttons[0];
                 }
             }
         }

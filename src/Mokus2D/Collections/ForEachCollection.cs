@@ -72,14 +72,14 @@ namespace Mokus2D.Collections
                 _clean = false;
                 _list.Clear();
             }
-            if (!ToRemove.Empty())
+            if (ToRemove.Count != 0)
             {
                 _list.RemoveListNoGarbage(ToRemove);
                 ToRemove.Clear();
             }
-            if (!_toAdd.Empty())
+            if (_toAdd.Count != 0)
             {
-                _list.AddItemsNoGarbage(_toAdd);
+                _list.AddRange(_toAdd);
                 _toAdd.Clear();
             }
             _inForEach = false;

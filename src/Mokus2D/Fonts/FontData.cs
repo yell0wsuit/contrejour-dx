@@ -18,7 +18,7 @@ namespace Mokus2D.Fonts
 
         private readonly Dictionary<char, CharData> _chars = [];
 
-        public CharData this[char key] => _chars.TryGetValue(key);
+        public CharData this[char key] => _chars.GetValueOrDefault(key);
 
         public static char GetSpecialSymbol(int index)
         {

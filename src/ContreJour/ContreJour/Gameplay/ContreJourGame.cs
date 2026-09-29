@@ -404,7 +404,7 @@ namespace ContreJour.Gameplay
 
         public void TouchEnd(Touch touch)
         {
-            if (freeTouches.Exists(touch))
+            if (freeTouches.Contains(touch))
             {
                 _ = freeTouches.Remove(touch);
             }
@@ -1016,7 +1016,7 @@ namespace ContreJour.Gameplay
 
         public bool IsFreeEnabled(Touch touch)
         {
-            return freeDisabledTouches.NotExists(touch);
+            return !freeDisabledTouches.Contains(touch);
         }
 
         public void DisableFreeing(Touch touch)
@@ -1027,7 +1027,7 @@ namespace ContreJour.Gameplay
         public void FreeTouch(Touch touch)
         {
             _ = draggingItems.Remove(touch);
-            if (freeTouches.NotExists(touch))
+            if (!freeTouches.Contains(touch))
             {
                 freeTouches.Add(touch);
             }

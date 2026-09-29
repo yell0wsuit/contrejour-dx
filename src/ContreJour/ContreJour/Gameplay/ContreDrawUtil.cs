@@ -48,7 +48,7 @@ namespace ContreJour.Gameplay
                     BezierUtil.GetBezierPoints(insertLast: i == line.Count - 1, origin: vector, control: line[i], destination: vector2, segments: num, result: list);
                 }
             }
-            list.Add(line.Last());
+            list.Add(line[^1]);
             return list;
         }
 

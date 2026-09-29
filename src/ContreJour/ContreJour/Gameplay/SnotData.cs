@@ -5,8 +5,6 @@ using FarseerPhysics.Dynamics.Joints;
 
 using Microsoft.Xna.Framework;
 
-using Mokus2D.Util.Extensions;
-
 namespace ContreJour.Gameplay
 {
     public class SnotData
@@ -33,9 +31,9 @@ namespace ContreJour.Gameplay
 
         public int JoitsSize => joints.Count;
 
-        public Body FirstBody => bodies.First();
+        public Body FirstBody => bodies[0];
 
-        public Body EndBody => bodies.Last();
+        public Body EndBody => bodies[^1];
 
         public SnotData(Body eyeBody, RevoluteJoint eyeJoint, Body joinedBody, Vector2 localStartAnchor, List<Body> bodies, List<Joint> joints, RopeMetrics metrics)
         {

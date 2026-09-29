@@ -34,7 +34,7 @@ namespace ContreJour.Gameplay
         {
             if (messages.Count > 0)
             {
-                ShowMessageRightMessageIndex(messages.Last(), rightMessages.Last());
+                ShowMessageRightMessageIndex(messages[^1], rightMessages[^1]);
                 _ = messages.RemoveLast();
                 _ = rightMessages.RemoveLast();
                 _ = this.Schedule(3.75f, PlayItem);

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 
 using FarseerPhysics.Collision;
@@ -297,7 +298,7 @@ namespace Mokus2D.Integration.Farseer.Util
         public static Fixture GetClosestFixture(this World world, Vector2 center, float width, float height)
         {
             List<Fixture> source = world.Query(center, width, height);
-            return source.Min(new FixtureDistanceComparer(center));
+            return source.Max(new FixtureDistanceComparer(center));
         }
 
         public static List<Fixture> Query(this World world, Vector2 center, float width, float height)

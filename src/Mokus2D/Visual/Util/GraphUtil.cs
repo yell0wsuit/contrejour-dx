@@ -218,7 +218,7 @@ namespace Mokus2D.Visual.Util
         public static void CreateGradientBorder(List<Vector2> surface, float width, VertexPositionColor[] vertices)
         {
             Vector2 vector = surface[0];
-            Vector2 vector2 = GetOutVertex(surface.Last(), vector, surface[1], width);
+            Vector2 vector2 = GetOutVertex(surface[^1], vector, surface[1], width);
             for (int i = 0; i < surface.Count; i++)
             {
                 Vector2 vector3 = surface[(i + 1) % surface.Count];
@@ -493,7 +493,7 @@ namespace Mokus2D.Visual.Util
         public static void CreateGradientBorderWidthVertices(IList<Vector2> surface, float width, VertexPositionColorTexture[] vertices)
         {
             Vector2 vector = surface[0];
-            Vector2 vector2 = GetOutVertex(surface.Last(), vector, surface[1], width);
+            Vector2 vector2 = GetOutVertex(surface[^1], vector, surface[1], width);
             for (int i = 0; i < surface.Count; i++)
             {
                 Vector2 vector3 = surface[(i + 1) % surface.Count];

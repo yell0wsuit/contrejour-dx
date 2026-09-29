@@ -2,8 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-using Mokus2D.Util.Extensions;
-
 namespace Mokus2D.Visual.Data
 {
     public class SortedCollection<T> : IList<T>, ICollection<T>, IEnumerable<T>, IEnumerable
@@ -115,7 +113,10 @@ namespace Mokus2D.Visual.Data
 
         public void ForEach(Action<T> action)
         {
-            Items.Each(action);
+            foreach (T item in Items)
+            {
+                action(item);
+            }
         }
 
         public List<T> GetRange(int index, int count)

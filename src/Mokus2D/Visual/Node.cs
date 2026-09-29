@@ -505,12 +505,12 @@ namespace Mokus2D.Visual
             {
                 throw new InvalidOperationException("node already added to another parent");
             }
-            if (!Children.Empty())
+            if (Children.Count != 0)
             {
                 node.Layer = index == 0
                     ? Math.Min(Children[0].Layer, node.Layer)
                     : index == Children.Count
-                        ? Math.Max(Children.Last().Layer, node.Layer)
+                        ? Math.Max(Children[^1].Layer, node.Layer)
                         : node.Layer.Clamp(Children[index - 1].Layer, Children[index].Layer);
             }
             SetThisAsParentTo(node);
@@ -597,9 +597,9 @@ namespace Mokus2D.Visual
 
         public virtual void RemoveAllChildren()
         {
-            while (!Children.Empty())
+            while (Children.Count != 0)
             {
-                RemoveChild(Children.Last());
+                RemoveChild(Children[^1]);
             }
         }
 
@@ -648,7 +648,7 @@ namespace Mokus2D.Visual
         protected virtual void DoUpdateChildren(float time)
         {
             _cachedChildrenCopy.Clear();
-            _cachedChildrenCopy.AddItemsNoGarbage(Children);
+            _cachedChildrenCopy.AddRange(Children);
             foreach (Node item in _cachedChildrenCopy)
             {
                 item.TryUpdateNode(time);

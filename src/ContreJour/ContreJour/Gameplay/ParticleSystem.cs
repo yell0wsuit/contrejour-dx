@@ -82,7 +82,7 @@ namespace ContreJour.Gameplay
         {
             if (_invisibleParticles.Count > 0)
             {
-                Particle particle = _invisibleParticles.Last();
+                Particle particle = _invisibleParticles[^1];
                 SetParticleVisible(particle);
                 return particle;
             }
@@ -105,7 +105,7 @@ namespace ContreJour.Gameplay
         {
             while (_invisibleParticles.Count > 0)
             {
-                SetParticleVisible(_invisibleParticles.Last());
+                SetParticleVisible(_invisibleParticles[^1]);
             }
         }
 
@@ -152,7 +152,7 @@ namespace ContreJour.Gameplay
                     _cachedInvisible.Add(particle);
                 }
             }
-            _invisibleParticles.AddItemsNoGarbage(_cachedInvisible);
+            _invisibleParticles.AddRange(_cachedInvisible);
             foreach (Particle item in _cachedInvisible)
             {
                 _ = Particles.Remove(item);

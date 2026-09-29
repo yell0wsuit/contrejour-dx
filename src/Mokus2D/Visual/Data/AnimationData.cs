@@ -3,8 +3,6 @@ using System.Collections.Generic;
 
 using Microsoft.Xna.Framework;
 
-using Mokus2D.Util.Extensions;
-
 namespace Mokus2D.Visual.Data
 {
     [Serializable]
@@ -28,7 +26,7 @@ namespace Mokus2D.Visual.Data
 
         public Dictionary<string, string> GetInstanceConfig(string childName)
         {
-            return _instanceConfigs?.TryGetValue(childName);
+            return _instanceConfigs?.GetValueOrDefault(childName);
         }
 
         public AnimationFrameData GetChildFrameData(int frame, string childName)

@@ -4,7 +4,6 @@ using Microsoft.Xna.Framework;
 
 using Mokus2D.Util;
 using Mokus2D.Util.Data;
-using Mokus2D.Util.Extensions;
 using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual.Interfaces;
 
@@ -42,7 +41,7 @@ namespace Mokus2D.Visual.Primitives
                 orthoPoints = VectorUtil.GetOrthoPoints(bezierLine[i], bezierLine[i], bezierLine[i + 1], Width);
                 target.Add(orthoPoints);
             }
-            orthoPoints = VectorUtil.GetOrthoPoints(bezierLine.Last(), bezierLine[^2], bezierLine.Last(), Width);
+            orthoPoints = VectorUtil.GetOrthoPoints(bezierLine[^1], bezierLine[^2], bezierLine[^1], Width);
             target.Add(orthoPoints);
         }
 
