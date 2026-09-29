@@ -1,7 +1,7 @@
 using System;
 using System.Globalization;
 
-using Microsoft.Xna.Framework;
+using Mokus2D.Graphics;
 
 namespace Mokus2D.Util.Extensions
 {

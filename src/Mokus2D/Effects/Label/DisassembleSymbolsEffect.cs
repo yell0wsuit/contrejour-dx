@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+using System.Numerics;
 
 using Mokus2D.Effects.Tween.Easing;
 using Mokus2D.Effects.Tweening;

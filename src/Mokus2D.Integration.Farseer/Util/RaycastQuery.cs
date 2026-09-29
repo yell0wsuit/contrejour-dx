@@ -1,9 +1,8 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Numerics;
 
 using FarseerPhysics.Dynamics;
-
-using Microsoft.Xna.Framework;
 
 namespace Mokus2D.Integration.Farseer.Util
 {

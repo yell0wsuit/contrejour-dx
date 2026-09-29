@@ -1,9 +1,9 @@
 using System.Collections.Generic;
+using System.Numerics;
 
 using FarseerPhysics.Dynamics;
 
-using Microsoft.Xna.Framework;
-
+using Mokus2D.Graphics;
 using Mokus2D.Input;
 using Mokus2D.Util;
 using Mokus2D.Visual;

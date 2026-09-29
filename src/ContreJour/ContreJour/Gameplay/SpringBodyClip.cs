@@ -1,10 +1,9 @@
 using System;
 using System.Linq;
+using System.Numerics;
 
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Dynamics.Contacts;
-
-using Microsoft.Xna.Framework;
 
 using Mokus2D.Input;
 using Mokus2D.Sound;

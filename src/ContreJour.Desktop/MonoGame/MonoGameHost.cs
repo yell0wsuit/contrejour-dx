@@ -23,9 +23,16 @@ namespace ContreJour.Desktop.MonoGame
 
         public Mokus2D.Util.Data.Point BackBufferSize => new(_game.GraphicsDevice.PresentationParameters.BackBufferWidth, _game.GraphicsDevice.PresentationParameters.BackBufferHeight);
 
-        public Vector2 WindowSize => new(_game.GraphicsDevice.Viewport.Width, _game.GraphicsDevice.Viewport.Height);
+        public System.Numerics.Vector2 WindowSize => new(_game.GraphicsDevice.Viewport.Width, _game.GraphicsDevice.Viewport.Height);
 
-        public Rectangle ClientBounds => _game.Window.ClientBounds;
+        public Mokus2D.Util.Data.Rectangle ClientBounds
+        {
+            get
+            {
+                Rectangle bounds = _game.Window.ClientBounds;
+                return new Mokus2D.Util.Data.Rectangle(bounds.X, bounds.Y, bounds.Width, bounds.Height);
+            }
+        }
 
         public bool IsActive => _game.IsActive;
 

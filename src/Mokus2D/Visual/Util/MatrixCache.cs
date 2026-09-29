@@ -1,6 +1,5 @@
 using System.Collections.Generic;
-
-using Microsoft.Xna.Framework;
+using System.Numerics;
 
 using Mokus2D.Util.MathUtils;
 
@@ -8,11 +7,11 @@ namespace Mokus2D.Visual.Util
 {
     public static class MatrixCache
     {
-        private static readonly Dictionary<Vector2, Matrix> Cache = [];
+        private static readonly Dictionary<Vector2, Matrix4x4> Cache = [];
 
-        public static Matrix GetScreenMatrix(Vector2 screenSize)
+        public static Matrix4x4 GetScreenMatrix(Vector2 screenSize)
         {
-            if (!Cache.TryGetValue(screenSize, out Matrix value))
+            if (!Cache.TryGetValue(screenSize, out Matrix4x4 value))
             {
                 value = CreateScreenMatrix(screenSize);
                 Cache[screenSize] = value;
@@ -20,9 +19,9 @@ namespace Mokus2D.Visual.Util
             return value;
         }
 
-        private static Matrix CreateScreenMatrix(Vector2 size)
+        private static Matrix4x4 CreateScreenMatrix(Vector2 size)
         {
-            return XnaMath.Multiply(XnaMath.Multiply(Matrix.CreateTranslation((0f - size.X) / 2f, (0f - size.Y) / 2f, 0f), XnaMath.CreateRotationX(XnaMath.ToRadians(180f))), Matrix.CreateScale(2f / size.X, 2f / size.Y, 0f));
+            return XnaMath.Multiply(XnaMath.Multiply(Matrix4x4.CreateTranslation((0f - size.X) / 2f, (0f - size.Y) / 2f, 0f), XnaMath.CreateRotationX(XnaMath.ToRadians(180f))), Matrix4x4.CreateScale(2f / size.X, 2f / size.Y, 0f));
         }
     }
 }

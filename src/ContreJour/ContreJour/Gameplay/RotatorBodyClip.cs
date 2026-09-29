@@ -1,10 +1,9 @@
 using System;
+using System.Numerics;
 
 using ContreJour.Clips.chapter5;
 
 using FarseerPhysics.Dynamics;
-
-using Microsoft.Xna.Framework;
 
 using Mokus2D.Input;
 using Mokus2D.Util.Extensions;

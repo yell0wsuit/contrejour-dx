@@ -1,8 +1,8 @@
+using System.Numerics;
 using System.Xml.Linq;
 
-using Microsoft.Xna.Framework;
-
 using Mokus2D.Fonts;
+using Mokus2D.Util.Data;
 
 namespace Mokus2D.Content.Serialization
 {

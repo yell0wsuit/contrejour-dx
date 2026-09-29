@@ -1,9 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Numerics;
 using System.Runtime.Serialization;
-
-using Microsoft.Xna.Framework;
 
 using Mokus2D.Graphics;
 using Mokus2D.Util.Extensions;

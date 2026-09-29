@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Numerics;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -48,7 +49,7 @@ namespace ContreJour.Desktop.MonoGame
             return new MonoGameTexture(Texture2D.FromStream(_device, stream, DefaultColorProcessors.PremultiplyAlpha));
         }
 
-        public void DrawTriangles(Vertex[] vertices, int vertexCount, short[] indices, int indexCount, in Matrix transform, in DrawState state)
+        public void DrawTriangles(Vertex[] vertices, int vertexCount, short[] indices, int indexCount, in Matrix4x4 transform, in DrawState state)
         {
             // States first, then the effect, as the engine always did: the effect pass may override them.
             _device.BlendState = ToBlendState(state.Blend);
@@ -57,7 +58,7 @@ namespace ContreJour.Desktop.MonoGame
             if (state.ColorMode == ColorMode.Sprite)
             {
                 _spriteTexture.SetValue(texture);
-                _spriteMatrix.SetValue(transform);
+                _spriteMatrix.SetValue((Matrix)transform);
                 _spriteEffect.CurrentTechnique.Passes[0].Apply();
             }
             else

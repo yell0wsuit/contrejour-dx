@@ -2,12 +2,12 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Globalization;
-
-using Microsoft.Xna.Framework;
+using System.Numerics;
 
 using Mokus2D.Behaviour;
 using Mokus2D.Collections;
 using Mokus2D.Effects.Tweening;
+using Mokus2D.Graphics;
 using Mokus2D.Interfaces;
 using Mokus2D.Util;
 using Mokus2D.Util.Extensions;
@@ -73,7 +73,7 @@ namespace Mokus2D.Visual
         private bool _firstUpdate = true;
         private bool _matrixDirty;
 
-        private Matrix _nodeMatrix = Matrix.Identity;
+        private Matrix4x4 _nodeMatrix = Matrix4x4.Identity;
 
         private float _opacity = 1f;
         private Vector2 _position;
@@ -258,7 +258,7 @@ namespace Mokus2D.Visual
             }
         }
 
-        public Matrix NodeMatrix
+        public Matrix4x4 NodeMatrix
         {
             get
             {
@@ -536,7 +536,7 @@ namespace Mokus2D.Visual
             {
                 RefreshParentTransformations();
             }
-            Matrix matrix = XnaMath.Invert(CompositeState.Matrix);
+            Matrix4x4 matrix = XnaMath.Invert(CompositeState.Matrix);
             return XnaMath.Transform(source, matrix);
         }
 

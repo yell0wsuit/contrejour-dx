@@ -1,7 +1,6 @@
 using ContreJour.Menu.LevelComplete;
 
-using Microsoft.Xna.Framework;
-
+using Mokus2D.Graphics;
 using Mokus2D.Util.Extensions;
 
 namespace ContreJour.Gameplay

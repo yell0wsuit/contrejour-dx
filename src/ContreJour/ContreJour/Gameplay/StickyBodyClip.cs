@@ -1,9 +1,8 @@
 using System.Collections.Generic;
+using System.Numerics;
 
 using FarseerPhysics.Collision.Shapes;
 using FarseerPhysics.Dynamics;
-
-using Microsoft.Xna.Framework;
 
 using Mokus2D.Visual;
 

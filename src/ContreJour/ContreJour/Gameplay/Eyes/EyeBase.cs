@@ -1,7 +1,7 @@
+using System.Numerics;
+
 using ContreJour.Clips.common;
 using ContreJour.Content;
-
-using Microsoft.Xna.Framework;
 
 using Mokus2D.Util.Extensions;
 using Mokus2D.Util.MathUtils;

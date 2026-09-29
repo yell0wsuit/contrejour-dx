@@ -1,6 +1,5 @@
 using System;
-
-using Microsoft.Xna.Framework;
+using System.Numerics;
 
 using Mokus2D.Content;
 using Mokus2D.FileSystem;
@@ -9,6 +8,7 @@ using Mokus2D.Input;
 using Mokus2D.Platforms.Input;
 using Mokus2D.Sound;
 using Mokus2D.Util;
+using Mokus2D.Util.Data;
 using Mokus2D.Util.Resources;
 
 namespace Mokus2D.Game
@@ -59,13 +59,13 @@ namespace Mokus2D.Game
             set => Host.IsFixedTimeStep = value;
         }
 
-        public Util.Data.Point PrefferedBackBufferSize
+        public Point PrefferedBackBufferSize
         {
             get => Host.PreferredBackBufferSize;
             set => Host.PreferredBackBufferSize = value;
         }
 
-        public Util.Data.Point BackBufferSize => Host.BackBufferSize;
+        public Point BackBufferSize => Host.BackBufferSize;
 
         public bool IsMouseVisible
         {

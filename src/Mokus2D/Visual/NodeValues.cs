@@ -1,9 +1,9 @@
 using System;
-
-using Microsoft.Xna.Framework;
+using System.Numerics;
 
 using Mokus2D.Data;
 using Mokus2D.Effects.Tweening;
+using Mokus2D.Graphics;
 using Mokus2D.Util.Extensions;
 
 namespace Mokus2D.Visual

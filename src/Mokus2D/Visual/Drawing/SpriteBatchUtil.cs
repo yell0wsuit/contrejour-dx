@@ -1,6 +1,5 @@
 using System;
-
-using Microsoft.Xna.Framework;
+using System.Numerics;
 
 using Mokus2D.Graphics;
 using Mokus2D.Visual.Data;
@@ -43,7 +42,7 @@ namespace Mokus2D.Visual.Drawing
         {
             if (verticesCount > 0)
             {
-                Matrix matrix = MatrixCache.GetScreenMatrix(screenSize);
+                Matrix4x4 matrix = MatrixCache.GetScreenMatrix(screenSize);
                 DrawState state = new(texture, properties.Blend, properties.Sampler, ColorMode.Sprite);
                 Mokus2DGame.Renderer.DrawTriangles(vertices, verticesCount, indices, indicesCount, matrix, state);
                 Mokus2DGame.Instance.PerformanceCounter.IncreaseDrawCalls(indicesCount / 3);

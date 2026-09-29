@@ -1,8 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 using System.Text;
-
-using Microsoft.Xna.Framework;
 
 namespace FarseerPhysics.Common
 {
@@ -65,7 +64,7 @@ namespace FarseerPhysics.Common
 
         public void Rotate(float value)
         {
-            Matrix result = XnaMath.CreateRotationZ(value);
+            Matrix4x4 result = XnaMath.CreateRotationZ(value);
             for (int i = 0; i < ControlPoints.Count; i++)
             {
                 ControlPoints[i] = XnaMath.Transform(ControlPoints[i], result);
@@ -146,7 +145,7 @@ namespace FarseerPhysics.Common
                     num5 -= ControlPoints.Count - 1;
                 }
                 float amount = (time - (_deltaT * num)) / _deltaT;
-                result = Vector2.CatmullRom(ControlPoints[num2], ControlPoints[num3], ControlPoints[num4], ControlPoints[num5], amount);
+                result = CatmullRom.Interpolate(ControlPoints[num2], ControlPoints[num3], ControlPoints[num4], ControlPoints[num5], amount);
                 RemoveAt(ControlPoints.Count - 1);
             }
             else
@@ -189,7 +188,7 @@ namespace FarseerPhysics.Common
                     num10 = ControlPoints.Count - 1;
                 }
                 float amount2 = (time - (_deltaT * num6)) / _deltaT;
-                result = Vector2.CatmullRom(ControlPoints[num7], ControlPoints[num8], ControlPoints[num9], ControlPoints[num10], amount2);
+                result = CatmullRom.Interpolate(ControlPoints[num7], ControlPoints[num8], ControlPoints[num9], ControlPoints[num10], amount2);
             }
             return result;
         }

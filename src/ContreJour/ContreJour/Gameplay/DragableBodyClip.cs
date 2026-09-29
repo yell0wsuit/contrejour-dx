@@ -1,9 +1,9 @@
+using System.Numerics;
+
 using ContreJour.Clips.common;
 
 using FarseerPhysics.Collision.Shapes;
 using FarseerPhysics.Dynamics;
-
-using Microsoft.Xna.Framework;
 
 using Mokus2D.Data;
 using Mokus2D.Events;

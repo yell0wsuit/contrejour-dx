@@ -1,10 +1,8 @@
 using System;
+using System.Numerics;
 
 using ContreJour.Clips.common;
-
 using ContreJour.Gameplay.Eyes;
-
-using Microsoft.Xna.Framework;
 
 namespace ContreJour.Gameplay
 {

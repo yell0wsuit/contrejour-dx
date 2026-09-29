@@ -1,9 +1,8 @@
 using System;
+using System.Numerics;
 
 using ContreJour.Clips.menu;
 using ContreJour.Clips.planets;
-
-using Microsoft.Xna.Framework;
 
 using Mokus2D.Util.Extensions;
 using Mokus2D.Util.MathUtils;

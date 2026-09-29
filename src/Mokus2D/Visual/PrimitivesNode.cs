@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+using System.Numerics;
 
 using Mokus2D.Graphics;
 using Mokus2D.Visual.Data;
@@ -18,7 +18,7 @@ namespace Mokus2D.Visual
 
         public override void Draw(VisualState state)
         {
-            Matrix combinedScreenMatrix = state.GetCombinedScreenMatrix(Root.Size);
+            Matrix4x4 combinedScreenMatrix = state.GetCombinedScreenMatrix(Root.Size);
             Drawer.EndDraw();
             PrimitivesDrawing.Begin(combinedScreenMatrix, Texture, state.Opacity);
             DrawPrimitives();

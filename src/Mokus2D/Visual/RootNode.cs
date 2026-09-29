@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+using System.Numerics;
 
 using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual.Data;
@@ -65,7 +65,7 @@ namespace Mokus2D.Visual
 
         public override Vector2 GlobalToLocal(Vector2 source, bool refreshTransformations = true)
         {
-            Matrix matrix = XnaMath.Invert(NodeMatrix);
+            Matrix4x4 matrix = XnaMath.Invert(NodeMatrix);
             return XnaMath.Transform(source, matrix);
         }
 

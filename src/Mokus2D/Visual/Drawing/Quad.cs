@@ -1,8 +1,8 @@
 using System;
-
-using Microsoft.Xna.Framework;
+using System.Numerics;
 
 using Mokus2D.Graphics;
+using Mokus2D.Util.Data;
 using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual.Interfaces;
 
@@ -32,14 +32,14 @@ namespace Mokus2D.Visual.Drawing
 
         public Rectangle Bounds => _bounds;
 
-        public void Refresh(Color color, Rectangle textureRect, Vector2 textureSize, Matrix matrix, Vector2 anchorInPixels, Vector2 size)
+        public void Refresh(Color color, Rectangle textureRect, Vector2 textureSize, Matrix4x4 matrix, Vector2 anchorInPixels, Vector2 size)
         {
             RefreshColor(color);
             RefreshTextureRect(textureRect, textureSize);
             RefreshTransformation(matrix, anchorInPixels, size);
         }
 
-        public void RefreshTransformation(Matrix matrix, Vector2 anchorInPixels, Vector2 size)
+        public void RefreshTransformation(Matrix4x4 matrix, Vector2 anchorInPixels, Vector2 size)
         {
             Vector2 initialPosition = -anchorInPixels;
             Vector2 initialPosition2 = size - anchorInPixels;
@@ -71,7 +71,7 @@ namespace Mokus2D.Visual.Drawing
             _bounds.Height = (int)Maths.Max(LeftTop.Position.Y, RightTop.Position.Y, LeftBottom.Position.Y, RightBottom.Position.Y) - _bounds.Y + 1;
         }
 
-        private void SetVertexPosition(ref Vertex vertex, Vector2 initialPosition, ref Matrix matrix, bool cleanBounds)
+        private void SetVertexPosition(ref Vertex vertex, Vector2 initialPosition, ref Matrix4x4 matrix, bool cleanBounds)
         {
             Vector2 result = XnaMath.Transform(initialPosition, matrix);
             vertex.Position = new Vector3(result, 0f);

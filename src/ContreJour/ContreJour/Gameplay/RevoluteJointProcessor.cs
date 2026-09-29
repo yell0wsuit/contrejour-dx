@@ -1,11 +1,10 @@
 using System.Collections.Generic;
+using System.Numerics;
 
 using ContreJour.Debug;
 
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Dynamics.Joints;
-
-using Microsoft.Xna.Framework;
 
 using Mokus2D.Util.MathUtils;
 

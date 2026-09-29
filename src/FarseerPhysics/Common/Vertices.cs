@@ -1,11 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Numerics;
 using System.Text;
 
 using FarseerPhysics.Collision;
-
-using Microsoft.Xna.Framework;
 
 namespace FarseerPhysics.Common
 {
@@ -335,7 +334,7 @@ namespace FarseerPhysics.Common
             return Math.Abs(num) >= Math.PI;
         }
 
-        public void Transform(ref Matrix transform)
+        public void Transform(ref Matrix4x4 transform)
         {
             for (int i = 0; i < Count; i++)
             {

@@ -1,7 +1,6 @@
 using System;
+using System.Numerics;
 using System.Runtime.InteropServices;
-
-using Microsoft.Xna.Framework;
 
 namespace FarseerPhysics.Common
 {

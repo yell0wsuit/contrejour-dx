@@ -1,10 +1,9 @@
 using System.Collections.Generic;
+using System.Numerics;
 
 using FarseerPhysics.Collision.Shapes;
 using FarseerPhysics.Common;
 using FarseerPhysics.Dynamics;
-
-using Microsoft.Xna.Framework;
 
 namespace FarseerPhysics.Factories
 {

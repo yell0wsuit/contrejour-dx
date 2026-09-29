@@ -1,8 +1,7 @@
 using System.CodeDom.Compiler;
+using System.Numerics;
 
 using ContreJour.Gameplay;
-
-using Microsoft.Xna.Framework;
 
 using Mokus2D;
 using Mokus2D.Data;

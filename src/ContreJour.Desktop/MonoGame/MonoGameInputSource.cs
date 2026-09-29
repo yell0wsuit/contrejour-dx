@@ -16,7 +16,7 @@ namespace ContreJour.Desktop.MonoGame
         {
             MouseState state = Mouse.GetState();
             return new MouseSnapshot(
-                new Vector2(state.X, state.Y),
+                new System.Numerics.Vector2(state.X, state.Y),
                 state.LeftButton == ButtonState.Pressed,
                 state.MiddleButton == ButtonState.Pressed,
                 state.RightButton == ButtonState.Pressed,
@@ -49,7 +49,7 @@ namespace ContreJour.Desktop.MonoGame
             {
                 if (touch.State is TouchLocationState.Pressed or TouchLocationState.Moved)
                 {
-                    into.Add(new TouchPoint(touch.Id, touch.Position));
+                    into.Add(new TouchPoint(touch.Id, touch.Position.ToNumerics()));
                 }
             }
         }

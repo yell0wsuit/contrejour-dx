@@ -1,6 +1,6 @@
-using ContreJour.Clips.chapter5;
+using System.Numerics;
 
-using Microsoft.Xna.Framework;
+using ContreJour.Clips.chapter5;
 
 using Mokus2D.Effects.Tween.Easing;
 using Mokus2D.Util.Extensions;

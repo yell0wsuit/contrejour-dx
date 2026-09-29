@@ -1,8 +1,7 @@
-using Microsoft.Xna.Framework;
-
 using Mokus2D.Effects.Tweening;
 using Mokus2D.Effects.Tweening.Repeating;
 using Mokus2D.Fonts;
+using Mokus2D.Graphics;
 using Mokus2D.Visual.Data;
 
 namespace Mokus2D.Visual.Text

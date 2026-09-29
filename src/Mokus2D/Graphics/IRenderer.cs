@@ -1,7 +1,6 @@
 using System;
 using System.IO;
-
-using Microsoft.Xna.Framework;
+using System.Numerics;
 
 namespace Mokus2D.Graphics
 {
@@ -28,6 +27,6 @@ namespace Mokus2D.Graphics
 
         // Draws indexCount / 3 triangles, in index order, both windings, no depth test. transform
         // maps Position to clip space. See DrawState's enums for the pixel math.
-        void DrawTriangles(Vertex[] vertices, int vertexCount, short[] indices, int indexCount, in Matrix transform, in DrawState state);
+        void DrawTriangles(Vertex[] vertices, int vertexCount, short[] indices, int indexCount, in Matrix4x4 transform, in DrawState state);
     }
 }

@@ -1,9 +1,8 @@
 using System.Collections.Generic;
 using System.Globalization;
+using System.Numerics;
 
 using ContreJour.Gameplay;
-
-using Microsoft.Xna.Framework;
 
 using Mokus2D.Visual.Text;
 

@@ -1,8 +1,7 @@
 using System;
 
-using Microsoft.Xna.Framework;
-
 using Mokus2D.Util;
+using Mokus2D.Util.Data;
 
 namespace Mokus2D.Input
 {

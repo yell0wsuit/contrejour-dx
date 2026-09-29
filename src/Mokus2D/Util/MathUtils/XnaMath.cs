@@ -1,6 +1,5 @@
 using System;
-
-using Microsoft.Xna.Framework;
+using System.Numerics;
 
 namespace Mokus2D.Util.MathUtils
 {
@@ -70,13 +69,13 @@ namespace Mokus2D.Util.MathUtils
         }
 
         // Becomes `Vector2.Transform(position, matrix)`.
-        public static Vector2 Transform(Vector2 position, in Matrix matrix)
+        public static Vector2 Transform(Vector2 position, in Matrix4x4 matrix)
         {
             return new Vector2((position.X * matrix.M11) + (position.Y * matrix.M21) + matrix.M41, (position.X * matrix.M12) + (position.Y * matrix.M22) + matrix.M42);
         }
 
         // Becomes `matrix1 * matrix2`.
-        public static Matrix Multiply(in Matrix matrix1, in Matrix matrix2)
+        public static Matrix4x4 Multiply(in Matrix4x4 matrix1, in Matrix4x4 matrix2)
         {
             float m11 = (matrix1.M11 * matrix2.M11) + (matrix1.M12 * matrix2.M21) + (matrix1.M13 * matrix2.M31) + (matrix1.M14 * matrix2.M41);
             float m12 = (matrix1.M11 * matrix2.M12) + (matrix1.M12 * matrix2.M22) + (matrix1.M13 * matrix2.M32) + (matrix1.M14 * matrix2.M42);
@@ -94,11 +93,11 @@ namespace Mokus2D.Util.MathUtils
             float m42 = (matrix1.M41 * matrix2.M12) + (matrix1.M42 * matrix2.M22) + (matrix1.M43 * matrix2.M32) + (matrix1.M44 * matrix2.M42);
             float m43 = (matrix1.M41 * matrix2.M13) + (matrix1.M42 * matrix2.M23) + (matrix1.M43 * matrix2.M33) + (matrix1.M44 * matrix2.M43);
             float m44 = (matrix1.M41 * matrix2.M14) + (matrix1.M42 * matrix2.M24) + (matrix1.M43 * matrix2.M34) + (matrix1.M44 * matrix2.M44);
-            return new Matrix(m11, m12, m13, m14, m21, m22, m23, m24, m31, m32, m33, m34, m41, m42, m43, m44);
+            return new Matrix4x4(m11, m12, m13, m14, m21, m22, m23, m24, m31, m32, m33, m34, m41, m42, m43, m44);
         }
 
         // Becomes `Matrix.Invert(matrix, out Matrix result)` (its bool result discarded).
-        public static Matrix Invert(in Matrix matrix)
+        public static Matrix4x4 Invert(in Matrix4x4 matrix)
         {
             float num1 = matrix.M11;
             float num2 = matrix.M12;
@@ -155,13 +154,13 @@ namespace Mokus2D.Util.MathUtils
             float m24 = (float)(((double)num1 * num34) - ((double)num3 * num37) + ((double)num4 * num38)) * num27;
             float m34 = (float)-(((double)num1 * num35) - ((double)num2 * num37) + ((double)num4 * num39)) * num27;
             float m44 = (float)(((double)num1 * num36) - ((double)num2 * num38) + ((double)num3 * num39)) * num27;
-            return new Matrix(m11, m12, m13, m14, m21, m22, m23, m24, m31, m32, m33, m34, m41, m42, m43, m44);
+            return new Matrix4x4(m11, m12, m13, m14, m21, m22, m23, m24, m31, m32, m33, m34, m41, m42, m43, m44);
         }
 
         // Becomes `Matrix.CreateRotationX(radians)`.
-        public static Matrix CreateRotationX(float radians)
+        public static Matrix4x4 CreateRotationX(float radians)
         {
-            Matrix result = Matrix.Identity;
+            Matrix4x4 result = Matrix4x4.Identity;
             float val1 = MathF.Cos(radians);
             float val2 = MathF.Sin(radians);
             result.M22 = val1;
@@ -172,9 +171,9 @@ namespace Mokus2D.Util.MathUtils
         }
 
         // Becomes `Matrix.CreateRotationZ(radians)`.
-        public static Matrix CreateRotationZ(float radians)
+        public static Matrix4x4 CreateRotationZ(float radians)
         {
-            Matrix result = Matrix.Identity;
+            Matrix4x4 result = Matrix4x4.Identity;
             float val1 = MathF.Cos(radians);
             float val2 = MathF.Sin(radians);
             result.M11 = val1;

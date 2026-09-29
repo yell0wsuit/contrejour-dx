@@ -1,13 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 
 using ContreJour.Clips.level1;
 using ContreJour.Config;
 using ContreJour.Gameplay.Rose;
 
 using FarseerPhysics.Dynamics;
-
-using Microsoft.Xna.Framework;
 
 using Mokus2D.Integration.Farseer.Physics;
 using Mokus2D.Sound;

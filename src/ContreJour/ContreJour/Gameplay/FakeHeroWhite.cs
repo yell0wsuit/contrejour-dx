@@ -2,7 +2,7 @@ using System.IO;
 
 using ContreJour.Menu.LevelComplete;
 
-using Microsoft.Xna.Framework;
+using Mokus2D.Graphics;
 
 namespace ContreJour.Gameplay
 {

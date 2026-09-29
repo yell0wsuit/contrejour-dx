@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Numerics;
 
 using ContreJour.Clips.menu;
 using ContreJour.Clips.menu2;
@@ -8,8 +9,6 @@ using ContreJour.Clips.segoeFont;
 using ContreJour.Config;
 using ContreJour.Gameplay;
 using ContreJour.Saving;
-
-using Microsoft.Xna.Framework;
 
 using Mokus2D;
 using Mokus2D.Fonts;

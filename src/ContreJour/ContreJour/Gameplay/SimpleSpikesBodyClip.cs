@@ -1,9 +1,8 @@
 using System;
+using System.Numerics;
 
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Dynamics.Contacts;
-
-using Microsoft.Xna.Framework;
 
 using Mokus2D.Effects.Tween.Easing;
 using Mokus2D.Util.Extensions;

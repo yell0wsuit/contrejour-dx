@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Numerics;
 using System.Text;
-
-using Microsoft.Xna.Framework;
 
 using Mokus2D.Data;
 using Mokus2D.Fonts;
+using Mokus2D.Graphics;
 using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual.Data;
 using Mokus2D.Visual.Interfaces;

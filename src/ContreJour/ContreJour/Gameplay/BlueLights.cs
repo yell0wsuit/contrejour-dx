@@ -1,6 +1,6 @@
-using ContreJour.Config;
+using System.Numerics;
 
-using Microsoft.Xna.Framework;
+using ContreJour.Config;
 
 using Mokus2D.Visual.Particles.Util;
 

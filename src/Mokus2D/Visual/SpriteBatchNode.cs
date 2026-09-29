@@ -1,5 +1,3 @@
-using Microsoft.Xna.Framework;
-
 using Mokus2D.Graphics;
 using Mokus2D.Visual.Data;
 

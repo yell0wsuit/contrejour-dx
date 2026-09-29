@@ -1,8 +1,8 @@
 using System;
 using System.Globalization;
+using System.Numerics;
 
-using Microsoft.Xna.Framework;
-
+using Mokus2D.Util.Data;
 using Mokus2D.Util.MathUtils;
 
 namespace Mokus2D.Data

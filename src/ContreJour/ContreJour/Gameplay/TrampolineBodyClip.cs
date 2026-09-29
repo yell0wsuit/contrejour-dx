@@ -1,12 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Dynamics.Contacts;
 using FarseerPhysics.Dynamics.Joints;
 using FarseerPhysics.Factories;
-
-using Microsoft.Xna.Framework;
 
 using Mokus2D.Events;
 using Mokus2D.Input;

@@ -1,21 +1,20 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 
 using ContreJour.Config;
 using ContreJour.Content;
-
 using ContreJour.Gameplay.Interfaces;
 
 using FarseerPhysics.Collision;
 using FarseerPhysics.Dynamics;
 
-using Microsoft.Xna.Framework;
-
 using Mokus2D;
 using Mokus2D.Data;
 using Mokus2D.Effects.Tween.Easing;
 using Mokus2D.Events;
+using Mokus2D.Graphics;
 using Mokus2D.Input;
 using Mokus2D.Integration.Farseer.Util;
 using Mokus2D.Interfaces;

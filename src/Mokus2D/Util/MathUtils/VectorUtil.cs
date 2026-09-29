@@ -1,7 +1,5 @@
 using System;
-
-
-using Microsoft.Xna.Framework;
+using System.Numerics;
 
 using Mokus2D.Util.Data;
 using Mokus2D.Util.Extensions;

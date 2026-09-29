@@ -1,6 +1,5 @@
 using System;
-
-using Microsoft.Xna.Framework;
+using System.Numerics;
 
 using Mokus2D.Config;
 using Mokus2D.Content;
@@ -10,6 +9,7 @@ using Mokus2D.Game;
 using Mokus2D.Graphics;
 using Mokus2D.Input;
 using Mokus2D.Util;
+using Mokus2D.Util.Data;
 using Mokus2D.Util.Resources;
 using Mokus2D.Util.Schedule;
 using Mokus2D.Visual;
@@ -99,7 +99,7 @@ namespace Mokus2D
             set => ApplicationController.IsFullScreen = value;
         }
 
-        public Util.Data.Point PrefferedBackBufferSize
+        public Point PrefferedBackBufferSize
         {
             get => ApplicationController.PrefferedBackBufferSize;
             set => ApplicationController.PrefferedBackBufferSize = value;

@@ -1,6 +1,7 @@
 using System;
+using System.Numerics;
 
-using Microsoft.Xna.Framework;
+using Mokus2D.Graphics;
 
 namespace Mokus2D.Visual.Data
 {

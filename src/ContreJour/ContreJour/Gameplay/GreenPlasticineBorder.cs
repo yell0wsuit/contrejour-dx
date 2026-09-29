@@ -1,6 +1,7 @@
 using System.Collections.Generic;
+using System.Numerics;
 
-using Microsoft.Xna.Framework;
+using Mokus2D.Graphics;
 
 namespace ContreJour.Gameplay
 {

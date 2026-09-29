@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Numerics;
 using System.Xml.Linq;
 
-using Microsoft.Xna.Framework;
-
+using Mokus2D.Util.Data;
 using Mokus2D.Visual.Data;
 
 namespace Mokus2D.Content.Serialization

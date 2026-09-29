@@ -1,9 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 
 using FarseerPhysics.Common;
-
-using Microsoft.Xna.Framework;
 
 namespace FarseerPhysics.Collision
 {

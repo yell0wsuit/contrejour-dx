@@ -70,7 +70,7 @@ namespace ContreJour.Desktop.MonoGame
         protected override void Draw(GameTime gameTime)
         {
             base.Draw(gameTime);
-            GraphicsDevice.Clear(_game.BackgroundColor);
+            GraphicsDevice.Clear(ToXna(_game.BackgroundColor));
             _game.Draw();
         }
 
@@ -78,7 +78,7 @@ namespace ContreJour.Desktop.MonoGame
         // regression harness's pixel check.
         public (byte[] Pixels, int Width, int Height) CaptureFrame()
         {
-            GraphicsDevice.Clear(_game.BackgroundColor);
+            GraphicsDevice.Clear(ToXna(_game.BackgroundColor));
             _game.Draw();
             PresentationParameters parameters = GraphicsDevice.PresentationParameters;
             byte[] pixels = new byte[parameters.BackBufferWidth * parameters.BackBufferHeight * 4];
@@ -118,6 +118,11 @@ namespace ContreJour.Desktop.MonoGame
         private void OnApplicationViewChanged()
         {
             _game.OnApplicationViewChanged(EventArgs.Empty);
+        }
+
+        private static Color ToXna(Mokus2D.Graphics.Color color)
+        {
+            return new Color(color.R, color.G, color.B, color.A);
         }
     }
 }

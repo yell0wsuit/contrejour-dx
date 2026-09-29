@@ -1,6 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
-    <PackageReference Include="MonoGame.Framework.DesktopGL" />
     <ProjectReference Include="../Mokus2D.Common/Mokus2D.Common.csproj" />
   </ItemGroup>
 </Project>

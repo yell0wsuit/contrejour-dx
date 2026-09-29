@@ -5,8 +5,7 @@ using System.Linq;
 using ContreJour.Clips.menu;
 using ContreJour.Clips.planets;
 
-using Microsoft.Xna.Framework;
-
+using Mokus2D.Graphics;
 using Mokus2D.Interfaces;
 using Mokus2D.Util;
 using Mokus2D.Util.MathUtils;

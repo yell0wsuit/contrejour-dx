@@ -1,5 +1,4 @@
-using Microsoft.Xna.Framework;
-
+using Mokus2D.Graphics;
 using Mokus2D.Visual.Util;
 
 namespace ContreJour.Gameplay

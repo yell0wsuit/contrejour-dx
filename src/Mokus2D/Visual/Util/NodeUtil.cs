@@ -1,6 +1,5 @@
 using System;
-
-using Microsoft.Xna.Framework;
+using System.Numerics;
 
 using Mokus2D.Effects.Tweening;
 using Mokus2D.Util.Extensions;

@@ -1,13 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 
 using ContreJour.Clips.menu;
 using ContreJour.Config;
 using ContreJour.Utils;
 
-using Microsoft.Xna.Framework;
-
 using Mokus2D.Events;
+using Mokus2D.Graphics;
 using Mokus2D.Util;
 using Mokus2D.Util.Extensions;
 using Mokus2D.Visual;

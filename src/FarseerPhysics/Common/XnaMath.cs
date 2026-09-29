@@ -1,6 +1,5 @@
 using System;
-
-using Microsoft.Xna.Framework;
+using System.Numerics;
 
 namespace FarseerPhysics.Common
 {
@@ -48,15 +47,15 @@ namespace FarseerPhysics.Common
         }
 
         // Becomes `Vector2.Transform(position, matrix)`.
-        public static Vector2 Transform(Vector2 position, in Matrix matrix)
+        public static Vector2 Transform(Vector2 position, in Matrix4x4 matrix)
         {
             return new Vector2((position.X * matrix.M11) + (position.Y * matrix.M21) + matrix.M41, (position.X * matrix.M12) + (position.Y * matrix.M22) + matrix.M42);
         }
 
         // Becomes `Matrix.CreateRotationZ(radians)`.
-        public static Matrix CreateRotationZ(float radians)
+        public static Matrix4x4 CreateRotationZ(float radians)
         {
-            Matrix result = Matrix.Identity;
+            Matrix4x4 result = Matrix4x4.Identity;
             float val1 = MathF.Cos(radians);
             float val2 = MathF.Sin(radians);
             result.M11 = val1;

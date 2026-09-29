@@ -1,13 +1,14 @@
 using System;
+using System.Numerics;
 
-using Microsoft.Xna.Framework;
+using Mokus2D.Util.Data;
 
 namespace Mokus2D.Game
 {
     /// <summary>The platform window and main loop the engine runs in.</summary>
     public interface IGameHost
     {
-        Util.Data.Point BackBufferSize { get; }
+        Point BackBufferSize { get; }
 
         /// <summary>Size of the current viewport.</summary>
         Vector2 WindowSize { get; }
@@ -18,7 +19,7 @@ namespace Mokus2D.Game
 
         bool IsFullScreen { get; set; }
 
-        Util.Data.Point PreferredBackBufferSize { get; set; }
+        Point PreferredBackBufferSize { get; set; }
 
         bool IsFixedTimeStep { get; set; }
 

@@ -1,4 +1,5 @@
 using System;
+using System.Numerics;
 
 using ContreJour.Clips.chapter5;
 using ContreJour.Clips.common;
@@ -7,10 +8,9 @@ using FarseerPhysics.Collision.Shapes;
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Dynamics.Contacts;
 
-using Microsoft.Xna.Framework;
-
 using Mokus2D.Data;
 using Mokus2D.Events;
+using Mokus2D.Graphics;
 using Mokus2D.Input;
 using Mokus2D.Integration.Farseer.Util;
 using Mokus2D.Sound;

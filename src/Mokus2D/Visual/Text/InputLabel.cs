@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
-using Microsoft.Xna.Framework;
+using System.Numerics;
 
 using Mokus2D.Fonts;
+using Mokus2D.Graphics;
 using Mokus2D.Input;
 using Mokus2D.Util;
 using Mokus2D.Util.MathUtils;

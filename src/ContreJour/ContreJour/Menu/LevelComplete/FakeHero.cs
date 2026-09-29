@@ -1,10 +1,10 @@
 using System;
 using System.IO;
+using System.Numerics;
 
 using ContreJour.Gameplay.Hero;
 
-using Microsoft.Xna.Framework;
-
+using Mokus2D.Graphics;
 using Mokus2D.Visual;
 
 namespace ContreJour.Menu.LevelComplete

@@ -1,11 +1,10 @@
 using System.Collections.Generic;
 using System.IO;
+using System.Numerics;
 using System.Reflection;
 
 using ContreJour.Config;
 using ContreJour.Gameplay;
-
-using Microsoft.Xna.Framework;
 
 using Mokus2D;
 using Mokus2D.Content;
