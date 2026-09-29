@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using Mokus2D.Content;
+using Mokus2D.FileSystem;
 using Mokus2D.Input;
 using Mokus2D.Platforms.Input;
 using Mokus2D.Util;
@@ -15,10 +16,11 @@ namespace Mokus2D.Game
     // MonoGame types: rendering and content loading do not go through platform interfaces yet.
     public class ApplicationController : DisposableBase
     {
-        public ApplicationController(IGameHost host, IInputSource input, GraphicsDevice graphicsDevice, MokusContentManager content)
+        public ApplicationController(IGameHost host, IInputSource input, IFileLoader files, GraphicsDevice graphicsDevice, MokusContentManager content)
         {
             Host = host;
             Input = input;
+            Files = files;
             GraphicsDevice = graphicsDevice;
             Content = content;
             Host.ClientSizeChanged += OnHostClientSizeChanged;
@@ -27,6 +29,8 @@ namespace Mokus2D.Game
         public IGameHost Host { get; }
 
         public IInputSource Input { get; }
+
+        public IFileLoader Files { get; }
 
         public MokusContentManager Content { get; }
 

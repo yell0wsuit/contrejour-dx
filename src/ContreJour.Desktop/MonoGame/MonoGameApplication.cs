@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Input.Touch;
 
 using Mokus2D;
 using Mokus2D.Content;
+using Mokus2D.FileSystem;
 using Mokus2D.Game;
 
 namespace ContreJour.Desktop.MonoGame
@@ -46,7 +47,8 @@ namespace ContreJour.Desktop.MonoGame
             };
             GraphicsDevice.DepthStencilState = DepthStencilState.None;
             MonoGameInputSource input = new();
-            ApplicationController applicationController = new(host, input, GraphicsDevice, content);
+            FileLoader files = new();
+            ApplicationController applicationController = new(host, input, files, GraphicsDevice, content);
             _game.Initialize(applicationController);
             // Subscribe after the game is set up: resizes applied during Initialize would otherwise
             // reach the game before its views exist (Win8 view-state events only arrived later).

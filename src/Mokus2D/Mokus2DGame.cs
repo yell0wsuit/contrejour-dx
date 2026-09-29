@@ -46,7 +46,6 @@ namespace Mokus2D
         public Color BackgroundColor { get; set; } = Color.Black;
 
         private readonly float? MaxUpdateTime = 0.04f;
-        private IFileLoader _fileLoader = new FileLoader();
 
         private readonly ConcurrentDelayedActions _mainThreadActions = new();
 
@@ -70,11 +69,7 @@ namespace Mokus2D
             }
         }
 
-        public static IFileLoader FileLoader
-        {
-            get => Instance._fileLoader;
-            set => Instance._fileLoader = value;
-        }
+        public static IFileLoader FileLoader => Instance.ApplicationController.Files;
 
         public static FontsManager FontsManager => Instance._fontsManager;
 
