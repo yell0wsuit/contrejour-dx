@@ -8,7 +8,7 @@ namespace ContreJour.Utils
 
         public static void AwardAchievement(string achievement)
         {
-            if (!ContreJour.Gameplay.Constants.IsTrial)
+            if (!Gameplay.Constants.IsTrial)
             {
                 _ = awardedAchievements.Contains(achievement);
             }
