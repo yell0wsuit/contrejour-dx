@@ -4,9 +4,8 @@ using System.Globalization;
 
 using ContreJour.Clips.menu;
 using ContreJour.Config;
+using ContreJour.Menu.LevelComplete;
 using ContreJour.Utils;
-
-using ContreJourMono.ContreJour.Menu.LevelComplete;
 
 using Microsoft.Xna.Framework;
 

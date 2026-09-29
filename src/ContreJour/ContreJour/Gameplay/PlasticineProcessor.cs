@@ -1,4 +1,4 @@
-using Mokus2D.Util;
+using ContreJour.Utils;
 
 namespace ContreJour.Gameplay
 {

@@ -8,7 +8,6 @@ using ContreJour.Clips.segoeFont;
 using ContreJour.Config;
 using ContreJour.Gameplay;
 using ContreJour.Saving;
-using ContreJour.WinRT;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -125,7 +124,6 @@ namespace ContreJour
             BlockGameIfNeeded();
             ShowSplash();
             applicationController.Application.Window.ClientSizeChanged += OnSizeChanged;
-            UserData.Instance.TotalStarsChanged += OnTotalStarsChanged;
         }
 
         private void OnSizeChanged(object sender, EventArgs e)
@@ -140,11 +138,6 @@ namespace ContreJour
             SoundManager.Update();
             Preferences.Update();
             PlatformUpdate();
-        }
-
-        private void OnTotalStarsChanged(int stars)
-        {
-            LiveTileUpdater.UpdateTiles(stars);
         }
 
         private void HideView(Node view, Action continuation)

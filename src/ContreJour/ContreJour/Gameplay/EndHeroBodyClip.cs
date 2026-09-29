@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using ContreJour.Config;
 
-using ContreJourMono.ContreJour.Game.Eyes;
+using ContreJour.Gameplay.Eyes;
 
 using FarseerPhysics.Dynamics;
 

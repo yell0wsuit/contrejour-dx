@@ -1,5 +1,6 @@
 using System;
 
+using ContreJour.Config;
 using ContreJour.Utils;
 
 using Microsoft.Xna.Framework;

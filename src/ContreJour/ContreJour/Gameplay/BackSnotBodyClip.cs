@@ -1,6 +1,6 @@
 using System;
 
-using ContreJourMono.ContreJour.Game.Eyes;
+using ContreJour.Gameplay.Eyes;
 
 using FarseerPhysics.Dynamics;
 

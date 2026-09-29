@@ -3,9 +3,8 @@ using System;
 using ContreJour.Clips.fakeHero;
 using ContreJour.Clips.loading;
 using ContreJour.Config;
+using ContreJour.Menu.LevelComplete;
 using ContreJour.Utils;
-
-using ContreJourMono.ContreJour.Menu.LevelComplete;
 
 using Microsoft.Xna.Framework;
 

@@ -1,6 +1,6 @@
 using System.IO;
 
-using ContreJourMono.ContreJour.Menu.LevelComplete;
+using ContreJour.Menu.LevelComplete;
 
 using Microsoft.Xna.Framework;
 

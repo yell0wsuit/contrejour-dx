@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 
+using ContreJour.Content;
+
 using Microsoft.Xna.Framework;
 
-using Mokus2D.Content;
 using Mokus2D.Events;
 using Mokus2D.Interfaces;
 using Mokus2D.Util.Extensions;

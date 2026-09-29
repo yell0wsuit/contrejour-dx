@@ -2,7 +2,7 @@ using System;
 
 using ContreJour.Content;
 
-using ContreJourMono.ContreJour.Game.Eyes;
+using ContreJour.Gameplay.Eyes;
 
 using Microsoft.Xna.Framework;
 

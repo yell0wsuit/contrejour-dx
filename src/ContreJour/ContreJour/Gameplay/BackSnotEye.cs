@@ -1,6 +1,6 @@
 using ContreJour.Clips.chapter1;
 
-using ContreJourMono.ContreJour.Game.Eyes;
+using ContreJour.Gameplay.Eyes;
 
 using Microsoft.Xna.Framework;
 

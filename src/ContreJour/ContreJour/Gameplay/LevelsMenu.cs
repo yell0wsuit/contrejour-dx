@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 
 using ContreJour.Clips.menu;
+using ContreJour.Config;
 using ContreJour.Utils;
 
 using Microsoft.Xna.Framework;
