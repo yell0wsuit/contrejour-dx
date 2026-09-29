@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
+using Mokus2D.Graphics;
 using Mokus2D.Visual;
 using Mokus2D.Visual.Util;
 
@@ -10,9 +10,9 @@ namespace ContreJour.Gameplay
 {
     public class PlasticineBorder : PrimitivesNode, IOpacity
     {
-        private readonly VertexPositionColorTexture[] outBorder;
+        private readonly Vertex[] outBorder;
 
-        private readonly VertexPositionColorTexture[] inBorder;
+        private readonly Vertex[] inBorder;
 
         private readonly int polygonSize;
 
@@ -41,8 +41,8 @@ namespace ContreJour.Gameplay
             List<Vector2> surface = [];
             ContreDrawUtil.CreateBezierSurfaceSurfaceSegments(initialPolygon, ref surface, 3);
             polygonSize = surface.Count;
-            outBorder = new VertexPositionColorTexture[surface.Count * 6];
-            inBorder = new VertexPositionColorTexture[surface.Count * 6];
+            outBorder = new Vertex[surface.Count * 6];
+            inBorder = new Vertex[surface.Count * 6];
             GraphUtil.CreateGradientBorderWidthVertices(surface, BorderWidth(), inBorder);
             GraphUtil.CreateGradientBorderWidthVertices(surface, 0f - BorderWidth(), outBorder);
             CreateColors();

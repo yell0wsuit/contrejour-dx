@@ -20,10 +20,8 @@ namespace Mokus2D.Visual
         {
             Matrix combinedScreenMatrix = state.GetCombinedScreenMatrix(Root.Size);
             Drawer.EndDraw();
-            using (new PrimitivesDrawing(state, combinedScreenMatrix, Texture))
-            {
-                DrawPrimitives();
-            }
+            PrimitivesDrawing.Begin(combinedScreenMatrix, Texture, state.Opacity);
+            DrawPrimitives();
         }
 
         protected abstract void DrawPrimitives();

@@ -1,75 +1,20 @@
-using System;
-
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 using Mokus2D.Graphics;
-using Mokus2D.Graphics.MonoGame;
-using Mokus2D.Visual.Data;
 
 namespace Mokus2D.Visual.Util
 {
-    public struct PrimitivesDrawing : IDisposable
+    // The matrix and state GraphUtil's draw helpers use. PrimitivesNode sets them before it draws.
+    public static class PrimitivesDrawing
     {
-        private static BasicEffect Effect;
+        internal static Matrix CurrentMatrix { get; private set; }
 
-        private BlendState oldState = BlendState.AlphaBlend;
+        internal static DrawState CurrentState { get; private set; }
 
-        public static void Clear()
+        public static void Begin(Matrix matrix, ITexture texture, float opacity)
         {
-            Effect = null;
-        }
-
-        public PrimitivesDrawing(VisualState state)
-            : this(state, state.Matrix)
-        {
-        }
-
-        public PrimitivesDrawing(VisualState state, Matrix matrix, ITexture texture = null)
-        {
-            BeginDrawPrimitives(state, matrix, texture);
-        }
-
-        public readonly void Dispose()
-        {
-            EndDrawPrimitives();
-        }
-
-        public void BeginDrawPrimitives(VisualState state)
-        {
-            BeginDrawPrimitives(state, state.Matrix);
-        }
-
-        public void BeginDrawPrimitives(VisualState state, Matrix matrix, ITexture texture)
-        {
-            if (texture != null)
-            {
-                Mokus2DGame.Device.SamplerStates[0] = SamplerState.LinearWrap;
-            }
-            oldState = Mokus2DGame.Device.BlendState;
-            Mokus2DGame.Device.BlendState = BlendState.NonPremultiplied;
-            Effect ??= new BasicEffect(Mokus2DGame.Device);
-            Effect.Projection = matrix;
-            Effect.World = Matrix.Identity;
-            Effect.View = Matrix.Identity;
-            Effect.Alpha = state.Opacity;
-            Effect.VertexColorEnabled = true;
-            Effect.TextureEnabled = texture != null;
-            if (texture != null)
-            {
-                Effect.Texture = MonoGameTexture.Unwrap(texture);
-            }
-            Effect.CurrentTechnique.Passes[0].Apply();
-        }
-
-        public void BeginDrawPrimitives(VisualState state, Matrix matrix)
-        {
-            BeginDrawPrimitives(state, matrix, null);
-        }
-
-        public readonly void EndDrawPrimitives()
-        {
-            Mokus2DGame.Device.BlendState = oldState;
+            CurrentMatrix = matrix;
+            CurrentState = new DrawState(texture, BlendMode.NonPremultiplied, SamplerMode.LinearWrap, ColorMode.Primitive, opacity);
         }
     }
 }

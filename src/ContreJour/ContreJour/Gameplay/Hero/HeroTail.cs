@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
+using Mokus2D.Graphics;
 using Mokus2D.Util.Data;
 using Mokus2D.Util.Extensions;
 using Mokus2D.Util.MathUtils;
@@ -29,13 +29,13 @@ namespace ContreJour.Gameplay.Hero
 
         private readonly PointAndAngle end = new(70f, 0.018f, (float)Math.PI);
 
-        private VertexPositionColor[] vertices;
+        private Vertex[] vertices;
 
         private readonly List<Vector2> surface = new(10);
 
         private readonly List<Vector2> cachedPolygon = new(64);
 
-        private VertexPositionColor[] border;
+        private Vertex[] border;
         public float UpdateSpeed { get; set; } = 1f;
 
         public float BorderWidth { get; set; } = 2f;
@@ -110,16 +110,16 @@ namespace ContreJour.Gameplay.Hero
             GraphUtil.CreateBezierPoints(cachedPolygon, 2, surface);
             if (vertices == null)
             {
-                vertices = new VertexPositionColor[surface.Count];
-                border = new VertexPositionColor[surface.Count * 6];
+                vertices = new Vertex[surface.Count];
+                border = new Vertex[surface.Count * 6];
                 GraphUtil.CreateGradientBorderColors(border, Color);
             }
             GraphUtil.CreateGradientBorder(surface, BorderWidth, border);
             for (int i = 0; i < surface.Count; i++)
             {
                 int index = (i % 2 == 0) ? (i / 2) : (surface.Count - 1 - (i / 2));
-                ref VertexPositionColor reference = ref vertices[i];
-                reference = new VertexPositionColor(new Vector3(surface[index], 0f), Color);
+                ref Vertex reference = ref vertices[i];
+                reference = new Vertex(new Vector3(surface[index], 0f), Color, Vector2.Zero);
             }
         }
 

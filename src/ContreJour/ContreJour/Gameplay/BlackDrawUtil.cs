@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
+using Mokus2D.Graphics;
 using Mokus2D.Util.Data;
 using Mokus2D.Util.Extensions;
 using Mokus2D.Visual.Util;
@@ -65,7 +65,7 @@ namespace ContreJour.Gameplay
             }
         }
 
-        public static void SetBorderColors(int allPointsSize, Color startColor, Color endColor, Color outColor, VertexPositionColorTexture[] resultColors)
+        public static void SetBorderColors(int allPointsSize, Color startColor, Color endColor, Color outColor, Vertex[] resultColors)
         {
             GraphUtil.CreateGradientColors(0, allPointsSize / 2, startColor, endColor, outColor, resultColors);
             GraphUtil.CreateGradientColors(allPointsSize / 2, allPointsSize, endColor, startColor, outColor, resultColors);

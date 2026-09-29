@@ -6,8 +6,8 @@ using FarseerPhysics.Dynamics;
 using FarseerPhysics.Dynamics.Contacts;
 
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
+using Mokus2D.Graphics;
 using Mokus2D.Input;
 using Mokus2D.Util;
 using Mokus2D.Util.Extensions;
@@ -291,8 +291,8 @@ namespace ContreJour.Gameplay
         {
             if (border != null && dirty)
             {
-                VertexPositionColor[] inBorder = border.InBorder;
-                VertexPositionColor[] outBorder = border.OutBorder;
+                Vertex[] inBorder = border.InBorder;
+                Vertex[] outBorder = border.OutBorder;
                 if (Index == 0)
                 {
                     inBorder[0].Position = new Vector3(Item.GetSurfaceCenter(), 0f);
@@ -309,7 +309,7 @@ namespace ContreJour.Gameplay
             }
         }
 
-        public void SetBezierPointsOffsetIndexOffset(VertexPositionColor[] vector, float offset, int indexOffset)
+        public void SetBezierPointsOffsetIndexOffset(Vertex[] vector, float offset, int indexOffset)
         {
             Vector2 centerOffset = GetCenterOffset(offset);
             Vector2 centerOffset2 = Item.NextItem.BodyClip.GetCenterOffset(offset);

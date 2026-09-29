@@ -18,7 +18,6 @@ using Mokus2D.Visual.Data;
 using Mokus2D.Visual.Drawing;
 using Mokus2D.Visual.Interfaces;
 using Mokus2D.Visual.Text;
-using Mokus2D.Visual.Util;
 
 namespace Mokus2D
 {
@@ -174,7 +173,6 @@ namespace Mokus2D
 
         protected Mokus2DGame()
         {
-            PrimitivesDrawing.Clear();
             Instance = this;
             SpriteClicksListener = new SpriteClicksListener();
             Tweener = new Tweener(this);

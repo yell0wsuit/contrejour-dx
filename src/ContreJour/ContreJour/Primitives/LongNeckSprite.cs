@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 using Mokus2D.Graphics;
 using Mokus2D.Util;
@@ -20,9 +19,9 @@ namespace ContreJour.Primitives
     {
         private bool created;
 
-        protected VertexPositionColorTexture[] Vertices { get; set; }
+        protected Vertex[] Vertices { get; set; }
 
-        protected VertexPositionColorTexture[] Border { get; set; }
+        protected Vertex[] Border { get; set; }
 
         private Color neckColor;
 
@@ -208,9 +207,9 @@ namespace ContreJour.Primitives
 
         public virtual void CreateVectors(int allPointsSize)
         {
-            Vertices = new VertexPositionColorTexture[(allPointsSize - 2) * 3];
+            Vertices = new Vertex[(allPointsSize - 2) * 3];
             AllPointsSize = allPointsSize;
-            Border = new VertexPositionColorTexture[AllPointsSize * 6];
+            Border = new Vertex[AllPointsSize * 6];
             SetBorderColors();
             SetNeckColors();
         }
