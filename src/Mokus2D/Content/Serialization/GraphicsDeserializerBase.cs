@@ -5,7 +5,6 @@ using System.IO;
 using System.Xml.Linq;
 
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 using Mokus2D.Visual.Data;
 
@@ -48,7 +47,7 @@ namespace Mokus2D.Content.Serialization
                 loader.GraphicsRootDirectory,
                 (string)document.Attribute("texture")
             ]);
-            result.Texture = Mokus2DGame.ContentManager.Load<Texture2D>(assetName);
+            result.Texture = Mokus2DGame.ContentManager.Load(assetName);
         }
 
         protected void SetScaleFactor(TextureNodeData data, XElement element)

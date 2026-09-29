@@ -2,8 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 
-using Microsoft.Xna.Framework.Graphics;
-
 using Mokus2D.Content;
 using Mokus2D.Util;
 using Mokus2D.Visual.Interfaces;
@@ -93,7 +91,7 @@ namespace Mokus2D.Config.Defaults
         {
             if (result != null && result.Texture.IsDisposed)
             {
-                result.Texture = Mokus2DGame.ContentManager.Load<Texture2D>(result.TextureName);
+                result.Texture = Mokus2DGame.ContentManager.Load(result.TextureName);
             }
         }
 

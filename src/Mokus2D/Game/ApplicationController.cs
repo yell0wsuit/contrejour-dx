@@ -12,17 +12,17 @@ using Mokus2D.Util.Resources;
 
 namespace Mokus2D.Game
 {
-    // The engine's view of the platform host. GraphicsDevice and MokusContentManager are still
-    // MonoGame types: rendering and content loading do not go through platform interfaces yet.
+    // The engine's view of the platform host. GraphicsDevice is still a MonoGame type: rendering
+    // does not go through a platform interface yet.
     public class ApplicationController : DisposableBase
     {
-        public ApplicationController(IGameHost host, IInputSource input, IFileLoader files, GraphicsDevice graphicsDevice, MokusContentManager content)
+        public ApplicationController(IGameHost host, IInputSource input, IFileLoader files, GraphicsDevice graphicsDevice)
         {
             Host = host;
             Input = input;
             Files = files;
             GraphicsDevice = graphicsDevice;
-            Content = content;
+            Content = new MokusContentManager(files);
             Host.ClientSizeChanged += OnHostClientSizeChanged;
         }
 
@@ -102,6 +102,7 @@ namespace Mokus2D.Game
             if (disposing)
             {
                 Host.ClientSizeChanged -= OnHostClientSizeChanged;
+                Content.Dispose();
             }
             base.Dispose(disposing);
         }

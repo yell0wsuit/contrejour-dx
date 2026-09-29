@@ -75,7 +75,7 @@ namespace ContreJour.Gameplay
 
         public static Texture2D GetTexture(string name)
         {
-            return content.Load<Texture2D>($"Graphics/textures/{name}");
+            return content.Load($"Graphics/textures/{name}");
         }
 
         private static ClipData GetConfigByName(string name)

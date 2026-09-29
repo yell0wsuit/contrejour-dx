@@ -6,7 +6,6 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
 
 using Mokus2D;
-using Mokus2D.Content;
 using Mokus2D.FileSystem;
 using Mokus2D.Game;
 
@@ -17,6 +16,8 @@ namespace ContreJour.Desktop.MonoGame
         private readonly GraphicsDeviceManager _graphics;
 
         private readonly T _game;
+
+        private ApplicationController _applicationController;
 
         public MonoGameApplication()
         {
@@ -36,8 +37,6 @@ namespace ContreJour.Desktop.MonoGame
         protected override void Initialize()
         {
             base.Initialize();
-            MokusContentManager content = new(Services);
-            Content = content;
             MonoGameHost host = new(this, _graphics);
             Mouse.WindowHandle = Window.Handle;
             TouchPanel.WindowHandle = Window.Handle;
@@ -47,9 +46,8 @@ namespace ContreJour.Desktop.MonoGame
             };
             GraphicsDevice.DepthStencilState = DepthStencilState.None;
             MonoGameInputSource input = new();
-            FileLoader files = new();
-            ApplicationController applicationController = new(host, input, files, GraphicsDevice, content);
-            _game.Initialize(applicationController);
+            _applicationController = new ApplicationController(host, input, new FileLoader(), GraphicsDevice);
+            _game.Initialize(_applicationController);
             // Subscribe after the game is set up: resizes applied during Initialize would otherwise
             // reach the game before its views exist (Win8 view-state events only arrived later).
             host.ClientSizeChanged += OnApplicationViewChanged;
@@ -84,6 +82,16 @@ namespace ContreJour.Desktop.MonoGame
         {
             base.OnExiting(sender, args);
             _game.OnExiting();
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            // Release the cached textures while the graphics device is still alive.
+            if (disposing)
+            {
+                _applicationController?.Dispose();
+            }
+            base.Dispose(disposing);
         }
 
         private void OnApplicationViewChanged()

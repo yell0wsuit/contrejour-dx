@@ -3,43 +3,41 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-using Mokus2D.Util;
+using Mokus2D.FileSystem;
 
 namespace Mokus2D.Content
 {
-    public class MokusContentManager(IServiceProvider serviceProvider) : ContentManager(serviceProvider)
+    // Caches textures decoded from the PNG files under RootDirectory. Texture2D and
+    // Texture2D.FromStream are still MonoGame's: textures do not go through a platform interface yet.
+    public sealed class MokusContentManager(IFileLoader files) : IDisposable
     {
-        private static readonly string[] TextureExtensions = [".png"];
+        private readonly Dictionary<string, Texture2D> _loadedAssets = [];
 
-        private readonly Dictionary<string, object> _loadedAssets = [];
-
+        // Kept after Unload so a disposed texture can still be named in error messages.
         private readonly Dictionary<Texture2D, string> _loadedTextures = [];
 
-        public override T Load<T>(string assetName)
+        public string RootDirectory { get; set; } = string.Empty;
+
+        public Texture2D Load(string assetName)
         {
-            T val = (T)_loadedAssets.GetValueOrDefault(assetName);
-            if (val != null)
+            if (_loadedAssets.TryGetValue(assetName, out Texture2D texture))
             {
-                return val;
+                return texture;
             }
             try
             {
-                val = ReadAsset<T>(assetName);
+                texture = ReadTexture(assetName);
             }
             catch (OutOfMemoryException innerException)
             {
                 throw new InsufficientMemoryException(string.Format(CultureInfo.InvariantCulture, "Out of memory while loading {0}", assetName), innerException);
             }
-            if (val is Texture2D texture2D)
-            {
-                texture2D.Name = assetName;
-                _loadedTextures.Add(texture2D, assetName);
-            }
-            _loadedAssets[assetName] = val;
-            return val;
+            texture.Name = assetName;
+            _loadedTextures.Add(texture, assetName);
+            _loadedAssets[assetName] = texture;
+            return texture;
         }
 
         public string GetDisposedTextureName(Texture2D texture)
@@ -47,66 +45,25 @@ namespace Mokus2D.Content
             return _loadedTextures[texture];
         }
 
-        protected Texture2D ReadTextureAsset(string assetName)
+        public void Unload()
         {
-            Texture2D result;
-            try
+            foreach (Texture2D texture in _loadedAssets.Values)
             {
-                result = ReadAsset<Texture2D>(assetName, null);
-            }
-            catch (ContentLoadException exception)
-            {
-                using Stream stream = GetTextureStream(assetName);
-                if (stream != null)
-                {
-                    result = Texture2D.FromStream(Mokus2DGame.Device, stream);
-                }
-                else
-                {
-                    result = null;
-                    ExceptionUtil.Throw(exception);
-                }
-            }
-            return result;
-        }
-
-        private Stream GetTextureStream(string assetName)
-        {
-            string[] textureExtensions = TextureExtensions;
-            foreach (string extension in textureExtensions)
-            {
-                string path = Path.Combine(
-                [
-                    RootDirectory,
-                    Path.ChangeExtension(assetName, extension)
-                ]);
-                try
-                {
-                    return Mokus2DGame.FileLoader.OpenFile(path);
-                }
-                catch (Exception)
-                {
-                }
-            }
-            return null;
-        }
-
-        protected virtual T ReadAsset<T>(string assetName)
-        {
-            return (object)typeof(T) == typeof(Texture2D) ? (T)(object)ReadTextureAsset(assetName) : ReadAsset<T>(assetName, null);
-        }
-
-        public override void Unload()
-        {
-            base.Unload();
-            foreach (KeyValuePair<string, object> loadedAsset in _loadedAssets)
-            {
-                if (loadedAsset.Value is IDisposable disposable)
-                {
-                    disposable.Dispose();
-                }
+                texture.Dispose();
             }
             _loadedAssets.Clear();
+        }
+
+        public void Dispose()
+        {
+            Unload();
+        }
+
+        private Texture2D ReadTexture(string assetName)
+        {
+            string path = Path.Combine(RootDirectory, Path.ChangeExtension(assetName, ".png"));
+            using Stream stream = files.OpenFile(path);
+            return Texture2D.FromStream(Mokus2DGame.Device, stream);
         }
     }
 }
