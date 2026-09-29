@@ -7,7 +7,6 @@ using Microsoft.Xna.Framework;
 
 using Mokus2D.Data;
 using Mokus2D.Fonts;
-using Mokus2D.Util.Extensions;
 using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual.Data;
 using Mokus2D.Visual.Interfaces;
@@ -249,10 +248,23 @@ namespace Mokus2D.Visual.Text
 
         public void RemoveFirstLine()
         {
-            int? num = _text.IndexOf('\n');
-            int length = (!num.HasValue) ? _text.Length : (num.Value + 1);
+            int newLine = IndexOfNewLine();
+            int length = newLine < 0 ? _text.Length : newLine + 1;
             _ = _text.Remove(0, length);
             SetTextDirty();
+        }
+
+        // StringBuilder has no IndexOf, and searching _text directly avoids copying it into a string.
+        private int IndexOfNewLine()
+        {
+            for (int i = 0; i < _text.Length; i++)
+            {
+                if (_text[i] == '\n')
+                {
+                    return i;
+                }
+            }
+            return -1;
         }
 
         public override void Update(float time)
