@@ -7,7 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MonoGame.Framework.DesktopGL" />
-    <ProjectReference Include="../ContreJour.Desktop/ContreJour.Desktop.csproj" />
+    <PackageReference Include="SkiaSharp.NativeAssets.macOS" />
+    <PackageReference Include="SkiaSharp.NativeAssets.Win32" />
+    <PackageReference Include="SkiaSharp.NativeAssets.Linux" />
+    <ProjectReference Include="../ContreJour/ContreJour.csproj" />
+    <ProjectReference Include="../Mokus2D.Rendering.Skia/Mokus2D.Rendering.Skia.csproj" />
   </ItemGroup>
+
+  <Import Project="../GameContents.targets" />
 </Project>

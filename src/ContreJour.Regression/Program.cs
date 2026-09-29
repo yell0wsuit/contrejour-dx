@@ -2,7 +2,6 @@ using System;
 using System.Globalization;
 using System.IO;
 
-using ContreJour.Desktop.MonoGame;
 using ContreJour.Saving;
 
 using Mokus2D.Sound;
@@ -15,7 +14,7 @@ namespace ContreJour.Regression
     // before and after a change and diff the outputs to catch any behaviour change (physics, level
     // loading, reflection/serialization by name, save compatibility).
     //
-    // Usage: dotnet run --project tools/Regression -- <output file> [first] [count]
+    // Usage: dotnet run --project src/ContreJour.Regression -- <output file> [first] [count]
     // where first/count select a range of the playable level list (default: all of them).
     // Set CJ_REGRESSION_TRACE=<file> to also dump every recorded frame's bodies and nodes.
     // Set CJ_REGRESSION_OLD_SAVE=<save file> to also check that an older save still loads the same.
@@ -56,7 +55,7 @@ namespace ContreJour.Regression
 
             // The harness never plays audio.
             using NullAudioBackend audio = new();
-            using MonoGameApplication<RegressionApplication> game = new(audio);
+            using HeadlessApplication<RegressionApplication> game = new(audio);
             RegressionApplication.CaptureFrame = game.CaptureFrame;
             game.Run();
             return RegressionApplication.Failed ? 1 : 0;
