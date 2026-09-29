@@ -22,7 +22,7 @@ public class ParticleSystem : Node
 
     private bool CanCreateParticles = true;
 
-    private Predicate<ParticleData> RemovePredicate;
+    public Predicate<ParticleData> RemovePredicate { get; set; }
 
     public int VisibleParticles => _visibleParticles.Count;
 

@@ -79,11 +79,6 @@ public class PlasticinePartBodyClip : ContreJourBodyClip, IClickable, IRestartab
     private bool isRotationDirty;
     private bool fixHighlite;
 
-    private Sprite circle;
-    private float circleSize;
-
-    private float circleScale;
-
     private static int i;
 
     public PlasticineItem Item
@@ -332,10 +327,6 @@ public class PlasticinePartBodyClip : ContreJourBodyClip, IClickable, IRestartab
             }
             dust.RemoveList(list);
         }
-        if (dragging && circle != null)
-        {
-            UpdateCircle();
-        }
     }
 
     public void UpdateWideBorderAndFill()
@@ -411,13 +402,6 @@ public class PlasticinePartBodyClip : ContreJourBodyClip, IClickable, IRestartab
             SetDirty();
             fixHighlite = false;
         }
-    }
-
-    public void UpdateCircle()
-    {
-        float num = VectorUtil.Projection(Body.Position - initialPosition, normal) / builder.EngineConfig.SizeMultiplier;
-        float num2 = (num > 0f) ? (num / circleSize / 2f) : 0f;
-        circle.Scale = circleScale + num2;
     }
 
     public void SetRotationDirty()

@@ -118,8 +118,6 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
     private GroundFall groundFall;
     private int levelIndex;
 
-    private int levelPosition;
-
     private LightColor lightColor;
 
     private Vector2 lightPoint;
@@ -269,8 +267,6 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
     }
 
     public int LevelIndex => levelIndex;
-
-    public int LevelPosition => levelPosition;
 
     public IBonusAcceptable BonusTarget
     {

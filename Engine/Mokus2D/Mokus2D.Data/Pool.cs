@@ -9,7 +9,7 @@ public class Pool<T>
 
     private readonly List<T> _items = new(64);
 
-    private int? MaxCount;
+    public int? MaxCount { get; set; }
 
     public int ObjectsInPool => _items.Count;
 

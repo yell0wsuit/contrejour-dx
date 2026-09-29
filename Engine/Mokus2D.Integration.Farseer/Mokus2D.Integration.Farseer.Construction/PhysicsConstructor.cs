@@ -54,7 +54,7 @@ public class PhysicsConstructor : PhysicsTransform
 
     private float Density = 1f;
 
-    private IPhysicsConfigProcessor ConfigProcessor;
+    public IPhysicsConfigProcessor ConfigProcessor { get; set; }
     private readonly World World;
 
     private readonly Dictionary<string, ShapeProcessor> _processors = [];

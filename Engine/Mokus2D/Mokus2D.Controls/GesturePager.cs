@@ -8,13 +8,13 @@ namespace Mokus2D.Controls;
 
 public sealed class GesturePager : ITouchListener, IDisposable, IUpdatable
 {
-    private int? MaxPosition;
+    public int? MaxPosition { get; set; }
 
     private float MinMoveOffset = 20f;
 
     private float MinMoveStep = 0.025f;
 
-    private int? MinPosition;
+    public int? MinPosition { get; set; }
     private Touch currentTouch;
 
     private float direction;

@@ -8,7 +8,7 @@ public abstract class OnOffTimeEffect(Node target, float duration) : OnOffEffect
 {
     private readonly float Duration = duration;
 
-    private Func<bool, float> DurationProvider;
+    public Func<bool, float> DurationProvider { get; set; }
 
     protected float GetDuration(bool on)
     {

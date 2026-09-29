@@ -24,7 +24,7 @@ public class Sprite : AnchorNode, ITextureNode, IAnchorNode, ISizeNode, IBlendab
 
     private ISpriteData _data;
 
-    private bool IgnoreIfTextureDisposed;
+    public bool IgnoreIfTextureDisposed { get; set; }
 
     protected Rectangle TextureRectangle
     {

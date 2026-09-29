@@ -6,11 +6,11 @@ public abstract class FilterData
 {
     private Category DisabledOnCategories;
 
-    private int DisabledOnGroup;
+    public int DisabledOnGroup { get; set; }
 
     private Category EnabledOnCategories = Category.All;
 
-    private int EnabledOnGroup;
+    public int EnabledOnGroup { get; set; }
 
     public virtual bool IsActiveOn(Body body)
     {

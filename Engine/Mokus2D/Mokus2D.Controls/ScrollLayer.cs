@@ -24,7 +24,7 @@ public class ScrollLayer : ClickableLayer, ITouchListener
 
     private Vector2 MaxPosition = Vector2.Zero;
 
-    private bool InertiaHorizontal;
+    public bool InertiaHorizontal { get; set; }
 
     private bool InertiaVertical = true;
 

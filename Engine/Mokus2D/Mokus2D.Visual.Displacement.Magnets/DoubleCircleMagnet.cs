@@ -8,7 +8,7 @@ namespace Mokus2D.Visual.Displacement.Magnets;
 
 public class DoubleCircleMagnet : CircleMagnet
 {
-    private Vector2 ExcludeCircleCenter;
+    public Vector2 ExcludeCircleCenter { get; set; }
 
     public float ExcludeRadius;
 

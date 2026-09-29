@@ -9,8 +9,8 @@ namespace Mokus2D.Visual.Data;
 
 public class ClipData : IMovieClipData, ISpriteData, ITextureNodeData, IConfig
 {
-    private int FramesCount;
-    private Vector2 TileData;
+    public int FramesCount { get; set; }
+    public Vector2 TileData { get; set; }
 
     private int Width;
 

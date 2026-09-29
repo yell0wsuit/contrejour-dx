@@ -27,7 +27,7 @@ public class GridNode : Node
 
     private Point RightBottomCell = new(-1, -1);
 
-    private Node DebugRoot;
+    public Node DebugRoot { get; set; }
 
     public GridNode(Vector2 cellSize, RectangleFloat bounds, RectangleFloat screenBounds)
     {

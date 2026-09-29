@@ -11,7 +11,7 @@ public class ContactManager
 
     public IBroadPhase BroadPhase;
 
-    private CollisionFilterHandler ContactFilter;
+    public CollisionFilterHandler ContactFilter { get; set; }
 
     public List<Contact> ContactList = new(128);
 

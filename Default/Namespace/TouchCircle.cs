@@ -34,8 +34,6 @@ public class TouchCircle(Touch _touch, LevelBuilderBase builder) : BodyClip(buil
         }
     }
 
-    private Dictionary<PlasticineBodyClip, ClosestItem> closestMap;
-
     private bool enabled = true;
 
     private bool free = true;
@@ -84,20 +82,6 @@ public class TouchCircle(Touch _touch, LevelBuilderBase builder) : BodyClip(buil
             val = val.Next;
         }
         free = !flag;
-    }
-
-    public bool IsNegative(PlasticinePartBodyClip part)
-    {
-        if (!closestMap.TryGetValue(part.Parent, out ClosestItem closestItem))
-        {
-            closestItem = new ClosestItem(null, refreshed: false);
-            closestMap[part.Parent] = closestItem;
-        }
-        if (!closestItem.Refreshed)
-        {
-            RefreshClosestPlasticineDefaultItem(closestItem, part);
-        }
-        return closestItem.Negative;
     }
 
     public void RefreshClosestPlasticineDefaultItem(ClosestItem item, PlasticinePartBodyClip defaultItem)

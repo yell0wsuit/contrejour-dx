@@ -29,12 +29,6 @@ public class Splash : Node, ITouchListener, IDisposable
 
     private LayerColor background;
 
-    private Sprite title;
-
-    private McChillingoLogo logo;
-
-    private FakeHero hero;
-
     private Vector2 center;
 
     private Sprite mokusLogo;
@@ -108,7 +102,6 @@ public class Splash : Node, ITouchListener, IDisposable
 
     private void RemoveListeners()
     {
-        logo?.EndEvent -= ShowHero;
         Mokus2DGame.Instance.KeysController.RemoveBackKeyListener(OnBackClick);
         Mokus2DGame.Instance.TouchController.RemoveListener(this);
     }
@@ -129,59 +122,8 @@ public class Splash : Node, ITouchListener, IDisposable
     {
     }
 
-    private void ShowHero(IAnimatedNode animatedNode)
-    {
-        hero.Visible = true;
-        _ = hero.FadeIn(0.5f);
-        _ = this.Schedule(0.5f, EndJump);
-        hero.Eye.Open();
-    }
-
-    private void EndJump()
-    {
-        logo.Visible = false;
-        hero.SetViewAngle((float)Math.PI / 4f, 1f);
-        _ = this.Schedule(0.3f, LookRight);
-    }
-
-    private void LookRight()
-    {
-        hero.SetViewAngle((float)Math.PI * 3f / 4f, 1f);
-        _ = this.Schedule(0.3f, StartMove);
-    }
-
-    private void StartMove()
-    {
-        Vector2 vector = new(ScreenConstants.W7FromIPhoneSize.X, 0f);
-        _ = hero.Tweener.Start(2f).MoveTo(hero.Position + vector, Cubic.EaseIn);
-        hero.SetViewAngle(0f, 0f);
-        hero.SetMoveAngle(0f, 1f);
-        _ = title.Tweener.Start(2f).MoveTo(title.Position + vector, Cubic.EaseIn);
-        _ = hero.Background.Tweener.Start(2f).RotateTo(0f - 1080.ToRadians(), Cubic.EaseIn);
-        _ = this.Schedule(0.6f, RefreshSpeed);
-        _ = this.Schedule(0.1f, SlowLookRight);
-        _ = this.Schedule(2f, ShowMokus);
-    }
-
-    private void SlowLookRight()
-    {
-        hero.Eye.EyeStep = 0.4f;
-        hero.SetViewAngle(0f, 1f);
-    }
-
-    private void RefreshSpeed()
-    {
-        hero.Speed = 6f;
-    }
-
     private void ShowMokus()
     {
-        if (logo != null)
-        {
-            RemoveChild(logo);
-            RemoveChild(title);
-            hero.Visible = false;
-        }
         mokusLogo = new McMokusLogo();
         AddChild(mokusLogo);
         mokusLogo.Position = center;

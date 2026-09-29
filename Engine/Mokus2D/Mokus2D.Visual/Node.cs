@@ -49,7 +49,7 @@ public class Node : DisposableBase, IUpdatable, IConfig
 
     public bool IgnoreParentOpacity;
 
-    private bool IgnoreParentTransformations;
+    public bool IgnoreParentTransformations { get; set; }
 
     public IgnoredAnimationProperties IgnoredAnimations = IgnoredAnimationProperties.None;
 

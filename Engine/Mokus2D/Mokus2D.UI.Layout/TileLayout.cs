@@ -9,9 +9,9 @@ public class TileLayout(Node container, int maxItems) : LayoutBase(container)
 {
     private readonly int _maxItems = maxItems;
 
-    private Vector2 Margins;
+    public Vector2 Margins { get; set; }
 
-    private Vector2? ItemSize;
+    public Vector2? ItemSize { get; set; }
 
     public void Apply()
     {

@@ -17,7 +17,7 @@ public class MagneticDisplacementGrid : DisplacementGrid
 
     private bool StaticBorders = true;
 
-    private Vector2 MagnetsOffset;
+    public Vector2 MagnetsOffset { get; set; }
 
     private float PowerMult = 1f;
 

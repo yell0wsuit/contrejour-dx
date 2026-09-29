@@ -16,7 +16,7 @@ public sealed class BuoyancyController : Controller
 
     private float LinearDragCoefficient;
 
-    private Vector2 Velocity;
+    public Vector2 Velocity { get; set; }
 
     private AABB _container;
 

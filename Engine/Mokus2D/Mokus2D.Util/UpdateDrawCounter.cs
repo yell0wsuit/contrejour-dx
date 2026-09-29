@@ -22,7 +22,7 @@ public class UpdateDrawCounter(int framesToCalculate) : FpsCounter(framesToCalcu
 
     private int _drawsCount;
 
-    private Label OutputLabel;
+    public Label OutputLabel { get; set; }
 
     private readonly Dictionary<string, object> _testValues = [];
 
@@ -32,7 +32,7 @@ public class UpdateDrawCounter(int framesToCalculate) : FpsCounter(framesToCalcu
 
     private int _updatedNodes;
 
-    private string AdditionalText;
+    public string AdditionalText { get; set; }
 
     public float DrawTime { get; private set; }
 

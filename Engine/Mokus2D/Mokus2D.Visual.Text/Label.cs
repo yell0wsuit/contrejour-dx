@@ -42,7 +42,7 @@ public class Label : AnchorNode, IDataReloadable
     private readonly bool _dynamicTextureSize = true;
     public bool DynamicClickArea = true;
 
-    private bool? IgnoreMissingSymbols;
+    public bool? IgnoreMissingSymbols { get; set; }
 
     public Vector2 TextSize { get; private set; }
 

@@ -20,15 +20,15 @@ public class Terrain
 
     private float Height;
 
-    private int PointsPerUnit;
+    public int PointsPerUnit { get; set; }
 
-    private int CellSize;
+    public int CellSize { get; set; }
 
-    private int SubCellSize;
+    public int SubCellSize { get; set; }
 
     private int Iterations = 2;
 
-    private TriangulationAlgorithm Decomposer;
+    public TriangulationAlgorithm Decomposer { get; set; }
 
     private sbyte[,] _terrainMap;
 

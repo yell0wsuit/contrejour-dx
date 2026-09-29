@@ -16,7 +16,7 @@ public class PhysicsDisplacementGrid : DisplacementGrid
 
     private float InteractionCoeff = 1f;
 
-    private float RecoveryVelocity;
+    public float RecoveryVelocity { get; set; }
 
     private Vector2 _defaultDistances;
 

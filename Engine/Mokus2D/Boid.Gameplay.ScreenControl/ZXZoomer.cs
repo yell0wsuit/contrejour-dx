@@ -16,9 +16,9 @@ public class ZXZoomer : DisposableBase, IUpdatable
 {
     private bool Enabled = true;
 
-    private float? ZoomMax;
+    public float? ZoomMax { get; set; }
 
-    private float? ZoomMin;
+    public float? ZoomMin { get; set; }
 
     private float ZoomSpeed = 1f;
 

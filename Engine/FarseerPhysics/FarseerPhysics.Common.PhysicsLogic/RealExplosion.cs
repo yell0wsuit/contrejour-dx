@@ -14,7 +14,7 @@ public sealed class RealExplosion(World world) : PhysicsLogic(world, PhysicsLogi
 {
     private float EdgeRatio = 0.025f;
 
-    private bool IgnoreWhenInsideShape;
+    public bool IgnoreWhenInsideShape { get; set; }
 
     private float MaxAngle = (float)Math.PI / 15f;
 
