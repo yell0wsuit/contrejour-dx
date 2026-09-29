@@ -32,7 +32,7 @@ public class Mokus2DApplication<T> : Microsoft.Xna.Framework.Game where T : Moku
     {
         base.Initialize();
         Content = new MokusContentManager(Services);
-        ApplicationController applicationController = new(_game, this, _graphics);
+        ApplicationController applicationController = new(this, _graphics);
         T game = _game;
         game.Initialize(applicationController);
         // Subscribe after the game is set up: resizes applied during Initialize would otherwise

@@ -23,16 +23,6 @@ public static class FarseerUtil
 {
     public delegate bool ClipPredicate(BodyClip clip, object param);
 
-    public struct Borders(bool left, bool top, bool right, bool bottom)
-    {
-        private bool Bottom = bottom;
-
-        private bool Left = left;
-
-        private bool Right = right;
-
-        private bool Top = top;
-    }
 
     public static bool DynamicBodyPredicate(Body body)
     {

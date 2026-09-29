@@ -1,16 +1,25 @@
+using System.Diagnostics.CodeAnalysis;
+
 using Microsoft.Xna.Framework;
 
 namespace Default.Namespace;
 
-public class SpringSnotSprite(ContreJourGame _game, SnotBodyClipBase snot, float startWidth, float centerWidth, float endWidth) : SnotSprite(snot, startWidth, centerWidth, endWidth)
+public class SpringSnotSprite : SnotSprite
 {
-    private ContreJourGame game = _game;
-
     private bool active;
 
     protected float activeProgress;
 
     private float previousActiveProgress = 1f;
+
+    // Snot sprites are created by reflection with (game, snot, startWidth, centerWidth, endWidth);
+    // this one has no use for the game.
+    [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "Part of the reflection constructor signature.")]
+    [SuppressMessage("Style", "IDE0290:Use primary constructor", Justification = "An unread primary constructor parameter is a compiler warning.")]
+    public SpringSnotSprite(ContreJourGame game, SnotBodyClipBase snot, float startWidth, float centerWidth, float endWidth)
+        : base(snot, startWidth, centerWidth, endWidth)
+    {
+    }
 
     public bool Active
     {

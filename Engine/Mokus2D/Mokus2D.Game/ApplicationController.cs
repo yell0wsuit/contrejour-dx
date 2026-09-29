@@ -11,9 +11,8 @@ using Mokus2D.Util.Resources;
 
 namespace Mokus2D.Game;
 
-public class ApplicationController(Mokus2DGame game, Microsoft.Xna.Framework.Game application, GraphicsDeviceManager graphics) : DisposableBase
+public class ApplicationController(Microsoft.Xna.Framework.Game application, GraphicsDeviceManager graphics) : DisposableBase
 {
-    private readonly Mokus2DGame Game = game;
 
     private readonly GraphicsDeviceManager _graphics = graphics;
 
