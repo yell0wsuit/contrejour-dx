@@ -5,7 +5,6 @@ using Microsoft.Xna.Framework;
 using Mokus2D.Data;
 using Mokus2D.Interfaces;
 using Mokus2D.PlatformSupport.Input;
-using Mokus2D.Util.Extensions;
 using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual.Data;
 using Mokus2D.Visual.GameDebug;
@@ -101,7 +100,7 @@ namespace Mokus2D.Input
                 for (int i = 0; i < currentTouches.Count; i++)
                 {
                     CursorPoint cursorPoint = currentTouches[i];
-                    currentTouches[i] = new CursorPoint(cursorPoint.Position.Transform(ref TransformMatrix), cursorPoint.Id, cursorPoint.Type);
+                    currentTouches[i] = new CursorPoint(Vector2.Transform(cursorPoint.Position, TransformMatrix), cursorPoint.Id, cursorPoint.Type);
                 }
             }
         }

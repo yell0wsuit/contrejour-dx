@@ -16,8 +16,8 @@ namespace Mokus2D.Integration.Farseer.Construction.Processors
             if (item.Config.GetBool("limitEnabled"))
             {
                 revoluteJoint.LimitEnabled = true;
-                revoluteJoint.LowerLimit = item.Config.GetFloat("lowerLimit").ToRadians();
-                revoluteJoint.UpperLimit = item.Config.GetFloat("upperLimit").ToRadians();
+                revoluteJoint.LowerLimit = MathHelper.ToRadians(item.Config.GetFloat("lowerLimit"));
+                revoluteJoint.UpperLimit = MathHelper.ToRadians(item.Config.GetFloat("upperLimit"));
             }
             revoluteJoint.CollideConnected = item.Config.GetBool("collideConnected");
             return revoluteJoint;

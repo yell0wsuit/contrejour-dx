@@ -1,6 +1,5 @@
 using Microsoft.Xna.Framework;
 
-using Mokus2D.Util.Extensions;
 using Mokus2D.Visual.Util;
 
 namespace ContreJour.Gameplay
@@ -44,7 +43,7 @@ namespace ContreJour.Gameplay
 
         public override Color EndColor()
         {
-            Color result = EndCircleColor().Mult(ActiveProgress);
+            Color result = EndCircleColor() * ActiveProgress;
             result.A = 0;
             return result;
         }

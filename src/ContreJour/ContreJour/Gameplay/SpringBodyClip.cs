@@ -8,7 +8,6 @@ using Microsoft.Xna.Framework;
 
 using Mokus2D.Input;
 using Mokus2D.Sound;
-using Mokus2D.Util.Extensions;
 using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual;
 using Mokus2D.Visual.Particles.Util;
@@ -240,7 +239,7 @@ namespace ContreJour.Gameplay
 
         private float GetTouchDistance(Vector2 touchPosition)
         {
-            return Body.GetWorldPoint(BodyCenterVec).DistanceTo(touchPosition);
+            return Vector2.Distance(Body.GetWorldPoint(BodyCenterVec), touchPosition);
         }
 
         public void LaunchTouching()
@@ -279,7 +278,7 @@ namespace ContreJour.Gameplay
             float num = 1f;
             if ((int)bodyClip.Body.BodyType == 2)
             {
-                float num2 = WorldSuckPoint.DistanceTo(bodyClip.Body.Position) - bodyClip.Radius();
+                float num2 = Vector2.Distance(WorldSuckPoint, bodyClip.Body.Position) - bodyClip.Radius();
                 if (num2 > 0f)
                 {
                     num = Math.Max(0f, (6.6666665f - num2) / 6.6666665f);

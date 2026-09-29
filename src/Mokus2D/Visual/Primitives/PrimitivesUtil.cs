@@ -31,10 +31,10 @@ namespace Mokus2D.Visual.Primitives
             for (int i = 0; i < line.Count; i++)
             {
                 ref readonly T reference = ref result[i * 2];
-                Vector3 position = line[i].First.ToVector3();
+                Vector3 position = new(line[i].First, 0f);
                 reference.Position = position;
                 ref readonly T reference2 = ref result[(i * 2) + 1];
-                Vector3 position2 = line[i].Second.ToVector3();
+                Vector3 position2 = new(line[i].Second, 0f);
                 reference2.Position = position2;
             }
         }

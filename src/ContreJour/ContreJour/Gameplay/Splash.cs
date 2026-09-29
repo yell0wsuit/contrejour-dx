@@ -137,7 +137,7 @@ namespace ContreJour.Gameplay
             blackHero.Position = blackHeroPosition + new Vector2(ScreenConstants.W7FromIPhoneSize.X / 2.5f, 0f);
             blackHero.Scale = 0.7f;
             _ = blackHero.Tweener.Start(1f).MoveTo(blackHeroPosition, Cubic.EaseOut);
-            _ = blackHero.Background.Tweener.Start(1f).RotateTo(540.ToRadians(), Cubic.EaseOut);
+            _ = blackHero.Background.Tweener.Start(1f).RotateTo(MathHelper.ToRadians(540), Cubic.EaseOut);
             blackHero.SetMoveAngle(-(float)Math.PI, 3f);
             blackHero.SetViewAngle(-(float)Math.PI, 1f);
             _ = this.Schedule(1.2f, MoveMokusOut);
@@ -147,7 +147,7 @@ namespace ContreJour.Gameplay
         {
             Vector2 vector = new(ScreenConstants.W7FromIPhoneSize.X * 0.8f, 0f);
             _ = blackHero.MoveTo(1f, blackHeroPosition + vector, Cubic.EaseIn);
-            _ = blackHero.Background.RotateTo(1f, 0f - 540.ToRadians(), Cubic.EaseIn);
+            _ = blackHero.Background.RotateTo(1f, 0f - MathHelper.ToRadians(540), Cubic.EaseIn);
             blackHero.SetMoveAngle(0f, 3f);
             blackHero.SetViewAngle(0f, 1f);
             blackHero.Eye.EyeStep = 0.2f;

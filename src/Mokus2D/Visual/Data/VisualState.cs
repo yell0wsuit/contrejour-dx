@@ -68,7 +68,7 @@ namespace Mokus2D.Visual.Data
                 if (Mokus2DGame.Config.GraphicsConfig.UseColorRatio)
                 {
                     float num = colorRatio * (1f - parentState.ColorRatio);
-                    _color = nodeColor.LerpTo(parentState._color, parentState.ColorRatio / (parentState.ColorRatio + num));
+                    _color = Color.Lerp(nodeColor, parentState._color, parentState.ColorRatio / (parentState.ColorRatio + num));
                     ColorRatio = parentState.ColorRatio + num;
                 }
                 else

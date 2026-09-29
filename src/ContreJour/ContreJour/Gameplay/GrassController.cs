@@ -5,7 +5,6 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 
 using Mokus2D.Interfaces;
-using Mokus2D.Util.Extensions;
 using Mokus2D.Util.MathUtils;
 
 namespace ContreJour.Gameplay
@@ -137,11 +136,11 @@ namespace ContreJour.Gameplay
                     touchingObject = null;
                 }
             }
-            float target = num.ToDegrees();
+            float target = MathHelper.ToDegrees(num);
             float num6 = time * 30f;
             float smallGrassStep = SmallGrassStep;
             float grassStep = GrassStep;
-            smallGrassRotation = Maths.StepTo(smallGrassRotation, num2.ToDegrees(), smallGrassStep * num6);
+            smallGrassRotation = Maths.StepTo(smallGrassRotation, MathHelper.ToDegrees(num2), smallGrassStep * num6);
             Grass.RotationDegrees = Maths.StepTo(Grass.RotationDegrees, target, grassStep * num6);
             touched = false;
         }

@@ -4,8 +4,6 @@ using FarseerPhysics.Dynamics;
 
 using Microsoft.Xna.Framework;
 
-using Mokus2D.Util.Extensions;
-
 namespace ContreJour.Gameplay
 {
     internal readonly struct FixtureDistanceComparer(Vector2 center) : IComparer<Fixture>
@@ -14,8 +12,8 @@ namespace ContreJour.Gameplay
 
         public readonly int Compare(Fixture x, Fixture y)
         {
-            float num = x.Body.Position.DistanceTo(center);
-            float num2 = y.Body.Position.DistanceTo(center);
+            float num = Vector2.Distance(x.Body.Position, center);
+            float num2 = Vector2.Distance(y.Body.Position, center);
             return num < num2 ? -1 : num == num2 ? 0 : 2;
         }
     }

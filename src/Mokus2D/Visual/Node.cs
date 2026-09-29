@@ -544,7 +544,7 @@ namespace Mokus2D.Visual
                 RefreshParentTransformations();
             }
             Matrix matrix = Matrix.Invert(CompositeState.Matrix);
-            return source.Transform(ref matrix);
+            return Vector2.Transform(source, matrix);
         }
 
         public Vector2 LocalToGlobal(Vector2 source, bool refreshTransformations = true)

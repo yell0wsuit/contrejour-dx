@@ -49,21 +49,6 @@ namespace Mokus2D.Util.Extensions
             return Color.Lerp(color, Color.White, amount);
         }
 
-        public static Color LerpTo(this Color color, Color target, float amount)
-        {
-            return Color.Lerp(color, target, amount);
-        }
-
-        public static Color ToColor(this Vector4 color)
-        {
-            return new Color(color.X, color.Y, color.Z, color.W);
-        }
-
-        public static Vector4 ToVector4(this Color color)
-        {
-            return new Vector4(color.R, color.G, color.B, color.A) / 255f;
-        }
-
         public static Color ChangeAlpha(this Color color, byte alpha)
         {
             color.A = alpha;
@@ -99,11 +84,6 @@ namespace Mokus2D.Util.Extensions
         public static Color Add(this Color color, ColorDiff colorSub)
         {
             return new Color(color.R + colorSub.R, color.G + colorSub.G, color.B + colorSub.B, color.A + colorSub.A);
-        }
-
-        public static Color Mult(this Color color, float mult)
-        {
-            return color * mult;
         }
     }
 }

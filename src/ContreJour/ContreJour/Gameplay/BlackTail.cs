@@ -112,7 +112,7 @@ namespace ContreJour.Gameplay
                 currentCenter = currentPosition.Middle(previousPosition);
                 if (previousCenter != Vector2.Zero)
                 {
-                    float num = currentCenter.DistanceTo(previousCenter);
+                    float num = Vector2.Distance(currentCenter, previousCenter);
                     flag = num > 1f;
                     if (flag)
                     {
@@ -143,9 +143,9 @@ namespace ContreJour.Gameplay
                     for (int j = 0; j < list2.Count; j++)
                     {
                         int num2 = j * 2;
-                        Vertices[num2].Position = list2[j].First.ToVector3();
+                        Vertices[num2].Position = new Vector3(list2[j].First, 0f);
                         Vertices[num2].TextureCoordinate = new Vector2(j, 0f);
-                        Vertices[num2 + 1].Position = list2[j].Second.ToVector3();
+                        Vertices[num2 + 1].Position = new Vector3(list2[j].Second, 0f);
                         Vertices[num2 + 1].TextureCoordinate = new Vector2(j, 1f);
                         Vertices[num2].Color = GetTailColor();
                         Vertices[num2 + 1].Color = GetTailColor();

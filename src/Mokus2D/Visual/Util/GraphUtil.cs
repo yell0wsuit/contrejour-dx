@@ -85,7 +85,7 @@ namespace Mokus2D.Visual.Util
             VertexPositionColor[] array = new VertexPositionColor[lenght];
             for (int i = 0; i < lenght; i++)
             {
-                array[i].Position = polygon[i].ToVector3();
+                array[i].Position = new Vector3(polygon[i], 0f);
                 array[i].Color = colors[i];
             }
             return array;
@@ -100,7 +100,7 @@ namespace Mokus2D.Visual.Util
             VertexPositionColor[] array = new VertexPositionColor[lenght];
             for (int i = 0; i < lenght; i++)
             {
-                array[i].Position = polygon[i].ToVector3();
+                array[i].Position = new Vector3(polygon[i], 0f);
                 array[i].Color = color;
             }
             return array;
@@ -225,12 +225,12 @@ namespace Mokus2D.Visual.Util
                 Vector2 controlVertex = surface[(i + 2) % surface.Count];
                 Vector2 outVertex = GetOutVertex(vector, vector3, controlVertex, width);
                 int num = i * 6;
-                vertices[num].Position = vector.ToVector3();
-                vertices[num + 1].Position = vector3.ToVector3();
-                vertices[num + 2].Position = vector2.ToVector3();
-                vertices[num + 3].Position = vector3.ToVector3();
-                vertices[num + 4].Position = vector2.ToVector3();
-                vertices[num + 5].Position = outVertex.ToVector3();
+                vertices[num].Position = new Vector3(vector, 0f);
+                vertices[num + 1].Position = new Vector3(vector3, 0f);
+                vertices[num + 2].Position = new Vector3(vector2, 0f);
+                vertices[num + 3].Position = new Vector3(vector3, 0f);
+                vertices[num + 4].Position = new Vector3(vector2, 0f);
+                vertices[num + 5].Position = new Vector3(outVertex, 0f);
                 vector = vector3;
                 vector2 = outVertex;
             }
@@ -395,7 +395,7 @@ namespace Mokus2D.Visual.Util
             VertexPositionColorTexture[] array = new VertexPositionColorTexture[vertices.Count];
             for (int i = 0; i < vertices.Count; i++)
             {
-                array[i].Position = vertices[i].ToVector3();
+                array[i].Position = new Vector3(vertices[i], 0f);
                 array[i].Color = color;
                 array[i].TextureCoordinate = textureCoords[i];
             }
@@ -500,12 +500,12 @@ namespace Mokus2D.Visual.Util
                 Vector2 controlVertex = surface[(i + 2) % surface.Count];
                 Vector2 outVertex = GetOutVertex(vector, vector3, controlVertex, width);
                 int num = i * 6;
-                vertices[num].Position = vector.ToVector3();
-                vertices[num + 1].Position = vector3.ToVector3();
-                vertices[num + 2].Position = vector2.ToVector3();
-                vertices[num + 3].Position = vector3.ToVector3();
-                vertices[num + 4].Position = vector2.ToVector3();
-                vertices[num + 5].Position = outVertex.ToVector3();
+                vertices[num].Position = new Vector3(vector, 0f);
+                vertices[num + 1].Position = new Vector3(vector3, 0f);
+                vertices[num + 2].Position = new Vector3(vector2, 0f);
+                vertices[num + 3].Position = new Vector3(vector3, 0f);
+                vertices[num + 4].Position = new Vector3(vector2, 0f);
+                vertices[num + 5].Position = new Vector3(outVertex, 0f);
                 vector = vector3;
                 vector2 = outVertex;
             }

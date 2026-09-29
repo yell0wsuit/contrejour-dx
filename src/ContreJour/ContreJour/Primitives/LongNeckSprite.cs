@@ -147,12 +147,12 @@ namespace ContreJour.Primitives
             for (int i = 0; i < firstBezier.Count - 1; i++)
             {
                 int num = i * 6;
-                Vertices[num].Position = firstBezier[i].ToVector3();
-                Vertices[num + 1].Position = firstBezier[i + 1].ToVector3();
-                Vertices[num + 2].Position = secondBezier[i].ToVector3();
-                Vertices[num + 3].Position = secondBezier[i].ToVector3();
-                Vertices[num + 4].Position = secondBezier[i + 1].ToVector3();
-                Vertices[num + 5].Position = firstBezier[i + 1].ToVector3();
+                Vertices[num].Position = new Vector3(firstBezier[i], 0f);
+                Vertices[num + 1].Position = new Vector3(firstBezier[i + 1], 0f);
+                Vertices[num + 2].Position = new Vector3(secondBezier[i], 0f);
+                Vertices[num + 3].Position = new Vector3(secondBezier[i], 0f);
+                Vertices[num + 4].Position = new Vector3(secondBezier[i + 1], 0f);
+                Vertices[num + 5].Position = new Vector3(firstBezier[i + 1], 0f);
                 if (Texture != null)
                 {
                     RefreshTextureCoords(i, num);

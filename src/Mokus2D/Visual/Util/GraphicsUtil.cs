@@ -38,7 +38,7 @@ namespace Mokus2D.Visual.Util
         public static void PositionLine(Node line, Vector2 from, Vector2 to, float nodeWidth, float offset)
         {
             line.Position = from;
-            float num = to.DistanceTo(line.Position);
+            float num = Vector2.Distance(to, line.Position);
             line.ScaleX = (num + offset) / nodeWidth;
             line.RotationRadians = (to - line.Position).Atan2();
         }

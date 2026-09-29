@@ -93,8 +93,8 @@ namespace Mokus2D.Visual.Primitives
         public void CreatePolygonsFirstBezierSecondBezier(List<Vector2> firstBezier, List<Vector2> secondBezier)
         {
             ProcessBezierSecond(firstBezier, secondBezier);
-            TintSpriteVertex tintSpriteVertex = new(Vector2.Transform(firstBezier[0], CompositeState.Matrix).ToVector3(), Color, _textureLeftBottomCoordinate, ColorRatio);
-            TintSpriteVertex tintSpriteVertex2 = new(Vector2.Transform(secondBezier[0], CompositeState.Matrix).ToVector3(), Color, _textureLeftTopCoordinate, ColorRatio);
+            TintSpriteVertex tintSpriteVertex = new(new Vector3(Vector2.Transform(firstBezier[0], CompositeState.Matrix), 0f), Color, _textureLeftBottomCoordinate, ColorRatio);
+            TintSpriteVertex tintSpriteVertex2 = new(new Vector3(Vector2.Transform(secondBezier[0], CompositeState.Matrix), 0f), Color, _textureLeftTopCoordinate, ColorRatio);
             _vertices[0] = tintSpriteVertex;
             _vertices[1] = tintSpriteVertex2;
             int num = 2;
@@ -102,8 +102,8 @@ namespace Mokus2D.Visual.Primitives
             short num3 = 0;
             for (int i = 1; i < firstBezier.Count; i++)
             {
-                TintSpriteVertex tintSpriteVertex3 = new(Vector2.Transform(firstBezier[i], CompositeState.Matrix).ToVector3(), Color, _textureRightTopCoordinate, ColorRatio);
-                TintSpriteVertex tintSpriteVertex4 = new(Vector2.Transform(secondBezier[i], CompositeState.Matrix).ToVector3(), Color, _textureRightBottomCoordinate, ColorRatio);
+                TintSpriteVertex tintSpriteVertex3 = new(new Vector3(Vector2.Transform(firstBezier[i], CompositeState.Matrix), 0f), Color, _textureRightTopCoordinate, ColorRatio);
+                TintSpriteVertex tintSpriteVertex4 = new(new Vector3(Vector2.Transform(secondBezier[i], CompositeState.Matrix), 0f), Color, _textureRightBottomCoordinate, ColorRatio);
                 _vertices[num] = tintSpriteVertex3;
                 _vertices[num + 1] = tintSpriteVertex4;
                 num += 2;

@@ -83,8 +83,8 @@ namespace Mokus2D.Visual.Primitives
                 for (int j = 0; j < _bezierSegmentsCount; j++)
                 {
                     Pair<T> item = LerpVertices(start, pair, j / (float)_bezierSegmentsCount);
-                    item.First.Position = _firstBezierPoints[j].ToVector3();
-                    item.Second.Position = _secondBezierPoints[j].ToVector3();
+                    item.First.Position = new Vector3(_firstBezierPoints[j], 0f);
+                    item.Second.Position = new Vector3(_secondBezierPoints[j], 0f);
                     lines.Add(item);
                 }
             }
@@ -101,14 +101,14 @@ namespace Mokus2D.Visual.Primitives
                 First =
                 {
                     Position = Vector3.Lerp(value1.First.Position, value2.First.Position, amount),
-                    Color = value1.First.Color.LerpTo(value2.First.Color, amount),
-                    TextureCoordinate = value1.First.TextureCoordinate.LerpTo(value2.First.TextureCoordinate, amount)
+                    Color = Color.Lerp(value1.First.Color, value2.First.Color, amount),
+                    TextureCoordinate = Vector2.Lerp(value1.First.TextureCoordinate, value2.First.TextureCoordinate, amount)
                 },
                 Second =
                 {
                     Position = Vector3.Lerp(value1.Second.Position, value2.Second.Position, amount),
-                    Color = value1.Second.Color.LerpTo(value2.Second.Color, amount),
-                    TextureCoordinate = value1.Second.TextureCoordinate.LerpTo(value2.Second.TextureCoordinate, amount)
+                    Color = Color.Lerp(value1.Second.Color, value2.Second.Color, amount),
+                    TextureCoordinate = Vector2.Lerp(value1.Second.TextureCoordinate, value2.Second.TextureCoordinate, amount)
                 }
             };
         }

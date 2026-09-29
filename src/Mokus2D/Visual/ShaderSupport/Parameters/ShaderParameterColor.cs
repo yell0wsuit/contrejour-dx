@@ -1,8 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using Mokus2D.Util.Extensions;
-
 namespace Mokus2D.Visual.ShaderSupport.Parameters
 {
     public class ShaderParameterColor : ShaderParameter<Color>
@@ -24,7 +22,7 @@ namespace Mokus2D.Visual.ShaderSupport.Parameters
 
         protected override Color GetValue()
         {
-            return Parameter.GetValueVector4().ToColor();
+            return new Color(Parameter.GetValueVector4());
         }
 
         public static implicit operator ShaderParameterColor(EffectParameter parameter)

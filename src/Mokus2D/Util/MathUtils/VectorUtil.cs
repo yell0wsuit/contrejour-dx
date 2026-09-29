@@ -174,7 +174,7 @@ namespace Mokus2D.Util.MathUtils
 
         public static float DistanceToSegment(this Vector2 vector, Vector2 segmentStart, Vector2 segmentEnd)
         {
-            return vector.DistanceTo(vector.GetClosestPoint(segmentStart, segmentEnd));
+            return Vector2.Distance(vector, vector.GetClosestPoint(segmentStart, segmentEnd));
         }
 
         public static Vector2 GetClosestPoint(this Vector2 vector, Vector2 segmentStart, Vector2 segmentEnd)

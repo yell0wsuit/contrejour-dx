@@ -4,7 +4,6 @@ using Microsoft.Xna.Framework;
 
 using Mokus2D.Interfaces;
 using Mokus2D.Util.Data;
-using Mokus2D.Util.Extensions;
 using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual.Drawing.Vertex;
 
@@ -72,8 +71,8 @@ namespace Mokus2D.Visual.Primitives
             }
             Pair<Vector2> orthoPoints = VectorUtil.GetOrthoPoints(center, vector, _width);
             Pair<T> defaultPair = sprite.GetDefaultPair(index / (float)(PairsCount - 1));
-            defaultPair.First.Position = orthoPoints.First.Transform(ref matrix).ToVector3();
-            defaultPair.Second.Position = orthoPoints.Second.Transform(ref matrix).ToVector3();
+            defaultPair.First.Position = new Vector3(Vector2.Transform(orthoPoints.First, matrix), 0f);
+            defaultPair.Second.Position = new Vector3(Vector2.Transform(orthoPoints.Second, matrix), 0f);
             lines.Add(defaultPair);
         }
 

@@ -75,7 +75,7 @@ namespace Mokus2D.Visual.Displacement.Magnets
         public override Vector2 GetForce(Vector2 relativePosition)
         {
             Vector2 closestPoint = relativePosition.GetClosestPoint(Start, End);
-            float num = closestPoint.DistanceTo(relativePosition);
+            float num = Vector2.Distance(closestPoint, relativePosition);
             return num >= MaxDistance
                 ? Vector2.Zero
                 : relativePosition == closestPoint
@@ -89,8 +89,8 @@ namespace Mokus2D.Visual.Displacement.Magnets
             Vector2 value2 = (End - Start).Abs();
             value -= new Vector2(MaxDistance);
             value2 += new Vector2(MaxDistance) * 2f;
-            value2 = VectorExtensions.Ceiling(value2);
-            value = VectorExtensions.Floor(value);
+            value2 = Vector2.Ceiling(value2);
+            value = Vector2.Floor(value);
             Bounds = new Rectangle((int)value.X, (int)value.Y, (int)value2.X, (int)value2.Y);
         }
     }

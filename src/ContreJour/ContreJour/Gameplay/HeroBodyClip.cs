@@ -540,7 +540,7 @@ namespace ContreJour.Gameplay
 
         public void TryConfuse()
         {
-            float num = Body.LinearVelocity.DistanceTo(previousSpeed);
+            float num = Vector2.Distance(Body.LinearVelocity, previousSpeed);
             bool flag = Game.TotalTime - lastOnGroundTime < 0.1f;
             if (!(num >= 4f) || finishSet || SpeedLocked)
             {

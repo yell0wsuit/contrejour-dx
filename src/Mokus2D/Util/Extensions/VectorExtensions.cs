@@ -15,18 +15,6 @@ namespace Mokus2D.Util.Extensions
             return new Vector2(Convert.ToSingle(array[0], CultureInfo.InvariantCulture.NumberFormat), Convert.ToSingle(array[1], CultureInfo.InvariantCulture.NumberFormat));
         }
 
-        public static Vector2 Transform(this Vector2 source, ref Matrix matrix)
-        {
-            Vector2.Transform(ref source, ref matrix, out Vector2 result);
-            return result;
-        }
-
-        public static Vector3 Transform(this Vector3 source, ref Matrix matrix)
-        {
-            Vector3.Transform(ref source, ref matrix, out Vector3 result);
-            return result;
-        }
-
         public static float WherePoint(this Vector2 point, Vector2 start, Vector2 end)
         {
             return VectorUtil.WherePoint(start, end, point);
@@ -50,21 +38,6 @@ namespace Mokus2D.Util.Extensions
         public static Vector2 ChangeX(this Vector2 source, float x)
         {
             return new Vector2(x, source.Y);
-        }
-
-        public static Vector2 LerpTo(this Vector2 source, Vector2 target, float amount)
-        {
-            return Vector2.Lerp(source, target, amount);
-        }
-
-        public static Vector2 Floor(this Vector2 value)
-        {
-            return new Vector2(value.X.Floor(), value.Y.Floor());
-        }
-
-        public static Vector2 Ceiling(this Vector2 value)
-        {
-            return new Vector2(value.X.Ceiling(), value.Y.Ceiling());
         }
 
         public static Vector2 Size(this Rectangle value)
@@ -127,34 +100,9 @@ namespace Mokus2D.Util.Extensions
             return new Vector2(vector.X, vector.Y);
         }
 
-        public static Vector2 Round(this Vector2 vector)
-        {
-            return new Vector2((float)Math.Round(vector.X), (float)Math.Round(vector.Y));
-        }
-
-        public static Point ToPoint(this Vector2 vector)
-        {
-            return new Point((int)vector.X, (int)vector.Y);
-        }
-
         public static Vector2 ToIntVector(this Vector2 vector)
         {
             return new Vector2((int)vector.X, (int)vector.Y);
-        }
-
-        public static Vector3 Round(this Vector3 vector)
-        {
-            return new Vector3(vector.X.Round(), vector.Y.Round(), vector.Z.Round());
-        }
-
-        public static Vector3 ToVector3(this Vector2 vector)
-        {
-            return vector.ToVector3(0f);
-        }
-
-        public static Vector3 ToVector3(this Vector2 vector, float z)
-        {
-            return new Vector3(vector.X, vector.Y, z);
         }
 
         public static Vector2 Rotate(this Vector2 vector, float angle)
@@ -205,16 +153,6 @@ namespace Mokus2D.Util.Extensions
             vector *= step / vector.Length();
             source += vector;
             return source;
-        }
-
-        public static float DistanceTo(this Vector2 source, Vector2 target)
-        {
-            return (target - source).Length();
-        }
-
-        public static float DistanceToSquared(this Vector2 source, Vector2 target)
-        {
-            return (target - source).LengthSquared();
         }
 
         public static Vector2 Middle(this Vector2 source, Vector2 target)

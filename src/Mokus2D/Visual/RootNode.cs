@@ -1,6 +1,5 @@
 using Microsoft.Xna.Framework;
 
-using Mokus2D.Util.Extensions;
 using Mokus2D.Visual.Data;
 using Mokus2D.Visual.Drawing;
 using Mokus2D.Visual.Parallel;
@@ -66,7 +65,7 @@ namespace Mokus2D.Visual
         public override Vector2 GlobalToLocal(Vector2 source, bool refreshTransformations = true)
         {
             Matrix matrix = Matrix.Invert(NodeMatrix);
-            return source.Transform(ref matrix);
+            return Vector2.Transform(source, matrix);
         }
 
         public virtual void DrawAll()

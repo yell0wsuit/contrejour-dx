@@ -38,7 +38,7 @@ namespace ContreJour.Gameplay
             {
                 Vector2 vector = line[i - 1].Middle(line[i]);
                 Vector2 vector2 = line[i].Middle(line[i + 1]);
-                int num = (int)Math.Ceiling((vector.DistanceTo(line[i]) + vector2.DistanceTo(line[i])) / maxStep);
+                int num = (int)Math.Ceiling((Vector2.Distance(vector, line[i]) + Vector2.Distance(vector2, line[i])) / maxStep);
                 if (num <= 1)
                 {
                     list.Add(vector);

@@ -93,7 +93,7 @@ namespace ContreJour.Gameplay
             };
             Builder.Add(trajectory, 11);
             trajectory.Position = Builder.ToIPadPoint(center);
-            trajectory.Angle = config.GetFloat("rotation").ToRadians() + ((float)Math.PI / 2f);
+            trajectory.Angle = MathHelper.ToRadians(config.GetFloat("rotation")) + ((float)Math.PI / 2f);
             timeFromLaunch = 0.3f;
             SetJointsDamping(1f);
         }

@@ -4,7 +4,6 @@ using FarseerPhysics.Dynamics.Contacts;
 using Microsoft.Xna.Framework;
 
 using Mokus2D.Input;
-using Mokus2D.Util.Extensions;
 using Mokus2D.Util.MathUtils;
 
 namespace ContreJour.Gameplay
@@ -75,8 +74,8 @@ namespace ContreJour.Gameplay
         public void RefreshClosestPlasticineDefaultItem(ClosestItem item, PlasticinePartBodyClip defaultItem)
         {
             item.Clip ??= defaultItem;
-            float num = Body.Position.DistanceTo(item.Clip.Body.Position);
-            float num2 = Body.Position.DistanceTo(defaultItem.Body.Position);
+            float num = Vector2.Distance(Body.Position, item.Clip.Body.Position);
+            float num2 = Vector2.Distance(Body.Position, defaultItem.Body.Position);
             if (num > num2)
             {
                 num = num2;
@@ -89,7 +88,7 @@ namespace ContreJour.Gameplay
             {
                 flag = false;
                 plasticineItem = plasticineItem.PreviousItem;
-                float num3 = plasticineItem.Body.Position.DistanceTo(Body.Position);
+                float num3 = Vector2.Distance(plasticineItem.Body.Position, Body.Position);
                 if (num3 < num)
                 {
                     flag = true;
@@ -105,7 +104,7 @@ namespace ContreJour.Gameplay
                 {
                     flag = false;
                     plasticineItem = plasticineItem.NextItem;
-                    float num4 = plasticineItem.Body.Position.DistanceTo(Body.Position);
+                    float num4 = Vector2.Distance(plasticineItem.Body.Position, Body.Position);
                     if (num4 < num)
                     {
                         flag = true;

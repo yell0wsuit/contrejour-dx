@@ -1,7 +1,5 @@
 using Microsoft.Xna.Framework;
 
-using Mokus2D.Util.Extensions;
-
 namespace Mokus2D.Visual.Util
 {
     public static class ColorUtil
@@ -31,7 +29,7 @@ namespace Mokus2D.Visual.Util
 
         public static Color Mult(Color color, float value)
         {
-            return color.Mult(value);
+            return color * value;
         }
 
         public static Color CreateColor(int r, int g, int b, int a)

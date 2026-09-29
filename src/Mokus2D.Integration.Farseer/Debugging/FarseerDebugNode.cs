@@ -7,7 +7,6 @@ using FarseerPhysics.Dynamics.Joints;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using Mokus2D.Util.Extensions;
 using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual;
 using Mokus2D.Visual.Util;
@@ -75,8 +74,8 @@ namespace Mokus2D.Integration.Farseer.Debugging
             VertexPositionColor[] array = new VertexPositionColor[2];
             array[0].Color = GetColor(body, fixture);
             array[1].Color = GetColor(body, fixture);
-            array[0].Position = body.GetWorldPoint(shape.Vertex1).ToVector3() * _physicsToPixels;
-            array[1].Position = body.GetWorldPoint(shape.Vertex2).ToVector3() * _physicsToPixels;
+            array[0].Position = new Vector3(body.GetWorldPoint(shape.Vertex1), 0f) * _physicsToPixels;
+            array[1].Position = new Vector3(body.GetWorldPoint(shape.Vertex2), 0f) * _physicsToPixels;
             GraphUtil.DrawLineList(array);
         }
 
@@ -88,7 +87,7 @@ namespace Mokus2D.Integration.Farseer.Debugging
             {
                 array[i].Color = color;
                 Vector2 localPoint = shape.Vertices[i % shape.Vertices.Count];
-                array[i].Position = body.GetWorldPoint(localPoint).ToVector3() * _physicsToPixels;
+                array[i].Position = new Vector3(body.GetWorldPoint(localPoint), 0f) * _physicsToPixels;
             }
             GraphUtil.DrawTriangleFan(array);
         }
@@ -106,7 +105,7 @@ namespace Mokus2D.Integration.Farseer.Debugging
             {
                 array[i].Color = color;
                 Vector2 vector = VectorUtil.ToVector(radius, i * ((float)Math.PI * 2f) / 20f) + worldPosition;
-                array[i].Position = vector.ToVector3() * _physicsToPixels;
+                array[i].Position = new Vector3(vector, 0f) * _physicsToPixels;
             }
             GraphUtil.DrawTriangleFan(array);
         }

@@ -104,8 +104,8 @@ namespace Mokus2D.Visual.Displacement
         private void CalculateMagnetForces(IGridMagnet magnet)
         {
             Vector2 vector = magnet.Position + MagnetsOffset;
-            Vector2 position = VectorExtensions.Ceiling((vector + magnet.Bounds.LeftTop()) / NodeSize);
-            Vector2 position2 = VectorExtensions.Floor((vector + magnet.Bounds.RightBottom()) / NodeSize);
+            Vector2 position = Vector2.Ceiling((vector + magnet.Bounds.LeftTop()) / NodeSize);
+            Vector2 position2 = Vector2.Floor((vector + magnet.Bounds.RightBottom()) / NodeSize);
             int num = StaticBorders ? 1 : 0;
             int num2 = (!StaticBorders) ? 1 : 2;
             position = position.Clamp(new Vector2(num), GridSize);

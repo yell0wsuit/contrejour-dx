@@ -62,10 +62,10 @@ namespace Mokus2D.Visual.Primitives
         {
             float x = size.X;
             float y = size.Y;
-            vertices[0].Position = Vector2.Zero.ToVector3();
-            vertices[1].Position = new Vector2(x, 0f).ToVector3();
-            vertices[2].Position = new Vector2(0f, y).ToVector3();
-            vertices[3].Position = new Vector2(x, y).ToVector3();
+            vertices[0].Position = new Vector3(Vector2.Zero, 0f);
+            vertices[1].Position = new Vector3(new Vector2(x, 0f), 0f);
+            vertices[2].Position = new Vector3(new Vector2(0f, y), 0f);
+            vertices[3].Position = new Vector3(new Vector2(x, y), 0f);
             sizeDirty = false;
         }
 

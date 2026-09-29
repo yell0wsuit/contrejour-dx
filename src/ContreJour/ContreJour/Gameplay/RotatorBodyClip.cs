@@ -173,7 +173,7 @@ namespace ContreJour.Gameplay
 
         public bool TouchBegan(Touch touch)
         {
-            if (Maths.Between(Body.Position.DistanceTo(Builder.TouchRootVec(touch)) / Clip.Scale, MinTouchRadius, MaxTouchRadius))
+            if (Maths.Between(Vector2.Distance(Body.Position, Builder.TouchRootVec(touch)) / Clip.Scale, MinTouchRadius, MaxTouchRadius))
             {
                 this.touch = touch;
                 startTouchAngle = VectorUtil.Atan2(Body.Position, Builder.TouchRootVec(this.touch)) - Body.Rotation;

@@ -20,11 +20,11 @@ namespace ContreJour.Gameplay
 
         private bool flying;
 
-        private static readonly float RotationDiff = 5.ToRadians();
+        private static readonly float RotationDiff = MathHelper.ToRadians(5);
 
-        private static readonly float ROTATION = 25.ToRadians();
+        private static readonly float ROTATION = MathHelper.ToRadians(25);
 
-        private static readonly float IdleRotation = 10.ToRadians();
+        private static readonly float IdleRotation = MathHelper.ToRadians(10);
 
         public FlyWings()
         {

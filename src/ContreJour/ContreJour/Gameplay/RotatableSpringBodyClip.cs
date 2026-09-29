@@ -107,12 +107,12 @@ namespace ContreJour.Gameplay
 
         public override int Priority(Vector2 touchPosition)
         {
-            return touchPosition.DistanceTo(Body.Position) < TouchDistanceLimit ? base.Priority(touchPosition) : IsRotatorTouched(touchPosition) ? 0 : -100;
+            return Vector2.Distance(touchPosition, Body.Position) < TouchDistanceLimit ? base.Priority(touchPosition) : IsRotatorTouched(touchPosition) ? 0 : -100;
         }
 
         public override float TouchDistance(Vector2 touchPosition)
         {
-            float num = touchPosition.DistanceTo(Body.Position);
+            float num = Vector2.Distance(touchPosition, Body.Position);
             return Math.Min(num, Math.Abs(num - TouchRadius));
         }
 
@@ -195,7 +195,7 @@ namespace ContreJour.Gameplay
 
         private bool IsRotatorTouched(Vector2 touchPosition)
         {
-            float num = Body.Position.DistanceTo(touchPosition);
+            float num = Vector2.Distance(Body.Position, touchPosition);
             return rotateTouch == null && Math.Abs(num - TouchRadius) < TouchDistanceLimit;
         }
 

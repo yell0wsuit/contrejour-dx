@@ -2,7 +2,6 @@ using System;
 
 using Microsoft.Xna.Framework;
 
-using Mokus2D.Util.Extensions;
 using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual.Drawing.Vertex;
 using Mokus2D.Visual.Interfaces;
@@ -56,8 +55,8 @@ namespace Mokus2D.Visual.Drawing
 
         public void SetPositions(Vector2 leftTop, Vector2 rightBottom)
         {
-            LeftTop.Position = leftTop.ToVector3();
-            RightBottom.Position = rightBottom.ToVector3();
+            LeftTop.Position = new Vector3(leftTop, 0f);
+            RightBottom.Position = new Vector3(rightBottom, 0f);
             LeftBottom.Position = new Vector3(leftTop.X, rightBottom.Y, 0f);
             RightTop.Position = new Vector3(rightBottom.X, leftTop.Y, 0f);
             RefreshBounds();
@@ -75,7 +74,7 @@ namespace Mokus2D.Visual.Drawing
         private void SetVertexPosition(ref T vertex, Vector2 initialPosition, ref Matrix matrix, bool cleanBounds)
         {
             Vector2.Transform(ref initialPosition, ref matrix, out Vector2 result);
-            vertex.Position = result.ToVector3();
+            vertex.Position = new Vector3(result, 0f);
             if (cleanBounds)
             {
                 _bounds = new Rectangle((int)result.X, (int)result.Y, 1, 1);

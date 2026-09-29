@@ -7,7 +7,6 @@ using ContreJour.Primitives;
 using Microsoft.Xna.Framework;
 
 using Mokus2D.Util.Data;
-using Mokus2D.Util.Extensions;
 using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual;
 using Mokus2D.Visual.Data;
@@ -60,7 +59,7 @@ namespace ContreJour.Gameplay
             {
                 Vector2 vector = VectorUtil.ToVector(_eye.ViewDistance * 40f, _eye.ViewAngle);
                 targetEnd = endInit + vector;
-                float num = end.DistanceTo(targetEnd);
+                float num = Vector2.Distance(end, targetEnd);
                 middle = VectorUtil.StepTo(middle, middleInit, 1f);
                 end = VectorUtil.StepTo(end, targetEnd, Math.Min(1f, num / 5f));
             }

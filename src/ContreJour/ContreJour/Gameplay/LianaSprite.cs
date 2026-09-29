@@ -7,7 +7,6 @@ using Microsoft.Xna.Framework;
 
 using Mokus2D.Util;
 using Mokus2D.Util.Data;
-using Mokus2D.Util.Extensions;
 using Mokus2D.Util.MathUtils;
 
 namespace ContreJour.Gameplay
@@ -52,7 +51,7 @@ namespace ContreJour.Gameplay
                 Vector2 source = data.PositionAt(i);
                 Vector2 vector = data.PositionAt(i + 1);
                 Vector2 target = data.PositionAt(i + 2);
-                int num = (int)Math.Ceiling(((source.DistanceTo(vector) / 2f) + (vector.DistanceTo(target) / 2f)) / MaxPartLenght);
+                int num = (int)Math.Ceiling(((Vector2.Distance(source, vector) / 2f) + (Vector2.Distance(vector, target) / 2f)) / MaxPartLenght);
                 num += num % 2;
                 partsLength.Add(num);
             }

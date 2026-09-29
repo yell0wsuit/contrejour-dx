@@ -34,7 +34,7 @@ namespace Mokus2D.Visual.ShaderSupport
             _cellSize = cellSize;
             _bounds = bounds;
             _screenBounds = screenBounds;
-            _gridSize = VectorExtensions.Ceiling(_bounds.Size / _cellSize).ToPoint();
+            _gridSize = Vector2.Ceiling(_bounds.Size / _cellSize).ToPoint();
             _children = new GridNodeCell[_gridSize.X, _gridSize.Y];
             TransformationsRefreshedEvent += OnTransformationRefreshed;
         }

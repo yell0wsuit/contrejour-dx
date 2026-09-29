@@ -14,7 +14,6 @@ using Mokus2D.Events;
 using Mokus2D.Input;
 using Mokus2D.Integration.Farseer.Util;
 using Mokus2D.Sound;
-using Mokus2D.Util.Extensions;
 using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual;
 
@@ -139,8 +138,8 @@ namespace ContreJour.Gameplay
         public override float TouchDistance(Vector2 touchPosition)
         {
             return endBody != null
-                ? Math.Min(touchPosition.DistanceTo(Body.Position), touchPosition.DistanceTo(endBody.Position))
-                : touchPosition.DistanceTo(Body.Position);
+                ? Math.Min(Vector2.Distance(touchPosition, Body.Position), Vector2.Distance(touchPosition, endBody.Position))
+                : Vector2.Distance(touchPosition, Body.Position);
         }
 
         public int Priority(Vector2 touchPosition)
@@ -167,7 +166,7 @@ namespace ContreJour.Gameplay
             if (Touch == null)
             {
                 Vector2 target = Builder.TouchRootVec(touch);
-                if (Body.Position.DistanceTo(target) <= 2f || endBody.Position.DistanceTo(target) <= 2f)
+                if (Vector2.Distance(Body.Position, target) <= 2f || Vector2.Distance(endBody.Position, target) <= 2f)
                 {
                     StartDrag(touch);
                     return true;
@@ -248,7 +247,7 @@ namespace ContreJour.Gameplay
 
         public override void OnCollisionStartPoint(Body body2, Contact point)
         {
-            if (body2.UserData is BodyClip bodyClip && bodyClip is HeroBodyClip && FarseerUtil.GetWorldPoint(point).DistanceTo(Body.Position) > 1.1666666f && pulled)
+            if (body2.UserData is BodyClip bodyClip && bodyClip is HeroBodyClip && Vector2.Distance(FarseerUtil.GetWorldPoint(point), Body.Position) > 1.1666666f && pulled)
             {
                 Neck.Bounce();
                 PlayBounceSound();
@@ -295,7 +294,7 @@ namespace ContreJour.Gameplay
             creating = false;
             pulled = true;
             endBody = Builder.World.CreateCircle(0.1f, CreatePosition);
-            float num = CreatePosition.DistanceTo(Body.Position);
+            float num = Vector2.Distance(CreatePosition, Body.Position);
             float angle = VectorUtil.Atan2(Body.Position, CreatePosition);
             PolygonShape shape = new(Builder.EngineConfig.Density);
             shape.SetAsBox(num / 2f, 0.1f, VectorUtil.Rotate(new Vector2(num / 2f, 0f), angle), angle);
@@ -333,7 +332,7 @@ namespace ContreJour.Gameplay
             {
                 DestroyBodies();
             }
-            if (TargetPosition.DistanceTo(Body.Position) > 1.5f)
+            if (Vector2.Distance(TargetPosition, Body.Position) > 1.5f)
             {
                 CreatePosition = TargetPosition;
                 RefreshGhostPosition(0f, CreatePosition);

@@ -18,7 +18,7 @@ namespace Mokus2D.Visual.Util
             {
                 Vector2 position = source[i].Position.ToVector2();
                 Vector2.Transform(ref position, ref matrix, out Vector2 result);
-                target[i].Position = result.ToVector3();
+                target[i].Position = new Vector3(result, 0f);
             }
         }
     }

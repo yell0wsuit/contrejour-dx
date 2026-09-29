@@ -52,7 +52,7 @@ namespace Mokus2D.Parallax
             _layer = layer;
             _bounds = bounds;
             _islandSize = islandSize;
-            _size = (Util.Data.Point)VectorExtensions.Ceiling(bounds.Size / islandSize);
+            _size = (Util.Data.Point)Vector2.Ceiling(bounds.Size / islandSize);
             _maxIndex = _size - new Util.Data.Point(1);
             _inBoundsIslands = new VisibleIsland[_size.X, _size.Y];
         }
@@ -173,14 +173,14 @@ namespace Mokus2D.Parallax
 
         private Util.Data.Point GetIslandIndex(ref Matrix matrix, Vector2 position)
         {
-            Vector3 position2 = position.ToVector3();
+            Vector3 position2 = new(position, 0f);
             Vector3.Transform(ref position2, ref matrix, out Vector3 result);
             return GetIslandIndex(result.ToVector2());
         }
 
         private Util.Data.Point GetIslandIndex(Vector2 corner)
         {
-            return (Util.Data.Point)VectorExtensions.Floor((corner - _bounds.LeftTop) / _islandSize);
+            return (Util.Data.Point)Vector2.Floor((corner - _bounds.LeftTop) / _islandSize);
         }
 
         private void RefreshVisibleArea()

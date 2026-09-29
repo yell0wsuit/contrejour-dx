@@ -153,7 +153,7 @@ namespace ContreJour.Gameplay
         public void EndFly()
         {
             float angle = VectorUtil.Atan2(Body.Position, initialPosition);
-            float impulse = 6f * Body.Position.DistanceTo(initialPosition) / 6.6666665f;
+            float impulse = 6f * Vector2.Distance(Body.Position, initialPosition) / 6.6666665f;
             Body.LinearVelocity = Vector2.Zero;
             DoFlyImpulse(angle, impulse);
             freeFlight = false;
@@ -190,7 +190,7 @@ namespace ContreJour.Gameplay
 
         public void FlyOut(float impulseMult)
         {
-            FlyOutAngle(impulseMult, (!(Body.Position.DistanceTo(initialPosition) > 6.6666665f)) ? Maths.Random((float)Math.PI / 12f, (float)Math.PI * 11f / 12f) : (VectorUtil.Atan2(Body.Position, initialPosition) + Maths.Random(-(float)Math.PI / 6f, (float)Math.PI / 6f)));
+            FlyOutAngle(impulseMult, (!(Vector2.Distance(Body.Position, initialPosition) > 6.6666665f)) ? Maths.Random((float)Math.PI / 12f, (float)Math.PI * 11f / 12f) : (VectorUtil.Atan2(Body.Position, initialPosition) + Maths.Random(-(float)Math.PI / 6f, (float)Math.PI / 6f)));
         }
 
         public void FlyOutAngle(float impulseMult, float angle)
@@ -228,7 +228,7 @@ namespace ContreJour.Gameplay
             {
                 CheckOutOfBorder();
             }
-            if (Body.Position.DistanceTo(Game.HeroPositionVec) < 1.6666666f && heroScaredTime < Game.TotalTime)
+            if (Vector2.Distance(Body.Position, Game.HeroPositionVec) < 1.6666666f && heroScaredTime < Game.TotalTime)
             {
                 heroScaredTime = Game.TotalTime + 2f;
                 Scare(Game.HeroPositionVec);
@@ -264,7 +264,7 @@ namespace ContreJour.Gameplay
 
         public void TryStop()
         {
-            if (!stoped && initialPosition.DistanceTo(Body.Position) <= 0.1f)
+            if (!stoped && Vector2.Distance(initialPosition, Body.Position) <= 0.1f)
             {
                 Body.LinearDamping = 10f;
                 SetFlying(value: false);

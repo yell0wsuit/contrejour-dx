@@ -83,11 +83,11 @@ namespace Mokus2D.Visual.Primitives
             return new Pair<T>(new T
             {
                 Color = _color,
-                TextureCoordinate = _leftTop.LerpTo(_rightTop, ratio)
+                TextureCoordinate = Vector2.Lerp(_leftTop, _rightTop, ratio)
             }, new T
             {
                 Color = _color,
-                TextureCoordinate = _leftBottom.LerpTo(_rightBottom, ratio)
+                TextureCoordinate = Vector2.Lerp(_leftBottom, _rightBottom, ratio)
             });
         }
 

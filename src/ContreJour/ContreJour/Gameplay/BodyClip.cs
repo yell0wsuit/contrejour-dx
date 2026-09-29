@@ -7,7 +7,6 @@ using FarseerPhysics.Dynamics.Contacts;
 using Microsoft.Xna.Framework;
 
 using Mokus2D.Util;
-using Mokus2D.Util.Extensions;
 using Mokus2D.Visual;
 
 namespace ContreJour.Gameplay
@@ -63,7 +62,7 @@ namespace ContreJour.Gameplay
             //IL_0060: Expected O, but got Unknown
             config ??= [];
             RotationOffset = config.GetFloat("rotationOffset", 0f);
-            RotationOffsetRadians = RotationOffset.ToRadians();
+            RotationOffsetRadians = MathHelper.ToRadians(RotationOffset);
             Config = config;
             Clip = clip;
             Body = (Body)body;

@@ -146,7 +146,7 @@ namespace Mokus2D.Visual.Displacement
             for (int i = 0; i < _gridNodes.Length; i++)
             {
                 Vector2.Transform(ref _gridNodes[i], ref matrix, out Vector2 result);
-                _vertices[i].Position = result.ToVector3();
+                _vertices[i].Position = new Vector3(result, 0f);
             }
         }
     }

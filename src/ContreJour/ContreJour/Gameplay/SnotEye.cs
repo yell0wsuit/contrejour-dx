@@ -3,7 +3,6 @@ using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
 
 using Mokus2D.Input;
-using Mokus2D.Util.Extensions;
 
 namespace ContreJour.Gameplay
 {
@@ -59,7 +58,7 @@ namespace ContreJour.Gameplay
 
         private void CheckTouchDistance(Touch touch)
         {
-            CheckTouchDistance(touch, Builder.TouchRootVec(touch).DistanceTo(Body.Position));
+            CheckTouchDistance(touch, Vector2.Distance(Builder.TouchRootVec(touch), Body.Position));
         }
 
         protected virtual void CheckTouchDistance(Touch touch, float distance)

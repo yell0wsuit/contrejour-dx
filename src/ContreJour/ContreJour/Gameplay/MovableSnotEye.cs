@@ -93,7 +93,7 @@ namespace ContreJour.Gameplay
             Body.LinearVelocity = Vector2.Zero;
             Vector2 vector = Builder.TouchRootVec(movingTouch);
             Vector2 vector2 = targetPoint.Body.Position;
-            if (vector2.DistanceTo(vector) > 55f * Builder.SizeMult)
+            if (Vector2.Distance(vector2, vector) > 55f * Builder.SizeMult)
             {
                 if (Body.Position.FuzzyEquals(targetPoint.Body.Position, 0.1f))
                 {
@@ -102,7 +102,7 @@ namespace ContreJour.Gameplay
                 vector2 = vector;
                 foreach (SnotPoint snotPoint in Game.SnotPoints)
                 {
-                    if (!snotPoint.Used && vector2.DistanceTo(snotPoint.Body.Position) < 50f * Builder.SizeMult)
+                    if (!snotPoint.Used && Vector2.Distance(vector2, snotPoint.Body.Position) < 50f * Builder.SizeMult)
                     {
                         targetPoint.Used = false;
                         vector2 = snotPoint.Body.Position;
@@ -111,7 +111,7 @@ namespace ContreJour.Gameplay
                     }
                 }
             }
-            targetPosition = VectorExtensions.StepTo(step: Math.Max(targetPosition.DistanceTo(vector2) / 5f, 0.5f), source: targetPosition, target: vector2);
+            targetPosition = VectorExtensions.StepTo(step: Math.Max(Vector2.Distance(targetPosition, vector2) / 5f, 0.5f), source: targetPosition, target: vector2);
             MoveTo(targetPosition);
         }
 
@@ -142,7 +142,7 @@ namespace ContreJour.Gameplay
 
         private void EndMove()
         {
-            targetSpeed = MathHelper.Clamp(targetPoint.Body.Position.DistanceTo(Body.Position) * 5f, 400f * Builder.SizeMult, 1500f * Builder.SizeMult);
+            targetSpeed = MathHelper.Clamp(Vector2.Distance(targetPoint.Body.Position, Body.Position) * 5f, 400f * Builder.SizeMult, 1500f * Builder.SizeMult);
             moving = false;
         }
 

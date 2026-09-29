@@ -295,16 +295,16 @@ namespace ContreJour.Gameplay
                 VertexPositionColor[] outBorder = border.OutBorder;
                 if (Index == 0)
                 {
-                    inBorder[0].Position = Item.GetSurfaceCenter().ToVector3();
-                    inBorder[1].Position = Item.GetCenterOffset(-5f / 12f).ToVector3();
-                    outBorder[0].Position = Item.GetSurfaceCenter().ToVector3();
-                    outBorder[1].Position = Item.GetCenterOffset(0.65f).ToVector3();
+                    inBorder[0].Position = new Vector3(Item.GetSurfaceCenter(), 0f);
+                    inBorder[1].Position = new Vector3(Item.GetCenterOffset(-5f / 12f), 0f);
+                    outBorder[0].Position = new Vector3(Item.GetSurfaceCenter(), 0f);
+                    outBorder[1].Position = new Vector3(Item.GetCenterOffset(0.65f), 0f);
                 }
                 SetBezierPointsOffsetIndexOffset(inBorder, 7f / 12f, 0);
                 SetBezierPointsOffsetIndexOffset(inBorder, -5f / 12f, 1);
                 SetBezierPointsOffsetIndexOffset(outBorder, 7f / 12f, 0);
                 SetBezierPointsOffsetIndexOffset(outBorder, 0.65f, 1);
-                fillSprite?.Vertices[fillIndex].Position = Item.GetCenterOffset(-5f / 48f).ToVector3();
+                fillSprite?.Vertices[fillIndex].Position = new Vector3(Item.GetCenterOffset(-5f / 48f), 0f);
                 dirty = false;
             }
         }
@@ -314,8 +314,8 @@ namespace ContreJour.Gameplay
             Vector2 centerOffset = GetCenterOffset(offset);
             Vector2 centerOffset2 = Item.NextItem.BodyClip.GetCenterOffset(offset);
             Vector2 vec = VectorUtil.Center(GetRightOffset(offset), VectorUtil.Center(centerOffset, centerOffset2));
-            vector[verticesOffset + indexOffset].Position = Builder.ToPoint(vec).ToVector3();
-            vector[verticesOffset + indexOffset + 2].Position = Builder.ToPoint(centerOffset2).ToVector3();
+            vector[verticesOffset + indexOffset].Position = new Vector3(Builder.ToPoint(vec), 0f);
+            vector[verticesOffset + indexOffset + 2].Position = new Vector3(Builder.ToPoint(centerOffset2), 0f);
         }
 
         public void MoveToTargetPosition(float time)

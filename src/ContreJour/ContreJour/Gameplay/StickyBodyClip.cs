@@ -5,7 +5,6 @@ using FarseerPhysics.Dynamics;
 
 using Microsoft.Xna.Framework;
 
-using Mokus2D.Util.Extensions;
 using Mokus2D.Visual;
 
 namespace ContreJour.Gameplay
@@ -45,7 +44,7 @@ namespace ContreJour.Gameplay
             float? num = null;
             foreach (Fixture item in list)
             {
-                float num2 = item.Body.Position.DistanceTo(worldPoint);
+                float num2 = Vector2.Distance(item.Body.Position, worldPoint);
                 if (item.Body != Body && (!num.HasValue || num2 < num))
                 {
                     joinedBody = item.Body;

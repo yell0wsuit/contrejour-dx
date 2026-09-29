@@ -1,6 +1,5 @@
 using Microsoft.Xna.Framework;
 
-using Mokus2D.Util.Extensions;
 using Mokus2D.Visual;
 
 namespace ContreJour.Gameplay
@@ -20,7 +19,7 @@ namespace ContreJour.Gameplay
 
         public virtual float TouchDistance(Vector2 touchPosition)
         {
-            return PositionVec.DistanceTo(touchPosition);
+            return Vector2.Distance(PositionVec, touchPosition);
         }
     }
 }

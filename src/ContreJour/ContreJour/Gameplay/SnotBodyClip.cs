@@ -161,7 +161,7 @@ namespace ContreJour.Gameplay
                 return false;
             }
             Vector2 source = Builder.TouchRootVec(touch);
-            if (movable && source.DistanceTo(Body.Position) > source.DistanceTo(Physics.EyeBody.Position))
+            if (movable && Vector2.Distance(source, Body.Position) > Vector2.Distance(source, Physics.EyeBody.Position))
             {
                 return false;
             }
@@ -201,14 +201,14 @@ namespace ContreJour.Gameplay
         private static float ClosestReq(object item, object param)
         {
             BodyClip bodyClip = (BodyClip)item;
-            return 0f - VectorExtensions.DistanceTo(target: (Vector2)param, source: bodyClip.Body.Position);
+            return 0f - Vector2.Distance((Vector2)param, bodyClip.Body.Position);
         }
 
         private static bool LinkableReq(BodyClip clip, object param)
         {
             //IL_000d: Unknown result type (might be due to invalid IL or missing references)
             LinkableReqParams linkableReqParams = (LinkableReqParams)param;
-            return clip.Body.BodyType != 0 && linkableReqParams.Position.DistanceTo(clip.Body.Position) < linkableReqParams.Distance && clip is ISnotLinked && (clip as ISnotLinked).SnotEnabled;
+            return clip.Body.BodyType != 0 && Vector2.Distance(linkableReqParams.Position, clip.Body.Position) < linkableReqParams.Distance && clip is ISnotLinked && (clip as ISnotLinked).SnotEnabled;
         }
 
         public void SetLengthDiff(float value)

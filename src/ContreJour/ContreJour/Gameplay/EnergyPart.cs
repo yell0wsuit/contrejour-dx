@@ -2,7 +2,6 @@ using System.Diagnostics.CodeAnalysis;
 
 using Microsoft.Xna.Framework;
 
-using Mokus2D.Util.Extensions;
 using Mokus2D.Util.MathUtils;
 
 namespace ContreJour.Gameplay
@@ -60,7 +59,7 @@ namespace ContreJour.Gameplay
             {
                 return;
             }
-            float num = Clip.Position.DistanceTo(TargetPosition);
+            float num = Vector2.Distance(Clip.Position, TargetPosition);
             if (collected && num < 50f)
             {
                 Clip.OpacityFloat = num / 50f;

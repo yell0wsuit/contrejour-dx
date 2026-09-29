@@ -121,7 +121,7 @@ namespace ContreJourMono.ContreJour.Game.Hero
             {
                 int index = (i % 2 == 0) ? (i / 2) : (surface.Count - 1 - (i / 2));
                 ref VertexPositionColor reference = ref vertices[i];
-                reference = new VertexPositionColor(surface[index].ToVector3(), Color);
+                reference = new VertexPositionColor(new Vector3(surface[index], 0f), Color);
             }
         }
 

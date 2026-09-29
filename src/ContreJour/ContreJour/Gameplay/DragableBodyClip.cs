@@ -205,7 +205,7 @@ namespace ContreJour.Gameplay
 
         public bool ProcessTouch(Touch touch)
         {
-            return Builder.TouchRootVec(touch).DistanceTo(Body.Position + TouchOffset()) < 2.3333333f;
+            return Vector2.Distance(Builder.TouchRootVec(touch), Body.Position + TouchOffset()) < 2.3333333f;
         }
 
         public void UpdateTouchPosition()

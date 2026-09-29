@@ -2,7 +2,6 @@ using System.Collections.Generic;
 
 using Microsoft.Xna.Framework;
 
-using Mokus2D.Util.Extensions;
 using Mokus2D.Util.MathUtils;
 
 namespace ContreJour.Gameplay
@@ -29,7 +28,7 @@ namespace ContreJour.Gameplay
                 }
                 Vector2 vector = vertices[i];
                 Vector2 vector2 = vertices[i + 1];
-                float width = vector.DistanceTo(vector2);
+                float width = Vector2.Distance(vector, vector2);
                 PlasticinePartBodyClip bodyClip = new(builder, PlasticineUtil.CreateSurfaceBodyWidthAnglePosition(angle: VectorUtil.Atan2(vector, vector2), position: GetPartCenterEnd(vector, vector2), world: builder.World, width: 0.6f), parent, width, !flag && (num > 0 || builder.ContreJour.WhiteSide || builder.ContreJour.RoseChapter || builder.ContreJour.BonusChapter));
                 num--;
                 PlasticineItem plasticineItem3 = new(bodyClip, width);

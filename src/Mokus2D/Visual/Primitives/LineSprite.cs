@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
 using Mokus2D.Util.Data;
-using Mokus2D.Util.Extensions;
 using Mokus2D.Visual.Data;
 using Mokus2D.Visual.Drawing;
 using Mokus2D.Visual.Interfaces;
@@ -66,7 +65,7 @@ namespace Mokus2D.Visual.Primitives
             {
                 for (int i = 0; i < _localVertices.Length; i++)
                 {
-                    _globalVertices.Items[i].Position = _localVertices.Items[i].Position.Transform(ref CompositeState.Matrix);
+                    _globalVertices.Items[i].Position = Vector3.Transform(_localVertices.Items[i].Position, CompositeState.Matrix);
                 }
             }
             _pointsDirty = false;
