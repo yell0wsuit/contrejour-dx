@@ -1,6 +1,8 @@
 namespace Mokus2D.Graphics
 {
     // How a draw's source color src combines with the target color dst. Colors are premultiplied.
+    // The formulas give the target's rgb; its alpha afterwards is unspecified (the window is opaque,
+    // so nothing reads it).
     public enum BlendMode
     {
         // dst = src + dst·(1 − src.a)
@@ -21,7 +23,9 @@ namespace Mokus2D.Graphics
     }
 
     // How the texture sample tex (premultiplied) and the interpolated vertex color c (straight
-    // alpha, channels 0-1) make the source color.
+    // alpha, channels 0-1) make the source color. Untextured draws interpolate c straight. Textured
+    // draws may interpolate it premultiplied, which is the same whenever a triangle's three vertex
+    // colors are equal.
     public enum ColorMode
     {
         // Texture required; Opacity ignored. rgb = tex.rgb·c.rgb·c.a, a = tex.a·c.a.

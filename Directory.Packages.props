@@ -3,6 +3,7 @@
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
     <SDL3CSVersion>3.4.16</SDL3CSVersion>
     <SDL3MixerVersion>3.2.4.11</SDL3MixerVersion>
+    <SkiaSharpVersion>4.152.0</SkiaSharpVersion>
   </PropertyGroup>
   <ItemGroup>
     <PackageVersion Include="MonoGame.Framework.DesktopGL" Version="3.8.5.1" />
@@ -13,5 +14,9 @@
     <PackageVersion Include="SDL3-CS.Windows.Mixer" Version="$(SDL3MixerVersion)" />
     <PackageVersion Include="SDL3-CS.Linux.Mixer" Version="$(SDL3MixerVersion)" />
     <PackageVersion Include="SDL3-CS.MacOS.Mixer" Version="$(SDL3MixerVersion)" />
+    <PackageVersion Include="SkiaSharp" Version="$(SkiaSharpVersion)" />
+    <PackageVersion Include="SkiaSharp.NativeAssets.macOS" Version="$(SkiaSharpVersion)" />
+    <PackageVersion Include="SkiaSharp.NativeAssets.Win32" Version="$(SkiaSharpVersion)" />
+    <PackageVersion Include="SkiaSharp.NativeAssets.Linux" Version="$(SkiaSharpVersion)" />
   </ItemGroup>
 </Project>

@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>Mokus2D.Rendering.Skia</RootNamespace>
+    <!-- The decompiled projects carry their own AssemblyInfo.cs; this one has none. -->
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+  </PropertyGroup>
+
+  <!-- Skia drawing for every host. Native Skia libraries come from the host that references this. -->
+  <ItemGroup>
+    <PackageReference Include="SkiaSharp" />
+    <ProjectReference Include="../Mokus2D/Mokus2D.csproj" />
+  </ItemGroup>
+</Project>
