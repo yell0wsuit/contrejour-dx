@@ -1,8 +1,8 @@
 using System;
 
-using Mokus2D.Game;
+using ContreJour.Desktop.MonoGame;
 
-namespace ContreJour
+namespace ContreJour.Desktop
 {
     public static class Program
     {
@@ -11,7 +11,7 @@ namespace ContreJour
         {
             // Content paths are relative to the install folder, as they were inside the appx package.
             Environment.CurrentDirectory = AppContext.BaseDirectory;
-            using Mokus2DApplication<ContreJourApplication> game = new();
+            using MonoGameApplication<ContreJourApplication> game = new();
             game.Run();
         }
     }

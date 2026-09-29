@@ -8,6 +8,6 @@
 
   <ItemGroup>
     <PackageReference Include="MonoGame.Framework.DesktopGL" />
-    <ProjectReference Include="../ContreJour/ContreJour.csproj" />
+    <ProjectReference Include="../ContreJour.Desktop/ContreJour.Desktop.csproj" />
   </ItemGroup>
 </Project>

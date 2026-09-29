@@ -2,9 +2,8 @@ using System;
 using System.Globalization;
 using System.IO;
 
+using ContreJour.Desktop.MonoGame;
 using ContreJour.Saving;
-
-using Mokus2D.Game;
 
 namespace ContreJour.Regression
 {
@@ -45,7 +44,7 @@ namespace ContreJour.Regression
             }
             Preferences.SaveDirectory = dataDirectory;
 
-            using Mokus2DApplication<RegressionApplication> game = new();
+            using MonoGameApplication<RegressionApplication> game = new();
             game.Run();
             return RegressionApplication.Failed ? 1 : 0;
         }
