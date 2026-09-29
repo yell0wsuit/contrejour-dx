@@ -193,7 +193,7 @@ namespace Mokus2D.Rendering.Skia
         {
             for (int i = first; i < first + 3; i++)
             {
-                SKPoint position = positions[indices[i]];
+                SKPoint position = positions[(ushort)indices[i]];
                 if (!float.IsFinite(position.X) || !float.IsFinite(position.Y))
                 {
                     return false;

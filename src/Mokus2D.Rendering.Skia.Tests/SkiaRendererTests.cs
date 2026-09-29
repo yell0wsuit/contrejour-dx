@@ -272,6 +272,23 @@ namespace Mokus2D.Rendering.Skia.Tests
         }
 
         [Fact]
+        public void IndicesPastShortMaxValueAreReadUnsigned()
+        {
+            // Indices are 16-bit unsigned, as the GPU reads them: a batch past 32767 vertices hands
+            // over negative shorts that name vertices 32768 and up.
+            using RenderTarget target = new(8, 8, SKColors.Black);
+            const int first = 40000;
+            Vertex[] vertices = new Vertex[first + 4];
+            RenderTarget.Quad(-1f, 1f, 0f, 0f, White).CopyTo(vertices, first);
+            short[] indices = [.. Array.ConvertAll(RenderTarget.QuadIndices, i => unchecked((short)(first + i)))];
+
+            target.Renderer.DrawTriangles(vertices, vertices.Length, indices, indices.Length, Matrix4x4.Identity,
+                new DrawState(null, BlendMode.NonPremultiplied, SamplerMode.LinearWrap, ColorMode.Primitive));
+
+            Assert.Equal(new Vector4(255f, 255f, 255f, 255f), target.Pixel(1, 1));
+        }
+
+        [Fact]
         public void ConsecutiveDrawsOfTheSameSizeDrawTheirOwnData()
         {
             using RenderTarget target = new(8, 1, SKColors.Black);
