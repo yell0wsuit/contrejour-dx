@@ -14,11 +14,11 @@ namespace ContreJourMono.ContreJour.Game.Eyes;
 
 public abstract class EyeBase : Node
 {
-    protected float eyeStep = 0.5f;
+    public virtual float EyeStep { get; set; } = 0.5f;
 
     protected Sprite Background { get; set; }
 
-    protected Sprite eyeBall;
+    protected Sprite EyeBallSprite { get; set; }
 
     protected IAnimatedNode EndDispatcher { get; set; }
 
@@ -37,12 +37,6 @@ public abstract class EyeBase : Node
     private readonly AnimatedMaskedSprite mask;
 
     private readonly Node content = new();
-
-    public virtual float EyeStep
-    {
-        get => eyeStep;
-        set => eyeStep = value;
-    }
 
     public float ViewDistance
     {
@@ -123,7 +117,7 @@ public abstract class EyeBase : Node
     protected virtual void CreateDefaultView()
     {
         Background = new McEye();
-        eyeBall = new McEyeBall();
+        EyeBallSprite = new McEyeBall();
     }
 
     public void SetDefaultView()
@@ -135,11 +129,11 @@ public abstract class EyeBase : Node
         }
         if (CurrentEyeBall != null)
         {
-            eyeBall.Position = CurrentEyeBall.Position;
+            EyeBallSprite.Position = CurrentEyeBall.Position;
         }
         EndDispatcher = null;
         CurrentBackground = Background;
-        CurrentEyeBall = eyeBall;
+        CurrentEyeBall = EyeBallSprite;
         lockX = lockY = false;
         RefreshLayout();
     }
@@ -204,7 +198,7 @@ public abstract class EyeBase : Node
             Refresh();
             dirty = false;
         }
-        Vector2 position = eyeBall.Position.StepTo(targetPosition, EyeStep);
+        Vector2 position = EyeBallSprite.Position.StepTo(targetPosition, EyeStep);
         if (lockX)
         {
             position.X = 0f;

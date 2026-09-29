@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework;
 
 namespace Default.Namespace;
 
-public class SnotProcessor(LevelBuilderBase builder, string type, float _partSize) : JointProcessorBase(type, builder)
+public class SnotProcessor(LevelBuilderBase builder, string type, float partSize) : JointProcessorBase(type, builder)
 {
     public struct BodyAndJoint
     {
@@ -31,7 +31,7 @@ public class SnotProcessor(LevelBuilderBase builder, string type, float _partSiz
 
     public const float DefaultLinearDamping = 1f;
 
-    protected float partSize = _partSize;
+    protected float MaxPartSize { get; } = partSize;
 
     public SnotProcessor(LevelBuilderBase builder)
         : this(builder, "snot")
@@ -82,7 +82,7 @@ public class SnotProcessor(LevelBuilderBase builder, string type, float _partSiz
 
     public virtual RopeMetricsWithCoords GetRopeMetricsEndItem(Vector2 startPoint, Vector2 endPoint, Hashtable item)
     {
-        return RopeUtil.GetRopeMetricsEndMaxPartSizeMinParts(startPoint, endPoint, partSize, 3);
+        return RopeUtil.GetRopeMetricsEndMaxPartSizeMinParts(startPoint, endPoint, MaxPartSize, 3);
     }
 
     public virtual float LinearDamping()

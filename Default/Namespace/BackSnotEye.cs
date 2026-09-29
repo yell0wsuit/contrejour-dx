@@ -21,7 +21,7 @@ public class BackSnotEye : MonsterEye
     public BackSnotEye(ContreJourGame game, bool visible, Vector2 position)
         : base(game, visible, position)
     {
-        eyeStep = 1.5f;
+        EyeStep = 1.5f;
     }
 
     public override void Update(float time)
@@ -36,6 +36,6 @@ public class BackSnotEye : MonsterEye
         {
             Test = true
         };
-        eyeBall = new McBackSnotEyeBall();
+        EyeBallSprite = new McBackSnotEyeBall();
     }
 }

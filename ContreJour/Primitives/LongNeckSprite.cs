@@ -37,8 +37,6 @@ public abstract class LongNeckSprite : PrimitivesNode
 
     private readonly float textureStep = 1f;
 
-    protected bool drawBorder = true;
-
     private readonly List<Vector2> first = new(64);
 
     private readonly List<Vector2> second = new(64);
@@ -89,7 +87,7 @@ public abstract class LongNeckSprite : PrimitivesNode
         set
         {
             neckColor = value;
-            if (Border != null && drawBorder)
+            if (Border != null)
             {
                 SetBorderColors();
             }
@@ -226,7 +224,7 @@ public abstract class LongNeckSprite : PrimitivesNode
 
     public virtual void SetBorderColors()
     {
-        if (Border != null && drawBorder)
+        if (Border != null)
         {
             GraphUtil.CreateGradientColorsList(AllPointsSize, drawNeckColor, EndColor(), Border);
         }
@@ -260,7 +258,7 @@ public abstract class LongNeckSprite : PrimitivesNode
 
     public virtual void DrawBorder()
     {
-        if (Border != null && drawBorder)
+        if (Border != null)
         {
             GraphUtil.DrawTriangleList(Border);
         }

@@ -73,7 +73,7 @@ public class StrongSnotBodyClip : SnotBodyClip
 
     public override string BaseEndClipName()
     {
-        return game.ChooseSide("McStrongSnotEndBlack", "McStrongSnotEndWhite", "McStrongSnotEnd", "McStrongSnotEnd", "McSnotEnd_6");
+        return Game.ChooseSide("McStrongSnotEndBlack", "McStrongSnotEndWhite", "McStrongSnotEnd", "McStrongSnotEnd", "McSnotEnd_6");
     }
 
     public override SnotSprite CreateClip()

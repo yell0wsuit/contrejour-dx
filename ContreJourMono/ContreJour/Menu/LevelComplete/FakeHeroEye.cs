@@ -42,7 +42,7 @@ public class FakeHeroEye : RandomAnimationEye
         string name = ProcessName("McFakeHeroEye");
         string name2 = ProcessName("McFakeHeroEyeBall");
         Background = (Sprite)ClipTypesCache.CreateNewNode(name);
-        eyeBall = (Sprite)ClipTypesCache.CreateNewNode(name2);
+        EyeBallSprite = (Sprite)ClipTypesCache.CreateNewNode(name2);
     }
 
     public override void Update(float time)

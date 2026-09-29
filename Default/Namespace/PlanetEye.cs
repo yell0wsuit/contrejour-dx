@@ -68,7 +68,7 @@ public class PlanetEye : BackSnotEye, IVectorPositionProvider
     protected override void CreateDefaultView()
     {
         Background = new McPlanetEye();
-        eyeBall = new McPlanet1EyeBall
+        EyeBallSprite = new McPlanet1EyeBall
         {
             Scale = 1.15f
         };

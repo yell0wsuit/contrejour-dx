@@ -42,7 +42,7 @@ public class TrampolineSnotProcessor(LevelBuilderBase builder) : BridgeSnotProce
         RopeMetricsWithCoords ropeMetricsWithCoords = base.GetRopeMetricsEndItem(startPoint, endPoint, item);
         if (ropeMetricsWithCoords.Parts % 2 == 0)
         {
-            ropeMetricsWithCoords = RopeUtil.GetRopeMetricsEndMaxPartSizeMinParts(startPoint, endPoint, partSize, ropeMetricsWithCoords.Parts + 1);
+            ropeMetricsWithCoords = RopeUtil.GetRopeMetricsEndMaxPartSizeMinParts(startPoint, endPoint, MaxPartSize, ropeMetricsWithCoords.Parts + 1);
         }
         return ropeMetricsWithCoords;
     }

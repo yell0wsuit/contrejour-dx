@@ -87,7 +87,7 @@ public class TrampolineBodyClip : SnotBodyClipBase
         startDistance = impulseMultiplier * 1.621671f;
         maxDistance = impulseMultiplier * 5f;
         centerDistanceDiff = maxDistance - startDistance;
-        trajectory = new Trajectory(game)
+        trajectory = new Trajectory(Game)
         {
             Impulse = impulseMultiplier
         };
@@ -122,7 +122,7 @@ public class TrampolineBodyClip : SnotBodyClipBase
         dragJoint = JointFactory.CreateFixedMouseJoint(Builder.World, val, val.WorldCenter);
         dragJoint.MaxForce = 500f;
         dragJoint.Frequency = 100f;
-        game.IncreaseZoomOut();
+        Game.IncreaseZoomOut();
     }
 
     public void EndDrag()
@@ -138,7 +138,7 @@ public class TrampolineBodyClip : SnotBodyClipBase
     {
         if (Dragging)
         {
-            game.DecreaseZoomOut();
+            Game.DecreaseZoomOut();
             Dragging = false;
             Builder.World.RemoveJoint((Joint)(object)dragJoint);
             dragJoint = null;
@@ -165,7 +165,7 @@ public class TrampolineBodyClip : SnotBodyClipBase
             vector -= center;
             if (VectorUtil.Projection(vector, Normal) > -1.621671f)
             {
-                game.FreeTouch(touch);
+                Game.FreeTouch(touch);
                 StopDrag();
             }
             else
@@ -295,16 +295,16 @@ public class TrampolineBodyClip : SnotBodyClipBase
 
     public override SnotSprite CreateClip()
     {
-        return game.WhiteSide
-            ? new WhiteTrampolineSprite(game, this, StartWidth, CenterWidth, EndWidth)
-            : game.BlackSide
-            ? new BlackTrampolineSprite(game, this, StartWidth, CenterWidth, EndWidth)
+        return Game.WhiteSide
+            ? new WhiteTrampolineSprite(Game, this, StartWidth, CenterWidth, EndWidth)
+            : Game.BlackSide
+            ? new BlackTrampolineSprite(Game, this, StartWidth, CenterWidth, EndWidth)
             : new SnotSprite(this, StartWidth, CenterWidth, EndWidth);
     }
 
     public override string BaseEndClipName()
     {
-        return game.ChooseSide("McTrampolineEndBlack", "McTrampolineEndWhite", "McTrampolineEnd");
+        return Game.ChooseSide("McTrampolineEndBlack", "McTrampolineEndWhite", "McTrampolineEnd");
     }
 
     public override string BaseClipName()

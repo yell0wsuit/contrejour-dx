@@ -17,23 +17,16 @@ public class GameBase : Node, IUpdatable
     protected List<IRemovable> Updatables { get; set; } = [];
 
     public Node GameRoot { get; } = new();
-    protected bool paused;
 
     public float TotalTime { get; protected set; }
 
     private LevelsCache _levelsCache;
 
-    protected Vector2 levelSize = Mokus2DGame.Instance.ScreenSize;
-
     private readonly List<object> _toRemove = [];
 
     public EventSender LevelLoadedEvent { get; }
 
-    public virtual bool Paused
-    {
-        get => paused;
-        set => paused = value;
-    }
+    public virtual bool Paused { get; set; }
 
     public Dictionary<string, Level> CachedLevels => _levelsCache.CachedLevels;
 
@@ -100,7 +93,7 @@ public class GameBase : Node, IUpdatable
 
     public override void Update(float time)
     {
-        if (paused)
+        if (Paused)
         {
             return;
         }

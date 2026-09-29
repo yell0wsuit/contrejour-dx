@@ -30,7 +30,7 @@ public class ChapterItem : Node
 
     protected Node Container { get; set; }
 
-    protected float depth;
+    private float depth;
 
     protected List<object> DepthDependent { get; set; } = [];
     protected List<object> HidingItems { get; set; } = [];

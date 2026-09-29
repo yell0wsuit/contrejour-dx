@@ -94,7 +94,7 @@ public class MonsterEye : RandomAnimationEye, IPositionDepedent
         string name = BlackEye ? "McEyeMonsterBlack" : "McEyeMonster";
         string name2 = Game.ChooseSide("McEyeBallMonsterBlack", "McEyeBallMonsterWhite", "McEyeBallMonster", "McEyeBallMonster", "McEyeBallMonster_6");
         Background = (Sprite)ClipTypesCache.CreateNewNode(name);
-        eyeBall = (Sprite)ClipTypesCache.CreateNewNode(name2);
+        EyeBallSprite = (Sprite)ClipTypesCache.CreateNewNode(name2);
     }
 
     public override void PlayAnimation(EyeAnimation animation, bool force)

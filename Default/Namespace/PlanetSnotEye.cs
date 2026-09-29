@@ -23,7 +23,7 @@ public class PlanetSnotEye : PlanetEye
     protected override void CreateDefaultView()
     {
         Background = new McEyeMonster();
-        eyeBall = new McEyeBallMonster();
+        EyeBallSprite = new McEyeBallMonster();
     }
 
     protected override float MaxAngle()

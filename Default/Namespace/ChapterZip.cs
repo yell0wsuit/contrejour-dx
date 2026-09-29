@@ -34,7 +34,7 @@ public class ChapterZip(int index, MainMenu menu) : ChapterItem(index, menu)
     public override void Update(float time)
     {
         base.Update(time);
-        bool flag = Maths.FuzzyEquals(depth, 1f, 0.01f);
+        bool flag = Maths.FuzzyEquals(Depth, 1f, 0.01f);
         arrow.Open = flag;
         if (flag && openAnimation.CurrentFrame < openAnimation.MaxFrame)
         {

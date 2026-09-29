@@ -9,6 +9,6 @@ public class FlyEye(ContreJourGame game, bool visible, Vector2 position) : Monst
     protected override void CreateDefaultView()
     {
         base.CreateDefaultView();
-        eyeBall.Scale = 1.5f;
+        EyeBallSprite.Scale = 1.5f;
     }
 }

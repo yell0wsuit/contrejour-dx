@@ -108,11 +108,11 @@ public class Chapter5(int index, MainMenu menu) : ChapterItem(index, menu)
     protected override void RefreshDepth()
     {
         base.RefreshDepth();
-        foreground.OpacityFloat = Math.Max((depth - 0.8f) * 5f, 0f);
+        foreground.OpacityFloat = Math.Max((Depth - 0.8f) * 5f, 0f);
         foregroundContainer.Visible = foreground.OpacityByte > 0;
         if (foregroundContainer.Visible)
         {
-            foregroundContainer.Scale = 10f - ((depth - 0.8f) * 5f * 9f);
+            foregroundContainer.Scale = 10f - ((Depth - 0.8f) * 5f * 9f);
         }
     }
 

@@ -149,7 +149,7 @@ public class HeroEye : RandomAnimationEye
             return;
         }
         Background = new McEyeBlack();
-        eyeBall = (Sprite)ClipTypesCache.CreateNewNode(Game.ChooseSide("McEyeBallBlack", "McEyeBallWhite", null, null, "McEyeBall_6"));
+        EyeBallSprite = (Sprite)ClipTypesCache.CreateNewNode(Game.ChooseSide("McEyeBallBlack", "McEyeBallWhite", null, null, "McEyeBall_6"));
     }
 
     protected override string ProcessName(string name)

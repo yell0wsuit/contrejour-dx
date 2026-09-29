@@ -76,7 +76,7 @@ public class Chapter2(int index, MainMenu menu) : ChapterItem(index, menu)
 
     private void OnSpringSpit(BouncingSprite spring)
     {
-        if (Maths.FuzzyEquals(depth, 1f))
+        if (Maths.FuzzyEquals(Depth, 1f))
         {
             GravityParticle gravityParticle = (GravityParticle)springSmoke.AddOrGetInvisible();
             gravityParticle.Position = spring.LocalToNode(SmokeCoords(), this);

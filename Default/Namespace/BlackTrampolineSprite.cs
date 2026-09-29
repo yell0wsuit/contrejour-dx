@@ -32,7 +32,7 @@ public class BlackTrampolineSprite(ContreJourGame game, SnotBodyClipBase snot, f
 
     public override void SetBorderColors()
     {
-        if (Border != null && drawBorder)
+        if (Border != null)
         {
             BlackDrawUtil.SetBorderColors(AllPointsSize / 2, StartColor(), MiddleColor(), EndColor(), Border);
             int num = Border.Length / 2;

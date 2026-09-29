@@ -14,7 +14,6 @@ public class SnotBodyClipBase : ContreJourBodyClip
 {
     protected MonsterEye Eye { get; set; }
 
-    protected ContreJourGame game;
 
     protected SnotSprite ClipContent { get; set; }
 
@@ -45,7 +44,6 @@ public class SnotBodyClipBase : ContreJourBodyClip
         : base(builder, body.EndBody, null, config)
     {
         Physics = body;
-        game = (ContreJourGame)this.Builder.Game;
         Container = new Node();
         Physics.Snot = this;
         InitSizes();

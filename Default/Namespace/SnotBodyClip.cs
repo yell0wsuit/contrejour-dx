@@ -111,15 +111,15 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
             }, snot: this, body: Physics.EyeBody)
             : new SnotEye(this, Physics.EyeBody);
         eyeJointDef = new RevoluteJointDef(Physics.EyeJoint);
-        game.AddPositionProvider(new PositionProviderValue(this, 1f));
+        Game.AddPositionProvider(new PositionProviderValue(this, 1f));
         StickyJoint = null;
-        if (game.BlackSide || game.BonusChapter)
+        if (Game.BlackSide || Game.BonusChapter)
         {
             CreateTail();
         }
         touchEndTime = -1f;
         dynamicDrag = this.Config.GetBool("dynamicDrag");
-        if (game.LevelIndex == 169)
+        if (Game.LevelIndex == 169)
         {
             Schedule(Blink, Maths.Random(5f, 8f));
         }
@@ -238,9 +238,9 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
         return 0f;
     }
 
-    public virtual void CreateHighlite(ContreJourGame game)
+    public virtual void CreateHighlite(ContreJourGame Game)
     {
-        if (!game.BlackSide && !this.game.WhiteSide && !this.game.BonusChapter)
+        if (!Game.BlackSide && !Game.WhiteSide && !Game.BonusChapter)
         {
             highlite = new McSnotEndHighlite();
             highliteChanger = new CosChanger(0.05f, 0.1f);
@@ -269,14 +269,14 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
 
     public virtual void CreateTail()
     {
-        blackTail = new BlackTail(textureFile: game.BlackSide ? "snotTailTextureBlack" : "McTailTextureGreen", body: Physics.EndBody, builder: Builder);
+        blackTail = new BlackTail(textureFile: Game.BlackSide ? "snotTailTextureBlack" : "McTailTextureGreen", body: Physics.EndBody, builder: Builder);
         Builder.Add(blackTail, 3);
         blackTail.Width = 20f;
     }
 
     public override void AddClipsToStage()
     {
-        CreateHighlite(game);
+        CreateHighlite(Game);
         if (highlite != null)
         {
             Container.AddChild(highlite);
@@ -311,7 +311,7 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
                 Physics.BodyAt(i).Awake = true;
             }
         }
-        if (StickyJoint == null && ((touchEndTime > 0f && game.TotalTime - touchEndTime < 0.3f) || Dragging))
+        if (StickyJoint == null && ((touchEndTime > 0f && Game.TotalTime - touchEndTime < 0.3f) || Dragging))
         {
             if (Dragging)
             {
@@ -580,7 +580,7 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
     {
         if (Dragging)
         {
-            touchEndTime = game.TotalTime;
+            touchEndTime = Game.TotalTime;
             SetDamping(FreeDamping());
             Physics.EndBody.BodyType = (BodyType)2;
             SetZ(Layer());

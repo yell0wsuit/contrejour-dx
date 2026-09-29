@@ -112,6 +112,8 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
 
     public RectangleFloat LevelScreenPhysicsBounds { get; private set; }
 
+    private Vector2 levelSize = Mokus2DGame.Instance.ScreenSize;
+
     public RectangleFloat LevelScreenBounds { get; private set; }
 
     public override bool Paused
@@ -122,7 +124,7 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
             {
                 ClickableLayer.InteractionsEnabled = !value;
                 GameRoot.UpdateEnabled = !value;
-                paused = value;
+                base.Paused = value;
                 if (!value && ContreJourConfig.BackButtonVisible)
                 {
                     pauseButton.Enabled = true;
@@ -376,7 +378,7 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
 
     public bool TouchBegin(Touch touch)
     {
-        if (!TouchEnabled || paused)
+        if (!TouchEnabled || Paused)
         {
             return false;
         }

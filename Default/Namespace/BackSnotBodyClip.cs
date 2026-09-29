@@ -68,7 +68,7 @@ public class BackSnotBodyClip : SnotBodyClipBase, IClickable
         vector *= 0.7f / vector.Length();
         Physics.EndBody.ApplyLinearImpulse(vector, Physics.EndBody.WorldCenter);
         Eye.PlayAnimation(new EyeAnimation("McBackSnotEyeBlink"), force: false);
-        Eye.RandomPositionProvider = game.GetTouchProvider(touch);
+        Eye.RandomPositionProvider = Game.GetTouchProvider(touch);
         SoundManager.PlayRandomSound(Sounds.BackSnot, Maths.Random(0.3f, 0.5f));
         if (Maths.Random() < 0.5f)
         {
