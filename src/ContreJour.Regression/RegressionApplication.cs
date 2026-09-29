@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 
 using ContreJour.Gameplay;
@@ -46,6 +47,12 @@ namespace ContreJour.Regression
 
         public static bool Failed { get; set; }
 
+        // Draws and reads back one frame. Set by Program to the host's capture.
+        public static Func<(byte[] Pixels, int Width, int Height)> CaptureFrame { get; set; }
+
+        // When set, every captured frame is also saved here as <label>-<settled|end>.png.
+        public static string PixelsPath { get; set; }
+
         // When set, every recorded frame's body and node hashes (and each body's state) are written
         // here, to find the first frame where two runs diverge.
         public static readonly string TracePath = Environment.GetEnvironmentVariable("CJ_REGRESSION_TRACE");
@@ -80,6 +87,8 @@ namespace ContreJour.Regression
         private StreamWriter _writer;
 
         private StreamWriter _trace;
+
+        private string _settledPixels;
 
         // Windowed at a fixed size, so the run doesn't take over the screen and the aspect ratio
         // (which picks the 16x9 or 4x3 level set and the layout) is the same on every machine.
@@ -124,7 +133,11 @@ namespace ContreJour.Regression
                         {
                             _trace = new StreamWriter(TracePath);
                         }
-                        _writer.WriteLine($"# frames={RecordedFrames} settle={SettleFrames} step=1/60 checkpoint={CheckpointInterval}");
+                        if (PixelsPath != null)
+                        {
+                            _ = Directory.CreateDirectory(PixelsPath);
+                        }
+                        _writer.WriteLine($"# frames={RecordedFrames} settle={SettleFrames} step=1/60 checkpoint={CheckpointInterval} pixels=sha256/16");
                         _items = Items();
                         _position = 0;
                         StartItem();
@@ -226,11 +239,12 @@ namespace ContreJour.Regression
             }
             _phase = Phase.Record;
             _frame = 0;
+            _settledPixels = CapturePixels("settled");
         }
 
         private void FinishItem()
         {
-            string result = _error ?? $"{_hash:x16}{_checkpoints}";
+            string result = _error ?? $"{_hash:x16}{_checkpoints} px {_settledPixels} {CapturePixels("end")}";
             _writer.WriteLine($"{_item.Label} {result}");
             _writer.Flush();
             Failed |= _error != null;
@@ -245,6 +259,18 @@ namespace ContreJour.Regression
             _trace?.Dispose();
             _phase = Phase.Done;
             ApplicationController.Host.Quit();
+        }
+
+        // Hashes one rendered frame: the first 16 hex digits of the SHA-256 of its RGBA bytes.
+        private string CapturePixels(string moment)
+        {
+            (byte[] pixels, int width, int height) = CaptureFrame();
+            if (PixelsPath != null)
+            {
+                string name = $"{_item.Label.Replace(' ', '_')}-{moment}.png";
+                PngWriter.Write(Path.Combine(PixelsPath, name), pixels, width, height);
+            }
+            return Convert.ToHexStringLower(SHA256.HashData(pixels))[..16];
         }
 
         // Settings and progress are saved by Preferences as two JSON files. Record some level results

@@ -70,6 +70,18 @@ namespace ContreJour.Desktop.MonoGame
             _game.Draw();
         }
 
+        // Draws one frame into the back buffer as Draw does and reads it back as RGBA bytes, for the
+        // regression harness's pixel check.
+        public (byte[] Pixels, int Width, int Height) CaptureFrame()
+        {
+            GraphicsDevice.Clear(_game.BackgroundColor);
+            _game.Draw();
+            PresentationParameters parameters = GraphicsDevice.PresentationParameters;
+            byte[] pixels = new byte[parameters.BackBufferWidth * parameters.BackBufferHeight * 4];
+            GraphicsDevice.GetBackBufferData(pixels);
+            return (pixels, parameters.BackBufferWidth, parameters.BackBufferHeight);
+        }
+
         protected override void OnActivated(object sender, EventArgs args)
         {
             base.OnActivated(sender, args);
