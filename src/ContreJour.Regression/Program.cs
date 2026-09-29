@@ -2,7 +2,7 @@ using System;
 using System.Globalization;
 using System.IO;
 
-using Default.Namespace;
+using ContreJour.Gameplay;
 
 using Mokus2D.Game;
 

@@ -1,6 +1,5 @@
 using System;
 
-using Default.Namespace;
 
 namespace Mokus2D.Util.MathUtils;
 

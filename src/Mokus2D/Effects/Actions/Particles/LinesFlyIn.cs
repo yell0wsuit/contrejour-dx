@@ -1,11 +1,10 @@
 using System;
 
-using Default.Namespace;
-
 using Microsoft.Xna.Framework;
 
 using Mokus2D.Data;
 using Mokus2D.Effects.Tweening;
+using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual;
 
 namespace Mokus2D.Effects.Actions.Particles;

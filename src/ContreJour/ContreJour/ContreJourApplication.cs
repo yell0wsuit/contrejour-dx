@@ -6,9 +6,8 @@ using ContreJour.Clips.menu;
 using ContreJour.Clips.menu2;
 using ContreJour.Clips.segoeFont;
 using ContreJour.Config;
+using ContreJour.Gameplay;
 using ContreJour.WinRT;
-
-using Default.Namespace;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;

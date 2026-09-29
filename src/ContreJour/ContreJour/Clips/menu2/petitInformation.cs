@@ -1,6 +1,6 @@
 using System.CodeDom.Compiler;
 
-using Default.Namespace;
+using ContreJour.Gameplay;
 
 using Microsoft.Xna.Framework;
 

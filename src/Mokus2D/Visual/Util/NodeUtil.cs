@@ -1,11 +1,10 @@
 using System;
 
-using Default.Namespace;
-
 using Microsoft.Xna.Framework;
 
 using Mokus2D.Effects.Tweening;
 using Mokus2D.Util.Extensions;
+using Mokus2D.Util.MathUtils;
 
 namespace Mokus2D.Visual.Util;
 

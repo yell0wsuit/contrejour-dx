@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 
-using Default.Namespace;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;

@@ -1,6 +1,5 @@
 using System;
 
-using Default.Namespace;
 
 using Microsoft.Xna.Framework;
 

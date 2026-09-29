@@ -1,7 +1,8 @@
 using System;
 using System.Runtime.Serialization;
 
-using Default.Namespace;
+using Mokus2D.Util.MathUtils;
+
 
 namespace Mokus2D.Visual.Particles.Util;
 

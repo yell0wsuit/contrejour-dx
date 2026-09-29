@@ -5,7 +5,7 @@ using System.Reflection;
 using ContreJour;
 using ContreJour.Config;
 
-using Default.Namespace;
+using ContreJour.Gameplay;
 
 using Microsoft.Xna.Framework;
 

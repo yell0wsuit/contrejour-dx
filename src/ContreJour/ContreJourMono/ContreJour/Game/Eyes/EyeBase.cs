@@ -1,7 +1,7 @@
 using ContreJour.Clips.common;
 using ContreJour.Content;
 
-using Default.Namespace;
+using ContreJour.Gameplay;
 
 using Microsoft.Xna.Framework;
 

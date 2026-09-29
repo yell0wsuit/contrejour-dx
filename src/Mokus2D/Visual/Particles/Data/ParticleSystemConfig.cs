@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Serialization;
 
-using Default.Namespace;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;

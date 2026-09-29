@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 
-using Default.Namespace;
 
 using Microsoft.Xna.Framework;
 

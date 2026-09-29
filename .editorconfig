@@ -37,15 +37,10 @@ dotnet_analyzer_diagnostic.category-Style.severity = warning
 # Every file already uses file-scoped namespaces.
 csharp_style_namespace_declarations = file_scoped:warning
 
-# Default.Namespace is part of the type names content looks up at runtime, so it can't be renamed
-# to avoid Visual Basic keywords; members and parameters are still checked.
-dotnet_code_quality.CA1716.analyzed_symbol_kinds = NamedType, Method, Property, Event, Parameter
-
 # Plain data structs (vertices, pairs, rectangles, ranges) keep public fields, like XNA's Vector2:
 # they're mutated in place and some rely on explicit field layout.
 dotnet_code_quality.CA1051.exclude_structs = true
 
-# Engine files that live in the game's Default.Namespace or extend System namespaces can't match
-# their project's root namespace.
-[src/{Mokus2D,Mokus2D.Common,Mokus2D.Integration.Farseer}/{Default,System}/**.cs]
+# Engine extensions that live in System namespaces can't match their project's root namespace.
+[src/{Mokus2D,Mokus2D.Common}/System/**.cs]
 dotnet_diagnostic.IDE0130.severity = none

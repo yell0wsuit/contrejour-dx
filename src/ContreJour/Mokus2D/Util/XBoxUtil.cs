@@ -8,7 +8,7 @@ public static class XBoxUtil
 
     public static void AwardAchievement(string achievement)
     {
-        if (!Default.Namespace.Constants.IsTrial)
+        if (!ContreJour.Gameplay.Constants.IsTrial)
         {
             _ = awardedAchievements.Contains(achievement);
         }

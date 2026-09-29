@@ -1,11 +1,10 @@
 using System.Collections.Generic;
 
-using Default.Namespace;
-
 using Microsoft.Xna.Framework;
 
 using Mokus2D.Data;
 using Mokus2D.Effects.Tweening.TweenToFrameData;
+using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual;
 using Mokus2D.Visual.Data;
 

@@ -1,6 +1,7 @@
 using System;
 
-using Default.Namespace;
+using Mokus2D.Util.MathUtils;
+
 
 namespace Mokus2D.Visual.Primitives.Collections;
 

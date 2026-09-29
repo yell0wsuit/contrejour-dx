@@ -1,8 +1,8 @@
-using Default.Namespace;
 
 using Microsoft.Xna.Framework;
 
 using Mokus2D.Util.Extensions;
+using Mokus2D.Util.MathUtils;
 
 namespace Mokus2D.Visual.Particles.Util;
 

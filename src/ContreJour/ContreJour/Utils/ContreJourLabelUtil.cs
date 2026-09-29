@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 
-using Default.Namespace;
+using ContreJour.Gameplay;
 
 using Microsoft.Xna.Framework;
 

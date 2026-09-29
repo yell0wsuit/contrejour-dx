@@ -1,14 +1,13 @@
 using System;
 using System.Collections.Generic;
 
-using Default.Namespace;
-
 using Microsoft.Xna.Framework;
 
 using Mokus2D.Collections;
 using Mokus2D.Data;
 using Mokus2D.Util;
 using Mokus2D.Util.Extensions;
+using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual.Animation;
 using Mokus2D.Visual.Data;
 using Mokus2D.Visual.Exceptions;

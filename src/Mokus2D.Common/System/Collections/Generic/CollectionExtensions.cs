@@ -1,6 +1,5 @@
 using System.Globalization;
 
-using Default.Namespace;
 
 using Mokus2D.Util.Data;
 using Mokus2D.Util.MathUtils;

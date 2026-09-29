@@ -8,7 +8,7 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 
-using Default.Namespace;
+using ContreJour.Gameplay;
 
 using FarseerPhysics.Dynamics;
 
