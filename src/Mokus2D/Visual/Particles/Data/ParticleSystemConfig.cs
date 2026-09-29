@@ -4,8 +4,8 @@ using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Serialization;
 
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
+using Mokus2D.Graphics;
 using Mokus2D.Util.Extensions;
 using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual.Particles.Util;
@@ -194,7 +194,7 @@ namespace Mokus2D.Visual.Particles.Data
             data.RotationSpeed = RotationSpeed.GetValueInRange();
             if (data.Particle is Sprite sprite)
             {
-                sprite.Blend = BlendAdditive ? BlendState.Additive : Mokus2DGame.Config.DefaultSpriteBatchProperties.Blend;
+                sprite.Blend = BlendAdditive ? BlendMode.Additive : Mokus2DGame.Config.DefaultSpriteBatchProperties.Blend;
             }
             data.Initialize();
         }

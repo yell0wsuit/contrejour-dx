@@ -10,7 +10,7 @@ namespace Mokus2D.Visual
 {
     public class LayerColor : SpriteBatchNode, IDataReloadable
     {
-        private readonly IQuad _quad;
+        private readonly Quad _quad;
 
         private ISpriteData _spriteData;
 
@@ -26,7 +26,7 @@ namespace Mokus2D.Visual
 
         public LayerColor(Color color, ISpriteData spriteData)
         {
-            _quad = Mokus2DGame.Config.GraphicsConfig.CreateDefaultQuad();
+            _quad = new Quad();
             _spriteData = spriteData;
             Texture = _spriteData.Texture;
             Color = color;

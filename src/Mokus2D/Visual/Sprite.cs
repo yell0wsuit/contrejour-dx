@@ -1,5 +1,4 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 using Mokus2D.Graphics;
 using Mokus2D.Interfaces;
@@ -141,7 +140,7 @@ namespace Mokus2D.Visual
             {
                 if (Config.ContainsKey("premultiply"))
                 {
-                    Blend = Config.GetBool("premultiply") ? BlendState.AlphaBlend : BlendState.NonPremultiplied;
+                    Blend = Config.GetBool("premultiply") ? BlendMode.AlphaBlend : BlendMode.NonPremultiplied;
                 }
                 if (Config.ContainsKey("clickable"))
                 {
@@ -152,7 +151,7 @@ namespace Mokus2D.Visual
 
         protected virtual IQuad CreateQuad()
         {
-            return Mokus2DGame.Config.GraphicsConfig.CreateDefaultQuad();
+            return new Quad();
         }
 
         protected virtual Rectangle GetTileRectangle()

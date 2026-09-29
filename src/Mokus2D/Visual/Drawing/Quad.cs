@@ -2,29 +2,29 @@ using System;
 
 using Microsoft.Xna.Framework;
 
+using Mokus2D.Graphics;
 using Mokus2D.Util.MathUtils;
-using Mokus2D.Visual.Drawing.Vertex;
 using Mokus2D.Visual.Interfaces;
 
 namespace Mokus2D.Visual.Drawing
 {
-    public class Quad<T> : IQuad where T : struct, IVertex
+    public class Quad : IQuad
     {
-        private T leftTop;
+        private Vertex leftTop;
 
-        public ref T LeftTop => ref leftTop;
+        public ref Vertex LeftTop => ref leftTop;
 
-        private T rightTop;
+        private Vertex rightTop;
 
-        public ref T RightTop => ref rightTop;
+        public ref Vertex RightTop => ref rightTop;
 
-        private T leftBottom;
+        private Vertex leftBottom;
 
-        public ref T LeftBottom => ref leftBottom;
+        public ref Vertex LeftBottom => ref leftBottom;
 
-        private T rightBottom;
+        private Vertex rightBottom;
 
-        public ref T RightBottom => ref rightBottom;
+        public ref Vertex RightBottom => ref rightBottom;
 
         private Rectangle _bounds;
 
@@ -71,7 +71,7 @@ namespace Mokus2D.Visual.Drawing
             _bounds.Height = (int)Maths.Max(LeftTop.Position.Y, RightTop.Position.Y, LeftBottom.Position.Y, RightBottom.Position.Y) - _bounds.Y + 1;
         }
 
-        private void SetVertexPosition(ref T vertex, Vector2 initialPosition, ref Matrix matrix, bool cleanBounds)
+        private void SetVertexPosition(ref Vertex vertex, Vector2 initialPosition, ref Matrix matrix, bool cleanBounds)
         {
             Vector2.Transform(ref initialPosition, ref matrix, out Vector2 result);
             vertex.Position = new Vector3(result, 0f);

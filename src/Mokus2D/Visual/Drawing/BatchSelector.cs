@@ -1,12 +1,7 @@
-using System;
-using System.Collections.Generic;
-
 using Microsoft.Xna.Framework;
 
 using Mokus2D.Graphics;
-using Mokus2D.PlatformSupport;
 using Mokus2D.Visual.Data;
-using Mokus2D.Visual.Drawing.Vertex;
 using Mokus2D.Visual.Interfaces;
 
 namespace Mokus2D.Visual.Drawing
@@ -19,11 +14,9 @@ namespace Mokus2D.Visual.Drawing
 
         private ITexture _currentTexture;
 
-        private ISimpleSpriteBatch _currentSpriteBatch;
+        private SimpleSpriteBatch _spriteBatch;
 
         private Vector2 _currentScreenSize;
-
-        private readonly Dictionary<Type, ISimpleSpriteBatch> _batches = [];
 
         private bool _spriteBatchDirty = true;
 
@@ -43,7 +36,7 @@ namespace Mokus2D.Visual.Drawing
             }
         }
 
-        private void StartDraw<T>() where T : struct, IVertex
+        private void StartDraw()
         {
             if (_spriteBatchDirty)
             {
@@ -53,25 +46,15 @@ namespace Mokus2D.Visual.Drawing
             if (!_batchStarted)
             {
                 _batchStarted = true;
-                _currentSpriteBatch = _batches.GetValueOrDefault(typeof(T));
-                if (_currentSpriteBatch == null)
-                {
-                    _currentSpriteBatch = GraphicsConfig.CreateSpriteBatch<T>(Mokus2DGame.Device);
-                    _batches.Add(typeof(T), _currentSpriteBatch);
-                }
-                _currentSpriteBatch.Begin(_currentTexture, _currentScreenSize, _currentBatchProperties);
+                _spriteBatch ??= new SimpleSpriteBatch();
+                _spriteBatch.Begin(_currentTexture, _currentScreenSize, _currentBatchProperties);
             }
         }
 
-        private ISimpleSpriteBatch<T> GetSpriteBatch<T>() where T : struct, IVertex
+        public void Draw(Quad quad)
         {
-            return (ISimpleSpriteBatch<T>)_currentSpriteBatch;
-        }
-
-        public void Draw<T>(Quad<T> quad) where T : struct, IVertex
-        {
-            StartDraw<T>();
-            GetSpriteBatch<T>().DrawQuad(quad);
+            StartDraw();
+            _spriteBatch.DrawQuad(quad);
         }
 
         public void Reset(Vector2 screenSize)
@@ -85,10 +68,10 @@ namespace Mokus2D.Visual.Drawing
         {
             if (_batchStarted)
             {
-                _currentSpriteBatch.Flush();
+                _spriteBatch.Flush();
                 _batchStarted = false;
                 DrawCallsCount++;
-                TrianglesDrawnCount += _currentSpriteBatch.TrianglesCount;
+                TrianglesDrawnCount += _spriteBatch.TrianglesCount;
             }
         }
 

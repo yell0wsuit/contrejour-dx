@@ -8,9 +8,9 @@ using ContreJour.Gameplay.Eyes;
 using FarseerPhysics.Dynamics;
 
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 using Mokus2D.Effects.Tween.Easing;
+using Mokus2D.Graphics;
 using Mokus2D.Sound;
 using Mokus2D.Util.Extensions;
 using Mokus2D.Util.MathUtils;
@@ -48,7 +48,7 @@ namespace ContreJour.Gameplay
         public EndHeroBodyClip(LevelBuilderBase builder, object body, Sprite clip, Hashtable config)
             : base(builder, body, clip, config)
         {
-            Game.Energy.Blend = BlendState.Additive;
+            Game.Energy.Blend = BlendMode.Additive;
             EyeAnimationsAllowed = false;
             animationsAllowed = true;
             Game.BackEvent.AddListener(OnBack);

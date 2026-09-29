@@ -10,12 +10,11 @@ using ContreJour.Gameplay;
 using ContreJour.Saving;
 
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 using Mokus2D;
-using Mokus2D.Config.Tint;
 using Mokus2D.Fonts;
 using Mokus2D.Game;
+using Mokus2D.Graphics;
 using Mokus2D.Sound;
 using Mokus2D.UI.Containers;
 using Mokus2D.Util.Extensions;
@@ -98,10 +97,8 @@ namespace ContreJour
         {
             base.Initialize(applicationController);
             PlatformInitialize();
-            Config.DefaultSpriteBatchProperties.Blend = BlendState.AlphaBlend;
+            Config.DefaultSpriteBatchProperties.Blend = BlendMode.AlphaBlend;
             Config.AnimationFPS = 30f;
-            TintGraphicsConfig graphicsConfig = new(tintEnabled: false);
-            Config.GraphicsConfig = graphicsConfig;
             ApplicationController.IsFullScreen = StartFullScreen;
             ApplicationController.ApplyGraphicsChanges();
             ApplicationController.IsFixedTimeStep = false;

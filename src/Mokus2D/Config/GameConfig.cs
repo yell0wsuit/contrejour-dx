@@ -1,8 +1,6 @@
-using Microsoft.Xna.Framework.Graphics;
-
 using Mokus2D.Config.Defaults;
-using Mokus2D.Config.Tint;
 using Mokus2D.Content;
+using Mokus2D.Graphics;
 using Mokus2D.Visual.Data;
 
 namespace Mokus2D.Config
@@ -16,19 +14,8 @@ namespace Mokus2D.Config
         public DebugConfig DebugConfig { get; } = new();
 
         public IGraphicsLoader GraphicsLoader { get; set; } = new SpriteLoaderCache(new OneFileResourcesLoader());
-        private SpriteBatchProperties defaultSpriteBatchProperties = new(BlendState.AlphaBlend, SamplerState.LinearClamp);
+        private SpriteBatchProperties defaultSpriteBatchProperties = new(BlendMode.AlphaBlend, SamplerMode.LinearClamp);
 
         public ref SpriteBatchProperties DefaultSpriteBatchProperties => ref defaultSpriteBatchProperties;
-
-        public IGraphicsConfig GraphicsConfig
-        {
-            get
-            {
-                field ??= new TintGraphicsConfig();
-                return field;
-            }
-
-            set;
-        }
     }
 }

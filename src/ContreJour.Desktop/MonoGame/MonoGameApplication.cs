@@ -53,8 +53,9 @@ namespace ContreJour.Desktop.MonoGame
             };
             GraphicsDevice.DepthStencilState = DepthStencilState.None;
             MonoGameInputSource input = new();
-            _renderer = new MonoGameRenderer(GraphicsDevice);
-            _applicationController = new ApplicationController(host, input, new FileLoader(), _audio, _renderer, GraphicsDevice);
+            FileLoader files = new();
+            _renderer = new MonoGameRenderer(GraphicsDevice, files);
+            _applicationController = new ApplicationController(host, input, files, _audio, _renderer, GraphicsDevice);
             _game.Initialize(_applicationController);
             // Subscribe after the game is set up: resizes applied during Initialize would otherwise
             // reach the game before its views exist (Win8 view-state events only arrived later).
@@ -110,6 +111,7 @@ namespace ContreJour.Desktop.MonoGame
             if (disposing)
             {
                 _applicationController?.Dispose();
+                _renderer?.Dispose();
             }
             base.Dispose(disposing);
         }

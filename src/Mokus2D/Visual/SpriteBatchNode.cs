@@ -1,5 +1,4 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 using Mokus2D.Graphics;
 using Mokus2D.Visual.Data;
@@ -16,7 +15,7 @@ namespace Mokus2D.Visual
 
         public ITexture Texture { get; protected set; }
 
-        public BlendState Blend
+        public BlendMode Blend
         {
             get => SpriteBatchProperties.Blend;
             set => SpriteBatchProperties.Blend = value;

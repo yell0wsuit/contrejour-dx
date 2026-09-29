@@ -5,8 +5,8 @@ using ContreJour.Clips.menu2;
 using ContreJour.Utils;
 
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
+using Mokus2D.Graphics;
 using Mokus2D.Integration.Farseer.Physics;
 using Mokus2D.Util.Extensions;
 using Mokus2D.Util.MathUtils;
@@ -75,7 +75,7 @@ namespace ContreJour.Gameplay
             Sprite sprite = new McRoseLight
             {
                 Position = new Vector2(22f, 114f) + Clip.Position,
-                Blend = BlendState.Additive,
+                Blend = BlendMode.Additive,
                 OpacityByte = 120
             };
             _ = Builder.AddChild(sprite);

@@ -1,6 +1,8 @@
 using System;
 using System.IO;
 
+using Microsoft.Xna.Framework;
+
 namespace Mokus2D.Graphics
 {
     // A texture a renderer created. Its pixels are premultiplied by alpha.
@@ -23,5 +25,9 @@ namespace Mokus2D.Graphics
         // mode assumes it. Throws InvalidDataException when the stream is not a supported image. The
         // caller owns and disposes the texture.
         ITexture CreateTexture(Stream stream);
+
+        // Draws indexCount / 3 triangles, in index order, both windings, no depth test. transform
+        // maps Position to clip space. See DrawState's enums for the pixel math.
+        void DrawTriangles(Vertex[] vertices, int vertexCount, short[] indices, int indexCount, in Matrix transform, in DrawState state);
     }
 }
