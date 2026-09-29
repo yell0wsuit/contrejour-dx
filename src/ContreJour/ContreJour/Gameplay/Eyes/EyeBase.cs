@@ -3,7 +3,6 @@ using ContreJour.Content;
 
 using Microsoft.Xna.Framework;
 
-using Mokus2D;
 using Mokus2D.Util.Extensions;
 using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual;
@@ -28,11 +27,9 @@ namespace ContreJour.Gameplay.Eyes
 
         private bool lockY;
 
-        private readonly bool useMask;
         private Vector2 targetPosition = Vector2.Zero;
 
         private bool dirty = true;
-        private readonly AnimatedMaskedSprite mask;
 
         private readonly Node content = new();
 
@@ -66,29 +63,10 @@ namespace ContreJour.Gameplay.Eyes
         protected ContreJourGame Game { get; }
 
         protected EyeBase(ContreJourGame game)
-            : this(game, useMask: false, Vector2.Zero)
-        {
-        }
-
-        protected EyeBase(ContreJourGame game, bool useMask, Vector2 maskSize)
         {
             Game = game;
-            useMask = useMask && Mokus2DGame.Config.RenderTargetEnabled;
-            this.useMask = useMask && Mokus2DGame.Config.RenderTargetEnabled;
             CreateDefaultView();
-            if (useMask)
-            {
-                mask = new AnimatedMaskedSprite(maskSize)
-                {
-                    UpdateMask = false
-                };
-                mask.AddChild(content);
-                AddChild(mask);
-            }
-            else
-            {
-                AddChild(content);
-            }
+            AddChild(content);
             SetDefaultView();
         }
 
@@ -153,10 +131,6 @@ namespace ContreJour.Gameplay.Eyes
             if (CurrentBackground != null && CurrentBackground.Parent == null)
             {
                 content.AddChild(CurrentBackground);
-                if (useMask)
-                {
-                    mask.Mask = (Sprite)CurrentBackground;
-                }
             }
             if (CurrentEyeBall != null && CurrentEyeBall.Parent == null)
             {

@@ -65,16 +65,7 @@ namespace Mokus2D.Visual.Data
             Opacity = ignoreParentOpacity ? nodeOpacity : (nodeOpacity * parentState.Opacity);
             if (!ignoreParentColor)
             {
-                if (Mokus2DGame.Config.GraphicsConfig.UseColorRatio)
-                {
-                    float num = colorRatio * (1f - parentState.ColorRatio);
-                    _color = Color.Lerp(nodeColor, parentState._color, parentState.ColorRatio / (parentState.ColorRatio + num));
-                    ColorRatio = parentState.ColorRatio + num;
-                }
-                else
-                {
-                    _color = nodeColor.Mult(parentState._color);
-                }
+                _color = nodeColor.Mult(parentState._color);
             }
             else
             {

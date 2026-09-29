@@ -5,7 +5,6 @@ using Mokus2D.Interfaces;
 using Mokus2D.Util.Extensions;
 using Mokus2D.Visual.Data;
 using Mokus2D.Visual.Drawing;
-using Mokus2D.Visual.Drawing.Vertex;
 using Mokus2D.Visual.Interfaces;
 
 namespace Mokus2D.Visual
@@ -194,7 +193,7 @@ namespace Mokus2D.Visual
         {
             if (Texture != null && (!Texture.IsDisposed || !IgnoreIfTextureDisposed))
             {
-                Quad.RefreshColor(color, CompositeState.ColorRatio);
+                Quad.RefreshColor(color);
                 if (_textureRectangleDirty)
                 {
                     Quad.RefreshTextureRect(GetTileRectangle(), Texture.Bounds.Size());
@@ -207,25 +206,6 @@ namespace Mokus2D.Visual
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);
-        }
-    }
-    public class Sprite<T>(Texture2D texture) : Sprite(texture) where T : struct, IVertex
-    {
-        public Sprite(string name)
-            : this(Mokus2DGame.LoadResource<ISpriteData>(name))
-        {
-        }
-
-        public Sprite(ISpriteData data)
-            : this(data.Texture)
-        {
-            ResetData(data);
-            Initialize();
-        }
-
-        protected override IQuad CreateQuad()
-        {
-            return new Quad<T>();
         }
     }
 }

@@ -32,9 +32,9 @@ namespace Mokus2D.Visual.Drawing
 
         public Rectangle Bounds => _bounds;
 
-        public void Refresh(Color color, float colorAmount, Rectangle textureRect, Vector2 textureSize, Matrix matrix, Vector2 anchorInPixels, Vector2 size)
+        public void Refresh(Color color, Rectangle textureRect, Vector2 textureSize, Matrix matrix, Vector2 anchorInPixels, Vector2 size)
         {
-            RefreshColor(color, colorAmount);
+            RefreshColor(color);
             RefreshTextureRect(textureRect, textureSize);
             RefreshTransformation(matrix, anchorInPixels, size);
         }
@@ -97,7 +97,7 @@ namespace Mokus2D.Visual.Drawing
             RightTop.TextureCoordinate = new Vector2(textureCoordinate2.X, textureCoordinate.Y);
         }
 
-        public virtual void RefreshColor(Color color, float colorAmount)
+        public void RefreshColor(Color color)
         {
             LeftTop.Color = color;
             RightTop.Color = color;

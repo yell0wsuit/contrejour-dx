@@ -14,7 +14,7 @@ namespace Mokus2D.Visual.Drawing
 
         void RefreshTextureRect(Rectangle textureRect, Vector2 textureSize);
 
-        void RefreshColor(Color color, float colorAmount);
+        void RefreshColor(Color color);
 
         void Draw(IDrawer root);
 

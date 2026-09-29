@@ -11,8 +11,6 @@ namespace Mokus2D.Config
     {
         public float AnimationFPS { get; set; } = 30f;
 
-        public bool RenderTargetEnabled { get; set; } = true;
-
         public float MouseSpeed { get; set; } = 1f;
 
         public DebugConfig DebugConfig { get; } = new();

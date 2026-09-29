@@ -41,8 +41,6 @@ namespace Mokus2D.Visual.Drawing
 
         private Vector2 _screenSize;
 
-        private ISpriteBatchEffect _currentEffect;
-
         private short[] _indices;
 
         protected ref short[] Indices => ref _indices;
@@ -58,7 +56,6 @@ namespace Mokus2D.Visual.Drawing
         {
             _device = device;
             _defaultEffect = CreateDefaultEffect();
-            _currentEffect = _defaultEffect;
             CreateBuffers(defaultSpriteCount);
         }
 
@@ -80,9 +77,8 @@ namespace Mokus2D.Visual.Drawing
             Indices = new short[indicesCount];
         }
 
-        public void Begin(Texture2D texture, Vector2 screenSize, SpriteBatchProperties properties, ISpriteBatchEffect effect)
+        public void Begin(Texture2D texture, Vector2 screenSize, SpriteBatchProperties properties)
         {
-            _currentEffect = effect ?? _defaultEffect;
             _screenSize = screenSize;
             _texture = texture;
             Properties = properties;
@@ -94,16 +90,6 @@ namespace Mokus2D.Visual.Drawing
             }
         }
 
-        public void Draw(T[] vertices)
-        {
-            SpriteBatchUtil.Draw(ref Vertices, ref Indices, ref CurrentVertex, ref CurrentIndex, vertices);
-        }
-
-        public void Draw(T[] vertices, int verticesCount, short[] indices, int indicesCount)
-        {
-            SpriteBatchUtil.Draw(ref Vertices, ref Indices, ref CurrentVertex, ref CurrentIndex, vertices, verticesCount, indices, indicesCount);
-        }
-
         public void DrawQuad(Quad<T> quad)
         {
             SpriteBatchUtil.DrawQuad(quad, ref Vertices, ref Indices, ref CurrentVertex, ref CurrentIndex);
@@ -113,7 +99,7 @@ namespace Mokus2D.Visual.Drawing
         {
             if (CurrentVertex != 0)
             {
-                SpriteBatchUtil.DrawUserIndexedPrimitives(_device, _screenSize, ref Properties, _currentEffect, _texture, Vertices, Indices, CurrentVertex, CurrentIndex);
+                SpriteBatchUtil.DrawUserIndexedPrimitives(_device, _screenSize, ref Properties, _defaultEffect, _texture, Vertices, Indices, CurrentVertex, CurrentIndex);
             }
         }
     }

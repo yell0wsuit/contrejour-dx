@@ -98,7 +98,6 @@ namespace ContreJour
         {
             base.Initialize(applicationController);
             PlatformInitialize();
-            Config.RenderTargetEnabled = false;
             Config.DefaultSpriteBatchProperties.Blend = BlendState.AlphaBlend;
             Config.AnimationFPS = 30f;
             TintGraphicsConfig graphicsConfig = new(tintEnabled: false);

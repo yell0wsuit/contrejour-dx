@@ -24,12 +24,6 @@ namespace Mokus2D.Visual.Util
             }
         }
 
-        public static void DrawTriangleFan(VertexPositionColor[] vertices)
-        {
-            short[] indices = CreateTriangleFanIndices((short)vertices.Length);
-            DrawTriangleList(vertices, indices);
-        }
-
         public static void DrawTriangleStrip<T>(T[] vertices) where T : struct, IVertexType
         {
             if (vertices.Length >= 3)
@@ -38,72 +32,15 @@ namespace Mokus2D.Visual.Util
             }
         }
 
-        public static void DrawTriangleList(VertexPositionColor[] vertices, short[] indices)
-        {
-            Mokus2DGame.Device.DrawUserIndexedPrimitives(PrimitiveType.TriangleList, vertices, 0, vertices.Length, indices, 0, indices.Length / 3, VertexPositionColor.VertexDeclaration);
-        }
-
         public static void DrawTriangleList<T>(T[] vertices) where T : struct, IVertexType
         {
             Mokus2DGame.Device.DrawUserPrimitives(PrimitiveType.TriangleList, vertices, 0, vertices.Length / 3, vertices[0].VertexDeclaration);
-        }
-
-        public static void DrawLineList<T>(T[] vertices) where T : struct, IVertexType
-        {
-            Mokus2DGame.Device.DrawUserPrimitives(PrimitiveType.LineList, vertices, 0, vertices.Length / 2, VertexPositionColor.VertexDeclaration);
-        }
-
-        public static void DrawLineStrip<T>(GraphicsDevice device, T[] vertices) where T : struct, IVertexType
-        {
-            device.DrawUserPrimitives(PrimitiveType.LineStrip, vertices, 0, vertices.Length - 1, VertexPositionColor.VertexDeclaration);
         }
 
         public static Vector2 StringToVector(string source)
         {
             string[] array = source.Split([',']);
             return new Vector2((float)Convert.ToDouble(array[0], CultureInfo.InvariantCulture), (float)Convert.ToDouble(array[1], CultureInfo.InvariantCulture));
-        }
-
-        public static void DrawRectangle(GraphicsDevice device, float x, float y, float width, float height, Color color)
-        {
-            DrawLineStrip(device, new VertexPositionColor[5]
-            {
-                new(new Vector3(x, y, 0f), color),
-                new(new Vector3(x + width - 1f, y, 0f), color),
-                new(new Vector3(x + width - 1f, y + height - 1f, 0f), color),
-                new(new Vector3(x, y + height - 1f, 0f), color),
-                new(new Vector3(x, y, 0f), color)
-            });
-        }
-
-        public static VertexPositionColor[] GetVertexPositionColor(List<Vector2> polygon, List<Color> colors, int lenght = -1)
-        {
-            if (lenght == -1)
-            {
-                lenght = polygon.Count;
-            }
-            VertexPositionColor[] array = new VertexPositionColor[lenght];
-            for (int i = 0; i < lenght; i++)
-            {
-                array[i].Position = new Vector3(polygon[i], 0f);
-                array[i].Color = colors[i];
-            }
-            return array;
-        }
-
-        public static VertexPositionColor[] GetVertexPositionColor(List<Vector2> polygon, Color color, int lenght = -1)
-        {
-            if (lenght == -1)
-            {
-                lenght = polygon.Count;
-            }
-            VertexPositionColor[] array = new VertexPositionColor[lenght];
-            for (int i = 0; i < lenght; i++)
-            {
-                array[i].Position = new Vector3(polygon[i], 0f);
-                array[i].Color = color;
-            }
-            return array;
         }
 
         public static void FillSegmentsIndices(short[] indices, int count)
@@ -118,19 +55,6 @@ namespace Mokus2D.Visual.Util
                 indices[num2 + 4] = (short)(num3 + 2);
                 indices[num2 + 5] = (short)(num3 + 3);
             }
-        }
-
-        public static short[] CreateTriangleFanIndices(short count)
-        {
-            short[] array = new short[((count - 3) * 3) + 3];
-            for (short num = 0; num < count - 2; num++)
-            {
-                short num2 = (short)(num * 3);
-                array[num2] = 0;
-                array[num2 + 1] = (short)(num + 1);
-                array[num2 + 2] = (short)(num + 2);
-            }
-            return array;
         }
 
         public static Vector2 GetRootScale(this Node node)
@@ -331,119 +255,12 @@ namespace Mokus2D.Visual.Util
             CreateGradientColorsForPolygonsStartEndStartColorEndColorColorsVector(0, polygonCount, startColor, endColor, colors);
         }
 
-        public static void GetCircleRadiusSegmentsResult(Vector2 center, float radius, int segments, ref VertexPositionColorTexture[] result)
-        {
-            float num = (float)Math.PI * 2f / segments;
-            float num2 = 0f;
-            for (int i = 0; i < segments; i++)
-            {
-                result[i].Position = new Vector3((radius * Maths.Cos(num2)) + center.X, (radius * Maths.Sin(num2)) + center.Y, 0f);
-                num2 += num;
-            }
-        }
-
-        public static void FillConvexColors(List<Vector2> polygon, List<Color> colors)
-        {
-            DrawTriangleFan(GetVertexPositionColor(polygon, colors));
-        }
-
-        public static void FillConvexColor(List<Vector2> polygon, Color color)
-        {
-            DrawTriangleFan(GetVertexPositionColor(polygon, color));
-        }
-
-        public static void FillTrianglesStripTextureCoordsTextureColor(List<Vector2> triangles, List<Vector2> textureCoords, Color color)
-        {
-            FillTrianglesTextureCoordsTextureLoopTypeColor(triangles, textureCoords, PrimitiveType.TriangleStrip, color);
-        }
-
         public static void FillTrianglesList<T>(T[] vertices) where T : struct, IVertexType
         {
             if (vertices != null && vertices.Length != 0)
             {
                 Mokus2DGame.Device.DrawUserPrimitives(PrimitiveType.TriangleList, vertices, 0, vertices.Length / 3);
             }
-        }
-
-        public static void FillTrianglesTextureCoordsTextureColor(List<Vector2> triangles, List<Vector2> textureCoords, Color color)
-        {
-            FillTrianglesTextureCoordsTextureLoopTypeColor(triangles, textureCoords, PrimitiveType.TriangleList, color);
-        }
-
-        public static void FillTrianglesStripColors(List<Vector2> triangles, List<Color> colors)
-        {
-            FillTrianglesColorsLoopType(triangles, colors);
-        }
-
-        public static void FillTrianglesStripTextureCoordsTexture(List<Vector2> triangles, List<Vector2> textureCoords)
-        {
-            FillTrianglesTextureCoordsTextureLoopType(triangles, textureCoords, PrimitiveType.TriangleStrip);
-        }
-
-        public static void FillTrianglesTextureCoordsTexture(List<Vector2> vertices, List<Vector2> textureCoords)
-        {
-            FillTrianglesTextureCoordsTextureLoopType(vertices, textureCoords, PrimitiveType.TriangleList);
-        }
-
-        public static void FillTrianglesTextureCoordsTextureLoopType(List<Vector2> vertices, List<Vector2> textureCoords, PrimitiveType loopType)
-        {
-            FillTrianglesTextureCoordsTextureLoopTypeColor(vertices, textureCoords, loopType, new Color(255, 255, 255, 255));
-        }
-
-        public static void FillTrianglesTextureCoordsTextureLoopTypeColor(List<Vector2> vertices, List<Vector2> textureCoords, PrimitiveType loopType, Color color)
-        {
-            VertexPositionColorTexture[] array = new VertexPositionColorTexture[vertices.Count];
-            for (int i = 0; i < vertices.Count; i++)
-            {
-                array[i].Position = new Vector3(vertices[i], 0f);
-                array[i].Color = color;
-                array[i].TextureCoordinate = textureCoords[i];
-            }
-            int primitiveCount = (loopType == PrimitiveType.TriangleList) ? (vertices.Count / 3) : (vertices.Count - 2);
-            Mokus2DGame.Device.DrawUserPrimitives(loopType, array, 0, primitiveCount);
-        }
-
-        public static void FillTrianglesColorsLoopType(List<Vector2> vertices, List<Color> colors)
-        {
-            VertexPositionColor[] vertexPositionColor = GetVertexPositionColor(vertices, colors);
-            DrawTriangleStrip(vertexPositionColor);
-        }
-
-        public static void FillTrianglesColors(List<Vector2> vertices, List<Color> colors)
-        {
-            FillTrianglesColorsLoopType(vertices, colors);
-        }
-
-        public static void FillConvex(List<Vector2> polygon)
-        {
-            FillConvexColor(polygon, new Color(0, 0, 0, 255));
-        }
-
-        public static void FillPolygonsColorsIteratorSize(List<List<Vector2>> points, List<List<Color>> colors, int size)
-        {
-            foreach (List<Color> color in colors)
-            {
-                for (int i = 0; i < size; i++)
-                {
-                    _ = points[i];
-                    FillConvexColors(points[i], color);
-                }
-            }
-        }
-
-        public static void FillPolygonsColorsSize(List<List<Vector2>> points, List<List<Color>> colors, int size)
-        {
-            for (int i = 0; i < size; i++)
-            {
-                List<Vector2> polygon = points[i];
-                List<Color> colors2 = colors[i];
-                FillConvexColors(polygon, colors2);
-            }
-        }
-
-        public static void FillPolygonsColors(List<List<Vector2>> points, List<List<Color>> colors)
-        {
-            FillPolygonsColorsSize(points, colors, points.Count);
         }
 
         public static void CreateTextureCoordsVerticesStep(int size, VertexPositionColorTexture[] vertices, float step)
@@ -464,11 +281,6 @@ namespace Mokus2D.Visual.Util
                     vertices[num + j].Color = Color.White;
                 }
             }
-        }
-
-        public static void CreateTextureCoordsVertices(int size, VertexPositionColorTexture[] vertices)
-        {
-            CreateTextureCoordsVerticesStep(size, vertices, 1f);
         }
 
         public static void CreateBorderTextureCoordsTextureWidthVertices(List<Vector2> surface, float textureWidth, ref List<Vector2> vertices)
@@ -511,29 +323,5 @@ namespace Mokus2D.Visual.Util
             }
         }
 
-        public static void FillTrianglesColor(List<Vector2> triangles, Color color)
-        {
-            FillTrianglesTrianglesSizeColorLoopType(triangles, triangles.Count, color);
-        }
-
-        public static void FillTrianglesStripColor(List<Vector2> triangles, Color color)
-        {
-            FillTrianglesTrianglesSizeColorLoopType(triangles, triangles.Count, color);
-        }
-
-        public static void FillTrianglesTrianglesSizeColor(List<Vector2> triangles, int trianglesSize, Color color)
-        {
-            FillTrianglesTrianglesSizeColorLoopType(triangles, trianglesSize, color);
-        }
-
-        public static void FillTrianglesTrianglesSizeColorLoopType(List<Vector2> triangles, int trianglesSize, Color color)
-        {
-            DrawTriangleStrip(GetVertexPositionColor(triangles, color, trianglesSize));
-        }
-
-        public static void FillTrianglesTrianglesSize(List<Vector2> triangles, int trianglesSize)
-        {
-            FillTrianglesTrianglesSizeColor(triangles, trianglesSize, new Color(0, 0, 0, 255));
-        }
     }
 }

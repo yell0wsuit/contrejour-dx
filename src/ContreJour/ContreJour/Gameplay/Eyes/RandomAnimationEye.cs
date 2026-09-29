@@ -1,7 +1,5 @@
 using System;
 
-using Microsoft.Xna.Framework;
-
 using Mokus2D.Events;
 using Mokus2D.Util.Extensions;
 using Mokus2D.Util.MathUtils;
@@ -44,18 +42,13 @@ namespace ContreJour.Gameplay.Eyes
             set => _animationsAllowed = value;
         }
 
-        public RandomAnimationEye(ContreJourGame game, bool useMask, Vector2 maskSize)
-            : base(game, useMask, maskSize)
+        public RandomAnimationEye(ContreJourGame game)
+            : base(game)
         {
             UpdateEnabled = false;
             clipEndAction = OnClipEnd;
             ScheduleAnimation();
             CacheAnimations();
-        }
-
-        public RandomAnimationEye(ContreJourGame game)
-            : this(game, useMask: false, Vector2.Zero)
-        {
         }
 
         private static void CacheAnimations()

@@ -6,15 +6,13 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Mokus2D.Visual.Drawing.Vertex
 {
-    public struct TintSpriteVertex(Vector3 position, Color color, Vector2 textureCoordinate, float colorRatio) : ITintVertex, IVertex, IVertexType
+    public struct TintSpriteVertex(Vector3 position, Color color, Vector2 textureCoordinate) : IVertex, IVertexType
     {
         private Vector3 Position = position;
 
         private Color Color = color;
 
         private Vector2 TextureCoordinate = textureCoordinate;
-
-        private float ColorRatio = colorRatio;
 
         public static readonly VertexDeclaration VertexDeclaration;
 
@@ -38,15 +36,9 @@ namespace Mokus2D.Visual.Drawing.Vertex
             set => TextureCoordinate = value;
         }
 
-        float ITintVertex.ColorRatio
-        {
-            readonly get => ColorRatio;
-            set => ColorRatio = value;
-        }
-
         static TintSpriteVertex()
         {
-            VertexDeclaration = new VertexDeclaration(new VertexElement(0, VertexElementFormat.Vector3, VertexElementUsage.Position, 0), new VertexElement(12, VertexElementFormat.Color, VertexElementUsage.Color, 0), new VertexElement(16, VertexElementFormat.Vector2, VertexElementUsage.TextureCoordinate, 0), new VertexElement(24, VertexElementFormat.Single, VertexElementUsage.BlendWeight, 0))
+            VertexDeclaration = new VertexDeclaration(new VertexElement(0, VertexElementFormat.Vector3, VertexElementUsage.Position, 0), new VertexElement(12, VertexElementFormat.Color, VertexElementUsage.Color, 0), new VertexElement(16, VertexElementFormat.Vector2, VertexElementUsage.TextureCoordinate, 0))
             {
                 Name = "TintSpriteVertex.VertexDeclaration"
             };

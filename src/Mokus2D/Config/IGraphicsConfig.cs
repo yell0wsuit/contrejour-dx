@@ -5,8 +5,6 @@ namespace Mokus2D.Config
 {
     public interface IGraphicsConfig
     {
-        bool UseColorRatio { get; }
-
         ISpriteBatchEffect DefaultEffect { get; }
 
         IQuad CreateDefaultQuad();

@@ -2,8 +2,6 @@ using ContreJour.Content;
 
 using ContreJour.Gameplay.Eyes;
 
-using Microsoft.Xna.Framework;
-
 using Mokus2D.Visual;
 
 namespace ContreJour.Menu.LevelComplete
@@ -15,7 +13,7 @@ namespace ContreJour.Menu.LevelComplete
         protected override EyeAnimation[] Animations => [];
 
         public FakeHeroEye()
-            : base(null, useMask: true, new Vector2(80f, 80f))
+            : base(null)
         {
             AnimationsAllowed = false;
             EyeStep = 2f;

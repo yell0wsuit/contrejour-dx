@@ -41,7 +41,7 @@ namespace Mokus2D.Visual
         public void RefreshQuad()
         {
             Vector2 size = Root.Size;
-            _quad.RefreshColor(Color, ColorRatio);
+            _quad.RefreshColor(Color);
             _quad.RefreshTextureRect(_spriteData.TextureRect, _spriteData.Texture.Bounds.Size());
             _quad.SetPositions(new Vector2(-10f, -10f), new Vector2(size.X + 10f, size.Y + 10f));
         }
@@ -57,7 +57,7 @@ namespace Mokus2D.Visual
 
         protected override void DrawSprite(VisualState state, Color color)
         {
-            _quad.RefreshColor(color, CompositeState.ColorRatio);
+            _quad.RefreshColor(color);
             _quad.Draw(Drawer);
         }
 

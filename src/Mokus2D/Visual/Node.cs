@@ -15,7 +15,6 @@ using Mokus2D.Util.MathUtils;
 using Mokus2D.Util.Resources;
 using Mokus2D.Visual.Animation;
 using Mokus2D.Visual.Data;
-using Mokus2D.Visual.Drawing.Effects;
 using Mokus2D.Visual.Exceptions;
 using Mokus2D.Visual.GameDebug;
 using Mokus2D.Visual.Interfaces;
@@ -62,8 +61,6 @@ namespace Mokus2D.Visual
 
         public int OnScreenCount { get; set; } = 1;
 
-        public bool ResetDefaultEffect { get; set; }
-
         public bool Test { get; set; }
 
         public bool UpdateChildren { get; set; } = true;
@@ -89,10 +86,6 @@ namespace Mokus2D.Visual
         private bool _visible = true;
 
         public VisualState CompositeState { get; protected set; }
-
-        public ISpriteBatchEffect Effect { get; set; }
-
-        public bool RefreshEffect => Effect != null;
 
         public bool HasConfig => Config != null;
 
@@ -673,15 +666,7 @@ namespace Mokus2D.Visual
 
         internal void DrawNode()
         {
-            if (RefreshEffect)
-            {
-                Drawer.StartEffect(Effect);
-            }
             DrawWithChildren();
-            if (ResetDefaultEffect)
-            {
-                Drawer.StartEffect(null);
-            }
             CompositeState.TransformationDirty = false;
         }
 

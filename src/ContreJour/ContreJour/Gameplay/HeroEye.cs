@@ -46,7 +46,7 @@ namespace ContreJour.Gameplay
         protected override float ViewRadius => base.ViewRadius * 2f;
 
         public HeroEye(ContreJourGame game)
-            : base(game, useMask: true, new Vector2(50f, 50f))
+            : base(game)
         {
             moveAllowed = true;
             colorTime = 0f;
