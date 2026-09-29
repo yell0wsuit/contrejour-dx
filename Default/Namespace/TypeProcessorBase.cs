@@ -1,10 +1,10 @@
 namespace Default.Namespace;
 
-public class TypeProcessorBase(string _type, LevelBuilderBase _builder)
+public class TypeProcessorBase(string type, LevelBuilderBase builder)
 {
-    private readonly string type = _type;
+    private readonly string type = type;
 
-    protected LevelBuilderBase Builder { get; set; } = _builder;
+    protected LevelBuilderBase Builder { get; set; } = builder;
 
     public virtual bool Match(Hashtable item)
     {

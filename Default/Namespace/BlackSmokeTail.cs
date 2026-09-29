@@ -14,11 +14,11 @@ using Mokus2D.Visual;
 
 namespace Default.Namespace;
 
-public class BlackSmokeTail(Body _body, LevelBuilderBase _builder) : IUpdatable
+public class BlackSmokeTail(Body body, LevelBuilderBase builder) : IUpdatable
 {
-    private readonly Body body = _body;
+    private readonly Body body = body;
 
-    private readonly LevelBuilderBase builder = _builder;
+    private readonly LevelBuilderBase builder = builder;
 
     private readonly List<object> items = [];
 

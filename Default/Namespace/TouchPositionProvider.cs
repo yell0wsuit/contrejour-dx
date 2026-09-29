@@ -4,11 +4,11 @@ using Mokus2D.Input;
 
 namespace Default.Namespace;
 
-public class TouchPositionProvider(Touch _touch, LevelBuilderBase _builder) : IVectorPositionProvider
+public class TouchPositionProvider(Touch touch, LevelBuilderBase builder) : IVectorPositionProvider
 {
-    private readonly LevelBuilderBase builder = _builder;
+    private readonly LevelBuilderBase builder = builder;
 
-    public Touch Touch { get; } = _touch;
+    public Touch Touch { get; } = touch;
 
     public Vector2 PositionVec => builder.TouchRootVec(Touch);
 }

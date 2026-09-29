@@ -5,10 +5,10 @@ using Mokus2D.Visual;
 
 namespace Default.Namespace;
 
-public class RadiusClickListener(Node _target, float _clickRadius, int priority = 0) : ClickListener(priority)
+public class RadiusClickListener(Node target, float clickRadius, int priority = 0) : ClickListener(priority)
 {
-    private readonly float clickRadius = _clickRadius;
-    private readonly Node target = _target;
+    private readonly float clickRadius = clickRadius;
+    private readonly Node target = target;
 
     public bool DisableDrag { get; set; }
 

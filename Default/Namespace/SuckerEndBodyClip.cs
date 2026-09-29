@@ -4,11 +4,11 @@ using Mokus2D.Input;
 
 namespace Default.Namespace;
 
-public class SuckerEndBodyClip(SuckerBodyClip _sucker, object body) : ContreJourBodyClip(_sucker.Builder, body, null, null), IClickable
+public class SuckerEndBodyClip(SuckerBodyClip sucker, object body) : ContreJourBodyClip(sucker.Builder, body, null, null), IClickable
 {
     private Touch touch;
 
-    private readonly SuckerBodyClip sucker = _sucker;
+    private readonly SuckerBodyClip sucker = sucker;
 
     public bool DisableHeroFocus => true;
 

@@ -3,13 +3,13 @@ using Mokus2D.Visual;
 
 namespace Default.Namespace;
 
-public class BackgroundBase(Node _node, Hashtable _config, ContreJourGame _game) : IUpdatable
+public class BackgroundBase(Node node, Hashtable config, ContreJourGame game) : IUpdatable
 {
-    protected Node Node { get; set; } = _node;
+    protected Node Node { get; set; } = node;
 
-    protected Hashtable Config { get; set; } = _config;
+    protected Hashtable Config { get; set; } = config;
 
-    protected ContreJourGame Game { get; set; } = _game;
+    protected ContreJourGame Game { get; set; } = game;
 
     public virtual void Update(float time)
     {

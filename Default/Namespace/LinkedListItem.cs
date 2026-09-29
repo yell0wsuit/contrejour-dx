@@ -1,8 +1,8 @@
 namespace Default.Namespace;
 
-public class LinkedListItem(object _item)
+public class LinkedListItem(object item)
 {
-    public object Item { get; set; } = _item;
+    public object Item { get; set; } = item;
 
     public LinkedListItem Previous { get; set; }
 

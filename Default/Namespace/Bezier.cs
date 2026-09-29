@@ -5,13 +5,13 @@ using Microsoft.Xna.Framework;
 
 namespace Default.Namespace;
 
-public class Bezier(Vector2 _start, Vector2 _control, Vector2 _end)
+public class Bezier(Vector2 start, Vector2 control, Vector2 end)
 {
-    private Vector2 start = _start;
+    private Vector2 start = start;
 
-    private Vector2 control = _control;
+    private Vector2 control = control;
 
-    private Vector2 end = _end;
+    private Vector2 end = end;
 
     public float Length
     {

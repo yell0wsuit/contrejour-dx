@@ -1,8 +1,8 @@
 namespace Default.Namespace;
 
-public class RopeMetrics(int _parts, float _partSize)
+public class RopeMetrics(int parts, float partSize)
 {
-    public int Parts { get; set; } = _parts;
+    public int Parts { get; set; } = parts;
 
-    public float PartSize { get; set; } = _partSize;
+    public float PartSize { get; set; } = partSize;
 }

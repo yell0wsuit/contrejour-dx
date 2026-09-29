@@ -7,7 +7,7 @@ using Mokus2D.Visual;
 
 namespace Default.Namespace;
 
-public class RoundDragBodyClip(ContreJourLevelBuilder _builder, object body, Node clip, Hashtable config) : DragableBodyClip(_builder, body, clip, config)
+public class RoundDragBodyClip(ContreJourLevelBuilder builder, object body, Node clip, Hashtable config) : DragableBodyClip(builder, body, clip, config)
 {
     private float radius;
 

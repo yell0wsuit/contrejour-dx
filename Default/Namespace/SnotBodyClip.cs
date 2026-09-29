@@ -238,9 +238,9 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
         return 0f;
     }
 
-    public virtual void CreateHighlite(ContreJourGame Game)
+    public virtual void CreateHighlite(ContreJourGame game)
     {
-        if (!Game.BlackSide && !Game.WhiteSide && !Game.BonusChapter)
+        if (!game.BlackSide && !Game.WhiteSide && !Game.BonusChapter)
         {
             highlite = new McSnotEndHighlite();
             highliteChanger = new CosChanger(0.05f, 0.1f);

@@ -2,9 +2,9 @@ using Mokus2D.Visual;
 
 namespace Default.Namespace;
 
-public class SpriteFader(Node _target)
+public class SpriteFader(Node target)
 {
-    private readonly Node target = _target;
+    private readonly Node target = target;
 
     public ushort EnabledOpacity { get; set; }
 

@@ -7,11 +7,11 @@ using Mokus2D.Util.Extensions;
 
 namespace Default.Namespace;
 
-public class SnotEye(SnotBodyClip _snot, Body body) : ContreJourBodyClip(_snot.Builder, body, null, null), IClickable
+public class SnotEye(SnotBodyClip snot, Body body) : ContreJourBodyClip(snot.Builder, body, null, null), IClickable
 {
     protected bool HasRelease { get; set; }
 
-    public SnotBodyClip Snot { get; } = _snot;
+    public SnotBodyClip Snot { get; } = snot;
 
     public bool DisableHeroFocus => true;
 

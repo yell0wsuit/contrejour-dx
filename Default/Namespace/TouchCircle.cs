@@ -11,7 +11,7 @@ using Mokus2D.Util.MathUtils;
 
 namespace Default.Namespace;
 
-public class TouchCircle(Touch _touch, LevelBuilderBase builder) : BodyClip(builder, CreateBody(builder, _touch), null, null)
+public class TouchCircle(Touch touch, LevelBuilderBase builder) : BodyClip(builder, CreateBody(builder, touch), null, null)
 {
     public class ClosestItem
     {
@@ -34,7 +34,7 @@ public class TouchCircle(Touch _touch, LevelBuilderBase builder) : BodyClip(buil
         }
     }
 
-    public Touch Touch { get; } = _touch;
+    public Touch Touch { get; } = touch;
 
     public bool Enabled { get; set; } = true;
 
