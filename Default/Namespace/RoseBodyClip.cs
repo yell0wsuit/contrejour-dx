@@ -25,19 +25,19 @@ public class RoseBodyClip : StickyBodyClip, IBonusAcceptable, IBodyClip
 
     private bool bonusHidden;
 
-    private readonly IAnimatedNode finalRose;
+    private readonly FinalRose finalRose;
 
     private bool finished;
 
     private readonly ContreJourGame game;
 
-    private Sprite headBack;
+    private McRoseHeadBack headBack;
 
     private McRoseHeadDown headDown;
 
-    private Node headFront;
+    private McRoseHeadFront headFront;
 
-    private Sprite headLight;
+    private McRoseHeadLight headLight;
 
     private IntroPlayer intro;
 

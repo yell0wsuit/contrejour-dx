@@ -9,10 +9,10 @@ public class Level
     // auto-properties.
 #pragma warning disable CS0649
     [SuppressMessage("Style", "IDE0032:Use auto property", Justification = "The level serializer sets this field by name.")]
-    private List<object> items;
+    private readonly List<object> items;
 
     [SuppressMessage("Style", "IDE0032:Use auto property", Justification = "The level serializer sets this field by name.")]
-    private Hashtable levelProperties;
+    private readonly Hashtable levelProperties;
 #pragma warning restore CS0649
 
     public List<object> Items => items;

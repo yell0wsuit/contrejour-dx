@@ -12,9 +12,9 @@ namespace Default.Namespace;
 
 public class MovieStripesView : Node
 {
-    private readonly Node topSquare;
+    private readonly whitePixel topSquare;
 
-    private readonly Node bottomSquare;
+    private readonly whitePixel bottomSquare;
 
     private readonly LayerColor FadeRectangle;
 

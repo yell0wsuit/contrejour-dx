@@ -11,7 +11,7 @@ public class RoundDragBodyClip(ContreJourLevelBuilder _builder, object body, Nod
 {
     private float radius;
 
-    private Sprite middleSprite;
+    private McRoundDragFrameView middleSprite;
 
     private static readonly Vector2 TouchCenterOffset = new(42f, 42f);
 

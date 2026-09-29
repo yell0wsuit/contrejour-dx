@@ -23,7 +23,7 @@ public class RotatorBodyClip : FurBodyClip, IClickable, IRestartable, ISnotHolde
 
     private readonly Sprite circle;
 
-    private readonly Sprite touchPoint;
+    private readonly McRotatorPoint touchPoint;
 
     private bool touching;
 

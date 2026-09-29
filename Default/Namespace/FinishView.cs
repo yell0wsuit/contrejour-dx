@@ -50,7 +50,7 @@ public class FinishView : MovieStripesView, IDisposable
 
     private FakeHero hero;
 
-    private Sprite highlite;
+    private McHeroHighliteMenu highlite;
 
     private Label levelField;
 
@@ -64,7 +64,7 @@ public class FinishView : MovieStripesView, IDisposable
 
     private Button skipButton;
 
-    private Sprite stamp;
+    private McImprovedResult stamp;
 
     private int stars;
 

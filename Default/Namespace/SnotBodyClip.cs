@@ -43,7 +43,7 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
 
     private bool hasRelease;
 
-    private Sprite highlite;
+    private McSnotEndHighlite highlite;
 
     private CosChanger highliteChanger;
 

@@ -2,7 +2,7 @@ using System;
 
 namespace Mokus2D.Effects.Tweening;
 
-public struct TargetAndAction(object target, Action<object> action)
+public readonly struct TargetAndAction(object target, Action<object> action)
 {
     private readonly object Target = target;
 

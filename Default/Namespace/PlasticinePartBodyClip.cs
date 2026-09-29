@@ -54,7 +54,6 @@ public class PlasticinePartBodyClip : ContreJourBodyClip, IClickable, IRestartab
     private PlasticinePartBodyClip next;
     private bool fixHighlite;
 
-    private static readonly int i;
 
     public PlasticineItem Item { get; set; }
 

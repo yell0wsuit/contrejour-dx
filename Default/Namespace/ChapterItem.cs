@@ -20,7 +20,7 @@ public class ChapterItem : Node
 
     protected List<object> alphaItems = [];
 
-    private Sprite backLight;
+    private McChapterLight backLight;
 
     protected Sprite background;
 

@@ -31,7 +31,7 @@ public class Splash : Node, ITouchListener, IDisposable
 
     private Vector2 center;
 
-    private Sprite mokusLogo;
+    private McMokusLogo mokusLogo;
 
     private FakeHeroBlack blackHero;
 

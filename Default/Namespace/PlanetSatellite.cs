@@ -12,7 +12,7 @@ namespace Default.Namespace;
 
 public class PlanetSatellite : Node, IUpdatable
 {
-    private readonly Sprite satellite;
+    private readonly McSatellite satellite;
 
     private readonly CosChanger changer;
 

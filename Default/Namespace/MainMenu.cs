@@ -30,9 +30,9 @@ public class MainMenu : AccelerometerMenu, IActivatedDependent
 
     public readonly EventSender ExitEvent = new();
 
-    private Sprite ground;
+    private McMenuGroundPhone ground;
 
-    private Sprite logo;
+    private McMainMenuLogo logo;
 
     private List<Sprite> backgroundImages;
 
@@ -40,7 +40,7 @@ public class MainMenu : AccelerometerMenu, IActivatedDependent
 
     private Label starsField;
 
-    private Node starsIcon;
+    private McEnergyIcon starsIcon;
 
     private Vector2 centerPosition;
 

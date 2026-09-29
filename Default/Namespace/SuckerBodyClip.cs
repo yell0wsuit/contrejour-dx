@@ -50,7 +50,7 @@ public class SuckerBodyClip : ContreJourBodyClip, IClickable, IVectorPositionPro
 
     private readonly Node ghostPimpa;
 
-    private readonly Sprite limit;
+    private readonly McRoundDragFrameView limit;
 
     protected float maxDistance;
 

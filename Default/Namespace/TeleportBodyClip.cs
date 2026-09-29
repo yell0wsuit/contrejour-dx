@@ -66,10 +66,6 @@ public class TeleportBodyClip : BodyClip
         portal.TargetScale = 1.2f;
     }
 
-    public void UpdateTeleportTime()
-    {
-    }
-
     public override void OnCollisionStartPoint(Body body2, Contact point)
     {
         if (point.FixtureA.IsSensor && point.FixtureB.IsSensor)
@@ -121,8 +117,6 @@ public class TeleportBodyClip : BodyClip
         Schedule(RestoreScale, 0.1f);
         teleportable.ForceClipPosition();
         ScaleHero(bodyClip);
-        UpdateTeleportTime();
-        Sibling.UpdateTeleportTime();
         Sibling.Use();
         if (limitSpeed)
         {

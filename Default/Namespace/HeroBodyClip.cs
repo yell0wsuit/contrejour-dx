@@ -54,7 +54,7 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
     protected bool finished;
 
     private bool hasToYawn;
-    private readonly Sprite hotspot;
+    private readonly McHotspotwhite hotspot;
 
     private Vector2 initialPosition;
 
