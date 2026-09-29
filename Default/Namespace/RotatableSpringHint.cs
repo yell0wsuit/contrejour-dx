@@ -11,8 +11,8 @@ public class RotatableSpringHint : FadeHint
     public RotatableSpringHint(ContreJourLevelBuilder builder, object body, Sprite clip, Hashtable config)
         : base(builder, body, clip, config)
     {
-        spring = (RotatableSpringBodyClip)FarseerUtil.Query(this.Builder.World, this.Builder.ToIPhoneVec(this.Clip.Position), 3f, typeof(RotatableSpringBodyClip));
-        this.Clip.Parent.ChangeChildLayer(this.Clip, 12);
+        spring = (RotatableSpringBodyClip)FarseerUtil.Query(Builder.World, Builder.ToIPhoneVec(Clip.Position), 3f, typeof(RotatableSpringBodyClip));
+        Clip.Parent.ChangeChildLayer(Clip, 12);
     }
 
     public override bool HasToHide()

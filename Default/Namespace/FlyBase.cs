@@ -27,11 +27,11 @@ public class FlyBase : IUpdatable
 
     public FlyBase(Particle particle, float scale)
     {
-        this.Particle = particle;
-        this.Particle.Scale = scale;
+        Particle = particle;
+        Particle.Scale = scale;
         InitialPosition = particle.Position;
         TargetPosition = InitialPosition;
-        opacityChanger = new CosOpacityChanger(this.Particle, 0f, Maths.Random(0.5f, 0.6f), Maths.Random(0.01f, 0.07f));
+        opacityChanger = new CosOpacityChanger(Particle, 0f, Maths.Random(0.5f, 0.6f), Maths.Random(0.01f, 0.07f));
         InitParams();
     }
 

@@ -32,10 +32,10 @@ public class PlasticineBodyClip : ContreJourBodyClip, IRestartable
         contreJourGame.RegisterPlasticine(this);
         clipContent = (PlasticineSprite)ReflectUtil.CreateInstance(contreJourGame.ChooseSide(typeof(BlackPlasticineSprite), typeof(WhitePlasticineSprite), typeof(PlasticineSprite)));
         Create(points);
-        _ = this.Builder.AddChild(clipContent);
+        _ = Builder.AddChild(clipContent);
         FirstItem.BodyClip.UpdateParent = true;
         wideBorder = new PlasticineWideBorder();
-        _ = this.Builder.AddChild(wideBorder);
+        _ = Builder.AddChild(wideBorder);
         InitBorder(contreJourGame);
         InitFillSprite();
         if (!contreJourGame.RoseChapter)
@@ -44,7 +44,7 @@ public class PlasticineBodyClip : ContreJourBodyClip, IRestartable
         }
         if (highlite != null)
         {
-            _ = this.Builder.AddChild(highlite);
+            _ = Builder.AddChild(highlite);
         }
         Changed = false;
         draggingItems = [];

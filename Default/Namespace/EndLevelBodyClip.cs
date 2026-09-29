@@ -18,14 +18,14 @@ public class EndLevelBodyClip : RotatableBodyClip, IRestartable
     public EndLevelBodyClip(LevelBuilderBase builder, object body, Node clip, Hashtable config)
         : base(builder, body, clip, config)
     {
-        Portal = new Portal((ContreJourGame)this.Builder.Game, Vector2.Zero)
+        Portal = new Portal((ContreJourGame)Builder.Game, Vector2.Zero)
         {
-            Position = this.Clip.Position,
+            Position = Clip.Position,
             Scale = 1.3f
         };
-        this.Builder.Add(Portal, 11);
-        ((ContreJourGame)this.Builder.Game).EndLevel = this;
-        this.Clip.Visible = false;
+        Builder.Add(Portal, 11);
+        ((ContreJourGame)Builder.Game).EndLevel = this;
+        Clip.Visible = false;
         Portal.ItemsScale = 0f;
     }
 

@@ -18,7 +18,6 @@ using Mokus2D.Util;
 using Mokus2D.Util.Extensions;
 using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual;
-using Mokus2D.Visual.Util;
 
 namespace Default.Namespace;
 
@@ -158,7 +157,7 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
         Vector2 position = clip.Position;
         bodyBackground.Position = Vector2.Zero;
         clip = new Node();
-        this.Clip = clip;
+        Clip = clip;
         clip.Position = position;
         shadow = (Sprite)ClipTypesCache.CreateNewNode(Game.ChooseSide("McHeroShadow", "McHeroShadowWhite", "McHeroShadow", "McHeroShadow"));
         clip.AddChild(shadow);
@@ -182,12 +181,12 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
                 Schedule(Game.EndLevel.ShowPortal, 1.6f);
             }
             portal = new Portal(Game, clip.Position);
-            this.Builder.AddChildBefore(portal, this.Clip);
+            Builder.AddChildBefore(portal, Clip);
             portal.ItemsScale = 0f;
             portal.ScaleStep = 0.1f;
         }
         onGroundTime = 0f;
-        this.Config["hasDust"] = true;
+        Config["hasDust"] = true;
         hotspot = new McHotspotwhite();
         clip.AddChild(hotspot);
         Eye = new HeroEye(Game);
@@ -198,7 +197,7 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
             blackTails = [];
             BlackTail blackTail = new(this);
             blackTails.Add(blackTail);
-            this.Builder.Add(blackTail, 3);
+            Builder.Add(blackTail, 3);
         }
         else
         {

@@ -12,7 +12,7 @@ public abstract class LinesFlyBase : GridLinesAction
 
     protected virtual LinesFlyBase Initialize(float linesDelay, float particleEffectSeconds, float particlesOffset)
     {
-        this.ParticlesOffset = particlesOffset;
+        ParticlesOffset = particlesOffset;
         _ = Initialize(linesDelay, particleEffectSeconds);
         return this;
     }

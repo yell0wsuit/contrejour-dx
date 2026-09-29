@@ -65,9 +65,9 @@ public class RotatorBodyClip : FurBodyClip, IClickable, IRestartable, ISnotHolde
         lastDirection = 1f;
         Body.BodyType = (BodyType)1;
         circle = new McRotatorCircle();
-        this.Clip.AddChild(circle);
+        Clip.AddChild(circle);
         touchPoint = new McRotatorPoint();
-        this.Clip.AddChild(touchPoint);
+        Clip.AddChild(touchPoint);
         touchPointSpeed = Maths.Random(0.02f, 0.03f);
         touchPointNeededSpeed = touchPointSpeed;
         RunActions();

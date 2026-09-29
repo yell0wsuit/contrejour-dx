@@ -214,7 +214,7 @@ public static class MarchingSquares
         }
     }
 
-    private sealed class GeomPolyVal(MarchingSquares.GeomPoly geomP, int K)
+    private sealed class GeomPolyVal(GeomPoly geomP, int K)
     {
         public int Key = K;
 

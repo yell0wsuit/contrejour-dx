@@ -12,7 +12,6 @@ using Mokus2D.Input;
 using Mokus2D.Util;
 using Mokus2D.Util.Extensions;
 using Mokus2D.Util.MathUtils;
-using Mokus2D.Visual;
 
 namespace Default.Namespace;
 
@@ -106,7 +105,7 @@ public class PlasticinePartBodyClip : ContreJourBodyClip, IClickable, IRestartab
         //IL_00d5: Unknown result type (might be due to invalid IL or missing references)
         //IL_00df: Expected O, but got Unknown
         Width = width;
-        this.Builder = builder;
+        Builder = builder;
         Parent = parent;
         game = (ContreJourGame)builder.Game;
         float value = ((Body)body).Rotation.SimplifyAngle(-(float)Math.PI / 2f);

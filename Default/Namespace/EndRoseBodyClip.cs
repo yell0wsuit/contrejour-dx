@@ -40,7 +40,7 @@ public class EndRoseBodyClip : StickyBodyClip, IBonusAcceptable, IBodyClip
     {
         clip.Scale /= 1.28f;
         Game.BonusTarget = this;
-        movie = (MovieClip)this.Clip;
+        movie = (MovieClip)Clip;
         movie.Rewind = true;
         movie.Repeat = false;
         saved = UserData.Instance.RoseSaved;
@@ -51,7 +51,7 @@ public class EndRoseBodyClip : StickyBodyClip, IBonusAcceptable, IBodyClip
         maxTime = saved ? 4f : 2.9629629f;
         movie.Color = Color.Black;
         colorChanger = new CosChanger(-0.1f, 0f, 0.05f);
-        this.Builder.RegisterObject(this, "rose");
+        Builder.RegisterObject(this, "rose");
     }
 
     public void ApplyBonus()

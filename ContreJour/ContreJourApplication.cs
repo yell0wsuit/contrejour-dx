@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-using ContreJour.Clips.level1;
 using ContreJour.Clips.menu;
 using ContreJour.Clips.menu2;
 using ContreJour.Clips.segoeFont;

@@ -35,7 +35,7 @@ public class SnotPoint : ContreJourBodyClip
         : base(builder, body, clip, config)
     {
         Body val = Body;
-        this.Builder.World.RemoveBody(Body);
+        Builder.World.RemoveBody(Body);
         Create(val.Position);
     }
 

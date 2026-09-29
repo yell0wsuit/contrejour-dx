@@ -61,9 +61,9 @@ public class GrassController : IGrassController, IUpdatable
 
     public GrassController(PlasticinePartBodyClip plasticine)
     {
-        this.Plasticine = plasticine;
-        Builder = (ContreJourLevelBuilder)this.Plasticine.Builder;
-        game = (ContreJourGame)this.Plasticine.Builder.Game;
+        Plasticine = plasticine;
+        Builder = (ContreJourLevelBuilder)Plasticine.Builder;
+        game = (ContreJourGame)Plasticine.Builder.Game;
         startAngle = Maths.Random(-(float)Math.PI / 12f, (float)Math.PI / 12f);
         touched = false;
         notTouchedFrames = 0;

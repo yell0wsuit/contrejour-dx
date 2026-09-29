@@ -103,9 +103,9 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
         LinkEvent = new EventSender();
         ReleaseEvent = new EventSender();
         SetDamping(FreeDamping());
-        movable = this.Config.GetBool("movable");
+        movable = Config.GetBool("movable");
         snotEye = movable
-            ? new MovableSnotEye(targetPoint: new SnotPoint(this.Builder, body.EyeBody.Position, null, null)
+            ? new MovableSnotEye(targetPoint: new SnotPoint(Builder, body.EyeBody.Position, null, null)
             {
                 Used = true
             }, snot: this, body: Physics.EyeBody)
@@ -118,7 +118,7 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
             CreateTail();
         }
         touchEndTime = -1f;
-        dynamicDrag = this.Config.GetBool("dynamicDrag");
+        dynamicDrag = Config.GetBool("dynamicDrag");
         if (Game.LevelIndex == 169)
         {
             Schedule(Blink, Maths.Random(5f, 8f));
@@ -134,8 +134,8 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
             Container.RemoveFromParent();
             joinedBodyClip.Clip.RemoveFromParent();
             int layer = joinedBodyClip.Clip.Layer;
-            _ = this.Builder.AddChild(joinedBodyClip.Clip, layer);
-            _ = this.Builder.AddChild(Container, layer);
+            _ = Builder.AddChild(joinedBodyClip.Clip, layer);
+            _ = Builder.AddChild(Container, layer);
         }
     }
 

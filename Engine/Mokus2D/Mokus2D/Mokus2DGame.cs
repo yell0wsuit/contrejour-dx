@@ -15,7 +15,6 @@ using Mokus2D.Util.Schedule;
 using Mokus2D.Visual;
 using Mokus2D.Visual.Data;
 using Mokus2D.Visual.Drawing;
-using Mokus2D.Visual.GameDebug;
 using Mokus2D.Visual.Interfaces;
 using Mokus2D.Visual.Text;
 using Mokus2D.Visual.Util;

@@ -26,7 +26,7 @@ public class RotatableBodyClip : BodyClip
         _ = Maths.Random(4f, 8f);
         destroying = false;
         scaleSign = 1;
-        this.Clip.RotationDegrees = Maths.Random(360);
+        Clip.RotationDegrees = Maths.Random(360);
     }
 
     public override void Update(float time)

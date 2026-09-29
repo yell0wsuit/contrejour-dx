@@ -37,19 +37,19 @@ public class SpikesFlowerBodyClip : ContreJourBodyClip, IVectorPositionProvider
         if (Game.WhiteSide || Game.BonusChapter)
         {
             clip = LevelBuilderBase.ReplaceClipWith(clip, Game.Choose(null, null, "McSpikesViewWhite", null, "McSpikesView_6"));
-            this.Clip = clip;
+            Clip = clip;
         }
         container = new Node();
-        this.Clip.AddChild(container, -1);
+        Clip.AddChild(container, -1);
         Node node = new McSpikesFlowerShadow
         {
-            Scale = this.Clip.ScaleY
+            Scale = Clip.ScaleY
         };
         container.AddChild(node);
         movie = (ISpikesView)clip;
         movie.Left.Stoped = movie.Right.Stoped = true;
         movie.Left.Speed = movie.Right.Speed = 1.5f;
-        drawing = new SpikesFlowerSprite(this, this.Clip.ScaleY);
+        drawing = new SpikesFlowerSprite(this, Clip.ScaleY);
         container.AddChild(drawing, -1);
     }
 

@@ -2,8 +2,6 @@ using ContreJour.Clips.menu2;
 
 using Microsoft.Xna.Framework;
 
-using Mokus2D.Visual;
-
 namespace Default.Namespace;
 
 public class Chapter4(int index, MainMenu menu) : Chapter2(index, menu)

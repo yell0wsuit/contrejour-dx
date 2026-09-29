@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 
 using Microsoft.Xna.Framework;
@@ -7,7 +6,6 @@ using Microsoft.Xna.Framework;
 using Mokus2D.Data;
 using Mokus2D.Util;
 using Mokus2D.Visual;
-using Mokus2D.Visual.Interfaces;
 
 namespace Mokus2D.Parallax;
 

@@ -14,5 +14,9 @@
     <AnalysisMode>Recommended</AnalysisMode>
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
     <CodeAnalysisTreatWarningsAsErrors>false</CodeAnalysisTreatWarningsAsErrors>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <!-- Doc files are generated so IDE0005 (unnecessary usings) runs on build. Missing-doc warnings
+         stay off until the engine's public API is documented. -->
+    <NoWarn>$(NoWarn);CS1573;CS1591</NoWarn>
   </PropertyGroup>
 </Project>

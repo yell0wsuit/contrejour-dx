@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 
 using ContreJour.Clips.common;
@@ -93,7 +92,7 @@ public class DragableBodyClip : ContreJourBodyClip, IClickable, IRestartable, IS
         //IL_00f7: Unknown result type (might be due to invalid IL or missing references)
         //IL_0101: Expected O, but got Unknown
         clip = LevelBuilderBase.ReplaceClipWith(clip, ReplaceClipName(builder));
-        this.Clip = clip;
+        Clip = clip;
         clip.Parent.ChangeChildLayer(clip, 2);
         DragStartEvent = new EventSender();
         float num = config.GetFloat("scaleX");
@@ -101,7 +100,7 @@ public class DragableBodyClip : ContreJourBodyClip, IClickable, IRestartable, IS
         targetPosition = InitialPosition;
         upperLimit = 3.4f * num;
         lowerLimit = -3.4f * num;
-        axis = VectorUtil.ToVector(1f, MathHelper.ToRadians(0f - this.Config.GetFloat("rotation")));
+        axis = VectorUtil.ToVector(1f, MathHelper.ToRadians(0f - Config.GetFloat("rotation")));
         CreateBoundsClip(num);
         SetAlpha(150f);
         Body.BodyType = (BodyType)1;

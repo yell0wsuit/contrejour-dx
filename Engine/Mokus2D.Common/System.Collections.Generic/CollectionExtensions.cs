@@ -4,7 +4,6 @@ using Default.Namespace;
 
 using Mokus2D.Util.Data;
 using Mokus2D.Util.MathUtils;
-using Mokus2D.Visual.Data;
 
 namespace System.Collections.Generic;
 

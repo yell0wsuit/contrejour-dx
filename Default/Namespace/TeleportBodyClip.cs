@@ -28,8 +28,8 @@ public class TeleportBodyClip : BodyClip
     {
         UseEvent = new EventSender();
         ContreJourGame contreJourGame = (ContreJourGame)builder.Game;
-        limitSpeed = this.Config.GetBool("limitSpeed");
-        string text = this.Config.GetString("color") ?? "0";
+        limitSpeed = Config.GetBool("limitSpeed");
+        string text = Config.GetString("color") ?? "0";
         portal = new Portal(textureName: (!(text != "0")) ? (contreJourGame.BlackSide ? "common/McTeleportPartBlue" : "common/McTeleportPart") : "common/McTeleportPartBlue", game: contreJourGame, position: clip.Position);
         if (contreJourGame.BonusChapter)
         {

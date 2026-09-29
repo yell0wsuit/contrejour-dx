@@ -61,7 +61,7 @@ public class RoseBodyClip : StickyBodyClip, IBonusAcceptable, IBodyClip
         Node node = new();
         LevelBuilderBase.ReplaceChildWith(clip, node);
         node.Position = clip.Position;
-        this.Clip = node;
+        Clip = node;
         game = (ContreJourGame)builder.Game;
         finalRose = new FinalRose
         {
@@ -70,7 +70,7 @@ public class RoseBodyClip : StickyBodyClip, IBonusAcceptable, IBodyClip
             Speed = 0f
         };
         game.BonusTarget = this;
-        this.Clip.AddChild(finalRose);
+        Clip.AddChild(finalRose);
         if (game.CanShowIntro)
         {
             PlayIntro();

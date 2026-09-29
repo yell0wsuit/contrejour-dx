@@ -13,8 +13,8 @@ public class RotatorHint : FadeHint
     public RotatorHint(ContreJourLevelBuilder builder, object body, Sprite clip, Hashtable config)
         : base(builder, null, clip, config)
     {
-        rotator = (RotatorBodyClip)FarseerUtil.Query(this.Builder.World, this.Builder.ToIPhoneVec(this.Clip.Position), 3f, typeof(RotatorBodyClip));
-        this.Clip.Parent.ChangeChildLayer(this.Clip, 12);
+        rotator = (RotatorBodyClip)FarseerUtil.Query(Builder.World, Builder.ToIPhoneVec(Clip.Position), 3f, typeof(RotatorBodyClip));
+        Clip.Parent.ChangeChildLayer(Clip, 12);
     }
 
     public override bool HasToHide()

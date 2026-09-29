@@ -12,7 +12,7 @@ public class FadeBackground : BackgroundBase
         : base(node, config, game)
     {
         sprite = (Sprite)node;
-        if (!this.Game.CanShowIntro)
+        if (!Game.CanShowIntro)
         {
             sprite.OpacityByte = 0;
             sprite.Visible = false;

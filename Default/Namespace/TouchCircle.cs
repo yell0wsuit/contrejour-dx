@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Dynamics.Contacts;
 

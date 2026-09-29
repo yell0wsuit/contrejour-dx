@@ -14,7 +14,7 @@ public class LeafBodyClip : ForegroundBase
     {
         float num = config.GetFloat("angleOffset", 0f);
         rotationChanger = new CosChanger(0f - num, num, config.GetFloat("rotationSpeed") / 30f);
-        initialRotation = this.Clip.RotationDegrees;
+        initialRotation = Clip.RotationDegrees;
     }
 
     public override void Update(float time)

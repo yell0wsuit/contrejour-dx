@@ -81,7 +81,7 @@ public class LevelBuilderBase : Updatable, IDisposable
         GroundBody = BodyFactory.CreateBody(World, new Vector2(0f, 0f), 0f, null);
         MaxWorldUpdateTime = 1f / 30f;
         PhysicsSpeed = 1f;
-        this.Game = game;
+        Game = game;
         Processors = [];
         Updater = new PhysicsUpdater(World);
         clips = [];

@@ -17,7 +17,7 @@ public class RadiusRotatableBackground : RotatableBackground
         : base(node, config, game)
     {
         radius = 40f;
-        CenterPosition = this.Node.Position;
+        CenterPosition = Node.Position;
         CenterPosition.X += radius;
         RotationStep = 0.2f;
     }

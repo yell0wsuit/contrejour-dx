@@ -25,7 +25,7 @@ public class EnergyBodyClip : BodyClip, IRestartable
         : base(builder, body, clip, config)
     {
         clip.Visible = false;
-        contreJourBuilder = (ContreJourLevelBuilder)this.Builder;
+        contreJourBuilder = (ContreJourLevelBuilder)Builder;
         energyParts = [];
         CollectEvent = new EventSender();
         CreateParts();

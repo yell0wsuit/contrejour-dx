@@ -26,8 +26,8 @@ public class SnotSprite : LongNeckSprite
 
     public SnotSprite(SnotBodyClipBase snot, float startWidth, float centerWidth, float endWidth)
     {
-        this.Snot = snot;
-        data = this.Snot.Physics;
+        Snot = snot;
+        data = Snot.Physics;
         this.startWidth = startWidth;
         this.endWidth = endWidth;
         this.centerWidth = centerWidth;

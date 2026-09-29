@@ -6,7 +6,6 @@ using FarseerPhysics.Dynamics.Contacts;
 
 using Microsoft.Xna.Framework;
 
-using Mokus2D.Events;
 using Mokus2D.Input;
 using Mokus2D.Sound;
 using Mokus2D.Util.Extensions;
@@ -56,21 +55,21 @@ public class SpringBodyClip : ContreJourBodyClip, IClickable, IRestartable
         if (!Game.BlackSide)
         {
             clip = LevelBuilderBase.ReplaceClipWith(clip, GetClipName());
-            this.Clip = clip;
+            Clip = clip;
         }
-        this.Clip.Parent.ChangeChildLayer(clip, 2);
+        Clip.Parent.ChangeChildLayer(clip, 2);
         Body.IsBullet = true;
-        this.Config["noShadow"] = "true";
-        this.Config["noSound"] = "true";
-        movie = (MovieClip)this.Clip;
+        Config["noShadow"] = "true";
+        Config["noSound"] = "true";
+        movie = (MovieClip)Clip;
         movie.Stoped = true;
         movie.Repeat = false;
         movie.MinFrame = 7f;
         CreateShadow();
-        startScale = this.Clip.ScaleX;
-        suckPoint = this.Builder.ToVec(SuckPoint * this.Clip.ScaleX);
-        suckDistance = 150f * this.Clip.ScaleX * this.Builder.SizeMult;
-        BodyCenterVec = VectorUtil.Rotate(this.Builder.ToVec(BodyCenter * this.Clip.ScaleX), InitialBodyAngle);
+        startScale = Clip.ScaleX;
+        suckPoint = Builder.ToVec(SuckPoint * Clip.ScaleX);
+        suckDistance = 150f * Clip.ScaleX * Builder.SizeMult;
+        BodyCenterVec = VectorUtil.Rotate(Builder.ToVec(BodyCenter * Clip.ScaleX), InitialBodyAngle);
         breatheChanger = new CosChanger(0.06f, 0.07f)
         {
             MinValue = 0.95f,
@@ -92,10 +91,10 @@ public class SpringBodyClip : ContreJourBodyClip, IClickable, IRestartable
         }
         smoke.ScaleDownOnDestroy = false;
         RefreshSmokeAngle();
-        this.Builder.Add(smoke, 11);
+        Builder.Add(smoke, 11);
         CreateSmoke();
         timeToSmoke = Maths.Random(1.5f, 2.3f);
-        this.Clip.AddedToStageEvent += RefreshPoints;
+        Clip.AddedToStageEvent += RefreshPoints;
         SetThinSmokeRange();
     }
 

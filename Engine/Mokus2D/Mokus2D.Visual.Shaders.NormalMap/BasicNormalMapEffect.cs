@@ -1,5 +1,3 @@
-using Mokus2D.Visual.ShaderSupport.Parameters;
-
 namespace Mokus2D.Visual.Shaders.NormalMap;
 
 public class BasicNormalMapEffect : NormalMapEffectBase

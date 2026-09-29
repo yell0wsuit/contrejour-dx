@@ -8,7 +8,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Mokus2D;
 using Mokus2D.Content;
 using Mokus2D.Util.Xml;
-using Mokus2D.Visual;
 using Mokus2D.Visual.Data;
 
 namespace Default.Namespace;

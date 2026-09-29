@@ -2,7 +2,6 @@ using System.Collections.Generic;
 
 using Microsoft.Xna.Framework;
 
-using Mokus2D;
 using Mokus2D.Content;
 using Mokus2D.Events;
 using Mokus2D.Interfaces;

@@ -24,11 +24,11 @@ public class HintBase : BodyClip, IRemovable
         ContreJour = builder.ContreJour;
         builder.Game.AddUpdatable(this);
         ContreJour.AddTextureToUnload(clip.Texture.Name);
-        AddText(this.Config.GetHashtable("textData"));
+        AddText(Config.GetHashtable("textData"));
         int num = 0;
-        while (this.Config.Exists("textData" + num))
+        while (Config.Exists("textData" + num))
         {
-            Hashtable hashtable = this.Config.GetHashtable("textData" + num);
+            Hashtable hashtable = Config.GetHashtable("textData" + num);
             if (hashtable != null)
             {
                 AddText(hashtable);

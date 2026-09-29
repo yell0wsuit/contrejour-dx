@@ -1,5 +1,3 @@
-using Microsoft.Xna.Framework;
-
 namespace Mokus2D.Integration.Farseer.Config;
 
 public class FarseerConfig

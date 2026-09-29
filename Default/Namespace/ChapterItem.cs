@@ -77,15 +77,15 @@ public class ChapterItem : Node
 
     public ChapterItem(int index, MainMenu menu)
     {
-        this.Menu = menu;
-        this.Index = index;
+        Menu = menu;
+        Index = index;
         depth = -1f;
         Container = new Node();
         AddChild(Container);
         CreateSprites();
         AddChild(BlurBackground);
         HidingItems.Add(Background);
-        Offset = this.Index * (float)Math.PI * 2f / ContreJourConstants.PlanetsCount;
+        Offset = Index * (float)Math.PI * 2f / ContreJourConstants.PlanetsCount;
         CreateClickListener();
         Enabled = true;
     }

@@ -208,8 +208,8 @@ public abstract class LongNeckSprite : PrimitivesNode
     public virtual void CreateVectors(int allPointsSize)
     {
         Vertices = new VertexPositionColorTexture[(allPointsSize - 2) * 3];
-        this.AllPointsSize = allPointsSize;
-        Border = new VertexPositionColorTexture[this.AllPointsSize * 6];
+        AllPointsSize = allPointsSize;
+        Border = new VertexPositionColorTexture[AllPointsSize * 6];
         SetBorderColors();
         SetNeckColors();
     }

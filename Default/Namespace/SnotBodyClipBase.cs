@@ -49,7 +49,7 @@ public class SnotBodyClipBase : ContreJourBodyClip
         InitSizes();
         ClipContent = CreateClip();
         BaseClip = ClipTypesCache.CreateNewNode(BaseClipName());
-        BaseClip.Position = this.Builder.ToIPadPoint(Physics.GetWorldStartPoint());
+        BaseClip.Position = Builder.ToIPadPoint(Physics.GetWorldStartPoint());
         BaseEndClip = ClipTypesCache.CreateNewNode(BaseEndClipName());
         Physics.EndBody.ApplyLinearImpulse(new Vector2(Maths.Random(), Maths.Random()) * Physics.EndBody.Mass);
         Eye = CreateEye();

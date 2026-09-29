@@ -64,10 +64,10 @@ public class BodyClip : Updatable
         config ??= [];
         RotationOffset = config.GetFloat("rotationOffset", 0f);
         RotationOffsetRadians = RotationOffset.ToRadians();
-        this.Config = config;
-        this.Clip = clip;
+        Config = config;
+        Clip = clip;
         Body = (Body)body;
-        this.Builder = builder;
+        Builder = builder;
     }
 
     public void Schedule(Action action, float delay)

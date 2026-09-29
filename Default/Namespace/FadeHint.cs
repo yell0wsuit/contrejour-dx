@@ -24,8 +24,8 @@ public class FadeHint : HintBase, IRemovable, IRestartable
     {
         builder.ContreJour.AddUpdatable(this);
         builder.ContreJour.AddTextureToUnload(clip.Texture.Name);
-        this.Clip.OpacityByte = 0;
-        this.Clip.Visible = false;
+        Clip.OpacityByte = 0;
+        Clip.Visible = false;
         HasToRun = true;
     }
 

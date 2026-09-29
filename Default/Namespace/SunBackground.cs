@@ -9,14 +9,14 @@ public class SunBackground : MoveBackground
     public SunBackground(Node node, Hashtable config, ContreJourGame game)
         : base(node, config, game)
     {
-        if (this.Game.CanShowIntro)
+        if (Game.CanShowIntro)
         {
             currentOpacity = 255f;
             return;
         }
         currentOpacity = 0f;
         node.Tweener.Stop();
-        this.Game.FlyOpacity = 0f;
+        Game.FlyOpacity = 0f;
     }
 
     public override void Update(float time)

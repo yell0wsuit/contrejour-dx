@@ -45,13 +45,13 @@ public class FlyBodyClip : ContreJourBodyClip, IClickable
     {
         bodySprite = new McFlyBody();
         clip = bodySprite;
-        this.Clip = clip;
+        Clip = clip;
         _ = builder.AddChild(clip);
         eye = new FlyEye(Game, visible: true, Body.Position)
         {
             Scale = 0.65f
         };
-        this.Clip.AddChild(eye);
+        Clip.AddChild(eye);
         scaredTime = 0f;
         Schedule(StartFly, Maths.Random(7f, 11f));
         initialPosition = Body.Position;
@@ -60,8 +60,8 @@ public class FlyBodyClip : ContreJourBodyClip, IClickable
         leftWings.Position = new Vector2(0f - WingsPosition.X, WingsPosition.Y);
         rightWings.Position = WingsPosition;
         rightWings.ScaleX = -1f;
-        this.Clip.AddChild(leftWings);
-        this.Clip.AddChild(rightWings);
+        Clip.AddChild(leftWings);
+        Clip.AddChild(rightWings);
         Body.GravityScale = 0f;
     }
 

@@ -30,15 +30,15 @@ public class Satellite : IUpdatable, IRemovable
     {
         Target = parent;
         initialPosition = position;
-        this.Clip = clip;
+        Clip = clip;
         SpeedValue = Maths.Random(15f, 25f) * 2f;
         AngleStep = Maths.Random(0.18f, 0.28f);
         this.direction = direction;
-        this.Clip.Position = position;
+        Clip.Position = position;
         if (game != null)
         {
-            this.Game = game;
-            this.Game.AddUpdatable(this);
+            Game = game;
+            Game.AddUpdatable(this);
         }
         ShouldRemove = false;
     }

@@ -16,7 +16,7 @@ public class MultitouchHint : FadeHint
     public MultitouchHint(ContreJourLevelBuilder builder, object body, Sprite clip, Hashtable config)
         : base(builder, null, clip, config)
     {
-        snots = FarseerUtil.QueryBodyClipsCenterRadiusType(this.Builder.World, this.Builder.ToIPhoneVec(this.Clip.Position), 6.6666665f, typeof(StrongSnotBodyClip));
+        snots = FarseerUtil.QueryBodyClipsCenterRadiusType(Builder.World, Builder.ToIPhoneVec(Clip.Position), 6.6666665f, typeof(StrongSnotBodyClip));
         HasToRun = false;
         foreach (StrongSnotBodyClip snot in snots.Cast<StrongSnotBodyClip>())
         {

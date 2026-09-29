@@ -16,8 +16,8 @@ public abstract class GridLinesAction : GridAction
     protected GridLinesAction Initialize(float linesDelay, float particleEffectSeconds)
     {
         _ = Initialize();
-        this.LinesDelay = linesDelay;
-        this.ParticleEffectSeconds = particleEffectSeconds;
+        LinesDelay = linesDelay;
+        ParticleEffectSeconds = particleEffectSeconds;
         return this;
     }
 

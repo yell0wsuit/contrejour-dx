@@ -1,5 +1,3 @@
-using System;
-
 using Mokus2D.Input;
 
 namespace Mokus2D.UI.TouchFilters;

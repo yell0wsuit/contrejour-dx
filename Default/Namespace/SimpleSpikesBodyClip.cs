@@ -38,9 +38,9 @@ public class SimpleSpikesBodyClip : ContreJourBodyClip, IRestartable
         floating = text.Contains("Circle");
         if (!contreJourGame.BlackSide)
         {
-            this.Clip = LevelBuilderBase.ReplaceClipWith(clip, text + contreJourGame.ChooseSide(null, "White", "_5", "Black", "_6"));
+            Clip = LevelBuilderBase.ReplaceClipWith(clip, text + contreJourGame.ChooseSide(null, "White", "_5", "Black", "_6"));
         }
-        this.Clip.UpdateEnabled = false;
+        Clip.UpdateEnabled = false;
         prickTime = -2f;
         initialPosition = Clip.Position;
         initialScale = Clip.ScaleX;

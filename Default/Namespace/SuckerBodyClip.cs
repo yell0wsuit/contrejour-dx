@@ -95,41 +95,41 @@ public class SuckerBodyClip : ContreJourBodyClip, IClickable, IVectorPositionPro
         //IL_006c: Unknown result type (might be due to invalid IL or missing references)
         //IL_0076: Expected O, but got Unknown
         clip = new Node();
-        this.Clip = clip;
+        Clip = clip;
         builder.Add(clip, 1);
         Body val = builder.World.CreateCircle(0.1f, ((Body)body).Position);
         val.SetSensor(value: true);
         builder.World.RemoveBody((Body)body);
         Body = val;
         bouncer = new Bouncer(4f, 7f, 3f);
-        this.Config["noShadow"] = "true";
-        float num = this.Config.GetFloat("Width");
-        MaxDistance = num / 2f * this.Builder.SizeMult;
+        Config["noShadow"] = "true";
+        float num = Config.GetFloat("Width");
+        MaxDistance = num / 2f * Builder.SizeMult;
         GhostSprite = new Node
         {
             OpacityFloat = 0.5f
         };
-        this.Clip.AddChild(GhostSprite);
+        Clip.AddChild(GhostSprite);
         ghostNeck = CreateNeck();
         ghostNeck.Color = new Color(10f / 51f, 10f / 51f, 10f / 51f, 1f);
         GhostSprite.AddChild(ghostNeck);
         ghostPimpa = CreatePimpa();
         GhostSprite.AddChild(ghostPimpa);
         limit = new McRoundDragFrameView();
-        this.Builder.Add(limit, -1);
-        limit.Position = this.Builder.ToPoint(Body.Position);
+        Builder.Add(limit, -1);
+        limit.Position = Builder.ToPoint(Body.Position);
         limit.Scale = num / 200f;
         Neck = CreateNeck();
-        this.Clip.AddChild(Neck);
+        Clip.AddChild(Neck);
         Node node = new McSuckerHighlite();
-        this.Clip.AddChild(node);
+        Clip.AddChild(node);
         Sprite node2 = new McSuckerStart();
-        this.Clip.AddChild(node2);
+        Clip.AddChild(node2);
         eye = new MonsterEye(Game, visible: false, Body.Position);
-        this.Clip.AddChild(eye);
+        Clip.AddChild(eye);
         eye.Visible = false;
         pimpa = new Node();
-        this.Clip.AddChild(pimpa);
+        Clip.AddChild(pimpa);
         pimpaHighlite = new McSuckerHighlite();
         pimpa.AddChild(pimpaHighlite);
         Node node3 = CreatePimpa();
@@ -164,7 +164,7 @@ public class SuckerBodyClip : ContreJourBodyClip, IClickable, IVectorPositionPro
         {
             return false;
         }
-        if (this.Touch == null)
+        if (Touch == null)
         {
             Vector2 target = Builder.TouchRootVec(touch);
             if (Body.Position.DistanceTo(target) <= 2f || endBody.Position.DistanceTo(target) <= 2f)
@@ -264,14 +264,14 @@ public class SuckerBodyClip : ContreJourBodyClip, IClickable, IVectorPositionPro
     {
         if (!creating)
         {
-            if (this.Touch != null)
+            if (Touch != null)
             {
                 throw new InvalidOperationException("already dragging");
             }
             SoundManager.PlaySound("leapOn1");
             GhostSprite.Tweener.Stop();
             GhostSprite.Visible = true;
-            this.Touch = touch;
+            Touch = touch;
         }
     }
 

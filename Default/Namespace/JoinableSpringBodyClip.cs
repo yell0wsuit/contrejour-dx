@@ -1,5 +1,3 @@
-using FarseerPhysics.Dynamics.Joints;
-
 using Microsoft.Xna.Framework;
 
 using Mokus2D.Visual;
@@ -19,7 +17,7 @@ public class JoinableSpringBodyClip : RotatableSpringBase
     public JoinableSpringBodyClip(LevelBuilderBase builder, object body, Node clip, Hashtable config)
         : base(builder, body, clip, config)
     {
-        rotator = (RotatorBodyClip)FarseerUtil.Query(this.Builder.World, Body.Position, 1.6666666f, typeof(RotatorBodyClip));
+        rotator = (RotatorBodyClip)FarseerUtil.Query(Builder.World, Body.Position, 1.6666666f, typeof(RotatorBodyClip));
         relativeRotatorPosition = rotator.Body.GetLocalPoint(Body.Position);
         relativeAngle = rotator.Body.Rotation - Body.Rotation;
     }

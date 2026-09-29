@@ -30,7 +30,7 @@ public class StrongSnotBodyClip : SnotBodyClip
         : base(builder, body, clip, config)
     {
         NormalDistance = CurrentDistance();
-        maxSnotDistance = Math.Max(NormalDistance * 1.25f, NormalDistance + (30f * this.Builder.EngineConfig.SizeMultiplier));
+        maxSnotDistance = Math.Max(NormalDistance * 1.25f, NormalDistance + (30f * Builder.EngineConfig.SizeMultiplier));
         extremeSnotDistance = NormalDistance * 2f;
         targetColor = 255f;
     }

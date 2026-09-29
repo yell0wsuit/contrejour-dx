@@ -14,7 +14,7 @@ public class RelsHint : FadeHint
     public RelsHint(ContreJourLevelBuilder builder, object body, Sprite clip, Hashtable config)
         : base(builder, null, clip, config)
     {
-        rels = (DragableBodyClip)FarseerUtil.Query(this.Builder.World, this.Builder.ToVec(this.Clip.Position), 6.6666665f, typeof(DragableBodyClip));
+        rels = (DragableBodyClip)FarseerUtil.Query(Builder.World, Builder.ToVec(Clip.Position), 6.6666665f, typeof(DragableBodyClip));
         rels.DragStartEvent.AddListener(OnDragStart);
     }
 

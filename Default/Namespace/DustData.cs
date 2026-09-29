@@ -30,9 +30,9 @@ public class DustData : IUpdatable
         particle.Position = position;
         particle.Scale = Maths.Random(0.5f, 1.5f);
         particle.OpacityFloat = Maths.Random(0.1f * alphaMult, 0.2f * alphaMult);
-        this.Speed = Box2DConfig.DefaultConfig.ToPoint(bodySpeed);
-        this.Speed.X *= Maths.Random(0.2f, 0.4f);
-        this.Speed.Y = Math.Min(Maths.Random(5f, 20f) * speed, 40f);
+        Speed = Box2DConfig.DefaultConfig.ToPoint(bodySpeed);
+        Speed.X *= Maths.Random(0.2f, 0.4f);
+        Speed.Y = Math.Min(Maths.Random(5f, 20f) * speed, 40f);
     }
 
     public void Update(float time)

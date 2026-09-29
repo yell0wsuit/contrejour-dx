@@ -56,7 +56,7 @@ public class RotatableSpringBodyClip : RotatableSpringBase, IRestartable
     public RotatableSpringBodyClip(LevelBuilderBase builder, object body, Node clip, Hashtable config)
         : base(builder, body, clip, config)
     {
-        game = (ContreJourGame)this.Builder.Game;
+        game = (ContreJourGame)Builder.Game;
         Body.BodyType = (BodyType)1;
         BodyCenterVec = Vector2.Zero;
         touchPoint = new McRotatorPoint();
@@ -70,10 +70,10 @@ public class RotatableSpringBodyClip : RotatableSpringBase, IRestartable
             touchPoint.Color = ContreJourConstants.GreenLightColor;
             minOpacity = 0.9f;
         }
-        this.Builder.AddChildAfter(circle, this.Clip);
+        Builder.AddChildAfter(circle, Clip);
         circle.AddChild(touchPoint);
         touchPoint.IgnoreParentOpacity = true;
-        circle.Position = this.Clip.Position;
+        circle.Position = Clip.Position;
         touchPoint.Position = new Vector2(50f, 0f);
         touchPointSpeed = Maths.Random(0.02f, 0.03f) / 1.5f;
         touchPointNeededSpeed = touchPointSpeed;
@@ -82,7 +82,7 @@ public class RotatableSpringBodyClip : RotatableSpringBase, IRestartable
         {
             Impulse = startSpringWidth / 32f
         };
-        this.Builder.AddChildAfter(trajectory, circle);
+        Builder.AddChildAfter(trajectory, circle);
         foreach (Fixture fixture in Body.FixtureList)
         {
             if (fixture.UserData is Hashtable && ((Hashtable)fixture.UserData).GetString("id", null) == "touch")

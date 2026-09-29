@@ -40,7 +40,7 @@ public class BackSnotBodyClip : SnotBodyClipBase, IClickable
         forceStep = Maths.Random(0.01f, 0.02f);
         stabilize = false;
         stabilizeCalculated = false;
-        Vector2 vector = this.Config.GetVector("scale");
+        Vector2 vector = Config.GetVector("scale");
         Eye.Scale = vector.X / 10.24f;
         BaseClip.Scale = Eye.Scale;
         BaseEndClip.Scale = Eye.Scale;
