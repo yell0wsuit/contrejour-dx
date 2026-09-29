@@ -6,7 +6,6 @@ using System.Runtime.Serialization;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using Mokus2D.Util;
 using Mokus2D.Util.Extensions;
 using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual.Particles.Util;
@@ -14,7 +13,7 @@ using Mokus2D.Visual.Particles.Util;
 namespace Mokus2D.Visual.Particles.Data
 {
     [DataContract]
-    public class ParticleSystemConfig : ICloneable<ParticleSystemConfig>
+    public class ParticleSystemConfig
     {
         [DataMember]
         public bool Test { get; set; }
