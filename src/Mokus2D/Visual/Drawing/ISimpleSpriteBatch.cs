@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
+using Mokus2D.Graphics;
 using Mokus2D.Visual.Data;
 using Mokus2D.Visual.Drawing.Vertex;
 
@@ -10,7 +10,7 @@ namespace Mokus2D.Visual.Drawing
     {
         int TrianglesCount { get; }
 
-        void Begin(Texture2D texture, Vector2 screenSize, SpriteBatchProperties properties);
+        void Begin(ITexture texture, Vector2 screenSize, SpriteBatchProperties properties);
 
         void Flush();
     }

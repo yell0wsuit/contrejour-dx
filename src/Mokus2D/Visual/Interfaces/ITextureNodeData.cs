@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework.Graphics;
+using Mokus2D.Graphics;
 
 namespace Mokus2D.Visual.Interfaces
 {
@@ -8,7 +8,7 @@ namespace Mokus2D.Visual.Interfaces
 
         string TextureName { get; }
 
-        Texture2D Texture { get; set; }
+        ITexture Texture { get; set; }
 
         float ScaleFactor { get; }
     }

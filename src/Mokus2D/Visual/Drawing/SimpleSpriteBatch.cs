@@ -3,6 +3,7 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using Mokus2D.Graphics;
 using Mokus2D.Visual.Data;
 using Mokus2D.Visual.Drawing.Effects;
 using Mokus2D.Visual.Drawing.Vertex;
@@ -19,7 +20,7 @@ namespace Mokus2D.Visual.Drawing
 
         private readonly GraphicsDevice _device;
 
-        private Texture2D _texture;
+        private ITexture _texture;
 
         private SpriteBatchProperties _properties;
 
@@ -77,7 +78,7 @@ namespace Mokus2D.Visual.Drawing
             Indices = new short[indicesCount];
         }
 
-        public void Begin(Texture2D texture, Vector2 screenSize, SpriteBatchProperties properties)
+        public void Begin(ITexture texture, Vector2 screenSize, SpriteBatchProperties properties)
         {
             _screenSize = screenSize;
             _texture = texture;

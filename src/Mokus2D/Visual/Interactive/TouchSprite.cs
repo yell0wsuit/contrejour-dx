@@ -1,5 +1,4 @@
-using Microsoft.Xna.Framework.Graphics;
-
+using Mokus2D.Graphics;
 using Mokus2D.Visual.Interfaces;
 
 namespace Mokus2D.Visual.Interactive
@@ -18,7 +17,7 @@ namespace Mokus2D.Visual.Interactive
             Clickable = true;
         }
 
-        public TouchSprite(Texture2D texture)
+        public TouchSprite(ITexture texture)
             : base(texture)
         {
             Clickable = true;

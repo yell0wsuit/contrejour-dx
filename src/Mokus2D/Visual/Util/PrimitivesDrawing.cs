@@ -3,6 +3,8 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using Mokus2D.Graphics;
+using Mokus2D.Graphics.MonoGame;
 using Mokus2D.Visual.Data;
 
 namespace Mokus2D.Visual.Util
@@ -23,7 +25,7 @@ namespace Mokus2D.Visual.Util
         {
         }
 
-        public PrimitivesDrawing(VisualState state, Matrix matrix, Texture2D texture = null)
+        public PrimitivesDrawing(VisualState state, Matrix matrix, ITexture texture = null)
         {
             BeginDrawPrimitives(state, matrix, texture);
         }
@@ -38,7 +40,7 @@ namespace Mokus2D.Visual.Util
             BeginDrawPrimitives(state, state.Matrix);
         }
 
-        public void BeginDrawPrimitives(VisualState state, Matrix matrix, Texture2D texture)
+        public void BeginDrawPrimitives(VisualState state, Matrix matrix, ITexture texture)
         {
             if (texture != null)
             {
@@ -55,7 +57,7 @@ namespace Mokus2D.Visual.Util
             Effect.TextureEnabled = texture != null;
             if (texture != null)
             {
-                Effect.Texture = texture;
+                Effect.Texture = MonoGameTexture.Unwrap(texture);
             }
             Effect.CurrentTechnique.Passes[0].Apply();
         }

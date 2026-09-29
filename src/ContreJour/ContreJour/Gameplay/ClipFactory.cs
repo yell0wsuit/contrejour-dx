@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 using Mokus2D;
 using Mokus2D.Content;
+using Mokus2D.Graphics;
 using Mokus2D.Util.Xml;
 using Mokus2D.Visual.Data;
 
@@ -55,7 +55,7 @@ namespace ContreJour.Gameplay
             for (i = 0; i < textureSources.Count; i++)
             {
                 TextureSource textureSource = textureSources[i];
-                if (Mokus2DGame.Device.Viewport.Width < textureSource.NeededWidth)
+                if (Mokus2DGame.Instance.WindowSize.X < textureSource.NeededWidth)
                 {
                     break;
                 }
@@ -73,7 +73,7 @@ namespace ContreJour.Gameplay
             return name;
         }
 
-        public static Texture2D GetTexture(string name)
+        public static ITexture GetTexture(string name)
         {
             return content.Load($"Graphics/textures/{name}");
         }

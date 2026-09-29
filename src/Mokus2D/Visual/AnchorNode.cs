@@ -1,9 +1,9 @@
 using System;
 
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 using Mokus2D.Data;
+using Mokus2D.Graphics;
 using Mokus2D.Input;
 using Mokus2D.Platforms.Input;
 using Mokus2D.Util;
@@ -127,7 +127,7 @@ namespace Mokus2D.Visual
 
         public event Action MouseOutEvent;
 
-        protected AnchorNode(Texture2D texture)
+        protected AnchorNode(ITexture texture)
             : base(texture)
         {
             _bounds.SetDirty();

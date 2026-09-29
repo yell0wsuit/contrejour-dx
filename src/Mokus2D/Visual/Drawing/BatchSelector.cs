@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
+using Mokus2D.Graphics;
 using Mokus2D.PlatformSupport;
 using Mokus2D.Visual.Data;
 using Mokus2D.Visual.Drawing.Vertex;
@@ -17,7 +17,7 @@ namespace Mokus2D.Visual.Drawing
 
         private SpriteBatchProperties _currentBatchProperties = Mokus2DGame.Config.DefaultSpriteBatchProperties;
 
-        private Texture2D _currentTexture;
+        private ITexture _currentTexture;
 
         private ISimpleSpriteBatch _currentSpriteBatch;
 
@@ -33,7 +33,7 @@ namespace Mokus2D.Visual.Drawing
 
         public int NodesDrawnCount { get; private set; }
 
-        public void BeginBatch(Texture2D texture, SpriteBatchProperties properties)
+        public void BeginBatch(ITexture texture, SpriteBatchProperties properties)
         {
             if (_currentTexture != texture || _currentBatchProperties != properties)
             {

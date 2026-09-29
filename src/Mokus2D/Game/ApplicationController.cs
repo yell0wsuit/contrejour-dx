@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 using Mokus2D.Content;
 using Mokus2D.FileSystem;
+using Mokus2D.Graphics;
 using Mokus2D.Input;
 using Mokus2D.Platforms.Input;
 using Mokus2D.Sound;
@@ -17,14 +18,15 @@ namespace Mokus2D.Game
     // does not go through a platform interface yet.
     public class ApplicationController : DisposableBase
     {
-        public ApplicationController(IGameHost host, IInputSource input, IFileLoader files, IAudioBackend audio, GraphicsDevice graphicsDevice)
+        public ApplicationController(IGameHost host, IInputSource input, IFileLoader files, IAudioBackend audio, IRenderer renderer, GraphicsDevice graphicsDevice)
         {
             Host = host;
             Input = input;
             Files = files;
             Audio = audio;
+            Renderer = renderer;
             GraphicsDevice = graphicsDevice;
-            Content = new MokusContentManager(files);
+            Content = new MokusContentManager(files, renderer);
             // The host owns the backend and disposes it after the game.
             SoundManager.Backend = audio;
             Host.ClientSizeChanged += OnHostClientSizeChanged;
@@ -37,6 +39,8 @@ namespace Mokus2D.Game
         public IFileLoader Files { get; }
 
         public IAudioBackend Audio { get; }
+
+        public IRenderer Renderer { get; }
 
         public MokusContentManager Content { get; }
 

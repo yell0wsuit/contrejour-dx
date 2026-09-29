@@ -1,8 +1,10 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using Mokus2D.Graphics;
 using Mokus2D.Interfaces;
 using Mokus2D.Util.Extensions;
+using Mokus2D.Visual.Animation;
 using Mokus2D.Visual.Data;
 using Mokus2D.Visual.Drawing;
 using Mokus2D.Visual.Interfaces;
@@ -65,7 +67,7 @@ namespace Mokus2D.Visual
             Quad = CreateQuad();
         }
 
-        public Sprite(Texture2D texture, IQuad quad = null)
+        public Sprite(ITexture texture, IQuad quad = null)
             : base(texture)
         {
             Quad = quad ?? CreateQuad();
@@ -99,7 +101,7 @@ namespace Mokus2D.Visual
             base.Draw(state);
         }
 
-        public virtual void ResetTexture(Texture2D texture)
+        public virtual void ResetTexture(ITexture texture)
         {
             Texture = texture;
             RefreshTexture();
@@ -196,7 +198,7 @@ namespace Mokus2D.Visual
                 Quad.RefreshColor(color);
                 if (_textureRectangleDirty)
                 {
-                    Quad.RefreshTextureRect(GetTileRectangle(), Texture.Bounds.Size());
+                    Quad.RefreshTextureRect(GetTileRectangle(), Texture.Size());
                     _textureRectangleDirty = false;
                 }
                 Quad.Draw(Drawer);

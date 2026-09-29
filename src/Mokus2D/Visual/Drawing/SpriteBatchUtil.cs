@@ -3,6 +3,8 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using Mokus2D.Graphics;
+using Mokus2D.Graphics.MonoGame;
 using Mokus2D.Visual.Data;
 using Mokus2D.Visual.Drawing.Effects;
 using Mokus2D.Visual.Drawing.Vertex;
@@ -41,13 +43,13 @@ namespace Mokus2D.Visual.Drawing
             }
         }
 
-        public static void DrawUserIndexedPrimitives<T>(GraphicsDevice device, Vector2 screenSize, ref SpriteBatchProperties properties, ISpriteBatchEffect currentEffect, Texture2D texture, T[] vertices, short[] indices, int verticesCount, int indicesCount) where T : struct, IVertex
+        public static void DrawUserIndexedPrimitives<T>(GraphicsDevice device, Vector2 screenSize, ref SpriteBatchProperties properties, ISpriteBatchEffect currentEffect, ITexture texture, T[] vertices, short[] indices, int verticesCount, int indicesCount) where T : struct, IVertex
         {
             Matrix matrix = MatrixCache.GetScreenMatrix(screenSize);
             DrawUserIndexedPrimitives(device, ref matrix, ref properties, currentEffect, texture, vertices, indices, verticesCount, indicesCount);
         }
 
-        public static void DrawUserIndexedPrimitives<T>(GraphicsDevice device, ref Matrix matrix, ref SpriteBatchProperties properties, ISpriteBatchEffect currentEffect, Texture2D texture, T[] vertices, short[] indices, int verticesCount, int indicesCount) where T : struct, IVertex
+        public static void DrawUserIndexedPrimitives<T>(GraphicsDevice device, ref Matrix matrix, ref SpriteBatchProperties properties, ISpriteBatchEffect currentEffect, ITexture texture, T[] vertices, short[] indices, int verticesCount, int indicesCount) where T : struct, IVertex
         {
             if (verticesCount > 0)
             {
@@ -57,11 +59,11 @@ namespace Mokus2D.Visual.Drawing
             }
         }
 
-        private static void PrepareDraw(GraphicsDevice device, ref Matrix matrix, ref SpriteBatchProperties properties, ISpriteBatchEffect currentEffect, Texture2D texture)
+        private static void PrepareDraw(GraphicsDevice device, ref Matrix matrix, ref SpriteBatchProperties properties, ISpriteBatchEffect currentEffect, ITexture texture)
         {
             device.BlendState = properties.Blend;
             device.SamplerStates[0] = properties.SamplerState;
-            currentEffect.Apply(matrix, texture);
+            currentEffect.Apply(matrix, MonoGameTexture.Unwrap(texture));
         }
     }
 }

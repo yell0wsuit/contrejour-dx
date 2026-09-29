@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
+using Mokus2D.Graphics;
 using Mokus2D.Visual.Data;
 using Mokus2D.Visual.Util;
 
@@ -8,9 +8,9 @@ namespace Mokus2D.Visual
 {
     public abstract class PrimitivesNode : Node
     {
-        private Texture2D texture;
+        private ITexture texture;
 
-        public virtual Texture2D Texture
+        public virtual ITexture Texture
         {
             get => texture;
             set => texture = value;

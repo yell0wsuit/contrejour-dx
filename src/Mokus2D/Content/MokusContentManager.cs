@@ -3,26 +3,24 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 
-using Microsoft.Xna.Framework.Graphics;
-
 using Mokus2D.FileSystem;
+using Mokus2D.Graphics;
 
 namespace Mokus2D.Content
 {
-    // Caches textures decoded from the PNG files under RootDirectory. Texture2D and
-    // Texture2D.FromStream are still MonoGame's: textures do not go through a platform interface yet.
-    public sealed class MokusContentManager(IFileLoader files) : IDisposable
+    // Caches textures decoded from the PNG files under RootDirectory.
+    public sealed class MokusContentManager(IFileLoader files, IRenderer renderer) : IDisposable
     {
-        private readonly Dictionary<string, Texture2D> _loadedAssets = [];
+        private readonly Dictionary<string, ITexture> _loadedAssets = [];
 
         // Kept after Unload so a disposed texture can still be named in error messages.
-        private readonly Dictionary<Texture2D, string> _loadedTextures = [];
+        private readonly Dictionary<ITexture, string> _loadedTextures = [];
 
         public string RootDirectory { get; set; } = string.Empty;
 
-        public Texture2D Load(string assetName)
+        public ITexture Load(string assetName)
         {
-            if (_loadedAssets.TryGetValue(assetName, out Texture2D texture))
+            if (_loadedAssets.TryGetValue(assetName, out ITexture texture))
             {
                 return texture;
             }
@@ -40,14 +38,14 @@ namespace Mokus2D.Content
             return texture;
         }
 
-        public string GetDisposedTextureName(Texture2D texture)
+        public string GetDisposedTextureName(ITexture texture)
         {
             return _loadedTextures[texture];
         }
 
         public void Unload()
         {
-            foreach (Texture2D texture in _loadedAssets.Values)
+            foreach (ITexture texture in _loadedAssets.Values)
             {
                 texture.Dispose();
             }
@@ -59,13 +57,11 @@ namespace Mokus2D.Content
             Unload();
         }
 
-        private Texture2D ReadTexture(string assetName)
+        private ITexture ReadTexture(string assetName)
         {
             string path = Path.Combine(RootDirectory, Path.ChangeExtension(assetName, ".png"));
             using Stream stream = files.OpenFile(path);
-            // Sprites are drawn with premultiplied-alpha blending, as MonoGame's content loader
-            // prepared raw image files; straight alpha shows white fringes around soft edges.
-            return Texture2D.FromStream(Mokus2DGame.Device, stream, DefaultColorProcessors.PremultiplyAlpha);
+            return renderer.CreateTexture(stream);
         }
     }
 }

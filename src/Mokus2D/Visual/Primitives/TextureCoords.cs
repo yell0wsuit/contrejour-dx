@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+
+using Mokus2D.Graphics;
 
 namespace Mokus2D.Visual.Primitives
 {
@@ -13,7 +14,7 @@ namespace Mokus2D.Visual.Primitives
 
         public Vector2 Size => size;
 
-        public void Refresh(Texture2D texture, Rectangle textureCoords, Vector2 margins = default)
+        public void Refresh(ITexture texture, Rectangle textureCoords, Vector2 margins = default)
         {
             int width = texture.Width;
             int height = texture.Height;

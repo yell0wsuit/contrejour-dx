@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
+using Mokus2D.Graphics;
 using Mokus2D.Util.Extensions;
 using Mokus2D.Visual.Data;
 using Mokus2D.Visual.Interfaces;
@@ -23,12 +23,12 @@ namespace Mokus2D.Visual
             Initialize(data, frame);
         }
 
-        public OneFrameSprite(Texture2D texture, FrameData frameData)
+        public OneFrameSprite(ITexture texture, FrameData frameData)
             : this(texture, frameData.Rect.Size(), frameData)
         {
         }
 
-        public OneFrameSprite(Texture2D texture, Vector2 textureSize, FrameData frameData)
+        public OneFrameSprite(ITexture texture, Vector2 textureSize, FrameData frameData)
             : base(texture)
         {
             this.frameData = frameData;

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using Mokus2D.Graphics;
 using Mokus2D.Util;
 using Mokus2D.Util.Data;
 using Mokus2D.Util.Extensions;
@@ -67,7 +68,7 @@ namespace ContreJour.Primitives
             }
         }
 
-        public override Texture2D Texture
+        public override ITexture Texture
         {
             get => base.Texture;
             set

@@ -8,6 +8,7 @@ using Mokus2D.Content;
 using Mokus2D.Effects.Tweening;
 using Mokus2D.FileSystem;
 using Mokus2D.Game;
+using Mokus2D.Graphics;
 using Mokus2D.Input;
 using Mokus2D.Util;
 using Mokus2D.Util.Resources;
@@ -80,6 +81,8 @@ namespace Mokus2D
         public static GameConfig Config => Instance._config;
 
         public static GraphicsDevice Device => Instance.ApplicationController.GraphicsDevice;
+
+        public static IRenderer Renderer => Instance.ApplicationController.Renderer;
 
         public static Vector2 ScreenCenter => Instance.ScreenSize * 0.5f;
 

@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Input.Touch;
 using Mokus2D;
 using Mokus2D.FileSystem;
 using Mokus2D.Game;
+using Mokus2D.Graphics.MonoGame;
 using Mokus2D.Sound;
 
 namespace ContreJour.Desktop.MonoGame
@@ -21,6 +22,8 @@ namespace ContreJour.Desktop.MonoGame
         private readonly IAudioBackend _audio;
 
         private ApplicationController _applicationController;
+
+        private MonoGameRenderer _renderer;
 
         public MonoGameApplication(IAudioBackend audio)
         {
@@ -50,7 +53,8 @@ namespace ContreJour.Desktop.MonoGame
             };
             GraphicsDevice.DepthStencilState = DepthStencilState.None;
             MonoGameInputSource input = new();
-            _applicationController = new ApplicationController(host, input, new FileLoader(), _audio, GraphicsDevice);
+            _renderer = new MonoGameRenderer(GraphicsDevice);
+            _applicationController = new ApplicationController(host, input, new FileLoader(), _audio, _renderer, GraphicsDevice);
             _game.Initialize(_applicationController);
             // Subscribe after the game is set up: resizes applied during Initialize would otherwise
             // reach the game before its views exist (Win8 view-state events only arrived later).

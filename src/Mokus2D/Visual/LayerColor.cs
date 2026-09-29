@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 
 using Mokus2D.Util.Extensions;
+using Mokus2D.Visual.Animation;
 using Mokus2D.Visual.Data;
 using Mokus2D.Visual.Drawing;
 using Mokus2D.Visual.Interfaces;
@@ -42,7 +43,7 @@ namespace Mokus2D.Visual
         {
             Vector2 size = Root.Size;
             _quad.RefreshColor(Color);
-            _quad.RefreshTextureRect(_spriteData.TextureRect, _spriteData.Texture.Bounds.Size());
+            _quad.RefreshTextureRect(_spriteData.TextureRect, _spriteData.Texture.Size());
             _quad.SetPositions(new Vector2(-10f, -10f), new Vector2(size.X + 10f, size.Y + 10f));
         }
 

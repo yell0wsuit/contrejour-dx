@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
+using Mokus2D.Graphics;
 using Mokus2D.Visual.Interfaces;
 
 namespace Mokus2D.Fonts
@@ -20,7 +20,7 @@ namespace Mokus2D.Fonts
 
         public string TextureName => _font.TextureName;
 
-        public Texture2D Texture
+        public ITexture Texture
         {
             get => _font.Texture;
             set => throw new NotImplementedException();
