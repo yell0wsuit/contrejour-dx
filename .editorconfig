@@ -37,10 +37,6 @@ dotnet_analyzer_diagnostic.category-Style.severity = warning
 # Every file already uses file-scoped namespaces.
 csharp_style_namespace_declarations = file_scoped:warning
 
-# Folders follow namespaces (never the other way round): namespaces are part of the type names
-# level and clip content looks up at runtime (Default.Namespace.*, ContreJour.Clips.*).
-dotnet_diagnostic.IDE0130.severity = warning
-
 # Default.Namespace is part of the type names content looks up at runtime, so it can't be renamed
 # to avoid Visual Basic keywords; members and parameters are still checked.
 dotnet_code_quality.CA1716.analyzed_symbol_kinds = NamedType, Method, Property, Event, Parameter
