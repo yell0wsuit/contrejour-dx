@@ -13,15 +13,7 @@
     <ProjectReference Include="../ContreJour.Desktop.Platform/ContreJour.Desktop.Platform.csproj" />
   </ItemGroup>
 
-  <!-- Recreate the original appx layout next to the executable: Assets/ and Resources/ -->
-  <PropertyGroup>
-    <GameContents>$(MSBuildThisFileDirectory)../../GameContents/</GameContents>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <Content Include="$(GameContents)**" Exclude="$(GameContents)Resources/**;$(GameContents)**/.DS_Store" Link="Assets/%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
-    <Content Include="$(GameContents)Resources/**" Exclude="$(GameContents)**/.DS_Store" Link="Resources/%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
-  </ItemGroup>
+  <Import Project="../GameContents.targets" />
 
   <ItemGroup>
     <!-- Precompiled OpenGL sprite effect for MonoGameRenderer (built from MonoGame/Shaders/*.fx with
