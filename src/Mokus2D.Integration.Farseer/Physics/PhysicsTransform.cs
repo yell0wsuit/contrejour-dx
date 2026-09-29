@@ -1,7 +1,5 @@
 using System.Numerics;
 
-using Mokus2D.Util.MathUtils;
-
 namespace Mokus2D.Integration.Farseer.Physics
 {
     public class PhysicsTransform(float physicsToPixels)
@@ -20,7 +18,7 @@ namespace Mokus2D.Integration.Farseer.Physics
 
         public Vector2 ToPhysics(Vector2 pixels)
         {
-            return XnaMath.Divide(pixels, PhysicsToPixels);
+            return pixels / PhysicsToPixels;
         }
 
         public float ToPixels(float physicsPosition)

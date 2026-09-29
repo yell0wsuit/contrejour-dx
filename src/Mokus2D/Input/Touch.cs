@@ -38,7 +38,7 @@ namespace Mokus2D.Input
             {
                 _previousPosition = _position;
                 _position = value;
-                MaxOffset = XnaMath.Max((Position - InitialPosition).Abs(), MaxOffset);
+                MaxOffset = Vector2.Max((Position - InitialPosition).Abs(), MaxOffset);
             }
         }
 

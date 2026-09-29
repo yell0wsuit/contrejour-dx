@@ -18,7 +18,7 @@ namespace ContreJour.Gameplay
                     {
                         float itemAngle = GetItemAngle(i);
                         Particle particle = Particles[i];
-                        particle.RotationDegrees = XnaMath.ToDegrees(itemAngle) - 90f;
+                        particle.RotationDegrees = float.RadiansToDegrees(itemAngle) - 90f;
                         particle.Position = VectorUtil.ToVector(value, itemAngle);
                     }
                 }

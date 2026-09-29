@@ -1,8 +1,6 @@
 using System.Numerics;
 using System.Runtime.InteropServices;
 
-using Mokus2D.Util.MathUtils;
-
 namespace ContreJour.Config
 {
     public static class ScreenConstants
@@ -22,10 +20,10 @@ namespace ContreJour.Config
 
         public static readonly Vector2 Wp7LevelSize = new(OsSizes.IPhoneRetina.X / Scales.fromIPhone2ByHeight, OsSizes.IPhoneRetina.Y);
 
-        public static readonly Vector2 IPhoneScreenCenter = XnaMath.Divide(OsSizes.IPhoneRetina, 2f);
+        public static readonly Vector2 IPhoneScreenCenter = OsSizes.IPhoneRetina / 2f;
 
-        public static readonly Vector2 W7FromIPhoneSize = XnaMath.Divide(OsSizes.W7, Scales.fromIPhone2ByHeight);
+        public static readonly Vector2 W7FromIPhoneSize = OsSizes.W7 / Scales.fromIPhone2ByHeight;
 
-        public static readonly Vector2 W7FromIPhoneScreenCenter = XnaMath.Divide(W7FromIPhoneSize, 2f);
+        public static readonly Vector2 W7FromIPhoneScreenCenter = W7FromIPhoneSize / 2f;
     }
 }

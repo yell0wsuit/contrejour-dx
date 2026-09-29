@@ -79,7 +79,7 @@ namespace ContreJour.Gameplay
             {
                 GravityParticle gravityParticle = (GravityParticle)springSmoke.AddOrGetInvisible();
                 gravityParticle.Position = spring.LocalToNode(SmokeCoords(), this);
-                gravityParticle.Speed = VectorUtil.ToVector(15f, XnaMath.ToRadians(spring.RotationDegrees) + ((float)Math.PI / 2f));
+                gravityParticle.Speed = VectorUtil.ToVector(15f, float.DegreesToRadians(spring.RotationDegrees) + ((float)Math.PI / 2f));
             }
         }
     }

@@ -2,7 +2,6 @@ using System.Numerics;
 
 using Mokus2D.Graphics;
 using Mokus2D.Util.Extensions;
-using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual.Util;
 
 namespace Mokus2D.Visual.Data
@@ -35,7 +34,7 @@ namespace Mokus2D.Visual.Data
 
         public Matrix4x4 GetCombinedScreenMatrix(Vector2 size)
         {
-            return XnaMath.Multiply(Matrix, MatrixCache.GetScreenMatrix(size));
+            return Matrix * MatrixCache.GetScreenMatrix(size);
         }
 
         public VisualState()
@@ -57,7 +56,7 @@ namespace Mokus2D.Visual.Data
 
         public void Refresh(VisualState parentState, ref Matrix4x4 matrix, float nodeOpacity, Color nodeColor, float colorRatio, bool ignoreParentOpacity, bool ignoreParentColor, bool ignoreParentTransformations)
         {
-            Matrix = ignoreParentTransformations ? matrix : XnaMath.Multiply(matrix, parentState.Matrix);
+            Matrix = ignoreParentTransformations ? matrix : (matrix * parentState.Matrix);
             RefreshValues(parentState, nodeOpacity, nodeColor, colorRatio, ignoreParentOpacity, ignoreParentColor);
             TransformationDirty = true;
         }

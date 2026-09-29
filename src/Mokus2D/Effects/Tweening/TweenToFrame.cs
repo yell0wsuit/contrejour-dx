@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Numerics;
 
 using Mokus2D.Data;
 using Mokus2D.Effects.Tweening.TweenToFrameData;
@@ -85,14 +86,14 @@ namespace Mokus2D.Effects.Tweening
                 if (datum.Value.TargetFrame != null)
                 {
                     float value2 = Maths.SimplifyAngleDegrees(value.StartData.Rotation, value.TargetFrame.Rotation - 180f);
-                    key.Position = XnaMath.Lerp(value.StartData.Position, value.TargetFrame.Position, ratio);
-                    key.RotationDegrees = XnaMath.Lerp(value2, value.TargetFrame.Rotation, ratio);
-                    key.ScaleVec = XnaMath.Lerp(value.StartData.Scale, value.TargetFrame.Scale, ratio);
-                    key.OpacityFloat = XnaMath.Lerp(value.StartData.Alpha, value.TargetFrame.Alpha, ratio);
+                    key.Position = Vector2.Lerp(value.StartData.Position, value.TargetFrame.Position, ratio);
+                    key.RotationDegrees = float.Lerp(value2, value.TargetFrame.Rotation, ratio);
+                    key.ScaleVec = Vector2.Lerp(value.StartData.Scale, value.TargetFrame.Scale, ratio);
+                    key.OpacityFloat = float.Lerp(value.StartData.Alpha, value.TargetFrame.Alpha, ratio);
                 }
                 else
                 {
-                    key.OpacityFloat = XnaMath.Lerp(value.StartData.Alpha, 0f, ratio);
+                    key.OpacityFloat = float.Lerp(value.StartData.Alpha, 0f, ratio);
                 }
             }
         }

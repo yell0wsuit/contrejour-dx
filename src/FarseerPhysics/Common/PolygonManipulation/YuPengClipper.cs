@@ -13,7 +13,7 @@ namespace FarseerPhysics.Common.PolygonManipulation
 
             public Vector2 GetCenter()
             {
-                return XnaMath.Divide(EdgeStart + EdgeEnd, 2f);
+                return (EdgeStart + EdgeEnd) / 2f;
             }
 
             public static Edge operator -(Edge e)
@@ -57,7 +57,7 @@ namespace FarseerPhysics.Common.PolygonManipulation
             CalculateIntersections(subject, clip, out Vertices slicedPoly, out Vertices slicedPoly2);
             Vector2 value = subject.GetAABB().LowerBound;
             Vector2 value2 = clip.GetAABB().LowerBound;
-            Vector2 result = XnaMath.Min(value, value2);
+            Vector2 result = Vector2.Min(value, value2);
             result = Vector2.One - result;
             if (result != Vector2.Zero)
             {

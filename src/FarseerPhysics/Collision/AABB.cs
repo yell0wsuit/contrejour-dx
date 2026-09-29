@@ -77,14 +77,14 @@ namespace FarseerPhysics.Collision
 
         public void Combine(ref AABB aabb)
         {
-            LowerBound = XnaMath.Min(LowerBound, aabb.LowerBound);
-            UpperBound = XnaMath.Max(UpperBound, aabb.UpperBound);
+            LowerBound = Vector2.Min(LowerBound, aabb.LowerBound);
+            UpperBound = Vector2.Max(UpperBound, aabb.UpperBound);
         }
 
         public void Combine(ref AABB aabb1, ref AABB aabb2)
         {
-            LowerBound = XnaMath.Min(aabb1.LowerBound, aabb2.LowerBound);
-            UpperBound = XnaMath.Max(aabb1.UpperBound, aabb2.UpperBound);
+            LowerBound = Vector2.Min(aabb1.LowerBound, aabb2.LowerBound);
+            UpperBound = Vector2.Max(aabb1.UpperBound, aabb2.UpperBound);
         }
 
         public readonly bool Contains(ref AABB aabb)

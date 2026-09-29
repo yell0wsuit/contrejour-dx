@@ -6,8 +6,6 @@ using ContreJour.Debug;
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Dynamics.Joints;
 
-using Mokus2D.Util.MathUtils;
-
 namespace ContreJour.Gameplay
 {
     public class RevoluteJointProcessor : JointProcessorBase
@@ -53,8 +51,8 @@ namespace ContreJour.Gameplay
             if (config.Exists("upperAngle"))
             {
                 val.LimitEnabled = true;
-                val.LowerLimit = XnaMath.ToRadians(config.GetFloat("lowerAngle"));
-                val.UpperLimit = XnaMath.ToRadians(config.GetFloat("upperAngle"));
+                val.LowerLimit = float.DegreesToRadians(config.GetFloat("lowerAngle"));
+                val.UpperLimit = float.DegreesToRadians(config.GetFloat("upperAngle"));
             }
             val.CollideConnected = false;
             _ = CreateJointConfig(val, config);

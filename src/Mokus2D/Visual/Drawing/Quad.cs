@@ -73,7 +73,7 @@ namespace Mokus2D.Visual.Drawing
 
         private void SetVertexPosition(ref Vertex vertex, Vector2 initialPosition, ref Matrix4x4 matrix, bool cleanBounds)
         {
-            Vector2 result = XnaMath.Transform(initialPosition, matrix);
+            Vector2 result = Vector2.Transform(initialPosition, matrix);
             vertex.Position = new Vector3(result, 0f);
             if (cleanBounds)
             {

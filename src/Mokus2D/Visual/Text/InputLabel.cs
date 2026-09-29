@@ -136,7 +136,7 @@ namespace Mokus2D.Visual.Text
                 }
                 _positionToEnd = false;
                 _cursorPositionDirty = false;
-                _cursor.Position = GetGlyphLeftTop(_textPosition) + XnaMath.Divide(_cursor.ScaledSize, 2f);
+                _cursor.Position = GetGlyphLeftTop(_textPosition) + (_cursor.ScaledSize / 2f);
             }
         }
 

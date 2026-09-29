@@ -29,7 +29,7 @@ namespace FarseerPhysics.Dynamics.Contacts
                             if (Vector2.DistanceSquared(vector9, vector10) > 1.4210855E-14f)
                             {
                                 normal = vector10 - vector9;
-                                normal = XnaMath.Normalize(normal);
+                                normal = Vector2.Normalize(normal);
                             }
                             Vector2 vector11 = vector9 + (radiusA * normal);
                             Vector2 vector12 = vector10 - (radiusB * normal);
@@ -80,7 +80,7 @@ namespace FarseerPhysics.Dynamics.Contacts
                             Vector2 vector5 = MathUtils.Mul(ref xfA, pc.LocalPoint);
                             Vector2 vector6 = MathUtils.Mul(ref xfB, pc.LocalPoints[0]);
                             normal = vector6 - vector5;
-                            normal = XnaMath.Normalize(normal);
+                            normal = Vector2.Normalize(normal);
                             point = 0.5f * (vector5 + vector6);
                             separation = Vector2.Dot(vector6 - vector5, normal) - pc.RadiusA - pc.RadiusB;
                             break;

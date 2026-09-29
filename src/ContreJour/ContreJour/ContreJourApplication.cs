@@ -203,7 +203,7 @@ namespace ContreJour
                 Root.AddChild(node, 1);
                 Root.AddChild(node2, 1);
             }
-            ContreJourConfig.RootSize = XnaMath.Divide(vector, _gameContainer.Scale);
+            ContreJourConfig.RootSize = vector / _gameContainer.Scale;
         }
 
         private AspectRatio ChooseAspectRatio()
@@ -243,7 +243,7 @@ namespace ContreJour
             {
                 _blockedGamePanel = new petitInformation();
                 Root.AddChild(_blockedGamePanel, 2);
-                _blockedGamePanel.Position = XnaMath.Divide(_initialSize, 2f);
+                _blockedGamePanel.Position = _initialSize / 2f;
             }
             _blockedGamePanel.VisibleAndUpdating = true;
             _blockedGamePanel.ScaleVec = _initialSize / ApplicationController.WindowSize;

@@ -32,7 +32,7 @@ namespace FarseerPhysics.Collision.Shapes
                     int index = (i + 1 < _vertices.Count) ? (i + 1) : 0;
                     Vector2 vector = _vertices[index] - _vertices[i];
                     Vector2 item = new(vector.Y, 0f - vector.X);
-                    item = XnaMath.Normalize(item);
+                    item = Vector2.Normalize(item);
                     Normals.Add(item);
                 }
                 ComputeProperties();
@@ -171,8 +171,8 @@ namespace FarseerPhysics.Collision.Shapes
             for (int i = 1; i < Vertices.Count; i++)
             {
                 Vector2 value = MathUtils.Mul(ref transform, Vertices[i]);
-                vector = XnaMath.Min(vector, value);
-                vector2 = XnaMath.Max(vector2, value);
+                vector = Vector2.Min(vector, value);
+                vector2 = Vector2.Max(vector2, value);
             }
             Vector2 vector3 = new(Radius, Radius);
             aabb.LowerBound = vector - vector3;

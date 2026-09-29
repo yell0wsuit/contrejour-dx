@@ -134,7 +134,7 @@ namespace Mokus2D.Visual
 
         private void RefreshPositions(Vector2 middleSize)
         {
-            Vector2 vector = XnaMath.Divide(middleSize, 2f);
+            Vector2 vector = middleSize / 2f;
             TrySetPosition(LeftTop, -vector);
             TrySetPosition(Top, new Vector2(0f, 0f - vector.Y));
             TrySetPosition(RightTop, new Vector2(vector.X, 0f - vector.Y));

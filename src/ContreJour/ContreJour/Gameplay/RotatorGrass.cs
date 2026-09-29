@@ -15,7 +15,7 @@ namespace ContreJour.Gameplay
             get; set
             {
                 field = value;
-                initialDegrees = XnaMath.ToDegrees(value) - 90f;
+                initialDegrees = float.RadiansToDegrees(value) - 90f;
                 Particle.RotationDegrees = initialDegrees;
             }
         }
@@ -39,7 +39,7 @@ namespace ContreJour.Gameplay
         {
             rotationChanger.Update(time);
             currentContactAngle = Math.Abs(currentContactAngle) > Math.Abs(ContactAngle) ? Maths.StepTo(currentContactAngle, ContactAngle, 0.05f) : ContactAngle;
-            float num = initialDegrees + angle + rotationChanger.Value + XnaMath.ToDegrees(currentContactAngle);
+            float num = initialDegrees + angle + rotationChanger.Value + float.RadiansToDegrees(currentContactAngle);
             float maxStep = Math.Min(Math.Abs(Particle.RotationDegrees - num) / 7f, 3f);
             Particle.RotationDegrees = Maths.StepTo(Particle.RotationDegrees, num, maxStep);
         }

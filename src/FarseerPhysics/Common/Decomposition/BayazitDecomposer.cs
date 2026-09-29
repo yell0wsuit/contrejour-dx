@@ -62,7 +62,7 @@ namespace FarseerPhysics.Common.Decomposition
                 Vertices vertices3;
                 if (num == (i + 1) % vertices.Count)
                 {
-                    Vector2 item = XnaMath.Divide(vector + vector2, 2f);
+                    Vector2 item = (vector + vector2) / 2f;
                     vertices2 = Copy(j, i, vertices);
                     vertices2.Add(item);
                     vertices3 = Copy(num, j, vertices);

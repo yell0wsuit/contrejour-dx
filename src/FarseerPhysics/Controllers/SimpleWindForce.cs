@@ -1,7 +1,6 @@
 using System;
 using System.Numerics;
 
-using FarseerPhysics.Common;
 using FarseerPhysics.Dynamics;
 
 namespace FarseerPhysics.Controllers
@@ -30,7 +29,7 @@ namespace FarseerPhysics.Controllers
                 }
                 else
                 {
-                    Direction = XnaMath.Normalize(Direction);
+                    Direction = Vector2.Normalize(Direction);
                     vector = Direction;
                     if (vector.Length() == 0f)
                     {
@@ -40,12 +39,12 @@ namespace FarseerPhysics.Controllers
                 if (Variation != 0f)
                 {
                     float num = (float)Randomize.NextDouble() * Math.Clamp(Variation, 0f, 1f);
-                    vector = XnaMath.Normalize(vector);
+                    vector = Vector2.Normalize(vector);
                     body.ApplyForce(vector * strength * decayMultiplier * num);
                 }
                 else
                 {
-                    vector = XnaMath.Normalize(vector);
+                    vector = Vector2.Normalize(vector);
                     body.ApplyForce(vector * strength * decayMultiplier);
                 }
             }

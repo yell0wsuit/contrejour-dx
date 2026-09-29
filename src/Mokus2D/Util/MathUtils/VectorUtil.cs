@@ -93,7 +93,7 @@ namespace Mokus2D.Util.MathUtils
 
         public static Vector2 Normalize(ref Vector2 value, float length)
         {
-            value = XnaMath.Normalize(value);
+            value = Vector2.Normalize(value);
             value *= length;
             return value;
         }
@@ -133,7 +133,7 @@ namespace Mokus2D.Util.MathUtils
 
         public static Vector2 Center(Vector2 first, Vector2 second)
         {
-            return XnaMath.Divide(first + second, 2f);
+            return (first + second) / 2f;
         }
 
         public static bool FuzzyEquals(this Vector2 a, Vector2 b, float delta = 0.0001f)

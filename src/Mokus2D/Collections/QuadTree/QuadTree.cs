@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Numerics;
 
 using Mokus2D.Data;
-using Mokus2D.Util.MathUtils;
 
 namespace Mokus2D.Collections.QuadTree
 {
@@ -24,7 +23,7 @@ namespace Mokus2D.Collections.QuadTree
                 float num = Math.Max(vector.X, vector.Y);
                 Vector2 vector2 = minLeafSize * num;
                 Vector2 center = bounds.Center;
-                Vector2 position = center - XnaMath.Divide(vector2, 2f);
+                Vector2 position = center - (vector2 / 2f);
                 Root = new QuadTreeNode<T>(new RectangleFloat(position, vector2));
             }
             while (!Root.Bounds.Contains(bounds))

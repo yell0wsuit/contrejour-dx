@@ -91,7 +91,7 @@ namespace ContreJour.Gameplay
             {
                 return initialPosition + vector;
             }
-            vector = XnaMath.Normalize(vector);
+            vector = Vector2.Normalize(vector);
             return (vector * num) + initialPosition;
         }
 

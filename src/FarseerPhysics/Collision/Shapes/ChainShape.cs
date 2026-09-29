@@ -127,8 +127,8 @@ namespace FarseerPhysics.Collision.Shapes
             }
             Vector2 value = MathUtils.Mul(ref transform, Vertices[childIndex]);
             Vector2 value2 = MathUtils.Mul(ref transform, Vertices[num]);
-            aabb.LowerBound = XnaMath.Min(value, value2);
-            aabb.UpperBound = XnaMath.Max(value, value2);
+            aabb.LowerBound = Vector2.Min(value, value2);
+            aabb.UpperBound = Vector2.Max(value, value2);
         }
 
         protected override void ComputeProperties()

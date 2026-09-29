@@ -79,7 +79,7 @@ namespace FarseerPhysics.Collision.Shapes
             Vector2 vertex2 = _vertex2;
             Vector2 vector4 = vertex2 - vertex;
             Vector2 vector5 = new(vector4.Y, 0f - vector4.X);
-            vector5 = XnaMath.Normalize(vector5);
+            vector5 = Vector2.Normalize(vector5);
             float num = Vector2.Dot(vector5, vertex - vector);
             float num2 = Vector2.Dot(vector5, vector3);
             if (num2 == 0f)
@@ -112,8 +112,8 @@ namespace FarseerPhysics.Collision.Shapes
         {
             Vector2 value = MathUtils.Mul(ref transform, _vertex1);
             Vector2 value2 = MathUtils.Mul(ref transform, _vertex2);
-            Vector2 vector = XnaMath.Min(value, value2);
-            Vector2 vector2 = XnaMath.Max(value, value2);
+            Vector2 vector = Vector2.Min(value, value2);
+            Vector2 vector2 = Vector2.Max(value, value2);
             Vector2 vector3 = new(Radius, Radius);
             aabb.LowerBound = vector - vector3;
             aabb.UpperBound = vector2 + vector3;

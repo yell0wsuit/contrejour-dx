@@ -39,7 +39,7 @@ namespace FarseerPhysics.Common.PhysicsLogic
                     float percent = GetPercent(distance, radius);
                     Vector2 vector = pos - overlappingBody.Position;
                     vector *= 1f / (float)Math.Sqrt((vector.X * vector.X) + (vector.Y * vector.Y));
-                    vector *= XnaMath.Min(force * percent, maxForce);
+                    vector *= MathF.Min(force * percent, maxForce);
                     vector *= -1f;
                     overlappingBody.ApplyLinearImpulse(vector);
                     dictionary.Add(overlappingBody, vector);

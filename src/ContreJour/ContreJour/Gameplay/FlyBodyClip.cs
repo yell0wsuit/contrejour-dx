@@ -115,7 +115,7 @@ namespace ContreJour.Gameplay
 
         public void SetFlying(bool value)
         {
-            float num = value ? 0f : XnaMath.ToRadians(30f);
+            float num = value ? 0f : float.DegreesToRadians(30f);
             _ = leftWings.RotateTo(0.5f, num);
             _ = rightWings.RotateTo(0.5f, 0f - num);
             leftWings.SetFlying(value);

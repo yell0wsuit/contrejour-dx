@@ -64,10 +64,10 @@ namespace FarseerPhysics.Common
 
         public void Rotate(float value)
         {
-            Matrix4x4 result = XnaMath.CreateRotationZ(value);
+            Matrix4x4 result = Matrix4x4.CreateRotationZ(value);
             for (int i = 0; i < ControlPoints.Count; i++)
             {
-                ControlPoints[i] = XnaMath.Transform(ControlPoints[i], result);
+                ControlPoints[i] = Vector2.Transform(ControlPoints[i], result);
             }
         }
 
@@ -202,7 +202,7 @@ namespace FarseerPhysics.Common
             Vector2 value3 = default;
             value3.X = 0f - result.Y;
             value3.Y = result.X;
-            value3 = XnaMath.Normalize(value3);
+            value3 = Vector2.Normalize(value3);
             return value3;
         }
 

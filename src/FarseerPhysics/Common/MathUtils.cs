@@ -214,7 +214,7 @@ namespace FarseerPhysics.Common
 
         public static Vector2 Clamp(Vector2 a, Vector2 low, Vector2 high)
         {
-            return XnaMath.Max(low, XnaMath.Min(a, high));
+            return Vector2.Max(low, Vector2.Min(a, high));
         }
 
         public static void Cross(ref Vector2 a, ref Vector2 b, out float c)

@@ -80,7 +80,7 @@ namespace ContreJour.Gameplay
                 Vector2 position = Builder.TouchRootVec(Touch);
                 Vector2 vector = Builder.ToVec(MinBorderOffset);
                 RectangleFloat levelScreenPhysicsBounds = Game.LevelScreenPhysicsBounds;
-                levelScreenPhysicsBounds.Extend(XnaMath.Divide(-vector, Game.GameRoot.Scale));
+                levelScreenPhysicsBounds.Extend((-vector) / Game.GameRoot.Scale);
                 return levelScreenPhysicsBounds.ClampToBounds(position).ClampDistance(Body.Position, MaxDistance);
             }
         }
@@ -223,7 +223,7 @@ namespace ContreJour.Gameplay
             {
                 pimpa.Position = VectorUtil.StepTo(pimpa.Position, bouncePosition, 1000f * time);
                 Neck.Length = pimpa.Position.Length();
-                Neck.RotationDegrees = XnaMath.ToDegrees(Maths.Atan2(pimpa.Position.Y, pimpa.Position.X));
+                Neck.RotationDegrees = float.RadiansToDegrees(Maths.Atan2(pimpa.Position.Y, pimpa.Position.X));
             }
             limit.OpacityByte = (int)Maths.StepTo(limit.OpacityByte, (Touch != null) ? 200 : 80, time * 200f);
             pimpaHighlite.OpacityByte = (int)Maths.StepTo(pimpaHighlite.OpacityByte, (End != null) ? 255 : 0, time * 600f);
@@ -242,7 +242,7 @@ namespace ContreJour.Gameplay
             ghostNeck.Length = ghostPimpa.Position.X;
             ghostNeck.UpdateNode(time);
             RedrawGhost();
-            GhostSprite.RotationDegrees = XnaMath.ToDegrees(Maths.Atan2(vector.Y, vector.X));
+            GhostSprite.RotationDegrees = float.RadiansToDegrees(Maths.Atan2(vector.Y, vector.X));
         }
 
         public override void OnCollisionStartPoint(Body body2, Contact point)

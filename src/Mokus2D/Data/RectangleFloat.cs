@@ -53,8 +53,8 @@ namespace Mokus2D.Data
 
         public static RectangleFloat Create(Vector2 cornerA, Vector2 cornerB)
         {
-            Vector2 vector = XnaMath.Min(cornerA, cornerB);
-            Vector2 vector2 = XnaMath.Max(cornerA, cornerB);
+            Vector2 vector = Vector2.Min(cornerA, cornerB);
+            Vector2 vector2 = Vector2.Max(cornerA, cornerB);
             return new RectangleFloat(vector, vector2 - vector);
         }
 
