@@ -1,5 +1,4 @@
 using System;
-using System.Globalization;
 
 using Microsoft.Xna.Framework;
 
@@ -9,25 +8,10 @@ namespace Mokus2D.Util.Extensions
 {
     public static class VectorExtensions
     {
-        public static Vector2 ToVector2(this string value)
-        {
-            string[] array = value.Split([',']);
-            return new Vector2(Convert.ToSingle(array[0], CultureInfo.InvariantCulture.NumberFormat), Convert.ToSingle(array[1], CultureInfo.InvariantCulture.NumberFormat));
-        }
-
-        public static float WherePoint(this Vector2 point, Vector2 start, Vector2 end)
-        {
-            return VectorUtil.WherePoint(start, end, point);
-        }
 
         public static Vector2 ChangeY(this Vector2 source, float y)
         {
             return new Vector2(source.X, y);
-        }
-
-        public static Vector2 AddX(this Vector2 source, float value)
-        {
-            return new Vector2(source.X + value, source.Y);
         }
 
         public static Vector2 AddY(this Vector2 source, float value)
@@ -75,16 +59,6 @@ namespace Mokus2D.Util.Extensions
             return Math.Min(vector.X, vector.Y);
         }
 
-        public static float Max(this Vector2 vector)
-        {
-            return Math.Max(vector.X, vector.Y);
-        }
-
-        public static Vector2 Mod(this Vector2 vector, float value)
-        {
-            return new Vector2(vector.X % value, vector.Y % value);
-        }
-
         public static Vector2 Abs(this Vector2 vector)
         {
             return new Vector2(vector.X.Abs(), vector.Y.Abs());
@@ -110,21 +84,11 @@ namespace Mokus2D.Util.Extensions
             return VectorUtil.Rotate(vector, angle);
         }
 
-        public static bool Between(this Vector2 vector, Vector2 min, Vector2 max)
-        {
-            return vector.X.Between(min.X, max.X) && vector.Y.Between(min.Y, max.Y);
-        }
-
         public static Vector2 Rotate90(this Vector2 vector)
         {
             Vector2 point = vector;
             VectorUtil.Rotate90(ref point);
             return point;
-        }
-
-        public static bool IsNaN(this Vector2 source)
-        {
-            return float.IsNaN(source.X) || float.IsNaN(source.Y);
         }
 
         public static Vector2 Signs(this Vector2 source)

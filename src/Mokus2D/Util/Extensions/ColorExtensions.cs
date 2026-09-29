@@ -76,11 +76,6 @@ namespace Mokus2D.Util.Extensions
             return (int)(part1 * part2 / 255f);
         }
 
-        public static Color Add(this Color color, Color colorSub)
-        {
-            return new Color(color.R + colorSub.R, color.G + colorSub.G, color.B + colorSub.B, color.A + colorSub.A);
-        }
-
         public static Color Add(this Color color, ColorDiff colorSub)
         {
             return new Color(color.R + colorSub.R, color.G + colorSub.G, color.B + colorSub.B, color.A + colorSub.A);
