@@ -78,14 +78,6 @@ namespace ContreJour.Gameplay
             return content.Load<Texture2D>($"Graphics/textures/{name}");
         }
 
-        public static string GetTexturePath(string name)
-        {
-            name = CorrectName(name);
-            return File.Exists(GetPath(name, currentTextureSource, "xnb"))
-                ? Path.Combine([currentTextureSource.Path, name])
-                : Path.Combine([defaultTextureSource.Path, name]);
-        }
-
         private static ClipData GetConfigByName(string name)
         {
             name = CorrectName(name);

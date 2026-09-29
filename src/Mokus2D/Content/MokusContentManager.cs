@@ -2,8 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Text;
 
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -14,47 +12,11 @@ namespace Mokus2D.Content
 {
     public class MokusContentManager(IServiceProvider serviceProvider) : ContentManager(serviceProvider)
     {
-        public const bool DebugDisposedTextures = true;
-
-        private static readonly CompositeFormat TextureNameFormat = CompositeFormat.Parse("{0}/{0}{1}");
-
         private static readonly string[] TextureExtensions = [".png"];
 
         private readonly Dictionary<string, object> _loadedAssets = [];
 
         private readonly Dictionary<Texture2D, string> _loadedTextures = [];
-
-        public bool IsLoaded(string assetName)
-        {
-            return _loadedAssets.ContainsKey(assetName);
-        }
-
-        public static string GetFullTexturePath(string name)
-        {
-            return GetFullTexturePath(name, Mokus2DGame.Config.GraphicsLoader.PrefferedScaleFactor);
-        }
-
-        public static string GetFullTexturePath(string name, float scaleFactor)
-        {
-            string text = string.Format(CultureInfo.InvariantCulture, TextureNameFormat, name, ContentUtil.GetResourcesSuffix(scaleFactor));
-            return Path.Combine(
-            [
-                Mokus2DGame.Config.GraphicsLoader.GraphicsRootDirectory,
-                text
-            ]);
-        }
-
-        public string FindAssetName(object asset)
-        {
-            foreach (KeyValuePair<string, object> loadedAsset in _loadedAssets)
-            {
-                if (loadedAsset.Value == asset)
-                {
-                    return loadedAsset.Key;
-                }
-            }
-            return null;
-        }
 
         public override T Load<T>(string assetName)
         {
@@ -134,18 +96,6 @@ namespace Mokus2D.Content
             return (object)typeof(T) == typeof(Texture2D) ? (T)(object)ReadTextureAsset(assetName) : ReadAsset<T>(assetName, null);
         }
 
-        public void UnloadTexture(string shortName, float scaleFactor)
-        {
-            UnloadTexture(GetFullTexturePath(shortName, scaleFactor));
-        }
-
-        public void UnloadTexture(string fullName)
-        {
-            object obj = _loadedAssets[fullName];
-            _ = _loadedAssets.Remove(fullName);
-            ((Texture2D)obj).Dispose();
-        }
-
         public override void Unload()
         {
             base.Unload();
@@ -157,18 +107,6 @@ namespace Mokus2D.Content
                 }
             }
             _loadedAssets.Clear();
-        }
-
-        public List<string> GetLoadedTextures()
-        {
-            return [.. from asset in _loadedAssets
-                    where asset.Value is Texture2D
-                    select asset.Key];
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            base.Dispose(disposing);
         }
     }
 }
