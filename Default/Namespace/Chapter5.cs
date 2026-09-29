@@ -27,28 +27,28 @@ public class Chapter5(int index, MainMenu menu) : ChapterItem(index, menu)
     protected override void CreateSprites()
     {
         float scale = 2.5f;
-        background = new McPlanet5Background();
-        container.AddChild(background);
-        background.Scale = scale;
+        Background = new McPlanet5Background();
+        Container.AddChild(Background);
+        Background.Scale = scale;
         ocean = new McPlanet5Ocean();
-        container.AddChild(ocean);
+        Container.AddChild(ocean);
         ocean.Scale = scale;
         CreateLianas();
         planetForeground = new McPlanet5Foreground();
-        container.AddChild(planetForeground);
-        blurBackground = new McPlanet5Blur();
+        Container.AddChild(planetForeground);
+        BlurBackground = new McPlanet5Blur();
         for (int i = 1; i <= 4; i++)
         {
             Node node = new Sprite($"menu2/McHole{i}");
-            container.AddChild(node);
+            Container.AddChild(node);
             CosOpacityChanger item = new(node, 0f, 1f, Maths.Random(0.02f, 0.07f) / 255f);
             changers.Add(item);
         }
         ParticleSystem particleSystem = new(Mokus2DGame.LoadSpriteData("common/McEnergyBall"));
-        container.AddChild(particleSystem);
+        Container.AddChild(particleSystem);
         AddUpdating(new PlanetEnergy(particleSystem, new Vector2(35f, 120f)));
         particleSystem.Scale = 0.55f;
-        alphaItems.Add(particleSystem);
+        AlphaItems.Add(particleSystem);
         CreateForegrounds();
     }
 
@@ -73,7 +73,7 @@ public class Chapter5(int index, MainMenu menu) : ChapterItem(index, menu)
         foregroundContainer.AddChild(foreground);
         foreground.Position = -rootSize / 2f;
         foregroundContainer.Position = -foreground.Position;
-        menu.AddForeground(foregroundContainer);
+        Menu.AddForeground(foregroundContainer);
         _ = AddForegroundPositionScaleAngle(new McLeafView4(), new Vector2(rootSize.X - 1024f + 624f, rootSize.Y - 27f), new Vector2(1.72f, 1.29f), 171f);
         _ = AddForegroundPositionScaleAngle(new McLeafView3(), new Vector2(rootSize.X - 1024f + 731f, rootSize.Y - 54f), new Vector2(2.37f, 2.37f), -172f);
         _ = AddForegroundPositionScaleAngle(new McLeafView5(), new Vector2(rootSize.X - 1024f + 1008f, rootSize.Y - 55f), new Vector2(3.31f, 3.31f), -22f);
@@ -91,7 +91,7 @@ public class Chapter5(int index, MainMenu menu) : ChapterItem(index, menu)
     public void AddLianaMiddleEndReduce(Vector2 start, Vector2 middle, Vector2 end, bool reduce)
     {
         PlanetLiana planetLiana = new(start, middle, end);
-        container.AddChild(planetLiana);
+        Container.AddChild(planetLiana);
         AddUpdating(planetLiana);
         if (reduce)
         {
@@ -124,7 +124,7 @@ public class Chapter5(int index, MainMenu menu) : ChapterItem(index, menu)
             changer.Update(time);
         }
         ocean.RotationDegrees += time * 11f;
-        background.RotationDegrees -= time * 7f;
+        Background.RotationDegrees -= time * 7f;
     }
 
     private Node AddForegroundPositionScaleAngleRotationOffset(Node node, Vector2 position, Vector2 scale, float angle, float _offset)

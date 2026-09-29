@@ -16,7 +16,7 @@ public class BodyClip : Updatable
 {
     protected float rotationOffset;
 
-    protected float rotationOffsetRadians;
+    protected float RotationOffsetRadians { get; set; }
 
     private Body body;
 
@@ -79,7 +79,7 @@ public class BodyClip : Updatable
         //IL_0060: Expected O, but got Unknown
         config ??= [];
         rotationOffset = config.GetFloat("rotationOffset", 0f);
-        rotationOffsetRadians = rotationOffset.ToRadians();
+        RotationOffsetRadians = rotationOffset.ToRadians();
         this.config = config;
         this.clip = clip;
         Body = (Body)body;
@@ -125,7 +125,7 @@ public class BodyClip : Updatable
 
     public virtual void UpdateRotation()
     {
-        clip.RotationRadians = body.Rotation - rotationOffsetRadians;
+        clip.RotationRadians = body.Rotation - RotationOffsetRadians;
     }
 
     public void DestroyLater()

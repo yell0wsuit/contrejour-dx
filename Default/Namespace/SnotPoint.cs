@@ -11,9 +11,9 @@ namespace Default.Namespace;
 public class SnotPoint : ContreJourBodyClip
 {
     private static readonly float Radius = 20f;
-    public bool Enabled = true;
+    public bool Enabled { get; set; } = true;
 
-    public readonly EventSender UnuseEvent = new();
+    public EventSender UnuseEvent { get; } = new();
 
     public bool Used
     {

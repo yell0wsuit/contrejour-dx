@@ -11,40 +11,40 @@ public class FlyBase : IUpdatable
 {
     private readonly CosOpacityChanger opacityChanger;
 
-    protected Vector2 initialPosition;
+    protected Vector2 InitialPosition { get; set; }
 
-    protected Particle particle;
+    protected Particle Particle { get; set; }
 
-    protected float stepY;
+    protected float StepY { get; set; }
 
     protected Vector2 targetPosition;
 
-    protected float verticalStep;
+    protected float VerticalStep { get; set; }
 
     private float verticalStepDiff;
 
     public FlyBase(Particle particle, float scale)
     {
-        this.particle = particle;
-        this.particle.Scale = scale;
-        initialPosition = particle.Position;
-        targetPosition = initialPosition;
-        opacityChanger = new CosOpacityChanger(this.particle, 0f, Maths.Random(0.5f, 0.6f), Maths.Random(0.01f, 0.07f));
+        this.Particle = particle;
+        this.Particle.Scale = scale;
+        InitialPosition = particle.Position;
+        targetPosition = InitialPosition;
+        opacityChanger = new CosOpacityChanger(this.Particle, 0f, Maths.Random(0.5f, 0.6f), Maths.Random(0.01f, 0.07f));
         InitParams();
     }
 
     public virtual void Update(float time)
     {
-        Vector2 vector = new(Math.Min(Math.Abs((targetPosition.X - particle.Position.X) / (targetPosition.Y - particle.Position.Y) * stepY), 1f), stepY);
-        particle.Position = VectorUtil.StepTo(particle.Position, targetPosition, vector.Length());
-        verticalStep += verticalStepDiff;
+        Vector2 vector = new(Math.Min(Math.Abs((targetPosition.X - Particle.Position.X) / (targetPosition.Y - Particle.Position.Y) * StepY), 1f), StepY);
+        Particle.Position = VectorUtil.StepTo(Particle.Position, targetPosition, vector.Length());
+        VerticalStep += verticalStepDiff;
         opacityChanger.Update(time);
     }
 
     private void InitParams()
     {
-        stepY = Maths.Random(0.25f, 0.75f);
-        verticalStep = Maths.Random((float)Math.PI * -2f, (float)Math.PI * 2f);
+        StepY = Maths.Random(0.25f, 0.75f);
+        VerticalStep = Maths.Random((float)Math.PI * -2f, (float)Math.PI * 2f);
         verticalStepDiff = Maths.Random(0.01f, 0.02f);
     }
 }

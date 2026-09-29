@@ -77,7 +77,7 @@ public class HeroEye : RandomAnimationEye
     public override void Update(float time)
     {
         base.Update(time);
-        currentBackground.Position = currentEyeBall.Position * 0.5f;
+        currentBackground.Position = CurrentEyeBall.Position * 0.5f;
         if (colorTime > 0f)
         {
             colorProgress = Maths.StepTo(colorProgress, 1f, 0.1f);
@@ -148,7 +148,7 @@ public class HeroEye : RandomAnimationEye
             base.CreateDefaultView();
             return;
         }
-        background = new McEyeBlack();
+        Background = new McEyeBlack();
         eyeBall = (Sprite)ClipTypesCache.CreateNewNode(Game.ChooseSide("McEyeBallBlack", "McEyeBallWhite", null, null, "McEyeBall_6"));
     }
 

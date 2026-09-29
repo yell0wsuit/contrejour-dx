@@ -18,7 +18,7 @@ public class PlanetSnot : LongNeckSprite, IDepthDependent
 {
     private readonly PlanetSnotEye _eye;
 
-    public readonly Sprite BaseSprite;
+    public Sprite BaseSprite { get; }
 
     private Vector2 middle;
 
@@ -44,7 +44,7 @@ public class PlanetSnot : LongNeckSprite, IDepthDependent
         _eye.Position = end;
         middle = middleInit;
         end = Vector2.Zero;
-        borderWidth = 4f;
+        BorderWidth = 4f;
     }
 
     public override void GetPairs(List<Pair<Vector2>> target)

@@ -41,13 +41,13 @@ public class FakeHeroEye : RandomAnimationEye
     {
         string name = ProcessName("McFakeHeroEye");
         string name2 = ProcessName("McFakeHeroEyeBall");
-        background = (Sprite)ClipTypesCache.CreateNewNode(name);
+        Background = (Sprite)ClipTypesCache.CreateNewNode(name);
         eyeBall = (Sprite)ClipTypesCache.CreateNewNode(name2);
     }
 
     public override void Update(float time)
     {
         base.Update(time);
-        currentBackground.Position = currentEyeBall.Position * 0.5f;
+        currentBackground.Position = CurrentEyeBall.Position * 0.5f;
     }
 }

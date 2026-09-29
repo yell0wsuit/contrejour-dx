@@ -16,7 +16,7 @@ public class EnergyPart : Satellite
 
     private float opacity;
 
-    protected override Vector2 TargetPosition => !collected ? base.TargetPosition : game.BonusTarget.BonusTarget();
+    protected override Vector2 TargetPosition => !collected ? base.TargetPosition : Game.BonusTarget.BonusTarget();
 
     public EnergyPart(ContreJourGame game, BodyClip parent, float direction, Vector2 position)
         : this(game, parent, game.Energy.AddOrGetInvisible(), direction, position)
@@ -34,8 +34,8 @@ public class EnergyPart : Satellite
 
     public void Collect()
     {
-        target = (BodyClip)game.BonusTarget;
-        game.Hero.FinishEvent.AddListener(OnHeroFinish);
+        Target = (BodyClip)Game.BonusTarget;
+        Game.Hero.FinishEvent.AddListener(OnHeroFinish);
         collected = true;
         speedValue = Maths.Random(150f, 250f);
         angleStep = Maths.Random(0.05f, 0.1f);
@@ -43,7 +43,7 @@ public class EnergyPart : Satellite
 
     public void OnHeroFinish()
     {
-        game.Hero.FinishEvent.RemoveListener(OnHeroFinish);
+        Game.Hero.FinishEvent.RemoveListener(OnHeroFinish);
         collected = false;
         finished = true;
     }
@@ -55,7 +55,7 @@ public class EnergyPart : Satellite
         {
             timeToEnd -= time;
         }
-        if (game == null)
+        if (Game == null)
         {
             return;
         }
@@ -71,9 +71,9 @@ public class EnergyPart : Satellite
         if ((timeToEnd <= 0f && num <= 10f) || opacity <= 0f)
         {
             Remove();
-            if (opacity > 0f && game.BonusTarget != null)
+            if (opacity > 0f && Game.BonusTarget != null)
             {
-                game.BonusTarget.ApplyBonus();
+                Game.BonusTarget.ApplyBonus();
             }
         }
         else if (timeToEnd <= 0f)

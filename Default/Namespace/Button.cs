@@ -8,14 +8,14 @@ namespace Default.Namespace;
 
 public class Button : TouchSprite
 {
-    public bool StopEventPropagation;
+    public bool StopEventPropagation { get; set; }
 
     protected bool enabled;
     private readonly Sprite pressed;
 
     private float realScale;
 
-    protected bool touching;
+    protected bool Touching { get; set; }
 
     public float RealScale
     {
@@ -80,7 +80,7 @@ public class Button : TouchSprite
             touch.StopPropagation();
         }
         _ = base.TouchBegin(touch);
-        touching = true;
+        Touching = true;
         if (pressed != null)
         {
             pressed.Visible = true;
@@ -109,16 +109,16 @@ public class Button : TouchSprite
 
     public void HidePressed()
     {
-        if (touching)
+        if (Touching)
         {
-            touching = false;
+            Touching = false;
             _ = this.Schedule(0.2f, DoHidePressed);
         }
     }
 
     private void DoHidePressed()
     {
-        if (!touching)
+        if (!Touching)
         {
             _ = this.ScaleTo(0.1f, realScale);
             if (pressed != null)

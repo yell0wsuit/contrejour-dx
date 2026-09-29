@@ -10,17 +10,17 @@ public class BridgeHideHint : SuckerHintBase
     public BridgeHideHint(ContreJourLevelBuilder builder, object body, Sprite clip, Hashtable config)
         : base(builder, null, clip, config)
     {
-        hasToRun = false;
-        sucker.FinishDragEvent.AddListener(OnFinishDrag);
+        HasToRun = false;
+        Sucker.FinishDragEvent.AddListener(OnFinishDrag);
     }
 
     public override void Restart()
     {
         base.Restart();
-        hasToRun = false;
-        sucker.FinishDragEvent.RemoveListener(OnFinishDrag);
-        sucker.RemoveEvent.RemoveListener(OnRemoveBridge);
-        sucker.FinishDragEvent.AddListener(OnFinishDrag);
+        HasToRun = false;
+        Sucker.FinishDragEvent.RemoveListener(OnFinishDrag);
+        Sucker.RemoveEvent.RemoveListener(OnRemoveBridge);
+        Sucker.FinishDragEvent.AddListener(OnFinishDrag);
     }
 
     public override bool HasToHide()
@@ -30,14 +30,14 @@ public class BridgeHideHint : SuckerHintBase
 
     private void OnFinishDrag()
     {
-        hasToRun = true;
-        sucker.FinishDragEvent.RemoveListener(OnFinishDrag);
-        sucker.RemoveEvent.AddListener(OnRemoveBridge);
+        HasToRun = true;
+        Sucker.FinishDragEvent.RemoveListener(OnFinishDrag);
+        Sucker.RemoveEvent.AddListener(OnRemoveBridge);
     }
 
     private void OnRemoveBridge()
     {
-        sucker.RemoveEvent.RemoveListener(OnRemoveBridge);
+        Sucker.RemoveEvent.RemoveListener(OnRemoveBridge);
         Hide();
     }
 }

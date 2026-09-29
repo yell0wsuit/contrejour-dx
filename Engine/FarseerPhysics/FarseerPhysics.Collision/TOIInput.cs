@@ -4,13 +4,13 @@ namespace FarseerPhysics.Collision;
 
 public class TOIInput
 {
-    public DistanceProxy ProxyA = new();
+    public DistanceProxy ProxyA { get; set; } = new();
 
-    public DistanceProxy ProxyB = new();
+    public DistanceProxy ProxyB { get; set; } = new();
 
-    public Sweep SweepA;
+    public Sweep SweepA { get; set; }
 
-    public Sweep SweepB;
+    public Sweep SweepB { get; set; }
 
-    public float TMax;
+    public float TMax { get; set; }
 }

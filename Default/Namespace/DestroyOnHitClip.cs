@@ -27,7 +27,7 @@ public class DestroyOnHitClip(LevelBuilderBase builder, object body, Node clip, 
 
     public override void PostSolvePointImpulse(Body body2, Contact point, ContactVelocityConstraint impulse)
     {
-        if (impulse.points[0].normalImpulse > 7f)
+        if (impulse.Points[0].NormalImpulse > 7f)
         {
             Explode();
         }

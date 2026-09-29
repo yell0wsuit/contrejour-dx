@@ -13,7 +13,7 @@ namespace Default.Namespace;
 
 public class HintBase : BodyClip, IRemovable
 {
-    protected ContreJourGame contreJour;
+    protected ContreJourGame ContreJour { get; set; }
 
     public virtual bool ShouldRemove => false;
 
@@ -21,9 +21,9 @@ public class HintBase : BodyClip, IRemovable
     public HintBase(ContreJourLevelBuilder builder, object body, Sprite clip, Hashtable config)
         : base(builder, null, clip, config)
     {
-        contreJour = builder.ContreJour;
+        ContreJour = builder.ContreJour;
         builder.Game.AddUpdatable(this);
-        contreJour.AddTextureToUnload(clip.Texture.Name);
+        ContreJour.AddTextureToUnload(clip.Texture.Name);
         AddText(this.config.GetHashtable("textData"));
         int num = 0;
         while (this.config.Exists("textData" + num))

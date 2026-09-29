@@ -6,7 +6,7 @@ public class FarseerConfig
 {
     public static readonly FarseerConfig DefaultConfig = new();
 
-    public float PhysicsToPixels = 30f;
-    public float Friction = 1f;
+    public float PhysicsToPixels { get; set; } = 30f;
+    public float Friction { get; set; } = 1f;
 
 }

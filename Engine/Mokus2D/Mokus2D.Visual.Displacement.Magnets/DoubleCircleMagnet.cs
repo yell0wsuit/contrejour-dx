@@ -10,7 +10,7 @@ public class DoubleCircleMagnet : CircleMagnet
 {
     public Vector2 ExcludeCircleCenter { get; set; }
 
-    public float ExcludeRadius;
+    public float ExcludeRadius { get; set; }
 
     public DoubleCircleMagnet(float radius, float excludeRadius, float power)
         : base(radius, power)

@@ -6,5 +6,5 @@ namespace Mokus2D.Parallax;
 
 public class VisibleIslandChildren(VisibleIsland island) : LinkedList<Node>
 {
-    public readonly VisibleIsland Island = island;
+    public VisibleIsland Island { get; } = island;
 }

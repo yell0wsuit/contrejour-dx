@@ -9,7 +9,7 @@ public class ShapeProcessor(string type, LevelBuilderBase builder) : TypeProcess
     public override object ProcessItem(Hashtable item)
     {
         Hashtable hashtable = item.GetHashtable("config");
-        Body val = BodyFactory.CreateBody(builder.World, null);
+        Body val = BodyFactory.CreateBody(Builder.World, null);
         if (hashtable.Exists("dynamic"))
         {
             val.BodyType = (BodyType)2;
@@ -24,7 +24,7 @@ public class ShapeProcessor(string type, LevelBuilderBase builder) : TypeProcess
         AddShapesItem(val, item);
         if (hashtable.Exists("id"))
         {
-            builder.CreatedObjects[hashtable.GetString("id")] = val;
+            Builder.CreatedObjects[hashtable.GetString("id")] = val;
         }
         return val;
     }
@@ -32,9 +32,9 @@ public class ShapeProcessor(string type, LevelBuilderBase builder) : TypeProcess
     public Fixture AddShapeItemShape(Body body, Hashtable item, Shape shape)
     {
         Hashtable hashtable = item.GetHashtable("config");
-        Fixture val = body.CreateFixture(shape, (!hashtable.Exists("density")) ? builder.EngineConfig.Density : hashtable.GetFloat("density"));
-        val.Friction = hashtable.Exists("friction") ? hashtable.GetFloat("friction") : builder.EngineConfig.Friction;
-        val.Restitution = hashtable.Exists("restitution") ? hashtable.GetFloat("restitution") : builder.EngineConfig.Restitution;
+        Fixture val = body.CreateFixture(shape, (!hashtable.Exists("density")) ? Builder.EngineConfig.Density : hashtable.GetFloat("density"));
+        val.Friction = hashtable.Exists("friction") ? hashtable.GetFloat("friction") : Builder.EngineConfig.Friction;
+        val.Restitution = hashtable.Exists("restitution") ? hashtable.GetFloat("restitution") : Builder.EngineConfig.Restitution;
         val.IsSensor = hashtable.GetBool("sensor");
         if (hashtable.Exists("categoryBits") || hashtable.Exists("maskBits"))
         {

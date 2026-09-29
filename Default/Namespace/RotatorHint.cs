@@ -25,7 +25,7 @@ public class RotatorHint : FadeHint
     public override void Update(float time)
     {
         base.Update(time);
-        if (!hiding && rotator != null && (double)builder.Game.TotalTime > 0.5 && Math.Abs(Maths.PeriodicOffset(rotator.Body.Rotation, (float)Math.PI * 2f)) > (float)Math.PI / 4f)
+        if (!Hiding && rotator != null && (double)builder.Game.TotalTime > 0.5 && Math.Abs(Maths.PeriodicOffset(rotator.Body.Rotation, (float)Math.PI * 2f)) > (float)Math.PI / 4f)
         {
             Hide();
         }

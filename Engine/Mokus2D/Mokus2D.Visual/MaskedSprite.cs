@@ -7,14 +7,14 @@ namespace Mokus2D.Visual;
 
 public class MaskedSprite : RenderSprite
 {
-    protected readonly MaskRoot maskRoot;
+    protected MaskRoot MaskRoot { get; }
 
     private readonly BlendState blendState;
 
     public bool UpdateMask
     {
-        get => maskRoot.UpdateChildren;
-        set => maskRoot.UpdateChildren = value;
+        get => MaskRoot.UpdateChildren;
+        set => MaskRoot.UpdateChildren = value;
     }
 
     public SpriteBatchNode Mask
@@ -24,12 +24,12 @@ public class MaskedSprite : RenderSprite
         {
             if (field != null)
             {
-                maskRoot.RemoveChild(field);
+                MaskRoot.RemoveChild(field);
             }
             field = value;
             if (field != null)
             {
-                maskRoot.AddChild(field);
+                MaskRoot.AddChild(field);
             }
         }
     }
@@ -56,7 +56,7 @@ public class MaskedSprite : RenderSprite
             ColorSourceBlend = Microsoft.Xna.Framework.Graphics.Blend.Zero,
             AlphaSourceBlend = Microsoft.Xna.Framework.Graphics.Blend.Zero
         };
-        maskRoot = new MaskRoot((int)size.X, (int)size.Y);
+        MaskRoot = new MaskRoot((int)size.X, (int)size.Y);
     }
 
     protected override void DrawContent()
@@ -66,13 +66,13 @@ public class MaskedSprite : RenderSprite
             base.DrawContent();
             if (Mokus2DGame.Config.RenderTargetEnabled)
             {
-                maskRoot.ScaleX = Math.Sign(Root.ScaleX);
-                maskRoot.ScaleY = Math.Sign(Root.ScaleY);
-                maskRoot.SpritesScaleFactor = Root.SpritesScaleFactor;
+                MaskRoot.ScaleX = Math.Sign(Root.ScaleX);
+                MaskRoot.ScaleY = Math.Sign(Root.ScaleY);
+                MaskRoot.SpritesScaleFactor = Root.SpritesScaleFactor;
                 BlendState blend = Mask.Blend;
                 Mask.Blend = blendState;
-                maskRoot.Position = AnchorInPixels;
-                maskRoot.DrawAll();
+                MaskRoot.Position = AnchorInPixels;
+                MaskRoot.DrawAll();
                 Mask.Blend = blend;
             }
         }

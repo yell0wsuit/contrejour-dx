@@ -22,9 +22,9 @@ public class LightsHint : FadeHint
 
     private void OnEnergyCollected()
     {
-        if (!hiding)
+        if (!Hiding)
         {
-            hiding = true;
+            Hiding = true;
             Hide(0.5f * clip.OpacityByte / 255f);
         }
     }

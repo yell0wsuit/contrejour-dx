@@ -7,7 +7,7 @@ namespace Mokus2D.Visual.Shaders;
 
 public abstract class SpriteBatchEffectBase(string path) : ISpriteBatchEffect
 {
-    protected readonly Effect Effect = EffectUtil.LoadEffect(path);
+    protected Effect Effect { get; } = EffectUtil.LoadEffect(path);
 
 
     protected EffectParameterCollection Parameters => Effect.Parameters;

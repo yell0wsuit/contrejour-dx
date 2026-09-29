@@ -8,7 +8,7 @@ public abstract class TouchEffect(Node node)
 {
     private readonly EventSender ChangeEvent = new();
 
-    protected Node Node = node;
+    protected Node Node { get; set; } = node;
 
     protected float effectTime = 0.1f;
 

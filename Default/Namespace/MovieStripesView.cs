@@ -18,11 +18,11 @@ public class MovieStripesView : Node
 
     private readonly LayerColor FadeRectangle;
 
-    public readonly EventSender RestartEvent = new();
+    public EventSender RestartEvent { get; } = new();
 
-    public readonly EventSender MenuEvent = new();
+    public EventSender MenuEvent { get; } = new();
 
-    protected float FinishDuration = 0.8f;
+    protected float FinishDuration { get; set; } = 0.8f;
 
     public static readonly float StripesHeightIphone = 80f;
 

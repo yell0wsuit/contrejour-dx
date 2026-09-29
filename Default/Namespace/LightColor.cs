@@ -6,11 +6,11 @@ namespace Default.Namespace;
 
 public class LightColor
 {
-    public Color LightInColor;
+    public Color LightInColor { get; set; }
 
     public Color LightOutColor;
 
-    public Color LightBorderColor;
+    public Color LightBorderColor { get; set; }
 
     public LightColor()
     {

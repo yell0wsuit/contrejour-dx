@@ -18,19 +18,19 @@ namespace Mokus2D.Visual.Particles.Data;
 public class ParticleSystemConfig : ICloneable<ParticleSystemConfig>
 {
     [DataMember]
-    public bool Test;
+    public bool Test { get; set; }
 
     [DataMember]
-    public bool BlendAdditive;
+    public bool BlendAdditive { get; set; }
 
     [DataMember]
-    public readonly List<string> ParticleIds = [];
+    public List<string> ParticleIds { get; } = [];
 
     [DataMember]
-    public float UpdateSpeed = 1f;
+    public float UpdateSpeed { get; set; } = 1f;
 
     [DataMember]
-    public bool ReuseParticles = true;
+    public bool ReuseParticles { get; set; } = true;
 
     [NonSerialized]
     [DataMember]
@@ -45,64 +45,64 @@ public class ParticleSystemConfig : ICloneable<ParticleSystemConfig>
     public Vector2 PositionRange = Vector2.Zero;
 
     [DataMember]
-    public bool RadialPosition = true;
+    public bool RadialPosition { get; set; } = true;
 
     [DataMember]
-    public RandomRange StartSpeed = new(100f, 0f);
+    public RandomRange StartSpeed { get; set; } = new(100f, 0f);
 
     [DataMember]
-    public RandomRange StartSpeedAngle = new(0f, 0f);
+    public RandomRange StartSpeedAngle { get; set; } = new(0f, 0f);
 
     [DataMember]
-    public bool EndSpeedEnabled = true;
+    public bool EndSpeedEnabled { get; set; } = true;
 
     [DataMember]
-    public RandomRange EndSpeed = new(0f, 0f);
+    public RandomRange EndSpeed { get; set; } = new(0f, 0f);
 
     [DataMember]
-    public RandomRange EndSpeedAngle = new(0f, 0f);
+    public RandomRange EndSpeedAngle { get; set; } = new(0f, 0f);
 
     [DataMember]
-    public bool LockRotationToSpeed;
+    public bool LockRotationToSpeed { get; set; }
 
     [DataMember]
-    public RandomRange FadeInTime = new(0.1f, 0f);
+    public RandomRange FadeInTime { get; set; } = new(0.1f, 0f);
 
     [DataMember]
-    public RandomRange FadeOutTime = new(0.1f, 0f);
+    public RandomRange FadeOutTime { get; set; } = new(0.1f, 0f);
 
     [DataMember]
-    public RandomRange LifeTime;
+    public RandomRange LifeTime { get; set; }
 
     [DataMember]
-    public RandomRange? LifeDistance;
+    public RandomRange? LifeDistance { get; set; }
 
     [DataMember]
-    public RandomRange StartScale = new(1f, 0f);
+    public RandomRange StartScale { get; set; } = new(1f, 0f);
 
     [DataMember]
-    public RandomRange EndScale = new(0.5f, 0f);
+    public RandomRange EndScale { get; set; } = new(0.5f, 0f);
 
     [DataMember]
-    public RandomRange StartOpacity = new(1f, 0f);
+    public RandomRange StartOpacity { get; set; } = new(1f, 0f);
 
     [DataMember]
-    public RandomRange EndOpacity = new(0.5f, 0f);
+    public RandomRange EndOpacity { get; set; } = new(0.5f, 0f);
 
     [DataMember]
-    public RandomRange CreateDelay = new(1f, 0f);
+    public RandomRange CreateDelay { get; set; } = new(1f, 0f);
 
     [DataMember]
-    public RandomRange StartRotation = new(0f, 0f);
+    public RandomRange StartRotation { get; set; } = new(0f, 0f);
 
     [DataMember]
-    public RandomRange RotationSpeed = new(0f, 0f);
+    public RandomRange RotationSpeed { get; set; } = new(0f, 0f);
 
     [DataMember]
-    public bool CanFlipX;
+    public bool CanFlipX { get; set; }
 
     [DataMember]
-    public bool CanFlipY;
+    public bool CanFlipY { get; set; }
 
     // XmlSerializer reads this type and rejects a property with a private setter, so FadeColor stays a
     // get-only property over this field (the serializer skips get-only properties).
@@ -116,7 +116,7 @@ public class ParticleSystemConfig : ICloneable<ParticleSystemConfig>
     private Color _endColor = Color.White;
 
     [DataMember]
-    public int MaxParticles;
+    public int MaxParticles { get; set; }
 
     [DataMember]
     public Color EndColor

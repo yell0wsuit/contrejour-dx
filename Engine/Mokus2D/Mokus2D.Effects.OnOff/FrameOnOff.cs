@@ -4,9 +4,9 @@ namespace Mokus2D.Effects.OnOff;
 
 public class FrameOnOff : OnOffEffect
 {
-    protected readonly float OffFrame;
+    protected float OffFrame { get; }
 
-    protected readonly float OnFrame;
+    protected float OnFrame { get; }
 
     private IAnimatedNode AnimatedTarget => (IAnimatedNode)Target;
 

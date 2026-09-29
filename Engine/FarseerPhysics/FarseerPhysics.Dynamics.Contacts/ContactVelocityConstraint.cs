@@ -6,41 +6,41 @@ namespace FarseerPhysics.Dynamics.Contacts;
 
 public sealed class ContactVelocityConstraint
 {
-    public VelocityConstraintPoint[] points = new VelocityConstraintPoint[2];
+    public VelocityConstraintPoint[] Points { get; set; } = new VelocityConstraintPoint[2];
 
-    public Vector2 normal;
+    public Vector2 Normal { get; set; }
 
     public Mat22 normalMass;
 
     public Mat22 K;
 
-    public int indexA;
+    public int IndexA { get; set; }
 
-    public int indexB;
+    public int IndexB { get; set; }
 
-    public float invMassA;
+    public float InvMassA { get; set; }
 
-    public float invMassB;
+    public float InvMassB { get; set; }
 
-    public float invIA;
+    public float InvIA { get; set; }
 
-    public float invIB;
+    public float InvIB { get; set; }
 
-    public float friction;
+    public float Friction { get; set; }
 
-    public float restitution;
+    public float Restitution { get; set; }
 
-    public float tangentSpeed;
+    public float TangentSpeed { get; set; }
 
-    public int pointCount;
+    public int PointCount { get; set; }
 
-    public int contactIndex;
+    public int ContactIndex { get; set; }
 
     public ContactVelocityConstraint()
     {
         for (int i = 0; i < 2; i++)
         {
-            points[i] = new VelocityConstraintPoint();
+            Points[i] = new VelocityConstraintPoint();
         }
     }
 }

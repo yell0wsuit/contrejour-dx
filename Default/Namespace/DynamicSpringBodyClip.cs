@@ -24,8 +24,8 @@ public class DynamicSpringBodyClip(LevelBuilderBase builder, object body, Node c
 
     private void RefreshPositions()
     {
-        relativePosition = Body.GetLocalPoint(sticked.Body.Position);
-        worldPosition = sticked.Body.Position;
+        relativePosition = Body.GetLocalPoint(Sticked.Body.Position);
+        worldPosition = Sticked.Body.Position;
         oldAngleForSticked = Body.Rotation;
     }
 
@@ -46,9 +46,9 @@ public class DynamicSpringBodyClip(LevelBuilderBase builder, object body, Node c
         {
             Vector2 vector = Body.GetWorldPoint(relativePosition) - worldPosition;
             float num = Body.Rotation - oldAngleForSticked;
-            sticked.Body.SetTransform(sticked.Body.Position + vector, sticked.Body.Rotation + num);
+            Sticked.Body.SetTransform(Sticked.Body.Position + vector, Sticked.Body.Rotation + num);
             RefreshPoints();
-            sticked.UpdatePosition();
+            Sticked.UpdatePosition();
         }
         base.UpdateSticked();
         RefreshPositions();

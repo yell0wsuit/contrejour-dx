@@ -4,7 +4,7 @@ namespace Mokus2D.Util;
 
 public class FpsCounter(int framesToCalculate) : IUpdatable
 {
-    protected readonly int FramesToCalculate = framesToCalculate;
+    protected int FramesToCalculate { get; } = framesToCalculate;
 
     private int currentFrame;
 

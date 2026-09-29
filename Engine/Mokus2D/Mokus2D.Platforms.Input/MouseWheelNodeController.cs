@@ -8,17 +8,17 @@ namespace Mokus2D.Platforms.Input;
 
 public class MouseWheelNodeController<T> : NodeController<T> where T : Node, IMouseWheelNode
 {
-    public float WheelMult = 1f;
+    public float WheelMult { get; set; } = 1f;
 
-    public float MinScrollSpeed = 1f;
+    public float MinScrollSpeed { get; set; } = 1f;
 
-    public float ScrollSpeedMult = 1f;
+    public float ScrollSpeedMult { get; set; } = 1f;
 
-    public float? MaxScrollSpeed;
+    public float? MaxScrollSpeed { get; set; }
 
     private float? _targetValue;
 
-    public bool Enabled = true;
+    public bool Enabled { get; set; } = true;
 
     private Sprite _mouseWheelArea;
 

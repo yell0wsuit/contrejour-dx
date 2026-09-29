@@ -36,7 +36,7 @@ public class MovableSnotEye(SnotBodyClip snot, Body body, SnotPoint targetPoint)
     {
         if (distance > 55f * builder.SizeMult && snot.Linked == null)
         {
-            hasRelease = false;
+            HasRelease = false;
             moving = true;
             movingTouch = touch;
             snot.Enabled = false;

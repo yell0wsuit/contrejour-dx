@@ -19,9 +19,9 @@ namespace Default.Namespace;
 
 public class TrampolineBodyClip : SnotBodyClipBase
 {
-    public readonly EventSender DragEvent = new();
+    public EventSender DragEvent { get; } = new();
 
-    public readonly EventSender HeroTouchEvent = new();
+    public EventSender HeroTouchEvent { get; } = new();
 
     private Vector2 center;
 
@@ -146,10 +146,10 @@ public class TrampolineBodyClip : SnotBodyClipBase
 
     public override void AddClipsToStage()
     {
-        container.AddChild(clipContent);
-        container.AddChild(baseEndClip);
-        container.AddChild(baseClip);
-        builder.Add(container, Layer());
+        Container.AddChild(ClipContent);
+        Container.AddChild(BaseEndClip);
+        Container.AddChild(BaseClip);
+        builder.Add(Container, Layer());
     }
 
     public override void Update(float time)
@@ -285,19 +285,19 @@ public class TrampolineBodyClip : SnotBodyClipBase
     public override void InitSizes()
     {
         base.InitSizes();
-        startWidthPixels = 14f;
-        startWidth = startWidthPixels * builder.EngineConfig.SizeMultiplier;
-        endWidthPixels = startWidth;
-        endWidth = startWidth;
+        StartWidthPixels = 14f;
+        StartWidth = StartWidthPixels * builder.EngineConfig.SizeMultiplier;
+        EndWidthPixels = StartWidth;
+        EndWidth = StartWidth;
     }
 
     public override SnotSprite CreateClip()
     {
         return game.WhiteSide
-            ? new WhiteTrampolineSprite(game, this, startWidth, centerWidth, endWidth)
+            ? new WhiteTrampolineSprite(game, this, StartWidth, CenterWidth, EndWidth)
             : game.BlackSide
-            ? new BlackTrampolineSprite(game, this, startWidth, centerWidth, endWidth)
-            : new SnotSprite(this, startWidth, centerWidth, endWidth);
+            ? new BlackTrampolineSprite(game, this, StartWidth, CenterWidth, EndWidth)
+            : new SnotSprite(this, StartWidth, CenterWidth, EndWidth);
     }
 
     public override string BaseEndClipName()

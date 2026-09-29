@@ -8,29 +8,29 @@ namespace Mokus2D.Visual.Particles.Data;
 
 public class ParticleData(Node particle, ParticleSystemConfig systemConfig) : IUpdatable
 {
-    public Vector2 Speed;
+    public Vector2 Speed { get; set; }
 
-    public Vector2 Acceleration;
+    public Vector2 Acceleration { get; set; }
 
-    public float LifeTime;
+    public float LifeTime { get; set; }
 
-    public float FadeInTime;
+    public float FadeInTime { get; set; }
 
-    public float FadeOutTime;
+    public float FadeOutTime { get; set; }
 
-    public float? LifeDistance;
+    public float? LifeDistance { get; set; }
 
-    public Vector2 StartScale;
+    public Vector2 StartScale { get; set; }
 
-    public Vector2 EndScale;
+    public Vector2 EndScale { get; set; }
 
-    public float StartOpacity;
+    public float StartOpacity { get; set; }
 
-    public float EndOpacity;
+    public float EndOpacity { get; set; }
 
-    public float RotationSpeed;
+    public float RotationSpeed { get; set; }
 
-    public readonly Node Particle = particle;
+    public Node Particle { get; } = particle;
 
     private readonly ParticleSystemConfig SystemConfig = systemConfig;
 

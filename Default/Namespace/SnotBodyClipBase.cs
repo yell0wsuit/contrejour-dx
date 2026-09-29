@@ -12,27 +12,27 @@ namespace Default.Namespace;
 
 public class SnotBodyClipBase : ContreJourBodyClip
 {
-    protected MonsterEye eye;
+    protected MonsterEye Eye { get; set; }
 
     protected ContreJourGame game;
 
-    protected SnotSprite clipContent;
+    protected SnotSprite ClipContent { get; set; }
 
-    protected Node baseClip;
+    protected Node BaseClip { get; set; }
 
-    protected Node baseEndClip;
+    protected Node BaseEndClip { get; set; }
 
-    protected Node container;
+    protected Node Container { get; set; }
 
-    protected float endWidthPixels;
+    protected float EndWidthPixels { get; set; }
 
-    protected float centerWidth;
+    protected float CenterWidth { get; set; }
 
-    protected float endWidth;
+    protected float EndWidth { get; set; }
 
-    protected float startWidthPixels;
+    protected float StartWidthPixels { get; set; }
 
-    protected float startWidth;
+    protected float StartWidth { get; set; }
 
     public SnotData Physics { get; }
 
@@ -46,25 +46,25 @@ public class SnotBodyClipBase : ContreJourBodyClip
     {
         Physics = body;
         game = (ContreJourGame)this.builder.Game;
-        container = new Node();
+        Container = new Node();
         Physics.Snot = this;
         InitSizes();
-        clipContent = CreateClip();
-        baseClip = ClipTypesCache.CreateNewNode(BaseClipName());
-        baseClip.Position = this.builder.ToIPadPoint(Physics.GetWorldStartPoint());
-        baseEndClip = ClipTypesCache.CreateNewNode(BaseEndClipName());
+        ClipContent = CreateClip();
+        BaseClip = ClipTypesCache.CreateNewNode(BaseClipName());
+        BaseClip.Position = this.builder.ToIPadPoint(Physics.GetWorldStartPoint());
+        BaseEndClip = ClipTypesCache.CreateNewNode(BaseEndClipName());
         Physics.EndBody.ApplyLinearImpulse(new Vector2(Maths.Random(), Maths.Random()) * Physics.EndBody.Mass);
-        eye = CreateEye();
+        Eye = CreateEye();
         AddClipsToStage();
     }
 
     public virtual void InitSizes()
     {
-        endWidthPixels = 10f;
-        centerWidth = 6f * builder.EngineConfig.SizeMultiplier;
-        endWidth = endWidthPixels * builder.EngineConfig.SizeMultiplier;
-        startWidthPixels = 28f;
-        startWidth = startWidthPixels * builder.EngineConfig.SizeMultiplier;
+        EndWidthPixels = 10f;
+        CenterWidth = 6f * builder.EngineConfig.SizeMultiplier;
+        EndWidth = EndWidthPixels * builder.EngineConfig.SizeMultiplier;
+        StartWidthPixels = 28f;
+        StartWidth = StartWidthPixels * builder.EngineConfig.SizeMultiplier;
     }
 
     public virtual int Layer()
@@ -84,14 +84,14 @@ public class SnotBodyClipBase : ContreJourBodyClip
 
     public virtual void AddClipsToStage()
     {
-        container.AddChild(clipContent);
-        container.AddChild(baseEndClip);
-        container.AddChild(baseClip);
-        if (eye != null)
+        Container.AddChild(ClipContent);
+        Container.AddChild(BaseEndClip);
+        Container.AddChild(BaseClip);
+        if (Eye != null)
         {
-            container.AddChild(eye);
+            Container.AddChild(Eye);
         }
-        builder.Add(container, Layer());
+        builder.Add(Container, Layer());
     }
 
     protected virtual MonsterEye CreateEye()
@@ -101,7 +101,7 @@ public class SnotBodyClipBase : ContreJourBodyClip
 
     public virtual SnotSprite CreateClip()
     {
-        return new SnotSprite(this, startWidth, centerWidth, endWidth);
+        return new SnotSprite(this, StartWidth, CenterWidth, EndWidth);
     }
 
     public virtual Vector2 EndPosition()
@@ -112,12 +112,12 @@ public class SnotBodyClipBase : ContreJourBodyClip
     public override void Update(float time)
     {
         base.Update(time);
-        baseClip.Position = builder.ToIPadPoint(Physics.GetWorldStartPoint());
-        baseEndClip.Position = builder.ToIPadPoint(EndPosition());
-        if (eye != null && eye.HasToUpdate)
+        BaseClip.Position = builder.ToIPadPoint(Physics.GetWorldStartPoint());
+        BaseEndClip.Position = builder.ToIPadPoint(EndPosition());
+        if (Eye != null && Eye.HasToUpdate)
         {
-            eye.Position = builder.ToIPadPoint(EyeBody.Position);
-            eye.UpdateNode(time);
+            Eye.Position = builder.ToIPadPoint(EyeBody.Position);
+            Eye.UpdateNode(time);
         }
     }
 }

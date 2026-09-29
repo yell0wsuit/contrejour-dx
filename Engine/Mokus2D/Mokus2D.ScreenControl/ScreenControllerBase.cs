@@ -6,9 +6,9 @@ namespace Mokus2D.ScreenControl;
 
 public abstract class ScreenControllerBase(IViewScroller screenScroller) : DisposableBase
 {
-    protected readonly IViewScroller ScreenScroller = screenScroller;
+    protected IViewScroller ScreenScroller { get; } = screenScroller;
 
-    public float Speed = 500f;
+    public float Speed { get; set; } = 500f;
 
     public Vector2 Direction { get; protected set; }
 

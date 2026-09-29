@@ -9,11 +9,11 @@ namespace Mokus2D.Effects.Label;
 
 public class AssembleSymbolsEffect(float symbolDelayTime, Vector2 tweenOffset, Vector2 tweenScale, float tweenTime) : DelayedSymbolsEffect(symbolDelayTime)
 {
-    protected readonly Vector2 TweenOffset = tweenOffset;
+    protected Vector2 TweenOffset { get; } = tweenOffset;
 
-    protected readonly Vector2 TweenScale = tweenScale;
+    protected Vector2 TweenScale { get; } = tweenScale;
 
-    public float TweenTime = tweenTime;
+    public float TweenTime { get; set; } = tweenTime;
 
     public AssembleSymbolsEffect(float symbolDelayTime)
         : this(symbolDelayTime, new Vector2(20f, 0f), new Vector2(3f, 1f), 0.2f)

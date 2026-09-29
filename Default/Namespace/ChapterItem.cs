@@ -18,28 +18,28 @@ public class ChapterItem : Node
 {
     private readonly List<IUpdatable> updating = [];
 
-    protected List<object> alphaItems = [];
+    protected List<object> AlphaItems { get; set; } = [];
 
     private McChapterLight backLight;
 
-    protected Sprite background;
+    protected Sprite Background { get; set; }
 
-    protected Sprite blurBackground;
+    protected Sprite BlurBackground { get; set; }
 
     private RadiusClickListener clickListener;
 
-    protected Node container;
+    protected Node Container { get; set; }
 
     protected float depth;
 
-    protected List<object> depthDependent = [];
-    protected List<object> hidingItems = [];
+    protected List<object> DepthDependent { get; set; } = [];
+    protected List<object> HidingItems { get; set; } = [];
 
     protected int index;
 
     private Color lightColor;
 
-    protected MainMenu menu;
+    protected MainMenu Menu { get; set; }
 
     public float Offset { get; }
 
@@ -79,14 +79,14 @@ public class ChapterItem : Node
 
     public ChapterItem(int index, MainMenu menu)
     {
-        this.menu = menu;
+        this.Menu = menu;
         this.index = index;
         depth = -1f;
-        container = new Node();
-        AddChild(container);
+        Container = new Node();
+        AddChild(Container);
         CreateSprites();
-        AddChild(blurBackground);
-        hidingItems.Add(background);
+        AddChild(BlurBackground);
+        HidingItems.Add(Background);
         Offset = this.index * (float)Math.PI * 2f / ContreJourConstants.PlanetsCount;
         CreateClickListener();
         Enabled = true;
@@ -136,38 +136,38 @@ public class ChapterItem : Node
 
     public void AddHidingItem(Node item)
     {
-        hidingItems.Add(item);
+        HidingItems.Add(item);
     }
 
     public void AddAlphaItem(Node item)
     {
-        alphaItems.Add(item);
+        AlphaItems.Add(item);
     }
 
     protected virtual void CreateSprites()
     {
-        background = new McPlanet1Background();
-        blurBackground = new McChapter1Blur();
-        AddChild(background);
+        Background = new McPlanet1Background();
+        BlurBackground = new McChapter1Blur();
+        AddChild(Background);
     }
 
     protected virtual void RefreshDepth()
     {
         backLight?.Color = lightColor;
         Color color = ColorUtil.Mult(lightColor, (1f - depth) * 0.3f);
-        blurBackground.Color = color;
+        BlurBackground.Color = color;
         float num = Maths.Clamp((depth - 0.7f) * OpacityByte / 0.3f, 0f, 255f);
-        foreach (Node alphaItem in alphaItems.Cast<Node>())
+        foreach (Node alphaItem in AlphaItems.Cast<Node>())
         {
             alphaItem.OpacityByte = (int)num;
             alphaItem.Visible = num > 0f;
         }
         float num2 = Maths.Clamp((1f - depth) / 0.2f * OpacityByte, 0f, 255f);
-        blurBackground.OpacityByte = (int)num2;
-        blurBackground.Visible = num2 > 0f;
-        background.OpacityByte = (int)Maths.Clamp(num * 3f, 0f, 255f);
-        container.Visible = num > 0f;
-        foreach (IDepthDependent item in depthDependent.Cast<IDepthDependent>())
+        BlurBackground.OpacityByte = (int)num2;
+        BlurBackground.Visible = num2 > 0f;
+        Background.OpacityByte = (int)Maths.Clamp(num * 3f, 0f, 255f);
+        Container.Visible = num > 0f;
+        foreach (IDepthDependent item in DepthDependent.Cast<IDepthDependent>())
         {
             item.Depth = depth;
         }

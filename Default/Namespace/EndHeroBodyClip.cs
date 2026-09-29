@@ -76,7 +76,7 @@ public class EndHeroBodyClip : HeroBodyClip
 
     protected override void DoFinish()
     {
-        if (!levelCompleted)
+        if (!LevelCompleted)
         {
             base.DoFinish();
         }
@@ -85,9 +85,9 @@ public class EndHeroBodyClip : HeroBodyClip
     public override void Update(float time)
     {
         base.Update(time);
-        if (finished)
+        if (Finished)
         {
-            tail.Update(time);
+            Tail.Update(time);
         }
         if (hasToStop && !stoped)
         {
@@ -101,7 +101,7 @@ public class EndHeroBodyClip : HeroBodyClip
             Body.LinearVelocity = Vector2.Zero;
             Body.AngularVelocity = 0f;
             stoped = true;
-            sleep = true;
+            Sleep = true;
             EyeMoveAllowed = false;
             SoundManager.PlaySound("petitkoIsHoping", 0.3f);
             Schedule(LookAtRose, 0.2f);
@@ -142,7 +142,7 @@ public class EndHeroBodyClip : HeroBodyClip
         eye.ReturnToDefault = false;
         ((MovieClip)eye.CurrentBackground).MaxFrame = 18f;
         ((MovieClip)eye.CurrentBackground).Repeat = false;
-        _ = tail.RotateTo(2f, tail.RotationRadians - 70.ToRadians(), Cubic.EaseInOut);
+        _ = Tail.RotateTo(2f, Tail.RotationRadians - 70.ToRadians(), Cubic.EaseInOut);
         Schedule(ShowOutro, 1f);
     }
 
@@ -166,7 +166,7 @@ public class EndHeroBodyClip : HeroBodyClip
 
     protected override void FinishLevelSpeed(Vector2 targetPosition, float finishSpeed)
     {
-        if (levelCompleted)
+        if (LevelCompleted)
         {
             Game.RestartEnabled = false;
             FinishLevelSpeedEyeAnimation(targetPosition, finishSpeed, null);
@@ -179,7 +179,7 @@ public class EndHeroBodyClip : HeroBodyClip
 
     protected override void FinishReached()
     {
-        if (levelCompleted)
+        if (LevelCompleted)
         {
             Actions.ShakeWithDurationPositionOffsetCountScaleDiff(clip, 8f, clip.Position, 4f, 50, 0.1f);
             Schedule(AfterShake, 8f);
@@ -234,7 +234,7 @@ public class EndHeroBodyClip : HeroBodyClip
     private void AfterShake()
     {
         clip.Tweener.Stop();
-        finished = false;
+        Finished = false;
         Body.BodyType = (BodyType)2;
         Body.SetSensor(value: false);
         hasToStop = true;

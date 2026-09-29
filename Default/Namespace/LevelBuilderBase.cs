@@ -26,20 +26,20 @@ public class LevelBuilderBase : Updatable, IDisposable
 
     public const int BACKGROUND = -10;
 
-    public string NamespacePrefix;
+    public string NamespacePrefix { get; set; }
 
     private readonly Dictionary<string, BodyClip> clips;
     protected GameBase game;
     private Vector2 levelSize;
 
-    protected float maxWorldUpdateTime;
+    protected float MaxWorldUpdateTime { get; set; }
 
     private Vector2 physicsLevelSize;
 
     protected float physicsSpeed;
-    protected List<object> processors;
+    protected List<object> Processors { get; set; }
 
-    protected PhysicsUpdater updater;
+    protected PhysicsUpdater Updater { get; set; }
 
     protected World world;
 
@@ -89,11 +89,11 @@ public class LevelBuilderBase : Updatable, IDisposable
         Settings.ContinuousPhysics = false;
         world = new World(EngineConfig.Gravity);
         GroundBody = BodyFactory.CreateBody(world, new Vector2(0f, 0f), 0f, null);
-        maxWorldUpdateTime = 1f / 30f;
+        MaxWorldUpdateTime = 1f / 30f;
         physicsSpeed = 1f;
         this.game = game;
-        processors = [];
-        updater = new PhysicsUpdater(world);
+        Processors = [];
+        Updater = new PhysicsUpdater(world);
         clips = [];
         AddProcessors();
     }
@@ -110,10 +110,10 @@ public class LevelBuilderBase : Updatable, IDisposable
 
     public virtual void AddProcessors()
     {
-        processors.Add(new CircleProcessor(this));
-        processors.Add(new PolygonProcessor(this));
-        processors.Add(new BodyProcessor(this));
-        processors.Add(new EditorRevoluteJointProcessor(this));
+        Processors.Add(new CircleProcessor(this));
+        Processors.Add(new PolygonProcessor(this));
+        Processors.Add(new BodyProcessor(this));
+        Processors.Add(new EditorRevoluteJointProcessor(this));
     }
 
     public void RegisterObject(BodyClip bodyClip, string key)
@@ -286,7 +286,7 @@ public class LevelBuilderBase : Updatable, IDisposable
     public bool ProcessItem(Hashtable item)
     {
         bool result = false;
-        foreach (TypeProcessorBase processor in processors.Cast<TypeProcessorBase>())
+        foreach (TypeProcessorBase processor in Processors.Cast<TypeProcessorBase>())
         {
             if (processor.Match(item))
             {
@@ -382,8 +382,8 @@ public class LevelBuilderBase : Updatable, IDisposable
 
     public override void Update(float time)
     {
-        float num = Math.Min(time, maxWorldUpdateTime);
+        float num = Math.Min(time, MaxWorldUpdateTime);
         world.Step(num * physicsSpeed);
-        updater.Update(time);
+        Updater.Update(time);
     }
 }

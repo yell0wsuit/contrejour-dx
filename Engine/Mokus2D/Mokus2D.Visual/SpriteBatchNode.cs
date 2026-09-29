@@ -9,7 +9,7 @@ public abstract class SpriteBatchNode : Node
 {
     public SpriteBatchProperties SpriteBatchProperties = Mokus2DGame.Config.DefaultSpriteBatchProperties;
 
-    protected float ScaleFactor = 1f;
+    protected float ScaleFactor { get; set; } = 1f;
 
     public Texture2D Texture { get; protected set; }
 

@@ -16,18 +16,18 @@ public class ChapterZip(int index, MainMenu menu) : ChapterItem(index, menu)
     protected override void CreateSprites()
     {
         openAnimation = new MovieClip("McPlanetZip");
-        background = openAnimation;
+        Background = openAnimation;
         arrow = new Tablo("McZipArrow");
-        container.AddChild(arrow);
+        Container.AddChild(arrow);
         arrow.Position = new Vector2(-82f, 30f);
-        alphaItems.Add(arrow);
-        blurBackground = new Sprite("McPlanetZipBlur");
+        AlphaItems.Add(arrow);
+        BlurBackground = new Sprite("McPlanetZipBlur");
         openAnimation.Repeat = false;
         openAnimation.Stoped = true;
         openAnimation.Speed = 1.5f;
-        container.AddChild(background);
+        Container.AddChild(Background);
         highlite = new Sprite("McZipHighlite");
-        container.AddChild(highlite);
+        Container.AddChild(highlite);
         highlite.Visible = false;
     }
 

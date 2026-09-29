@@ -12,10 +12,10 @@ public class JointProcessorBase(string type, LevelBuilderBase builder) : TypePro
 {
     public Joint CreateJointConfig(RevoluteJoint joint, Hashtable config)
     {
-        builder.World.AddJoint((Joint)(object)joint);
+        Builder.World.AddJoint((Joint)(object)joint);
         if (config.Exists("id"))
         {
-            builder.CreatedObjects[config.GetString("id")] = joint;
+            Builder.CreatedObjects[config.GetString("id")] = joint;
         }
         return (Joint)(object)joint;
     }
@@ -34,7 +34,7 @@ public class JointProcessorBase(string type, LevelBuilderBase builder) : TypePro
             return val;
         }
         Body val2 = TryGetBodyByType(bodiesByWorldReqResult, FarseerUtil.KinematicObjectPredicate);
-        return val2 ?? (bodiesByWorldReqResult.Count > 0 ? bodiesByWorldReqResult[0] : builder.GroundBody);
+        return val2 ?? (bodiesByWorldReqResult.Count > 0 ? bodiesByWorldReqResult[0] : Builder.GroundBody);
     }
 
     private static Body TryGetBodyByType(List<Body> bodies, Predicate<object> type)
@@ -49,7 +49,7 @@ public class JointProcessorBase(string type, LevelBuilderBase builder) : TypePro
     {
         List<Body> list = [];
         List<Body> list2 = [];
-        foreach (Fixture item in builder.World.Query(position))
+        foreach (Fixture item in Builder.World.Query(position))
         {
             Body body = item.Body;
             if (!list2.Exists(body) && (match == null || match(body)))

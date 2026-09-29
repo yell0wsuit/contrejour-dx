@@ -8,7 +8,7 @@ namespace Default.Namespace;
 
 public class BlackFall : GravityParticleSystem
 {
-    public float SpeedMult = 4f;
+    public float SpeedMult { get; set; } = 4f;
 
     public BlackFall()
         : base(Mokus2DGame.LoadMovieClipData("common/McFallParticle"))

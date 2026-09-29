@@ -12,7 +12,7 @@ public class Button
 {
     private readonly AnchorNode Content;
 
-    public readonly IOnOff Effect;
+    public IOnOff Effect { get; }
     private Touch _pressTouch;
 
     public bool MouseOver { get; private set; }

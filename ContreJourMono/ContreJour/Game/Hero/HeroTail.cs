@@ -17,9 +17,9 @@ namespace ContreJourMono.ContreJour.Game.Hero;
 
 public class HeroTail : PrimitivesNode
 {
-    public bool LimitAngles;
+    public bool LimitAngles { get; set; }
 
-    public float Speed;
+    public float Speed { get; set; }
 
     private float currentAngle;
 
@@ -38,7 +38,7 @@ public class HeroTail : PrimitivesNode
     private readonly List<Vector2> cachedPolygon = new(64);
 
     private VertexPositionColor[] border;
-    public float UpdateSpeed = 1f;
+    public float UpdateSpeed { get; set; } = 1f;
 
     public float BorderWidth { get; set; } = 2f;
 

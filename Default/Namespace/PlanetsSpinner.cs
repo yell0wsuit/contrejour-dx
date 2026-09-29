@@ -13,7 +13,7 @@ namespace Default.Namespace;
 
 public class PlanetsSpinner : Node, IDisposable
 {
-    public readonly EventSender<int> SelectEvent = new();
+    public EventSender<int> SelectEvent { get; } = new();
 
     private readonly List<ChapterItem> chapters = [];
 
@@ -23,9 +23,9 @@ public class PlanetsSpinner : Node, IDisposable
 
     private readonly GesturePager pager = new();
 
-    public Vector2 AccelerometerOffset = Vector2.Zero;
+    public Vector2 AccelerometerOffset { get; set; } = Vector2.Zero;
 
-    public float PlanetsScale = 1f;
+    public float PlanetsScale { get; set; } = 1f;
 
     public bool HasExplodingChapter { get; private set; }
 

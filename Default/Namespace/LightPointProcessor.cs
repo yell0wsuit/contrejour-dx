@@ -7,7 +7,7 @@ public class LightPointProcessor(LevelBuilderBase builder) : TypeProcessorBase("
     public override object ProcessItem(Hashtable item)
     {
         Vector2 vector = item.GetVector("position");
-        ((ContreJourGame)builder.Game).LightPoint = vector;
+        ((ContreJourGame)Builder.Game).LightPoint = vector;
         return null;
     }
 }

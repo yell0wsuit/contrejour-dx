@@ -10,7 +10,7 @@ namespace Default.Namespace;
 
 public class Portal : ParticleSystem
 {
-    protected List<Satellite> parts;
+    protected List<Satellite> Parts { get; set; }
 
     private float targetScale;
 
@@ -34,12 +34,12 @@ public class Portal : ParticleSystem
 
     public float SpeedValue
     {
-        get => parts[0].SpeedValue;
+        get => Parts[0].SpeedValue;
         set
         {
             for (int i = 0; i < 5; i++)
             {
-                parts[i].SpeedValue = value;
+                Parts[i].SpeedValue = value;
             }
         }
     }
@@ -67,13 +67,13 @@ public class Portal : ParticleSystem
     public Portal(ContreJourGame game, Vector2 position, string textureName)
         : base(Mokus2DGame.LoadSpriteData(textureName))
     {
-        parts = [];
+        Parts = [];
         Blend = BlendState.Additive;
         ScaleStep = 0.05f;
         for (int i = 0; i < 5; i++)
         {
             Satellite item = new(game, AddParticle(), null, (float)Math.PI * 2f / 5f * i, position);
-            parts.Add(item);
+            Parts.Add(item);
         }
         SpeedValue = 40f;
         itemsScale = 1f;

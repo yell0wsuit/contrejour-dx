@@ -10,7 +10,7 @@ namespace Mokus2D.Visual;
 
 public class RenderSprite : Sprite
 {
-    protected readonly RootNode RenderRoot;
+    protected RootNode RenderRoot { get; }
     private Color ClearColor = Color.Black * 0f;
 
     private RenderTarget2D _renderTarget;

@@ -6,7 +6,7 @@ public abstract class PhysicsLogic(World world, PhysicsLogicType type) : FilterD
 {
     private readonly PhysicsLogicType _type = type;
 
-    public World World = world;
+    public World World { get; set; } = world;
 
     public override bool IsActiveOn(Body body)
     {

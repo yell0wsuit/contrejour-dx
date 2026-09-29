@@ -33,9 +33,9 @@ public abstract class AbstractForceController : Controller
 
     private readonly Curve DecayCurve;
 
-    public ForceTypes ForceType;
+    public ForceTypes ForceType { get; set; }
 
-    protected Random Randomize;
+    protected Random Randomize { get; set; }
 
     private readonly Curve StrengthCurve;
 

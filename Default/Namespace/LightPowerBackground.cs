@@ -9,6 +9,6 @@ public class LightPowerBackground(Node node, Hashtable config, ContreJourGame ga
     public override void Update(float time)
     {
         base.Update(time);
-        node.Color = Color.White * ((game.LightPower + 0.3f) / 1.3f);
+        Node.Color = Color.White * ((Game.LightPower + 0.3f) / 1.3f);
     }
 }

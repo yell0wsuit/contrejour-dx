@@ -52,9 +52,9 @@ public class Body : IDisposable
 
     internal bool _island;
 
-    public PhysicsLogicFilter PhysicsLogicFilter;
+    public PhysicsLogicFilter PhysicsLogicFilter { get; set; }
 
-    public ControllerFilter ControllerFilter;
+    public ControllerFilter ControllerFilter { get; set; }
 
     public int BodyId { get; private set; }
 

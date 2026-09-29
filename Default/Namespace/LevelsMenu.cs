@@ -56,9 +56,9 @@ public class LevelsMenu : ClickableLayer
         }
     };
 
-    public readonly EventSender GetMoreEvent = new();
+    public EventSender GetMoreEvent { get; } = new();
 
-    public float InitialScale = 1f;
+    public float InitialScale { get; set; } = 1f;
 
     private Vector2 initialPosition;
 

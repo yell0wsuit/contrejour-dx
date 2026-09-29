@@ -14,7 +14,7 @@ public class BlackSnotSprite : SpringSnotSprite
     public BlackSnotSprite(ContreJourGame game, SnotBodyClipBase snot, float startWidth, float centerWidth, float endWidth)
         : base(game, snot, startWidth, centerWidth, endWidth)
     {
-        borderWidth = 3f;
+        BorderWidth = 3f;
     }
 
     public static int PointsInNeckPart()
@@ -44,7 +44,7 @@ public class BlackSnotSprite : SpringSnotSprite
 
     public override Color EndColor()
     {
-        Color result = EndCircleColor().Mult(activeProgress);
+        Color result = EndCircleColor().Mult(ActiveProgress);
         result.A = 0;
         return result;
     }
@@ -63,12 +63,12 @@ public class BlackSnotSprite : SpringSnotSprite
         for (int i = 0; i < num - 1; i++)
         {
             int num2 = i * 6;
-            vertices[num2].Color = color;
-            vertices[num2 + 1].Color = intermidiateColorLineSize;
-            vertices[num2 + 2].Color = color;
-            vertices[num2 + 3].Color = color;
-            vertices[num2 + 4].Color = intermidiateColorLineSize;
-            vertices[num2 + 5].Color = intermidiateColorLineSize;
+            Vertices[num2].Color = color;
+            Vertices[num2 + 1].Color = intermidiateColorLineSize;
+            Vertices[num2 + 2].Color = color;
+            Vertices[num2 + 3].Color = color;
+            Vertices[num2 + 4].Color = intermidiateColorLineSize;
+            Vertices[num2 + 5].Color = intermidiateColorLineSize;
             color = intermidiateColorLineSize;
             intermidiateColorLineSize = GetIntermidiateColorLineSize(i + 2, num);
         }
@@ -80,11 +80,11 @@ public class BlackSnotSprite : SpringSnotSprite
 
     public override void SetBorderColors()
     {
-        BlackDrawUtil.SetBorderColors(allPointsSize, InitialStartColor(), InitialEndColor(), EndColor(), border);
+        BlackDrawUtil.SetBorderColors(AllPointsSize, InitialStartColor(), InitialEndColor(), EndColor(), Border);
     }
 
     public override void DrawPolygons()
     {
-        GraphUtil.FillTrianglesList(vertices);
+        GraphUtil.FillTrianglesList(Vertices);
     }
 }

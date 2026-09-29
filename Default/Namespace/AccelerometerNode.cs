@@ -9,11 +9,11 @@ namespace Default.Namespace;
 
 public class AccelerometerNode : Node
 {
-    protected Vector2 accelerometerOffset;
+    protected Vector2 AccelerometerOffset { get; set; }
 
-    protected bool accelerometerUsed;
+    protected bool AccelerometerUsed { get; set; }
 
-    protected Vector2 maxAccOffset = new((float)Math.PI / 22f, 80f);
+    protected Vector2 MaxAccOffset { get; set; } = new((float)Math.PI / 22f, 80f);
 
     // Desktop has no accelerometer; behaves like the original when Accelerometer.GetDefault() returned null.
     private static Vector2 Acceleration => Vector2.Zero;
@@ -21,16 +21,16 @@ public class AccelerometerNode : Node
     private void UpdateOffset(Vector2 acceleration)
     {
         Vector2 vector = default;
-        vector.X = Maths.Clamp((0f - acceleration.Y) * 3f * maxAccOffset.X, 0f - maxAccOffset.X, maxAccOffset.X);
-        vector.Y = Maths.Clamp((acceleration.X + 0.7f) * maxAccOffset.Y * 2f, 0f - maxAccOffset.Y, maxAccOffset.Y);
-        if (!accelerometerUsed)
+        vector.X = Maths.Clamp((0f - acceleration.Y) * 3f * MaxAccOffset.X, 0f - MaxAccOffset.X, MaxAccOffset.X);
+        vector.Y = Maths.Clamp((acceleration.X + 0.7f) * MaxAccOffset.Y * 2f, 0f - MaxAccOffset.Y, MaxAccOffset.Y);
+        if (!AccelerometerUsed)
         {
-            accelerometerOffset = vector;
-            accelerometerUsed = true;
+            AccelerometerOffset = vector;
+            AccelerometerUsed = true;
         }
         else
         {
-            accelerometerOffset = VectorExtensions.StepTo(step: ((vector - accelerometerOffset) * 0.015f).Abs(), source: accelerometerOffset, target: vector);
+            AccelerometerOffset = VectorExtensions.StepTo(step: ((vector - AccelerometerOffset) * 0.015f).Abs(), source: AccelerometerOffset, target: vector);
         }
     }
 

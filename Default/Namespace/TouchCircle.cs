@@ -15,11 +15,11 @@ public class TouchCircle(Touch _touch, LevelBuilderBase builder) : BodyClip(buil
 {
     public class ClosestItem
     {
-        public PlasticinePartBodyClip Clip;
+        public PlasticinePartBodyClip Clip { get; set; }
 
-        public bool Negative;
+        public bool Negative { get; set; }
 
-        public bool Refreshed;
+        public bool Refreshed { get; set; }
 
         public ClosestItem()
         {

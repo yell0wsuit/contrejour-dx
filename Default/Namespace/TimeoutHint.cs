@@ -12,13 +12,13 @@ public class TimeoutHint : FadeHint
     public TimeoutHint(ContreJourLevelBuilder builder, object body, Sprite clip, Hashtable config)
         : base(builder, null, clip, config)
     {
-        hasToRun = false;
+        HasToRun = false;
     }
 
     public override void Restart()
     {
         base.Restart();
-        hasToRun = false;
+        HasToRun = false;
         showing = false;
     }
 
@@ -32,7 +32,7 @@ public class TimeoutHint : FadeHint
         base.Update(time);
         if (!showing && builder.Game.TotalTime > 25f)
         {
-            hasToRun = true;
+            HasToRun = true;
             showing = true;
             Schedule(Hide, 10f);
         }

@@ -17,7 +17,7 @@ namespace Default.Namespace;
 
 public class SpringSuckerBodyClip : SuckerBodyClip
 {
-    public readonly EventSender ContactEvent = new();
+    public EventSender ContactEvent { get; } = new();
 
     private Vector2 parallel;
 
@@ -37,7 +37,7 @@ public class SpringSuckerBodyClip : SuckerBodyClip
 
     protected override string BounceSound => "spring";
 
-    private bool CanAutocreate => touch == null && config.GetBool("auto");
+    private bool CanAutocreate => Touch == null && config.GetBool("auto");
 
     public SpringSuckerBodyClip(LevelBuilderBase builder, object body, Node clip, Hashtable config)
         : base(builder, body, clip, config)
@@ -66,9 +66,9 @@ public class SpringSuckerBodyClip : SuckerBodyClip
         Autocreated = CanAutocreate;
         if (Autocreated)
         {
-            ghostSprite.Visible = false;
-            createPosition = Body.Position;
-            createPosition -= new Vector2(maxDistance, 0f);
+            GhostSprite.Visible = false;
+            CreatePosition = Body.Position;
+            CreatePosition -= new Vector2(MaxDistance, 0f);
             CreateBodies();
         }
     }
@@ -90,7 +90,7 @@ public class SpringSuckerBodyClip : SuckerBodyClip
     public override void CreateBodies()
     {
         base.CreateBodies();
-        parallel = VectorUtil.ToVector(1f, bounceAngle);
+        parallel = VectorUtil.ToVector(1f, BounceAngle);
         normal = parallel.Rotate90();
     }
 
@@ -103,24 +103,24 @@ public class SpringSuckerBodyClip : SuckerBodyClip
     public override void OnCollisionStartPoint(Body body2, Contact point)
     {
         base.OnCollisionStartPoint(body2, point);
-        if (end != null && (point.FixtureA == middleFixture || point.FixtureB == middleFixture) && body2.UserData is HeroBodyClip heroBodyClip)
+        if (End != null && (point.FixtureA == MiddleFixture || point.FixtureB == MiddleFixture) && body2.UserData is HeroBodyClip heroBodyClip)
         {
             Vector2 linearVelocity = heroBodyClip.Body.LinearVelocity;
             float num = VectorUtil.Atan2(linearVelocity);
-            linearVelocity = VectorUtil.ToVector(angle: (float)Math.PI + bounceAngle - (num - bounceAngle - (float)Math.PI), module: linearVelocity.Length());
+            linearVelocity = VectorUtil.ToVector(angle: (float)Math.PI + BounceAngle - (num - BounceAngle - (float)Math.PI), module: linearVelocity.Length());
             Vector2 vector = VectorUtil.VectorProjection(linearVelocity, parallel);
             linearVelocity = VectorUtil.VectorProjection(linearVelocity, normal);
             linearVelocity *= SpeedMult;
             linearVelocity += vector;
             heroBodyClip.Body.LinearVelocity = linearVelocity;
-            float num2 = (VectorUtil.Atan2(Body.Position, body2.Position) - bounceAngle).SimplifyAngle(-(float)Math.PI);
+            float num2 = (VectorUtil.Atan2(Body.Position, body2.Position) - BounceAngle).SimplifyAngle(-(float)Math.PI);
             float num3 = JumpImpulse + (heroBodyClip.SnotJoinedCount * SnotJumpImpulse);
             if (num2 < 0f)
             {
                 num3 *= -1f;
             }
-            body2.ApplyLinearImpulse(VectorUtil.Rotate(new Vector2(0f, num3), bounceAngle), body2.WorldCenter);
-            neck.Bounce();
+            body2.ApplyLinearImpulse(VectorUtil.Rotate(new Vector2(0f, num3), BounceAngle), body2.WorldCenter);
+            Neck.Bounce();
             ContactEvent.SendEvent();
             PlayBounceSound();
         }

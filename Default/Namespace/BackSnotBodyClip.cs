@@ -41,9 +41,9 @@ public class BackSnotBodyClip : SnotBodyClipBase, IClickable
         stabilize = false;
         stabilizeCalculated = false;
         Vector2 vector = this.config.GetVector("scale");
-        eye.Scale = vector.X / 10.24f;
-        baseClip.Scale = eye.Scale;
-        baseEndClip.Scale = eye.Scale;
+        Eye.Scale = vector.X / 10.24f;
+        BaseClip.Scale = Eye.Scale;
+        BaseEndClip.Scale = Eye.Scale;
         _ = Mokus2DGame.LoadResource<MovieClipData>("chapter1/McBackSnotEyeBlink");
     }
 
@@ -67,8 +67,8 @@ public class BackSnotBodyClip : SnotBodyClipBase, IClickable
         Vector2 vector = Physics.GetWorldStartPoint() - Physics.EndBody.Position;
         vector *= 0.7f / vector.Length();
         Physics.EndBody.ApplyLinearImpulse(vector, Physics.EndBody.WorldCenter);
-        eye.PlayAnimation(new EyeAnimation("McBackSnotEyeBlink"), force: false);
-        eye.RandomPositionProvider = game.GetTouchProvider(touch);
+        Eye.PlayAnimation(new EyeAnimation("McBackSnotEyeBlink"), force: false);
+        Eye.RandomPositionProvider = game.GetTouchProvider(touch);
         SoundManager.PlayRandomSound(Sounds.BackSnot, Maths.Random(0.3f, 0.5f));
         if (Maths.Random() < 0.5f)
         {
@@ -108,7 +108,7 @@ public class BackSnotBodyClip : SnotBodyClipBase, IClickable
     public override void Update(float time)
     {
         base.Update(time);
-        if (eye != null)
+        if (Eye != null)
         {
             _ = Mokus2DGame.LoadMovieClipData("chapter1/McBackSnotEyeBlink");
             if (!stabilizeCalculated)
@@ -123,7 +123,7 @@ public class BackSnotBodyClip : SnotBodyClipBase, IClickable
             Physics.EndBody.GravityScale = stabilize ? 0.2f : 0f;
             float module = (force / 4f * 3f) + (force * Maths.Cos(forceProgress) / 4f);
             forceProgress += forceStep;
-            Physics.EndBody.ApplyForce(VectorUtil.ToVector(module, eye.ViewAngle), Physics.EndBody.WorldCenter);
+            Physics.EndBody.ApplyForce(VectorUtil.ToVector(module, Eye.ViewAngle), Physics.EndBody.WorldCenter);
         }
     }
 

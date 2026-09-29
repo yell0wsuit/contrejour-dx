@@ -11,7 +11,7 @@ public class BackMovieStripes : MovieStripesView
 {
     private readonly Button backButton;
 
-    public readonly EventSender BackEvent = new();
+    public EventSender BackEvent { get; } = new();
 
     private readonly ClickableLayer clickableLayer;
 

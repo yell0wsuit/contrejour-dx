@@ -8,7 +8,7 @@ namespace Mokus2D.Visual.Data;
 [Serializable]
 public class AnimationData : ConfigData
 {
-    public Rectangle PrecalculatedBounds;
+    public Rectangle PrecalculatedBounds { get; set; }
 
     private Dictionary<string, Dictionary<string, string>> _instanceConfigs;
 

@@ -16,7 +16,7 @@ public class WhiteSnotSprite(ContreJourGame game, SnotBodyClipBase snot, float s
 
     public override Color EndColor()
     {
-        Color result = Color.Lerp(BaseCircleColor(), EndCircleColor(), activeProgress);
+        Color result = Color.Lerp(BaseCircleColor(), EndCircleColor(), ActiveProgress);
         result.A = 0;
         return result;
     }

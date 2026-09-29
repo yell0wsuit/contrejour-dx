@@ -12,7 +12,7 @@ public class CircleProcessor(LevelBuilderBase builder) : ShapeProcessor("circle"
         //IL_002f: Expected O, but got Unknown
         float num = item.GetFloat("radius");
         Vector2 vector = item.GetVector("position");
-        CircleShape val = new(num, builder.EngineConfig.Density)
+        CircleShape val = new(num, Builder.EngineConfig.Density)
         {
             Position = vector
         };

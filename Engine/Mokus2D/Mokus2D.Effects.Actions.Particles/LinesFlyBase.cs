@@ -8,11 +8,11 @@ namespace Mokus2D.Effects.Actions.Particles;
 
 public abstract class LinesFlyBase : GridLinesAction
 {
-    protected float particlesOffset;
+    protected float ParticlesOffset { get; set; }
 
     protected virtual LinesFlyBase Initialize(float linesDelay, float particleEffectSeconds, float particlesOffset)
     {
-        this.particlesOffset = particlesOffset;
+        this.ParticlesOffset = particlesOffset;
         _ = Initialize(linesDelay, particleEffectSeconds);
         return this;
     }
@@ -36,6 +36,6 @@ public abstract class LinesFlyBase : GridLinesAction
     protected override float GetLineDelay(int y)
     {
         float lineDelay = base.GetLineDelay(y);
-        return lineDelay + Maths.Random(0f - oneLineDelay, oneLineDelay);
+        return lineDelay + Maths.Random(0f - OneLineDelay, OneLineDelay);
     }
 }

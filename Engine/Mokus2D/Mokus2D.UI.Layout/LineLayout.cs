@@ -14,7 +14,7 @@ public abstract class LineLayout(Node container) : LayoutBase(container)
 
     private readonly DefaultPositionApplier PositionApplier = new DefaultPositionApplier();
 
-    public float? FixedSize;
+    public float? FixedSize { get; set; }
 
     public float TotalSize { get; private set; }
 

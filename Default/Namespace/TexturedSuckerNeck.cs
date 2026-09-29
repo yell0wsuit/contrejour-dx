@@ -15,7 +15,7 @@ public class TexturedSuckerNeck : SuckerNeckSprite
     public override void CreateVectors(int allPointsSize)
     {
         base.CreateVectors(allPointsSize);
-        GraphUtil.CreateTextureCoordsVerticesStep((allPointsSize / 2) - 1, vertices, 0.75f);
+        GraphUtil.CreateTextureCoordsVerticesStep((allPointsSize / 2) - 1, Vertices, 0.75f);
     }
 
     public override void Bounce()
@@ -29,6 +29,6 @@ public class TexturedSuckerNeck : SuckerNeckSprite
 
     public override void DrawPolygons()
     {
-        GraphUtil.FillTrianglesList(vertices);
+        GraphUtil.FillTrianglesList(Vertices);
     }
 }

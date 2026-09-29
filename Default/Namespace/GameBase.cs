@@ -14,7 +14,7 @@ public class GameBase : Node, IUpdatable
 {
     protected LevelBuilderBase builder;
 
-    protected List<IRemovable> updatables = [];
+    protected List<IRemovable> Updatables { get; set; } = [];
 
     protected readonly Node gameRoot = new();
     protected bool paused;
@@ -74,7 +74,7 @@ public class GameBase : Node, IUpdatable
 
     public void AddUpdatable(IRemovable updatable)
     {
-        updatables.Add(updatable);
+        Updatables.Add(updatable);
     }
 
     public virtual void ProcessLevel(Level level)
@@ -113,7 +113,7 @@ public class GameBase : Node, IUpdatable
         totalTime += time;
         UpdateGame(time);
         _toRemove.Clear();
-        foreach (IRemovable updatable in updatables)
+        foreach (IRemovable updatable in Updatables)
         {
             ((IUpdatable)updatable).Update(time);
             if (updatable.ShouldRemove)
@@ -121,7 +121,7 @@ public class GameBase : Node, IUpdatable
                 _toRemove.Add(updatable);
             }
         }
-        updatables.RemoveList(_toRemove);
+        Updatables.RemoveList(_toRemove);
         _toRemove.Clear();
     }
 }

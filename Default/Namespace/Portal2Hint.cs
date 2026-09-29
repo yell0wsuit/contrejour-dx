@@ -10,18 +10,18 @@ public class Portal2Hint : PortalHint
     public Portal2Hint(ContreJourLevelBuilder builder, object body, Sprite clip, Hashtable config)
         : base(builder, null, clip, config)
     {
-        hasToRun = false;
+        HasToRun = false;
     }
 
     public override void Restart()
     {
         base.Restart();
-        hasToRun = false;
+        HasToRun = false;
     }
 
     public override void OnPortalUse()
     {
-        portal.UseEvent.RemoveListener(OnPortalUse);
+        Portal.UseEvent.RemoveListener(OnPortalUse);
         Show();
     }
 

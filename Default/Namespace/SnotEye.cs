@@ -9,7 +9,7 @@ namespace Default.Namespace;
 
 public class SnotEye(SnotBodyClip _snot, Body body) : ContreJourBodyClip(_snot.Builder, body, null, null), IClickable
 {
-    protected bool hasRelease;
+    protected bool HasRelease { get; set; }
 
     protected SnotBodyClip snot = _snot;
 
@@ -34,18 +34,18 @@ public class SnotEye(SnotBodyClip _snot, Body body) : ContreJourBodyClip(_snot.B
 
     public virtual bool TouchBegan(Touch touch)
     {
-        hasRelease = true;
+        HasRelease = true;
         return true;
     }
 
     public virtual void TouchEnd(Touch touch)
     {
         CheckTouchDistance(touch);
-        if (hasRelease)
+        if (HasRelease)
         {
             snot.ReleaseSnot();
             ContreJourGame.FocusOnHero();
-            hasRelease = false;
+            HasRelease = false;
         }
     }
 
@@ -68,7 +68,7 @@ public class SnotEye(SnotBodyClip _snot, Body body) : ContreJourBodyClip(_snot.B
     {
         if (distance > 1.8333334f)
         {
-            hasRelease = false;
+            HasRelease = false;
             FreeTouch(touch);
         }
     }

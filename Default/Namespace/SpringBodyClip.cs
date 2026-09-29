@@ -24,7 +24,7 @@ public class SpringBodyClip : ContreJourBodyClip, IClickable, IRestartable
 
     private static readonly Vector2 SuckPoint = new(0f, 40f);
 
-    protected Vector2 bodyCenterVec;
+    protected Vector2 BodyCenterVec { get; set; }
 
     private readonly CosChanger breatheChanger;
 
@@ -36,7 +36,7 @@ public class SpringBodyClip : ContreJourBodyClip, IClickable, IRestartable
 
     private readonly float startScale;
 
-    protected ILaunchable sticked;
+    protected ILaunchable Sticked { get; set; }
 
     private readonly float suckDistance;
 
@@ -70,7 +70,7 @@ public class SpringBodyClip : ContreJourBodyClip, IClickable, IRestartable
         startScale = this.clip.ScaleX;
         suckPoint = this.builder.ToVec(SuckPoint * this.clip.ScaleX);
         suckDistance = 150f * this.clip.ScaleX * this.builder.SizeMult;
-        bodyCenterVec = VectorUtil.Rotate(this.builder.ToVec(BodyCenter * this.clip.ScaleX), InitialBodyAngle);
+        BodyCenterVec = VectorUtil.Rotate(this.builder.ToVec(BodyCenter * this.clip.ScaleX), InitialBodyAngle);
         breatheChanger = new CosChanger(0.06f, 0.07f)
         {
             MinValue = 0.95f,
@@ -106,7 +106,7 @@ public class SpringBodyClip : ContreJourBodyClip, IClickable, IRestartable
 
     public virtual int Priority(Vector2 touchPosition)
     {
-        return sticked == null || !IsTouchDistance(touchPosition) ? -10 : 2;
+        return Sticked == null || !IsTouchDistance(touchPosition) ? -10 : 2;
     }
 
     public bool AcceptFreeTouches()
@@ -120,12 +120,12 @@ public class SpringBodyClip : ContreJourBodyClip, IClickable, IRestartable
         //IL_002d: Invalid comparison between Unknown and I4
         if (IsTouchDistance(builder.TouchRootVec(touch)))
         {
-            if (sticked != null && (int)sticked.Body.BodyType == 2)
+            if (Sticked != null && (int)Sticked.Body.BodyType == 2)
             {
                 return false;
             }
             LaunchTouching();
-            if (sticked != null)
+            if (Sticked != null)
             {
                 Launch();
             }
@@ -164,9 +164,9 @@ public class SpringBodyClip : ContreJourBodyClip, IClickable, IRestartable
 
     protected virtual void SetSticked(ILaunchable value)
     {
-        sticked?.DestroyEvent.RemoveListener(OnTeleport);
-        sticked = value;
-        sticked?.DestroyEvent.AddListener(OnTeleport);
+        Sticked?.DestroyEvent.RemoveListener(OnTeleport);
+        Sticked = value;
+        Sticked?.DestroyEvent.AddListener(OnTeleport);
     }
 
     public void RefreshSmokeAngle()
@@ -241,7 +241,7 @@ public class SpringBodyClip : ContreJourBodyClip, IClickable, IRestartable
 
     private float GetTouchDistance(Vector2 touchPosition)
     {
-        return Body.GetWorldPoint(bodyCenterVec).DistanceTo(touchPosition);
+        return Body.GetWorldPoint(BodyCenterVec).DistanceTo(touchPosition);
     }
 
     public void LaunchTouching()
@@ -251,7 +251,7 @@ public class SpringBodyClip : ContreJourBodyClip, IClickable, IRestartable
             if ((!val.Contact.FixtureA.IsSensor || !val.Contact.FixtureB.IsSensor) && (IsSticky(val.Contact.FixtureA) || IsSticky(val.Contact.FixtureB)) && val.Contact.IsTouching)
             {
                 object userData = val.Other.UserData;
-                if (userData != sticked && CanLaunch(userData))
+                if (userData != Sticked && CanLaunch(userData))
                 {
                     ApplyImpulseTo((ILaunchable)userData);
                 }
@@ -261,11 +261,11 @@ public class SpringBodyClip : ContreJourBodyClip, IClickable, IRestartable
 
     public void Launch()
     {
-        sticked.SetSpeedLocked(value: false);
-        sticked.HitEnabled = true;
+        Sticked.SetSpeedLocked(value: false);
+        Sticked.HitEnabled = true;
         ContreJourGame.FocusOnHero();
-        sticked.Body.BodyType = (BodyType)2;
-        ApplyImpulseTo(sticked);
+        Sticked.Body.BodyType = (BodyType)2;
+        ApplyImpulseTo(Sticked);
         launchTime = Game.TotalTime;
         SetSticked(null);
         SoundManager.PlaySound("perdelkaOut0", 0.7f);
@@ -315,27 +315,27 @@ public class SpringBodyClip : ContreJourBodyClip, IClickable, IRestartable
     {
         //IL_000b: Unknown result type (might be due to invalid IL or missing references)
         //IL_0011: Invalid comparison between Unknown and I4
-        if ((int)sticked.Body.BodyType == 2)
+        if ((int)Sticked.Body.BodyType == 2)
         {
             Vector2 worldSuckPoint = WorldSuckPoint;
-            Vector2 vector = worldSuckPoint - sticked.Body.Position;
+            Vector2 vector = worldSuckPoint - Sticked.Body.Position;
             float num = vector.Length();
             vector.Normalize();
-            vector *= sticked.Body.Mass;
+            vector *= Sticked.Body.Mass;
             vector *= Math.Min((suckDistance - num) * 100f, 200f);
-            sticked.Body.ApplyForce(vector, sticked.Body.WorldCenter);
+            Sticked.Body.ApplyForce(vector, Sticked.Body.WorldCenter);
             Vector2 vector2 = VectorUtil.Rotate(new Vector2(1f, 0f), BodyAngle);
-            float num2 = VectorUtil.Projection(sticked.Body.LinearVelocity, vector2);
-            float num3 = VectorUtil.Projection(worldSuckPoint - sticked.Body.Position, vector2);
+            float num2 = VectorUtil.Projection(Sticked.Body.LinearVelocity, vector2);
+            float num3 = VectorUtil.Projection(worldSuckPoint - Sticked.Body.Position, vector2);
             if (num2 * num3 < 0f || (Math.Abs(num2) < 10f && Math.Abs(num3) > 1f))
             {
                 Vector2 vector3 = vector2;
                 vector3 *= num3;
-                vector3 *= sticked.Body.Mass;
+                vector3 *= Sticked.Body.Mass;
                 vector3 *= 200f;
-                sticked.Body.ApplyForce(vector3, sticked.Body.WorldCenter);
+                Sticked.Body.ApplyForce(vector3, Sticked.Body.WorldCenter);
             }
-            relativeStickedPosition = sticked.Body.Position - Body.Position;
+            relativeStickedPosition = Sticked.Body.Position - Body.Position;
             relativeStickedPosition = VectorUtil.Rotate(relativeStickedPosition, 0f - BodyAngle);
             FixClosePosition(relativeStickedPosition);
             CheckFixed(num3);
@@ -346,7 +346,7 @@ public class SpringBodyClip : ContreJourBodyClip, IClickable, IRestartable
     {
         Vector2 vector = VectorUtil.Rotate(relativePosition, BodyAngle);
         vector += Body.Position;
-        sticked.Body.SetTransform(vector, sticked.Body.Rotation);
+        Sticked.Body.SetTransform(vector, Sticked.Body.Rotation);
     }
 
     public void FixClosePosition(Vector2 relativePosition)
@@ -368,9 +368,9 @@ public class SpringBodyClip : ContreJourBodyClip, IClickable, IRestartable
     {
         if (Math.Abs(positionProjection) < 0.1f && CheckStickedBodyContacts("base"))
         {
-            sticked.Body.BodyType = (BodyType)1;
-            sticked.Body.LinearVelocity = Vector2.Zero;
-            sticked.Body.AngularVelocity = 0f;
+            Sticked.Body.BodyType = (BodyType)1;
+            Sticked.Body.LinearVelocity = Vector2.Zero;
+            Sticked.Body.AngularVelocity = 0f;
         }
     }
 
@@ -379,9 +379,9 @@ public class SpringBodyClip : ContreJourBodyClip, IClickable, IRestartable
         //IL_001a: Unknown result type (might be due to invalid IL or missing references)
         //IL_0020: Invalid comparison between Unknown and I4
         base.Update(time);
-        if (sticked != null)
+        if (Sticked != null)
         {
-            if ((int)sticked.Body.BodyType == 1 || CheckBodyContactsKeyCount(sticked.Body, "sticky", 1))
+            if ((int)Sticked.Body.BodyType == 1 || CheckBodyContactsKeyCount(Sticked.Body, "sticky", 1))
             {
                 UpdateSticked();
                 UpdateSuckingClip();
@@ -436,7 +436,7 @@ public class SpringBodyClip : ContreJourBodyClip, IClickable, IRestartable
     {
         //IL_000b: Unknown result type (might be due to invalid IL or missing references)
         //IL_0011: Invalid comparison between Unknown and I4
-        float num = ((int)sticked.Body.BodyType == 2) ? Math.Min(1f, relativeStickedPosition.Y / suckDistance) : 0f;
+        float num = ((int)Sticked.Body.BodyType == 2) ? Math.Min(1f, relativeStickedPosition.Y / suckDistance) : 0f;
         movie.CurrentFrame = 7f + Math.Max((5f * (1f - num)) - 1f, 0f);
         if (Maths.FuzzyEquals(num, 0f))
         {
@@ -446,7 +446,7 @@ public class SpringBodyClip : ContreJourBodyClip, IClickable, IRestartable
 
     private void ProcessCollisionPoint(Body body2, Contact point)
     {
-        if (sticked == null && !(Game.TotalTime - launchTime < 0.2f))
+        if (Sticked == null && !(Game.TotalTime - launchTime < 0.2f))
         {
             object userData = body2.UserData;
             if (point.IsTouching && (!point.FixtureA.IsSensor || !point.FixtureB.IsSensor) && CanLaunch(userData) && (IsSticky(point.FixtureA) || IsSticky(point.FixtureB) || CheckBodyContactsKeyCount(body2, "base", 2)))
@@ -474,11 +474,11 @@ public class SpringBodyClip : ContreJourBodyClip, IClickable, IRestartable
     {
         //IL_0013: Unknown result type (might be due to invalid IL or missing references)
         //IL_0019: Invalid comparison between Unknown and I4
-        if (sticked != null)
+        if (Sticked != null)
         {
-            if ((int)sticked.Body.BodyType == 1)
+            if ((int)Sticked.Body.BodyType == 1)
             {
-                sticked.Body.BodyType = (BodyType)2;
+                Sticked.Body.BodyType = (BodyType)2;
             }
             Spit();
             SetSticked(null);
@@ -487,7 +487,7 @@ public class SpringBodyClip : ContreJourBodyClip, IClickable, IRestartable
 
     public override void OnCollisionEndPoint(Body body2, Contact point)
     {
-        if (sticked != null && body2 == sticked.Body && !Body.IsTouching(sticked.Body))
+        if (Sticked != null && body2 == Sticked.Body && !Body.IsTouching(Sticked.Body))
         {
             FixAnimation();
             SetSticked(null);
@@ -525,7 +525,7 @@ public class SpringBodyClip : ContreJourBodyClip, IClickable, IRestartable
 
     public bool CheckStickedBodyContacts(string fixtureKey)
     {
-        return CheckBodyContactsKeyCount(sticked.Body, fixtureKey, 2);
+        return CheckBodyContactsKeyCount(Sticked.Body, fixtureKey, 2);
     }
 
     public static bool CheckFixtureKey(Fixture fixture, string key)

@@ -4,7 +4,7 @@ public class TypeProcessorBase(string _type, LevelBuilderBase _builder)
 {
     private readonly string type = _type;
 
-    protected LevelBuilderBase builder = _builder;
+    protected LevelBuilderBase Builder { get; set; } = _builder;
 
     public virtual bool Match(Hashtable item)
     {

@@ -7,7 +7,7 @@ namespace Mokus2D.Visual.Data;
 
 public class VisualState
 {
-    public bool TransformationDirty;
+    public bool TransformationDirty { get; set; }
 
     public Matrix Matrix = Matrix.Identity;
     private Vector2 _spritesScaleFactor = Vector2.One;

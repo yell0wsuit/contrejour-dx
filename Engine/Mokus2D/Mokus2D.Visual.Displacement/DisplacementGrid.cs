@@ -13,11 +13,11 @@ namespace Mokus2D.Visual.Displacement;
 
 public class DisplacementGrid : SpriteBatchNode
 {
-    public readonly Size GridSize;
+    public Size GridSize { get; }
 
-    public readonly Vector2 NodeSize;
+    public Vector2 NodeSize { get; }
 
-    protected readonly Rectangle TextureRect;
+    protected Rectangle TextureRect { get; }
 
     private readonly SpriteVertex[] _vertices;
 

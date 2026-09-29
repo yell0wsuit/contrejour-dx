@@ -10,11 +10,11 @@ namespace Mokus2D.Fonts;
 
 public class FontData(string id, string fontName, float fontSize, float realHeight) : TextureNodeData(id)
 {
-    public readonly string FontName = fontName;
+    public string FontName { get; } = fontName;
 
-    public readonly float FontSize = fontSize;
+    public float FontSize { get; } = fontSize;
 
-    public readonly float RealHeight = realHeight;
+    public float RealHeight { get; } = realHeight;
 
     private readonly Dictionary<char, CharData> _chars = [];
 

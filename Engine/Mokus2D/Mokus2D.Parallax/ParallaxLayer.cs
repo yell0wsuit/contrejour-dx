@@ -6,15 +6,15 @@ namespace Mokus2D.Parallax;
 
 public class ParallaxLayer
 {
-    public readonly Node Node;
+    public Node Node { get; }
 
-    public readonly float Parallax;
+    public float Parallax { get; }
 
-    public readonly float ParallaxDistance;
+    public float ParallaxDistance { get; }
 
-    public readonly Vector2 InitialPosition;
+    public Vector2 InitialPosition { get; }
 
-    public Vector2 InitialScale;
+    public Vector2 InitialScale { get; set; }
 
     public ParallaxLayer(Node node, float parallax)
     {

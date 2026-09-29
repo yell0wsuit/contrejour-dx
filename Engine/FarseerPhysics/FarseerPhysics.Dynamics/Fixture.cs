@@ -22,19 +22,19 @@ public class Fixture : IDisposable
 
     internal HashSet<int> _collisionIgnores;
 
-    public FixtureProxy[] Proxies;
+    public FixtureProxy[] Proxies { get; set; }
 
-    public int ProxyCount;
+    public int ProxyCount { get; set; }
 
-    public Category IgnoreCCDWith;
+    public Category IgnoreCCDWith { get; set; }
 
-    public AfterCollisionHandler AfterCollision;
+    public AfterCollisionHandler AfterCollision { get; set; }
 
-    public BeforeCollisionHandler BeforeCollision;
+    public BeforeCollisionHandler BeforeCollision { get; set; }
 
-    public OnCollisionHandler OnCollision;
+    public OnCollisionHandler OnCollision { get; set; }
 
-    public OnSeparationHandler OnSeparation;
+    public OnSeparationHandler OnSeparation { get; set; }
 
     public short CollisionGroup
     {

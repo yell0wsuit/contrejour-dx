@@ -21,11 +21,11 @@ public class Island
 
     private readonly Stopwatch _watch = new();
 
-    public Body[] Bodies;
+    public Body[] Bodies { get; set; }
 
-    public int BodyCount;
+    public int BodyCount { get; set; }
 
-    public int ContactCount;
+    public int ContactCount { get; set; }
 
     private int JointCount;
 
@@ -33,9 +33,9 @@ public class Island
 
     private Position[] _positions;
 
-    public int BodyCapacity;
+    public int BodyCapacity { get; set; }
 
-    public int ContactCapacity;
+    public int ContactCapacity { get; set; }
 
     public void Reset(int bodyCapacity, int contactCapacity, int jointCapacity, ContactManager contactManager)
     {
@@ -190,7 +190,7 @@ public class Island
             body2._angularVelocity = _velocities[num7].w;
             body2.SynchronizeTransform();
         }
-        Report(_contactSolver._velocityConstraints);
+        Report(_contactSolver.VelocityConstraints);
         if (!Settings.AllowSleep)
         {
             return;
@@ -282,7 +282,7 @@ public class Island
             body2._angularVelocity = num;
             body2.SynchronizeTransform();
         }
-        Report(_contactSolver._velocityConstraints);
+        Report(_contactSolver.VelocityConstraints);
     }
 
     public void Add(Body body)

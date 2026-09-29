@@ -20,12 +20,12 @@ public class MoveCharHint(ContreJourLevelBuilder builder, object body, Sprite cl
     public override void Update(float time)
     {
         base.Update(time);
-        if (!initialPositionSet && contreJour.Hero != null)
+        if (!initialPositionSet && ContreJour.Hero != null)
         {
-            initialPosition = contreJour.HeroPositionPixels;
+            initialPosition = ContreJour.HeroPositionPixels;
             initialPositionSet = true;
         }
-        else if (!hiding && Math.Abs(contreJour.HeroPositionPixels.X - initialPosition.X) > 60f)
+        else if (!Hiding && Math.Abs(ContreJour.HeroPositionPixels.X - initialPosition.X) > 60f)
         {
             Hide();
         }

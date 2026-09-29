@@ -14,7 +14,7 @@ public class SnotSprite : LongNeckSprite
 {
     public const int CircleSegments = 12;
 
-    protected SnotBodyClipBase snot;
+    protected SnotBodyClipBase Snot { get; set; }
 
     private readonly SnotData data;
 
@@ -26,8 +26,8 @@ public class SnotSprite : LongNeckSprite
 
     public SnotSprite(SnotBodyClipBase snot, float startWidth, float centerWidth, float endWidth)
     {
-        this.snot = snot;
-        data = this.snot.Physics;
+        this.Snot = snot;
+        data = this.Snot.Physics;
         this.startWidth = startWidth;
         this.endWidth = endWidth;
         this.centerWidth = centerWidth;
@@ -35,7 +35,7 @@ public class SnotSprite : LongNeckSprite
 
     public override void GetPairs(List<Pair<Vector2>> target)
     {
-        Vector2 startPosition = snot.StartPosition;
+        Vector2 startPosition = Snot.StartPosition;
         target.Add(ContreDrawUtil.Ccp2Pair(ContreDrawUtil.GetPointsPairStartEndWidthResult(startPosition, startPosition, data.BodyAt(0).Position, startWidth)));
         Vector2 start = startPosition;
         Body val = null;
@@ -50,6 +50,6 @@ public class SnotSprite : LongNeckSprite
                 target.Add(ContreDrawUtil.Ccp2Pair(ContreDrawUtil.GetPointsPairStartEndWidthResult((val.Position + val2.Position) * 0.5f, val.Position, val2.Position, centerWidth)));
             }
         }
-        target.Add(ContreDrawUtil.Ccp2Pair(ContreDrawUtil.GetPointsPairStartEndWidthResult(snot.EndPosition(), val.Position, snot.EndPosition(), endWidth)));
+        target.Add(ContreDrawUtil.Ccp2Pair(ContreDrawUtil.GetPointsPairStartEndWidthResult(Snot.EndPosition(), val.Position, Snot.EndPosition(), endWidth)));
     }
 }

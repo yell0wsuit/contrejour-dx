@@ -7,17 +7,17 @@ namespace Mokus2D.Effects.Actions.Particles;
 
 public abstract class GridLinesAction : GridAction
 {
-    protected float linesDelay;
+    protected float LinesDelay { get; set; }
 
-    protected float particleEffectSeconds;
+    protected float ParticleEffectSeconds { get; set; }
 
-    protected float oneLineDelay;
+    protected float OneLineDelay { get; set; }
 
     protected GridLinesAction Initialize(float linesDelay, float particleEffectSeconds)
     {
         _ = Initialize();
-        this.linesDelay = linesDelay;
-        this.particleEffectSeconds = particleEffectSeconds;
+        this.LinesDelay = linesDelay;
+        this.ParticleEffectSeconds = particleEffectSeconds;
         return this;
     }
 
@@ -29,7 +29,7 @@ public abstract class GridLinesAction : GridAction
 
     protected void CalculateLineDelay()
     {
-        oneLineDelay = linesDelay / Grid.GridSize.Y;
+        OneLineDelay = LinesDelay / Grid.GridSize.Y;
     }
 
     protected override ITween CreateParticleUpdater(Node particle, int x, int y)
@@ -39,7 +39,7 @@ public abstract class GridLinesAction : GridAction
 
     protected virtual float GetLineDelay(int y)
     {
-        return y * oneLineDelay;
+        return y * OneLineDelay;
     }
 
     protected abstract ITween CreateDelayedParticleUpdater(Node particle, int x, int y);

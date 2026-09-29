@@ -23,7 +23,7 @@ public class RotatableSpringHint : FadeHint
     public override void Update(float time)
     {
         base.Update(time);
-        if (!hiding && spring != null && (double)builder.Game.TotalTime > 0.5 && Math.Abs(Maths.PeriodicOffset(spring.Body.Rotation, (float)Math.PI * 2f)) > (float)Math.PI / 4f)
+        if (!Hiding && spring != null && (double)builder.Game.TotalTime > 0.5 && Math.Abs(Maths.PeriodicOffset(spring.Body.Rotation, (float)Math.PI * 2f)) > (float)Math.PI / 4f)
         {
             Hide(clip.OpacityFloat / 2f);
         }

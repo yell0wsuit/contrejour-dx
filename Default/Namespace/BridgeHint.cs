@@ -10,21 +10,21 @@ public class BridgeHint : SuckerHintBase
     public BridgeHint(ContreJourLevelBuilder builder, object body, Sprite clip, Hashtable config)
         : base(builder, null, clip, config)
     {
-        sucker.FinishDragEvent.AddListener(OnFinishDrag);
+        Sucker.FinishDragEvent.AddListener(OnFinishDrag);
     }
 
     public override void Restart()
     {
-        if (hiding)
+        if (Hiding)
         {
-            sucker.FinishDragEvent.AddListener(OnFinishDrag);
+            Sucker.FinishDragEvent.AddListener(OnFinishDrag);
         }
         base.Restart();
     }
 
     private void OnFinishDrag()
     {
-        sucker.FinishDragEvent.RemoveListener(OnFinishDrag);
+        Sucker.FinishDragEvent.RemoveListener(OnFinishDrag);
         Hide();
     }
 

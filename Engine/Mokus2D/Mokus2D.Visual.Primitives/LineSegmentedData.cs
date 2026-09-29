@@ -12,7 +12,7 @@ namespace Mokus2D.Visual.Primitives;
 
 public class LineSegmentedData<T>(float width) : ISegmentedSpriteData<T>, IUpdatable where T : struct, IVertex
 {
-    protected readonly List<Vector2> Line = [];
+    protected List<Vector2> Line { get; } = [];
 
     private readonly float _width = width;
 

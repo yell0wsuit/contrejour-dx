@@ -7,21 +7,21 @@ namespace FarseerPhysics.Dynamics;
 
 public class ContactManager
 {
-    public BeginContactHandler BeginContact;
+    public BeginContactHandler BeginContact { get; set; }
 
-    public IBroadPhase BroadPhase;
+    public IBroadPhase BroadPhase { get; set; }
 
     public CollisionFilterHandler ContactFilter { get; set; }
 
-    public List<Contact> ContactList = new(128);
+    public List<Contact> ContactList { get; set; } = new(128);
 
-    public EndContactHandler EndContact;
+    public EndContactHandler EndContact { get; set; }
 
     private readonly BroadphaseHandler OnBroadphaseCollision;
 
-    public PostSolveHandler PostSolve;
+    public PostSolveHandler PostSolve { get; set; }
 
-    public PreSolveHandler PreSolve;
+    public PreSolveHandler PreSolve { get; set; }
 
     internal ContactManager(IBroadPhase broadPhase)
     {

@@ -10,7 +10,7 @@ public class SortedCollection<T> : IList<T>, ICollection<T>, IEnumerable<T>, IEn
 
     private IComparer<T> _comparer;
 
-    protected readonly List<T> Items;
+    protected List<T> Items { get; }
 
     private Comparison<T> Comparison
     {

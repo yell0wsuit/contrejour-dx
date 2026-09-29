@@ -9,7 +9,7 @@ public class OnOffTweenEffect<TValue>(Node target, float duration, GetSetValue<N
 {
     private readonly GetSetValue<Node, TValue> _valueSetter = valueSetter;
 
-    public bool Clean;
+    public bool Clean { get; set; }
 
     public int? Tag { get; set; }
 

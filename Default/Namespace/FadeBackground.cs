@@ -12,7 +12,7 @@ public class FadeBackground : BackgroundBase
         : base(node, config, game)
     {
         sprite = (Sprite)node;
-        if (!this.game.CanShowIntro)
+        if (!this.Game.CanShowIntro)
         {
             sprite.OpacityByte = 0;
             sprite.Visible = false;
@@ -26,7 +26,7 @@ public class FadeBackground : BackgroundBase
     public override void Update(float time)
     {
         base.Update(time);
-        game.LightPower = 1f - sprite.OpacityFloat;
+        Game.LightPower = 1f - sprite.OpacityFloat;
         if (sprite.Visible)
         {
             opacity -= time * 2f / 60f;

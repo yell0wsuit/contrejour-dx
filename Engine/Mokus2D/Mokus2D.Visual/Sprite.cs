@@ -14,7 +14,7 @@ namespace Mokus2D.Visual;
 
 public class Sprite : AnchorNode, ITextureNode, IAnchorNode, ISizeNode, IBlendable, IDataReloadable
 {
-    public readonly IQuad Quad;
+    public IQuad Quad { get; }
 
     private bool _quadDirty;
 

@@ -6,6 +6,6 @@ public class CosRotationChanger(Node target, float maxValue, float step) : CosPr
 {
     protected override void SetPropertyValue(float value)
     {
-        target.RotationDegrees = value;
+        Target.RotationDegrees = value;
     }
 }

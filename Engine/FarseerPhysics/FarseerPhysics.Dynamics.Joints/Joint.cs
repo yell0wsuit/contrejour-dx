@@ -8,7 +8,7 @@ public abstract class Joint
 {
     private double _breakpointSquared;
 
-    public bool Enabled = true;
+    public bool Enabled { get; set; } = true;
 
     internal JointEdge EdgeA = new();
 

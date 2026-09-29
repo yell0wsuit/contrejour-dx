@@ -8,7 +8,7 @@ public class LabelLine : ICleanable
 {
     private static readonly Pool<LabelLine> Pool = new(() => new LabelLine());
 
-    public readonly List<Glyph> Glyphs = [];
+    public List<Glyph> Glyphs { get; } = [];
 
     public static int ObjectsInPool => Pool.ObjectsInPool;
 

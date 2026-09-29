@@ -16,24 +16,24 @@ public class Chapter2(int index, MainMenu menu) : ChapterItem(index, menu)
 
     protected override void CreateSprites()
     {
-        background = new McPlanet2Background();
-        blurBackground = new McChapter2Blur();
+        Background = new McPlanet2Background();
+        BlurBackground = new McChapter2Blur();
         _ = CreateBouncingSprite("planets/McPlanetSpringBack", 45, new Vector2(-69f, 26f), 0.8f);
         _ = CreateBouncingSprite("planets/McPlanetSpringBack", -150, new Vector2(26f, -73f), 0.7f);
-        container.AddChild(background);
+        Container.AddChild(Background);
         ParticleSystem particleSystem = new(Mokus2DGame.LoadSpriteData("common/McEnergyBall"));
-        container.AddChild(particleSystem);
+        Container.AddChild(particleSystem);
         particleSystem.Scale = 0.55f;
         AddUpdating(new PlanetEnergy(particleSystem, new Vector2(-136f, -92f)));
-        alphaItems.Add(particleSystem);
+        AlphaItems.Add(particleSystem);
         CreateSmoke();
         _ = CreateBouncingSprite("planets/McPlanetSpringView", -50, new Vector2(70f, 35f), 0.9f);
         _ = CreateBouncingSprite("planets/McPlanetSpringView", -190, new Vector2(-14f, -74f), 0.9f);
         _ = CreateBouncingSprite("planets/McPlanetSpringView", 90, new Vector2(-78f, -3f), 0.8f);
         PlanetSatellite planetSatellite = new();
-        container.AddChild(planetSatellite);
+        Container.AddChild(planetSatellite);
         AddUpdating(planetSatellite);
-        alphaItems.Add(planetSatellite);
+        AlphaItems.Add(planetSatellite);
     }
 
     protected BouncingSprite CreateBouncingSprite(string spriteName, int rotation, Vector2 position, float scale)
@@ -45,7 +45,7 @@ public class Chapter2(int index, MainMenu menu) : ChapterItem(index, menu)
             Scale = scale
         };
         bouncingSprite.MaxBounceEvent += OnSpringSpit;
-        container.AddChild(bouncingSprite);
+        Container.AddChild(bouncingSprite);
         AddUpdating(bouncingSprite);
         return bouncingSprite;
     }
@@ -65,8 +65,8 @@ public class Chapter2(int index, MainMenu menu) : ChapterItem(index, menu)
         springSmoke.MaxOpacity = 180f;
         springSmoke.Gravity = new Vector2(0f, 10f);
         springSmoke.ParticlesScale = new RandomRange(1.2f, 0.3f);
-        alphaItems.Add(springSmoke);
-        container.AddChild(springSmoke, 100);
+        AlphaItems.Add(springSmoke);
+        Container.AddChild(springSmoke, 100);
     }
 
     public virtual Vector2 SmokeCoords()

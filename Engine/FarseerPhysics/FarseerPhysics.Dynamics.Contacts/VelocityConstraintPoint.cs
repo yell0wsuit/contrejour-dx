@@ -4,17 +4,17 @@ namespace FarseerPhysics.Dynamics.Contacts;
 
 public sealed class VelocityConstraintPoint
 {
-    public Vector2 rA;
+    public Vector2 RA { get; set; }
 
-    public Vector2 rB;
+    public Vector2 RB { get; set; }
 
-    public float normalImpulse;
+    public float NormalImpulse { get; set; }
 
-    public float tangentImpulse;
+    public float TangentImpulse { get; set; }
 
-    public float normalMass;
+    public float NormalMass { get; set; }
 
-    public float tangentMass;
+    public float TangentMass { get; set; }
 
-    public float velocityBias;
+    public float VelocityBias { get; set; }
 }

@@ -26,7 +26,7 @@ namespace Mokus2D.Visual;
 
 public class Node : DisposableBase, IUpdatable, IConfig
 {
-    public readonly Tweener Tweener;
+    public Tweener Tweener { get; }
 
     private readonly ConcurrentQueue<NodeAndLayer> _addLater = new();
 
@@ -37,39 +37,39 @@ public class Node : DisposableBase, IUpdatable, IConfig
     private readonly ConcurrentQueue<Action<Node>> _callLater = new();
     private readonly ConcurrentQueue<Node> _removeLater = new();
 
-    public float ColorRatio;
+    public float ColorRatio { get; set; }
 
-    public INodeController Controller;
+    public INodeController Controller { get; set; }
 
-    public bool DrawSelf = true;
+    public bool DrawSelf { get; set; } = true;
 
-    protected IDrawer Drawer;
+    protected IDrawer Drawer { get; set; }
 
-    public bool IgnoreParentColor;
+    public bool IgnoreParentColor { get; set; }
 
-    public bool IgnoreParentOpacity;
+    public bool IgnoreParentOpacity { get; set; }
 
     public bool IgnoreParentTransformations { get; set; }
 
     public IgnoredAnimationProperties IgnoredAnimations = IgnoredAnimationProperties.None;
 
-    public bool InteractionsEnabled = true;
+    public bool InteractionsEnabled { get; set; } = true;
 
-    public bool IsAnimationDiscrete;
+    public bool IsAnimationDiscrete { get; set; }
 
-    public string Name;
+    public string Name { get; set; }
 
-    public int OnScreenCount = 1;
+    public int OnScreenCount { get; set; } = 1;
 
-    public bool ResetDefaultEffect;
+    public bool ResetDefaultEffect { get; set; }
 
-    public bool Test;
+    public bool Test { get; set; }
 
-    public bool UpdateChildren = true;
+    public bool UpdateChildren { get; set; } = true;
 
-    public bool UpdateChildrenTransformations = true;
+    public bool UpdateChildrenTransformations { get; set; } = true;
 
-    public bool UpdateEnabled = true;
+    public bool UpdateEnabled { get; set; } = true;
 
     private readonly bool UpdateSelf = true;
     private bool _firstUpdate = true;

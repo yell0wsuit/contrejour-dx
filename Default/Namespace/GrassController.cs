@@ -11,12 +11,12 @@ namespace Default.Namespace;
 
 public class GrassController : IGrassController, IUpdatable
 {
-    protected PlasticinePartBodyClip plasticine;
+    protected PlasticinePartBodyClip Plasticine { get; set; }
 
     private readonly ContreJourGame game;
 
-    protected ContreJourLevelBuilder builder;
-    protected List<GrassAndPosition> smallGrasses;
+    protected ContreJourLevelBuilder Builder { get; set; }
+    protected List<GrassAndPosition> SmallGrasses { get; set; }
 
     private WindData windData;
 
@@ -56,14 +56,14 @@ public class GrassController : IGrassController, IUpdatable
 
     public virtual float GetSmallGrassOffset(int index)
     {
-        return Maths.Random(0f - plasticine.Width, plasticine.Width);
+        return Maths.Random(0f - Plasticine.Width, Plasticine.Width);
     }
 
     public GrassController(PlasticinePartBodyClip plasticine)
     {
-        this.plasticine = plasticine;
-        builder = (ContreJourLevelBuilder)this.plasticine.Builder;
-        game = (ContreJourGame)this.plasticine.Builder.Game;
+        this.Plasticine = plasticine;
+        Builder = (ContreJourLevelBuilder)this.Plasticine.Builder;
+        game = (ContreJourGame)this.Plasticine.Builder.Game;
         startAngle = Maths.Random(-(float)Math.PI / 12f, (float)Math.PI / 12f);
         touched = false;
         notTouchedFrames = 0;
@@ -74,11 +74,11 @@ public class GrassController : IGrassController, IUpdatable
     {
         int frame = Math.Min(GrassFrame, game.Grass.TotalFrames - 1);
         Grass = game.Grass.AddParticleWithFrame(frame);
-        Grass.Position = builder.ToIPadPoint(plasticine.GetSurfaceCenter());
+        Grass.Position = Builder.ToIPadPoint(Plasticine.GetSurfaceCenter());
         RandomizeClipMinScaleMaxScale(Grass, 0.45499998f, 0.65f);
         windData = new WindData(WindAngle);
         CreateSmallGrass();
-        if (!plasticine.Parent.Config.GetBool("disableFlyes"))
+        if (!Plasticine.Parent.Config.GetBool("disableFlyes"))
         {
             CreateFlyes();
         }
@@ -86,15 +86,15 @@ public class GrassController : IGrassController, IUpdatable
 
     public void CreateSmallGrass()
     {
-        smallGrasses = [];
+        SmallGrasses = [];
         for (int i = 0; i < 3; i++)
         {
             int frame = Math.Min(SmallGrassFrame, game.Grass.TotalFrames - 1);
             Particle particle = game.Grass.AddParticleWithFrame(frame);
             RandomizeClipMinScaleMaxScale(particle, 0.6f * SmallGrassScale, SmallGrassScale);
             float smallGrassOffset = GetSmallGrassOffset(i);
-            particle.Position = new Vector2(smallGrassOffset / builder.EngineConfig.SizeMultiplier, 2f) + Grass.Position;
-            smallGrasses.Add(new GrassAndPosition(particle, new Vector2(smallGrassOffset, 0f)));
+            particle.Position = new Vector2(smallGrassOffset / Builder.EngineConfig.SizeMultiplier, 2f) + Grass.Position;
+            SmallGrasses.Add(new GrassAndPosition(particle, new Vector2(smallGrassOffset, 0f)));
         }
     }
 
@@ -115,7 +115,7 @@ public class GrassController : IGrassController, IUpdatable
     public void UpdateGrassRotation(float time)
     {
         float wind = game.WindManager.GetWind(windData.WindOffset);
-        float num = plasticine.Body.Rotation + windData.GetAngle(wind) + startAngle;
+        float num = Plasticine.Body.Rotation + windData.GetAngle(wind) + startAngle;
         float num2 = num;
         if (notTouchedFrames >= 5)
         {
@@ -147,14 +147,14 @@ public class GrassController : IGrassController, IUpdatable
 
     public void UpdateGrassPosition()
     {
-        Vector2 surfaceCenter = plasticine.GetSurfaceCenter();
-        Grass.Position = builder.ToIPadPoint(surfaceCenter);
-        foreach (GrassAndPosition smallGrass in smallGrasses)
+        Vector2 surfaceCenter = Plasticine.GetSurfaceCenter();
+        Grass.Position = Builder.ToIPadPoint(surfaceCenter);
+        foreach (GrassAndPosition smallGrass in SmallGrasses)
         {
             Vector2 vector = smallGrass.Position + PlasticinePartBodyClip.GetLocalSurfaceCenter();
-            Vector2 worldPoint = plasticine.Body.GetWorldPoint(vector);
-            smallGrass.Particle.Position = builder.ToIPadPoint(worldPoint);
-            smallGrass.Particle.RotationDegrees = LevelBuilderBase.ToRotation(plasticine.Body.Rotation);
+            Vector2 worldPoint = Plasticine.Body.GetWorldPoint(vector);
+            smallGrass.Particle.Position = Builder.ToIPadPoint(worldPoint);
+            smallGrass.Particle.RotationDegrees = LevelBuilderBase.ToRotation(Plasticine.Body.Rotation);
             smallGrass.Particle.RotationDegrees = smallGrassRotation;
         }
     }
@@ -165,10 +165,10 @@ public class GrassController : IGrassController, IUpdatable
         int num = (game.RoseChapter || game.BonusChapter) ? 1 : 2;
         for (int i = 0; i < num; i++)
         {
-            Vector2 vec = new(Maths.Random(0f - plasticine.Width, plasticine.Width), Maths.Random(1.3333334f, 2f));
-            vec += plasticine.Body.Position;
-            Particle particle = game.Flyes.AddParticle(builder.ToIPadPoint(vec));
-            flyes.Add(new FlyController(game, plasticine, particle));
+            Vector2 vec = new(Maths.Random(0f - Plasticine.Width, Plasticine.Width), Maths.Random(1.3333334f, 2f));
+            vec += Plasticine.Body.Position;
+            Particle particle = game.Flyes.AddParticle(Builder.ToIPadPoint(vec));
+            flyes.Add(new FlyController(game, Plasticine, particle));
         }
     }
 

@@ -99,7 +99,7 @@ public class MonsterEye : RandomAnimationEye, IPositionDepedent
     {
         string name = BlackEye ? "McEyeMonsterBlack" : "McEyeMonster";
         string name2 = Game.ChooseSide("McEyeBallMonsterBlack", "McEyeBallMonsterWhite", "McEyeBallMonster", "McEyeBallMonster", "McEyeBallMonster_6");
-        background = (Sprite)ClipTypesCache.CreateNewNode(name);
+        Background = (Sprite)ClipTypesCache.CreateNewNode(name);
         eyeBall = (Sprite)ClipTypesCache.CreateNewNode(name2);
     }
 
@@ -142,7 +142,7 @@ public class MonsterEye : RandomAnimationEye, IPositionDepedent
             }
         }
         base.Update(time);
-        currentBackground.Position = currentEyeBall.Position * 0.5f;
+        currentBackground.Position = CurrentEyeBall.Position * 0.5f;
     }
 
     private void OnCloseEnd()

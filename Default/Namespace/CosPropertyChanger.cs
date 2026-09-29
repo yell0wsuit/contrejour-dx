@@ -10,13 +10,13 @@ public abstract class CosPropertyChanger : IUpdatable
 {
     private readonly CosChanger changer;
 
-    protected Node target;
+    protected Node Target { get; set; }
 
     public virtual float Value => changer.Value;
 
     public CosPropertyChanger(Node target, float minValue, float maxValue, float step)
     {
-        this.target = target;
+        this.Target = target;
         changer = new CosChanger(minValue, maxValue, step)
         {
             Progress = Maths.Random(0f, (float)Math.PI * 2f)

@@ -24,23 +24,23 @@ public class SuckerBodyClip : ContreJourBodyClip, IClickable, IVectorPositionPro
 {
     private static readonly Vector2 MinBorderOffset = new(30f);
 
-    public readonly EventSender FinishDragEvent = new();
+    public EventSender FinishDragEvent { get; } = new();
 
-    public readonly EventSender RemoveEvent = new();
+    public EventSender RemoveEvent { get; } = new();
 
-    protected readonly Node ghostSprite;
+    protected Node GhostSprite { get; }
 
-    protected float bounceAngle;
+    protected float BounceAngle { get; set; }
 
     private Vector2 bouncePosition;
 
     private readonly Bouncer bouncer;
 
-    protected Vector2 createPosition;
+    protected Vector2 CreatePosition { get; set; }
 
     private bool creating;
 
-    protected SuckerEndBodyClip end;
+    protected SuckerEndBodyClip End { get; set; }
 
     private Body endBody;
 
@@ -52,11 +52,11 @@ public class SuckerBodyClip : ContreJourBodyClip, IClickable, IVectorPositionPro
 
     private readonly McRoundDragFrameView limit;
 
-    protected float maxDistance;
+    protected float MaxDistance { get; set; }
 
-    protected Fixture middleFixture;
+    protected Fixture MiddleFixture { get; set; }
 
-    protected SuckerNeckSprite neck;
+    protected SuckerNeckSprite Neck { get; set; }
 
     private readonly Node pimpa;
 
@@ -66,23 +66,23 @@ public class SuckerBodyClip : ContreJourBodyClip, IClickable, IVectorPositionPro
 
     private bool pulled;
 
-    protected Touch touch;
+    protected Touch Touch { get; set; }
 
     protected virtual float BounceVolume => 0.3f;
 
     protected virtual string BounceSound => "landing1";
 
-    public bool Dragging => touch != null;
+    public bool Dragging => Touch != null;
 
     public Vector2 TargetPosition
     {
         get
         {
-            Vector2 position = builder.TouchRootVec(touch);
+            Vector2 position = builder.TouchRootVec(Touch);
             Vector2 vector = Builder.ToVec(MinBorderOffset);
             RectangleFloat levelScreenPhysicsBounds = Game.LevelScreenPhysicsBounds;
             levelScreenPhysicsBounds.Extend(-vector / Game.GameRoot.Scale);
-            return levelScreenPhysicsBounds.ClampToBounds(position).ClampDistance(Body.Position, maxDistance);
+            return levelScreenPhysicsBounds.ClampToBounds(position).ClampDistance(Body.Position, MaxDistance);
         }
     }
 
@@ -104,23 +104,23 @@ public class SuckerBodyClip : ContreJourBodyClip, IClickable, IVectorPositionPro
         bouncer = new Bouncer(4f, 7f, 3f);
         this.config["noShadow"] = "true";
         float num = this.config.GetFloat("Width");
-        maxDistance = num / 2f * this.builder.SizeMult;
-        ghostSprite = new Node
+        MaxDistance = num / 2f * this.builder.SizeMult;
+        GhostSprite = new Node
         {
             OpacityFloat = 0.5f
         };
-        this.clip.AddChild(ghostSprite);
+        this.clip.AddChild(GhostSprite);
         ghostNeck = CreateNeck();
         ghostNeck.Color = new Color(10f / 51f, 10f / 51f, 10f / 51f, 1f);
-        ghostSprite.AddChild(ghostNeck);
+        GhostSprite.AddChild(ghostNeck);
         ghostPimpa = CreatePimpa();
-        ghostSprite.AddChild(ghostPimpa);
+        GhostSprite.AddChild(ghostPimpa);
         limit = new McRoundDragFrameView();
         this.builder.Add(limit, -1);
         limit.Position = this.builder.ToPoint(Body.Position);
         limit.Scale = num / 200f;
-        neck = CreateNeck();
-        this.clip.AddChild(neck);
+        Neck = CreateNeck();
+        this.clip.AddChild(Neck);
         Node node = new McSuckerHighlite();
         this.clip.AddChild(node);
         Sprite node2 = new McSuckerStart();
@@ -164,7 +164,7 @@ public class SuckerBodyClip : ContreJourBodyClip, IClickable, IVectorPositionPro
         {
             return false;
         }
-        if (this.touch == null)
+        if (this.Touch == null)
         {
             Vector2 target = builder.TouchRootVec(touch);
             if (Body.Position.DistanceTo(target) <= 2f || endBody.Position.DistanceTo(target) <= 2f)
@@ -192,12 +192,12 @@ public class SuckerBodyClip : ContreJourBodyClip, IClickable, IVectorPositionPro
 
     public virtual void Restart()
     {
-        if (end != null && touch == null)
+        if (End != null && Touch == null)
         {
             eye.Open = false;
             eye.Visible = false;
             DestroyBodies();
-            ghostSprite.Visible = false;
+            GhostSprite.Visible = false;
         }
     }
 
@@ -219,21 +219,21 @@ public class SuckerBodyClip : ContreJourBodyClip, IClickable, IVectorPositionPro
     {
         base.Update(time);
         bouncer.Update(time);
-        bouncePosition = pimpaPosition + VectorUtil.ToVector(bouncer.Value, bounceAngle);
+        bouncePosition = pimpaPosition + VectorUtil.ToVector(bouncer.Value, BounceAngle);
         if (pimpa.Position != bouncePosition)
         {
             pimpa.Position = VectorUtil.StepTo(pimpa.Position, bouncePosition, 1000f * time);
-            neck.Length = pimpa.Position.Length();
-            neck.RotationDegrees = MathHelper.ToDegrees(Maths.Atan2(pimpa.Position.Y, pimpa.Position.X));
+            Neck.Length = pimpa.Position.Length();
+            Neck.RotationDegrees = MathHelper.ToDegrees(Maths.Atan2(pimpa.Position.Y, pimpa.Position.X));
         }
-        limit.OpacityByte = (int)Maths.StepTo(limit.OpacityByte, (touch != null) ? 200 : 80, time * 200f);
-        pimpaHighlite.OpacityByte = (int)Maths.StepTo(pimpaHighlite.OpacityByte, (end != null) ? 255 : 0, time * 600f);
-        if (touch != null)
+        limit.OpacityByte = (int)Maths.StepTo(limit.OpacityByte, (Touch != null) ? 200 : 80, time * 200f);
+        pimpaHighlite.OpacityByte = (int)Maths.StepTo(pimpaHighlite.OpacityByte, (End != null) ? 255 : 0, time * 600f);
+        if (Touch != null)
         {
             RefreshGhostPosition(time, TargetPosition);
         }
         eye.UpdateNode(time);
-        neck.Update(time);
+        Neck.Update(time);
     }
 
     public void RefreshGhostPosition(float time, Vector2 position)
@@ -243,14 +243,14 @@ public class SuckerBodyClip : ContreJourBodyClip, IClickable, IVectorPositionPro
         ghostNeck.Length = ghostPimpa.Position.X;
         ghostNeck.UpdateNode(time);
         RedrawGhost();
-        ghostSprite.RotationDegrees = MathHelper.ToDegrees(Maths.Atan2(vector.Y, vector.X));
+        GhostSprite.RotationDegrees = MathHelper.ToDegrees(Maths.Atan2(vector.Y, vector.X));
     }
 
     public override void OnCollisionStartPoint(Body body2, Contact point)
     {
         if (body2.UserData is BodyClip bodyClip && bodyClip is HeroBodyClip && FarseerUtil.GetWorldPoint(point).DistanceTo(Body.Position) > 1.1666666f && pulled)
         {
-            neck.Bounce();
+            Neck.Bounce();
             PlayBounceSound();
         }
     }
@@ -264,23 +264,23 @@ public class SuckerBodyClip : ContreJourBodyClip, IClickable, IVectorPositionPro
     {
         if (!creating)
         {
-            if (this.touch != null)
+            if (this.Touch != null)
             {
                 throw new InvalidOperationException("already dragging");
             }
             SoundManager.PlaySound("leapOn1");
-            ghostSprite.Tweener.Stop();
-            ghostSprite.Visible = true;
-            this.touch = touch;
+            GhostSprite.Tweener.Stop();
+            GhostSprite.Visible = true;
+            this.Touch = touch;
         }
     }
 
     public void DestroyBodies()
     {
         pulled = false;
-        end = null;
+        End = null;
         builder.World.RemoveBody(endBody);
-        Body.DestroyFixture(middleFixture);
+        Body.DestroyFixture(MiddleFixture);
         Body.SetSensor(value: true);
         pimpaPosition = Vector2.Zero;
         bouncer.Start();
@@ -294,18 +294,18 @@ public class SuckerBodyClip : ContreJourBodyClip, IClickable, IVectorPositionPro
         SoundManager.PlaySound("vysovuvannja", 0.3f);
         creating = false;
         pulled = true;
-        endBody = builder.World.CreateCircle(0.1f, createPosition);
-        float num = createPosition.DistanceTo(Body.Position);
-        float angle = VectorUtil.Atan2(Body.Position, createPosition);
+        endBody = builder.World.CreateCircle(0.1f, CreatePosition);
+        float num = CreatePosition.DistanceTo(Body.Position);
+        float angle = VectorUtil.Atan2(Body.Position, CreatePosition);
         PolygonShape shape = new(builder.EngineConfig.Density);
         shape.SetAsBox(num / 2f, 0.1f, VectorUtil.Rotate(new Vector2(num / 2f, 0f), angle), angle);
-        bounceAngle = angle;
-        middleFixture = FarseerUtil.AddShape((Shape)(object)shape, Body, builder.EngineConfig.Density);
+        BounceAngle = angle;
+        MiddleFixture = FarseerUtil.AddShape((Shape)(object)shape, Body, builder.EngineConfig.Density);
         Body.SetSensor(value: false);
-        end = new SuckerEndBodyClip(this, endBody);
+        End = new SuckerEndBodyClip(this, endBody);
         pimpaPosition = builder.ToPoint(endBody.Position - Body.Position);
         bouncer.Start();
-        neck.LightBounce();
+        Neck.LightBounce();
         eye.Open = true;
         eye.PositionProvider = this;
         Schedule(RefreshPositionProvider, Maths.Random(1.5f, 2.5f));
@@ -319,7 +319,7 @@ public class SuckerBodyClip : ContreJourBodyClip, IClickable, IVectorPositionPro
 
     public void CancelDrag()
     {
-        touch = null;
+        Touch = null;
     }
 
     public void FinishDrag()
@@ -335,8 +335,8 @@ public class SuckerBodyClip : ContreJourBodyClip, IClickable, IVectorPositionPro
         }
         if (TargetPosition.DistanceTo(Body.Position) > 1.5f)
         {
-            createPosition = TargetPosition;
-            RefreshGhostPosition(0f, createPosition);
+            CreatePosition = TargetPosition;
+            RefreshGhostPosition(0f, CreatePosition);
             if (flag)
             {
                 creating = true;
@@ -350,12 +350,12 @@ public class SuckerBodyClip : ContreJourBodyClip, IClickable, IVectorPositionPro
         else
         {
             eye.Open = false;
-            ghostSprite.Visible = false;
+            GhostSprite.Visible = false;
             if (flag)
             {
                 RemoveEvent.SendEvent();
             }
         }
-        touch = null;
+        Touch = null;
     }
 }

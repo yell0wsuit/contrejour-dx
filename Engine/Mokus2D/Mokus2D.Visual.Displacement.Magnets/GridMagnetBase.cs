@@ -9,7 +9,7 @@ namespace Mokus2D.Visual.Displacement.Magnets;
 
 public abstract class GridMagnetBase : IGridMagnet, IUpdatable
 {
-    public float Power = 1f;
+    public float Power { get; set; } = 1f;
 
     public float? MaxPower { get; set; }
 

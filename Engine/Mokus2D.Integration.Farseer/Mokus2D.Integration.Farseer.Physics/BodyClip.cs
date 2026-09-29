@@ -15,9 +15,9 @@ public class BodyClip : DisposableBase, IUpdatable
 {
     private Body _body;
 
-    public readonly PhysicsUpdater Updater;
+    public PhysicsUpdater Updater { get; }
 
-    public readonly IDictionary<string, string> Config;
+    public IDictionary<string, string> Config { get; }
 
     public Vector2 ClipPosition => Clip.Position;
 

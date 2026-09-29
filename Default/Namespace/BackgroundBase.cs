@@ -5,11 +5,11 @@ namespace Default.Namespace;
 
 public class BackgroundBase(Node _node, Hashtable _config, ContreJourGame _game) : IUpdatable
 {
-    protected Node node = _node;
+    protected Node Node { get; set; } = _node;
 
-    protected Hashtable config = _config;
+    protected Hashtable Config { get; set; } = _config;
 
-    protected ContreJourGame game = _game;
+    protected ContreJourGame Game { get; set; } = _game;
 
     public virtual void Update(float time)
     {

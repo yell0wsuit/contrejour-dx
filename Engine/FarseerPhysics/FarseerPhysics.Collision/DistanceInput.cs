@@ -4,13 +4,13 @@ namespace FarseerPhysics.Collision;
 
 public class DistanceInput
 {
-    public DistanceProxy ProxyA = new();
+    public DistanceProxy ProxyA { get; set; } = new();
 
-    public DistanceProxy ProxyB = new();
+    public DistanceProxy ProxyB { get; set; } = new();
 
     public Transform TransformA;
 
     public Transform TransformB;
 
-    public bool UseRadii;
+    public bool UseRadii { get; set; }
 }

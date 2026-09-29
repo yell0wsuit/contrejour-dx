@@ -8,7 +8,7 @@ public class Particle : MultiframeSprite
 {
     private readonly ParticleSystem System;
 
-    public object Tag;
+    public object Tag { get; set; }
 
     public Particle(ParticleSystem system, ISpriteData data)
         : base(data)

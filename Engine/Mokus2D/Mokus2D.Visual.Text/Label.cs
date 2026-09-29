@@ -40,7 +40,7 @@ public class Label : AnchorNode, IDataReloadable
     private RectangleFloat? _symbolsBounds;
 
     private readonly bool _dynamicTextureSize = true;
-    public bool DynamicClickArea = true;
+    public bool DynamicClickArea { get; set; } = true;
 
     public bool? IgnoreMissingSymbols { get; set; }
 

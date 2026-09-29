@@ -68,7 +68,7 @@ public class FlyController : FlyBase
         {
             targetPosition.X += scared * scareOffset.X;
             targetPosition.Y += scareOffset.Y;
-            stepY = Math.Abs(particle.Position.Y - targetPosition.Y) / scareOffset.Y;
+            StepY = Math.Abs(Particle.Position.Y - targetPosition.Y) / scareOffset.Y;
             scareTime -= time;
             if (scareTime <= 0f)
             {
@@ -80,7 +80,7 @@ public class FlyController : FlyBase
 
     private Vector2 ChooseTarget()
     {
-        return new Vector2(initialPosition.X + (horizontalOffset * windProvider.WindManager.GetWind(windOffset)), initialPosition.Y + (verticalOffset * Maths.Sin(verticalStep)) + (grassControllerContainer.GrassController.Y - initialGroundY));
+        return new Vector2(InitialPosition.X + (horizontalOffset * windProvider.WindManager.GetWind(windOffset)), InitialPosition.Y + (verticalOffset * Maths.Sin(VerticalStep)) + (grassControllerContainer.GrassController.Y - initialGroundY));
     }
 
     public void Unscare()

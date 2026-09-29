@@ -8,7 +8,7 @@ public class TouchListenerDecorator(ITouchListener listener, bool enabled = true
 {
     private readonly ITouchListener _listener = listener;
 
-    public Func<bool> Filter;
+    public Func<bool> Filter { get; set; }
 
     private bool FilterValue => Filter == null || Filter();
 

@@ -15,15 +15,15 @@ public class RadiusRotatableBackground : RotatableBackground
         : base(node, config, game)
     {
         radius = 40f;
-        centerPosition = this.node.Position;
+        centerPosition = this.Node.Position;
         centerPosition.X += radius;
-        rotationStep = 0.2f;
+        RotationStep = 0.2f;
     }
 
     public override void Update(float time)
     {
         base.Update(time);
-        Vector2 vector = VectorUtil.ToVector(radius, MathHelper.ToRadians(node.RotationDegrees * 2f));
-        node.Position = vector + centerPosition;
+        Vector2 vector = VectorUtil.ToVector(radius, MathHelper.ToRadians(Node.RotationDegrees * 2f));
+        Node.Position = vector + centerPosition;
     }
 }

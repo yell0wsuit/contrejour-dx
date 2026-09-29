@@ -24,7 +24,7 @@ namespace Default.Namespace;
 
 public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusAcceptable, ISnotLinked, IEatable, ISpikesDestroyable, ILaunchable, IRadius, IBodyClip, ITeleportable, IRestartable
 {
-    public readonly EventSender FinishEvent = new();
+    public EventSender FinishEvent { get; } = new();
 
     private readonly float eyeScale;
 
@@ -51,7 +51,7 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
 
     private float finishSpeed;
 
-    protected bool finished;
+    protected bool Finished { get; set; }
 
     private bool hasToYawn;
     private readonly McHotspotwhite hotspot;
@@ -64,7 +64,7 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
 
     private float lastOnGroundTime;
 
-    protected bool levelCompleted;
+    protected bool LevelCompleted { get; set; }
 
     private bool migthyPosted;
 
@@ -83,12 +83,12 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
 
     private readonly Sprite shadow;
 
-    protected bool sleep;
+    protected bool Sleep { get; set; }
 
     private float sleepSoundTime;
     private bool speedyPosted;
 
-    protected HeroTail tail;
+    protected HeroTail Tail { get; set; }
 
     protected Vector2 targetScale;
     private float timeToSleep;
@@ -202,11 +202,11 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
         }
         else
         {
-            tail = new HeroTail(Game.WhiteSide ? ContreJourConstants.WhiteTailColor : Color.Black);
-            clip.AddChild(tail, -1);
+            Tail = new HeroTail(Game.WhiteSide ? ContreJourConstants.WhiteTailColor : Color.Black);
+            clip.AddChild(Tail, -1);
         }
         breatheScale = 0f;
-        sleep = false;
+        Sleep = false;
         timeToSleep = 7f;
         eyeClosed = false;
         Game.RegisterHero(this);
@@ -276,7 +276,7 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
         restartOnEating = eating;
         DestroyEvent.SendEvent();
         FadeOutTails();
-        _ = (tail?.FadeOutAndHide(0.1f));
+        _ = (Tail?.FadeOutAndHide(0.1f));
         Schedule(HideBody, 0.1f);
     }
 
@@ -300,7 +300,7 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
             HideEye();
             _ = hotspot.FadeOut(num);
             Schedule(Hide, num);
-            tail?.Visible = false;
+            Tail?.Visible = false;
         }
     }
 
@@ -390,18 +390,18 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
         EyeAnimationsAllowed = true;
         eye.Visible = true;
         eye.SetDefaultView();
-        if (tail != null)
+        if (Tail != null)
         {
-            tail.Tweener.Stop();
-            tail.Scale = 1f;
-            tail.Visible = true;
-            tail.OpacityFloat = 1f;
+            Tail.Tweener.Stop();
+            Tail.Scale = 1f;
+            Tail.Visible = true;
+            Tail.OpacityFloat = 1f;
         }
         Body.SetSensor(value: false);
-        sleep = false;
+        Sleep = false;
         finishSet = false;
         disablePositionUpdate = false;
-        finished = false;
+        Finished = false;
         InitializeBody();
         restarting = false;
         clip.OpacityByte = 255;
@@ -515,12 +515,12 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
         }
         eye.SetVelocity(Body.LinearVelocity);
         eye.UpdateNode(time);
-        if (!finished && tail != null)
+        if (!Finished && Tail != null)
         {
-            tail.LimitAngles = onGround;
-            tail.SetMovementDirection(num2);
-            tail.Speed = num3;
-            tail.UpdateSpeed = sleep ? 0.2f : 1f;
+            Tail.LimitAngles = onGround;
+            Tail.SetMovementDirection(num2);
+            Tail.Speed = num3;
+            Tail.UpdateSpeed = Sleep ? 0.2f : 1f;
         }
         previousSpeed = Body.LinearVelocity;
         velocity = num3;
@@ -651,7 +651,7 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
         {
             timeToSleep -= time;
             EyeAnimationsAllowed = false;
-            if (sleep && eyeClosed)
+            if (Sleep && eyeClosed)
             {
                 breatheScaleStep += 0.02f;
                 breatheScaleStep = breatheScaleStep.SimplifyAngle(0f);
@@ -694,10 +694,10 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
 
     public void TryWakeUp()
     {
-        if (sleep && velocity > 0.1f)
+        if (Sleep && velocity > 0.1f)
         {
             eyeClosed = false;
-            sleep = false;
+            Sleep = false;
             eye.AnimationEndEvent.RemoveListener(OnEyeClose);
             eye.PlayAnimation(new EyeAnimation("McEyeOpen", null, lockY: true), force: true);
         }
@@ -726,10 +726,10 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
 
     public void TrySleep()
     {
-        if (!sleep && timeToSleep < 0f)
+        if (!Sleep && timeToSleep < 0f)
         {
             eye.PlayAnimation(new EyeAnimation("McEyeCloseSlow", null, lockY: true), force: true);
-            sleep = true;
+            Sleep = true;
             eye.AnimationEndEvent.AddListener(OnEyeClose);
         }
     }
@@ -753,7 +753,7 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
         }
         if (!restarting)
         {
-            if (levelCompleted)
+            if (LevelCompleted)
             {
                 Game.Finished = true;
             }
@@ -773,12 +773,12 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
                 _ = blackTail.FadeOut(0.3f);
             }
         }
-        _ = (tail?.ScaleTo(0.3f, 0f));
+        _ = (Tail?.ScaleTo(0.3f, 0f));
     }
 
     protected virtual void DoFinish()
     {
-        if (levelCompleted)
+        if (LevelCompleted)
         {
             Game.Finish(builder.ToPoint(finishPosition));
         }
@@ -795,7 +795,7 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
 
     public void CompleteLevelSpeed(Vector2 targetPosition, float finishSpeed)
     {
-        levelCompleted = true;
+        LevelCompleted = true;
         FinishLevelSpeed(targetPosition, finishSpeed);
     }
 
@@ -824,7 +824,7 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
     {
         if (!restarting)
         {
-            finished = true;
+            Finished = true;
             if (!Removed)
             {
                 DoFinish();
@@ -854,7 +854,7 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
 
     private void OnEyeClose()
     {
-        if (sleep)
+        if (Sleep)
         {
             eyeClosed = true;
             eye.PlayAnimation(new EyeAnimation("McEyeSleep", null, lockY: true), force: true);

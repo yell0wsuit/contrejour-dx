@@ -26,9 +26,9 @@ public class MainMenu : AccelerometerMenu, IActivatedDependent
 {
     private LevelsMenu levelsMenu;
 
-    public readonly EventSender<int> LevelSelectEvent = new();
+    public EventSender<int> LevelSelectEvent { get; } = new();
 
-    public readonly EventSender ExitEvent = new();
+    public EventSender ExitEvent { get; } = new();
 
     private McMenuGroundPhone ground;
 
@@ -457,7 +457,7 @@ public class MainMenu : AccelerometerMenu, IActivatedDependent
         names.Tweener.Stop();
         names.Visible = true;
         _ = names.FadeTo(0.3f, 1f);
-        accelerometerUsed = false;
+        AccelerometerUsed = false;
         inChapter = false;
         ShowScore();
         if (ContreJourConfig.BackButtonVisible)
@@ -525,16 +525,16 @@ public class MainMenu : AccelerometerMenu, IActivatedDependent
         names.CurrentIndex = spinner.CurrentIndex;
         if (!inChapter)
         {
-            spinner.AccelerometerOffset = accelerometerOffset;
+            spinner.AccelerometerOffset = AccelerometerOffset;
         }
         else if (!inLevel && levelsMenu != null)
         {
-            levelsMenu.Position = new Vector2(accelerometerOffset.X * 1.05f * RADIUS / 2f, accelerometerOffset.Y * 0.25f) + (winSize / 2f);
+            levelsMenu.Position = new Vector2(AccelerometerOffset.X * 1.05f * RADIUS / 2f, AccelerometerOffset.Y * 0.25f) + (winSize / 2f);
         }
-        accelerometerUsed = true;
-        Vector2 vector = new((0f - accelerometerOffset.X) * 1.05f * RADIUS, (0f - accelerometerOffset.Y) * 0.1f);
+        AccelerometerUsed = true;
+        Vector2 vector = new((0f - AccelerometerOffset.X) * 1.05f * RADIUS, (0f - AccelerometerOffset.Y) * 0.1f);
         background.Position = vector + new Vector2(-60f, -50f);
-        Vector2 vector2 = new(accelerometerOffset.X * 0.3f * RADIUS, accelerometerOffset.Y * 0.07f);
+        Vector2 vector2 = new(AccelerometerOffset.X * 0.3f * RADIUS, AccelerometerOffset.Y * 0.07f);
         names.Position = namesPosition + vector2;
         foreground.Position = vector2 * 0.2f;
     }

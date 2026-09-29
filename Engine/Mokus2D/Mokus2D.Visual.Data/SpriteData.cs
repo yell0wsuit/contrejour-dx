@@ -9,7 +9,7 @@ namespace Mokus2D.Visual.Data;
 
 public class SpriteData(string id) : TextureNodeData(id), ISpriteData, ITextureNodeData, IConfig, ICloneable<SpriteData>
 {
-    public FrameData Frame;
+    public FrameData Frame { get; set; }
 
     public Vector2 Size => TextureRect.Size() * ScaleFactor;
 

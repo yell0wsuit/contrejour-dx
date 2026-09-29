@@ -47,14 +47,14 @@ public class DragableBodyClip : ContreJourBodyClip, IClickable, IRestartable, IS
 
     private Vector2 axis;
 
-    protected float currentAlpha;
+    protected float CurrentAlpha { get; set; }
     private bool draging;
 
     private Vector2 initialDragOffset;
 
     private Vector2 initialMousePosition;
 
-    protected Vector2 initialPosition;
+    protected Vector2 InitialPosition { get; set; }
 
     private bool limitSpeed;
 
@@ -82,7 +82,7 @@ public class DragableBodyClip : ContreJourBodyClip, IClickable, IRestartable, IS
     {
         get
         {
-            Vector2 vector = VectorExtensions.Rotate(builder.ToVec(new Vector2(0f, -60f)), 0f - rotationOffsetRadians);
+            Vector2 vector = VectorExtensions.Rotate(builder.ToVec(new Vector2(0f, -60f)), 0f - RotationOffsetRadians);
             return Body.GetWorldPoint(vector);
         }
     }
@@ -97,8 +97,8 @@ public class DragableBodyClip : ContreJourBodyClip, IClickable, IRestartable, IS
         clip.Parent.ChangeChildLayer(clip, 2);
         DragStartEvent = new EventSender();
         float num = config.GetFloat("scaleX");
-        initialPosition = Body.Position;
-        targetPosition = initialPosition;
+        InitialPosition = Body.Position;
+        targetPosition = InitialPosition;
         upperLimit = 3.4f * num;
         lowerLimit = -3.4f * num;
         axis = VectorUtil.ToVector(1f, MathHelper.ToRadians(0f - this.config.GetFloat("rotation")));
@@ -142,7 +142,7 @@ public class DragableBodyClip : ContreJourBodyClip, IClickable, IRestartable, IS
             Schedule(ContreJourGame.FocusOnHero, 0.05f);
             draging = true;
             initialMousePosition = builder.TouchRootVec(this.touch);
-            initialDragOffset = Body.Position - initialPosition;
+            initialDragOffset = Body.Position - InitialPosition;
             return true;
         }
         return false;
@@ -166,7 +166,7 @@ public class DragableBodyClip : ContreJourBodyClip, IClickable, IRestartable, IS
 
     public void Restart()
     {
-        targetPosition = initialPosition;
+        targetPosition = InitialPosition;
         limitSpeed = true;
     }
 
@@ -194,16 +194,16 @@ public class DragableBodyClip : ContreJourBodyClip, IClickable, IRestartable, IS
 
     public void SetAlpha(float value)
     {
-        if (Maths.FuzzyNotEquals(currentAlpha, value))
+        if (Maths.FuzzyNotEquals(CurrentAlpha, value))
         {
-            currentAlpha = value;
+            CurrentAlpha = value;
             RefreshObjectsAlpha();
         }
     }
 
     protected virtual void RefreshObjectsAlpha()
     {
-        middle.OpacityByte = (int)currentAlpha;
+        middle.OpacityByte = (int)CurrentAlpha;
     }
 
     public bool ProcessTouch(Touch touch)
@@ -234,7 +234,7 @@ public class DragableBodyClip : ContreJourBodyClip, IClickable, IRestartable, IS
     protected virtual Vector2 GetDragPosition(Vector2 offset)
     {
         float num = Maths.Clamp(VectorUtil.Projection(offset, axis), lowerLimit, upperLimit);
-        return (axis * num) + initialPosition;
+        return (axis * num) + InitialPosition;
     }
 
     public override void Update(float time)
@@ -250,9 +250,9 @@ public class DragableBodyClip : ContreJourBodyClip, IClickable, IRestartable, IS
         if (Maths.FuzzyNotEquals(time, 0f) && (int)Body.BodyType == 2)
         {
             Body.BodyType = 0;
-            Body.SetTransform(initialPosition, Body.Rotation);
+            Body.SetTransform(InitialPosition, Body.Rotation);
         }
-        SetAlpha(Maths.StepTo(target: draging ? 255f : 150f, value: currentAlpha, maxStep: 5f));
+        SetAlpha(Maths.StepTo(target: draging ? 255f : 150f, value: CurrentAlpha, maxStep: 5f));
         base.Update(time);
     }
 }

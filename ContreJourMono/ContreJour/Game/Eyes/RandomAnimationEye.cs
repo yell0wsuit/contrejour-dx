@@ -22,9 +22,9 @@ public class RandomAnimationEye : EyeBase
         new("McEyeAngry")
     ];
 
-    public readonly EventSender AnimationEndEvent = new();
+    public EventSender AnimationEndEvent { get; } = new();
 
-    public bool ReturnToDefault = true;
+    public bool ReturnToDefault { get; set; } = true;
 
     private bool _animationsAllowed = true;
 
@@ -100,7 +100,7 @@ public class RandomAnimationEye : EyeBase
             OnAnimation(animation);
             isPlaying = true;
             SetEyeContent(animation);
-            endDispatcher?.EndEvent += clipEndAction;
+            EndDispatcher?.EndEvent += clipEndAction;
         }
     }
 
@@ -110,7 +110,7 @@ public class RandomAnimationEye : EyeBase
 
     private void EndAnimation()
     {
-        endDispatcher?.EndEvent -= clipEndAction;
+        EndDispatcher?.EndEvent -= clipEndAction;
         isPlaying = false;
         ScheduleAnimation();
         if (ReturnToDefault)

@@ -18,7 +18,7 @@ public abstract class ResourcesLoaderBase : IGraphicsLoader
 
     protected const string ExtensionSeparator = ".";
 
-    protected readonly Dictionary<Type, IGraphicsDeserializer> _deserializers = [];
+    protected Dictionary<Type, IGraphicsDeserializer> Deserializers { get; } = [];
 
     private string _resourcesSuffix;
 
@@ -45,13 +45,13 @@ public abstract class ResourcesLoaderBase : IGraphicsLoader
 
     protected ResourcesLoaderBase()
     {
-        _deserializers[typeof(ISpriteData)] = new SpriteDeserializer(this);
-        _deserializers[typeof(SpriteData)] = _deserializers[typeof(ISpriteData)];
-        _deserializers[typeof(IMovieClipData)] = new MovieClipDeserializer(this);
-        _deserializers[typeof(MovieClipData)] = _deserializers[typeof(IMovieClipData)];
-        _deserializers[typeof(AnimationData)] = new AnimationDeserializer(this);
-        _deserializers[typeof(FontData)] = new FontDeserializer(this);
-        _deserializers[typeof(ParticleSystemConfig)] = new ParicleConfigDeserializer();
+        Deserializers[typeof(ISpriteData)] = new SpriteDeserializer(this);
+        Deserializers[typeof(SpriteData)] = Deserializers[typeof(ISpriteData)];
+        Deserializers[typeof(IMovieClipData)] = new MovieClipDeserializer(this);
+        Deserializers[typeof(MovieClipData)] = Deserializers[typeof(IMovieClipData)];
+        Deserializers[typeof(AnimationData)] = new AnimationDeserializer(this);
+        Deserializers[typeof(FontData)] = new FontDeserializer(this);
+        Deserializers[typeof(ParticleSystemConfig)] = new ParicleConfigDeserializer();
     }
 
     public void Unload(string name)

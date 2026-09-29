@@ -10,18 +10,18 @@ public class Chapter6(int index, MainMenu menu) : ChapterItem(index, menu)
     protected override void CreateSprites()
     {
         ParticleSystem particleSystem = new("planets/McGreenPlanetFly");
-        container.AddChild(particleSystem);
+        Container.AddChild(particleSystem);
         AddAlphaItem(particleSystem);
         AddUpdating(new PlanetSurround(particleSystem));
-        background = new Sprite("McChapter6Background");
-        blurBackground = new Sprite("McChapter6Background");
-        container.AddChild(background);
+        Background = new Sprite("McChapter6Background");
+        BlurBackground = new Sprite("McChapter6Background");
+        Container.AddChild(Background);
         ParticleSystem particleSystem2 = new("common/McEnergyBall");
-        container.AddChild(particleSystem2);
+        Container.AddChild(particleSystem2);
         particleSystem2.Scale = 2f;
-        alphaItems.Add(particleSystem2);
+        AlphaItems.Add(particleSystem2);
         AddUpdating(new PlanetEnergy(particleSystem2, Vector2.Zero, new RandomRange(0.16f, 0.06f)));
         Sprite node = new("McChapter6Foreground");
-        container.AddChild(node);
+        Container.AddChild(node);
     }
 }

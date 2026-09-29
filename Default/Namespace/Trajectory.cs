@@ -8,11 +8,11 @@ namespace Default.Namespace;
 
 public class Trajectory : ParticleSystem
 {
-    public float Angle;
+    public float Angle { get; set; }
 
-    public float FadeOutDelay;
+    public float FadeOutDelay { get; set; }
 
-    public float Impulse = 1f;
+    public float Impulse { get; set; } = 1f;
     private readonly FadeAndHideEffect _fadeEffect;
 
     public bool Enabled

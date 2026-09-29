@@ -22,7 +22,7 @@ public class PlanetSnotEye : PlanetEye
 
     protected override void CreateDefaultView()
     {
-        background = new McEyeMonster();
+        Background = new McEyeMonster();
         eyeBall = new McEyeBallMonster();
     }
 

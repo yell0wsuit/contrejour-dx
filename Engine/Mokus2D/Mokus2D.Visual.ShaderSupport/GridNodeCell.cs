@@ -4,5 +4,5 @@ namespace Mokus2D.Visual.ShaderSupport;
 
 public class GridNodeCell(Point cellIndex) : Node
 {
-    public readonly Point CellIndex = cellIndex;
+    public Point CellIndex { get; } = cellIndex;
 }

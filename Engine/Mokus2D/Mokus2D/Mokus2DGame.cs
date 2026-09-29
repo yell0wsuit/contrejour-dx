@@ -24,17 +24,17 @@ namespace Mokus2D;
 
 public abstract class Mokus2DGame : DisposableBase
 {
-    public readonly KeysController KeysController = new();
+    public KeysController KeysController { get; } = new();
 
     private readonly Scheduler Scheduler = new();
 
-    public readonly TouchController TouchController = new();
+    public TouchController TouchController { get; } = new();
 
-    public readonly SpriteClicksListener SpriteClicksListener;
+    public SpriteClicksListener SpriteClicksListener { get; }
 
     private readonly Tweener Tweener;
 
-    public readonly UpdateDrawCounter PerformanceCounter = new(60);
+    public UpdateDrawCounter PerformanceCounter { get; } = new(60);
 
     private GameConfig _config;
 
@@ -44,7 +44,7 @@ public abstract class Mokus2DGame : DisposableBase
 
     private readonly KeyboardController _keyboard = new();
 
-    public Color BackgroundColor = Color.Black;
+    public Color BackgroundColor { get; set; } = Color.Black;
 
     private readonly float? MaxUpdateTime = 0.04f;
     private IFileLoader _fileLoader = new FileLoader();

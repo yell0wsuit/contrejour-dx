@@ -12,13 +12,13 @@ public class SnotReleaseHint : SnotLinkHint
     public SnotReleaseHint(ContreJourLevelBuilder builder, object body, Sprite clip, Hashtable config)
         : base(builder, null, clip, config)
     {
-        hasToRun = false;
+        HasToRun = false;
     }
 
     public override void Restart()
     {
         base.Restart();
-        hasToRun = false;
+        HasToRun = false;
         used = false;
     }
 
@@ -37,13 +37,13 @@ public class SnotReleaseHint : SnotLinkHint
         {
             used = true;
             Show();
-            snot.ReleaseEvent.AddListener(OnSnotRelease);
+            Snot.ReleaseEvent.AddListener(OnSnotRelease);
         }
     }
 
     private void OnSnotRelease()
     {
-        snot.ReleaseEvent.RemoveListener(OnSnotRelease);
+        Snot.ReleaseEvent.RemoveListener(OnSnotRelease);
         Hide(0.5f);
     }
 }

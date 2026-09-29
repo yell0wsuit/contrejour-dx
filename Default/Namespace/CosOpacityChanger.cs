@@ -6,6 +6,6 @@ public class CosOpacityChanger(Node target, float minValue, float maxValue, floa
 {
     protected override void SetPropertyValue(float value)
     {
-        target.OpacityFloat = value;
+        Target.OpacityFloat = value;
     }
 }

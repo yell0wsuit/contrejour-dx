@@ -6,7 +6,7 @@ namespace Default.Namespace;
 
 public class SuckerHintBase : FadeHint
 {
-    protected SuckerBodyClip sucker;
+    protected SuckerBodyClip Sucker { get; set; }
 
     private static readonly float QueryRadius = 200f * Box2DConfig.DefaultConfig.SizeMultiplier;
 
@@ -14,6 +14,6 @@ public class SuckerHintBase : FadeHint
     public SuckerHintBase(ContreJourLevelBuilder builder, object body, Sprite clip, Hashtable config)
         : base(builder, null, clip, config)
     {
-        sucker = (SuckerBodyClip)FarseerUtil.Query(this.builder.World, this.builder.ToIPhoneVec(this.clip.Position), QueryRadius, typeof(SuckerBodyClip));
+        Sucker = (SuckerBodyClip)FarseerUtil.Query(this.builder.World, this.builder.ToIPhoneVec(this.clip.Position), QueryRadius, typeof(SuckerBodyClip));
     }
 }

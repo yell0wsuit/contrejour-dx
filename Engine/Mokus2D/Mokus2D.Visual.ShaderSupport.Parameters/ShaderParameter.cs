@@ -12,7 +12,7 @@ public abstract class ShaderParameter<T>(EffectParameter parameter)
         o.Value = v;
     });
 
-    protected readonly EffectParameter Parameter = parameter;
+    protected EffectParameter Parameter { get; } = parameter;
     private readonly Flag _valueDirty = new();
 
     public T Value

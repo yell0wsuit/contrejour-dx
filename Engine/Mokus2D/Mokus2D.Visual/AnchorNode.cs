@@ -19,7 +19,7 @@ public abstract class AnchorNode : SpriteBatchNode, ITouchDispatchNode, IClickab
 {
     private readonly StopPropagationConfig StopPropagation = new();
 
-    public bool TouchOutResult;
+    public bool TouchOutResult { get; set; }
 
     private Vector2 _anchor = new(0.5f);
 

@@ -7,7 +7,7 @@ namespace Default.Namespace;
 
 public class WhiteSmoke : GravityParticleSystem
 {
-    public bool ScaleDownOnDestroy = true;
+    public bool ScaleDownOnDestroy { get; set; } = true;
 
     public float OpacityStep { get; set; }
 

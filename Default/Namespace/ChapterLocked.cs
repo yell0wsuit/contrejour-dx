@@ -17,7 +17,7 @@ namespace Default.Namespace;
 
 public class ChapterLocked : ChapterItem
 {
-    public readonly EventSender ExplodeEvent = new();
+    public EventSender ExplodeEvent { get; } = new();
 
     private bool exploding;
 
@@ -68,15 +68,15 @@ public class ChapterLocked : ChapterItem
 
     protected override void CreateSprites()
     {
-        background = new McPlanetLocked();
-        container.AddChild(background);
+        Background = new McPlanetLocked();
+        Container.AddChild(Background);
         tablo = new Tablo
         {
             Position = new Vector2(-74f, 28f),
             Color = (index == 1) ? ContreJourConstants.BlueLightColor : ContreJourConstants.GreyColor
         };
-        container.AddChild(tablo);
-        background.Color = tablo.Color;
+        Container.AddChild(tablo);
+        Background.Color = tablo.Color;
         Label label = ContreJourLabelUtil.CreateLabel(20f, UserData.StarsToUnlock(index).ToString(CultureInfo.CurrentCulture));
         label.Anchor = new Vector2(0.5f, 0.5f);
         label.Align = TextAlign.Left;
@@ -91,10 +91,10 @@ public class ChapterLocked : ChapterItem
         tablo.AddChild(sprite);
         sprite.Position = new Vector2(24f, 46f);
         sprite.Color = label.Color;
-        blurBackground = new McChapterLockedBlur();
-        hidingItems.Add(label);
-        hidingItems.Add(tablo);
-        hidingItems.Add(node);
+        BlurBackground = new McChapterLockedBlur();
+        HidingItems.Add(label);
+        HidingItems.Add(tablo);
+        HidingItems.Add(node);
     }
 
     protected override void OnClick()

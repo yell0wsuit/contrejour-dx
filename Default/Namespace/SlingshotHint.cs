@@ -14,7 +14,7 @@ public class SlingshotHint : FadeHint
     public SlingshotHint(ContreJourLevelBuilder builder, object body, Sprite clip, Hashtable config)
         : base(builder, null, clip, config)
     {
-        hasToRun = false;
+        HasToRun = false;
         Initialize();
     }
 
@@ -40,7 +40,7 @@ public class SlingshotHint : FadeHint
     public override void Restart()
     {
         base.Restart();
-        hasToRun = false;
+        HasToRun = false;
         touched = false;
     }
 
@@ -60,9 +60,9 @@ public class SlingshotHint : FadeHint
 
     private void OnStartDrag()
     {
-        if (touched && !hiding)
+        if (touched && !Hiding)
         {
-            hiding = true;
+            Hiding = true;
             Hide(1f);
         }
     }

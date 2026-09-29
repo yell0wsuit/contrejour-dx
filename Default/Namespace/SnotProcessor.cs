@@ -56,16 +56,16 @@ public class SnotProcessor(LevelBuilderBase builder, string type, float _partSiz
         BodyClip bodyClip = val.UserData as BodyClip;
         if (bodyClip is not null and (PlasticinePartBodyClip or EnergyBodyClip))
         {
-            val = builder.GroundBody;
+            val = Builder.GroundBody;
         }
         if (bodyClip is ISnotHolder)
         {
             vector = ((ISnotHolder)bodyClip).SnotPosition;
         }
-        Body val2 = builder.World.CreateCircle(1f / 6f, vector, 0f, GetStartDensity(), dynamic: true);
+        Body val2 = Builder.World.CreateCircle(1f / 6f, vector, 0f, GetStartDensity(), dynamic: true);
         val2.SetSensor(value: true);
         PlasticineConstants.ApplyActiveBodiesFilter(val2);
-        RevoluteJoint eyeJoint = FarseerUtil.CreateRevoluteJoint(builder.World, val, val2, vector);
+        RevoluteJoint eyeJoint = FarseerUtil.CreateRevoluteJoint(Builder.World, val, val2, vector);
         Body previousBody = val2;
         List<Body> list = [];
         List<Joint> list2 = [];
@@ -105,14 +105,14 @@ public class SnotProcessor(LevelBuilderBase builder, string type, float _partSiz
 
     public virtual Body CreatePartBodyEndIndexTotalDensity(Vector2 startPoint, Vector2 endPoint, int index, int total, float density)
     {
-        Body val = builder.World.CreateCircle(1f / 6f, endPoint, 0f, density, dynamic: true);
+        Body val = Builder.World.CreateCircle(1f / 6f, endPoint, 0f, density, dynamic: true);
         val.SetSensor(value: true);
         return val;
     }
 
     public virtual Joint JoinBodiesEndBodyStartEndIndexTotal(Body startBody, Body endBody, Vector2 startPoint, Vector2 endPoint, int index, int total)
     {
-        DistanceJoint val = JointFactory.CreateDistanceJoint(builder.World, startBody, endBody, startPoint - startBody.Position, endPoint - endBody.Position, false);
+        DistanceJoint val = JointFactory.CreateDistanceJoint(Builder.World, startBody, endBody, startPoint - startBody.Position, endPoint - endBody.Position, false);
         val.Frequency = 5f;
         val.DampingRatio = 0.1f;
         return (Joint)(object)val;

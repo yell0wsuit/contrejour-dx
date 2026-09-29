@@ -33,6 +33,6 @@ public class FlowerEye : MonsterEye
     public override void Update(float time)
     {
         base.Update(time);
-        base.Position = initialPosition + (currentEyeBall.Position * 2f);
+        base.Position = initialPosition + (CurrentEyeBall.Position * 2f);
     }
 }

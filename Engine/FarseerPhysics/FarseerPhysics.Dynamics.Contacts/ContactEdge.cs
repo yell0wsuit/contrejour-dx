@@ -2,11 +2,11 @@ namespace FarseerPhysics.Dynamics.Contacts;
 
 public sealed class ContactEdge
 {
-    public Contact Contact;
+    public Contact Contact { get; set; }
 
-    public ContactEdge Next;
+    public ContactEdge Next { get; set; }
 
-    public Body Other;
+    public Body Other { get; set; }
 
-    public ContactEdge Prev;
+    public ContactEdge Prev { get; set; }
 }

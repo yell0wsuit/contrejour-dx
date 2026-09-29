@@ -10,9 +10,9 @@ namespace Default.Namespace;
 
 public class FadeHint : HintBase, IRemovable, IRestartable
 {
-    protected bool hasToRun;
+    protected bool HasToRun { get; set; }
 
-    protected bool hiding;
+    protected bool Hiding { get; set; }
 
     private readonly List<Action> callAfters = [];
 
@@ -26,15 +26,15 @@ public class FadeHint : HintBase, IRemovable, IRestartable
         builder.ContreJour.AddTextureToUnload(clip.Texture.Name);
         this.clip.OpacityByte = 0;
         this.clip.Visible = false;
-        hasToRun = true;
+        HasToRun = true;
     }
 
     public virtual void Restart()
     {
         clip.Tweener.Stop();
         _ = clip.FadeOutAndHide(0.2f);
-        hasToRun = true;
-        hiding = false;
+        HasToRun = true;
+        Hiding = false;
         foreach (Action callAfter in callAfters)
         {
             UnSchedule(callAfter);
@@ -55,16 +55,16 @@ public class FadeHint : HintBase, IRemovable, IRestartable
 
     public override void Update(float time)
     {
-        if (((ContreJourGame)builder.Game).TouchEnabled && hasToRun)
+        if (((ContreJourGame)builder.Game).TouchEnabled && HasToRun)
         {
-            hasToRun = false;
+            HasToRun = false;
             CallAfterDelay(Show, 2f);
         }
     }
 
     public void Show()
     {
-        if (!hiding)
+        if (!Hiding)
         {
             clip.Visible = true;
             clip.Tweener.Stop();
@@ -84,9 +84,9 @@ public class FadeHint : HintBase, IRemovable, IRestartable
 
     public void Hide()
     {
-        if (!hiding)
+        if (!Hiding)
         {
-            hiding = true;
+            Hiding = true;
             Hide(clip.OpacityByte / 255f);
         }
     }

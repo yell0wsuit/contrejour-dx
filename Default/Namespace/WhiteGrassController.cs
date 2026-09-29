@@ -24,7 +24,7 @@ public class WhiteGrassController(PlasticinePartBodyClip plasticine) : GrassCont
 
     public float SmallGrassOffset(int index)
     {
-        return ((index * 2) - 1) * plasticine.Width / 3f;
+        return ((index * 2) - 1) * Plasticine.Width / 3f;
     }
 
     public override void Update(float time)
@@ -32,16 +32,16 @@ public class WhiteGrassController(PlasticinePartBodyClip plasticine) : GrassCont
         base.Update(time);
         if (!borderUpdated)
         {
-            if (plasticine.Item.PreviousItem.BodyClip.GrassController == null)
+            if (Plasticine.Item.PreviousItem.BodyClip.GrassController == null)
             {
-                GrassAndPosition grassAndPosition = smallGrasses[0];
-                grassAndPosition.Position = new Vector2(grassAndPosition.Position.X, -7f * builder.EngineConfig.SizeMultiplier);
+                GrassAndPosition grassAndPosition = SmallGrasses[0];
+                grassAndPosition.Position = new Vector2(grassAndPosition.Position.X, -7f * Builder.EngineConfig.SizeMultiplier);
                 grassAndPosition.Particle.Scale = 0.4f;
             }
-            if (plasticine.Item.NextItem.BodyClip.GrassController == null)
+            if (Plasticine.Item.NextItem.BodyClip.GrassController == null)
             {
-                GrassAndPosition grassAndPosition2 = smallGrasses[1];
-                grassAndPosition2.Position = new Vector2(grassAndPosition2.Position.X, -7f * builder.EngineConfig.SizeMultiplier);
+                GrassAndPosition grassAndPosition2 = SmallGrasses[1];
+                grassAndPosition2.Position = new Vector2(grassAndPosition2.Position.X, -7f * Builder.EngineConfig.SizeMultiplier);
                 grassAndPosition2.Particle.Scale = 0.4f;
             }
             borderUpdated = true;
@@ -50,6 +50,6 @@ public class WhiteGrassController(PlasticinePartBodyClip plasticine) : GrassCont
 
     public override float GetSmallGrassOffset(int index)
     {
-        return index != 0 ? plasticine.Width / 2f : (0f - plasticine.Width) / 2f;
+        return index != 0 ? Plasticine.Width / 2f : (0f - Plasticine.Width) / 2f;
     }
 }

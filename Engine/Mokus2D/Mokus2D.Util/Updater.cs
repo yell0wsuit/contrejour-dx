@@ -17,7 +17,7 @@ public class Updater : IUpdatable
         }
     }
 
-    public bool Paused;
+    public bool Paused { get; set; }
 
     private readonly LinkedList<IUpdatable> _updatables = new();
 

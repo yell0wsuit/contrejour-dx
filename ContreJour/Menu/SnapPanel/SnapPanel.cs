@@ -22,7 +22,7 @@ public class SnapPanel : AccelerometerNode, ITouchListener
 
     public SnapPanel()
     {
-        maxAccOffset = new Vector2(1f, 0.6f);
+        MaxAccOffset = new Vector2(1f, 0.6f);
         background = AddAccelerometerChild("Win8Background", 70f, Vector2.Zero);
     }
 
@@ -109,7 +109,7 @@ public class SnapPanel : AccelerometerNode, ITouchListener
         base.Update(time);
         foreach (KeyValuePair<Node, Tuple<float, Vector2>> accelerometerChild in accelerometerChildren)
         {
-            accelerometerChild.Key.Position = accelerometerChild.Value.Item2 + (accelerometerChild.Value.Item1 * accelerometerOffset);
+            accelerometerChild.Key.Position = accelerometerChild.Value.Item2 + (accelerometerChild.Value.Item1 * AccelerometerOffset);
         }
     }
 

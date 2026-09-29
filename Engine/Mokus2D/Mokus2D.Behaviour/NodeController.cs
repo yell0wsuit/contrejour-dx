@@ -5,7 +5,7 @@ namespace Mokus2D.Behaviour;
 
 public abstract class NodeController<T> : INodeController, IUpdatable where T : Node
 {
-    protected readonly T Node;
+    protected T Node { get; }
 
     protected NodeController(T node)
     {

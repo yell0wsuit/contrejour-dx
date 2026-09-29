@@ -58,7 +58,7 @@ public class RotatableSpringBodyClip : RotatableSpringBase, IRestartable
     {
         game = (ContreJourGame)this.builder.Game;
         Body.BodyType = (BodyType)1;
-        bodyCenterVec = Vector2.Zero;
+        BodyCenterVec = Vector2.Zero;
         touchPoint = new McRotatorPoint();
         circle = new McRotatorCircle
         {
@@ -157,7 +157,7 @@ public class RotatableSpringBodyClip : RotatableSpringBase, IRestartable
             targetRotation = startAngle + touchAngle - startTouchAngle;
             targetRotation = Maths.Round(targetRotation, (float)Math.PI / 8f);
             targetRotation = targetRotation.SimplifyAngle((float)((double)Body.Rotation - Math.PI));
-            trajectory.Enabled = sticked != null;
+            trajectory.Enabled = Sticked != null;
         }
         else
         {

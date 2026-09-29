@@ -6,33 +6,33 @@ namespace FarseerPhysics.Dynamics.Contacts;
 
 public sealed class ContactPositionConstraint
 {
-    public Vector2[] localPoints = new Vector2[2];
+    public Vector2[] LocalPoints { get; set; } = new Vector2[2];
 
-    public Vector2 localNormal;
+    public Vector2 LocalNormal { get; set; }
 
-    public Vector2 localPoint;
+    public Vector2 LocalPoint { get; set; }
 
-    public int indexA;
+    public int IndexA { get; set; }
 
-    public int indexB;
+    public int IndexB { get; set; }
 
-    public float invMassA;
+    public float InvMassA { get; set; }
 
-    public float invMassB;
+    public float InvMassB { get; set; }
 
-    public Vector2 localCenterA;
+    public Vector2 LocalCenterA { get; set; }
 
-    public Vector2 localCenterB;
+    public Vector2 LocalCenterB { get; set; }
 
-    public float invIA;
+    public float InvIA { get; set; }
 
-    public float invIB;
+    public float InvIB { get; set; }
 
-    public ManifoldType type;
+    public ManifoldType Type { get; set; }
 
-    public float radiusA;
+    public float RadiusA { get; set; }
 
-    public float radiusB;
+    public float RadiusB { get; set; }
 
-    public int pointCount;
+    public int PointCount { get; set; }
 }

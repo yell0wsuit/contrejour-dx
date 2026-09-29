@@ -22,8 +22,8 @@ public class EndLastLevelBodyClip : EndLevelBodyClip
     public override void Restart()
     {
         base.Restart();
-        portal.TargetScale = 1f;
-        portal.ScaleStep = 0.05f;
+        Portal.TargetScale = 1f;
+        Portal.ScaleStep = 0.05f;
     }
 
     public override void Update(float time)
@@ -32,7 +32,7 @@ public class EndLastLevelBodyClip : EndLevelBodyClip
         if (bounce)
         {
             scaleChanger.Update(time);
-            portal.TargetScale = 1.7f + scaleChanger.Value;
+            Portal.TargetScale = 1.7f + scaleChanger.Value;
         }
     }
 
@@ -40,16 +40,16 @@ public class EndLastLevelBodyClip : EndLevelBodyClip
     {
         bodyClip.CompleteLevelSpeed(Body.Position, 0.3f);
         SoundManager.PlaySound("end", 0.5f);
-        portal.TargetScale = 1.7f;
+        Portal.TargetScale = 1.7f;
         scaleChanger.SetMiddleProgress();
         scaleChanger.Update(0f);
-        portal.ScaleStep = 0.1f;
+        Portal.ScaleStep = 0.1f;
         Schedule(Hide, 8f);
     }
 
     private void Hide()
     {
         bounce = false;
-        portal.TargetScale = 0f;
+        Portal.TargetScale = 0f;
     }
 }

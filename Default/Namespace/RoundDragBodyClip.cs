@@ -35,7 +35,7 @@ public class RoundDragBodyClip(ContreJourLevelBuilder _builder, object body, Nod
 
     protected override void RefreshObjectsAlpha()
     {
-        middleSprite.OpacityByte = (int)currentAlpha;
+        middleSprite.OpacityByte = (int)CurrentAlpha;
     }
 
     protected override Vector2 TouchOffset()
@@ -45,6 +45,6 @@ public class RoundDragBodyClip(ContreJourLevelBuilder _builder, object body, Nod
 
     protected override Vector2 GetDragPosition(Vector2 offset)
     {
-        return VectorUtil.ClampLength(ref offset, radius) + initialPosition;
+        return VectorUtil.ClampLength(ref offset, radius) + InitialPosition;
     }
 }

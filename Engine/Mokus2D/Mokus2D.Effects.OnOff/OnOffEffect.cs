@@ -4,7 +4,7 @@ namespace Mokus2D.Effects.OnOff;
 
 public abstract class OnOffEffect(Node target) : IOnOff
 {
-    public Node Target = target;
+    public Node Target { get; set; } = target;
 
     private bool _on;
 

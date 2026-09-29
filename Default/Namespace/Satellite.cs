@@ -16,11 +16,11 @@ public class Satellite : IUpdatable, IRemovable
     protected float angleStep;
     protected Particle clip;
 
-    protected ContreJourGame game;
+    protected ContreJourGame Game { get; set; }
 
     private Vector2 initialPosition;
 
-    protected BodyClip target;
+    protected BodyClip Target { get; set; }
 
     public Particle Clip => clip;
 
@@ -36,13 +36,13 @@ public class Satellite : IUpdatable, IRemovable
         set => angleStep = value;
     }
 
-    protected virtual Vector2 TargetPosition => target == null ? initialPosition : game.Builder.ToIPadPoint(target.Body.Position);
+    protected virtual Vector2 TargetPosition => Target == null ? initialPosition : Game.Builder.ToIPadPoint(Target.Body.Position);
 
     public bool ShouldRemove { get; private set; }
 
     public Satellite(ContreJourGame game, Particle clip, BodyClip parent, float direction, Vector2 position)
     {
-        target = parent;
+        Target = parent;
         initialPosition = position;
         this.clip = clip;
         speedValue = Maths.Random(15f, 25f) * 2f;
@@ -51,8 +51,8 @@ public class Satellite : IUpdatable, IRemovable
         this.clip.Position = position;
         if (game != null)
         {
-            this.game = game;
-            this.game.AddUpdatable(this);
+            this.Game = game;
+            this.Game.AddUpdatable(this);
         }
         ShouldRemove = false;
     }

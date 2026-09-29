@@ -7,9 +7,9 @@ namespace Mokus2D.UI.Containers;
 
 public class ViewSwitcher : Node
 {
-    public Action<Node> ShowEffect;
+    public Action<Node> ShowEffect { get; set; }
 
-    public Action<Node, Action> HideEffect;
+    public Action<Node, Action> HideEffect { get; set; }
 
     private Node _currentView;
 

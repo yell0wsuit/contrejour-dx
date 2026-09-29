@@ -12,7 +12,7 @@ public abstract class DelayedSymbolsEffect
 
     private readonly Action _onComplete;
 
-    public int Tag;
+    public int Tag { get; set; }
 
     public event Action EndEvent;
 

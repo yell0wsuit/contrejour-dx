@@ -17,10 +17,10 @@ public class OneFileResourcesLoader : ResourcesLoader
 
     public OneFileResourcesLoader()
     {
-        _deserializerByType["animation"] = _deserializers[typeof(AnimationData)];
-        _deserializerByType["sprite"] = _deserializers[typeof(SpriteData)];
-        _deserializerByType["movieClip"] = _deserializers[typeof(MovieClipData)];
-        _deserializerByType["font"] = _deserializers[typeof(FontData)];
+        _deserializerByType["animation"] = Deserializers[typeof(AnimationData)];
+        _deserializerByType["sprite"] = Deserializers[typeof(SpriteData)];
+        _deserializerByType["movieClip"] = Deserializers[typeof(MovieClipData)];
+        _deserializerByType["font"] = Deserializers[typeof(FontData)];
     }
 
     protected override string GetFileName<T>(string resourceName, string resourceSuffix)

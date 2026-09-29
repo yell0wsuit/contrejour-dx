@@ -17,9 +17,9 @@ public class Scale9Border : Node
 
     private static readonly Vector2 CornerAnchor = new(1f, 0f);
 
-    protected readonly List<ISizeNode> SideSprites = [];
+    protected List<ISizeNode> SideSprites { get; } = [];
 
-    protected readonly List<ISizeNode> CornerSprites = [];
+    protected List<ISizeNode> CornerSprites { get; } = [];
 
     private readonly ISizeNode _left;
 

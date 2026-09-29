@@ -9,9 +9,9 @@ namespace Mokus2D.Visual;
 
 public abstract class MultiframeSprite : Sprite
 {
-    protected List<FrameData> Frames;
+    protected List<FrameData> Frames { get; set; }
 
-    protected ITextureNodeData Data;
+    protected ITextureNodeData Data { get; set; }
 
     public int TotalFrames => Frames.Count;
 

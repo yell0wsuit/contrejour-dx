@@ -56,9 +56,9 @@ public class World
 
     public event BodyHandler BodyRemoved;
 
-    public FixtureHandler FixtureAdded;
+    public FixtureHandler FixtureAdded { get; set; }
 
-    public FixtureHandler FixtureRemoved;
+    public FixtureHandler FixtureRemoved { get; set; }
 
     public event JointHandler JointAdded;
 

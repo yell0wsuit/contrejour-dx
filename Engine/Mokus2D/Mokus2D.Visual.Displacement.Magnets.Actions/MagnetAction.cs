@@ -4,7 +4,7 @@ namespace Mokus2D.Visual.Displacement.Magnets.Actions;
 
 public abstract class MagnetAction(GridMagnetBase gridMagnet) : IUpdatable
 {
-    protected GridMagnetBase GridMagnet = gridMagnet;
+    protected GridMagnetBase GridMagnet { get; set; } = gridMagnet;
 
     public abstract bool Finished { get; }
 

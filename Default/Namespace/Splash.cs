@@ -23,7 +23,7 @@ namespace Default.Namespace;
 
 public class Splash : Node, ITouchListener, IDisposable
 {
-    public readonly EventSender EndEvent = new();
+    public EventSender EndEvent { get; } = new();
 
     private Vector2 blackHeroPosition = new Vector2(360f + (W7IPhoneWidthDiff / 4f), 153f) * 2f;
 

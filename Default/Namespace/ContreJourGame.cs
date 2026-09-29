@@ -65,9 +65,9 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
 
     public const float ClickRadius = 1.1666666f;
 
-    public readonly List<SnotPoint> SnotPoints = new(64);
+    public List<SnotPoint> SnotPoints { get; } = new(64);
 
-    public readonly EventSender RestartEvent = new();
+    public EventSender RestartEvent { get; } = new();
 
     private readonly PausePanel pausePanel;
     private readonly List<BackgroundBase> backgrounds = [];
@@ -502,7 +502,7 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
                 restartable.Restart();
             }
         }
-        foreach (IRemovable updatable in updatables)
+        foreach (IRemovable updatable in Updatables)
         {
             if (updatable is IRestartable)
             {

@@ -19,9 +19,9 @@ public class TextureSnotSprite : SpringSnotSprite
             if (textureColor != value)
             {
                 textureColor = value;
-                for (int i = 0; i < vertices.Length; i++)
+                for (int i = 0; i < Vertices.Length; i++)
                 {
-                    vertices[i].Color = textureColor;
+                    Vertices[i].Color = textureColor;
                 }
             }
         }
@@ -51,7 +51,7 @@ public class TextureSnotSprite : SpringSnotSprite
     public override void CreateVectors(int allPointsSize)
     {
         base.CreateVectors(allPointsSize);
-        GraphUtil.CreateTextureCoordsVerticesStep((allPointsSize / 2) - 1, vertices, 0.1f);
+        GraphUtil.CreateTextureCoordsVerticesStep((allPointsSize / 2) - 1, Vertices, 0.1f);
     }
 
     protected override void RefreshTextureCoords(int i, int start)
@@ -68,6 +68,6 @@ public class TextureSnotSprite : SpringSnotSprite
 
     public override void DrawPolygons()
     {
-        GraphUtil.FillTrianglesList(vertices);
+        GraphUtil.FillTrianglesList(Vertices);
     }
 }

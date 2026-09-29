@@ -7,7 +7,7 @@ namespace Default.Namespace;
 
 public class SnotLinkHint(ContreJourLevelBuilder builder, object body, Sprite clip, Hashtable config) : FadeHint(builder, body, clip, config)
 {
-    protected SnotBodyClip snot;
+    protected SnotBodyClip Snot { get; set; }
 
     private bool snotGot;
 
@@ -29,7 +29,7 @@ public class SnotLinkHint(ContreJourLevelBuilder builder, object body, Sprite cl
         {
             item.LinkEvent.AddListener(OnSnotLink);
         }
-        snot = (SnotBodyClip)list[0];
+        Snot = (SnotBodyClip)list[0];
     }
 
     public override void Update(float time)
@@ -48,7 +48,7 @@ public class SnotLinkHint(ContreJourLevelBuilder builder, object body, Sprite cl
 
     public virtual void OnSnotLink()
     {
-        hiding = true;
+        Hiding = true;
         Hide(0.5f * clip.OpacityByte / 255f);
     }
 }

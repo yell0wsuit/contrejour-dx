@@ -16,15 +16,15 @@ public abstract class EyeBase : Node
 {
     protected float eyeStep = 0.5f;
 
-    protected Sprite background;
+    protected Sprite Background { get; set; }
 
     protected Sprite eyeBall;
 
-    protected IAnimatedNode endDispatcher;
+    protected IAnimatedNode EndDispatcher { get; set; }
 
     protected Node currentBackground;
 
-    protected Node currentEyeBall;
+    protected Node CurrentEyeBall { get; set; }
 
     private bool lockX;
 
@@ -124,7 +124,7 @@ public abstract class EyeBase : Node
 
     protected virtual void CreateDefaultView()
     {
-        background = new McEye();
+        Background = new McEye();
         eyeBall = new McEyeBall();
     }
 
@@ -133,24 +133,24 @@ public abstract class EyeBase : Node
         SuspendLayout();
         if (currentBackground != null)
         {
-            background.Position = currentBackground.Position;
+            Background.Position = currentBackground.Position;
         }
-        if (currentEyeBall != null)
+        if (CurrentEyeBall != null)
         {
-            eyeBall.Position = currentEyeBall.Position;
+            eyeBall.Position = CurrentEyeBall.Position;
         }
-        endDispatcher = null;
-        currentBackground = background;
-        currentEyeBall = eyeBall;
+        EndDispatcher = null;
+        currentBackground = Background;
+        CurrentEyeBall = eyeBall;
         lockX = lockY = false;
         RefreshLayout();
     }
 
     private void SuspendLayout()
     {
-        if (currentEyeBall != null)
+        if (CurrentEyeBall != null)
         {
-            content.RemoveChild(currentEyeBall);
+            content.RemoveChild(CurrentEyeBall);
         }
         if (currentBackground != null)
         {
@@ -168,9 +168,9 @@ public abstract class EyeBase : Node
                 mask.Mask = (Sprite)currentBackground;
             }
         }
-        if (currentEyeBall != null && currentEyeBall.Parent == null)
+        if (CurrentEyeBall != null && CurrentEyeBall.Parent == null)
         {
-            content.AddChild(currentEyeBall);
+            content.AddChild(CurrentEyeBall);
         }
     }
 
@@ -179,12 +179,12 @@ public abstract class EyeBase : Node
         SuspendLayout();
         lockX = animation.LockX;
         lockY = animation.LockY;
-        endDispatcher = null;
+        EndDispatcher = null;
         if (animation.ReplaceBackground)
         {
             Node node = CreateBackground(animation);
             node.Position = currentBackground.Position;
-            endDispatcher = (IAnimatedNode)node;
+            EndDispatcher = (IAnimatedNode)node;
             currentBackground = node;
         }
         if (animation.ReplaceEye)
@@ -192,9 +192,9 @@ public abstract class EyeBase : Node
             Node node2 = CreateEyeBall(animation);
             if (!animation.ReplaceBackground)
             {
-                endDispatcher = (IAnimatedNode)node2;
+                EndDispatcher = (IAnimatedNode)node2;
             }
-            currentEyeBall = node2;
+            CurrentEyeBall = node2;
         }
         RefreshLayout();
     }
@@ -215,7 +215,7 @@ public abstract class EyeBase : Node
         {
             position.Y = 0f;
         }
-        currentEyeBall.Position = position;
+        CurrentEyeBall.Position = position;
     }
 
     private void Refresh()

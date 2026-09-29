@@ -17,9 +17,9 @@ public class SliderButtons(Slider slider) : IUpdatable
 
     private int _scrollDirection;
 
-    public float ScrollSpeed = 1f;
+    public float ScrollSpeed { get; set; } = 1f;
 
-    public bool IsStaticScrollSpeed;
+    public bool IsStaticScrollSpeed { get; set; }
 
     public void Initialize(Sprite upButton, Sprite downButton)
     {

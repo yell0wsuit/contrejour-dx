@@ -5,9 +5,9 @@ namespace FarseerPhysics.Controllers;
 
 public abstract class Controller(ControllerType controllerType) : FilterData
 {
-    public bool Enabled;
+    public bool Enabled { get; set; }
 
-    public World World;
+    public World World { get; set; }
 
     private readonly ControllerType _type = controllerType;
 

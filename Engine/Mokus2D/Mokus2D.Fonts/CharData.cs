@@ -12,7 +12,7 @@ public class CharData(FontData font, Rectangle textureRect, Vector2 anchor, floa
 {
     private readonly FontData _font = font;
 
-    public readonly float Width = width;
+    public float Width { get; } = width;
 
     public string Id => _font.Id;
 

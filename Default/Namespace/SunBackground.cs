@@ -9,26 +9,26 @@ public class SunBackground : MoveBackground
     public SunBackground(Node node, Hashtable config, ContreJourGame game)
         : base(node, config, game)
     {
-        if (this.game.CanShowIntro)
+        if (this.Game.CanShowIntro)
         {
             currentOpacity = 255f;
             return;
         }
         currentOpacity = 0f;
         node.Tweener.Stop();
-        this.game.FlyOpacity = 0f;
+        this.Game.FlyOpacity = 0f;
     }
 
     public override void Update(float time)
     {
         if (currentOpacity >= 0f)
         {
-            game.FlyOpacity = currentOpacity;
+            Game.FlyOpacity = currentOpacity;
             currentOpacity -= 0.4f;
         }
         else
         {
-            game.FlyOpacity = 0f;
+            Game.FlyOpacity = 0f;
         }
     }
 }

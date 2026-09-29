@@ -7,19 +7,19 @@ namespace Mokus2D.Visual.Data;
 [Serializable]
 public class AnimationFrameData
 {
-    public string Id;
+    public string Id { get; set; }
 
-    public Vector2 Position;
+    public Vector2 Position { get; set; }
 
-    public float Rotation;
+    public float Rotation { get; set; }
 
     public Vector2 Scale;
 
-    public float Alpha;
+    public float Alpha { get; set; }
 
-    public Color Color;
+    public Color Color { get; set; }
 
-    public float ColorRatio;
+    public float ColorRatio { get; set; }
 
-    public bool Visible;
+    public bool Visible { get; set; }
 }

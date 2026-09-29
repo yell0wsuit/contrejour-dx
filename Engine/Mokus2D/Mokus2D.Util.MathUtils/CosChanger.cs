@@ -8,13 +8,13 @@ namespace Mokus2D.Util.MathUtils;
 
 public class CosChanger
 {
-    public float Progress;
+    public float Progress { get; set; }
 
-    public float Step;
+    public float Step { get; set; }
 
-    public float MinValue;
+    public float MinValue { get; set; }
 
-    public float MaxValue;
+    public float MaxValue { get; set; }
 
     public float Value { get; private set; }
 

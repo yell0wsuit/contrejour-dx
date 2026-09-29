@@ -54,7 +54,7 @@ public class TrampolineSnotProcessor(LevelBuilderBase builder) : BridgeSnotProce
         Vector2 vector2 = vector;
         vector += endPoint;
         vector2 += endPoint;
-        DistanceJoint val = JointFactory.CreateDistanceJoint(builder.World, startBody, endBody, vector2 - startBody.Position, vector - endBody.Position, false);
+        DistanceJoint val = JointFactory.CreateDistanceJoint(Builder.World, startBody, endBody, vector2 - startBody.Position, vector - endBody.Position, false);
         val.Length = 0f;
         val.Frequency = 4.5f;
         val.DampingRatio = 1f;
@@ -65,17 +65,17 @@ public class TrampolineSnotProcessor(LevelBuilderBase builder) : BridgeSnotProce
     {
         Body val = base.CreatePartBodyEndIndexTotalDensity(startPoint, endPoint, index, total, density);
         PlasticineConstants.ApplyActiveBodiesFilter(val);
-        TrampolinePartBodyClip item = new(builder, val);
+        TrampolinePartBodyClip item = new(Builder, val);
         parts.Add(item);
         val.AngularDamping = 20f;
         Body val2 = null;
         if (index == 0)
         {
-            val2 = builder.World.CreateCircle(StartRadius, startPoint + new Vector2(0f, StartRadius));
+            val2 = Builder.World.CreateCircle(StartRadius, startPoint + new Vector2(0f, StartRadius));
         }
         else if (index == total - 1)
         {
-            val2 = builder.World.CreateCircle(StartRadius, endPoint + new Vector2(0f, StartRadius));
+            val2 = Builder.World.CreateCircle(StartRadius, endPoint + new Vector2(0f, StartRadius));
         }
         if (val2 != null)
         {
@@ -94,9 +94,9 @@ public class TrampolineSnotProcessor(LevelBuilderBase builder) : BridgeSnotProce
         }
         Vector2 vector = item.GetVector("end");
         Vector2 vector2 = item.GetVector("start");
-        _ = FarseerUtil.CreateRevoluteJoint(builder.World, builder.GroundBody, snotData.EndBody, vector);
-        _ = FarseerUtil.CreateRevoluteJoint(builder.World, builder.GroundBody, snotData.FirstBody, vector2);
-        builder.World.RemoveBody(snotData.EyeBody);
+        _ = FarseerUtil.CreateRevoluteJoint(Builder.World, Builder.GroundBody, snotData.EndBody, vector);
+        _ = FarseerUtil.CreateRevoluteJoint(Builder.World, Builder.GroundBody, snotData.FirstBody, vector2);
+        Builder.World.RemoveBody(snotData.EyeBody);
         snotData.EyeBody = null;
         return snotData;
     }

@@ -20,9 +20,9 @@ public abstract class AnimationNode : Node, IAnimatedNode, IConfig, IBoundsNode,
 {
     private AnimationData _animationData;
 
-    public bool AnimationEnabled = true;
+    public bool AnimationEnabled { get; set; } = true;
 
-    public bool TweenEdgeFrames = true;
+    public bool TweenEdgeFrames { get; set; } = true;
 
     internal readonly BiDictionary<string, Node> AnimatedChildren = [];
 

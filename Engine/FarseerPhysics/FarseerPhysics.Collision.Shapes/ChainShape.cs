@@ -6,7 +6,7 @@ namespace FarseerPhysics.Collision.Shapes;
 
 public class ChainShape : Shape
 {
-    public Vertices Vertices;
+    public Vertices Vertices { get; set; }
 
     private Vector2 _prevVertex;
 

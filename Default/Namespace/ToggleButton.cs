@@ -76,7 +76,7 @@ public class ToggleButton : Button
     public void RefreshToggle()
     {
         ToggleIcon.Tweener.Stop();
-        if (toggle || touching)
+        if (toggle || Touching)
         {
             ToggleIcon.Visible = true;
             _ = ToggleIcon.FadeIn(0.2f);

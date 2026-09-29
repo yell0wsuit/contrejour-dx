@@ -11,10 +11,10 @@ namespace Mokus2D.UI.Grids;
 public class ListView<T> : Node, IListView
 {
     private readonly ListViewRenderers<T> _renderers;
-    public readonly Node ItemsContainer = new();
+    public Node ItemsContainer { get; } = new();
 
     private readonly ListViewLayout<T> _layout;
-    public object SharedData;
+    public object SharedData { get; set; }
 
     public int ItemsCount { get; private set; }
 

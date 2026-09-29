@@ -63,9 +63,9 @@ public class Contact
 
     internal float _toi;
 
-    public Fixture FixtureA;
+    public Fixture FixtureA { get; set; }
 
-    public Fixture FixtureB;
+    public Fixture FixtureB { get; set; }
 
     public Manifold Manifold;
 

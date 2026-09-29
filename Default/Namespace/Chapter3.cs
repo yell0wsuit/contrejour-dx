@@ -12,11 +12,11 @@ public class Chapter3(int index, MainMenu menu) : ChapterItem(index, menu)
     protected override void CreateSprites()
     {
         AddShesterna("planets/McPlanetShesterna", 5, new Vector2(-40f, 60f)).Color = new Color(100, 100, 100);
-        blurBackground = new McChapter3Blur();
-        background = new McPlanet3Background();
-        container.AddChild(background);
+        BlurBackground = new McChapter3Blur();
+        Background = new McPlanet3Background();
+        Container.AddChild(Background);
         Sprite sprite = new McPlanet3Light();
-        container.AddChild(sprite);
+        Container.AddChild(sprite);
         _ = sprite.Tweener.RepeatSequenceForever(4f).FadeTo(20f / 51f).Next(5f)
             .FadeTo(0.7058824f);
         RotatingSprite rotatingSprite = AddShesterna("planets/McPlanetShesterna", 10, new Vector2(-27f, -5f));
@@ -26,22 +26,22 @@ public class Chapter3(int index, MainMenu menu) : ChapterItem(index, menu)
         _ = AddShesterna("planets/McPlanetShesterna2", -20, new Vector2(40f, 30f));
         _ = AddShesterna("planets/McPlanetShesterna3", -400, new Vector2(74f, 25f));
         rotatingSprite = AddShesterna("planets/McPlanetCross", -200, new Vector2(104f, 24f));
-        alphaItems.Add(rotatingSprite);
+        AlphaItems.Add(rotatingSprite);
         rotatingSprite = AddShesterna("menu/McMenuCircleSpikes", -400, new Vector2(50f, 69f));
-        alphaItems.Add(rotatingSprite);
+        AlphaItems.Add(rotatingSprite);
         rotatingSprite = AddShesterna("menu/McMenuCircleSpikes", -200, new Vector2(67f, 54f));
-        alphaItems.Add(rotatingSprite);
+        AlphaItems.Add(rotatingSprite);
         McPlanetStick mcPlanetStick = new()
         {
             Position = new Vector2(30f, 96f)
         };
-        container.AddChild(mcPlanetStick);
+        Container.AddChild(mcPlanetStick);
         mcPlanetStick.RotationDegrees = -26f;
         mcPlanetStick.Speed = 1.3f;
         AddUpdating(mcPlanetStick.content);
-        alphaItems.Add(mcPlanetStick);
+        AlphaItems.Add(mcPlanetStick);
         Sprite node = new McPlanet3Foreground();
-        container.AddChild(node);
+        Container.AddChild(node);
     }
 
     private RotatingSprite AddShesterna(string spriteName, int speed, Vector2 position)
@@ -51,7 +51,7 @@ public class Chapter3(int index, MainMenu menu) : ChapterItem(index, menu)
             Speed = speed,
             Position = position
         };
-        container.AddChild(rotatingSprite);
+        Container.AddChild(rotatingSprite);
         AddUpdating(rotatingSprite);
         return rotatingSprite;
     }

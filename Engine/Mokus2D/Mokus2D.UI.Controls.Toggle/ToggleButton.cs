@@ -10,7 +10,7 @@ namespace Mokus2D.UI.Controls.Toggle;
 
 public class ToggleButton(AnchorNode content, IOnOff effect) : Button(content, effect)
 {
-    public bool ToggleOnTouchBegin;
+    public bool ToggleOnTouchBegin { get; set; }
 
     private readonly bool HighliteOnPressed = true;
 

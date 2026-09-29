@@ -29,7 +29,7 @@ public class SpringBridgeHint : FadeHint
     {
         base.Restart();
         RemoveListeners();
-        hasToRun = sucker.Autocreated;
+        HasToRun = sucker.Autocreated;
         if (sucker.Autocreated)
         {
             sucker.ContactEvent.AddListener(OnContact);

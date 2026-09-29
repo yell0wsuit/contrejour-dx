@@ -16,7 +16,7 @@ public class ApplicationController(Microsoft.Xna.Framework.Game application, Gra
 
     private readonly GraphicsDeviceManager _graphics = graphics;
 
-    public readonly Microsoft.Xna.Framework.Game Application = application;
+    public Microsoft.Xna.Framework.Game Application { get; } = application;
 
     public MokusContentManager Content => (MokusContentManager)Application.Content;
 

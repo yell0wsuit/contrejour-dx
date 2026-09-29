@@ -9,15 +9,15 @@ namespace Mokus2D.Config;
 
 public class GameConfig
 {
-    public float AnimationFPS = 30f;
+    public float AnimationFPS { get; set; } = 30f;
 
-    public bool RenderTargetEnabled = true;
+    public bool RenderTargetEnabled { get; set; } = true;
 
-    public float MouseSpeed = 1f;
+    public float MouseSpeed { get; set; } = 1f;
 
-    public readonly DebugConfig DebugConfig = new();
+    public DebugConfig DebugConfig { get; } = new();
 
-    public IGraphicsLoader GraphicsLoader = new SpriteLoaderCache(new OneFileResourcesLoader());
+    public IGraphicsLoader GraphicsLoader { get; set; } = new SpriteLoaderCache(new OneFileResourcesLoader());
     public SpriteBatchProperties DefaultSpriteBatchProperties = new(BlendState.AlphaBlend, SamplerState.LinearClamp);
 
     public IGraphicsConfig GraphicsConfig

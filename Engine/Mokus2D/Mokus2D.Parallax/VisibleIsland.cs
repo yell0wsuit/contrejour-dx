@@ -12,7 +12,7 @@ public class VisibleIsland
 
     private readonly VisibleIslandChildren _children;
 
-    public readonly Point GridPosition;
+    public Point GridPosition { get; }
 
     private bool _inLoop;
 

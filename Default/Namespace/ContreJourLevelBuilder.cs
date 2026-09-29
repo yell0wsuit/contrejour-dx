@@ -11,17 +11,17 @@ public class ContreJourLevelBuilder(GameBase game) : LevelBuilderBase(game)
     public override void AddProcessors()
     {
         base.AddProcessors();
-        processors.Add(new PlasticineProcessor(this));
-        processors.Add(new SnotProcessor(this));
-        processors.Add(new BackSnotProcessor(this));
-        processors.Add(new StrongSnotProcessor(this));
-        processors.Add(new BridgeSnotProcessor(this));
-        processors.Add(new VariableSnotProcessor(this));
-        processors.Add(new TrampolineSnotProcessor(this));
-        processors.Add(new LightPointProcessor(this));
-        processors.Add(new ForegroundProcessor(this));
-        processors.Add(new LianaProcessor(this));
-        processors.Add(new FakeProcessor("hint", this));
+        Processors.Add(new PlasticineProcessor(this));
+        Processors.Add(new SnotProcessor(this));
+        Processors.Add(new BackSnotProcessor(this));
+        Processors.Add(new StrongSnotProcessor(this));
+        Processors.Add(new BridgeSnotProcessor(this));
+        Processors.Add(new VariableSnotProcessor(this));
+        Processors.Add(new TrampolineSnotProcessor(this));
+        Processors.Add(new LightPointProcessor(this));
+        Processors.Add(new ForegroundProcessor(this));
+        Processors.Add(new LianaProcessor(this));
+        Processors.Add(new FakeProcessor("hint", this));
     }
 
     public void AddAlphaBackground(Node child)
@@ -46,9 +46,9 @@ public class ContreJourLevelBuilder(GameBase game) : LevelBuilderBase(game)
 
     public override void Update(float time)
     {
-        float num = Math.Min(time, maxWorldUpdateTime) * physicsSpeed / 2f;
+        float num = Math.Min(time, MaxWorldUpdateTime) * physicsSpeed / 2f;
         world.Step(num);
         world.Step(num);
-        updater.Update(time);
+        Updater.Update(time);
     }
 }

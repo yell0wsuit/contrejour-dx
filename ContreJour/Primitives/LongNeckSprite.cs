@@ -19,17 +19,17 @@ public abstract class LongNeckSprite : PrimitivesNode
 {
     private bool created;
 
-    protected VertexPositionColorTexture[] vertices;
+    protected VertexPositionColorTexture[] Vertices { get; set; }
 
-    protected VertexPositionColorTexture[] border;
+    protected VertexPositionColorTexture[] Border { get; set; }
 
     private Color neckColor;
 
     private Color drawNeckColor;
 
-    protected float borderWidth;
+    protected float BorderWidth { get; set; }
 
-    protected int allPointsSize;
+    protected int AllPointsSize { get; set; }
 
     private Rectangle textureRect = new(0, 0, 0, 0);
 
@@ -89,11 +89,11 @@ public abstract class LongNeckSprite : PrimitivesNode
         set
         {
             neckColor = value;
-            if (border != null && drawBorder)
+            if (Border != null && drawBorder)
             {
                 SetBorderColors();
             }
-            if (vertices != null)
+            if (Vertices != null)
             {
                 SetNeckColors();
             }
@@ -103,7 +103,7 @@ public abstract class LongNeckSprite : PrimitivesNode
     protected LongNeckSprite()
     {
         neckColor = new Color(0, 0, 0, 255);
-        borderWidth = 2f;
+        BorderWidth = 2f;
     }
 
     public abstract void GetPairs(List<Pair<Vector2>> target);
@@ -149,12 +149,12 @@ public abstract class LongNeckSprite : PrimitivesNode
         for (int i = 0; i < firstBezier.Count - 1; i++)
         {
             int num = i * 6;
-            vertices[num].Position = firstBezier[i].ToVector3();
-            vertices[num + 1].Position = firstBezier[i + 1].ToVector3();
-            vertices[num + 2].Position = secondBezier[i].ToVector3();
-            vertices[num + 3].Position = secondBezier[i].ToVector3();
-            vertices[num + 4].Position = secondBezier[i + 1].ToVector3();
-            vertices[num + 5].Position = firstBezier[i + 1].ToVector3();
+            Vertices[num].Position = firstBezier[i].ToVector3();
+            Vertices[num + 1].Position = firstBezier[i + 1].ToVector3();
+            Vertices[num + 2].Position = secondBezier[i].ToVector3();
+            Vertices[num + 3].Position = secondBezier[i].ToVector3();
+            Vertices[num + 4].Position = secondBezier[i + 1].ToVector3();
+            Vertices[num + 5].Position = firstBezier[i + 1].ToVector3();
             if (Texture != null)
             {
                 RefreshTextureCoords(i, num);
@@ -180,12 +180,12 @@ public abstract class LongNeckSprite : PrimitivesNode
         Vector2 texturePosition2 = textureCoords.GetTexturePosition(new Vector2(num, 1f));
         Vector2 texturePosition3 = textureCoords.GetTexturePosition(new Vector2(num2, 0f));
         Vector2 texturePosition4 = textureCoords.GetTexturePosition(new Vector2(num2, 1f));
-        vertices[start].TextureCoordinate = texturePosition;
-        vertices[start + 1].TextureCoordinate = texturePosition3;
-        vertices[start + 2].TextureCoordinate = texturePosition2;
-        vertices[start + 3].TextureCoordinate = texturePosition2;
-        vertices[start + 4].TextureCoordinate = texturePosition4;
-        vertices[start + 5].TextureCoordinate = texturePosition3;
+        Vertices[start].TextureCoordinate = texturePosition;
+        Vertices[start + 1].TextureCoordinate = texturePosition3;
+        Vertices[start + 2].TextureCoordinate = texturePosition2;
+        Vertices[start + 3].TextureCoordinate = texturePosition2;
+        Vertices[start + 4].TextureCoordinate = texturePosition4;
+        Vertices[start + 5].TextureCoordinate = texturePosition3;
     }
 
     public void ProcessBezierSecond(List<Vector2> firstBezier, List<Vector2> secondBezier)
@@ -195,7 +195,7 @@ public abstract class LongNeckSprite : PrimitivesNode
         allPoints.AddItemsNoGarbage(secondBezier);
         allPoints.AddItemsNoGarbage(firstBezier, firstBezier.Count - 1, 0);
         TryCreateVectors(allPoints);
-        GraphUtil.CreateGradientBorderWidthVertices(allPoints, borderWidth, border);
+        GraphUtil.CreateGradientBorderWidthVertices(allPoints, BorderWidth, Border);
     }
 
     public void TryCreateVectors(List<Vector2> allPoints)
@@ -209,26 +209,26 @@ public abstract class LongNeckSprite : PrimitivesNode
 
     public virtual void CreateVectors(int allPointsSize)
     {
-        vertices = new VertexPositionColorTexture[(allPointsSize - 2) * 3];
-        this.allPointsSize = allPointsSize;
-        border = new VertexPositionColorTexture[this.allPointsSize * 6];
+        Vertices = new VertexPositionColorTexture[(allPointsSize - 2) * 3];
+        this.AllPointsSize = allPointsSize;
+        Border = new VertexPositionColorTexture[this.AllPointsSize * 6];
         SetBorderColors();
         SetNeckColors();
     }
 
     protected virtual void SetNeckColors()
     {
-        if (vertices != null)
+        if (Vertices != null)
         {
-            GraphUtil.SetColor(vertices, drawNeckColor);
+            GraphUtil.SetColor(Vertices, drawNeckColor);
         }
     }
 
     public virtual void SetBorderColors()
     {
-        if (border != null && drawBorder)
+        if (Border != null && drawBorder)
         {
-            GraphUtil.CreateGradientColorsList(allPointsSize, drawNeckColor, EndColor(), border);
+            GraphUtil.CreateGradientColorsList(AllPointsSize, drawNeckColor, EndColor(), Border);
         }
     }
 
@@ -260,17 +260,17 @@ public abstract class LongNeckSprite : PrimitivesNode
 
     public virtual void DrawBorder()
     {
-        if (border != null && drawBorder)
+        if (Border != null && drawBorder)
         {
-            GraphUtil.DrawTriangleList(border);
+            GraphUtil.DrawTriangleList(Border);
         }
     }
 
     public virtual void DrawPolygons()
     {
-        if (vertices != null)
+        if (Vertices != null)
         {
-            GraphUtil.DrawTriangleList(vertices);
+            GraphUtil.DrawTriangleList(Vertices);
         }
     }
 }

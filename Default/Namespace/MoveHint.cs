@@ -46,7 +46,7 @@ public class MoveHint(ContreJourLevelBuilder builder, object body, Sprite clip, 
         if (!used)
         {
             used = true;
-            hiding = true;
+            Hiding = true;
             Hide(0.5f * clip.OpacityByte / 255f);
         }
     }

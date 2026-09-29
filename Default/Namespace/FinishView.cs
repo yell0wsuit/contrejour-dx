@@ -34,7 +34,7 @@ public class FinishView : MovieStripesView, IDisposable
 
     private readonly Color GreyColor = ContreJourConstants.GreyColor;
 
-    public readonly EventSender NextLevelEvent = new();
+    public EventSender NextLevelEvent { get; } = new();
 
     private List<Button> buttons = [];
 

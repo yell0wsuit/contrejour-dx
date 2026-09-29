@@ -7,7 +7,7 @@ namespace Mokus2D.Visual.Shaders.NormalMap;
 
 public abstract class NormalMapEffectBase : TextureMatrixEffectBase
 {
-    public readonly ShaderParameterInt LightsCount;
+    public ShaderParameterInt LightsCount { get; }
 
     private readonly EffectParameter _lightPosition;
 

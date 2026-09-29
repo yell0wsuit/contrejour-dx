@@ -9,7 +9,7 @@ namespace ContreJourMono.ContreJour.Game.Hero;
 
 public class PointAndAngle(float length, float angleStep, float angleOffset)
 {
-    public float Angle;
+    public float Angle { get; set; }
     private readonly float length = length;
 
     private Vector2 position = new(length * 0.5f, 0f);

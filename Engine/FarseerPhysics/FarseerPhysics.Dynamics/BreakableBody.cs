@@ -22,7 +22,7 @@ public class BreakableBody
 
     private bool Broken;
 
-    public Body MainBody;
+    public Body MainBody { get; set; }
 
     private readonly List<Fixture> Parts = new(8);
 
@@ -69,7 +69,7 @@ public class BreakableBody
             int pointCount = contact.Manifold.PointCount;
             for (int i = 0; i < pointCount; i++)
             {
-                num = Math.Max(num, impulse.points[i].normalImpulse);
+                num = Math.Max(num, impulse.Points[i].NormalImpulse);
             }
             if (num > Strength)
             {
