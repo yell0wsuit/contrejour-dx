@@ -4,9 +4,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Xml;
-using System.Xml.Linq;
-using System.Xml.Serialization;
+using System.Text.Json;
 
 using ContreJour.Gameplay;
 
@@ -51,9 +49,6 @@ namespace ContreJour.Regression
         // When set, every recorded frame's body and node hashes (and each body's state) are written
         // here, to find the first frame where two runs diverge.
         public static readonly string TracePath = Environment.GetEnvironmentVariable("CJ_REGRESSION_TRACE");
-
-        // A save file written by an earlier build; loading it checks that old saves still read the same.
-        public static readonly string OldSavePath = Environment.GetEnvironmentVariable("CJ_REGRESSION_OLD_SAVE");
 
         private enum Phase
         {
@@ -252,53 +247,30 @@ namespace ContreJour.Regression
             ApplicationController.Application.Exit();
         }
 
-        // The save file is UserData serialized with XmlSerializer, so its public members are a file
-        // format. Hash a canonical form (member order ignored) of this run's save, and of an older
-        // save loaded and written back, to catch changes to what gets saved or read.
+        // The save file is UserData written as JSON by UserDataJsonContext. Record some level results
+        // (so level entries are written too), save through the game, and hash the file. Reading it back
+        // and writing it again must give the same bytes.
         private void WriteSaveChecks()
         {
-            XmlSerializer serializer = new(typeof(UserData));
-            _writer.WriteLine($"save fresh {CanonicalHash(serializer, UserData.Instance)}");
-            if (OldSavePath != null)
-            {
-                using XmlReader reader = XmlReader.Create(OldSavePath);
-                UserData old = (UserData)serializer.Deserialize(reader);
-                _writer.WriteLine($"save old {CanonicalHash(serializer, old)}");
-            }
-        }
+            UserData data = UserData.Instance;
+            data.SetLevelData(new LevelData(4200, 3), 0);
+            data.SetLevelData(new LevelData(2150, 2), 24);
+            data.SetUnlockedLevelsChapter(5, 1);
+            data.UnlockChapter(1);
+            UserData.SaveUserData();
 
-        private string CanonicalHash(XmlSerializer serializer, UserData data)
-        {
-            using MemoryStream stream = new();
-            serializer.Serialize(stream, data);
-            stream.Position = 0;
+            byte[] saved = File.ReadAllBytes(Path.Combine(UserData.DataDirectory, "contreJourData.json"));
+            UserData loaded = JsonSerializer.Deserialize(saved, UserDataJsonContext.Default.UserData);
+            byte[] resaved = JsonSerializer.SerializeToUtf8Bytes(loaded, UserDataJsonContext.Default.UserData);
+
             _hash = FnvOffset;
-            Mix(Canonical(XElement.Load(stream)));
-            return _hash.ToString("x16", CultureInfo.InvariantCulture);
-        }
-
-        // Members may be written in any order, but repeated elements (array items) keep theirs.
-        private static string Canonical(XElement element)
-        {
-            StringBuilder builder = new();
-            _ = builder.Append('<').Append(element.Name.LocalName);
-            foreach (XAttribute attribute in element.Attributes().Where(a => !a.IsNamespaceDeclaration).OrderBy(a => a.Name.LocalName, StringComparer.Ordinal))
+            foreach (byte b in saved)
             {
-                _ = builder.Append(' ').Append(attribute.Name.LocalName).Append('=').Append(attribute.Value);
+                _hash = (_hash ^ b) * FnvPrime;
             }
-            _ = builder.Append('>');
-            if (element.HasElements)
-            {
-                foreach (XElement child in element.Elements().OrderBy(e => e.Name.LocalName, StringComparer.Ordinal))
-                {
-                    _ = builder.Append(Canonical(child));
-                }
-            }
-            else
-            {
-                _ = builder.Append(element.Value);
-            }
-            return builder.Append("</>").ToString();
+            string roundTrip = saved.AsSpan().SequenceEqual(resaved) ? "ok" : "CHANGED";
+            _writer.WriteLine($"save {_hash:x16} round-trip {roundTrip}");
+            Failed |= roundTrip != "ok";
         }
 
         private static T Find<T>(Node node) where T : Node

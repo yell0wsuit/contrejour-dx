@@ -1,23 +1,20 @@
 using System;
 using System.Globalization;
 using System.IO;
-using System.Xml;
-using System.Xml.Serialization;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 using Mokus2D.Sound;
 using Mokus2D.Util;
-using Mokus2D.Util.Data;
 
 namespace ContreJour.Gameplay
 {
     public class UserData
     {
-        private const string FileName = "contreJourData.xml";
+        private const string FileName = "contreJourData.json";
         private static readonly int[] StarsToUnlockByChapter = [0, 30, 70, 120, 180];
 
         private static UserData instance;
-
-        private static readonly XmlSerializer serializer = new(typeof(UserData));
 
         private static LevelPosition postponedLevel;
         private int unlockedChapters;
@@ -141,7 +138,8 @@ namespace ContreJour.Gameplay
 
         public event Action<int> TotalStarsChanged;
 
-        private UserData()
+        [JsonConstructor]
+        internal UserData()
         {
             SoundManager.MusicDisableEvent += OnMusicDisable;
         }
@@ -354,10 +352,8 @@ namespace ContreJour.Gameplay
         {
             try
             {
-                byte[] array = File.ReadAllBytes(DataFilePath);
-                byte[] buffer = CryptUtils.RunProtector(array);
-                using XmlReader reader = XmlReader.Create(new MemoryStream(buffer));
-                return ((UserData)serializer.Deserialize(reader)) ?? new UserData();
+                using FileStream stream = File.OpenRead(DataFilePath);
+                return JsonSerializer.Deserialize(stream, UserDataJsonContext.Default.UserData) ?? new UserData();
             }
             catch (Exception)
             {
@@ -369,10 +365,10 @@ namespace ContreJour.Gameplay
         {
             if (instance != null)
             {
-                MemoryStream memoryStream = new();
-                serializer.Serialize(memoryStream, instance);
-                _ = Directory.CreateDirectory(Path.GetDirectoryName(DataFilePath));
-                File.WriteAllBytes(DataFilePath, CryptUtils.RunProtector(memoryStream.ToArray()));
+                // Serialized in full before the file is touched, so a failure can't leave a partial save.
+                byte[] json = JsonSerializer.SerializeToUtf8Bytes(instance, UserDataJsonContext.Default.UserData);
+                _ = Directory.CreateDirectory(DataDirectory);
+                File.WriteAllBytes(DataFilePath, json);
             }
         }
     }
