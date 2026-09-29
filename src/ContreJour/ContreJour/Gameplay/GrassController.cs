@@ -136,11 +136,11 @@ namespace ContreJour.Gameplay
                     touchingObject = null;
                 }
             }
-            float target = MathHelper.ToDegrees(num);
+            float target = XnaMath.ToDegrees(num);
             float num6 = time * 30f;
             float smallGrassStep = SmallGrassStep;
             float grassStep = GrassStep;
-            smallGrassRotation = Maths.StepTo(smallGrassRotation, MathHelper.ToDegrees(num2), smallGrassStep * num6);
+            smallGrassRotation = Maths.StepTo(smallGrassRotation, XnaMath.ToDegrees(num2), smallGrassStep * num6);
             Grass.RotationDegrees = Maths.StepTo(Grass.RotationDegrees, target, grassStep * num6);
             touched = false;
         }

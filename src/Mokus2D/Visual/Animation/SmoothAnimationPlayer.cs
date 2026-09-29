@@ -56,20 +56,20 @@ namespace Mokus2D.Visual.Animation
             Vector2 vector = (node.Root != null) ? node.Root.SpritesScaleFactor.Signs() : Vector2.One;
             if (!child.IgnoredAnimations.Position)
             {
-                child.Position = Vector2.Lerp(previousData.Position, nextData.Position, offset) * vector;
+                child.Position = XnaMath.Lerp(previousData.Position, nextData.Position, offset) * vector;
             }
             if (!child.IgnoredAnimations.Rotation)
             {
                 float value = Maths.SimplifyAngleDegrees(nextData.Rotation, previousData.Rotation - 180f);
-                child.RotationDegrees = MathHelper.Lerp(previousData.Rotation, value, offset) * vector.X * vector.Y;
+                child.RotationDegrees = XnaMath.Lerp(previousData.Rotation, value, offset) * vector.X * vector.Y;
             }
             if (!child.IgnoredAnimations.Opacity)
             {
-                child.OpacityFloat = MathHelper.Lerp(previousData.Alpha, nextData.Alpha, offset);
+                child.OpacityFloat = XnaMath.Lerp(previousData.Alpha, nextData.Alpha, offset);
             }
             if (!child.IgnoredAnimations.Scale)
             {
-                child.ScaleVec = Vector2.Lerp(previousData.Scale, nextData.Scale, offset);
+                child.ScaleVec = XnaMath.Lerp(previousData.Scale, nextData.Scale, offset);
             }
             if (!child.IgnoredAnimations.Color)
             {

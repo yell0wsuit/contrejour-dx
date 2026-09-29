@@ -81,7 +81,7 @@ namespace Mokus2D.Visual.Particles.Data
             {
                 Particle.Color = Color.Lerp(SystemConfig.StartColor, SystemConfig.EndColor, amount2);
             }
-            Particle.ScaleVec = Vector2.Lerp(StartScale, EndScale, amount2);
+            Particle.ScaleVec = XnaMath.Lerp(StartScale, EndScale, amount2);
             if (SystemConfig.LockRotationToSpeed)
             {
                 Particle.RotationRadians = Speed.Atan2();

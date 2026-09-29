@@ -103,8 +103,8 @@ namespace Mokus2D.Visual
 
         public float RotationDegrees
         {
-            get => MathHelper.ToDegrees(RotationRadians);
-            set => RotationRadians = MathHelper.ToRadians(value);
+            get => XnaMath.ToDegrees(RotationRadians);
+            set => RotationRadians = XnaMath.ToRadians(value);
         }
 
         public bool VisibleAndUpdating
@@ -536,8 +536,8 @@ namespace Mokus2D.Visual
             {
                 RefreshParentTransformations();
             }
-            Matrix matrix = Matrix.Invert(CompositeState.Matrix);
-            return Vector2.Transform(source, matrix);
+            Matrix matrix = XnaMath.Invert(CompositeState.Matrix);
+            return XnaMath.Transform(source, matrix);
         }
 
         public Vector2 LocalToGlobal(Vector2 source, bool refreshTransformations = true)
@@ -546,7 +546,7 @@ namespace Mokus2D.Visual
             {
                 RefreshParentTransformations();
             }
-            return Vector2.Transform(source, CompositeState.Matrix);
+            return XnaMath.Transform(source, CompositeState.Matrix);
         }
 
         private void RefreshParentTransformations()

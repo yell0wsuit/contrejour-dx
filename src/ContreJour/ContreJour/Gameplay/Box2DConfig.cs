@@ -1,5 +1,7 @@
 using Microsoft.Xna.Framework;
 
+using Mokus2D.Util.MathUtils;
+
 namespace ContreJour.Gameplay
 {
     public class Box2DConfig
@@ -46,12 +48,12 @@ namespace ContreJour.Gameplay
 
         public Vector2 ToPoint(Vector2 vec)
         {
-            return vec / SizeMultiplier;
+            return XnaMath.Divide(vec, SizeMultiplier);
         }
 
         public Vector3 ToPoint(Vector3 vec)
         {
-            return vec / SizeMultiplier;
+            return XnaMath.Divide(vec, SizeMultiplier);
         }
 
         public Vector2 ToVec(Vector2 point)

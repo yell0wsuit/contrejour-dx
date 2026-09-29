@@ -14,7 +14,7 @@ namespace Mokus2D.Visual.Particles.Util
 
         public static Vector2Range Create(Vector2 min, Vector2 max)
         {
-            Vector2 vector = (min + max) / 2f;
+            Vector2 vector = XnaMath.Divide(min + max, 2f);
             return new Vector2Range(vector, (max - vector).Abs());
         }
 

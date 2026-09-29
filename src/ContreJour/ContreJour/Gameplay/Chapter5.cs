@@ -72,7 +72,7 @@ namespace ContreJour.Gameplay
                 Visible = false
             };
             foregroundContainer.AddChild(foreground);
-            foreground.Position = -rootSize / 2f;
+            foreground.Position = XnaMath.Divide(-rootSize, 2f);
             foregroundContainer.Position = -foreground.Position;
             Menu.AddForeground(foregroundContainer);
             _ = AddForegroundPositionScaleAngle(new McLeafView4(), new Vector2(rootSize.X - 1024f + 624f, rootSize.Y - 27f), new Vector2(1.72f, 1.29f), 171f);

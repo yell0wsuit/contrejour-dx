@@ -2,13 +2,15 @@ using System;
 
 using Microsoft.Xna.Framework;
 
+using Mokus2D.Util.MathUtils;
+
 namespace Mokus2D.Visual.Data
 {
     public static class MatrixUtil
     {
         public static Matrix CalculateTransformMatrix(Vector2 position, float rotationRadians, Vector2 scaleVec)
         {
-            return Matrix.CreateScale(scaleVec.X, scaleVec.Y, 1f) * Matrix.CreateRotationZ(rotationRadians) * Matrix.CreateTranslation(position.X, position.Y, 0f);
+            return XnaMath.Multiply(XnaMath.Multiply(Matrix.CreateScale(scaleVec.X, scaleVec.Y, 1f), XnaMath.CreateRotationZ(rotationRadians)), Matrix.CreateTranslation(position.X, position.Y, 0f));
         }
 
         public static Matrix Decompose2D(this Matrix matrix, out Vector3 scale, out Vector3 translation)

@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 
 using Mokus2D.Input;
 using Mokus2D.Util;
+using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual;
 using Mokus2D.Visual.Interactive;
 
@@ -89,7 +90,7 @@ namespace Mokus2D.Platforms.Input
             {
                 MouseSnapshot mouse = Mokus2DGame.Input.GetMouse();
                 DispatchScroll(mouse);
-                CursorPosition = Vector2.Transform(mouse.Position, Mokus2DGame.Instance.TouchController.TransformMatrix);
+                CursorPosition = XnaMath.Transform(mouse.Position, Mokus2DGame.Instance.TouchController.TransformMatrix);
                 ProcessButton(mouse.Left, ref _leftPressed, LeftButtonPress, LeftButtonRelease);
                 ProcessButton(mouse.Right, ref _rightPressed, RightButtonPress, RightButtonRelease);
                 ProcessButton(mouse.Middle, ref _middlePressed, MiddleButtonPress, MiddleButtonRelease);

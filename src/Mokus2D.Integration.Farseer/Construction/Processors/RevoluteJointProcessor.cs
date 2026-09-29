@@ -3,6 +3,7 @@ using FarseerPhysics.Dynamics.Joints;
 using Microsoft.Xna.Framework;
 
 using Mokus2D.Util.Extensions;
+using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual;
 
 namespace Mokus2D.Integration.Farseer.Construction.Processors
@@ -16,8 +17,8 @@ namespace Mokus2D.Integration.Farseer.Construction.Processors
             if (item.Config.GetBool("limitEnabled"))
             {
                 revoluteJoint.LimitEnabled = true;
-                revoluteJoint.LowerLimit = MathHelper.ToRadians(item.Config.GetFloat("lowerLimit"));
-                revoluteJoint.UpperLimit = MathHelper.ToRadians(item.Config.GetFloat("upperLimit"));
+                revoluteJoint.LowerLimit = XnaMath.ToRadians(item.Config.GetFloat("lowerLimit"));
+                revoluteJoint.UpperLimit = XnaMath.ToRadians(item.Config.GetFloat("upperLimit"));
             }
             revoluteJoint.CollideConnected = item.Config.GetBool("collideConnected");
             return revoluteJoint;

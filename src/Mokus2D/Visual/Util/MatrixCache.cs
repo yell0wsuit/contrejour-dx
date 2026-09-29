@@ -2,6 +2,8 @@ using System.Collections.Generic;
 
 using Microsoft.Xna.Framework;
 
+using Mokus2D.Util.MathUtils;
+
 namespace Mokus2D.Visual.Util
 {
     public static class MatrixCache
@@ -20,7 +22,7 @@ namespace Mokus2D.Visual.Util
 
         private static Matrix CreateScreenMatrix(Vector2 size)
         {
-            return Matrix.CreateTranslation((0f - size.X) / 2f, (0f - size.Y) / 2f, 0f) * Matrix.CreateRotationX(MathHelper.ToRadians(180f)) * Matrix.CreateScale(2f / size.X, 2f / size.Y, 0f);
+            return XnaMath.Multiply(XnaMath.Multiply(Matrix.CreateTranslation((0f - size.X) / 2f, (0f - size.Y) / 2f, 0f), XnaMath.CreateRotationX(XnaMath.ToRadians(180f))), Matrix.CreateScale(2f / size.X, 2f / size.Y, 0f));
         }
     }
 }

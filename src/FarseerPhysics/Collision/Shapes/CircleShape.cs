@@ -63,7 +63,7 @@ namespace FarseerPhysics.Collision.Shapes
             if (0f <= num5 && num5 <= input.MaxFraction * num3)
             {
                 output.Normal = vector2 + ((output.Fraction = num5 / num3) * vector3);
-                output.Normal.Normalize();
+                output.Normal = XnaMath.Normalize(output.Normal);
                 return true;
             }
             return false;

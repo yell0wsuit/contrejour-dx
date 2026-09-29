@@ -67,7 +67,7 @@ namespace ContreJour.Gameplay
 
         public Vector2 BonusTarget()
         {
-            return Clip.Position + new Vector2(28f, 78f) + (new Vector2(-20f, 20f) * movie.CurrentFrame / movie.MaxFrame);
+            return Clip.Position + new Vector2(28f, 78f) + XnaMath.Divide(new Vector2(-20f, 20f) * movie.CurrentFrame, movie.MaxFrame);
         }
 
         private void AddLight()

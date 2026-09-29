@@ -201,7 +201,7 @@ namespace FarseerPhysics.Dynamics.Joints
             Vector2 vector2 = MathUtils.Mul(q2, LocalAnchorB - _localCenterB);
             Vector2 vector3 = c2 + vector2 - c - vector;
             float num = vector3.Length();
-            vector3.Normalize();
+            vector3 = XnaMath.Normalize(vector3);
             float a3 = num - Length;
             a3 = MathUtils.Clamp(a3, -0.2f, 0.2f);
             float num2 = (0f - _mass) * a3;

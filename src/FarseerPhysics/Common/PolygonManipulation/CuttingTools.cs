@@ -75,14 +75,14 @@ namespace FarseerPhysics.Common.PolygonManipulation
             for (int k = 0; k < 2; k++)
             {
                 Vector2 vector = (array2[k] <= 0) ? (array[k][^1] - array[k][0]) : (array[k][array2[k] - 1] - array[k][array2[k]]);
-                vector.Normalize();
+                vector = XnaMath.Normalize(vector);
                 if (!vector.IsValid())
                 {
                     vector = Vector2.One;
                 }
                 array[k][array2[k]] += 1.1920929E-07f * vector;
                 vector = (array2[k] >= array[k].Count - 2) ? (array[k][0] - array[k][^1]) : (array[k][array2[k] + 2] - array[k][array2[k] + 1]);
-                vector.Normalize();
+                vector = XnaMath.Normalize(vector);
                 if (!vector.IsValid())
                 {
                     vector = Vector2.One;

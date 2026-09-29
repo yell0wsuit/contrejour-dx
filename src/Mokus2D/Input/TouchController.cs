@@ -100,7 +100,7 @@ namespace Mokus2D.Input
                 for (int i = 0; i < currentTouches.Count; i++)
                 {
                     CursorPoint cursorPoint = currentTouches[i];
-                    currentTouches[i] = new CursorPoint(Vector2.Transform(cursorPoint.Position, TransformMatrix), cursorPoint.Id, cursorPoint.Type);
+                    currentTouches[i] = new CursorPoint(XnaMath.Transform(cursorPoint.Position, TransformMatrix), cursorPoint.Id, cursorPoint.Type);
                 }
             }
         }

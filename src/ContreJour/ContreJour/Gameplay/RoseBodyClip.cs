@@ -12,6 +12,7 @@ using Microsoft.Xna.Framework;
 using Mokus2D.Integration.Farseer.Physics;
 using Mokus2D.Sound;
 using Mokus2D.Util.Extensions;
+using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual;
 using Mokus2D.Visual.Interactive;
 
@@ -228,14 +229,14 @@ namespace ContreJour.Gameplay
         private void LookAtRose()
         {
             game.Hero.EyeMoveAllowed = false;
-            game.Hero.SetEyeTargetAngle(MathHelper.ToRadians(30f));
+            game.Hero.SetEyeTargetAngle(XnaMath.ToRadians(30f));
             Schedule(LookAtBonuses, 1.5f);
             Schedule(game.ShowBonuses, 1f);
         }
 
         private void LookAtBonuses()
         {
-            game.Hero.SetEyeTargetAngle(MathHelper.ToRadians(160f));
+            game.Hero.SetEyeTargetAngle(XnaMath.ToRadians(160f));
             Schedule(FinishMovie, 1.5f);
             skipButton.TouchEndEvent -= OnSkipClick;
             _ = skipButton.FadeOutAndHide(0.3f);

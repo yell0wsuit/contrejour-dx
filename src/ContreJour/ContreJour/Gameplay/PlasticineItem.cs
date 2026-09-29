@@ -92,7 +92,7 @@ namespace ContreJour.Gameplay
             {
                 return initialPosition + vector;
             }
-            vector.Normalize();
+            vector = XnaMath.Normalize(vector);
             return (vector * num) + initialPosition;
         }
 

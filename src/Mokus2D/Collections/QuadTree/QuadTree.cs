@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
 using Mokus2D.Data;
+using Mokus2D.Util.MathUtils;
 
 namespace Mokus2D.Collections.QuadTree
 {
@@ -20,11 +21,11 @@ namespace Mokus2D.Collections.QuadTree
             RectangleFloat bounds = quadObject.Bounds;
             if (Root == null)
             {
-                Vector2 vector = Vector2.Ceiling(new Vector2(bounds.Width / minLeafSize.X, bounds.Height / minLeafSize.Y));
+                Vector2 vector = new(MathF.Ceiling(bounds.Width / minLeafSize.X), MathF.Ceiling(bounds.Height / minLeafSize.Y));
                 float num = Math.Max(vector.X, vector.Y);
                 Vector2 vector2 = minLeafSize * num;
                 Vector2 center = bounds.Center;
-                Vector2 position = center - (vector2 / 2f);
+                Vector2 position = center - XnaMath.Divide(vector2, 2f);
                 Root = new QuadTreeNode<T>(new RectangleFloat(position, vector2));
             }
             while (!Root.Bounds.Contains(bounds))

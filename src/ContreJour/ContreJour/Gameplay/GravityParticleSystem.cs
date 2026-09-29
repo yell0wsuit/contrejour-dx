@@ -114,7 +114,7 @@ namespace ContreJour.Gameplay
         public virtual void InitParticle(GravityParticle gravityParticle)
         {
             float valueInRange = speed.GetValueInRange();
-            float f = MathHelper.ToRadians(angle.GetValueInRange());
+            float f = XnaMath.ToRadians(angle.GetValueInRange());
             gravityParticle.Speed = new Vector2(Maths.Cos(f) * valueInRange, Maths.Sin(f) * valueInRange);
             gravityParticle.OpacityByte = (int)startOpacity.GetValueInRange();
             gravityParticle.AngularSpeed = angularSpeed.GetValueInRange();

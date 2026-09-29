@@ -143,7 +143,7 @@ namespace ContreJour.Gameplay
             Eye.ReturnToDefault = false;
             ((MovieClip)Eye.CurrentBackground).MaxFrame = 18f;
             ((MovieClip)Eye.CurrentBackground).Repeat = false;
-            _ = Tail.RotateTo(2f, Tail.RotationRadians - MathHelper.ToRadians(70), Cubic.EaseInOut);
+            _ = Tail.RotateTo(2f, Tail.RotationRadians - XnaMath.ToRadians(70), Cubic.EaseInOut);
             Schedule(ShowOutro, 1f);
         }
 

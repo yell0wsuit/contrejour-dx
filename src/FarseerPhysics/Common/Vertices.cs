@@ -339,14 +339,17 @@ namespace FarseerPhysics.Common
         {
             for (int i = 0; i < Count; i++)
             {
-                base[i] = Vector2.Transform(base[i], transform);
+                base[i] = XnaMath.Transform(base[i], transform);
             }
             if (Holes != null && Holes.Count > 0)
             {
                 for (int j = 0; j < Holes.Count; j++)
                 {
                     Vector2[] array = [.. Holes[j]];
-                    Vector2.Transform(array, ref transform, array);
+                    for (int k = 0; k < array.Length; k++)
+                    {
+                        array[k] = XnaMath.Transform(array[k], transform);
+                    }
                     Holes[j] = [.. array];
                 }
             }

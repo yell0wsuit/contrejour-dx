@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 
 using Mokus2D.Effects.Tween.Easing;
 using Mokus2D.Util.Extensions;
+using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual;
 
 namespace ContreJour.Gameplay
@@ -20,11 +21,11 @@ namespace ContreJour.Gameplay
 
         private bool flying;
 
-        private static readonly float RotationDiff = MathHelper.ToRadians(5);
+        private static readonly float RotationDiff = XnaMath.ToRadians(5);
 
-        private static readonly float ROTATION = MathHelper.ToRadians(25);
+        private static readonly float ROTATION = XnaMath.ToRadians(25);
 
-        private static readonly float IdleRotation = MathHelper.ToRadians(10);
+        private static readonly float IdleRotation = XnaMath.ToRadians(10);
 
         public FlyWings()
         {

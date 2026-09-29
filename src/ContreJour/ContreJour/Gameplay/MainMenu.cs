@@ -110,7 +110,7 @@ namespace ContreJour.Gameplay
             foreground = new Node();
             AddChild(foreground, 3);
             winSize = ContreJourConfig.RootSize;
-            centerPosition = ContreJourConfig.RootSize / 2f;
+            centerPosition = XnaMath.Divide(ContreJourConfig.RootSize, 2f);
             CreateBackgrounds();
             CreatePlanets();
             CreateLabels();
@@ -384,13 +384,13 @@ namespace ContreJour.Gameplay
             CreateLevelsMenu();
             levelsMenu.Scale = levelsMenu.InitialScale * 0.5f;
             _ = levelsMenu.ScaleTo(0.3f, levelsMenu.InitialScale);
-            levelsMenu.Position = winSize / 2f;
+            levelsMenu.Position = XnaMath.Divide(winSize, 2f);
             levelsMenu.Show();
         }
 
         public void CreateLevelsMenu()
         {
-            levelsMenu = new LevelsMenu(currentChapter, winSize / 2f);
+            levelsMenu = new LevelsMenu(currentChapter, XnaMath.Divide(winSize, 2f));
             levelsMenu.GetMoreEvent.AddListener(OnGetFullVersion);
             levelsMenu.SelectLevelEvent += OnLevelSelect;
             levelsMenu.InitialScale *= winSize.Y / 650f;
@@ -528,7 +528,7 @@ namespace ContreJour.Gameplay
             }
             else if (!inLevel && levelsMenu != null)
             {
-                levelsMenu.Position = new Vector2(AccelerometerOffset.X * 1.05f * RADIUS / 2f, AccelerometerOffset.Y * 0.25f) + (winSize / 2f);
+                levelsMenu.Position = new Vector2(AccelerometerOffset.X * 1.05f * RADIUS / 2f, AccelerometerOffset.Y * 0.25f) + XnaMath.Divide(winSize, 2f);
             }
             AccelerometerUsed = true;
             Vector2 vector = new((0f - AccelerometerOffset.X) * 1.05f * RADIUS, (0f - AccelerometerOffset.Y) * 0.1f);

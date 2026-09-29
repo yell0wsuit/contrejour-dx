@@ -119,9 +119,9 @@ namespace FarseerPhysics.Common.Decomposition
                         Vector2 a = new(array2[num6] - array2[l], array3[num6] - array3[l]);
                         Vector2 b = new(array2[l] - array2[num5], array3[l] - array3[num5]);
                         Vector2 b2 = new(array2[num5] - array2[num6], array3[num5] - array3[num6]);
-                        a.Normalize();
-                        b.Normalize();
-                        b2.Normalize();
+                        a = XnaMath.Normalize(a);
+                        b = XnaMath.Normalize(b);
+                        b2 = XnaMath.Normalize(b2);
                         MathUtils.Cross(ref a, ref b, out float c);
                         c = Math.Abs(c);
                         MathUtils.Cross(ref b, ref b2, out float c2);

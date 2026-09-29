@@ -53,7 +53,7 @@ namespace FarseerPhysics.Collision
                 bool hasVertex = edgeA.HasVertex0;
                 bool hasVertex2 = edgeA.HasVertex3;
                 Vector2 vector = _v2 - _v1;
-                vector.Normalize();
+                vector = XnaMath.Normalize(vector);
                 _normal1 = new Vector2(vector.Y, 0f - vector.X);
                 float num = Vector2.Dot(_normal1, _centroidB - _v1);
                 float num2 = 0f;
@@ -63,7 +63,7 @@ namespace FarseerPhysics.Collision
                 if (hasVertex)
                 {
                     Vector2 a = _v1 - _v0;
-                    a.Normalize();
+                    a = XnaMath.Normalize(a);
                     _normal0 = new Vector2(a.Y, 0f - a.X);
                     flag = MathUtils.Cross(a, vector) >= 0f;
                     num2 = Vector2.Dot(_normal0, _centroidB - _v0);
@@ -71,7 +71,7 @@ namespace FarseerPhysics.Collision
                 if (hasVertex2)
                 {
                     Vector2 b = _v3 - _v2;
-                    b.Normalize();
+                    b = XnaMath.Normalize(b);
                     _normal2 = new Vector2(b.Y, 0f - b.X);
                     flag2 = MathUtils.Cross(vector, b) > 0f;
                     num3 = Vector2.Dot(_normal2, _centroidB - _v2);
@@ -645,7 +645,7 @@ namespace FarseerPhysics.Collision
             Vector2 vector = polygonShape.Vertices[num5];
             Vector2 vector2 = polygonShape.Vertices[num6];
             Vector2 v = vector2 - vector;
-            v.Normalize();
+            v = XnaMath.Normalize(v);
             Vector2 localNormal = new(v.Y, 0f - v.X);
             Vector2 localPoint = 0.5f * (vector + vector2);
             Vector2 vector3 = MathUtils.Mul(xf.q, v);
@@ -712,7 +712,7 @@ namespace FarseerPhysics.Collision
             {
                 vector2 = vertex;
                 value2 = vector - vector2;
-                Vector2.Dot(ref value2, ref value2, out float result);
+                float result = Vector2.Dot(value2, value2);
                 if (result > num3 * num3)
                 {
                     return;
@@ -750,7 +750,7 @@ namespace FarseerPhysics.Collision
             {
                 vector2 = vertex2;
                 value2 = vector - vector2;
-                Vector2.Dot(ref value2, ref value2, out float result2);
+                float result2 = Vector2.Dot(value2, value2);
                 if (result2 > num3 * num3)
                 {
                     return;
@@ -784,10 +784,10 @@ namespace FarseerPhysics.Collision
                 manifold.Points[0] = value6;
                 return;
             }
-            Vector2.Dot(ref value, ref value, out float result3);
+            float result3 = Vector2.Dot(value, value);
             vector2 = 1f / result3 * ((num * vertex) + (num2 * vertex2));
             value2 = vector - vector2;
-            Vector2.Dot(ref value2, ref value2, out float result4);
+            float result4 = Vector2.Dot(value2, value2);
             if (!(result4 > num3 * num3))
             {
                 Vector2 vector5 = new(0f - value.Y, value.X);
@@ -795,7 +795,7 @@ namespace FarseerPhysics.Collision
                 {
                     vector5 = new Vector2(0f - vector5.X, 0f - vector5.Y);
                 }
-                vector5.Normalize();
+                vector5 = XnaMath.Normalize(vector5);
                 features.IndexA = 0;
                 features.TypeA = 1;
                 manifold.PointCount = 1;

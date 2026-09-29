@@ -291,7 +291,7 @@ namespace ContreJour.Gameplay
         {
             impulse = impulse * body.Mass * startScale;
             body.LinearVelocity = Vector2.Zero;
-            body.ApplyLinearImpulse(VectorUtil.ToVector(impulse, MathHelper.ToRadians(Clip.RotationDegrees + 90f)), body.WorldCenter);
+            body.ApplyLinearImpulse(VectorUtil.ToVector(impulse, XnaMath.ToRadians(Clip.RotationDegrees + 90f)), body.WorldCenter);
         }
 
         public void Spit()
@@ -318,7 +318,7 @@ namespace ContreJour.Gameplay
                 Vector2 worldSuckPoint = WorldSuckPoint;
                 Vector2 vector = worldSuckPoint - Sticked.Body.Position;
                 float num = vector.Length();
-                vector.Normalize();
+                vector = XnaMath.Normalize(vector);
                 vector *= Sticked.Body.Mass;
                 vector *= Math.Min((suckDistance - num) * 100f, 200f);
                 Sticked.Body.ApplyForce(vector, Sticked.Body.WorldCenter);

@@ -18,6 +18,7 @@ using Mokus2D.Graphics;
 using Mokus2D.Sound;
 using Mokus2D.UI.Containers;
 using Mokus2D.Util.Extensions;
+using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual;
 
 namespace ContreJour
@@ -203,7 +204,7 @@ namespace ContreJour
                 Root.AddChild(node, 1);
                 Root.AddChild(node2, 1);
             }
-            ContreJourConfig.RootSize = vector / _gameContainer.Scale;
+            ContreJourConfig.RootSize = XnaMath.Divide(vector, _gameContainer.Scale);
         }
 
         private AspectRatio ChooseAspectRatio()
@@ -243,7 +244,7 @@ namespace ContreJour
             {
                 _blockedGamePanel = new petitInformation();
                 Root.AddChild(_blockedGamePanel, 2);
-                _blockedGamePanel.Position = _initialSize / 2f;
+                _blockedGamePanel.Position = XnaMath.Divide(_initialSize, 2f);
             }
             _blockedGamePanel.VisibleAndUpdating = true;
             _blockedGamePanel.ScaleVec = _initialSize / ApplicationController.WindowSize;

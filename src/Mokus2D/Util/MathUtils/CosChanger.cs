@@ -1,8 +1,5 @@
 using System;
 
-
-using Microsoft.Xna.Framework;
-
 namespace Mokus2D.Util.MathUtils
 {
     public class CosChanger
@@ -51,7 +48,7 @@ namespace Mokus2D.Util.MathUtils
 
         public static float GetValue(float min, float max, float p)
         {
-            return MathHelper.Lerp(max, min, (float)(1.0 + Math.Cos(p)) / 2f);
+            return XnaMath.Lerp(max, min, (float)(1.0 + Math.Cos(p)) / 2f);
         }
 
         public void SetMiddleProgress()

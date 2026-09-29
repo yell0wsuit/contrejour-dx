@@ -91,7 +91,7 @@ namespace FarseerPhysics.Collision
                 {
                     output.Distance -= radius + radius2;
                     Vector2 vector = output.PointB - output.PointA;
-                    vector.Normalize();
+                    vector = XnaMath.Normalize(vector);
                     output.PointA += radius * vector;
                     output.PointB -= radius2 * vector;
                 }

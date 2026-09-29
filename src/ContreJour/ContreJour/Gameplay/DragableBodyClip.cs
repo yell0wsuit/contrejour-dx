@@ -98,7 +98,7 @@ namespace ContreJour.Gameplay
             targetPosition = InitialPosition;
             upperLimit = 3.4f * num;
             lowerLimit = -3.4f * num;
-            axis = VectorUtil.ToVector(1f, MathHelper.ToRadians(0f - Config.GetFloat("rotation")));
+            axis = VectorUtil.ToVector(1f, XnaMath.ToRadians(0f - Config.GetFloat("rotation")));
             CreateBoundsClip(num);
             SetAlpha(150f);
             Body.BodyType = (BodyType)1;
@@ -175,7 +175,7 @@ namespace ContreJour.Gameplay
         protected virtual void CreateBoundsClip(float scale)
         {
             middle = new McDragLimit();
-            Vector2 vector = VectorUtil.ToVector(upperLimit / (1f / 30f), MathHelper.ToRadians(Clip.RotationDegrees));
+            Vector2 vector = VectorUtil.ToVector(upperLimit / (1f / 30f), XnaMath.ToRadians(Clip.RotationDegrees));
             Vector2 position = Clip.Position;
             Builder.AddChildBefore(middle, Clip);
             float rotationDegrees = Clip.RotationDegrees;

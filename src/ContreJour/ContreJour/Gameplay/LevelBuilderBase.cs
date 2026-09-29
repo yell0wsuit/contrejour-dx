@@ -333,7 +333,7 @@ namespace ContreJour.Gameplay
                     }
                     Add(node, hashtable.Exists("z") ? hashtable.GetInt("z") : DefaultZ);
                     node.Position = ToIPadPoint(item.GetVector("position"));
-                    node.RotationRadians = 0f - MathHelper.ToRadians(hashtable.GetFloat("rotation", 0f));
+                    node.RotationRadians = 0f - XnaMath.ToRadians(hashtable.GetFloat("rotation", 0f));
                 }
                 if (!hashtable.Exists("skipClip"))
                 {
@@ -367,7 +367,7 @@ namespace ContreJour.Gameplay
 
         public static float ToRotation(float angle)
         {
-            return MathHelper.ToDegrees(0f - angle);
+            return XnaMath.ToDegrees(0f - angle);
         }
 
         public override void Update(float time)

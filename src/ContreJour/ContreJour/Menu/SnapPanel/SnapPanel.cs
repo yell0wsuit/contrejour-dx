@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 
 using Mokus2D;
 using Mokus2D.Input;
+using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual;
 using Mokus2D.Visual.Particles.Util;
 
@@ -35,8 +36,8 @@ namespace ContreJour.Menu.SnapPanel
             AddAccelerometerChild(new SnapParticles(30f), 20f, new Vector2(-130f, -500f));
             SidePanelParticles sidePanelParticles = new();
             AddAccelerometerChild(sidePanelParticles, -10f, Vector2.Zero);
-            sidePanelParticles.BottomLeftBound = (-visibleSize / 2f) - new Vector2(150f, 200f);
-            sidePanelParticles.TopRightBound = (visibleSize / 2f) + new Vector2(50f, 200f);
+            sidePanelParticles.BottomLeftBound = XnaMath.Divide(-visibleSize, 2f) - new Vector2(150f, 200f);
+            sidePanelParticles.TopRightBound = XnaMath.Divide(visibleSize, 2f) + new Vector2(50f, 200f);
             sidePanelParticles.HorizontalPosition = new RandomRange(0f, 0.5f * visibleSize.X);
             sidePanelParticles.VerticalPosition = new RandomRange((visibleSize.Y / 2f) + 30f, 0f);
             sidePanelParticles.CreateBetweenBounds(40);
@@ -56,7 +57,7 @@ namespace ContreJour.Menu.SnapPanel
         {
             Sprite sprite = new("Win8FramePart")
             {
-                Position = visibleSize * relativePosition / 2f,
+                Position = XnaMath.Divide(visibleSize * relativePosition, 2f),
                 Anchor = new Vector2(0.5f, 0f),
                 RotationDegrees = rotation
             };
@@ -70,7 +71,7 @@ namespace ContreJour.Menu.SnapPanel
             Sprite sprite = new("Win8FrameAngle")
             {
                 Anchor = Vector2.Zero,
-                Position = visibleSize * relativePosition / 2f,
+                Position = XnaMath.Divide(visibleSize * relativePosition, 2f),
                 RotationDegrees = rotation,
                 Color = Color.Red
             };

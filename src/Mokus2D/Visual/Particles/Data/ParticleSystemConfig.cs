@@ -172,7 +172,7 @@ namespace Mokus2D.Visual.Particles.Data
             data.FadeOutTime = FadeOutTime.GetValueInRange();
             data.Speed = VectorUtil.ToVector(StartSpeed.GetValueInRange(), StartSpeedAngle.GetValueInRange());
             Vector2 vector2 = VectorUtil.ToVector(EndSpeed.GetValueInRange(), EndSpeedAngle.GetValueInRange());
-            data.Acceleration = (vector2 - data.Speed) / (data.LifeTime + data.FadeInTime + data.FadeOutTime);
+            data.Acceleration = XnaMath.Divide(vector2 - data.Speed, data.LifeTime + data.FadeInTime + data.FadeOutTime);
             data.LifeDistance = GetValueInRange(LifeDistance);
             Vector2 vector3 = new(1f);
             if (CanFlipX && Maths.Random(2) == 1)

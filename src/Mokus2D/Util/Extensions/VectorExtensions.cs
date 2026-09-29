@@ -103,7 +103,7 @@ namespace Mokus2D.Util.Extensions
 
         public static Vector2 Normalize(this Vector2 source, float length)
         {
-            source.Normalize();
+            source = XnaMath.Normalize(source);
             return source * length;
         }
 

@@ -189,13 +189,13 @@ namespace FarseerPhysics.Collision
             Vector2 value = input.Point1;
             Vector2 point = input.Point2;
             Vector2 vector = point - value;
-            vector.Normalize();
+            vector = XnaMath.Normalize(vector);
             Vector2 value2 = MathUtils.Abs(new Vector2(0f - vector.Y, vector.X));
             float num = input.MaxFraction;
             AABB b = default;
             Vector2 value3 = value + (num * (point - value));
-            Vector2.Min(ref value, ref value3, out b.LowerBound);
-            Vector2.Max(ref value, ref value3, out b.UpperBound);
+            b.LowerBound = XnaMath.Min(value, value3);
+            b.UpperBound = XnaMath.Max(value, value3);
             _raycastStack.Clear();
             _raycastStack.Push(_root);
             RayCastInput arg = default;
@@ -232,8 +232,8 @@ namespace FarseerPhysics.Collision
                     {
                         num = num4;
                         Vector2 value4 = value + (num * (point - value));
-                        b.LowerBound = Vector2.Min(value, value4);
-                        b.UpperBound = Vector2.Max(value, value4);
+                        b.LowerBound = XnaMath.Min(value, value4);
+                        b.UpperBound = XnaMath.Max(value, value4);
                     }
                 }
                 else

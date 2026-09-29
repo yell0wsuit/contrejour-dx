@@ -588,7 +588,7 @@ namespace FarseerPhysics.Common.TextureTools
                     if (flag)
                     {
                         Vector2 vector = polygon[index] - polygon[num];
-                        vector.Normalize();
+                        vector = XnaMath.Normalize(vector);
                         Vector2 value = polygon[num];
                         float num3 = Vector2.Distance(value, point);
                         vertex1Index = num;

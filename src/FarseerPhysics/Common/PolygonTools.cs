@@ -177,7 +177,7 @@ namespace FarseerPhysics.Common
             Vertices vertices = [];
             float num = (float)Math.PI * 2f / numberOfTeeth;
             tipPercentage /= 100f;
-            _ = MathHelper.Clamp(tipPercentage, 0f, 1f);
+            _ = Math.Clamp(tipPercentage, 0f, 1f);
             float num2 = num / 2f * tipPercentage;
             float num3 = (num - (num2 * 2f)) / 2f;
             for (int num4 = numberOfTeeth - 1; num4 >= 0; num4--)

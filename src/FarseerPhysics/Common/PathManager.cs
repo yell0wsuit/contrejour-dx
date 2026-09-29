@@ -84,7 +84,7 @@ namespace FarseerPhysics.Common
         {
             Vector2 position = path.GetPosition(time);
             Vector2 vector = body.Position - position;
-            Vector2 vector2 = vector / timeStep * strength;
+            Vector2 vector2 = XnaMath.Divide(vector, timeStep) * strength;
             body.LinearVelocity = -vector2;
         }
 

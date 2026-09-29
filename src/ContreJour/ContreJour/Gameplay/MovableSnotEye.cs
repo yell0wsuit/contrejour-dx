@@ -142,7 +142,7 @@ namespace ContreJour.Gameplay
 
         private void EndMove()
         {
-            targetSpeed = MathHelper.Clamp(Vector2.Distance(targetPoint.Body.Position, Body.Position) * 5f, 400f * Builder.SizeMult, 1500f * Builder.SizeMult);
+            targetSpeed = Math.Clamp(Vector2.Distance(targetPoint.Body.Position, Body.Position) * 5f, 400f * Builder.SizeMult, 1500f * Builder.SizeMult);
             moving = false;
         }
 
