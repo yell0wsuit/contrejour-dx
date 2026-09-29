@@ -67,7 +67,9 @@ public class Contact
 
     public Fixture FixtureB { get; set; }
 
-    public Manifold Manifold;
+    private Manifold manifold;
+
+    public ref Manifold Manifold => ref manifold;
 
     public float Friction { get; set; }
 

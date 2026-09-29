@@ -10,9 +10,13 @@ public sealed class ContactVelocityConstraint
 
     public Vector2 Normal { get; set; }
 
-    public Mat22 normalMass;
+    private Mat22 normalMass;
 
-    public Mat22 K;
+    public ref Mat22 NormalMass => ref normalMass;
+
+    private Mat22 k;
+
+    public ref Mat22 K => ref k;
 
     public int IndexA { get; set; }
 

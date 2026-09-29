@@ -13,7 +13,9 @@ public class AnimationFrameData
 
     public float Rotation { get; set; }
 
-    public Vector2 Scale;
+    private Vector2 scale;
+
+    public ref Vector2 Scale => ref scale;
 
     public float Alpha { get; set; }
 

@@ -17,11 +17,11 @@ public class WhiteSmoke : GravityParticleSystem
 
     public virtual Vector2 SmokePosition
     {
-        get => new(horizontalPosition.Value, verticalPosition.Value);
+        get => new(HorizontalPosition.Value, VerticalPosition.Value);
         set
         {
-            horizontalPosition.Value = value.X;
-            verticalPosition.Value = value.Y;
+            HorizontalPosition = HorizontalPosition with { Value = value.X };
+            VerticalPosition = VerticalPosition with { Value = value.Y };
         }
     }
 

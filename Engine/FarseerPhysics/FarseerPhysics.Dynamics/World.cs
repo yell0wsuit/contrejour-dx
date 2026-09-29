@@ -68,7 +68,9 @@ public class World
 
     public event ControllerHandler ControllerRemoved;
 
-    public Vector2 Gravity;
+    private Vector2 gravity;
+
+    public ref Vector2 Gravity => ref gravity;
 
     public List<Controller> ControllerList { get; private set; }
 

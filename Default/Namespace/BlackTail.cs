@@ -17,7 +17,9 @@ namespace Default.Namespace;
 
 public class BlackTail : PrimitivesNode, IUpdatable
 {
-    protected VertexPositionColorTexture[] vertices = [];
+    private VertexPositionColorTexture[] vertices = [];
+
+    protected ref VertexPositionColorTexture[] Vertices => ref vertices;
 
     private readonly List<Vector2> bezierPoints = [];
     private Vector2 target;
@@ -135,18 +137,18 @@ public class BlackTail : PrimitivesNode, IUpdatable
                 bezierPoints.Insert(0, previousPosition);
             }
             List<Pair<Vector2>> list2 = CreatePairs();
-            Array.Resize(ref vertices, list2.Count * 2);
+            Array.Resize(ref Vertices, list2.Count * 2);
             if (list2.Count > 1)
             {
                 for (int j = 0; j < list2.Count; j++)
                 {
                     int num2 = j * 2;
-                    vertices[num2].Position = list2[j].First.ToVector3();
-                    vertices[num2].TextureCoordinate = new Vector2(j, 0f);
-                    vertices[num2 + 1].Position = list2[j].Second.ToVector3();
-                    vertices[num2 + 1].TextureCoordinate = new Vector2(j, 1f);
-                    vertices[num2].Color = GetTailColor();
-                    vertices[num2 + 1].Color = GetTailColor();
+                    Vertices[num2].Position = list2[j].First.ToVector3();
+                    Vertices[num2].TextureCoordinate = new Vector2(j, 0f);
+                    Vertices[num2 + 1].Position = list2[j].Second.ToVector3();
+                    Vertices[num2 + 1].TextureCoordinate = new Vector2(j, 1f);
+                    Vertices[num2].Color = GetTailColor();
+                    Vertices[num2 + 1].Color = GetTailColor();
                 }
             }
         }
@@ -193,13 +195,13 @@ public class BlackTail : PrimitivesNode, IUpdatable
 
     protected override void DrawPrimitives()
     {
-        if (vertices.Length > 3)
+        if (Vertices.Length > 3)
         {
             if (opacityDirty)
             {
-                GraphUtil.SetColor(vertices, GetTailColor());
+                GraphUtil.SetColor(Vertices, GetTailColor());
             }
-            GraphUtil.DrawTriangleStrip(vertices);
+            GraphUtil.DrawTriangleStrip(Vertices);
         }
     }
 

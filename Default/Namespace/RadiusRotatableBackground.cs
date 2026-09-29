@@ -7,7 +7,9 @@ namespace Default.Namespace;
 
 public class RadiusRotatableBackground : RotatableBackground
 {
-    protected Vector2 centerPosition;
+    private Vector2 centerPosition;
+
+    protected ref Vector2 CenterPosition => ref centerPosition;
 
     private readonly float radius;
 
@@ -15,8 +17,8 @@ public class RadiusRotatableBackground : RotatableBackground
         : base(node, config, game)
     {
         radius = 40f;
-        centerPosition = this.Node.Position;
-        centerPosition.X += radius;
+        CenterPosition = this.Node.Position;
+        CenterPosition.X += radius;
         RotationStep = 0.2f;
     }
 
@@ -24,6 +26,6 @@ public class RadiusRotatableBackground : RotatableBackground
     {
         base.Update(time);
         Vector2 vector = VectorUtil.ToVector(radius, MathHelper.ToRadians(Node.RotationDegrees * 2f));
-        Node.Position = vector + centerPosition;
+        Node.Position = vector + CenterPosition;
     }
 }

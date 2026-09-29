@@ -8,9 +8,13 @@ public class DistanceInput
 
     public DistanceProxy ProxyB { get; set; } = new();
 
-    public Transform TransformA;
+    private Transform transformA;
 
-    public Transform TransformB;
+    public ref Transform TransformA => ref transformA;
+
+    private Transform transformB;
+
+    public ref Transform TransformB => ref transformB;
 
     public bool UseRadii { get; set; }
 }

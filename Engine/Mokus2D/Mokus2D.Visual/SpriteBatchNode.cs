@@ -7,7 +7,9 @@ namespace Mokus2D.Visual;
 
 public abstract class SpriteBatchNode : Node
 {
-    public SpriteBatchProperties SpriteBatchProperties = Mokus2DGame.Config.DefaultSpriteBatchProperties;
+    private SpriteBatchProperties spriteBatchProperties = Mokus2DGame.Config.DefaultSpriteBatchProperties;
+
+    public ref SpriteBatchProperties SpriteBatchProperties => ref spriteBatchProperties;
 
     protected float ScaleFactor { get; set; } = 1f;
 

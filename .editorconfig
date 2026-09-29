@@ -44,3 +44,7 @@ dotnet_diagnostic.IDE0130.severity = none
 # Default.Namespace is part of the type names content looks up at runtime, so it can't be renamed
 # to avoid Visual Basic keywords; members and parameters are still checked.
 dotnet_code_quality.CA1716.analyzed_symbol_kinds = NamedType, Method, Property, Event, Parameter
+
+# Plain data structs (vertices, pairs, rectangles, ranges) keep public fields, like XNA's Vector2:
+# they're mutated in place and some rely on explicit field layout.
+dotnet_code_quality.CA1051.exclude_structs = true

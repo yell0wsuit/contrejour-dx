@@ -18,7 +18,9 @@ public class GameConfig
     public DebugConfig DebugConfig { get; } = new();
 
     public IGraphicsLoader GraphicsLoader { get; set; } = new SpriteLoaderCache(new OneFileResourcesLoader());
-    public SpriteBatchProperties DefaultSpriteBatchProperties = new(BlendState.AlphaBlend, SamplerState.LinearClamp);
+    private SpriteBatchProperties defaultSpriteBatchProperties = new(BlendState.AlphaBlend, SamplerState.LinearClamp);
+
+    public ref SpriteBatchProperties DefaultSpriteBatchProperties => ref defaultSpriteBatchProperties;
 
     public IGraphicsConfig GraphicsConfig
     {

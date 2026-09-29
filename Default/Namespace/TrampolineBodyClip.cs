@@ -35,7 +35,9 @@ public class TrampolineBodyClip : SnotBodyClipBase
 
     private readonly float maxDistance;
 
-    protected Vector2 normal;
+    private Vector2 normal;
+
+    protected ref Vector2 Normal => ref normal;
 
     private TrampolinePartBodyClip part;
 
@@ -78,9 +80,9 @@ public class TrampolineBodyClip : SnotBodyClipBase
         center = Physics.GetWorldStartPoint() + Physics.EndBody.Position;
         startTrampolineWidth = (Physics.GetWorldStartPoint() - Physics.EndBody.Position).Length();
         center *= 0.5f;
-        normal = Physics.EndBody.Position - Physics.GetWorldStartPoint();
-        normal = normal.Rotate90();
-        normal *= 1f / normal.Length();
+        Normal = Physics.EndBody.Position - Physics.GetWorldStartPoint();
+        Normal = Normal.Rotate90();
+        Normal *= 1f / Normal.Length();
         impulseMultiplier = startTrampolineWidth / 6.533333f;
         startDistance = impulseMultiplier * 1.621671f;
         maxDistance = impulseMultiplier * 5f;
@@ -161,7 +163,7 @@ public class TrampolineBodyClip : SnotBodyClipBase
         {
             Vector2 vector = builder.TouchRootVec(touch);
             vector -= center;
-            if (VectorUtil.Projection(vector, normal) > -1.621671f)
+            if (VectorUtil.Projection(vector, Normal) > -1.621671f)
             {
                 game.FreeTouch(touch);
                 StopDrag();

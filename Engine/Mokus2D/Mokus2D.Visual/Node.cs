@@ -51,7 +51,9 @@ public class Node : DisposableBase, IUpdatable, IConfig
 
     public bool IgnoreParentTransformations { get; set; }
 
-    public IgnoredAnimationProperties IgnoredAnimations = IgnoredAnimationProperties.None;
+    private IgnoredAnimationProperties ignoredAnimations = IgnoredAnimationProperties.None;
+
+    public ref IgnoredAnimationProperties IgnoredAnimations => ref ignoredAnimations;
 
     public bool InteractionsEnabled { get; set; } = true;
 

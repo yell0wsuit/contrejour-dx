@@ -15,11 +15,15 @@ public class DraggingItem
 {
     public const int DragCount = 7;
 
-    protected Pair<Vector2> baseAnchors;
+    private Pair<Vector2> baseAnchors;
+
+    protected ref Pair<Vector2> BaseAnchors => ref baseAnchors;
 
     private float baseAngle;
 
-    protected Pair<Vector2> basePoints;
+    private Pair<Vector2> basePoints;
+
+    protected ref Pair<Vector2> BasePoints => ref basePoints;
 
     private readonly LevelBuilderBase builder;
 
@@ -90,11 +94,11 @@ public class DraggingItem
 
     public void CalculateBasePoints()
     {
-        basePoints.First = builder.ToPoint(left.GetRight());
-        basePoints.Second = builder.ToPoint(right.GetLeft());
-        baseAnchors.First = builder.ToPoint(left.GetNextAnchorPosition());
-        baseAnchors.Second = builder.ToPoint(right.GetPreviuosAnchorPosition());
-        baseAngle = VectorUtil.Atan2(baseAnchors.First, baseAnchors.Second);
+        BasePoints.First = builder.ToPoint(left.GetRight());
+        BasePoints.Second = builder.ToPoint(right.GetLeft());
+        BaseAnchors.First = builder.ToPoint(left.GetNextAnchorPosition());
+        BaseAnchors.Second = builder.ToPoint(right.GetPreviuosAnchorPosition());
+        baseAngle = VectorUtil.Atan2(BaseAnchors.First, BaseAnchors.Second);
     }
 
     public Pair<Vector2> GetTopPointsResultWidth(Vector2 top, float width)
@@ -126,13 +130,13 @@ public class DraggingItem
         Vector2 currentDragPoint = GetCurrentDragPoint();
         Pair<Vector2> topPointsResultWidth = GetTopPointsResultWidth(currentDragPoint, 1.2f / builder.EngineConfig.SizeMultiplier);
         Pair<Vector2> topPointsResultWidth2 = GetTopPointsResultWidth(currentDragPoint, 0.3f / builder.EngineConfig.SizeMultiplier);
-        Vector2 item = VectorUtil.Center(baseAnchors.First, topPointsResultWidth.First);
-        Vector2 item2 = VectorUtil.Center(baseAnchors.Second, topPointsResultWidth.Second);
+        Vector2 item = VectorUtil.Center(BaseAnchors.First, topPointsResultWidth.First);
+        Vector2 item2 = VectorUtil.Center(BaseAnchors.Second, topPointsResultWidth.Second);
         List<Vector2> list = [];
         List<Vector2> list2 =
         [
-            basePoints.First,
-            baseAnchors.First,
+            BasePoints.First,
+            BaseAnchors.First,
             item,
             topPointsResultWidth.First,
             topPointsResultWidth2.First,
@@ -143,8 +147,8 @@ public class DraggingItem
             topPointsResultWidth2.Second,
             topPointsResultWidth.Second,
             item2,
-            baseAnchors.Second,
-            basePoints.Second,
+            BaseAnchors.Second,
+            BasePoints.Second,
         ];
         BezierUtil.AddBezierPoints(list, list2, 3);
         for (int i = 0; i < list.Count; i++)

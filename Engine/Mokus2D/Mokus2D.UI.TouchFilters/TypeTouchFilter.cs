@@ -6,7 +6,9 @@ namespace Mokus2D.UI.TouchFilters;
 
 public class TypeTouchFilter
 {
-    public TouchType? Type;
+    private TouchType? type;
+
+    public ref TouchType? Type => ref type;
 
     public TypeTouchFilter()
     {

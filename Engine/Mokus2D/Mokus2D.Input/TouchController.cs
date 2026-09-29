@@ -20,7 +20,9 @@ public class TouchController : IUpdatable
 
     private static readonly Pool<List<ITouchListener>> poolListeners = new(() => []);
 
-    public Matrix TransformMatrix = Matrix.Identity;
+    private Matrix transformMatrix = Matrix.Identity;
+
+    public ref Matrix TransformMatrix => ref transformMatrix;
 
     private readonly List<ITouchListener> listenersCopy = new(64);
 

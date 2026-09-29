@@ -8,7 +8,9 @@ public class LightColor
 {
     public Color LightInColor { get; set; }
 
-    public Color LightOutColor;
+    private Color lightOutColor;
+
+    public ref Color LightOutColor => ref lightOutColor;
 
     public Color LightBorderColor { get; set; }
 

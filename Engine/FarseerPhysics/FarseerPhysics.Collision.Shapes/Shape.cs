@@ -12,7 +12,9 @@ public abstract class Shape(float density)
 
     internal float _2radius;
 
-    public MassData MassData;
+    private MassData massData;
+
+    public ref MassData MassData => ref massData;
 
     public ShapeType ShapeType { get; internal set; } = ShapeType.Unknown;
 

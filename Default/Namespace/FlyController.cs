@@ -63,12 +63,12 @@ public class FlyController : FlyBase
         {
             initialGroundY = grassControllerContainer.GrassController.Y;
         }
-        targetPosition = ChooseTarget();
+        TargetPosition = ChooseTarget();
         if (scared != 0)
         {
-            targetPosition.X += scared * scareOffset.X;
-            targetPosition.Y += scareOffset.Y;
-            StepY = Math.Abs(Particle.Position.Y - targetPosition.Y) / scareOffset.Y;
+            TargetPosition.X += scared * scareOffset.X;
+            TargetPosition.Y += scareOffset.Y;
+            StepY = Math.Abs(Particle.Position.Y - TargetPosition.Y) / scareOffset.Y;
             scareTime -= time;
             if (scareTime <= 0f)
             {

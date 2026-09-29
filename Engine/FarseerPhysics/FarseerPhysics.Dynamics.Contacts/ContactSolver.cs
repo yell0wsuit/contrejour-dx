@@ -174,7 +174,7 @@ public class ContactSolver
             contactVelocityConstraint.ContactIndex = k;
             contactVelocityConstraint.PointCount = pointCount;
             contactVelocityConstraint.K.SetZero();
-            contactVelocityConstraint.normalMass.SetZero();
+            contactVelocityConstraint.NormalMass.SetZero();
             ContactPositionConstraint contactPositionConstraint = _positionConstraints[k];
             contactPositionConstraint.IndexA = body.IslandIndex;
             contactPositionConstraint.IndexB = body2.IslandIndex;
@@ -277,7 +277,7 @@ public class ContactSolver
                 {
                     contactVelocityConstraint.K.ex = new Vector2(num12, num14);
                     contactVelocityConstraint.K.ey = new Vector2(num14, num13);
-                    contactVelocityConstraint.normalMass = contactVelocityConstraint.K.Inverse;
+                    contactVelocityConstraint.NormalMass = contactVelocityConstraint.K.Inverse;
                 }
                 else
                 {
@@ -386,7 +386,7 @@ public class ContactSolver
                     Y = num11 - velocityConstraintPoint4.VelocityBias
                 };
                 v3 -= MathUtils.Mul(ref contactVelocityConstraint.K, vector4);
-                Vector2 vector5 = -MathUtils.Mul(ref contactVelocityConstraint.normalMass, v3);
+                Vector2 vector5 = -MathUtils.Mul(ref contactVelocityConstraint.NormalMass, v3);
                 if (vector5.X >= 0f && vector5.Y >= 0f)
                 {
                     Vector2 vector6 = vector5 - vector4;

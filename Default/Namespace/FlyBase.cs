@@ -17,7 +17,9 @@ public class FlyBase : IUpdatable
 
     protected float StepY { get; set; }
 
-    protected Vector2 targetPosition;
+    private Vector2 targetPosition;
+
+    protected ref Vector2 TargetPosition => ref targetPosition;
 
     protected float VerticalStep { get; set; }
 
@@ -28,15 +30,15 @@ public class FlyBase : IUpdatable
         this.Particle = particle;
         this.Particle.Scale = scale;
         InitialPosition = particle.Position;
-        targetPosition = InitialPosition;
+        TargetPosition = InitialPosition;
         opacityChanger = new CosOpacityChanger(this.Particle, 0f, Maths.Random(0.5f, 0.6f), Maths.Random(0.01f, 0.07f));
         InitParams();
     }
 
     public virtual void Update(float time)
     {
-        Vector2 vector = new(Math.Min(Math.Abs((targetPosition.X - Particle.Position.X) / (targetPosition.Y - Particle.Position.Y) * StepY), 1f), StepY);
-        Particle.Position = VectorUtil.StepTo(Particle.Position, targetPosition, vector.Length());
+        Vector2 vector = new(Math.Min(Math.Abs((TargetPosition.X - Particle.Position.X) / (TargetPosition.Y - Particle.Position.Y) * StepY), 1f), StepY);
+        Particle.Position = VectorUtil.StepTo(Particle.Position, TargetPosition, vector.Length());
         VerticalStep += verticalStepDiff;
         opacityChanger.Update(time);
     }

@@ -13,9 +13,9 @@ public class GravityParticleSystem : ParticleSystem
 
     private RandomRange angle;
 
-    protected RandomRange horizontalPosition;
+    private RandomRange horizontalPosition;
 
-    protected RandomRange verticalPosition;
+    private RandomRange verticalPosition;
 
     private RandomRange angularSpeed;
 

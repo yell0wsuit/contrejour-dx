@@ -32,7 +32,9 @@ public class Outro : Node, ITouchListener, IDisposable
 
     private readonly Node text;
 
-    protected Vector2 textPosition;
+    private Vector2 textPosition;
+
+    protected ref Vector2 TextPosition => ref textPosition;
 
     private bool textVisible;
 
@@ -67,9 +69,9 @@ public class Outro : Node, ITouchListener, IDisposable
         _ = background.FadeTo(2f, 0.5882353f);
         AddChild(background);
         text = new Node();
-        textPosition = ScreenConstants.W7FromIPhoneScreenCenter;
-        textPosition.Y = minY;
-        text.Position = textPosition;
+        TextPosition = ScreenConstants.W7FromIPhoneScreenCenter;
+        TextPosition.Y = minY;
+        text.Position = TextPosition;
         AddChild(text);
         Label label = ContreJourLabelUtil.CreateMultilineLabel(22f, success ? "YOU_DID_IT" : "YOU_TRIED_HARD");
         label.Position = new Vector2(0f, 160f);
@@ -141,7 +143,7 @@ public class Outro : Node, ITouchListener, IDisposable
         {
             Vector2 vector = GlobalToLocal(currentTouch.Position);
             touchSpeed = Maths.Clamp(vector.Y - touchPosition.Y, -100f, 100f);
-            textPosition.Y += vector.Y - touchPosition.Y;
+            TextPosition.Y += vector.Y - touchPosition.Y;
             touchPosition = vector;
         }
     }
@@ -168,28 +170,28 @@ public class Outro : Node, ITouchListener, IDisposable
     {
         if (currentTouch == null)
         {
-            if (textPosition.Y < maxY)
+            if (TextPosition.Y < maxY)
             {
-                textPosition += new Vector2(0f, SPEED * time);
+                TextPosition += new Vector2(0f, SPEED * time);
             }
-            textPosition.Y += touchSpeed * time * 30f;
+            TextPosition.Y += touchSpeed * time * 30f;
             touchSpeed = Maths.StepTo(touchSpeed, 0f, Math.Max(1f, Math.Abs(touchSpeed / 20f)));
             float num = 0f;
-            if (textPosition.Y < minY)
+            if (TextPosition.Y < minY)
             {
-                num = (minY - textPosition.Y) / 5f;
+                num = (minY - TextPosition.Y) / 5f;
             }
-            if (textPosition.Y > maxY)
+            if (TextPosition.Y > maxY)
             {
-                num = (maxY - textPosition.Y) / 5f;
+                num = (maxY - TextPosition.Y) / 5f;
             }
-            if (textPosition.Y >= maxY)
+            if (TextPosition.Y >= maxY)
             {
                 onEndTime += time;
             }
             if (num != 0f)
             {
-                textPosition.Y += num;
+                TextPosition.Y += num;
                 touchSpeed = Maths.StepTo(touchSpeed, 0f, Math.Max(1f, Math.Abs(touchSpeed / 20f)));
             }
         }
@@ -198,7 +200,7 @@ public class Outro : Node, ITouchListener, IDisposable
             onEndTime = 0f;
         }
         TextVisible = onEndTime <= 5f;
-        text.Position = textPosition;
+        text.Position = TextPosition;
     }
 
     protected override void Dispose(bool disposing)

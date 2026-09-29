@@ -90,7 +90,9 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
 
     protected HeroTail Tail { get; set; }
 
-    protected Vector2 targetScale;
+    private Vector2 targetScale;
+
+    protected ref Vector2 TargetScale => ref targetScale;
     private float timeToSleep;
 
     private float velocity;
@@ -211,7 +213,7 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
         eyeClosed = false;
         Game.RegisterHero(this);
         onGround = false;
-        targetScale = new Vector2(1f, 1f);
+        TargetScale = new Vector2(1f, 1f);
         breatheScaleStep = 0f;
         DestroyEvent = new EventSender();
         ContreJourGame.AddShadowSource();
@@ -657,8 +659,8 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
                 breatheScaleStep = breatheScaleStep.SimplifyAngle(0f);
                 float num = Maths.Cos(breatheScaleStep);
                 breatheScale = num * 0.04f;
-                targetScale.X = 1f + breatheScale;
-                targetScale.Y = 1f + (breatheScale / 2f);
+                TargetScale.X = 1f + breatheScale;
+                TargetScale.Y = 1f + (breatheScale / 2f);
                 MovieClip movieClip = (MovieClip)eye.CurrentBackground;
                 int num2 = (int)(movieClip.TotalFrames * (1f + num) / 2f);
                 movieClip.GotoAndStop((int)Maths.StepTo(movieClip.CurrentFrame, num2, 1f));
@@ -682,11 +684,11 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
         else
         {
             EyeAnimationsAllowed = true;
-            targetScale.X = targetScale.Y = 1f;
+            TargetScale.X = TargetScale.Y = 1f;
             timeToSleep = 7f;
         }
-        clip.ScaleX = Maths.StepTo(clip.ScaleX, targetScale.X, 0.0005f);
-        clip.ScaleY = Maths.StepTo(clip.ScaleY, targetScale.Y, 0.0005f);
+        clip.ScaleX = Maths.StepTo(clip.ScaleX, TargetScale.X, 0.0005f);
+        clip.ScaleY = Maths.StepTo(clip.ScaleY, TargetScale.Y, 0.0005f);
         eye.Scale = 1f / clip.ScaleX * eyeScale;
         float y = clip.Position.Y - (bodyBackground.TextureSize.Y * (1f - clip.ScaleY) / 2f) - 2f;
         clip.Position = new Vector2(clip.Position.X, y);

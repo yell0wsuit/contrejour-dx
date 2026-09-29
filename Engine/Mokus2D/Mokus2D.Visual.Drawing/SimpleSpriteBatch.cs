@@ -13,21 +13,29 @@ public class SimpleSpriteBatch<T> : ISimpleSpriteBatch<T>, ISimpleSpriteBatch wh
 {
     public const int DefaultSpriteCount = 2048;
 
-    protected T[] _vertices;
+    private T[] _vertices;
+
+    protected ref T[] Vertices => ref _vertices;
 
     private readonly GraphicsDevice _device;
 
     private Texture2D _texture;
 
-    protected SpriteBatchProperties _properties;
+    private SpriteBatchProperties _properties;
+
+    protected ref SpriteBatchProperties Properties => ref _properties;
 
     private int _verticesCount;
 
     private int _indicesCount;
 
-    protected int _currentVertex;
+    private int _currentVertex;
 
-    protected int _currentIndex;
+    protected ref int CurrentVertex => ref _currentVertex;
+
+    private int _currentIndex;
+
+    protected ref int CurrentIndex => ref _currentIndex;
 
     private readonly ISpriteBatchEffect _defaultEffect;
 
@@ -35,9 +43,11 @@ public class SimpleSpriteBatch<T> : ISimpleSpriteBatch<T>, ISimpleSpriteBatch wh
 
     private ISpriteBatchEffect _currentEffect;
 
-    protected short[] _indices;
+    private short[] _indices;
 
-    public int TrianglesCount => _currentIndex / 3;
+    protected ref short[] Indices => ref _indices;
+
+    public int TrianglesCount => CurrentIndex / 3;
 
     public SimpleSpriteBatch(GraphicsDevice device)
         : this(device, 2048)
@@ -66,8 +76,8 @@ public class SimpleSpriteBatch<T> : ISimpleSpriteBatch<T>, ISimpleSpriteBatch wh
 
     protected virtual void CreateBuffers(int verticesCount, int indicesCount)
     {
-        _vertices = new T[verticesCount];
-        _indices = new short[indicesCount];
+        Vertices = new T[verticesCount];
+        Indices = new short[indicesCount];
     }
 
     public void Begin(Texture2D texture, Vector2 screenSize, SpriteBatchProperties properties, ISpriteBatchEffect effect)
@@ -75,9 +85,9 @@ public class SimpleSpriteBatch<T> : ISimpleSpriteBatch<T>, ISimpleSpriteBatch wh
         _currentEffect = effect ?? _defaultEffect;
         _screenSize = screenSize;
         _texture = texture;
-        _properties = properties;
-        _currentVertex = 0;
-        _currentIndex = 0;
+        Properties = properties;
+        CurrentVertex = 0;
+        CurrentIndex = 0;
         if (_texture.IsDisposed)
         {
             throw new ObjectDisposedException(Mokus2DGame.ContentManager.GetDisposedTextureName(_texture), "Texture is disposed.");
@@ -86,24 +96,24 @@ public class SimpleSpriteBatch<T> : ISimpleSpriteBatch<T>, ISimpleSpriteBatch wh
 
     public void Draw(T[] vertices)
     {
-        SpriteBatchUtil.Draw(ref _vertices, ref _indices, ref _currentVertex, ref _currentIndex, vertices);
+        SpriteBatchUtil.Draw(ref Vertices, ref Indices, ref CurrentVertex, ref CurrentIndex, vertices);
     }
 
     public void Draw(T[] vertices, int verticesCount, short[] indices, int indicesCount)
     {
-        SpriteBatchUtil.Draw(ref _vertices, ref _indices, ref _currentVertex, ref _currentIndex, vertices, verticesCount, indices, indicesCount);
+        SpriteBatchUtil.Draw(ref Vertices, ref Indices, ref CurrentVertex, ref CurrentIndex, vertices, verticesCount, indices, indicesCount);
     }
 
     public void DrawQuad(Quad<T> quad)
     {
-        SpriteBatchUtil.DrawQuad(quad, ref _vertices, ref _indices, ref _currentVertex, ref _currentIndex);
+        SpriteBatchUtil.DrawQuad(quad, ref Vertices, ref Indices, ref CurrentVertex, ref CurrentIndex);
     }
 
     public virtual void Flush()
     {
-        if (_currentVertex != 0)
+        if (CurrentVertex != 0)
         {
-            SpriteBatchUtil.DrawUserIndexedPrimitives(_device, _screenSize, ref _properties, _currentEffect, _texture, _vertices, _indices, _currentVertex, _currentIndex);
+            SpriteBatchUtil.DrawUserIndexedPrimitives(_device, _screenSize, ref Properties, _currentEffect, _texture, Vertices, Indices, CurrentVertex, CurrentIndex);
         }
     }
 }

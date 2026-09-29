@@ -9,7 +9,9 @@ public class VisualState
 {
     public bool TransformationDirty { get; set; }
 
-    public Matrix Matrix = Matrix.Identity;
+    private Matrix matrix = Matrix.Identity;
+
+    public ref Matrix Matrix => ref matrix;
     private Vector2 _spritesScaleFactor = Vector2.One;
 
     private Color _color = Color.White;

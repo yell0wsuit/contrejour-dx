@@ -12,13 +12,21 @@ namespace Mokus2D.Visual.Drawing;
 
 public class Quad<T> : IQuad where T : struct, IVertex
 {
-    public T LeftTop;
+    private T leftTop;
 
-    public T RightTop;
+    public ref T LeftTop => ref leftTop;
 
-    public T LeftBottom;
+    private T rightTop;
 
-    public T RightBottom;
+    public ref T RightTop => ref rightTop;
+
+    private T leftBottom;
+
+    public ref T LeftBottom => ref leftBottom;
+
+    private T rightBottom;
+
+    public ref T RightBottom => ref rightBottom;
 
     private Rectangle _bounds;
 

@@ -44,7 +44,9 @@ public class PlasticinePartBodyClip : ContreJourBodyClip, IClickable, IRestartab
 
     private readonly bool isTop;
     private float lastTime;
-    protected Vector2 lastFrameSpeed;
+    private Vector2 lastFrameSpeed;
+
+    protected ref Vector2 LastFrameSpeed => ref lastFrameSpeed;
 
     private Vector2 normal;
 
@@ -215,11 +217,11 @@ public class PlasticinePartBodyClip : ContreJourBodyClip, IClickable, IRestartab
     {
         if (!(Body.Position == position) || !Maths.FuzzyEquals(angle, Body.Rotation))
         {
-            lastFrameSpeed = position - Body.Position;
-            lastFrameSpeed *= 1f / lastTime;
+            LastFrameSpeed = position - Body.Position;
+            LastFrameSpeed *= 1f / lastTime;
             targetAngle = angle.SimplifyAngle(Body.Rotation - (float)Math.PI);
             targetPosition = position;
-            if (lastFrameSpeed.Length() > 2f)
+            if (LastFrameSpeed.Length() > 2f)
             {
                 FallGround();
             }
@@ -242,15 +244,15 @@ public class PlasticinePartBodyClip : ContreJourBodyClip, IClickable, IRestartab
     public void FallGround()
     {
         groundFallTime -= lastTime;
-        if (isTop && groundFallTime <= 0f && lastFrameSpeed.Y > -5f && Maths.Random() < 0.7f)
+        if (isTop && groundFallTime <= 0f && LastFrameSpeed.Y > -5f && Maths.Random() < 0.7f)
         {
             groundFallTime = groundFallMaxTime;
             Vector2 position = VectorUtil.Random(Item.GetLeftOffset(2f / 3f), Item.GetRightOffset(0f));
             GravityParticle gravityParticle = (GravityParticle)game.GroundFall.AddOrGetInvisible();
-            if (lastFrameSpeed.Y < 0f)
+            if (LastFrameSpeed.Y < 0f)
             {
                 gravityParticle.Speed = new Vector2(gravityParticle.Speed.X, gravityParticle.Speed.Y * 1.3f);
-                position.Y += Math.Max(lastFrameSpeed.Y, -35f);
+                position.Y += Math.Max(LastFrameSpeed.Y, -35f);
             }
             gravityParticle.Position = position;
         }

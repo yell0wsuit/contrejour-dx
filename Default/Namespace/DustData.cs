@@ -12,7 +12,9 @@ public class DustData : IUpdatable
     private readonly ContreJourGame game;
     private readonly Particle particle;
 
-    protected Vector2 speed;
+    private Vector2 speed;
+
+    protected ref Vector2 Speed => ref speed;
 
     public bool Dragging { get; set; }
 
@@ -28,15 +30,15 @@ public class DustData : IUpdatable
         particle.Position = position;
         particle.Scale = Maths.Random(0.5f, 1.5f);
         particle.OpacityFloat = Maths.Random(0.1f * alphaMult, 0.2f * alphaMult);
-        this.speed = Box2DConfig.DefaultConfig.ToPoint(bodySpeed);
-        this.speed.X *= Maths.Random(0.2f, 0.4f);
-        this.speed.Y = Math.Min(Maths.Random(5f, 20f) * speed, 40f);
+        this.Speed = Box2DConfig.DefaultConfig.ToPoint(bodySpeed);
+        this.Speed.X *= Maths.Random(0.2f, 0.4f);
+        this.Speed.Y = Math.Min(Maths.Random(5f, 20f) * speed, 40f);
     }
 
     public void Update(float time)
     {
         float num = time * 3f * Math.Min(particle.OpacityByte / 255f, 0.3f);
-        Vector2 vector = speed * num;
+        Vector2 vector = Speed * num;
         particle.Position += vector;
         particle.OpacityFloat -= Dragging ? (alphaDiff * 10f) : alphaDiff;
         if (particle.OpacityByte <= 0)

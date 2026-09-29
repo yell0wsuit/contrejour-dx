@@ -20,7 +20,7 @@ public class ButterFly : FlyBase
     public override void Update(float time)
     {
         horizontalStep += step;
-        targetPosition = ChooseTarget();
+        TargetPosition = ChooseTarget();
         base.Update(time);
     }
 
