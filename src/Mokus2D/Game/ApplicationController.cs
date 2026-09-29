@@ -1,7 +1,6 @@
 using System;
 
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 using Mokus2D.Content;
 using Mokus2D.FileSystem;
@@ -14,18 +13,16 @@ using Mokus2D.Util.Resources;
 
 namespace Mokus2D.Game
 {
-    // The engine's view of the platform host. GraphicsDevice is still a MonoGame type: rendering
-    // does not go through a platform interface yet.
+    // The engine's view of the platform host.
     public class ApplicationController : DisposableBase
     {
-        public ApplicationController(IGameHost host, IInputSource input, IFileLoader files, IAudioBackend audio, IRenderer renderer, GraphicsDevice graphicsDevice)
+        public ApplicationController(IGameHost host, IInputSource input, IFileLoader files, IAudioBackend audio, IRenderer renderer)
         {
             Host = host;
             Input = input;
             Files = files;
             Audio = audio;
             Renderer = renderer;
-            GraphicsDevice = graphicsDevice;
             Content = new MokusContentManager(files, renderer);
             // The host owns the backend and disposes it after the game.
             SoundManager.Backend = audio;
@@ -43,8 +40,6 @@ namespace Mokus2D.Game
         public IRenderer Renderer { get; }
 
         public MokusContentManager Content { get; }
-
-        public GraphicsDevice GraphicsDevice { get; }
 
         public event Action ClientSizeChanged;
 

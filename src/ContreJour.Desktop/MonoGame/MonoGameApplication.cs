@@ -8,7 +8,6 @@ using Microsoft.Xna.Framework.Input.Touch;
 using Mokus2D;
 using Mokus2D.FileSystem;
 using Mokus2D.Game;
-using Mokus2D.Graphics.MonoGame;
 using Mokus2D.Sound;
 
 namespace ContreJour.Desktop.MonoGame
@@ -55,7 +54,7 @@ namespace ContreJour.Desktop.MonoGame
             MonoGameInputSource input = new();
             FileLoader files = new();
             _renderer = new MonoGameRenderer(GraphicsDevice, files);
-            _applicationController = new ApplicationController(host, input, files, _audio, _renderer, GraphicsDevice);
+            _applicationController = new ApplicationController(host, input, files, _audio, _renderer);
             _game.Initialize(_applicationController);
             // Subscribe after the game is set up: resizes applied during Initialize would otherwise
             // reach the game before its views exist (Win8 view-state events only arrived later).

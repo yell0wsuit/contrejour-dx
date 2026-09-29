@@ -5,13 +5,13 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using Mokus2D.FileSystem;
+using Mokus2D.Graphics;
 
-namespace Mokus2D.Graphics.MonoGame
+namespace ContreJour.Desktop.MonoGame
 {
     // IRenderer on a MonoGame GraphicsDevice. Sprites use the original Mokus2D sprite shader with
     // tinting off; primitives use a BasicEffect, as the engine drew them before this renderer
-    // existed. It lives in the engine only while the rendering seam is being built; it moves into the
-    // desktop host once nothing in the engine needs MonoGame graphics.
+    // existed.
     public sealed class MonoGameRenderer : IRenderer, IDisposable
     {
         private const string SpriteShaderPath = "Mokus2D/Shaders/SpriteShader.ogl.mgfxo";

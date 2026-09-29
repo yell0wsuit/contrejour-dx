@@ -1,7 +1,6 @@
 using System;
 
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 using Mokus2D.Config;
 using Mokus2D.Content;
@@ -78,8 +77,6 @@ namespace Mokus2D
         public static IInputSource Input => Instance.ApplicationController.Input;
 
         public static GameConfig Config => Instance._config;
-
-        public static GraphicsDevice Device => Instance.ApplicationController.GraphicsDevice;
 
         public static IRenderer Renderer => Instance.ApplicationController.Renderer;
 

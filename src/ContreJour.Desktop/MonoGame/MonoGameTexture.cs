@@ -1,6 +1,8 @@
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Mokus2D.Graphics.MonoGame
+using Mokus2D.Graphics;
+
+namespace ContreJour.Desktop.MonoGame
 {
     public sealed class MonoGameTexture(Texture2D texture) : ITexture
     {
@@ -15,7 +17,7 @@ namespace Mokus2D.Graphics.MonoGame
         public bool IsDisposed => Texture.IsDisposed;
 
         // The MonoGame texture behind an engine texture; null for null.
-        public static Texture2D Unwrap(ITexture texture)
+        internal static Texture2D Unwrap(ITexture texture)
         {
             return ((MonoGameTexture)texture)?.Texture;
         }

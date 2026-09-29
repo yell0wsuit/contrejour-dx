@@ -22,4 +22,10 @@
     <Content Include="$(GameContents)**" Exclude="$(GameContents)Resources/**;$(GameContents)**/.DS_Store" Link="Assets/%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="$(GameContents)Resources/**" Exclude="$(GameContents)**/.DS_Store" Link="Resources/%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
+
+  <ItemGroup>
+    <!-- Precompiled OpenGL sprite effect for MonoGameRenderer (built from MonoGame/Shaders/*.fx with
+         tools/shaders/build-shaders.sh); the output path is the one the renderer opens. -->
+    <Content Include="MonoGame/Shaders/*.ogl.mgfxo" Link="Mokus2D/Shaders/%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
 </Project>
