@@ -69,13 +69,13 @@ public class ViewSwitcher : Node
             BeforeShowEvent.Dispatch(_currentView);
             _currentView.InteractionsEnabled = true;
             AddChild(_currentView);
-            if (_currentView is IViewStackPage)
+            if (_currentView is IViewStackPage currentPage)
             {
-                ((IViewStackPage)_currentView).OnShow();
+                currentPage.OnShow();
             }
-            if (_currentView is IShow)
+            if (_currentView is IShow show)
             {
-                ((IShow)_currentView).Show();
+                show.Show();
             }
             else if (ShowEffect is not null and not null)
             {
@@ -87,13 +87,13 @@ public class ViewSwitcher : Node
     private void HidePreviousAndShowCurrentView()
     {
         _previousView.InteractionsEnabled = false;
-        if (_previousView is IViewStackPage)
+        if (_previousView is IViewStackPage previousPage)
         {
-            ((IViewStackPage)_previousView).OnHide();
+            previousPage.OnHide();
         }
-        if (_previousView is IHide)
+        if (_previousView is IHide hide)
         {
-            ((IHide)_previousView).Hide(_onPreviousViewHide);
+            hide.Hide(_onPreviousViewHide);
             return;
         }
         if (HideEffect != null)

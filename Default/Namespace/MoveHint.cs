@@ -12,9 +12,9 @@ public class MoveHint(ContreJourLevelBuilder builder, object body, Sprite clip, 
     {
         foreach (BodyClip item in FarseerUtil.QueryClips(Builder.World, Builder.ToVec(Clip.Position), 6.6666665f, typeof(SnotPoint)))
         {
-            if (item is SnotPoint && ((SnotPoint)item).Used)
+            if (item is SnotPoint snotPoint && snotPoint.Used)
             {
-                point = (SnotPoint)item;
+                point = snotPoint;
                 point.UnuseEvent.AddListener(OnUnuse);
                 break;
             }

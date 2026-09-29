@@ -83,9 +83,9 @@ public class Sprite : AnchorNode, ITextureNode, IAnchorNode, ISizeNode, IBlendab
         {
             text = _data.Id;
         }
-        else if (this is IId)
+        else if (this is IId id)
         {
-            text = ((IId)this).Id;
+            text = id.Id;
         }
         if (text != null)
         {

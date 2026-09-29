@@ -486,9 +486,9 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
     private void JoinToPosition(Body joinBody, Vector2 joinPoint)
     {
         BodyClip bodyClip = (BodyClip)joinBody.UserData;
-        if (bodyClip is ISnotLinked)
+        if (bodyClip is ISnotLinked linked)
         {
-            Linked = (ISnotLinked)bodyClip;
+            Linked = linked;
             Linked.SnotJoinedCount++;
             Linked.DestroyEvent.AddListener(OnLinkedDestroy);
         }
@@ -516,9 +516,9 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
             if (processed.NotExists(val.Other))
             {
                 processed.Add(val.Other);
-                if (val.Other.UserData is BodyClip bodyClip && bodyClip is SnotBodyClip)
+                if (val.Other.UserData is SnotBodyClip snot)
                 {
-                    if (((SnotBodyClip)bodyClip).ConnectedToStatic(ref processed))
+                    if (snot.ConnectedToStatic(ref processed))
                     {
                         return true;
                     }

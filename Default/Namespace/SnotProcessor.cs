@@ -58,9 +58,9 @@ public class SnotProcessor(LevelBuilderBase builder, string type, float partSize
         {
             val = Builder.GroundBody;
         }
-        if (bodyClip is ISnotHolder)
+        if (bodyClip is ISnotHolder holder)
         {
-            vector = ((ISnotHolder)bodyClip).SnotPosition;
+            vector = holder.SnotPosition;
         }
         Body val2 = Builder.World.CreateCircle(1f / 6f, vector, 0f, GetStartDensity(), dynamic: true);
         val2.SetSensor(value: true);

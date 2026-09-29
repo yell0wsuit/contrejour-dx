@@ -230,7 +230,7 @@ public class SpringBodyClip : ContreJourBodyClip, IClickable, IRestartable
 
     public static bool CanLaunch(object bodyClip)
     {
-        return bodyClip is ILaunchable && ((ILaunchable)bodyClip).CanLaunch();
+        return bodyClip is ILaunchable launchable && launchable.CanLaunch();
     }
 
     private bool IsTouchDistance(Vector2 touchPosition)

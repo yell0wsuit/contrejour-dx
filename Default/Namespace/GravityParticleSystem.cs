@@ -139,7 +139,7 @@ public class GravityParticleSystem : ParticleSystem
 
     public override Particle CreateParticle()
     {
-        GravityParticle gravityParticle = (Data is IMovieClipData) ? new GravityParticle(this, (IMovieClipData)Data) : new GravityParticle(this, (ISpriteData)Data);
+        GravityParticle gravityParticle = Data is IMovieClipData movieClipData ? new GravityParticle(this, movieClipData) : new GravityParticle(this, (ISpriteData)Data);
         InitParticle(gravityParticle);
         return gravityParticle;
     }

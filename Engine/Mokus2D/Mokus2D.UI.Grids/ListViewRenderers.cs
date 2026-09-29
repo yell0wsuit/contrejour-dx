@@ -38,7 +38,7 @@ public class ListViewRenderers<T>(Func<Node> itemRendererFactory, ListView<T> li
 
         public override readonly bool Equals(object obj)
         {
-            return obj is not null && obj is Range && Equals((Range)obj);
+            return obj is Range range && Equals(range);
         }
 
         public override readonly int GetHashCode()

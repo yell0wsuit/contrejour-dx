@@ -116,9 +116,9 @@ public class ChapterItem : Node
     protected void AddUpdating(IUpdatable item)
     {
         updating.Add(item);
-        if (item is Node)
+        if (item is Node node)
         {
-            ((Node)item).UpdateEnabled = false;
+            node.UpdateEnabled = false;
         }
     }
 

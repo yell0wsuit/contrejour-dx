@@ -53,13 +53,13 @@ public abstract class Shape(float density)
 
     public bool CompareTo(Shape shape)
     {
-        return shape is PolygonShape && this is PolygonShape
-            ? ((PolygonShape)this).CompareTo((PolygonShape)shape)
-            : shape is CircleShape && this is CircleShape
-            ? ((CircleShape)this).CompareTo((CircleShape)shape)
-            : shape is EdgeShape && this is EdgeShape
-            ? ((EdgeShape)this).CompareTo((EdgeShape)shape)
-            : shape is ChainShape && this is ChainShape && ((ChainShape)this).CompareTo((ChainShape)shape);
+        return shape is PolygonShape otherPolygon && this is PolygonShape polygon
+            ? polygon.CompareTo(otherPolygon)
+            : shape is CircleShape otherCircle && this is CircleShape circle
+            ? circle.CompareTo(otherCircle)
+            : shape is EdgeShape otherEdge && this is EdgeShape edge
+            ? edge.CompareTo(otherEdge)
+            : shape is ChainShape otherChain && this is ChainShape chain && chain.CompareTo(otherChain);
     }
 
     public abstract float ComputeSubmergedArea(ref Vector2 normal, float offset, ref Transform xf, out Vector2 sc);

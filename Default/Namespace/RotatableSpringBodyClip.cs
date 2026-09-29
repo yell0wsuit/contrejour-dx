@@ -85,7 +85,7 @@ public class RotatableSpringBodyClip : RotatableSpringBase, IRestartable
         Builder.AddChildAfter(trajectory, circle);
         foreach (Fixture fixture in Body.FixtureList)
         {
-            if (fixture.UserData is Hashtable && ((Hashtable)fixture.UserData).GetString("id", null) == "touch")
+            if (fixture.UserData is Hashtable fixtureConfig && fixtureConfig.GetString("id", null) == "touch")
             {
                 fixture.IsSensor = true;
                 break;

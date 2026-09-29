@@ -76,9 +76,9 @@ public struct Point(int x, int y)
     public override readonly bool Equals(object obj)
     {
         bool result = false;
-        if (obj is Point)
+        if (obj is Point point)
         {
-            result = Equals((Point)obj);
+            result = Equals(point);
         }
         return result;
     }

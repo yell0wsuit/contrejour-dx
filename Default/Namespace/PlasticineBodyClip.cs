@@ -146,7 +146,7 @@ public class PlasticineBodyClip : ContreJourBodyClip, IRestartable
             bool flag = false;
             for (int j = 0; j < list2.Count; j++)
             {
-                if (list2[j].Body.UserData is BodyClip bodyClip && bodyClip is PlasticinePartBodyClip && ((PlasticinePartBodyClip)bodyClip).Parent == this)
+                if (list2[j].Body.UserData is PlasticinePartBodyClip part && part.Parent == this)
                 {
                     flag = true;
                     break;

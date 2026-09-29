@@ -25,9 +25,9 @@ public static class AnimationUtil
     private static void ApplyChildTransformations(bool recursive, Node targetChild, Node sourceChild)
     {
         targetChild.ApplyTransformations(sourceChild);
-        if (recursive && sourceChild is AnimationNode && targetChild is AnimationNode)
+        if (recursive && sourceChild is AnimationNode sourceAnimation && targetChild is AnimationNode targetAnimation)
         {
-            ApplyChildTransformations((AnimationNode)sourceChild, (AnimationNode)targetChild, recursive: true);
+            ApplyChildTransformations(sourceAnimation, targetAnimation, recursive: true);
         }
     }
 

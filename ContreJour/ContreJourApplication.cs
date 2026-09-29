@@ -409,7 +409,7 @@ public class ContreJourApplication : Mokus2DGame
 
     public static bool IsFirstLevel(Node node)
     {
-        return node is ContreJourGame && ((ContreJourGame)node).LevelIndex == 0;
+        return node is ContreJourGame game && game.LevelIndex == 0;
     }
 
     private static void LoadSounds()

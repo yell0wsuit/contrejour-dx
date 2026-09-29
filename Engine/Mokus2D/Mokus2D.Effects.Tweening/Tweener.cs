@@ -201,7 +201,7 @@ public class Tweener(object defaultTarget) : DisposableBase, IUpdatable, ICleana
 
     public void StopObjectSequences(object o)
     {
-        Stop(t => t is Sequence && ((Sequence)t).Target == o);
+        Stop(t => t is Sequence sequence && sequence.Target == o);
     }
 
     public void Stop(Predicate<ITween> predicate)

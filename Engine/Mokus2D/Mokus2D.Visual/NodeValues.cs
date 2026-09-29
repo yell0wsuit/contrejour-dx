@@ -137,13 +137,13 @@ public static class NodeValues
         n.UpdateChildren = v;
     });
 
-    public static readonly GetSetValue<Node, bool> IsAnimationDiscrete = new(n => n is AnimationNode && ((AnimationNode)n).IsChildrenAnimationsDiscrete, IsAnimationDiscreteSetter);
+    public static readonly GetSetValue<Node, bool> IsAnimationDiscrete = new(n => n is AnimationNode animation && animation.IsChildrenAnimationsDiscrete, IsAnimationDiscreteSetter);
 
-    public static readonly GetSetValue<Node, bool> Repeat = new(n => n is IAnimatedNode && ((IAnimatedNode)n).Repeat, RepeatSetter);
+    public static readonly GetSetValue<Node, bool> Repeat = new(n => n is IAnimatedNode animated && animated.Repeat, RepeatSetter);
 
-    public static readonly GetSetValue<Node, bool> Rewind = new(n => n is IAnimatedNode && ((IAnimatedNode)n).Rewind, RewindSetter);
+    public static readonly GetSetValue<Node, bool> Rewind = new(n => n is IAnimatedNode animated && animated.Rewind, RewindSetter);
 
-    public static readonly GetSetValue<Node, bool> Stoped = new(n => n is IAnimatedNode && ((IAnimatedNode)n).Stoped, StopedSetter);
+    public static readonly GetSetValue<Node, bool> Stoped = new(n => n is IAnimatedNode animated && animated.Stoped, StopedSetter);
 
     public static readonly GetSetValue<Node, float> Speed = new(n => ((IAnimatedNode)n).Speed, delegate (Node n, float v)
     {

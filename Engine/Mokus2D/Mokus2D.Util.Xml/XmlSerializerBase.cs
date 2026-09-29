@@ -42,9 +42,9 @@ public abstract class XmlSerializerBase
             }
             list[num] = targetValue;
         }
-        else if (target is IDictionary)
+        else if (target is IDictionary dictionary)
         {
-            ((IDictionary)target)[key] = targetValue;
+            dictionary[key] = targetValue;
         }
         else
         {

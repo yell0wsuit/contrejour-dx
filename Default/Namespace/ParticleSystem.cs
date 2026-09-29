@@ -129,7 +129,7 @@ public class ParticleSystem : MultiframeSprite
 
     public virtual Particle CreateParticle()
     {
-        Particle particle = (Data is IMovieClipData) ? new Particle(this, (IMovieClipData)Data) : new Particle(this, (ISpriteData)Data);
+        Particle particle = Data is IMovieClipData movieClipData ? new Particle(this, movieClipData) : new Particle(this, (ISpriteData)Data);
         particle.Blend = Blend;
         return particle;
     }
