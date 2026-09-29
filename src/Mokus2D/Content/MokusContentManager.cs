@@ -63,7 +63,9 @@ namespace Mokus2D.Content
         {
             string path = Path.Combine(RootDirectory, Path.ChangeExtension(assetName, ".png"));
             using Stream stream = files.OpenFile(path);
-            return Texture2D.FromStream(Mokus2DGame.Device, stream);
+            // Sprites are drawn with premultiplied-alpha blending, as MonoGame's content loader
+            // prepared raw image files; straight alpha shows white fringes around soft edges.
+            return Texture2D.FromStream(Mokus2DGame.Device, stream, DefaultColorProcessors.PremultiplyAlpha);
         }
     }
 }
