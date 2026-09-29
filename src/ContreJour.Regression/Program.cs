@@ -2,7 +2,7 @@ using System;
 using System.Globalization;
 using System.IO;
 
-using ContreJour.Gameplay;
+using ContreJour.Saving;
 
 using Mokus2D.Game;
 
@@ -43,7 +43,7 @@ namespace ContreJour.Regression
             {
                 Directory.Delete(dataDirectory, recursive: true);
             }
-            UserData.DataDirectory = dataDirectory;
+            Preferences.SaveDirectory = dataDirectory;
 
             using Mokus2DApplication<RegressionApplication> game = new();
             game.Run();

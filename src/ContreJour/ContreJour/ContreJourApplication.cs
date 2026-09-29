@@ -7,6 +7,7 @@ using ContreJour.Clips.menu2;
 using ContreJour.Clips.segoeFont;
 using ContreJour.Config;
 using ContreJour.Gameplay;
+using ContreJour.Saving;
 using ContreJour.WinRT;
 
 using Microsoft.Xna.Framework;
@@ -68,7 +69,7 @@ namespace ContreJour
 
         private void OnChangeView(Node node)
         {
-            UserData.SaveUserData();
+            Preferences.RequestSave();
         }
 
         protected override void Dispose(bool disposing)
@@ -137,6 +138,7 @@ namespace ContreJour
         {
             base.Update(time);
             SoundManager.Update();
+            Preferences.Update();
             PlatformUpdate();
         }
 
@@ -160,7 +162,7 @@ namespace ContreJour
             {
                 ((IDisposable)view)?.Dispose();
             }
-            UserData.SaveUserData();
+            Preferences.RequestSave();
             GC.Collect();
             continuation();
         }
@@ -168,7 +170,8 @@ namespace ContreJour
         public override void OnExiting()
         {
             base.OnExiting();
-            UserData.SaveUserData();
+            Preferences.RequestSave();
+            Preferences.Update(force: true);
         }
 
         private void ShowView(Node view)

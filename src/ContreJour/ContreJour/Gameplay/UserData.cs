@@ -1,133 +1,124 @@
 using System;
 using System.Globalization;
-using System.IO;
-using System.Text.Json;
-using System.Text.Json.Serialization;
+
+using ContreJour.Saving;
 
 using Mokus2D.Sound;
 using Mokus2D.Util;
 
 namespace ContreJour.Gameplay
 {
+    /// <summary>
+    /// The player's settings and progress, stored by <see cref="Preferences"/>: settings in the
+    /// preferences file, and unlocks, scores, stars and stats for every chapter in the game save.
+    /// </summary>
     public class UserData
     {
-        private const string FileName = "contreJourData.json";
+        private const int LevelsPerChapter = 20;
+
+        private const string SoundOnKey = "SOUND_ON";
+        private const string MusicOnKey = "MUSIC_ON";
+        private const string IntroWatchedKey = "PREFS_INTRO_WATCHED";
+
+        private const string UnlockedChaptersKey = "UNLOCKED_CHAPTERS";
+        private const string UnlockedLevelsKey = "UNLOCKED_LEVELS_";
+        private const string ScoreKey = "SCORE_";
+        private const string StarsKey = "STARS_";
+        private const string OutOfScreenKey = "STAT_OUT_OF_SCREEN";
+        private const string SpringShotKey = "STAT_SPRING_SHOT";
+        private const string AccupunctureKey = "STAT_ACCUPUNCTURE";
+        private const string FeedMonsterKey = "STAT_FEED_MONSTER";
+        private const string BlocksDestroyedKey = "STAT_BLOCKS_DESTROYED";
+
         private static readonly int[] StarsToUnlockByChapter = [0, 30, 70, 120, 180];
-
-        private static UserData instance;
-
         private static LevelPosition postponedLevel;
-        private int unlockedChapters;
 
         public static UserData Instance
         {
             get
             {
-                instance ??= ReadUserData();
-                return instance;
+                if (field == null)
+                {
+                    Preferences.Load();
+                    field = new UserData();
+                }
+                return field;
             }
         }
 
-        public LevelData[] LevelData
-        {
-            get;
-            set
-            {
-                for (int i = 0; i < value.Length && i < field.Length; i++)
-                {
-                    field[i] = value[i];
-                }
-            }
-        } = new LevelData[Constants.ChaptersCount * 20];
+        // The same file objects for the whole session: Preferences.Load reloads them in place.
+        private readonly PreferenceFile settings = Preferences.Settings;
 
-        public int[] UnlockedLevels
-        {
-            get;
-            set
-            {
-                for (int i = 0; i < value.Length && i < field.Length; i++)
-                {
-                    field[i] = value[i];
-                }
-            }
-        } = new int[Constants.ChaptersCount];
+        private readonly PreferenceFile gameSave = Preferences.GameSave;
 
         public bool SoundDisabled
         {
-            get;
+            get => !settings.GetBool(SoundOnKey, true);
             set
             {
-                if (field != value)
+                if (SoundDisabled != value)
                 {
-                    field = value;
-                    SaveUserData();
+                    settings.SetBool(SoundOnKey, !value);
+                    Preferences.RequestSave();
                 }
             }
         }
 
         public bool MusicDisabled
         {
-            get;
+            get => !settings.GetBool(MusicOnKey, true);
             set
             {
-                if (field != value)
+                if (MusicDisabled != value)
                 {
-                    field = value;
-                    SaveUserData();
+                    settings.SetBool(MusicOnKey, !value);
+                    Preferences.RequestSave();
                 }
             }
         }
 
-        public DateTime EnjoyDate { get; set; }
-
-        public bool IntroWatched { get; set; }
-
-        public bool InstallSent { get; set; }
-
-        public bool Improved { get; set; }
-
-        public bool EnjoyShown { get; set; }
-
-        public bool HasToShowEnjoy
+        public bool IntroWatched
         {
-            get
-            {
-                float num = (DateTime.Now - EnjoyDate).Days;
-                if (!EnjoyShown && Improved && TotalStars >= 30)
-                {
-                    if (!(num >= 1f))
-                    {
-                        _ = EnjoyDate;
-                        return false;
-                    }
-                    return true;
-                }
-                return false;
-            }
+            get => settings.GetBool(IntroWatchedKey);
+            set => settings.SetBool(IntroWatchedKey, value);
         }
 
         public bool LastLevelOpen => GetLevelDataByPosition(new LevelPosition(4, 19)) != null;
 
-        public int OutOfScreen { get; set; }
+        public int OutOfScreen
+        {
+            get => gameSave.GetInt(OutOfScreenKey);
+            set => gameSave.SetInt(OutOfScreenKey, value);
+        }
 
-        public int SpringShot { get; set; }
+        public int SpringShot
+        {
+            get => gameSave.GetInt(SpringShotKey);
+            set => gameSave.SetInt(SpringShotKey, value);
+        }
 
-        public int TrampolineShot { get; set; }
+        public int Accupuncture
+        {
+            get => gameSave.GetInt(AccupunctureKey);
+            set => gameSave.SetInt(AccupunctureKey, value);
+        }
 
-        public int Accupuncture { get; set; }
+        public int FeedMonster
+        {
+            get => gameSave.GetInt(FeedMonsterKey);
+            set => gameSave.SetInt(FeedMonsterKey, value);
+        }
 
-        public int FeedMonster { get; set; }
-
-        public int SnotEyeHit { get; set; }
-
-        public int BlocksDestroyed { get; set; }
-
-        public bool RefreshHighscores { get; set; }
+        public int BlocksDestroyed
+        {
+            get => gameSave.GetInt(BlocksDestroyedKey);
+            set => gameSave.SetInt(BlocksDestroyedKey, value);
+        }
 
         public int UnlockedChapters
         {
-            get => Math.Max(unlockedChapters, 1);
-            set => unlockedChapters = Math.Max(1, value);
+            get => Math.Max(gameSave.GetInt(UnlockedChaptersKey), 1);
+            set => gameSave.SetInt(UnlockedChaptersKey, Math.Max(1, value));
         }
 
         public int TotalStars => GetStarsEnd(0, ContreJourConstants.LevelCount);
@@ -138,10 +129,27 @@ namespace ContreJour.Gameplay
 
         public event Action<int> TotalStarsChanged;
 
-        [JsonConstructor]
-        internal UserData()
+        private UserData()
         {
             SoundManager.MusicDisableEvent += OnMusicDisable;
+            InitializeDefaults();
+        }
+
+        // First launch: write the settings' defaults, so the preferences file lists them.
+        private void InitializeDefaults()
+        {
+            if (!settings.Contains(SoundOnKey))
+            {
+                settings.SetBool(SoundOnKey, true);
+            }
+            if (!settings.Contains(MusicOnKey))
+            {
+                settings.SetBool(MusicOnKey, true);
+            }
+            if (settings.Dirty)
+            {
+                Preferences.RequestSave();
+            }
         }
 
         private void OnMusicDisable()
@@ -167,17 +175,17 @@ namespace ContreJour.Gameplay
 
         public void SetUnlockedLevelsChapter(int value, int chapter)
         {
-            UnlockedLevels[chapter] = value;
+            gameSave.SetInt(UnlockedLevelsKey + chapter.ToString(CultureInfo.InvariantCulture), value);
         }
 
         public int GetUnlockedLevels(int chapter)
         {
-            return UnlockedLevels[chapter];
+            return gameSave.GetInt(UnlockedLevelsKey + chapter.ToString(CultureInfo.InvariantCulture));
         }
 
         public void UnlockChapter(int chapter)
         {
-            UnlockedChapters = Math.Max(chapter + 1, unlockedChapters);
+            UnlockedChapters = Math.Max(chapter + 1, gameSave.GetInt(UnlockedChaptersKey));
         }
 
         public string TotalStarsString()
@@ -223,7 +231,7 @@ namespace ContreJour.Gameplay
         public int GetStarsEnd(int start, int end)
         {
             int num = 0;
-            for (int i = start; i < Math.Min(LevelData.Length, end); i++)
+            for (int i = start; i < Math.Min(ContreJourConstants.LevelCount, end); i++)
             {
                 LevelData levelData = GetLevelData(i);
                 if (levelData != null)
@@ -237,7 +245,7 @@ namespace ContreJour.Gameplay
         public int GetScoreEnd(int start, int end)
         {
             int num = 0;
-            for (int i = start; i < Math.Min(LevelData.Length, end); i++)
+            for (int i = start; i < Math.Min(ContreJourConstants.LevelCount, end); i++)
             {
                 LevelData levelData = GetLevelData(i);
                 if (levelData != null)
@@ -265,12 +273,28 @@ namespace ContreJour.Gameplay
 
         public void SetLevelData(LevelData data, int index)
         {
-            LevelData[index] = data;
+            string key = LevelKey(index);
+            if (data == null)
+            {
+                gameSave.Remove(ScoreKey + key);
+                gameSave.Remove(StarsKey + key);
+                return;
+            }
+            gameSave.SetInt(ScoreKey + key, data.Score);
+            gameSave.SetInt(StarsKey + key, data.StarsCount);
         }
 
+        // A level has data once it has been completed; its score key marks that.
         public LevelData GetLevelData(int index)
         {
-            return LevelData[index];
+            string key = LevelKey(index);
+            return gameSave.Contains(ScoreKey + key) ? new LevelData(gameSave.GetInt(ScoreKey + key), gameSave.GetInt(StarsKey + key)) : null;
+        }
+
+        // Chapter and level within the chapter, as in CHAPTER_LEVEL (e.g. "1_4").
+        private static string LevelKey(int index)
+        {
+            return (index / LevelsPerChapter).ToString(CultureInfo.InvariantCulture) + "_" + (index % LevelsPerChapter).ToString(CultureInfo.InvariantCulture);
         }
 
         public void CompleteAll()
@@ -303,7 +327,6 @@ namespace ContreJour.Gameplay
             SkipLevel(position);
             LevelData levelData = GetLevelDataByPosition(position) ?? new LevelData();
             int num = GetTimeBonus(time) + (stars * 1000);
-            RefreshHighscores = true;
             bool flag = num > levelData.Score;
             bool flag2 = stars > levelData.StarsCount;
             if (flag || flag2)
@@ -341,34 +364,6 @@ namespace ContreJour.Gameplay
             if (GetCompleted(postponedLevel.Chapter) && GetPerfect(postponedLevel.Chapter))
             {
                 XBoxUtil.AwardAchievement(Achievements.GetChapterPerfect(postponedLevel.Chapter));
-            }
-        }
-
-        public static string DataDirectory { get; set; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ContreJour");
-
-        private static string DataFilePath => Path.Combine(DataDirectory, FileName);
-
-        private static UserData ReadUserData()
-        {
-            try
-            {
-                using FileStream stream = File.OpenRead(DataFilePath);
-                return JsonSerializer.Deserialize(stream, UserDataJsonContext.Default.UserData) ?? new UserData();
-            }
-            catch (Exception)
-            {
-                return new UserData();
-            }
-        }
-
-        public static void SaveUserData()
-        {
-            if (instance != null)
-            {
-                // Serialized in full before the file is touched, so a failure can't leave a partial save.
-                byte[] json = JsonSerializer.SerializeToUtf8Bytes(instance, UserDataJsonContext.Default.UserData);
-                _ = Directory.CreateDirectory(DataDirectory);
-                File.WriteAllBytes(DataFilePath, json);
             }
         }
     }

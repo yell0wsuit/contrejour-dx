@@ -288,15 +288,7 @@ namespace ContreJour.Gameplay
         private void LookAtScore()
         {
             hero.ViewTarget = totalField.LocalToNode(Vector2.Zero, this);
-            if (newHighScore)
-            {
-                UserData.Instance.Improved = true;
-                _ = this.Schedule(0.7f, LookAtImproved);
-            }
-            else
-            {
-                _ = this.Schedule(0.5f, LookAtPlayer);
-            }
+            _ = newHighScore ? this.Schedule(0.7f, LookAtImproved) : this.Schedule(0.5f, LookAtPlayer);
         }
 
         private void LookAtImproved()

@@ -4,9 +4,9 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Text.Json;
 
 using ContreJour.Gameplay;
+using ContreJour.Saving;
 
 using FarseerPhysics.Dynamics;
 
@@ -247,9 +247,9 @@ namespace ContreJour.Regression
             ApplicationController.Application.Exit();
         }
 
-        // The save file is UserData written as JSON by UserDataJsonContext. Record some level results
-        // (so level entries are written too), save through the game, and hash the file. Reading it back
-        // and writing it again must give the same bytes.
+        // Settings and progress are saved by Preferences as two JSON files. Record some level results
+        // (so level entries are written too), save through the game, and hash both files. Loading
+        // them back and writing them again must give the same bytes.
         private void WriteSaveChecks()
         {
             UserData data = UserData.Instance;
@@ -257,11 +257,16 @@ namespace ContreJour.Regression
             data.SetLevelData(new LevelData(2150, 2), 24);
             data.SetUnlockedLevelsChapter(5, 1);
             data.UnlockChapter(1);
-            UserData.SaveUserData();
+            data.SpringShot++;
+            Preferences.RequestSave();
+            Preferences.Update(force: true);
+            byte[] saved = ReadSaveFiles();
 
-            byte[] saved = File.ReadAllBytes(Path.Combine(UserData.DataDirectory, "contreJourData.json"));
-            UserData loaded = JsonSerializer.Deserialize(saved, UserDataJsonContext.Default.UserData);
-            byte[] resaved = JsonSerializer.SerializeToUtf8Bytes(loaded, UserDataJsonContext.Default.UserData);
+            Preferences.Load();
+            Preferences.MarkAllDirty();
+            Preferences.RequestSave();
+            Preferences.Update(force: true);
+            byte[] resaved = ReadSaveFiles();
 
             _hash = FnvOffset;
             foreach (byte b in saved)
@@ -271,6 +276,12 @@ namespace ContreJour.Regression
             string roundTrip = saved.AsSpan().SequenceEqual(resaved) ? "ok" : "CHANGED";
             _writer.WriteLine($"save {_hash:x16} round-trip {roundTrip}");
             Failed |= roundTrip != "ok";
+        }
+
+        private static byte[] ReadSaveFiles()
+        {
+            return [.. File.ReadAllBytes(Path.Combine(Preferences.SaveDirectory, Preferences.Settings.FileName)),
+                .. File.ReadAllBytes(Path.Combine(Preferences.SaveDirectory, Preferences.GameSave.FileName))];
         }
 
         private static T Find<T>(Node node) where T : Node
