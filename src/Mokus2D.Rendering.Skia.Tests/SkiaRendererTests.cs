@@ -229,6 +229,49 @@ namespace Mokus2D.Rendering.Skia.Tests
         }
 
         [Fact]
+        public void TrianglesWithANonFiniteVertexAreSkippedAndTheRestDrawn()
+        {
+            // Zero-size glyphs reach the renderer with NaN positions in the same draw as real ones.
+            // A GPU drops just those triangles; the rest of the draw must still appear.
+            using RenderTarget target = new(8, 8, SKColors.Black);
+            Vertex[] broken = RenderTarget.Quad(float.NaN, float.NaN, float.NaN, float.NaN, White);
+            Vertex[] vertices = [.. RenderTarget.Quad(-1f, 1f, 0f, 0f, White), .. broken];
+            short[] indices = [0, 1, 2, 1, 3, 2, 4, 5, 6, 5, 7, 6];
+
+            target.Renderer.DrawTriangles(vertices, vertices.Length, indices, indices.Length, Matrix4x4.Identity,
+                new DrawState(null, BlendMode.NonPremultiplied, SamplerMode.LinearWrap, ColorMode.Primitive));
+
+            Assert.Equal(new Vector4(255f, 255f, 255f, 255f), target.Pixel(1, 1));
+            Assert.Equal(new Vector4(0f, 0f, 0f, 255f), target.Pixel(6, 6));
+        }
+
+        [Fact]
+        public void ATriangleWithOneNonFiniteVertexIsNotDrawn()
+        {
+            // Two corners on screen, one at NaN: nothing may appear, least of all a triangle reaching
+            // toward wherever the NaN corner was parked.
+            using RenderTarget target = new(8, 8, SKColors.Black);
+            Vertex[] vertices =
+            [
+                new(new Vector3(1f, -1f, 0f), White, Vector2.Zero),
+                new(new Vector3(1f, 1f, 0f), White, Vector2.Zero),
+                new(new Vector3(float.NaN, 0f, 0f), White, Vector2.Zero),
+            ];
+            short[] indices = [0, 1, 2];
+
+            target.Renderer.DrawTriangles(vertices, vertices.Length, indices, indices.Length, Matrix4x4.Identity,
+                new DrawState(null, BlendMode.NonPremultiplied, SamplerMode.LinearWrap, ColorMode.Primitive));
+
+            for (int y = 0; y < 8; y++)
+            {
+                for (int x = 0; x < 8; x++)
+                {
+                    Assert.Equal(0f, target.Pixel(x, y).X);
+                }
+            }
+        }
+
+        [Fact]
         public void ConsecutiveDrawsOfTheSameSizeDrawTheirOwnData()
         {
             using RenderTarget target = new(8, 1, SKColors.Black);

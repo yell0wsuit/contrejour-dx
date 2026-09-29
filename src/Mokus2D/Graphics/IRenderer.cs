@@ -26,7 +26,9 @@ namespace Mokus2D.Graphics
         ITexture CreateTexture(Stream stream);
 
         // Draws indexCount / 3 triangles, in index order, both windings, no depth test. transform
-        // maps Position to clip space. See DrawState's enums for the pixel math.
+        // maps Position to clip space. A triangle with a non-finite vertex position is skipped, as a
+        // GPU rasterizer drops it, and the rest are still drawn. See DrawState's enums for the pixel
+        // math.
         void DrawTriangles(Vertex[] vertices, int vertexCount, short[] indices, int indexCount, in Matrix4x4 transform, in DrawState state);
     }
 }

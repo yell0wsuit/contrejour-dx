@@ -116,10 +116,42 @@ namespace Mokus2D.Rendering.Skia
                     buffers.Colors[i] = TexturedVertexColor(vertex.Color, state.ColorMode, weighted, opacity);
                 }
             }
-            ushort[] triangles = IndexBufferFor(indexCount);
-            for (int i = 0; i < indexCount; i++)
+            // A GPU drops a triangle with a non-finite vertex and draws the rest; Skia would drop the
+            // whole draw, since its bounds are no longer finite. The engine does send such triangles:
+            // zero-size glyphs come out at NaN in the same draw as a label's visible ones.
+            int keptCount = 0;
+            for (int i = 0; i + 2 < indexCount; i += 3)
             {
-                triangles[i] = (ushort)indices[i];
+                if (IsFinite(buffers.Positions, indices, i))
+                {
+                    keptCount += 3;
+                }
+            }
+            if (keptCount == 0)
+            {
+                return;
+            }
+            ushort[] triangles = IndexBufferFor(keptCount);
+            int kept = 0;
+            for (int i = 0; i + 2 < indexCount; i += 3)
+            {
+                if (IsFinite(buffers.Positions, indices, i))
+                {
+                    triangles[kept] = (ushort)indices[i];
+                    triangles[kept + 1] = (ushort)indices[i + 1];
+                    triangles[kept + 2] = (ushort)indices[i + 2];
+                    kept += 3;
+                }
+            }
+            // Skia bounds the draw by every position, drawn or not, so the dropped ones move to a
+            // finite point no kept triangle uses.
+            for (int i = 0; i < vertexCount; i++)
+            {
+                SKPoint position = buffers.Positions[i];
+                if (!float.IsFinite(position.X) || !float.IsFinite(position.Y))
+                {
+                    buffers.Positions[i] = SKPoint.Empty;
+                }
             }
             if (texture != null)
             {
@@ -155,6 +187,19 @@ namespace Mokus2D.Rendering.Skia
             }
             float weight = weighted ? color.A / 255f : 1f;
             return new SKColor(Scale(color.R, weight), Scale(color.G, weight), Scale(color.B, weight), color.A);
+        }
+
+        private static bool IsFinite(SKPoint[] positions, short[] indices, int first)
+        {
+            for (int i = first; i < first + 3; i++)
+            {
+                SKPoint position = positions[indices[i]];
+                if (!float.IsFinite(position.X) || !float.IsFinite(position.Y))
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         private static byte Scale(byte channel, float factor)
