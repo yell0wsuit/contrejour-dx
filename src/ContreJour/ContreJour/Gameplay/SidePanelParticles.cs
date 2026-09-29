@@ -1,12 +1,13 @@
 using Mokus2D.Visual.Particles.Util;
 
-namespace ContreJour.Gameplay;
-
-public class SidePanelParticles : LastParticles
+namespace ContreJour.Gameplay
 {
-    public SidePanelParticles()
+    public class SidePanelParticles : LastParticles
     {
-        ParticlesScale = new RandomRange(1.5f, 0.6f);
-        SpeedMult = 10f;
+        public SidePanelParticles()
+        {
+            ParticlesScale = new RandomRange(1.5f, 0.6f);
+            SpeedMult = 10f;
+        }
     }
 }

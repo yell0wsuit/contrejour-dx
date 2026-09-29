@@ -1,6 +1,7 @@
-namespace ContreJour.Gameplay;
-
-public interface IWindManager
+namespace ContreJour.Gameplay
 {
-    WindManager WindManager { get; }
+    public interface IWindManager
+    {
+        WindManager WindManager { get; }
+    }
 }

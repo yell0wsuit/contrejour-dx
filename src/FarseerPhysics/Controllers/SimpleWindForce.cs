@@ -2,49 +2,50 @@ using FarseerPhysics.Dynamics;
 
 using Microsoft.Xna.Framework;
 
-namespace FarseerPhysics.Controllers;
-
-public class SimpleWindForce : AbstractForceController
+namespace FarseerPhysics.Controllers
 {
-    public Vector2 Direction { get; set; }
-
-    public float Divergence { get; set; }
-
-    public bool IgnorePosition { get; set; }
-
-    public override void ApplyForce(float dt, float strength)
+    public class SimpleWindForce : AbstractForceController
     {
-        foreach (Body body in World.BodyList)
+        public Vector2 Direction { get; set; }
+
+        public float Divergence { get; set; }
+
+        public bool IgnorePosition { get; set; }
+
+        public override void ApplyForce(float dt, float strength)
         {
-            float decayMultiplier = GetDecayMultiplier(body);
-            if (decayMultiplier == 0f)
+            foreach (Body body in World.BodyList)
             {
-                continue;
-            }
-            Vector2 vector;
-            if (ForceType == ForceTypes.Point)
-            {
-                vector = body.Position - Position;
-            }
-            else
-            {
-                Direction.Normalize();
-                vector = Direction;
-                if (vector.Length() == 0f)
+                float decayMultiplier = GetDecayMultiplier(body);
+                if (decayMultiplier == 0f)
                 {
-                    vector = new Vector2(0f, 1f);
+                    continue;
                 }
-            }
-            if (Variation != 0f)
-            {
-                float num = (float)Randomize.NextDouble() * MathHelper.Clamp(Variation, 0f, 1f);
-                vector.Normalize();
-                body.ApplyForce(vector * strength * decayMultiplier * num);
-            }
-            else
-            {
-                vector.Normalize();
-                body.ApplyForce(vector * strength * decayMultiplier);
+                Vector2 vector;
+                if (ForceType == ForceTypes.Point)
+                {
+                    vector = body.Position - Position;
+                }
+                else
+                {
+                    Direction.Normalize();
+                    vector = Direction;
+                    if (vector.Length() == 0f)
+                    {
+                        vector = new Vector2(0f, 1f);
+                    }
+                }
+                if (Variation != 0f)
+                {
+                    float num = (float)Randomize.NextDouble() * MathHelper.Clamp(Variation, 0f, 1f);
+                    vector.Normalize();
+                    body.ApplyForce(vector * strength * decayMultiplier * num);
+                }
+                else
+                {
+                    vector.Normalize();
+                    body.ApplyForce(vector * strength * decayMultiplier);
+                }
             }
         }
     }

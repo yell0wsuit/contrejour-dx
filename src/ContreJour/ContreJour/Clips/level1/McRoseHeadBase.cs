@@ -4,29 +4,30 @@ using Mokus2D.Data;
 using Mokus2D.Interfaces;
 using Mokus2D.Visual;
 
-namespace ContreJour.Clips.level1;
-
-[GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
-public class McRoseHeadBase : Sprite, IFreeable, IId
+namespace ContreJour.Clips.level1
 {
-    public const string ID = "level1/McRoseHeadBase";
-
-    public string Id => "level1/McRoseHeadBase";
-
-    public static McRoseHeadBase New()
+    [GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
+    public class McRoseHeadBase : Sprite, IFreeable, IId
     {
-        McRoseHeadBase mcRoseHeadBase = StaticPool.New<McRoseHeadBase>();
-        mcRoseHeadBase.RefreshProperties();
-        return mcRoseHeadBase;
-    }
+        public const string ID = "level1/McRoseHeadBase";
 
-    public McRoseHeadBase()
-        : base("level1/McRoseHeadBase")
-    {
-    }
+        public string Id => "level1/McRoseHeadBase";
 
-    public void Free()
-    {
-        StaticPool.Free<McRoseHeadBase>(this);
+        public static McRoseHeadBase New()
+        {
+            McRoseHeadBase mcRoseHeadBase = StaticPool.New<McRoseHeadBase>();
+            mcRoseHeadBase.RefreshProperties();
+            return mcRoseHeadBase;
+        }
+
+        public McRoseHeadBase()
+            : base("level1/McRoseHeadBase")
+        {
+        }
+
+        public void Free()
+        {
+            StaticPool.Free<McRoseHeadBase>(this);
+        }
     }
 }

@@ -1,10 +1,11 @@
 using Mokus2D.Input;
 
-namespace Mokus2D.Visual.Interactive;
-
-public readonly struct TouchArguments(Touch touch, ITouchDispatchNode target)
+namespace Mokus2D.Visual.Interactive
 {
-    public readonly Touch Touch = touch;
+    public readonly struct TouchArguments(Touch touch, ITouchDispatchNode target)
+    {
+        public readonly Touch Touch = touch;
 
-    public readonly ITouchDispatchNode Target = target;
+        public readonly ITouchDispatchNode Target = target;
+    }
 }

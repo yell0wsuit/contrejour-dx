@@ -2,28 +2,29 @@ using System.Collections.Generic;
 
 using Mokus2D.Util.Extensions;
 
-namespace Mokus2D.Visual.Displacement.Magnets.Actions;
-
-public class MagnetSpawn(params MagnetAction[] actions) : MagnetAction(null)
+namespace Mokus2D.Visual.Displacement.Magnets.Actions
 {
-    private readonly List<MagnetAction> _actions = [.. actions];
-
-    private readonly List<MagnetAction> _toRemove = [];
-
-    public override bool Finished => _actions.Empty();
-
-    public override void Update(float time)
+    public class MagnetSpawn(params MagnetAction[] actions) : MagnetAction(null)
     {
-        base.Update(time);
-        foreach (MagnetAction action in _actions)
+        private readonly List<MagnetAction> _actions = [.. actions];
+
+        private readonly List<MagnetAction> _toRemove = [];
+
+        public override bool Finished => _actions.Empty();
+
+        public override void Update(float time)
         {
-            action.Update(time);
-            if (action.Finished)
+            base.Update(time);
+            foreach (MagnetAction action in _actions)
             {
-                _toRemove.Add(action);
+                action.Update(time);
+                if (action.Finished)
+                {
+                    _toRemove.Add(action);
+                }
             }
+            _actions.RemoveListNoGarbage(_toRemove);
+            _toRemove.Clear();
         }
-        _actions.RemoveListNoGarbage(_toRemove);
-        _toRemove.Clear();
     }
 }

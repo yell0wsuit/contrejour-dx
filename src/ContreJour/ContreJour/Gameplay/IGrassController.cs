@@ -1,12 +1,13 @@
 using Mokus2D.Interfaces;
 
-namespace ContreJour.Gameplay;
-
-public interface IGrassController : IUpdatable
+namespace ContreJour.Gameplay
 {
-    float Y { get; }
+    public interface IGrassController : IUpdatable
+    {
+        float Y { get; }
 
-    void ScareFlyes(float offset);
+        void ScareFlyes(float offset);
 
-    void OnTouchWith(float offset, BodyClip objectP);
+        void OnTouchWith(float offset, BodyClip objectP);
+    }
 }

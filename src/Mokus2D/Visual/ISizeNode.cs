@@ -1,8 +1,9 @@
 using Microsoft.Xna.Framework;
 
-namespace Mokus2D.Visual;
-
-public interface ISizeNode
+namespace Mokus2D.Visual
 {
-    Vector2 Size { get; }
+    public interface ISizeNode
+    {
+        Vector2 Size { get; }
+    }
 }

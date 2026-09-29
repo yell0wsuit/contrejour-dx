@@ -1,8 +1,9 @@
-namespace ContreJour.Gameplay;
-
-public class RopeMetrics(int parts, float partSize)
+namespace ContreJour.Gameplay
 {
-    public int Parts { get; set; } = parts;
+    public class RopeMetrics(int parts, float partSize)
+    {
+        public int Parts { get; set; } = parts;
 
-    public float PartSize { get; set; } = partSize;
+        public float PartSize { get; set; } = partSize;
+    }
 }

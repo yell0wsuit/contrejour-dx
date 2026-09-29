@@ -10,80 +10,81 @@ using Mokus2D.Util.Extensions;
 using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual.Data;
 
-namespace Mokus2D.Input;
-
-public class KeysController : IUpdatable
+namespace Mokus2D.Input
 {
-    private static readonly Comparison<ActionPriority> Comparison = (first, second) => Comparisons.FloatComparizon(first.Priority, second.Priority);
-
-    private readonly SortedCollection<ActionPriority> _backKeysListeners = new(64, Comparison);
-
-    private readonly List<ActionPriority> _toRemove = new(64);
-
-    private bool _isBackPressed;
-
-    private bool _inUpdate;
-
-    private bool _stoped;
-
-    private readonly bool Enabled = true;
-
-    public void StopPropagation()
+    public class KeysController : IUpdatable
     {
-        _stoped = true;
-    }
+        private static readonly Comparison<ActionPriority> Comparison = (first, second) => Comparisons.FloatComparizon(first.Priority, second.Priority);
 
-    public void Update(float time)
-    {
-        if (!Enabled)
+        private readonly SortedCollection<ActionPriority> _backKeysListeners = new(64, Comparison);
+
+        private readonly List<ActionPriority> _toRemove = new(64);
+
+        private bool _isBackPressed;
+
+        private bool _inUpdate;
+
+        private bool _stoped;
+
+        private readonly bool Enabled = true;
+
+        public void StopPropagation()
         {
-            return;
+            _stoped = true;
         }
-        _inUpdate = true;
-        ButtonState back = GamePad.GetState(PlayerIndex.One).Buttons.Back;
-        if (back == ButtonState.Pressed && !_isBackPressed)
+
+        public void Update(float time)
         {
-            foreach (ActionPriority backKeysListener in _backKeysListeners)
+            if (!Enabled)
             {
-                backKeysListener.Action();
-                if (_stoped)
+                return;
+            }
+            _inUpdate = true;
+            ButtonState back = GamePad.GetState(PlayerIndex.One).Buttons.Back;
+            if (back == ButtonState.Pressed && !_isBackPressed)
+            {
+                foreach (ActionPriority backKeysListener in _backKeysListeners)
                 {
-                    break;
+                    backKeysListener.Action();
+                    if (_stoped)
+                    {
+                        break;
+                    }
                 }
             }
+            _isBackPressed = back == ButtonState.Pressed;
+            _stoped = false;
+            _inUpdate = false;
+            _backKeysListeners.RemoveListNoGarbage(_toRemove);
+            _toRemove.Clear();
         }
-        _isBackPressed = back == ButtonState.Pressed;
-        _stoped = false;
-        _inUpdate = false;
-        _backKeysListeners.RemoveListNoGarbage(_toRemove);
-        _toRemove.Clear();
-    }
 
-    public bool ContainsListener(Action action)
-    {
-        ActionPriority item = FindItem(action);
-        return _backKeysListeners.Contains(item) && !_toRemove.Contains(item);
-    }
-
-    private ActionPriority FindItem(Action action)
-    {
-        return _backKeysListeners.FirstOrDefault(item => item.Action == action);
-    }
-
-    public void RemoveBackKeyListener(Action action)
-    {
-        if (_inUpdate)
+        public bool ContainsListener(Action action)
         {
-            _toRemove.Add(FindItem(action));
+            ActionPriority item = FindItem(action);
+            return _backKeysListeners.Contains(item) && !_toRemove.Contains(item);
         }
-        else
-        {
-            _ = _backKeysListeners.Remove(FindItem(action));
-        }
-    }
 
-    public void AddBackKeyListener(Action action)
-    {
-        _backKeysListeners.Add(new ActionPriority(action, 0));
+        private ActionPriority FindItem(Action action)
+        {
+            return _backKeysListeners.FirstOrDefault(item => item.Action == action);
+        }
+
+        public void RemoveBackKeyListener(Action action)
+        {
+            if (_inUpdate)
+            {
+                _toRemove.Add(FindItem(action));
+            }
+            else
+            {
+                _ = _backKeysListeners.Remove(FindItem(action));
+            }
+        }
+
+        public void AddBackKeyListener(Action action)
+        {
+            _backKeysListeners.Add(new ActionPriority(action, 0));
+        }
     }
 }

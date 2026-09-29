@@ -6,123 +6,124 @@ using Mokus2D.Util.Extensions;
 using Mokus2D.Visual;
 using Mokus2D.Visual.Interactive;
 
-namespace Mokus2D.Input;
-
-public class SpriteClicksListener : ITouchListener
+namespace Mokus2D.Input
 {
-    private readonly Pool<List<IClickableNode>> _listPool = new(() => []);
-
-    private readonly SortedDictionary<int, ForEachCollection<IClickableNode>> _sprites = [];
-
-    private readonly List<ForEachCollection<IClickableNode>> _spritesByPriority = [];
-
-    private readonly List<IClickableNode> _toRemove = [];
-
-    private readonly Dictionary<Touch, List<IClickableNode>> _touchedSprites = [];
-
-    public SpriteClicksListener()
+    public class SpriteClicksListener : ITouchListener
     {
-        Mokus2DGame.Instance.TouchController.AddListener(this);
-    }
+        private readonly Pool<List<IClickableNode>> _listPool = new(() => []);
 
-    public bool TouchBegin(Touch touch)
-    {
-        List<IClickableNode> list = _listPool.New();
-        list.Clear();
-        foreach (ForEachCollection<IClickableNode> value in _sprites.Values)
+        private readonly SortedDictionary<int, ForEachCollection<IClickableNode>> _sprites = [];
+
+        private readonly List<ForEachCollection<IClickableNode>> _spritesByPriority = [];
+
+        private readonly List<IClickableNode> _toRemove = [];
+
+        private readonly Dictionary<Touch, List<IClickableNode>> _touchedSprites = [];
+
+        public SpriteClicksListener()
         {
-            _spritesByPriority.Add(value);
+            Mokus2DGame.Instance.TouchController.AddListener(this);
         }
-        foreach (ForEachCollection<IClickableNode> item in _spritesByPriority)
+
+        public bool TouchBegin(Touch touch)
         {
-            using (item.Using())
+            List<IClickableNode> list = _listPool.New();
+            list.Clear();
+            foreach (ForEachCollection<IClickableNode> value in _sprites.Values)
             {
-                foreach (IClickableNode item2 in item)
+                _spritesByPriority.Add(value);
+            }
+            foreach (ForEachCollection<IClickableNode> item in _spritesByPriority)
+            {
+                using (item.Using())
                 {
-                    if (!touch.Stoped)
+                    foreach (IClickableNode item2 in item)
                     {
-                        Node node = (Node)item2;
-                        if (node.RootInteractionsEnabled && SpriteContainsTouch(item2, touch) && item2.TouchBegin(touch))
+                        if (!touch.Stoped)
                         {
-                            list.Add(item2);
+                            Node node = (Node)item2;
+                            if (node.RootInteractionsEnabled && SpriteContainsTouch(item2, touch) && item2.TouchBegin(touch))
+                            {
+                                list.Add(item2);
+                            }
+                            continue;
                         }
-                        continue;
+                        break;
                     }
-                    break;
                 }
             }
+            _spritesByPriority.Clear();
+            if (!list.Empty())
+            {
+                _touchedSprites[touch] = list;
+                return true;
+            }
+            _listPool.Free(list);
+            return false;
         }
-        _spritesByPriority.Clear();
-        if (!list.Empty())
+
+        public bool TouchMove(Touch touch)
         {
-            _touchedSprites[touch] = list;
+            List<IClickableNode> list = _touchedSprites[touch];
+            foreach (IClickableNode item in list)
+            {
+                if (!touch.Stoped)
+                {
+                    bool flag = SpriteContainsTouch(item, touch);
+                    if ((flag && !item.TouchMove(touch)) || (!flag && !item.TouchOut(touch)))
+                    {
+                        _toRemove.Add(item);
+                    }
+                    continue;
+                }
+                break;
+            }
+            list.RemoveListNoGarbage(_toRemove);
+            _toRemove.Clear();
             return true;
         }
-        _listPool.Free(list);
-        return false;
-    }
 
-    public bool TouchMove(Touch touch)
-    {
-        List<IClickableNode> list = _touchedSprites[touch];
-        foreach (IClickableNode item in list)
+        public void TouchEnd(Touch touch)
         {
-            if (!touch.Stoped)
+            List<IClickableNode> list = _touchedSprites[touch];
+            foreach (IClickableNode item in list)
             {
-                bool flag = SpriteContainsTouch(item, touch);
-                if ((flag && !item.TouchMove(touch)) || (!flag && !item.TouchOut(touch)))
+                Node node = (Node)item;
+                if (node.RootInteractionsEnabled)
                 {
-                    _toRemove.Add(item);
+                    item.TouchEnd(touch);
                 }
-                continue;
             }
-            break;
+            list.Clear();
+            _listPool.Free(list);
         }
-        list.RemoveListNoGarbage(_toRemove);
-        _toRemove.Clear();
-        return true;
-    }
 
-    public void TouchEnd(Touch touch)
-    {
-        List<IClickableNode> list = _touchedSprites[touch];
-        foreach (IClickableNode item in list)
+        public void Add(IClickableNode sprite)
         {
-            Node node = (Node)item;
-            if (node.RootInteractionsEnabled)
+            ForEachCollection<IClickableNode> orCreatePriorityList = GetOrCreatePriorityList(sprite);
+            orCreatePriorityList.Add(sprite);
+        }
+
+        public void Remove(IClickableNode sprite)
+        {
+            ForEachCollection<IClickableNode> orCreatePriorityList = GetOrCreatePriorityList(sprite);
+            _ = orCreatePriorityList.Remove(sprite);
+        }
+
+        private ForEachCollection<IClickableNode> GetOrCreatePriorityList(IClickableNode sprite)
+        {
+            ForEachCollection<IClickableNode> forEachList = _sprites.TryGetValue(sprite.ClickablePriority);
+            if (forEachList == null)
             {
-                item.TouchEnd(touch);
+                forEachList = [];
+                _sprites.Add(sprite.ClickablePriority, forEachList);
             }
+            return forEachList;
         }
-        list.Clear();
-        _listPool.Free(list);
-    }
 
-    public void Add(IClickableNode sprite)
-    {
-        ForEachCollection<IClickableNode> orCreatePriorityList = GetOrCreatePriorityList(sprite);
-        orCreatePriorityList.Add(sprite);
-    }
-
-    public void Remove(IClickableNode sprite)
-    {
-        ForEachCollection<IClickableNode> orCreatePriorityList = GetOrCreatePriorityList(sprite);
-        _ = orCreatePriorityList.Remove(sprite);
-    }
-
-    private ForEachCollection<IClickableNode> GetOrCreatePriorityList(IClickableNode sprite)
-    {
-        ForEachCollection<IClickableNode> forEachList = _sprites.TryGetValue(sprite.ClickablePriority);
-        if (forEachList == null)
+        private static bool SpriteContainsTouch(IClickableNode sprite, Touch touch)
         {
-            forEachList = [];
-            _sprites.Add(sprite.ClickablePriority, forEachList);
+            return sprite.ContainsGlobalPosition(touch.Position);
         }
-        return forEachList;
-    }
-
-    private static bool SpriteContainsTouch(IClickableNode sprite, Touch touch)
-    {
-        return sprite.ContainsGlobalPosition(touch.Position);
     }
 }

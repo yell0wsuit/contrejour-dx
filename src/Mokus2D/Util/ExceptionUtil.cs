@@ -1,14 +1,15 @@
 using System;
 
-namespace Mokus2D.Util;
-
-public static class ExceptionUtil
+namespace Mokus2D.Util
 {
-    public static void Throw(Exception exception)
+    public static class ExceptionUtil
     {
-        if (!Mokus2DGame.Instance.IsExiting)
+        public static void Throw(Exception exception)
         {
-            throw exception;
+            if (!Mokus2DGame.Instance.IsExiting)
+            {
+                throw exception;
+            }
         }
     }
 }

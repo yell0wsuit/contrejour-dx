@@ -1,3 +1,4 @@
-namespace FarseerPhysics.Dynamics;
-
-public delegate void OnSeparationHandler(Fixture fixtureA, Fixture fixtureB);
+namespace FarseerPhysics.Dynamics
+{
+    public delegate void OnSeparationHandler(Fixture fixtureA, Fixture fixtureB);
+}

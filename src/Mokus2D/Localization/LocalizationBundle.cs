@@ -6,57 +6,58 @@ using System.Xml.Linq;
 
 using Mokus2D.Util.Extensions;
 
-namespace Mokus2D.Localization;
-
-public class LocalizationBundle
+namespace Mokus2D.Localization
 {
-    private readonly string _name;
-
-    private readonly string _locale;
-
-    private readonly Dictionary<string, string> _messages = [];
-
-    public static string CurrentLocale => CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
-
-    public LocalizationBundle(string name, string locale = null)
+    public class LocalizationBundle
     {
-        _name = name;
-        _locale = locale;
-        Load();
-    }
+        private readonly string _name;
 
-    public string GetLocalizedMessage(string value)
-    {
-        return _messages.TryGetValue(value);
-    }
+        private readonly string _locale;
 
-    private void Load()
-    {
-        string locale = _locale ?? CurrentLocale;
-        Stream stream;
-        try
-        {
-            stream = GetStream(locale);
-        }
-        catch (Exception)
-        {
-            stream = GetStream(string.Empty);
-        }
-        XDocument xDocument = XDocument.Load(stream);
-        foreach (XElement item in xDocument.Root.Elements())
-        {
-            _messages[item.Attribute("name").Value] = item.Value;
-        }
-    }
+        private readonly Dictionary<string, string> _messages = [];
 
-    private Stream GetStream(string locale)
-    {
-        string text = _name;
-        if (locale.IsNotEmpty())
+        public static string CurrentLocale => CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
+
+        public LocalizationBundle(string name, string locale = null)
         {
-            text = text + "." + locale;
+            _name = name;
+            _locale = locale;
+            Load();
         }
-        string path = "{0}/{1}.xml".FormatThis("Resources", text, locale);
-        return Mokus2DGame.FileLoader.OpenFile(path);
+
+        public string GetLocalizedMessage(string value)
+        {
+            return _messages.TryGetValue(value);
+        }
+
+        private void Load()
+        {
+            string locale = _locale ?? CurrentLocale;
+            Stream stream;
+            try
+            {
+                stream = GetStream(locale);
+            }
+            catch (Exception)
+            {
+                stream = GetStream(string.Empty);
+            }
+            XDocument xDocument = XDocument.Load(stream);
+            foreach (XElement item in xDocument.Root.Elements())
+            {
+                _messages[item.Attribute("name").Value] = item.Value;
+            }
+        }
+
+        private Stream GetStream(string locale)
+        {
+            string text = _name;
+            if (locale.IsNotEmpty())
+            {
+                text = text + "." + locale;
+            }
+            string path = "{0}/{1}.xml".FormatThis("Resources", text, locale);
+            return Mokus2DGame.FileLoader.OpenFile(path);
+        }
     }
 }

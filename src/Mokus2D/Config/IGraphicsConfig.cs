@@ -1,13 +1,14 @@
 using Mokus2D.Visual.Drawing;
 using Mokus2D.Visual.Drawing.Effects;
 
-namespace Mokus2D.Config;
-
-public interface IGraphicsConfig
+namespace Mokus2D.Config
 {
-    bool UseColorRatio { get; }
+    public interface IGraphicsConfig
+    {
+        bool UseColorRatio { get; }
 
-    ISpriteBatchEffect DefaultEffect { get; }
+        ISpriteBatchEffect DefaultEffect { get; }
 
-    IQuad CreateDefaultQuad();
+        IQuad CreateDefaultQuad();
+    }
 }

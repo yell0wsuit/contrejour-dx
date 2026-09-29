@@ -4,29 +4,30 @@ using Mokus2D.Data;
 using Mokus2D.Interfaces;
 using Mokus2D.Visual;
 
-namespace ContreJour.Clips.menu;
-
-[GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
-public class McIconAchievements : Sprite, IFreeable, IId
+namespace ContreJour.Clips.menu
 {
-    public const string ID = "menu/McIconAchievements";
-
-    public string Id => "menu/McIconAchievements";
-
-    public static McIconAchievements New()
+    [GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
+    public class McIconAchievements : Sprite, IFreeable, IId
     {
-        McIconAchievements mcIconAchievements = StaticPool.New<McIconAchievements>();
-        mcIconAchievements.RefreshProperties();
-        return mcIconAchievements;
-    }
+        public const string ID = "menu/McIconAchievements";
 
-    public McIconAchievements()
-        : base("menu/McIconAchievements")
-    {
-    }
+        public string Id => "menu/McIconAchievements";
 
-    public void Free()
-    {
-        StaticPool.Free<McIconAchievements>(this);
+        public static McIconAchievements New()
+        {
+            McIconAchievements mcIconAchievements = StaticPool.New<McIconAchievements>();
+            mcIconAchievements.RefreshProperties();
+            return mcIconAchievements;
+        }
+
+        public McIconAchievements()
+            : base("menu/McIconAchievements")
+        {
+        }
+
+        public void Free()
+        {
+            StaticPool.Free<McIconAchievements>(this);
+        }
     }
 }

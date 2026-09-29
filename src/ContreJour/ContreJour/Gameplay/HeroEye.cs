@@ -12,160 +12,161 @@ using Mokus2D.Sound;
 using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual;
 
-namespace ContreJour.Gameplay;
-
-public class HeroEye : RandomAnimationEye
+namespace ContreJour.Gameplay
 {
-    private static readonly Color StartColor = new(255, 255, 255);
-
-    private static readonly Color BonusColor = new(143, 238, 255);
-
-    private bool isDefaultColor;
-
-    private float colorTime;
-
-    private float colorProgress;
-
-    private readonly Dictionary<string, List<string>> sounds;
-
-    private bool moveAllowed;
-
-    public bool MoveAllowed
+    public class HeroEye : RandomAnimationEye
     {
-        get => moveAllowed;
-        set
+        private static readonly Color StartColor = new(255, 255, 255);
+
+        private static readonly Color BonusColor = new(143, 238, 255);
+
+        private bool isDefaultColor;
+
+        private float colorTime;
+
+        private float colorProgress;
+
+        private readonly Dictionary<string, List<string>> sounds;
+
+        private bool moveAllowed;
+
+        public bool MoveAllowed
         {
-            moveAllowed = value;
-            if (!value)
+            get => moveAllowed;
+            set
             {
-                ViewDistance = 0f;
+                moveAllowed = value;
+                if (!value)
+                {
+                    ViewDistance = 0f;
+                }
             }
         }
-    }
 
-    protected override float ViewRadius => base.ViewRadius * 2f;
+        protected override float ViewRadius => base.ViewRadius * 2f;
 
-    public HeroEye(ContreJourGame game)
-        : base(game, useMask: true, new Vector2(50f, 50f))
-    {
-        moveAllowed = true;
-        colorTime = 0f;
-        colorProgress = 0f;
-        sounds = new Dictionary<string, List<string>>
+        public HeroEye(ContreJourGame game)
+            : base(game, useMask: true, new Vector2(50f, 50f))
         {
-            ["McEyeSmile"] = ["laugh0", "laugh1", "laughl3"],
-            ["McEyeWink"] = ["suspicious0", "suspicious1", "suspicious3"],
-            ["McEyeAngry"] = ["angry2"],
-            ["McEyeBlinkOneTime"] = ["clip0"],
-            ["McEyeBlink"] = ["clip1"]
-        };
-        if (!BlackEye)
-        {
-            Scale = 1.07f;
+            moveAllowed = true;
+            colorTime = 0f;
+            colorProgress = 0f;
+            sounds = new Dictionary<string, List<string>>
+            {
+                ["McEyeSmile"] = ["laugh0", "laugh1", "laughl3"],
+                ["McEyeWink"] = ["suspicious0", "suspicious1", "suspicious3"],
+                ["McEyeAngry"] = ["angry2"],
+                ["McEyeBlinkOneTime"] = ["clip0"],
+                ["McEyeBlink"] = ["clip1"]
+            };
+            if (!BlackEye)
+            {
+                Scale = 1.07f;
+            }
         }
-    }
 
-    public void SetVelocity(Vector2 velocity)
-    {
-        if (moveAllowed)
+        public void SetVelocity(Vector2 velocity)
         {
-            ViewAngle = VectorUtil.Atan2(velocity);
-            ViewDistance = velocity.Length() / 3f;
+            if (moveAllowed)
+            {
+                ViewAngle = VectorUtil.Atan2(velocity);
+                ViewDistance = velocity.Length() / 3f;
+            }
         }
-    }
 
-    public override void Update(float time)
-    {
-        base.Update(time);
-        CurrentBackground.Position = CurrentEyeBall.Position * 0.5f;
-        if (colorTime > 0f)
+        public override void Update(float time)
         {
-            colorProgress = Maths.StepTo(colorProgress, 1f, 0.1f);
+            base.Update(time);
+            CurrentBackground.Position = CurrentEyeBall.Position * 0.5f;
+            if (colorTime > 0f)
+            {
+                colorProgress = Maths.StepTo(colorProgress, 1f, 0.1f);
+                isDefaultColor = false;
+                colorTime -= time;
+            }
+            else if (!isDefaultColor)
+            {
+                colorProgress = Maths.StepTo(colorProgress, 0f, 0.1f);
+                if (Maths.FuzzyEquals(colorProgress, 0f))
+                {
+                    isDefaultColor = true;
+                    RefreshColor(StartColor);
+                }
+            }
+            if (!isDefaultColor)
+            {
+                RefreshColor(Color.Lerp(StartColor, BonusColor, colorProgress));
+            }
+        }
+
+        protected override void OnAnimation(EyeAnimation animation)
+        {
+            if (!TryPlaySound(animation.Background))
+            {
+                _ = TryPlaySound(animation.EyeBall);
+            }
+        }
+
+        public bool TryPlaySound(string key)
+        {
+            if (key != null && sounds.TryGetValue(key, out List<string> keySounds))
+            {
+                SoundManager.PlayRandomSound(keySounds, key.StartsWith("McEyeBlink", StringComparison.Ordinal) ? 0.3f : 0.75f);
+                return true;
+            }
+            return false;
+        }
+
+        public void ApplyBonus()
+        {
+            colorTime = 0.5f;
+        }
+
+        public void RefreshColor(Color color)
+        {
+            if (CurrentBackground.Parent != null)
+            {
+                CurrentBackground.Color = color;
+            }
+        }
+
+        public void Smile()
+        {
+            PlayAnimation(new EyeAnimation("McEyeSmile", null, lockY: true), force: true);
+        }
+
+        protected override void RefreshLayout()
+        {
+            base.RefreshLayout();
             isDefaultColor = false;
-            colorTime -= time;
         }
-        else if (!isDefaultColor)
+
+        protected override void CreateDefaultView()
         {
-            colorProgress = Maths.StepTo(colorProgress, 0f, 0.1f);
-            if (Maths.FuzzyEquals(colorProgress, 0f))
+            if (!BlackEye)
             {
-                isDefaultColor = true;
-                RefreshColor(StartColor);
+                base.CreateDefaultView();
+                return;
             }
+            Background = new McEyeBlack();
+            EyeBallSprite = (Sprite)ClipTypesCache.CreateNewNode(Game.ChooseSide("McEyeBallBlack", "McEyeBallWhite", null, null, "McEyeBall_6"));
         }
-        if (!isDefaultColor)
+
+        protected override string ProcessName(string name)
         {
-            RefreshColor(Color.Lerp(StartColor, BonusColor, colorProgress));
-        }
-    }
-
-    protected override void OnAnimation(EyeAnimation animation)
-    {
-        if (!TryPlaySound(animation.Background))
-        {
-            _ = TryPlaySound(animation.EyeBall);
-        }
-    }
-
-    public bool TryPlaySound(string key)
-    {
-        if (key != null && sounds.TryGetValue(key, out List<string> keySounds))
-        {
-            SoundManager.PlayRandomSound(keySounds, key.StartsWith("McEyeBlink", StringComparison.Ordinal) ? 0.3f : 0.75f);
-            return true;
-        }
-        return false;
-    }
-
-    public void ApplyBonus()
-    {
-        colorTime = 0.5f;
-    }
-
-    public void RefreshColor(Color color)
-    {
-        if (CurrentBackground.Parent != null)
-        {
-            CurrentBackground.Color = color;
-        }
-    }
-
-    public void Smile()
-    {
-        PlayAnimation(new EyeAnimation("McEyeSmile", null, lockY: true), force: true);
-    }
-
-    protected override void RefreshLayout()
-    {
-        base.RefreshLayout();
-        isDefaultColor = false;
-    }
-
-    protected override void CreateDefaultView()
-    {
-        if (!BlackEye)
-        {
-            base.CreateDefaultView();
-            return;
-        }
-        Background = new McEyeBlack();
-        EyeBallSprite = (Sprite)ClipTypesCache.CreateNewNode(Game.ChooseSide("McEyeBallBlack", "McEyeBallWhite", null, null, "McEyeBall_6"));
-    }
-
-    protected override string ProcessName(string name)
-    {
-        string text = base.ProcessName(name);
-        if (text == "McEyeBallHitBlack")
-        {
-            if (IsWhite)
+            string text = base.ProcessName(name);
+            if (text == "McEyeBallHitBlack")
             {
-                return "McEyeBallHitWhite";
+                if (IsWhite)
+                {
+                    return "McEyeBallHitWhite";
+                }
+                if (Game.BonusChapter)
+                {
+                    return "McEyeBallHit_6";
+                }
             }
-            if (Game.BonusChapter)
-            {
-                return "McEyeBallHit_6";
-            }
+            return text;
         }
-        return text;
     }
 }

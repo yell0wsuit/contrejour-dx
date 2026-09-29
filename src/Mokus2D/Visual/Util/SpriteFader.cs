@@ -1,24 +1,25 @@
-namespace Mokus2D.Visual.Util;
-
-public class SpriteFader(Node target)
+namespace Mokus2D.Visual.Util
 {
-    private readonly Node target = target;
-
-    public ushort EnabledOpacity { get; set; }
-
-    public ushort DisabledOpacity { get; set; } = 255;
-
-    public bool Enabled
+    public class SpriteFader(Node target)
     {
-        get; set
+        private readonly Node target = target;
+
+        public ushort EnabledOpacity { get; set; }
+
+        public ushort DisabledOpacity { get; set; } = 255;
+
+        public bool Enabled
         {
-            if (field != value)
+            get; set
             {
-                field = value;
-                _ = target.Tweener.StartSequence(Duration).Tween(NodeValues.OpacityFloat, field ? EnabledOpacity : DisabledOpacity);
+                if (field != value)
+                {
+                    field = value;
+                    _ = target.Tweener.StartSequence(Duration).Tween(NodeValues.OpacityFloat, field ? EnabledOpacity : DisabledOpacity);
+                }
             }
         }
-    }
 
-    public float Duration { get; set; } = 0.15f;
+        public float Duration { get; set; } = 0.15f;
+    }
 }

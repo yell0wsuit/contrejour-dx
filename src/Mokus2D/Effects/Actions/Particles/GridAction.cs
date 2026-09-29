@@ -8,65 +8,66 @@ using Mokus2D.Interfaces;
 using Mokus2D.Visual;
 using Mokus2D.Visual.Particles.Grid;
 
-namespace Mokus2D.Effects.Actions.Particles;
-
-public abstract class GridAction : ITween, ICleanable, IUpdatable
+namespace Mokus2D.Effects.Actions.Particles
 {
-    protected GridSystem Grid => throw new NotImplementedException();
-
-    public bool Finished { get; private set; }
-
-    protected GridAction Initialize()
+    public abstract class GridAction : ITween, ICleanable, IUpdatable
     {
-        return this;
-    }
+        protected GridSystem Grid => throw new NotImplementedException();
 
-    protected static void SetTargets()
-    {
-    }
+        public bool Finished { get; private set; }
 
-    internal virtual void Start(float time)
-    {
-        Vector2 gridSize = Grid.GridSize;
-        for (int i = 0; i < gridSize.Y; i++)
+        protected GridAction Initialize()
         {
-            for (int j = 0; j < gridSize.X; j++)
+            return this;
+        }
+
+        protected static void SetTargets()
+        {
+        }
+
+        internal virtual void Start(float time)
+        {
+            Vector2 gridSize = Grid.GridSize;
+            for (int i = 0; i < gridSize.Y; i++)
             {
-                Node particle = Grid.GetParticle(j, i);
-                CreateAction(particle, j, i);
+                for (int j = 0; j < gridSize.X; j++)
+                {
+                    Node particle = Grid.GetParticle(j, i);
+                    CreateAction(particle, j, i);
+                }
             }
         }
-    }
 
-    protected void CreateAction(Node particle, int x, int y)
-    {
-        _ = CreateParticleUpdater(particle, x, y);
-    }
+        protected void CreateAction(Node particle, int x, int y)
+        {
+            _ = CreateParticleUpdater(particle, x, y);
+        }
 
-    protected abstract ITween CreateParticleUpdater(Node particle, int x, int y);
+        protected abstract ITween CreateParticleUpdater(Node particle, int x, int y);
 
-    public void Clean()
-    {
-        throw new NotImplementedException();
-    }
+        public void Clean()
+        {
+            throw new NotImplementedException();
+        }
 
-    public void Update(float time)
-    {
-        throw new NotImplementedException();
-    }
+        public void Update(float time)
+        {
+            throw new NotImplementedException();
+        }
 
-    public void Free()
-    {
-        throw new NotImplementedException();
-    }
+        public void Free()
+        {
+            throw new NotImplementedException();
+        }
 
-    public void Reset()
-    {
-        throw new NotImplementedException();
-    }
+        public void Reset()
+        {
+            throw new NotImplementedException();
+        }
 
-    public ITween OnComplete(Action action)
-    {
-        throw new NotImplementedException();
+        public ITween OnComplete(Action action)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

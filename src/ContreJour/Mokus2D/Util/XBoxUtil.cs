@@ -1,16 +1,17 @@
 using System.Collections.Generic;
 
-namespace Mokus2D.Util;
-
-public static class XBoxUtil
+namespace Mokus2D.Util
 {
-    private static readonly List<string> awardedAchievements = new(64);
-
-    public static void AwardAchievement(string achievement)
+    public static class XBoxUtil
     {
-        if (!ContreJour.Gameplay.Constants.IsTrial)
+        private static readonly List<string> awardedAchievements = new(64);
+
+        public static void AwardAchievement(string achievement)
         {
-            _ = awardedAchievements.Contains(achievement);
+            if (!ContreJour.Gameplay.Constants.IsTrial)
+            {
+                _ = awardedAchievements.Contains(achievement);
+            }
         }
     }
 }

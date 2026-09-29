@@ -1,39 +1,40 @@
 using Mokus2D.Visual;
 
-namespace ContreJour.Gameplay;
-
-public class FadeBackground : BackgroundBase
+namespace ContreJour.Gameplay
 {
-    private float opacity;
-
-    private readonly Sprite sprite;
-
-    public FadeBackground(Node node, Hashtable config, ContreJourGame game)
-        : base(node, config, game)
+    public class FadeBackground : BackgroundBase
     {
-        sprite = (Sprite)node;
-        if (!Game.CanShowIntro)
-        {
-            sprite.OpacityByte = 0;
-            sprite.Visible = false;
-        }
-        else
-        {
-            opacity = 1f;
-        }
-    }
+        private float opacity;
 
-    public override void Update(float time)
-    {
-        base.Update(time);
-        Game.LightPower = 1f - sprite.OpacityFloat;
-        if (sprite.Visible)
+        private readonly Sprite sprite;
+
+        public FadeBackground(Node node, Hashtable config, ContreJourGame game)
+            : base(node, config, game)
         {
-            opacity -= time * 2f / 60f;
-            sprite.OpacityFloat = opacity;
-            if (sprite.OpacityFloat <= 0f)
+            sprite = (Sprite)node;
+            if (!Game.CanShowIntro)
             {
+                sprite.OpacityByte = 0;
                 sprite.Visible = false;
+            }
+            else
+            {
+                opacity = 1f;
+            }
+        }
+
+        public override void Update(float time)
+        {
+            base.Update(time);
+            Game.LightPower = 1f - sprite.OpacityFloat;
+            if (sprite.Visible)
+            {
+                opacity -= time * 2f / 60f;
+                sprite.OpacityFloat = opacity;
+                if (sprite.OpacityFloat <= 0f)
+                {
+                    sprite.Visible = false;
+                }
             }
         }
     }

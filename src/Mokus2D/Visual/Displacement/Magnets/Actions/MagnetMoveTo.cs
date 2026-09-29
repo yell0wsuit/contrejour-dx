@@ -1,15 +1,16 @@
 using Microsoft.Xna.Framework;
 
-namespace Mokus2D.Visual.Displacement.Magnets.Actions;
-
-public class MagnetMoveTo(GridMagnetBase gridMagnet, float timeout, Vector2 targetPosition) : MagnetIntervalActionBase(gridMagnet, timeout)
+namespace Mokus2D.Visual.Displacement.Magnets.Actions
 {
-    private readonly Vector2 _targetPosition = targetPosition;
-
-    private readonly Vector2 _startPosition = gridMagnet.Position;
-
-    protected override void UpdateMagnet(float ratio)
+    public class MagnetMoveTo(GridMagnetBase gridMagnet, float timeout, Vector2 targetPosition) : MagnetIntervalActionBase(gridMagnet, timeout)
     {
-        GridMagnet.Position = Vector2.Lerp(_startPosition, _targetPosition, ratio);
+        private readonly Vector2 _targetPosition = targetPosition;
+
+        private readonly Vector2 _startPosition = gridMagnet.Position;
+
+        protected override void UpdateMagnet(float ratio)
+        {
+            GridMagnet.Position = Vector2.Lerp(_startPosition, _targetPosition, ratio);
+        }
     }
 }

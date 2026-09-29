@@ -2,11 +2,12 @@ using Microsoft.Xna.Framework;
 
 using Mokus2D.Integration.Farseer.Physics;
 
-namespace ContreJour.Gameplay;
-
-public interface IBonusAcceptable : IBodyClip
+namespace ContreJour.Gameplay
 {
-    void ApplyBonus();
+    public interface IBonusAcceptable : IBodyClip
+    {
+        void ApplyBonus();
 
-    Vector2 BonusTarget();
+        Vector2 BonusTarget();
+    }
 }

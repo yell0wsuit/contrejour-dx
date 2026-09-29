@@ -4,29 +4,30 @@ using Mokus2D.Data;
 using Mokus2D.Interfaces;
 using Mokus2D.Visual;
 
-namespace ContreJour.Clips.chapter5;
-
-[GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
-public class McRotatorTouch : Sprite, IFreeable, IId
+namespace ContreJour.Clips.chapter5
 {
-    public const string ID = "chapter5/McRotatorTouch";
-
-    public string Id => "chapter5/McRotatorTouch";
-
-    public static McRotatorTouch New()
+    [GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
+    public class McRotatorTouch : Sprite, IFreeable, IId
     {
-        McRotatorTouch mcRotatorTouch = StaticPool.New<McRotatorTouch>();
-        mcRotatorTouch.RefreshProperties();
-        return mcRotatorTouch;
-    }
+        public const string ID = "chapter5/McRotatorTouch";
 
-    public McRotatorTouch()
-        : base("chapter5/McRotatorTouch")
-    {
-    }
+        public string Id => "chapter5/McRotatorTouch";
 
-    public void Free()
-    {
-        StaticPool.Free<McRotatorTouch>(this);
+        public static McRotatorTouch New()
+        {
+            McRotatorTouch mcRotatorTouch = StaticPool.New<McRotatorTouch>();
+            mcRotatorTouch.RefreshProperties();
+            return mcRotatorTouch;
+        }
+
+        public McRotatorTouch()
+            : base("chapter5/McRotatorTouch")
+        {
+        }
+
+        public void Free()
+        {
+            StaticPool.Free<McRotatorTouch>(this);
+        }
     }
 }

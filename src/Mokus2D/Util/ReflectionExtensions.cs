@@ -1,16 +1,17 @@
 using System.Reflection;
 
-namespace Mokus2D.Util;
-
-public static class ReflectionExtensions
+namespace Mokus2D.Util
 {
-    public static FieldInfo GetField(this TypeInfo typeInfo, string name)
+    public static class ReflectionExtensions
     {
-        return typeInfo.GetDeclaredField(name);
-    }
+        public static FieldInfo GetField(this TypeInfo typeInfo, string name)
+        {
+            return typeInfo.GetDeclaredField(name);
+        }
 
-    public static PropertyInfo GetProperty(this TypeInfo typeInfo, string name)
-    {
-        return typeInfo.GetDeclaredProperty(name);
+        public static PropertyInfo GetProperty(this TypeInfo typeInfo, string name)
+        {
+            return typeInfo.GetDeclaredProperty(name);
+        }
     }
 }

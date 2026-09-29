@@ -1,8 +1,9 @@
 using Microsoft.Xna.Framework;
 
-namespace ContreJour.Gameplay;
-
-public interface IVectorPositionProvider
+namespace ContreJour.Gameplay
 {
-    Vector2 PositionVec { get; }
+    public interface IVectorPositionProvider
+    {
+        Vector2 PositionVec { get; }
+    }
 }

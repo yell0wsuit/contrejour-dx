@@ -4,34 +4,35 @@ using Mokus2D.Data;
 using Mokus2D.Interfaces;
 using Mokus2D.Visual;
 
-namespace ContreJour.Clips.level1;
-
-[GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
-public class McLystok2 : AnimationNode, IFreeable, IId
+namespace ContreJour.Clips.level1
 {
-    public const string ID = "level1/McLystok2";
-
-    public McLystok2Content instance5232095 { get; protected set; }
-
-    public string Id => "level1/McLystok2";
-
-    public static McLystok2 New()
+    [GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
+    public class McLystok2 : AnimationNode, IFreeable, IId
     {
-        McLystok2 mcLystok = StaticPool.New<McLystok2>();
-        mcLystok.RefreshProperties();
-        return mcLystok;
-    }
+        public const string ID = "level1/McLystok2";
 
-    public McLystok2()
-        : base("level1/McLystok2")
-    {
-        instance5232095 = new McLystok2Content();
-        AddChild("instance5232095", instance5232095);
-        Initialize();
-    }
+        public McLystok2Content instance5232095 { get; protected set; }
 
-    public void Free()
-    {
-        StaticPool.Free<McLystok2>(this);
+        public string Id => "level1/McLystok2";
+
+        public static McLystok2 New()
+        {
+            McLystok2 mcLystok = StaticPool.New<McLystok2>();
+            mcLystok.RefreshProperties();
+            return mcLystok;
+        }
+
+        public McLystok2()
+            : base("level1/McLystok2")
+        {
+            instance5232095 = new McLystok2Content();
+            AddChild("instance5232095", instance5232095);
+            Initialize();
+        }
+
+        public void Free()
+        {
+            StaticPool.Free<McLystok2>(this);
+        }
     }
 }

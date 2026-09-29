@@ -6,131 +6,132 @@ using Microsoft.Xna.Framework.Graphics;
 using Mokus2D.Util.Extensions;
 using Mokus2D.Visual.Data;
 
-namespace Mokus2D.Visual.Particles.Grid;
-
-public class GridSystem : Node
+namespace Mokus2D.Visual.Particles.Grid
 {
-    private readonly Vector2 cellSize;
-
-    private readonly MovieClipData data;
-
-    public Vector2 GridSize { get; }
-
-    public static GridSystem CreateGrid(ISizeNode source, Vector2 gridSize)
+    public class GridSystem : Node
     {
-        return CreateGrid((Node)source, source.Size, gridSize);
-    }
+        private readonly Vector2 cellSize;
 
-    public static GridSystem CreateGrid(Node source, Vector2 gridSize, RenderSprite renderSprite)
-    {
-        Node parent = source.Parent;
-        int layer = source.Layer;
-        source.RemoveFromParent();
-        renderSprite.AddChild(source);
-        renderSprite.UpdateAndDraw();
-        renderSprite.RemoveChild(source);
-        parent?.AddChild(source, layer);
-        return new GridSystem(renderSprite.Texture, gridSize);
-    }
+        private readonly MovieClipData data;
 
-    public static GridSystem CreateGrid(Node source, Vector2 size, Vector2 gridSize, RootNode root = null)
-    {
-        RenderSprite renderSprite = (root != null) ? new RenderSprite(size, root) : new RenderSprite(size);
-        return CreateGrid(source, gridSize, renderSprite);
-    }
+        public Vector2 GridSize { get; }
 
-    private static MovieClipData CreateGrid(Texture2D texture, Vector2 gridSize)
-    {
-        gridSize = gridSize.ToIntVector();
-        MovieClipData movieClipData = new(null)
+        public static GridSystem CreateGrid(ISizeNode source, Vector2 gridSize)
         {
-            Texture = texture
-        };
-        Vector2 size = GetCellSize(texture, gridSize);
-        for (int i = 0; i < gridSize.Y; i++)
+            return CreateGrid((Node)source, source.Size, gridSize);
+        }
+
+        public static GridSystem CreateGrid(Node source, Vector2 gridSize, RenderSprite renderSprite)
         {
-            for (int j = 0; j < gridSize.X; j++)
+            Node parent = source.Parent;
+            int layer = source.Layer;
+            source.RemoveFromParent();
+            renderSprite.AddChild(source);
+            renderSprite.UpdateAndDraw();
+            renderSprite.RemoveChild(source);
+            parent?.AddChild(source, layer);
+            return new GridSystem(renderSprite.Texture, gridSize);
+        }
+
+        public static GridSystem CreateGrid(Node source, Vector2 size, Vector2 gridSize, RootNode root = null)
+        {
+            RenderSprite renderSprite = (root != null) ? new RenderSprite(size, root) : new RenderSprite(size);
+            return CreateGrid(source, gridSize, renderSprite);
+        }
+
+        private static MovieClipData CreateGrid(Texture2D texture, Vector2 gridSize)
+        {
+            gridSize = gridSize.ToIntVector();
+            MovieClipData movieClipData = new(null)
             {
-                FrameData item = new()
+                Texture = texture
+            };
+            Vector2 size = GetCellSize(texture, gridSize);
+            for (int i = 0; i < gridSize.Y; i++)
+            {
+                for (int j = 0; j < gridSize.X; j++)
                 {
-                    Anchor = new Vector2(0.5f),
-                    Rect = new Rectangle((int)(j * size.X), (int)(i * size.Y), (int)size.X, (int)size.Y)
-                };
-                movieClipData.Frames.Add(item);
+                    FrameData item = new()
+                    {
+                        Anchor = new Vector2(0.5f),
+                        Rect = new Rectangle((int)(j * size.X), (int)(i * size.Y), (int)size.X, (int)size.Y)
+                    };
+                    movieClipData.Frames.Add(item);
+                }
             }
+            movieClipData.Size = size;
+            return movieClipData;
         }
-        movieClipData.Size = size;
-        return movieClipData;
-    }
 
-    private static Vector2 GetCellSize(Texture2D texture, Vector2 gridSize)
-    {
-        return new Vector2((float)Math.Ceiling(texture.Width / (float)(int)gridSize.X), (float)Math.Ceiling(texture.Height / (float)(int)gridSize.Y));
-    }
-
-    public GridSystem(Texture2D texture, Vector2 gridSize, bool createParticles = true)
-    {
-        data = CreateGrid(texture, gridSize);
-        GridSize = gridSize.ToIntVector();
-        cellSize = GetCellSize(texture, gridSize);
-        if (createParticles)
+        private static Vector2 GetCellSize(Texture2D texture, Vector2 gridSize)
         {
-            CreateParticles();
+            return new Vector2((float)Math.Ceiling(texture.Width / (float)(int)gridSize.X), (float)Math.Ceiling(texture.Height / (float)(int)gridSize.Y));
         }
-    }
 
-    public Node GetParticle(int x, int y)
-    {
-        return Children[(int)((y * GridSize.X) + x)];
-    }
-
-    public void CreateParticles()
-    {
-        for (int i = 0; i < GridSize.Y; i++)
+        public GridSystem(Texture2D texture, Vector2 gridSize, bool createParticles = true)
         {
-            for (int j = 0; j < GridSize.X; j++)
+            data = CreateGrid(texture, gridSize);
+            GridSize = gridSize.ToIntVector();
+            cellSize = GetCellSize(texture, gridSize);
+            if (createParticles)
             {
-                Node particle = AddParticle(j, i);
-                ResetParticlePosition(particle, j, i);
+                CreateParticles();
             }
         }
-    }
 
-    public void ResetTransformations()
-    {
-        for (int i = 0; i < GridSize.Y; i++)
+        public Node GetParticle(int x, int y)
         {
-            for (int j = 0; j < GridSize.X; j++)
+            return Children[(int)((y * GridSize.X) + x)];
+        }
+
+        public void CreateParticles()
+        {
+            for (int i = 0; i < GridSize.Y; i++)
             {
-                Node particle = GetParticle(j, i);
-                particle.ScaleVec = Vector2.One;
-                particle.OpacityFloat = 1f;
-                particle.RotationRadians = 0f;
-                ResetParticlePosition(particle, j, i);
+                for (int j = 0; j < GridSize.X; j++)
+                {
+                    Node particle = AddParticle(j, i);
+                    ResetParticlePosition(particle, j, i);
+                }
             }
         }
-    }
 
-    private void ResetParticlePosition(Node particle, int x, int y)
-    {
-        particle.Position = new Vector2(x * cellSize.X, y * cellSize.Y);
-    }
+        public void ResetTransformations()
+        {
+            for (int i = 0; i < GridSize.Y; i++)
+            {
+                for (int j = 0; j < GridSize.X; j++)
+                {
+                    Node particle = GetParticle(j, i);
+                    particle.ScaleVec = Vector2.One;
+                    particle.OpacityFloat = 1f;
+                    particle.RotationRadians = 0f;
+                    ResetParticlePosition(particle, j, i);
+                }
+            }
+        }
 
-    public Node AddParticle(int x, int y)
-    {
-        return AddParticle((int)((y * GridSize.X) + x));
-    }
+        private void ResetParticlePosition(Node particle, int x, int y)
+        {
+            particle.Position = new Vector2(x * cellSize.X, y * cellSize.Y);
+        }
 
-    public virtual Node AddParticle(int frame)
-    {
-        ArgumentOutOfRangeException.ThrowIfGreaterThanOrEqual(frame, data.Frames.Count);
-        OneFrameSprite oneFrameSprite = new(data, frame);
-        AddChild(oneFrameSprite);
-        return oneFrameSprite;
-    }
+        public Node AddParticle(int x, int y)
+        {
+            return AddParticle((int)((y * GridSize.X) + x));
+        }
 
-    public Vector2 GetParticlePosition(int index)
-    {
-        return new Vector2(index % GridSize.X, (int)(index / GridSize.X) % GridSize.Y);
+        public virtual Node AddParticle(int frame)
+        {
+            ArgumentOutOfRangeException.ThrowIfGreaterThanOrEqual(frame, data.Frames.Count);
+            OneFrameSprite oneFrameSprite = new(data, frame);
+            AddChild(oneFrameSprite);
+            return oneFrameSprite;
+        }
+
+        public Vector2 GetParticlePosition(int index)
+        {
+            return new Vector2(index % GridSize.X, (int)(index / GridSize.X) % GridSize.Y);
+        }
     }
 }

@@ -4,29 +4,30 @@ using Mokus2D.Data;
 using Mokus2D.Interfaces;
 using Mokus2D.Visual;
 
-namespace ContreJour.Clips.common;
-
-[GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
-public class McFinishPart : Sprite, IFreeable, IId
+namespace ContreJour.Clips.common
 {
-    public const string ID = "common/McFinishPart";
-
-    public string Id => "common/McFinishPart";
-
-    public static McFinishPart New()
+    [GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
+    public class McFinishPart : Sprite, IFreeable, IId
     {
-        McFinishPart mcFinishPart = StaticPool.New<McFinishPart>();
-        mcFinishPart.RefreshProperties();
-        return mcFinishPart;
-    }
+        public const string ID = "common/McFinishPart";
 
-    public McFinishPart()
-        : base("common/McFinishPart")
-    {
-    }
+        public string Id => "common/McFinishPart";
 
-    public void Free()
-    {
-        StaticPool.Free<McFinishPart>(this);
+        public static McFinishPart New()
+        {
+            McFinishPart mcFinishPart = StaticPool.New<McFinishPart>();
+            mcFinishPart.RefreshProperties();
+            return mcFinishPart;
+        }
+
+        public McFinishPart()
+            : base("common/McFinishPart")
+        {
+        }
+
+        public void Free()
+        {
+            StaticPool.Free<McFinishPart>(this);
+        }
     }
 }

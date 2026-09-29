@@ -1,20 +1,21 @@
 using FarseerPhysics.Common.PhysicsLogic;
 using FarseerPhysics.Dynamics;
 
-namespace FarseerPhysics.Controllers;
-
-public abstract class Controller(ControllerType controllerType) : FilterData
+namespace FarseerPhysics.Controllers
 {
-    public bool Enabled { get; set; }
-
-    public World World { get; set; }
-
-    private readonly ControllerType _type = controllerType;
-
-    public override bool IsActiveOn(Body body)
+    public abstract class Controller(ControllerType controllerType) : FilterData
     {
-        return !body.ControllerFilter.IsControllerIgnored(_type) && base.IsActiveOn(body);
-    }
+        public bool Enabled { get; set; }
 
-    public abstract void Update(float dt);
+        public World World { get; set; }
+
+        private readonly ControllerType _type = controllerType;
+
+        public override bool IsActiveOn(Body body)
+        {
+            return !body.ControllerFilter.IsControllerIgnored(_type) && base.IsActiveOn(body);
+        }
+
+        public abstract void Update(float dt);
+    }
 }

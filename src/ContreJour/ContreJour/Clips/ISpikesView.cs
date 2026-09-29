@@ -1,10 +1,11 @@
 using Mokus2D.Visual;
 
-namespace ContreJour.Clips;
-
-public interface ISpikesView
+namespace ContreJour.Clips
 {
-    MovieClip Left { get; }
+    public interface ISpikesView
+    {
+        MovieClip Left { get; }
 
-    MovieClip Right { get; }
+        MovieClip Right { get; }
+    }
 }

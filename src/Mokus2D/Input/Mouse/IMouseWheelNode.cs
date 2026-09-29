@@ -1,14 +1,15 @@
 using System;
 
-namespace Mokus2D.Input.Mouse;
-
-public interface IMouseWheelNode
+namespace Mokus2D.Input.Mouse
 {
-    float MouseWheelValue { get; set; }
+    public interface IMouseWheelNode
+    {
+        float MouseWheelValue { get; set; }
 
-    float MinMouseWheelValue { get; }
+        float MinMouseWheelValue { get; }
 
-    float MaxMouseWheelValue { get; }
+        float MaxMouseWheelValue { get; }
 
-    event Action<float> MouseWheelValueChange;
+        event Action<float> MouseWheelValueChange;
+    }
 }

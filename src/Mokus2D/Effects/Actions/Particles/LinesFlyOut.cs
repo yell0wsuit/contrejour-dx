@@ -4,34 +4,35 @@ using Mokus2D.Data;
 using Mokus2D.Effects.Tweening;
 using Mokus2D.Visual;
 
-namespace Mokus2D.Effects.Actions.Particles;
-
-public class LinesFlyOut : LinesFlyBase
+namespace Mokus2D.Effects.Actions.Particles
 {
-    private static readonly Pool<LinesFlyOut> pool = new(() => new LinesFlyOut());
-
-    public static LinesFlyOut New(float linesDelay, float particleEffectSeconds, float particlesOffset)
+    public class LinesFlyOut : LinesFlyBase
     {
-        return pool.New().Initialize(linesDelay, particleEffectSeconds, particlesOffset);
-    }
+        private static readonly Pool<LinesFlyOut> pool = new(() => new LinesFlyOut());
 
-    protected LinesFlyOut()
-    {
-    }
+        public static LinesFlyOut New(float linesDelay, float particleEffectSeconds, float particlesOffset)
+        {
+            return pool.New().Initialize(linesDelay, particleEffectSeconds, particlesOffset);
+        }
 
-    protected new LinesFlyOut Initialize(float linesDelay, float particleEffectSeconds, float particlesOffset)
-    {
-        _ = base.Initialize(linesDelay, particleEffectSeconds, particlesOffset);
-        return this;
-    }
+        protected LinesFlyOut()
+        {
+        }
 
-    protected override ITween CreateDelayedParticleUpdater(Node particle, int x, int y)
-    {
-        throw new NotImplementedException();
-    }
+        protected new LinesFlyOut Initialize(float linesDelay, float particleEffectSeconds, float particlesOffset)
+        {
+            _ = base.Initialize(linesDelay, particleEffectSeconds, particlesOffset);
+            return this;
+        }
 
-    public new void Free()
-    {
-        pool.Free(this);
+        protected override ITween CreateDelayedParticleUpdater(Node particle, int x, int y)
+        {
+            throw new NotImplementedException();
+        }
+
+        public new void Free()
+        {
+            pool.Free(this);
+        }
     }
 }

@@ -4,29 +4,30 @@ using Mokus2D.Data;
 using Mokus2D.Interfaces;
 using Mokus2D.Visual;
 
-namespace ContreJour.Clips.menu;
-
-[GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
-public class whitePixel : Sprite, IFreeable, IId
+namespace ContreJour.Clips.menu
 {
-    public const string ID = "menu/whitePixel";
-
-    public string Id => "menu/whitePixel";
-
-    public static whitePixel New()
+    [GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
+    public class whitePixel : Sprite, IFreeable, IId
     {
-        whitePixel whitePixel2 = StaticPool.New<whitePixel>();
-        whitePixel2.RefreshProperties();
-        return whitePixel2;
-    }
+        public const string ID = "menu/whitePixel";
 
-    public whitePixel()
-        : base("menu/whitePixel")
-    {
-    }
+        public string Id => "menu/whitePixel";
 
-    public void Free()
-    {
-        StaticPool.Free<whitePixel>(this);
+        public static whitePixel New()
+        {
+            whitePixel whitePixel2 = StaticPool.New<whitePixel>();
+            whitePixel2.RefreshProperties();
+            return whitePixel2;
+        }
+
+        public whitePixel()
+            : base("menu/whitePixel")
+        {
+        }
+
+        public void Free()
+        {
+            StaticPool.Free<whitePixel>(this);
+        }
     }
 }

@@ -1,6 +1,7 @@
-namespace Mokus2D.UI.Containers;
-
-public interface IShow
+namespace Mokus2D.UI.Containers
 {
-    void Show();
+    public interface IShow
+    {
+        void Show();
+    }
 }

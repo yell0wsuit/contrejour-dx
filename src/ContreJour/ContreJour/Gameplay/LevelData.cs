@@ -1,33 +1,34 @@
 using System;
 
-namespace ContreJour.Gameplay;
-
-[Serializable]
-public class LevelData
+namespace ContreJour.Gameplay
 {
-    private int _score;
-
-    private int _starsCount;
-
-    public int Score
+    [Serializable]
+    public class LevelData
     {
-        get => _score;
-        set => _score = value;
-    }
+        private int _score;
 
-    public int StarsCount
-    {
-        get => _starsCount;
-        set => _starsCount = value;
-    }
+        private int _starsCount;
 
-    public LevelData()
-    {
-    }
+        public int Score
+        {
+            get => _score;
+            set => _score = value;
+        }
 
-    public LevelData(int score, int starsCount)
-    {
-        _score = score;
-        _starsCount = starsCount;
+        public int StarsCount
+        {
+            get => _starsCount;
+            set => _starsCount = value;
+        }
+
+        public LevelData()
+        {
+        }
+
+        public LevelData(int score, int starsCount)
+        {
+            _score = score;
+            _starsCount = starsCount;
+        }
     }
 }

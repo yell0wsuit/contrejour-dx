@@ -2,31 +2,32 @@ using System;
 
 using Mokus2D.Input;
 
-namespace Mokus2D.Visual.Interactive;
-
-public class TouchListenerDecorator(ITouchListener listener, bool enabled = true) : TouchListenerBase(enabled)
+namespace Mokus2D.Visual.Interactive
 {
-    private readonly ITouchListener _listener = listener;
-
-    public Func<bool> Filter { get; set; }
-
-    private bool FilterValue => Filter == null || Filter();
-
-    public override bool TouchBegin(Touch touch)
+    public class TouchListenerDecorator(ITouchListener listener, bool enabled = true) : TouchListenerBase(enabled)
     {
-        return FilterValue && _listener.TouchBegin(touch);
-    }
+        private readonly ITouchListener _listener = listener;
 
-    public override bool TouchMove(Touch touch)
-    {
-        return FilterValue && _listener.TouchMove(touch);
-    }
+        public Func<bool> Filter { get; set; }
 
-    public override void TouchEnd(Touch touch)
-    {
-        if (FilterValue)
+        private bool FilterValue => Filter == null || Filter();
+
+        public override bool TouchBegin(Touch touch)
         {
-            _listener.TouchEnd(touch);
+            return FilterValue && _listener.TouchBegin(touch);
+        }
+
+        public override bool TouchMove(Touch touch)
+        {
+            return FilterValue && _listener.TouchMove(touch);
+        }
+
+        public override void TouchEnd(Touch touch)
+        {
+            if (FilterValue)
+            {
+                _listener.TouchEnd(touch);
+            }
         }
     }
 }

@@ -5,48 +5,49 @@ using Microsoft.Xna.Framework;
 using Mokus2D.Visual;
 using Mokus2D.Visual.Data;
 
-namespace ContreJour.Gameplay;
-
-public class TexturedNeck : SpriteBatchNode
+namespace ContreJour.Gameplay
 {
-    private readonly List<Vector2> vertices = [];
-
-    private readonly List<Vector2> textureCoords = [];
-
-    public TexturedNeck(string textureFile)
+    public class TexturedNeck : SpriteBatchNode
     {
-        Texture = ClipFactory.GetTexture(textureFile);
-    }
+        private readonly List<Vector2> vertices = [];
 
-    public void AddPoint(Vector2 point)
-    {
-        vertices.Add(point);
-        RefreshTextureCoords();
-    }
+        private readonly List<Vector2> textureCoords = [];
 
-    public void RefreshTextureCoords()
-    {
-        for (int i = textureCoords.Count; i < vertices.Count; i++)
+        public TexturedNeck(string textureFile)
         {
-            Vector2 item = new(i / 2, i % 2);
-            textureCoords.Add(item);
+            Texture = ClipFactory.GetTexture(textureFile);
         }
-    }
 
-    public void ClearVertices()
-    {
-        vertices.Clear();
-    }
+        public void AddPoint(Vector2 point)
+        {
+            vertices.Add(point);
+            RefreshTextureCoords();
+        }
 
-    public void Clear()
-    {
-        vertices.Clear();
-        textureCoords.Clear();
-    }
+        public void RefreshTextureCoords()
+        {
+            for (int i = textureCoords.Count; i < vertices.Count; i++)
+            {
+                Vector2 item = new(i / 2, i % 2);
+                textureCoords.Add(item);
+            }
+        }
 
-    protected override void DrawSprite(VisualState state, Color color)
-    {
-        _ = vertices.Count;
-        _ = 2;
+        public void ClearVertices()
+        {
+            vertices.Clear();
+        }
+
+        public void Clear()
+        {
+            vertices.Clear();
+            textureCoords.Clear();
+        }
+
+        protected override void DrawSprite(VisualState state, Color color)
+        {
+            _ = vertices.Count;
+            _ = 2;
+        }
     }
 }

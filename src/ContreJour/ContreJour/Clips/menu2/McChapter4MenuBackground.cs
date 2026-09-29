@@ -4,29 +4,30 @@ using Mokus2D.Data;
 using Mokus2D.Interfaces;
 using Mokus2D.Visual;
 
-namespace ContreJour.Clips.menu2;
-
-[GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
-public class McChapter4MenuBackground : Sprite, IFreeable, IId
+namespace ContreJour.Clips.menu2
 {
-    public const string ID = "menu2/McChapter4MenuBackground";
-
-    public string Id => "menu2/McChapter4MenuBackground";
-
-    public static McChapter4MenuBackground New()
+    [GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
+    public class McChapter4MenuBackground : Sprite, IFreeable, IId
     {
-        McChapter4MenuBackground mcChapter4MenuBackground = StaticPool.New<McChapter4MenuBackground>();
-        mcChapter4MenuBackground.RefreshProperties();
-        return mcChapter4MenuBackground;
-    }
+        public const string ID = "menu2/McChapter4MenuBackground";
 
-    public McChapter4MenuBackground()
-        : base("menu2/McChapter4MenuBackground")
-    {
-    }
+        public string Id => "menu2/McChapter4MenuBackground";
 
-    public void Free()
-    {
-        StaticPool.Free<McChapter4MenuBackground>(this);
+        public static McChapter4MenuBackground New()
+        {
+            McChapter4MenuBackground mcChapter4MenuBackground = StaticPool.New<McChapter4MenuBackground>();
+            mcChapter4MenuBackground.RefreshProperties();
+            return mcChapter4MenuBackground;
+        }
+
+        public McChapter4MenuBackground()
+            : base("menu2/McChapter4MenuBackground")
+        {
+        }
+
+        public void Free()
+        {
+            StaticPool.Free<McChapter4MenuBackground>(this);
+        }
     }
 }

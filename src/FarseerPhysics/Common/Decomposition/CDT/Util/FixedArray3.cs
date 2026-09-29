@@ -2,99 +2,100 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace FarseerPhysics.Common.Decomposition.CDT.Util;
-
-internal struct FixedArray3<T> : IEnumerable<T>, IEnumerable where T : class
+namespace FarseerPhysics.Common.Decomposition.CDT.Util
 {
-    public T _0;
-
-    public T _1;
-
-    public T _2;
-
-    public T this[int index]
+    internal struct FixedArray3<T> : IEnumerable<T>, IEnumerable where T : class
     {
-        readonly get => index switch
+        public T _0;
+
+        public T _1;
+
+        public T _2;
+
+        public T this[int index]
         {
-            0 => _0,
-            1 => _1,
-            2 => _2,
-            _ => throw new ArgumentOutOfRangeException(nameof(index)),
-        };
-        set
-        {
-            switch (index)
+            readonly get => index switch
             {
-                case 0:
-                    _0 = value;
-                    break;
-                case 1:
-                    _1 = value;
-                    break;
-                case 2:
-                    _2 = value;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(index));
+                0 => _0,
+                1 => _1,
+                2 => _2,
+                _ => throw new ArgumentOutOfRangeException(nameof(index)),
+            };
+            set
+            {
+                switch (index)
+                {
+                    case 0:
+                        _0 = value;
+                        break;
+                    case 1:
+                        _1 = value;
+                        break;
+                    case 2:
+                        _2 = value;
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(index));
+                }
             }
         }
-    }
 
-    public readonly IEnumerator<T> GetEnumerator()
-    {
-        return Enumerate().GetEnumerator();
-    }
-
-    readonly IEnumerator IEnumerable.GetEnumerator()
-    {
-        return GetEnumerator();
-    }
-
-    public readonly bool Contains(T value)
-    {
-        for (int i = 0; i < 3; i++)
+        public readonly IEnumerator<T> GetEnumerator()
         {
-            if (this[i] == value)
+            return Enumerate().GetEnumerator();
+        }
+
+        readonly IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        public readonly bool Contains(T value)
+        {
+            for (int i = 0; i < 3; i++)
             {
-                return true;
+                if (this[i] == value)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public readonly int IndexOf(T value)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                if (this[i] == value)
+                {
+                    return i;
+                }
+            }
+            return -1;
+        }
+
+        public void Clear()
+        {
+            _0 = _1 = _2 = _2 = null;
+        }
+
+        public void Clear(T value)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                if (this[i] == value)
+                {
+                    this[i] = null;
+                }
             }
         }
-        return false;
-    }
 
-    public readonly int IndexOf(T value)
-    {
-        for (int i = 0; i < 3; i++)
+        private readonly IEnumerable<T> Enumerate()
         {
-            if (this[i] == value)
+            for (int i = 0; i < 3; i++)
             {
-                return i;
+                yield return this[i];
             }
-        }
-        return -1;
-    }
-
-    public void Clear()
-    {
-        _0 = _1 = _2 = _2 = null;
-    }
-
-    public void Clear(T value)
-    {
-        for (int i = 0; i < 3; i++)
-        {
-            if (this[i] == value)
-            {
-                this[i] = null;
-            }
-        }
-    }
-
-    private readonly IEnumerable<T> Enumerate()
-    {
-        for (int i = 0; i < 3; i++)
-        {
-            yield return this[i];
         }
     }
 }

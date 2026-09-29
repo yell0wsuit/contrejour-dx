@@ -1,9 +1,10 @@
-namespace Mokus2D.Platforms.Visual;
-
-public static class PlatformRenderUtil
+namespace Mokus2D.Platforms.Visual
 {
-    public static int GetRenderTargetSize(float size)
+    public static class PlatformRenderUtil
     {
-        return (int)size;
+        public static int GetRenderTargetSize(float size)
+        {
+            return (int)size;
+        }
     }
 }

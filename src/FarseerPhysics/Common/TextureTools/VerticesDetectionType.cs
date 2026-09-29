@@ -1,7 +1,8 @@
-namespace FarseerPhysics.Common.TextureTools;
-
-public enum VerticesDetectionType
+namespace FarseerPhysics.Common.TextureTools
 {
-    Integrated,
-    Separated
+    public enum VerticesDetectionType
+    {
+        Integrated,
+        Separated
+    }
 }

@@ -4,29 +4,30 @@ using Mokus2D.Data;
 using Mokus2D.Interfaces;
 using Mokus2D.Visual;
 
-namespace ContreJour.Clips.menu;
-
-[GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
-public class McHeroHighliteMenu : Sprite, IFreeable, IId
+namespace ContreJour.Clips.menu
 {
-    public const string ID = "menu/McHeroHighliteMenu";
-
-    public string Id => "menu/McHeroHighliteMenu";
-
-    public static McHeroHighliteMenu New()
+    [GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
+    public class McHeroHighliteMenu : Sprite, IFreeable, IId
     {
-        McHeroHighliteMenu mcHeroHighliteMenu = StaticPool.New<McHeroHighliteMenu>();
-        mcHeroHighliteMenu.RefreshProperties();
-        return mcHeroHighliteMenu;
-    }
+        public const string ID = "menu/McHeroHighliteMenu";
 
-    public McHeroHighliteMenu()
-        : base("menu/McHeroHighliteMenu")
-    {
-    }
+        public string Id => "menu/McHeroHighliteMenu";
 
-    public void Free()
-    {
-        StaticPool.Free<McHeroHighliteMenu>(this);
+        public static McHeroHighliteMenu New()
+        {
+            McHeroHighliteMenu mcHeroHighliteMenu = StaticPool.New<McHeroHighliteMenu>();
+            mcHeroHighliteMenu.RefreshProperties();
+            return mcHeroHighliteMenu;
+        }
+
+        public McHeroHighliteMenu()
+            : base("menu/McHeroHighliteMenu")
+        {
+        }
+
+        public void Free()
+        {
+            StaticPool.Free<McHeroHighliteMenu>(this);
+        }
     }
 }

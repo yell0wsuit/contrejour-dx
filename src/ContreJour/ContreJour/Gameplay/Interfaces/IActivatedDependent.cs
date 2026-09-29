@@ -1,6 +1,7 @@
-namespace ContreJour.Gameplay.Interfaces;
-
-public interface IActivatedDependent
+namespace ContreJour.Gameplay.Interfaces
 {
-    void OnGameActivated();
+    public interface IActivatedDependent
+    {
+        void OnGameActivated();
+    }
 }

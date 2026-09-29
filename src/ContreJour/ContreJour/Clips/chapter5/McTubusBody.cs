@@ -4,29 +4,30 @@ using Mokus2D.Data;
 using Mokus2D.Interfaces;
 using Mokus2D.Visual;
 
-namespace ContreJour.Clips.chapter5;
-
-[GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
-public class McTubusBody : Sprite, IFreeable, IId
+namespace ContreJour.Clips.chapter5
 {
-    public const string ID = "chapter5/McTubusBody";
-
-    public string Id => "chapter5/McTubusBody";
-
-    public static McTubusBody New()
+    [GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
+    public class McTubusBody : Sprite, IFreeable, IId
     {
-        McTubusBody mcTubusBody = StaticPool.New<McTubusBody>();
-        mcTubusBody.RefreshProperties();
-        return mcTubusBody;
-    }
+        public const string ID = "chapter5/McTubusBody";
 
-    public McTubusBody()
-        : base("chapter5/McTubusBody")
-    {
-    }
+        public string Id => "chapter5/McTubusBody";
 
-    public void Free()
-    {
-        StaticPool.Free<McTubusBody>(this);
+        public static McTubusBody New()
+        {
+            McTubusBody mcTubusBody = StaticPool.New<McTubusBody>();
+            mcTubusBody.RefreshProperties();
+            return mcTubusBody;
+        }
+
+        public McTubusBody()
+            : base("chapter5/McTubusBody")
+        {
+        }
+
+        public void Free()
+        {
+            StaticPool.Free<McTubusBody>(this);
+        }
     }
 }

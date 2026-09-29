@@ -1,5 +1,6 @@
 using FarseerPhysics.Dynamics.Joints;
 
-namespace FarseerPhysics.Dynamics;
-
-public delegate void JointHandler(Joint joint);
+namespace FarseerPhysics.Dynamics
+{
+    public delegate void JointHandler(Joint joint);
+}

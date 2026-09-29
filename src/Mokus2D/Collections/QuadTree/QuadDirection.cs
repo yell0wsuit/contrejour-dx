@@ -1,9 +1,10 @@
-namespace Mokus2D.Collections.QuadTree;
-
-public enum QuadDirection
+namespace Mokus2D.Collections.QuadTree
 {
-    NW,
-    NE,
-    SW,
-    SE
+    public enum QuadDirection
+    {
+        NW,
+        NE,
+        SW,
+        SE
+    }
 }

@@ -1,12 +1,13 @@
-namespace FarseerPhysics.Common;
-
-public enum PolygonError
+namespace FarseerPhysics.Common
 {
-    NoError,
-    InvalidAmountOfVertices,
-    NotSimple,
-    NotCounterClockWise,
-    NotConvex,
-    AreaTooSmall,
-    SideTooSmall
+    public enum PolygonError
+    {
+        NoError,
+        InvalidAmountOfVertices,
+        NotSimple,
+        NotCounterClockWise,
+        NotConvex,
+        AreaTooSmall,
+        SideTooSmall
+    }
 }

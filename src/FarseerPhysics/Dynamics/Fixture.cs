@@ -8,306 +8,307 @@ using FarseerPhysics.Dynamics.Contacts;
 
 using Microsoft.Xna.Framework;
 
-namespace FarseerPhysics.Dynamics;
-
-public class Fixture : IDisposable
+namespace FarseerPhysics.Dynamics
 {
-    [ThreadStatic]
-    private static int _fixtureIdCounter;
-    internal Category _collidesWith;
-
-    internal Category _collisionCategories;
-
-    internal short _collisionGroup;
-
-    internal HashSet<int> _collisionIgnores;
-
-    public FixtureProxy[] Proxies { get; set; }
-
-    public int ProxyCount { get; set; }
-
-    public Category IgnoreCCDWith { get; set; }
-
-    public AfterCollisionHandler AfterCollision { get; set; }
-
-    public BeforeCollisionHandler BeforeCollision { get; set; }
-
-    public OnCollisionHandler OnCollision { get; set; }
-
-    public OnSeparationHandler OnSeparation { get; set; }
-
-    public short CollisionGroup
+    public class Fixture : IDisposable
     {
-        get => _collisionGroup;
-        set
+        [ThreadStatic]
+        private static int _fixtureIdCounter;
+        internal Category _collidesWith;
+
+        internal Category _collisionCategories;
+
+        internal short _collisionGroup;
+
+        internal HashSet<int> _collisionIgnores;
+
+        public FixtureProxy[] Proxies { get; set; }
+
+        public int ProxyCount { get; set; }
+
+        public Category IgnoreCCDWith { get; set; }
+
+        public AfterCollisionHandler AfterCollision { get; set; }
+
+        public BeforeCollisionHandler BeforeCollision { get; set; }
+
+        public OnCollisionHandler OnCollision { get; set; }
+
+        public OnSeparationHandler OnSeparation { get; set; }
+
+        public short CollisionGroup
         {
-            if (_collisionGroup != value)
+            get => _collisionGroup;
+            set
             {
-                _collisionGroup = value;
+                if (_collisionGroup != value)
+                {
+                    _collisionGroup = value;
+                    Refilter();
+                }
+            }
+        }
+
+        public Category CollidesWith
+        {
+            get => _collidesWith;
+            set
+            {
+                if (_collidesWith != value)
+                {
+                    _collidesWith = value;
+                    Refilter();
+                }
+            }
+        }
+
+        public Category CollisionCategories
+        {
+            get => _collisionCategories;
+            set
+            {
+                if (_collisionCategories != value)
+                {
+                    _collisionCategories = value;
+                    Refilter();
+                }
+            }
+        }
+
+        public Shape Shape { get; internal set; }
+
+        public bool IsSensor
+        {
+            get;
+            set
+            {
+                Body?.Awake = true;
+                field = value;
+            }
+        }
+
+        public Body Body { get; internal set; }
+
+        public object UserData { get; set; }
+
+        public float Friction { get; set; }
+
+        public float Restitution { get; set; }
+
+        public int FixtureId { get; internal set; }
+
+        public bool IsDisposed { get; set; }
+
+        internal Fixture()
+        {
+            FixtureId = _fixtureIdCounter++;
+            _collisionCategories = Settings.DefaultFixtureCollisionCategories;
+            _collidesWith = Settings.DefaultFixtureCollidesWith;
+            _collisionGroup = 0;
+            _collisionIgnores = [];
+            IgnoreCCDWith = Settings.DefaultFixtureIgnoreCCDWith;
+            Friction = 0.2f;
+            Restitution = 0f;
+        }
+
+        internal Fixture(Body body, Shape shape, object userData = null)
+            : this()
+        {
+            Body = body;
+            UserData = userData;
+            Shape = shape.Clone();
+            RegisterFixture();
+        }
+
+        public void Dispose()
+        {
+            if (!IsDisposed)
+            {
+                Body.DestroyFixture(this);
+                IsDisposed = true;
+                GC.SuppressFinalize(this);
+            }
+        }
+
+        public void RestoreCollisionWith(Fixture fixture)
+        {
+            if (_collisionIgnores.Contains(fixture.FixtureId))
+            {
+                _ = _collisionIgnores.Remove(fixture.FixtureId);
                 Refilter();
             }
         }
-    }
 
-    public Category CollidesWith
-    {
-        get => _collidesWith;
-        set
+        public void IgnoreCollisionWith(Fixture fixture)
         {
-            if (_collidesWith != value)
+            if (!_collisionIgnores.Contains(fixture.FixtureId))
             {
-                _collidesWith = value;
+                _ = _collisionIgnores.Add(fixture.FixtureId);
                 Refilter();
             }
         }
-    }
 
-    public Category CollisionCategories
-    {
-        get => _collisionCategories;
-        set
+        public bool IsFixtureIgnored(Fixture fixture)
         {
-            if (_collisionCategories != value)
+            return _collisionIgnores.Contains(fixture.FixtureId);
+        }
+
+        private void Refilter()
+        {
+            for (ContactEdge contactEdge = Body.ContactList; contactEdge != null; contactEdge = contactEdge.Next)
             {
-                _collisionCategories = value;
-                Refilter();
+                Contact contact = contactEdge.Contact;
+                Fixture fixtureA = contact.FixtureA;
+                Fixture fixtureB = contact.FixtureB;
+                if (fixtureA == this || fixtureB == this)
+                {
+                    contact.FilterFlag = true;
+                }
+            }
+            World world = Body._world;
+            if (world != null)
+            {
+                IBroadPhase broadPhase = world.ContactManager.BroadPhase;
+                for (int i = 0; i < ProxyCount; i++)
+                {
+                    broadPhase.TouchProxy(Proxies[i].ProxyId);
+                }
             }
         }
-    }
 
-    public Shape Shape { get; internal set; }
-
-    public bool IsSensor
-    {
-        get;
-        set
+        private void RegisterFixture()
         {
-            Body?.Awake = true;
-            field = value;
-        }
-    }
-
-    public Body Body { get; internal set; }
-
-    public object UserData { get; set; }
-
-    public float Friction { get; set; }
-
-    public float Restitution { get; set; }
-
-    public int FixtureId { get; internal set; }
-
-    public bool IsDisposed { get; set; }
-
-    internal Fixture()
-    {
-        FixtureId = _fixtureIdCounter++;
-        _collisionCategories = Settings.DefaultFixtureCollisionCategories;
-        _collidesWith = Settings.DefaultFixtureCollidesWith;
-        _collisionGroup = 0;
-        _collisionIgnores = [];
-        IgnoreCCDWith = Settings.DefaultFixtureIgnoreCCDWith;
-        Friction = 0.2f;
-        Restitution = 0f;
-    }
-
-    internal Fixture(Body body, Shape shape, object userData = null)
-        : this()
-    {
-        Body = body;
-        UserData = userData;
-        Shape = shape.Clone();
-        RegisterFixture();
-    }
-
-    public void Dispose()
-    {
-        if (!IsDisposed)
-        {
-            Body.DestroyFixture(this);
-            IsDisposed = true;
-            GC.SuppressFinalize(this);
-        }
-    }
-
-    public void RestoreCollisionWith(Fixture fixture)
-    {
-        if (_collisionIgnores.Contains(fixture.FixtureId))
-        {
-            _ = _collisionIgnores.Remove(fixture.FixtureId);
-            Refilter();
-        }
-    }
-
-    public void IgnoreCollisionWith(Fixture fixture)
-    {
-        if (!_collisionIgnores.Contains(fixture.FixtureId))
-        {
-            _ = _collisionIgnores.Add(fixture.FixtureId);
-            Refilter();
-        }
-    }
-
-    public bool IsFixtureIgnored(Fixture fixture)
-    {
-        return _collisionIgnores.Contains(fixture.FixtureId);
-    }
-
-    private void Refilter()
-    {
-        for (ContactEdge contactEdge = Body.ContactList; contactEdge != null; contactEdge = contactEdge.Next)
-        {
-            Contact contact = contactEdge.Contact;
-            Fixture fixtureA = contact.FixtureA;
-            Fixture fixtureB = contact.FixtureB;
-            if (fixtureA == this || fixtureB == this)
+            Proxies = new FixtureProxy[Shape.ChildCount];
+            ProxyCount = 0;
+            if (Body.Enabled)
             {
-                contact.FilterFlag = true;
+                IBroadPhase broadPhase = Body._world.ContactManager.BroadPhase;
+                CreateProxies(broadPhase, ref Body._xf);
             }
+            Body.FixtureList.Add(this);
+            if (Shape._density > 0f)
+            {
+                Body.ResetMassData();
+            }
+            Body._world._worldHasNewFixture = true;
+            Body._world.FixtureAdded?.Invoke(this);
         }
-        World world = Body._world;
-        if (world != null)
+
+        public bool TestPoint(ref Vector2 point)
         {
-            IBroadPhase broadPhase = world.ContactManager.BroadPhase;
+            return Shape.TestPoint(ref Body._xf, ref point);
+        }
+
+        public bool RayCast(out RayCastOutput output, ref RayCastInput input, int childIndex)
+        {
+            return Shape.RayCast(out output, ref input, ref Body._xf, childIndex);
+        }
+
+        public void GetAABB(out AABB aabb, int childIndex)
+        {
+            aabb = Proxies[childIndex].AABB;
+        }
+
+        internal void Destroy()
+        {
+            Proxies = null;
+            Shape = null;
+            UserData = null;
+            BeforeCollision = null;
+            OnCollision = null;
+            OnSeparation = null;
+            AfterCollision = null;
+            Body._world.FixtureRemoved?.Invoke(this);
+            Body._world.FixtureAdded = null;
+            Body._world.FixtureRemoved = null;
+            OnSeparation = null;
+            OnCollision = null;
+        }
+
+        internal void CreateProxies(IBroadPhase broadPhase, ref Transform xf)
+        {
+            ProxyCount = Shape.ChildCount;
             for (int i = 0; i < ProxyCount; i++)
             {
-                broadPhase.TouchProxy(Proxies[i].ProxyId);
+                FixtureProxy proxy = default;
+                Shape.ComputeAABB(out proxy.AABB, ref xf, i);
+                proxy.Fixture = this;
+                proxy.ChildIndex = i;
+                proxy.ProxyId = broadPhase.AddProxy(ref proxy);
+                Proxies[i] = proxy;
             }
         }
-    }
 
-    private void RegisterFixture()
-    {
-        Proxies = new FixtureProxy[Shape.ChildCount];
-        ProxyCount = 0;
-        if (Body.Enabled)
-        {
-            IBroadPhase broadPhase = Body._world.ContactManager.BroadPhase;
-            CreateProxies(broadPhase, ref Body._xf);
-        }
-        Body.FixtureList.Add(this);
-        if (Shape._density > 0f)
-        {
-            Body.ResetMassData();
-        }
-        Body._world._worldHasNewFixture = true;
-        Body._world.FixtureAdded?.Invoke(this);
-    }
-
-    public bool TestPoint(ref Vector2 point)
-    {
-        return Shape.TestPoint(ref Body._xf, ref point);
-    }
-
-    public bool RayCast(out RayCastOutput output, ref RayCastInput input, int childIndex)
-    {
-        return Shape.RayCast(out output, ref input, ref Body._xf, childIndex);
-    }
-
-    public void GetAABB(out AABB aabb, int childIndex)
-    {
-        aabb = Proxies[childIndex].AABB;
-    }
-
-    internal void Destroy()
-    {
-        Proxies = null;
-        Shape = null;
-        UserData = null;
-        BeforeCollision = null;
-        OnCollision = null;
-        OnSeparation = null;
-        AfterCollision = null;
-        Body._world.FixtureRemoved?.Invoke(this);
-        Body._world.FixtureAdded = null;
-        Body._world.FixtureRemoved = null;
-        OnSeparation = null;
-        OnCollision = null;
-    }
-
-    internal void CreateProxies(IBroadPhase broadPhase, ref Transform xf)
-    {
-        ProxyCount = Shape.ChildCount;
-        for (int i = 0; i < ProxyCount; i++)
-        {
-            FixtureProxy proxy = default;
-            Shape.ComputeAABB(out proxy.AABB, ref xf, i);
-            proxy.Fixture = this;
-            proxy.ChildIndex = i;
-            proxy.ProxyId = broadPhase.AddProxy(ref proxy);
-            Proxies[i] = proxy;
-        }
-    }
-
-    internal void DestroyProxies(IBroadPhase broadPhase)
-    {
-        for (int i = 0; i < ProxyCount; i++)
-        {
-            broadPhase.RemoveProxy(Proxies[i].ProxyId);
-            Proxies[i].ProxyId = -1;
-        }
-        ProxyCount = 0;
-    }
-
-    internal void Synchronize(IBroadPhase broadPhase, ref Transform transform1, ref Transform transform2)
-    {
-        if (ProxyCount != 0)
+        internal void DestroyProxies(IBroadPhase broadPhase)
         {
             for (int i = 0; i < ProxyCount; i++)
             {
-                FixtureProxy fixtureProxy = Proxies[i];
-                Shape.ComputeAABB(out AABB aabb, ref transform1, fixtureProxy.ChildIndex);
-                Shape.ComputeAABB(out AABB aabb2, ref transform2, fixtureProxy.ChildIndex);
-                fixtureProxy.AABB.Combine(ref aabb, ref aabb2);
-                Vector2 displacement = transform2.p - transform1.p;
-                broadPhase.MoveProxy(fixtureProxy.ProxyId, ref fixtureProxy.AABB, displacement);
+                broadPhase.RemoveProxy(Proxies[i].ProxyId);
+                Proxies[i].ProxyId = -1;
+            }
+            ProxyCount = 0;
+        }
+
+        internal void Synchronize(IBroadPhase broadPhase, ref Transform transform1, ref Transform transform2)
+        {
+            if (ProxyCount != 0)
+            {
+                for (int i = 0; i < ProxyCount; i++)
+                {
+                    FixtureProxy fixtureProxy = Proxies[i];
+                    Shape.ComputeAABB(out AABB aabb, ref transform1, fixtureProxy.ChildIndex);
+                    Shape.ComputeAABB(out AABB aabb2, ref transform2, fixtureProxy.ChildIndex);
+                    fixtureProxy.AABB.Combine(ref aabb, ref aabb2);
+                    Vector2 displacement = transform2.p - transform1.p;
+                    broadPhase.MoveProxy(fixtureProxy.ProxyId, ref fixtureProxy.AABB, displacement);
+                }
             }
         }
-    }
 
-    internal bool CompareTo(Fixture fixture)
-    {
-        return _collidesWith == fixture._collidesWith && _collisionCategories == fixture._collisionCategories && _collisionGroup == fixture._collisionGroup && Friction == fixture.Friction && IsSensor == fixture.IsSensor && Restitution == fixture.Restitution && UserData == fixture.UserData && IgnoreCCDWith == fixture.IgnoreCCDWith && SequenceEqual(_collisionIgnores, fixture._collisionIgnores);
-    }
-
-    private static bool SequenceEqual<T>(HashSet<T> first, HashSet<T> second)
-    {
-        if (first.Count != second.Count)
+        internal bool CompareTo(Fixture fixture)
         {
-            return false;
+            return _collidesWith == fixture._collidesWith && _collisionCategories == fixture._collisionCategories && _collisionGroup == fixture._collisionGroup && Friction == fixture.Friction && IsSensor == fixture.IsSensor && Restitution == fixture.Restitution && UserData == fixture.UserData && IgnoreCCDWith == fixture.IgnoreCCDWith && SequenceEqual(_collisionIgnores, fixture._collisionIgnores);
         }
-        using HashSet<T>.Enumerator enumerator = first.GetEnumerator();
-        using HashSet<T>.Enumerator enumerator2 = second.GetEnumerator();
-        while (enumerator.MoveNext())
+
+        private static bool SequenceEqual<T>(HashSet<T> first, HashSet<T> second)
         {
-            if (!enumerator2.MoveNext() || !Equals(enumerator.Current, enumerator2.Current))
+            if (first.Count != second.Count)
             {
                 return false;
             }
+            using HashSet<T>.Enumerator enumerator = first.GetEnumerator();
+            using HashSet<T>.Enumerator enumerator2 = second.GetEnumerator();
+            while (enumerator.MoveNext())
+            {
+                if (!enumerator2.MoveNext() || !Equals(enumerator.Current, enumerator2.Current))
+                {
+                    return false;
+                }
+            }
+            return !enumerator2.MoveNext();
         }
-        return !enumerator2.MoveNext();
-    }
 
-    public Fixture CloneOnto(Body body)
-    {
-        Fixture fixture = new()
+        public Fixture CloneOnto(Body body)
         {
-            Body = body,
-            Shape = Shape.Clone(),
-            UserData = UserData,
-            Restitution = Restitution,
-            Friction = Friction,
-            IsSensor = IsSensor,
-            _collisionGroup = _collisionGroup,
-            _collisionCategories = _collisionCategories,
-            _collidesWith = _collidesWith,
-            IgnoreCCDWith = IgnoreCCDWith
-        };
-        foreach (int collisionIgnore in _collisionIgnores)
-        {
-            _ = fixture._collisionIgnores.Add(collisionIgnore);
+            Fixture fixture = new()
+            {
+                Body = body,
+                Shape = Shape.Clone(),
+                UserData = UserData,
+                Restitution = Restitution,
+                Friction = Friction,
+                IsSensor = IsSensor,
+                _collisionGroup = _collisionGroup,
+                _collisionCategories = _collisionCategories,
+                _collidesWith = _collidesWith,
+                IgnoreCCDWith = IgnoreCCDWith
+            };
+            foreach (int collisionIgnore in _collisionIgnores)
+            {
+                _ = fixture._collisionIgnores.Add(collisionIgnore);
+            }
+            fixture.RegisterFixture();
+            return fixture;
         }
-        fixture.RegisterFixture();
-        return fixture;
     }
 }

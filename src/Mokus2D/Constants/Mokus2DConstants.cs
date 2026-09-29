@@ -1,8 +1,9 @@
-namespace Mokus2D.Constants;
-
-public static class Mokus2DConstants
+namespace Mokus2D.Constants
 {
-    public const int DefaultListCapacity = 64;
+    public static class Mokus2DConstants
+    {
+        public const int DefaultListCapacity = 64;
 
-    public const string DefaultContentRootDirectory = "Content";
+        public const string DefaultContentRootDirectory = "Content";
+    }
 }

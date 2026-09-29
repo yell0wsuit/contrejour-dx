@@ -4,29 +4,30 @@ using Mokus2D.Data;
 using Mokus2D.Interfaces;
 using Mokus2D.Visual;
 
-namespace ContreJour.Clips.chapter5;
-
-[GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
-public class McTubusEyeBackground : Sprite, IFreeable, IId
+namespace ContreJour.Clips.chapter5
 {
-    public const string ID = "chapter5/McTubusEyeBackground";
-
-    public string Id => "chapter5/McTubusEyeBackground";
-
-    public static McTubusEyeBackground New()
+    [GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
+    public class McTubusEyeBackground : Sprite, IFreeable, IId
     {
-        McTubusEyeBackground mcTubusEyeBackground = StaticPool.New<McTubusEyeBackground>();
-        mcTubusEyeBackground.RefreshProperties();
-        return mcTubusEyeBackground;
-    }
+        public const string ID = "chapter5/McTubusEyeBackground";
 
-    public McTubusEyeBackground()
-        : base("chapter5/McTubusEyeBackground")
-    {
-    }
+        public string Id => "chapter5/McTubusEyeBackground";
 
-    public void Free()
-    {
-        StaticPool.Free<McTubusEyeBackground>(this);
+        public static McTubusEyeBackground New()
+        {
+            McTubusEyeBackground mcTubusEyeBackground = StaticPool.New<McTubusEyeBackground>();
+            mcTubusEyeBackground.RefreshProperties();
+            return mcTubusEyeBackground;
+        }
+
+        public McTubusEyeBackground()
+            : base("chapter5/McTubusEyeBackground")
+        {
+        }
+
+        public void Free()
+        {
+            StaticPool.Free<McTubusEyeBackground>(this);
+        }
     }
 }

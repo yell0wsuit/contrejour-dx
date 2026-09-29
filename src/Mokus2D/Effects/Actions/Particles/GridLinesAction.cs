@@ -3,44 +3,45 @@ using System;
 using Mokus2D.Effects.Tweening;
 using Mokus2D.Visual;
 
-namespace Mokus2D.Effects.Actions.Particles;
-
-public abstract class GridLinesAction : GridAction
+namespace Mokus2D.Effects.Actions.Particles
 {
-    protected float LinesDelay { get; set; }
-
-    protected float ParticleEffectSeconds { get; set; }
-
-    protected float OneLineDelay { get; set; }
-
-    protected GridLinesAction Initialize(float linesDelay, float particleEffectSeconds)
+    public abstract class GridLinesAction : GridAction
     {
-        _ = Initialize();
-        LinesDelay = linesDelay;
-        ParticleEffectSeconds = particleEffectSeconds;
-        return this;
-    }
+        protected float LinesDelay { get; set; }
 
-    internal override void Start(float time)
-    {
-        CalculateLineDelay();
-        base.Start(time);
-    }
+        protected float ParticleEffectSeconds { get; set; }
 
-    protected void CalculateLineDelay()
-    {
-        OneLineDelay = LinesDelay / Grid.GridSize.Y;
-    }
+        protected float OneLineDelay { get; set; }
 
-    protected override ITween CreateParticleUpdater(Node particle, int x, int y)
-    {
-        throw new NotImplementedException();
-    }
+        protected GridLinesAction Initialize(float linesDelay, float particleEffectSeconds)
+        {
+            _ = Initialize();
+            LinesDelay = linesDelay;
+            ParticleEffectSeconds = particleEffectSeconds;
+            return this;
+        }
 
-    protected virtual float GetLineDelay(int y)
-    {
-        return y * OneLineDelay;
-    }
+        internal override void Start(float time)
+        {
+            CalculateLineDelay();
+            base.Start(time);
+        }
 
-    protected abstract ITween CreateDelayedParticleUpdater(Node particle, int x, int y);
+        protected void CalculateLineDelay()
+        {
+            OneLineDelay = LinesDelay / Grid.GridSize.Y;
+        }
+
+        protected override ITween CreateParticleUpdater(Node particle, int x, int y)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected virtual float GetLineDelay(int y)
+        {
+            return y * OneLineDelay;
+        }
+
+        protected abstract ITween CreateDelayedParticleUpdater(Node particle, int x, int y);
+    }
 }

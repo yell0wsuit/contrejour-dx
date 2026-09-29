@@ -1,6 +1,7 @@
-namespace Mokus2D.Interfaces;
-
-public interface IRemovable
+namespace Mokus2D.Interfaces
 {
-    bool ShouldRemove { get; }
+    public interface IRemovable
+    {
+        bool ShouldRemove { get; }
+    }
 }

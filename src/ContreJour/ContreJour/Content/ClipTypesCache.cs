@@ -5,51 +5,52 @@ using System.Globalization;
 
 using Mokus2D.Visual;
 
-namespace ContreJour.Content;
-
-public class ClipTypesCache
+namespace ContreJour.Content
 {
-    private static readonly List<string> SkipList = ["McEndLevelView", "McRoseView", "McTeleportView", "McSpringView"];
-
-    private static readonly string ClipsFolder = "ContreJour.Clips.";
-
-    private static readonly string[] FolderNames =
-    [
-        "level1", "spikes", "fakeHero", "chapter1", "chapter2", "chapter3", "chapter4", "chapter5", "chapter5Backgrounds", "chapter4Backgrounds",
-        "chapter3More", "chapter6", "common", "common2", "lights", "planets", "finalLevel", "menuBackgrounds"
-    ];
-
-    private static readonly Dictionary<string, Type> Cache = [];
-
-    public static Node CreateNewNode(string name)
+    public class ClipTypesCache
     {
-        if (!Cache.ContainsKey(name))
-        {
-            AddTypeToCache(name);
-        }
-        return (Node)Activator.CreateInstance(Cache[name]);
-    }
+        private static readonly List<string> SkipList = ["McEndLevelView", "McRoseView", "McTeleportView", "McSpringView"];
 
-    private static void AddTypeToCache(string name)
-    {
-        Type type = null;
-        string[] folderNames = FolderNames;
-        foreach (string text in folderNames)
+        private static readonly string ClipsFolder = "ContreJour.Clips.";
+
+        private static readonly string[] FolderNames =
+        [
+            "level1", "spikes", "fakeHero", "chapter1", "chapter2", "chapter3", "chapter4", "chapter5", "chapter5Backgrounds", "chapter4Backgrounds",
+            "chapter3More", "chapter6", "common", "common2", "lights", "planets", "finalLevel", "menuBackgrounds"
+        ];
+
+        private static readonly Dictionary<string, Type> Cache = [];
+
+        public static Node CreateNewNode(string name)
         {
-            type = Type.GetType(string.Format(CultureInfo.InvariantCulture, "{0}{1}.{2}", ClipsFolder, text, name));
-            if (type is not null)
+            if (!Cache.ContainsKey(name))
             {
-                Cache[name] = type;
-                break;
+                AddTypeToCache(name);
             }
+            return (Node)Activator.CreateInstance(Cache[name]);
         }
-        if (type is null)
+
+        private static void AddTypeToCache(string name)
         {
-            if (!SkipList.Contains(name))
+            Type type = null;
+            string[] folderNames = FolderNames;
+            foreach (string text in folderNames)
             {
-                Trace.TraceInformation("Cannot find " + name);
+                type = Type.GetType(string.Format(CultureInfo.InvariantCulture, "{0}{1}.{2}", ClipsFolder, text, name));
+                if (type is not null)
+                {
+                    Cache[name] = type;
+                    break;
+                }
             }
-            Cache[name] = typeof(Node);
+            if (type is null)
+            {
+                if (!SkipList.Contains(name))
+                {
+                    Trace.TraceInformation("Cannot find " + name);
+                }
+                Cache[name] = typeof(Node);
+            }
         }
     }
 }

@@ -2,59 +2,60 @@ using System.Collections.Generic;
 
 using Mokus2D.Data;
 
-namespace Mokus2D.Collections.QuadTree;
-
-public class QuadTreeNode<T>(RectangleFloat bounds) where T : class, IQuadTreeObject<T>
+namespace Mokus2D.Collections.QuadTree
 {
-
-    internal readonly QuadTreeNode<T>[] Nodes = new QuadTreeNode<T>[4];
-
-    internal List<T> Objects = [];
-
-    public QuadTreeNode<T> Parent { get; internal set; }
-
-    public QuadTreeNode<T> this[QuadDirection direction]
+    public class QuadTreeNode<T>(RectangleFloat bounds) where T : class, IQuadTreeObject<T>
     {
-        get => direction switch
+
+        internal readonly QuadTreeNode<T>[] Nodes = new QuadTreeNode<T>[4];
+
+        internal List<T> Objects = [];
+
+        public QuadTreeNode<T> Parent { get; internal set; }
+
+        public QuadTreeNode<T> this[QuadDirection direction]
         {
-            QuadDirection.NW => Nodes[0],
-            QuadDirection.NE => Nodes[1],
-            QuadDirection.SW => Nodes[2],
-            QuadDirection.SE => Nodes[3],
-            _ => null,
-        };
-        set
-        {
-            switch (direction)
+            get => direction switch
             {
-                case QuadDirection.NW:
-                    Nodes[0] = value;
-                    break;
-                case QuadDirection.NE:
-                    Nodes[1] = value;
-                    break;
-                case QuadDirection.SW:
-                    Nodes[2] = value;
-                    break;
-                case QuadDirection.SE:
-                    Nodes[3] = value;
-                    break;
-                default:
-                    break;
+                QuadDirection.NW => Nodes[0],
+                QuadDirection.NE => Nodes[1],
+                QuadDirection.SW => Nodes[2],
+                QuadDirection.SE => Nodes[3],
+                _ => null,
+            };
+            set
+            {
+                switch (direction)
+                {
+                    case QuadDirection.NW:
+                        Nodes[0] = value;
+                        break;
+                    case QuadDirection.NE:
+                        Nodes[1] = value;
+                        break;
+                    case QuadDirection.SW:
+                        Nodes[2] = value;
+                        break;
+                    case QuadDirection.SE:
+                        Nodes[3] = value;
+                        break;
+                    default:
+                        break;
+                }
+                value?.Parent = this;
             }
-            value?.Parent = this;
         }
-    }
 
-    public RectangleFloat Bounds { get; internal set; } = bounds;
+        public RectangleFloat Bounds { get; internal set; } = bounds;
 
-    public bool HasChildNodes()
-    {
-        return Nodes[0] != null;
-    }
+        public bool HasChildNodes()
+        {
+            return Nodes[0] != null;
+        }
 
-    public QuadTreeNode(float x, float y, float width, float height)
-        : this(new RectangleFloat(x, y, width, height))
-    {
+        public QuadTreeNode(float x, float y, float width, float height)
+            : this(new RectangleFloat(x, y, width, height))
+        {
+        }
     }
 }

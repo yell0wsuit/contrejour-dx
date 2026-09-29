@@ -5,77 +5,78 @@ using Mokus2D.Data;
 using Mokus2D.Interfaces;
 using Mokus2D.Util.Extensions;
 
-namespace Mokus2D.Effects.Tweening.Repeating;
-
-public class Repeat : ITween, ICleanable, IUpdatable
+namespace Mokus2D.Effects.Tweening.Repeating
 {
-    private static readonly Pool<Repeat> Pool = new(() => new Repeat());
-
-    private ITween _tween;
-
-    private int _times;
-
-    private int _timesExecuted;
-
-    private readonly Queue<Action> _onComplete = new();
-
-    public bool Finished => _timesExecuted >= _times;
-
-    public static Repeat New(ITween tween, int times)
+    public class Repeat : ITween, ICleanable, IUpdatable
     {
-        return Pool.New().Initialize(tween, times);
-    }
+        private static readonly Pool<Repeat> Pool = new(() => new Repeat());
 
-    private Repeat()
-    {
-    }
+        private ITween _tween;
 
-    private Repeat Initialize(ITween tween, int times)
-    {
-        _tween = tween;
-        _times = times;
-        return this;
-    }
+        private int _times;
 
-    public void Clean()
-    {
-        _tween.Clean();
-        _times = 0;
-        _tween = null;
-        _onComplete.Clear();
-    }
+        private int _timesExecuted;
 
-    public void Free()
-    {
-        Pool.Free(this);
-    }
+        private readonly Queue<Action> _onComplete = new();
 
-    public void Reset()
-    {
-        _timesExecuted = 0;
-    }
+        public bool Finished => _timesExecuted >= _times;
 
-    public ITween OnComplete(Action action)
-    {
-        _onComplete.Enqueue(action);
-        return this;
-    }
-
-    public void Update(float time)
-    {
-        _tween.Update(time);
-        if (!_tween.Finished)
+        public static Repeat New(ITween tween, int times)
         {
-            return;
+            return Pool.New().Initialize(tween, times);
         }
-        _timesExecuted++;
-        _tween.Reset();
-        if (Finished)
+
+        private Repeat()
         {
-            while (!_onComplete.Empty())
+        }
+
+        private Repeat Initialize(ITween tween, int times)
+        {
+            _tween = tween;
+            _times = times;
+            return this;
+        }
+
+        public void Clean()
+        {
+            _tween.Clean();
+            _times = 0;
+            _tween = null;
+            _onComplete.Clear();
+        }
+
+        public void Free()
+        {
+            Pool.Free(this);
+        }
+
+        public void Reset()
+        {
+            _timesExecuted = 0;
+        }
+
+        public ITween OnComplete(Action action)
+        {
+            _onComplete.Enqueue(action);
+            return this;
+        }
+
+        public void Update(float time)
+        {
+            _tween.Update(time);
+            if (!_tween.Finished)
             {
-                Action action = _onComplete.Dequeue();
-                action();
+                return;
+            }
+            _timesExecuted++;
+            _tween.Reset();
+            if (Finished)
+            {
+                while (!_onComplete.Empty())
+                {
+                    Action action = _onComplete.Dequeue();
+                    action();
+                }
             }
         }
     }

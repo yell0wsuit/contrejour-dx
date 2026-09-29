@@ -1,15 +1,16 @@
 using Mokus2D.Util.MathUtils;
 
-namespace Mokus2D.Visual.Displacement.Magnets.Actions;
-
-public class MagnetChangePower(GridMagnetBase gridMagnet, float timeout, float targetPower) : MagnetIntervalActionBase(gridMagnet, timeout)
+namespace Mokus2D.Visual.Displacement.Magnets.Actions
 {
-    private readonly float _targetPower = targetPower;
-
-    public float StartPower { get; set; } = gridMagnet.Power;
-
-    protected override void UpdateMagnet(float ratio)
+    public class MagnetChangePower(GridMagnetBase gridMagnet, float timeout, float targetPower) : MagnetIntervalActionBase(gridMagnet, timeout)
     {
-        GridMagnet.Power = ratio.Lerp(StartPower, _targetPower);
+        private readonly float _targetPower = targetPower;
+
+        public float StartPower { get; set; } = gridMagnet.Power;
+
+        protected override void UpdateMagnet(float ratio)
+        {
+            GridMagnet.Power = ratio.Lerp(StartPower, _targetPower);
+        }
     }
 }

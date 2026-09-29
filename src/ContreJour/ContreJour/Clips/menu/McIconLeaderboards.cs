@@ -4,29 +4,30 @@ using Mokus2D.Data;
 using Mokus2D.Interfaces;
 using Mokus2D.Visual;
 
-namespace ContreJour.Clips.menu;
-
-[GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
-public class McIconLeaderboards : Sprite, IFreeable, IId
+namespace ContreJour.Clips.menu
 {
-    public const string ID = "menu/McIconLeaderboards";
-
-    public string Id => "menu/McIconLeaderboards";
-
-    public static McIconLeaderboards New()
+    [GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
+    public class McIconLeaderboards : Sprite, IFreeable, IId
     {
-        McIconLeaderboards mcIconLeaderboards = StaticPool.New<McIconLeaderboards>();
-        mcIconLeaderboards.RefreshProperties();
-        return mcIconLeaderboards;
-    }
+        public const string ID = "menu/McIconLeaderboards";
 
-    public McIconLeaderboards()
-        : base("menu/McIconLeaderboards")
-    {
-    }
+        public string Id => "menu/McIconLeaderboards";
 
-    public void Free()
-    {
-        StaticPool.Free<McIconLeaderboards>(this);
+        public static McIconLeaderboards New()
+        {
+            McIconLeaderboards mcIconLeaderboards = StaticPool.New<McIconLeaderboards>();
+            mcIconLeaderboards.RefreshProperties();
+            return mcIconLeaderboards;
+        }
+
+        public McIconLeaderboards()
+            : base("menu/McIconLeaderboards")
+        {
+        }
+
+        public void Free()
+        {
+            StaticPool.Free<McIconLeaderboards>(this);
+        }
     }
 }

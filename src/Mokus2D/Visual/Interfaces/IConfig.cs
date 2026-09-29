@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 
-namespace Mokus2D.Visual.Interfaces;
-
-public interface IConfig
+namespace Mokus2D.Visual.Interfaces
 {
-    IDictionary<string, string> Config { get; }
+    public interface IConfig
+    {
+        IDictionary<string, string> Config { get; }
+    }
 }

@@ -3,72 +3,73 @@ using System.Collections.Generic;
 
 using Mokus2D.Util.Extensions;
 
-namespace Mokus2D.Data;
-
-public class Pool<T>
+namespace Mokus2D.Data
 {
-    private Func<T> _activator;
-
-    private readonly List<T> _items = new(64);
-
-    public int? MaxCount { get; set; }
-
-    public int ObjectsInPool => _items.Count;
-
-    public Pool()
+    public class Pool<T>
     {
-    }
+        private Func<T> _activator;
 
-    public Pool(Func<T> activator)
-    {
-        SetActivator(activator);
-    }
+        private readonly List<T> _items = new(64);
 
-    public void SetActivator(Func<T> activator)
-    {
-        if (_activator != null)
+        public int? MaxCount { get; set; }
+
+        public int ObjectsInPool => _items.Count;
+
+        public Pool()
         {
-            throw new InvalidOperationException("activator is already set");
         }
-        _activator = activator;
-    }
 
-    public T New()
-    {
-        if (MaxCount.HasValue && _items.Count >= MaxCount)
+        public Pool(Func<T> activator)
         {
-            throw new InvalidOperationException("Pool is full");
+            SetActivator(activator);
         }
-        T result;
-        if (_items.Count > 0)
+
+        public void SetActivator(Func<T> activator)
+        {
+            if (_activator != null)
+            {
+                throw new InvalidOperationException("activator is already set");
+            }
+            _activator = activator;
+        }
+
+        public T New()
+        {
+            if (MaxCount.HasValue && _items.Count >= MaxCount)
+            {
+                throw new InvalidOperationException("Pool is full");
+            }
+            T result;
+            if (_items.Count > 0)
+            {
+                lock (_items)
+                {
+                    result = _items.Last();
+                    _ = _items.RemoveLast();
+                }
+            }
+            else
+            {
+                result = _activator();
+            }
+            return result;
+        }
+
+        public void Free(T obj)
         {
             lock (_items)
             {
-                result = _items.Last();
-                _ = _items.RemoveLast();
+                if (obj is ICleanable cleanable)
+                {
+                    cleanable.Clean();
+                }
+                _items.Add(obj);
             }
         }
-        else
-        {
-            result = _activator();
-        }
-        return result;
-    }
 
-    public void Free(T obj)
-    {
-        lock (_items)
+        public void Clear()
         {
-            if (obj is ICleanable cleanable)
-            {
-                cleanable.Clean();
-            }
-            _items.Add(obj);
+            _items.Clear();
         }
-    }
-
-    public void Clear()
-    {
-        _items.Clear();
     }
 }

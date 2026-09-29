@@ -1,8 +1,9 @@
-namespace Mokus2D.Util.Schedule.Actions;
-
-public interface IDelayedAction
+namespace Mokus2D.Util.Schedule.Actions
 {
-    void Execute();
+    public interface IDelayedAction
+    {
+        void Execute();
 
-    void Schedule();
+        void Schedule();
+    }
 }

@@ -8,169 +8,170 @@ using Mokus2D.Util;
 using Mokus2D.Util.Extensions;
 using Mokus2D.Visual;
 
-namespace Mokus2D.Parallax;
-
-public class ParallaxScroller(Vector2 screenSize) : IViewPosition
+namespace Mokus2D.Parallax
 {
-    public const string ParallaxConfigName = "parallax";
-
-    private Vector2 _viewPosition = Vector2.Zero;
-    private Vector2 _zoomCenter = screenSize / 2f;
-
-    private readonly List<ParallaxLayer> _layers = [];
-
-    public IReadOnlyList<ParallaxLayer> Layers => _layers;
-
-    private Vector2? _fieldZoomPosition;
-
-    public Vector2 ScreenSize { get; } = screenSize;
-
-    public float ZoomDistance
+    public class ParallaxScroller(Vector2 screenSize) : IViewPosition
     {
-        get; set
+        public const string ParallaxConfigName = "parallax";
+
+        private Vector2 _viewPosition = Vector2.Zero;
+        private Vector2 _zoomCenter = screenSize / 2f;
+
+        private readonly List<ParallaxLayer> _layers = [];
+
+        public IReadOnlyList<ParallaxLayer> Layers => _layers;
+
+        private Vector2? _fieldZoomPosition;
+
+        public Vector2 ScreenSize { get; } = screenSize;
+
+        public float ZoomDistance
         {
-            if (field != value)
+            get; set
             {
-                float mainLayerScale = MainLayerScale;
-                field = value;
-                RefreshZoom();
-                FixZoomPosition(mainLayerScale, MainLayerScale);
-                ZoomChanged.Dispatch();
+                if (field != value)
+                {
+                    float mainLayerScale = MainLayerScale;
+                    field = value;
+                    RefreshZoom();
+                    FixZoomPosition(mainLayerScale, MainLayerScale);
+                    ZoomChanged.Dispatch();
+                }
             }
         }
-    }
 
-    public float MainLayerScale
-    {
-        get => 1f / (1f + ZoomDistance);
-        set => ZoomDistance = (1f - value) / value;
-    }
-
-    public Vector2 CenterPosition
-    {
-        get => ViewPosition + (ScreenSize / MainLayerScale / 2f);
-        set => ViewPosition = value - (ScreenSize / MainLayerScale / 2f);
-    }
-
-    public Vector2 ViewPosition
-    {
-        get => _viewPosition;
-        set
+        public float MainLayerScale
         {
-            if (_viewPosition != value)
+            get => 1f / (1f + ZoomDistance);
+            set => ZoomDistance = (1f - value) / value;
+        }
+
+        public Vector2 CenterPosition
+        {
+            get => ViewPosition + (ScreenSize / MainLayerScale / 2f);
+            set => ViewPosition = value - (ScreenSize / MainLayerScale / 2f);
+        }
+
+        public Vector2 ViewPosition
+        {
+            get => _viewPosition;
+            set
             {
-                _fieldZoomPosition = null;
-                _viewPosition = value;
-                RefreshViewPosition();
-                ViewPositionChanged.Dispatch();
+                if (_viewPosition != value)
+                {
+                    _fieldZoomPosition = null;
+                    _viewPosition = value;
+                    RefreshViewPosition();
+                    ViewPositionChanged.Dispatch();
+                }
             }
         }
-    }
 
-    public RectangleFloat ViewBounds => new(ViewPosition, ScreenSize / MainLayerScale);
+        public RectangleFloat ViewBounds => new(ViewPosition, ScreenSize / MainLayerScale);
 
-    public Vector2 ZoomCenter
-    {
-        get => _zoomCenter;
-        set
+        public Vector2 ZoomCenter
         {
-            if (_zoomCenter != value)
+            get => _zoomCenter;
+            set
             {
-                _zoomCenter = value;
-                _fieldZoomPosition = null;
+                if (_zoomCenter != value)
+                {
+                    _zoomCenter = value;
+                    _fieldZoomPosition = null;
+                }
             }
         }
-    }
 
-    public event Action ViewPositionChanged;
+        public event Action ViewPositionChanged;
 
-    public event Action ZoomChanged;
+        public event Action ZoomChanged;
 
-    public static float GetConfigParallax(Node node)
-    {
-        return node.Config != null ? node.Config.GetFloat("parallax", 1f) : 1f;
-    }
-
-    public ParallaxLayer FindLayer(Node node)
-    {
-        return _layers.Find(l => l.Node == node);
-    }
-
-    public void RemoveLayer(Node node)
-    {
-        ParallaxLayer item = FindLayer(node);
-        _ = _layers.Remove(item);
-    }
-
-    public void AddChildrenByConfigs(Node parent)
-    {
-        foreach (Node child in parent.Children)
+        public static float GetConfigParallax(Node node)
         {
-            float parallax = 1f;
-            if (child != null)
+            return node.Config != null ? node.Config.GetFloat("parallax", 1f) : 1f;
+        }
+
+        public ParallaxLayer FindLayer(Node node)
+        {
+            return _layers.Find(l => l.Node == node);
+        }
+
+        public void RemoveLayer(Node node)
+        {
+            ParallaxLayer item = FindLayer(node);
+            _ = _layers.Remove(item);
+        }
+
+        public void AddChildrenByConfigs(Node parent)
+        {
+            foreach (Node child in parent.Children)
             {
-                parallax = child.Config.GetFloat("parallax", 1f);
+                float parallax = 1f;
+                if (child != null)
+                {
+                    parallax = child.Config.GetFloat("parallax", 1f);
+                }
+                Add(child, parallax);
             }
-            Add(child, parallax);
         }
-    }
 
-    public void Add(Node layer, float parallax)
-    {
-        Add(layer, parallax, layer.Position);
-    }
-
-    public void Add(Node layer, float parallax, Vector2 initialPosition)
-    {
-        ParallaxLayer parallaxLayer = new(layer, parallax, initialPosition);
-        _layers.Add(parallaxLayer);
-        RefreshLayerZoom(parallaxLayer);
-        RefreshLayerPosition(parallaxLayer);
-    }
-
-    private void RefreshViewPosition()
-    {
-        foreach (ParallaxLayer layer in _layers)
+        public void Add(Node layer, float parallax)
         {
-            RefreshLayerPosition(layer);
+            Add(layer, parallax, layer.Position);
         }
-    }
 
-    private void RefreshLayerPosition(ParallaxLayer layer)
-    {
-        Vector2 vector = layer.InitialPosition - (ViewPosition * layer.Parallax);
-        float layerScale = GetLayerScale(layer);
-        layer.Node.Position = vector * layerScale;
-    }
-
-    private void FixZoomPosition(float oldZoom, float newZoom)
-    {
-        Vector2? fieldZoomPosition = _fieldZoomPosition;
-        if (!fieldZoomPosition.HasValue)
+        public void Add(Node layer, float parallax, Vector2 initialPosition)
         {
-            fieldZoomPosition = ViewPosition + (ZoomCenter / oldZoom);
+            ParallaxLayer parallaxLayer = new(layer, parallax, initialPosition);
+            _layers.Add(parallaxLayer);
+            RefreshLayerZoom(parallaxLayer);
+            RefreshLayerPosition(parallaxLayer);
         }
-        Vector2 vector = ViewPosition + (ZoomCenter / newZoom);
-        ViewPosition += fieldZoomPosition.Value - vector;
-        _fieldZoomPosition = fieldZoomPosition;
-    }
 
-    private void RefreshZoom()
-    {
-        foreach (ParallaxLayer layer in _layers)
+        private void RefreshViewPosition()
         {
-            RefreshLayerZoom(layer);
+            foreach (ParallaxLayer layer in _layers)
+            {
+                RefreshLayerPosition(layer);
+            }
         }
-        RefreshViewPosition();
-    }
 
-    private void RefreshLayerZoom(ParallaxLayer layer)
-    {
-        layer.Node.ScaleVec = layer.InitialScale * GetLayerScale(layer);
-    }
+        private void RefreshLayerPosition(ParallaxLayer layer)
+        {
+            Vector2 vector = layer.InitialPosition - (ViewPosition * layer.Parallax);
+            float layerScale = GetLayerScale(layer);
+            layer.Node.Position = vector * layerScale;
+        }
 
-    private float GetLayerScale(ParallaxLayer layer)
-    {
-        return layer.Parallax == 0f ? 1f : layer.ParallaxDistance / (layer.ParallaxDistance + ZoomDistance);
+        private void FixZoomPosition(float oldZoom, float newZoom)
+        {
+            Vector2? fieldZoomPosition = _fieldZoomPosition;
+            if (!fieldZoomPosition.HasValue)
+            {
+                fieldZoomPosition = ViewPosition + (ZoomCenter / oldZoom);
+            }
+            Vector2 vector = ViewPosition + (ZoomCenter / newZoom);
+            ViewPosition += fieldZoomPosition.Value - vector;
+            _fieldZoomPosition = fieldZoomPosition;
+        }
+
+        private void RefreshZoom()
+        {
+            foreach (ParallaxLayer layer in _layers)
+            {
+                RefreshLayerZoom(layer);
+            }
+            RefreshViewPosition();
+        }
+
+        private void RefreshLayerZoom(ParallaxLayer layer)
+        {
+            layer.Node.ScaleVec = layer.InitialScale * GetLayerScale(layer);
+        }
+
+        private float GetLayerScale(ParallaxLayer layer)
+        {
+            return layer.Parallax == 0f ? 1f : layer.ParallaxDistance / (layer.ParallaxDistance + ZoomDistance);
+        }
     }
 }

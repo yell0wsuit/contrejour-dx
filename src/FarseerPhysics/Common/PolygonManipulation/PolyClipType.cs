@@ -1,8 +1,9 @@
-namespace FarseerPhysics.Common.PolygonManipulation;
-
-internal enum PolyClipType
+namespace FarseerPhysics.Common.PolygonManipulation
 {
-    Intersect,
-    Union,
-    Difference
+    internal enum PolyClipType
+    {
+        Intersect,
+        Union,
+        Difference
+    }
 }

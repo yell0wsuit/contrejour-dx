@@ -2,27 +2,28 @@ using Microsoft.Xna.Framework;
 
 using Mokus2D.Visual.Interfaces;
 
-namespace ContreJour.Gameplay;
-
-public class GravityParticle : Particle
+namespace ContreJour.Gameplay
 {
-    private Vector2 speed;
-
-    public Vector2 Speed
+    public class GravityParticle : Particle
     {
-        get => speed;
-        set => speed = value;
-    }
+        private Vector2 speed;
 
-    public float AngularSpeed { get; set; }
+        public Vector2 Speed
+        {
+            get => speed;
+            set => speed = value;
+        }
 
-    public GravityParticle(ParticleSystem system, IMovieClipData data)
-        : base(system, data)
-    {
-    }
+        public float AngularSpeed { get; set; }
 
-    public GravityParticle(ParticleSystem system, ISpriteData data)
-        : base(system, data)
-    {
+        public GravityParticle(ParticleSystem system, IMovieClipData data)
+            : base(system, data)
+        {
+        }
+
+        public GravityParticle(ParticleSystem system, ISpriteData data)
+            : base(system, data)
+        {
+        }
     }
 }

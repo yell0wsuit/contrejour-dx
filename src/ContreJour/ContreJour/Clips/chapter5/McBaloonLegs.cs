@@ -4,29 +4,30 @@ using Mokus2D.Data;
 using Mokus2D.Interfaces;
 using Mokus2D.Visual;
 
-namespace ContreJour.Clips.chapter5;
-
-[GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
-public class McBaloonLegs : Sprite, IFreeable, IId
+namespace ContreJour.Clips.chapter5
 {
-    public const string ID = "chapter5/McBaloonLegs";
-
-    public string Id => "chapter5/McBaloonLegs";
-
-    public static McBaloonLegs New()
+    [GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
+    public class McBaloonLegs : Sprite, IFreeable, IId
     {
-        McBaloonLegs mcBaloonLegs = StaticPool.New<McBaloonLegs>();
-        mcBaloonLegs.RefreshProperties();
-        return mcBaloonLegs;
-    }
+        public const string ID = "chapter5/McBaloonLegs";
 
-    public McBaloonLegs()
-        : base("chapter5/McBaloonLegs")
-    {
-    }
+        public string Id => "chapter5/McBaloonLegs";
 
-    public void Free()
-    {
-        StaticPool.Free<McBaloonLegs>(this);
+        public static McBaloonLegs New()
+        {
+            McBaloonLegs mcBaloonLegs = StaticPool.New<McBaloonLegs>();
+            mcBaloonLegs.RefreshProperties();
+            return mcBaloonLegs;
+        }
+
+        public McBaloonLegs()
+            : base("chapter5/McBaloonLegs")
+        {
+        }
+
+        public void Free()
+        {
+            StaticPool.Free<McBaloonLegs>(this);
+        }
     }
 }

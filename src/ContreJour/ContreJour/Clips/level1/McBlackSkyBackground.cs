@@ -4,29 +4,30 @@ using Mokus2D.Data;
 using Mokus2D.Interfaces;
 using Mokus2D.Visual;
 
-namespace ContreJour.Clips.level1;
-
-[GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
-public class McBlackSkyBackground : Sprite, IFreeable, IId
+namespace ContreJour.Clips.level1
 {
-    public const string ID = "level1/McBlackSkyBackground";
-
-    public string Id => "level1/McBlackSkyBackground";
-
-    public static McBlackSkyBackground New()
+    [GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
+    public class McBlackSkyBackground : Sprite, IFreeable, IId
     {
-        McBlackSkyBackground mcBlackSkyBackground = StaticPool.New<McBlackSkyBackground>();
-        mcBlackSkyBackground.RefreshProperties();
-        return mcBlackSkyBackground;
-    }
+        public const string ID = "level1/McBlackSkyBackground";
 
-    public McBlackSkyBackground()
-        : base("level1/McBlackSkyBackground")
-    {
-    }
+        public string Id => "level1/McBlackSkyBackground";
 
-    public void Free()
-    {
-        StaticPool.Free<McBlackSkyBackground>(this);
+        public static McBlackSkyBackground New()
+        {
+            McBlackSkyBackground mcBlackSkyBackground = StaticPool.New<McBlackSkyBackground>();
+            mcBlackSkyBackground.RefreshProperties();
+            return mcBlackSkyBackground;
+        }
+
+        public McBlackSkyBackground()
+            : base("level1/McBlackSkyBackground")
+        {
+        }
+
+        public void Free()
+        {
+            StaticPool.Free<McBlackSkyBackground>(this);
+        }
     }
 }

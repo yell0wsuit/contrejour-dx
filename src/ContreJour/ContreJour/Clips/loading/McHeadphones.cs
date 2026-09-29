@@ -4,29 +4,30 @@ using Mokus2D.Data;
 using Mokus2D.Interfaces;
 using Mokus2D.Visual;
 
-namespace ContreJour.Clips.loading;
-
-[GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
-public class McHeadphones : Sprite, IFreeable, IId
+namespace ContreJour.Clips.loading
 {
-    public const string ID = "loading/McHeadphones";
-
-    public string Id => "loading/McHeadphones";
-
-    public static McHeadphones New()
+    [GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
+    public class McHeadphones : Sprite, IFreeable, IId
     {
-        McHeadphones mcHeadphones = StaticPool.New<McHeadphones>();
-        mcHeadphones.RefreshProperties();
-        return mcHeadphones;
-    }
+        public const string ID = "loading/McHeadphones";
 
-    public McHeadphones()
-        : base("loading/McHeadphones")
-    {
-    }
+        public string Id => "loading/McHeadphones";
 
-    public void Free()
-    {
-        StaticPool.Free<McHeadphones>(this);
+        public static McHeadphones New()
+        {
+            McHeadphones mcHeadphones = StaticPool.New<McHeadphones>();
+            mcHeadphones.RefreshProperties();
+            return mcHeadphones;
+        }
+
+        public McHeadphones()
+            : base("loading/McHeadphones")
+        {
+        }
+
+        public void Free()
+        {
+            StaticPool.Free<McHeadphones>(this);
+        }
     }
 }

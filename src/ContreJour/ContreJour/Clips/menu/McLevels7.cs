@@ -4,29 +4,30 @@ using Mokus2D.Data;
 using Mokus2D.Interfaces;
 using Mokus2D.Visual;
 
-namespace ContreJour.Clips.menu;
-
-[GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
-public class McLevels7 : Sprite, IFreeable, IId
+namespace ContreJour.Clips.menu
 {
-    public const string ID = "menu/McLevels7";
-
-    public string Id => "menu/McLevels7";
-
-    public static McLevels7 New()
+    [GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
+    public class McLevels7 : Sprite, IFreeable, IId
     {
-        McLevels7 mcLevels = StaticPool.New<McLevels7>();
-        mcLevels.RefreshProperties();
-        return mcLevels;
-    }
+        public const string ID = "menu/McLevels7";
 
-    public McLevels7()
-        : base("menu/McLevels7")
-    {
-    }
+        public string Id => "menu/McLevels7";
 
-    public void Free()
-    {
-        StaticPool.Free<McLevels7>(this);
+        public static McLevels7 New()
+        {
+            McLevels7 mcLevels = StaticPool.New<McLevels7>();
+            mcLevels.RefreshProperties();
+            return mcLevels;
+        }
+
+        public McLevels7()
+            : base("menu/McLevels7")
+        {
+        }
+
+        public void Free()
+        {
+            StaticPool.Free<McLevels7>(this);
+        }
     }
 }

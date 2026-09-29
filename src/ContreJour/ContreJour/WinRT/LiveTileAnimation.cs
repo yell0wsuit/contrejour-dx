@@ -2,30 +2,31 @@ using Mokus2D.Visual;
 using Mokus2D.Visual.Data;
 using Mokus2D.Visual.Text;
 
-namespace ContreJour.WinRT;
-
-public abstract class LiveTileAnimation : AnimationNode
+namespace ContreJour.WinRT
 {
-    private Label _countLabel;
-
-    public int Count
+    public abstract class LiveTileAnimation : AnimationNode
     {
-        set => _countLabel.SetText(value);
-    }
+        private Label _countLabel;
 
-    protected LiveTileAnimation(string name)
-        : base(name)
-    {
-    }
+        public int Count
+        {
+            set => _countLabel.SetText(value);
+        }
 
-    protected LiveTileAnimation(AnimationData animationData)
-        : base(animationData)
-    {
-    }
+        protected LiveTileAnimation(string name)
+            : base(name)
+        {
+        }
 
-    protected override void Initialize()
-    {
-        base.Initialize();
-        _countLabel = (Label)GetChild("count");
+        protected LiveTileAnimation(AnimationData animationData)
+            : base(animationData)
+        {
+        }
+
+        protected override void Initialize()
+        {
+            base.Initialize();
+            _countLabel = (Label)GetChild("count");
+        }
     }
 }

@@ -6,57 +6,58 @@ using Mokus2D.Events;
 using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual;
 
-namespace ContreJour.Gameplay;
-
-public class SnotPoint : ContreJourBodyClip
+namespace ContreJour.Gameplay
 {
-    private static readonly float Radius = 20f;
-    public bool Enabled { get; set; } = true;
-
-    public EventSender UnuseEvent { get; } = new();
-
-    public bool Used
+    public class SnotPoint : ContreJourBodyClip
     {
-        get;
-        set
+        private static readonly float Radius = 20f;
+        public bool Enabled { get; set; } = true;
+
+        public EventSender UnuseEvent { get; } = new();
+
+        public bool Used
         {
-            if (field != value)
+            get;
+            set
             {
-                field = value;
-                if (!field)
+                if (field != value)
                 {
-                    UnuseEvent.SendEvent();
+                    field = value;
+                    if (!field)
+                    {
+                        UnuseEvent.SendEvent();
+                    }
                 }
             }
         }
-    }
 
-    public SnotPoint(LevelBuilderBase builder, object body, Node clip, Hashtable config)
-        : base(builder, body, clip, config)
-    {
-        Body val = Body;
-        Builder.World.RemoveBody(Body);
-        Create(val.Position);
-    }
+        public SnotPoint(LevelBuilderBase builder, object body, Node clip, Hashtable config)
+            : base(builder, body, clip, config)
+        {
+            Body val = Body;
+            Builder.World.RemoveBody(Body);
+            Create(val.Position);
+        }
 
-    public SnotPoint(LevelBuilderBase builder, Vector2 position, Node clip, Hashtable config)
-        : base(builder, null, clip, config)
-    {
-        Create(position);
-    }
+        public SnotPoint(LevelBuilderBase builder, Vector2 position, Node clip, Hashtable config)
+            : base(builder, null, clip, config)
+        {
+            Create(position);
+        }
 
-    public override void Update(float time)
-    {
-        base.Update(time);
-        Clip.OpacityFloat = Clip.OpacityFloat.StepTo(Enabled ? 1f : 0.2f, 0.05f);
-    }
+        public override void Update(float time)
+        {
+            base.Update(time);
+            Clip.OpacityFloat = Clip.OpacityFloat.StepTo(Enabled ? 1f : 0.2f, 0.05f);
+        }
 
-    private void Create(Vector2 position)
-    {
-        Body = Builder.World.CreateCircle(Radius * Builder.SizeMult, position);
-        Body.SetSensor(value: true);
-        Game.SnotPoints.Add(this);
-        Clip = new Sprite("chapter6/McSnotPoint");
-        _ = Builder.AddChild(Clip, 3);
+        private void Create(Vector2 position)
+        {
+            Body = Builder.World.CreateCircle(Radius * Builder.SizeMult, position);
+            Body.SetSensor(value: true);
+            Game.SnotPoints.Add(this);
+            Clip = new Sprite("chapter6/McSnotPoint");
+            _ = Builder.AddChild(Clip, 3);
+        }
     }
 }

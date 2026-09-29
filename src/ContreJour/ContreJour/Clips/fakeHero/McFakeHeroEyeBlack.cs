@@ -4,29 +4,30 @@ using Mokus2D.Data;
 using Mokus2D.Interfaces;
 using Mokus2D.Visual;
 
-namespace ContreJour.Clips.fakeHero;
-
-[GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
-public class McFakeHeroEyeBlack : Sprite, IFreeable, IId
+namespace ContreJour.Clips.fakeHero
 {
-    public const string ID = "fakeHero/McFakeHeroEyeBlack";
-
-    public string Id => "fakeHero/McFakeHeroEyeBlack";
-
-    public static McFakeHeroEyeBlack New()
+    [GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
+    public class McFakeHeroEyeBlack : Sprite, IFreeable, IId
     {
-        McFakeHeroEyeBlack mcFakeHeroEyeBlack = StaticPool.New<McFakeHeroEyeBlack>();
-        mcFakeHeroEyeBlack.RefreshProperties();
-        return mcFakeHeroEyeBlack;
-    }
+        public const string ID = "fakeHero/McFakeHeroEyeBlack";
 
-    public McFakeHeroEyeBlack()
-        : base("fakeHero/McFakeHeroEyeBlack")
-    {
-    }
+        public string Id => "fakeHero/McFakeHeroEyeBlack";
 
-    public void Free()
-    {
-        StaticPool.Free<McFakeHeroEyeBlack>(this);
+        public static McFakeHeroEyeBlack New()
+        {
+            McFakeHeroEyeBlack mcFakeHeroEyeBlack = StaticPool.New<McFakeHeroEyeBlack>();
+            mcFakeHeroEyeBlack.RefreshProperties();
+            return mcFakeHeroEyeBlack;
+        }
+
+        public McFakeHeroEyeBlack()
+            : base("fakeHero/McFakeHeroEyeBlack")
+        {
+        }
+
+        public void Free()
+        {
+            StaticPool.Free<McFakeHeroEyeBlack>(this);
+        }
     }
 }

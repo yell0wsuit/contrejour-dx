@@ -1,6 +1,7 @@
-namespace ContreJour.Gameplay;
-
-public interface IDepthDependent
+namespace ContreJour.Gameplay
 {
-    float Depth { set; }
+    public interface IDepthDependent
+    {
+        float Depth { set; }
+    }
 }

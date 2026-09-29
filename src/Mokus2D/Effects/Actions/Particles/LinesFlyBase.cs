@@ -4,38 +4,39 @@ using Microsoft.Xna.Framework;
 using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual;
 
-namespace Mokus2D.Effects.Actions.Particles;
-
-public abstract class LinesFlyBase : GridLinesAction
+namespace Mokus2D.Effects.Actions.Particles
 {
-    protected float ParticlesOffset { get; set; }
-
-    protected virtual LinesFlyBase Initialize(float linesDelay, float particleEffectSeconds, float particlesOffset)
+    public abstract class LinesFlyBase : GridLinesAction
     {
-        ParticlesOffset = particlesOffset;
-        _ = Initialize(linesDelay, particleEffectSeconds);
-        return this;
-    }
+        protected float ParticlesOffset { get; set; }
 
-    internal override void Start(float time)
-    {
-        Grid.ResetTransformations();
-        CalculateLineDelay();
-        if (Grid.Children.Count < Grid.GridSize.Length() * 2f)
+        protected virtual LinesFlyBase Initialize(float linesDelay, float particleEffectSeconds, float particlesOffset)
         {
-            Grid.CreateParticles();
+            ParticlesOffset = particlesOffset;
+            _ = Initialize(linesDelay, particleEffectSeconds);
+            return this;
         }
-        for (int i = 0; i < Grid.Children.Count; i++)
-        {
-            Node particle = Grid.Children[i];
-            Vector2 particlePosition = Grid.GetParticlePosition(i);
-            CreateAction(particle, (int)particlePosition.X, (int)particlePosition.Y);
-        }
-    }
 
-    protected override float GetLineDelay(int y)
-    {
-        float lineDelay = base.GetLineDelay(y);
-        return lineDelay + Maths.Random(0f - OneLineDelay, OneLineDelay);
+        internal override void Start(float time)
+        {
+            Grid.ResetTransformations();
+            CalculateLineDelay();
+            if (Grid.Children.Count < Grid.GridSize.Length() * 2f)
+            {
+                Grid.CreateParticles();
+            }
+            for (int i = 0; i < Grid.Children.Count; i++)
+            {
+                Node particle = Grid.Children[i];
+                Vector2 particlePosition = Grid.GetParticlePosition(i);
+                CreateAction(particle, (int)particlePosition.X, (int)particlePosition.Y);
+            }
+        }
+
+        protected override float GetLineDelay(int y)
+        {
+            float lineDelay = base.GetLineDelay(y);
+            return lineDelay + Maths.Random(0f - OneLineDelay, OneLineDelay);
+        }
     }
 }

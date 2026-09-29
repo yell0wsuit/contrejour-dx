@@ -4,136 +4,137 @@ using FarseerPhysics.Common;
 
 using Microsoft.Xna.Framework;
 
-namespace FarseerPhysics.Dynamics.Joints;
-
-public class FixedMouseJoint : Joint
+namespace FarseerPhysics.Dynamics.Joints
 {
-    private Vector2 _worldAnchor;
-    private float _beta;
-
-    private Vector2 _impulse;
-    private float _gamma;
-
-    private int _indexA;
-
-    private Vector2 _rA;
-
-    private Vector2 _localCenterA;
-
-    private float _invMassA;
-
-    private float _invIA;
-
-    private Mat22 _mass;
-
-    private Vector2 _C;
-
-    public Vector2 LocalAnchorA { get; set; }
-
-    public override Vector2 WorldAnchorA
+    public class FixedMouseJoint : Joint
     {
-        get => BodyA.GetWorldPoint(LocalAnchorA);
-        set => LocalAnchorA = BodyA.GetLocalPoint(value);
-    }
+        private Vector2 _worldAnchor;
+        private float _beta;
 
-    public override Vector2 WorldAnchorB
-    {
-        get => _worldAnchor;
-        set
+        private Vector2 _impulse;
+        private float _gamma;
+
+        private int _indexA;
+
+        private Vector2 _rA;
+
+        private Vector2 _localCenterA;
+
+        private float _invMassA;
+
+        private float _invIA;
+
+        private Mat22 _mass;
+
+        private Vector2 _C;
+
+        public Vector2 LocalAnchorA { get; set; }
+
+        public override Vector2 WorldAnchorA
         {
-            WakeBodies();
-            _worldAnchor = value;
+            get => BodyA.GetWorldPoint(LocalAnchorA);
+            set => LocalAnchorA = BodyA.GetLocalPoint(value);
         }
-    }
 
-    public float MaxForce { get; set; }
-
-    public float Frequency { get; set; }
-
-    public float DampingRatio { get; set; }
-
-    public FixedMouseJoint(Body body, Vector2 worldAnchor)
-        : base(body)
-    {
-        JointType = JointType.FixedMouse;
-        Frequency = 5f;
-        DampingRatio = 0.7f;
-        MaxForce = 1000f * body.Mass;
-        _worldAnchor = worldAnchor;
-        LocalAnchorA = MathUtils.MulT(BodyA._xf, worldAnchor);
-    }
-
-    public override Vector2 GetReactionForce(float invDt)
-    {
-        return invDt * _impulse;
-    }
-
-    public override float GetReactionTorque(float invDt)
-    {
-        return invDt * 0f;
-    }
-
-    internal override void InitVelocityConstraints(ref SolverData data)
-    {
-        _indexA = BodyA.IslandIndex;
-        _localCenterA = BodyA._sweep.LocalCenter;
-        _invMassA = BodyA._invMass;
-        _invIA = BodyA._invI;
-        Vector2 c = data.positions[_indexA].c;
-        float a = data.positions[_indexA].a;
-        Vector2 v = data.velocities[_indexA].v;
-        float w = data.velocities[_indexA].w;
-        Rot q = new(a);
-        float mass = BodyA.Mass;
-        float num = (float)Math.PI * 2f * Frequency;
-        float num2 = 2f * mass * DampingRatio * num;
-        float num3 = mass * (num * num);
-        float dt = data.step.dt;
-        _gamma = dt * (num2 + (dt * num3));
-        if (_gamma != 0f)
+        public override Vector2 WorldAnchorB
         {
-            _gamma = 1f / _gamma;
+            get => _worldAnchor;
+            set
+            {
+                WakeBodies();
+                _worldAnchor = value;
+            }
         }
-        _beta = dt * num3 * _gamma;
-        _rA = MathUtils.Mul(q, LocalAnchorA - _localCenterA);
-        Mat22 mat = default;
-        mat.ex.X = _invMassA + (_invIA * _rA.Y * _rA.Y) + _gamma;
-        mat.ex.Y = (0f - _invIA) * _rA.X * _rA.Y;
-        mat.ey.X = mat.ex.Y;
-        mat.ey.Y = _invMassA + (_invIA * _rA.X * _rA.X) + _gamma;
-        _mass = mat.Inverse;
-        _C = c + _rA - _worldAnchor;
-        _C *= _beta;
-        w *= 0.98f;
-        _impulse *= data.step.dtRatio;
-        v += _invMassA * _impulse;
-        w += _invIA * MathUtils.Cross(_rA, _impulse);
-        data.velocities[_indexA].v = v;
-        data.velocities[_indexA].w = w;
-    }
 
-    internal override void SolveVelocityConstraints(ref SolverData data)
-    {
-        Vector2 v = data.velocities[_indexA].v;
-        float w = data.velocities[_indexA].w;
-        Vector2 vector = v + MathUtils.Cross(w, _rA);
-        Vector2 vector2 = MathUtils.Mul(ref _mass, -(vector + _C + (_gamma * _impulse)));
-        Vector2 impulse = _impulse;
-        _impulse += vector2;
-        float num = data.step.dt * MaxForce;
-        if (_impulse.LengthSquared() > num * num)
+        public float MaxForce { get; set; }
+
+        public float Frequency { get; set; }
+
+        public float DampingRatio { get; set; }
+
+        public FixedMouseJoint(Body body, Vector2 worldAnchor)
+            : base(body)
         {
-            _impulse *= num / _impulse.Length();
+            JointType = JointType.FixedMouse;
+            Frequency = 5f;
+            DampingRatio = 0.7f;
+            MaxForce = 1000f * body.Mass;
+            _worldAnchor = worldAnchor;
+            LocalAnchorA = MathUtils.MulT(BodyA._xf, worldAnchor);
         }
-        vector2 = _impulse - impulse;
-        v += _invMassA * vector2;
-        w += _invIA * MathUtils.Cross(_rA, vector2);
-        data.velocities[_indexA].v = v;
-        data.velocities[_indexA].w = w;
-    }
 
-    internal override bool SolvePositionConstraints(ref SolverData data)
-    {
-        return true;
+        public override Vector2 GetReactionForce(float invDt)
+        {
+            return invDt * _impulse;
+        }
+
+        public override float GetReactionTorque(float invDt)
+        {
+            return invDt * 0f;
+        }
+
+        internal override void InitVelocityConstraints(ref SolverData data)
+        {
+            _indexA = BodyA.IslandIndex;
+            _localCenterA = BodyA._sweep.LocalCenter;
+            _invMassA = BodyA._invMass;
+            _invIA = BodyA._invI;
+            Vector2 c = data.positions[_indexA].c;
+            float a = data.positions[_indexA].a;
+            Vector2 v = data.velocities[_indexA].v;
+            float w = data.velocities[_indexA].w;
+            Rot q = new(a);
+            float mass = BodyA.Mass;
+            float num = (float)Math.PI * 2f * Frequency;
+            float num2 = 2f * mass * DampingRatio * num;
+            float num3 = mass * (num * num);
+            float dt = data.step.dt;
+            _gamma = dt * (num2 + (dt * num3));
+            if (_gamma != 0f)
+            {
+                _gamma = 1f / _gamma;
+            }
+            _beta = dt * num3 * _gamma;
+            _rA = MathUtils.Mul(q, LocalAnchorA - _localCenterA);
+            Mat22 mat = default;
+            mat.ex.X = _invMassA + (_invIA * _rA.Y * _rA.Y) + _gamma;
+            mat.ex.Y = (0f - _invIA) * _rA.X * _rA.Y;
+            mat.ey.X = mat.ex.Y;
+            mat.ey.Y = _invMassA + (_invIA * _rA.X * _rA.X) + _gamma;
+            _mass = mat.Inverse;
+            _C = c + _rA - _worldAnchor;
+            _C *= _beta;
+            w *= 0.98f;
+            _impulse *= data.step.dtRatio;
+            v += _invMassA * _impulse;
+            w += _invIA * MathUtils.Cross(_rA, _impulse);
+            data.velocities[_indexA].v = v;
+            data.velocities[_indexA].w = w;
+        }
+
+        internal override void SolveVelocityConstraints(ref SolverData data)
+        {
+            Vector2 v = data.velocities[_indexA].v;
+            float w = data.velocities[_indexA].w;
+            Vector2 vector = v + MathUtils.Cross(w, _rA);
+            Vector2 vector2 = MathUtils.Mul(ref _mass, -(vector + _C + (_gamma * _impulse)));
+            Vector2 impulse = _impulse;
+            _impulse += vector2;
+            float num = data.step.dt * MaxForce;
+            if (_impulse.LengthSquared() > num * num)
+            {
+                _impulse *= num / _impulse.Length();
+            }
+            vector2 = _impulse - impulse;
+            v += _invMassA * vector2;
+            w += _invIA * MathUtils.Cross(_rA, vector2);
+            data.velocities[_indexA].v = v;
+            data.velocities[_indexA].w = w;
+        }
+
+        internal override bool SolvePositionConstraints(ref SolverData data)
+        {
+            return true;
+        }
     }
 }

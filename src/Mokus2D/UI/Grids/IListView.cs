@@ -1,14 +1,15 @@
 using System;
 
-namespace Mokus2D.UI.Grids;
-
-public interface IListView
+namespace Mokus2D.UI.Grids
 {
-    int ItemsCount { get; }
+    public interface IListView
+    {
+        int ItemsCount { get; }
 
-    int DataCount { get; }
+        int DataCount { get; }
 
-    float ItemsPosition { get; set; }
+        float ItemsPosition { get; set; }
 
-    event Action DataChangedEvent;
+        event Action DataChangedEvent;
+    }
 }

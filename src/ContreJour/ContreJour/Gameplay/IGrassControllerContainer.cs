@@ -1,6 +1,7 @@
-namespace ContreJour.Gameplay;
-
-public interface IGrassControllerContainer
+namespace ContreJour.Gameplay
 {
-    IGrassController GrassController { get; }
+    public interface IGrassControllerContainer
+    {
+        IGrassController GrassController { get; }
+    }
 }

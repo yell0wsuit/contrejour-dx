@@ -4,83 +4,84 @@ using System.Collections.Generic;
 using Mokus2D.Util.Data;
 using Mokus2D.Visual;
 
-namespace Mokus2D.Parallax;
-
-public class VisibleIsland
+namespace Mokus2D.Parallax
 {
-    private bool _visible;
-
-    private readonly VisibleIslandChildren _children;
-
-    public Point GridPosition { get; }
-
-    private bool _inLoop;
-
-    public bool Visible
+    public class VisibleIsland
     {
-        get => _visible;
-        set
+        private bool _visible;
+
+        private readonly VisibleIslandChildren _children;
+
+        public Point GridPosition { get; }
+
+        private bool _inLoop;
+
+        public bool Visible
         {
-            if (_visible != value)
+            get => _visible;
+            set
             {
-                _visible = value;
-                RefreshChildren(value ? 1 : (-1));
+                if (_visible != value)
+                {
+                    _visible = value;
+                    RefreshChildren(value ? 1 : (-1));
+                }
             }
         }
-    }
 
-    public VisibleIsland(Point gridPosition, bool visible)
-    {
-        GridPosition = gridPosition;
-        _children = new VisibleIslandChildren(this);
-        _visible = visible;
-    }
-
-    private void RefreshChildren(int difference)
-    {
-        _inLoop = true;
-        foreach (Node child in _children)
+        public VisibleIsland(Point gridPosition, bool visible)
         {
-            child.OnScreenCount += difference;
+            GridPosition = gridPosition;
+            _children = new VisibleIslandChildren(this);
+            _visible = visible;
         }
-        _inLoop = false;
-    }
 
-    public void Add(LinkedListNode<Node> item)
-    {
-        ThrowIfInLoop();
-        if (Visible)
+        private void RefreshChildren(int difference)
         {
-            item.Value.OnScreenCount++;
+            _inLoop = true;
+            foreach (Node child in _children)
+            {
+                child.OnScreenCount += difference;
+            }
+            _inLoop = false;
         }
-        _children.AddLast(item);
-    }
 
-    public LinkedListNode<Node> Add(Node child)
-    {
-        ThrowIfInLoop();
-        if (Visible)
+        public void Add(LinkedListNode<Node> item)
         {
-            child.OnScreenCount++;
+            ThrowIfInLoop();
+            if (Visible)
+            {
+                item.Value.OnScreenCount++;
+            }
+            _children.AddLast(item);
         }
-        return _children.AddLast(child);
-    }
 
-    public void Remove(LinkedListNode<Node> item)
-    {
-        ThrowIfInLoop();
-        if (Visible)
+        public LinkedListNode<Node> Add(Node child)
         {
-            item.Value.OnScreenCount--;
+            ThrowIfInLoop();
+            if (Visible)
+            {
+                child.OnScreenCount++;
+            }
+            return _children.AddLast(child);
         }
-        _children.Remove(item);
-    }
 
-    private void ThrowIfInLoop()
-    {
-        if (_inLoop)
+        public void Remove(LinkedListNode<Node> item)
         {
-            throw new InvalidOperationException("Cannot modify children while in loop");
+            ThrowIfInLoop();
+            if (Visible)
+            {
+                item.Value.OnScreenCount--;
+            }
+            _children.Remove(item);
+        }
+
+        private void ThrowIfInLoop()
+        {
+            if (_inLoop)
+            {
+                throw new InvalidOperationException("Cannot modify children while in loop");
+            }
         }
     }
 }

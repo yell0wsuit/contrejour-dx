@@ -4,29 +4,30 @@ using Mokus2D.Data;
 using Mokus2D.Interfaces;
 using Mokus2D.Visual;
 
-namespace ContreJour.Clips.chapter1;
-
-[GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
-public class McLightsHintView : Sprite, IFreeable, IId
+namespace ContreJour.Clips.chapter1
 {
-    public const string ID = "chapter1/McLightsHintView";
-
-    public string Id => "chapter1/McLightsHintView";
-
-    public static McLightsHintView New()
+    [GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
+    public class McLightsHintView : Sprite, IFreeable, IId
     {
-        McLightsHintView mcLightsHintView = StaticPool.New<McLightsHintView>();
-        mcLightsHintView.RefreshProperties();
-        return mcLightsHintView;
-    }
+        public const string ID = "chapter1/McLightsHintView";
 
-    public McLightsHintView()
-        : base("chapter1/McLightsHintView")
-    {
-    }
+        public string Id => "chapter1/McLightsHintView";
 
-    public void Free()
-    {
-        StaticPool.Free<McLightsHintView>(this);
+        public static McLightsHintView New()
+        {
+            McLightsHintView mcLightsHintView = StaticPool.New<McLightsHintView>();
+            mcLightsHintView.RefreshProperties();
+            return mcLightsHintView;
+        }
+
+        public McLightsHintView()
+            : base("chapter1/McLightsHintView")
+        {
+        }
+
+        public void Free()
+        {
+            StaticPool.Free<McLightsHintView>(this);
+        }
     }
 }

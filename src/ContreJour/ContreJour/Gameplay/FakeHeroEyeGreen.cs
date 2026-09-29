@@ -1,6 +1,7 @@
-namespace ContreJour.Gameplay;
-
-public class FakeHeroEyeGreen : FakeHeroEyeWhite
+namespace ContreJour.Gameplay
 {
-    protected override string EyeBall => "McFakeHeroEyeBall_6";
+    public class FakeHeroEyeGreen : FakeHeroEyeWhite
+    {
+        protected override string EyeBall => "McFakeHeroEyeBall_6";
+    }
 }

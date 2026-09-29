@@ -4,38 +4,39 @@ using ContreJourMono.ContreJour.Game.Eyes;
 
 using Microsoft.Xna.Framework;
 
-namespace ContreJour.Gameplay;
-
-public class BackSnotEye : MonsterEye
+namespace ContreJour.Gameplay
 {
-    public static readonly EyeAnimation[] BackSnotAnimations =
-    [
-        new("McBackSnotEyeBlink"),
-        new("McBackSnotEyeBlinkOneTime")
-    ];
-
-    protected override EyeAnimation[] Animations => BackSnotAnimations;
-
-    protected override float ViewRadius => 30f;
-
-    public BackSnotEye(ContreJourGame game, bool visible, Vector2 position)
-        : base(game, visible, position)
+    public class BackSnotEye : MonsterEye
     {
-        EyeStep = 1.5f;
-    }
+        public static readonly EyeAnimation[] BackSnotAnimations =
+        [
+            new("McBackSnotEyeBlink"),
+            new("McBackSnotEyeBlinkOneTime")
+        ];
 
-    public override void Update(float time)
-    {
-        base.Update(time);
-        CurrentBackground.Position = CurrentEyeBall.Position * 0.4f;
-    }
+        protected override EyeAnimation[] Animations => BackSnotAnimations;
 
-    protected override void CreateDefaultView()
-    {
-        Background = new McBackSnotEye
+        protected override float ViewRadius => 30f;
+
+        public BackSnotEye(ContreJourGame game, bool visible, Vector2 position)
+            : base(game, visible, position)
         {
-            Test = true
-        };
-        EyeBallSprite = new McBackSnotEyeBall();
+            EyeStep = 1.5f;
+        }
+
+        public override void Update(float time)
+        {
+            base.Update(time);
+            CurrentBackground.Position = CurrentEyeBall.Position * 0.4f;
+        }
+
+        protected override void CreateDefaultView()
+        {
+            Background = new McBackSnotEye
+            {
+                Test = true
+            };
+            EyeBallSprite = new McBackSnotEyeBall();
+        }
     }
 }

@@ -2,80 +2,81 @@ using System;
 
 using Mokus2D.Data;
 
-namespace Mokus2D.Effects.Tweening;
-
-public class EasingData : IEasingData, ICleanable
+namespace Mokus2D.Effects.Tweening
 {
-    private static readonly Pool<EasingData> Pool = new(() => new EasingData());
-
-    private Func<float, float, float, float> _functionC;
-
-    private Func<float, float, float> _functionB;
-
-    private Func<float, float> _functionA;
-
-    private float _dataA;
-
-    private float _dataB;
-
-    public static EasingData NewOrNull(Func<float, float, float, float> function, float dataA, float dataB)
+    public class EasingData : IEasingData, ICleanable
     {
-        return function != null ? Pool.New().Initialize(function, dataA, dataB) : null;
-    }
+        private static readonly Pool<EasingData> Pool = new(() => new EasingData());
 
-    public static EasingData NewOrNull(Func<float, float, float> function, float dataA)
-    {
-        return function != null ? Pool.New().Initialize(function, dataA) : null;
-    }
+        private Func<float, float, float, float> _functionC;
 
-    public static EasingData NewOrNull(Func<float, float> function)
-    {
-        return function != null ? Pool.New().Initialize(function) : null;
-    }
+        private Func<float, float, float> _functionB;
 
-    public static void Free(EasingData data)
-    {
-        Pool.Free(data);
-    }
+        private Func<float, float> _functionA;
 
-    private EasingData()
-    {
-    }
+        private float _dataA;
 
-    public EasingData Initialize(Func<float, float, float, float> function, float dataA, float dataB)
-    {
-        _functionC = function ?? throw new ArgumentNullException(nameof(function));
-        _dataA = dataA;
-        _dataB = dataB;
-        return this;
-    }
+        private float _dataB;
 
-    public EasingData Initialize(Func<float, float, float> function, float dataA)
-    {
-        _functionB = function ?? throw new ArgumentNullException(nameof(function));
-        _dataA = dataA;
-        return this;
-    }
+        public static EasingData NewOrNull(Func<float, float, float, float> function, float dataA, float dataB)
+        {
+            return function != null ? Pool.New().Initialize(function, dataA, dataB) : null;
+        }
 
-    public EasingData Initialize(Func<float, float> function)
-    {
-        _functionA = function ?? throw new ArgumentNullException(nameof(function));
-        return this;
-    }
+        public static EasingData NewOrNull(Func<float, float, float> function, float dataA)
+        {
+            return function != null ? Pool.New().Initialize(function, dataA) : null;
+        }
 
-    public float Ease(float ratio)
-    {
-        return _functionA != null
-            ? _functionA(ratio)
-            : _functionB != null
-            ? _functionB(ratio, _dataA)
-            : _functionC != null ? _functionC(ratio, _dataA, _dataB) : throw new InvalidOperationException("No ease function selected");
-    }
+        public static EasingData NewOrNull(Func<float, float> function)
+        {
+            return function != null ? Pool.New().Initialize(function) : null;
+        }
 
-    public void Clean()
-    {
-        _functionA = null;
-        _functionB = null;
-        _functionC = null;
+        public static void Free(EasingData data)
+        {
+            Pool.Free(data);
+        }
+
+        private EasingData()
+        {
+        }
+
+        public EasingData Initialize(Func<float, float, float, float> function, float dataA, float dataB)
+        {
+            _functionC = function ?? throw new ArgumentNullException(nameof(function));
+            _dataA = dataA;
+            _dataB = dataB;
+            return this;
+        }
+
+        public EasingData Initialize(Func<float, float, float> function, float dataA)
+        {
+            _functionB = function ?? throw new ArgumentNullException(nameof(function));
+            _dataA = dataA;
+            return this;
+        }
+
+        public EasingData Initialize(Func<float, float> function)
+        {
+            _functionA = function ?? throw new ArgumentNullException(nameof(function));
+            return this;
+        }
+
+        public float Ease(float ratio)
+        {
+            return _functionA != null
+                ? _functionA(ratio)
+                : _functionB != null
+                ? _functionB(ratio, _dataA)
+                : _functionC != null ? _functionC(ratio, _dataA, _dataB) : throw new InvalidOperationException("No ease function selected");
+        }
+
+        public void Clean()
+        {
+            _functionA = null;
+            _functionB = null;
+            _functionC = null;
+        }
     }
 }

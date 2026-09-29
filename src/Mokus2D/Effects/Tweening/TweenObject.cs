@@ -6,187 +6,188 @@ using Mokus2D.Effects.Tween.ValueSetters;
 using Mokus2D.Interfaces;
 using Mokus2D.Util.Extensions;
 
-namespace Mokus2D.Effects.Tweening;
-
-public class TweenObject : IntervalTweenBase, ITween<TweenObject>, ICompletableTween, ITween, ICleanable, IUpdatable
+namespace Mokus2D.Effects.Tweening
 {
-    private static readonly Pool<TweenObject> Pool = new(() => new TweenObject());
-
-    private object _target;
-
-    private EasingData _easing;
-
-    private readonly List<ValueSetter> _properties = [];
-
-    private readonly List<ValueSetter> _onStart = [];
-
-    private readonly List<ValueSetter> _onEnd = [];
-
-    private readonly Queue<Action<object>> _onCompleteWith = new(64);
-
-    private readonly Queue<TargetAndAction> _onCompleteWithTarget = new(64);
-
-    public static TweenObject New(object target, float seconds)
+    public class TweenObject : IntervalTweenBase, ITween<TweenObject>, ICompletableTween, ITween, ICleanable, IUpdatable
     {
-        return Pool.New().Initialize(target, seconds);
-    }
+        private static readonly Pool<TweenObject> Pool = new(() => new TweenObject());
 
-    public static void Free(TweenObject tween)
-    {
-        Pool.Free(tween);
-    }
+        private object _target;
 
-    private TweenObject()
-    {
-    }
+        private EasingData _easing;
 
-    public TweenObject OnComplete(object target, Action<object> action)
-    {
-        ArgumentNullException.ThrowIfNull(action);
-        _onCompleteWithTarget.Enqueue(new TargetAndAction(target, action));
-        return this;
-    }
+        private readonly List<ValueSetter> _properties = [];
 
-    public TweenObject OnComplete(Action<object> action)
-    {
-        ArgumentNullException.ThrowIfNull(action);
-        _onCompleteWith.Enqueue(action);
-        return this;
-    }
+        private readonly List<ValueSetter> _onStart = [];
 
-    public TweenObject OnComplete(Action action)
-    {
-        return (TweenObject)((ICompletableTween)this).OnComplete(action);
-    }
+        private readonly List<ValueSetter> _onEnd = [];
 
-    private TweenObject AddSetter<TValue>(GetSetValue<TValue> getSet, TValue targetValue, EasingData easing, List<ValueSetter> list)
-    {
-        ValueSetter<TValue> item = Setters.New(_target, getSet, targetValue, easing);
-        list.Add(item);
-        return this;
-    }
+        private readonly Queue<Action<object>> _onCompleteWith = new(64);
 
-    protected override void UpdateRatio(float ratio)
-    {
-        if (_easing != null)
+        private readonly Queue<TargetAndAction> _onCompleteWithTarget = new(64);
+
+        public static TweenObject New(object target, float seconds)
         {
-            ratio = _easing.Ease(ratio);
+            return Pool.New().Initialize(target, seconds);
         }
-        foreach (ValueSetter property in _properties)
+
+        public static void Free(TweenObject tween)
         {
-            property.SetValue(ratio);
+            Pool.Free(tween);
         }
-    }
 
-    protected override void Start()
-    {
-        foreach (ValueSetter property in _properties)
+        private TweenObject()
         {
-            property.Start();
         }
-        SetTargetValues(_onStart);
-    }
 
-    protected override void Finish()
-    {
-        SetTargetValues(_onEnd);
-        base.Finish();
-        while (!_onCompleteWith.Empty())
+        public TweenObject OnComplete(object target, Action<object> action)
         {
-            _onCompleteWith.Dequeue()(_target);
+            ArgumentNullException.ThrowIfNull(action);
+            _onCompleteWithTarget.Enqueue(new TargetAndAction(target, action));
+            return this;
         }
-        while (!_onCompleteWithTarget.Empty())
+
+        public TweenObject OnComplete(Action<object> action)
         {
-            _onCompleteWithTarget.Dequeue().Execute();
+            ArgumentNullException.ThrowIfNull(action);
+            _onCompleteWith.Enqueue(action);
+            return this;
         }
-    }
 
-    private static void SetTargetValues(List<ValueSetter> list)
-    {
-        foreach (ValueSetter item in list)
+        public TweenObject OnComplete(Action action)
         {
-            item.SetTarget();
+            return (TweenObject)((ICompletableTween)this).OnComplete(action);
         }
-    }
 
-    private TweenObject Initialize(object target, float seconds)
-    {
-        Reset();
-        Initialize(seconds);
-        _target = target;
-        return this;
-    }
-
-    public override void Clean()
-    {
-        base.Clean();
-        _onCompleteWith.Clear();
-        _onCompleteWithTarget.Clear();
-        _onStart.Clear();
-        _onEnd.Clear();
-        foreach (ValueSetter property in _properties)
+        private TweenObject AddSetter<TValue>(GetSetValue<TValue> getSet, TValue targetValue, EasingData easing, List<ValueSetter> list)
         {
-            Setters.Free(property);
+            ValueSetter<TValue> item = Setters.New(_target, getSet, targetValue, easing);
+            list.Add(item);
+            return this;
         }
-        _properties.Clear();
-        _target = null;
-        if (_easing != null)
+
+        protected override void UpdateRatio(float ratio)
         {
-            EasingData.Free(_easing);
-            _easing = null;
+            if (_easing != null)
+            {
+                ratio = _easing.Ease(ratio);
+            }
+            foreach (ValueSetter property in _properties)
+            {
+                property.SetValue(ratio);
+            }
         }
-    }
 
-    public override void Free()
-    {
-        Free(this);
-    }
+        protected override void Start()
+        {
+            foreach (ValueSetter property in _properties)
+            {
+                property.Start();
+            }
+            SetTargetValues(_onStart);
+        }
 
-    public TweenObject Tween<TValue>(GetSetValue<TValue> getSet, TValue targetValue, Func<float, float, float, float> easing, float easingParamA, float easingParamB)
-    {
-        return AddSetter(getSet, targetValue, EasingData.NewOrNull(easing, easingParamA, easingParamB), _properties);
-    }
+        protected override void Finish()
+        {
+            SetTargetValues(_onEnd);
+            base.Finish();
+            while (!_onCompleteWith.Empty())
+            {
+                _onCompleteWith.Dequeue()(_target);
+            }
+            while (!_onCompleteWithTarget.Empty())
+            {
+                _onCompleteWithTarget.Dequeue().Execute();
+            }
+        }
 
-    public TweenObject Tween<T>(GetSetValue<T> getSet, T targetValue, Func<float, float, float> easing, float easingParam)
-    {
-        return AddSetter(getSet, targetValue, EasingData.NewOrNull(easing, easingParam), _properties);
-    }
+        private static void SetTargetValues(List<ValueSetter> list)
+        {
+            foreach (ValueSetter item in list)
+            {
+                item.SetTarget();
+            }
+        }
 
-    public TweenObject Tween<T>(GetSetValue<T> getSet, T targetValue, Func<float, float> easing)
-    {
-        return AddSetter(getSet, targetValue, EasingData.NewOrNull(easing), _properties);
-    }
+        private TweenObject Initialize(object target, float seconds)
+        {
+            Reset();
+            Initialize(seconds);
+            _target = target;
+            return this;
+        }
 
-    public TweenObject Tween<T>(GetSetValue<T> getSet, T targetValue)
-    {
-        return AddSetter(getSet, targetValue, null, _properties);
-    }
+        public override void Clean()
+        {
+            base.Clean();
+            _onCompleteWith.Clear();
+            _onCompleteWithTarget.Clear();
+            _onStart.Clear();
+            _onEnd.Clear();
+            foreach (ValueSetter property in _properties)
+            {
+                Setters.Free(property);
+            }
+            _properties.Clear();
+            _target = null;
+            if (_easing != null)
+            {
+                EasingData.Free(_easing);
+                _easing = null;
+            }
+        }
 
-    public TweenObject Set<T>(GetSetValue<T> getSet, T targetValue)
-    {
-        return AddSetter(getSet, targetValue, null, _onStart);
-    }
+        public override void Free()
+        {
+            Free(this);
+        }
 
-    public TweenObject SetAfter<T>(GetSetValue<T> getSet, T targetValue)
-    {
-        return AddSetter(getSet, targetValue, null, _onEnd);
-    }
+        public TweenObject Tween<TValue>(GetSetValue<TValue> getSet, TValue targetValue, Func<float, float, float, float> easing, float easingParamA, float easingParamB)
+        {
+            return AddSetter(getSet, targetValue, EasingData.NewOrNull(easing, easingParamA, easingParamB), _properties);
+        }
 
-    public TweenObject Ease(Func<float, float> easing)
-    {
-        _easing = EasingData.NewOrNull(easing);
-        return this;
-    }
+        public TweenObject Tween<T>(GetSetValue<T> getSet, T targetValue, Func<float, float, float> easing, float easingParam)
+        {
+            return AddSetter(getSet, targetValue, EasingData.NewOrNull(easing, easingParam), _properties);
+        }
 
-    public TweenObject Ease(Func<float, float, float> easing, float easingParam)
-    {
-        _easing = EasingData.NewOrNull(easing, easingParam);
-        return this;
-    }
+        public TweenObject Tween<T>(GetSetValue<T> getSet, T targetValue, Func<float, float> easing)
+        {
+            return AddSetter(getSet, targetValue, EasingData.NewOrNull(easing), _properties);
+        }
 
-    public TweenObject Ease(Func<float, float, float, float> easing, float easingParamA, float easingParamB)
-    {
-        _easing = EasingData.NewOrNull(easing, easingParamA, easingParamB);
-        return this;
+        public TweenObject Tween<T>(GetSetValue<T> getSet, T targetValue)
+        {
+            return AddSetter(getSet, targetValue, null, _properties);
+        }
+
+        public TweenObject Set<T>(GetSetValue<T> getSet, T targetValue)
+        {
+            return AddSetter(getSet, targetValue, null, _onStart);
+        }
+
+        public TweenObject SetAfter<T>(GetSetValue<T> getSet, T targetValue)
+        {
+            return AddSetter(getSet, targetValue, null, _onEnd);
+        }
+
+        public TweenObject Ease(Func<float, float> easing)
+        {
+            _easing = EasingData.NewOrNull(easing);
+            return this;
+        }
+
+        public TweenObject Ease(Func<float, float, float> easing, float easingParam)
+        {
+            _easing = EasingData.NewOrNull(easing, easingParam);
+            return this;
+        }
+
+        public TweenObject Ease(Func<float, float, float, float> easing, float easingParamA, float easingParamB)
+        {
+            _easing = EasingData.NewOrNull(easing, easingParamA, easingParamB);
+            return this;
+        }
     }
 }

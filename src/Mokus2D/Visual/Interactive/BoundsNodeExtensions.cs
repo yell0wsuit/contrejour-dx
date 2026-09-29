@@ -2,18 +2,19 @@ using Microsoft.Xna.Framework;
 
 using Mokus2D.Visual.Interfaces;
 
-namespace Mokus2D.Visual.Interactive;
-
-public static class BoundsNodeExtensions
+namespace Mokus2D.Visual.Interactive
 {
-    public static bool ContainsGlobalPosition(this IBoundsNode sprite, Vector2 position)
+    public static class BoundsNodeExtensions
     {
-        Node node = (Node)sprite;
-        if (node.Root == null)
+        public static bool ContainsGlobalPosition(this IBoundsNode sprite, Vector2 position)
         {
-            return false;
+            Node node = (Node)sprite;
+            if (node.Root == null)
+            {
+                return false;
+            }
+            Vector2 value = node.GlobalToLocal(position);
+            return sprite.Bounds.Contains(value);
         }
-        Vector2 value = node.GlobalToLocal(position);
-        return sprite.Bounds.Contains(value);
     }
 }

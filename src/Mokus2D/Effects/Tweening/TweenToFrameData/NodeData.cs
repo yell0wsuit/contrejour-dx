@@ -2,24 +2,25 @@ using Microsoft.Xna.Framework;
 
 using Mokus2D.Visual;
 
-namespace Mokus2D.Effects.Tweening.TweenToFrameData;
-
-public struct NodeData
+namespace Mokus2D.Effects.Tweening.TweenToFrameData
 {
-    public Vector2 Position;
-
-    public float Rotation;
-
-    public Vector2 Scale;
-
-    public float Alpha;
-
-    public NodeData(Node node)
+    public struct NodeData
     {
-        this = default;
-        Position = node.Position;
-        Rotation = node.RotationDegrees;
-        Scale = node.ScaleVec;
-        Alpha = node.OpacityFloat;
+        public Vector2 Position;
+
+        public float Rotation;
+
+        public Vector2 Scale;
+
+        public float Alpha;
+
+        public NodeData(Node node)
+        {
+            this = default;
+            Position = node.Position;
+            Rotation = node.RotationDegrees;
+            Scale = node.ScaleVec;
+            Alpha = node.OpacityFloat;
+        }
     }
 }

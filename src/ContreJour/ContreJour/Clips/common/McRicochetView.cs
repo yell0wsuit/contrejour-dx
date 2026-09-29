@@ -4,29 +4,30 @@ using Mokus2D.Data;
 using Mokus2D.Interfaces;
 using Mokus2D.Visual;
 
-namespace ContreJour.Clips.common;
-
-[GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
-public class McRicochetView : Sprite, IFreeable, IId
+namespace ContreJour.Clips.common
 {
-    public const string ID = "common/McRicochetView";
-
-    public string Id => "common/McRicochetView";
-
-    public static McRicochetView New()
+    [GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
+    public class McRicochetView : Sprite, IFreeable, IId
     {
-        McRicochetView mcRicochetView = StaticPool.New<McRicochetView>();
-        mcRicochetView.RefreshProperties();
-        return mcRicochetView;
-    }
+        public const string ID = "common/McRicochetView";
 
-    public McRicochetView()
-        : base("common/McRicochetView")
-    {
-    }
+        public string Id => "common/McRicochetView";
 
-    public void Free()
-    {
-        StaticPool.Free<McRicochetView>(this);
+        public static McRicochetView New()
+        {
+            McRicochetView mcRicochetView = StaticPool.New<McRicochetView>();
+            mcRicochetView.RefreshProperties();
+            return mcRicochetView;
+        }
+
+        public McRicochetView()
+            : base("common/McRicochetView")
+        {
+        }
+
+        public void Free()
+        {
+            StaticPool.Free<McRicochetView>(this);
+        }
     }
 }

@@ -4,29 +4,30 @@ using Mokus2D.Data;
 using Mokus2D.Interfaces;
 using Mokus2D.Visual;
 
-namespace ContreJour.Clips.menu;
-
-[GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
-public class McLevelEnergyInactive : Sprite, IFreeable, IId
+namespace ContreJour.Clips.menu
 {
-    public const string ID = "menu/McLevelEnergyInactive";
-
-    public string Id => "menu/McLevelEnergyInactive";
-
-    public static McLevelEnergyInactive New()
+    [GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
+    public class McLevelEnergyInactive : Sprite, IFreeable, IId
     {
-        McLevelEnergyInactive mcLevelEnergyInactive = StaticPool.New<McLevelEnergyInactive>();
-        mcLevelEnergyInactive.RefreshProperties();
-        return mcLevelEnergyInactive;
-    }
+        public const string ID = "menu/McLevelEnergyInactive";
 
-    public McLevelEnergyInactive()
-        : base("menu/McLevelEnergyInactive")
-    {
-    }
+        public string Id => "menu/McLevelEnergyInactive";
 
-    public void Free()
-    {
-        StaticPool.Free<McLevelEnergyInactive>(this);
+        public static McLevelEnergyInactive New()
+        {
+            McLevelEnergyInactive mcLevelEnergyInactive = StaticPool.New<McLevelEnergyInactive>();
+            mcLevelEnergyInactive.RefreshProperties();
+            return mcLevelEnergyInactive;
+        }
+
+        public McLevelEnergyInactive()
+            : base("menu/McLevelEnergyInactive")
+        {
+        }
+
+        public void Free()
+        {
+            StaticPool.Free<McLevelEnergyInactive>(this);
+        }
     }
 }

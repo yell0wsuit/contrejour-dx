@@ -1,10 +1,11 @@
-namespace Mokus2D.Input;
-
-public interface ITouchListener
+namespace Mokus2D.Input
 {
-    bool TouchBegin(Touch touch);
+    public interface ITouchListener
+    {
+        bool TouchBegin(Touch touch);
 
-    bool TouchMove(Touch touch);
+        bool TouchMove(Touch touch);
 
-    void TouchEnd(Touch touch);
+        void TouchEnd(Touch touch);
+    }
 }

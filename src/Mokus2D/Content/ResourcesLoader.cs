@@ -3,27 +3,28 @@ using System.Xml.Linq;
 using Mokus2D.Content.Serialization;
 using Mokus2D.Fonts;
 
-namespace Mokus2D.Content;
-
-public class ResourcesLoader : ResourcesLoaderBase
+namespace Mokus2D.Content
 {
-    protected override string GetFileName<T>(string resourceName, string resourceSuffix)
+    public class ResourcesLoader : ResourcesLoaderBase
     {
-        string text = ((object)typeof(T) == typeof(FontData)) ? "font" : "xml";
-        IGraphicsDeserializer graphicsDeserializer = Deserializers[typeof(T)];
-        string text2 = resourceName;
-        if (graphicsDeserializer.UseSuffix)
+        protected override string GetFileName<T>(string resourceName, string resourceSuffix)
         {
-            text2 += resourceSuffix;
+            string text = ((object)typeof(T) == typeof(FontData)) ? "font" : "xml";
+            IGraphicsDeserializer graphicsDeserializer = Deserializers[typeof(T)];
+            string text2 = resourceName;
+            if (graphicsDeserializer.UseSuffix)
+            {
+                text2 += resourceSuffix;
+            }
+            return text2 + "." + text;
         }
-        return text2 + "." + text;
-    }
 
-    protected override T ProcessXml<T>(string name, XDocument xml)
-    {
-        IGraphicsDeserializer graphicsDeserializer = Deserializers[typeof(T)];
-        object obj = graphicsDeserializer.Deserialize(name, xml.Root);
-        DispatchResourceLoaded(name, obj);
-        return (T)obj;
+        protected override T ProcessXml<T>(string name, XDocument xml)
+        {
+            IGraphicsDeserializer graphicsDeserializer = Deserializers[typeof(T)];
+            object obj = graphicsDeserializer.Deserialize(name, xml.Root);
+            DispatchResourceLoaded(name, obj);
+            return (T)obj;
+        }
     }
 }

@@ -1,28 +1,29 @@
 using System;
 
-namespace Mokus2D.Util.Schedule;
-
-public class FixedTimeActionUpdater(float stepTime, Action<float> updateAction = null) : Updater
+namespace Mokus2D.Util.Schedule
 {
-    private readonly float _stepTime = stepTime;
-
-    private float _currentTime;
-
-    private readonly Action<float> _updateAction = updateAction;
-
-    public override void Update(float time)
+    public class FixedTimeActionUpdater(float stepTime, Action<float> updateAction = null) : Updater
     {
-        _currentTime += time;
-        while (_currentTime >= _stepTime)
+        private readonly float _stepTime = stepTime;
+
+        private float _currentTime;
+
+        private readonly Action<float> _updateAction = updateAction;
+
+        public override void Update(float time)
         {
-            base.Update(_stepTime);
-            _updateAction?.Invoke(_stepTime);
-            _currentTime -= _stepTime;
+            _currentTime += time;
+            while (_currentTime >= _stepTime)
+            {
+                base.Update(_stepTime);
+                _updateAction?.Invoke(_stepTime);
+                _currentTime -= _stepTime;
+            }
         }
-    }
 
-    public void Reset()
-    {
-        _currentTime = 0f;
+        public void Reset()
+        {
+            _currentTime = 0f;
+        }
     }
 }

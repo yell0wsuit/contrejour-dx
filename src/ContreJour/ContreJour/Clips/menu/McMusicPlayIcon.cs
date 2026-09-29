@@ -4,29 +4,30 @@ using Mokus2D.Data;
 using Mokus2D.Interfaces;
 using Mokus2D.Visual;
 
-namespace ContreJour.Clips.menu;
-
-[GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
-public class McMusicPlayIcon : Sprite, IFreeable, IId
+namespace ContreJour.Clips.menu
 {
-    public const string ID = "menu/McMusicPlayIcon";
-
-    public string Id => "menu/McMusicPlayIcon";
-
-    public static McMusicPlayIcon New()
+    [GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
+    public class McMusicPlayIcon : Sprite, IFreeable, IId
     {
-        McMusicPlayIcon mcMusicPlayIcon = StaticPool.New<McMusicPlayIcon>();
-        mcMusicPlayIcon.RefreshProperties();
-        return mcMusicPlayIcon;
-    }
+        public const string ID = "menu/McMusicPlayIcon";
 
-    public McMusicPlayIcon()
-        : base("menu/McMusicPlayIcon")
-    {
-    }
+        public string Id => "menu/McMusicPlayIcon";
 
-    public void Free()
-    {
-        StaticPool.Free<McMusicPlayIcon>(this);
+        public static McMusicPlayIcon New()
+        {
+            McMusicPlayIcon mcMusicPlayIcon = StaticPool.New<McMusicPlayIcon>();
+            mcMusicPlayIcon.RefreshProperties();
+            return mcMusicPlayIcon;
+        }
+
+        public McMusicPlayIcon()
+            : base("menu/McMusicPlayIcon")
+        {
+        }
+
+        public void Free()
+        {
+            StaticPool.Free<McMusicPlayIcon>(this);
+        }
     }
 }

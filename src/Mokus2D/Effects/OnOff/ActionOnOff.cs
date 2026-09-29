@@ -1,33 +1,34 @@
 using System;
 
-namespace Mokus2D.Effects.OnOff;
-
-public class ActionOnOff(Action<bool> action) : IOnOff
+namespace Mokus2D.Effects.OnOff
 {
-    private Action<bool> _action = action;
-
-    private bool _isOn;
-
-    public bool IsOn
+    public class ActionOnOff(Action<bool> action) : IOnOff
     {
-        get => _isOn;
-        set
+        private Action<bool> _action = action;
+
+        private bool _isOn;
+
+        public bool IsOn
         {
-            if (_isOn != value)
+            get => _isOn;
+            set
             {
-                _isOn = value;
-                _action(value);
+                if (_isOn != value)
+                {
+                    _isOn = value;
+                    _action(value);
+                }
             }
         }
-    }
 
-    protected void SetAction(Action<bool> action)
-    {
-        _action = action;
-    }
+        protected void SetAction(Action<bool> action)
+        {
+            _action = action;
+        }
 
-    public virtual void SetOn(bool value)
-    {
-        _isOn = value;
+        public virtual void SetOn(bool value)
+        {
+            _isOn = value;
+        }
     }
 }

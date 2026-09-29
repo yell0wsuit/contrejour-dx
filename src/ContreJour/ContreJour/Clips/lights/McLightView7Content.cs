@@ -4,29 +4,30 @@ using Mokus2D.Data;
 using Mokus2D.Interfaces;
 using Mokus2D.Visual;
 
-namespace ContreJour.Clips.lights;
-
-[GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
-public class McLightView7Content : Sprite, IFreeable, IId
+namespace ContreJour.Clips.lights
 {
-    public const string ID = "lights/McLightView7Content";
-
-    public string Id => "lights/McLightView7Content";
-
-    public static McLightView7Content New()
+    [GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
+    public class McLightView7Content : Sprite, IFreeable, IId
     {
-        McLightView7Content mcLightView7Content = StaticPool.New<McLightView7Content>();
-        mcLightView7Content.RefreshProperties();
-        return mcLightView7Content;
-    }
+        public const string ID = "lights/McLightView7Content";
 
-    public McLightView7Content()
-        : base("lights/McLightView7Content")
-    {
-    }
+        public string Id => "lights/McLightView7Content";
 
-    public void Free()
-    {
-        StaticPool.Free<McLightView7Content>(this);
+        public static McLightView7Content New()
+        {
+            McLightView7Content mcLightView7Content = StaticPool.New<McLightView7Content>();
+            mcLightView7Content.RefreshProperties();
+            return mcLightView7Content;
+        }
+
+        public McLightView7Content()
+            : base("lights/McLightView7Content")
+        {
+        }
+
+        public void Free()
+        {
+            StaticPool.Free<McLightView7Content>(this);
+        }
     }
 }

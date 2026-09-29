@@ -1,11 +1,12 @@
 using Mokus2D.Visual;
 
-namespace ContreJour.Gameplay;
-
-public class CosRotationChanger(Node target, float maxValue, float step) : CosPropertyChanger(target, 0f - maxValue, maxValue, step)
+namespace ContreJour.Gameplay
 {
-    protected override void SetPropertyValue(float value)
+    public class CosRotationChanger(Node target, float maxValue, float step) : CosPropertyChanger(target, 0f - maxValue, maxValue, step)
     {
-        Target.RotationDegrees = value;
+        protected override void SetPropertyValue(float value)
+        {
+            Target.RotationDegrees = value;
+        }
     }
 }

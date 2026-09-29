@@ -1,3 +1,4 @@
-namespace FarseerPhysics.Dynamics;
-
-public delegate void BodyHandler(Body body);
+namespace FarseerPhysics.Dynamics
+{
+    public delegate void BodyHandler(Body body);
+}

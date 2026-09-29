@@ -4,54 +4,55 @@ using Mokus2D.Effects.Tweening;
 using Mokus2D.Util;
 using Mokus2D.Visual;
 
-namespace Mokus2D.Effects.OnOff;
-
-public class FadeAndHideEffect : OnOffTweenEffect<float>
+namespace Mokus2D.Effects.OnOff
 {
-    private readonly bool ResetZeroOpacity = true;
-
-    private readonly GetSetValue<Node, bool> VisibleSetter = NodeValues.Visible;
-
-    private readonly Action _onHide;
-
-    public event Action<FadeAndHideEffect> VisibleChangeEvent;
-
-    public FadeAndHideEffect(Node target, float duration)
-        : this(target, duration, 1f)
+    public class FadeAndHideEffect : OnOffTweenEffect<float>
     {
-    }
+        private readonly bool ResetZeroOpacity = true;
 
-    public FadeAndHideEffect(Node target, float duration, float onOpacity)
-        : base(target, duration, NodeValues.OpacityFloat, onOpacity, 0f)
-    {
-        _onHide = OnHide;
-    }
+        private readonly GetSetValue<Node, bool> VisibleSetter = NodeValues.Visible;
 
-    protected override void SetOn()
-    {
-        VisibleSetter.SetValue(Target, value: true);
-        VisibleChangeEvent.Dispatch(this);
-        if (ResetZeroOpacity)
+        private readonly Action _onHide;
+
+        public event Action<FadeAndHideEffect> VisibleChangeEvent;
+
+        public FadeAndHideEffect(Node target, float duration)
+            : this(target, duration, 1f)
         {
-            Target.OpacityFloat = 0f;
         }
-        base.SetOn();
-    }
 
-    protected override void SetOff()
-    {
-        _ = TweenTo(OffValue, on: false).SetAfter(VisibleSetter, targetValue: false).OnComplete(_onHide);
-    }
+        public FadeAndHideEffect(Node target, float duration, float onOpacity)
+            : base(target, duration, NodeValues.OpacityFloat, onOpacity, 0f)
+        {
+            _onHide = OnHide;
+        }
 
-    private void OnHide()
-    {
-        VisibleChangeEvent.Dispatch(this);
-    }
+        protected override void SetOn()
+        {
+            VisibleSetter.SetValue(Target, value: true);
+            VisibleChangeEvent.Dispatch(this);
+            if (ResetZeroOpacity)
+            {
+                Target.OpacityFloat = 0f;
+            }
+            base.SetOn();
+        }
 
-    public override void SetOn(bool value)
-    {
-        base.SetOn(value);
-        VisibleSetter.SetValue(Target, value);
-        VisibleChangeEvent.Dispatch(this);
+        protected override void SetOff()
+        {
+            _ = TweenTo(OffValue, on: false).SetAfter(VisibleSetter, targetValue: false).OnComplete(_onHide);
+        }
+
+        private void OnHide()
+        {
+            VisibleChangeEvent.Dispatch(this);
+        }
+
+        public override void SetOn(bool value)
+        {
+            base.SetOn(value);
+            VisibleSetter.SetValue(Target, value);
+            VisibleChangeEvent.Dispatch(this);
+        }
     }
 }

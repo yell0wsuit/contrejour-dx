@@ -4,29 +4,30 @@ using Mokus2D.Data;
 using Mokus2D.Interfaces;
 using Mokus2D.Visual;
 
-namespace ContreJour.Clips.chapter4;
-
-[GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
-public class McSpikesPartWhiteRight : MovieClip, IFreeable, IId
+namespace ContreJour.Clips.chapter4
 {
-    public const string ID = "chapter4/McSpikesPartWhiteRight";
-
-    public string Id => "chapter4/McSpikesPartWhiteRight";
-
-    public static McSpikesPartWhiteRight New()
+    [GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
+    public class McSpikesPartWhiteRight : MovieClip, IFreeable, IId
     {
-        McSpikesPartWhiteRight mcSpikesPartWhiteRight = StaticPool.New<McSpikesPartWhiteRight>();
-        mcSpikesPartWhiteRight.RefreshProperties();
-        return mcSpikesPartWhiteRight;
-    }
+        public const string ID = "chapter4/McSpikesPartWhiteRight";
 
-    public McSpikesPartWhiteRight()
-        : base("chapter4/McSpikesPartWhiteRight")
-    {
-    }
+        public string Id => "chapter4/McSpikesPartWhiteRight";
 
-    public void Free()
-    {
-        StaticPool.Free<McSpikesPartWhiteRight>(this);
+        public static McSpikesPartWhiteRight New()
+        {
+            McSpikesPartWhiteRight mcSpikesPartWhiteRight = StaticPool.New<McSpikesPartWhiteRight>();
+            mcSpikesPartWhiteRight.RefreshProperties();
+            return mcSpikesPartWhiteRight;
+        }
+
+        public McSpikesPartWhiteRight()
+            : base("chapter4/McSpikesPartWhiteRight")
+        {
+        }
+
+        public void Free()
+        {
+            StaticPool.Free<McSpikesPartWhiteRight>(this);
+        }
     }
 }

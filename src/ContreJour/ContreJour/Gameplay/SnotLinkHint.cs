@@ -4,52 +4,53 @@ using System.Linq;
 using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual;
 
-namespace ContreJour.Gameplay;
-
-public class SnotLinkHint(ContreJourLevelBuilder builder, object body, Sprite clip, Hashtable config) : FadeHint(builder, body, clip, config)
+namespace ContreJour.Gameplay
 {
-    protected SnotBodyClip Snot { get; set; }
-
-    private bool snotGot;
-
-    public override bool HasToHide()
+    public class SnotLinkHint(ContreJourLevelBuilder builder, object body, Sprite clip, Hashtable config) : FadeHint(builder, body, clip, config)
     {
-        return false;
-    }
+        protected SnotBodyClip Snot { get; set; }
 
-    public override void Restart()
-    {
-        base.Restart();
-        snotGot = false;
-    }
+        private bool snotGot;
 
-    private void GetSnot()
-    {
-        List<BodyClip> list = FarseerUtil.QueryBodyClipsCenterRadiusType(Builder.World, Builder.ToIPhoneVec(Clip.Position), 6.6666665f, typeof(SnotBodyClip));
-        foreach (SnotBodyClip item in list.Cast<SnotBodyClip>())
+        public override bool HasToHide()
         {
-            item.LinkEvent.AddListener(OnSnotLink);
+            return false;
         }
-        Snot = (SnotBodyClip)list[0];
-    }
 
-    public override void Update(float time)
-    {
-        base.Update(time);
-        if (Maths.FuzzyNotEquals(time, 0f) && !snotGot)
+        public override void Restart()
         {
-            GetSnot();
-            snotGot = true;
+            base.Restart();
+            snotGot = false;
         }
-    }
 
-    public virtual void CheckHeroDistance()
-    {
-    }
+        private void GetSnot()
+        {
+            List<BodyClip> list = FarseerUtil.QueryBodyClipsCenterRadiusType(Builder.World, Builder.ToIPhoneVec(Clip.Position), 6.6666665f, typeof(SnotBodyClip));
+            foreach (SnotBodyClip item in list.Cast<SnotBodyClip>())
+            {
+                item.LinkEvent.AddListener(OnSnotLink);
+            }
+            Snot = (SnotBodyClip)list[0];
+        }
 
-    public virtual void OnSnotLink()
-    {
-        Hiding = true;
-        Hide(0.5f * Clip.OpacityByte / 255f);
+        public override void Update(float time)
+        {
+            base.Update(time);
+            if (Maths.FuzzyNotEquals(time, 0f) && !snotGot)
+            {
+                GetSnot();
+                snotGot = true;
+            }
+        }
+
+        public virtual void CheckHeroDistance()
+        {
+        }
+
+        public virtual void OnSnotLink()
+        {
+            Hiding = true;
+            Hide(0.5f * Clip.OpacityByte / 255f);
+        }
     }
 }

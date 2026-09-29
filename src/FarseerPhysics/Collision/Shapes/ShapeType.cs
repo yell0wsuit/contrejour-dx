@@ -1,11 +1,12 @@
-namespace FarseerPhysics.Collision.Shapes;
-
-public enum ShapeType
+namespace FarseerPhysics.Collision.Shapes
 {
-    Unknown = -1,
-    Circle,
-    Edge,
-    Polygon,
-    Chain,
-    TypeCount
+    public enum ShapeType
+    {
+        Unknown = -1,
+        Circle,
+        Edge,
+        Polygon,
+        Chain,
+        TypeCount
+    }
 }

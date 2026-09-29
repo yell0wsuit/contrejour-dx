@@ -2,24 +2,25 @@ using Microsoft.Xna.Framework;
 
 using Mokus2D.Visual;
 
-namespace ContreJour.Gameplay;
-
-public class PlanetSnotContainer : Node, IDepthDependent
+namespace ContreJour.Gameplay
 {
-    private readonly PlanetSnot _snot;
-
-    private readonly PlanetSnotEye _eye = new(null, visible: true, Vector2.Zero);
-
-    public float Depth
+    public class PlanetSnotContainer : Node, IDepthDependent
     {
-        set => _snot.Depth = value;
-    }
+        private readonly PlanetSnot _snot;
 
-    public PlanetSnotContainer()
-    {
-        _snot = new PlanetSnot(_eye);
-        AddChild(_snot);
-        AddChild(_snot.BaseSprite);
-        AddChild(_eye);
+        private readonly PlanetSnotEye _eye = new(null, visible: true, Vector2.Zero);
+
+        public float Depth
+        {
+            set => _snot.Depth = value;
+        }
+
+        public PlanetSnotContainer()
+        {
+            _snot = new PlanetSnot(_eye);
+            AddChild(_snot);
+            AddChild(_snot.BaseSprite);
+            AddChild(_eye);
+        }
     }
 }

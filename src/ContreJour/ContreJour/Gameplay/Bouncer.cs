@@ -4,46 +4,47 @@ using System.Diagnostics.CodeAnalysis;
 using Mokus2D.Interfaces;
 using Mokus2D.Util.MathUtils;
 
-namespace ContreJour.Gameplay;
-
-public class Bouncer : IUpdatable
+namespace ContreJour.Gameplay
 {
-    private readonly CosChanger changer;
-
-    public float Amplitude { get; set; }
-
-    public float CurrentAmplitude { get; private set; }
-
-    public float AmplitudeStep { get; set; }
-
-    public float Step
+    public class Bouncer : IUpdatable
     {
-        get => changer.Step;
-        set => changer.Step = value;
-    }
+        private readonly CosChanger changer;
 
-    public float Value => changer.Value * CurrentAmplitude;
+        public float Amplitude { get; set; }
 
-    [SuppressMessage("Style", "IDE0290:Use primary constructor", Justification = "Its random draws must run after the base constructor's, in this order.")]
-    public Bouncer(float amplitude, float amplitudeStep, float step)
-    {
-        changer = new CosChanger(-1f, 1f, step);
-        Amplitude = amplitude;
-        AmplitudeStep = amplitudeStep;
-    }
+        public float CurrentAmplitude { get; private set; }
 
-    public void Start()
-    {
-        CurrentAmplitude = Amplitude;
-        changer.Progress = (float)Math.PI / 2f;
-    }
+        public float AmplitudeStep { get; set; }
 
-    public void Update(float time)
-    {
-        if (Maths.FuzzyNotEquals(CurrentAmplitude, 0f))
+        public float Step
         {
-            CurrentAmplitude = Maths.StepTo(CurrentAmplitude, 0f, AmplitudeStep * time);
-            changer.Update(time);
+            get => changer.Step;
+            set => changer.Step = value;
+        }
+
+        public float Value => changer.Value * CurrentAmplitude;
+
+        [SuppressMessage("Style", "IDE0290:Use primary constructor", Justification = "Its random draws must run after the base constructor's, in this order.")]
+        public Bouncer(float amplitude, float amplitudeStep, float step)
+        {
+            changer = new CosChanger(-1f, 1f, step);
+            Amplitude = amplitude;
+            AmplitudeStep = amplitudeStep;
+        }
+
+        public void Start()
+        {
+            CurrentAmplitude = Amplitude;
+            changer.Progress = (float)Math.PI / 2f;
+        }
+
+        public void Update(float time)
+        {
+            if (Maths.FuzzyNotEquals(CurrentAmplitude, 0f))
+            {
+                CurrentAmplitude = Maths.StepTo(CurrentAmplitude, 0f, AmplitudeStep * time);
+                changer.Update(time);
+            }
         }
     }
 }

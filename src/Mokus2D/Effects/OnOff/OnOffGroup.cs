@@ -1,38 +1,39 @@
 using System.Collections.Generic;
 
-namespace Mokus2D.Effects.OnOff;
-
-public class OnOffGroup(params IOnOff[] effects) : OnOffEffect(null)
+namespace Mokus2D.Effects.OnOff
 {
-    private readonly List<IOnOff> _effects = [.. effects];
-
-    public void Add(IOnOff onOff)
+    public class OnOffGroup(params IOnOff[] effects) : OnOffEffect(null)
     {
-        _effects.Add(onOff);
-    }
+        private readonly List<IOnOff> _effects = [.. effects];
 
-    protected override void SetOn()
-    {
-        foreach (IOnOff effect in _effects)
+        public void Add(IOnOff onOff)
         {
-            effect.IsOn = true;
+            _effects.Add(onOff);
         }
-    }
 
-    protected override void SetOff()
-    {
-        foreach (IOnOff effect in _effects)
+        protected override void SetOn()
         {
-            effect.IsOn = false;
+            foreach (IOnOff effect in _effects)
+            {
+                effect.IsOn = true;
+            }
         }
-    }
 
-    public override void SetOn(bool value)
-    {
-        base.SetOn(value);
-        foreach (IOnOff effect in _effects)
+        protected override void SetOff()
         {
-            effect.SetOn(value);
+            foreach (IOnOff effect in _effects)
+            {
+                effect.IsOn = false;
+            }
+        }
+
+        public override void SetOn(bool value)
+        {
+            base.SetOn(value);
+            foreach (IOnOff effect in _effects)
+            {
+                effect.SetOn(value);
+            }
         }
     }
 }

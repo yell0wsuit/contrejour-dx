@@ -1,21 +1,22 @@
-namespace FarseerPhysics.Controllers;
-
-public struct ControllerFilter
+namespace FarseerPhysics.Controllers
 {
-    private ControllerType ControllerFlags;
-
-    public void IgnoreController(ControllerType controller)
+    public struct ControllerFilter
     {
-        ControllerFlags |= controller;
-    }
+        private ControllerType ControllerFlags;
 
-    public void RestoreController(ControllerType controller)
-    {
-        ControllerFlags &= ~controller;
-    }
+        public void IgnoreController(ControllerType controller)
+        {
+            ControllerFlags |= controller;
+        }
 
-    public readonly bool IsControllerIgnored(ControllerType controller)
-    {
-        return (ControllerFlags & controller) == controller;
+        public void RestoreController(ControllerType controller)
+        {
+            ControllerFlags &= ~controller;
+        }
+
+        public readonly bool IsControllerIgnored(ControllerType controller)
+        {
+            return (ControllerFlags & controller) == controller;
+        }
     }
 }

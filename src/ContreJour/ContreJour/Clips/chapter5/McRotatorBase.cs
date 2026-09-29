@@ -4,29 +4,30 @@ using Mokus2D.Data;
 using Mokus2D.Interfaces;
 using Mokus2D.Visual;
 
-namespace ContreJour.Clips.chapter5;
-
-[GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
-public class McRotatorBase : Sprite, IFreeable, IId
+namespace ContreJour.Clips.chapter5
 {
-    public const string ID = "chapter5/McRotatorBase";
-
-    public string Id => "chapter5/McRotatorBase";
-
-    public static McRotatorBase New()
+    [GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
+    public class McRotatorBase : Sprite, IFreeable, IId
     {
-        McRotatorBase mcRotatorBase = StaticPool.New<McRotatorBase>();
-        mcRotatorBase.RefreshProperties();
-        return mcRotatorBase;
-    }
+        public const string ID = "chapter5/McRotatorBase";
 
-    public McRotatorBase()
-        : base("chapter5/McRotatorBase")
-    {
-    }
+        public string Id => "chapter5/McRotatorBase";
 
-    public void Free()
-    {
-        StaticPool.Free<McRotatorBase>(this);
+        public static McRotatorBase New()
+        {
+            McRotatorBase mcRotatorBase = StaticPool.New<McRotatorBase>();
+            mcRotatorBase.RefreshProperties();
+            return mcRotatorBase;
+        }
+
+        public McRotatorBase()
+            : base("chapter5/McRotatorBase")
+        {
+        }
+
+        public void Free()
+        {
+            StaticPool.Free<McRotatorBase>(this);
+        }
     }
 }

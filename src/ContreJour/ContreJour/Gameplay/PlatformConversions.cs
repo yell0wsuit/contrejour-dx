@@ -2,27 +2,28 @@ using System.Collections.Generic;
 
 using Microsoft.Xna.Framework;
 
-namespace ContreJour.Gameplay;
-
-public static class PlatformConversions
+namespace ContreJour.Gameplay
 {
-    public static List<Vector2> TransformPhysicsCoords(List<Vector2> source)
+    public static class PlatformConversions
     {
-        return source;
-    }
+        public static List<Vector2> TransformPhysicsCoords(List<Vector2> source)
+        {
+            return source;
+        }
 
-    public static Vector2 TransformLevelCoords(Vector2 source)
-    {
-        return source;
-    }
+        public static Vector2 TransformLevelCoords(Vector2 source)
+        {
+            return source;
+        }
 
-    public static Vector2 VectorRelated(float x, float y)
-    {
-        return TransformRelatedCoords(new Vector2(x, y));
-    }
+        public static Vector2 VectorRelated(float x, float y)
+        {
+            return TransformRelatedCoords(new Vector2(x, y));
+        }
 
-    public static Vector2 TransformRelatedCoords(Vector2 source)
-    {
-        return source;
+        public static Vector2 TransformRelatedCoords(Vector2 source)
+        {
+            return source;
+        }
     }
 }

@@ -4,29 +4,30 @@ using Mokus2D.Data;
 using Mokus2D.Interfaces;
 using Mokus2D.Visual;
 
-namespace ContreJour.Clips.common;
-
-[GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
-public class McTrampolineEnd : Sprite, IFreeable, IId
+namespace ContreJour.Clips.common
 {
-    public const string ID = "common/McTrampolineEnd";
-
-    public string Id => "common/McTrampolineEnd";
-
-    public static McTrampolineEnd New()
+    [GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
+    public class McTrampolineEnd : Sprite, IFreeable, IId
     {
-        McTrampolineEnd mcTrampolineEnd = StaticPool.New<McTrampolineEnd>();
-        mcTrampolineEnd.RefreshProperties();
-        return mcTrampolineEnd;
-    }
+        public const string ID = "common/McTrampolineEnd";
 
-    public McTrampolineEnd()
-        : base("common/McTrampolineEnd")
-    {
-    }
+        public string Id => "common/McTrampolineEnd";
 
-    public void Free()
-    {
-        StaticPool.Free<McTrampolineEnd>(this);
+        public static McTrampolineEnd New()
+        {
+            McTrampolineEnd mcTrampolineEnd = StaticPool.New<McTrampolineEnd>();
+            mcTrampolineEnd.RefreshProperties();
+            return mcTrampolineEnd;
+        }
+
+        public McTrampolineEnd()
+            : base("common/McTrampolineEnd")
+        {
+        }
+
+        public void Free()
+        {
+            StaticPool.Free<McTrampolineEnd>(this);
+        }
     }
 }

@@ -10,106 +10,107 @@ using Mokus2D.Visual.Data;
 using Mokus2D.Visual.Interfaces;
 using Mokus2D.Visual.Particles.Data;
 
-namespace Mokus2D.Content;
-
-public abstract class ResourcesLoaderBase : IGraphicsLoader
+namespace Mokus2D.Content
 {
-    protected const string XmlExtension = "xml";
-
-    protected const string ExtensionSeparator = ".";
-
-    protected Dictionary<Type, IGraphicsDeserializer> Deserializers { get; } = [];
-
-    private string _resourcesSuffix;
-
-    public string GraphicsRootDirectory { get; set; }
-
-    public bool IsAbsolutePath { get; set; }
-
-    public bool FallbackToDefaultScaleFactor { get; set; }
-
-    public float PrefferedScaleFactor
+    public abstract class ResourcesLoaderBase : IGraphicsLoader
     {
-        get;
-        set
+        protected const string XmlExtension = "xml";
+
+        protected const string ExtensionSeparator = ".";
+
+        protected Dictionary<Type, IGraphicsDeserializer> Deserializers { get; } = [];
+
+        private string _resourcesSuffix;
+
+        public string GraphicsRootDirectory { get; set; }
+
+        public bool IsAbsolutePath { get; set; }
+
+        public bool FallbackToDefaultScaleFactor { get; set; }
+
+        public float PrefferedScaleFactor
         {
-            if (field != value)
+            get;
+            set
             {
-                field = value;
-                _resourcesSuffix = value != 1f ? ContentUtil.GetResourcesSuffix(value) : null;
+                if (field != value)
+                {
+                    field = value;
+                    _resourcesSuffix = value != 1f ? ContentUtil.GetResourcesSuffix(value) : null;
+                }
+            }
+        } = 1f;
+
+        public event Action<string, object> ResourceLoaded;
+
+        protected ResourcesLoaderBase()
+        {
+            Deserializers[typeof(ISpriteData)] = new SpriteDeserializer(this);
+            Deserializers[typeof(SpriteData)] = Deserializers[typeof(ISpriteData)];
+            Deserializers[typeof(IMovieClipData)] = new MovieClipDeserializer(this);
+            Deserializers[typeof(MovieClipData)] = Deserializers[typeof(IMovieClipData)];
+            Deserializers[typeof(AnimationData)] = new AnimationDeserializer(this);
+            Deserializers[typeof(FontData)] = new FontDeserializer(this);
+            Deserializers[typeof(ParticleSystemConfig)] = new ParicleConfigDeserializer();
+        }
+
+        public void Unload(string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected abstract string GetFileName<T>(string resourceName, string resourceSuffix = null);
+
+        protected abstract T ProcessXml<T>(string name, XDocument xml);
+
+        public T Load<T>(string name)
+        {
+            try
+            {
+                return LoadData<T>(name, _resourcesSuffix);
+            }
+            catch (Exception)
+            {
+                if (FallbackToDefaultScaleFactor && _resourcesSuffix != null)
+                {
+                    return LoadData<T>(name, null);
+                }
+                throw;
             }
         }
-    } = 1f;
 
-    public event Action<string, object> ResourceLoaded;
-
-    protected ResourcesLoaderBase()
-    {
-        Deserializers[typeof(ISpriteData)] = new SpriteDeserializer(this);
-        Deserializers[typeof(SpriteData)] = Deserializers[typeof(ISpriteData)];
-        Deserializers[typeof(IMovieClipData)] = new MovieClipDeserializer(this);
-        Deserializers[typeof(MovieClipData)] = Deserializers[typeof(IMovieClipData)];
-        Deserializers[typeof(AnimationData)] = new AnimationDeserializer(this);
-        Deserializers[typeof(FontData)] = new FontDeserializer(this);
-        Deserializers[typeof(ParticleSystemConfig)] = new ParicleConfigDeserializer();
-    }
-
-    public void Unload(string name)
-    {
-        throw new NotImplementedException();
-    }
-
-    protected abstract string GetFileName<T>(string resourceName, string resourceSuffix = null);
-
-    protected abstract T ProcessXml<T>(string name, XDocument xml);
-
-    public T Load<T>(string name)
-    {
-        try
+        private T LoadData<T>(string name, string resourcesSuffix)
         {
-            return LoadData<T>(name, _resourcesSuffix);
+            string fileName = GetFileName<T>(name, resourcesSuffix);
+            XDocument xml = GetXml(fileName);
+            return ProcessXml<T>(name, xml);
         }
-        catch (Exception)
+
+        protected void DispatchResourceLoaded(string name, object data)
         {
-            if (FallbackToDefaultScaleFactor && _resourcesSuffix != null)
+            ResourceLoaded.Dispatch(name, data);
+        }
+
+        private XDocument GetXml(string name)
+        {
+            string fullPath = GetFullPath(name);
+            try
             {
-                return LoadData<T>(name, null);
+                using Stream stream = Mokus2DGame.FileLoader.OpenFile(fullPath);
+                using StreamReader textReader = new(stream);
+                return XDocument.Load(textReader);
             }
-            throw;
+            catch (FileNotFoundException)
+            {
+                return null;
+            }
         }
-    }
 
-    private T LoadData<T>(string name, string resourcesSuffix)
-    {
-        string fileName = GetFileName<T>(name, resourcesSuffix);
-        XDocument xml = GetXml(fileName);
-        return ProcessXml<T>(name, xml);
-    }
-
-    protected void DispatchResourceLoaded(string name, object data)
-    {
-        ResourceLoaded.Dispatch(name, data);
-    }
-
-    private XDocument GetXml(string name)
-    {
-        string fullPath = GetFullPath(name);
-        try
+        private string GetFullPath(string name)
         {
-            using Stream stream = Mokus2DGame.FileLoader.OpenFile(fullPath);
-            using StreamReader textReader = new(stream);
-            return XDocument.Load(textReader);
+            return IsAbsolutePath
+                ? PathUtil.Combine(GraphicsRootDirectory, name)
+                : PathUtil.Combine(Mokus2DGame.ContentManager.RootDirectory, GraphicsRootDirectory, name);
         }
-        catch (FileNotFoundException)
-        {
-            return null;
-        }
-    }
-
-    private string GetFullPath(string name)
-    {
-        return IsAbsolutePath
-            ? PathUtil.Combine(GraphicsRootDirectory, name)
-            : PathUtil.Combine(Mokus2DGame.ContentManager.RootDirectory, GraphicsRootDirectory, name);
     }
 }

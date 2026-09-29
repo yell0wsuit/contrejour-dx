@@ -2,19 +2,20 @@ using System.Collections.Generic;
 
 using Mokus2D.Visual.Data;
 
-namespace Mokus2D.Visual.Animation;
-
-public class SafeDiscreteNodePlayer : IAnimationNodePlayer
+namespace Mokus2D.Visual.Animation
 {
-    public void ApplyFrameData(AnimationNode node, float frame)
+    public class SafeDiscreteNodePlayer : IAnimationNodePlayer
     {
-        List<AnimationFrameData> list = node.AnimationData[(int)frame];
-        foreach (AnimationFrameData item in list)
+        public void ApplyFrameData(AnimationNode node, float frame)
         {
-            Node child = node.GetChild(item.Id, throwOnNotFound: false);
-            if (child != null)
+            List<AnimationFrameData> list = node.AnimationData[(int)frame];
+            foreach (AnimationFrameData item in list)
             {
-                AnimationUtil.ApplyChildFrameData(node, child, item);
+                Node child = node.GetChild(item.Id, throwOnNotFound: false);
+                if (child != null)
+                {
+                    AnimationUtil.ApplyChildFrameData(node, child, item);
+                }
             }
         }
     }

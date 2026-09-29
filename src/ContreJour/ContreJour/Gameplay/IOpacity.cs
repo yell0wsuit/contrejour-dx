@@ -1,6 +1,7 @@
-namespace ContreJour.Gameplay;
-
-public interface IOpacity
+namespace ContreJour.Gameplay
 {
-    int OpacityByte { get; set; }
+    public interface IOpacity
+    {
+        int OpacityByte { get; set; }
+    }
 }

@@ -5,57 +5,58 @@ using Mokus2D.Util.Extensions;
 using Mokus2D.Visual.Data;
 using Mokus2D.Visual.Interfaces;
 
-namespace Mokus2D.Visual;
-
-public class OneFrameSprite : Sprite
+namespace Mokus2D.Visual
 {
-    private FrameData frameData;
-
-    public FrameData FrameData
+    public class OneFrameSprite : Sprite
     {
-        get => frameData;
-        set => frameData = value;
-    }
+        private FrameData frameData;
 
-    public OneFrameSprite(IMovieClipData data, int frame)
-        : base(data.Texture)
-    {
-        Initialize(data, frame);
-    }
+        public FrameData FrameData
+        {
+            get => frameData;
+            set => frameData = value;
+        }
 
-    public OneFrameSprite(Texture2D texture, FrameData frameData)
-        : this(texture, frameData.Rect.Size(), frameData)
-    {
-    }
+        public OneFrameSprite(IMovieClipData data, int frame)
+            : base(data.Texture)
+        {
+            Initialize(data, frame);
+        }
 
-    public OneFrameSprite(Texture2D texture, Vector2 textureSize, FrameData frameData)
-        : base(texture)
-    {
-        this.frameData = frameData;
-        TextureSize = textureSize;
-        Anchor = frameData.Anchor;
-    }
+        public OneFrameSprite(Texture2D texture, FrameData frameData)
+            : this(texture, frameData.Rect.Size(), frameData)
+        {
+        }
 
-    public OneFrameSprite(string name, int frame)
-        : this(Mokus2DGame.LoadResource<IMovieClipData>(name), frame)
-    {
-    }
+        public OneFrameSprite(Texture2D texture, Vector2 textureSize, FrameData frameData)
+            : base(texture)
+        {
+            this.frameData = frameData;
+            TextureSize = textureSize;
+            Anchor = frameData.Anchor;
+        }
 
-    public OneFrameSprite(ISpriteData data)
-        : base(data)
-    {
-    }
+        public OneFrameSprite(string name, int frame)
+            : this(Mokus2DGame.LoadResource<IMovieClipData>(name), frame)
+        {
+        }
 
-    protected void Initialize(IMovieClipData data, int frame)
-    {
-        frameData = data.Frames[frame];
-        TextureSize = data.Size;
-        Anchor = data.Anchor;
-        ScaleFactor = data.ScaleFactor;
-    }
+        public OneFrameSprite(ISpriteData data)
+            : base(data)
+        {
+        }
 
-    protected override Rectangle GetTileRectangle()
-    {
-        return frameData.Rect;
+        protected void Initialize(IMovieClipData data, int frame)
+        {
+            frameData = data.Frames[frame];
+            TextureSize = data.Size;
+            Anchor = data.Anchor;
+            ScaleFactor = data.ScaleFactor;
+        }
+
+        protected override Rectangle GetTileRectangle()
+        {
+            return frameData.Rect;
+        }
     }
 }

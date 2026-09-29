@@ -1,21 +1,22 @@
-namespace FarseerPhysics.Collision;
-
-internal sealed class TreeNode<T>
+namespace FarseerPhysics.Collision
 {
-    internal AABB AABB;
-
-    internal int Child1;
-
-    internal int Child2;
-
-    internal int Height;
-
-    internal int ParentOrNext;
-
-    internal T UserData;
-
-    internal bool IsLeaf()
+    internal sealed class TreeNode<T>
     {
-        return Child1 == -1;
+        internal AABB AABB;
+
+        internal int Child1;
+
+        internal int Child2;
+
+        internal int Height;
+
+        internal int ParentOrNext;
+
+        internal T UserData;
+
+        internal bool IsLeaf()
+        {
+            return Child1 == -1;
+        }
     }
 }

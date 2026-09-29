@@ -1,20 +1,21 @@
-namespace ContreJour.Gameplay;
-
-public class ForegroundProcessor(LevelBuilderBase builder) : TypeProcessorBase("foreground", builder)
+namespace ContreJour.Gameplay
 {
-    private static readonly int StaticResult = 1;
-
-    public override object ProcessItem(Hashtable item)
+    public class ForegroundProcessor(LevelBuilderBase builder) : TypeProcessorBase("foreground", builder)
     {
-        Hashtable hashtable = item.GetHashtable("config");
-        if (hashtable.NotExists("z"))
+        private static readonly int StaticResult = 1;
+
+        public override object ProcessItem(Hashtable item)
         {
-            hashtable["z"] = "12";
+            Hashtable hashtable = item.GetHashtable("config");
+            if (hashtable.NotExists("z"))
+            {
+                hashtable["z"] = "12";
+            }
+            if (hashtable.NotExists("clipType"))
+            {
+                hashtable["skipClip"] = "true";
+            }
+            return StaticResult;
         }
-        if (hashtable.NotExists("clipType"))
-        {
-            hashtable["skipClip"] = "true";
-        }
-        return StaticResult;
     }
 }

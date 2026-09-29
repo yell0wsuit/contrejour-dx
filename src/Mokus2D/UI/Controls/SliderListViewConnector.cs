@@ -4,40 +4,41 @@ using Mokus2D.UI.Grids;
 using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual;
 
-namespace Mokus2D.UI.Controls;
-
-public class SliderListViewConnector
+namespace Mokus2D.UI.Controls
 {
-    private readonly Slider _slider;
-
-    private readonly IListView _listView;
-
-    public Sprite MouseWheelArea
+    public class SliderListViewConnector
     {
-        set => _slider.MouseWheelArea = value;
-    }
+        private readonly Slider _slider;
 
-    public SliderListViewConnector(Slider slider, IListView listView)
-    {
-        _slider = slider;
-        _listView = listView;
-        _slider.ChangeEvent += OnSliderChange;
-        _listView.DataChangedEvent += OnDataChanged;
-    }
+        private readonly IListView _listView;
 
-    private void OnDataChanged()
-    {
-        _slider.Max = Math.Max(_listView.DataCount - _listView.ItemsCount, 0);
-        _listView.ItemsPosition = _listView.ItemsPosition.Clamp(_slider.Min, _slider.Max);
-    }
+        public Sprite MouseWheelArea
+        {
+            set => _slider.MouseWheelArea = value;
+        }
 
-    private void OnSliderChange(Slider obj)
-    {
-        _listView.ItemsPosition = _slider.Value;
-    }
+        public SliderListViewConnector(Slider slider, IListView listView)
+        {
+            _slider = slider;
+            _listView = listView;
+            _slider.ChangeEvent += OnSliderChange;
+            _listView.DataChangedEvent += OnDataChanged;
+        }
 
-    public void RefreshListPosition()
-    {
-        _listView.ItemsPosition = _slider.Value;
+        private void OnDataChanged()
+        {
+            _slider.Max = Math.Max(_listView.DataCount - _listView.ItemsCount, 0);
+            _listView.ItemsPosition = _listView.ItemsPosition.Clamp(_slider.Min, _slider.Max);
+        }
+
+        private void OnSliderChange(Slider obj)
+        {
+            _listView.ItemsPosition = _slider.Value;
+        }
+
+        public void RefreshListPosition()
+        {
+            _listView.ItemsPosition = _slider.Value;
+        }
     }
 }

@@ -1,11 +1,12 @@
 using Mokus2D.Util.MathUtils;
 
-namespace Mokus2D.Effects.Tween.ValueSetters;
-
-public class IntSetter : ValueSetter<int>
+namespace Mokus2D.Effects.Tween.ValueSetters
 {
-    protected override int Lerp(int value1, int value2, float amount)
+    public class IntSetter : ValueSetter<int>
     {
-        return (int)amount.Lerp(value1, value2);
+        protected override int Lerp(int value1, int value2, float amount)
+        {
+            return (int)amount.Lerp(value1, value2);
+        }
     }
 }

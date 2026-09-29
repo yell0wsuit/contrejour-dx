@@ -1,6 +1,7 @@
-namespace Mokus2D.Visual.Interfaces;
-
-public interface IDataReloadable
+namespace Mokus2D.Visual.Interfaces
 {
-    void ReloadData();
+    public interface IDataReloadable
+    {
+        void ReloadData();
+    }
 }

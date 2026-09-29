@@ -6,56 +6,57 @@ using Mokus2D.Util.Extensions;
 using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual.Data;
 
-namespace Mokus2D.Visual.Text;
-
-public class FontsManager
+namespace Mokus2D.Visual.Text
 {
-    private readonly Dictionary<string, SortedCollection<FontData>> _fonts = [];
-
-    public FontData GetFontData(string fontName, float size)
+    public class FontsManager
     {
-        SortedCollection<FontData> sortedList = (_fonts.TryGetValue(fontName) ?? _fonts.TryGetValue(RemoveSpaces(fontName))) ?? throw new InvalidOperationException("Font not found, try calling FontClass.Register() static method in application OnInitialize()");
-        foreach (FontData item in sortedList)
+        private readonly Dictionary<string, SortedCollection<FontData>> _fonts = [];
+
+        public FontData GetFontData(string fontName, float size)
         {
-            if (item.FontSize >= size)
+            SortedCollection<FontData> sortedList = (_fonts.TryGetValue(fontName) ?? _fonts.TryGetValue(RemoveSpaces(fontName))) ?? throw new InvalidOperationException("Font not found, try calling FontClass.Register() static method in application OnInitialize()");
+            foreach (FontData item in sortedList)
             {
-                return item;
+                if (item.FontSize >= size)
+                {
+                    return item;
+                }
+            }
+            return sortedList.Last();
+        }
+
+        private static string RemoveSpaces(string fontName)
+        {
+            return fontName.Replace(" ", "");
+        }
+
+        public void ReloadFonts()
+        {
+            foreach (SortedCollection<FontData> value in _fonts.Values)
+            {
+                List<FontData> list = [.. value];
+                value.Clear();
+                foreach (FontData item2 in list)
+                {
+                    FontData item = Mokus2DGame.LoadResource<FontData>(item2.Id);
+                    value.Add(item);
+                }
             }
         }
-        return sortedList.Last();
-    }
 
-    private static string RemoveSpaces(string fontName)
-    {
-        return fontName.Replace(" ", "");
-    }
-
-    public void ReloadFonts()
-    {
-        foreach (SortedCollection<FontData> value in _fonts.Values)
+        public void RegisterFont(string fontName, string fontId)
         {
-            List<FontData> list = [.. value];
-            value.Clear();
-            foreach (FontData item2 in list)
+            if (!_fonts.TryGetValue(fontName, out SortedCollection<FontData> sortedList))
             {
-                FontData item = Mokus2DGame.LoadResource<FontData>(item2.Id);
-                value.Add(item);
+                sortedList = new SortedCollection<FontData>(FontsComparizon);
+                _fonts[fontName] = sortedList;
             }
+            sortedList.Add(Mokus2DGame.LoadResource<FontData>(fontId));
         }
-    }
 
-    public void RegisterFont(string fontName, string fontId)
-    {
-        if (!_fonts.TryGetValue(fontName, out SortedCollection<FontData> sortedList))
+        private int FontsComparizon(FontData a, FontData b)
         {
-            sortedList = new SortedCollection<FontData>(FontsComparizon);
-            _fonts[fontName] = sortedList;
+            return Comparisons.FloatComparizon(a.FontSize, b.FontSize);
         }
-        sortedList.Add(Mokus2DGame.LoadResource<FontData>(fontId));
-    }
-
-    private int FontsComparizon(FontData a, FontData b)
-    {
-        return Comparisons.FloatComparizon(a.FontSize, b.FontSize);
     }
 }

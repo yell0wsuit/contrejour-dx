@@ -1,9 +1,10 @@
 using System;
 
-namespace FarseerPhysics.Common.PhysicsLogic;
-
-[Flags]
-public enum PhysicsLogicType
+namespace FarseerPhysics.Common.PhysicsLogic
 {
-    Explosion = 1
+    [Flags]
+    public enum PhysicsLogicType
+    {
+        Explosion = 1
+    }
 }

@@ -1,6 +1,7 @@
-namespace Mokus2D.Interfaces;
-
-public interface IUpdatable
+namespace Mokus2D.Interfaces
 {
-    void Update(float time);
+    public interface IUpdatable
+    {
+        void Update(float time);
+    }
 }

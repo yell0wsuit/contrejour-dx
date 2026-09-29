@@ -1,21 +1,22 @@
-namespace Mokus2D.Util;
-
-public class Flag(bool on = true)
+namespace Mokus2D.Util
 {
-    private bool _on = on;
-
-    public bool Use()
+    public class Flag(bool on = true)
     {
-        if (_on)
+        private bool _on = on;
+
+        public bool Use()
         {
-            _on = false;
-            return true;
+            if (_on)
+            {
+                _on = false;
+                return true;
+            }
+            return false;
         }
-        return false;
-    }
 
-    public void SetOn()
-    {
-        _on = true;
+        public void SetOn()
+        {
+            _on = true;
+        }
     }
 }

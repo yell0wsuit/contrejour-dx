@@ -1,12 +1,13 @@
 using FarseerPhysics.Dynamics;
 
-namespace FarseerPhysics.Common.PhysicsLogic;
-
-internal struct ShapeData
+namespace FarseerPhysics.Common.PhysicsLogic
 {
-    public Body Body;
+    internal struct ShapeData
+    {
+        public Body Body;
 
-    public float Max;
+        public float Max;
 
-    public float Min;
+        public float Min;
+    }
 }

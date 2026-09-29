@@ -4,29 +4,30 @@ using Mokus2D.Data;
 using Mokus2D.Interfaces;
 using Mokus2D.Visual;
 
-namespace ContreJour.Clips.chapter5;
-
-[GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
-public class McSpringBridgeHintView : Sprite, IFreeable, IId
+namespace ContreJour.Clips.chapter5
 {
-    public const string ID = "chapter5/McSpringBridgeHintView";
-
-    public string Id => "chapter5/McSpringBridgeHintView";
-
-    public static McSpringBridgeHintView New()
+    [GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
+    public class McSpringBridgeHintView : Sprite, IFreeable, IId
     {
-        McSpringBridgeHintView mcSpringBridgeHintView = StaticPool.New<McSpringBridgeHintView>();
-        mcSpringBridgeHintView.RefreshProperties();
-        return mcSpringBridgeHintView;
-    }
+        public const string ID = "chapter5/McSpringBridgeHintView";
 
-    public McSpringBridgeHintView()
-        : base("chapter5/McSpringBridgeHintView")
-    {
-    }
+        public string Id => "chapter5/McSpringBridgeHintView";
 
-    public void Free()
-    {
-        StaticPool.Free<McSpringBridgeHintView>(this);
+        public static McSpringBridgeHintView New()
+        {
+            McSpringBridgeHintView mcSpringBridgeHintView = StaticPool.New<McSpringBridgeHintView>();
+            mcSpringBridgeHintView.RefreshProperties();
+            return mcSpringBridgeHintView;
+        }
+
+        public McSpringBridgeHintView()
+            : base("chapter5/McSpringBridgeHintView")
+        {
+        }
+
+        public void Free()
+        {
+            StaticPool.Free<McSpringBridgeHintView>(this);
+        }
     }
 }

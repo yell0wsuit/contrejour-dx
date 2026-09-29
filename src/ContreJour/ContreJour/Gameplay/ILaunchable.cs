@@ -1,15 +1,16 @@
 using Mokus2D.Events;
 using Mokus2D.Integration.Farseer.Physics;
 
-namespace ContreJour.Gameplay;
-
-public interface ILaunchable : IRadius, IBodyClip
+namespace ContreJour.Gameplay
 {
-    EventSender DestroyEvent { get; }
+    public interface ILaunchable : IRadius, IBodyClip
+    {
+        EventSender DestroyEvent { get; }
 
-    bool HitEnabled { set; }
+        bool HitEnabled { set; }
 
-    void SetSpeedLocked(bool value);
+        void SetSpeedLocked(bool value);
 
-    bool CanLaunch();
+        bool CanLaunch();
+    }
 }

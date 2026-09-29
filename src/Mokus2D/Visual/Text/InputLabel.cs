@@ -13,303 +13,304 @@ using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual.Focus;
 using Mokus2D.Visual.Util;
 
-namespace Mokus2D.Visual.Text;
-
-public class InputLabel : Label, IFocus
+namespace Mokus2D.Visual.Text
 {
-    public string AllowedSymbols { get; set; }
-    private bool _listenersAdded;
-
-    private Mokus2D.Util.Data.Point _textPosition;
-
-    private Cursor _cursor;
-
-    private bool _cursorPositionDirty = true;
-
-    private bool _positionToEnd = true;
-    private readonly Dictionary<Keys, Action<Keys>> _keyHandlers = [];
-
-    public int? MaxSymbols { get; set; }
-
-    public bool Enabled
+    public class InputLabel : Label, IFocus
     {
-        get;
-        set
+        public string AllowedSymbols { get; set; }
+        private bool _listenersAdded;
+
+        private Mokus2D.Util.Data.Point _textPosition;
+
+        private Cursor _cursor;
+
+        private bool _cursorPositionDirty = true;
+
+        private bool _positionToEnd = true;
+        private readonly Dictionary<Keys, Action<Keys>> _keyHandlers = [];
+
+        public int? MaxSymbols { get; set; }
+
+        public bool Enabled
         {
-            if (field != value)
+            get;
+            set
             {
-                field = value;
-                if (!value)
+                if (field != value)
                 {
-                    HasFocus = false;
+                    field = value;
+                    if (!value)
+                    {
+                        HasFocus = false;
+                    }
+                }
+            }
+        } = true;
+
+        public Color CursorColor
+        {
+            get => _cursor.Color;
+            set
+            {
+                _cursor.Color = value;
+                _cursor.ColorRatio = 1f;
+            }
+        }
+
+        public bool HasFocus
+        {
+            get; set
+            {
+                if (field != value)
+                {
+                    field = value;
+                    _cursor.Visible = value;
+                    RefreshKeyboardListeners();
+                    if (field)
+                    {
+                        FocusInEvent.Dispatch(this);
+                    }
+                    else
+                    {
+                        FocusOutEvent.Dispatch(this);
+                    }
                 }
             }
         }
-    } = true;
 
-    public Color CursorColor
-    {
-        get => _cursor.Color;
-        set
+        public Mokus2D.Util.Data.Point TextPosition
         {
-            _cursor.Color = value;
-            _cursor.ColorRatio = 1f;
-        }
-    }
-
-    public bool HasFocus
-    {
-        get; set
-        {
-            if (field != value)
+            get => _textPosition;
+            set
             {
-                field = value;
-                _cursor.Visible = value;
-                RefreshKeyboardListeners();
-                if (field)
+                if (_textPosition != value)
                 {
-                    FocusInEvent.Dispatch(this);
-                }
-                else
-                {
-                    FocusOutEvent.Dispatch(this);
+                    _textPosition = value;
+                    _cursorPositionDirty = true;
+                    _positionToEnd = false;
                 }
             }
         }
-    }
 
-    public Mokus2D.Util.Data.Point TextPosition
-    {
-        get => _textPosition;
-        set
+        public bool CursorAtEnd => TextPosition.Y >= Lines.Count || (TextPosition.Y == Lines.Count - 1 && TextPosition.X >= Lines.Last().Glyphs.Count);
+
+        public bool CursorAtStart => TextPosition.Y < 0 || (TextPosition.Y == 0 && TextPosition.X <= 0);
+
+        public event Action<IFocus> FocusInEvent;
+
+        public event Action<IFocus> FocusOutEvent;
+
+        public event Action TextChangeEvent;
+
+        public InputLabel(string fontName, float fontSize, Vector2 size)
+            : base(fontName, fontSize, size)
         {
-            if (_textPosition != value)
+            Initialize();
+        }
+
+        public InputLabel(string id)
+            : base(id)
+        {
+            Initialize();
+        }
+
+        public InputLabel(FontData font = null)
+            : base(font)
+        {
+            Initialize();
+        }
+
+        private void Initialize()
+        {
+            _cursor = CreatCursor();
+            DynamicClickArea = false;
+            AddKeyHandlers();
+        }
+
+        public override void Update(float time)
+        {
+            base.Update(time);
+            if (_cursorPositionDirty)
             {
-                _textPosition = value;
-                _cursorPositionDirty = true;
+                if (_positionToEnd)
+                {
+                    TextPosition = Get2DSymbolPosition(TextLength);
+                }
                 _positionToEnd = false;
+                _cursorPositionDirty = false;
+                _cursor.Position = GetGlyphLeftTop(_textPosition) + (_cursor.ScaledSize / 2f);
             }
         }
-    }
 
-    public bool CursorAtEnd => TextPosition.Y >= Lines.Count || (TextPosition.Y == Lines.Count - 1 && TextPosition.X >= Lines.Last().Glyphs.Count);
-
-    public bool CursorAtStart => TextPosition.Y < 0 || (TextPosition.Y == 0 && TextPosition.X <= 0);
-
-    public event Action<IFocus> FocusInEvent;
-
-    public event Action<IFocus> FocusOutEvent;
-
-    public event Action TextChangeEvent;
-
-    public InputLabel(string fontName, float fontSize, Vector2 size)
-        : base(fontName, fontSize, size)
-    {
-        Initialize();
-    }
-
-    public InputLabel(string id)
-        : base(id)
-    {
-        Initialize();
-    }
-
-    public InputLabel(FontData font = null)
-        : base(font)
-    {
-        Initialize();
-    }
-
-    private void Initialize()
-    {
-        _cursor = CreatCursor();
-        DynamicClickArea = false;
-        AddKeyHandlers();
-    }
-
-    public override void Update(float time)
-    {
-        base.Update(time);
-        if (_cursorPositionDirty)
+        public override void UpdateNode(float time)
         {
-            if (_positionToEnd)
+            base.UpdateNode(time);
+            _cursor.UpdateNode(time);
+        }
+
+        public override bool TouchBegin(Touch touch)
+        {
+            if (Enabled)
             {
-                TextPosition = Get2DSymbolPosition(TextLength);
+                HasFocus = true;
             }
-            _positionToEnd = false;
-            _cursorPositionDirty = false;
-            _cursor.Position = GetGlyphLeftTop(_textPosition) + (_cursor.ScaledSize / 2f);
+            return base.TouchBegin(touch);
         }
-    }
 
-    public override void UpdateNode(float time)
-    {
-        base.UpdateNode(time);
-        _cursor.UpdateNode(time);
-    }
-
-    public override bool TouchBegin(Touch touch)
-    {
-        if (Enabled)
+        protected override void DoRefreshText()
         {
-            HasFocus = true;
+            base.DoRefreshText();
+            RefreshTextPosition();
         }
-        return base.TouchBegin(touch);
-    }
 
-    protected override void DoRefreshText()
-    {
-        base.DoRefreshText();
-        RefreshTextPosition();
-    }
-
-    private void RefreshTextPosition()
-    {
-        Mokus2D.Util.Data.Point textPosition = TextPosition;
-        textPosition.Y = Math.Min(textPosition.Y, Lines.Count - 1);
-        textPosition.X = Math.Min(textPosition.X, Lines[textPosition.Y].Glyphs.Count);
-        TextPosition = textPosition;
-    }
-
-    private Cursor CreatCursor()
-    {
-        Cursor cursor = new(Font, ScaleFactor);
-        AddChild(cursor);
-        cursor.Visible = false;
-        return cursor;
-    }
-
-    protected override void OnAddedToStage()
-    {
-        base.OnAddedToStage();
-        RefreshKeyboardListeners();
-        FocusManager.AddItem(this);
-    }
-
-    protected override void OnRemovedFromStage()
-    {
-        base.OnRemovedFromStage();
-        RefreshKeyboardListeners();
-        HasFocus = false;
-        FocusManager.RemoveItem(this);
-    }
-
-    private void RefreshKeyboardListeners()
-    {
-        bool flag = OnDisplayList && HasFocus;
-        if (flag && !_listenersAdded)
+        private void RefreshTextPosition()
         {
-            _listenersAdded = true;
-            Mokus2DGame.Keyboard.KeyPressedEvent += OnKeyPressed;
+            Mokus2D.Util.Data.Point textPosition = TextPosition;
+            textPosition.Y = Math.Min(textPosition.Y, Lines.Count - 1);
+            textPosition.X = Math.Min(textPosition.X, Lines[textPosition.Y].Glyphs.Count);
+            TextPosition = textPosition;
         }
-        else if (!flag && _listenersAdded)
-        {
-            _listenersAdded = false;
-            Mokus2DGame.Keyboard.KeyPressedEvent -= OnKeyPressed;
-        }
-    }
 
-    private void TryAddSymbol(Keys key)
-    {
-        if (MaxSymbols.HasValue && TextLength >= MaxSymbols.Value)
+        private Cursor CreatCursor()
         {
-            return;
+            Cursor cursor = new(Font, ScaleFactor);
+            AddChild(cursor);
+            cursor.Visible = false;
+            return cursor;
         }
-        char? c = TextUtil.KeyToChar(key, Mokus2DGame.Keyboard.IsCapital);
-        if (((int?)c).HasValue && (AllowedSymbols == null || Enumerable.Contains(AllowedSymbols, c.Value)))
+
+        protected override void OnAddedToStage()
         {
-            CharData charData = Font[c.Value];
-            if (charData != null && (!MaxWidth.HasValue || !(TextSize.X + charData.Width > MaxWidth)))
+            base.OnAddedToStage();
+            RefreshKeyboardListeners();
+            FocusManager.AddItem(this);
+        }
+
+        protected override void OnRemovedFromStage()
+        {
+            base.OnRemovedFromStage();
+            RefreshKeyboardListeners();
+            HasFocus = false;
+            FocusManager.RemoveItem(this);
+        }
+
+        private void RefreshKeyboardListeners()
+        {
+            bool flag = OnDisplayList && HasFocus;
+            if (flag && !_listenersAdded)
             {
-                RefreshText();
-                _ = Insert(GetSymbolPosition(TextPosition), c);
-                TextPosition += new Mokus2D.Util.Data.Point(1, 0);
+                _listenersAdded = true;
+                Mokus2DGame.Keyboard.KeyPressedEvent += OnKeyPressed;
+            }
+            else if (!flag && _listenersAdded)
+            {
+                _listenersAdded = false;
+                Mokus2DGame.Keyboard.KeyPressedEvent -= OnKeyPressed;
+            }
+        }
+
+        private void TryAddSymbol(Keys key)
+        {
+            if (MaxSymbols.HasValue && TextLength >= MaxSymbols.Value)
+            {
+                return;
+            }
+            char? c = TextUtil.KeyToChar(key, Mokus2DGame.Keyboard.IsCapital);
+            if (((int?)c).HasValue && (AllowedSymbols == null || Enumerable.Contains(AllowedSymbols, c.Value)))
+            {
+                CharData charData = Font[c.Value];
+                if (charData != null && (!MaxWidth.HasValue || !(TextSize.X + charData.Width > MaxWidth)))
+                {
+                    RefreshText();
+                    _ = Insert(GetSymbolPosition(TextPosition), c);
+                    TextPosition += new Mokus2D.Util.Data.Point(1, 0);
+                    TextChangeEvent.Dispatch();
+                }
+            }
+        }
+
+        private void OnBackspace(Keys keys)
+        {
+            if (!CursorAtStart)
+            {
+                int symbolPosition = GetSymbolPosition(TextPosition);
+                symbolPosition--;
+                SafeRemove(symbolPosition, 1);
+                TextPosition = Get2DSymbolPosition(symbolPosition);
                 TextChangeEvent.Dispatch();
             }
         }
-    }
 
-    private void OnBackspace(Keys keys)
-    {
-        if (!CursorAtStart)
+        private void OnDelete(Keys keys)
+        {
+            if (!CursorAtEnd)
+            {
+                SafeRemove(GetSymbolPosition(TextPosition), 1);
+                TextChangeEvent.Dispatch();
+            }
+        }
+
+        private void SafeRemove(int startIndex, int length)
+        {
+            if (startIndex >= 0 && startIndex <= TextLength && length >= 0 && startIndex + length <= TextLength)
+            {
+                _ = Remove(startIndex, length);
+            }
+        }
+
+        private void MoveHorizontal(int direction)
         {
             int symbolPosition = GetSymbolPosition(TextPosition);
-            symbolPosition--;
-            SafeRemove(symbolPosition, 1);
+            symbolPosition += direction;
+            symbolPosition = symbolPosition.Clamp(0, TextLength);
             TextPosition = Get2DSymbolPosition(symbolPosition);
-            TextChangeEvent.Dispatch();
         }
-    }
 
-    private void OnDelete(Keys keys)
-    {
-        if (!CursorAtEnd)
+        private void OnKeyPressed(Keys keys)
         {
-            SafeRemove(GetSymbolPosition(TextPosition), 1);
-            TextChangeEvent.Dispatch();
+            Action<Keys> action = _keyHandlers.TryGetValue(keys);
+            if (action != null)
+            {
+                action(keys);
+            }
+            else
+            {
+                TryAddSymbol(keys);
+            }
         }
-    }
 
-    private void SafeRemove(int startIndex, int length)
-    {
-        if (startIndex >= 0 && startIndex <= TextLength && length >= 0 && startIndex + length <= TextLength)
+        public void PositionToEnd()
         {
-            _ = Remove(startIndex, length);
+            _positionToEnd = true;
+            _cursorPositionDirty = true;
         }
-    }
 
-    private void MoveHorizontal(int direction)
-    {
-        int symbolPosition = GetSymbolPosition(TextPosition);
-        symbolPosition += direction;
-        symbolPosition = symbolPosition.Clamp(0, TextLength);
-        TextPosition = Get2DSymbolPosition(symbolPosition);
-    }
-
-    private void OnKeyPressed(Keys keys)
-    {
-        Action<Keys> action = _keyHandlers.TryGetValue(keys);
-        if (action != null)
+        private void AddKeyHandlers()
         {
-            action(keys);
+            _keyHandlers.Add(Keys.Enter, OnEnter);
+            _keyHandlers.Add(Keys.Escape, OnEscape);
+            _keyHandlers.Add(Keys.Back, OnBackspace);
+            _keyHandlers.Add(Keys.Delete, OnDelete);
+            _keyHandlers.Add(Keys.Left, delegate
+            {
+                MoveHorizontal(-1);
+            });
+            _keyHandlers.Add(Keys.Right, delegate
+            {
+                MoveHorizontal(1);
+            });
         }
-        else
+
+        private void OnEscape(Keys obj)
         {
-            TryAddSymbol(keys);
+            if (HasFocus)
+            {
+                HasFocus = false;
+            }
         }
-    }
 
-    public void PositionToEnd()
-    {
-        _positionToEnd = true;
-        _cursorPositionDirty = true;
-    }
-
-    private void AddKeyHandlers()
-    {
-        _keyHandlers.Add(Keys.Enter, OnEnter);
-        _keyHandlers.Add(Keys.Escape, OnEscape);
-        _keyHandlers.Add(Keys.Back, OnBackspace);
-        _keyHandlers.Add(Keys.Delete, OnDelete);
-        _keyHandlers.Add(Keys.Left, delegate
+        private void OnEnter(Keys obj)
         {
-            MoveHorizontal(-1);
-        });
-        _keyHandlers.Add(Keys.Right, delegate
-        {
-            MoveHorizontal(1);
-        });
-    }
-
-    private void OnEscape(Keys obj)
-    {
-        if (HasFocus)
-        {
-            HasFocus = false;
         }
-    }
-
-    private void OnEnter(Keys obj)
-    {
     }
 }

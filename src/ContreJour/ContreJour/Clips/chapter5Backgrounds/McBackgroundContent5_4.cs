@@ -4,34 +4,35 @@ using Mokus2D.Data;
 using Mokus2D.Interfaces;
 using Mokus2D.Visual;
 
-namespace ContreJour.Clips.chapter5Backgrounds;
-
-[GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
-public class McBackgroundContent5_4 : AnimationNode, IFreeable, IId
+namespace ContreJour.Clips.chapter5Backgrounds
 {
-    public const string ID = "chapter5Backgrounds/McBackgroundContent5_4";
-
-    public McBackgroundContent5_6 instance5242444 { get; protected set; }
-
-    public string Id => "chapter5Backgrounds/McBackgroundContent5_4";
-
-    public static McBackgroundContent5_4 New()
+    [GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
+    public class McBackgroundContent5_4 : AnimationNode, IFreeable, IId
     {
-        McBackgroundContent5_4 mcBackgroundContent5_ = StaticPool.New<McBackgroundContent5_4>();
-        mcBackgroundContent5_.RefreshProperties();
-        return mcBackgroundContent5_;
-    }
+        public const string ID = "chapter5Backgrounds/McBackgroundContent5_4";
 
-    public McBackgroundContent5_4()
-        : base("chapter5Backgrounds/McBackgroundContent5_4")
-    {
-        instance5242444 = new McBackgroundContent5_6();
-        AddChild("instance5242444", instance5242444);
-        Initialize();
-    }
+        public McBackgroundContent5_6 instance5242444 { get; protected set; }
 
-    public void Free()
-    {
-        StaticPool.Free<McBackgroundContent5_4>(this);
+        public string Id => "chapter5Backgrounds/McBackgroundContent5_4";
+
+        public static McBackgroundContent5_4 New()
+        {
+            McBackgroundContent5_4 mcBackgroundContent5_ = StaticPool.New<McBackgroundContent5_4>();
+            mcBackgroundContent5_.RefreshProperties();
+            return mcBackgroundContent5_;
+        }
+
+        public McBackgroundContent5_4()
+            : base("chapter5Backgrounds/McBackgroundContent5_4")
+        {
+            instance5242444 = new McBackgroundContent5_6();
+            AddChild("instance5242444", instance5242444);
+            Initialize();
+        }
+
+        public void Free()
+        {
+            StaticPool.Free<McBackgroundContent5_4>(this);
+        }
     }
 }

@@ -6,74 +6,75 @@ using Mokus2D;
 using Mokus2D.Events;
 using Mokus2D.Input;
 
-namespace ContreJour.Gameplay;
-
-public class ClickListener : ITouchListener
+namespace ContreJour.Gameplay
 {
-    private readonly EventSender<Touch> clickEvent = new();
-
-    private bool enabled;
-
-    private bool listening;
-    private readonly Dictionary<Touch, Vector2> startPositions = [];
-
-    public EventSender ClickEvent => clickEvent;
-
-    public float Radius { get; set; }
-
-    public virtual bool Enabled
+    public class ClickListener : ITouchListener
     {
-        get => enabled;
-        set => enabled = value;
-    }
+        private readonly EventSender<Touch> clickEvent = new();
 
-    public ClickListener(int priority = 0)
-    {
-        Mokus2DGame.Instance.TouchController.AddListener(this, priority);
-        listening = true;
-        Radius = 20f;
-        enabled = true;
-    }
+        private bool enabled;
 
-    public virtual bool TouchBegin(Touch touch)
-    {
-        startPositions[touch] = touch.Position;
-        return true;
-    }
+        private bool listening;
+        private readonly Dictionary<Touch, Vector2> startPositions = [];
 
-    public virtual bool TouchMove(Touch touch)
-    {
-        if (IsOutStartPosition(touch, startPositions[touch]))
+        public EventSender ClickEvent => clickEvent;
+
+        public float Radius { get; set; }
+
+        public virtual bool Enabled
         {
-            _ = startPositions.Remove(touch);
-            return false;
+            get => enabled;
+            set => enabled = value;
         }
-        return true;
-    }
 
-    public virtual void TouchEnd(Touch touch)
-    {
-        if (startPositions.ContainsKey(touch))
+        public ClickListener(int priority = 0)
         {
-            if (Enabled)
+            Mokus2DGame.Instance.TouchController.AddListener(this, priority);
+            listening = true;
+            Radius = 20f;
+            enabled = true;
+        }
+
+        public virtual bool TouchBegin(Touch touch)
+        {
+            startPositions[touch] = touch.Position;
+            return true;
+        }
+
+        public virtual bool TouchMove(Touch touch)
+        {
+            if (IsOutStartPosition(touch, startPositions[touch]))
             {
-                clickEvent.SendEvent(touch);
+                _ = startPositions.Remove(touch);
+                return false;
             }
-            _ = startPositions.Remove(touch);
+            return true;
         }
-    }
 
-    protected virtual bool IsOutStartPosition(Touch touch, Vector2 startPosition)
-    {
-        return (touch.Position - startPosition).Length() > Radius;
-    }
-
-    public void Remove()
-    {
-        if (listening)
+        public virtual void TouchEnd(Touch touch)
         {
-            Mokus2DGame.Instance.TouchController.RemoveListener(this);
-            listening = false;
+            if (startPositions.ContainsKey(touch))
+            {
+                if (Enabled)
+                {
+                    clickEvent.SendEvent(touch);
+                }
+                _ = startPositions.Remove(touch);
+            }
+        }
+
+        protected virtual bool IsOutStartPosition(Touch touch, Vector2 startPosition)
+        {
+            return (touch.Position - startPosition).Length() > Radius;
+        }
+
+        public void Remove()
+        {
+            if (listening)
+            {
+                Mokus2DGame.Instance.TouchController.RemoveListener(this);
+                listening = false;
+            }
         }
     }
 }

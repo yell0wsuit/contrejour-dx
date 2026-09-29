@@ -4,76 +4,77 @@ using System.Globalization;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Mokus2D.Visual.Drawing.Vertex;
-
-public struct TintSpriteVertex(Vector3 position, Color color, Vector2 textureCoordinate, float colorRatio) : ITintVertex, IVertex, IVertexType
+namespace Mokus2D.Visual.Drawing.Vertex
 {
-    private Vector3 Position = position;
-
-    private Color Color = color;
-
-    private Vector2 TextureCoordinate = textureCoordinate;
-
-    private float ColorRatio = colorRatio;
-
-    public static readonly VertexDeclaration VertexDeclaration;
-
-    readonly VertexDeclaration IVertexType.VertexDeclaration => VertexDeclaration;
-
-    Vector3 IVertex.Position
+    public struct TintSpriteVertex(Vector3 position, Color color, Vector2 textureCoordinate, float colorRatio) : ITintVertex, IVertex, IVertexType
     {
-        readonly get => Position;
-        set => Position = value;
-    }
+        private Vector3 Position = position;
 
-    Color IVertex.Color
-    {
-        readonly get => Color;
-        set => Color = value;
-    }
+        private Color Color = color;
 
-    Vector2 IVertex.TextureCoordinate
-    {
-        readonly get => TextureCoordinate;
-        set => TextureCoordinate = value;
-    }
+        private Vector2 TextureCoordinate = textureCoordinate;
 
-    float ITintVertex.ColorRatio
-    {
-        readonly get => ColorRatio;
-        set => ColorRatio = value;
-    }
+        private float ColorRatio = colorRatio;
 
-    static TintSpriteVertex()
-    {
-        VertexDeclaration = new VertexDeclaration(new VertexElement(0, VertexElementFormat.Vector3, VertexElementUsage.Position, 0), new VertexElement(12, VertexElementFormat.Color, VertexElementUsage.Color, 0), new VertexElement(16, VertexElementFormat.Vector2, VertexElementUsage.TextureCoordinate, 0), new VertexElement(24, VertexElementFormat.Single, VertexElementUsage.BlendWeight, 0))
+        public static readonly VertexDeclaration VertexDeclaration;
+
+        readonly VertexDeclaration IVertexType.VertexDeclaration => VertexDeclaration;
+
+        Vector3 IVertex.Position
         {
-            Name = "TintSpriteVertex.VertexDeclaration"
-        };
-    }
+            readonly get => Position;
+            set => Position = value;
+        }
 
-    public static bool operator ==(TintSpriteVertex left, TintSpriteVertex right)
-    {
-        return left.Position == right.Position && left.Color == right.Color && left.TextureCoordinate == right.TextureCoordinate;
-    }
+        Color IVertex.Color
+        {
+            readonly get => Color;
+            set => Color = value;
+        }
 
-    public static bool operator !=(TintSpriteVertex left, TintSpriteVertex right)
-    {
-        return !(left == right);
-    }
+        Vector2 IVertex.TextureCoordinate
+        {
+            readonly get => TextureCoordinate;
+            set => TextureCoordinate = value;
+        }
 
-    public override readonly string ToString()
-    {
-        return string.Format(CultureInfo.CurrentCulture, "{{Position:{0} Color:{1} TextureCoordinate:{2}}}", new object[3] { Position, Color, TextureCoordinate });
-    }
+        float ITintVertex.ColorRatio
+        {
+            readonly get => ColorRatio;
+            set => ColorRatio = value;
+        }
 
-    public override readonly bool Equals(object obj)
-    {
-        return obj != null && (object)obj.GetType() == GetType() && this == (TintSpriteVertex)obj;
-    }
+        static TintSpriteVertex()
+        {
+            VertexDeclaration = new VertexDeclaration(new VertexElement(0, VertexElementFormat.Vector3, VertexElementUsage.Position, 0), new VertexElement(12, VertexElementFormat.Color, VertexElementUsage.Color, 0), new VertexElement(16, VertexElementFormat.Vector2, VertexElementUsage.TextureCoordinate, 0), new VertexElement(24, VertexElementFormat.Single, VertexElementUsage.BlendWeight, 0))
+            {
+                Name = "TintSpriteVertex.VertexDeclaration"
+            };
+        }
 
-    public override readonly int GetHashCode()
-    {
-        return HashCode.Combine(Position, Color, TextureCoordinate);
+        public static bool operator ==(TintSpriteVertex left, TintSpriteVertex right)
+        {
+            return left.Position == right.Position && left.Color == right.Color && left.TextureCoordinate == right.TextureCoordinate;
+        }
+
+        public static bool operator !=(TintSpriteVertex left, TintSpriteVertex right)
+        {
+            return !(left == right);
+        }
+
+        public override readonly string ToString()
+        {
+            return string.Format(CultureInfo.CurrentCulture, "{{Position:{0} Color:{1} TextureCoordinate:{2}}}", new object[3] { Position, Color, TextureCoordinate });
+        }
+
+        public override readonly bool Equals(object obj)
+        {
+            return obj != null && (object)obj.GetType() == GetType() && this == (TintSpriteVertex)obj;
+        }
+
+        public override readonly int GetHashCode()
+        {
+            return HashCode.Combine(Position, Color, TextureCoordinate);
+        }
     }
 }

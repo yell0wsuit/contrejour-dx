@@ -1,8 +1,9 @@
-namespace Mokus2D.Collections;
-
-public interface IForEachList
+namespace Mokus2D.Collections
 {
-    void StartForEach();
+    public interface IForEachList
+    {
+        void StartForEach();
 
-    void EndForEach();
+        void EndForEach();
+    }
 }

@@ -3,30 +3,31 @@ using System;
 using Mokus2D.Util;
 using Mokus2D.Visual;
 
-namespace Mokus2D.UI.Controls;
-
-public abstract class UIComponent : Node
+namespace Mokus2D.UI.Controls
 {
-    private readonly Flag _propertiesDirty = new();
-
-    public event Action PropertiesUpdatedEvent;
-
-    protected void SetPropertiesDirty()
+    public abstract class UIComponent : Node
     {
-        _propertiesDirty.SetOn();
-    }
+        private readonly Flag _propertiesDirty = new();
 
-    public override void Update(float time)
-    {
-        base.Update(time);
-        if (_propertiesDirty.Use())
+        public event Action PropertiesUpdatedEvent;
+
+        protected void SetPropertiesDirty()
         {
-            UpdateProperties();
-            PropertiesUpdatedEvent.Dispatch();
+            _propertiesDirty.SetOn();
         }
-    }
 
-    protected virtual void UpdateProperties()
-    {
+        public override void Update(float time)
+        {
+            base.Update(time);
+            if (_propertiesDirty.Use())
+            {
+                UpdateProperties();
+                PropertiesUpdatedEvent.Dispatch();
+            }
+        }
+
+        protected virtual void UpdateProperties()
+        {
+        }
     }
 }

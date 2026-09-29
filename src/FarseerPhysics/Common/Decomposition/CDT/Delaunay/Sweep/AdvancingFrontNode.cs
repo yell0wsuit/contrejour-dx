@@ -1,18 +1,19 @@
-namespace FarseerPhysics.Common.Decomposition.CDT.Delaunay.Sweep;
-
-internal sealed class AdvancingFrontNode(TriangulationPoint point)
+namespace FarseerPhysics.Common.Decomposition.CDT.Delaunay.Sweep
 {
-    public AdvancingFrontNode Next;
+    internal sealed class AdvancingFrontNode(TriangulationPoint point)
+    {
+        public AdvancingFrontNode Next;
 
-    public TriangulationPoint Point = point;
+        public TriangulationPoint Point = point;
 
-    public AdvancingFrontNode Prev;
+        public AdvancingFrontNode Prev;
 
-    public DelaunayTriangle Triangle;
+        public DelaunayTriangle Triangle;
 
-    public double Value = point.X;
+        public double Value = point.X;
 
-    public bool HasNext => Next != null;
+        public bool HasNext => Next != null;
 
-    public bool HasPrev => Prev != null;
+        public bool HasPrev => Prev != null;
+    }
 }

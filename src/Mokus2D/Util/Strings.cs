@@ -1,19 +1,20 @@
 using System;
 using System.Text;
 
-namespace Mokus2D.Util;
-
-public static class Strings
+namespace Mokus2D.Util
 {
-    private static readonly Random RandomGenerator = new();
-
-    public static string GenerateRandomString(int length)
+    public static class Strings
     {
-        StringBuilder stringBuilder = new(length);
-        for (int i = 0; i < length; i++)
+        private static readonly Random RandomGenerator = new();
+
+        public static string GenerateRandomString(int length)
         {
-            _ = stringBuilder.Append("qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM_"[RandomGenerator.Next("qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM_".Length)]);
+            StringBuilder stringBuilder = new(length);
+            for (int i = 0; i < length; i++)
+            {
+                _ = stringBuilder.Append("qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM_"[RandomGenerator.Next("qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM_".Length)]);
+            }
+            return stringBuilder.ToString();
         }
-        return stringBuilder.ToString();
     }
 }

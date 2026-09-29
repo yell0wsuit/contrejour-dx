@@ -4,29 +4,30 @@ using Mokus2D.Data;
 using Mokus2D.Interfaces;
 using Mokus2D.Visual;
 
-namespace ContreJour.Clips.menu;
-
-[GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
-public class McRestartIcon : Sprite, IFreeable, IId
+namespace ContreJour.Clips.menu
 {
-    public const string ID = "menu/McRestartIcon";
-
-    public string Id => "menu/McRestartIcon";
-
-    public static McRestartIcon New()
+    [GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
+    public class McRestartIcon : Sprite, IFreeable, IId
     {
-        McRestartIcon mcRestartIcon = StaticPool.New<McRestartIcon>();
-        mcRestartIcon.RefreshProperties();
-        return mcRestartIcon;
-    }
+        public const string ID = "menu/McRestartIcon";
 
-    public McRestartIcon()
-        : base("menu/McRestartIcon")
-    {
-    }
+        public string Id => "menu/McRestartIcon";
 
-    public void Free()
-    {
-        StaticPool.Free<McRestartIcon>(this);
+        public static McRestartIcon New()
+        {
+            McRestartIcon mcRestartIcon = StaticPool.New<McRestartIcon>();
+            mcRestartIcon.RefreshProperties();
+            return mcRestartIcon;
+        }
+
+        public McRestartIcon()
+            : base("menu/McRestartIcon")
+        {
+        }
+
+        public void Free()
+        {
+            StaticPool.Free<McRestartIcon>(this);
+        }
     }
 }

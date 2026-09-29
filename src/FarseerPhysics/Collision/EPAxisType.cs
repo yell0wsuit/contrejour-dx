@@ -1,8 +1,9 @@
-namespace FarseerPhysics.Collision;
-
-public enum EPAxisType
+namespace FarseerPhysics.Collision
 {
-    Unknown,
-    EdgeA,
-    EdgeB
+    public enum EPAxisType
+    {
+        Unknown,
+        EdgeA,
+        EdgeB
+    }
 }

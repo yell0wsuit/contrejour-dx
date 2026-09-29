@@ -1,8 +1,9 @@
-namespace ContreJour.Gameplay;
-
-public interface IPositionDepedent
+namespace ContreJour.Gameplay
 {
-    void ProviderRemove(IVectorPositionProvider provider);
+    public interface IPositionDepedent
+    {
+        void ProviderRemove(IVectorPositionProvider provider);
 
-    void ProviderAdded(IVectorPositionProvider provider);
+        void ProviderAdded(IVectorPositionProvider provider);
+    }
 }

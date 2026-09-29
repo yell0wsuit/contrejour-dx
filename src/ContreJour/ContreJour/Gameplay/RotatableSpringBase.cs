@@ -1,21 +1,22 @@
 using Mokus2D.Visual;
 
-namespace ContreJour.Gameplay;
-
-public abstract class RotatableSpringBase(LevelBuilderBase builder, object body, Node clip, Hashtable config) : DynamicSpringBodyClip(builder, body, clip, config)
+namespace ContreJour.Gameplay
 {
-    protected abstract bool IsMoving { get; }
-
-    public override void Update(float time)
+    public abstract class RotatableSpringBase(LevelBuilderBase builder, object body, Node clip, Hashtable config) : DynamicSpringBodyClip(builder, body, clip, config)
     {
-        if (IsMoving)
+        protected abstract bool IsMoving { get; }
+
+        public override void Update(float time)
         {
-            RefreshSmokeAngle();
+            if (IsMoving)
+            {
+                RefreshSmokeAngle();
+            }
+            base.Update(time);
         }
-        base.Update(time);
-    }
 
-    protected override void CreateShadow()
-    {
+        protected override void CreateShadow()
+        {
+        }
     }
 }

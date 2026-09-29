@@ -1,8 +1,9 @@
-namespace FarseerPhysics.Collision;
-
-public enum ManifoldType
+namespace FarseerPhysics.Collision
 {
-    Circles,
-    FaceA,
-    FaceB
+    public enum ManifoldType
+    {
+        Circles,
+        FaceA,
+        FaceB
+    }
 }

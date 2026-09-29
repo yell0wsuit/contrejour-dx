@@ -4,29 +4,30 @@ using Mokus2D.Data;
 using Mokus2D.Interfaces;
 using Mokus2D.Visual;
 
-namespace ContreJour.Clips.menu;
-
-[GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
-public class McRightPanelBackground : Sprite, IFreeable, IId
+namespace ContreJour.Clips.menu
 {
-    public const string ID = "menu/McRightPanelBackground";
-
-    public string Id => "menu/McRightPanelBackground";
-
-    public static McRightPanelBackground New()
+    [GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
+    public class McRightPanelBackground : Sprite, IFreeable, IId
     {
-        McRightPanelBackground mcRightPanelBackground = StaticPool.New<McRightPanelBackground>();
-        mcRightPanelBackground.RefreshProperties();
-        return mcRightPanelBackground;
-    }
+        public const string ID = "menu/McRightPanelBackground";
 
-    public McRightPanelBackground()
-        : base("menu/McRightPanelBackground")
-    {
-    }
+        public string Id => "menu/McRightPanelBackground";
 
-    public void Free()
-    {
-        StaticPool.Free<McRightPanelBackground>(this);
+        public static McRightPanelBackground New()
+        {
+            McRightPanelBackground mcRightPanelBackground = StaticPool.New<McRightPanelBackground>();
+            mcRightPanelBackground.RefreshProperties();
+            return mcRightPanelBackground;
+        }
+
+        public McRightPanelBackground()
+            : base("menu/McRightPanelBackground")
+        {
+        }
+
+        public void Free()
+        {
+            StaticPool.Free<McRightPanelBackground>(this);
+        }
     }
 }

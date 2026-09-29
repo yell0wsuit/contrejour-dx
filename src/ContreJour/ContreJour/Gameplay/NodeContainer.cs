@@ -2,24 +2,25 @@ using System;
 
 using Mokus2D.Visual;
 
-namespace ContreJour.Gameplay;
-
-public class NodeContainer(Func<Node> nodeFactory) : Node
+namespace ContreJour.Gameplay
 {
-    private readonly Func<Node> _nodeFactory = nodeFactory;
-
-    private Node _node;
-
-    protected override void OnAddedToStage()
+    public class NodeContainer(Func<Node> nodeFactory) : Node
     {
-        base.OnAddedToStage();
-        _node = _nodeFactory();
-        AddChild(_node);
-    }
+        private readonly Func<Node> _nodeFactory = nodeFactory;
 
-    protected override void Dispose(bool disposing)
-    {
-        base.Dispose(disposing);
-        _node?.Dispose();
+        private Node _node;
+
+        protected override void OnAddedToStage()
+        {
+            base.OnAddedToStage();
+            _node = _nodeFactory();
+            AddChild(_node);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+            _node?.Dispose();
+        }
     }
 }

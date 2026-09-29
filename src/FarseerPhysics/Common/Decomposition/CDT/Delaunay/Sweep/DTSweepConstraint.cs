@@ -1,29 +1,30 @@
-namespace FarseerPhysics.Common.Decomposition.CDT.Delaunay.Sweep;
-
-internal sealed class DTSweepConstraint : TriangulationConstraint
+namespace FarseerPhysics.Common.Decomposition.CDT.Delaunay.Sweep
 {
-    public DTSweepConstraint(TriangulationPoint p1, TriangulationPoint p2)
+    internal sealed class DTSweepConstraint : TriangulationConstraint
     {
-        P = p1;
-        Q = p2;
-        if (p1.Y > p2.Y)
+        public DTSweepConstraint(TriangulationPoint p1, TriangulationPoint p2)
         {
-            Q = p1;
-            P = p2;
-        }
-        else if (p1.Y == p2.Y)
-        {
-            if (p1.X > p2.X)
+            P = p1;
+            Q = p2;
+            if (p1.Y > p2.Y)
             {
                 Q = p1;
                 P = p2;
             }
-            else
+            else if (p1.Y == p2.Y)
             {
-                _ = p1.X;
-                _ = p2.X;
+                if (p1.X > p2.X)
+                {
+                    Q = p1;
+                    P = p2;
+                }
+                else
+                {
+                    _ = p1.X;
+                    _ = p2.X;
+                }
             }
+            Q.AddEdge(this);
         }
-        Q.AddEdge(this);
     }
 }

@@ -1,52 +1,53 @@
 using System;
 using System.Collections.Generic;
 
-namespace Mokus2D.Util.MathUtils;
-
-public class ReversableRandom(int seed) : Random(seed)
+namespace Mokus2D.Util.MathUtils
 {
-    private readonly List<double> _values = [];
-
-    public int Step { get; private set; }
-
-    public void ResetStep(int value)
+    public class ReversableRandom(int seed) : Random(seed)
     {
-        Step = value;
-    }
+        private readonly List<double> _values = [];
 
-    public override double NextDouble()
-    {
-        return NextValue(base.NextDouble);
-    }
+        public int Step { get; private set; }
 
-    public override int Next(int maxValue)
-    {
-        return (int)(NextDouble() * maxValue);
-    }
-
-    public override int Next()
-    {
-        return (int)NextValue(NextIntValue);
-    }
-
-    private double NextIntValue()
-    {
-        return base.Next();
-    }
-
-    private double NextValue(Func<double> baseFunction)
-    {
-        double num;
-        if (Step == _values.Count)
+        public void ResetStep(int value)
         {
-            num = baseFunction();
-            _values.Add(num);
+            Step = value;
         }
-        else
+
+        public override double NextDouble()
         {
-            num = _values[Step];
+            return NextValue(base.NextDouble);
         }
-        Step++;
-        return num;
+
+        public override int Next(int maxValue)
+        {
+            return (int)(NextDouble() * maxValue);
+        }
+
+        public override int Next()
+        {
+            return (int)NextValue(NextIntValue);
+        }
+
+        private double NextIntValue()
+        {
+            return base.Next();
+        }
+
+        private double NextValue(Func<double> baseFunction)
+        {
+            double num;
+            if (Step == _values.Count)
+            {
+                num = baseFunction();
+                _values.Add(num);
+            }
+            else
+            {
+                num = _values[Step];
+            }
+            Step++;
+            return num;
+        }
     }
 }

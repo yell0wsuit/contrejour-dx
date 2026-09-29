@@ -4,29 +4,30 @@ using Mokus2D.Data;
 using Mokus2D.Interfaces;
 using Mokus2D.Visual;
 
-namespace ContreJour.Clips.planets;
-
-[GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
-public class McPlanetTablo : Sprite, IFreeable, IId
+namespace ContreJour.Clips.planets
 {
-    public const string ID = "planets/McPlanetTablo";
-
-    public string Id => "planets/McPlanetTablo";
-
-    public static McPlanetTablo New()
+    [GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
+    public class McPlanetTablo : Sprite, IFreeable, IId
     {
-        McPlanetTablo mcPlanetTablo = StaticPool.New<McPlanetTablo>();
-        mcPlanetTablo.RefreshProperties();
-        return mcPlanetTablo;
-    }
+        public const string ID = "planets/McPlanetTablo";
 
-    public McPlanetTablo()
-        : base("planets/McPlanetTablo")
-    {
-    }
+        public string Id => "planets/McPlanetTablo";
 
-    public void Free()
-    {
-        StaticPool.Free<McPlanetTablo>(this);
+        public static McPlanetTablo New()
+        {
+            McPlanetTablo mcPlanetTablo = StaticPool.New<McPlanetTablo>();
+            mcPlanetTablo.RefreshProperties();
+            return mcPlanetTablo;
+        }
+
+        public McPlanetTablo()
+            : base("planets/McPlanetTablo")
+        {
+        }
+
+        public void Free()
+        {
+            StaticPool.Free<McPlanetTablo>(this);
+        }
     }
 }

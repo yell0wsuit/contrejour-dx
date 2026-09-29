@@ -1,33 +1,34 @@
 using Microsoft.Xna.Framework;
 
-namespace Mokus2D.Integration.Farseer.Physics;
-
-public class PhysicsTransform(float physicsToPixels)
+namespace Mokus2D.Integration.Farseer.Physics
 {
-    public float PhysicsToPixels { get; protected set; } = physicsToPixels;
-
-    public Vector2 ToPhysics(float x, float y)
+    public class PhysicsTransform(float physicsToPixels)
     {
-        return ToPhysics(new Vector2(x, y));
-    }
+        public float PhysicsToPixels { get; protected set; } = physicsToPixels;
 
-    public float ToPhysics(float pixels)
-    {
-        return pixels / PhysicsToPixels;
-    }
+        public Vector2 ToPhysics(float x, float y)
+        {
+            return ToPhysics(new Vector2(x, y));
+        }
 
-    public Vector2 ToPhysics(Vector2 pixels)
-    {
-        return pixels / PhysicsToPixels;
-    }
+        public float ToPhysics(float pixels)
+        {
+            return pixels / PhysicsToPixels;
+        }
 
-    public float ToPixels(float physicsPosition)
-    {
-        return physicsPosition * PhysicsToPixels;
-    }
+        public Vector2 ToPhysics(Vector2 pixels)
+        {
+            return pixels / PhysicsToPixels;
+        }
 
-    public Vector2 ToPixels(Vector2 physicsPosition)
-    {
-        return physicsPosition * PhysicsToPixels;
+        public float ToPixels(float physicsPosition)
+        {
+            return physicsPosition * PhysicsToPixels;
+        }
+
+        public Vector2 ToPixels(Vector2 physicsPosition)
+        {
+            return physicsPosition * PhysicsToPixels;
+        }
     }
 }

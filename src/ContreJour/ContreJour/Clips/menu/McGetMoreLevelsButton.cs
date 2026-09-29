@@ -4,29 +4,30 @@ using Mokus2D.Data;
 using Mokus2D.Interfaces;
 using Mokus2D.Visual;
 
-namespace ContreJour.Clips.menu;
-
-[GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
-public class McGetMoreLevelsButton : Sprite, IFreeable, IId
+namespace ContreJour.Clips.menu
 {
-    public const string ID = "menu/McGetMoreLevelsButton";
-
-    public string Id => "menu/McGetMoreLevelsButton";
-
-    public static McGetMoreLevelsButton New()
+    [GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
+    public class McGetMoreLevelsButton : Sprite, IFreeable, IId
     {
-        McGetMoreLevelsButton mcGetMoreLevelsButton = StaticPool.New<McGetMoreLevelsButton>();
-        mcGetMoreLevelsButton.RefreshProperties();
-        return mcGetMoreLevelsButton;
-    }
+        public const string ID = "menu/McGetMoreLevelsButton";
 
-    public McGetMoreLevelsButton()
-        : base("menu/McGetMoreLevelsButton")
-    {
-    }
+        public string Id => "menu/McGetMoreLevelsButton";
 
-    public void Free()
-    {
-        StaticPool.Free<McGetMoreLevelsButton>(this);
+        public static McGetMoreLevelsButton New()
+        {
+            McGetMoreLevelsButton mcGetMoreLevelsButton = StaticPool.New<McGetMoreLevelsButton>();
+            mcGetMoreLevelsButton.RefreshProperties();
+            return mcGetMoreLevelsButton;
+        }
+
+        public McGetMoreLevelsButton()
+            : base("menu/McGetMoreLevelsButton")
+        {
+        }
+
+        public void Free()
+        {
+            StaticPool.Free<McGetMoreLevelsButton>(this);
+        }
     }
 }

@@ -1,30 +1,31 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Mokus2D.Visual.Shaders;
-
-public abstract class TextureMatrixEffectBase : SpriteBatchEffectBase
+namespace Mokus2D.Visual.Shaders
 {
-    private readonly EffectParameter _texture;
-
-    private readonly EffectParameter _matrix;
-
-    protected TextureMatrixEffectBase(string path)
-        : base(path)
+    public abstract class TextureMatrixEffectBase : SpriteBatchEffectBase
     {
-        _texture = Parameters["Texture"];
-        _matrix = Parameters["Matrix"];
-    }
+        private readonly EffectParameter _texture;
 
-    public override void Apply(Matrix matrix, Texture2D texture)
-    {
-        _texture.SetValue(texture);
-        _matrix.SetValue(matrix);
-        ApplyPasses();
-    }
+        private readonly EffectParameter _matrix;
 
-    protected virtual void ApplyPasses()
-    {
-        Effect.CurrentTechnique.Passes[0].Apply();
+        protected TextureMatrixEffectBase(string path)
+            : base(path)
+        {
+            _texture = Parameters["Texture"];
+            _matrix = Parameters["Matrix"];
+        }
+
+        public override void Apply(Matrix matrix, Texture2D texture)
+        {
+            _texture.SetValue(texture);
+            _matrix.SetValue(matrix);
+            ApplyPasses();
+        }
+
+        protected virtual void ApplyPasses()
+        {
+            Effect.CurrentTechnique.Passes[0].Apply();
+        }
     }
 }

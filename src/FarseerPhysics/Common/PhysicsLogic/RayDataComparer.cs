@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 
-namespace FarseerPhysics.Common.PhysicsLogic;
-
-internal sealed class RayDataComparer : IComparer<float>
+namespace FarseerPhysics.Common.PhysicsLogic
 {
-    int IComparer<float>.Compare(float a, float b)
+    internal sealed class RayDataComparer : IComparer<float>
     {
-        float num = a - b;
-        return num > 0f ? 1 : num < 0f ? -1 : 0;
+        int IComparer<float>.Compare(float a, float b)
+        {
+            float num = a - b;
+            return num > 0f ? 1 : num < 0f ? -1 : 0;
+        }
     }
 }

@@ -2,38 +2,39 @@ using System.Collections.Generic;
 
 using FarseerPhysics.Common.Decomposition.CDT.Delaunay.Sweep;
 
-namespace FarseerPhysics.Common.Decomposition.CDT;
-
-internal class TriangulationPoint(double x, double y)
+namespace FarseerPhysics.Common.Decomposition.CDT
 {
-    public double X = x;
-
-    public double Y = y;
-
-    public List<DTSweepConstraint> Edges { get; private set; }
-
-    public float Xf
+    internal class TriangulationPoint(double x, double y)
     {
-        get => (float)X;
-        set => X = value;
-    }
+        public double X = x;
 
-    public float Yf
-    {
-        get => (float)Y;
-        set => Y = value;
-    }
+        public double Y = y;
 
-    public bool HasEdges => Edges != null;
+        public List<DTSweepConstraint> Edges { get; private set; }
 
-    public override string ToString()
-    {
-        return "[" + X + "," + Y + "]";
-    }
+        public float Xf
+        {
+            get => (float)X;
+            set => X = value;
+        }
 
-    public void AddEdge(DTSweepConstraint e)
-    {
-        Edges ??= [];
-        Edges.Add(e);
+        public float Yf
+        {
+            get => (float)Y;
+            set => Y = value;
+        }
+
+        public bool HasEdges => Edges != null;
+
+        public override string ToString()
+        {
+            return "[" + X + "," + Y + "]";
+        }
+
+        public void AddEdge(DTSweepConstraint e)
+        {
+            Edges ??= [];
+            Edges.Add(e);
+        }
     }
 }

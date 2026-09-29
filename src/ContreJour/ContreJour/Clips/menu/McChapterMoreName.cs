@@ -4,29 +4,30 @@ using Mokus2D.Data;
 using Mokus2D.Interfaces;
 using Mokus2D.Visual;
 
-namespace ContreJour.Clips.menu;
-
-[GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
-public class McChapterMoreName : Sprite, IFreeable, IId
+namespace ContreJour.Clips.menu
 {
-    public const string ID = "menu/McChapterMoreName";
-
-    public string Id => "menu/McChapterMoreName";
-
-    public static McChapterMoreName New()
+    [GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
+    public class McChapterMoreName : Sprite, IFreeable, IId
     {
-        McChapterMoreName mcChapterMoreName = StaticPool.New<McChapterMoreName>();
-        mcChapterMoreName.RefreshProperties();
-        return mcChapterMoreName;
-    }
+        public const string ID = "menu/McChapterMoreName";
 
-    public McChapterMoreName()
-        : base("menu/McChapterMoreName")
-    {
-    }
+        public string Id => "menu/McChapterMoreName";
 
-    public void Free()
-    {
-        StaticPool.Free<McChapterMoreName>(this);
+        public static McChapterMoreName New()
+        {
+            McChapterMoreName mcChapterMoreName = StaticPool.New<McChapterMoreName>();
+            mcChapterMoreName.RefreshProperties();
+            return mcChapterMoreName;
+        }
+
+        public McChapterMoreName()
+            : base("menu/McChapterMoreName")
+        {
+        }
+
+        public void Free()
+        {
+            StaticPool.Free<McChapterMoreName>(this);
+        }
     }
 }

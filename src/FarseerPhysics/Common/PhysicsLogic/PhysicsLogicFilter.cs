@@ -1,21 +1,22 @@
-namespace FarseerPhysics.Common.PhysicsLogic;
-
-public struct PhysicsLogicFilter
+namespace FarseerPhysics.Common.PhysicsLogic
 {
-    private PhysicsLogicType ControllerIgnores;
-
-    public void IgnorePhysicsLogic(PhysicsLogicType type)
+    public struct PhysicsLogicFilter
     {
-        ControllerIgnores |= type;
-    }
+        private PhysicsLogicType ControllerIgnores;
 
-    public void RestorePhysicsLogic(PhysicsLogicType type)
-    {
-        ControllerIgnores &= ~type;
-    }
+        public void IgnorePhysicsLogic(PhysicsLogicType type)
+        {
+            ControllerIgnores |= type;
+        }
 
-    public readonly bool IsPhysicsLogicIgnored(PhysicsLogicType type)
-    {
-        return (ControllerIgnores & type) == type;
+        public void RestorePhysicsLogic(PhysicsLogicType type)
+        {
+            ControllerIgnores &= ~type;
+        }
+
+        public readonly bool IsPhysicsLogicIgnored(PhysicsLogicType type)
+        {
+            return (ControllerIgnores & type) == type;
+        }
     }
 }

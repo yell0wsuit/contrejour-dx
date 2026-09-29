@@ -3,35 +3,36 @@ using System.Collections.Concurrent;
 
 using Mokus2D.Util.Resources;
 
-namespace Mokus2D.Util.Schedule;
-
-public class ConcurrentDelayedActions : DisposableBase
+namespace Mokus2D.Util.Schedule
 {
-    private readonly ConcurrentQueue<Action> _actions = new();
-
-    public void Add(Action action)
+    public class ConcurrentDelayedActions : DisposableBase
     {
-        _actions.Enqueue(action);
-    }
+        private readonly ConcurrentQueue<Action> _actions = new();
 
-    public void Execute()
-    {
-        do
+        public void Add(Action action)
         {
-            if (_actions.TryDequeue(out Action result))
-            {
-                result();
-            }
+            _actions.Enqueue(action);
         }
-        while (!_actions.IsEmpty);
-    }
 
-    protected override void Dispose(bool disposing)
-    {
-        base.Dispose(disposing);
-        while (!_actions.IsEmpty)
+        public void Execute()
         {
-            _ = _actions.TryDequeue(out _);
+            do
+            {
+                if (_actions.TryDequeue(out Action result))
+                {
+                    result();
+                }
+            }
+            while (!_actions.IsEmpty);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+            while (!_actions.IsEmpty)
+            {
+                _ = _actions.TryDequeue(out _);
+            }
         }
     }
 }

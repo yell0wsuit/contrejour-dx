@@ -1,8 +1,9 @@
 using Microsoft.Xna.Framework;
 
-namespace ContreJour.Gameplay;
-
-public interface ISnotHolder
+namespace ContreJour.Gameplay
 {
-    Vector2 SnotPosition { get; }
+    public interface ISnotHolder
+    {
+        Vector2 SnotPosition { get; }
+    }
 }

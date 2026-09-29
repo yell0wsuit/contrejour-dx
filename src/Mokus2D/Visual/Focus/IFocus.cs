@@ -1,12 +1,13 @@
 using System;
 
-namespace Mokus2D.Visual.Focus;
-
-public interface IFocus
+namespace Mokus2D.Visual.Focus
 {
-    bool HasFocus { get; set; }
+    public interface IFocus
+    {
+        bool HasFocus { get; set; }
 
-    event Action<IFocus> FocusInEvent;
+        event Action<IFocus> FocusInEvent;
 
-    event Action<IFocus> FocusOutEvent;
+        event Action<IFocus> FocusOutEvent;
+    }
 }

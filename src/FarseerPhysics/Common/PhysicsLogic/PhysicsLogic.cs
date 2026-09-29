@@ -1,15 +1,16 @@
 using FarseerPhysics.Dynamics;
 
-namespace FarseerPhysics.Common.PhysicsLogic;
-
-public abstract class PhysicsLogic(World world, PhysicsLogicType type) : FilterData
+namespace FarseerPhysics.Common.PhysicsLogic
 {
-    private readonly PhysicsLogicType _type = type;
-
-    public World World { get; set; } = world;
-
-    public override bool IsActiveOn(Body body)
+    public abstract class PhysicsLogic(World world, PhysicsLogicType type) : FilterData
     {
-        return !body.PhysicsLogicFilter.IsPhysicsLogicIgnored(_type) && base.IsActiveOn(body);
+        private readonly PhysicsLogicType _type = type;
+
+        public World World { get; set; } = world;
+
+        public override bool IsActiveOn(Body body)
+        {
+            return !body.PhysicsLogicFilter.IsPhysicsLogicIgnored(_type) && base.IsActiveOn(body);
+        }
     }
 }

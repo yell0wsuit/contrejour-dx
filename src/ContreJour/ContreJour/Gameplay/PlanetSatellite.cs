@@ -8,33 +8,34 @@ using Mokus2D.Interfaces;
 using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual;
 
-namespace ContreJour.Gameplay;
-
-public class PlanetSatellite : Node, IUpdatable
+namespace ContreJour.Gameplay
 {
-    private readonly McSatellite satellite;
-
-    private readonly CosChanger changer;
-
-    public PlanetSatellite()
+    public class PlanetSatellite : Node, IUpdatable
     {
-        satellite = new McSatellite();
-        changer = new CosChanger(0.03f, 0.035f)
+        private readonly McSatellite satellite;
+
+        private readonly CosChanger changer;
+
+        public PlanetSatellite()
         {
-            MinValue = -150f,
-            MaxValue = 150f
-        };
-        AddChild(satellite);
-    }
+            satellite = new McSatellite();
+            changer = new CosChanger(0.03f, 0.035f)
+            {
+                MinValue = -150f,
+                MaxValue = 150f
+            };
+            AddChild(satellite);
+        }
 
-    public override void Update(float time)
-    {
-        changer.Update(time);
-        satellite.Position = new Vector2(changer.Value, 0f);
-        satellite.Scale = CosChanger.GetValue(0.5f, 1f, changer.Progress - ((float)Math.PI / 2f));
-        satellite.OpacityFloat = satellite.Scale;
-        RotationDegrees += 20f * time;
-        int nodeLayer = (!(satellite.Scale < 0.75f)) ? 1 : (-1);
-        Parent.ChangeChildLayer(this, nodeLayer);
+        public override void Update(float time)
+        {
+            changer.Update(time);
+            satellite.Position = new Vector2(changer.Value, 0f);
+            satellite.Scale = CosChanger.GetValue(0.5f, 1f, changer.Progress - ((float)Math.PI / 2f));
+            satellite.OpacityFloat = satellite.Scale;
+            RotationDegrees += 20f * time;
+            int nodeLayer = (!(satellite.Scale < 0.75f)) ? 1 : (-1);
+            Parent.ChangeChildLayer(this, nodeLayer);
+        }
     }
 }

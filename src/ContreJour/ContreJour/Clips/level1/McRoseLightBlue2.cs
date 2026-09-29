@@ -4,29 +4,30 @@ using Mokus2D.Data;
 using Mokus2D.Interfaces;
 using Mokus2D.Visual;
 
-namespace ContreJour.Clips.level1;
-
-[GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
-public class McRoseLightBlue2 : Sprite, IFreeable, IId
+namespace ContreJour.Clips.level1
 {
-    public const string ID = "level1/McRoseLightBlue2";
-
-    public string Id => "level1/McRoseLightBlue2";
-
-    public static McRoseLightBlue2 New()
+    [GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
+    public class McRoseLightBlue2 : Sprite, IFreeable, IId
     {
-        McRoseLightBlue2 mcRoseLightBlue = StaticPool.New<McRoseLightBlue2>();
-        mcRoseLightBlue.RefreshProperties();
-        return mcRoseLightBlue;
-    }
+        public const string ID = "level1/McRoseLightBlue2";
 
-    public McRoseLightBlue2()
-        : base("level1/McRoseLightBlue2")
-    {
-    }
+        public string Id => "level1/McRoseLightBlue2";
 
-    public void Free()
-    {
-        StaticPool.Free<McRoseLightBlue2>(this);
+        public static McRoseLightBlue2 New()
+        {
+            McRoseLightBlue2 mcRoseLightBlue = StaticPool.New<McRoseLightBlue2>();
+            mcRoseLightBlue.RefreshProperties();
+            return mcRoseLightBlue;
+        }
+
+        public McRoseLightBlue2()
+            : base("level1/McRoseLightBlue2")
+        {
+        }
+
+        public void Free()
+        {
+            StaticPool.Free<McRoseLightBlue2>(this);
+        }
     }
 }

@@ -1,10 +1,11 @@
-namespace FarseerPhysics.Dynamics;
-
-public struct SolverData
+namespace FarseerPhysics.Dynamics
 {
-    public TimeStep step;
+    public struct SolverData
+    {
+        public TimeStep step;
 
-    public Position[] positions;
+        public Position[] positions;
 
-    public Velocity[] velocities;
+        public Velocity[] velocities;
+    }
 }

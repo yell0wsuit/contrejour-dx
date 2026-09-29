@@ -4,29 +4,30 @@ using Mokus2D.Data;
 using Mokus2D.Interfaces;
 using Mokus2D.Visual;
 
-namespace ContreJour.Clips.common;
-
-[GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
-public class McTeleportPart : Sprite, IFreeable, IId
+namespace ContreJour.Clips.common
 {
-    public const string ID = "common/McTeleportPart";
-
-    public string Id => "common/McTeleportPart";
-
-    public static McTeleportPart New()
+    [GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
+    public class McTeleportPart : Sprite, IFreeable, IId
     {
-        McTeleportPart mcTeleportPart = StaticPool.New<McTeleportPart>();
-        mcTeleportPart.RefreshProperties();
-        return mcTeleportPart;
-    }
+        public const string ID = "common/McTeleportPart";
 
-    public McTeleportPart()
-        : base("common/McTeleportPart")
-    {
-    }
+        public string Id => "common/McTeleportPart";
 
-    public void Free()
-    {
-        StaticPool.Free<McTeleportPart>(this);
+        public static McTeleportPart New()
+        {
+            McTeleportPart mcTeleportPart = StaticPool.New<McTeleportPart>();
+            mcTeleportPart.RefreshProperties();
+            return mcTeleportPart;
+        }
+
+        public McTeleportPart()
+            : base("common/McTeleportPart")
+        {
+        }
+
+        public void Free()
+        {
+            StaticPool.Free<McTeleportPart>(this);
+        }
     }
 }

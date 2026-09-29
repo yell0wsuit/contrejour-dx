@@ -4,29 +4,30 @@ using Mokus2D.Data;
 using Mokus2D.Interfaces;
 using Mokus2D.Visual;
 
-namespace ContreJour.Clips.common;
-
-[GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
-public class McEnergyView : Sprite, IFreeable, IId
+namespace ContreJour.Clips.common
 {
-    public const string ID = "common/McEnergyView";
-
-    public string Id => "common/McEnergyView";
-
-    public static McEnergyView New()
+    [GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
+    public class McEnergyView : Sprite, IFreeable, IId
     {
-        McEnergyView mcEnergyView = StaticPool.New<McEnergyView>();
-        mcEnergyView.RefreshProperties();
-        return mcEnergyView;
-    }
+        public const string ID = "common/McEnergyView";
 
-    public McEnergyView()
-        : base("common/McEnergyView")
-    {
-    }
+        public string Id => "common/McEnergyView";
 
-    public void Free()
-    {
-        StaticPool.Free<McEnergyView>(this);
+        public static McEnergyView New()
+        {
+            McEnergyView mcEnergyView = StaticPool.New<McEnergyView>();
+            mcEnergyView.RefreshProperties();
+            return mcEnergyView;
+        }
+
+        public McEnergyView()
+            : base("common/McEnergyView")
+        {
+        }
+
+        public void Free()
+        {
+            StaticPool.Free<McEnergyView>(this);
+        }
     }
 }

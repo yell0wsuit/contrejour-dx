@@ -4,29 +4,30 @@ using Mokus2D.Data;
 using Mokus2D.Interfaces;
 using Mokus2D.Visual;
 
-namespace ContreJour.Clips.level1;
-
-[GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
-public class McLystok2Content : Sprite, IFreeable, IId
+namespace ContreJour.Clips.level1
 {
-    public const string ID = "level1/McLystok2Content";
-
-    public string Id => "level1/McLystok2Content";
-
-    public static McLystok2Content New()
+    [GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
+    public class McLystok2Content : Sprite, IFreeable, IId
     {
-        McLystok2Content mcLystok2Content = StaticPool.New<McLystok2Content>();
-        mcLystok2Content.RefreshProperties();
-        return mcLystok2Content;
-    }
+        public const string ID = "level1/McLystok2Content";
 
-    public McLystok2Content()
-        : base("level1/McLystok2Content")
-    {
-    }
+        public string Id => "level1/McLystok2Content";
 
-    public void Free()
-    {
-        StaticPool.Free<McLystok2Content>(this);
+        public static McLystok2Content New()
+        {
+            McLystok2Content mcLystok2Content = StaticPool.New<McLystok2Content>();
+            mcLystok2Content.RefreshProperties();
+            return mcLystok2Content;
+        }
+
+        public McLystok2Content()
+            : base("level1/McLystok2Content")
+        {
+        }
+
+        public void Free()
+        {
+            StaticPool.Free<McLystok2Content>(this);
+        }
     }
 }

@@ -1,9 +1,10 @@
-namespace Mokus2D.Util.Extensions;
-
-public static class IntExtensions
+namespace Mokus2D.Util.Extensions
 {
-    public static bool ToBool(this int value)
+    public static class IntExtensions
     {
-        return value != 0;
+        public static bool ToBool(this int value)
+        {
+            return value != 0;
+        }
     }
 }

@@ -1,39 +1,40 @@
 using Mokus2D;
 using Mokus2D.Input;
 
-namespace ContreJour.Gameplay;
-
-public class AccelerometerMenu : AccelerometerNode, ITouchListener
+namespace ContreJour.Gameplay
 {
-    protected virtual int Priority => 1;
-
-    public AccelerometerMenu()
+    public class AccelerometerMenu : AccelerometerNode, ITouchListener
     {
-        Mokus2DGame.Instance.TouchController.AddListener(this, Priority);
-    }
+        protected virtual int Priority => 1;
 
-    public static bool IsFastDevice()
-    {
-        return true;
-    }
+        public AccelerometerMenu()
+        {
+            Mokus2DGame.Instance.TouchController.AddListener(this, Priority);
+        }
 
-    public virtual bool TouchBegin(Touch touch)
-    {
-        return false;
-    }
+        public static bool IsFastDevice()
+        {
+            return true;
+        }
 
-    public virtual bool TouchMove(Touch touch)
-    {
-        return false;
-    }
+        public virtual bool TouchBegin(Touch touch)
+        {
+            return false;
+        }
 
-    public virtual void TouchEnd(Touch touch)
-    {
-    }
+        public virtual bool TouchMove(Touch touch)
+        {
+            return false;
+        }
 
-    protected override void Dispose(bool disposing)
-    {
-        base.Dispose(disposing);
-        Mokus2DGame.Instance.TouchController.RemoveListener(this);
+        public virtual void TouchEnd(Touch touch)
+        {
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+            Mokus2DGame.Instance.TouchController.RemoveListener(this);
+        }
     }
 }

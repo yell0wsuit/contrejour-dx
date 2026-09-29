@@ -1,6 +1,7 @@
-namespace Mokus2D.Data;
-
-public interface IFreeable
+namespace Mokus2D.Data
 {
-    void Free();
+    public interface IFreeable
+    {
+        void Free();
+    }
 }

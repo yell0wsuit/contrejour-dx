@@ -2,12 +2,13 @@ using System.Collections.Generic;
 
 using Microsoft.Xna.Framework;
 
-namespace ContreJour.Gameplay;
-
-public class GreenPlasticineBorder(List<Vector2> initialPolygon) : BlackPlasticineBorder(initialPolygon)
+namespace ContreJour.Gameplay
 {
-    public override Color CenterColor()
+    public class GreenPlasticineBorder(List<Vector2> initialPolygon) : BlackPlasticineBorder(initialPolygon)
     {
-        return ContreJourConstants.GreenLightColor;
+        public override Color CenterColor()
+        {
+            return ContreJourConstants.GreenLightColor;
+        }
     }
 }

@@ -2,34 +2,35 @@ using System.Collections.Generic;
 
 using Mokus2D.Data;
 
-namespace Mokus2D.Visual.Text.LabelData;
-
-public class LabelLine : ICleanable
+namespace Mokus2D.Visual.Text.LabelData
 {
-    private static readonly Pool<LabelLine> Pool = new(() => new LabelLine());
-
-    public List<Glyph> Glyphs { get; } = [];
-
-    public static int ObjectsInPool => Pool.ObjectsInPool;
-
-    public float Width { get; internal set; }
-
-    public static LabelLine New()
+    public class LabelLine : ICleanable
     {
-        return Pool.New();
-    }
+        private static readonly Pool<LabelLine> Pool = new(() => new LabelLine());
 
-    public static void Free(LabelLine line)
-    {
-        Pool.Free(line);
-    }
+        public List<Glyph> Glyphs { get; } = [];
 
-    private LabelLine()
-    {
-    }
+        public static int ObjectsInPool => Pool.ObjectsInPool;
 
-    public void Clean()
-    {
-        Glyphs.Clear();
+        public float Width { get; internal set; }
+
+        public static LabelLine New()
+        {
+            return Pool.New();
+        }
+
+        public static void Free(LabelLine line)
+        {
+            Pool.Free(line);
+        }
+
+        private LabelLine()
+        {
+        }
+
+        public void Clean()
+        {
+            Glyphs.Clear();
+        }
     }
 }

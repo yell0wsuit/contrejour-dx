@@ -1,31 +1,32 @@
 using Mokus2D.Interfaces;
 using Mokus2D.Visual;
 
-namespace Mokus2D.Behaviour;
-
-public abstract class NodeController<T> : INodeController, IUpdatable where T : Node
+namespace Mokus2D.Behaviour
 {
-    protected T Node { get; }
-
-    protected NodeController(T node)
+    public abstract class NodeController<T> : INodeController, IUpdatable where T : Node
     {
-        Node = node;
-        node.Controller = this;
-    }
+        protected T Node { get; }
 
-    public virtual void Update(float time)
-    {
-    }
+        protected NodeController(T node)
+        {
+            Node = node;
+            node.Controller = this;
+        }
 
-    public virtual void OnRemovedFromStage()
-    {
-    }
+        public virtual void Update(float time)
+        {
+        }
 
-    public virtual void OnAddedToStage()
-    {
-    }
+        public virtual void OnRemovedFromStage()
+        {
+        }
 
-    public virtual void FirstUpdate()
-    {
+        public virtual void OnAddedToStage()
+        {
+        }
+
+        public virtual void FirstUpdate()
+        {
+        }
     }
 }

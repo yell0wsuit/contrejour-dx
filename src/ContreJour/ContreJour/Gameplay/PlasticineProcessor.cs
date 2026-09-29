@@ -1,11 +1,12 @@
 using Mokus2D.Util;
 
-namespace ContreJour.Gameplay;
-
-public class PlasticineProcessor(LevelBuilderBase builder) : TypeProcessorBase("plasticine", builder)
+namespace ContreJour.Gameplay
 {
-    public override object ProcessItem(Hashtable item)
+    public class PlasticineProcessor(LevelBuilderBase builder) : TypeProcessorBase("plasticine", builder)
     {
-        return item.GetArrayList("points").ToVectorList();
+        public override object ProcessItem(Hashtable item)
+        {
+            return item.GetArrayList("points").ToVectorList();
+        }
     }
 }

@@ -4,29 +4,30 @@ using Mokus2D.Data;
 using Mokus2D.Interfaces;
 using Mokus2D.Visual;
 
-namespace ContreJour.Clips.loading;
-
-[GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
-public class McChillingoLogoStart : MovieClip, IFreeable, IId
+namespace ContreJour.Clips.loading
 {
-    public const string ID = "loading/McChillingoLogoStart";
-
-    public string Id => "loading/McChillingoLogoStart";
-
-    public static McChillingoLogoStart New()
+    [GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
+    public class McChillingoLogoStart : MovieClip, IFreeable, IId
     {
-        McChillingoLogoStart mcChillingoLogoStart = StaticPool.New<McChillingoLogoStart>();
-        mcChillingoLogoStart.RefreshProperties();
-        return mcChillingoLogoStart;
-    }
+        public const string ID = "loading/McChillingoLogoStart";
 
-    public McChillingoLogoStart()
-        : base("loading/McChillingoLogoStart")
-    {
-    }
+        public string Id => "loading/McChillingoLogoStart";
 
-    public void Free()
-    {
-        StaticPool.Free<McChillingoLogoStart>(this);
+        public static McChillingoLogoStart New()
+        {
+            McChillingoLogoStart mcChillingoLogoStart = StaticPool.New<McChillingoLogoStart>();
+            mcChillingoLogoStart.RefreshProperties();
+            return mcChillingoLogoStart;
+        }
+
+        public McChillingoLogoStart()
+            : base("loading/McChillingoLogoStart")
+        {
+        }
+
+        public void Free()
+        {
+            StaticPool.Free<McChillingoLogoStart>(this);
+        }
     }
 }

@@ -2,23 +2,24 @@ using Microsoft.Xna.Framework;
 
 using Mokus2D.Visual;
 
-namespace Mokus2D.Effects.OnOff;
-
-public class ScaleMultEffect(Node target, float scaleMult, float seconds) : ScaleEffect(target, seconds, target.ScaleVec * scaleMult, target.ScaleVec)
+namespace Mokus2D.Effects.OnOff
 {
-    public float ScaleMult
+    public class ScaleMultEffect(Node target, float scaleMult, float seconds) : ScaleEffect(target, seconds, target.ScaleVec * scaleMult, target.ScaleVec)
     {
-        get;
-        set
+        public float ScaleMult
         {
-            field = value;
-            ResetOnValue(OffValue * value);
-        }
-    } = scaleMult;
+            get;
+            set
+            {
+                field = value;
+                ResetOnValue(OffValue * value);
+            }
+        } = scaleMult;
 
-    public override void ResetOffValue(Vector2 value)
-    {
-        base.ResetOffValue(value);
-        ResetOnValue(OffValue * ScaleMult);
+        public override void ResetOffValue(Vector2 value)
+        {
+            base.ResetOffValue(value);
+            ResetOnValue(OffValue * ScaleMult);
+        }
     }
 }

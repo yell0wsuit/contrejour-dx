@@ -6,28 +6,29 @@ using ContreJourMono.ContreJour.Game.Eyes;
 
 using Microsoft.Xna.Framework;
 
-namespace ContreJour.Gameplay;
-
-public class PlanetSnotEye : PlanetEye
+namespace ContreJour.Gameplay
 {
-    protected override EyeAnimation[] Animations => SnotAnimations;
-
-    protected override float ViewRadius => 7f;
-
-    public PlanetSnotEye(ContreJourGame game, bool visible, Vector2 position)
-        : base(game, visible, position)
+    public class PlanetSnotEye : PlanetEye
     {
-        UpdateEnabled = true;
-    }
+        protected override EyeAnimation[] Animations => SnotAnimations;
 
-    protected override void CreateDefaultView()
-    {
-        Background = new McEyeMonster();
-        EyeBallSprite = new McEyeBallMonster();
-    }
+        protected override float ViewRadius => 7f;
 
-    protected override float MaxAngle()
-    {
-        return (float)Math.PI;
+        public PlanetSnotEye(ContreJourGame game, bool visible, Vector2 position)
+            : base(game, visible, position)
+        {
+            UpdateEnabled = true;
+        }
+
+        protected override void CreateDefaultView()
+        {
+            Background = new McEyeMonster();
+            EyeBallSprite = new McEyeBallMonster();
+        }
+
+        protected override float MaxAngle()
+        {
+            return (float)Math.PI;
+        }
     }
 }

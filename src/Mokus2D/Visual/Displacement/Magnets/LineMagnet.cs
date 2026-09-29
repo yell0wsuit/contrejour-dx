@@ -5,92 +5,93 @@ using Microsoft.Xna.Framework;
 using Mokus2D.Util.Extensions;
 using Mokus2D.Util.MathUtils;
 
-namespace Mokus2D.Visual.Displacement.Magnets;
-
-public class LineMagnet : GridMagnetBase
+namespace Mokus2D.Visual.Displacement.Magnets
 {
-    private Vector2 _start;
-
-    private Vector2 _end;
-
-    public Vector2 Start
+    public class LineMagnet : GridMagnetBase
     {
-        get => _start;
-        set
+        private Vector2 _start;
+
+        private Vector2 _end;
+
+        public Vector2 Start
         {
-            if (_start != value)
+            get => _start;
+            set
             {
-                _start = value;
-                RefreshBounds();
+                if (_start != value)
+                {
+                    _start = value;
+                    RefreshBounds();
+                }
             }
         }
-    }
 
-    public Vector2 End
-    {
-        get => _end;
-        set
+        public Vector2 End
         {
-            if (_end != value)
+            get => _end;
+            set
             {
-                _end = value;
-                RefreshBounds();
+                if (_end != value)
+                {
+                    _end = value;
+                    RefreshBounds();
+                }
             }
         }
-    }
 
-    public float MaxDistance
-    {
-        get;
-        set
+        public float MaxDistance
         {
-            if (field != value)
+            get;
+            set
             {
-                field = value;
-                RefreshBounds();
+                if (field != value)
+                {
+                    field = value;
+                    RefreshBounds();
+                }
             }
         }
-    }
 
-    public LineMagnet(Vector2 start, Vector2 end, float maxDistance, float power)
-        : base(power)
-    {
-        Start = start;
-        End = end;
-        MaxDistance = maxDistance;
-    }
+        public LineMagnet(Vector2 start, Vector2 end, float maxDistance, float power)
+            : base(power)
+        {
+            Start = start;
+            End = end;
+            MaxDistance = maxDistance;
+        }
 
-    public void SetHeight(float value)
-    {
-        Start = new Vector2(0f, (0f - value) / 2f);
-        End = new Vector2(0f, value / 2f);
-    }
+        public void SetHeight(float value)
+        {
+            Start = new Vector2(0f, (0f - value) / 2f);
+            End = new Vector2(0f, value / 2f);
+        }
 
-    public void SetWidth(float value)
-    {
-        Start = new Vector2((0f - value) / 2f, 0f);
-        End = new Vector2(value / 2f, 0f);
-    }
+        public void SetWidth(float value)
+        {
+            Start = new Vector2((0f - value) / 2f, 0f);
+            End = new Vector2(value / 2f, 0f);
+        }
 
-    public override Vector2 GetForce(Vector2 relativePosition)
-    {
-        Vector2 closestPoint = relativePosition.GetClosestPoint(Start, End);
-        float num = closestPoint.DistanceTo(relativePosition);
-        return num >= MaxDistance
-            ? Vector2.Zero
-            : relativePosition == closestPoint
-            ? Vector2.Zero
-            : (relativePosition - closestPoint).Normalize((MaxDistance - num) / MaxDistance * Power);
-    }
+        public override Vector2 GetForce(Vector2 relativePosition)
+        {
+            Vector2 closestPoint = relativePosition.GetClosestPoint(Start, End);
+            float num = closestPoint.DistanceTo(relativePosition);
+            return num >= MaxDistance
+                ? Vector2.Zero
+                : relativePosition == closestPoint
+                ? Vector2.Zero
+                : (relativePosition - closestPoint).Normalize((MaxDistance - num) / MaxDistance * Power);
+        }
 
-    private void RefreshBounds()
-    {
-        Vector2 value = new(Math.Min(Start.X, End.X), Math.Min(Start.Y, End.Y));
-        Vector2 value2 = (End - Start).Abs();
-        value -= new Vector2(MaxDistance);
-        value2 += new Vector2(MaxDistance) * 2f;
-        value2 = VectorExtensions.Ceiling(value2);
-        value = VectorExtensions.Floor(value);
-        Bounds = new Rectangle((int)value.X, (int)value.Y, (int)value2.X, (int)value2.Y);
+        private void RefreshBounds()
+        {
+            Vector2 value = new(Math.Min(Start.X, End.X), Math.Min(Start.Y, End.Y));
+            Vector2 value2 = (End - Start).Abs();
+            value -= new Vector2(MaxDistance);
+            value2 += new Vector2(MaxDistance) * 2f;
+            value2 = VectorExtensions.Ceiling(value2);
+            value = VectorExtensions.Floor(value);
+            Bounds = new Rectangle((int)value.X, (int)value.Y, (int)value2.X, (int)value2.Y);
+        }
     }
 }

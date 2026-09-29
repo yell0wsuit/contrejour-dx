@@ -1,20 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace ContreJour.Gameplay;
-
-public static class IReqHelper
+namespace ContreJour.Gameplay
 {
-    public static List<object> Filter(IList objects, IReq req)
+    public static class IReqHelper
     {
-        List<object> list = [];
-        foreach (object @object in objects)
+        public static List<object> Filter(IList objects, IReq req)
         {
-            if (req.Meet(@object))
+            List<object> list = [];
+            foreach (object @object in objects)
             {
-                list.Add(@object);
+                if (req.Meet(@object))
+                {
+                    list.Add(@object);
+                }
             }
+            return list;
         }
-        return list;
     }
 }

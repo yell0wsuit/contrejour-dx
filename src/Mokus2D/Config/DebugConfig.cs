@@ -1,6 +1,7 @@
-namespace Mokus2D.Config;
-
-public class DebugConfig
+namespace Mokus2D.Config
 {
-    public bool DebugGarbageGeneration { get; set; }
+    public class DebugConfig
+    {
+        public bool DebugGarbageGeneration { get; set; }
+    }
 }

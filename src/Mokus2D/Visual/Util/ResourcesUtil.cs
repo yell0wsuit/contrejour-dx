@@ -1,9 +1,10 @@
-namespace Mokus2D.Visual.Util;
-
-public static class ResourcesUtil
+namespace Mokus2D.Visual.Util
 {
-    public static string GetShortObjectName(string objectId)
+    public static class ResourcesUtil
     {
-        return objectId[(objectId.IndexOf('/') + 1)..];
+        public static string GetShortObjectName(string objectId)
+        {
+            return objectId[(objectId.IndexOf('/') + 1)..];
+        }
     }
 }

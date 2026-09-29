@@ -2,17 +2,18 @@ using Microsoft.Xna.Framework;
 
 using Mokus2D.Visual;
 
-namespace Mokus2D.Util.Extensions;
-
-public static class ISizeNodeExtensions
+namespace Mokus2D.Util.Extensions
 {
-    public static Vector2 ScaledSize(this ISizeNode node)
+    public static class ISizeNodeExtensions
     {
-        return node.Size * ((Node)node).ScaleVec;
-    }
+        public static Vector2 ScaledSize(this ISizeNode node)
+        {
+            return node.Size * ((Node)node).ScaleVec;
+        }
 
-    public static void SetScaledSize(this ISizeNode node, Vector2 value)
-    {
-        ((Node)node).ScaleVec = value / node.Size;
+        public static void SetScaledSize(this ISizeNode node, Vector2 value)
+        {
+            ((Node)node).ScaleVec = value / node.Size;
+        }
     }
 }

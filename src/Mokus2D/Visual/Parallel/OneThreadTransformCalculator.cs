@@ -1,36 +1,37 @@
 using Mokus2D.Visual.Util;
 
-namespace Mokus2D.Visual.Parallel;
-
-public class OneThreadTransformCalculator(RootNode root) : TransformationCalculatorBase(root)
+namespace Mokus2D.Visual.Parallel
 {
-    public override void DoTransformations()
+    public class OneThreadTransformCalculator(RootNode root) : TransformationCalculatorBase(root)
     {
-        if (!TransformationUtil.ShouldRefreshNode(Root))
+        public override void DoTransformations()
         {
-            return;
+            if (!TransformationUtil.ShouldRefreshNode(Root))
+            {
+                return;
+            }
+            Root.RefreshVisualState(Root.RootState);
+            foreach (Node child in Root.Children)
+            {
+                RefreshTransformations(child);
+            }
         }
-        Root.RefreshVisualState(Root.RootState);
-        foreach (Node child in Root.Children)
-        {
-            RefreshTransformations(child);
-        }
-    }
 
-    private static void RefreshTransformations(Node node)
-    {
-        if (!TransformationUtil.ShouldRefreshNode(node))
+        private static void RefreshTransformations(Node node)
         {
-            return;
-        }
-        node.RefreshVisualState(node.Parent.CompositeState);
-        if (!node.UpdateChildrenTransformations)
-        {
-            return;
-        }
-        foreach (Node child in node.Children)
-        {
-            RefreshTransformations(child);
+            if (!TransformationUtil.ShouldRefreshNode(node))
+            {
+                return;
+            }
+            node.RefreshVisualState(node.Parent.CompositeState);
+            if (!node.UpdateChildrenTransformations)
+            {
+                return;
+            }
+            foreach (Node child in node.Children)
+            {
+                RefreshTransformations(child);
+            }
         }
     }
 }

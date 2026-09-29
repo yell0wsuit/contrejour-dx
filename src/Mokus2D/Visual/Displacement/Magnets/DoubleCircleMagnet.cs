@@ -4,39 +4,40 @@ using Microsoft.Xna.Framework;
 
 using Mokus2D.Util.Extensions;
 
-namespace Mokus2D.Visual.Displacement.Magnets;
-
-public class DoubleCircleMagnet : CircleMagnet
+namespace Mokus2D.Visual.Displacement.Magnets
 {
-    public Vector2 ExcludeCircleCenter { get; set; }
-
-    public float ExcludeRadius { get; set; }
-
-    public DoubleCircleMagnet(float radius, float excludeRadius, float power)
-        : base(radius, power)
+    public class DoubleCircleMagnet : CircleMagnet
     {
-        ExcludeRadius = excludeRadius;
-    }
+        public Vector2 ExcludeCircleCenter { get; set; }
 
-    public DoubleCircleMagnet(float radius, float excludeRadius)
-        : base(radius)
-    {
-        ExcludeRadius = excludeRadius;
-    }
+        public float ExcludeRadius { get; set; }
 
-    public override Vector2 GetForce(Vector2 relativePosition)
-    {
-        float num = (relativePosition - ExcludeCircleCenter).Length();
-        if (num < ExcludeRadius)
+        public DoubleCircleMagnet(float radius, float excludeRadius, float power)
+            : base(radius, power)
         {
-            return Vector2.Zero;
+            ExcludeRadius = excludeRadius;
         }
-        float num2 = relativePosition.Length();
-        if (num2 > Radius)
+
+        public DoubleCircleMagnet(float radius, float excludeRadius)
+            : base(radius)
         {
-            return Vector2.Zero;
+            ExcludeRadius = excludeRadius;
         }
-        float num3 = Math.Min(num - ExcludeRadius, Radius - num2);
-        return relativePosition.Normalize(num3 / Radius * Power);
+
+        public override Vector2 GetForce(Vector2 relativePosition)
+        {
+            float num = (relativePosition - ExcludeCircleCenter).Length();
+            if (num < ExcludeRadius)
+            {
+                return Vector2.Zero;
+            }
+            float num2 = relativePosition.Length();
+            if (num2 > Radius)
+            {
+                return Vector2.Zero;
+            }
+            float num3 = Math.Min(num - ExcludeRadius, Radius - num2);
+            return relativePosition.Normalize(num3 / Radius * Power);
+        }
     }
 }

@@ -1,25 +1,26 @@
 using FarseerPhysics.Dynamics;
 
-namespace ContreJour.Gameplay;
-
-public class PhysicsUpdater : Updatable
+namespace ContreJour.Gameplay
 {
-    public World World { get; }
-
-    public PhysicsUpdater(World world)
+    public class PhysicsUpdater : Updatable
     {
-        World = world;
-        // The listener subscribes itself to the world's contact events.
-        _ = new ContactListener(World);
-    }
+        public World World { get; }
 
-    public override void Update(float time)
-    {
-        foreach (Body body in World.BodyList)
+        public PhysicsUpdater(World world)
         {
-            if (body.UserData is BodyClip bodyClip)
+            World = world;
+            // The listener subscribes itself to the world's contact events.
+            _ = new ContactListener(World);
+        }
+
+        public override void Update(float time)
+        {
+            foreach (Body body in World.BodyList)
             {
-                bodyClip.Update(time);
+                if (body.UserData is BodyClip bodyClip)
+                {
+                    bodyClip.Update(time);
+                }
             }
         }
     }

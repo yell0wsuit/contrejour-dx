@@ -1,6 +1,7 @@
-namespace ContreJour.Gameplay;
-
-public interface IReq
+namespace ContreJour.Gameplay
 {
-    bool Meet(object objectP);
+    public interface IReq
+    {
+        bool Meet(object objectP);
+    }
 }

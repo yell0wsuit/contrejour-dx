@@ -1,8 +1,9 @@
-namespace FarseerPhysics.Collision;
-
-public struct TOIOutput
+namespace FarseerPhysics.Collision
 {
-    public TOIOutputState State;
+    public struct TOIOutput
+    {
+        public TOIOutputState State;
 
-    public float T;
+        public float T;
+    }
 }

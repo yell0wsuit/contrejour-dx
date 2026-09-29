@@ -3,42 +3,43 @@ using System;
 using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual;
 
-namespace ContreJour.Gameplay;
-
-public class RotatableBodyClip : BodyClip
+namespace ContreJour.Gameplay
 {
-    private readonly float scaleDiff;
-
-    private readonly float scaleStep;
-
-    private float scaleProgress;
-
-    private readonly bool destroying;
-
-    private readonly int scaleSign;
-
-    public RotatableBodyClip(LevelBuilderBase builder, object body, Node clip, Hashtable config)
-        : base(builder, body, clip, config)
+    public class RotatableBodyClip : BodyClip
     {
-        scaleDiff = Maths.Random(0.1f, 0.25f);
-        scaleStep = Maths.Random(0.02f, 0.05f);
-        scaleProgress = Maths.Random(0f, (float)Math.PI * 2f);
-        // The value is unused, but the draw keeps the shared random sequence unchanged.
-        _ = Maths.Random(4f, 8f);
-        destroying = false;
-        scaleSign = 1;
-        Clip.RotationDegrees = Maths.Random(360);
-    }
+        private readonly float scaleDiff;
 
-    public override void Update(float time)
-    {
-        base.Update(time);
-        if (!destroying)
+        private readonly float scaleStep;
+
+        private float scaleProgress;
+
+        private readonly bool destroying;
+
+        private readonly int scaleSign;
+
+        public RotatableBodyClip(LevelBuilderBase builder, object body, Node clip, Hashtable config)
+            : base(builder, body, clip, config)
         {
-            scaleProgress += scaleStep;
-            Clip.ScaleX = 1f + (Maths.Cos(scaleProgress) * scaleDiff);
-            Clip.ScaleX = scaleSign * Clip.ScaleY;
+            scaleDiff = Maths.Random(0.1f, 0.25f);
+            scaleStep = Maths.Random(0.02f, 0.05f);
+            scaleProgress = Maths.Random(0f, (float)Math.PI * 2f);
+            // The value is unused, but the draw keeps the shared random sequence unchanged.
+            _ = Maths.Random(4f, 8f);
+            destroying = false;
+            scaleSign = 1;
+            Clip.RotationDegrees = Maths.Random(360);
         }
-    }
 
+        public override void Update(float time)
+        {
+            base.Update(time);
+            if (!destroying)
+            {
+                scaleProgress += scaleStep;
+                Clip.ScaleX = 1f + (Maths.Cos(scaleProgress) * scaleDiff);
+                Clip.ScaleX = scaleSign * Clip.ScaleY;
+            }
+        }
+
+    }
 }

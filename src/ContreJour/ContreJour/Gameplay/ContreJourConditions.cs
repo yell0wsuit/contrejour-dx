@@ -1,9 +1,10 @@
-namespace ContreJour.Gameplay;
-
-public static class ContreJourConditions
+namespace ContreJour.Gameplay
 {
-    public static T Trial<T>(T trialValue, T value)
+    public static class ContreJourConditions
     {
-        return !Constants.IsTrial ? value : trialValue;
+        public static T Trial<T>(T trialValue, T value)
+        {
+            return !Constants.IsTrial ? value : trialValue;
+        }
     }
 }

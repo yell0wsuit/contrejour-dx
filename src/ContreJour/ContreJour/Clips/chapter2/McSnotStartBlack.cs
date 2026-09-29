@@ -4,29 +4,30 @@ using Mokus2D.Data;
 using Mokus2D.Interfaces;
 using Mokus2D.Visual;
 
-namespace ContreJour.Clips.chapter2;
-
-[GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
-public class McSnotStartBlack : Sprite, IFreeable, IId
+namespace ContreJour.Clips.chapter2
 {
-    public const string ID = "chapter2/McSnotStartBlack";
-
-    public string Id => "chapter2/McSnotStartBlack";
-
-    public static McSnotStartBlack New()
+    [GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
+    public class McSnotStartBlack : Sprite, IFreeable, IId
     {
-        McSnotStartBlack mcSnotStartBlack = StaticPool.New<McSnotStartBlack>();
-        mcSnotStartBlack.RefreshProperties();
-        return mcSnotStartBlack;
-    }
+        public const string ID = "chapter2/McSnotStartBlack";
 
-    public McSnotStartBlack()
-        : base("chapter2/McSnotStartBlack")
-    {
-    }
+        public string Id => "chapter2/McSnotStartBlack";
 
-    public void Free()
-    {
-        StaticPool.Free<McSnotStartBlack>(this);
+        public static McSnotStartBlack New()
+        {
+            McSnotStartBlack mcSnotStartBlack = StaticPool.New<McSnotStartBlack>();
+            mcSnotStartBlack.RefreshProperties();
+            return mcSnotStartBlack;
+        }
+
+        public McSnotStartBlack()
+            : base("chapter2/McSnotStartBlack")
+        {
+        }
+
+        public void Free()
+        {
+            StaticPool.Free<McSnotStartBlack>(this);
+        }
     }
 }

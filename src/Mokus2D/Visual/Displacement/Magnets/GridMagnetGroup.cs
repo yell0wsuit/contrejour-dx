@@ -2,45 +2,46 @@ using System.Collections.Generic;
 
 using Microsoft.Xna.Framework;
 
-namespace Mokus2D.Visual.Displacement.Magnets;
-
-public class GridMagnetGroup : GridMagnetBase
+namespace Mokus2D.Visual.Displacement.Magnets
 {
-    public List<GridMagnetBase> Magnets { get; } = [];
-
-    public GridMagnetGroup(List<GridMagnetBase> magnets)
+    public class GridMagnetGroup : GridMagnetBase
     {
-        Magnets = magnets;
-        CalculateBounds();
-    }
+        public List<GridMagnetBase> Magnets { get; } = [];
 
-    public GridMagnetGroup(params GridMagnetBase[] magnets)
-    {
-        Magnets = [.. magnets];
-        CalculateBounds();
-    }
-
-    private void CalculateBounds()
-    {
-        Rectangle rectangle = Rectangle.Empty;
-        foreach (GridMagnetBase magnet in Magnets)
+        public GridMagnetGroup(List<GridMagnetBase> magnets)
         {
-            Rectangle bounds = magnet.Bounds;
-            bounds.Offset((int)magnet.Position.X, (int)magnet.Position.Y);
-            rectangle = Rectangle.Union(rectangle, bounds);
+            Magnets = magnets;
+            CalculateBounds();
         }
-        Bounds = rectangle;
-    }
 
-    public override Vector2 GetForce(Vector2 relativePosition)
-    {
-        Vector2 zero = Vector2.Zero;
-        foreach (GridMagnetBase magnet in Magnets)
+        public GridMagnetGroup(params GridMagnetBase[] magnets)
         {
-            Vector2 relativePosition2 = relativePosition - magnet.Position;
-            Vector2 force = magnet.GetForce(relativePosition2);
-            zero += force;
+            Magnets = [.. magnets];
+            CalculateBounds();
         }
-        return zero * Power;
+
+        private void CalculateBounds()
+        {
+            Rectangle rectangle = Rectangle.Empty;
+            foreach (GridMagnetBase magnet in Magnets)
+            {
+                Rectangle bounds = magnet.Bounds;
+                bounds.Offset((int)magnet.Position.X, (int)magnet.Position.Y);
+                rectangle = Rectangle.Union(rectangle, bounds);
+            }
+            Bounds = rectangle;
+        }
+
+        public override Vector2 GetForce(Vector2 relativePosition)
+        {
+            Vector2 zero = Vector2.Zero;
+            foreach (GridMagnetBase magnet in Magnets)
+            {
+                Vector2 relativePosition2 = relativePosition - magnet.Position;
+                Vector2 force = magnet.GetForce(relativePosition2);
+                zero += force;
+            }
+            return zero * Power;
+        }
     }
 }

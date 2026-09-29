@@ -1,6 +1,7 @@
-namespace Mokus2D.Interfaces;
-
-public interface IId
+namespace Mokus2D.Interfaces
 {
-    string Id { get; }
+    public interface IId
+    {
+        string Id { get; }
+    }
 }

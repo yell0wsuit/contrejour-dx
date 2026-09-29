@@ -4,30 +4,31 @@ using Mokus2D.Interfaces;
 using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual;
 
-namespace ContreJour.Gameplay;
-
-public abstract class CosPropertyChanger : IUpdatable
+namespace ContreJour.Gameplay
 {
-    private readonly CosChanger changer;
-
-    protected Node Target { get; set; }
-
-    public virtual float Value => changer.Value;
-
-    public CosPropertyChanger(Node target, float minValue, float maxValue, float step)
+    public abstract class CosPropertyChanger : IUpdatable
     {
-        Target = target;
-        changer = new CosChanger(minValue, maxValue, step)
+        private readonly CosChanger changer;
+
+        protected Node Target { get; set; }
+
+        public virtual float Value => changer.Value;
+
+        public CosPropertyChanger(Node target, float minValue, float maxValue, float step)
         {
-            Progress = Maths.Random(0f, (float)Math.PI * 2f)
-        };
-    }
+            Target = target;
+            changer = new CosChanger(minValue, maxValue, step)
+            {
+                Progress = Maths.Random(0f, (float)Math.PI * 2f)
+            };
+        }
 
-    public void Update(float time)
-    {
-        changer.Update(time);
-        SetPropertyValue(Value);
-    }
+        public void Update(float time)
+        {
+            changer.Update(time);
+            SetPropertyValue(Value);
+        }
 
-    protected abstract void SetPropertyValue(float value);
+        protected abstract void SetPropertyValue(float value);
+    }
 }

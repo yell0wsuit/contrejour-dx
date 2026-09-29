@@ -2,12 +2,13 @@ using System;
 
 using Microsoft.Xna.Framework.Input;
 
-namespace Mokus2D.Platforms.Input;
-
-public static class KeyboardUtil
+namespace Mokus2D.Platforms.Input
 {
-    public static char? GetCharsFromKeys(Keys keys, bool isUpper)
+    public static class KeyboardUtil
     {
-        throw new NotImplementedException();
+        public static char? GetCharsFromKeys(Keys keys, bool isUpper)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

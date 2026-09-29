@@ -1,26 +1,27 @@
 using System;
 using System.IO;
 
-namespace Mokus2D.FileSystem;
-
-public class FileLoader : IFileLoader
+namespace Mokus2D.FileSystem
 {
-    public Stream OpenFile(string path)
+    public class FileLoader : IFileLoader
     {
-        Stream stream = OpenStream(path) ?? throw new FileNotFoundException(path);
-        return stream;
-    }
-
-    private static FileStream OpenStream(string name)
-    {
-        try
+        public Stream OpenFile(string path)
         {
-            string path = Path.Combine(AppContext.BaseDirectory, name.Replace('\\', '/'));
-            return File.OpenRead(path);
+            Stream stream = OpenStream(path) ?? throw new FileNotFoundException(path);
+            return stream;
         }
-        catch (Exception)
+
+        private static FileStream OpenStream(string name)
         {
-            return null;
+            try
+            {
+                string path = Path.Combine(AppContext.BaseDirectory, name.Replace('\\', '/'));
+                return File.OpenRead(path);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
     }
 }

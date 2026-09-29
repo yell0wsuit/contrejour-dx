@@ -1,24 +1,25 @@
-namespace FarseerPhysics.Dynamics.Joints;
-
-public enum JointType
+namespace FarseerPhysics.Dynamics.Joints
 {
-    Unknown,
-    Revolute,
-    Prismatic,
-    Distance,
-    Pulley,
-    Gear,
-    Wheel,
-    Weld,
-    Friction,
-    Rope,
-    Motor,
-    Angle,
-    FixedMouse,
-    FixedRevolute,
-    FixedDistance,
-    FixedLine,
-    FixedPrismatic,
-    FixedAngle,
-    FixedFriction
+    public enum JointType
+    {
+        Unknown,
+        Revolute,
+        Prismatic,
+        Distance,
+        Pulley,
+        Gear,
+        Wheel,
+        Weld,
+        Friction,
+        Rope,
+        Motor,
+        Angle,
+        FixedMouse,
+        FixedRevolute,
+        FixedDistance,
+        FixedLine,
+        FixedPrismatic,
+        FixedAngle,
+        FixedFriction
+    }
 }

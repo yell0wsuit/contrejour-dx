@@ -2,31 +2,32 @@ using System.Linq;
 
 using FarseerPhysics.Dynamics;
 
-namespace ContreJour.Gameplay;
-
-public class BodyProcessor : ShapeProcessor
+namespace ContreJour.Gameplay
 {
-    private readonly Hashtable processors;
-
-    public BodyProcessor(LevelBuilderBase builder)
-        : base("body", builder)
+    public class BodyProcessor : ShapeProcessor
     {
-        processors = new Hashtable
-        {
-            ["circle"] = new CircleProcessor(builder),
-            ["polygon"] = new PolygonProcessor(builder)
-        };
-    }
+        private readonly Hashtable processors;
 
-    public override void AddShapesItem(Body body, Hashtable item)
-    {
-        foreach (Hashtable array in item.GetArrayList("shapes").Cast<Hashtable>())
+        public BodyProcessor(LevelBuilderBase builder)
+            : base("body", builder)
         {
-            string key = array.GetString("config/type");
-            Fixture val = AddShapeItemShape(body, item, ((ShapeProcessor)processors.GetObject(key)).CreateShape(array));
-            if (array.Exists("fixtureConfig"))
+            processors = new Hashtable
             {
-                val.UserData = array.GetHashtable("fixtureConfig");
+                ["circle"] = new CircleProcessor(builder),
+                ["polygon"] = new PolygonProcessor(builder)
+            };
+        }
+
+        public override void AddShapesItem(Body body, Hashtable item)
+        {
+            foreach (Hashtable array in item.GetArrayList("shapes").Cast<Hashtable>())
+            {
+                string key = array.GetString("config/type");
+                Fixture val = AddShapeItemShape(body, item, ((ShapeProcessor)processors.GetObject(key)).CreateShape(array));
+                if (array.Exists("fixtureConfig"))
+                {
+                    val.UserData = array.GetHashtable("fixtureConfig");
+                }
             }
         }
     }

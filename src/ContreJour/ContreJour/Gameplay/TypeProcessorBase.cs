@@ -1,18 +1,19 @@
-namespace ContreJour.Gameplay;
-
-public class TypeProcessorBase(string type, LevelBuilderBase builder)
+namespace ContreJour.Gameplay
 {
-    private readonly string type = type;
-
-    protected LevelBuilderBase Builder { get; set; } = builder;
-
-    public virtual bool Match(Hashtable item)
+    public class TypeProcessorBase(string type, LevelBuilderBase builder)
     {
-        return item.GetString("config/type") == type;
-    }
+        private readonly string type = type;
 
-    public virtual object ProcessItem(Hashtable item)
-    {
-        return null;
+        protected LevelBuilderBase Builder { get; set; } = builder;
+
+        public virtual bool Match(Hashtable item)
+        {
+            return item.GetString("config/type") == type;
+        }
+
+        public virtual object ProcessItem(Hashtable item)
+        {
+            return null;
+        }
     }
 }

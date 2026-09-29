@@ -7,52 +7,53 @@ using Mokus2D.Effects.Tweening;
 using Mokus2D.Util.Extensions;
 using Mokus2D.Visual;
 
-namespace Mokus2D.Effects.Actions.Particles;
-
-public class GridExplosion : GridAction
+namespace Mokus2D.Effects.Actions.Particles
 {
-    private static readonly Pool<GridExplosion> pool = new(() => new GridExplosion());
-
-    private float minRadius;
-
-    private float maxRadius;
-
-    private Vector2 center;
-
-    private float maxGridOffset;
-
-    public static GridExplosion New(float minRadius, float maxRadius)
+    public class GridExplosion : GridAction
     {
-        return pool.New().Initialize(minRadius, maxRadius);
-    }
+        private static readonly Pool<GridExplosion> pool = new(() => new GridExplosion());
 
-    protected GridExplosion Initialize(float minRadius, float maxRadius)
-    {
-        _ = Initialize();
-        this.minRadius = minRadius;
-        this.maxRadius = maxRadius;
-        return this;
-    }
+        private float minRadius;
 
-    internal override void Start(float time)
-    {
-        center = Grid.GridSize / 2f;
-        maxGridOffset = center.Length();
-        base.Start(time);
-    }
+        private float maxRadius;
 
-    protected override ITween CreateParticleUpdater(Node particle, int x, int y)
-    {
-        Vector2 vector = new Vector2(x, y) - center;
-        if (vector != Vector2.Zero)
+        private Vector2 center;
+
+        private float maxGridOffset;
+
+        public static GridExplosion New(float minRadius, float maxRadius)
         {
-            float length = MathHelper.Lerp(minRadius, maxRadius, 1f - (vector.Length() / maxGridOffset));
-            _ = vector.Normalize(length);
+            return pool.New().Initialize(minRadius, maxRadius);
         }
-        else
+
+        protected GridExplosion Initialize(float minRadius, float maxRadius)
         {
-            _ = new Vector2(maxRadius, 0f);
+            _ = Initialize();
+            this.minRadius = minRadius;
+            this.maxRadius = maxRadius;
+            return this;
         }
-        throw new NotImplementedException();
+
+        internal override void Start(float time)
+        {
+            center = Grid.GridSize / 2f;
+            maxGridOffset = center.Length();
+            base.Start(time);
+        }
+
+        protected override ITween CreateParticleUpdater(Node particle, int x, int y)
+        {
+            Vector2 vector = new Vector2(x, y) - center;
+            if (vector != Vector2.Zero)
+            {
+                float length = MathHelper.Lerp(minRadius, maxRadius, 1f - (vector.Length() / maxGridOffset));
+                _ = vector.Normalize(length);
+            }
+            else
+            {
+                _ = new Vector2(maxRadius, 0f);
+            }
+            throw new NotImplementedException();
+        }
     }
 }

@@ -1,11 +1,12 @@
-namespace FarseerPhysics.Common.Decomposition;
-
-public enum TriangulationAlgorithm
+namespace FarseerPhysics.Common.Decomposition
 {
-    Earclip,
-    Bayazit,
-    Flipcode,
-    Seidel,
-    SeidelTrapezoids,
-    Delauny
+    public enum TriangulationAlgorithm
+    {
+        Earclip,
+        Bayazit,
+        Flipcode,
+        Seidel,
+        SeidelTrapezoids,
+        Delauny
+    }
 }

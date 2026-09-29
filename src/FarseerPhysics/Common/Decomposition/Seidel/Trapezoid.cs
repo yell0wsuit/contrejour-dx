@@ -1,109 +1,110 @@
 using System.Collections.Generic;
 
-namespace FarseerPhysics.Common.Decomposition.Seidel;
-
-internal sealed class Trapezoid(Point leftPoint, Point rightPoint, Edge top, Edge bottom)
+namespace FarseerPhysics.Common.Decomposition.Seidel
 {
-    public Edge Bottom = bottom;
-
-    public bool Inside = true;
-
-    public Point LeftPoint = leftPoint;
-
-    public Trapezoid LowerLeft;
-
-    public Trapezoid LowerRight;
-
-    public Point RightPoint = rightPoint;
-
-    public Sink Sink;
-
-    public Edge Top = top;
-
-    public Trapezoid UpperLeft;
-
-    public Trapezoid UpperRight;
-
-    public void UpdateLeft(Trapezoid ul, Trapezoid ll)
+    internal sealed class Trapezoid(Point leftPoint, Point rightPoint, Edge top, Edge bottom)
     {
-        UpperLeft = ul;
-        ul?.UpperRight = this;
-        LowerLeft = ll;
-        ll?.LowerRight = this;
-    }
+        public Edge Bottom = bottom;
 
-    public void UpdateRight(Trapezoid ur, Trapezoid lr)
-    {
-        UpperRight = ur;
-        ur?.UpperLeft = this;
-        LowerRight = lr;
-        lr?.LowerLeft = this;
-    }
+        public bool Inside = true;
 
-    public void UpdateLeftRight(Trapezoid ul, Trapezoid ll, Trapezoid ur, Trapezoid lr)
-    {
-        UpperLeft = ul;
-        ul?.UpperRight = this;
-        LowerLeft = ll;
-        ll?.LowerRight = this;
-        UpperRight = ur;
-        ur?.UpperLeft = this;
-        LowerRight = lr;
-        lr?.LowerLeft = this;
-    }
+        public Point LeftPoint = leftPoint;
 
-    public void TrimNeighbors()
-    {
-        if (Inside)
+        public Trapezoid LowerLeft;
+
+        public Trapezoid LowerRight;
+
+        public Point RightPoint = rightPoint;
+
+        public Sink Sink;
+
+        public Edge Top = top;
+
+        public Trapezoid UpperLeft;
+
+        public Trapezoid UpperRight;
+
+        public void UpdateLeft(Trapezoid ul, Trapezoid ll)
         {
-            Inside = false;
-            UpperLeft?.TrimNeighbors();
-            LowerLeft?.TrimNeighbors();
-            UpperRight?.TrimNeighbors();
-            LowerRight?.TrimNeighbors();
+            UpperLeft = ul;
+            ul?.UpperRight = this;
+            LowerLeft = ll;
+            ll?.LowerRight = this;
         }
-    }
 
-    public bool Contains(Point point)
-    {
-        return point.X > LeftPoint.X && point.X < RightPoint.X && Top.IsAbove(point) && Bottom.IsBelow(point);
-    }
-
-    public List<Point> GetVertices()
-    {
-        List<Point> list =
-        [
-            LineIntersect(Top, LeftPoint.X),
-            LineIntersect(Bottom, LeftPoint.X),
-            LineIntersect(Bottom, RightPoint.X),
-            LineIntersect(Top, RightPoint.X),
-        ];
-        return list;
-    }
-
-    private static Point LineIntersect(Edge edge, float x)
-    {
-        float y = (edge.Slope * x) + edge.B;
-        return new Point(x, y);
-    }
-
-    public void AddPoints()
-    {
-        if (LeftPoint != Bottom.P)
+        public void UpdateRight(Trapezoid ur, Trapezoid lr)
         {
-            Bottom.AddMpoint(LeftPoint);
+            UpperRight = ur;
+            ur?.UpperLeft = this;
+            LowerRight = lr;
+            lr?.LowerLeft = this;
         }
-        if (RightPoint != Bottom.Q)
+
+        public void UpdateLeftRight(Trapezoid ul, Trapezoid ll, Trapezoid ur, Trapezoid lr)
         {
-            Bottom.AddMpoint(RightPoint);
+            UpperLeft = ul;
+            ul?.UpperRight = this;
+            LowerLeft = ll;
+            ll?.LowerRight = this;
+            UpperRight = ur;
+            ur?.UpperLeft = this;
+            LowerRight = lr;
+            lr?.LowerLeft = this;
         }
-        if (LeftPoint != Top.P)
+
+        public void TrimNeighbors()
         {
-            Top.AddMpoint(LeftPoint);
+            if (Inside)
+            {
+                Inside = false;
+                UpperLeft?.TrimNeighbors();
+                LowerLeft?.TrimNeighbors();
+                UpperRight?.TrimNeighbors();
+                LowerRight?.TrimNeighbors();
+            }
         }
-        if (RightPoint != Top.Q)
+
+        public bool Contains(Point point)
         {
-            Top.AddMpoint(RightPoint);
+            return point.X > LeftPoint.X && point.X < RightPoint.X && Top.IsAbove(point) && Bottom.IsBelow(point);
+        }
+
+        public List<Point> GetVertices()
+        {
+            List<Point> list =
+            [
+                LineIntersect(Top, LeftPoint.X),
+                LineIntersect(Bottom, LeftPoint.X),
+                LineIntersect(Bottom, RightPoint.X),
+                LineIntersect(Top, RightPoint.X),
+            ];
+            return list;
+        }
+
+        private static Point LineIntersect(Edge edge, float x)
+        {
+            float y = (edge.Slope * x) + edge.B;
+            return new Point(x, y);
+        }
+
+        public void AddPoints()
+        {
+            if (LeftPoint != Bottom.P)
+            {
+                Bottom.AddMpoint(LeftPoint);
+            }
+            if (RightPoint != Bottom.Q)
+            {
+                Bottom.AddMpoint(RightPoint);
+            }
+            if (LeftPoint != Top.P)
+            {
+                Top.AddMpoint(LeftPoint);
+            }
+            if (RightPoint != Top.Q)
+            {
+                Top.AddMpoint(RightPoint);
+            }
         }
     }
 }

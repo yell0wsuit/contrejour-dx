@@ -1,52 +1,53 @@
 using Mokus2D.Data;
 using Mokus2D.Interfaces;
 
-namespace Mokus2D.Effects.Tweening.Repeating;
-
-public class RepeatForever : ITween, ICleanable, IUpdatable
+namespace Mokus2D.Effects.Tweening.Repeating
 {
-    private static readonly Pool<RepeatForever> Pool = new(() => new RepeatForever());
-
-    private ITween _tween;
-
-    public bool Finished { get; set; }
-
-    public static RepeatForever New(ITween tween)
+    public class RepeatForever : ITween, ICleanable, IUpdatable
     {
-        return Pool.New().Initialize(tween);
-    }
+        private static readonly Pool<RepeatForever> Pool = new(() => new RepeatForever());
 
-    private RepeatForever()
-    {
-    }
+        private ITween _tween;
 
-    private RepeatForever Initialize(ITween tween)
-    {
-        _tween = tween;
-        return this;
-    }
+        public bool Finished { get; set; }
 
-    public void Clean()
-    {
-        _tween = null;
-    }
-
-    public void Update(float time)
-    {
-        _tween.Update(time);
-        if (_tween.Finished)
+        public static RepeatForever New(ITween tween)
         {
-            _tween.Reset();
+            return Pool.New().Initialize(tween);
         }
-    }
 
-    public void Free()
-    {
-        Pool.Free(this);
-    }
+        private RepeatForever()
+        {
+        }
 
-    public void Reset()
-    {
-        Finished = false;
+        private RepeatForever Initialize(ITween tween)
+        {
+            _tween = tween;
+            return this;
+        }
+
+        public void Clean()
+        {
+            _tween = null;
+        }
+
+        public void Update(float time)
+        {
+            _tween.Update(time);
+            if (_tween.Finished)
+            {
+                _tween.Reset();
+            }
+        }
+
+        public void Free()
+        {
+            Pool.Free(this);
+        }
+
+        public void Reset()
+        {
+            Finished = false;
+        }
     }
 }

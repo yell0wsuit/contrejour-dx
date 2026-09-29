@@ -2,34 +2,35 @@ using System.Diagnostics.CodeAnalysis;
 
 using Mokus2D.Visual;
 
-namespace ContreJour.Gameplay;
-
-public class PortalHint : FadeHint
+namespace ContreJour.Gameplay
 {
-    protected TeleportBodyClip Portal { get; set; }
-
-    [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "Level content creates this by reflection with this signature.")]
-    public PortalHint(ContreJourLevelBuilder builder, object body, Sprite clip, Hashtable config)
-        : base(builder, null, clip, config)
+    public class PortalHint : FadeHint
     {
-        Restart();
-    }
+        protected TeleportBodyClip Portal { get; set; }
 
-    public override void Restart()
-    {
-        base.Restart();
-        Portal = (TeleportBodyClip)FarseerUtil.Query(Builder.World, Builder.ToIPhoneVec(Clip.Position), 6.6666665f, typeof(TeleportBodyClip));
-        Portal.UseEvent.AddListener(OnPortalUse);
-    }
+        [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "Level content creates this by reflection with this signature.")]
+        public PortalHint(ContreJourLevelBuilder builder, object body, Sprite clip, Hashtable config)
+            : base(builder, null, clip, config)
+        {
+            Restart();
+        }
 
-    public virtual void OnPortalUse()
-    {
-        Portal.UseEvent.RemoveListener(OnPortalUse);
-        Hide(0.5f * Clip.OpacityByte / 255f);
-    }
+        public override void Restart()
+        {
+            base.Restart();
+            Portal = (TeleportBodyClip)FarseerUtil.Query(Builder.World, Builder.ToIPhoneVec(Clip.Position), 6.6666665f, typeof(TeleportBodyClip));
+            Portal.UseEvent.AddListener(OnPortalUse);
+        }
 
-    public override bool HasToHide()
-    {
-        return false;
+        public virtual void OnPortalUse()
+        {
+            Portal.UseEvent.RemoveListener(OnPortalUse);
+            Hide(0.5f * Clip.OpacityByte / 255f);
+        }
+
+        public override bool HasToHide()
+        {
+            return false;
+        }
     }
 }

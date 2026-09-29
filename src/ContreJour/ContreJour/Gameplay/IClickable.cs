@@ -2,25 +2,26 @@ using Microsoft.Xna.Framework;
 
 using Mokus2D.Input;
 
-namespace ContreJour.Gameplay;
-
-public interface IClickable
+namespace ContreJour.Gameplay
 {
-    bool DisableHeroFocus { get; }
+    public interface IClickable
+    {
+        bool DisableHeroFocus { get; }
 
-    int Priority(Vector2 touchPosition);
+        int Priority(Vector2 touchPosition);
 
-    float TouchDistance(Vector2 touchPosition);
+        float TouchDistance(Vector2 touchPosition);
 
-    bool AcceptFreeTouches();
+        bool AcceptFreeTouches();
 
-    bool UseForZoom();
+        bool UseForZoom();
 
-    bool TouchBegan(Touch touch);
+        bool TouchBegan(Touch touch);
 
-    void TouchEnd(Touch touch);
+        void TouchEnd(Touch touch);
 
-    bool TouchMove(Touch touch);
+        bool TouchMove(Touch touch);
 
-    void TouchOut(Touch touch);
+        void TouchOut(Touch touch);
+    }
 }

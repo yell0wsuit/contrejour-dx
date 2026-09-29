@@ -5,47 +5,48 @@ using Microsoft.Xna.Framework;
 
 using Mokus2D.Util.Extensions;
 
-namespace Mokus2D.Visual.Data;
-
-[Serializable]
-public class AnimationData : ConfigData
+namespace Mokus2D.Visual.Data
 {
-    public Rectangle PrecalculatedBounds { get; set; }
-
-    private Dictionary<string, Dictionary<string, string>> _instanceConfigs;
-
-    private readonly List<List<AnimationFrameData>> _frames = [];
-
-    public List<AnimationFrameData> this[int index] => _frames[index];
-
-    public int Count => _frames.Count;
-
-    public void AddInstanceConfig(string childName, Dictionary<string, string> config)
+    [Serializable]
+    public class AnimationData : ConfigData
     {
-        _instanceConfigs ??= [];
-        _instanceConfigs[childName] = config;
-    }
+        public Rectangle PrecalculatedBounds { get; set; }
 
-    public Dictionary<string, string> GetInstanceConfig(string childName)
-    {
-        return _instanceConfigs?.TryGetValue(childName);
-    }
+        private Dictionary<string, Dictionary<string, string>> _instanceConfigs;
 
-    public AnimationFrameData GetChildFrameData(int frame, string childName)
-    {
-        List<AnimationFrameData> list = this[frame];
-        foreach (AnimationFrameData item in list)
+        private readonly List<List<AnimationFrameData>> _frames = [];
+
+        public List<AnimationFrameData> this[int index] => _frames[index];
+
+        public int Count => _frames.Count;
+
+        public void AddInstanceConfig(string childName, Dictionary<string, string> config)
         {
-            if (item.Id == childName)
-            {
-                return item;
-            }
+            _instanceConfigs ??= [];
+            _instanceConfigs[childName] = config;
         }
-        return null;
-    }
 
-    public void Add(List<AnimationFrameData> item)
-    {
-        _frames.Add(item);
+        public Dictionary<string, string> GetInstanceConfig(string childName)
+        {
+            return _instanceConfigs?.TryGetValue(childName);
+        }
+
+        public AnimationFrameData GetChildFrameData(int frame, string childName)
+        {
+            List<AnimationFrameData> list = this[frame];
+            foreach (AnimationFrameData item in list)
+            {
+                if (item.Id == childName)
+                {
+                    return item;
+                }
+            }
+            return null;
+        }
+
+        public void Add(List<AnimationFrameData> item)
+        {
+            _frames.Add(item);
+        }
     }
 }

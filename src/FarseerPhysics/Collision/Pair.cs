@@ -1,30 +1,31 @@
 using System;
 
-namespace FarseerPhysics.Collision;
-
-internal struct Pair : IComparable<Pair>
+namespace FarseerPhysics.Collision
 {
-    public int ProxyIdA;
-
-    public int ProxyIdB;
-
-    public readonly int CompareTo(Pair other)
+    internal struct Pair : IComparable<Pair>
     {
-        if (ProxyIdA < other.ProxyIdA)
+        public int ProxyIdA;
+
+        public int ProxyIdB;
+
+        public readonly int CompareTo(Pair other)
         {
-            return -1;
-        }
-        if (ProxyIdA == other.ProxyIdA)
-        {
-            if (ProxyIdB < other.ProxyIdB)
+            if (ProxyIdA < other.ProxyIdA)
             {
                 return -1;
             }
-            if (ProxyIdB == other.ProxyIdB)
+            if (ProxyIdA == other.ProxyIdA)
             {
-                return 0;
+                if (ProxyIdB < other.ProxyIdB)
+                {
+                    return -1;
+                }
+                if (ProxyIdB == other.ProxyIdB)
+                {
+                    return 0;
+                }
             }
+            return 1;
         }
-        return 1;
     }
 }

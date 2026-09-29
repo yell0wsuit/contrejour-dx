@@ -1,5 +1,6 @@
-namespace ContreJour.Gameplay;
-
-public class GameData
+namespace ContreJour.Gameplay
 {
+    public class GameData
+    {
+    }
 }

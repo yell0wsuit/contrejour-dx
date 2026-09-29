@@ -1,6 +1,7 @@
-namespace Mokus2D.Visual.Shaders.Parallax;
-
-public interface IParallaxSprite
+namespace Mokus2D.Visual.Shaders.Parallax
 {
-    float Parallax { get; set; }
+    public interface IParallaxSprite
+    {
+        float Parallax { get; set; }
+    }
 }

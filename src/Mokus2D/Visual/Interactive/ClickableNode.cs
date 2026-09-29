@@ -1,34 +1,35 @@
 using Mokus2D.Input;
 
-namespace Mokus2D.Visual.Interactive;
-
-public abstract class ClickableNode(int priority = 0) : Node, ITouchListener
+namespace Mokus2D.Visual.Interactive
 {
-    private readonly int _priority = priority;
-
-    protected override void OnAddedToStage()
+    public abstract class ClickableNode(int priority = 0) : Node, ITouchListener
     {
-        base.OnAddedToStage();
-        Mokus2DGame.Instance.TouchController.AddListener(this, _priority);
-    }
+        private readonly int _priority = priority;
 
-    protected override void OnRemovedFromStage()
-    {
-        base.OnRemovedFromStage();
-        Mokus2DGame.Instance.TouchController.RemoveListener(this);
-    }
+        protected override void OnAddedToStage()
+        {
+            base.OnAddedToStage();
+            Mokus2DGame.Instance.TouchController.AddListener(this, _priority);
+        }
 
-    public virtual bool TouchBegin(Touch touch)
-    {
-        return false;
-    }
+        protected override void OnRemovedFromStage()
+        {
+            base.OnRemovedFromStage();
+            Mokus2DGame.Instance.TouchController.RemoveListener(this);
+        }
 
-    public virtual bool TouchMove(Touch touch)
-    {
-        return false;
-    }
+        public virtual bool TouchBegin(Touch touch)
+        {
+            return false;
+        }
 
-    public virtual void TouchEnd(Touch touch)
-    {
+        public virtual bool TouchMove(Touch touch)
+        {
+            return false;
+        }
+
+        public virtual void TouchEnd(Touch touch)
+        {
+        }
     }
 }

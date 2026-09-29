@@ -1,5 +1,6 @@
-namespace ContreJour.Gameplay;
-
-public class BlackPlasticineSprite : PlasticineSprite
+namespace ContreJour.Gameplay
 {
+    public class BlackPlasticineSprite : PlasticineSprite
+    {
+    }
 }

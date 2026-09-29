@@ -1,8 +1,9 @@
 using Microsoft.Xna.Framework;
 
-namespace Mokus2D.Visual;
-
-public interface IAnchorNode : ISizeNode
+namespace Mokus2D.Visual
 {
-    Vector2 Anchor { get; set; }
+    public interface IAnchorNode : ISizeNode
+    {
+        Vector2 Anchor { get; set; }
+    }
 }

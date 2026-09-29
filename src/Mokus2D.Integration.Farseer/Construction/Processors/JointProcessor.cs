@@ -4,25 +4,26 @@ using FarseerPhysics.Dynamics.Joints;
 using Mokus2D.Util.Extensions;
 using Mokus2D.Visual;
 
-namespace Mokus2D.Integration.Farseer.Construction.Processors;
-
-public abstract class JointProcessor(PhysicsConstructor constructor) : PhysicsProcessor(constructor)
+namespace Mokus2D.Integration.Farseer.Construction.Processors
 {
-    public abstract Joint Process(Node item);
-
-    protected Body GetBodyA(Node item)
+    public abstract class JointProcessor(PhysicsConstructor constructor) : PhysicsProcessor(constructor)
     {
-        return GetBody(item, "bodyA");
-    }
+        public abstract Joint Process(Node item);
 
-    protected Body GetBodyB(Node item)
-    {
-        return GetBody(item, "bodyB");
-    }
+        protected Body GetBodyA(Node item)
+        {
+            return GetBody(item, "bodyA");
+        }
 
-    private Body GetBody(Node item, string id)
-    {
-        string name = item.Config.GetString(id);
-        return Constructor.GetCreatedBody(name);
+        protected Body GetBodyB(Node item)
+        {
+            return GetBody(item, "bodyB");
+        }
+
+        private Body GetBody(Node item, string id)
+        {
+            string name = item.Config.GetString(id);
+            return Constructor.GetCreatedBody(name);
+        }
     }
 }

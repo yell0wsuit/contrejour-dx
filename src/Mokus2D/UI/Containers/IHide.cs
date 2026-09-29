@@ -1,8 +1,9 @@
 using System;
 
-namespace Mokus2D.UI.Containers;
-
-public interface IHide
+namespace Mokus2D.UI.Containers
 {
-    void Hide(Action endHandler);
+    public interface IHide
+    {
+        void Hide(Action endHandler);
+    }
 }

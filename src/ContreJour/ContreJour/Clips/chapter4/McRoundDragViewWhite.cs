@@ -4,29 +4,30 @@ using Mokus2D.Data;
 using Mokus2D.Interfaces;
 using Mokus2D.Visual;
 
-namespace ContreJour.Clips.chapter4;
-
-[GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
-public class McRoundDragViewWhite : Sprite, IFreeable, IId
+namespace ContreJour.Clips.chapter4
 {
-    public const string ID = "chapter4/McRoundDragViewWhite";
-
-    public string Id => "chapter4/McRoundDragViewWhite";
-
-    public static McRoundDragViewWhite New()
+    [GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
+    public class McRoundDragViewWhite : Sprite, IFreeable, IId
     {
-        McRoundDragViewWhite mcRoundDragViewWhite = StaticPool.New<McRoundDragViewWhite>();
-        mcRoundDragViewWhite.RefreshProperties();
-        return mcRoundDragViewWhite;
-    }
+        public const string ID = "chapter4/McRoundDragViewWhite";
 
-    public McRoundDragViewWhite()
-        : base("chapter4/McRoundDragViewWhite")
-    {
-    }
+        public string Id => "chapter4/McRoundDragViewWhite";
 
-    public void Free()
-    {
-        StaticPool.Free<McRoundDragViewWhite>(this);
+        public static McRoundDragViewWhite New()
+        {
+            McRoundDragViewWhite mcRoundDragViewWhite = StaticPool.New<McRoundDragViewWhite>();
+            mcRoundDragViewWhite.RefreshProperties();
+            return mcRoundDragViewWhite;
+        }
+
+        public McRoundDragViewWhite()
+            : base("chapter4/McRoundDragViewWhite")
+        {
+        }
+
+        public void Free()
+        {
+            StaticPool.Free<McRoundDragViewWhite>(this);
+        }
     }
 }

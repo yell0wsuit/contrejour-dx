@@ -1,70 +1,71 @@
 using System.Collections.Generic;
 
-namespace FarseerPhysics.Common.Decomposition.Seidel;
-
-internal sealed class QueryGraph(Node head)
+namespace FarseerPhysics.Common.Decomposition.Seidel
 {
-    private Node _head = head;
-
-    private Trapezoid Locate(Edge edge)
+    internal sealed class QueryGraph(Node head)
     {
-        return _head.Locate(edge).Trapezoid;
-    }
+        private Node _head = head;
 
-    public List<Trapezoid> FollowEdge(Edge edge)
-    {
-        List<Trapezoid> list = [Locate(edge)];
-        for (int i = 0; edge.Q.X > list[i].RightPoint.X; i++)
+        private Trapezoid Locate(Edge edge)
         {
-            if (edge.IsAbove(list[i].RightPoint))
+            return _head.Locate(edge).Trapezoid;
+        }
+
+        public List<Trapezoid> FollowEdge(Edge edge)
+        {
+            List<Trapezoid> list = [Locate(edge)];
+            for (int i = 0; edge.Q.X > list[i].RightPoint.X; i++)
             {
-                list.Add(list[i].UpperRight);
+                if (edge.IsAbove(list[i].RightPoint))
+                {
+                    list.Add(list[i].UpperRight);
+                }
+                else
+                {
+                    list.Add(list[i].LowerRight);
+                }
+            }
+            return list;
+        }
+
+        private void Replace(Sink sink, Node node)
+        {
+            if (sink.ParentList.Count == 0)
+            {
+                _head = node;
             }
             else
             {
-                list.Add(list[i].LowerRight);
+                node.Replace(sink);
             }
         }
-        return list;
-    }
 
-    private void Replace(Sink sink, Node node)
-    {
-        if (sink.ParentList.Count == 0)
+        public void Case1(Sink sink, Edge edge, Trapezoid[] tList)
         {
-            _head = node;
+            YNode lChild = new(edge, Sink.Isink(tList[1]), Sink.Isink(tList[2]));
+            XNode rChild = new(edge.Q, lChild, Sink.Isink(tList[3]));
+            XNode node = new(edge.P, Sink.Isink(tList[0]), rChild);
+            Replace(sink, node);
         }
-        else
+
+        public void Case2(Sink sink, Edge edge, Trapezoid[] tList)
         {
-            node.Replace(sink);
+            YNode rChild = new(edge, Sink.Isink(tList[1]), Sink.Isink(tList[2]));
+            XNode node = new(edge.P, Sink.Isink(tList[0]), rChild);
+            Replace(sink, node);
         }
-    }
 
-    public void Case1(Sink sink, Edge edge, Trapezoid[] tList)
-    {
-        YNode lChild = new(edge, Sink.Isink(tList[1]), Sink.Isink(tList[2]));
-        XNode rChild = new(edge.Q, lChild, Sink.Isink(tList[3]));
-        XNode node = new(edge.P, Sink.Isink(tList[0]), rChild);
-        Replace(sink, node);
-    }
+        public void Case3(Sink sink, Edge edge, Trapezoid[] tList)
+        {
+            YNode node = new(edge, Sink.Isink(tList[0]), Sink.Isink(tList[1]));
+            Replace(sink, node);
+        }
 
-    public void Case2(Sink sink, Edge edge, Trapezoid[] tList)
-    {
-        YNode rChild = new(edge, Sink.Isink(tList[1]), Sink.Isink(tList[2]));
-        XNode node = new(edge.P, Sink.Isink(tList[0]), rChild);
-        Replace(sink, node);
-    }
-
-    public void Case3(Sink sink, Edge edge, Trapezoid[] tList)
-    {
-        YNode node = new(edge, Sink.Isink(tList[0]), Sink.Isink(tList[1]));
-        Replace(sink, node);
-    }
-
-    public void Case4(Sink sink, Edge edge, Trapezoid[] tList)
-    {
-        YNode lChild = new(edge, Sink.Isink(tList[0]), Sink.Isink(tList[1]));
-        XNode node = new(edge.Q, lChild, Sink.Isink(tList[2]));
-        Replace(sink, node);
+        public void Case4(Sink sink, Edge edge, Trapezoid[] tList)
+        {
+            YNode lChild = new(edge, Sink.Isink(tList[0]), Sink.Isink(tList[1]));
+            XNode node = new(edge.Q, lChild, Sink.Isink(tList[2]));
+            Replace(sink, node);
+        }
     }
 }

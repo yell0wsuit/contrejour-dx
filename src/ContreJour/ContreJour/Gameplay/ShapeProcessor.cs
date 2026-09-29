@@ -2,65 +2,66 @@ using FarseerPhysics.Collision.Shapes;
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Factories;
 
-namespace ContreJour.Gameplay;
-
-public class ShapeProcessor(string type, LevelBuilderBase builder) : TypeProcessorBase(type, builder)
+namespace ContreJour.Gameplay
 {
-    public override object ProcessItem(Hashtable item)
+    public class ShapeProcessor(string type, LevelBuilderBase builder) : TypeProcessorBase(type, builder)
     {
-        Hashtable hashtable = item.GetHashtable("config");
-        Body val = BodyFactory.CreateBody(Builder.World, null);
-        if (hashtable.Exists("dynamic"))
+        public override object ProcessItem(Hashtable item)
         {
-            val.BodyType = (BodyType)2;
-        }
-        val.Position = item.GetVector("position");
-        val.IsBullet = hashtable.Exists("bullet");
-        if (hashtable.Exists("angularDamping"))
-        {
-            val.AngularDamping = hashtable.GetFloat("angularDamping");
-        }
-        val.FixedRotation = hashtable.GetBool("fixedRotation");
-        AddShapesItem(val, item);
-        if (hashtable.Exists("id"))
-        {
-            Builder.CreatedObjects[hashtable.GetString("id")] = val;
-        }
-        return val;
-    }
-
-    public Fixture AddShapeItemShape(Body body, Hashtable item, Shape shape)
-    {
-        Hashtable hashtable = item.GetHashtable("config");
-        Fixture val = body.CreateFixture(shape, (!hashtable.Exists("density")) ? Builder.EngineConfig.Density : hashtable.GetFloat("density"));
-        val.Friction = hashtable.Exists("friction") ? hashtable.GetFloat("friction") : Builder.EngineConfig.Friction;
-        val.Restitution = hashtable.Exists("restitution") ? hashtable.GetFloat("restitution") : Builder.EngineConfig.Restitution;
-        val.IsSensor = hashtable.GetBool("sensor");
-        if (hashtable.Exists("categoryBits") || hashtable.Exists("maskBits"))
-        {
-            if (hashtable.Exists("categoryBits"))
+            Hashtable hashtable = item.GetHashtable("config");
+            Body val = BodyFactory.CreateBody(Builder.World, null);
+            if (hashtable.Exists("dynamic"))
             {
-                val.CollisionCategories = (Category)hashtable.GetInt("categoryBits");
+                val.BodyType = (BodyType)2;
             }
-            if (hashtable.Exists("maskBits"))
+            val.Position = item.GetVector("position");
+            val.IsBullet = hashtable.Exists("bullet");
+            if (hashtable.Exists("angularDamping"))
             {
-                val.CollidesWith = (Category)hashtable.GetInt("maskBits");
+                val.AngularDamping = hashtable.GetFloat("angularDamping");
             }
+            val.FixedRotation = hashtable.GetBool("fixedRotation");
+            AddShapesItem(val, item);
+            if (hashtable.Exists("id"))
+            {
+                Builder.CreatedObjects[hashtable.GetString("id")] = val;
+            }
+            return val;
         }
-        if (hashtable.Exists("filterGroup"))
+
+        public Fixture AddShapeItemShape(Body body, Hashtable item, Shape shape)
         {
-            val.CollisionGroup = (short)hashtable.GetShort("filterGroup");
+            Hashtable hashtable = item.GetHashtable("config");
+            Fixture val = body.CreateFixture(shape, (!hashtable.Exists("density")) ? Builder.EngineConfig.Density : hashtable.GetFloat("density"));
+            val.Friction = hashtable.Exists("friction") ? hashtable.GetFloat("friction") : Builder.EngineConfig.Friction;
+            val.Restitution = hashtable.Exists("restitution") ? hashtable.GetFloat("restitution") : Builder.EngineConfig.Restitution;
+            val.IsSensor = hashtable.GetBool("sensor");
+            if (hashtable.Exists("categoryBits") || hashtable.Exists("maskBits"))
+            {
+                if (hashtable.Exists("categoryBits"))
+                {
+                    val.CollisionCategories = (Category)hashtable.GetInt("categoryBits");
+                }
+                if (hashtable.Exists("maskBits"))
+                {
+                    val.CollidesWith = (Category)hashtable.GetInt("maskBits");
+                }
+            }
+            if (hashtable.Exists("filterGroup"))
+            {
+                val.CollisionGroup = (short)hashtable.GetShort("filterGroup");
+            }
+            return val;
         }
-        return val;
-    }
 
-    public virtual void AddShapesItem(Body body, Hashtable item)
-    {
-        _ = AddShapeItemShape(body, item, CreateShape(item));
-    }
+        public virtual void AddShapesItem(Body body, Hashtable item)
+        {
+            _ = AddShapeItemShape(body, item, CreateShape(item));
+        }
 
-    public virtual Shape CreateShape(Hashtable item)
-    {
-        return null;
+        public virtual Shape CreateShape(Hashtable item)
+        {
+            return null;
+        }
     }
 }

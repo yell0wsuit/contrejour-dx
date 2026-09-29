@@ -1,8 +1,9 @@
-namespace Mokus2D.Visual.Interactive;
-
-public class StopPropagationConfig
+namespace Mokus2D.Visual.Interactive
 {
-    public bool TouchBegin { get; set; }
+    public class StopPropagationConfig
+    {
+        public bool TouchBegin { get; set; }
 
-    public bool TouchEnd { get; set; }
+        public bool TouchEnd { get; set; }
+    }
 }

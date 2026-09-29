@@ -1,8 +1,9 @@
-namespace FarseerPhysics.Collision;
-
-public enum SeparationFunctionType
+namespace FarseerPhysics.Collision
 {
-    Points,
-    FaceA,
-    FaceB
+    public enum SeparationFunctionType
+    {
+        Points,
+        FaceA,
+        FaceB
+    }
 }

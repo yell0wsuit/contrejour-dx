@@ -1,9 +1,10 @@
-namespace ContreJour.Gameplay;
-
-public class BackSnotProcessor(LevelBuilderBase builder) : SnotProcessor(builder, "backSnot", 100f * builder.EngineConfig.SizeMultiplier)
+namespace ContreJour.Gameplay
 {
-    public override float GetDensityTotal(int index, int total)
+    public class BackSnotProcessor(LevelBuilderBase builder) : SnotProcessor(builder, "backSnot", 100f * builder.EngineConfig.SizeMultiplier)
     {
-        return 0.3f;
+        public override float GetDensityTotal(int index, int total)
+        {
+            return 0.3f;
+        }
     }
 }

@@ -1,14 +1,15 @@
 using Microsoft.Xna.Framework;
 
-namespace FarseerPhysics.Collision;
-
-public struct ManifoldPoint
+namespace FarseerPhysics.Collision
 {
-    public ContactID Id;
+    public struct ManifoldPoint
+    {
+        public ContactID Id;
 
-    public Vector2 LocalPoint;
+        public Vector2 LocalPoint;
 
-    public float NormalImpulse;
+        public float NormalImpulse;
 
-    public float TangentImpulse;
+        public float TangentImpulse;
+    }
 }

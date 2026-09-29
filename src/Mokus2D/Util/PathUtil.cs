@@ -1,20 +1,21 @@
 using System.IO;
 
-namespace Mokus2D.Util;
-
-public static class PathUtil
+namespace Mokus2D.Util
 {
-    public static string Combine(params string[] parts)
+    public static class PathUtil
     {
-        string text = parts[0];
-        for (int i = 1; i < parts.Length; i++)
+        public static string Combine(params string[] parts)
         {
-            text = Path.Combine(
-            [
-                text,
-                parts[i]
-            ]);
+            string text = parts[0];
+            for (int i = 1; i < parts.Length; i++)
+            {
+                text = Path.Combine(
+                [
+                    text,
+                    parts[i]
+                ]);
+            }
+            return text;
         }
-        return text;
     }
 }

@@ -4,29 +4,30 @@ using Mokus2D.Data;
 using Mokus2D.Interfaces;
 using Mokus2D.Visual;
 
-namespace ContreJour.Clips.common;
-
-[GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
-public class McEyeCloseSlow : MovieClip, IFreeable, IId
+namespace ContreJour.Clips.common
 {
-    public const string ID = "common/McEyeCloseSlow";
-
-    public string Id => "common/McEyeCloseSlow";
-
-    public static McEyeCloseSlow New()
+    [GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
+    public class McEyeCloseSlow : MovieClip, IFreeable, IId
     {
-        McEyeCloseSlow mcEyeCloseSlow = StaticPool.New<McEyeCloseSlow>();
-        mcEyeCloseSlow.RefreshProperties();
-        return mcEyeCloseSlow;
-    }
+        public const string ID = "common/McEyeCloseSlow";
 
-    public McEyeCloseSlow()
-        : base("common/McEyeCloseSlow")
-    {
-    }
+        public string Id => "common/McEyeCloseSlow";
 
-    public void Free()
-    {
-        StaticPool.Free<McEyeCloseSlow>(this);
+        public static McEyeCloseSlow New()
+        {
+            McEyeCloseSlow mcEyeCloseSlow = StaticPool.New<McEyeCloseSlow>();
+            mcEyeCloseSlow.RefreshProperties();
+            return mcEyeCloseSlow;
+        }
+
+        public McEyeCloseSlow()
+            : base("common/McEyeCloseSlow")
+        {
+        }
+
+        public void Free()
+        {
+            StaticPool.Free<McEyeCloseSlow>(this);
+        }
     }
 }

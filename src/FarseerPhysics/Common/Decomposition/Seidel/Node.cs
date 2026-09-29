@@ -1,39 +1,40 @@
 using System.Collections.Generic;
 
-namespace FarseerPhysics.Common.Decomposition.Seidel;
-
-internal abstract class Node
+namespace FarseerPhysics.Common.Decomposition.Seidel
 {
-    protected Node LeftChild;
-
-    public List<Node> ParentList;
-
-    protected Node RightChild;
-
-    protected Node(Node left, Node right)
+    internal abstract class Node
     {
-        ParentList = [];
-        LeftChild = left;
-        RightChild = right;
-        left?.ParentList.Add(this);
-        right?.ParentList.Add(this);
-    }
+        protected Node LeftChild;
 
-    public abstract Sink Locate(Edge s);
+        public List<Node> ParentList;
 
-    public void Replace(Node node)
-    {
-        foreach (Node parent in node.ParentList)
+        protected Node RightChild;
+
+        protected Node(Node left, Node right)
         {
-            if (parent.LeftChild == node)
-            {
-                parent.LeftChild = this;
-            }
-            else
-            {
-                parent.RightChild = this;
-            }
+            ParentList = [];
+            LeftChild = left;
+            RightChild = right;
+            left?.ParentList.Add(this);
+            right?.ParentList.Add(this);
         }
-        ParentList.AddRange(node.ParentList);
+
+        public abstract Sink Locate(Edge s);
+
+        public void Replace(Node node)
+        {
+            foreach (Node parent in node.ParentList)
+            {
+                if (parent.LeftChild == node)
+                {
+                    parent.LeftChild = this;
+                }
+                else
+                {
+                    parent.RightChild = this;
+                }
+            }
+            ParentList.AddRange(node.ParentList);
+        }
     }
 }

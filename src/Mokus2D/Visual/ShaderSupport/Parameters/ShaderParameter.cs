@@ -3,46 +3,47 @@ using Microsoft.Xna.Framework.Graphics;
 using Mokus2D.Effects.Tweening;
 using Mokus2D.Util;
 
-namespace Mokus2D.Visual.ShaderSupport.Parameters;
-
-public abstract class ShaderParameter<T>(EffectParameter parameter)
+namespace Mokus2D.Visual.ShaderSupport.Parameters
 {
-    public static readonly GetSetValue<ShaderParameter<T>, T> GetSet = new(o => o.Value, delegate (ShaderParameter<T> o, T v)
+    public abstract class ShaderParameter<T>(EffectParameter parameter)
     {
-        o.Value = v;
-    });
-
-    protected EffectParameter Parameter { get; } = parameter;
-    private readonly Flag _valueDirty = new();
-
-    public T Value
-    {
-        get
+        public static readonly GetSetValue<ShaderParameter<T>, T> GetSet = new(o => o.Value, delegate (ShaderParameter<T> o, T v)
         {
-            if (_valueDirty.Use())
+            o.Value = v;
+        });
+
+        protected EffectParameter Parameter { get; } = parameter;
+        private readonly Flag _valueDirty = new();
+
+        public T Value
+        {
+            get
             {
-                field = GetValue();
+                if (_valueDirty.Use())
+                {
+                    field = GetValue();
+                }
+                return field;
             }
-            return field;
+            set
+            {
+                field = value;
+                SetValue(value);
+            }
         }
-        set
+
+        protected ShaderParameter(EffectParameterCollection parameters, string name)
+            : this(parameters[name])
         {
-            field = value;
-            SetValue(value);
         }
+
+        public void Refresh()
+        {
+            SetValue(Value);
+        }
+
+        protected abstract void SetValue(T value);
+
+        protected abstract T GetValue();
     }
-
-    protected ShaderParameter(EffectParameterCollection parameters, string name)
-        : this(parameters[name])
-    {
-    }
-
-    public void Refresh()
-    {
-        SetValue(Value);
-    }
-
-    protected abstract void SetValue(T value);
-
-    protected abstract T GetValue();
 }

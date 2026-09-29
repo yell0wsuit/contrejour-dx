@@ -1,15 +1,16 @@
 using System;
 
-namespace Mokus2D.Effects.Tweening;
-
-public readonly struct TargetAndAction(object target, Action<object> action)
+namespace Mokus2D.Effects.Tweening
 {
-    private readonly object Target = target;
-
-    private readonly Action<object> Action = action;
-
-    public readonly void Execute()
+    public readonly struct TargetAndAction(object target, Action<object> action)
     {
-        Action(Target);
+        private readonly object Target = target;
+
+        private readonly Action<object> Action = action;
+
+        public readonly void Execute()
+        {
+            Action(Target);
+        }
     }
 }

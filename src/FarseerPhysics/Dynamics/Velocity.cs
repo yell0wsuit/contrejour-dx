@@ -1,10 +1,11 @@
 using Microsoft.Xna.Framework;
 
-namespace FarseerPhysics.Dynamics;
-
-public struct Velocity
+namespace FarseerPhysics.Dynamics
 {
-    public Vector2 v;
+    public struct Velocity
+    {
+        public Vector2 v;
 
-    public float w;
+        public float w;
+    }
 }

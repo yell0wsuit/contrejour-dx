@@ -1,16 +1,17 @@
-namespace ContreJour.Gameplay;
-
-public interface ITeleportable
+namespace ContreJour.Gameplay
 {
-    bool SnotEnabled { set; }
+    public interface ITeleportable
+    {
+        bool SnotEnabled { set; }
 
-    void Teleport(BodyClip teleport);
+        void Teleport(BodyClip teleport);
 
-    void SetScaleTime(float scale, float time);
+        void SetScaleTime(float scale, float time);
 
-    void AfterTeleport();
+        void AfterTeleport();
 
-    void ForceClipPosition();
+        void ForceClipPosition();
 
-    bool CanTeleport();
+        bool CanTeleport();
+    }
 }

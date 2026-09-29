@@ -6,35 +6,36 @@ using Microsoft.Xna.Framework;
 
 using Mokus2D.Util.Extensions;
 
-namespace ContreJour.Gameplay;
-
-public class EditorRevoluteJointProcessor(LevelBuilderBase builder) : RevoluteJointProcessor("editorRevoluteJoint", builder)
+namespace ContreJour.Gameplay
 {
-    public override object ProcessItem(Hashtable item)
+    public class EditorRevoluteJointProcessor(LevelBuilderBase builder) : RevoluteJointProcessor("editorRevoluteJoint", builder)
     {
-        Hashtable hashtable = item.GetHashtable("config");
-        Vector2 vector = item.GetVector("position");
-        List<Body> bodiesByWorldReqResult = GetBodiesByWorldReqResult(vector, FarseerUtil.DynamicBodyPredicate);
-        bodiesByWorldReqResult.AddItemsNoGarbage(GetBodiesByWorldReqResult(vector, FarseerUtil.StaticBodyPredicate));
-        if (hashtable.Exists("rotationLocked"))
+        public override object ProcessItem(Hashtable item)
         {
-            hashtable["upperAngle"] = "0";
-            hashtable["lowerAngle"] = "0";
-        }
-        if (bodiesByWorldReqResult.Count > 0)
-        {
-            if (bodiesByWorldReqResult.Count > 1)
+            Hashtable hashtable = item.GetHashtable("config");
+            Vector2 vector = item.GetVector("position");
+            List<Body> bodiesByWorldReqResult = GetBodiesByWorldReqResult(vector, FarseerUtil.DynamicBodyPredicate);
+            bodiesByWorldReqResult.AddItemsNoGarbage(GetBodiesByWorldReqResult(vector, FarseerUtil.StaticBodyPredicate));
+            if (hashtable.Exists("rotationLocked"))
             {
-                CreateRevoluteJointPositionConfig(bodiesByWorldReqResult, vector, hashtable);
+                hashtable["upperAngle"] = "0";
+                hashtable["lowerAngle"] = "0";
             }
-            else
+            if (bodiesByWorldReqResult.Count > 0)
             {
-                List<Body> bodiesByWorldReqResult2 = GetBodiesByWorldReqResult(vector, FarseerUtil.StaticBodyPredicate);
-                Body item2 = (bodiesByWorldReqResult2.Count > 0) ? bodiesByWorldReqResult2.First() : Builder.GroundBody;
-                List<Body> list = [item2, bodiesByWorldReqResult.First()];
-                CreateRevoluteJointPositionConfig(list, vector, hashtable);
+                if (bodiesByWorldReqResult.Count > 1)
+                {
+                    CreateRevoluteJointPositionConfig(bodiesByWorldReqResult, vector, hashtable);
+                }
+                else
+                {
+                    List<Body> bodiesByWorldReqResult2 = GetBodiesByWorldReqResult(vector, FarseerUtil.StaticBodyPredicate);
+                    Body item2 = (bodiesByWorldReqResult2.Count > 0) ? bodiesByWorldReqResult2.First() : Builder.GroundBody;
+                    List<Body> list = [item2, bodiesByWorldReqResult.First()];
+                    CreateRevoluteJointPositionConfig(list, vector, hashtable);
+                }
             }
+            return null;
         }
-        return null;
     }
 }

@@ -5,31 +5,32 @@ using Microsoft.Xna.Framework;
 using Mokus2D.Interfaces;
 using Mokus2D.Util;
 
-namespace Mokus2D.ScreenControl;
-
-public class BasicViewScroller : IViewScroller, IUpdatable
+namespace Mokus2D.ScreenControl
 {
-    private Vector2 _viewPosition;
-
-    public Vector2 ScrollSpeed { get; set; }
-
-    public Vector2 ViewPosition
+    public class BasicViewScroller : IViewScroller, IUpdatable
     {
-        get => _viewPosition;
-        set
+        private Vector2 _viewPosition;
+
+        public Vector2 ScrollSpeed { get; set; }
+
+        public Vector2 ViewPosition
         {
-            if (_viewPosition != value)
+            get => _viewPosition;
+            set
             {
-                _viewPosition = value;
-                ViewPositionChangeEvent.Dispatch(ViewPosition);
+                if (_viewPosition != value)
+                {
+                    _viewPosition = value;
+                    ViewPositionChangeEvent.Dispatch(ViewPosition);
+                }
             }
         }
-    }
 
-    public event Action<Vector2> ViewPositionChangeEvent;
+        public event Action<Vector2> ViewPositionChangeEvent;
 
-    public void Update(float time)
-    {
-        ViewPosition += ScrollSpeed * time;
+        public void Update(float time)
+        {
+            ViewPosition += ScrollSpeed * time;
+        }
     }
 }

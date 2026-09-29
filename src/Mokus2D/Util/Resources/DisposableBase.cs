@@ -1,31 +1,32 @@
 using System;
 
-namespace Mokus2D.Util.Resources;
-
-public class DisposableBase : IDisposable
+namespace Mokus2D.Util.Resources
 {
-    public bool IsDisposed { get; private set; }
-
-    public void Dispose()
+    public class DisposableBase : IDisposable
     {
-        if (!IsDisposed)
+        public bool IsDisposed { get; private set; }
+
+        public void Dispose()
         {
-            IsDisposed = true;
-            Dispose(disposing: true);
-            GC.SuppressFinalize(this);
+            if (!IsDisposed)
+            {
+                IsDisposed = true;
+                Dispose(disposing: true);
+                GC.SuppressFinalize(this);
+            }
         }
-    }
 
-    protected virtual void Dispose(bool disposing)
-    {
-    }
-
-    ~DisposableBase()
-    {
-        if (!IsDisposed)
+        protected virtual void Dispose(bool disposing)
         {
-            IsDisposed = true;
-            Dispose(disposing: false);
+        }
+
+        ~DisposableBase()
+        {
+            if (!IsDisposed)
+            {
+                IsDisposed = true;
+                Dispose(disposing: false);
+            }
         }
     }
 }

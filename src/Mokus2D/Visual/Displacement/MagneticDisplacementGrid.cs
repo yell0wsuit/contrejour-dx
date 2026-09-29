@@ -9,139 +9,140 @@ using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual.Displacement.Magnets;
 using Mokus2D.Visual.Interfaces;
 
-namespace Mokus2D.Visual.Displacement;
-
-public class MagneticDisplacementGrid : DisplacementGrid
+namespace Mokus2D.Visual.Displacement
 {
-    private readonly float Velocity = 100f;
-
-    private readonly bool StaticBorders = true;
-
-    public Vector2 MagnetsOffset { get; set; }
-
-    private readonly float PowerMult = 1f;
-
-    private MagneticNodeData[,] _nodesData;
-
-    private readonly List<IGridMagnet> _magnets = new(64);
-
-    private readonly List<IGridMagnet> _toRemove = new(64);
-
-    private bool _targetsDirty;
-
-    public MagneticDisplacementGrid(string name, Size gridSize)
-        : base(name, gridSize)
+    public class MagneticDisplacementGrid : DisplacementGrid
     {
-        Initialize();
-    }
+        private readonly float Velocity = 100f;
 
-    public MagneticDisplacementGrid(ISpriteData data, Size gridSize)
-        : base(data, gridSize)
-    {
-        Initialize();
-    }
+        private readonly bool StaticBorders = true;
 
-    public MagneticDisplacementGrid(Texture2D texture, Size gridSize, float scaleFactor = 1f)
-        : base(texture, gridSize, scaleFactor)
-    {
-        Initialize();
-    }
+        public Vector2 MagnetsOffset { get; set; }
 
-    public MagneticDisplacementGrid(Texture2D texture, Rectangle textureRect, Size gridSize, float scaleFactor = 1f)
-        : base(texture, textureRect, gridSize, scaleFactor)
-    {
-        Initialize();
-    }
+        private readonly float PowerMult = 1f;
 
-    public void AddMagnet(IGridMagnet magnet)
-    {
-        _magnets.Add(magnet);
-    }
+        private MagneticNodeData[,] _nodesData;
 
-    public void RemoveMagnet(IGridMagnet magnet)
-    {
-        _ = _magnets.Remove(magnet);
-    }
+        private readonly List<IGridMagnet> _magnets = new(64);
 
-    public void ClearMagnets()
-    {
-        _magnets.Clear();
-    }
+        private readonly List<IGridMagnet> _toRemove = new(64);
 
-    public override void Update(float time)
-    {
-        base.Update(time);
-        CleanTargetPositions();
-        foreach (IGridMagnet magnet in _magnets)
+        private bool _targetsDirty;
+
+        public MagneticDisplacementGrid(string name, Size gridSize)
+            : base(name, gridSize)
         {
-            magnet.Update(time);
-            if (!magnet.HasRemove)
+            Initialize();
+        }
+
+        public MagneticDisplacementGrid(ISpriteData data, Size gridSize)
+            : base(data, gridSize)
+        {
+            Initialize();
+        }
+
+        public MagneticDisplacementGrid(Texture2D texture, Size gridSize, float scaleFactor = 1f)
+            : base(texture, gridSize, scaleFactor)
+        {
+            Initialize();
+        }
+
+        public MagneticDisplacementGrid(Texture2D texture, Rectangle textureRect, Size gridSize, float scaleFactor = 1f)
+            : base(texture, textureRect, gridSize, scaleFactor)
+        {
+            Initialize();
+        }
+
+        public void AddMagnet(IGridMagnet magnet)
+        {
+            _magnets.Add(magnet);
+        }
+
+        public void RemoveMagnet(IGridMagnet magnet)
+        {
+            _ = _magnets.Remove(magnet);
+        }
+
+        public void ClearMagnets()
+        {
+            _magnets.Clear();
+        }
+
+        public override void Update(float time)
+        {
+            base.Update(time);
+            CleanTargetPositions();
+            foreach (IGridMagnet magnet in _magnets)
             {
-                CalculateMagnetForces(magnet);
+                magnet.Update(time);
+                if (!magnet.HasRemove)
+                {
+                    CalculateMagnetForces(magnet);
+                }
+                else
+                {
+                    _toRemove.Add(magnet);
+                }
             }
-            else
+            ApplyForces(time);
+            _magnets.RemoveListNoGarbage(_toRemove);
+            _toRemove.Clear();
+        }
+
+        private void ApplyForces(float time)
+        {
+            float step = Velocity * time;
+            for (int i = 0; i < GridSize.Width; i++)
             {
-                _toRemove.Add(magnet);
+                for (int j = 0; j < GridSize.Height; j++)
+                {
+                    base[i, j] = base[i, j].StepTo(_nodesData[i, j].TargetPosition, step);
+                }
             }
         }
-        ApplyForces(time);
-        _magnets.RemoveListNoGarbage(_toRemove);
-        _toRemove.Clear();
-    }
 
-    private void ApplyForces(float time)
-    {
-        float step = Velocity * time;
-        for (int i = 0; i < GridSize.Width; i++)
+        private void CalculateMagnetForces(IGridMagnet magnet)
         {
-            for (int j = 0; j < GridSize.Height; j++)
+            Vector2 vector = magnet.Position + MagnetsOffset;
+            Vector2 position = VectorExtensions.Ceiling((vector + magnet.Bounds.LeftTop()) / NodeSize);
+            Vector2 position2 = VectorExtensions.Floor((vector + magnet.Bounds.RightBottom()) / NodeSize);
+            int num = StaticBorders ? 1 : 0;
+            int num2 = (!StaticBorders) ? 1 : 2;
+            position = position.Clamp(new Vector2(num), GridSize);
+            position2 = position2.Clamp(Vector2.Zero, GridSize - new Vector2(num2));
+            for (int i = (int)position.X; i <= position2.X; i++)
             {
-                base[i, j] = base[i, j].StepTo(_nodesData[i, j].TargetPosition, step);
+                for (int j = (int)position.Y; j <= position2.Y; j++)
+                {
+                    MagneticNodeData magneticNodeData = _nodesData[i, j];
+                    Vector2 vector2 = magnet.GetForce(magneticNodeData.DefaultPosition - vector) * PowerMult;
+                    magneticNodeData.TargetPosition += vector2;
+                }
             }
         }
-    }
 
-    private void CalculateMagnetForces(IGridMagnet magnet)
-    {
-        Vector2 vector = magnet.Position + MagnetsOffset;
-        Vector2 position = VectorExtensions.Ceiling((vector + magnet.Bounds.LeftTop()) / NodeSize);
-        Vector2 position2 = VectorExtensions.Floor((vector + magnet.Bounds.RightBottom()) / NodeSize);
-        int num = StaticBorders ? 1 : 0;
-        int num2 = (!StaticBorders) ? 1 : 2;
-        position = position.Clamp(new Vector2(num), GridSize);
-        position2 = position2.Clamp(Vector2.Zero, GridSize - new Vector2(num2));
-        for (int i = (int)position.X; i <= position2.X; i++)
+        private void CleanTargetPositions()
         {
-            for (int j = (int)position.Y; j <= position2.Y; j++)
+            if (_targetsDirty)
             {
-                MagneticNodeData magneticNodeData = _nodesData[i, j];
-                Vector2 vector2 = magnet.GetForce(magneticNodeData.DefaultPosition - vector) * PowerMult;
-                magneticNodeData.TargetPosition += vector2;
+                MagneticNodeData[,] nodesData = _nodesData;
+                foreach (MagneticNodeData magneticNodeData in nodesData)
+                {
+                    magneticNodeData.Clean();
+                }
             }
+            _targetsDirty = _magnets.Count > 0;
         }
-    }
 
-    private void CleanTargetPositions()
-    {
-        if (_targetsDirty)
+        private void Initialize()
         {
-            MagneticNodeData[,] nodesData = _nodesData;
-            foreach (MagneticNodeData magneticNodeData in nodesData)
+            _nodesData = new MagneticNodeData[GridSize.Width, GridSize.Height];
+            for (int i = 0; i < GridSize.Width; i++)
             {
-                magneticNodeData.Clean();
-            }
-        }
-        _targetsDirty = _magnets.Count > 0;
-    }
-
-    private void Initialize()
-    {
-        _nodesData = new MagneticNodeData[GridSize.Width, GridSize.Height];
-        for (int i = 0; i < GridSize.Width; i++)
-        {
-            for (int j = 0; j < GridSize.Height; j++)
-            {
-                _nodesData[i, j] = new MagneticNodeData(base[i, j]);
+                for (int j = 0; j < GridSize.Height; j++)
+                {
+                    _nodesData[i, j] = new MagneticNodeData(base[i, j]);
+                }
             }
         }
     }

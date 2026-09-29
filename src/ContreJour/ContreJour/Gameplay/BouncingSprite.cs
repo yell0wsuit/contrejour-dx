@@ -6,49 +6,50 @@ using Mokus2D.Util;
 using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual;
 
-namespace ContreJour.Gameplay;
-
-public class BouncingSprite : Sprite
+namespace ContreJour.Gameplay
 {
-    private readonly CosChanger changer;
-
-    private float initialScale;
-
-    public float Step
+    public class BouncingSprite : Sprite
     {
-        get => changer.Step;
-        set => changer.Step = value;
-    }
+        private readonly CosChanger changer;
 
-    public override Vector2 ScaleVec
-    {
-        set
+        private float initialScale;
+
+        public float Step
         {
-            base.ScaleVec = value;
-            initialScale = value.X;
+            get => changer.Step;
+            set => changer.Step = value;
         }
-    }
 
-    public event Action<BouncingSprite> MaxBounceEvent;
-
-    public BouncingSprite(string filename)
-        : base(filename)
-    {
-        changer = new CosChanger(0.03f, 0.05f)
+        public override Vector2 ScaleVec
         {
-            MinValue = 0.95f,
-            MaxValue = 1.04f
-        };
-        initialScale = 1f;
-    }
+            set
+            {
+                base.ScaleVec = value;
+                initialScale = value.X;
+            }
+        }
 
-    public override void Update(float time)
-    {
-        changer.Update(time);
-        base.ScaleVec = new Vector2(changer.Value * initialScale, (2f - changer.Value) * initialScale);
-        if (changer.IsMax)
+        public event Action<BouncingSprite> MaxBounceEvent;
+
+        public BouncingSprite(string filename)
+            : base(filename)
         {
-            MaxBounceEvent.Dispatch(this);
+            changer = new CosChanger(0.03f, 0.05f)
+            {
+                MinValue = 0.95f,
+                MaxValue = 1.04f
+            };
+            initialScale = 1f;
+        }
+
+        public override void Update(float time)
+        {
+            changer.Update(time);
+            base.ScaleVec = new Vector2(changer.Value * initialScale, (2f - changer.Value) * initialScale);
+            if (changer.IsMax)
+            {
+                MaxBounceEvent.Dispatch(this);
+            }
         }
     }
 }

@@ -4,29 +4,30 @@ using Mokus2D.Data;
 using Mokus2D.Interfaces;
 using Mokus2D.Visual;
 
-namespace ContreJour.Clips.spikes;
-
-[GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
-public class McSimpleSpikesView : MovieClip, IFreeable, IId
+namespace ContreJour.Clips.spikes
 {
-    public const string ID = "spikes/McSimpleSpikesView";
-
-    public string Id => "spikes/McSimpleSpikesView";
-
-    public static McSimpleSpikesView New()
+    [GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
+    public class McSimpleSpikesView : MovieClip, IFreeable, IId
     {
-        McSimpleSpikesView mcSimpleSpikesView = StaticPool.New<McSimpleSpikesView>();
-        mcSimpleSpikesView.RefreshProperties();
-        return mcSimpleSpikesView;
-    }
+        public const string ID = "spikes/McSimpleSpikesView";
 
-    public McSimpleSpikesView()
-        : base("spikes/McSimpleSpikesView")
-    {
-    }
+        public string Id => "spikes/McSimpleSpikesView";
 
-    public void Free()
-    {
-        StaticPool.Free<McSimpleSpikesView>(this);
+        public static McSimpleSpikesView New()
+        {
+            McSimpleSpikesView mcSimpleSpikesView = StaticPool.New<McSimpleSpikesView>();
+            mcSimpleSpikesView.RefreshProperties();
+            return mcSimpleSpikesView;
+        }
+
+        public McSimpleSpikesView()
+            : base("spikes/McSimpleSpikesView")
+        {
+        }
+
+        public void Free()
+        {
+            StaticPool.Free<McSimpleSpikesView>(this);
+        }
     }
 }

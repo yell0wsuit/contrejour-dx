@@ -5,21 +5,22 @@ using Microsoft.Xna.Framework;
 using Mokus2D.Util.Extensions;
 using Mokus2D.Visual;
 
-namespace Mokus2D.Integration.Farseer.Construction.Processors;
-
-public class RevoluteJointProcessor(PhysicsConstructor constructor) : JointProcessor(constructor)
+namespace Mokus2D.Integration.Farseer.Construction.Processors
 {
-    public override Joint Process(Node item)
+    public class RevoluteJointProcessor(PhysicsConstructor constructor) : JointProcessor(constructor)
     {
-        Vector2 anchor = Constructor.ToPhysics(item);
-        RevoluteJoint revoluteJoint = new(GetBodyA(item), GetBodyB(item), anchor, useWorldCoordinates: true);
-        if (item.Config.GetBool("limitEnabled"))
+        public override Joint Process(Node item)
         {
-            revoluteJoint.LimitEnabled = true;
-            revoluteJoint.LowerLimit = item.Config.GetFloat("lowerLimit").ToRadians();
-            revoluteJoint.UpperLimit = item.Config.GetFloat("upperLimit").ToRadians();
+            Vector2 anchor = Constructor.ToPhysics(item);
+            RevoluteJoint revoluteJoint = new(GetBodyA(item), GetBodyB(item), anchor, useWorldCoordinates: true);
+            if (item.Config.GetBool("limitEnabled"))
+            {
+                revoluteJoint.LimitEnabled = true;
+                revoluteJoint.LowerLimit = item.Config.GetFloat("lowerLimit").ToRadians();
+                revoluteJoint.UpperLimit = item.Config.GetFloat("upperLimit").ToRadians();
+            }
+            revoluteJoint.CollideConnected = item.Config.GetBool("collideConnected");
+            return revoluteJoint;
         }
-        revoluteJoint.CollideConnected = item.Config.GetBool("collideConnected");
-        return revoluteJoint;
     }
 }

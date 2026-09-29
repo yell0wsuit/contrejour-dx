@@ -1,19 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Mokus2D.Util.Data;
-
-public readonly struct ReverseListCollection<T>(IList<T> list) : IEnumerable<T>, IEnumerable
+namespace Mokus2D.Util.Data
 {
-    private readonly IList<T> _list = list;
-
-    public readonly IEnumerator<T> GetEnumerator()
+    public readonly struct ReverseListCollection<T>(IList<T> list) : IEnumerable<T>, IEnumerable
     {
-        return new ReverseListEnumerator<T>(_list);
-    }
+        private readonly IList<T> _list = list;
 
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-        return GetEnumerator();
+        public readonly IEnumerator<T> GetEnumerator()
+        {
+            return new ReverseListEnumerator<T>(_list);
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
     }
 }

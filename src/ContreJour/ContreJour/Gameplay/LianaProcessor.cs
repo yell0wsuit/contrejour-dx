@@ -2,24 +2,25 @@ using FarseerPhysics.Dynamics;
 
 using Microsoft.Xna.Framework;
 
-namespace ContreJour.Gameplay;
-
-public class LianaProcessor(LevelBuilderBase builder) : JointProcessorBase("liana", builder)
+namespace ContreJour.Gameplay
 {
-    public override object ProcessItem(Hashtable item)
+    public class LianaProcessor(LevelBuilderBase builder) : JointProcessorBase("liana", builder)
     {
-        return null;
-    }
+        public override object ProcessItem(Hashtable item)
+        {
+            return null;
+        }
 
-    public void JoinBodyTo(Body body1, Body body2)
-    {
-        _ = FarseerUtil.CreateDistanceJoint(Builder.World, body1, body2, 4f, 0.2f);
-    }
+        public void JoinBodyTo(Body body1, Body body2)
+        {
+            _ = FarseerUtil.CreateDistanceJoint(Builder.World, body1, body2, 4f, 0.2f);
+        }
 
-    public Body CreateBodyDynamic(Vector2 position, bool dynamic)
-    {
-        Body val = Builder.World.CreateCircle(1f / 6f, position, 0f, 0.3f, dynamic);
-        val.SetSensor(value: true);
-        return val;
+        public Body CreateBodyDynamic(Vector2 position, bool dynamic)
+        {
+            Body val = Builder.World.CreateCircle(1f / 6f, position, 0f, 0.3f, dynamic);
+            val.SetSensor(value: true);
+            return val;
+        }
     }
 }

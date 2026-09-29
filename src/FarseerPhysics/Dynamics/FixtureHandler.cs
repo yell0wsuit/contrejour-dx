@@ -1,3 +1,4 @@
-namespace FarseerPhysics.Dynamics;
-
-public delegate void FixtureHandler(Fixture fixture);
+namespace FarseerPhysics.Dynamics
+{
+    public delegate void FixtureHandler(Fixture fixture);
+}

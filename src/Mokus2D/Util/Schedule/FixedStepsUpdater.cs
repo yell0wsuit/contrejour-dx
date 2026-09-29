@@ -1,38 +1,39 @@
 using System;
 
-namespace Mokus2D.Util.Schedule;
-
-public class FixedStepsUpdater
+namespace Mokus2D.Util.Schedule
 {
-    private readonly int _periodSteps;
-    private readonly Action _updateAction;
-
-    private int _currentStep;
-
-    public int UpdateStep
+    public class FixedStepsUpdater
     {
-        get;
-        set => field = value % _periodSteps;
-    }
+        private readonly int _periodSteps;
+        private readonly Action _updateAction;
 
-    public FixedStepsUpdater(Action updateAction, int periodSteps, int updateStep = 0)
-    {
-        _updateAction = updateAction;
-        _periodSteps = periodSteps;
-        UpdateStep = updateStep;
-    }
+        private int _currentStep;
 
-    public void Update()
-    {
-        if (_currentStep % _periodSteps == UpdateStep)
+        public int UpdateStep
         {
-            _updateAction();
+            get;
+            set => field = value % _periodSteps;
         }
-        _currentStep++;
-    }
 
-    public void Reset()
-    {
-        _currentStep = 0;
+        public FixedStepsUpdater(Action updateAction, int periodSteps, int updateStep = 0)
+        {
+            _updateAction = updateAction;
+            _periodSteps = periodSteps;
+            UpdateStep = updateStep;
+        }
+
+        public void Update()
+        {
+            if (_currentStep % _periodSteps == UpdateStep)
+            {
+                _updateAction();
+            }
+            _currentStep++;
+        }
+
+        public void Reset()
+        {
+            _currentStep = 0;
+        }
     }
 }

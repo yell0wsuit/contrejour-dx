@@ -1,10 +1,11 @@
-namespace FarseerPhysics.Collision;
-
-public enum TOIOutputState
+namespace FarseerPhysics.Collision
 {
-    Unknown,
-    Failed,
-    Overlapped,
-    Touching,
-    Seperated
+    public enum TOIOutputState
+    {
+        Unknown,
+        Failed,
+        Overlapped,
+        Touching,
+        Seperated
+    }
 }

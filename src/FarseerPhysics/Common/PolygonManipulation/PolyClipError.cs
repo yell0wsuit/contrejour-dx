@@ -1,9 +1,10 @@
-namespace FarseerPhysics.Common.PolygonManipulation;
-
-public enum PolyClipError
+namespace FarseerPhysics.Common.PolygonManipulation
 {
-    None,
-    DegeneratedOutput,
-    NonSimpleInput,
-    BrokenResult
+    public enum PolyClipError
+    {
+        None,
+        DegeneratedOutput,
+        NonSimpleInput,
+        BrokenResult
+    }
 }

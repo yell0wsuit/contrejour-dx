@@ -1,14 +1,15 @@
 using Microsoft.Xna.Framework;
 
-namespace ContreJour.Gameplay;
-
-public class FlyEye(ContreJourGame game, bool visible, Vector2 position) : MonsterEye(game, visible, position)
+namespace ContreJour.Gameplay
 {
-    protected override float ViewRadius => 4f;
-
-    protected override void CreateDefaultView()
+    public class FlyEye(ContreJourGame game, bool visible, Vector2 position) : MonsterEye(game, visible, position)
     {
-        base.CreateDefaultView();
-        EyeBallSprite.Scale = 1.5f;
+        protected override float ViewRadius => 4f;
+
+        protected override void CreateDefaultView()
+        {
+            base.CreateDefaultView();
+            EyeBallSprite.Scale = 1.5f;
+        }
     }
 }

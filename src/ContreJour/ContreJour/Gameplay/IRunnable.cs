@@ -1,6 +1,7 @@
-namespace ContreJour.Gameplay;
-
-public interface IRunnable
+namespace ContreJour.Gameplay
 {
-    void Run();
+    public interface IRunnable
+    {
+        void Run();
+    }
 }

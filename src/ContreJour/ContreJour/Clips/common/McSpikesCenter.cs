@@ -4,29 +4,30 @@ using Mokus2D.Data;
 using Mokus2D.Interfaces;
 using Mokus2D.Visual;
 
-namespace ContreJour.Clips.common;
-
-[GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
-public class McSpikesCenter : Sprite, IFreeable, IId
+namespace ContreJour.Clips.common
 {
-    public const string ID = "common/McSpikesCenter";
-
-    public string Id => "common/McSpikesCenter";
-
-    public static McSpikesCenter New()
+    [GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
+    public class McSpikesCenter : Sprite, IFreeable, IId
     {
-        McSpikesCenter mcSpikesCenter = StaticPool.New<McSpikesCenter>();
-        mcSpikesCenter.RefreshProperties();
-        return mcSpikesCenter;
-    }
+        public const string ID = "common/McSpikesCenter";
 
-    public McSpikesCenter()
-        : base("common/McSpikesCenter")
-    {
-    }
+        public string Id => "common/McSpikesCenter";
 
-    public void Free()
-    {
-        StaticPool.Free<McSpikesCenter>(this);
+        public static McSpikesCenter New()
+        {
+            McSpikesCenter mcSpikesCenter = StaticPool.New<McSpikesCenter>();
+            mcSpikesCenter.RefreshProperties();
+            return mcSpikesCenter;
+        }
+
+        public McSpikesCenter()
+            : base("common/McSpikesCenter")
+        {
+        }
+
+        public void Free()
+        {
+            StaticPool.Free<McSpikesCenter>(this);
+        }
     }
 }

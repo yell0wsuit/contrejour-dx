@@ -4,29 +4,30 @@ using Mokus2D.Data;
 using Mokus2D.Interfaces;
 using Mokus2D.Visual;
 
-namespace ContreJour.Clips.chapter3;
-
-[GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
-public class McBackground3_1Foreground : Sprite, IFreeable, IId
+namespace ContreJour.Clips.chapter3
 {
-    public const string ID = "chapter3/McBackground3_1Foreground";
-
-    public string Id => "chapter3/McBackground3_1Foreground";
-
-    public static McBackground3_1Foreground New()
+    [GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
+    public class McBackground3_1Foreground : Sprite, IFreeable, IId
     {
-        McBackground3_1Foreground mcBackground3_1Foreground = StaticPool.New<McBackground3_1Foreground>();
-        mcBackground3_1Foreground.RefreshProperties();
-        return mcBackground3_1Foreground;
-    }
+        public const string ID = "chapter3/McBackground3_1Foreground";
 
-    public McBackground3_1Foreground()
-        : base("chapter3/McBackground3_1Foreground")
-    {
-    }
+        public string Id => "chapter3/McBackground3_1Foreground";
 
-    public void Free()
-    {
-        StaticPool.Free<McBackground3_1Foreground>(this);
+        public static McBackground3_1Foreground New()
+        {
+            McBackground3_1Foreground mcBackground3_1Foreground = StaticPool.New<McBackground3_1Foreground>();
+            mcBackground3_1Foreground.RefreshProperties();
+            return mcBackground3_1Foreground;
+        }
+
+        public McBackground3_1Foreground()
+            : base("chapter3/McBackground3_1Foreground")
+        {
+        }
+
+        public void Free()
+        {
+            StaticPool.Free<McBackground3_1Foreground>(this);
+        }
     }
 }

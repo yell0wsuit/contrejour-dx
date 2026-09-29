@@ -4,19 +4,20 @@ using Microsoft.Xna.Framework;
 
 using Mokus2D.Util.Extensions;
 
-namespace ContreJour.Gameplay;
-
-public class FakeHeroGreen : FakeHeroBlack
+namespace ContreJour.Gameplay
 {
-    protected override Color TailColor => ContreJourConstants.GreenTail.ChangeAlpha(byte.MaxValue);
-
-    protected override string ProcessName(string name)
+    public class FakeHeroGreen : FakeHeroBlack
     {
-        return name + "_6";
-    }
+        protected override Color TailColor => ContreJourConstants.GreenTail.ChangeAlpha(byte.MaxValue);
 
-    protected override FakeHeroEye CreateEye()
-    {
-        return new FakeHeroEyeGreen();
+        protected override string ProcessName(string name)
+        {
+            return name + "_6";
+        }
+
+        protected override FakeHeroEye CreateEye()
+        {
+            return new FakeHeroEyeGreen();
+        }
     }
 }

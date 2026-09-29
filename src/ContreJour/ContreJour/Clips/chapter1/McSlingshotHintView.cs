@@ -4,29 +4,30 @@ using Mokus2D.Data;
 using Mokus2D.Interfaces;
 using Mokus2D.Visual;
 
-namespace ContreJour.Clips.chapter1;
-
-[GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
-public class McSlingshotHintView : Sprite, IFreeable, IId
+namespace ContreJour.Clips.chapter1
 {
-    public const string ID = "chapter1/McSlingshotHintView";
-
-    public string Id => "chapter1/McSlingshotHintView";
-
-    public static McSlingshotHintView New()
+    [GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
+    public class McSlingshotHintView : Sprite, IFreeable, IId
     {
-        McSlingshotHintView mcSlingshotHintView = StaticPool.New<McSlingshotHintView>();
-        mcSlingshotHintView.RefreshProperties();
-        return mcSlingshotHintView;
-    }
+        public const string ID = "chapter1/McSlingshotHintView";
 
-    public McSlingshotHintView()
-        : base("chapter1/McSlingshotHintView")
-    {
-    }
+        public string Id => "chapter1/McSlingshotHintView";
 
-    public void Free()
-    {
-        StaticPool.Free<McSlingshotHintView>(this);
+        public static McSlingshotHintView New()
+        {
+            McSlingshotHintView mcSlingshotHintView = StaticPool.New<McSlingshotHintView>();
+            mcSlingshotHintView.RefreshProperties();
+            return mcSlingshotHintView;
+        }
+
+        public McSlingshotHintView()
+            : base("chapter1/McSlingshotHintView")
+        {
+        }
+
+        public void Free()
+        {
+            StaticPool.Free<McSlingshotHintView>(this);
+        }
     }
 }

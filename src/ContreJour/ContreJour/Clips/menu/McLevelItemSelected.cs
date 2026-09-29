@@ -4,29 +4,30 @@ using Mokus2D.Data;
 using Mokus2D.Interfaces;
 using Mokus2D.Visual;
 
-namespace ContreJour.Clips.menu;
-
-[GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
-public class McLevelItemSelected : Sprite, IFreeable, IId
+namespace ContreJour.Clips.menu
 {
-    public const string ID = "menu/McLevelItemSelected";
-
-    public string Id => "menu/McLevelItemSelected";
-
-    public static McLevelItemSelected New()
+    [GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
+    public class McLevelItemSelected : Sprite, IFreeable, IId
     {
-        McLevelItemSelected mcLevelItemSelected = StaticPool.New<McLevelItemSelected>();
-        mcLevelItemSelected.RefreshProperties();
-        return mcLevelItemSelected;
-    }
+        public const string ID = "menu/McLevelItemSelected";
 
-    public McLevelItemSelected()
-        : base("menu/McLevelItemSelected")
-    {
-    }
+        public string Id => "menu/McLevelItemSelected";
 
-    public void Free()
-    {
-        StaticPool.Free<McLevelItemSelected>(this);
+        public static McLevelItemSelected New()
+        {
+            McLevelItemSelected mcLevelItemSelected = StaticPool.New<McLevelItemSelected>();
+            mcLevelItemSelected.RefreshProperties();
+            return mcLevelItemSelected;
+        }
+
+        public McLevelItemSelected()
+            : base("menu/McLevelItemSelected")
+        {
+        }
+
+        public void Free()
+        {
+            StaticPool.Free<McLevelItemSelected>(this);
+        }
     }
 }

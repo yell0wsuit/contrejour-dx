@@ -1,16 +1,17 @@
 using Microsoft.Xna.Framework;
 
-namespace ContreJour.Gameplay;
-
-public class GrassAndPosition(Particle particle, Vector2 position)
+namespace ContreJour.Gameplay
 {
-    private Vector2 position = position;
-
-    public Particle Particle { get; } = particle;
-
-    public Vector2 Position
+    public class GrassAndPosition(Particle particle, Vector2 position)
     {
-        get => position;
-        set => position = value;
+        private Vector2 position = position;
+
+        public Particle Particle { get; } = particle;
+
+        public Vector2 Position
+        {
+            get => position;
+            set => position = value;
+        }
     }
 }

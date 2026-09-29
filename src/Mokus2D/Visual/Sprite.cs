@@ -8,223 +8,224 @@ using Mokus2D.Visual.Drawing;
 using Mokus2D.Visual.Drawing.Vertex;
 using Mokus2D.Visual.Interfaces;
 
-namespace Mokus2D.Visual;
-
-public class Sprite : AnchorNode, ITextureNode, IAnchorNode, ISizeNode, IBlendable, IDataReloadable
+namespace Mokus2D.Visual
 {
-    public IQuad Quad { get; }
-
-    private bool _quadDirty;
-
-    private Rectangle _textureRectangle;
-
-    private bool _textureRectangleDirty;
-
-    private ISpriteData _data;
-
-    public bool IgnoreIfTextureDisposed { get; set; }
-
-    protected Rectangle TextureRectangle
+    public class Sprite : AnchorNode, ITextureNode, IAnchorNode, ISizeNode, IBlendable, IDataReloadable
     {
-        get => _textureRectangle;
-        set
+        public IQuad Quad { get; }
+
+        private bool _quadDirty;
+
+        private Rectangle _textureRectangle;
+
+        private bool _textureRectangleDirty;
+
+        private ISpriteData _data;
+
+        public bool IgnoreIfTextureDisposed { get; set; }
+
+        protected Rectangle TextureRectangle
         {
-            _textureRectangle = value;
-            _textureRectangleDirty = true;
-            ResetBounds();
+            get => _textureRectangle;
+            set
+            {
+                _textureRectangle = value;
+                _textureRectangleDirty = true;
+                ResetBounds();
+            }
         }
-    }
 
-    public override Vector2 TextureSize => TextureRectangle.Size();
+        public override Vector2 TextureSize => TextureRectangle.Size();
 
-    public override Vector2 Anchor
-    {
-        get => base.Anchor;
-        set
+        public override Vector2 Anchor
         {
-            base.Anchor = value;
+            get => base.Anchor;
+            set
+            {
+                base.Anchor = value;
+                SetQuadDirty();
+                ResetBounds();
+            }
+        }
+
+        public Sprite(string name)
+            : this(Mokus2DGame.LoadResource<ISpriteData>(name))
+        {
+        }
+
+        public Sprite(ISpriteData data)
+            : this(data.Texture)
+        {
+            ResetData(data);
+            Initialize();
+        }
+
+        protected Sprite()
+            : base(null)
+        {
+            Quad = CreateQuad();
+        }
+
+        public Sprite(Texture2D texture, IQuad quad = null)
+            : base(texture)
+        {
+            Quad = quad ?? CreateQuad();
+            RefreshTexture();
+            Anchor = Vector2.Zero;
+        }
+
+        public virtual void ReloadData()
+        {
+            string text = null;
+            if (_data != null)
+            {
+                text = _data.Id;
+            }
+            else if (this is IId id)
+            {
+                text = id.Id;
+            }
+            if (text != null)
+            {
+                ResetData(text);
+            }
+        }
+
+        public override void Draw(VisualState state)
+        {
+            if (Texture.IsDisposed)
+            {
+                ReloadData();
+            }
+            base.Draw(state);
+        }
+
+        public virtual void ResetTexture(Texture2D texture)
+        {
+            Texture = texture;
+            RefreshTexture();
             SetQuadDirty();
-            ResetBounds();
         }
-    }
 
-    public Sprite(string name)
-        : this(Mokus2DGame.LoadResource<ISpriteData>(name))
-    {
-    }
-
-    public Sprite(ISpriteData data)
-        : this(data.Texture)
-    {
-        ResetData(data);
-        Initialize();
-    }
-
-    protected Sprite()
-        : base(null)
-    {
-        Quad = CreateQuad();
-    }
-
-    public Sprite(Texture2D texture, IQuad quad = null)
-        : base(texture)
-    {
-        Quad = quad ?? CreateQuad();
-        RefreshTexture();
-        Anchor = Vector2.Zero;
-    }
-
-    public virtual void ReloadData()
-    {
-        string text = null;
-        if (_data != null)
+        public virtual void ResetData(string id)
         {
-            text = _data.Id;
+            ResetData(Mokus2DGame.LoadSpriteData(id));
         }
-        else if (this is IId id)
+
+        public void ResetData(ISpriteData data)
         {
-            text = id.Id;
+            _data = data;
+            Anchor = data.Anchor;
+            ScaleFactor = data.ScaleFactor;
+            ResetTexture(data.Texture);
+            TextureRectangle = data.TextureRect;
+            InitializeConfig(data);
+            SetQuadDirty();
+            SetTextureRectangleDirty();
         }
-        if (text != null)
+
+        protected virtual void Initialize()
         {
-            ResetData(text);
         }
-    }
 
-    public override void Draw(VisualState state)
-    {
-        if (Texture.IsDisposed)
+        protected void RefreshTexture()
         {
-            ReloadData();
+            TextureRectangle = new Rectangle(0, 0, Texture.Width, Texture.Height);
         }
-        base.Draw(state);
-    }
 
-    public virtual void ResetTexture(Texture2D texture)
-    {
-        Texture = texture;
-        RefreshTexture();
-        SetQuadDirty();
-    }
-
-    public virtual void ResetData(string id)
-    {
-        ResetData(Mokus2DGame.LoadSpriteData(id));
-    }
-
-    public void ResetData(ISpriteData data)
-    {
-        _data = data;
-        Anchor = data.Anchor;
-        ScaleFactor = data.ScaleFactor;
-        ResetTexture(data.Texture);
-        TextureRectangle = data.TextureRect;
-        InitializeConfig(data);
-        SetQuadDirty();
-        SetTextureRectangleDirty();
-    }
-
-    protected virtual void Initialize()
-    {
-    }
-
-    protected void RefreshTexture()
-    {
-        TextureRectangle = new Rectangle(0, 0, Texture.Width, Texture.Height);
-    }
-
-    protected void InitializeConfig(IConfig data)
-    {
-        SetMainConfig(data.Config);
-        if (Config != null)
+        protected void InitializeConfig(IConfig data)
         {
-            if (Config.ContainsKey("premultiply"))
+            SetMainConfig(data.Config);
+            if (Config != null)
             {
-                Blend = Config.GetBool("premultiply") ? BlendState.AlphaBlend : BlendState.NonPremultiplied;
-            }
-            if (Config.ContainsKey("clickable"))
-            {
-                Clickable = Config.GetBool("clickable");
+                if (Config.ContainsKey("premultiply"))
+                {
+                    Blend = Config.GetBool("premultiply") ? BlendState.AlphaBlend : BlendState.NonPremultiplied;
+                }
+                if (Config.ContainsKey("clickable"))
+                {
+                    Clickable = Config.GetBool("clickable");
+                }
             }
         }
-    }
 
-    protected virtual IQuad CreateQuad()
-    {
-        return Mokus2DGame.Config.GraphicsConfig.CreateDefaultQuad();
-    }
-
-    protected virtual Rectangle GetTileRectangle()
-    {
-        return TextureRectangle;
-    }
-
-    protected virtual Vector2 GetCurrentAnchor()
-    {
-        return AnchorInPixels;
-    }
-
-    protected void SetTextureRectangleDirty()
-    {
-        _textureRectangleDirty = true;
-    }
-
-    protected void SetQuadDirty()
-    {
-        _quadDirty = true;
-    }
-
-    protected override void RefreshTransformations(VisualState parentState)
-    {
-        base.RefreshTransformations(parentState);
-        if (CompositeState.TransformationDirty || _quadDirty)
+        protected virtual IQuad CreateQuad()
         {
-            RefreshQuad();
-            _quadDirty = false;
+            return Mokus2DGame.Config.GraphicsConfig.CreateDefaultQuad();
         }
-    }
 
-    protected virtual void RefreshQuad()
-    {
-        Vector2 spritesScaleFactor = Root.SpritesScaleFactor;
-        Quad.RefreshTransformation(CompositeState.Matrix, GetCurrentAnchor() * spritesScaleFactor, GetTileRectangle().Size() * ScaleFactor * spritesScaleFactor);
-    }
-
-    protected override void DrawSprite(VisualState state, Color color)
-    {
-        if (Texture != null && (!Texture.IsDisposed || !IgnoreIfTextureDisposed))
+        protected virtual Rectangle GetTileRectangle()
         {
-            Quad.RefreshColor(color, CompositeState.ColorRatio);
-            if (_textureRectangleDirty)
+            return TextureRectangle;
+        }
+
+        protected virtual Vector2 GetCurrentAnchor()
+        {
+            return AnchorInPixels;
+        }
+
+        protected void SetTextureRectangleDirty()
+        {
+            _textureRectangleDirty = true;
+        }
+
+        protected void SetQuadDirty()
+        {
+            _quadDirty = true;
+        }
+
+        protected override void RefreshTransformations(VisualState parentState)
+        {
+            base.RefreshTransformations(parentState);
+            if (CompositeState.TransformationDirty || _quadDirty)
             {
-                Quad.RefreshTextureRect(GetTileRectangle(), Texture.Bounds.Size());
-                _textureRectangleDirty = false;
+                RefreshQuad();
+                _quadDirty = false;
             }
-            Quad.Draw(Drawer);
+        }
+
+        protected virtual void RefreshQuad()
+        {
+            Vector2 spritesScaleFactor = Root.SpritesScaleFactor;
+            Quad.RefreshTransformation(CompositeState.Matrix, GetCurrentAnchor() * spritesScaleFactor, GetTileRectangle().Size() * ScaleFactor * spritesScaleFactor);
+        }
+
+        protected override void DrawSprite(VisualState state, Color color)
+        {
+            if (Texture != null && (!Texture.IsDisposed || !IgnoreIfTextureDisposed))
+            {
+                Quad.RefreshColor(color, CompositeState.ColorRatio);
+                if (_textureRectangleDirty)
+                {
+                    Quad.RefreshTextureRect(GetTileRectangle(), Texture.Bounds.Size());
+                    _textureRectangleDirty = false;
+                }
+                Quad.Draw(Drawer);
+            }
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
         }
     }
+    public class Sprite<T>(Texture2D texture) : Sprite(texture) where T : struct, IVertex
+    {
+        public Sprite(string name)
+            : this(Mokus2DGame.LoadResource<ISpriteData>(name))
+        {
+        }
 
-    protected override void Dispose(bool disposing)
-    {
-        base.Dispose(disposing);
-    }
-}
-public class Sprite<T>(Texture2D texture) : Sprite(texture) where T : struct, IVertex
-{
-    public Sprite(string name)
-        : this(Mokus2DGame.LoadResource<ISpriteData>(name))
-    {
-    }
+        public Sprite(ISpriteData data)
+            : this(data.Texture)
+        {
+            ResetData(data);
+            Initialize();
+        }
 
-    public Sprite(ISpriteData data)
-        : this(data.Texture)
-    {
-        ResetData(data);
-        Initialize();
-    }
-
-    protected override IQuad CreateQuad()
-    {
-        return new Quad<T>();
+        protected override IQuad CreateQuad()
+        {
+            return new Quad<T>();
+        }
     }
 }

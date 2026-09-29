@@ -3,85 +3,86 @@ using Microsoft.Xna.Framework;
 using Mokus2D.Util.Extensions;
 using Mokus2D.Visual.Util;
 
-namespace Mokus2D.Visual.Data;
-
-public class VisualState
+namespace Mokus2D.Visual.Data
 {
-    public bool TransformationDirty { get; set; }
-
-    private Matrix matrix = Matrix.Identity;
-
-    public ref Matrix Matrix => ref matrix;
-    private Vector2 _spritesScaleFactor = Vector2.One;
-
-    private Color _color = Color.White;
-
-    public Vector2 SpritesScaleFactor
+    public class VisualState
     {
-        get => _spritesScaleFactor;
-        set => _spritesScaleFactor = value;
-    }
+        public bool TransformationDirty { get; set; }
 
-    public float ColorRatio { get; private set; }
+        private Matrix matrix = Matrix.Identity;
 
-    public float Opacity { get; set; } = 1f;
+        public ref Matrix Matrix => ref matrix;
+        private Vector2 _spritesScaleFactor = Vector2.One;
 
-    public Color GetColor(bool premultiply)
-    {
-        return ColorUtil.AddOpacity(_color, Opacity, premultiply);
-    }
+        private Color _color = Color.White;
 
-    public Matrix GetCombinedScreenMatrix(Vector2 size)
-    {
-        return Matrix * MatrixCache.GetScreenMatrix(size);
-    }
-
-    public VisualState()
-        : this(Vector2.One)
-    {
-    }
-
-    public VisualState(Vector2 scaleFactor)
-    {
-        TransformationDirty = false;
-        _spritesScaleFactor = scaleFactor;
-    }
-
-    public VisualState(VisualState parent)
-    {
-        TransformationDirty = false;
-        _spritesScaleFactor = parent._spritesScaleFactor;
-    }
-
-    public void Refresh(VisualState parentState, ref Matrix matrix, float nodeOpacity, Color nodeColor, float colorRatio, bool ignoreParentOpacity, bool ignoreParentColor, bool ignoreParentTransformations)
-    {
-        Matrix = ignoreParentTransformations ? matrix : (matrix * parentState.Matrix);
-        RefreshValues(parentState, nodeOpacity, nodeColor, colorRatio, ignoreParentOpacity, ignoreParentColor);
-        TransformationDirty = true;
-    }
-
-    public void RefreshValues(VisualState parentState, float nodeOpacity, Color nodeColor, float colorRatio, bool ignoreParentOpacity, bool ignoreParentColor)
-    {
-        Opacity = ignoreParentOpacity ? nodeOpacity : (nodeOpacity * parentState.Opacity);
-        if (!ignoreParentColor)
+        public Vector2 SpritesScaleFactor
         {
-            if (Mokus2DGame.Config.GraphicsConfig.UseColorRatio)
+            get => _spritesScaleFactor;
+            set => _spritesScaleFactor = value;
+        }
+
+        public float ColorRatio { get; private set; }
+
+        public float Opacity { get; set; } = 1f;
+
+        public Color GetColor(bool premultiply)
+        {
+            return ColorUtil.AddOpacity(_color, Opacity, premultiply);
+        }
+
+        public Matrix GetCombinedScreenMatrix(Vector2 size)
+        {
+            return Matrix * MatrixCache.GetScreenMatrix(size);
+        }
+
+        public VisualState()
+            : this(Vector2.One)
+        {
+        }
+
+        public VisualState(Vector2 scaleFactor)
+        {
+            TransformationDirty = false;
+            _spritesScaleFactor = scaleFactor;
+        }
+
+        public VisualState(VisualState parent)
+        {
+            TransformationDirty = false;
+            _spritesScaleFactor = parent._spritesScaleFactor;
+        }
+
+        public void Refresh(VisualState parentState, ref Matrix matrix, float nodeOpacity, Color nodeColor, float colorRatio, bool ignoreParentOpacity, bool ignoreParentColor, bool ignoreParentTransformations)
+        {
+            Matrix = ignoreParentTransformations ? matrix : (matrix * parentState.Matrix);
+            RefreshValues(parentState, nodeOpacity, nodeColor, colorRatio, ignoreParentOpacity, ignoreParentColor);
+            TransformationDirty = true;
+        }
+
+        public void RefreshValues(VisualState parentState, float nodeOpacity, Color nodeColor, float colorRatio, bool ignoreParentOpacity, bool ignoreParentColor)
+        {
+            Opacity = ignoreParentOpacity ? nodeOpacity : (nodeOpacity * parentState.Opacity);
+            if (!ignoreParentColor)
             {
-                float num = colorRatio * (1f - parentState.ColorRatio);
-                _color = nodeColor.LerpTo(parentState._color, parentState.ColorRatio / (parentState.ColorRatio + num));
-                ColorRatio = parentState.ColorRatio + num;
+                if (Mokus2DGame.Config.GraphicsConfig.UseColorRatio)
+                {
+                    float num = colorRatio * (1f - parentState.ColorRatio);
+                    _color = nodeColor.LerpTo(parentState._color, parentState.ColorRatio / (parentState.ColorRatio + num));
+                    ColorRatio = parentState.ColorRatio + num;
+                }
+                else
+                {
+                    _color = nodeColor.Mult(parentState._color);
+                }
             }
             else
             {
-                _color = nodeColor.Mult(parentState._color);
+                _color = nodeColor;
+                ColorRatio = colorRatio;
             }
+            _color.A = byte.MaxValue;
+            _spritesScaleFactor = parentState._spritesScaleFactor;
         }
-        else
-        {
-            _color = nodeColor;
-            ColorRatio = colorRatio;
-        }
-        _color.A = byte.MaxValue;
-        _spritesScaleFactor = parentState._spritesScaleFactor;
     }
 }

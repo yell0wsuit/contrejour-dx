@@ -5,21 +5,22 @@ using Microsoft.Xna.Framework;
 using Mokus2D.Util.Extensions;
 using Mokus2D.Visual;
 
-namespace Mokus2D.Integration.Farseer.Construction.Processors;
-
-public class RopeJointProcessor(PhysicsConstructor constructor) : JointProcessor(constructor)
+namespace Mokus2D.Integration.Farseer.Construction.Processors
 {
-    private static readonly Vector2 EndOffset = new(10f, 0f);
-
-    public override Joint Process(Node item)
+    public class RopeJointProcessor(PhysicsConstructor constructor) : JointProcessor(constructor)
     {
-        Vector2 source = item.ZeroToGlobal();
-        Vector2 target = item.LocalToGlobal(EndOffset);
-        float maxLength = Constructor.ToPhysics(source.DistanceTo(target));
-        RopeJoint ropeJoint = new(GetBodyA(item), GetBodyB(item), Vector2.Zero, Vector2.Zero)
+        private static readonly Vector2 EndOffset = new(10f, 0f);
+
+        public override Joint Process(Node item)
         {
-            MaxLength = maxLength
-        };
-        return ropeJoint;
+            Vector2 source = item.ZeroToGlobal();
+            Vector2 target = item.LocalToGlobal(EndOffset);
+            float maxLength = Constructor.ToPhysics(source.DistanceTo(target));
+            RopeJoint ropeJoint = new(GetBodyA(item), GetBodyB(item), Vector2.Zero, Vector2.Zero)
+            {
+                MaxLength = maxLength
+            };
+            return ropeJoint;
+        }
     }
 }

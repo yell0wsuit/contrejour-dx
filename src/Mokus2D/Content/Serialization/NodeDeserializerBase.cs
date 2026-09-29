@@ -2,24 +2,25 @@ using System.Xml.Linq;
 
 using Mokus2D.Visual.Data;
 
-namespace Mokus2D.Content.Serialization;
-
-public abstract class NodeDeserializerBase<T>(IGraphicsLoader loader) : GraphicsDeserializerBase<T>(loader)
+namespace Mokus2D.Content.Serialization
 {
-    public override bool UseSuffix => true;
-
-    protected void AddConfigAndScaleFactor(TextureNodeData data, XElement element)
+    public abstract class NodeDeserializerBase<T>(IGraphicsLoader loader) : GraphicsDeserializerBase<T>(loader)
     {
-        AddConfig(data, element);
-        SetScaleFactor(data, element);
-    }
+        public override bool UseSuffix => true;
 
-    protected FrameData GetFrame(XElement frameXML)
-    {
-        return new FrameData
+        protected void AddConfigAndScaleFactor(TextureNodeData data, XElement element)
         {
-            Anchor = AnchorFromXml(frameXML),
-            Rect = RectFromXml(frameXML)
-        };
+            AddConfig(data, element);
+            SetScaleFactor(data, element);
+        }
+
+        protected FrameData GetFrame(XElement frameXML)
+        {
+            return new FrameData
+            {
+                Anchor = AnchorFromXml(frameXML),
+                Rect = RectFromXml(frameXML)
+            };
+        }
     }
 }

@@ -4,56 +4,57 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 
-namespace Mokus2D.Util.Xml;
-
-public abstract class XmlSerializerBase
+namespace Mokus2D.Util.Xml
 {
-    private readonly Dictionary<string, string> aliases = [];
-
-    public void AddAlias(string source, string alias)
+    public abstract class XmlSerializerBase
     {
-        aliases[alias] = source;
-    }
+        private readonly Dictionary<string, string> aliases = [];
 
-    public abstract object DeserializeFile(Stream stream);
-
-    protected string UnprocessValue(string source)
-    {
-        foreach (KeyValuePair<string, string> alias in aliases)
+        public void AddAlias(string source, string alias)
         {
-            if (string.Equals(source, alias.Value, StringComparison.OrdinalIgnoreCase))
+            aliases[alias] = source;
+        }
+
+        public abstract object DeserializeFile(Stream stream);
+
+        protected string UnprocessValue(string source)
+        {
+            foreach (KeyValuePair<string, string> alias in aliases)
             {
-                return alias.Key;
+                if (string.Equals(source, alias.Value, StringComparison.OrdinalIgnoreCase))
+                {
+                    return alias.Key;
+                }
+            }
+            return source;
+        }
+
+        protected void SetObjectValue(object target, object targetValue, string key)
+        {
+            key = UnprocessAttributeName(key);
+            if (target is IList)
+            {
+                int num = Convert.ToInt32(key, CultureInfo.InvariantCulture);
+                IList list = target as IList;
+                while (list.Count < num + 1)
+                {
+                    _ = list.Add(null);
+                }
+                list[num] = targetValue;
+            }
+            else if (target is IDictionary dictionary)
+            {
+                dictionary[key] = targetValue;
+            }
+            else
+            {
+                _ = target.Reflect().FieldOrProperty(key).SetValue(targetValue);
             }
         }
-        return source;
-    }
 
-    protected void SetObjectValue(object target, object targetValue, string key)
-    {
-        key = UnprocessAttributeName(key);
-        if (target is IList)
+        private string UnprocessAttributeName(string attributeName)
         {
-            int num = Convert.ToInt32(key, CultureInfo.InvariantCulture);
-            IList list = target as IList;
-            while (list.Count < num + 1)
-            {
-                _ = list.Add(null);
-            }
-            list[num] = targetValue;
+            return attributeName.StartsWith("__", StringComparison.Ordinal) ? attributeName[2..] : UnprocessValue(attributeName);
         }
-        else if (target is IDictionary dictionary)
-        {
-            dictionary[key] = targetValue;
-        }
-        else
-        {
-            _ = target.Reflect().FieldOrProperty(key).SetValue(targetValue);
-        }
-    }
-
-    private string UnprocessAttributeName(string attributeName)
-    {
-        return attributeName.StartsWith("__", StringComparison.Ordinal) ? attributeName[2..] : UnprocessValue(attributeName);
     }
 }

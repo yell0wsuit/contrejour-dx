@@ -1,6 +1,7 @@
-namespace ContreJour.Gameplay;
-
-public interface IRestartable
+namespace ContreJour.Gameplay
 {
-    void Restart();
+    public interface IRestartable
+    {
+        void Restart();
+    }
 }

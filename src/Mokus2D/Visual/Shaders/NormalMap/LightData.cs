@@ -1,84 +1,85 @@
 using Microsoft.Xna.Framework;
 
-namespace Mokus2D.Visual.Shaders.NormalMap;
-
-public class LightData
+namespace Mokus2D.Visual.Shaders.NormalMap
 {
-    private Vector3 _position;
-    private Color _color;
-    internal int Index;
-
-    private readonly NormalMapEffectBase _effect;
-
-    public Vector3 Position
+    public class LightData
     {
-        get => _position;
-        set
+        private Vector3 _position;
+        private Color _color;
+        internal int Index;
+
+        private readonly NormalMapEffectBase _effect;
+
+        public Vector3 Position
         {
-            if (_position != value)
+            get => _position;
+            set
             {
-                _position = value;
-                _effect.SetLightPosition(Index, value);
+                if (_position != value)
+                {
+                    _position = value;
+                    _effect.SetLightPosition(Index, value);
+                }
             }
         }
-    }
 
-    public float Power
-    {
-        get;
-        set
+        public float Power
         {
-            if (field != value)
+            get;
+            set
             {
-                field = value;
-                _effect.SetLightPower(Index, value);
+                if (field != value)
+                {
+                    field = value;
+                    _effect.SetLightPower(Index, value);
+                }
             }
         }
-    }
 
-    public Color Color
-    {
-        get => _color;
-        set
+        public Color Color
         {
-            if (_color != value)
+            get => _color;
+            set
             {
-                _color = value;
-                _effect.SetLightColor(Index, value);
+                if (_color != value)
+                {
+                    _color = value;
+                    _effect.SetLightColor(Index, value);
+                }
             }
         }
-    }
 
-    public float DistanceRate
-    {
-        get;
-        set
+        public float DistanceRate
         {
-            if (field != value)
+            get;
+            set
             {
-                field = value;
-                _effect.SetLightDistanceRate(Index, value);
+                if (field != value)
+                {
+                    field = value;
+                    _effect.SetLightDistanceRate(Index, value);
+                }
             }
         }
-    }
 
-    internal LightData(NormalMapEffectBase effect, int index, Vector3 position, float power, Color color, float distanceRate)
-    {
-        _effect = effect;
-        Index = index;
-        Position = position;
-        Power = power;
-        Color = color;
-        DistanceRate = distanceRate;
-    }
+        internal LightData(NormalMapEffectBase effect, int index, Vector3 position, float power, Color color, float distanceRate)
+        {
+            _effect = effect;
+            Index = index;
+            Position = position;
+            Power = power;
+            Color = color;
+            DistanceRate = distanceRate;
+        }
 
-    internal LightData(NormalMapEffectBase effect, int index, Vector3 position, float power, Color color)
-        : this(effect, index, position, power, color, 3f)
-    {
-    }
+        internal LightData(NormalMapEffectBase effect, int index, Vector3 position, float power, Color color)
+            : this(effect, index, position, power, color, 3f)
+        {
+        }
 
-    internal LightData(NormalMapEffectBase effect, int index, Vector3 position, float power)
-        : this(effect, index, position, power, Color.White)
-    {
+        internal LightData(NormalMapEffectBase effect, int index, Vector3 position, float power)
+            : this(effect, index, position, power, Color.White)
+        {
+        }
     }
 }

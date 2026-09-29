@@ -1,8 +1,9 @@
-namespace Mokus2D.Effects.OnOff;
-
-public interface IOnOff
+namespace Mokus2D.Effects.OnOff
 {
-    bool IsOn { get; set; }
+    public interface IOnOff
+    {
+        bool IsOn { get; set; }
 
-    void SetOn(bool value);
+        void SetOn(bool value);
+    }
 }

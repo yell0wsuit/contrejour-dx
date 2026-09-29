@@ -4,29 +4,30 @@ using Mokus2D.Data;
 using Mokus2D.Interfaces;
 using Mokus2D.Visual;
 
-namespace ContreJour.Clips.chapter5;
-
-[GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
-public class McSuckerStrongSnotTexture : Sprite, IFreeable, IId
+namespace ContreJour.Clips.chapter5
 {
-    public const string ID = "chapter5/McSuckerStrongSnotTexture";
-
-    public string Id => "chapter5/McSuckerStrongSnotTexture";
-
-    public static McSuckerStrongSnotTexture New()
+    [GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
+    public class McSuckerStrongSnotTexture : Sprite, IFreeable, IId
     {
-        McSuckerStrongSnotTexture mcSuckerStrongSnotTexture = StaticPool.New<McSuckerStrongSnotTexture>();
-        mcSuckerStrongSnotTexture.RefreshProperties();
-        return mcSuckerStrongSnotTexture;
-    }
+        public const string ID = "chapter5/McSuckerStrongSnotTexture";
 
-    public McSuckerStrongSnotTexture()
-        : base("chapter5/McSuckerStrongSnotTexture")
-    {
-    }
+        public string Id => "chapter5/McSuckerStrongSnotTexture";
 
-    public void Free()
-    {
-        StaticPool.Free<McSuckerStrongSnotTexture>(this);
+        public static McSuckerStrongSnotTexture New()
+        {
+            McSuckerStrongSnotTexture mcSuckerStrongSnotTexture = StaticPool.New<McSuckerStrongSnotTexture>();
+            mcSuckerStrongSnotTexture.RefreshProperties();
+            return mcSuckerStrongSnotTexture;
+        }
+
+        public McSuckerStrongSnotTexture()
+            : base("chapter5/McSuckerStrongSnotTexture")
+        {
+        }
+
+        public void Free()
+        {
+            StaticPool.Free<McSuckerStrongSnotTexture>(this);
+        }
     }
 }

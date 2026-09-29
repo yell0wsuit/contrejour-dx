@@ -1,11 +1,12 @@
 using System;
 
-namespace Mokus2D.Util.Extensions;
-
-public static class FunctionExtensions
+namespace Mokus2D.Util.Extensions
 {
-    public static bool NullOrTrue<T>(this Predicate<T> predicate, T obj)
+    public static class FunctionExtensions
     {
-        return predicate?.Invoke(obj) ?? true;
+        public static bool NullOrTrue<T>(this Predicate<T> predicate, T obj)
+        {
+            return predicate?.Invoke(obj) ?? true;
+        }
     }
 }

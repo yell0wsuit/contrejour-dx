@@ -1,10 +1,11 @@
 using Microsoft.Xna.Framework;
 
-namespace FarseerPhysics.Collision;
-
-public struct ClipVertex
+namespace FarseerPhysics.Collision
 {
-    public ContactID ID;
+    public struct ClipVertex
+    {
+        public ContactID ID;
 
-    public Vector2 V;
+        public Vector2 V;
+    }
 }

@@ -3,21 +3,22 @@ using System.Xml.Serialization;
 
 using Mokus2D.Visual.Particles.Data;
 
-namespace Mokus2D.Content.Serialization;
-
-public class ParicleConfigDeserializer : IGraphicsDeserializer<ParticleSystemConfig>, IGraphicsDeserializer
+namespace Mokus2D.Content.Serialization
 {
-    private readonly XmlSerializer _xmlSerializer = new(typeof(ParticleSystemConfig));
-
-    public bool UseSuffix => false;
-
-    object IGraphicsDeserializer.Deserialize(string id, XElement document)
+    public class ParicleConfigDeserializer : IGraphicsDeserializer<ParticleSystemConfig>, IGraphicsDeserializer
     {
-        return Deserialize(id, document);
-    }
+        private readonly XmlSerializer _xmlSerializer = new(typeof(ParticleSystemConfig));
 
-    public ParticleSystemConfig Deserialize(string id, XElement element)
-    {
-        return (ParticleSystemConfig)_xmlSerializer.Deserialize(element.CreateReader());
+        public bool UseSuffix => false;
+
+        object IGraphicsDeserializer.Deserialize(string id, XElement document)
+        {
+            return Deserialize(id, document);
+        }
+
+        public ParticleSystemConfig Deserialize(string id, XElement element)
+        {
+            return (ParticleSystemConfig)_xmlSerializer.Deserialize(element.CreateReader());
+        }
     }
 }

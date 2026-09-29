@@ -1,9 +1,10 @@
-namespace Mokus2D.Util.Data;
-
-public class CryptUtils
+namespace Mokus2D.Util.Data
 {
-    public static byte[] RunProtector(byte[] input)
+    public class CryptUtils
     {
-        return input;
+        public static byte[] RunProtector(byte[] input)
+        {
+            return input;
+        }
     }
 }

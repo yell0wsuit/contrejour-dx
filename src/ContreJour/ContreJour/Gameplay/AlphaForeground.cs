@@ -2,26 +2,27 @@ using Mokus2D.Interfaces;
 using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual;
 
-namespace ContreJour.Gameplay;
-
-public class AlphaForeground : ForegroundBase, IUpdatable
+namespace ContreJour.Gameplay
 {
-    private readonly CosChanger changer;
-
-    public AlphaForeground(ContreJourLevelBuilder builder, object body, Node clip, Hashtable config)
-        : base(builder, body, clip, config)
+    public class AlphaForeground : ForegroundBase, IUpdatable
     {
-        float num = config.GetFloat("alphaStep");
-        changer = new CosChanger(num, num)
+        private readonly CosChanger changer;
+
+        public AlphaForeground(ContreJourLevelBuilder builder, object body, Node clip, Hashtable config)
+            : base(builder, body, clip, config)
         {
-            MaxValue = config.GetFloat("maximumAlpha"),
-            MinValue = config.GetFloat("minimumAlpha")
-        };
-    }
+            float num = config.GetFloat("alphaStep");
+            changer = new CosChanger(num, num)
+            {
+                MaxValue = config.GetFloat("maximumAlpha"),
+                MinValue = config.GetFloat("minimumAlpha")
+            };
+        }
 
-    public override void Update(float time)
-    {
-        changer.Update(time);
-        Clip.OpacityFloat = changer.Value;
+        public override void Update(float time)
+        {
+            changer.Update(time);
+            Clip.OpacityFloat = changer.Value;
+        }
     }
 }

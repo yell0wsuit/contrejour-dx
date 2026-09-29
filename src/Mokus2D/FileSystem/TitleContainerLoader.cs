@@ -2,12 +2,13 @@ using System.IO;
 
 using Microsoft.Xna.Framework;
 
-namespace Mokus2D.FileSystem;
-
-public class TitleContainerLoader : IFileLoader
+namespace Mokus2D.FileSystem
 {
-    public Stream OpenFile(string path)
+    public class TitleContainerLoader : IFileLoader
     {
-        return TitleContainer.OpenStream(path);
+        public Stream OpenFile(string path)
+        {
+            return TitleContainer.OpenStream(path);
+        }
     }
 }

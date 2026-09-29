@@ -1,14 +1,15 @@
 using FarseerPhysics.Common;
 
-namespace FarseerPhysics.Collision;
-
-public struct SimplexCache
+namespace FarseerPhysics.Collision
 {
-    public ushort Count;
+    public struct SimplexCache
+    {
+        public ushort Count;
 
-    public FixedArray3<byte> IndexA;
+        public FixedArray3<byte> IndexA;
 
-    public FixedArray3<byte> IndexB;
+        public FixedArray3<byte> IndexB;
 
-    public float Metric;
+        public float Metric;
+    }
 }

@@ -1,7 +1,8 @@
-namespace Mokus2D.UI.Layout;
-
-public enum LayoutOrientation
+namespace Mokus2D.UI.Layout
 {
-    Horizontal,
-    Vertical
+    public enum LayoutOrientation
+    {
+        Horizontal,
+        Vertical
+    }
 }

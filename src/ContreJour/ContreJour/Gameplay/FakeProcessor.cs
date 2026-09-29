@@ -1,11 +1,12 @@
-namespace ContreJour.Gameplay;
-
-public class FakeProcessor(string type, LevelBuilderBase builder) : TypeProcessorBase(type, builder)
+namespace ContreJour.Gameplay
 {
-    private static readonly int StaticResult = 1;
-
-    public override object ProcessItem(Hashtable item)
+    public class FakeProcessor(string type, LevelBuilderBase builder) : TypeProcessorBase(type, builder)
     {
-        return StaticResult;
+        private static readonly int StaticResult = 1;
+
+        public override object ProcessItem(Hashtable item)
+        {
+            return StaticResult;
+        }
     }
 }

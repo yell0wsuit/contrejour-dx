@@ -1,101 +1,102 @@
 using System;
 using System.Text;
 
-namespace FarseerPhysics.Common.Decomposition.CDT.Delaunay.Sweep;
-
-internal sealed class AdvancingFront(AdvancingFrontNode head, AdvancingFrontNode tail)
+namespace FarseerPhysics.Common.Decomposition.CDT.Delaunay.Sweep
 {
-    public AdvancingFrontNode Head = head;
-
-    private AdvancingFrontNode Search = head;
-
-    public AdvancingFrontNode Tail = tail;
-
-    public override string ToString()
+    internal sealed class AdvancingFront(AdvancingFrontNode head, AdvancingFrontNode tail)
     {
-        StringBuilder stringBuilder = new();
-        for (AdvancingFrontNode advancingFrontNode = Head; advancingFrontNode != Tail; advancingFrontNode = advancingFrontNode.Next)
+        public AdvancingFrontNode Head = head;
+
+        private AdvancingFrontNode Search = head;
+
+        public AdvancingFrontNode Tail = tail;
+
+        public override string ToString()
         {
-            _ = stringBuilder.Append(advancingFrontNode.Point.X).Append("->");
-        }
-        _ = stringBuilder.Append(Tail.Point.X);
-        return stringBuilder.ToString();
-    }
-
-    private AdvancingFrontNode FindSearchNode()
-    {
-        return Search;
-    }
-
-    public AdvancingFrontNode LocateNode(TriangulationPoint point)
-    {
-        return LocateNode(point.X);
-    }
-
-    private AdvancingFrontNode LocateNode(double x)
-    {
-        AdvancingFrontNode advancingFrontNode = FindSearchNode();
-        if (x < advancingFrontNode.Value)
-        {
-            while ((advancingFrontNode = advancingFrontNode.Prev) != null)
+            StringBuilder stringBuilder = new();
+            for (AdvancingFrontNode advancingFrontNode = Head; advancingFrontNode != Tail; advancingFrontNode = advancingFrontNode.Next)
             {
-                if (x >= advancingFrontNode.Value)
-                {
-                    Search = advancingFrontNode;
-                    return advancingFrontNode;
-                }
+                _ = stringBuilder.Append(advancingFrontNode.Point.X).Append("->");
             }
+            _ = stringBuilder.Append(Tail.Point.X);
+            return stringBuilder.ToString();
         }
-        else
-        {
-            while ((advancingFrontNode = advancingFrontNode.Next) != null)
-            {
-                if (x < advancingFrontNode.Value)
-                {
-                    Search = advancingFrontNode.Prev;
-                    return advancingFrontNode.Prev;
-                }
-            }
-        }
-        return null;
-    }
 
-    public AdvancingFrontNode LocatePoint(TriangulationPoint point)
-    {
-        double x = point.X;
-        AdvancingFrontNode advancingFrontNode = FindSearchNode();
-        double x2 = advancingFrontNode.Point.X;
-        if (x == x2)
+        private AdvancingFrontNode FindSearchNode()
         {
-            if (point != advancingFrontNode.Point)
+            return Search;
+        }
+
+        public AdvancingFrontNode LocateNode(TriangulationPoint point)
+        {
+            return LocateNode(point.X);
+        }
+
+        private AdvancingFrontNode LocateNode(double x)
+        {
+            AdvancingFrontNode advancingFrontNode = FindSearchNode();
+            if (x < advancingFrontNode.Value)
             {
-                if (point == advancingFrontNode.Prev.Point)
+                while ((advancingFrontNode = advancingFrontNode.Prev) != null)
                 {
-                    advancingFrontNode = advancingFrontNode.Prev;
-                }
-                else
-                {
-                    if (point != advancingFrontNode.Next.Point)
+                    if (x >= advancingFrontNode.Value)
                     {
-                        throw new InvalidOperationException("Failed to find Node for given afront point");
+                        Search = advancingFrontNode;
+                        return advancingFrontNode;
                     }
-                    advancingFrontNode = advancingFrontNode.Next;
                 }
             }
-        }
-        else if (x < x2)
-        {
-            while ((advancingFrontNode = advancingFrontNode.Prev) != null && point != advancingFrontNode.Point)
+            else
             {
+                while ((advancingFrontNode = advancingFrontNode.Next) != null)
+                {
+                    if (x < advancingFrontNode.Value)
+                    {
+                        Search = advancingFrontNode.Prev;
+                        return advancingFrontNode.Prev;
+                    }
+                }
             }
+            return null;
         }
-        else
+
+        public AdvancingFrontNode LocatePoint(TriangulationPoint point)
         {
-            while ((advancingFrontNode = advancingFrontNode.Next) != null && point != advancingFrontNode.Point)
+            double x = point.X;
+            AdvancingFrontNode advancingFrontNode = FindSearchNode();
+            double x2 = advancingFrontNode.Point.X;
+            if (x == x2)
             {
+                if (point != advancingFrontNode.Point)
+                {
+                    if (point == advancingFrontNode.Prev.Point)
+                    {
+                        advancingFrontNode = advancingFrontNode.Prev;
+                    }
+                    else
+                    {
+                        if (point != advancingFrontNode.Next.Point)
+                        {
+                            throw new InvalidOperationException("Failed to find Node for given afront point");
+                        }
+                        advancingFrontNode = advancingFrontNode.Next;
+                    }
+                }
             }
+            else if (x < x2)
+            {
+                while ((advancingFrontNode = advancingFrontNode.Prev) != null && point != advancingFrontNode.Point)
+                {
+                }
+            }
+            else
+            {
+                while ((advancingFrontNode = advancingFrontNode.Next) != null && point != advancingFrontNode.Point)
+                {
+                }
+            }
+            Search = advancingFrontNode;
+            return advancingFrontNode;
         }
-        Search = advancingFrontNode;
-        return advancingFrontNode;
     }
 }

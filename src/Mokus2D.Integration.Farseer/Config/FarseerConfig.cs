@@ -1,10 +1,11 @@
-namespace Mokus2D.Integration.Farseer.Config;
-
-public class FarseerConfig
+namespace Mokus2D.Integration.Farseer.Config
 {
-    public static readonly FarseerConfig DefaultConfig = new();
+    public class FarseerConfig
+    {
+        public static readonly FarseerConfig DefaultConfig = new();
 
-    public float PhysicsToPixels { get; set; } = 30f;
-    public float Friction { get; set; } = 1f;
+        public float PhysicsToPixels { get; set; } = 30f;
+        public float Friction { get; set; } = 1f;
 
+    }
 }

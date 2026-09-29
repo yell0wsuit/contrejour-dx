@@ -1,81 +1,82 @@
 using FarseerPhysics.Dynamics;
 
-namespace FarseerPhysics.Common.PhysicsLogic;
-
-public abstract class FilterData
+namespace FarseerPhysics.Common.PhysicsLogic
 {
-    private Category DisabledOnCategories;
-
-    public int DisabledOnGroup { get; set; }
-
-    private Category EnabledOnCategories = Category.All;
-
-    public int EnabledOnGroup { get; set; }
-
-    public virtual bool IsActiveOn(Body body)
+    public abstract class FilterData
     {
-        if (body == null || !body.Enabled || body.IsStatic)
+        private Category DisabledOnCategories;
+
+        public int DisabledOnGroup { get; set; }
+
+        private Category EnabledOnCategories = Category.All;
+
+        public int EnabledOnGroup { get; set; }
+
+        public virtual bool IsActiveOn(Body body)
         {
-            return false;
-        }
-        if (body.FixtureList == null)
-        {
-            return false;
-        }
-        foreach (Fixture fixture in body.FixtureList)
-        {
-            if (fixture.CollisionGroup == DisabledOnGroup && fixture.CollisionGroup != 0 && DisabledOnGroup != 0)
+            if (body == null || !body.Enabled || body.IsStatic)
             {
                 return false;
             }
-            if ((fixture.CollisionCategories & DisabledOnCategories) != Category.None)
+            if (body.FixtureList == null)
             {
                 return false;
             }
-            if (EnabledOnGroup != 0 || EnabledOnCategories != Category.All)
+            foreach (Fixture fixture in body.FixtureList)
             {
-                if (fixture.CollisionGroup == EnabledOnGroup && fixture.CollisionGroup != 0 && EnabledOnGroup != 0)
+                if (fixture.CollisionGroup == DisabledOnGroup && fixture.CollisionGroup != 0 && DisabledOnGroup != 0)
                 {
-                    return true;
+                    return false;
                 }
-                if ((fixture.CollisionCategories & EnabledOnCategories) != Category.None && EnabledOnCategories != Category.All)
+                if ((fixture.CollisionCategories & DisabledOnCategories) != Category.None)
                 {
-                    return true;
+                    return false;
                 }
-                continue;
+                if (EnabledOnGroup != 0 || EnabledOnCategories != Category.All)
+                {
+                    if (fixture.CollisionGroup == EnabledOnGroup && fixture.CollisionGroup != 0 && EnabledOnGroup != 0)
+                    {
+                        return true;
+                    }
+                    if ((fixture.CollisionCategories & EnabledOnCategories) != Category.None && EnabledOnCategories != Category.All)
+                    {
+                        return true;
+                    }
+                    continue;
+                }
+                return true;
             }
-            return true;
+            return false;
         }
-        return false;
-    }
 
-    public void AddDisabledCategory(Category category)
-    {
-        DisabledOnCategories |= category;
-    }
+        public void AddDisabledCategory(Category category)
+        {
+            DisabledOnCategories |= category;
+        }
 
-    public void RemoveDisabledCategory(Category category)
-    {
-        DisabledOnCategories &= ~category;
-    }
+        public void RemoveDisabledCategory(Category category)
+        {
+            DisabledOnCategories &= ~category;
+        }
 
-    public bool IsInDisabledCategory(Category category)
-    {
-        return (DisabledOnCategories & category) == category;
-    }
+        public bool IsInDisabledCategory(Category category)
+        {
+            return (DisabledOnCategories & category) == category;
+        }
 
-    public void AddEnabledCategory(Category category)
-    {
-        EnabledOnCategories |= category;
-    }
+        public void AddEnabledCategory(Category category)
+        {
+            EnabledOnCategories |= category;
+        }
 
-    public void RemoveEnabledCategory(Category category)
-    {
-        EnabledOnCategories &= ~category;
-    }
+        public void RemoveEnabledCategory(Category category)
+        {
+            EnabledOnCategories &= ~category;
+        }
 
-    public bool IsInEnabledInCategory(Category category)
-    {
-        return (EnabledOnCategories & category) == category;
+        public bool IsInEnabledInCategory(Category category)
+        {
+            return (EnabledOnCategories & category) == category;
+        }
     }
 }

@@ -2,28 +2,29 @@ using Mokus2D.Util.Extensions;
 using Mokus2D.Visual;
 using Mokus2D.Visual.Interactive;
 
-namespace ContreJour.Gameplay;
-
-public class ButtonSprite : TouchEffect
+namespace ContreJour.Gameplay
 {
-    private readonly float initialScale;
-
-    public float TargetScale { get; set; }
-
-    public ButtonSprite(TouchSprite sprite)
-        : base(sprite)
+    public class ButtonSprite : TouchEffect
     {
-        initialScale = Node.Scale;
-        TargetScale = initialScale * 1.1f;
-    }
+        private readonly float initialScale;
 
-    public override void OnAction(Node node)
-    {
-        _ = node.ScaleTo(EffectTime, TargetScale);
-    }
+        public float TargetScale { get; set; }
 
-    public override void OffAction(Node node)
-    {
-        _ = node.ScaleTo(EffectTime, initialScale);
+        public ButtonSprite(TouchSprite sprite)
+            : base(sprite)
+        {
+            initialScale = Node.Scale;
+            TargetScale = initialScale * 1.1f;
+        }
+
+        public override void OnAction(Node node)
+        {
+            _ = node.ScaleTo(EffectTime, TargetScale);
+        }
+
+        public override void OffAction(Node node)
+        {
+            _ = node.ScaleTo(EffectTime, initialScale);
+        }
     }
 }

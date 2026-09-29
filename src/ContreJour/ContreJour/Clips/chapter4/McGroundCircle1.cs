@@ -4,29 +4,30 @@ using Mokus2D.Data;
 using Mokus2D.Interfaces;
 using Mokus2D.Visual;
 
-namespace ContreJour.Clips.chapter4;
-
-[GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
-public class McGroundCircle1 : Sprite, IFreeable, IId
+namespace ContreJour.Clips.chapter4
 {
-    public const string ID = "chapter4/McGroundCircle1";
-
-    public string Id => "chapter4/McGroundCircle1";
-
-    public static McGroundCircle1 New()
+    [GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
+    public class McGroundCircle1 : Sprite, IFreeable, IId
     {
-        McGroundCircle1 mcGroundCircle = StaticPool.New<McGroundCircle1>();
-        mcGroundCircle.RefreshProperties();
-        return mcGroundCircle;
-    }
+        public const string ID = "chapter4/McGroundCircle1";
 
-    public McGroundCircle1()
-        : base("chapter4/McGroundCircle1")
-    {
-    }
+        public string Id => "chapter4/McGroundCircle1";
 
-    public void Free()
-    {
-        StaticPool.Free<McGroundCircle1>(this);
+        public static McGroundCircle1 New()
+        {
+            McGroundCircle1 mcGroundCircle = StaticPool.New<McGroundCircle1>();
+            mcGroundCircle.RefreshProperties();
+            return mcGroundCircle;
+        }
+
+        public McGroundCircle1()
+            : base("chapter4/McGroundCircle1")
+        {
+        }
+
+        public void Free()
+        {
+            StaticPool.Free<McGroundCircle1>(this);
+        }
     }
 }

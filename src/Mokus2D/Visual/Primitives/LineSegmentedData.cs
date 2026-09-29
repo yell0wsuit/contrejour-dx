@@ -8,78 +8,79 @@ using Mokus2D.Util.Extensions;
 using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual.Drawing.Vertex;
 
-namespace Mokus2D.Visual.Primitives;
-
-public class LineSegmentedData<T>(float width) : ISegmentedSpriteData<T>, IUpdatable where T : struct, IVertex
+namespace Mokus2D.Visual.Primitives
 {
-    protected List<Vector2> Line { get; } = [];
-
-    private readonly float _width = width;
-
-    public virtual int PairsCount => Line.Count;
-
-    public bool IsDirty { get; private set; }
-
-    public Vector2 this[int i]
+    public class LineSegmentedData<T>(float width) : ISegmentedSpriteData<T>, IUpdatable where T : struct, IVertex
     {
-        get => Line[i];
-        set
+        protected List<Vector2> Line { get; } = [];
+
+        private readonly float _width = width;
+
+        public virtual int PairsCount => Line.Count;
+
+        public bool IsDirty { get; private set; }
+
+        public Vector2 this[int i]
         {
-            if (Line[i] != value)
+            get => Line[i];
+            set
             {
-                Line[i] = value;
-                IsDirty = true;
+                if (Line[i] != value)
+                {
+                    Line[i] = value;
+                    IsDirty = true;
+                }
             }
         }
-    }
 
-    public int Count => Line.Count;
+        public int Count => Line.Count;
 
-    public void Add(Vector2 position)
-    {
-        Line.Add(position);
-        IsDirty = true;
-    }
-
-    public void Update(float time)
-    {
-    }
-
-    public virtual void FillLines(SegmentedSprite<T> sprite, List<Pair<T>> lines, ref Matrix matrix)
-    {
-        FillLines(sprite, lines, ref matrix, Line);
-    }
-
-    protected void FillLines(SegmentedSprite<T> sprite, List<Pair<T>> lines, ref Matrix matrix, List<Vector2> line)
-    {
-        if (line.Count > 1)
+        public void Add(Vector2 position)
         {
-            AddOrthoPoints(sprite, lines, 0, line[0], line[0], line[1], ref matrix);
-            for (int i = 1; i < line.Count - 1; i++)
+            Line.Add(position);
+            IsDirty = true;
+        }
+
+        public void Update(float time)
+        {
+        }
+
+        public virtual void FillLines(SegmentedSprite<T> sprite, List<Pair<T>> lines, ref Matrix matrix)
+        {
+            FillLines(sprite, lines, ref matrix, Line);
+        }
+
+        protected void FillLines(SegmentedSprite<T> sprite, List<Pair<T>> lines, ref Matrix matrix, List<Vector2> line)
+        {
+            if (line.Count > 1)
             {
-                AddOrthoPoints(sprite, lines, i, line[i], line[i - 1], line[i + 1], ref matrix);
+                AddOrthoPoints(sprite, lines, 0, line[0], line[0], line[1], ref matrix);
+                for (int i = 1; i < line.Count - 1; i++)
+                {
+                    AddOrthoPoints(sprite, lines, i, line[i], line[i - 1], line[i + 1], ref matrix);
+                }
+                AddOrthoPoints(sprite, lines, line.Count - 1, line.Last(), line[^2], line.Last(), ref matrix);
             }
-            AddOrthoPoints(sprite, lines, line.Count - 1, line.Last(), line[^2], line.Last(), ref matrix);
         }
-    }
 
-    private void AddOrthoPoints(SegmentedSprite<T> sprite, List<Pair<T>> lines, int index, Vector2 center, Vector2 start, Vector2 end, ref Matrix matrix)
-    {
-        Vector2 vector = end - start;
-        if (vector == Vector2.Zero)
+        private void AddOrthoPoints(SegmentedSprite<T> sprite, List<Pair<T>> lines, int index, Vector2 center, Vector2 start, Vector2 end, ref Matrix matrix)
         {
-            vector = Vector2.One;
+            Vector2 vector = end - start;
+            if (vector == Vector2.Zero)
+            {
+                vector = Vector2.One;
+            }
+            Pair<Vector2> orthoPoints = VectorUtil.GetOrthoPoints(center, vector, _width);
+            Pair<T> defaultPair = sprite.GetDefaultPair(index / (float)(PairsCount - 1));
+            defaultPair.First.Position = orthoPoints.First.Transform(ref matrix).ToVector3();
+            defaultPair.Second.Position = orthoPoints.Second.Transform(ref matrix).ToVector3();
+            lines.Add(defaultPair);
         }
-        Pair<Vector2> orthoPoints = VectorUtil.GetOrthoPoints(center, vector, _width);
-        Pair<T> defaultPair = sprite.GetDefaultPair(index / (float)(PairsCount - 1));
-        defaultPair.First.Position = orthoPoints.First.Transform(ref matrix).ToVector3();
-        defaultPair.Second.Position = orthoPoints.Second.Transform(ref matrix).ToVector3();
-        lines.Add(defaultPair);
-    }
 
-    public void Clear()
-    {
-        IsDirty = true;
-        Line.Clear();
+        public void Clear()
+        {
+            IsDirty = true;
+            Line.Clear();
+        }
     }
 }

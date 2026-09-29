@@ -4,29 +4,30 @@ using Mokus2D.Data;
 using Mokus2D.Interfaces;
 using Mokus2D.Visual;
 
-namespace ContreJour.Clips.chapter5;
-
-[GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
-public class McTear : MovieClip, IFreeable, IId
+namespace ContreJour.Clips.chapter5
 {
-    public const string ID = "chapter5/McTear";
-
-    public string Id => "chapter5/McTear";
-
-    public static McTear New()
+    [GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
+    public class McTear : MovieClip, IFreeable, IId
     {
-        McTear mcTear = StaticPool.New<McTear>();
-        mcTear.RefreshProperties();
-        return mcTear;
-    }
+        public const string ID = "chapter5/McTear";
 
-    public McTear()
-        : base("chapter5/McTear")
-    {
-    }
+        public string Id => "chapter5/McTear";
 
-    public void Free()
-    {
-        StaticPool.Free<McTear>(this);
+        public static McTear New()
+        {
+            McTear mcTear = StaticPool.New<McTear>();
+            mcTear.RefreshProperties();
+            return mcTear;
+        }
+
+        public McTear()
+            : base("chapter5/McTear")
+        {
+        }
+
+        public void Free()
+        {
+            StaticPool.Free<McTear>(this);
+        }
     }
 }

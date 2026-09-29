@@ -1,8 +1,9 @@
-namespace Mokus2D.Visual.Text;
-
-public enum TextAlign
+namespace Mokus2D.Visual.Text
 {
-    Left,
-    Right,
-    Center
+    public enum TextAlign
+    {
+        Left,
+        Right,
+        Center
+    }
 }

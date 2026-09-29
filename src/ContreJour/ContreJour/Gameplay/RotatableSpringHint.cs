@@ -3,30 +3,31 @@ using System;
 using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual;
 
-namespace ContreJour.Gameplay;
-
-public class RotatableSpringHint : FadeHint
+namespace ContreJour.Gameplay
 {
-    private readonly RotatableSpringBodyClip spring;
-
-    public RotatableSpringHint(ContreJourLevelBuilder builder, object body, Sprite clip, Hashtable config)
-        : base(builder, body, clip, config)
+    public class RotatableSpringHint : FadeHint
     {
-        spring = (RotatableSpringBodyClip)FarseerUtil.Query(Builder.World, Builder.ToIPhoneVec(Clip.Position), 3f, typeof(RotatableSpringBodyClip));
-        Clip.Parent.ChangeChildLayer(Clip, 12);
-    }
+        private readonly RotatableSpringBodyClip spring;
 
-    public override bool HasToHide()
-    {
-        return false;
-    }
-
-    public override void Update(float time)
-    {
-        base.Update(time);
-        if (!Hiding && spring != null && (double)Builder.Game.TotalTime > 0.5 && Math.Abs(Maths.PeriodicOffset(spring.Body.Rotation, (float)Math.PI * 2f)) > (float)Math.PI / 4f)
+        public RotatableSpringHint(ContreJourLevelBuilder builder, object body, Sprite clip, Hashtable config)
+            : base(builder, body, clip, config)
         {
-            Hide(Clip.OpacityFloat / 2f);
+            spring = (RotatableSpringBodyClip)FarseerUtil.Query(Builder.World, Builder.ToIPhoneVec(Clip.Position), 3f, typeof(RotatableSpringBodyClip));
+            Clip.Parent.ChangeChildLayer(Clip, 12);
+        }
+
+        public override bool HasToHide()
+        {
+            return false;
+        }
+
+        public override void Update(float time)
+        {
+            base.Update(time);
+            if (!Hiding && spring != null && (double)Builder.Game.TotalTime > 0.5 && Math.Abs(Maths.PeriodicOffset(spring.Body.Rotation, (float)Math.PI * 2f)) > (float)Math.PI / 4f)
+            {
+                Hide(Clip.OpacityFloat / 2f);
+            }
         }
     }
 }

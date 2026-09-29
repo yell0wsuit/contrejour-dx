@@ -4,29 +4,30 @@ using Mokus2D.Data;
 using Mokus2D.Interfaces;
 using Mokus2D.Visual;
 
-namespace ContreJour.Clips.common2;
-
-[GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
-public class McEyeBlinkOneTimeMonsterBlack : MovieClip, IFreeable, IId
+namespace ContreJour.Clips.common2
 {
-    public const string ID = "common2/McEyeBlinkOneTimeMonsterBlack";
-
-    public string Id => "common2/McEyeBlinkOneTimeMonsterBlack";
-
-    public static McEyeBlinkOneTimeMonsterBlack New()
+    [GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
+    public class McEyeBlinkOneTimeMonsterBlack : MovieClip, IFreeable, IId
     {
-        McEyeBlinkOneTimeMonsterBlack mcEyeBlinkOneTimeMonsterBlack = StaticPool.New<McEyeBlinkOneTimeMonsterBlack>();
-        mcEyeBlinkOneTimeMonsterBlack.RefreshProperties();
-        return mcEyeBlinkOneTimeMonsterBlack;
-    }
+        public const string ID = "common2/McEyeBlinkOneTimeMonsterBlack";
 
-    public McEyeBlinkOneTimeMonsterBlack()
-        : base("common2/McEyeBlinkOneTimeMonsterBlack")
-    {
-    }
+        public string Id => "common2/McEyeBlinkOneTimeMonsterBlack";
 
-    public void Free()
-    {
-        StaticPool.Free<McEyeBlinkOneTimeMonsterBlack>(this);
+        public static McEyeBlinkOneTimeMonsterBlack New()
+        {
+            McEyeBlinkOneTimeMonsterBlack mcEyeBlinkOneTimeMonsterBlack = StaticPool.New<McEyeBlinkOneTimeMonsterBlack>();
+            mcEyeBlinkOneTimeMonsterBlack.RefreshProperties();
+            return mcEyeBlinkOneTimeMonsterBlack;
+        }
+
+        public McEyeBlinkOneTimeMonsterBlack()
+            : base("common2/McEyeBlinkOneTimeMonsterBlack")
+        {
+        }
+
+        public void Free()
+        {
+            StaticPool.Free<McEyeBlinkOneTimeMonsterBlack>(this);
+        }
     }
 }

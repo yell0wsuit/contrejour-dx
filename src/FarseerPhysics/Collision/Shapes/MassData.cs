@@ -2,43 +2,44 @@ using System;
 
 using Microsoft.Xna.Framework;
 
-namespace FarseerPhysics.Collision.Shapes;
-
-public struct MassData : IEquatable<MassData>
+namespace FarseerPhysics.Collision.Shapes
 {
-    public float Area { get; internal set; }
-
-    public Vector2 Centroid { get; internal set; }
-
-    public float Inertia { get; internal set; }
-
-    public float Mass { get; internal set; }
-
-    public static bool operator ==(MassData left, MassData right)
+    public struct MassData : IEquatable<MassData>
     {
-        return left.Area == right.Area && left.Mass == right.Mass && left.Centroid == right.Centroid && left.Inertia == right.Inertia;
-    }
+        public float Area { get; internal set; }
 
-    public static bool operator !=(MassData left, MassData right)
-    {
-        return !(left == right);
-    }
+        public Vector2 Centroid { get; internal set; }
 
-    public readonly bool Equals(MassData other)
-    {
-        return this == other;
-    }
+        public float Inertia { get; internal set; }
 
-    public override readonly bool Equals(object obj)
-    {
-        return obj is not null && (object)obj.GetType() == typeof(MassData) && Equals((MassData)obj);
-    }
+        public float Mass { get; internal set; }
 
-    public override readonly int GetHashCode()
-    {
-        int hashCode = Area.GetHashCode();
-        hashCode = (hashCode * 397) ^ Centroid.GetHashCode();
-        hashCode = (hashCode * 397) ^ Inertia.GetHashCode();
-        return (hashCode * 397) ^ Mass.GetHashCode();
+        public static bool operator ==(MassData left, MassData right)
+        {
+            return left.Area == right.Area && left.Mass == right.Mass && left.Centroid == right.Centroid && left.Inertia == right.Inertia;
+        }
+
+        public static bool operator !=(MassData left, MassData right)
+        {
+            return !(left == right);
+        }
+
+        public readonly bool Equals(MassData other)
+        {
+            return this == other;
+        }
+
+        public override readonly bool Equals(object obj)
+        {
+            return obj is not null && (object)obj.GetType() == typeof(MassData) && Equals((MassData)obj);
+        }
+
+        public override readonly int GetHashCode()
+        {
+            int hashCode = Area.GetHashCode();
+            hashCode = (hashCode * 397) ^ Centroid.GetHashCode();
+            hashCode = (hashCode * 397) ^ Inertia.GetHashCode();
+            return (hashCode * 397) ^ Mass.GetHashCode();
+        }
     }
 }

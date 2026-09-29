@@ -1,39 +1,40 @@
 using Mokus2D.Visual;
 
-namespace Mokus2D.Effects.OnOff;
-
-public abstract class OnOffEffect(Node target) : IOnOff
+namespace Mokus2D.Effects.OnOff
 {
-    public Node Target { get; set; } = target;
-
-    private bool _on;
-
-    public bool IsOn
+    public abstract class OnOffEffect(Node target) : IOnOff
     {
-        get => _on;
-        set
+        public Node Target { get; set; } = target;
+
+        private bool _on;
+
+        public bool IsOn
         {
-            if (_on != value)
+            get => _on;
+            set
             {
-                _on = value;
-                if (_on)
+                if (_on != value)
                 {
-                    SetOn();
-                }
-                else
-                {
-                    SetOff();
+                    _on = value;
+                    if (_on)
+                    {
+                        SetOn();
+                    }
+                    else
+                    {
+                        SetOff();
+                    }
                 }
             }
         }
-    }
 
-    protected abstract void SetOn();
+        protected abstract void SetOn();
 
-    protected abstract void SetOff();
+        protected abstract void SetOff();
 
-    public virtual void SetOn(bool value)
-    {
-        _on = value;
+        public virtual void SetOn(bool value)
+        {
+            _on = value;
+        }
     }
 }

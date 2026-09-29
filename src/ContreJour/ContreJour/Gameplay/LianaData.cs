@@ -4,24 +4,25 @@ using FarseerPhysics.Dynamics;
 
 using Microsoft.Xna.Framework;
 
-namespace ContreJour.Gameplay;
-
-public class LianaData : ILianaDrawData
+namespace ContreJour.Gameplay
 {
-    public List<Body> Bodies { get; } = [];
-
-    public void AddBody(Body body)
+    public class LianaData : ILianaDrawData
     {
-        Bodies.Add(body);
-    }
+        public List<Body> Bodies { get; } = [];
 
-    public int PointsCount()
-    {
-        return Bodies.Count;
-    }
+        public void AddBody(Body body)
+        {
+            Bodies.Add(body);
+        }
 
-    public Vector2 PositionAt(int index)
-    {
-        return Bodies[index].Position;
+        public int PointsCount()
+        {
+            return Bodies.Count;
+        }
+
+        public Vector2 PositionAt(int index)
+        {
+            return Bodies[index].Position;
+        }
     }
 }

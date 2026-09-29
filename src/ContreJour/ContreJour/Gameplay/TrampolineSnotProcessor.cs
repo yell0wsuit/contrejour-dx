@@ -6,98 +6,99 @@ using FarseerPhysics.Factories;
 
 using Microsoft.Xna.Framework;
 
-namespace ContreJour.Gameplay;
-
-public class TrampolineSnotProcessor(LevelBuilderBase builder) : BridgeSnotProcessor(builder, "trampoline", 2f / 3f)
+namespace ContreJour.Gameplay
 {
-    private readonly List<TrampolinePartBodyClip> parts = [];
-
-    private static readonly float StartRadius = 5f * Box2DConfig.DefaultConfig.SizeMultiplier;
-
-    public override float GetDensityTotal(int index, int total)
+    public class TrampolineSnotProcessor(LevelBuilderBase builder) : BridgeSnotProcessor(builder, "trampoline", 2f / 3f)
     {
-        return 2f;
-    }
+        private readonly List<TrampolinePartBodyClip> parts = [];
 
-    public override void GetLocalPartPositionsTotalStartEnd(int index, int total, ref Vector2 startPoint, ref Vector2 endPoint)
-    {
-        startPoint -= endPoint;
-        endPoint = startPoint;
-        if (index != 0)
-        {
-            startPoint *= 1.25f;
-        }
-        if (index != total - 1)
-        {
-            endPoint *= -0.25f;
-        }
-        else
-        {
-            endPoint = new Vector2(0f, 0f);
-        }
-    }
+        private static readonly float StartRadius = 5f * Box2DConfig.DefaultConfig.SizeMultiplier;
 
-    public override RopeMetricsWithCoords GetRopeMetricsEndItem(Vector2 startPoint, Vector2 endPoint, Hashtable item)
-    {
-        RopeMetricsWithCoords ropeMetricsWithCoords = base.GetRopeMetricsEndItem(startPoint, endPoint, item);
-        if (ropeMetricsWithCoords.Parts % 2 == 0)
+        public override float GetDensityTotal(int index, int total)
         {
-            ropeMetricsWithCoords = RopeUtil.GetRopeMetricsEndMaxPartSizeMinParts(startPoint, endPoint, MaxPartSize, ropeMetricsWithCoords.Parts + 1);
+            return 2f;
         }
-        return ropeMetricsWithCoords;
-    }
 
-    public override Joint JoinBodiesEndBodyStartEndIndexTotal(Body startBody, Body endBody, Vector2 startPoint, Vector2 endPoint, int index, int total)
-    {
-        Vector2 vector = startPoint;
-        vector -= endPoint;
-        Vector2 vector2 = vector;
-        vector += endPoint;
-        vector2 += endPoint;
-        DistanceJoint val = JointFactory.CreateDistanceJoint(Builder.World, startBody, endBody, vector2 - startBody.Position, vector - endBody.Position, false);
-        val.Length = 0f;
-        val.Frequency = 4.5f;
-        val.DampingRatio = 1f;
-        return (Joint)(object)val;
-    }
+        public override void GetLocalPartPositionsTotalStartEnd(int index, int total, ref Vector2 startPoint, ref Vector2 endPoint)
+        {
+            startPoint -= endPoint;
+            endPoint = startPoint;
+            if (index != 0)
+            {
+                startPoint *= 1.25f;
+            }
+            if (index != total - 1)
+            {
+                endPoint *= -0.25f;
+            }
+            else
+            {
+                endPoint = new Vector2(0f, 0f);
+            }
+        }
 
-    public override Body CreatePartBodyEndIndexTotalDensity(Vector2 startPoint, Vector2 endPoint, int index, int total, float density)
-    {
-        Body val = base.CreatePartBodyEndIndexTotalDensity(startPoint, endPoint, index, total, density);
-        PlasticineConstants.ApplyActiveBodiesFilter(val);
-        TrampolinePartBodyClip item = new(Builder, val);
-        parts.Add(item);
-        val.AngularDamping = 20f;
-        Body val2 = null;
-        if (index == 0)
+        public override RopeMetricsWithCoords GetRopeMetricsEndItem(Vector2 startPoint, Vector2 endPoint, Hashtable item)
         {
-            val2 = Builder.World.CreateCircle(StartRadius, startPoint + new Vector2(0f, StartRadius));
+            RopeMetricsWithCoords ropeMetricsWithCoords = base.GetRopeMetricsEndItem(startPoint, endPoint, item);
+            if (ropeMetricsWithCoords.Parts % 2 == 0)
+            {
+                ropeMetricsWithCoords = RopeUtil.GetRopeMetricsEndMaxPartSizeMinParts(startPoint, endPoint, MaxPartSize, ropeMetricsWithCoords.Parts + 1);
+            }
+            return ropeMetricsWithCoords;
         }
-        else if (index == total - 1)
-        {
-            val2 = Builder.World.CreateCircle(StartRadius, endPoint + new Vector2(0f, StartRadius));
-        }
-        if (val2 != null)
-        {
-            PlasticineConstants.ApplyActiveBodiesFilter(val2);
-        }
-        return val;
-    }
 
-    public override object ProcessItem(Hashtable item)
-    {
-        parts.Clear();
-        SnotData snotData = (SnotData)base.ProcessItem(item);
-        foreach (TrampolinePartBodyClip part in parts)
+        public override Joint JoinBodiesEndBodyStartEndIndexTotal(Body startBody, Body endBody, Vector2 startPoint, Vector2 endPoint, int index, int total)
         {
-            part.Data = snotData;
+            Vector2 vector = startPoint;
+            vector -= endPoint;
+            Vector2 vector2 = vector;
+            vector += endPoint;
+            vector2 += endPoint;
+            DistanceJoint val = JointFactory.CreateDistanceJoint(Builder.World, startBody, endBody, vector2 - startBody.Position, vector - endBody.Position, false);
+            val.Length = 0f;
+            val.Frequency = 4.5f;
+            val.DampingRatio = 1f;
+            return (Joint)(object)val;
         }
-        Vector2 vector = item.GetVector("end");
-        Vector2 vector2 = item.GetVector("start");
-        _ = FarseerUtil.CreateRevoluteJoint(Builder.World, Builder.GroundBody, snotData.EndBody, vector);
-        _ = FarseerUtil.CreateRevoluteJoint(Builder.World, Builder.GroundBody, snotData.FirstBody, vector2);
-        Builder.World.RemoveBody(snotData.EyeBody);
-        snotData.EyeBody = null;
-        return snotData;
+
+        public override Body CreatePartBodyEndIndexTotalDensity(Vector2 startPoint, Vector2 endPoint, int index, int total, float density)
+        {
+            Body val = base.CreatePartBodyEndIndexTotalDensity(startPoint, endPoint, index, total, density);
+            PlasticineConstants.ApplyActiveBodiesFilter(val);
+            TrampolinePartBodyClip item = new(Builder, val);
+            parts.Add(item);
+            val.AngularDamping = 20f;
+            Body val2 = null;
+            if (index == 0)
+            {
+                val2 = Builder.World.CreateCircle(StartRadius, startPoint + new Vector2(0f, StartRadius));
+            }
+            else if (index == total - 1)
+            {
+                val2 = Builder.World.CreateCircle(StartRadius, endPoint + new Vector2(0f, StartRadius));
+            }
+            if (val2 != null)
+            {
+                PlasticineConstants.ApplyActiveBodiesFilter(val2);
+            }
+            return val;
+        }
+
+        public override object ProcessItem(Hashtable item)
+        {
+            parts.Clear();
+            SnotData snotData = (SnotData)base.ProcessItem(item);
+            foreach (TrampolinePartBodyClip part in parts)
+            {
+                part.Data = snotData;
+            }
+            Vector2 vector = item.GetVector("end");
+            Vector2 vector2 = item.GetVector("start");
+            _ = FarseerUtil.CreateRevoluteJoint(Builder.World, Builder.GroundBody, snotData.EndBody, vector);
+            _ = FarseerUtil.CreateRevoluteJoint(Builder.World, Builder.GroundBody, snotData.FirstBody, vector2);
+            Builder.World.RemoveBody(snotData.EyeBody);
+            snotData.EyeBody = null;
+            return snotData;
+        }
     }
 }

@@ -1,5 +1,6 @@
-namespace ContreJour.Gameplay;
-
-public static class ContreJourObjectExtensions
+namespace ContreJour.Gameplay
 {
+    public static class ContreJourObjectExtensions
+    {
+    }
 }

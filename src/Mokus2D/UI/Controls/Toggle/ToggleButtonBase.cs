@@ -2,30 +2,31 @@ using Mokus2D.Effects.OnOff;
 using Mokus2D.Visual;
 using Mokus2D.Visual.Interfaces;
 
-namespace Mokus2D.UI.Controls.Toggle;
-
-public class ToggleButtonBase : MovieClip
+namespace Mokus2D.UI.Controls.Toggle
 {
-    public ToggleButton Button { get; private set; }
-
-    public ToggleButtonBase(string name)
-        : base(name)
+    public class ToggleButtonBase : MovieClip
     {
-    }
+        public ToggleButton Button { get; private set; }
 
-    public ToggleButtonBase(IMovieClipData data)
-        : base(data)
-    {
-    }
+        public ToggleButtonBase(string name)
+            : base(name)
+        {
+        }
 
-    protected override void Initialize()
-    {
-        base.Initialize();
-        Button = CreateButton();
-    }
+        public ToggleButtonBase(IMovieClipData data)
+            : base(data)
+        {
+        }
 
-    protected virtual ToggleButton CreateButton()
-    {
-        return new ToggleButton(this, new FrameOnOff(this));
+        protected override void Initialize()
+        {
+            base.Initialize();
+            Button = CreateButton();
+        }
+
+        protected virtual ToggleButton CreateButton()
+        {
+            return new ToggleButton(this, new FrameOnOff(this));
+        }
     }
 }

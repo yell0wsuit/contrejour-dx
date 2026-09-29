@@ -1,6 +1,7 @@
-namespace ContreJour.Gameplay;
-
-public interface IRadius
+namespace ContreJour.Gameplay
 {
-    float Radius();
+    public interface IRadius
+    {
+        float Radius();
+    }
 }

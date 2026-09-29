@@ -1,6 +1,7 @@
-namespace Mokus2D.Data;
-
-public interface ICleanable
+namespace Mokus2D.Data
 {
-    void Clean();
+    public interface ICleanable
+    {
+        void Clean();
+    }
 }

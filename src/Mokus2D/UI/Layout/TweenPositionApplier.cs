@@ -3,23 +3,24 @@ using Microsoft.Xna.Framework;
 using Mokus2D.Effects.Tweening;
 using Mokus2D.Visual;
 
-namespace Mokus2D.UI.Layout;
-
-public class TweenPositionApplier(float effectTime, int? tag = null) : ILayoutPositionApplier
+namespace Mokus2D.UI.Layout
 {
-    private readonly float _effectTime = effectTime;
-
-    private readonly int? _tag = tag;
-
-    public void ApplyPosition(Node node, Vector2 position)
+    public class TweenPositionApplier(float effectTime, int? tag = null) : ILayoutPositionApplier
     {
-        int? tag = _tag;
-        if (tag.HasValue)
+        private readonly float _effectTime = effectTime;
+
+        private readonly int? _tag = tag;
+
+        public void ApplyPosition(Node node, Vector2 position)
         {
-            Tweener tweener = node.Tweener;
-            int? tag2 = _tag;
-            tweener.Stop(tag2.Value);
+            int? tag = _tag;
+            if (tag.HasValue)
+            {
+                Tweener tweener = node.Tweener;
+                int? tag2 = _tag;
+                tweener.Stop(tag2.Value);
+            }
+            _ = node.Tweener.Start(_effectTime, _tag).Tween(NodeValues.Position, position);
         }
-        _ = node.Tweener.Start(_effectTime, _tag).Tween(NodeValues.Position, position);
     }
 }

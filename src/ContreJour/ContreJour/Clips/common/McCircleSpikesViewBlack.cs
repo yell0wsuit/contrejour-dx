@@ -4,29 +4,30 @@ using Mokus2D.Data;
 using Mokus2D.Interfaces;
 using Mokus2D.Visual;
 
-namespace ContreJour.Clips.common;
-
-[GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
-public class McCircleSpikesViewBlack : MovieClip, IFreeable, IId
+namespace ContreJour.Clips.common
 {
-    public const string ID = "common/McCircleSpikesViewBlack";
-
-    public string Id => "common/McCircleSpikesViewBlack";
-
-    public static McCircleSpikesViewBlack New()
+    [GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
+    public class McCircleSpikesViewBlack : MovieClip, IFreeable, IId
     {
-        McCircleSpikesViewBlack mcCircleSpikesViewBlack = StaticPool.New<McCircleSpikesViewBlack>();
-        mcCircleSpikesViewBlack.RefreshProperties();
-        return mcCircleSpikesViewBlack;
-    }
+        public const string ID = "common/McCircleSpikesViewBlack";
 
-    public McCircleSpikesViewBlack()
-        : base("common/McCircleSpikesViewBlack")
-    {
-    }
+        public string Id => "common/McCircleSpikesViewBlack";
 
-    public void Free()
-    {
-        StaticPool.Free<McCircleSpikesViewBlack>(this);
+        public static McCircleSpikesViewBlack New()
+        {
+            McCircleSpikesViewBlack mcCircleSpikesViewBlack = StaticPool.New<McCircleSpikesViewBlack>();
+            mcCircleSpikesViewBlack.RefreshProperties();
+            return mcCircleSpikesViewBlack;
+        }
+
+        public McCircleSpikesViewBlack()
+            : base("common/McCircleSpikesViewBlack")
+        {
+        }
+
+        public void Free()
+        {
+            StaticPool.Free<McCircleSpikesViewBlack>(this);
+        }
     }
 }

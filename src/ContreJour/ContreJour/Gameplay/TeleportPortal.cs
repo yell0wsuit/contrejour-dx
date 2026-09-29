@@ -1,20 +1,21 @@
 using Mokus2D;
 
-namespace ContreJour.Gameplay;
-
-public class TeleportPortal(Portal portal) : ParticleSystem(Mokus2DGame.LoadSpriteData("common/McTeleportPartBlack"), 5)
+namespace ContreJour.Gameplay
 {
-    private readonly Portal portal = portal;
-
-    public override void Update(float time)
+    public class TeleportPortal(Portal portal) : ParticleSystem(Mokus2DGame.LoadSpriteData("common/McTeleportPartBlack"), 5)
     {
-        base.Update(time);
-        for (int i = 0; i < 5; i++)
+        private readonly Portal portal = portal;
+
+        public override void Update(float time)
         {
-            Particle particle = portal.Particles[i];
-            Particle particle2 = Particles[i];
-            particle2.Position = particle.Position;
-            particle2.Scale = particle.Scale;
+            base.Update(time);
+            for (int i = 0; i < 5; i++)
+            {
+                Particle particle = portal.Particles[i];
+                Particle particle2 = Particles[i];
+                particle2.Position = particle.Position;
+                particle2.Scale = particle.Scale;
+            }
         }
     }
 }

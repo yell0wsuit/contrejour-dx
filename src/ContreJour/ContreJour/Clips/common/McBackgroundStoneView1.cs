@@ -4,29 +4,30 @@ using Mokus2D.Data;
 using Mokus2D.Interfaces;
 using Mokus2D.Visual;
 
-namespace ContreJour.Clips.common;
-
-[GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
-public class McBackgroundStoneView1 : Sprite, IFreeable, IId
+namespace ContreJour.Clips.common
 {
-    public const string ID = "common/McBackgroundStoneView1";
-
-    public string Id => "common/McBackgroundStoneView1";
-
-    public static McBackgroundStoneView1 New()
+    [GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
+    public class McBackgroundStoneView1 : Sprite, IFreeable, IId
     {
-        McBackgroundStoneView1 mcBackgroundStoneView = StaticPool.New<McBackgroundStoneView1>();
-        mcBackgroundStoneView.RefreshProperties();
-        return mcBackgroundStoneView;
-    }
+        public const string ID = "common/McBackgroundStoneView1";
 
-    public McBackgroundStoneView1()
-        : base("common/McBackgroundStoneView1")
-    {
-    }
+        public string Id => "common/McBackgroundStoneView1";
 
-    public void Free()
-    {
-        StaticPool.Free<McBackgroundStoneView1>(this);
+        public static McBackgroundStoneView1 New()
+        {
+            McBackgroundStoneView1 mcBackgroundStoneView = StaticPool.New<McBackgroundStoneView1>();
+            mcBackgroundStoneView.RefreshProperties();
+            return mcBackgroundStoneView;
+        }
+
+        public McBackgroundStoneView1()
+            : base("common/McBackgroundStoneView1")
+        {
+        }
+
+        public void Free()
+        {
+            StaticPool.Free<McBackgroundStoneView1>(this);
+        }
     }
 }

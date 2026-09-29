@@ -1,10 +1,11 @@
-namespace FarseerPhysics.Collision;
-
-public struct EPAxis
+namespace FarseerPhysics.Collision
 {
-    public int Index;
+    public struct EPAxis
+    {
+        public int Index;
 
-    public float Separation;
+        public float Separation;
 
-    public EPAxisType Type;
+        public EPAxisType Type;
+    }
 }

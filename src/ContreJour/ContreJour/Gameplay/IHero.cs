@@ -1,5 +1,6 @@
-namespace ContreJour.Gameplay;
-
-public interface IHero : ISnotLinked
+namespace ContreJour.Gameplay
 {
+    public interface IHero : ISnotLinked
+    {
+    }
 }

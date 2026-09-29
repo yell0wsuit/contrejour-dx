@@ -4,29 +4,30 @@ using Mokus2D.Data;
 using Mokus2D.Interfaces;
 using Mokus2D.Visual;
 
-namespace ContreJour.Clips.common;
-
-[GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
-public class McBlackSquare : Sprite, IFreeable, IId
+namespace ContreJour.Clips.common
 {
-    public const string ID = "common/McBlackSquare";
-
-    public string Id => "common/McBlackSquare";
-
-    public static McBlackSquare New()
+    [GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
+    public class McBlackSquare : Sprite, IFreeable, IId
     {
-        McBlackSquare mcBlackSquare = StaticPool.New<McBlackSquare>();
-        mcBlackSquare.RefreshProperties();
-        return mcBlackSquare;
-    }
+        public const string ID = "common/McBlackSquare";
 
-    public McBlackSquare()
-        : base("common/McBlackSquare")
-    {
-    }
+        public string Id => "common/McBlackSquare";
 
-    public void Free()
-    {
-        StaticPool.Free<McBlackSquare>(this);
+        public static McBlackSquare New()
+        {
+            McBlackSquare mcBlackSquare = StaticPool.New<McBlackSquare>();
+            mcBlackSquare.RefreshProperties();
+            return mcBlackSquare;
+        }
+
+        public McBlackSquare()
+            : base("common/McBlackSquare")
+        {
+        }
+
+        public void Free()
+        {
+            StaticPool.Free<McBlackSquare>(this);
+        }
     }
 }

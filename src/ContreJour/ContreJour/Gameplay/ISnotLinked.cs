@@ -1,12 +1,13 @@
 using Mokus2D.Events;
 
-namespace ContreJour.Gameplay;
-
-public interface ISnotLinked
+namespace ContreJour.Gameplay
 {
-    EventSender DestroyEvent { get; }
+    public interface ISnotLinked
+    {
+        EventSender DestroyEvent { get; }
 
-    int SnotJoinedCount { get; set; }
+        int SnotJoinedCount { get; set; }
 
-    bool SnotEnabled { get; }
+        bool SnotEnabled { get; }
+    }
 }

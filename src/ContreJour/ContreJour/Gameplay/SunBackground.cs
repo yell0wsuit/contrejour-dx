@@ -1,34 +1,35 @@
 using Mokus2D.Visual;
 
-namespace ContreJour.Gameplay;
-
-public class SunBackground : MoveBackground
+namespace ContreJour.Gameplay
 {
-    private float currentOpacity;
-
-    public SunBackground(Node node, Hashtable config, ContreJourGame game)
-        : base(node, config, game)
+    public class SunBackground : MoveBackground
     {
-        if (Game.CanShowIntro)
-        {
-            currentOpacity = 255f;
-            return;
-        }
-        currentOpacity = 0f;
-        node.Tweener.Stop();
-        Game.FlyOpacity = 0f;
-    }
+        private float currentOpacity;
 
-    public override void Update(float time)
-    {
-        if (currentOpacity >= 0f)
+        public SunBackground(Node node, Hashtable config, ContreJourGame game)
+            : base(node, config, game)
         {
-            Game.FlyOpacity = currentOpacity;
-            currentOpacity -= 0.4f;
-        }
-        else
-        {
+            if (Game.CanShowIntro)
+            {
+                currentOpacity = 255f;
+                return;
+            }
+            currentOpacity = 0f;
+            node.Tweener.Stop();
             Game.FlyOpacity = 0f;
+        }
+
+        public override void Update(float time)
+        {
+            if (currentOpacity >= 0f)
+            {
+                Game.FlyOpacity = currentOpacity;
+                currentOpacity -= 0.4f;
+            }
+            else
+            {
+                Game.FlyOpacity = 0f;
+            }
         }
     }
 }

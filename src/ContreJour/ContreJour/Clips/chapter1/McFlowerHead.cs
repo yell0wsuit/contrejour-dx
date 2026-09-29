@@ -4,29 +4,30 @@ using Mokus2D.Data;
 using Mokus2D.Interfaces;
 using Mokus2D.Visual;
 
-namespace ContreJour.Clips.chapter1;
-
-[GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
-public class McFlowerHead : Sprite, IFreeable, IId
+namespace ContreJour.Clips.chapter1
 {
-    public const string ID = "chapter1/McFlowerHead";
-
-    public string Id => "chapter1/McFlowerHead";
-
-    public static McFlowerHead New()
+    [GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
+    public class McFlowerHead : Sprite, IFreeable, IId
     {
-        McFlowerHead mcFlowerHead = StaticPool.New<McFlowerHead>();
-        mcFlowerHead.RefreshProperties();
-        return mcFlowerHead;
-    }
+        public const string ID = "chapter1/McFlowerHead";
 
-    public McFlowerHead()
-        : base("chapter1/McFlowerHead")
-    {
-    }
+        public string Id => "chapter1/McFlowerHead";
 
-    public void Free()
-    {
-        StaticPool.Free<McFlowerHead>(this);
+        public static McFlowerHead New()
+        {
+            McFlowerHead mcFlowerHead = StaticPool.New<McFlowerHead>();
+            mcFlowerHead.RefreshProperties();
+            return mcFlowerHead;
+        }
+
+        public McFlowerHead()
+            : base("chapter1/McFlowerHead")
+        {
+        }
+
+        public void Free()
+        {
+            StaticPool.Free<McFlowerHead>(this);
+        }
     }
 }

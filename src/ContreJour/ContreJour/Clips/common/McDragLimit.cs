@@ -4,29 +4,30 @@ using Mokus2D.Data;
 using Mokus2D.Interfaces;
 using Mokus2D.Visual;
 
-namespace ContreJour.Clips.common;
-
-[GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
-public class McDragLimit : Sprite, IFreeable, IId
+namespace ContreJour.Clips.common
 {
-    public const string ID = "common/McDragLimit";
-
-    public string Id => "common/McDragLimit";
-
-    public static McDragLimit New()
+    [GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
+    public class McDragLimit : Sprite, IFreeable, IId
     {
-        McDragLimit mcDragLimit = StaticPool.New<McDragLimit>();
-        mcDragLimit.RefreshProperties();
-        return mcDragLimit;
-    }
+        public const string ID = "common/McDragLimit";
 
-    public McDragLimit()
-        : base("common/McDragLimit")
-    {
-    }
+        public string Id => "common/McDragLimit";
 
-    public void Free()
-    {
-        StaticPool.Free<McDragLimit>(this);
+        public static McDragLimit New()
+        {
+            McDragLimit mcDragLimit = StaticPool.New<McDragLimit>();
+            mcDragLimit.RefreshProperties();
+            return mcDragLimit;
+        }
+
+        public McDragLimit()
+            : base("common/McDragLimit")
+        {
+        }
+
+        public void Free()
+        {
+            StaticPool.Free<McDragLimit>(this);
+        }
     }
 }

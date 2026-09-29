@@ -7,149 +7,150 @@ using Mokus2D.UI.Controls.Buttons;
 using Mokus2D.Util;
 using Mokus2D.Util.Extensions;
 
-namespace Mokus2D.UI.Controls.Toggle;
-
-public class ToggleButtonGroup<T>
+namespace Mokus2D.UI.Controls.Toggle
 {
-    private readonly List<ToggleButton> _buttons = [];
-
-    private ToggleButton _selectedButton;
-
-    private readonly BiDictionary<ToggleButton, T> _data = [];
-
-    private readonly bool DeselectEnabled = true;
-
-    private readonly bool ToggleOnTouchBegin = true;
-
-    public ToggleButton this[int index] => _buttons[index];
-
-    public int Count => _buttons.Count;
-
-    public T SelectedValue
+    public class ToggleButtonGroup<T>
     {
-        get => _data[_selectedButton];
-        set => SelectedButton = _data.GetKey(value);
-    }
+        private readonly List<ToggleButton> _buttons = [];
 
-    public int SelectedIndex
-    {
-        get => _buttons.IndexOf(_selectedButton);
-        set => SelectedButton = _buttons[value];
-    }
+        private ToggleButton _selectedButton;
 
-    public ToggleButton SelectedButton
-    {
-        get => _selectedButton;
-        set
+        private readonly BiDictionary<ToggleButton, T> _data = [];
+
+        private readonly bool DeselectEnabled = true;
+
+        private readonly bool ToggleOnTouchBegin = true;
+
+        public ToggleButton this[int index] => _buttons[index];
+
+        public int Count => _buttons.Count;
+
+        public T SelectedValue
         {
-            SelectingButton = null;
-            if (_selectedButton == value)
+            get => _data[_selectedButton];
+            set => SelectedButton = _data.GetKey(value);
+        }
+
+        public int SelectedIndex
+        {
+            get => _buttons.IndexOf(_selectedButton);
+            set => SelectedButton = _buttons[value];
+        }
+
+        public ToggleButton SelectedButton
+        {
+            get => _selectedButton;
+            set
             {
-                return;
-            }
-            _selectedButton = value;
-            foreach (ToggleButton button in _buttons)
-            {
-                button.Toggle = button == _selectedButton;
-                if (!button.Toggle)
+                SelectingButton = null;
+                if (_selectedButton == value)
                 {
-                    button.Clear();
+                    return;
+                }
+                _selectedButton = value;
+                foreach (ToggleButton button in _buttons)
+                {
+                    button.Toggle = button == _selectedButton;
+                    if (!button.Toggle)
+                    {
+                        button.Clear();
+                    }
                 }
             }
         }
-    }
 
-    public ToggleButton SelectingButton { get; private set; }
+        public ToggleButton SelectingButton { get; private set; }
 
-    public event Action<ToggleButton, T> SelectedButtonChangeEvent;
+        public event Action<ToggleButton, T> SelectedButtonChangeEvent;
 
-    public void Add(ToggleButton button, T data)
-    {
-        Add(button);
-        _data.Add(button, data);
-    }
-
-    public void SelectFirstButtonIfExists()
-    {
-        if (Count > 0)
+        public void Add(ToggleButton button, T data)
         {
-            SelectedButton = this[0];
+            Add(button);
+            _data.Add(button, data);
         }
-    }
 
-    public void Add(ToggleButton button)
-    {
-        button.TouchBeginEvent += OnButtonTouchBegin;
-        button.ToggleChangeEvent += OnButtonToggleChangeEvent;
-        button.ToggleOnTouchBegin = ToggleOnTouchBegin;
-        _buttons.Add(button);
-    }
-
-    public T GetValue(ToggleButton button)
-    {
-        return _data[button];
-    }
-
-    public T GetValue(int index)
-    {
-        return GetValue(this[index]);
-    }
-
-    private void OnButtonToggleChangeEvent(ToggleButton toggleButton)
-    {
-        if (toggleButton != SelectedButton)
+        public void SelectFirstButtonIfExists()
         {
-            SelectedButton = toggleButton;
-            toggleButton.Toggle = true;
-            T argument = _data.TryGetValue(toggleButton);
-            SelectedButtonChangeEvent.Dispatch(SelectedButton, argument);
-        }
-        else if (DeselectEnabled)
-        {
-            _selectedButton = null;
-            SelectedButtonChangeEvent.Dispatch(null, default);
-        }
-        else
-        {
-            toggleButton.Toggle = true;
-        }
-    }
-
-    public void RemoveButton(ToggleButton button)
-    {
-        DoRemoveButton(button);
-        if (_data.ContainsKey(button))
-        {
-            _ = _data.Remove(button);
-        }
-    }
-
-    public void RemoveValue(T value)
-    {
-        DoRemoveButton(_data[value]);
-        _ = _data.Remove(value);
-    }
-
-    private void DoRemoveButton(ToggleButton button)
-    {
-        button.ToggleChangeEvent -= OnButtonToggleChangeEvent;
-        button.TouchBeginEvent -= OnButtonTouchBegin;
-        _ = _buttons.Remove(button);
-        if (_selectedButton == button)
-        {
-            _selectedButton = null;
-            if (!DeselectEnabled && !_buttons.Empty())
+            if (Count > 0)
             {
-                SelectedButton = _buttons.First();
+                SelectedButton = this[0];
             }
         }
-    }
 
-    private void OnButtonTouchBegin(Button button, Touch arg2)
-    {
-        SelectingButton = (ToggleButton)button;
+        public void Add(ToggleButton button)
+        {
+            button.TouchBeginEvent += OnButtonTouchBegin;
+            button.ToggleChangeEvent += OnButtonToggleChangeEvent;
+            button.ToggleOnTouchBegin = ToggleOnTouchBegin;
+            _buttons.Add(button);
+        }
+
+        public T GetValue(ToggleButton button)
+        {
+            return _data[button];
+        }
+
+        public T GetValue(int index)
+        {
+            return GetValue(this[index]);
+        }
+
+        private void OnButtonToggleChangeEvent(ToggleButton toggleButton)
+        {
+            if (toggleButton != SelectedButton)
+            {
+                SelectedButton = toggleButton;
+                toggleButton.Toggle = true;
+                T argument = _data.TryGetValue(toggleButton);
+                SelectedButtonChangeEvent.Dispatch(SelectedButton, argument);
+            }
+            else if (DeselectEnabled)
+            {
+                _selectedButton = null;
+                SelectedButtonChangeEvent.Dispatch(null, default);
+            }
+            else
+            {
+                toggleButton.Toggle = true;
+            }
+        }
+
+        public void RemoveButton(ToggleButton button)
+        {
+            DoRemoveButton(button);
+            if (_data.ContainsKey(button))
+            {
+                _ = _data.Remove(button);
+            }
+        }
+
+        public void RemoveValue(T value)
+        {
+            DoRemoveButton(_data[value]);
+            _ = _data.Remove(value);
+        }
+
+        private void DoRemoveButton(ToggleButton button)
+        {
+            button.ToggleChangeEvent -= OnButtonToggleChangeEvent;
+            button.TouchBeginEvent -= OnButtonTouchBegin;
+            _ = _buttons.Remove(button);
+            if (_selectedButton == button)
+            {
+                _selectedButton = null;
+                if (!DeselectEnabled && !_buttons.Empty())
+                {
+                    SelectedButton = _buttons.First();
+                }
+            }
+        }
+
+        private void OnButtonTouchBegin(Button button, Touch arg2)
+        {
+            SelectingButton = (ToggleButton)button;
+        }
     }
-}
-public class ToggleButtonGroup : ToggleButtonGroup<object>
-{
+    public class ToggleButtonGroup : ToggleButtonGroup<object>
+    {
+    }
 }

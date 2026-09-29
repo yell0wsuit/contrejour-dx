@@ -3,82 +3,83 @@ using Microsoft.Xna.Framework;
 using Mokus2D.Util.Extensions;
 using Mokus2D.Visual.Data;
 
-namespace Mokus2D.Visual.Animation;
-
-public static class AnimationUtil
+namespace Mokus2D.Visual.Animation
 {
-    public static void ApplyChildTransformations(AnimationNode source, AnimationNode target, bool recursive = false)
+    public static class AnimationUtil
     {
-        foreach (string childrenName in target.ChildrenNames)
+        public static void ApplyChildTransformations(AnimationNode source, AnimationNode target, bool recursive = false)
         {
-            if (source.HasChild(childrenName))
+            foreach (string childrenName in target.ChildrenNames)
             {
-                Node child = target.GetChild(childrenName);
-                Node child2 = source.GetChild(childrenName);
-                ApplyChildTransformations(recursive, child, child2);
+                if (source.HasChild(childrenName))
+                {
+                    Node child = target.GetChild(childrenName);
+                    Node child2 = source.GetChild(childrenName);
+                    ApplyChildTransformations(recursive, child, child2);
+                }
             }
         }
-    }
 
-    private static void ApplyChildTransformations(bool recursive, Node targetChild, Node sourceChild)
-    {
-        targetChild.ApplyTransformations(sourceChild);
-        if (recursive && sourceChild is AnimationNode sourceAnimation && targetChild is AnimationNode targetAnimation)
+        private static void ApplyChildTransformations(bool recursive, Node targetChild, Node sourceChild)
         {
-            ApplyChildTransformations(sourceAnimation, targetAnimation, recursive: true);
-        }
-    }
-
-    public static void ApplyChildTransformationsAndVisibility(AnimationNode source, AnimationNode target, bool recursive = false)
-    {
-        foreach (string childrenName in target.ChildrenNames)
-        {
-            if (source.HasChild(childrenName))
+            targetChild.ApplyTransformations(sourceChild);
+            if (recursive && sourceChild is AnimationNode sourceAnimation && targetChild is AnimationNode targetAnimation)
             {
-                Node child = target.GetChild(childrenName);
-                Node child2 = source.GetChild(childrenName);
-                ApplyChildTransformations(recursive, child, child2);
-                child.Visible = child2.Visible;
+                ApplyChildTransformations(sourceAnimation, targetAnimation, recursive: true);
             }
         }
-    }
 
-    public static void ApplyChildFrameData(AnimationNode node, Node child, AnimationFrameData data)
-    {
-        if (!child.IgnoredAnimations.Visible)
+        public static void ApplyChildTransformationsAndVisibility(AnimationNode source, AnimationNode target, bool recursive = false)
         {
-            child.Visible = data.Visible;
+            foreach (string childrenName in target.ChildrenNames)
+            {
+                if (source.HasChild(childrenName))
+                {
+                    Node child = target.GetChild(childrenName);
+                    Node child2 = source.GetChild(childrenName);
+                    ApplyChildTransformations(recursive, child, child2);
+                    child.Visible = child2.Visible;
+                }
+            }
         }
-        Vector2 vector = (node.Root != null) ? node.Root.SpritesScaleFactor.Signs() : Vector2.One;
-        if (!child.IgnoredAnimations.Position)
-        {
-            child.Position = data.Position * vector;
-        }
-        if (!child.IgnoredAnimations.Rotation)
-        {
-            child.RotationDegrees = data.Rotation * vector.X * vector.Y;
-        }
-        if (!child.IgnoredAnimations.Opacity)
-        {
-            child.OpacityFloat = data.Alpha;
-        }
-        if (!child.IgnoredAnimations.Scale)
-        {
-            child.ScaleVec = data.Scale;
-        }
-        if (!child.IgnoredAnimations.Color)
-        {
-            child.Color = data.Color;
-            child.ColorRatio = data.ColorRatio;
-        }
-    }
 
-    public static void ApplyAnimationConfig(IAnimatedNode animated)
-    {
-        Node node = (Node)animated;
-        if (node.Config != null)
+        public static void ApplyChildFrameData(AnimationNode node, Node child, AnimationFrameData data)
         {
-            animated.Speed = node.Config.GetFloat("speed", 1f);
+            if (!child.IgnoredAnimations.Visible)
+            {
+                child.Visible = data.Visible;
+            }
+            Vector2 vector = (node.Root != null) ? node.Root.SpritesScaleFactor.Signs() : Vector2.One;
+            if (!child.IgnoredAnimations.Position)
+            {
+                child.Position = data.Position * vector;
+            }
+            if (!child.IgnoredAnimations.Rotation)
+            {
+                child.RotationDegrees = data.Rotation * vector.X * vector.Y;
+            }
+            if (!child.IgnoredAnimations.Opacity)
+            {
+                child.OpacityFloat = data.Alpha;
+            }
+            if (!child.IgnoredAnimations.Scale)
+            {
+                child.ScaleVec = data.Scale;
+            }
+            if (!child.IgnoredAnimations.Color)
+            {
+                child.Color = data.Color;
+                child.ColorRatio = data.ColorRatio;
+            }
+        }
+
+        public static void ApplyAnimationConfig(IAnimatedNode animated)
+        {
+            Node node = (Node)animated;
+            if (node.Config != null)
+            {
+                animated.Speed = node.Config.GetFloat("speed", 1f);
+            }
         }
     }
 }

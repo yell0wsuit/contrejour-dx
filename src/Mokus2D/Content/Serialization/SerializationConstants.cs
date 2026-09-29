@@ -1,8 +1,9 @@
-namespace Mokus2D.Content.Serialization;
-
-public static class SerializationConstants
+namespace Mokus2D.Content.Serialization
 {
-    public const string ScaleFactor = "scaleFactor";
+    public static class SerializationConstants
+    {
+        public const string ScaleFactor = "scaleFactor";
 
-    public const string Separator = "/";
+        public const string Separator = "/";
+    }
 }

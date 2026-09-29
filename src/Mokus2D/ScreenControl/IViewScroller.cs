@@ -4,13 +4,14 @@ using Microsoft.Xna.Framework;
 
 using Mokus2D.Interfaces;
 
-namespace Mokus2D.ScreenControl;
-
-public interface IViewScroller : IUpdatable
+namespace Mokus2D.ScreenControl
 {
-    Vector2 ScrollSpeed { get; set; }
+    public interface IViewScroller : IUpdatable
+    {
+        Vector2 ScrollSpeed { get; set; }
 
-    Vector2 ViewPosition { get; set; }
+        Vector2 ViewPosition { get; set; }
 
-    event Action<Vector2> ViewPositionChangeEvent;
+        event Action<Vector2> ViewPositionChangeEvent;
+    }
 }

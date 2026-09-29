@@ -1,27 +1,28 @@
 using System;
 
-namespace Mokus2D.Effects.Tween.Easing;
-
-public class Cubic
+namespace Mokus2D.Effects.Tween.Easing
 {
-    public static readonly Func<float, float> EaseIn = EaseInFunction;
-
-    public static readonly Func<float, float> EaseInOut = EaseInOutFunction;
-
-    public static readonly Func<float, float> EaseOut = EaseOutFunction;
-
-    private static float EaseInFunction(float k)
+    public class Cubic
     {
-        return k * k * k;
-    }
+        public static readonly Func<float, float> EaseIn = EaseInFunction;
 
-    private static float EaseInOutFunction(float k)
-    {
-        return !((k *= 2f) < 1f) ? 0.5f * (((k -= 2f) * k * k) + 2f) : 0.5f * k * k * k;
-    }
+        public static readonly Func<float, float> EaseInOut = EaseInOutFunction;
 
-    private static float EaseOutFunction(float k)
-    {
-        return ((k -= 1f) * k * k) + 1f;
+        public static readonly Func<float, float> EaseOut = EaseOutFunction;
+
+        private static float EaseInFunction(float k)
+        {
+            return k * k * k;
+        }
+
+        private static float EaseInOutFunction(float k)
+        {
+            return !((k *= 2f) < 1f) ? 0.5f * (((k -= 2f) * k * k) + 2f) : 0.5f * k * k * k;
+        }
+
+        private static float EaseOutFunction(float k)
+        {
+            return ((k -= 1f) * k * k) + 1f;
+        }
     }
 }

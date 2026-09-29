@@ -4,29 +4,30 @@ using Mokus2D.Data;
 using Mokus2D.Interfaces;
 using Mokus2D.Visual;
 
-namespace ContreJour.Clips.fakeHero;
-
-[GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
-public class McFakeHeroHotspotBlack : Sprite, IFreeable, IId
+namespace ContreJour.Clips.fakeHero
 {
-    public const string ID = "fakeHero/McFakeHeroHotspotBlack";
-
-    public string Id => "fakeHero/McFakeHeroHotspotBlack";
-
-    public static McFakeHeroHotspotBlack New()
+    [GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
+    public class McFakeHeroHotspotBlack : Sprite, IFreeable, IId
     {
-        McFakeHeroHotspotBlack mcFakeHeroHotspotBlack = StaticPool.New<McFakeHeroHotspotBlack>();
-        mcFakeHeroHotspotBlack.RefreshProperties();
-        return mcFakeHeroHotspotBlack;
-    }
+        public const string ID = "fakeHero/McFakeHeroHotspotBlack";
 
-    public McFakeHeroHotspotBlack()
-        : base("fakeHero/McFakeHeroHotspotBlack")
-    {
-    }
+        public string Id => "fakeHero/McFakeHeroHotspotBlack";
 
-    public void Free()
-    {
-        StaticPool.Free<McFakeHeroHotspotBlack>(this);
+        public static McFakeHeroHotspotBlack New()
+        {
+            McFakeHeroHotspotBlack mcFakeHeroHotspotBlack = StaticPool.New<McFakeHeroHotspotBlack>();
+            mcFakeHeroHotspotBlack.RefreshProperties();
+            return mcFakeHeroHotspotBlack;
+        }
+
+        public McFakeHeroHotspotBlack()
+            : base("fakeHero/McFakeHeroHotspotBlack")
+        {
+        }
+
+        public void Free()
+        {
+            StaticPool.Free<McFakeHeroHotspotBlack>(this);
+        }
     }
 }

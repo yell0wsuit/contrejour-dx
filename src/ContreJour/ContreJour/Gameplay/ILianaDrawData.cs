@@ -1,10 +1,11 @@
 using Microsoft.Xna.Framework;
 
-namespace ContreJour.Gameplay;
-
-public interface ILianaDrawData
+namespace ContreJour.Gameplay
 {
-    Vector2 PositionAt(int index);
+    public interface ILianaDrawData
+    {
+        Vector2 PositionAt(int index);
 
-    int PointsCount();
+        int PointsCount();
+    }
 }

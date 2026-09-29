@@ -1,35 +1,36 @@
 using System.Collections.Generic;
 
-namespace Mokus2D.Util.Extensions;
-
-public static class HashSetExtensions
+namespace Mokus2D.Util.Extensions
 {
-    public static void AddNewItems<T>(this HashSet<T> target, List<T> items)
+    public static class HashSetExtensions
     {
-        foreach (T item in items)
+        public static void AddNewItems<T>(this HashSet<T> target, List<T> items)
         {
-            if (!target.Contains(item))
+            foreach (T item in items)
+            {
+                if (!target.Contains(item))
+                {
+                    _ = target.Add(item);
+                }
+            }
+        }
+
+        public static void AddAll<T>(this HashSet<T> target, List<T> items)
+        {
+            foreach (T item in items)
             {
                 _ = target.Add(item);
             }
         }
-    }
 
-    public static void AddAll<T>(this HashSet<T> target, List<T> items)
-    {
-        foreach (T item in items)
+        public static void AddNewItems<T>(this HashSet<T> target, HashSet<T> items)
         {
-            _ = target.Add(item);
-        }
-    }
-
-    public static void AddNewItems<T>(this HashSet<T> target, HashSet<T> items)
-    {
-        foreach (T item in items)
-        {
-            if (!target.Contains(item))
+            foreach (T item in items)
             {
-                _ = target.Add(item);
+                if (!target.Contains(item))
+                {
+                    _ = target.Add(item);
+                }
             }
         }
     }

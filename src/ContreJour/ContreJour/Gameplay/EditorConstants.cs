@@ -1,5 +1,6 @@
-namespace ContreJour.Gameplay;
-
-public class EditorConstants
+namespace ContreJour.Gameplay
 {
+    public class EditorConstants
+    {
+    }
 }

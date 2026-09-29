@@ -1,9 +1,10 @@
-namespace FarseerPhysics.Dynamics.Joints;
-
-public enum LimitState
+namespace FarseerPhysics.Dynamics.Joints
 {
-    Inactive,
-    AtLower,
-    AtUpper,
-    Equal
+    public enum LimitState
+    {
+        Inactive,
+        AtLower,
+        AtUpper,
+        Equal
+    }
 }

@@ -4,29 +4,30 @@ using Mokus2D.Data;
 using Mokus2D.Interfaces;
 using Mokus2D.Visual;
 
-namespace ContreJour.Clips.chapter3More;
-
-[GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
-public class McShesternaBackgroundBlur : Sprite, IFreeable, IId
+namespace ContreJour.Clips.chapter3More
 {
-    public const string ID = "chapter3More/McShesternaBackgroundBlur";
-
-    public string Id => "chapter3More/McShesternaBackgroundBlur";
-
-    public static McShesternaBackgroundBlur New()
+    [GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
+    public class McShesternaBackgroundBlur : Sprite, IFreeable, IId
     {
-        McShesternaBackgroundBlur mcShesternaBackgroundBlur = StaticPool.New<McShesternaBackgroundBlur>();
-        mcShesternaBackgroundBlur.RefreshProperties();
-        return mcShesternaBackgroundBlur;
-    }
+        public const string ID = "chapter3More/McShesternaBackgroundBlur";
 
-    public McShesternaBackgroundBlur()
-        : base("chapter3More/McShesternaBackgroundBlur")
-    {
-    }
+        public string Id => "chapter3More/McShesternaBackgroundBlur";
 
-    public void Free()
-    {
-        StaticPool.Free<McShesternaBackgroundBlur>(this);
+        public static McShesternaBackgroundBlur New()
+        {
+            McShesternaBackgroundBlur mcShesternaBackgroundBlur = StaticPool.New<McShesternaBackgroundBlur>();
+            mcShesternaBackgroundBlur.RefreshProperties();
+            return mcShesternaBackgroundBlur;
+        }
+
+        public McShesternaBackgroundBlur()
+            : base("chapter3More/McShesternaBackgroundBlur")
+        {
+        }
+
+        public void Free()
+        {
+            StaticPool.Free<McShesternaBackgroundBlur>(this);
+        }
     }
 }

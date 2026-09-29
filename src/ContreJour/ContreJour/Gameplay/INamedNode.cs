@@ -1,12 +1,13 @@
 using Microsoft.Xna.Framework;
 
-namespace ContreJour.Gameplay;
-
-public interface INamedNode
+namespace ContreJour.Gameplay
 {
-    string Name();
+    public interface INamedNode
+    {
+        string Name();
 
-    Hashtable Config();
+        Hashtable Config();
 
-    Vector2 Size();
+        Vector2 Size();
+    }
 }

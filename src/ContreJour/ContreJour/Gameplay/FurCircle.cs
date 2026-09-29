@@ -4,40 +4,41 @@ using Microsoft.Xna.Framework;
 
 using Mokus2D.Util.MathUtils;
 
-namespace ContreJour.Gameplay;
-
-public class FurCircle : ParticleSystem
+namespace ContreJour.Gameplay
 {
-    public float Radius
+    public class FurCircle : ParticleSystem
     {
-        get;
-        set
+        public float Radius
         {
-            if (Maths.FuzzyNotEquals(field, value))
+            get;
+            set
             {
-                field = value;
-                for (int i = 0; i < Particles.Count; i++)
+                if (Maths.FuzzyNotEquals(field, value))
                 {
-                    float itemAngle = GetItemAngle(i);
-                    Particle particle = Particles[i];
-                    particle.RotationDegrees = MathHelper.ToDegrees(itemAngle) - 90f;
-                    particle.Position = VectorUtil.ToVector(value, itemAngle);
+                    field = value;
+                    for (int i = 0; i < Particles.Count; i++)
+                    {
+                        float itemAngle = GetItemAngle(i);
+                        Particle particle = Particles[i];
+                        particle.RotationDegrees = MathHelper.ToDegrees(itemAngle) - 90f;
+                        particle.Position = VectorUtil.ToVector(value, itemAngle);
+                    }
                 }
             }
         }
-    }
 
-    public float AngleStep { get; }
+        public float AngleStep { get; }
 
-    public FurCircle(string textureName, int maxParticles, float radius)
-        : base(textureName, maxParticles)
-    {
-        AngleStep = 1f / maxParticles * 2f * (float)Math.PI;
-        Radius = radius;
-    }
+        public FurCircle(string textureName, int maxParticles, float radius)
+            : base(textureName, maxParticles)
+        {
+            AngleStep = 1f / maxParticles * 2f * (float)Math.PI;
+            Radius = radius;
+        }
 
-    public float GetItemAngle(int i)
-    {
-        return i * AngleStep;
+        public float GetItemAngle(int i)
+        {
+            return i * AngleStep;
+        }
     }
 }

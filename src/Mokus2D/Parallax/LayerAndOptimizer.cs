@@ -1,8 +1,9 @@
-namespace Mokus2D.Parallax;
-
-internal sealed class LayerAndOptimizer(ParallaxLayer layer, LayerVisibilityOptimizer optimizer)
+namespace Mokus2D.Parallax
 {
-    public readonly ParallaxLayer Layer = layer;
+    internal sealed class LayerAndOptimizer(ParallaxLayer layer, LayerVisibilityOptimizer optimizer)
+    {
+        public readonly ParallaxLayer Layer = layer;
 
-    public readonly LayerVisibilityOptimizer Optimizer = optimizer;
+        public readonly LayerVisibilityOptimizer Optimizer = optimizer;
+    }
 }

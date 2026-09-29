@@ -4,29 +4,30 @@ using Mokus2D.Data;
 using Mokus2D.Interfaces;
 using Mokus2D.Visual;
 
-namespace ContreJour.Clips.planets;
-
-[GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
-public class McPlanetEyeBlink : MovieClip, IFreeable, IId
+namespace ContreJour.Clips.planets
 {
-    public const string ID = "planets/McPlanetEyeBlink";
-
-    public string Id => "planets/McPlanetEyeBlink";
-
-    public static McPlanetEyeBlink New()
+    [GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
+    public class McPlanetEyeBlink : MovieClip, IFreeable, IId
     {
-        McPlanetEyeBlink mcPlanetEyeBlink = StaticPool.New<McPlanetEyeBlink>();
-        mcPlanetEyeBlink.RefreshProperties();
-        return mcPlanetEyeBlink;
-    }
+        public const string ID = "planets/McPlanetEyeBlink";
 
-    public McPlanetEyeBlink()
-        : base("planets/McPlanetEyeBlink")
-    {
-    }
+        public string Id => "planets/McPlanetEyeBlink";
 
-    public void Free()
-    {
-        StaticPool.Free<McPlanetEyeBlink>(this);
+        public static McPlanetEyeBlink New()
+        {
+            McPlanetEyeBlink mcPlanetEyeBlink = StaticPool.New<McPlanetEyeBlink>();
+            mcPlanetEyeBlink.RefreshProperties();
+            return mcPlanetEyeBlink;
+        }
+
+        public McPlanetEyeBlink()
+            : base("planets/McPlanetEyeBlink")
+        {
+        }
+
+        public void Free()
+        {
+            StaticPool.Free<McPlanetEyeBlink>(this);
+        }
     }
 }

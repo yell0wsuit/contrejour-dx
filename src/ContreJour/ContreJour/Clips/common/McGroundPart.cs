@@ -4,29 +4,30 @@ using Mokus2D.Data;
 using Mokus2D.Interfaces;
 using Mokus2D.Visual;
 
-namespace ContreJour.Clips.common;
-
-[GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
-public class McGroundPart : Sprite, IFreeable, IId
+namespace ContreJour.Clips.common
 {
-    public const string ID = "common/McGroundPart";
-
-    public string Id => "common/McGroundPart";
-
-    public static McGroundPart New()
+    [GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
+    public class McGroundPart : Sprite, IFreeable, IId
     {
-        McGroundPart mcGroundPart = StaticPool.New<McGroundPart>();
-        mcGroundPart.RefreshProperties();
-        return mcGroundPart;
-    }
+        public const string ID = "common/McGroundPart";
 
-    public McGroundPart()
-        : base("common/McGroundPart")
-    {
-    }
+        public string Id => "common/McGroundPart";
 
-    public void Free()
-    {
-        StaticPool.Free<McGroundPart>(this);
+        public static McGroundPart New()
+        {
+            McGroundPart mcGroundPart = StaticPool.New<McGroundPart>();
+            mcGroundPart.RefreshProperties();
+            return mcGroundPart;
+        }
+
+        public McGroundPart()
+            : base("common/McGroundPart")
+        {
+        }
+
+        public void Free()
+        {
+            StaticPool.Free<McGroundPart>(this);
+        }
     }
 }

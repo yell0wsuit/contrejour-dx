@@ -1,12 +1,13 @@
-namespace Mokus2D.Visual.Shaders.NormalMap;
-
-public class BasicNormalMapEffect : NormalMapEffectBase
+namespace Mokus2D.Visual.Shaders.NormalMap
 {
-    public new const int MaxLightsCount = 5;
-
-    public BasicNormalMapEffect(int lightsCount)
-        : base("Mokus2D.Shaders.BasicNormalMap", 5)
+    public class BasicNormalMapEffect : NormalMapEffectBase
     {
-        LightsCount.Value = lightsCount;
+        public new const int MaxLightsCount = 5;
+
+        public BasicNormalMapEffect(int lightsCount)
+            : base("Mokus2D.Shaders.BasicNormalMap", 5)
+        {
+            LightsCount.Value = lightsCount;
+        }
     }
 }

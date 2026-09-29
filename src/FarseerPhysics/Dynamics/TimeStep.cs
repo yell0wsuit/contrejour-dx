@@ -1,10 +1,11 @@
-namespace FarseerPhysics.Dynamics;
-
-public struct TimeStep
+namespace FarseerPhysics.Dynamics
 {
-    public float dt;
+    public struct TimeStep
+    {
+        public float dt;
 
-    public float dtRatio;
+        public float dtRatio;
 
-    public float inv_dt;
+        public float inv_dt;
+    }
 }

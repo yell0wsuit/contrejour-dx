@@ -1,23 +1,24 @@
 
-namespace Mokus2D.Util.MathUtils;
-
-public class AsymptoticFloat(float min, float max, float offset) : IValueProcessor<float>
+namespace Mokus2D.Util.MathUtils
 {
-    private readonly float Min = min;
-
-    private readonly float Max = max;
-
-    private readonly float Offset = offset;
-
-    public static float GetValue(float value, float min, float max, float asymptoticOffset)
+    public class AsymptoticFloat(float min, float max, float offset) : IValueProcessor<float>
     {
-        return value < min
-            ? min - Maths.AsymptoticTo(asymptoticOffset, min - value)
-            : value > max ? max + Maths.AsymptoticTo(asymptoticOffset, value - max) : value;
-    }
+        private readonly float Min = min;
 
-    public float GetValue(float value)
-    {
-        return GetValue(value, Min, Max, Offset);
+        private readonly float Max = max;
+
+        private readonly float Offset = offset;
+
+        public static float GetValue(float value, float min, float max, float asymptoticOffset)
+        {
+            return value < min
+                ? min - Maths.AsymptoticTo(asymptoticOffset, min - value)
+                : value > max ? max + Maths.AsymptoticTo(asymptoticOffset, value - max) : value;
+        }
+
+        public float GetValue(float value)
+        {
+            return GetValue(value, Min, Max, Offset);
+        }
     }
 }

@@ -1,17 +1,18 @@
 using Mokus2D.Visual;
 
-namespace ContreJour.Gameplay;
-
-public class KaktusBodyClip : ContreJourBodyClip
+namespace ContreJour.Gameplay
 {
-    public KaktusBodyClip(ContreJourLevelBuilder builder, object body, Sprite clip, Hashtable config)
-        : base(builder, body, clip, config)
+    public class KaktusBodyClip : ContreJourBodyClip
     {
-        string text = builder.ContreJour.ChooseSide("Black", null, "_5", null, "_6");
-        if (text != null)
+        public KaktusBodyClip(ContreJourLevelBuilder builder, object body, Sprite clip, Hashtable config)
+            : base(builder, body, clip, config)
         {
-            clip = (Sprite)LevelBuilderBase.ReplaceClipWith(clip, Config.GetString("viewType") + text);
+            string text = builder.ContreJour.ChooseSide("Black", null, "_5", null, "_6");
+            if (text != null)
+            {
+                clip = (Sprite)LevelBuilderBase.ReplaceClipWith(clip, Config.GetString("viewType") + text);
+            }
+            clip.Parent.ChangeChildLayer(clip, -2);
         }
-        clip.Parent.ChangeChildLayer(clip, -2);
     }
 }

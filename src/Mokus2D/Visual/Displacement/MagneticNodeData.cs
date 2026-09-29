@@ -1,21 +1,22 @@
 using Microsoft.Xna.Framework;
 
-namespace Mokus2D.Visual.Displacement;
-
-public class MagneticNodeData
+namespace Mokus2D.Visual.Displacement
 {
-    public Vector2 DefaultPosition { get; }
-
-    public Vector2 TargetPosition { get; set; }
-
-    public MagneticNodeData(Vector2 defaultPosition)
+    public class MagneticNodeData
     {
-        DefaultPosition = defaultPosition;
-        Clean();
-    }
+        public Vector2 DefaultPosition { get; }
 
-    public void Clean()
-    {
-        TargetPosition = DefaultPosition;
+        public Vector2 TargetPosition { get; set; }
+
+        public MagneticNodeData(Vector2 defaultPosition)
+        {
+            DefaultPosition = defaultPosition;
+            Clean();
+        }
+
+        public void Clean()
+        {
+            TargetPosition = DefaultPosition;
+        }
     }
 }

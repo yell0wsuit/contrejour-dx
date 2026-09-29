@@ -1,8 +1,9 @@
-namespace FarseerPhysics.Common.Decomposition.CDT;
-
-internal enum TriangulationMode
+namespace FarseerPhysics.Common.Decomposition.CDT
 {
-    Unconstrained,
-    Constrained,
-    Polygon
+    internal enum TriangulationMode
+    {
+        Unconstrained,
+        Constrained,
+        Polygon
+    }
 }

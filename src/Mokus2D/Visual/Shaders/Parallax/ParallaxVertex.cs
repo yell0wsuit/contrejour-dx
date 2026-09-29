@@ -7,93 +7,94 @@ using Microsoft.Xna.Framework.Graphics;
 using Mokus2D.Visual.Drawing;
 using Mokus2D.Visual.Drawing.Vertex;
 
-namespace Mokus2D.Visual.Shaders.Parallax;
-
-public struct ParallaxVertex : ITintVertex, IVertex, IVertexType
+namespace Mokus2D.Visual.Shaders.Parallax
 {
-    private Vector3 Position;
-
-    private Color Color;
-
-    private Vector2 TextureCoordinate;
-
-    private float ColorRatio;
-
-    public float Parallax;
-
-    public static readonly VertexDeclaration VertexDeclaration;
-
-    readonly VertexDeclaration IVertexType.VertexDeclaration => VertexDeclaration;
-
-    Vector3 IVertex.Position
+    public struct ParallaxVertex : ITintVertex, IVertex, IVertexType
     {
-        readonly get => Position;
-        set => Position = value;
-    }
+        private Vector3 Position;
 
-    Color IVertex.Color
-    {
-        readonly get => Color;
-        set => Color = value;
-    }
+        private Color Color;
 
-    Vector2 IVertex.TextureCoordinate
-    {
-        readonly get => TextureCoordinate;
-        set => TextureCoordinate = value;
-    }
+        private Vector2 TextureCoordinate;
 
-    float ITintVertex.ColorRatio
-    {
-        readonly get => ColorRatio;
-        set => ColorRatio = value;
-    }
+        private float ColorRatio;
 
-    static ParallaxVertex()
-    {
-        VertexDeclaration = new VertexDeclaration(new VertexElement(0, VertexElementFormat.Vector3, VertexElementUsage.Position, 0), new VertexElement(12, VertexElementFormat.Color, VertexElementUsage.Color, 0), new VertexElement(16, VertexElementFormat.Vector2, VertexElementUsage.TextureCoordinate, 0), new VertexElement(24, VertexElementFormat.Single, VertexElementUsage.BlendWeight, 0), new VertexElement(28, VertexElementFormat.Single, VertexElementUsage.BlendWeight, 1))
+        public float Parallax;
+
+        public static readonly VertexDeclaration VertexDeclaration;
+
+        readonly VertexDeclaration IVertexType.VertexDeclaration => VertexDeclaration;
+
+        Vector3 IVertex.Position
         {
-            Name = "ParallaxVertex.VertexDeclaration"
-        };
-    }
+            readonly get => Position;
+            set => Position = value;
+        }
 
-    public ParallaxVertex(Vector3 position, Color color, Vector2 textureCoordinate, float colorRatio)
-        : this(position, color, textureCoordinate, colorRatio, 1f)
-    {
-    }
+        Color IVertex.Color
+        {
+            readonly get => Color;
+            set => Color = value;
+        }
 
-    public ParallaxVertex(Vector3 position, Color color, Vector2 textureCoordinate, float colorRatio, float parallax)
-    {
-        this = default;
-        Position = position;
-        Color = color;
-        TextureCoordinate = textureCoordinate;
-        ColorRatio = colorRatio;
-        Parallax = parallax;
-    }
+        Vector2 IVertex.TextureCoordinate
+        {
+            readonly get => TextureCoordinate;
+            set => TextureCoordinate = value;
+        }
 
-    public static bool operator ==(ParallaxVertex left, ParallaxVertex right)
-    {
-        return left.Position == right.Position && left.Color == right.Color && left.TextureCoordinate == right.TextureCoordinate && left.ColorRatio == right.ColorRatio && left.Parallax == right.Parallax;
-    }
+        float ITintVertex.ColorRatio
+        {
+            readonly get => ColorRatio;
+            set => ColorRatio = value;
+        }
 
-    public static bool operator !=(ParallaxVertex left, ParallaxVertex right)
-    {
-        return !(left == right);
-    }
+        static ParallaxVertex()
+        {
+            VertexDeclaration = new VertexDeclaration(new VertexElement(0, VertexElementFormat.Vector3, VertexElementUsage.Position, 0), new VertexElement(12, VertexElementFormat.Color, VertexElementUsage.Color, 0), new VertexElement(16, VertexElementFormat.Vector2, VertexElementUsage.TextureCoordinate, 0), new VertexElement(24, VertexElementFormat.Single, VertexElementUsage.BlendWeight, 0), new VertexElement(28, VertexElementFormat.Single, VertexElementUsage.BlendWeight, 1))
+            {
+                Name = "ParallaxVertex.VertexDeclaration"
+            };
+        }
 
-    public override readonly string ToString()
-    {
-        return string.Format(CultureInfo.CurrentCulture, "{{Position:{0} Color:{1} TextureCoordinate:{2}}}", new object[3] { Position, Color, TextureCoordinate });
-    }
+        public ParallaxVertex(Vector3 position, Color color, Vector2 textureCoordinate, float colorRatio)
+            : this(position, color, textureCoordinate, colorRatio, 1f)
+        {
+        }
 
-    public override readonly bool Equals(object obj)
-    {
-        return obj != null && (object)obj.GetType() == GetType() && this == (ParallaxVertex)obj;
-    }
+        public ParallaxVertex(Vector3 position, Color color, Vector2 textureCoordinate, float colorRatio, float parallax)
+        {
+            this = default;
+            Position = position;
+            Color = color;
+            TextureCoordinate = textureCoordinate;
+            ColorRatio = colorRatio;
+            Parallax = parallax;
+        }
 
-    public override readonly int GetHashCode()
-    {
-        return HashCode.Combine(Position, Color, TextureCoordinate, ColorRatio, Parallax);
+        public static bool operator ==(ParallaxVertex left, ParallaxVertex right)
+        {
+            return left.Position == right.Position && left.Color == right.Color && left.TextureCoordinate == right.TextureCoordinate && left.ColorRatio == right.ColorRatio && left.Parallax == right.Parallax;
+        }
+
+        public static bool operator !=(ParallaxVertex left, ParallaxVertex right)
+        {
+            return !(left == right);
+        }
+
+        public override readonly string ToString()
+        {
+            return string.Format(CultureInfo.CurrentCulture, "{{Position:{0} Color:{1} TextureCoordinate:{2}}}", new object[3] { Position, Color, TextureCoordinate });
+        }
+
+        public override readonly bool Equals(object obj)
+        {
+            return obj != null && (object)obj.GetType() == GetType() && this == (ParallaxVertex)obj;
+        }
+
+        public override readonly int GetHashCode()
+        {
+            return HashCode.Combine(Position, Color, TextureCoordinate, ColorRatio, Parallax);
+        }
     }
 }

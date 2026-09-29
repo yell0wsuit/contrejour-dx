@@ -1,14 +1,15 @@
-namespace ContreJour.Debug;
-
-public static class DebugUtil
+namespace ContreJour.Debug
 {
-    public static void Trace(string value, params object[] args)
+    public static class DebugUtil
     {
-        System.Diagnostics.Trace.TraceInformation(value, args);
-    }
+        public static void Trace(string value, params object[] args)
+        {
+            System.Diagnostics.Trace.TraceInformation(value, args);
+        }
 
-    public static void Trace(string value)
-    {
-        System.Diagnostics.Trace.TraceInformation(value);
+        public static void Trace(string value)
+        {
+            System.Diagnostics.Trace.TraceInformation(value);
+        }
     }
 }

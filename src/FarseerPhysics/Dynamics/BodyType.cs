@@ -1,8 +1,9 @@
-namespace FarseerPhysics.Dynamics;
-
-public enum BodyType
+namespace FarseerPhysics.Dynamics
 {
-    Static,
-    Kinematic,
-    Dynamic
+    public enum BodyType
+    {
+        Static,
+        Kinematic,
+        Dynamic
+    }
 }

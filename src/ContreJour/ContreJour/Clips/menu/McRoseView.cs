@@ -4,29 +4,30 @@ using Mokus2D.Data;
 using Mokus2D.Interfaces;
 using Mokus2D.Visual;
 
-namespace ContreJour.Clips.menu;
-
-[GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
-public class McRoseView : Sprite, IFreeable, IId
+namespace ContreJour.Clips.menu
 {
-    public const string ID = "menu/McRoseView";
-
-    public string Id => "menu/McRoseView";
-
-    public static McRoseView New()
+    [GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
+    public class McRoseView : Sprite, IFreeable, IId
     {
-        McRoseView mcRoseView = StaticPool.New<McRoseView>();
-        mcRoseView.RefreshProperties();
-        return mcRoseView;
-    }
+        public const string ID = "menu/McRoseView";
 
-    public McRoseView()
-        : base("menu/McRoseView")
-    {
-    }
+        public string Id => "menu/McRoseView";
 
-    public void Free()
-    {
-        StaticPool.Free<McRoseView>(this);
+        public static McRoseView New()
+        {
+            McRoseView mcRoseView = StaticPool.New<McRoseView>();
+            mcRoseView.RefreshProperties();
+            return mcRoseView;
+        }
+
+        public McRoseView()
+            : base("menu/McRoseView")
+        {
+        }
+
+        public void Free()
+        {
+            StaticPool.Free<McRoseView>(this);
+        }
     }
 }

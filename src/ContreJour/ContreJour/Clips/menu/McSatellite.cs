@@ -4,29 +4,30 @@ using Mokus2D.Data;
 using Mokus2D.Interfaces;
 using Mokus2D.Visual;
 
-namespace ContreJour.Clips.menu;
-
-[GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
-public class McSatellite : Sprite, IFreeable, IId
+namespace ContreJour.Clips.menu
 {
-    public const string ID = "menu/McSatellite";
-
-    public string Id => "menu/McSatellite";
-
-    public static McSatellite New()
+    [GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
+    public class McSatellite : Sprite, IFreeable, IId
     {
-        McSatellite mcSatellite = StaticPool.New<McSatellite>();
-        mcSatellite.RefreshProperties();
-        return mcSatellite;
-    }
+        public const string ID = "menu/McSatellite";
 
-    public McSatellite()
-        : base("menu/McSatellite")
-    {
-    }
+        public string Id => "menu/McSatellite";
 
-    public void Free()
-    {
-        StaticPool.Free<McSatellite>(this);
+        public static McSatellite New()
+        {
+            McSatellite mcSatellite = StaticPool.New<McSatellite>();
+            mcSatellite.RefreshProperties();
+            return mcSatellite;
+        }
+
+        public McSatellite()
+            : base("menu/McSatellite")
+        {
+        }
+
+        public void Free()
+        {
+            StaticPool.Free<McSatellite>(this);
+        }
     }
 }

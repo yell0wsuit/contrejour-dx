@@ -4,29 +4,30 @@ using Mokus2D.Data;
 using Mokus2D.Interfaces;
 using Mokus2D.Visual;
 
-namespace ContreJour.Clips.common2;
-
-[GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
-public class McEyeSmileBlack : MovieClip, IFreeable, IId
+namespace ContreJour.Clips.common2
 {
-    public const string ID = "common2/McEyeSmileBlack";
-
-    public string Id => "common2/McEyeSmileBlack";
-
-    public static McEyeSmileBlack New()
+    [GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
+    public class McEyeSmileBlack : MovieClip, IFreeable, IId
     {
-        McEyeSmileBlack mcEyeSmileBlack = StaticPool.New<McEyeSmileBlack>();
-        mcEyeSmileBlack.RefreshProperties();
-        return mcEyeSmileBlack;
-    }
+        public const string ID = "common2/McEyeSmileBlack";
 
-    public McEyeSmileBlack()
-        : base("common2/McEyeSmileBlack")
-    {
-    }
+        public string Id => "common2/McEyeSmileBlack";
 
-    public void Free()
-    {
-        StaticPool.Free<McEyeSmileBlack>(this);
+        public static McEyeSmileBlack New()
+        {
+            McEyeSmileBlack mcEyeSmileBlack = StaticPool.New<McEyeSmileBlack>();
+            mcEyeSmileBlack.RefreshProperties();
+            return mcEyeSmileBlack;
+        }
+
+        public McEyeSmileBlack()
+            : base("common2/McEyeSmileBlack")
+        {
+        }
+
+        public void Free()
+        {
+            StaticPool.Free<McEyeSmileBlack>(this);
+        }
     }
 }

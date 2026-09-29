@@ -13,262 +13,263 @@ using Mokus2D.Visual.Interfaces;
 using Mokus2D.Visual.Primitives;
 using Mokus2D.Visual.Util;
 
-namespace ContreJour.Primitives;
-
-public abstract class LongNeckSprite : PrimitivesNode
+namespace ContreJour.Primitives
 {
-    private bool created;
-
-    protected VertexPositionColorTexture[] Vertices { get; set; }
-
-    protected VertexPositionColorTexture[] Border { get; set; }
-
-    private Color neckColor;
-
-    private Color drawNeckColor;
-
-    protected float BorderWidth { get; set; }
-
-    protected int AllPointsSize { get; set; }
-
-    private Rectangle textureRect = new(0, 0, 0, 0);
-
-    private readonly TextureCoords textureCoords = new();
-
-    private readonly float textureStep = 1f;
-
-    private readonly List<Vector2> first = new(64);
-
-    private readonly List<Vector2> second = new(64);
-
-    private readonly List<Vector2> firstBezier = new(64);
-
-    private readonly List<Vector2> secondBezier = new(64);
-
-    private readonly List<Vector2> allPoints = [];
-
-    private readonly List<Pair<Vector2>> cachedPairs = new(64);
-
-    protected virtual bool HasRecalculateVertices => true;
-
-    protected virtual bool OnScreen => true;
-
-    public ISpriteData TextureData
+    public abstract class LongNeckSprite : PrimitivesNode
     {
-        set
+        private bool created;
+
+        protected VertexPositionColorTexture[] Vertices { get; set; }
+
+        protected VertexPositionColorTexture[] Border { get; set; }
+
+        private Color neckColor;
+
+        private Color drawNeckColor;
+
+        protected float BorderWidth { get; set; }
+
+        protected int AllPointsSize { get; set; }
+
+        private Rectangle textureRect = new(0, 0, 0, 0);
+
+        private readonly TextureCoords textureCoords = new();
+
+        private readonly float textureStep = 1f;
+
+        private readonly List<Vector2> first = new(64);
+
+        private readonly List<Vector2> second = new(64);
+
+        private readonly List<Vector2> firstBezier = new(64);
+
+        private readonly List<Vector2> secondBezier = new(64);
+
+        private readonly List<Vector2> allPoints = [];
+
+        private readonly List<Pair<Vector2>> cachedPairs = new(64);
+
+        protected virtual bool HasRecalculateVertices => true;
+
+        protected virtual bool OnScreen => true;
+
+        public ISpriteData TextureData
         {
-            Texture = value.Texture;
-            textureRect = value.TextureRect;
-            textureCoords.Refresh(Texture, value.TextureRect, Vector2.One);
-            if (Texture != null)
+            set
             {
-                NeckColor = Color.White;
+                Texture = value.Texture;
+                textureRect = value.TextureRect;
+                textureCoords.Refresh(Texture, value.TextureRect, Vector2.One);
+                if (Texture != null)
+                {
+                    NeckColor = Color.White;
+                }
             }
         }
-    }
 
-    public override Texture2D Texture
-    {
-        get => base.Texture;
-        set
+        public override Texture2D Texture
         {
-            if (value != null)
+            get => base.Texture;
+            set
             {
-                textureRect = new Rectangle(0, 0, value.Width, value.Height);
+                if (value != null)
+                {
+                    textureRect = new Rectangle(0, 0, value.Width, value.Height);
+                }
+                base.Texture = value;
+                textureCoords.Refresh(Texture, textureRect);
             }
-            base.Texture = value;
-            textureCoords.Refresh(Texture, textureRect);
         }
-    }
 
-    public Color NeckColor
-    {
-        get => neckColor;
-        set
+        public Color NeckColor
         {
-            neckColor = value;
-            if (Border != null)
+            get => neckColor;
+            set
             {
-                SetBorderColors();
+                neckColor = value;
+                if (Border != null)
+                {
+                    SetBorderColors();
+                }
+                if (Vertices != null)
+                {
+                    SetNeckColors();
+                }
             }
+        }
+
+        protected LongNeckSprite()
+        {
+            neckColor = new Color(0, 0, 0, 255);
+            BorderWidth = 2f;
+        }
+
+        public abstract void GetPairs(List<Pair<Vector2>> target);
+
+        public override void Update(float time)
+        {
+            if (HasRecalculateVertices && OnScreen)
+            {
+                RecalculateVertices();
+            }
+        }
+
+        private void RecalculateVertices()
+        {
+            cachedPairs.Clear();
+            GetPairs(cachedPairs);
+            if (cachedPairs.Count <= 2)
+            {
+                return;
+            }
+            first.Clear();
+            second.Clear();
+            foreach (Pair<Vector2> cachedPair in cachedPairs)
+            {
+                first.Add(cachedPair.First);
+                second.Add(cachedPair.Second);
+            }
+            firstBezier.Clear();
+            secondBezier.Clear();
+            AddBezierPointsBezier(first, firstBezier);
+            AddBezierPointsBezier(second, secondBezier);
+            CreatePolygonsFirstBezierSecondBezier(firstBezier, secondBezier);
+        }
+
+        public virtual void AddBezierPointsBezier(List<Vector2> source, List<Vector2> bezier)
+        {
+            BezierUtil.AddBezierPoints(bezier, source, 6);
+        }
+
+        public void CreatePolygonsFirstBezierSecondBezier(List<Vector2> firstBezier, List<Vector2> secondBezier)
+        {
+            ProcessBezierSecond(firstBezier, secondBezier);
+            for (int i = 0; i < firstBezier.Count - 1; i++)
+            {
+                int num = i * 6;
+                Vertices[num].Position = firstBezier[i].ToVector3();
+                Vertices[num + 1].Position = firstBezier[i + 1].ToVector3();
+                Vertices[num + 2].Position = secondBezier[i].ToVector3();
+                Vertices[num + 3].Position = secondBezier[i].ToVector3();
+                Vertices[num + 4].Position = secondBezier[i + 1].ToVector3();
+                Vertices[num + 5].Position = firstBezier[i + 1].ToVector3();
+                if (Texture != null)
+                {
+                    RefreshTextureCoords(i, num);
+                }
+            }
+        }
+
+        protected virtual void RefreshTextureCoords(int i, int start)
+        {
+            float num = i * textureStep;
+            float num2 = (i + 1) * textureStep;
+            if (num2 > 1f)
+            {
+                num = (float)((double)num - Math.Floor(num2));
+                num2 = (float)((double)num2 - Math.Floor(num2));
+            }
+            if (num < 0f)
+            {
+                num += 1f;
+                num2 += 1f;
+            }
+            Vector2 texturePosition = textureCoords.GetTexturePosition(new Vector2(num, 0f));
+            Vector2 texturePosition2 = textureCoords.GetTexturePosition(new Vector2(num, 1f));
+            Vector2 texturePosition3 = textureCoords.GetTexturePosition(new Vector2(num2, 0f));
+            Vector2 texturePosition4 = textureCoords.GetTexturePosition(new Vector2(num2, 1f));
+            Vertices[start].TextureCoordinate = texturePosition;
+            Vertices[start + 1].TextureCoordinate = texturePosition3;
+            Vertices[start + 2].TextureCoordinate = texturePosition2;
+            Vertices[start + 3].TextureCoordinate = texturePosition2;
+            Vertices[start + 4].TextureCoordinate = texturePosition4;
+            Vertices[start + 5].TextureCoordinate = texturePosition3;
+        }
+
+        public void ProcessBezierSecond(List<Vector2> firstBezier, List<Vector2> secondBezier)
+        {
+            allPoints.Clear();
+            allPoints.Capacity = firstBezier.Count + secondBezier.Count;
+            allPoints.AddItemsNoGarbage(secondBezier);
+            allPoints.AddItemsNoGarbage(firstBezier, firstBezier.Count - 1, 0);
+            TryCreateVectors(allPoints);
+            GraphUtil.CreateGradientBorderWidthVertices(allPoints, BorderWidth, Border);
+        }
+
+        public void TryCreateVectors(List<Vector2> allPoints)
+        {
+            if (!created)
+            {
+                CreateVectors(allPoints.Count);
+                created = true;
+            }
+        }
+
+        public virtual void CreateVectors(int allPointsSize)
+        {
+            Vertices = new VertexPositionColorTexture[(allPointsSize - 2) * 3];
+            AllPointsSize = allPointsSize;
+            Border = new VertexPositionColorTexture[AllPointsSize * 6];
+            SetBorderColors();
+            SetNeckColors();
+        }
+
+        protected virtual void SetNeckColors()
+        {
             if (Vertices != null)
             {
-                SetNeckColors();
+                GraphUtil.SetColor(Vertices, drawNeckColor);
             }
         }
-    }
 
-    protected LongNeckSprite()
-    {
-        neckColor = new Color(0, 0, 0, 255);
-        BorderWidth = 2f;
-    }
-
-    public abstract void GetPairs(List<Pair<Vector2>> target);
-
-    public override void Update(float time)
-    {
-        if (HasRecalculateVertices && OnScreen)
+        public virtual void SetBorderColors()
         {
-            RecalculateVertices();
-        }
-    }
-
-    private void RecalculateVertices()
-    {
-        cachedPairs.Clear();
-        GetPairs(cachedPairs);
-        if (cachedPairs.Count <= 2)
-        {
-            return;
-        }
-        first.Clear();
-        second.Clear();
-        foreach (Pair<Vector2> cachedPair in cachedPairs)
-        {
-            first.Add(cachedPair.First);
-            second.Add(cachedPair.Second);
-        }
-        firstBezier.Clear();
-        secondBezier.Clear();
-        AddBezierPointsBezier(first, firstBezier);
-        AddBezierPointsBezier(second, secondBezier);
-        CreatePolygonsFirstBezierSecondBezier(firstBezier, secondBezier);
-    }
-
-    public virtual void AddBezierPointsBezier(List<Vector2> source, List<Vector2> bezier)
-    {
-        BezierUtil.AddBezierPoints(bezier, source, 6);
-    }
-
-    public void CreatePolygonsFirstBezierSecondBezier(List<Vector2> firstBezier, List<Vector2> secondBezier)
-    {
-        ProcessBezierSecond(firstBezier, secondBezier);
-        for (int i = 0; i < firstBezier.Count - 1; i++)
-        {
-            int num = i * 6;
-            Vertices[num].Position = firstBezier[i].ToVector3();
-            Vertices[num + 1].Position = firstBezier[i + 1].ToVector3();
-            Vertices[num + 2].Position = secondBezier[i].ToVector3();
-            Vertices[num + 3].Position = secondBezier[i].ToVector3();
-            Vertices[num + 4].Position = secondBezier[i + 1].ToVector3();
-            Vertices[num + 5].Position = firstBezier[i + 1].ToVector3();
-            if (Texture != null)
+            if (Border != null)
             {
-                RefreshTextureCoords(i, num);
+                GraphUtil.CreateGradientColorsList(AllPointsSize, drawNeckColor, EndColor(), Border);
             }
         }
-    }
 
-    protected virtual void RefreshTextureCoords(int i, int start)
-    {
-        float num = i * textureStep;
-        float num2 = (i + 1) * textureStep;
-        if (num2 > 1f)
+        public virtual Color EndColor()
         {
-            num = (float)((double)num - Math.Floor(num2));
-            num2 = (float)((double)num2 - Math.Floor(num2));
+            return drawNeckColor.ChangeAlpha(0);
         }
-        if (num < 0f)
+
+        public override void Draw(VisualState state)
         {
-            num += 1f;
-            num2 += 1f;
-        }
-        Vector2 texturePosition = textureCoords.GetTexturePosition(new Vector2(num, 0f));
-        Vector2 texturePosition2 = textureCoords.GetTexturePosition(new Vector2(num, 1f));
-        Vector2 texturePosition3 = textureCoords.GetTexturePosition(new Vector2(num2, 0f));
-        Vector2 texturePosition4 = textureCoords.GetTexturePosition(new Vector2(num2, 1f));
-        Vertices[start].TextureCoordinate = texturePosition;
-        Vertices[start + 1].TextureCoordinate = texturePosition3;
-        Vertices[start + 2].TextureCoordinate = texturePosition2;
-        Vertices[start + 3].TextureCoordinate = texturePosition2;
-        Vertices[start + 4].TextureCoordinate = texturePosition4;
-        Vertices[start + 5].TextureCoordinate = texturePosition3;
-    }
-
-    public void ProcessBezierSecond(List<Vector2> firstBezier, List<Vector2> secondBezier)
-    {
-        allPoints.Clear();
-        allPoints.Capacity = firstBezier.Count + secondBezier.Count;
-        allPoints.AddItemsNoGarbage(secondBezier);
-        allPoints.AddItemsNoGarbage(firstBezier, firstBezier.Count - 1, 0);
-        TryCreateVectors(allPoints);
-        GraphUtil.CreateGradientBorderWidthVertices(allPoints, BorderWidth, Border);
-    }
-
-    public void TryCreateVectors(List<Vector2> allPoints)
-    {
-        if (!created)
-        {
-            CreateVectors(allPoints.Count);
-            created = true;
-        }
-    }
-
-    public virtual void CreateVectors(int allPointsSize)
-    {
-        Vertices = new VertexPositionColorTexture[(allPointsSize - 2) * 3];
-        AllPointsSize = allPointsSize;
-        Border = new VertexPositionColorTexture[AllPointsSize * 6];
-        SetBorderColors();
-        SetNeckColors();
-    }
-
-    protected virtual void SetNeckColors()
-    {
-        if (Vertices != null)
-        {
-            GraphUtil.SetColor(Vertices, drawNeckColor);
-        }
-    }
-
-    public virtual void SetBorderColors()
-    {
-        if (Border != null)
-        {
-            GraphUtil.CreateGradientColorsList(AllPointsSize, drawNeckColor, EndColor(), Border);
-        }
-    }
-
-    public virtual Color EndColor()
-    {
-        return drawNeckColor.ChangeAlpha(0);
-    }
-
-    public override void Draw(VisualState state)
-    {
-        if (OnScreen)
-        {
-            Color color = neckColor.ChangeAlpha((byte)(neckColor.A * state.Opacity));
-            if (color != drawNeckColor)
+            if (OnScreen)
             {
-                drawNeckColor = color;
-                SetBorderColors();
-                SetNeckColors();
+                Color color = neckColor.ChangeAlpha((byte)(neckColor.A * state.Opacity));
+                if (color != drawNeckColor)
+                {
+                    drawNeckColor = color;
+                    SetBorderColors();
+                    SetNeckColors();
+                }
+                base.Draw(state);
             }
-            base.Draw(state);
         }
-    }
 
-    protected override void DrawPrimitives()
-    {
-        DrawPolygons();
-        DrawBorder();
-    }
-
-    public virtual void DrawBorder()
-    {
-        if (Border != null)
+        protected override void DrawPrimitives()
         {
-            GraphUtil.DrawTriangleList(Border);
+            DrawPolygons();
+            DrawBorder();
         }
-    }
 
-    public virtual void DrawPolygons()
-    {
-        if (Vertices != null)
+        public virtual void DrawBorder()
         {
-            GraphUtil.DrawTriangleList(Vertices);
+            if (Border != null)
+            {
+                GraphUtil.DrawTriangleList(Border);
+            }
+        }
+
+        public virtual void DrawPolygons()
+        {
+            if (Vertices != null)
+            {
+                GraphUtil.DrawTriangleList(Vertices);
+            }
         }
     }
 }

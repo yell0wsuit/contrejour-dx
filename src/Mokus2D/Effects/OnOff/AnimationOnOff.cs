@@ -1,35 +1,36 @@
 using Mokus2D.Visual;
 using Mokus2D.Visual.Animation;
 
-namespace Mokus2D.Effects.OnOff;
-
-public class AnimationOnOff : ActionOnOff
+namespace Mokus2D.Effects.OnOff
 {
-    private readonly IAnimatedNode _animation;
-
-    public AnimationOnOff(IAnimatedNode animation)
-        : base(null)
+    public class AnimationOnOff : ActionOnOff
     {
-        _animation = animation;
-        SetAction(OnAction);
-        _animation.Stoped = true;
-        _animation.Repeat = false;
-    }
+        private readonly IAnimatedNode _animation;
 
-    public override void SetOn(bool value)
-    {
-        base.SetOn(value);
-        _animation.CurrentFrame = value ? _animation.LastFrame() : 0;
-    }
+        public AnimationOnOff(IAnimatedNode animation)
+            : base(null)
+        {
+            _animation = animation;
+            SetAction(OnAction);
+            _animation.Stoped = true;
+            _animation.Repeat = false;
+        }
 
-    private void OnAction(bool value)
-    {
-        Play(!value);
-    }
+        public override void SetOn(bool value)
+        {
+            base.SetOn(value);
+            _animation.CurrentFrame = value ? _animation.LastFrame() : 0;
+        }
 
-    private void Play(bool rewind)
-    {
-        _animation.Rewind = rewind;
-        _animation.Stoped = false;
+        private void OnAction(bool value)
+        {
+            Play(!value);
+        }
+
+        private void Play(bool rewind)
+        {
+            _animation.Rewind = rewind;
+            _animation.Stoped = false;
+        }
     }
 }

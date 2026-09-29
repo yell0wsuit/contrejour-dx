@@ -6,145 +6,146 @@ using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual;
 using Mokus2D.Visual.Data;
 
-namespace Mokus2D.UI.Grids;
-
-public class ListView<T> : Node, IListView
+namespace Mokus2D.UI.Grids
 {
-    private readonly ListViewRenderers<T> _renderers;
-    public Node ItemsContainer { get; } = new();
-
-    private readonly ListViewLayout<T> _layout;
-    public object SharedData { get; set; }
-
-    public int ItemsCount { get; private set; }
-
-    public float Height { get; }
-
-    public int DataCount => Data != null ? Data.Count : 0;
-
-    public IList<T> Data
+    public class ListView<T> : Node, IListView
     {
-        get; set
-        {
-            field = value;
-            RefreshDataAndDispatchChange();
-        }
-    } = [];
+        private readonly ListViewRenderers<T> _renderers;
+        public Node ItemsContainer { get; } = new();
 
-    public List<Node> ItemRenderers => _renderers.ItemRenderers;
+        private readonly ListViewLayout<T> _layout;
+        public object SharedData { get; set; }
 
-    public float ItemsPosition
-    {
-        get; set
+        public int ItemsCount { get; private set; }
+
+        public float Height { get; }
+
+        public int DataCount => Data != null ? Data.Count : 0;
+
+        public IList<T> Data
         {
-            if (field != value)
+            get; set
             {
                 field = value;
-                RefreshPosition(value);
+                RefreshDataAndDispatchChange();
+            }
+        } = [];
+
+        public List<Node> ItemRenderers => _renderers.ItemRenderers;
+
+        public float ItemsPosition
+        {
+            get; set
+            {
+                if (field != value)
+                {
+                    field = value;
+                    RefreshPosition(value);
+                }
             }
         }
-    }
 
-    private float TopRendererOffset => 0f - ItemsPosition.Fraction();
+        private float TopRendererOffset => 0f - ItemsPosition.Fraction();
 
-    public event Action DataChangedEvent;
+        public event Action DataChangedEvent;
 
-    public ListView(Type itemRendererType, int itemsCount, float height)
-        : this(() => (Node)Activator.CreateInstance(itemRendererType), itemsCount, height)
-    {
-        SharedData = this;
-    }
-
-    public ListView(Func<Node> itemRendererFactory, int itemsCount, float height)
-    {
-        SharedData = this;
-        ItemsCount = itemsCount;
-        Height = height;
-        _renderers = new ListViewRenderers<T>(itemRendererFactory, this);
-        _renderers.RenderersChanged += OnRenderersChanged;
-        _layout = new ListViewLayout<T>(this, ItemsContainer)
+        public ListView(Type itemRendererType, int itemsCount, float height)
+            : this(() => (Node)Activator.CreateInstance(itemRendererType), itemsCount, height)
         {
-            FixedSize = height / itemsCount
-        };
-        AddChild(ItemsContainer);
-    }
+            SharedData = this;
+        }
 
-    private void RefreshDataAndDispatchChange()
-    {
-        RefreshData();
-        DataChangedEvent.Dispatch();
-    }
-
-    public void Add(T item)
-    {
-        Data.Add(item);
-        RefreshDataAndDispatchChange();
-    }
-
-    public void Remove(T item)
-    {
-        if (Data.Remove(item))
+        public ListView(Func<Node> itemRendererFactory, int itemsCount, float height)
         {
+            SharedData = this;
+            ItemsCount = itemsCount;
+            Height = height;
+            _renderers = new ListViewRenderers<T>(itemRendererFactory, this);
+            _renderers.RenderersChanged += OnRenderersChanged;
+            _layout = new ListViewLayout<T>(this, ItemsContainer)
+            {
+                FixedSize = height / itemsCount
+            };
+            AddChild(ItemsContainer);
+        }
+
+        private void RefreshDataAndDispatchChange()
+        {
+            RefreshData();
+            DataChangedEvent.Dispatch();
+        }
+
+        public void Add(T item)
+        {
+            Data.Add(item);
             RefreshDataAndDispatchChange();
         }
-    }
 
-    public void RefreshVisibleItemsData()
-    {
-        _renderers.RefreshCurrentRenderersData();
-    }
-
-    public void Clear()
-    {
-        Data.Clear();
-        RefreshData();
-    }
-
-    public void RefreshData()
-    {
-        _renderers.RefreshData();
-    }
-
-    public void SetItemsPositionToEnd()
-    {
-        ItemsPosition = Math.Max(DataCount - ItemsCount, 0);
-    }
-
-    private void RefreshPosition(float value)
-    {
-        float topRendererOffset = TopRendererOffset;
-        ItemsContainer.Y = _layout.FixedSize.Value * topRendererOffset;
-        _renderers.Position = value;
-        RefreshRenderersPosition(topRendererOffset);
-    }
-
-    private void RefreshRenderersPosition(float topOffset)
-    {
-        for (int i = 0; i < _renderers.ItemRenderers.Count; i++)
+        public void Remove(T item)
         {
-            IItemRenderer<T> itemRenderer = (IItemRenderer<T>)_renderers.ItemRenderers[i];
-            itemRenderer.RefreshPosition(topOffset + i, ItemsCount);
+            if (Data.Remove(item))
+            {
+                RefreshDataAndDispatchChange();
+            }
+        }
+
+        public void RefreshVisibleItemsData()
+        {
+            _renderers.RefreshCurrentRenderersData();
+        }
+
+        public void Clear()
+        {
+            Data.Clear();
+            RefreshData();
+        }
+
+        public void RefreshData()
+        {
+            _renderers.RefreshData();
+        }
+
+        public void SetItemsPositionToEnd()
+        {
+            ItemsPosition = Math.Max(DataCount - ItemsCount, 0);
+        }
+
+        private void RefreshPosition(float value)
+        {
+            float topRendererOffset = TopRendererOffset;
+            ItemsContainer.Y = _layout.FixedSize.Value * topRendererOffset;
+            _renderers.Position = value;
+            RefreshRenderersPosition(topRendererOffset);
+        }
+
+        private void RefreshRenderersPosition(float topOffset)
+        {
+            for (int i = 0; i < _renderers.ItemRenderers.Count; i++)
+            {
+                IItemRenderer<T> itemRenderer = (IItemRenderer<T>)_renderers.ItemRenderers[i];
+                itemRenderer.RefreshPosition(topOffset + i, ItemsCount);
+            }
+        }
+
+        private void OnRenderersChanged()
+        {
+            _layout.Apply();
+            RefreshRenderersPosition(TopRendererOffset);
         }
     }
 
-    private void OnRenderersChanged()
+    public static class ListView
     {
-        _layout.Apply();
-        RefreshRenderersPosition(TopRendererOffset);
-    }
-}
+        public static ListView<T> Create<T>(Type rendererType, string animationId, float height)
+        {
+            int itemsCount = GetItemsCount(animationId, height);
+            return new ListView<T>(rendererType, itemsCount, height);
+        }
 
-public static class ListView
-{
-    public static ListView<T> Create<T>(Type rendererType, string animationId, float height)
-    {
-        int itemsCount = GetItemsCount(animationId, height);
-        return new ListView<T>(rendererType, itemsCount, height);
-    }
-
-    private static int GetItemsCount(string animationId, float height)
-    {
-        AnimationData animationData = Mokus2DGame.LoadAnimation(animationId);
-        return (int)(height / animationData.PrecalculatedBounds.Height);
+        private static int GetItemsCount(string animationId, float height)
+        {
+            AnimationData animationData = Mokus2DGame.LoadAnimation(animationId);
+            return (int)(height / animationData.PrecalculatedBounds.Height);
+        }
     }
 }

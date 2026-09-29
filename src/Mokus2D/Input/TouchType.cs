@@ -1,9 +1,10 @@
-namespace Mokus2D.Input;
-
-public enum TouchType
+namespace Mokus2D.Input
 {
-    Touch,
-    LeftMouseButton,
-    RightMouseButton,
-    MiddleMouseButton
+    public enum TouchType
+    {
+        Touch,
+        LeftMouseButton,
+        RightMouseButton,
+        MiddleMouseButton
+    }
 }

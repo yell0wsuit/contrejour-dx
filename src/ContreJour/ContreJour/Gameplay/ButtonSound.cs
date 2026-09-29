@@ -1,15 +1,16 @@
 using Mokus2D.Visual.Interactive;
 
-namespace ContreJour.Gameplay;
-
-public class ButtonSound
+namespace ContreJour.Gameplay
 {
-    public ButtonSound(TouchSprite sprite)
+    public class ButtonSound
     {
-        sprite.TouchEndEvent += OnClick;
-    }
+        public ButtonSound(TouchSprite sprite)
+        {
+            sprite.TouchEndEvent += OnClick;
+        }
 
-    private void OnClick(TouchArguments touchArguments)
-    {
+        private void OnClick(TouchArguments touchArguments)
+        {
+        }
     }
 }

@@ -2,12 +2,13 @@ using Microsoft.Xna.Framework;
 
 using Mokus2D.Visual;
 
-namespace Mokus2D.UI.Layout;
-
-public class DefaultPositionApplier : ILayoutPositionApplier
+namespace Mokus2D.UI.Layout
 {
-    public void ApplyPosition(Node node, Vector2 position)
+    public class DefaultPositionApplier : ILayoutPositionApplier
     {
-        node.Position = position;
+        public void ApplyPosition(Node node, Vector2 position)
+        {
+            node.Position = position;
+        }
     }
 }

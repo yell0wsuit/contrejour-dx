@@ -4,29 +4,30 @@ using Mokus2D.Data;
 using Mokus2D.Interfaces;
 using Mokus2D.Visual;
 
-namespace ContreJour.Clips.menu;
-
-[GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
-public class McMenuGroundPhone : Sprite, IFreeable, IId
+namespace ContreJour.Clips.menu
 {
-    public const string ID = "menu/McMenuGroundPhone";
-
-    public string Id => "menu/McMenuGroundPhone";
-
-    public static McMenuGroundPhone New()
+    [GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
+    public class McMenuGroundPhone : Sprite, IFreeable, IId
     {
-        McMenuGroundPhone mcMenuGroundPhone = StaticPool.New<McMenuGroundPhone>();
-        mcMenuGroundPhone.RefreshProperties();
-        return mcMenuGroundPhone;
-    }
+        public const string ID = "menu/McMenuGroundPhone";
 
-    public McMenuGroundPhone()
-        : base("menu/McMenuGroundPhone")
-    {
-    }
+        public string Id => "menu/McMenuGroundPhone";
 
-    public void Free()
-    {
-        StaticPool.Free<McMenuGroundPhone>(this);
+        public static McMenuGroundPhone New()
+        {
+            McMenuGroundPhone mcMenuGroundPhone = StaticPool.New<McMenuGroundPhone>();
+            mcMenuGroundPhone.RefreshProperties();
+            return mcMenuGroundPhone;
+        }
+
+        public McMenuGroundPhone()
+            : base("menu/McMenuGroundPhone")
+        {
+        }
+
+        public void Free()
+        {
+            StaticPool.Free<McMenuGroundPhone>(this);
+        }
     }
 }

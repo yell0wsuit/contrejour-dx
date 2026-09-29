@@ -4,13 +4,14 @@ using Microsoft.Xna.Framework;
 
 using Mokus2D.Visual.Data;
 
-namespace Mokus2D.Visual.Interfaces;
-
-public interface IMovieClipData : ITextureNodeData, IConfig
+namespace Mokus2D.Visual.Interfaces
 {
-    Vector2 Anchor { get; }
+    public interface IMovieClipData : ITextureNodeData, IConfig
+    {
+        Vector2 Anchor { get; }
 
-    Vector2 Size { get; }
+        Vector2 Size { get; }
 
-    List<FrameData> Frames { get; }
+        List<FrameData> Frames { get; }
+    }
 }

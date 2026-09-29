@@ -1,8 +1,9 @@
-namespace Mokus2D.UI.Containers;
-
-public interface IViewStackPage
+namespace Mokus2D.UI.Containers
 {
-    void OnShow();
+    public interface IViewStackPage
+    {
+        void OnShow();
 
-    void OnHide();
+        void OnHide();
+    }
 }

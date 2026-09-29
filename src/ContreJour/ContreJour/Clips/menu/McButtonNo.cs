@@ -4,29 +4,30 @@ using Mokus2D.Data;
 using Mokus2D.Interfaces;
 using Mokus2D.Visual;
 
-namespace ContreJour.Clips.menu;
-
-[GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
-public class McButtonNo : Sprite, IFreeable, IId
+namespace ContreJour.Clips.menu
 {
-    public const string ID = "menu/McButtonNo";
-
-    public string Id => "menu/McButtonNo";
-
-    public static McButtonNo New()
+    [GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
+    public class McButtonNo : Sprite, IFreeable, IId
     {
-        McButtonNo mcButtonNo = StaticPool.New<McButtonNo>();
-        mcButtonNo.RefreshProperties();
-        return mcButtonNo;
-    }
+        public const string ID = "menu/McButtonNo";
 
-    public McButtonNo()
-        : base("menu/McButtonNo")
-    {
-    }
+        public string Id => "menu/McButtonNo";
 
-    public void Free()
-    {
-        StaticPool.Free<McButtonNo>(this);
+        public static McButtonNo New()
+        {
+            McButtonNo mcButtonNo = StaticPool.New<McButtonNo>();
+            mcButtonNo.RefreshProperties();
+            return mcButtonNo;
+        }
+
+        public McButtonNo()
+            : base("menu/McButtonNo")
+        {
+        }
+
+        public void Free()
+        {
+            StaticPool.Free<McButtonNo>(this);
+        }
     }
 }

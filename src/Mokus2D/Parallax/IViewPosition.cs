@@ -1,8 +1,9 @@
 using Microsoft.Xna.Framework;
 
-namespace Mokus2D.Parallax;
-
-public interface IViewPosition
+namespace Mokus2D.Parallax
 {
-    Vector2 ViewPosition { get; set; }
+    public interface IViewPosition
+    {
+        Vector2 ViewPosition { get; set; }
+    }
 }

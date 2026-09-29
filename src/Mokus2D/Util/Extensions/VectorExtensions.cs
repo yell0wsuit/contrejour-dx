@@ -5,220 +5,221 @@ using Microsoft.Xna.Framework;
 
 using Mokus2D.Util.MathUtils;
 
-namespace Mokus2D.Util.Extensions;
-
-public static class VectorExtensions
+namespace Mokus2D.Util.Extensions
 {
-    public static Vector2 ToVector2(this string value)
+    public static class VectorExtensions
     {
-        string[] array = value.Split([',']);
-        return new Vector2(Convert.ToSingle(array[0], CultureInfo.InvariantCulture.NumberFormat), Convert.ToSingle(array[1], CultureInfo.InvariantCulture.NumberFormat));
-    }
-
-    public static Vector2 Transform(this Vector2 source, ref Matrix matrix)
-    {
-        Vector2.Transform(ref source, ref matrix, out Vector2 result);
-        return result;
-    }
-
-    public static Vector3 Transform(this Vector3 source, ref Matrix matrix)
-    {
-        Vector3.Transform(ref source, ref matrix, out Vector3 result);
-        return result;
-    }
-
-    public static float WherePoint(this Vector2 point, Vector2 start, Vector2 end)
-    {
-        return VectorUtil.WherePoint(start, end, point);
-    }
-
-    public static Vector2 ChangeY(this Vector2 source, float y)
-    {
-        return new Vector2(source.X, y);
-    }
-
-    public static Vector2 AddX(this Vector2 source, float value)
-    {
-        return new Vector2(source.X + value, source.Y);
-    }
-
-    public static Vector2 AddY(this Vector2 source, float value)
-    {
-        return new Vector2(source.X, source.Y + value);
-    }
-
-    public static Vector2 ChangeX(this Vector2 source, float x)
-    {
-        return new Vector2(x, source.Y);
-    }
-
-    public static Vector2 LerpTo(this Vector2 source, Vector2 target, float amount)
-    {
-        return Vector2.Lerp(source, target, amount);
-    }
-
-    public static Vector2 Floor(this Vector2 value)
-    {
-        return new Vector2(value.X.Floor(), value.Y.Floor());
-    }
-
-    public static Vector2 Ceiling(this Vector2 value)
-    {
-        return new Vector2(value.X.Ceiling(), value.Y.Ceiling());
-    }
-
-    public static Vector2 Size(this Rectangle value)
-    {
-        return new Vector2(value.Width, value.Height);
-    }
-
-    public static Vector2 LeftTop(this Rectangle value)
-    {
-        return new Vector2(value.X, value.Y);
-    }
-
-    public static Vector2 LeftBottom(this Rectangle value)
-    {
-        return new Vector2(value.X, value.Y + value.Height);
-    }
-
-    public static Vector2 RightBottom(this Rectangle value)
-    {
-        return value.LeftTop() + value.Size();
-    }
-
-    public static Vector2 RightTop(this Rectangle value)
-    {
-        return new Vector2(value.X + value.Width, value.Y);
-    }
-
-    public static Rectangle ToRectangle(this Vector2 leftTop, Vector2 size)
-    {
-        return new Rectangle((int)leftTop.X, (int)leftTop.Y, (int)size.X, (int)size.Y);
-    }
-
-    public static float Min(this Vector2 vector)
-    {
-        return Math.Min(vector.X, vector.Y);
-    }
-
-    public static float Max(this Vector2 vector)
-    {
-        return Math.Max(vector.X, vector.Y);
-    }
-
-    public static Vector2 Mod(this Vector2 vector, float value)
-    {
-        return new Vector2(vector.X % value, vector.Y % value);
-    }
-
-    public static Vector2 Abs(this Vector2 vector)
-    {
-        return new Vector2(vector.X.Abs(), vector.Y.Abs());
-    }
-
-    public static float Atan2(this Vector2 vector)
-    {
-        return (float)Math.Atan2(vector.Y, vector.X);
-    }
-
-    public static Vector2 ToVector2(this Vector3 vector)
-    {
-        return new Vector2(vector.X, vector.Y);
-    }
-
-    public static Vector2 Round(this Vector2 vector)
-    {
-        return new Vector2((float)Math.Round(vector.X), (float)Math.Round(vector.Y));
-    }
-
-    public static Point ToPoint(this Vector2 vector)
-    {
-        return new Point((int)vector.X, (int)vector.Y);
-    }
-
-    public static Vector2 ToIntVector(this Vector2 vector)
-    {
-        return new Vector2((int)vector.X, (int)vector.Y);
-    }
-
-    public static Vector3 Round(this Vector3 vector)
-    {
-        return new Vector3(vector.X.Round(), vector.Y.Round(), vector.Z.Round());
-    }
-
-    public static Vector3 ToVector3(this Vector2 vector)
-    {
-        return vector.ToVector3(0f);
-    }
-
-    public static Vector3 ToVector3(this Vector2 vector, float z)
-    {
-        return new Vector3(vector.X, vector.Y, z);
-    }
-
-    public static Vector2 Rotate(this Vector2 vector, float angle)
-    {
-        return VectorUtil.Rotate(vector, angle);
-    }
-
-    public static bool Between(this Vector2 vector, Vector2 min, Vector2 max)
-    {
-        return vector.X.Between(min.X, max.X) && vector.Y.Between(min.Y, max.Y);
-    }
-
-    public static Vector2 Rotate90(this Vector2 vector)
-    {
-        Vector2 point = vector;
-        VectorUtil.Rotate90(ref point);
-        return point;
-    }
-
-    public static bool IsNaN(this Vector2 source)
-    {
-        return float.IsNaN(source.X) || float.IsNaN(source.Y);
-    }
-
-    public static Vector2 Signs(this Vector2 source)
-    {
-        return new Vector2(source.X.Sign(), source.Y.Sign());
-    }
-
-    public static Vector2 StepTo(this Vector2 source, Vector2 target, Vector2 step)
-    {
-        return new Vector2(source.X.StepTo(target.X, step.X), source.Y.StepTo(target.Y, step.Y));
-    }
-
-    public static Vector2 Normalize(this Vector2 source, float length)
-    {
-        source.Normalize();
-        return source * length;
-    }
-
-    public static Vector2 StepTo(this Vector2 source, Vector2 target, float step)
-    {
-        Vector2 vector = target - source;
-        if (vector.Length() <= step)
+        public static Vector2 ToVector2(this string value)
         {
-            return target;
+            string[] array = value.Split([',']);
+            return new Vector2(Convert.ToSingle(array[0], CultureInfo.InvariantCulture.NumberFormat), Convert.ToSingle(array[1], CultureInfo.InvariantCulture.NumberFormat));
         }
-        vector *= step / vector.Length();
-        source += vector;
-        return source;
-    }
 
-    public static float DistanceTo(this Vector2 source, Vector2 target)
-    {
-        return (target - source).Length();
-    }
+        public static Vector2 Transform(this Vector2 source, ref Matrix matrix)
+        {
+            Vector2.Transform(ref source, ref matrix, out Vector2 result);
+            return result;
+        }
 
-    public static float DistanceToSquared(this Vector2 source, Vector2 target)
-    {
-        return (target - source).LengthSquared();
-    }
+        public static Vector3 Transform(this Vector3 source, ref Matrix matrix)
+        {
+            Vector3.Transform(ref source, ref matrix, out Vector3 result);
+            return result;
+        }
 
-    public static Vector2 Middle(this Vector2 source, Vector2 target)
-    {
-        return VectorUtil.Center(source, target);
+        public static float WherePoint(this Vector2 point, Vector2 start, Vector2 end)
+        {
+            return VectorUtil.WherePoint(start, end, point);
+        }
+
+        public static Vector2 ChangeY(this Vector2 source, float y)
+        {
+            return new Vector2(source.X, y);
+        }
+
+        public static Vector2 AddX(this Vector2 source, float value)
+        {
+            return new Vector2(source.X + value, source.Y);
+        }
+
+        public static Vector2 AddY(this Vector2 source, float value)
+        {
+            return new Vector2(source.X, source.Y + value);
+        }
+
+        public static Vector2 ChangeX(this Vector2 source, float x)
+        {
+            return new Vector2(x, source.Y);
+        }
+
+        public static Vector2 LerpTo(this Vector2 source, Vector2 target, float amount)
+        {
+            return Vector2.Lerp(source, target, amount);
+        }
+
+        public static Vector2 Floor(this Vector2 value)
+        {
+            return new Vector2(value.X.Floor(), value.Y.Floor());
+        }
+
+        public static Vector2 Ceiling(this Vector2 value)
+        {
+            return new Vector2(value.X.Ceiling(), value.Y.Ceiling());
+        }
+
+        public static Vector2 Size(this Rectangle value)
+        {
+            return new Vector2(value.Width, value.Height);
+        }
+
+        public static Vector2 LeftTop(this Rectangle value)
+        {
+            return new Vector2(value.X, value.Y);
+        }
+
+        public static Vector2 LeftBottom(this Rectangle value)
+        {
+            return new Vector2(value.X, value.Y + value.Height);
+        }
+
+        public static Vector2 RightBottom(this Rectangle value)
+        {
+            return value.LeftTop() + value.Size();
+        }
+
+        public static Vector2 RightTop(this Rectangle value)
+        {
+            return new Vector2(value.X + value.Width, value.Y);
+        }
+
+        public static Rectangle ToRectangle(this Vector2 leftTop, Vector2 size)
+        {
+            return new Rectangle((int)leftTop.X, (int)leftTop.Y, (int)size.X, (int)size.Y);
+        }
+
+        public static float Min(this Vector2 vector)
+        {
+            return Math.Min(vector.X, vector.Y);
+        }
+
+        public static float Max(this Vector2 vector)
+        {
+            return Math.Max(vector.X, vector.Y);
+        }
+
+        public static Vector2 Mod(this Vector2 vector, float value)
+        {
+            return new Vector2(vector.X % value, vector.Y % value);
+        }
+
+        public static Vector2 Abs(this Vector2 vector)
+        {
+            return new Vector2(vector.X.Abs(), vector.Y.Abs());
+        }
+
+        public static float Atan2(this Vector2 vector)
+        {
+            return (float)Math.Atan2(vector.Y, vector.X);
+        }
+
+        public static Vector2 ToVector2(this Vector3 vector)
+        {
+            return new Vector2(vector.X, vector.Y);
+        }
+
+        public static Vector2 Round(this Vector2 vector)
+        {
+            return new Vector2((float)Math.Round(vector.X), (float)Math.Round(vector.Y));
+        }
+
+        public static Point ToPoint(this Vector2 vector)
+        {
+            return new Point((int)vector.X, (int)vector.Y);
+        }
+
+        public static Vector2 ToIntVector(this Vector2 vector)
+        {
+            return new Vector2((int)vector.X, (int)vector.Y);
+        }
+
+        public static Vector3 Round(this Vector3 vector)
+        {
+            return new Vector3(vector.X.Round(), vector.Y.Round(), vector.Z.Round());
+        }
+
+        public static Vector3 ToVector3(this Vector2 vector)
+        {
+            return vector.ToVector3(0f);
+        }
+
+        public static Vector3 ToVector3(this Vector2 vector, float z)
+        {
+            return new Vector3(vector.X, vector.Y, z);
+        }
+
+        public static Vector2 Rotate(this Vector2 vector, float angle)
+        {
+            return VectorUtil.Rotate(vector, angle);
+        }
+
+        public static bool Between(this Vector2 vector, Vector2 min, Vector2 max)
+        {
+            return vector.X.Between(min.X, max.X) && vector.Y.Between(min.Y, max.Y);
+        }
+
+        public static Vector2 Rotate90(this Vector2 vector)
+        {
+            Vector2 point = vector;
+            VectorUtil.Rotate90(ref point);
+            return point;
+        }
+
+        public static bool IsNaN(this Vector2 source)
+        {
+            return float.IsNaN(source.X) || float.IsNaN(source.Y);
+        }
+
+        public static Vector2 Signs(this Vector2 source)
+        {
+            return new Vector2(source.X.Sign(), source.Y.Sign());
+        }
+
+        public static Vector2 StepTo(this Vector2 source, Vector2 target, Vector2 step)
+        {
+            return new Vector2(source.X.StepTo(target.X, step.X), source.Y.StepTo(target.Y, step.Y));
+        }
+
+        public static Vector2 Normalize(this Vector2 source, float length)
+        {
+            source.Normalize();
+            return source * length;
+        }
+
+        public static Vector2 StepTo(this Vector2 source, Vector2 target, float step)
+        {
+            Vector2 vector = target - source;
+            if (vector.Length() <= step)
+            {
+                return target;
+            }
+            vector *= step / vector.Length();
+            source += vector;
+            return source;
+        }
+
+        public static float DistanceTo(this Vector2 source, Vector2 target)
+        {
+            return (target - source).Length();
+        }
+
+        public static float DistanceToSquared(this Vector2 source, Vector2 target)
+        {
+            return (target - source).LengthSquared();
+        }
+
+        public static Vector2 Middle(this Vector2 source, Vector2 target)
+        {
+            return VectorUtil.Center(source, target);
+        }
     }
 }

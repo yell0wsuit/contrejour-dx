@@ -1,15 +1,16 @@
 using Microsoft.Xna.Framework;
 
-namespace ContreJour.Gameplay;
-
-public class MenuPortal(Vector2 position) : Portal(null, position)
+namespace ContreJour.Gameplay
 {
-    public override void Update(float time)
+    public class MenuPortal(Vector2 position) : Portal(null, position)
     {
-        base.Update(time);
-        foreach (Satellite part in Parts)
+        public override void Update(float time)
         {
-            part.Update(time);
+            base.Update(time);
+            foreach (Satellite part in Parts)
+            {
+                part.Update(time);
+            }
         }
     }
 }

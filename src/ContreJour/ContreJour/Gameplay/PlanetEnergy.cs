@@ -6,30 +6,31 @@ using Microsoft.Xna.Framework;
 using Mokus2D.Interfaces;
 using Mokus2D.Visual.Particles.Util;
 
-namespace ContreJour.Gameplay;
-
-public class PlanetEnergy : IUpdatable
+namespace ContreJour.Gameplay
 {
-    private readonly List<Satellite> parts = [];
-
-    public PlanetEnergy(ParticleSystem system, Vector2 position, RandomRange? angleStep = null)
+    public class PlanetEnergy : IUpdatable
     {
-        for (int i = 0; i < 5; i++)
+        private readonly List<Satellite> parts = [];
+
+        public PlanetEnergy(ParticleSystem system, Vector2 position, RandomRange? angleStep = null)
         {
-            Satellite satellite = new(null, system.AddParticle(position), null, (float)Math.PI * 2f / 5f * i, position);
-            parts.Add(satellite);
-            if (angleStep.HasValue)
+            for (int i = 0; i < 5; i++)
             {
-                satellite.AngleStep = angleStep.Value.GetValueInRange();
+                Satellite satellite = new(null, system.AddParticle(position), null, (float)Math.PI * 2f / 5f * i, position);
+                parts.Add(satellite);
+                if (angleStep.HasValue)
+                {
+                    satellite.AngleStep = angleStep.Value.GetValueInRange();
+                }
             }
         }
-    }
 
-    public void Update(float time)
-    {
-        foreach (Satellite part in parts)
+        public void Update(float time)
         {
-            part.Update(time);
+            foreach (Satellite part in parts)
+            {
+                part.Update(time);
+            }
         }
     }
 }

@@ -1,5 +1,6 @@
-namespace ContreJour.Gameplay;
-
-public class SnotPartBodyClip
+namespace ContreJour.Gameplay
 {
+    public class SnotPartBodyClip
+    {
+    }
 }

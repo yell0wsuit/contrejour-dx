@@ -1,22 +1,23 @@
 using Microsoft.Xna.Framework;
 
-namespace FarseerPhysics.Common;
-
-public struct Transform(ref Vector2 position, ref Rot rotation)
+namespace FarseerPhysics.Common
 {
-    public Vector2 p = position;
-
-    public Rot q = rotation;
-
-    public void SetIdentity()
+    public struct Transform(ref Vector2 position, ref Rot rotation)
     {
-        p = Vector2.Zero;
-        q.SetIdentity();
-    }
+        public Vector2 p = position;
 
-    public void Set(Vector2 position, float angle)
-    {
-        p = position;
-        q.Set(angle);
+        public Rot q = rotation;
+
+        public void SetIdentity()
+        {
+            p = Vector2.Zero;
+            q.SetIdentity();
+        }
+
+        public void Set(Vector2 position, float angle)
+        {
+            p = position;
+            q.Set(angle);
+        }
     }
 }

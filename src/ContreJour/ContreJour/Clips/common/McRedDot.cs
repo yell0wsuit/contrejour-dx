@@ -4,29 +4,30 @@ using Mokus2D.Data;
 using Mokus2D.Interfaces;
 using Mokus2D.Visual;
 
-namespace ContreJour.Clips.common;
-
-[GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
-public class McRedDot : Sprite, IFreeable, IId
+namespace ContreJour.Clips.common
 {
-    public const string ID = "common/McRedDot";
-
-    public string Id => "common/McRedDot";
-
-    public static McRedDot New()
+    [GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
+    public class McRedDot : Sprite, IFreeable, IId
     {
-        McRedDot mcRedDot = StaticPool.New<McRedDot>();
-        mcRedDot.RefreshProperties();
-        return mcRedDot;
-    }
+        public const string ID = "common/McRedDot";
 
-    public McRedDot()
-        : base("common/McRedDot")
-    {
-    }
+        public string Id => "common/McRedDot";
 
-    public void Free()
-    {
-        StaticPool.Free<McRedDot>(this);
+        public static McRedDot New()
+        {
+            McRedDot mcRedDot = StaticPool.New<McRedDot>();
+            mcRedDot.RefreshProperties();
+            return mcRedDot;
+        }
+
+        public McRedDot()
+            : base("common/McRedDot")
+        {
+        }
+
+        public void Free()
+        {
+            StaticPool.Free<McRedDot>(this);
+        }
     }
 }

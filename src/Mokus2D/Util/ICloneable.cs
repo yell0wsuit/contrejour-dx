@@ -1,6 +1,7 @@
-namespace Mokus2D.Util;
-
-public interface ICloneable<out T>
+namespace Mokus2D.Util
 {
-    T Clone();
+    public interface ICloneable<out T>
+    {
+        T Clone();
+    }
 }

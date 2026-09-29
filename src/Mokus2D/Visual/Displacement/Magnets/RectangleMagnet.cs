@@ -2,12 +2,13 @@ using System;
 
 using Microsoft.Xna.Framework;
 
-namespace Mokus2D.Visual.Displacement.Magnets;
-
-public class RectangleMagnet : GridMagnetBase
+namespace Mokus2D.Visual.Displacement.Magnets
 {
-    public override Vector2 GetForce(Vector2 relativePosition)
+    public class RectangleMagnet : GridMagnetBase
     {
-        throw new NotImplementedException();
+        public override Vector2 GetForce(Vector2 relativePosition)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

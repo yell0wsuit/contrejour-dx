@@ -1,18 +1,19 @@
 using System.Text;
 
-namespace Mokus2D.Util.Extensions;
-
-public static class StringBuilderExtensions
+namespace Mokus2D.Util.Extensions
 {
-    public static int? IndexOf(this StringBuilder stringBuilder, char symbol, int startIndex = 0)
+    public static class StringBuilderExtensions
     {
-        for (int i = startIndex; i < stringBuilder.Length; i++)
+        public static int? IndexOf(this StringBuilder stringBuilder, char symbol, int startIndex = 0)
         {
-            if (stringBuilder[i] == symbol)
+            for (int i = startIndex; i < stringBuilder.Length; i++)
             {
-                return i;
+                if (stringBuilder[i] == symbol)
+                {
+                    return i;
+                }
             }
+            return null;
         }
-        return null;
     }
 }

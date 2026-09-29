@@ -2,26 +2,27 @@ using Microsoft.Xna.Framework.Graphics;
 
 using Mokus2D.Visual.Shaders;
 
-namespace Mokus2D.Config.Tint;
-
-public class TintSpriteEffect : TextureMatrixEffectBase
+namespace Mokus2D.Config.Tint
 {
-    private readonly EffectParameter _tintEnabled;
-
-    public bool TintEnabled
+    public class TintSpriteEffect : TextureMatrixEffectBase
     {
-        get => _tintEnabled.GetValueBoolean();
-        set => _tintEnabled.SetValue(value);
-    }
+        private readonly EffectParameter _tintEnabled;
 
-    public TintSpriteEffect()
-        : base("Mokus2D.Shaders.SpriteShader")
-    {
-        _tintEnabled = Parameters["TintEnabled"];
-    }
+        public bool TintEnabled
+        {
+            get => _tintEnabled.GetValueBoolean();
+            set => _tintEnabled.SetValue(value);
+        }
 
-    protected TintSpriteEffect(string path)
-        : base(path)
-    {
+        public TintSpriteEffect()
+            : base("Mokus2D.Shaders.SpriteShader")
+        {
+            _tintEnabled = Parameters["TintEnabled"];
+        }
+
+        protected TintSpriteEffect(string path)
+            : base(path)
+        {
+        }
     }
 }

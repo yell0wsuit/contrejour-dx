@@ -1,9 +1,10 @@
-namespace ContreJourMono.ContreJour.Menu.LevelComplete;
-
-public class FakeHeroEyeBlack : FakeHeroEye
+namespace ContreJourMono.ContreJour.Menu.LevelComplete
 {
-    protected override string ProcessName(string name)
+    public class FakeHeroEyeBlack : FakeHeroEye
     {
-        return base.ProcessName(name).Replace("Eyes", "Eyes/Black") + "Black";
+        protected override string ProcessName(string name)
+        {
+            return base.ProcessName(name).Replace("Eyes", "Eyes/Black") + "Black";
+        }
     }
 }

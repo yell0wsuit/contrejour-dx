@@ -1,10 +1,11 @@
 using Microsoft.Xna.Framework;
 
-namespace Mokus2D.Visual.Data;
-
-public struct FrameData
+namespace Mokus2D.Visual.Data
 {
-    public Vector2 Anchor;
+    public struct FrameData
+    {
+        public Vector2 Anchor;
 
-    public Rectangle Rect;
+        public Rectangle Rect;
+    }
 }

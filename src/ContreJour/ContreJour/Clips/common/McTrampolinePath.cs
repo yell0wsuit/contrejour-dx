@@ -4,29 +4,30 @@ using Mokus2D.Data;
 using Mokus2D.Interfaces;
 using Mokus2D.Visual;
 
-namespace ContreJour.Clips.common;
-
-[GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
-public class McTrampolinePath : Sprite, IFreeable, IId
+namespace ContreJour.Clips.common
 {
-    public const string ID = "common/McTrampolinePath";
-
-    public string Id => "common/McTrampolinePath";
-
-    public static McTrampolinePath New()
+    [GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
+    public class McTrampolinePath : Sprite, IFreeable, IId
     {
-        McTrampolinePath mcTrampolinePath = StaticPool.New<McTrampolinePath>();
-        mcTrampolinePath.RefreshProperties();
-        return mcTrampolinePath;
-    }
+        public const string ID = "common/McTrampolinePath";
 
-    public McTrampolinePath()
-        : base("common/McTrampolinePath")
-    {
-    }
+        public string Id => "common/McTrampolinePath";
 
-    public void Free()
-    {
-        StaticPool.Free<McTrampolinePath>(this);
+        public static McTrampolinePath New()
+        {
+            McTrampolinePath mcTrampolinePath = StaticPool.New<McTrampolinePath>();
+            mcTrampolinePath.RefreshProperties();
+            return mcTrampolinePath;
+        }
+
+        public McTrampolinePath()
+            : base("common/McTrampolinePath")
+        {
+        }
+
+        public void Free()
+        {
+            StaticPool.Free<McTrampolinePath>(this);
+        }
     }
 }

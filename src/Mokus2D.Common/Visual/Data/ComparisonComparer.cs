@@ -1,14 +1,15 @@
 using System;
 using System.Collections.Generic;
 
-namespace Mokus2D.Visual.Data;
-
-public class ComparisonComparer<T>(Comparison<T> comparison) : IComparer<T>
+namespace Mokus2D.Visual.Data
 {
-    private readonly Comparison<T> _comparison = comparison;
-
-    public int Compare(T x, T y)
+    public class ComparisonComparer<T>(Comparison<T> comparison) : IComparer<T>
     {
-        return _comparison(x, y);
+        private readonly Comparison<T> _comparison = comparison;
+
+        public int Compare(T x, T y)
+        {
+            return _comparison(x, y);
+        }
     }
 }

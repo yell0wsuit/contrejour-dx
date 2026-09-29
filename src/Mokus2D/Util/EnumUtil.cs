@@ -2,12 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Mokus2D.Util;
-
-public static class EnumUtil
+namespace Mokus2D.Util
 {
-    public static List<T> GetValues<T>()
+    public static class EnumUtil
     {
-        return [.. Enum.GetValues(typeof(T)).Cast<T>()];
+        public static List<T> GetValues<T>()
+        {
+            return [.. Enum.GetValues(typeof(T)).Cast<T>()];
+        }
     }
 }

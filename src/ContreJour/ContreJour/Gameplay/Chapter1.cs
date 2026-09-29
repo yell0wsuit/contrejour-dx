@@ -9,76 +9,77 @@ using Mokus2D.Util.Extensions;
 using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual;
 
-namespace ContreJour.Gameplay;
-
-public class Chapter1(int index, MainMenu menu) : ChapterItem(index, menu)
+namespace ContreJour.Gameplay
 {
-    private Sprite foreground;
-
-    private PlanetEye eye;
-
-    public override float Depth
+    public class Chapter1(int index, MainMenu menu) : ChapterItem(index, menu)
     {
-        set
+        private Sprite foreground;
+
+        private PlanetEye eye;
+
+        public override float Depth
         {
-            base.Depth = value;
-            eye.AnimationsAllowed = Maths.FuzzyEquals(value, 1f);
+            set
+            {
+                base.Depth = value;
+                eye.AnimationsAllowed = Maths.FuzzyEquals(value, 1f);
+            }
         }
-    }
 
-    protected override void CreateSprites()
-    {
-        CreateSnotRotationScale(new Vector2(70f, 60f), -30f, 8f / 15f);
-        CreateSnotRotationScale(new Vector2(83f, 44f), -80f, 0.4f);
-        CreateSnotRotationScale(new Vector2(74f, -59f), -130f, 4f / 15f);
-        CreateSnotRotationScale(new Vector2(54f, -72f), -180f, 1f / 3f);
-        CreateSnotRotationScale(new Vector2(-83f, -35f), 90f, 1f / 3f);
-        Background = new McPlanet1Background();
-        foreground = new McPlanet1Foreground();
-        BlurBackground = new McChapter1Blur
+        protected override void CreateSprites()
         {
-            Scale = 1.1f
-        };
-        Container.AddChild(Background);
-        Sprite sprite = new McPlanetRoseLight();
-        Container.AddChild(sprite);
-        _ = sprite.Tweener.RepeatSequenceForever(3f).FadeTo(10f / 51f).Next(3f)
-            .FadeTo(31f / 51f);
-        Sprite node = new McRoseForeground();
-        Container.AddChild(node);
-        eye = new PlanetEye(null, visible: true, Vector2.Zero)
-        {
-            Scale = 0.9f,
-            Position = new Vector2(10f, -10f)
-        };
-        Container.AddChild(eye);
-        AddSpikes(new Vector2(-92f, 8f), 1f, -200f, 4f, 0f);
-        AddSpikes(new Vector2(-90f, 23f), 0.85f, -300f, 3f, (float)Math.PI / 3f);
-        AddSpikes(new Vector2(-88f, 37f), 0.65f, -400f, 2f, (float)Math.PI * 2f / 3f);
-        Container.AddChild(foreground);
-    }
+            CreateSnotRotationScale(new Vector2(70f, 60f), -30f, 8f / 15f);
+            CreateSnotRotationScale(new Vector2(83f, 44f), -80f, 0.4f);
+            CreateSnotRotationScale(new Vector2(74f, -59f), -130f, 4f / 15f);
+            CreateSnotRotationScale(new Vector2(54f, -72f), -180f, 1f / 3f);
+            CreateSnotRotationScale(new Vector2(-83f, -35f), 90f, 1f / 3f);
+            Background = new McPlanet1Background();
+            foreground = new McPlanet1Foreground();
+            BlurBackground = new McChapter1Blur
+            {
+                Scale = 1.1f
+            };
+            Container.AddChild(Background);
+            Sprite sprite = new McPlanetRoseLight();
+            Container.AddChild(sprite);
+            _ = sprite.Tweener.RepeatSequenceForever(3f).FadeTo(10f / 51f).Next(3f)
+                .FadeTo(31f / 51f);
+            Sprite node = new McRoseForeground();
+            Container.AddChild(node);
+            eye = new PlanetEye(null, visible: true, Vector2.Zero)
+            {
+                Scale = 0.9f,
+                Position = new Vector2(10f, -10f)
+            };
+            Container.AddChild(eye);
+            AddSpikes(new Vector2(-92f, 8f), 1f, -200f, 4f, 0f);
+            AddSpikes(new Vector2(-90f, 23f), 0.85f, -300f, 3f, (float)Math.PI / 3f);
+            AddSpikes(new Vector2(-88f, 37f), 0.65f, -400f, 2f, (float)Math.PI * 2f / 3f);
+            Container.AddChild(foreground);
+        }
 
-    private void AddSpikes(Vector2 position, float scale, float speed, float amplitude, float progress)
-    {
-        MovingRotatingSprite movingRotatingSprite = new("menu/McMenuCircleSpikes")
+        private void AddSpikes(Vector2 position, float scale, float speed, float amplitude, float progress)
         {
-            Position = position,
-            Scale = scale,
-            Speed = speed
-        };
-        movingRotatingSprite.Initialize(amplitude, progress);
-        Container.AddChild(movingRotatingSprite);
-    }
+            MovingRotatingSprite movingRotatingSprite = new("menu/McMenuCircleSpikes")
+            {
+                Position = position,
+                Scale = scale,
+                Speed = speed
+            };
+            movingRotatingSprite.Initialize(amplitude, progress);
+            Container.AddChild(movingRotatingSprite);
+        }
 
-    public void CreateSnotRotationScale(Vector2 position, float rotation, float scale)
-    {
-        PlanetSnotContainer planetSnotContainer = new()
+        public void CreateSnotRotationScale(Vector2 position, float rotation, float scale)
         {
-            Position = position,
-            RotationDegrees = rotation,
-            Scale = scale
-        };
-        Container.AddChild(planetSnotContainer);
-        DepthDependent.Add(planetSnotContainer);
+            PlanetSnotContainer planetSnotContainer = new()
+            {
+                Position = position,
+                RotationDegrees = rotation,
+                Scale = scale
+            };
+            Container.AddChild(planetSnotContainer);
+            DepthDependent.Add(planetSnotContainer);
+        }
     }
 }

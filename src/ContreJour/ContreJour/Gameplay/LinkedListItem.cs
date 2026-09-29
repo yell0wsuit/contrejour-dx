@@ -1,40 +1,41 @@
-namespace ContreJour.Gameplay;
-
-public class LinkedListItem(object item)
+namespace ContreJour.Gameplay
 {
-    public object Item { get; set; } = item;
-
-    public LinkedListItem Previous { get; set; }
-
-    public LinkedListItem Next { get; set; }
-
-    public void Remove()
+    public class LinkedListItem(object item)
     {
-        Next?.Previous = Previous;
-        Previous?.Next = Next;
-        Next = null;
-        Previous = null;
-    }
+        public object Item { get; set; } = item;
 
-    public void InsertBefore(LinkedListItem value)
-    {
-        if (Previous != null)
+        public LinkedListItem Previous { get; set; }
+
+        public LinkedListItem Next { get; set; }
+
+        public void Remove()
         {
-            Previous.Next = value;
-            value.Previous = Previous;
+            Next?.Previous = Previous;
+            Previous?.Next = Next;
+            Next = null;
+            Previous = null;
         }
-        value.Next = this;
-        Previous = value;
-    }
 
-    public void InsertAfter(LinkedListItem value)
-    {
-        if (Next != null)
+        public void InsertBefore(LinkedListItem value)
         {
-            Next.Previous = value;
-            value.Next = Next;
+            if (Previous != null)
+            {
+                Previous.Next = value;
+                value.Previous = Previous;
+            }
+            value.Next = this;
+            Previous = value;
         }
-        value.Previous = this;
-        Next = value;
+
+        public void InsertAfter(LinkedListItem value)
+        {
+            if (Next != null)
+            {
+                Next.Previous = value;
+                value.Next = Next;
+            }
+            value.Previous = this;
+            Next = value;
+        }
     }
 }

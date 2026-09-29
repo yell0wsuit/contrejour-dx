@@ -4,43 +4,44 @@ using System.Linq;
 using System.Reflection;
 using System.Xml.Linq;
 
-namespace ContreJour.Xml;
-
-public class XmlSerializer(Assembly assembly = null) : XmlSerializerBase
+namespace ContreJour.Xml
 {
-    private readonly Assembly _assembly = assembly;
-
-    public override object DeserializeText(string text)
+    public class XmlSerializer(Assembly assembly = null) : XmlSerializerBase
     {
-        using StringReader textReader = new(text);
-        return Deserialize(XDocument.Load(textReader).Root);
-    }
+        private readonly Assembly _assembly = assembly;
 
-    public object Deserialize(XElement element)
-    {
-        string text = UnprocessValue(element.Attribute("__type__").Value);
-        if (text == "null")
+        public override object DeserializeText(string text)
         {
-            return null;
+            using StringReader textReader = new(text);
+            return Deserialize(XDocument.Load(textReader).Root);
         }
-        Type type = null;
-        if (_assembly is not null)
+
+        public object Deserialize(XElement element)
         {
-            type = _assembly.GetType(text);
-        }
-        type ??= Type.GetType(text);
-        object obj = Activator.CreateInstance(type);
-        foreach (XAttribute item in element.Attributes())
-        {
-            if (item.Name != "__type__")
+            string text = UnprocessValue(element.Attribute("__type__").Value);
+            if (text == "null")
             {
-                SetObjectValue(obj, item.Value, item.Name.ToString());
+                return null;
             }
+            Type type = null;
+            if (_assembly is not null)
+            {
+                type = _assembly.GetType(text);
+            }
+            type ??= Type.GetType(text);
+            object obj = Activator.CreateInstance(type);
+            foreach (XAttribute item in element.Attributes())
+            {
+                if (item.Name != "__type__")
+                {
+                    SetObjectValue(obj, item.Value, item.Name.ToString());
+                }
+            }
+            foreach (XElement item2 in element.Nodes().Cast<XElement>())
+            {
+                SetObjectValue(obj, Deserialize(item2), item2.Name.ToString());
+            }
+            return obj;
         }
-        foreach (XElement item2 in element.Nodes().Cast<XElement>())
-        {
-            SetObjectValue(obj, Deserialize(item2), item2.Name.ToString());
-        }
-        return obj;
     }
 }

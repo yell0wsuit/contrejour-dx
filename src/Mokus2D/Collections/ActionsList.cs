@@ -1,38 +1,39 @@
 using System;
 using System.Collections.Generic;
 
-namespace Mokus2D.Collections;
-
-public class ActionsList<T> : List<T>
+namespace Mokus2D.Collections
 {
-    public Action<T> AddAction { get; private set; }
-
-    public Func<T, bool> AddFunction { get; private set; }
-
-    public ActionsList()
+    public class ActionsList<T> : List<T>
     {
-        Initialize();
-    }
+        public Action<T> AddAction { get; private set; }
 
-    public ActionsList(int capacity)
-        : base(capacity)
-    {
-        Initialize();
-    }
+        public Func<T, bool> AddFunction { get; private set; }
 
-    public ActionsList(IEnumerable<T> collection)
-        : base(collection)
-    {
-        Initialize();
-    }
-
-    private void Initialize()
-    {
-        AddAction = Add;
-        AddFunction = delegate (T arg)
+        public ActionsList()
         {
-            Add(arg);
-            return true;
-        };
+            Initialize();
+        }
+
+        public ActionsList(int capacity)
+            : base(capacity)
+        {
+            Initialize();
+        }
+
+        public ActionsList(IEnumerable<T> collection)
+            : base(collection)
+        {
+            Initialize();
+        }
+
+        private void Initialize()
+        {
+            AddAction = Add;
+            AddFunction = delegate (T arg)
+            {
+                Add(arg);
+                return true;
+            };
+        }
     }
 }

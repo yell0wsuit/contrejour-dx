@@ -4,29 +4,30 @@ using Mokus2D.Data;
 using Mokus2D.Interfaces;
 using Mokus2D.Visual;
 
-namespace ContreJour.Clips.menu;
-
-[GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
-public class McBigButtonBackground : Sprite, IFreeable, IId
+namespace ContreJour.Clips.menu
 {
-    public const string ID = "menu/McBigButtonBackground";
-
-    public string Id => "menu/McBigButtonBackground";
-
-    public static McBigButtonBackground New()
+    [GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
+    public class McBigButtonBackground : Sprite, IFreeable, IId
     {
-        McBigButtonBackground mcBigButtonBackground = StaticPool.New<McBigButtonBackground>();
-        mcBigButtonBackground.RefreshProperties();
-        return mcBigButtonBackground;
-    }
+        public const string ID = "menu/McBigButtonBackground";
 
-    public McBigButtonBackground()
-        : base("menu/McBigButtonBackground")
-    {
-    }
+        public string Id => "menu/McBigButtonBackground";
 
-    public void Free()
-    {
-        StaticPool.Free<McBigButtonBackground>(this);
+        public static McBigButtonBackground New()
+        {
+            McBigButtonBackground mcBigButtonBackground = StaticPool.New<McBigButtonBackground>();
+            mcBigButtonBackground.RefreshProperties();
+            return mcBigButtonBackground;
+        }
+
+        public McBigButtonBackground()
+            : base("menu/McBigButtonBackground")
+        {
+        }
+
+        public void Free()
+        {
+            StaticPool.Free<McBigButtonBackground>(this);
+        }
     }
 }

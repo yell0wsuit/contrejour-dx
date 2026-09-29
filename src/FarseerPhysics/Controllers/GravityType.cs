@@ -1,7 +1,8 @@
-namespace FarseerPhysics.Controllers;
-
-public enum GravityType
+namespace FarseerPhysics.Controllers
 {
-    Linear,
-    DistanceSquared
+    public enum GravityType
+    {
+        Linear,
+        DistanceSquared
+    }
 }

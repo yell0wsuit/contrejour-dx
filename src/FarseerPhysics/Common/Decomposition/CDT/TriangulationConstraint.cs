@@ -1,8 +1,9 @@
-namespace FarseerPhysics.Common.Decomposition.CDT;
-
-internal class TriangulationConstraint
+namespace FarseerPhysics.Common.Decomposition.CDT
 {
-    public TriangulationPoint P;
+    internal class TriangulationConstraint
+    {
+        public TriangulationPoint P;
 
-    public TriangulationPoint Q;
+        public TriangulationPoint Q;
+    }
 }

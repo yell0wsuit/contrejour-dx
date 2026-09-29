@@ -1,20 +1,21 @@
 using FarseerPhysics.Common;
 
-namespace FarseerPhysics.Collision;
-
-public class DistanceInput
+namespace FarseerPhysics.Collision
 {
-    public DistanceProxy ProxyA { get; set; } = new();
+    public class DistanceInput
+    {
+        public DistanceProxy ProxyA { get; set; } = new();
 
-    public DistanceProxy ProxyB { get; set; } = new();
+        public DistanceProxy ProxyB { get; set; } = new();
 
-    private Transform transformA;
+        private Transform transformA;
 
-    public ref Transform TransformA => ref transformA;
+        public ref Transform TransformA => ref transformA;
 
-    private Transform transformB;
+        private Transform transformB;
 
-    public ref Transform TransformB => ref transformB;
+        public ref Transform TransformB => ref transformB;
 
-    public bool UseRadii { get; set; }
+        public bool UseRadii { get; set; }
+    }
 }

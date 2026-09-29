@@ -2,50 +2,51 @@ using System.Diagnostics.CodeAnalysis;
 
 using Mokus2D.Visual;
 
-namespace ContreJour.Gameplay;
-
-public class SpringBridgeHint : FadeHint
+namespace ContreJour.Gameplay
 {
-    private static readonly float QueryRadius = 100f * Box2DConfig.DefaultConfig.SizeMultiplier;
-
-    private readonly SpringSuckerBodyClip sucker;
-
-    [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "Level content creates this by reflection with this signature.")]
-    public SpringBridgeHint(ContreJourLevelBuilder builder, object body, Sprite clip, Hashtable config)
-        : base(builder, null, clip, config)
+    public class SpringBridgeHint : FadeHint
     {
-        sucker = (SpringSuckerBodyClip)FarseerUtil.Query(Builder.World, Builder.ToIPhoneVec(Clip.Position), QueryRadius, typeof(SpringSuckerBodyClip));
-        Restart();
-    }
+        private static readonly float QueryRadius = 100f * Box2DConfig.DefaultConfig.SizeMultiplier;
 
-    private void RemoveListeners()
-    {
-        sucker.ContactEvent.RemoveListener(OnContact);
-        sucker.FinishDragEvent.RemoveListener(OnContact);
-        sucker.RemoveEvent.RemoveListener(OnContact);
-    }
+        private readonly SpringSuckerBodyClip sucker;
 
-    public override void Restart()
-    {
-        base.Restart();
-        RemoveListeners();
-        HasToRun = sucker.Autocreated;
-        if (sucker.Autocreated)
+        [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "Level content creates this by reflection with this signature.")]
+        public SpringBridgeHint(ContreJourLevelBuilder builder, object body, Sprite clip, Hashtable config)
+            : base(builder, null, clip, config)
         {
-            sucker.ContactEvent.AddListener(OnContact);
-            sucker.FinishDragEvent.AddListener(OnContact);
-            sucker.RemoveEvent.AddListener(OnContact);
+            sucker = (SpringSuckerBodyClip)FarseerUtil.Query(Builder.World, Builder.ToIPhoneVec(Clip.Position), QueryRadius, typeof(SpringSuckerBodyClip));
+            Restart();
         }
-    }
 
-    private void OnContact()
-    {
-        Hide();
-        RemoveListeners();
-    }
+        private void RemoveListeners()
+        {
+            sucker.ContactEvent.RemoveListener(OnContact);
+            sucker.FinishDragEvent.RemoveListener(OnContact);
+            sucker.RemoveEvent.RemoveListener(OnContact);
+        }
 
-    public override bool HasToHide()
-    {
-        return false;
+        public override void Restart()
+        {
+            base.Restart();
+            RemoveListeners();
+            HasToRun = sucker.Autocreated;
+            if (sucker.Autocreated)
+            {
+                sucker.ContactEvent.AddListener(OnContact);
+                sucker.FinishDragEvent.AddListener(OnContact);
+                sucker.RemoveEvent.AddListener(OnContact);
+            }
+        }
+
+        private void OnContact()
+        {
+            Hide();
+            RemoveListeners();
+        }
+
+        public override bool HasToHide()
+        {
+            return false;
+        }
     }
 }

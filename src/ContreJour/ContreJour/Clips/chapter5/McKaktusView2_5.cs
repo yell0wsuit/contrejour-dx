@@ -4,29 +4,30 @@ using Mokus2D.Data;
 using Mokus2D.Interfaces;
 using Mokus2D.Visual;
 
-namespace ContreJour.Clips.chapter5;
-
-[GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
-public class McKaktusView2_5 : Sprite, IFreeable, IId
+namespace ContreJour.Clips.chapter5
 {
-    public const string ID = "chapter5/McKaktusView2_5";
-
-    public string Id => "chapter5/McKaktusView2_5";
-
-    public static McKaktusView2_5 New()
+    [GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
+    public class McKaktusView2_5 : Sprite, IFreeable, IId
     {
-        McKaktusView2_5 mcKaktusView2_ = StaticPool.New<McKaktusView2_5>();
-        mcKaktusView2_.RefreshProperties();
-        return mcKaktusView2_;
-    }
+        public const string ID = "chapter5/McKaktusView2_5";
 
-    public McKaktusView2_5()
-        : base("chapter5/McKaktusView2_5")
-    {
-    }
+        public string Id => "chapter5/McKaktusView2_5";
 
-    public void Free()
-    {
-        StaticPool.Free<McKaktusView2_5>(this);
+        public static McKaktusView2_5 New()
+        {
+            McKaktusView2_5 mcKaktusView2_ = StaticPool.New<McKaktusView2_5>();
+            mcKaktusView2_.RefreshProperties();
+            return mcKaktusView2_;
+        }
+
+        public McKaktusView2_5()
+            : base("chapter5/McKaktusView2_5")
+        {
+        }
+
+        public void Free()
+        {
+            StaticPool.Free<McKaktusView2_5>(this);
+        }
     }
 }

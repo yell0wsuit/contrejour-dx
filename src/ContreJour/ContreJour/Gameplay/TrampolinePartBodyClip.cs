@@ -5,58 +5,59 @@ using Microsoft.Xna.Framework;
 
 using Mokus2D.Input;
 
-namespace ContreJour.Gameplay;
-
-public class TrampolinePartBodyClip(LevelBuilderBase builder, object body) : ContreJourBodyClip(builder, body, null, null), IClickable
+namespace ContreJour.Gameplay
 {
-    public SnotData Data { get; set; }
-
-    public TrampolineBodyClip Parent { get; set; }
-
-    public bool DisableHeroFocus => false;
-
-    public bool UseForZoom()
+    public class TrampolinePartBodyClip(LevelBuilderBase builder, object body) : ContreJourBodyClip(builder, body, null, null), IClickable
     {
-        return false;
-    }
+        public SnotData Data { get; set; }
 
-    public int Priority(Vector2 touchPosition)
-    {
-        return 0;
-    }
+        public TrampolineBodyClip Parent { get; set; }
 
-    public bool AcceptFreeTouches()
-    {
-        return true;
-    }
+        public bool DisableHeroFocus => false;
 
-    public bool TouchBegan(Touch touch)
-    {
-        TrampolineBodyClip trampolineBodyClip = (TrampolineBodyClip)Data.Snot;
-        if (!trampolineBodyClip.Dragging)
+        public bool UseForZoom()
         {
-            trampolineBodyClip.StartDrag(touch);
+            return false;
+        }
+
+        public int Priority(Vector2 touchPosition)
+        {
+            return 0;
+        }
+
+        public bool AcceptFreeTouches()
+        {
             return true;
         }
-        return false;
-    }
 
-    public bool TouchMove(Touch touch)
-    {
-        return true;
-    }
+        public bool TouchBegan(Touch touch)
+        {
+            TrampolineBodyClip trampolineBodyClip = (TrampolineBodyClip)Data.Snot;
+            if (!trampolineBodyClip.Dragging)
+            {
+                trampolineBodyClip.StartDrag(touch);
+                return true;
+            }
+            return false;
+        }
 
-    public void TouchOut(Touch touch)
-    {
-    }
+        public bool TouchMove(Touch touch)
+        {
+            return true;
+        }
 
-    public void TouchEnd(Touch touch)
-    {
-        ((TrampolineBodyClip)Data.Snot).EndDrag();
-    }
+        public void TouchOut(Touch touch)
+        {
+        }
 
-    public override void OnCollisionStartPoint(Body body2, Contact point)
-    {
-        Parent?.OnCollisionStart(body2);
+        public void TouchEnd(Touch touch)
+        {
+            ((TrampolineBodyClip)Data.Snot).EndDrag();
+        }
+
+        public override void OnCollisionStartPoint(Body body2, Contact point)
+        {
+            Parent?.OnCollisionStart(body2);
+        }
     }
 }
