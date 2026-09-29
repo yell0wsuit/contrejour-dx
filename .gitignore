@@ -56,5 +56,15 @@ TestResult.xml
 nunit-*.xml
 .DS_Store
 
+.vs/*
+
+.claude/*
+
 # MonoGame content builder stats
 .mgstats
+
+# exclude csproj.user files
+*.csproj.user
+
+*.zip
+*.pyc
