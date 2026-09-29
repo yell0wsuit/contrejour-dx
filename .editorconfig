@@ -34,9 +34,6 @@ dotnet_separate_import_directive_groups = true
 dotnet_sort_system_directives_first = true
 dotnet_analyzer_diagnostic.category-Style.severity = warning
 
-# Every file already uses file-scoped namespaces.
-csharp_style_namespace_declarations = file_scoped:warning
-
 # Plain data structs (vertices, pairs, rectangles, ranges) keep public fields, like XNA's Vector2:
 # they're mutated in place and some rely on explicit field layout.
 dotnet_code_quality.CA1051.exclude_structs = true
