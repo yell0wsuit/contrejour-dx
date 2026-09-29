@@ -1,0 +1,25 @@
+using System.Diagnostics.CodeAnalysis;
+
+// Body clips create their sprites and effects and hand them straight to the level builder; the scene
+// graph owns and disposes those nodes, so the clips keep references to them without owning them.
+[assembly: SuppressMessage("Design", "CA1001", Scope = "type", Target = "~T:ContreJour.Gameplay.DestroyOnHitClip", Justification = "Nodes are owned and disposed by the scene graph.")]
+[assembly: SuppressMessage("Design", "CA1001", Scope = "type", Target = "~T:ContreJour.Gameplay.DragableBodyClip", Justification = "Nodes are owned and disposed by the scene graph.")]
+[assembly: SuppressMessage("Design", "CA1001", Scope = "type", Target = "~T:ContreJour.Gameplay.EndHeroBodyClip", Justification = "Nodes are owned and disposed by the scene graph.")]
+[assembly: SuppressMessage("Design", "CA1001", Scope = "type", Target = "~T:ContreJour.Gameplay.EndLevelBodyClip", Justification = "Nodes are owned and disposed by the scene graph.")]
+[assembly: SuppressMessage("Design", "CA1001", Scope = "type", Target = "~T:ContreJour.Gameplay.FlyBodyClip", Justification = "Nodes are owned and disposed by the scene graph.")]
+[assembly: SuppressMessage("Design", "CA1001", Scope = "type", Target = "~T:ContreJour.Gameplay.FurBodyClip", Justification = "Nodes are owned and disposed by the scene graph.")]
+[assembly: SuppressMessage("Design", "CA1001", Scope = "type", Target = "~T:ContreJour.Gameplay.HeroBodyClip", Justification = "Nodes are owned and disposed by the scene graph.")]
+[assembly: SuppressMessage("Design", "CA1001", Scope = "type", Target = "~T:ContreJour.Gameplay.HeroExplosion", Justification = "Nodes are owned and disposed by the scene graph.")]
+[assembly: SuppressMessage("Design", "CA1001", Scope = "type", Target = "~T:ContreJour.Gameplay.LianaBodyClip", Justification = "Nodes are owned and disposed by the scene graph.")]
+[assembly: SuppressMessage("Design", "CA1001", Scope = "type", Target = "~T:ContreJour.Gameplay.PlasticineBodyClip", Justification = "Nodes are owned and disposed by the scene graph.")]
+[assembly: SuppressMessage("Design", "CA1001", Scope = "type", Target = "~T:ContreJour.Gameplay.RoseBodyClip", Justification = "Nodes are owned and disposed by the scene graph.")]
+[assembly: SuppressMessage("Design", "CA1001", Scope = "type", Target = "~T:ContreJour.Gameplay.RotatableSpringBodyClip", Justification = "Nodes are owned and disposed by the scene graph.")]
+[assembly: SuppressMessage("Design", "CA1001", Scope = "type", Target = "~T:ContreJour.Gameplay.RotatorBodyClip", Justification = "Nodes are owned and disposed by the scene graph.")]
+[assembly: SuppressMessage("Design", "CA1001", Scope = "type", Target = "~T:ContreJour.Gameplay.RoundDragBodyClip", Justification = "Nodes are owned and disposed by the scene graph.")]
+[assembly: SuppressMessage("Design", "CA1001", Scope = "type", Target = "~T:ContreJour.Gameplay.SnotBodyClip", Justification = "Nodes are owned and disposed by the scene graph.")]
+[assembly: SuppressMessage("Design", "CA1001", Scope = "type", Target = "~T:ContreJour.Gameplay.SnotBodyClipBase", Justification = "Nodes are owned and disposed by the scene graph.")]
+[assembly: SuppressMessage("Design", "CA1001", Scope = "type", Target = "~T:ContreJour.Gameplay.SpikesFlowerBodyClip", Justification = "Nodes are owned and disposed by the scene graph.")]
+[assembly: SuppressMessage("Design", "CA1001", Scope = "type", Target = "~T:ContreJour.Gameplay.SpringBodyClip", Justification = "Nodes are owned and disposed by the scene graph.")]
+[assembly: SuppressMessage("Design", "CA1001", Scope = "type", Target = "~T:ContreJour.Gameplay.SuckerBodyClip", Justification = "Nodes are owned and disposed by the scene graph.")]
+[assembly: SuppressMessage("Design", "CA1001", Scope = "type", Target = "~T:ContreJour.Gameplay.TeleportBodyClip", Justification = "Nodes are owned and disposed by the scene graph.")]
+[assembly: SuppressMessage("Design", "CA1001", Scope = "type", Target = "~T:ContreJour.Gameplay.TrampolineBodyClip", Justification = "Nodes are owned and disposed by the scene graph.")]

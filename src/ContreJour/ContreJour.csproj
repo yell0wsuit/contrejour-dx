@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>ContreJour</AssemblyName>
+    <OutputType>WinExe</OutputType>
+    <!-- Folders mirror namespaces from the project folder (ContreJour/Clips, ContreJour/Gameplay, ...). -->
+    <RootNamespace></RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MonoGame.Framework.DesktopGL" />
+    <ProjectReference Include="../Mokus2D.Integration.Farseer/Mokus2D.Integration.Farseer.csproj" />
+  </ItemGroup>
+
+  <!-- Recreate the original appx layout next to the executable: Assets/ and Resources/ -->
+  <PropertyGroup>
+    <GameContents>$(MSBuildThisFileDirectory)../../GameContents/</GameContents>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="$(GameContents)**" Exclude="$(GameContents)Resources/**;$(GameContents)**/.DS_Store" Link="Assets/%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="$(GameContents)Resources/**" Exclude="$(GameContents)**/.DS_Store" Link="Resources/%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>

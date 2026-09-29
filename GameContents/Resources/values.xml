@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="FONT">TektonPro-BoldCond.otf</string>
+  <string name="FONT_WIDE">TektonPro-Bold.otf</string>
+  <string name="TOTAL">Total: {0}</string>
+  <string name="ENJOYING_THE_GAME">Enjoying the game?
+Please rate it.</string>
+  <string name="RATE">Rate</string>
+  <string name="NOT_NOW">Not Now</string>
+  <string name="NO_THANKS">No Thanks</string>
+  <string name="BEST_SCORE">Best score: {0}</string>
+  <string name="ENERGY_BONUS">Lights bonus: {0}</string>
+  <string name="TIME_BONUS">Time bonus: {0}</string>
+  <string name="STARS_AND_SCORE_LITE">{0}/{1}</string>
+  <string name="STARS_AND_SCORE">{0}/{1}     Score: {2}</string>
+  <string name="LEVEL">Level {0}-{1}</string>
+  <string name="DIRECTED_BY">Directed by</string>
+  <string name="MAKSYM_HRYNIV">Maksym Hryniv</string>
+  <string name="MIHAI_MAKSYM">Mihai Tymoshenko
+Andriy Shvyrov
+Maksym Hryniv</string>
+  <string name="MIHAI_TYMOSHENKO">Mihai Tymoshenko</string>
+  <string name="ANDRIY_SHVUREV">Andriy Shvyrov</string>
+  <string name="DAVID_LEON">David Ari Leon</string>
+  <string name="IHOR_PRYSHLIAK">Ihor Pryshliak</string>
+  <string name="SFX_BY">SFX by</string>
+  <string name="GRAPHICS_BY">Graphics by</string>
+  <string name="MUSIC_BY">Music by</string>
+  <string name="CONGRATULATIONS">Congratulations!
+You have finished the game!</string>
+  <string name="NOT_THE_END">But it's not the end.
+More levels are coming soon with the updates</string>
+  <string name="CREDITS">Credits</string>
+  <string name="PRODUCER">Producer</string>
+  <string name="ASSOCIATE_PRODUCER">Associate Producer</string>
+  <string name="TOM_KINNINBUGRH">Tom Kinniburgh</string>
+  <string name="BETA_TESTERS">Beta Testers</string>
+  <string name="BETA_TESTERS_NAMES_1">Silent Genius, Nick Manfre,</string>
+  <string name="BETA_TESTERS_NAMES_2">Kieran Byrne, Wei Cheng Wu,</string>
+  <string name="BETA_TESTERS_NAMES_3">Kevin Homick, Jacob Anderson,</string>
+  <string name="BETA_TESTERS_NAMES_4">Ruslan Salmanov, Andrey Gubin</string>
+  <string name="EVERYTHING_ELSE">Everything Else</string>
+  <string name="COMPOSER">Composer</string>
+  <string name="SFX">SFX</string>
+  <string name="IDEA">Idea by</string>
+  <string name="ANTON_MYKHAYLETS">Anton Mykhaylets</string>
+  <string name="PHYSICS_ENGINE">Physics Engine</string>
+  <string name="BOX2D">Box2D</string>
+  <string name="GRAPHICS_ENGINE">Graphics Engine</string>
+  <string name="STARS">...</string>
+  <string name="COCOS2D">Cocos2D for iPhone</string>
+  <string name="CHAPTER_COMPLETE_DESCRIPTION_0">Complete the first chapter</string>
+  <string name="CHAPTER_COMPLETE_DESCRIPTION_1">Complete the second chapter</string>
+  <string name="CHAPTER_COMPLETE_DESCRIPTION_2">Complete the third chapter</string>
+  <string name="CHAPTER_COMPLETE_DESCRIPTION_3">Complete the fourth chapter</string>
+  <string name="CHAPTER_COMPLETE_DESCRIPTION_4">Complete the fifth chapter</string>
+  <string name="CHAPTER_PERFECT_DESCRIPTION_0">Get three lights in all levels of chapter 1</string>
+  <string name="CHAPTER_PERFECT_DESCRIPTION_1">Get three lights in all levels of chapter 2</string>
+  <string name="CHAPTER_PERFECT_DESCRIPTION_2">Get three lights in all levels of chapter 3</string>
+  <string name="CHAPTER_PERFECT_DESCRIPTION_3">Get three lights in all levels of chapter 4</string>
+  <string name="CHAPTER_PERFECT_DESCRIPTION_4">Get three lights in all levels of chapter 5</string>
+  <string name="COLLECT_90_LIGHTS">Collect 90 lights</string>
+  <string name="COLLECT_180_LIGHTS">Collect 180 lights</string>
+  <string name="COLLECT_240_LIGHTS">Collect 240 lights</string>
+  <string name="COLLECT_300_LIGHTS">Collect 300 lights</string>
+  <string name="LITTLE_PRINCE">Save the Rose</string>
+  <string name="SPEEDY_DESCRIPTION">Reach speed 500 pixels per second on the ground</string>
+  <string name="MIGHTY_BIRD_DESCRIPTION">Reach speed 1000 pixels per second in the air</string>
+  <string name="OUT_OF_SCREEN_DESCRIPTION">Fall out of screen 50 times</string>
+  <string name="ACUPUNCTURE_DESCRIPTION">Prick yourself on spikes 50 times</string>
+  <string name="FEED_MONSTERS_DESCRIPTION">Be eaten 50 times</string>
+  <string name="SPIDER_DESCRIPTION">Link 6 tentacles at the time</string>
+  <string name="SNOT_EYE_HIT_DESCRIPTION">Hit tentacles in the eye 200 times</string>
+  <string name="RUSH_HOUR_DESCRIPTION">Complete any level in 5 seconds</string>
+  <string name="BLOCKS_DESTROY_DESCRIPTION">Destroy 20 blocks</string>
+  <string name="SPRING_SHOT_DESCRIPTION">Launch yourself 100 times from a cannon flower</string>
+  <string name="TRAMPOLINE_SHOT_DESCRIPTION">Launch yourself 100 times from a slingshot</string>
+  <string name="I_CAN_FLY_DESCRIPTION">Stay in the air for 5 seconds</string>
+  <string name="FAST_PERFECT_DESCRIPTION">Complete any level with 3 lights in 10 seconds</string>
+  <string name="USE_HEADPHONES">Use headphones
+ for the best audio experience</string>
+  <string name="COMPLETE_TEXT_0">Completed!</string>
+  <string name="COMPLETE_TEXT_1">Good!</string>
+  <string name="COMPLETE_TEXT_2">Great!</string>
+  <string name="COMPLETE_TEXT_3">Perfect!</string>
+  <string name="GRAPHIC_ARTISTS">Graphic Artists</string>
+  <string name="CHAPTER1">chapter 1
+Monsters</string>
+  <string name="CHAPTER2">chapter 2
+the Night</string>
+  <string name="CHAPTER3">chapter 3
+Machine</string>
+  <string name="CHAPTER4">chapter 4
+Moonlight</string>
+  <string name="CHAPTER5">chapter 5
+Jungle</string>
+  <string name="SLIDE_FINGER">slide your finger
+to modify the ground</string>
+  <string name="STRIPES_DONT_STRETCH">stripes don't stretch</string>
+  <string name="BLACK_SPRINGY">black ones
+are springy</string>
+  <string name="TAP_THE_EYE">tap the eye to
+release</string>
+  <string name="PULL_THE_TENTACLE">pull the tentacle
+to link it</string>
+  <string name="PULL_THE_SLINGSHOT">pull the slingshot</string>
+  <string name="YOU_CAN_SKIP">you can skip any level</string>
+  <string name="BY_PRESSING_THE">by pressing the</string>
+  <string name="BUTTON_FROM_THE_MENU">button from the menu</string>
+  <string name="DRAG_TO_ROTATE">drag
+to rotate</string>
+  <string name="IF_YOU_NEED_RETRY">if you need to retry
+press here</string>
+  <string name="TENTACLES_CAN_BE_MOVED">some tentacles can be moved</string>
+  <string name="IT_S_PORTAL">it's a portal</string>
+  <string name="IT_S_PORTAL_2">it's a portal 2</string>
+  <string name="YOU_CAN_PINCH">you can pinch-to-zoom</string>
+  <string name="USE_MULTITOUCH">use multitouch</string>
+  <string name="YOU_CAN_ATTACH">you can attach more
+than one tentacle</string>
+  <string name="COLLECT_AS_MANY">collect as many lights
+as you can</string>
+  <string name="PULL_THE_BRIDGE">drag to pull
+the bridge</string>
+  <string name="REMOVE_THE_BRIDGE">tap the eye to
+remove the bridge</string>
+  <string name="IMPROVED_RESULT">Improved
+Result!</string>
+  <string name="YOU_TRIED_HARD">You tried hard. But sometimes it's not enough...
+You need to go back and get more lights.</string>
+  <string name="YOU_DID_IT">You tried hard. And you did it!
+
+We hope you enjoyed your journey to the world of
+Contre Jour</string>
+  <string name="BY_MAKSYM_HRYNIV">Maksym Hryniv</string>
+  <string name="INSPIRED_BY">Inspired by
+"The Little Prince"</string>
+  <string name="MORE_MUSIC">Get More Music</string>
+  <string name="GET_SOUNDTRACKS">Get Contre Jour
+Soundtrack</string>
+  <string name="GET_INGAME_MUSIC">Get In-Game
+Music</string>
+  <string name="DOWNLOAD_ON">Download on</string>
+  <string name="NETWORK_ERROR">Network error</string>
+  <string name="CANNOT_CONNECT">Cannot connect to the Internet.
+Please check your Internet connection.</string>
+  <string name="CLOSE">Close</string>
+  <string name="EXPERIENCE_THE_SOUNDTRACK">Experience the surreal and tranquil music of Contre Jour
+with the full Original Soundtrack</string>
+  <string name="PREVIEW_THE_TRACKS">Preview the tracks</string>
+  <string name="GET_MORE_LEVELS">Get more levels
+in Full Version</string>
+  <string name="AVAILABLE_ON_THE">Available on the</string>
+  <string name="GET_IPHONE_VERSION">Get iPhone only version</string>
+  <string name="GET_UNIVERSAL_VERSION">Get Universal version</string>
+  <string name="GET_FULL_VERSION">Get Full Version</string>
+  <string name="SOME_TENTACLES">some tentacles</string>
+  <string name="CAN_BE_MOVED">can be moved</string>
+  <string name="CHAPTER6">bonus chapter
+Mango</string>
+  <string name="COMPLETE_MORE_CHAPTERS">Complete more chapters to unlock</string>
+  <string name="BUY_FULL_VERSION_TO_UNLOCK">Buy full version to unlock:
+* 100 levels across 5 incredible worlds
+* new tentacles, blowers, trampolines
+* achievements and leaderboards             ...and more!</string>
+  <string name="ACHIEVEMENTS">Achievements</string>
+  <string name="LEADERBOARDS">Leaderboards</string>
+  <string name="YOUR_SCORE">Your Score: {0}</string>
+  <string name="NO_INTERNET">Unable to connect to Xbox LIVE at this time. Please check your connection.</string>
+  <string name="OK">OK</string>
+  <string name="MORE_LEVELS_IN_FULL_VERSION">Get more levels in the full game</string>
+  <string name="BUY_FULL_VERSION">Buy Full Game</string>
+  <string name="ACH_blue_lantern_DESC">Collect 180 lights</string>
+  <string name="ACH_blue_lantern_HOWTO">Collect 180 lights</string>
+  <string name="ACH_blue_lantern_NAME">Blue Lantern</string>
+  <string name="ACH_chapter1_perfect_DESC">Get three lights in all levels of chapter 1</string>
+  <string name="ACH_chapter1_perfect_HOWTO">Get three lights in all levels of chapter 1</string>
+  <string name="ACH_chapter1_perfect_NAME">Ch.1 "Monsters" Perfect</string>
+  <string name="ACH_chapter2_perfect_DESC">Get three lights in all levels of chapter 2</string>
+  <string name="ACH_chapter2_perfect_HOWTO">Get three lights in all levels of chapter 2</string>
+  <string name="ACH_chapter2_perfect_NAME">Ch.2 "The Night" Perfect</string>
+  <string name="ACH_chapter3_perfect_DESC">Get three lights in all levels of chapter 3</string>
+  <string name="ACH_chapter3_perfect_HOWTO">Get three lights in all levels of chapter 3</string>
+  <string name="ACH_chapter3_perfect_NAME">Ch.3 "Machine" Perfect</string>
+  <string name="ACH_chapter4_perfect_DESC">Get three lights in all levels of chapter 4</string>
+  <string name="ACH_chapter4_perfect_HOWTO">Get three lights in all levels of chapter 4</string>
+  <string name="ACH_chapter4_perfect_NAME">Ch.4 "Moonlight" Perfect</string>
+  <string name="ACH_chapter5_perfect_DESC">Get three lights in all levels of chapter 5</string>
+  <string name="ACH_chapter5_perfect_HOWTO">Get three lights in all levels of chapter 5</string>
+  <string name="ACH_chapter5_perfect_NAME">Ch.5 "Jungle" Perfect</string>
+  <string name="ACH_chapter6_perfect_DESC">Get three lights in all levels of chapter 6</string>
+  <string name="ACH_chapter6_perfect_HOWTO">Get three lights in all levels of chapter 6</string>
+  <string name="ACH_chapter6_perfect_NAME">Ch.6 "Mango" Perfect</string>
+  <string name="ACH_fast_perfect_DESC">Complete any level with 3 lights in 10 seconds</string>
+  <string name="ACH_fast_perfect_HOWTO">Complete any level with 3 lights in 10 seconds</string>
+  <string name="ACH_fast_perfect_NAME">Fast and Perfect</string>
+  <string name="ACH_little_prince_DESC">Save the Rose</string>
+  <string name="ACH_little_prince_HOWTO">Save the Rose</string>
+  <string name="ACH_little_prince_NAME">Little Prince</string>
+  <string name="ACH_mighty_bird_DESC">Reach speed 1000 pixels per second in the air</string>
+  <string name="ACH_mighty_bird_HOWTO">Reach speed 1000 pixels per second in the air</string>
+  <string name="ACH_mighty_bird_NAME">The Mighty Bird</string>
+  <string name="ACH_rush_hour_DESC">Complete any level in 5 seconds</string>
+  <string name="ACH_rush_hour_HOWTO">Complete any level in 5 seconds</string>
+  <string name="ACH_rush_hour_NAME">Rush Hour</string>
+  <string name="ACH_speedy_DESC">Reach speed 500 pixels per second on the ground</string>
+  <string name="ACH_speedy_HOWTO">Reach speed 500 pixels per second on the ground</string>
+  <string name="ACH_speedy_NAME">Speedy Racer</string>
+  <string name="ACH_spider_DESC">Link 6 tentacles at the same time</string>
+  <string name="ACH_spider_HOWTO">Link 6 tentacles at the same time</string>
+  <string name="ACH_spider_NAME">Spider</string>
+  <string name="ACH_sunrise_DESC">Collect 300 lights</string>
+  <string name="ACH_sunrise_HOWTO">Collect 300 lights</string>
+  <string name="ACH_sunrise_NAME">Sunrise</string>
+  <string name="CONNECTION_ERROR">Connection error</string>
+  <string name="NOT_SIGNED_TO_XBOX">
+    You are not signed in to your XBox Live account.
+    
+Please sign in and try one more time.
+  </string>
+  <string name="ACCOUNT_ERROR">Account error</string>
+  <string name="RESUMING_GAME">Resuming Contre Jour</string>
+  <string name="PLEASE_WAIT">Please Wait...</string>
+  <string name="EXIT_CONFIRM">Are you sure you want to quit?</string>
+  <string name="FULLSCREEN_TO_PLAY">Open window in fullscreen
+to play.</string>
+  <string name="CREATED_FOR_TOUCH">Contre Jour is created for multi-touch devices.
+Your PC must have a touchscreen to play.</string>
+</resources>

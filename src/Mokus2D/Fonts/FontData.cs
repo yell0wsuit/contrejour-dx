@@ -1,0 +1,54 @@
+using System.Collections.Generic;
+
+using Microsoft.Xna.Framework;
+
+using Mokus2D.Util.Extensions;
+using Mokus2D.Visual.Data;
+using Mokus2D.Visual.Interfaces;
+
+namespace Mokus2D.Fonts
+{
+    public class FontData(string id, string fontName, float fontSize, float realHeight) : TextureNodeData(id)
+    {
+        public string FontName { get; } = fontName;
+
+        public float FontSize { get; } = fontSize;
+
+        public float RealHeight { get; } = realHeight;
+
+        private readonly Dictionary<char, CharData> _chars = [];
+
+        public CharData this[char key] => _chars.GetValueOrDefault(key);
+
+        public static char GetSpecialSymbol(int index)
+        {
+            return (char)(57344 + index);
+        }
+
+        public void AddSpecialSymbol(char symbol, Rectangle rectangle, Vector2 anchorInPixels, float width)
+        {
+            Add(symbol, rectangle, anchorInPixels, width);
+        }
+
+        public void AddSpecialSpriteSymbol(char symbol, Rectangle rectangle, Vector2 relativeAnchor)
+        {
+            AddSpecialSymbol(symbol, rectangle, relativeAnchor * rectangle.Size(), rectangle.Width);
+        }
+
+        public void AddSpecialSpriteSymbol(char symbol, ISpriteData data)
+        {
+            AddSpecialSpriteSymbol(symbol, data.TextureRect, data.Anchor);
+        }
+
+        public void AddSpecialSpriteSymbol(char symbol, string id)
+        {
+            ISpriteData data = Mokus2DGame.LoadSpriteData(id);
+            AddSpecialSpriteSymbol(symbol, data);
+        }
+
+        public void Add(char symbol, Rectangle rectangle, Vector2 anchor, float width)
+        {
+            _chars[symbol] = new CharData(this, rectangle, anchor, width);
+        }
+    }
+}

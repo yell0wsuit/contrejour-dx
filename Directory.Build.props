@@ -1,0 +1,22 @@
+<Project>
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <AnalysisMode>Recommended</AnalysisMode>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <CodeAnalysisTreatWarningsAsErrors>false</CodeAnalysisTreatWarningsAsErrors>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <!-- Doc files are generated so IDE0005 (unnecessary usings) runs on build. Missing-doc warnings
+         stay off until the engine's public API is documented. -->
+    <NoWarn>$(NoWarn);CS1573;CS1591</NoWarn>
+  </PropertyGroup>
+</Project>

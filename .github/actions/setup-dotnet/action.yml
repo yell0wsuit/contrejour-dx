@@ -1,0 +1,42 @@
+name: Set up .NET
+description: Installs the .NET SDK and restores the NuGet package cache.
+
+# Every job that restores NuGet packages goes through here, so the SDK version and the cache
+# key are decided in one place.
+#
+# The key carries the job name so jobs that restore different package sets don't hand each
+# other an exact hit on a cache missing their packages; the OS-only restore key still lets a
+# new job start from whatever this OS already has.
+#
+# Pull requests only restore. A cache saved from a PR is scoped to that PR's merge ref, so no
+# other PR could read it; main saves the caches instead, and every PR reads from there.
+runs:
+    using: composite
+    steps:
+        - uses: actions/setup-dotnet@v6
+          with:
+              dotnet-version: "10.x"
+
+        - id: key
+          shell: bash
+          run: |
+              echo "prefix=nuget-${{ runner.os }}-${{ github.job }}-" >> "$GITHUB_OUTPUT"
+              echo "hash=${{ hashFiles('**/*.csproj', 'Directory.*.props', 'global.json', 'nuget.config') }}" >> "$GITHUB_OUTPUT"
+
+        - if: github.event_name != 'pull_request'
+          uses: actions/cache@v6
+          with:
+              path: ~/.nuget/packages
+              key: ${{ steps.key.outputs.prefix }}${{ steps.key.outputs.hash }}
+              restore-keys: |
+                  ${{ steps.key.outputs.prefix }}
+                  nuget-${{ runner.os }}-
+
+        - if: github.event_name == 'pull_request'
+          uses: actions/cache/restore@v6
+          with:
+              path: ~/.nuget/packages
+              key: ${{ steps.key.outputs.prefix }}${{ steps.key.outputs.hash }}
+              restore-keys: |
+                  ${{ steps.key.outputs.prefix }}
+                  nuget-${{ runner.os }}-

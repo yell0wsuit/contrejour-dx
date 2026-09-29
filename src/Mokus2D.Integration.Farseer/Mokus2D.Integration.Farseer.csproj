@@ -1,0 +1,6 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="../Mokus2D/Mokus2D.csproj" />
+    <ProjectReference Include="../FarseerPhysics/FarseerPhysics.csproj" />
+  </ItemGroup>
+</Project>

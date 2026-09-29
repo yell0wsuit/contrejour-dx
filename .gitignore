@@ -9,6 +9,8 @@
 
 # Build results
 [Dd]ebug/
+# ...but not the game's own Debug source folder
+!src/ContreJour/ContreJour/Debug/
 [Dd]ebugPublic/
 [Rr]elease/
 [Rr]eleases/
@@ -53,3 +55,6 @@ CodeCoverage/
 TestResult.xml
 nunit-*.xml
 .DS_Store
+
+# MonoGame content builder stats
+.mgstats

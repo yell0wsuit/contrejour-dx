@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>ContreJour.Regression</RootNamespace>
+    <!-- The decompiled projects carry their own AssemblyInfo.cs; this one has none. -->
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MonoGame.Framework.DesktopGL" />
+    <ProjectReference Include="../ContreJour/ContreJour.csproj" />
+  </ItemGroup>
+</Project>

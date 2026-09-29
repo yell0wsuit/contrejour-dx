@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="TOTAL">Результат: {0}</string>
+  <string name="ENJOYING_THE_GAME">
+    Понравилась игра?
+    
+Поставь оценку.
+  </string>
+  <string name="RATE">Поставить оценку</string>
+  <string name="NOT_NOW">Не сейчас</string>
+  <string name="NO_THANKS">Нет, спасибо</string>
+  <string name="BEST_SCORE">Лучший результат: {0}</string>
+  <string name="ENERGY_BONUS">Бонус за светлячков: {0}</string>
+  <string name="TIME_BONUS">Бонус за время: {0}</string>
+  <string name="STARS_AND_SCORE_LITE">{0}/{1}</string>
+  <string name="STARS_AND_SCORE">{0}/{1}     Баллы: {2}</string>
+  <string name="LEVEL">Уровень {0}-{1}</string>
+  <string name="DIRECTED_BY">Под руководством</string>
+  <string name="MAKSYM_HRYNIV">Максим Грынив</string>
+  <string name="MIHAI_MAKSYM">
+    Михай Тимошенко
+    
+Андрей Швырев
+    
+Максим Грынив
+  </string>
+  <string name="MIHAI_TYMOSHENKO">Михай Тимошенко</string>
+  <string name="ANDRIY_SHVUREV">Андрей Швырев</string>
+  <string name="DAVID_LEON">Давид Ари Леон</string>
+  <string name="IHOR_PRYSHLIAK">Игорь Прышляк</string>
+  <string name="SFX_BY">Звукорежиссер</string>
+  <string name="GRAPHICS_BY">Художники</string>
+  <string name="MUSIC_BY">Композитор</string>
+  <string name="CONGRATULATIONS">
+    Поздравляем!
+    
+Ты прошел игру!
+  </string>
+  <string name="NOT_THE_END">
+    Но это еще не конец.
+    
+Ты получишь новые уровни в обновлениях игры
+  </string>
+  <string name="CREDITS">Над игрой работали</string>
+  <string name="PRODUCER">Продюсер</string>
+  <string name="GRAPHIC_ARTISTS">Художники</string>
+  <string name="ASSOCIATE_PRODUCER">Помощник продюсера</string>
+  <string name="TOM_KINNINBUGRH">Том Киннинбург</string>
+  <string name="BETA_TESTERS">Бета тестировщики</string>
+  <string name="BETA_TESTERS_NAMES_1">Silent Genius, Nick Manfre,</string>
+  <string name="BETA_TESTERS_NAMES_2">Kieran Byrne, Wei Cheng Wu,</string>
+  <string name="BETA_TESTERS_NAMES_3">Kevin Homick, Jacob Anderson,</string>
+  <string name="BETA_TESTERS_NAMES_4">Ruslan Salmanov, Andrey Gubin</string>
+  <string name="EVERYTHING_ELSE">Всё остальное</string>
+  <string name="COMPOSER">Композитор</string>
+  <string name="SFX">Звукорежиссер</string>
+  <string name="IDEA">Автор идеи</string>
+  <string name="ANTON_MYKHAYLETS">Антон Михайлец</string>
+  <string name="PHYSICS_ENGINE">Физическая библиотека</string>
+  <string name="BOX2D">Box2D</string>
+  <string name="GRAPHICS_ENGINE">Графическая библиотека</string>
+  <string name="STARS">...</string>
+  <string name="COCOS2D">Cocos2D для iPhone</string>
+  <string name="CHAPTER_COMPLETE_DESCRIPTION_0">Пройти первую главу</string>
+  <string name="CHAPTER_COMPLETE_DESCRIPTION_1">Пройти вторую главу</string>
+  <string name="CHAPTER_COMPLETE_DESCRIPTION_2">Пройти третью раздел</string>
+  <string name="CHAPTER_COMPLETE_DESCRIPTION_3">Пройти четвертую главу</string>
+  <string name="CHAPTER_COMPLETE_DESCRIPTION_4">Пройти пятую главу</string>
+  <string name="CHAPTER_PERFECT_DESCRIPTION_0">Собрать всех светлячков в первой главе</string>
+  <string name="CHAPTER_PERFECT_DESCRIPTION_1">Собрать всех светлячков во второй главе</string>
+  <string name="CHAPTER_PERFECT_DESCRIPTION_2">Собрать всех светлячков в третьей главе</string>
+  <string name="CHAPTER_PERFECT_DESCRIPTION_3">Собрать всех светлячков в четвертой главе</string>
+  <string name="CHAPTER_PERFECT_DESCRIPTION_4">Собрать всех светлячков в пятой главе</string>
+  <string name="COLLECT_90_LIGHTS">Собрать 90 светлячков</string>
+  <string name="COLLECT_180_LIGHTS">Собрать 180 светлячков</string>
+  <string name="COLLECT_240_LIGHTS">Собрать 240 светлячков</string>
+  <string name="COLLECT_300_LIGHTS">Собрать 300 светлячков</string>
+  <string name="LITTLE_PRINCE">Спасти Розу</string>
+  <string name="SPEEDY_DESCRIPTION">Разогнаться по земле до скорости 500 пикселей в секунду</string>
+  <string name="MIGHTY_BIRD_DESCRIPTION">Разогнаться в воздухе до скорости 1000 пикселей в секунду</string>
+  <string name="OUT_OF_SCREEN_DESCRIPTION">Упасть за экран 50 раз</string>
+  <string name="ACUPUNCTURE_DESCRIPTION">Наколоться на шипы 50 раз</string>
+  <string name="FEED_MONSTERS_DESCRIPTION">Накормить собой хищный цветок 50 раз</string>
+  <string name="SPIDER_DESCRIPTION">Прилепить к себе одновременно 6 щупалец</string>
+  <string name="SNOT_EYE_HIT_DESCRIPTION">Ударить щупальце в глаз 200 раз</string>
+  <string name="RUSH_HOUR_DESCRIPTION">Пройти уровень за 5 секунд</string>
+  <string name="BLOCKS_DESTROY_DESCRIPTION">Разрушить 20 блоков</string>
+  <string name="SPRING_SHOT_DESCRIPTION">Выстрелить 100 раз из цветка-пушки</string>
+  <string name="TRAMPOLINE_SHOT_DESCRIPTION">Выстрелить 100 раз из щупальца-рогатки</string>
+  <string name="I_CAN_FLY_DESCRIPTION">Пролететь 5 секунд в воздухе</string>
+  <string name="FAST_PERFECT_DESCRIPTION">Пройти любой уровень за 10 секунд, собрав 3х светлячков</string>
+  <string name="USE_HEADPHONES">
+    Наденьте наушники
+    
+ чтобы наслаждаться музыкой
+  </string>
+  <string name="COMPLETE_TEXT_0">Пройдено!</string>
+  <string name="COMPLETE_TEXT_1">Хорошо!</string>
+  <string name="COMPLETE_TEXT_2">Круто!</string>
+  <string name="COMPLETE_TEXT_3">Супер!</string>
+  <string name="CHAPTER1">
+    глава 1
+    
+Монстры
+  </string>
+  <string name="CHAPTER2">
+    глава 2
+    
+Ночь
+  </string>
+  <string name="CHAPTER3">
+    глава 3
+    
+Механизм
+  </string>
+  <string name="CHAPTER4">
+    глава 4
+    
+Лунный свет
+  </string>
+  <string name="CHAPTER5">
+    глава 5
+    
+Джунгли
+  </string>
+  <string name="SLIDE_FINGER">
+    потяни пальцем
+    
+чтобы изменить землю
+  </string>
+  <string name="STRIPES_DONT_STRETCH">полоски не растягиваются</string>
+  <string name="BLACK_SPRINGY">
+    черные мосты
+    
+пружинят
+  </string>
+  <string name="TAP_THE_EYE">
+    нажми на глаз
+    
+чтобы отцепиться
+  </string>
+  <string name="PULL_THE_TENTACLE">
+    тяни щупальце
+    
+чтобы зацепиться
+  </string>
+  <string name="PULL_THE_SLINGSHOT">потяни рогатку</string>
+  <string name="YOU_CAN_SKIP">ты можешь пропустить уровень</string>
+  <string name="BY_PRESSING_THE">нажав на</string>
+  <string name="BUTTON_FROM_THE_MENU">кнопку в меню</string>
+  <string name="DRAG_TO_ROTATE">
+    потяни чтобы
+    
+развернуть
+  </string>
+  <string name="IF_YOU_NEED_RETRY">
+    чтобы пройти еще раз
+    
+жми сюда
+  </string>
+  <string name="TENTACLES_CAN_BE_MOVED">некоторые щупальца можно передвигать</string>
+  <string name="IT_S_PORTAL">это портал!</string>
+  <string name="IT_S_PORTAL_2">а это портал 2</string>
+  <string name="YOU_CAN_PINCH">используй зум</string>
+  <string name="USE_MULTITOUCH">используй мультитач</string>
+  <string name="YOU_CAN_ATTACH">
+    прицепи несколько
+    
+щупалец
+  </string>
+  <string name="COLLECT_AS_MANY">
+    собери побольше
+    
+светлячков
+  </string>
+  <string name="PULL_THE_BRIDGE">
+    тяни
+    
+чтобы создать мост
+  </string>
+  <string name="REMOVE_THE_BRIDGE">
+    жми на глаз
+    
+чтобы убрать мост
+  </string>
+  <string name="IMPROVED_RESULT">
+    Лучший
+    
+Результат!
+  </string>
+  <string name="YOU_TRIED_HARD">
+    Ты старался, но недостаточно...
+    
+Ты должен вернуться и собрать больше светлячков.
+  </string>
+  <string name="YOU_DID_IT">
+    Ты старался и у тебя все получилось!
+    
+
+    
+Надеемся тебе понравилось путешествие в мир
+    
+Contre Jour.
+  </string>
+  <string name="BY_MAKSYM_HRYNIV">Максима Грынива</string>
+  <string name="INSPIRED_BY">
+    Создано под впечатлением
+    
+от книги
+    
+"Маленький Принц"
+  </string>
+  <string name="MORE_MUSIC">Больше музыки</string>
+  <string name="GET_SOUNDTRACKS">
+    Купить саундтрек
+    
+к Contre Jour
+  </string>
+  <string name="GET_INGAME_MUSIC">Больше музыки в игре</string>
+  <string name="DOWNLOAD_ON">Скачать с</string>
+  <string name="NETWORK_ERROR">Ошибка сети</string>
+  <string name="CANNOT_CONNECT">
+    Не удается подключиться к Интернету.
+    
+Пожалуйста, проверь связь с Интернетом.
+  </string>
+  <string name="CLOSE">Закрыть</string>
+  <string name="EXPERIENCE_THE_SOUNDTRACK">
+    Ощути сюрреалистичную атмосферу Contre Jour
+    
+с оригинальным саундтреком
+  </string>
+  <string name="PREVIEW_THE_TRACKS">Прослушать отрывки</string>
+  <string name="GET_MORE_LEVELS">
+    Получи больше уровней
+    
+в Полной Версии!
+  </string>
+  <string name="AVAILABLE_ON_THE">Доступно в</string>
+  <string name="GET_IPHONE_VERSION">Версия для iPhone</string>
+  <string name="GET_UNIVERSAL_VERSION">Версия для iPad и iPhone</string>
+  <string name="GET_FULL_VERSION">Полная Версия</string>
+  <string name="SOME_TENTACLES">некоторые щупальца</string>
+  <string name="CAN_BE_MOVED">можно передвигать</string>
+  <string name="CHAPTER6">
+    призовая глава
+    
+Манго
+  </string>
+  <string name="COMPLETE_MORE_CHAPTERS">Пройди больше уровней чтобы открыть</string>
+  <string name="BUY_FULL_VERSION_TO_UNLOCK">
+    Купи полную версию чтобы открыть:
+    
+* 100 уровней в пяти невероятных мирах
+    
+* новые щупальца, пушки, трамплины
+    
+* достижения и рекорды XBox Live       ...и многое другое
+  </string>
+  <string name="ACHIEVEMENTS">Достижения</string>
+  <string name="LEADERBOARDS">Рекорды</string>
+  <string name="YOUR_SCORE">Твои баллы: {0}</string>
+  <string name="NO_INTERNET">
+    Нет связи с сетью.
+    
+Пожалуйста, проверь связь с интернетом.
+  </string>
+  <string name="CONNECTION_ERROR">Ошибка связи</string>
+  <string name="OK">ОК</string>
+  <string name="NOT_SIGNED_TO_XBOX">
+    Нет доступа к профилю XBox Live.
+    
+Пожалуйста, войди в XBox Live и попробуй еще раз.
+  </string>
+  <string name="ACCOUNT_ERROR">Ошибка профиля</string>
+  <string name="MORE_LEVELS_IN_FULL_VERSION">Больше уровней в Полной Версии</string>
+  <string name="BUY_FULL_VERSION">Купить Полную Версию</string>
+  <string name="EXIT_CONFIRM">Вы уверены, что хотите выйти?</string>
+  <string name="RESUMING_GAME">Возобновление Contre Jour</string>
+  <string name="PLEASE_WAIT">Пожалуйста подождите...</string>
+  <string name="FULLSCREEN_TO_PLAY">Откройте окно во весь экран
+чтобы играть.
+  </string>
+  <string name="CREATED_FOR_TOUCH">Contre Jour создан для управления пальцами.
+Ваш компьютер должен поддерживать мультитач.</string>
+</resources>
