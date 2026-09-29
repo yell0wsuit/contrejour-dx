@@ -1,0 +1,263 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Runtime.InteropServices;
+
+using Mokus2D.Sound;
+
+using SDL3;
+
+namespace ContreJour.Desktop.Platform.Audio
+{
+    // SDL_mixer implementation of the engine's audio backend (adapted from cuttherope-dx). Effects are
+    // decoded once and played on a pool of reused voices; music streams from disk on one voice.
+    // No native callbacks are installed, so nothing has to be kept alive for the mixer's thread.
+    public sealed class SdlAudioBackend : IAudioBackend
+    {
+        // The rate every effect but one ships at, so those reach the mixer unconverted.
+        private const int MixerFrequency = 44100;
+
+        private const int MixerChannels = 2;
+
+        private sealed class Clip(nint audio) : ISoundEffect, ISong
+        {
+            public nint Audio { get; } = audio;
+        }
+
+        private sealed class Voice(nint track)
+        {
+            public nint Track { get; } = track;
+
+            // The volume the game asked for, restored when sounds are unmuted.
+            public float Volume { get; set; }
+        }
+
+        private readonly nint _mixer;
+
+        private readonly List<nint> _loadedAudio = [];
+
+        private readonly List<Voice> _voices = [];
+
+        private nint _musicTrack;
+
+        private uint _musicOptions;
+
+        private bool _disposed;
+
+        private SdlAudioBackend(nint mixer)
+        {
+            _mixer = mixer;
+        }
+
+        // Opens the default playback device. A machine without one still runs the game silently, so
+        // failure is reported through error rather than thrown.
+        public static SdlAudioBackend TryOpen(out string error)
+        {
+            // Each failure reads SDL's error before cleanup, which can replace it.
+            if (!SDL.InitSubSystem(SDL.InitFlags.Audio))
+            {
+                error = $"could not start SDL audio: {SDL.GetError()}";
+                return null;
+            }
+
+            // The published SDL3_mixer library records no runtime search path, so its SDL3 dependency
+            // resolves only against the SDL3 image InitSubSystem has already loaded.
+            if (!Mixer.Init())
+            {
+                error = $"could not start SDL_mixer: {SDL.GetError()}";
+                SDL.QuitSubSystem(SDL.InitFlags.Audio);
+                return null;
+            }
+
+            nint mixer = CreateDeviceMixer();
+            if (mixer == 0)
+            {
+                error = $"could not open the default playback device: {SDL.GetError()}";
+                Mixer.Quit();
+                SDL.QuitSubSystem(SDL.InitFlags.Audio);
+                return null;
+            }
+
+            error = null;
+            return new SdlAudioBackend(mixer);
+        }
+
+        private static nint CreateDeviceMixer()
+        {
+            SDL.AudioSpec spec = new()
+            {
+                Format = SDL.AudioFormat.AudioF32LE,
+                Channels = MixerChannels,
+                Freq = MixerFrequency
+            };
+            nint specPointer = Marshal.AllocHGlobal(Marshal.SizeOf<SDL.AudioSpec>());
+            try
+            {
+                Marshal.StructureToPtr(spec, specPointer, false);
+                return Mixer.CreateMixerDevice(SDL.AudioDeviceDefaultPlayback, specPointer);
+            }
+            finally
+            {
+                Marshal.FreeHGlobal(specPointer);
+            }
+        }
+
+        public bool SoundsMuted
+        {
+            get; set
+            {
+                field = value;
+                foreach (Voice voice in _voices)
+                {
+                    SetVoiceGain(voice);
+                }
+            }
+        }
+
+        public bool SongPaused
+        {
+            get => _musicTrack != 0 && Mixer.TrackPaused(_musicTrack);
+            set
+            {
+                if (_musicTrack != 0)
+                {
+                    _ = value ? Mixer.PauseTrack(_musicTrack) : Mixer.ResumeTrack(_musicTrack);
+                }
+            }
+        }
+
+        public ISoundEffect LoadSound(string path)
+        {
+            // Effects are short, replayed constantly and often overlap, so they are decoded once.
+            return new Clip(Load(path, predecode: true));
+        }
+
+        public ISong LoadSong(string path)
+        {
+            // Songs are minutes long, so they stream.
+            return new Clip(Load(path, predecode: false));
+        }
+
+        private nint Load(string path, bool predecode)
+        {
+            ObjectDisposedException.ThrowIf(_disposed, this);
+            if (!File.Exists(path))
+            {
+                throw new FileNotFoundException($"Audio file not found: {path}", path);
+            }
+            nint audio = Mixer.LoadAudio(_mixer, path, predecode);
+            if (audio == 0)
+            {
+                throw new InvalidDataException($"Could not load audio '{path}': {SDL.GetError()}");
+            }
+            _loadedAudio.Add(audio);
+            return audio;
+        }
+
+        public void PlaySound(ISoundEffect sound, float volume)
+        {
+            ObjectDisposedException.ThrowIf(_disposed, this);
+            Voice voice = IdleVoice();
+            voice.Volume = volume;
+            _ = Mixer.SetTrackAudio(voice.Track, ((Clip)sound).Audio);
+            SetVoiceGain(voice);
+            // No options: play once from the start.
+            _ = Mixer.PlayTrack(voice.Track, 0);
+        }
+
+        // A voice that has finished is reused; the pool only grows to the most effects heard at once.
+        private Voice IdleVoice()
+        {
+            foreach (Voice voice in _voices)
+            {
+                if (!Mixer.TrackPlaying(voice.Track) && !Mixer.TrackPaused(voice.Track))
+                {
+                    return voice;
+                }
+            }
+            nint track = Mixer.CreateTrack(_mixer);
+            if (track == 0)
+            {
+                throw new InvalidOperationException($"Could not create an audio track: {SDL.GetError()}");
+            }
+            Voice created = new(track);
+            _voices.Add(created);
+            return created;
+        }
+
+        // Muting is per voice rather than an SDL_mixer tag gain, which would overwrite each voice's own
+        // volume.
+        private void SetVoiceGain(Voice voice)
+        {
+            _ = Mixer.SetTrackGain(voice.Track, SoundsMuted ? 0f : voice.Volume);
+        }
+
+        public void StopAllSounds()
+        {
+            foreach (Voice voice in _voices)
+            {
+                _ = Mixer.StopTrack(voice.Track, 0);
+            }
+        }
+
+        public void PlaySong(ISong song)
+        {
+            ObjectDisposedException.ThrowIf(_disposed, this);
+            if (_musicTrack == 0)
+            {
+                _musicTrack = Mixer.CreateTrack(_mixer);
+                if (_musicTrack == 0)
+                {
+                    throw new InvalidOperationException($"Could not create the music track: {SDL.GetError()}");
+                }
+                // Starting a track takes its loop count from these options; a count set on the track
+                // beforehand is discarded.
+                _musicOptions = SDL.CreateProperties();
+                _ = SDL.SetNumberProperty(_musicOptions, Mixer.Props.PlayLoopsNumber, -1);
+            }
+            // Stopping first also clears a pause, so the new song always starts playing.
+            _ = Mixer.StopTrack(_musicTrack, 0);
+            _ = Mixer.SetTrackAudio(_musicTrack, ((Clip)song).Audio);
+            _ = Mixer.PlayTrack(_musicTrack, _musicOptions);
+        }
+
+        public void FadeOutSong(float seconds)
+        {
+            if (_musicTrack != 0)
+            {
+                _ = Mixer.StopTrack(_musicTrack, Mixer.TrackMSToFrames(_musicTrack, (long)(seconds * 1000f)));
+            }
+        }
+
+        public void Dispose()
+        {
+            if (_disposed)
+            {
+                return;
+            }
+            _disposed = true;
+
+            // Voices read their audio on the mixer's thread, so they go first, then the audio, and only
+            // then the mixer that owns both.
+            foreach (Voice voice in _voices)
+            {
+                Mixer.DestroyTrack(voice.Track);
+            }
+            _voices.Clear();
+            if (_musicTrack != 0)
+            {
+                Mixer.DestroyTrack(_musicTrack);
+                _musicTrack = 0;
+                SDL.DestroyProperties(_musicOptions);
+            }
+            foreach (nint audio in _loadedAudio)
+            {
+                Mixer.DestroyAudio(audio);
+            }
+            _loadedAudio.Clear();
+            Mixer.DestroyMixer(_mixer);
+            Mixer.Quit();
+            SDL.QuitSubSystem(SDL.InitFlags.Audio);
+        }
+    }
+}

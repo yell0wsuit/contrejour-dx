@@ -1,6 +1,7 @@
 <Solution>
   <Project Path="src/ContreJour/ContreJour.csproj" />
   <Project Path="src/ContreJour.Desktop/ContreJour.Desktop.csproj" />
+  <Project Path="src/ContreJour.Desktop.Platform/ContreJour.Desktop.Platform.csproj" />
   <Folder Name="/Engine/">
     <Project Path="src/FarseerPhysics/FarseerPhysics.csproj" />
     <Project Path="src/Mokus2D.Common/Mokus2D.Common.csproj" />

@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>ContreJour.Desktop.Platform</RootNamespace>
+    <!-- The decompiled projects carry their own AssemblyInfo.cs; this one has none. -->
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+  </PropertyGroup>
+
+  <!-- SDL3 platform services for the desktop host. Audio for now; window and input join in step 4. -->
+  <ItemGroup>
+    <PackageReference Include="SDL3-CS" />
+    <PackageReference Include="SDL3-CS.Windows" />
+    <PackageReference Include="SDL3-CS.Linux" />
+    <PackageReference Include="SDL3-CS.MacOS" />
+    <PackageReference Include="SDL3-CS.Windows.Mixer" />
+    <PackageReference Include="SDL3-CS.Linux.Mixer" />
+    <PackageReference Include="SDL3-CS.MacOS.Mixer" />
+    <ProjectReference Include="../Mokus2D/Mokus2D.csproj" />
+  </ItemGroup>
+</Project>

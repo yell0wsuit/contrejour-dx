@@ -1,8 +1,17 @@
 <Project>
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <SDL3CSVersion>3.4.16</SDL3CSVersion>
+    <SDL3MixerVersion>3.2.4.11</SDL3MixerVersion>
   </PropertyGroup>
   <ItemGroup>
     <PackageVersion Include="MonoGame.Framework.DesktopGL" Version="3.8.5.1" />
+    <PackageVersion Include="SDL3-CS" Version="$(SDL3CSVersion)" />
+    <PackageVersion Include="SDL3-CS.Windows" Version="$(SDL3CSVersion)" />
+    <PackageVersion Include="SDL3-CS.Linux" Version="$(SDL3CSVersion)" />
+    <PackageVersion Include="SDL3-CS.MacOS" Version="$(SDL3CSVersion)" />
+    <PackageVersion Include="SDL3-CS.Windows.Mixer" Version="$(SDL3MixerVersion)" />
+    <PackageVersion Include="SDL3-CS.Linux.Mixer" Version="$(SDL3MixerVersion)" />
+    <PackageVersion Include="SDL3-CS.MacOS.Mixer" Version="$(SDL3MixerVersion)" />
   </ItemGroup>
 </Project>

@@ -10,6 +10,7 @@
   <ItemGroup>
     <PackageReference Include="MonoGame.Framework.DesktopGL" />
     <ProjectReference Include="../ContreJour/ContreJour.csproj" />
+    <ProjectReference Include="../ContreJour.Desktop.Platform/ContreJour.Desktop.Platform.csproj" />
   </ItemGroup>
 
   <!-- Recreate the original appx layout next to the executable: Assets/ and Resources/ -->
