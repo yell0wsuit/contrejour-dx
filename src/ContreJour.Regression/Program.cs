@@ -5,6 +5,8 @@ using System.IO;
 using ContreJour.Desktop.MonoGame;
 using ContreJour.Saving;
 
+using Mokus2D.Sound;
+
 namespace ContreJour.Regression
 {
     // Plays every level and opens every chapter menu with no input on a fixed timestep, and writes a
@@ -44,7 +46,9 @@ namespace ContreJour.Regression
             }
             Preferences.SaveDirectory = dataDirectory;
 
-            using MonoGameApplication<RegressionApplication> game = new();
+            // The harness never plays audio.
+            using NullAudioBackend audio = new();
+            using MonoGameApplication<RegressionApplication> game = new(audio);
             game.Run();
             return RegressionApplication.Failed ? 1 : 0;
         }

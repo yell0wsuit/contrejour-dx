@@ -25,7 +25,7 @@ namespace Mokus2D
     {
         public KeysController KeysController { get; } = new();
 
-        private readonly Scheduler Scheduler = new();
+        internal Scheduler Scheduler { get; } = new();
 
         public TouchController TouchController { get; } = new();
 
