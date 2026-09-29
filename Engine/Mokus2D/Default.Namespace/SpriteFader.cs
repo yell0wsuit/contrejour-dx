@@ -4,44 +4,23 @@ namespace Default.Namespace;
 
 public class SpriteFader(Node _target)
 {
-    private ushort disabledOpacity = 255;
-
-    private float duration = 0.15f;
-
-    private bool enabled;
-
-    private ushort enabledOpacity;
-
     private readonly Node target = _target;
 
-    public ushort EnabledOpacity
-    {
-        get => enabledOpacity;
-        set => enabledOpacity = value;
-    }
+    public ushort EnabledOpacity { get; set; }
 
-    public ushort DisabledOpacity
-    {
-        get => disabledOpacity;
-        set => disabledOpacity = value;
-    }
+    public ushort DisabledOpacity { get; set; } = 255;
 
     public bool Enabled
     {
-        get => enabled;
-        set
+        get; set
         {
-            if (enabled != value)
+            if (field != value)
             {
-                enabled = value;
-                _ = target.Tweener.StartSequence(duration).Tween(NodeValues.OpacityFloat, enabled ? enabledOpacity : disabledOpacity);
+                field = value;
+                _ = target.Tweener.StartSequence(Duration).Tween(NodeValues.OpacityFloat, field ? EnabledOpacity : DisabledOpacity);
             }
         }
     }
 
-    public float Duration
-    {
-        get => duration;
-        set => duration = value;
-    }
+    public float Duration { get; set; } = 0.15f;
 }

@@ -2,23 +2,11 @@ namespace Default.Namespace;
 
 public class LinkedListItem(object _item)
 {
-    private LinkedListItem next;
-
-    private LinkedListItem previous;
-
     protected object item = _item;
 
-    public LinkedListItem Previous
-    {
-        get => previous;
-        set => previous = value;
-    }
+    public LinkedListItem Previous { get; set; }
 
-    public LinkedListItem Next
-    {
-        get => next;
-        set => next = value;
-    }
+    public LinkedListItem Next { get; set; }
 
     public object Item
     {
@@ -28,18 +16,18 @@ public class LinkedListItem(object _item)
 
     public void Remove()
     {
-        next?.Previous = previous;
-        previous?.Next = next;
+        Next?.Previous = Previous;
+        Previous?.Next = Next;
         Next = null;
         Previous = null;
     }
 
     public void InsertBefore(LinkedListItem value)
     {
-        if (previous != null)
+        if (Previous != null)
         {
-            previous.Next = value;
-            value.Previous = previous;
+            Previous.Next = value;
+            value.Previous = Previous;
         }
         value.Next = this;
         Previous = value;
@@ -47,10 +35,10 @@ public class LinkedListItem(object _item)
 
     public void InsertAfter(LinkedListItem value)
     {
-        if (next != null)
+        if (Next != null)
         {
-            next.Previous = value;
-            value.Next = next;
+            Next.Previous = value;
+            value.Next = Next;
         }
         value.Previous = this;
         Next = value;

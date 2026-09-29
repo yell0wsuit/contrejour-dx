@@ -28,8 +28,6 @@ public class TrampolineBodyClip : SnotBodyClipBase
     private readonly float centerDistanceDiff;
 
     private FixedMouseJoint dragJoint;
-    private bool dragging;
-
     private readonly float impulseMultiplier;
 
     private Vector2 impulseVec;
@@ -51,11 +49,7 @@ public class TrampolineBodyClip : SnotBodyClipBase
 
     private Touch touch;
 
-    public bool Dragging
-    {
-        get => dragging;
-        set => dragging = value;
-    }
+    public bool Dragging { get; set; }
 
     public override Body Body
     {
@@ -121,7 +115,7 @@ public class TrampolineBodyClip : SnotBodyClipBase
     {
         this.touch = touch;
         DragEvent.SendEvent();
-        dragging = true;
+        Dragging = true;
         Body val = CenterBody();
         dragJoint = JointFactory.CreateFixedMouseJoint(builder.World, val, val.WorldCenter);
         dragJoint.MaxForce = 500f;
@@ -140,10 +134,10 @@ public class TrampolineBodyClip : SnotBodyClipBase
 
     public void StopDrag()
     {
-        if (dragging)
+        if (Dragging)
         {
             game.DecreaseZoomOut();
-            dragging = false;
+            Dragging = false;
             builder.World.RemoveJoint((Joint)(object)dragJoint);
             dragJoint = null;
         }
@@ -163,7 +157,7 @@ public class TrampolineBodyClip : SnotBodyClipBase
         base.Update(time);
         part?.Update(time);
         timeFromLaunch += time;
-        if (dragging)
+        if (Dragging)
         {
             Vector2 vector = builder.TouchRootVec(touch);
             vector -= center;

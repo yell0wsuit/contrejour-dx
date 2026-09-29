@@ -54,9 +54,6 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
     protected bool finished;
 
     private bool hasToYawn;
-
-    private bool hitEnabled;
-
     private readonly Sprite hotspot;
 
     private Vector2 initialPosition;
@@ -80,9 +77,6 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
     private readonly Portal portal;
 
     private Vector2 previousSpeed;
-
-    private bool removed;
-
     private bool restartOnEating;
 
     private bool restarting;
@@ -92,42 +86,24 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
     protected bool sleep;
 
     private float sleepSoundTime;
-
-    private bool snotEnabled;
-
-    private int snotJoinedCount;
-
-    private bool speedLocked;
-
     private bool speedyPosted;
 
     protected HeroTail tail;
 
     protected Vector2 targetScale;
-
-    private readonly EventSender teleportEvent;
-
     private float timeToSleep;
 
     private float velocity;
 
     private Vector2 worldSize;
 
-    public EventSender TeleportEvent => teleportEvent;
+    public EventSender TeleportEvent => DestroyEvent;
 
-    public bool Removed
-    {
-        get => removed;
-        set => removed = value;
-    }
+    public bool Removed { get; set; }
 
     public HeroEye Eye => eye;
 
-    public bool SpeedLocked
-    {
-        get => speedLocked;
-        set => speedLocked = value;
-    }
+    public bool SpeedLocked { get; set; }
 
     protected virtual float FirstRespawnTime => 0.5f;
 
@@ -143,21 +119,16 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
         set => eye.MoveAllowed = value;
     }
 
-    public bool HitEnabled
-    {
-        get => hitEnabled;
-        set => hitEnabled = value;
-    }
+    public bool HitEnabled { get; set; }
 
     public int SnotJoinedCount
     {
-        get => snotJoinedCount;
-        set
+        get; set
         {
-            if (value != snotJoinedCount)
+            if (value != field)
             {
-                snotJoinedCount = value;
-                if (snotJoinedCount >= 6)
+                field = value;
+                if (field >= 6)
                 {
                     XBoxUtil.AwardAchievement("spider");
                 }
@@ -165,13 +136,9 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
         }
     }
 
-    public bool SnotEnabled
-    {
-        get => snotEnabled;
-        set => snotEnabled = value;
-    }
+    public bool SnotEnabled { get; set; }
 
-    public EventSender DestroyEvent => teleportEvent;
+    public EventSender DestroyEvent { get; }
 
     public override Vector2 PositionVec => Body.Position;
 
@@ -203,9 +170,9 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
         Body.SleepingAllowed = false;
         Body.SetGroupIndex(-2);
         lastHitTime = 0f;
-        snotEnabled = true;
+        SnotEnabled = true;
         InitializeBody();
-        hitEnabled = true;
+        HitEnabled = true;
         if (Game.LevelIndex != 0 || !Game.CanShowIntro)
         {
             InitializeBody();
@@ -246,7 +213,7 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
         onGround = false;
         targetScale = new Vector2(1f, 1f);
         breatheScaleStep = 0f;
-        teleportEvent = new EventSender();
+        DestroyEvent = new EventSender();
         ContreJourGame.AddShadowSource();
     }
 
@@ -271,7 +238,7 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
 
     public bool CanDie()
     {
-        return !restarting && snotEnabled;
+        return !restarting && SnotEnabled;
     }
 
     public float DeadEyeScale()
@@ -298,7 +265,7 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
 
     public void SetSpeedLocked(bool value)
     {
-        speedLocked = value;
+        SpeedLocked = value;
         eye.MoveAllowed = !value;
     }
 
@@ -307,7 +274,7 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
         restarting = true;
         FinishEvent.SendEvent();
         restartOnEating = eating;
-        teleportEvent.SendEvent();
+        DestroyEvent.SendEvent();
         FadeOutTails();
         _ = (tail?.FadeOutAndHide(0.1f));
         Schedule(HideBody, 0.1f);
@@ -512,7 +479,7 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
             lastOnGroundTime = Game.TotalTime;
         }
         Body.AngularDamping = (Game.TotalTime - lastOnGroundTime > 0.3f) ? 0.5f : 0f;
-        if (Body != null && Body.BodyType == 0 && !onGround && snotJoinedCount == 0)
+        if (Body != null && Body.BodyType == 0 && !onGround && SnotJoinedCount == 0)
         {
         }
         else
@@ -529,18 +496,18 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
         TryConfuse();
         UpdateShadow(time);
         float num2 = VectorUtil.Atan2(Body.LinearVelocity);
-        float num3 = speedLocked ? 0f : Body.LinearVelocity.Length();
-        if (!speedyPosted && onGroundTime > 0.2f && num3 >= 11.666667f && hitEnabled)
+        float num3 = SpeedLocked ? 0f : Body.LinearVelocity.Length();
+        if (!speedyPosted && onGroundTime > 0.2f && num3 >= 11.666667f && HitEnabled)
         {
             XBoxUtil.AwardAchievement("speedy");
             speedyPosted = true;
         }
-        if (!migthyPosted && !onGround && snotJoinedCount == 0 && num3 >= 33.333332f && hitEnabled)
+        if (!migthyPosted && !onGround && SnotJoinedCount == 0 && num3 >= 33.333332f && HitEnabled)
         {
             XBoxUtil.AwardAchievement("mighty_bird");
             migthyPosted = true;
         }
-        float num4 = (snotJoinedCount > 0) ? 33.333332f : 66.666664f;
+        float num4 = (SnotJoinedCount > 0) ? 33.333332f : 66.666664f;
         if (num3 > num4)
         {
             num3 = num4;
@@ -575,12 +542,12 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
     {
         float num = Body.LinearVelocity.DistanceTo(previousSpeed);
         bool flag = Game.TotalTime - lastOnGroundTime < 0.1f;
-        if (!(num >= 4f) || finishSet || speedLocked)
+        if (!(num >= 4f) || finishSet || SpeedLocked)
         {
             return;
         }
         bool flag2 = false;
-        if (Game.TotalTime - lastHitTime > 0.5f && hitEnabled && flag && Math.Abs(Body.LinearVelocity.Y) < Math.Abs(previousSpeed.Y) && Body.LinearVelocity.Length() < 5f)
+        if (Game.TotalTime - lastHitTime > 0.5f && HitEnabled && flag && Math.Abs(Body.LinearVelocity.Y) < Math.Abs(previousSpeed.Y) && Body.LinearVelocity.Length() < 5f)
         {
             flag2 = true;
             SoundManager.PlaySound("landing1", Math.Min(num / 4f / 3f, 1f) / 10f);
@@ -588,7 +555,7 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
         }
         if (Math.Abs(Body.LinearVelocity.X - previousSpeed.X) >= 4f && Body.LinearVelocity.X <= 1f)
         {
-            if (!flag2 && flag && hitEnabled && Game.TotalTime - lastHitTime > 0.5f)
+            if (!flag2 && flag && HitEnabled && Game.TotalTime - lastHitTime > 0.5f)
             {
                 SoundManager.PlaySound("landing1", Math.Min(num / 4f / 3f, 1f) / 10f);
                 lastHitTime = Game.TotalTime;
@@ -769,7 +736,7 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
 
     protected void FinishLevelSpeedEyeAnimation(Vector2 targetPosition, float finishSpeed, string eyeAnimation)
     {
-        if (removed)
+        if (Removed)
         {
             return;
         }
@@ -793,7 +760,7 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
             Schedule(OnFinish, 0.5f);
         }
         FinishEvent.SendEvent();
-        teleportEvent.SendEvent();
+        DestroyEvent.SendEvent();
         FadeOutTails();
     }
 
@@ -858,7 +825,7 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
         if (!restarting)
         {
             finished = true;
-            if (!removed)
+            if (!Removed)
             {
                 DoFinish();
             }

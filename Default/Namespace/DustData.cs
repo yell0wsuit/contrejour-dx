@@ -9,24 +9,14 @@ namespace Default.Namespace;
 public class DustData : IUpdatable
 {
     private readonly float alphaDiff;
-
-    private bool dragging;
-
     private readonly ContreJourGame game;
-
-    private bool hasRemove;
-
     private readonly Particle particle;
 
     protected Vector2 speed;
 
-    public bool Dragging
-    {
-        get => dragging;
-        set => dragging = value;
-    }
+    public bool Dragging { get; set; }
 
-    public bool ShouldRemove => hasRemove;
+    public bool ShouldRemove { get; private set; }
 
     public DustData(ContreJourGame game, Vector2 bodySpeed, Vector2 position, float speed, float alphaMult)
     {
@@ -48,11 +38,11 @@ public class DustData : IUpdatable
         float num = time * 3f * Math.Min(particle.OpacityByte / 255f, 0.3f);
         Vector2 vector = speed * num;
         particle.Position += vector;
-        particle.OpacityFloat -= dragging ? (alphaDiff * 10f) : alphaDiff;
+        particle.OpacityFloat -= Dragging ? (alphaDiff * 10f) : alphaDiff;
         if (particle.OpacityByte <= 0)
         {
             particle.Visible = false;
-            hasRemove = true;
+            ShouldRemove = true;
         }
     }
 }

@@ -7,16 +7,9 @@ namespace Default.Namespace;
 public class TextureSnotSprite : SpringSnotSprite
 {
     private float opacity;
-
-    private float targetOpacity;
-
     private Color textureColor;
 
-    public float TargetOpacity
-    {
-        get => targetOpacity;
-        set => targetOpacity = value;
-    }
+    public float TargetOpacity { get; set; }
 
     public Color TextureColor
     {
@@ -38,7 +31,7 @@ public class TextureSnotSprite : SpringSnotSprite
         : base(game, snot, startWidth, centerWidth, endWidth)
     {
         Texture = ClipFactory.GetTexture(textureFile);
-        targetOpacity = 255f;
+        TargetOpacity = 255f;
         opacity = 255f;
         textureColor = new Color(255, 255, 255);
         NeckColor = Color.White;
@@ -52,7 +45,7 @@ public class TextureSnotSprite : SpringSnotSprite
     public override void Update(float time)
     {
         base.Update(time);
-        opacity = Maths.StepTo(opacity, targetOpacity, 10f);
+        opacity = Maths.StepTo(opacity, TargetOpacity, 10f);
     }
 
     public override void CreateVectors(int allPointsSize)

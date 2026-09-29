@@ -34,23 +34,13 @@ public class TouchCircle(Touch _touch, LevelBuilderBase builder) : BodyClip(buil
         }
     }
 
-    private bool enabled = true;
+    public Touch Touch { get; } = _touch;
 
-    private bool free = true;
+    public bool Enabled { get; set; } = true;
 
-    private readonly Touch touch = _touch;
+    public bool Free { get; private set; } = true;
 
-    public Touch Touch => touch;
-
-    public bool Enabled
-    {
-        get => enabled;
-        set => enabled = value;
-    }
-
-    public bool Free => free;
-
-    public new Vector2 Position => builder.TouchRootPoint(touch);
+    public new Vector2 Position => builder.TouchRootPoint(Touch);
 
     public static Body CreateBody(LevelBuilderBase builder, Touch touch)
     {
@@ -62,8 +52,8 @@ public class TouchCircle(Touch _touch, LevelBuilderBase builder) : BodyClip(buil
     public override void Update(float time)
     {
         base.Update(time);
-        Body.SetTransform(builder.TouchRootVec(touch), 0f);
-        if (enabled)
+        Body.SetTransform(builder.TouchRootVec(Touch), 0f);
+        if (Enabled)
         {
             ProcessContacts();
         }
@@ -81,7 +71,7 @@ public class TouchCircle(Touch _touch, LevelBuilderBase builder) : BodyClip(buil
             }
             val = val.Next;
         }
-        free = !flag;
+        Free = !flag;
     }
 
     public void RefreshClosestPlasticineDefaultItem(ClosestItem item, PlasticinePartBodyClip defaultItem)

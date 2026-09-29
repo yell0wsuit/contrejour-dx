@@ -7,21 +7,19 @@ namespace Default.Namespace;
 
 public class Tablo : Sprite
 {
-    private bool open;
-
     public bool Open
     {
-        get => open;
+        get;
         set
         {
-            if (value != open)
+            if (value != field)
             {
-                open = value;
+                field = value;
                 Tweener.Stop();
-                float targetValue = open ? 1 : 0;
-                float targetValue2 = open ? 0f : ((float)Math.PI / 2f);
+                float targetValue = field ? 1 : 0;
+                float targetValue2 = field ? 0f : ((float)Math.PI / 2f);
                 TweenObject tweenObject = Tweener.Start(0.2f).Tween(NodeValues.Scale, targetValue).Tween(NodeValues.RotationRadians, targetValue2);
-                if (open)
+                if (field)
                 {
                     Visible = true;
                 }

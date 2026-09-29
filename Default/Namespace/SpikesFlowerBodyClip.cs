@@ -21,16 +21,13 @@ public class SpikesFlowerBodyClip : ContreJourBodyClip, IVectorPositionProvider
     private IEatable hero;
 
     private readonly ISpikesView movie;
-
-    private FlowerEye eye;
-
     private readonly SpikesFlowerSprite drawing;
 
     private readonly Node container;
 
     private static readonly Vector2 EyePosition = new(0f, 30f);
 
-    public FlowerEye Eye => eye;
+    public FlowerEye Eye { get; private set; }
 
     public override Vector2 PositionVec => Body.Position;
 
@@ -59,23 +56,23 @@ public class SpikesFlowerBodyClip : ContreJourBodyClip, IVectorPositionProvider
     private void CreateEye()
     {
         Vector2 point = container.LocalToNode(EyePosition, Game.Root);
-        eye = new FlowerEye(Game, visible: true, builder.ToVec(point))
+        Eye = new FlowerEye(Game, visible: true, builder.ToVec(point))
         {
             Scale = clip.ScaleY * 0.7f
         };
-        container.AddChild(eye);
-        eye.RefreshRootAngle();
-        eye.Position = EyePosition;
+        container.AddChild(Eye);
+        Eye.RefreshRootAngle();
+        Eye.Position = EyePosition;
     }
 
     public override void Update(float time)
     {
         base.Update(time);
-        if (eye == null && container.Root != null)
+        if (Eye == null && container.Root != null)
         {
             CreateEye();
         }
-        eye.UpdateNode(time);
+        Eye.UpdateNode(time);
         drawing.Update(time);
     }
 
@@ -93,7 +90,7 @@ public class SpikesFlowerBodyClip : ContreJourBodyClip, IVectorPositionProvider
             movie.Left.Stoped = movie.Right.Stoped = false;
             movie.Left.Rewind = movie.Right.Rewind = false;
             movie.Left.EndEvent += OnCloseEnd;
-            eye.PositionProvider = this;
+            Eye.PositionProvider = this;
             SoundManager.PlaySound("deathByFlowerOut4", 0.5f);
         }
     }
@@ -112,7 +109,7 @@ public class SpikesFlowerBodyClip : ContreJourBodyClip, IVectorPositionProvider
         movie.Left.Rewind = movie.Right.Rewind = true;
         movie.Left.Stoped = movie.Right.Stoped = false;
         movie.Left.Repeat = movie.Right.Repeat = false;
-        eye.PositionProvider = null;
+        Eye.PositionProvider = null;
         CreateDeadEye();
     }
 

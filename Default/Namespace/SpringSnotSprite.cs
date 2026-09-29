@@ -6,8 +6,6 @@ namespace Default.Namespace;
 
 public class SpringSnotSprite : SnotSprite
 {
-    private bool active;
-
     protected float activeProgress;
 
     private float previousActiveProgress = 1f;
@@ -21,16 +19,12 @@ public class SpringSnotSprite : SnotSprite
     {
     }
 
-    public bool Active
-    {
-        get => active;
-        set => active = value;
-    }
+    public bool Active { get; set; }
 
     public override void Update(float time)
     {
         base.Update(time);
-        activeProgress = Maths.StepTo(activeProgress, active ? 1 : 0, 0.05f);
+        activeProgress = Maths.StepTo(activeProgress, Active ? 1 : 0, 0.05f);
         if (Maths.FuzzyNotEquals(activeProgress, previousActiveProgress))
         {
             SetCirclesColors();

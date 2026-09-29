@@ -18,21 +18,18 @@ public class SuckerNeckSprite : LongNeckSprite
     private Pair<Vector2> end;
 
     private readonly Bouncer bouncer;
-
-    private float length;
-
     private int frame;
 
     public float Length
     {
-        get => length;
+        get;
         set
         {
-            if (Maths.FuzzyNotEquals(length, value))
+            if (Maths.FuzzyNotEquals(field, value))
             {
-                length = value;
+                field = value;
                 RefreshMiddle();
-                end = new Pair<Vector2>(new Vector2(length, 9f), new Vector2(length, -9f));
+                end = new Pair<Vector2>(new Vector2(field, 9f), new Vector2(field, -9f));
             }
         }
     }
@@ -78,7 +75,7 @@ public class SuckerNeckSprite : LongNeckSprite
     public void RefreshMiddle()
     {
         float num = (frame % 4 > 1) ? 1 : (-1);
-        middle = new Pair<Vector2>(new Vector2(length / 2f, -1f + (bouncer.CurrentAmplitude * num)), new Vector2(length / 2f, 1f + (bouncer.CurrentAmplitude * num)));
+        middle = new Pair<Vector2>(new Vector2(Length / 2f, -1f + (bouncer.CurrentAmplitude * num)), new Vector2(Length / 2f, 1f + (bouncer.CurrentAmplitude * num)));
     }
 
     public override void GetPairs(List<Pair<Vector2>> target)

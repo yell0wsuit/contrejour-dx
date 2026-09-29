@@ -2,21 +2,11 @@ namespace Default.Namespace;
 
 public class SnotChain(SnotBodyClip _snot, float _distance)
 {
-    private readonly SnotBodyClip snot = _snot;
+    public SnotBodyClip Snot { get; } = _snot;
 
-    private readonly float distance = _distance;
+    public float Distance { get; } = _distance;
 
-    private float diff;
-
-    public SnotBodyClip Snot => snot;
-
-    public float Distance => distance;
-
-    public float Diff
-    {
-        get => diff;
-        set => diff = value;
-    }
+    public float Diff { get; set; }
 
     public static object CreateWithSnotDistance(SnotBodyClip snot, float distance)
     {

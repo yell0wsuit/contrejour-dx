@@ -19,8 +19,6 @@ namespace Default.Namespace;
 public class PlasticinePartBodyClip : ContreJourBodyClip, IClickable, IRestartable, IGrassControllerContainer
 {
     public const float GrassTrampleDistance = 1.3333334f;
-    private int index;
-
     private int verticesOffset;
 
     private bool dirty;
@@ -30,13 +28,7 @@ public class PlasticinePartBodyClip : ContreJourBodyClip, IClickable, IRestartab
     private PlasticineSprite fillSprite;
 
     private int fillIndex = -1;
-
-    private PlasticinePartHighlite highlite;
-
     private Vector2 initialPosition;
-
-    private readonly float initialAngle;
-
     private Vector2 targetPosition;
 
     private float targetAngle;
@@ -44,15 +36,6 @@ public class PlasticinePartBodyClip : ContreJourBodyClip, IClickable, IRestartab
     private readonly ContreJourGame game;
 
     private readonly List<DustData> dust = new(64);
-
-    private PlasticineItem item;
-
-    private bool updateParent;
-
-    private readonly PlasticineBodyClip parent;
-
-    private readonly float width;
-
     private float groundFallTime;
 
     private readonly float groundFallMaxTime;
@@ -60,56 +43,35 @@ public class PlasticinePartBodyClip : ContreJourBodyClip, IClickable, IRestartab
     private readonly bool isFloor;
 
     private readonly bool isTop;
-
-    private bool dragging;
-
     private float lastTime;
     protected Vector2 lastFrameSpeed;
 
     private Vector2 normal;
 
     private Vector2 parallel;
-
-    private IGrassController grassController;
-
     private PlasticinePartBodyClip previous;
 
     private PlasticinePartBodyClip next;
-
-    private bool isRotationDirty;
     private bool fixHighlite;
 
     private static readonly int i;
 
-    public PlasticineItem Item
-    {
-        get => item;
-        set => item = value;
-    }
+    public PlasticineItem Item { get; set; }
 
-    public bool UpdateParent
-    {
-        get => updateParent;
-        set => updateParent = value;
-    }
+    public bool UpdateParent { get; set; }
 
-    public PlasticineBodyClip Parent => parent;
+    public PlasticineBodyClip Parent { get; }
 
-    public PlasticinePartHighlite Highlite
-    {
-        get => highlite;
-        set => highlite = value;
-    }
+    public PlasticinePartHighlite Highlite { get; set; }
 
     public bool Dragging
     {
-        get => dragging;
-        set
+        get; set
         {
-            if (value != dragging)
+            if (value != field)
             {
-                dragging = value;
-                if (!dragging)
+                field = value;
+                if (!field)
                 {
                     groundFallTime = 0f;
                     FallGround();
@@ -122,19 +84,15 @@ public class PlasticinePartBodyClip : ContreJourBodyClip, IClickable, IRestartab
 
     public Vector2 Parallel => parallel;
 
-    public bool IsRotationDirty
-    {
-        get => isRotationDirty;
-        set => isRotationDirty = value;
-    }
+    public bool IsRotationDirty { get; set; }
 
-    public float InitialAngle => initialAngle;
+    public float InitialAngle { get; }
 
-    public int Index => index;
+    public int Index { get; private set; }
 
-    public IGrassController GrassController => grassController;
+    public IGrassController GrassController { get; private set; }
 
-    public float Width => width;
+    public float Width { get; }
 
     public bool DisableHeroFocus => true;
 
@@ -146,15 +104,15 @@ public class PlasticinePartBodyClip : ContreJourBodyClip, IClickable, IRestartab
         //IL_0189: Expected O, but got Unknown
         //IL_00d5: Unknown result type (might be due to invalid IL or missing references)
         //IL_00df: Expected O, but got Unknown
-        this.width = width;
+        Width = width;
         this.builder = builder;
-        this.parent = parent;
+        Parent = parent;
         game = (ContreJourGame)builder.Game;
         float value = ((Body)body).Rotation.SimplifyAngle(-(float)Math.PI / 2f);
         initialPosition = Body.Position;
         targetPosition = initialPosition;
         targetAngle = Body.Rotation;
-        initialAngle = Body.Rotation;
+        InitialAngle = Body.Rotation;
         float num = game.WhiteSide ? ((float)Math.PI / 3f) : ((float)Math.PI / 5f);
         if (Maths.Between(value, 0f - num, num))
         {
@@ -170,20 +128,20 @@ public class PlasticinePartBodyClip : ContreJourBodyClip, IClickable, IRestartab
         isTop = Maths.Between(value, (float)Math.PI / 2f, 4.712389f);
         normal = GetSurfaceCenter() - Body.WorldCenter;
         parallel = Body.GetWorldPoint(new Vector2(1f, 0f)) - Body.WorldCenter;
-        this.parent = parent;
+        Parent = parent;
         PlasticineConstants.ApplyStaticBodiesFilter((Body)body);
     }
 
     public void MoveToInitialPosition()
     {
-        SetTargetPositionAngle(initialPosition, initialAngle);
+        SetTargetPositionAngle(initialPosition, InitialAngle);
     }
 
     public void Restart()
     {
-        if (updateParent)
+        if (UpdateParent)
         {
-            parent.Restart();
+            Parent.Restart();
         }
     }
 
@@ -195,8 +153,8 @@ public class PlasticinePartBodyClip : ContreJourBodyClip, IClickable, IRestartab
 
     public void SetWideBorder(PlasticineWideBorder border, int index)
     {
-        this.index = index;
-        verticesOffset = (this.index * 2 * 2) + 2;
+        Index = index;
+        verticesOffset = (Index * 2 * 2) + 2;
         this.border = border;
     }
 
@@ -212,7 +170,7 @@ public class PlasticinePartBodyClip : ContreJourBodyClip, IClickable, IRestartab
 
     public void SetDirty()
     {
-        parent.Changed = true;
+        Parent.Changed = true;
         SetDirtyNoSibling();
         next?.SetDirtyNoSibling();
         previous?.SetDirtyNoSibling();
@@ -221,7 +179,7 @@ public class PlasticinePartBodyClip : ContreJourBodyClip, IClickable, IRestartab
     public void SetDirtyNoSibling()
     {
         dirty = true;
-        highlite?.SetDirty();
+        Highlite?.SetDirty();
     }
 
     public int Priority(Vector2 touchPosition)
@@ -231,12 +189,12 @@ public class PlasticinePartBodyClip : ContreJourBodyClip, IClickable, IRestartab
 
     public bool TouchBegan(Touch touch)
     {
-        return parent.StartDragItemTouch(item, touch);
+        return Parent.StartDragItemTouch(Item, touch);
     }
 
     public bool TouchMove(Touch touch)
     {
-        return parent.TouchMove(touch);
+        return Parent.TouchMove(touch);
     }
 
     public void TouchOut(Touch touch)
@@ -245,12 +203,12 @@ public class PlasticinePartBodyClip : ContreJourBodyClip, IClickable, IRestartab
 
     public void TouchEnd(Touch touch)
     {
-        parent.StopDragTouch(touch);
+        Parent.StopDragTouch(touch);
     }
 
     public void Free(Touch touch)
     {
-        parent.StopDragTouch(touch);
+        Parent.StopDragTouch(touch);
         game.FreeTouch(touch);
     }
 
@@ -288,7 +246,7 @@ public class PlasticinePartBodyClip : ContreJourBodyClip, IClickable, IRestartab
         if (isTop && groundFallTime <= 0f && lastFrameSpeed.Y > -5f && Maths.Random() < 0.7f)
         {
             groundFallTime = groundFallMaxTime;
-            Vector2 position = VectorUtil.Random(item.GetLeftOffset(2f / 3f), item.GetRightOffset(0f));
+            Vector2 position = VectorUtil.Random(Item.GetLeftOffset(2f / 3f), Item.GetRightOffset(0f));
             GravityParticle gravityParticle = (GravityParticle)game.GroundFall.AddOrGetInvisible();
             if (lastFrameSpeed.Y < 0f)
             {
@@ -302,20 +260,20 @@ public class PlasticinePartBodyClip : ContreJourBodyClip, IClickable, IRestartab
     public override void Update(float time)
     {
         lastTime = time;
-        previous ??= item.PreviousItem.BodyClip;
+        previous ??= Item.PreviousItem.BodyClip;
         if (next == null)
         {
-            next = item.NextItem.BodyClip;
+            next = Item.NextItem.BodyClip;
             SetDirty();
         }
         MoveToTargetPosition(time);
-        grassController?.Update(time);
+        GrassController?.Update(time);
         if (dust.Count > 0)
         {
             List<object> list = [];
             foreach (DustData item in dust)
             {
-                if (dragging)
+                if (Dragging)
                 {
                     item.Dragging = true;
                 }
@@ -335,18 +293,18 @@ public class PlasticinePartBodyClip : ContreJourBodyClip, IClickable, IRestartab
         {
             VertexPositionColor[] inBorder = border.InBorder;
             VertexPositionColor[] outBorder = border.OutBorder;
-            if (index == 0)
+            if (Index == 0)
             {
-                inBorder[0].Position = item.GetSurfaceCenter().ToVector3();
-                inBorder[1].Position = item.GetCenterOffset(-5f / 12f).ToVector3();
-                outBorder[0].Position = item.GetSurfaceCenter().ToVector3();
-                outBorder[1].Position = item.GetCenterOffset(0.65f).ToVector3();
+                inBorder[0].Position = Item.GetSurfaceCenter().ToVector3();
+                inBorder[1].Position = Item.GetCenterOffset(-5f / 12f).ToVector3();
+                outBorder[0].Position = Item.GetSurfaceCenter().ToVector3();
+                outBorder[1].Position = Item.GetCenterOffset(0.65f).ToVector3();
             }
             SetBezierPointsOffsetIndexOffset(inBorder, 7f / 12f, 0);
             SetBezierPointsOffsetIndexOffset(inBorder, -5f / 12f, 1);
             SetBezierPointsOffsetIndexOffset(outBorder, 7f / 12f, 0);
             SetBezierPointsOffsetIndexOffset(outBorder, 0.65f, 1);
-            fillSprite?.Vertices[fillIndex].Position = item.GetCenterOffset(-5f / 48f).ToVector3();
+            fillSprite?.Vertices[fillIndex].Position = Item.GetCenterOffset(-5f / 48f).ToVector3();
             dirty = false;
         }
     }
@@ -354,7 +312,7 @@ public class PlasticinePartBodyClip : ContreJourBodyClip, IClickable, IRestartab
     public void SetBezierPointsOffsetIndexOffset(VertexPositionColor[] vector, float offset, int indexOffset)
     {
         Vector2 centerOffset = GetCenterOffset(offset);
-        Vector2 centerOffset2 = item.NextItem.BodyClip.GetCenterOffset(offset);
+        Vector2 centerOffset2 = Item.NextItem.BodyClip.GetCenterOffset(offset);
         Vector2 vec = VectorUtil.Center(GetRightOffset(offset), VectorUtil.Center(centerOffset, centerOffset2));
         vector[verticesOffset + indexOffset].Position = builder.ToPoint(vec).ToVector3();
         vector[verticesOffset + indexOffset + 2].Position = builder.ToPoint(centerOffset2).ToVector3();
@@ -391,10 +349,10 @@ public class PlasticinePartBodyClip : ContreJourBodyClip, IClickable, IRestartab
             Body.LinearVelocity = Vector2.Zero;
             SetRotationDirty();
         }
-        else if (isRotationDirty)
+        else if (IsRotationDirty)
         {
             SetDirty();
-            isRotationDirty = false;
+            IsRotationDirty = false;
             fixHighlite = true;
         }
         if (fixHighlite)
@@ -407,26 +365,26 @@ public class PlasticinePartBodyClip : ContreJourBodyClip, IClickable, IRestartab
     public void SetRotationDirty()
     {
         SetDirty();
-        isRotationDirty = true;
+        IsRotationDirty = true;
         previous.IsRotationDirty = true;
         next.IsRotationDirty = true;
     }
 
     public void OnTouchWith(float offset, BodyClip objectP)
     {
-        grassController?.OnTouchWith(offset, objectP);
+        GrassController?.OnTouchWith(offset, objectP);
     }
 
     public void ScareFlyes(int offset)
     {
-        grassController?.ScareFlyes(offset);
+        GrassController?.ScareFlyes(offset);
     }
 
     public void CreateGrass(ContreJourLevelBuilder builder)
     {
         if (!builder.ContreJour.BlackSide)
         {
-            grassController = (GrassController)ReflectUtil.CreateInstance(builder.ContreJour.ChooseSide(null, typeof(WhiteGrassController), typeof(WhiteGrassController), typeof(GrassController), typeof(WhiteGrassController)), this);
+            GrassController = (GrassController)ReflectUtil.CreateInstance(builder.ContreJour.ChooseSide(null, typeof(WhiteGrassController), typeof(WhiteGrassController), typeof(GrassController), typeof(WhiteGrassController)), this);
         }
     }
 
@@ -442,12 +400,12 @@ public class PlasticinePartBodyClip : ContreJourBodyClip, IClickable, IRestartab
 
     public Vector2 GetLeftOffset(float offset)
     {
-        return Body.GetWorldPoint(new Vector2((0f - width) / 2f, offset));
+        return Body.GetWorldPoint(new Vector2((0f - Width) / 2f, offset));
     }
 
     public Vector2 GetRightOffset(float offset)
     {
-        return Body.GetWorldPoint(new Vector2(width / 2f, offset));
+        return Body.GetWorldPoint(new Vector2(Width / 2f, offset));
     }
 
     public Vector2 GetCenterOffset(float offset)
@@ -463,9 +421,9 @@ public class PlasticinePartBodyClip : ContreJourBodyClip, IClickable, IRestartab
             point.GetWorldManifold(out _, out FixedArray2<Vector2> val);
             Vector2 localPoint = Body.GetLocalPoint(val[0]);
             float x = localPoint.X;
-            item.UpdateTouchesBodyClipDistance(x, bodyClip, 1.3333334f);
+            Item.UpdateTouchesBodyClipDistance(x, bodyClip, 1.3333334f);
             localPoint.Y += 0.2f;
-            if (isFloor && !dragging && bodyClip.Config.GetBool("hasDust"))
+            if (isFloor && !Dragging && bodyClip.Config.GetBool("hasDust"))
             {
                 AddDustPointPosition(body2, localPoint);
             }

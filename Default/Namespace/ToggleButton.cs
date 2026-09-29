@@ -8,9 +8,7 @@ public class ToggleButton : Button
 {
     private bool toggle;
 
-    private Sprite toggleIcon;
-
-    public Sprite ToggleIcon => toggleIcon;
+    public Sprite ToggleIcon { get; private set; }
 
     public bool Toggle
     {
@@ -39,10 +37,10 @@ public class ToggleButton : Button
 
     public void CreateToggle(string toggleName)
     {
-        toggleIcon = new Sprite(toggleName);
-        AddChild(toggleIcon);
-        toggleIcon.Visible = false;
-        toggleIcon.OpacityByte = 0;
+        ToggleIcon = new Sprite(toggleName);
+        AddChild(ToggleIcon);
+        ToggleIcon.Visible = false;
+        ToggleIcon.OpacityByte = 0;
     }
 
     public override bool TouchBegin(Touch touch)
@@ -77,15 +75,15 @@ public class ToggleButton : Button
 
     public void RefreshToggle()
     {
-        toggleIcon.Tweener.Stop();
+        ToggleIcon.Tweener.Stop();
         if (toggle || touching)
         {
-            toggleIcon.Visible = true;
-            _ = toggleIcon.FadeIn(0.2f);
+            ToggleIcon.Visible = true;
+            _ = ToggleIcon.FadeIn(0.2f);
         }
         else
         {
-            _ = toggleIcon.FadeOutAndHide(0.2f);
+            _ = ToggleIcon.FadeOutAndHide(0.2f);
         }
     }
 }

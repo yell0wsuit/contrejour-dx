@@ -17,9 +17,6 @@ public class GameBase : Node, IUpdatable
     protected List<IRemovable> updatables = [];
 
     protected readonly Node gameRoot = new();
-
-    private readonly EventSender levelLoadedEvent;
-
     protected bool paused;
 
     protected float totalTime;
@@ -34,7 +31,7 @@ public class GameBase : Node, IUpdatable
 
     public Node GameRoot => gameRoot;
 
-    public EventSender LevelLoadedEvent => levelLoadedEvent;
+    public EventSender LevelLoadedEvent { get; }
 
     public virtual bool Paused
     {
@@ -53,7 +50,7 @@ public class GameBase : Node, IUpdatable
     public GameBase()
     {
         AddChild(gameRoot);
-        levelLoadedEvent = new EventSender();
+        LevelLoadedEvent = new EventSender();
         totalTime = 0f;
     }
 
@@ -68,7 +65,7 @@ public class GameBase : Node, IUpdatable
         Level level = _levelsCache.Load(levelName);
         ProcessLevel(level);
         OnLoadLevelLevel(levelName, level);
-        levelLoadedEvent.SendEvent();
+        LevelLoadedEvent.SendEvent();
     }
 
     public virtual void OnLoadLevelLevel(string levelName, Level level)

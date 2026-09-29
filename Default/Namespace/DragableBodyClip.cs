@@ -48,9 +48,6 @@ public class DragableBodyClip : ContreJourBodyClip, IClickable, IRestartable, IS
     private Vector2 axis;
 
     protected float currentAlpha;
-
-    private readonly EventSender dragStartEvent;
-
     private bool draging;
 
     private Vector2 initialDragOffset;
@@ -75,7 +72,7 @@ public class DragableBodyClip : ContreJourBodyClip, IClickable, IRestartable, IS
 
     private RectangleFloat _dragBounds;
 
-    public EventSender DragStartEvent => dragStartEvent;
+    public EventSender DragStartEvent { get; }
 
     public SnotBodyClip Snot { get; set; }
 
@@ -98,7 +95,7 @@ public class DragableBodyClip : ContreJourBodyClip, IClickable, IRestartable, IS
         clip = LevelBuilderBase.ReplaceClipWith(clip, ReplaceClipName(builder));
         this.clip = clip;
         clip.Parent.ChangeChildLayer(clip, 2);
-        dragStartEvent = new EventSender();
+        DragStartEvent = new EventSender();
         float num = config.GetFloat("scaleX");
         initialPosition = Body.Position;
         targetPosition = initialPosition;
@@ -139,7 +136,7 @@ public class DragableBodyClip : ContreJourBodyClip, IClickable, IRestartable, IS
         {
             limitSpeed = false;
             this.touch = touch;
-            dragStartEvent.SendEvent();
+            DragStartEvent.SendEvent();
             ContreJourGame contreJourGame = (ContreJourGame)builder.Game;
             contreJourGame.IncreaseZoomOut();
             Schedule(ContreJourGame.FocusOnHero, 0.05f);

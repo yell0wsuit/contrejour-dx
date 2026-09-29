@@ -18,23 +18,20 @@ public class StrongSnotBodyClip : SnotBodyClip
     private readonly float extremeSnotDistance;
 
     private readonly float maxSnotDistance;
-
-    private readonly float normalDistance;
-
     private float targetColor;
 
     private float timeToRelease;
 
-    public float NormalDistance => normalDistance;
+    public float NormalDistance { get; }
 
     public new Vector2 Position => Physics.FirstBody.Position;
 
     public StrongSnotBodyClip(LevelBuilderBase builder, SnotData body, Node clip, Hashtable config)
         : base(builder, body, clip, config)
     {
-        normalDistance = CurrentDistance();
-        maxSnotDistance = Math.Max(normalDistance * 1.25f, normalDistance + (30f * this.builder.EngineConfig.SizeMultiplier));
-        extremeSnotDistance = normalDistance * 2f;
+        NormalDistance = CurrentDistance();
+        maxSnotDistance = Math.Max(NormalDistance * 1.25f, NormalDistance + (30f * this.builder.EngineConfig.SizeMultiplier));
+        extremeSnotDistance = NormalDistance * 2f;
         targetColor = 255f;
     }
 
@@ -161,9 +158,9 @@ public class StrongSnotBodyClip : SnotBodyClip
         else
         {
             float num2 = 0f;
-            if (flag && num > normalDistance)
+            if (flag && num > NormalDistance)
             {
-                num2 = (num - normalDistance) / normalDistance * 200f;
+                num2 = (num - NormalDistance) / NormalDistance * 200f;
             }
             targetColor = Maths.StepTo(targetColor, 255f - num2, 20f);
             timeToRelease = 0f;

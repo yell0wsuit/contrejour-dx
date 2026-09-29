@@ -13,19 +13,17 @@ public class Bezier(Vector2 _start, Vector2 _control, Vector2 _end)
 
     private Vector2 end = _end;
 
-    private float calculatedLength = -1f;
-
     public float Length
     {
         get
         {
-            if (Maths.FuzzyEquals(calculatedLength, -1f))
+            if (Maths.FuzzyEquals(field, -1f))
             {
-                calculatedLength = GetSegmentLength(1f);
+                field = GetSegmentLength(1f);
             }
-            return calculatedLength;
+            return field;
         }
-    }
+    } = -1f;
 
     private static float FirstNonZero(float value1, float value2)
     {

@@ -8,22 +8,20 @@ namespace Default.Namespace;
 
 public class LianaData : ILianaDrawData
 {
-    private readonly List<Body> bodies = [];
-
-    public List<Body> Bodies => bodies;
+    public List<Body> Bodies { get; } = [];
 
     public void AddBody(Body body)
     {
-        bodies.Add(body);
+        Bodies.Add(body);
     }
 
     public int PointsCount()
     {
-        return bodies.Count;
+        return Bodies.Count;
     }
 
     public Vector2 PositionAt(int index)
     {
-        return bodies[index].Position;
+        return Bodies[index].Position;
     }
 }

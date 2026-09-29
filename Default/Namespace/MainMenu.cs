@@ -69,9 +69,6 @@ public class MainMenu : AccelerometerMenu, IActivatedDependent
     private int currentChapter;
 
     private Vector2 winSize;
-
-    private bool planetsLoaded;
-
     private static int loadedLevel = -1;
 
     private static readonly Color BlueColor = ContreJourConstants.BlueLightColor;
@@ -106,7 +103,7 @@ public class MainMenu : AccelerometerMenu, IActivatedDependent
 
     private readonly float scoreY = 20f;
 
-    public bool PlanetsLoaded => planetsLoaded;
+    public bool PlanetsLoaded { get; private set; }
 
     public MainMenu()
     {
@@ -157,7 +154,7 @@ public class MainMenu : AccelerometerMenu, IActivatedDependent
         }
         else
         {
-            planetsLoaded = true;
+            PlanetsLoaded = true;
             SoundManager.PlayMusic("menu");
         }
         CreateButtons();
@@ -455,7 +452,7 @@ public class MainMenu : AccelerometerMenu, IActivatedDependent
 
     private void ShowPlanets()
     {
-        planetsLoaded = true;
+        PlanetsLoaded = true;
         SoundManager.PlayMusic("menu");
         names.Tweener.Stop();
         names.Visible = true;

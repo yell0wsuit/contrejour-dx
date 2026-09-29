@@ -12,27 +12,18 @@ namespace Default.Namespace;
 
 public class PlasticineBodyClip : ContreJourBodyClip, IRestartable
 {
-    private bool changed;
-
     private readonly PlasticineSprite clipContent;
 
     private readonly Dictionary<Touch, DraggingItem> draggingItems;
-
-    private PlasticineItem firstItem;
-
     private readonly PlasticineHighliteBorder highlite;
 
     private PlasticineItem leftItem;
 
     private readonly PlasticineWideBorder wideBorder;
 
-    public PlasticineItem FirstItem => firstItem;
+    public PlasticineItem FirstItem { get; private set; }
 
-    public bool Changed
-    {
-        get => changed;
-        set => changed = value;
-    }
+    public bool Changed { get; set; }
 
     public PlasticineBodyClip(LevelBuilderBase builder, List<Vector2> points, Node clip, Hashtable config)
         : base(builder, null, clip, config)
@@ -42,32 +33,32 @@ public class PlasticineBodyClip : ContreJourBodyClip, IRestartable
         clipContent = (PlasticineSprite)ReflectUtil.CreateInstance(contreJourGame.ChooseSide(typeof(BlackPlasticineSprite), typeof(WhitePlasticineSprite), typeof(PlasticineSprite)));
         Create(points);
         _ = this.builder.AddChild(clipContent);
-        firstItem.BodyClip.UpdateParent = true;
+        FirstItem.BodyClip.UpdateParent = true;
         wideBorder = new PlasticineWideBorder();
         _ = this.builder.AddChild(wideBorder);
         InitBorder(contreJourGame);
         InitFillSprite();
         if (!contreJourGame.RoseChapter)
         {
-            highlite = new PlasticineHighliteBorder(firstItem, wideBorder);
+            highlite = new PlasticineHighliteBorder(FirstItem, wideBorder);
         }
         if (highlite != null)
         {
             _ = this.builder.AddChild(highlite);
         }
-        changed = false;
+        Changed = false;
         draggingItems = [];
     }
 
     public void Restart()
     {
-        PlasticineItem nextItem = firstItem;
+        PlasticineItem nextItem = FirstItem;
         do
         {
             nextItem.BodyClip.MoveToInitialPosition();
             nextItem = nextItem.NextItem;
         }
-        while (nextItem != firstItem);
+        while (nextItem != FirstItem);
     }
 
     private void InitFillSprite()
@@ -107,7 +98,7 @@ public class PlasticineBodyClip : ContreJourBodyClip, IRestartable
 
     private void InitBorder(ContreJourGame game)
     {
-        PlasticineItem nextItem = firstItem;
+        PlasticineItem nextItem = FirstItem;
         int num = 0;
         do
         {
@@ -115,14 +106,14 @@ public class PlasticineBodyClip : ContreJourBodyClip, IRestartable
             num++;
             nextItem = nextItem.NextItem;
         }
-        while (nextItem != firstItem);
+        while (nextItem != FirstItem);
         Color borderOutColor = game.BlackSide ? PlasticineConstants.BlackBorderOutColor : ((!game.WhiteSide) ? new Color(0, 0, 0, 0) : PlasticineConstants.WhiteGroundOutColor);
         wideBorder.SetSizeBorderColorBorderOutColor(num, clipContent.Color, borderOutColor);
     }
 
     public PlasticineItem GetClosestItem(Vector2 point)
     {
-        PlasticineItem nextItem = firstItem;
+        PlasticineItem nextItem = FirstItem;
         PlasticineItem plasticineItem = null;
         float num = 0f;
         do
@@ -135,7 +126,7 @@ public class PlasticineBodyClip : ContreJourBodyClip, IRestartable
             }
             nextItem = nextItem.NextItem;
         }
-        while (nextItem != firstItem);
+        while (nextItem != FirstItem);
         return plasticineItem;
     }
 
@@ -171,13 +162,13 @@ public class PlasticineBodyClip : ContreJourBodyClip, IRestartable
 
     public void GetBorderVerticesOffset(ref List<Vector2> polygon, float offset)
     {
-        PlasticineItem nextItem = firstItem;
+        PlasticineItem nextItem = FirstItem;
         do
         {
             polygon.Add(nextItem.GetBorder(offset));
             nextItem = nextItem.NextItem;
         }
-        while (nextItem != firstItem);
+        while (nextItem != FirstItem);
     }
 
     public PlasticineBorder CreateOutBorder(float offset)
@@ -222,23 +213,23 @@ public class PlasticineBodyClip : ContreJourBodyClip, IRestartable
 
     public void UpdateGraphics(float time)
     {
-        PlasticineItem nextItem = firstItem;
+        PlasticineItem nextItem = FirstItem;
         do
         {
             nextItem.BodyClip.UpdateWideBorderAndFill();
             nextItem = nextItem.NextItem;
         }
-        while (nextItem != firstItem);
+        while (nextItem != FirstItem);
         highlite?.Update(time);
-        if (changed)
+        if (Changed)
         {
-            changed = false;
+            Changed = false;
         }
     }
 
     public bool TouchMove(Touch touch)
     {
-        changed |= draggingItems[touch].Update();
+        Changed |= draggingItems[touch].Update();
         return true;
     }
 
@@ -248,6 +239,6 @@ public class PlasticineBodyClip : ContreJourBodyClip, IRestartable
 
     public void Create(List<Vector2> points)
     {
-        firstItem = SurfaceCreator.CreateParentPointsMaxWidth((ContreJourLevelBuilder)builder, this, points, 0.6f, out leftItem);
+        FirstItem = SurfaceCreator.CreateParentPointsMaxWidth((ContreJourLevelBuilder)builder, this, points, 0.6f, out leftItem);
     }
 }

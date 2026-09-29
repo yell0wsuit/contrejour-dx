@@ -15,18 +15,11 @@ public class ClickListener : ITouchListener
     private bool enabled;
 
     private bool listening;
-
-    private float radius;
-
     private readonly Dictionary<Touch, Vector2> startPositions = [];
 
     public EventSender ClickEvent => clickEvent;
 
-    public float Radius
-    {
-        get => radius;
-        set => radius = value;
-    }
+    public float Radius { get; set; }
 
     public virtual bool Enabled
     {
@@ -38,7 +31,7 @@ public class ClickListener : ITouchListener
     {
         Mokus2DGame.Instance.TouchController.AddListener(this, priority);
         listening = true;
-        radius = 20f;
+        Radius = 20f;
         enabled = true;
     }
 
@@ -72,7 +65,7 @@ public class ClickListener : ITouchListener
 
     protected virtual bool IsOutStartPosition(Touch touch, Vector2 startPosition)
     {
-        return (touch.Position - startPosition).Length() > radius;
+        return (touch.Position - startPosition).Length() > Radius;
     }
 
     public void Remove()

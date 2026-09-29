@@ -12,14 +12,11 @@ namespace Default.Namespace;
 public class PlasticineHighliteBorder : PrimitivesNode
 {
     public const int HighlitePartVerticesCount = 4;
-
-    private readonly VertexPositionColor[] vertices;
-
     private readonly List<object> parts = [];
 
     private readonly PlasticineWideBorder border;
 
-    public VertexPositionColor[] Vertices => vertices;
+    public VertexPositionColor[] Vertices { get; }
 
     public VertexPositionColor[] InBorder => border.InBorder;
 
@@ -39,7 +36,7 @@ public class PlasticineHighliteBorder : PrimitivesNode
         }
         while (plasticineItem != firstItem);
         this.border = border;
-        vertices = new VertexPositionColor[this.border.OutBorder.Length];
+        Vertices = new VertexPositionColor[this.border.OutBorder.Length];
     }
 
     public VertexPositionColor[] OutBorder()
@@ -61,6 +58,6 @@ public class PlasticineHighliteBorder : PrimitivesNode
 
     protected override void DrawPrimitives()
     {
-        GraphUtil.DrawTriangleStrip(vertices);
+        GraphUtil.DrawTriangleStrip(Vertices);
     }
 }

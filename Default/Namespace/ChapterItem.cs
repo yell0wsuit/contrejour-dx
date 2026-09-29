@@ -33,9 +33,6 @@ public class ChapterItem : Node
     protected float depth;
 
     protected List<object> depthDependent = [];
-
-    private bool enabled;
-
     protected List<object> hidingItems = [];
 
     protected int index;
@@ -44,9 +41,7 @@ public class ChapterItem : Node
 
     protected MainMenu menu;
 
-    private readonly float offset;
-
-    public float Offset => offset;
+    public float Offset { get; }
 
     public virtual float Depth
     {
@@ -67,11 +62,7 @@ public class ChapterItem : Node
         set => lightColor = value;
     }
 
-    public bool Enabled
-    {
-        get => enabled;
-        set => enabled = value;
-    }
+    public bool Enabled { get; set; }
 
     public int Index => index;
 
@@ -96,9 +87,9 @@ public class ChapterItem : Node
         CreateSprites();
         AddChild(blurBackground);
         hidingItems.Add(background);
-        offset = this.index * (float)Math.PI * 2f / ContreJourConstants.PlanetsCount;
+        Offset = this.index * (float)Math.PI * 2f / ContreJourConstants.PlanetsCount;
         CreateClickListener();
-        enabled = true;
+        Enabled = true;
     }
 
     public override void Update(float time)

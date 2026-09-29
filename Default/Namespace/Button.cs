@@ -11,9 +11,6 @@ public class Button : TouchSprite
     public bool StopEventPropagation;
 
     protected bool enabled;
-
-    private readonly Sprite icon;
-
     private readonly Sprite pressed;
 
     private float realScale;
@@ -36,7 +33,7 @@ public class Button : TouchSprite
         set => enabled = value;
     }
 
-    public Sprite Icon => icon;
+    public Sprite Icon { get; }
 
     public Button(string backgroundFile, string pressedName, string iconName)
         : base(backgroundFile)
@@ -52,8 +49,8 @@ public class Button : TouchSprite
         }
         if (iconName != null)
         {
-            icon = new Sprite(iconName);
-            AddChild(icon);
+            Icon = new Sprite(iconName);
+            AddChild(Icon);
         }
     }
 

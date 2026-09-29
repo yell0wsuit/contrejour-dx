@@ -8,27 +8,13 @@ namespace Default.Namespace;
 
 public class Bouncer : IUpdatable
 {
-    private float amplitude;
-
-    private float currentAmplitude;
-
-    private float amplitudeStep;
-
     private readonly CosChanger changer;
 
-    public float Amplitude
-    {
-        get => amplitude;
-        set => amplitude = value;
-    }
+    public float Amplitude { get; set; }
 
-    public float CurrentAmplitude => currentAmplitude;
+    public float CurrentAmplitude { get; private set; }
 
-    public float AmplitudeStep
-    {
-        get => amplitudeStep;
-        set => amplitudeStep = value;
-    }
+    public float AmplitudeStep { get; set; }
 
     public float Step
     {
@@ -36,27 +22,27 @@ public class Bouncer : IUpdatable
         set => changer.Step = value;
     }
 
-    public float Value => changer.Value * currentAmplitude;
+    public float Value => changer.Value * CurrentAmplitude;
 
     [SuppressMessage("Style", "IDE0290:Use primary constructor", Justification = "Its random draws must run after the base constructor's, in this order.")]
     public Bouncer(float amplitude, float amplitudeStep, float step)
     {
         changer = new CosChanger(-1f, 1f, step);
-        this.amplitude = amplitude;
-        this.amplitudeStep = amplitudeStep;
+        Amplitude = amplitude;
+        AmplitudeStep = amplitudeStep;
     }
 
     public void Start()
     {
-        currentAmplitude = amplitude;
+        CurrentAmplitude = Amplitude;
         changer.Progress = (float)Math.PI / 2f;
     }
 
     public void Update(float time)
     {
-        if (Maths.FuzzyNotEquals(currentAmplitude, 0f))
+        if (Maths.FuzzyNotEquals(CurrentAmplitude, 0f))
         {
-            currentAmplitude = Maths.StepTo(currentAmplitude, 0f, amplitudeStep * time);
+            CurrentAmplitude = Maths.StepTo(CurrentAmplitude, 0f, AmplitudeStep * time);
             changer.Update(time);
         }
     }

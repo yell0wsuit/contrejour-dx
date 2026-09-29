@@ -16,9 +16,6 @@ public class GrassController : IGrassController, IUpdatable
     private readonly ContreJourGame game;
 
     protected ContreJourLevelBuilder builder;
-
-    private Particle grass;
-
     protected List<GrassAndPosition> smallGrasses;
 
     private WindData windData;
@@ -39,9 +36,9 @@ public class GrassController : IGrassController, IUpdatable
 
     private float smallGrassRotation;
 
-    public Particle Grass => grass;
+    public Particle Grass { get; private set; }
 
-    public virtual float Y => grass.Position.Y;
+    public virtual float Y => Grass.Position.Y;
 
     public virtual int GrassFrame => Maths.Random(8);
 
@@ -76,9 +73,9 @@ public class GrassController : IGrassController, IUpdatable
     public void Create()
     {
         int frame = Math.Min(GrassFrame, game.Grass.TotalFrames - 1);
-        grass = game.Grass.AddParticleWithFrame(frame);
-        grass.Position = builder.ToIPadPoint(plasticine.GetSurfaceCenter());
-        RandomizeClipMinScaleMaxScale(grass, 0.45499998f, 0.65f);
+        Grass = game.Grass.AddParticleWithFrame(frame);
+        Grass.Position = builder.ToIPadPoint(plasticine.GetSurfaceCenter());
+        RandomizeClipMinScaleMaxScale(Grass, 0.45499998f, 0.65f);
         windData = new WindData(WindAngle);
         CreateSmallGrass();
         if (!plasticine.Parent.Config.GetBool("disableFlyes"))
@@ -96,7 +93,7 @@ public class GrassController : IGrassController, IUpdatable
             Particle particle = game.Grass.AddParticleWithFrame(frame);
             RandomizeClipMinScaleMaxScale(particle, 0.6f * SmallGrassScale, SmallGrassScale);
             float smallGrassOffset = GetSmallGrassOffset(i);
-            particle.Position = new Vector2(smallGrassOffset / builder.EngineConfig.SizeMultiplier, 2f) + grass.Position;
+            particle.Position = new Vector2(smallGrassOffset / builder.EngineConfig.SizeMultiplier, 2f) + Grass.Position;
             smallGrasses.Add(new GrassAndPosition(particle, new Vector2(smallGrassOffset, 0f)));
         }
     }
@@ -144,14 +141,14 @@ public class GrassController : IGrassController, IUpdatable
         float smallGrassStep = SmallGrassStep;
         float grassStep = GrassStep;
         smallGrassRotation = Maths.StepTo(smallGrassRotation, num2.ToDegrees(), smallGrassStep * num6);
-        grass.RotationDegrees = Maths.StepTo(grass.RotationDegrees, target, grassStep * num6);
+        Grass.RotationDegrees = Maths.StepTo(Grass.RotationDegrees, target, grassStep * num6);
         touched = false;
     }
 
     public void UpdateGrassPosition()
     {
         Vector2 surfaceCenter = plasticine.GetSurfaceCenter();
-        grass.Position = builder.ToIPadPoint(surfaceCenter);
+        Grass.Position = builder.ToIPadPoint(surfaceCenter);
         foreach (GrassAndPosition smallGrass in smallGrasses)
         {
             Vector2 vector = smallGrass.Position + PlasticinePartBodyClip.GetLocalSurfaceCenter();

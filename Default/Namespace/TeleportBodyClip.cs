@@ -15,27 +15,18 @@ namespace Default.Namespace;
 public class TeleportBodyClip : BodyClip
 {
     private readonly Portal portal;
-
-    private TeleportBodyClip sibling;
-
     private readonly bool limitSpeed;
 
     private readonly List<BodyClip> teleportables;
 
-    private readonly EventSender useEvent;
+    public TeleportBodyClip Sibling { get; set; }
 
-    public TeleportBodyClip Sibling
-    {
-        get => sibling;
-        set => sibling = value;
-    }
-
-    public EventSender UseEvent => useEvent;
+    public EventSender UseEvent { get; }
 
     public TeleportBodyClip(LevelBuilderBase builder, object body, Node clip, Hashtable config)
         : base(builder, body, null, config)
     {
-        useEvent = new EventSender();
+        UseEvent = new EventSender();
         ContreJourGame contreJourGame = (ContreJourGame)builder.Game;
         limitSpeed = this.config.GetBool("limitSpeed");
         string text = this.config.GetString("color") ?? "0";
@@ -50,10 +41,10 @@ public class TeleportBodyClip : BodyClip
         portal.SpeedValue = Maths.Random(20f, 35f);
         portal.ScaleStep = 0.2f;
         builder.Add(new TeleportPortal(portal), -2);
-        sibling = contreJourGame.GetTeleport(text);
-        if (sibling != null)
+        Sibling = contreJourGame.GetTeleport(text);
+        if (Sibling != null)
         {
-            sibling.Sibling = this;
+            Sibling.Sibling = this;
         }
         else
         {
@@ -64,7 +55,7 @@ public class TeleportBodyClip : BodyClip
 
     public void Use()
     {
-        useEvent.SendEvent();
+        UseEvent.SendEvent();
         portal.TargetScale = 0.2f;
         Schedule(RestoreScale, 0.1f);
         Schedule(SetMaxScale, 1f / 30f);
@@ -99,7 +90,7 @@ public class TeleportBodyClip : BodyClip
             {
                 MoveHero(bodyClip);
             }, num2);
-            useEvent.SendEvent();
+            UseEvent.SendEvent();
         }
     }
 
@@ -120,10 +111,10 @@ public class TeleportBodyClip : BodyClip
     private void MoveHero(BodyClip bodyClip)
     {
         ITeleportable teleportable = bodyClip as ITeleportable;
-        sibling.TeleportFromSibling(bodyClip);
+        Sibling.TeleportFromSibling(bodyClip);
         bodyClip.Clip.Scale = 0f;
         bodyClip.Clip.Tweener.Stop();
-        bodyClip.Body.SetTransform(sibling.Body.Position, bodyClip.Body.Rotation);
+        bodyClip.Body.SetTransform(Sibling.Body.Position, bodyClip.Body.Rotation);
         teleportable.AfterTeleport();
         teleportable.SnotEnabled = true;
         portal.TargetScale = 1.2f;
@@ -131,8 +122,8 @@ public class TeleportBodyClip : BodyClip
         teleportable.ForceClipPosition();
         ScaleHero(bodyClip);
         UpdateTeleportTime();
-        sibling.UpdateTeleportTime();
-        sibling.Use();
+        Sibling.UpdateTeleportTime();
+        Sibling.Use();
         if (limitSpeed)
         {
             Vector2 vec = bodyClip.Body.LinearVelocity;

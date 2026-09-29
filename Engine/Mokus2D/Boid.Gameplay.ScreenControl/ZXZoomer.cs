@@ -21,23 +21,20 @@ public class ZXZoomer : DisposableBase, IUpdatable
     public float? ZoomMin { get; set; }
 
     private readonly float ZoomSpeed = 1f;
-
-    private float _zoom = 1f;
-
     private int _zoomDirection;
 
     public float Zoom
     {
-        get => _zoom;
+        get;
         private set
         {
-            if (_zoom != value)
+            if (field != value)
             {
-                _zoom = value;
+                field = value;
                 ZoomChangeEvent.Dispatch(value);
             }
         }
-    }
+    } = 1f;
 
     public event Action<float> ZoomChangeEvent;
 

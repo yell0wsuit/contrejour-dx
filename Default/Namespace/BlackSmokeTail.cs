@@ -26,21 +26,9 @@ public class BlackSmokeTail(Body _body, LevelBuilderBase _builder) : IUpdatable
 
     private bool initialized;
 
-    private float startScale = 1f;
+    public float StartScale { get; set; } = 1f;
 
-    private string clipName = "McTailPart";
-
-    public float StartScale
-    {
-        get => startScale;
-        set => startScale = value;
-    }
-
-    public string ClipName
-    {
-        get => clipName;
-        set => clipName = value;
-    }
+    public string ClipName { get; set; } = "McTailPart";
 
     public void Update(float time)
     {
@@ -48,7 +36,7 @@ public class BlackSmokeTail(Body _body, LevelBuilderBase _builder) : IUpdatable
         List<object> list = [];
         foreach (Sprite item in items.Cast<Sprite>())
         {
-            item.Scale -= 0.05f * startScale;
+            item.Scale -= 0.05f * StartScale;
             item.OpacityByte -= 8;
             if (item.OpacityByte <= 0 || item.Scale <= 0f)
             {
@@ -69,11 +57,11 @@ public class BlackSmokeTail(Body _body, LevelBuilderBase _builder) : IUpdatable
             float num3 = num / num2;
             for (int i = 0; i < num2; i++)
             {
-                Node node = ClipTypesCache.CreateNewNode(clipName);
+                Node node = ClipTypesCache.CreateNewNode(ClipName);
                 node.Position = VectorUtil.StepTo(previousPosition, vector, num3 * i);
                 float num4 = 1f - (i / (float)num2);
-                node.Scale *= startScale;
-                node.Scale -= 0.05f * num4 * startScale;
+                node.Scale *= StartScale;
+                node.Scale -= 0.05f * num4 * StartScale;
                 node.OpacityByte = (int)(150f - (8f * num4));
                 builder.Add(node, 3);
                 items.Add(node);

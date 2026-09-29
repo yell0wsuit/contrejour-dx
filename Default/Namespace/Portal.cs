@@ -16,8 +16,6 @@ public class Portal : ParticleSystem
 
     private float itemsScale;
 
-    private float scaleStep;
-
     public float TargetScale
     {
         get => targetScale;
@@ -59,11 +57,7 @@ public class Portal : ParticleSystem
         }
     }
 
-    public float ScaleStep
-    {
-        get => scaleStep;
-        set => scaleStep = value;
-    }
+    public float ScaleStep { get; set; }
 
     public Portal(ContreJourGame game, Vector2 position)
         : this(game, position, "common/McFinishPart")
@@ -75,7 +69,7 @@ public class Portal : ParticleSystem
     {
         parts = [];
         Blend = BlendState.Additive;
-        scaleStep = 0.05f;
+        ScaleStep = 0.05f;
         for (int i = 0; i < 5; i++)
         {
             Satellite item = new(game, AddParticle(), null, (float)Math.PI * 2f / 5f * i, position);
@@ -91,7 +85,7 @@ public class Portal : ParticleSystem
         base.Update(time);
         if (Maths.FuzzyNotEquals(itemsScale, targetScale))
         {
-            itemsScale = Maths.StepTo(itemsScale, targetScale, scaleStep * time * 30f);
+            itemsScale = Maths.StepTo(itemsScale, targetScale, ScaleStep * time * 30f);
         }
         Visible = itemsScale > 0f;
     }

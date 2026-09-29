@@ -12,24 +12,15 @@ namespace Default.Namespace;
 public class PlanetLiana : Node, ILianaDrawData
 {
     private readonly List<Vector2> points = [];
-
-    private readonly LianaSprite sprite;
-
     private readonly CosChanger changer;
 
     private Vector2 middle;
 
     private readonly float angle;
 
-    private bool stoped;
+    public bool Stoped { get; set; }
 
-    public bool Stoped
-    {
-        get => stoped;
-        set => stoped = value;
-    }
-
-    public LianaSprite Sprite => sprite;
+    public LianaSprite Sprite { get; }
 
     public PlanetLiana(Vector2 start, Vector2 middle, Vector2 end)
     {
@@ -38,8 +29,8 @@ public class PlanetLiana : Node, ILianaDrawData
         this.middle = defaultConfig.ToVec(middle);
         points.Add(this.middle);
         points.Add(defaultConfig.ToVec(end));
-        sprite = new LianaSprite(this, new Color(50, 50, 50, 255), Maths.Random(2f, 4f));
-        AddChild(sprite);
+        Sprite = new LianaSprite(this, new Color(50, 50, 50, 255), Maths.Random(2f, 4f));
+        AddChild(Sprite);
         angle = Maths.Random(-(float)Math.PI / 6f, (float)Math.PI / 6f);
         changer = new CosChanger(0f - Maths.Random(0.1f, 0.5f), Maths.Random(0.1f, 0.5f), Maths.Random(0.01f, 0.02f));
     }
@@ -52,12 +43,12 @@ public class PlanetLiana : Node, ILianaDrawData
 
     public override void Update(float time)
     {
-        if (!stoped)
+        if (!Stoped)
         {
             changer.Update(time);
             points[1] = middle + VectorUtil.ToVector(changer.Value, angle);
         }
-        sprite.Update(time);
+        Sprite.Update(time);
     }
 
     public override void Draw(VisualState state)

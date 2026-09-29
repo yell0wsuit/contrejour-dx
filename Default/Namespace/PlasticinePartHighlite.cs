@@ -23,13 +23,7 @@ public class PlasticinePartHighlite : IUpdatable
     private readonly int index;
 
     private bool dirty;
-
-    private float lightLength;
-
     private Vector2 lightBottom;
-
-    private bool hasLight;
-
     private bool highliteSet;
 
     private Color noLightBorderOut;
@@ -38,11 +32,7 @@ public class PlasticinePartHighlite : IUpdatable
 
     public static readonly Color NoLightBorderOut = new(0, 0, 0, 0);
 
-    public float LightLength
-    {
-        get => lightLength;
-        set => lightLength = value;
-    }
+    public float LightLength { get; set; }
 
     public Vector2 LightBottom
     {
@@ -50,11 +40,7 @@ public class PlasticinePartHighlite : IUpdatable
         set => lightBottom = value;
     }
 
-    public bool HasLight
-    {
-        get => hasLight;
-        set => hasLight = value;
-    }
+    public bool HasLight { get; set; }
 
     private bool MirrorLight => game.WhiteSide || game.BlackSide || game.BonusChapter;
 
@@ -78,23 +64,23 @@ public class PlasticinePartHighlite : IUpdatable
     private void RefreshPositions()
     {
         float num = Math.Abs((VectorUtil.Atan2(NextBodyClip().Body.Position, game.LightPoint) - ((float)Math.PI / 2f)).SimplifyAngle(NextBodyClip().Body.Rotation - (float)Math.PI) - NextBodyClip().Body.Rotation);
-        hasLight = num < 1.3463969f;
+        HasLight = num < 1.3463969f;
         if (MirrorLight && num > (float)Math.PI / 2f)
         {
             num = (float)Math.PI - num;
-            hasLight = num < 1.3463969f;
+            HasLight = num < 1.3463969f;
         }
-        lightLength = 0f;
-        if (hasLight)
+        LightLength = 0f;
+        if (HasLight)
         {
-            lightLength = 1.2f * Math.Max(1f - (num / 1.3463969f), 0f);
+            LightLength = 1.2f * Math.Max(1f - (num / 1.3463969f), 0f);
         }
         if (MirrorLight)
         {
-            lightLength = Math.Max(lightLength, 0.1f);
-            hasLight = true;
+            LightLength = Math.Max(LightLength, 0.1f);
+            HasLight = true;
         }
-        Vector2 vector = new(0f, 0f - lightLength + (7f / 12f));
+        Vector2 vector = new(0f, 0f - LightLength + (7f / 12f));
         Vector2 worldPoint = NextBodyClip().Body.GetWorldPoint(vector);
         lightBottom = builder.ToPoint(worldPoint);
     }
@@ -138,9 +124,9 @@ public class PlasticinePartHighlite : IUpdatable
         vertices[index].Color = array[index].Color = flag ? lightColor.LightOutColor : mainColor;
         vertices[index + 1].Color = flag ? lightColor.LightInColor : mainColor;
         array[index + 1].Color = flag ? lightColor.LightBorderColor : noLightBorderOut;
-        vertices[index + 2].Color = array[index + 2].Color = hasLight ? lightColor.LightOutColor : mainColor;
-        vertices[index + 3].Color = hasLight ? lightColor.LightInColor : mainColor;
-        array[index + 3].Color = hasLight ? lightColor.LightBorderColor : noLightBorderOut;
+        vertices[index + 2].Color = array[index + 2].Color = HasLight ? lightColor.LightOutColor : mainColor;
+        vertices[index + 3].Color = HasLight ? lightColor.LightInColor : mainColor;
+        array[index + 3].Color = HasLight ? lightColor.LightBorderColor : noLightBorderOut;
     }
 
     public PlasticinePartHighlite PreviousHighlite()
@@ -181,6 +167,6 @@ public class PlasticinePartHighlite : IUpdatable
         vertices[index].Position = inBorder[index].Position;
         vertices[index + 2].Position = inBorder[index + 2].Position;
         vertices[index + 1].Position = flag ? PreviousHighlite().LightBottom.Middle(lightBottom).ToVector3() : vertices[index].Position;
-        vertices[index + 3].Position = hasLight ? lightBottom.ToVector3() : vertices[index + 2].Position;
+        vertices[index + 3].Position = HasLight ? lightBottom.ToVector3() : vertices[index + 2].Position;
     }
 }

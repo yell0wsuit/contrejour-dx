@@ -50,13 +50,7 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
     private bool jointRemoved;
 
     private float length;
-
-    private readonly EventSender linkEvent;
-
     protected ISnotLinked linked;
-
-    private readonly EventSender releaseEvent;
-
     private readonly SnotEye snotEye;
 
     protected RevoluteJoint stickyJoint;
@@ -88,9 +82,9 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
         }
     } = true;
 
-    public EventSender LinkEvent => linkEvent;
+    public EventSender LinkEvent { get; }
 
-    public EventSender ReleaseEvent => releaseEvent;
+    public EventSender ReleaseEvent { get; }
 
     public ISnotLinked Linked => linked;
 
@@ -108,8 +102,8 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
         : base(builder, body, clip, config)
     {
         length = Physics.InitialLength;
-        linkEvent = new EventSender();
-        releaseEvent = new EventSender();
+        LinkEvent = new EventSender();
+        ReleaseEvent = new EventSender();
         SetDamping(FreeDamping());
         movable = this.config.GetBool("movable");
         snotEye = movable
@@ -470,7 +464,7 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
             eye.Open = false;
             ApplyDisconnectForce();
             SetZ(Layer());
-            releaseEvent.SendEvent();
+            ReleaseEvent.SendEvent();
         }
         if (touch != null)
         {
@@ -508,7 +502,7 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
         eye.Open = true;
         SetZ(Layer() + 1);
         ContreJourGame.FocusOnHero();
-        linkEvent.SendEvent();
+        LinkEvent.SendEvent();
     }
 
     public static bool BodyConnectedToStaticProcessed(Body body, ref List<Body> processed)

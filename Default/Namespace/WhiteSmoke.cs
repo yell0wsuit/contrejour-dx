@@ -9,29 +9,11 @@ public class WhiteSmoke : GravityParticleSystem
 {
     public bool ScaleDownOnDestroy = true;
 
-    private float maxOpacity;
+    public float OpacityStep { get; set; }
 
-    private float opacityStep;
+    public float ScaleStep { get; set; }
 
-    private float scaleStep;
-
-    public float OpacityStep
-    {
-        get => opacityStep;
-        set => opacityStep = value;
-    }
-
-    public float ScaleStep
-    {
-        get => scaleStep;
-        set => scaleStep = value;
-    }
-
-    public float MaxOpacity
-    {
-        get => maxOpacity;
-        set => maxOpacity = value;
-    }
+    public float MaxOpacity { get; set; }
 
     public virtual Vector2 SmokePosition
     {
@@ -53,7 +35,7 @@ public class WhiteSmoke : GravityParticleSystem
     {
         Speed = new RandomRange(250f, 80f);
         ParticlesScale = new RandomRange(2f, 1f);
-        maxOpacity = 255f;
+        MaxOpacity = 255f;
     }
 
     public override void InitParticle(GravityParticle gravityParticle)
@@ -72,15 +54,15 @@ public class WhiteSmoke : GravityParticleSystem
         base.UpdateParticleTime(particle, time);
         if (particle.Tag != null)
         {
-            particle.OpacityByte = (int)Maths.StepTo(particle.OpacityByte, maxOpacity, maxOpacity / 4f);
-            if (particle.OpacityByte >= maxOpacity)
+            particle.OpacityByte = (int)Maths.StepTo(particle.OpacityByte, MaxOpacity, MaxOpacity / 4f);
+            if (particle.OpacityByte >= MaxOpacity)
             {
                 particle.Tag = null;
             }
         }
         else
         {
-            float num = opacityStep * time / 255f;
+            float num = OpacityStep * time / 255f;
             if ((double)particle.OpacityFloat < 0.5 && ScaleDownOnDestroy)
             {
                 num *= 4f;
@@ -89,13 +71,13 @@ public class WhiteSmoke : GravityParticleSystem
         }
         if ((double)particle.OpacityFloat < 0.5 && ScaleDownOnDestroy)
         {
-            particle.Scale -= scaleStep * time;
+            particle.Scale -= ScaleStep * time;
         }
         else
         {
-            particle.Scale += scaleStep * time;
+            particle.Scale += ScaleStep * time;
         }
-        if (particle.OpacityByte <= 0 || (scaleStep < 0f && (particle.Scale < 2f || particle.OpacityByte > 150)))
+        if (particle.OpacityByte <= 0 || (ScaleStep < 0f && (particle.Scale < 2f || particle.OpacityByte > 150)))
         {
             particle.Visible = false;
             InitParticle((GravityParticle)particle);

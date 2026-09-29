@@ -11,12 +11,7 @@ namespace Default.Namespace;
 
 public class PlasticineItem : LinkedListItem
 {
-    private readonly float width;
-
     private Vector2 initialPosition = Vector2.Zero;
-
-    private readonly float initialAngle;
-
     private Vector2 innerPosition;
 
     private Vector2 outerPosition;
@@ -27,11 +22,11 @@ public class PlasticineItem : LinkedListItem
 
     private Vector2 ortogonalVec;
 
-    public float InitialAngle => initialAngle;
+    public float InitialAngle { get; }
 
     public Vector2 InitialPosition => initialPosition;
 
-    private float Width => width;
+    private float Width { get; }
 
     public PlasticineItem NextItem => (PlasticineItem)Next;
 
@@ -46,9 +41,9 @@ public class PlasticineItem : LinkedListItem
     {
         bodyClip.Item = this;
         bodyClip.SetDirty();
-        this.width = width;
+        Width = width;
         initialPosition = Body.Position;
-        initialAngle = Body.Rotation;
+        InitialAngle = Body.Rotation;
         innerPosition = GetBorderVec(-1f / 3f);
         outerPosition = GetBorderVec(1.3333334f);
         normalVec = outerPosition - innerPosition;
@@ -61,14 +56,14 @@ public class PlasticineItem : LinkedListItem
         BodyClip.OnTouchWith(offset, objectP);
         PlasticineItem previousItem = PreviousItem;
         float num;
-        for (num = (width / 2f) + offset + (previousItem.Width / 2f); num < maxDistance; num += previousItem.Width / 2f)
+        for (num = (Width / 2f) + offset + (previousItem.Width / 2f); num < maxDistance; num += previousItem.Width / 2f)
         {
             previousItem.BodyClip.OnTouchWith(num, objectP);
             num += previousItem.Width / 2f;
             previousItem = previousItem.PreviousItem;
         }
         previousItem = NextItem;
-        num = offset - (width / 2f) - (previousItem.Width / 2f);
+        num = offset - (Width / 2f) - (previousItem.Width / 2f);
         while (Math.Abs(num) < maxDistance)
         {
             previousItem.BodyClip.OnTouchWith(num, objectP);
@@ -129,17 +124,17 @@ public class PlasticineItem : LinkedListItem
 
     public Vector2 GetLeft()
     {
-        return Body.GetWorldPoint(new Vector2((0f - width) / 2f, 0f));
+        return Body.GetWorldPoint(new Vector2((0f - Width) / 2f, 0f));
     }
 
     public Vector2 GetRight()
     {
-        return Body.GetWorldPoint(new Vector2(width / 2f, 0f));
+        return Body.GetWorldPoint(new Vector2(Width / 2f, 0f));
     }
 
     public Vector2 GetBorderVec(float offset)
     {
-        return Body.GetWorldPoint(new Vector2(width / 2f, (5f / 12f) + offset));
+        return Body.GetWorldPoint(new Vector2(Width / 2f, (5f / 12f) + offset));
     }
 
     public Vector2 GetBorder(float offset)
@@ -159,12 +154,12 @@ public class PlasticineItem : LinkedListItem
 
     public Vector2 GetNextAnchorPosition()
     {
-        return Body.GetWorldPoint(new Vector2(width * 2f, 0f));
+        return Body.GetWorldPoint(new Vector2(Width * 2f, 0f));
     }
 
     public Vector2 GetPreviuosAnchorPosition()
     {
-        return Body.GetWorldPoint(new Vector2((0f - width) * 2f, 0f));
+        return Body.GetWorldPoint(new Vector2((0f - Width) * 2f, 0f));
     }
 
     public Vector2 GetRightSurfacePosition()
@@ -174,11 +169,11 @@ public class PlasticineItem : LinkedListItem
 
     public Vector2 GetRightSurfacePositionLocal()
     {
-        return new Vector2(width / 2f, 7f / 12f);
+        return new Vector2(Width / 2f, 7f / 12f);
     }
 
     public Vector2 GetLeftSurfacePositionLocal()
     {
-        return new Vector2((0f - width) / 2f, 7f / 12f);
+        return new Vector2((0f - Width) / 2f, 7f / 12f);
     }
 }

@@ -12,8 +12,6 @@ public abstract class TouchEffect(Node node)
 
     protected float effectTime = 0.1f;
 
-    private bool isOn;
-
     public float EffectTime
     {
         get => effectTime;
@@ -22,12 +20,12 @@ public abstract class TouchEffect(Node node)
 
     public bool IsOn
     {
-        get => isOn;
+        get;
         set
         {
-            if (value != isOn)
+            if (value != field)
             {
-                isOn = value;
+                field = value;
                 if (value)
                 {
                     OnAction(Node);

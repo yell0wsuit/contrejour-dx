@@ -2,36 +2,24 @@ namespace Default.Namespace;
 
 public class WindData
 {
-    private readonly float minAngle;
+    public float MinAngle { get; }
 
-    private readonly float maxAngle;
+    public float MaxAngle { get; }
 
-    private float windOffset;
+    public float WindOffset { get; set; }
 
-    private readonly float diff;
-
-    public float MinAngle => minAngle;
-
-    public float MaxAngle => maxAngle;
-
-    public float WindOffset
-    {
-        get => windOffset;
-        set => windOffset = value;
-    }
-
-    public float Diff => diff;
+    public float Diff { get; }
 
     public WindData(float angle)
     {
-        minAngle = Maths.Random(0f - angle, 0f);
-        maxAngle = Maths.Random(0f, angle);
-        diff = maxAngle - minAngle;
-        windOffset = Maths.Random(-0.7f, 0.7f);
+        MinAngle = Maths.Random(0f - angle, 0f);
+        MaxAngle = Maths.Random(0f, angle);
+        Diff = MaxAngle - MinAngle;
+        WindOffset = Maths.Random(-0.7f, 0.7f);
     }
 
     public float GetAngle(float wind)
     {
-        return minAngle + (diff * wind);
+        return MinAngle + (Diff * wind);
     }
 }

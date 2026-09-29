@@ -8,31 +8,27 @@ namespace Mokus2D.Integration.Farseer.Physics;
 
 public class PhysicsUpdater : PhysicsTransform, IUpdatable
 {
-    private readonly World world;
+    public World World { get; }
 
-    private readonly FarseerConfig config;
+    public FarseerConfig Config { get; }
 
-    public World World => world;
-
-    public FarseerConfig Config => config;
-
-    public new float PhysicsToPixels => config.PhysicsToPixels;
+    public new float PhysicsToPixels => Config.PhysicsToPixels;
 
     public PhysicsUpdater(World world, FarseerConfig config = null)
         : base(0f)
     {
         config ??= FarseerConfig.DefaultConfig;
         base.PhysicsToPixels = config.PhysicsToPixels;
-        this.world = world;
+        World = world;
         // The listener subscribes itself to the world's contact events.
-        _ = new ContactListener(this.world);
-        this.config = config;
+        _ = new ContactListener(World);
+        Config = config;
     }
 
     public void Update(float time)
     {
-        world.Step(time);
-        foreach (Body body in world.BodyList)
+        World.Step(time);
+        foreach (Body body in World.BodyList)
         {
             if (body.UserData is BodyClip bodyClip)
             {

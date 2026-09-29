@@ -19,9 +19,7 @@ public class EnergyBodyClip : BodyClip, IRestartable
 
     private bool collected;
 
-    private readonly EventSender collectEvent;
-
-    public EventSender CollectEvent => collectEvent;
+    public EventSender CollectEvent { get; }
 
     public EnergyBodyClip(LevelBuilderBase builder, object body, Node clip, Hashtable config)
         : base(builder, body, clip, config)
@@ -29,7 +27,7 @@ public class EnergyBodyClip : BodyClip, IRestartable
         clip.Visible = false;
         contreJourBuilder = (ContreJourLevelBuilder)this.builder;
         energyParts = [];
-        collectEvent = new EventSender();
+        CollectEvent = new EventSender();
         CreateParts();
     }
 
@@ -49,7 +47,7 @@ public class EnergyBodyClip : BodyClip, IRestartable
             return;
         }
         collected = true;
-        collectEvent.SendEvent();
+        CollectEvent.SendEvent();
         SoundManager.PlayRandomSound(Sounds.BONUS, 0.5f);
         contreJourBuilder.ContreJour.CollectStar();
         foreach (EnergyPart energyPart in energyParts.Cast<EnergyPart>())

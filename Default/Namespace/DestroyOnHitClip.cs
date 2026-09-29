@@ -15,13 +15,7 @@ public class DestroyOnHitClip(LevelBuilderBase builder, object body, Node clip, 
 {
     private Explosion explosion;
 
-    private int snotJoinedCount;
-
-    public int SnotJoinedCount
-    {
-        get => snotJoinedCount;
-        set => snotJoinedCount = value;
-    }
+    public int SnotJoinedCount { get; set; }
 
     public override void OnCollisionStartPoint(Body body2, Contact point)
     {

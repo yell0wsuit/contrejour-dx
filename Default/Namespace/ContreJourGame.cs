@@ -70,93 +70,31 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
     public readonly EventSender RestartEvent = new();
 
     private readonly PausePanel pausePanel;
-
-    private readonly Node alphaBackground;
-
-    private readonly EventSender backEvent;
-
     private readonly List<BackgroundBase> backgrounds = [];
-
-    private readonly bool blackSide;
-
-    private IBonusAcceptable bonusTarget;
-
     private Color buttonsColor;
-
-    private readonly int chapter;
-
-    private readonly ClickableLayer clickableLayer;
-
     private readonly Dictionary<Touch, IClickable> draggingItems;
-
-    private ParticleSystem dust;
-
-    private EndLevelBodyClip endLevel;
-
-    private ParticleSystem energy;
-
     private readonly FinishView finishView;
-
-    private bool finished;
-
     private float flyOpacity;
-
-    private ParticleSystem flyes;
-
     private readonly List<ForegroundBase> foregrounds = [];
-
-    private int frame;
-
     private readonly List<Touch> freeDisabledTouches;
 
     private readonly List<Touch> freeTouches;
-
-    private ParticleSystem grass;
-
     private readonly Button pauseButton;
-
-    private GroundFall groundFall;
-    private int levelIndex;
-
-    private LightColor lightColor;
-
     private Vector2 lightPoint;
 
     private float lightPower;
-
-    private bool lightPowerChanged;
-
-    private readonly EventSender nextLevelEvent;
-
     private GravityParticleSystem particles;
-
-    private readonly List<PlasticineBodyClip> plasticine = new(8);
-
     private readonly List<object> positionDependent;
 
     private readonly List<object> positionProviders;
 
     private float providersValue;
-
-    private bool restartEnabled;
-
     private readonly LayerColor restartLayer;
-
-    private bool snotSend;
-
-    private int starsCollected;
-
     private readonly LightColor startLightColor;
 
     private readonly Hashtable teleports;
 
     private readonly List<string> texturesToUnload;
-
-    private bool touchEnabled;
-    private readonly bool whiteSide;
-
-    private readonly WindManager windManager;
-
     private int zoomOutCount;
 
     public static readonly int[] MinZoomLevels =
@@ -182,7 +120,7 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
         {
             if (Paused != value)
             {
-                clickableLayer.InteractionsEnabled = !value;
+                ClickableLayer.InteractionsEnabled = !value;
                 GameRoot.UpdateEnabled = !value;
                 paused = value;
                 if (!value && ContreJourConfig.BackButtonVisible)
@@ -194,25 +132,21 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
         }
     }
 
-    public int Frame
-    {
-        get => frame;
-        set => frame = value;
-    }
+    public int Frame { get; set; }
 
-    public WindManager WindManager => windManager;
+    public WindManager WindManager { get; }
 
-    public Node AlphaBackground => alphaBackground;
+    public Node AlphaBackground { get; }
 
-    public bool BlackSide => blackSide;
+    public bool BlackSide { get; }
 
-    public bool WhiteSide => whiteSide;
+    public bool WhiteSide { get; }
 
-    public int Chapter => chapter;
+    public int Chapter { get; }
 
-    public EventSender BackEvent => backEvent;
+    public EventSender BackEvent { get; }
 
-    public EventSender NextLevelEvent => nextLevelEvent;
+    public EventSender NextLevelEvent { get; }
 
     public HeroBodyClip Hero { get; private set; }
 
@@ -226,13 +160,13 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
             if (Maths.FuzzyNotEquals(flyOpacity, value))
             {
                 flyOpacity = value;
-                flyes.OpacityByte = (int)value;
-                flyes.Visible = value > 0f;
+                Flyes.OpacityByte = (int)value;
+                Flyes.Visible = value > 0f;
             }
         }
     }
 
-    public List<PlasticineBodyClip> Plasticine => plasticine;
+    public List<PlasticineBodyClip> Plasticine { get; } = new(8);
 
     public Vector2 LightPoint
     {
@@ -240,71 +174,47 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
         set => lightPoint = value;
     }
 
-    public bool LightPowerChanged => lightPowerChanged;
+    public bool LightPowerChanged { get; private set; }
 
-    public LightColor LightColor => lightColor;
+    public LightColor LightColor { get; private set; }
 
-    public ParticleSystem Flyes => flyes;
+    public ParticleSystem Flyes { get; private set; }
 
-    public ParticleSystem Dust => dust;
+    public ParticleSystem Dust { get; private set; }
 
-    public ParticleSystem Grass => grass;
+    public ParticleSystem Grass { get; private set; }
 
-    public ParticleSystem Energy => energy;
+    public ParticleSystem Energy { get; private set; }
 
-    public GroundFall GroundFall => groundFall;
+    public GroundFall GroundFall { get; private set; }
 
-    public EndLevelBodyClip EndLevel
-    {
-        get => endLevel;
-        set => endLevel = value;
-    }
+    public EndLevelBodyClip EndLevel { get; set; }
 
-    public bool TouchEnabled
-    {
-        get => touchEnabled;
-        set => touchEnabled = value;
-    }
+    public bool TouchEnabled { get; set; }
 
-    public int LevelIndex => levelIndex;
+    public int LevelIndex { get; private set; }
 
-    public IBonusAcceptable BonusTarget
-    {
-        get => bonusTarget ?? Hero;
-        set => bonusTarget = value;
-    }
+    public IBonusAcceptable BonusTarget { get => field ?? Hero; set; }
 
     public bool CanShowIntro { get; set; }
 
-    public int StarsCollected => starsCollected;
+    public int StarsCollected { get; private set; }
 
-    public bool SnotSend
-    {
-        get => snotSend;
-        set => snotSend = value;
-    }
+    public bool SnotSend { get; set; }
 
-    public ClickableLayer ClickableLayer => clickableLayer;
+    public ClickableLayer ClickableLayer { get; }
 
     public Color ButtonsColor => buttonsColor;
 
-    public bool RestartEnabled
-    {
-        get => restartEnabled;
-        set => restartEnabled = value;
-    }
+    public bool RestartEnabled { get; set; }
 
-    public bool Finished
-    {
-        get => finished;
-        set => finished = value;
-    }
+    public bool Finished { get; set; }
 
     public new ContreJourLevelBuilder Builder => (ContreJourLevelBuilder)base.Builder;
 
-    public bool RoseChapter => chapter == 4;
+    public bool RoseChapter => Chapter == 4;
 
-    public bool BonusChapter => chapter == 5;
+    public bool BonusChapter => Chapter == 5;
 
     public int HeroIndex => Builder.GameRoot.Children.IndexOf(Hero.Clip);
 
@@ -318,7 +228,7 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
             if (Maths.FuzzyNotEquals(lightPower, value))
             {
                 lightPower = value;
-                lightPowerChanged = true;
+                LightPowerChanged = true;
                 RefreshLightColor();
             }
         }
@@ -327,36 +237,36 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
     public ContreJourGame(int chapter)
     {
         freeDisabledTouches = [];
-        this.chapter = chapter;
-        blackSide = this.chapter == 1;
-        whiteSide = this.chapter == 3;
-        touchEnabled = true;
+        Chapter = chapter;
+        BlackSide = Chapter == 1;
+        WhiteSide = Chapter == 3;
+        TouchEnabled = true;
         Vector2 w7FromIPhoneSize = ScreenConstants.W7FromIPhoneSize;
         Vector2 vector = new(w7FromIPhoneSize.X, w7FromIPhoneSize.Y);
-        Vector2 point = blackSide ? new Vector2(w7FromIPhoneSize.X / 2f, w7FromIPhoneSize.Y * 2f) : vector;
+        Vector2 point = BlackSide ? new Vector2(w7FromIPhoneSize.X / 2f, w7FromIPhoneSize.Y * 2f) : vector;
         lightPoint = Box2DConfig.DefaultConfig.ToVec(point);
         lightPower = 1f;
-        lightColor = ChooseSide(PlasticineConstants.BLUE, PlasticineConstants.BlackLight, PlasticineConstants.LastLight, PlasticineConstants.WHITE, PlasticineConstants.Green);
-        startLightColor = lightColor;
+        LightColor = ChooseSide(PlasticineConstants.BLUE, PlasticineConstants.BlackLight, PlasticineConstants.LastLight, PlasticineConstants.WHITE, PlasticineConstants.Green);
+        startLightColor = LightColor;
         flyOpacity = 255f;
         Mokus2DGame.Instance.TouchController.AddListener(this);
         draggingItems = [];
         providersValue = 0f;
         positionProviders = [];
         positionDependent = [];
-        windManager = new WindManager(whiteSide ? 0.02f : 0.03f);
-        alphaBackground = new Node();
-        gameRoot.AddChild(alphaBackground, -10);
+        WindManager = new WindManager(WhiteSide ? 0.02f : 0.03f);
+        AlphaBackground = new Node();
+        gameRoot.AddChild(AlphaBackground, -10);
         freeTouches = [];
-        backEvent = new EventSender();
-        nextLevelEvent = new EventSender();
-        clickableLayer = new ClickableLayer();
-        AddChild(clickableLayer, 15);
+        BackEvent = new EventSender();
+        NextLevelEvent = new EventSender();
+        ClickableLayer = new ClickableLayer();
+        AddChild(ClickableLayer, 15);
         restartLayer = new LayerColor(Color.Black, "menu/whitePixel");
         AddChild(restartLayer, 100);
         restartLayer.Visible = false;
         Color color = ColorUtil.Mult(ContreJourConstants.BlueLightColor, 2f);
-        buttonsColor = blackSide ? color : ContreJourConstants.GreyColor;
+        buttonsColor = BlackSide ? color : ContreJourConstants.GreyColor;
         _ = ScreenConstants.W7FromIPhoneSize;
         if (ContreJourConfig.BackButtonVisible)
         {
@@ -370,13 +280,13 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
             };
             pauseButton.Position = ContreJourConfig.BackButtonPosition;
             pauseButton.Color = buttonsColor;
-            clickableLayer.AddChild(pauseButton);
+            ClickableLayer.AddChild(pauseButton);
         }
         pausePanel = new PausePanel(this);
         AddChild(pausePanel, 15);
         texturesToUnload = [];
         finishView = new FinishView(this);
-        starsCollected = 0;
+        StarsCollected = 0;
         teleports = [];
         _ = GameRoot.Schedule(1.5f, EnableRestart);
         Mokus2DGame.Instance.KeysController.AddBackKeyListener(OnBackPress);
@@ -393,8 +303,8 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
 
     public void LoadLevelIndex(int index)
     {
-        Maths.Randomize(levelIndex);
-        levelIndex = index;
+        Maths.Randomize(LevelIndex);
+        LevelIndex = index;
         pausePanel.SetLevelIndex(index);
         LoadLevel($"level{index}iPhone");
     }
@@ -407,7 +317,7 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
 
     public override void ProcessLevel(Level level)
     {
-        if (!blackSide)
+        if (!BlackSide)
         {
             CreateFlyes();
             CreateGrass();
@@ -422,17 +332,17 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
         Vector2 point = levelSize.AddY(GameRoot.Y / GameRoot.Scale);
         LevelScreenPhysicsBounds = new RectangleFloat(Builder.ToVec(new Vector2(0f, (0f - GameRoot.Y) / GameRoot.Scale)), Builder.ToVec(point));
         LevelScreenBounds = LevelScreenPhysicsBounds * (1f / builder.SizeMult);
-        alphaBackground.Scale = Math.Max(levelSize.X / ScreenConstants.OsSizes.IPhoneRetina.X, (LevelSize.Y + (GameRoot.Y / GameRoot.Scale)) / ScreenConstants.OsSizes.IPhoneRetina.Y);
-        alphaBackground.Y = (0f - GameRoot.Y) / GameRoot.Scale;
-        Builder.Add(energy, 9);
+        AlphaBackground.Scale = Math.Max(levelSize.X / ScreenConstants.OsSizes.IPhoneRetina.X, (LevelSize.Y + (GameRoot.Y / GameRoot.Scale)) / ScreenConstants.OsSizes.IPhoneRetina.Y);
+        AlphaBackground.Y = (0f - GameRoot.Y) / GameRoot.Scale;
+        Builder.Add(Energy, 9);
         CreateBackgrounds(level);
         CreateParticles();
         CreateDust();
         CreateGroundFall();
-        if (!blackSide)
+        if (!BlackSide)
         {
-            Builder.Add(flyes, 6);
-            Builder.Add(grass, -1);
+            Builder.Add(Flyes, 6);
+            Builder.Add(Grass, -1);
         }
     }
 
@@ -466,7 +376,7 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
 
     public bool TouchBegin(Touch touch)
     {
-        if (!touchEnabled || paused)
+        if (!TouchEnabled || paused)
         {
             return false;
         }
@@ -553,7 +463,7 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
 
     public T ChooseSide<T>(T black, T white, T normal)
     {
-        return blackSide ? black : whiteSide ? white : normal;
+        return BlackSide ? black : WhiteSide ? white : normal;
     }
 
     public static void AddShadowSource()
@@ -571,7 +481,7 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
 
     public void CollectStar()
     {
-        starsCollected++;
+        StarsCollected++;
     }
 
     public void HardRestart()
@@ -584,7 +494,7 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
     public void SoftRestart()
     {
         totalTime = 0f;
-        starsCollected = 0;
+        StarsCollected = 0;
         foreach (Body body in Builder.World.BodyList)
         {
             if (body.UserData is IRestartable restartable)
@@ -603,19 +513,19 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
 
     public void SetRestartEnabled(bool value)
     {
-        if (value != restartEnabled)
+        if (value != RestartEnabled)
         {
-            restartEnabled = value;
+            RestartEnabled = value;
         }
     }
 
     public void Restart()
     {
-        if (levelIndex is 0 or 66)
+        if (LevelIndex is 0 or 66)
         {
             HardRestart();
         }
-        else if (restartEnabled)
+        else if (RestartEnabled)
         {
             RestartEnabled = false;
             restartLayer.Visible = true;
@@ -631,7 +541,7 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
 
     private void EnableRestart()
     {
-        if (!finished)
+        if (!Finished)
         {
             RestartEnabled = true;
         }
@@ -640,24 +550,24 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
     public void Back()
     {
         Hero?.Removed = true;
-        backEvent.SendEvent();
+        BackEvent.SendEvent();
         DisableEvents();
     }
 
     public void Skip()
     {
         Hero?.Removed = true;
-        LevelPosition position = LevelsMenu.GetLevelPosition(levelIndex);
+        LevelPosition position = LevelsMenu.GetLevelPosition(LevelIndex);
         UserData.Instance.SkipLevel(position);
-        nextLevelEvent.SendEvent();
+        NextLevelEvent.SendEvent();
         DisableEvents();
     }
 
     public void DisableEvents()
     {
         RestartEvent.Enabled = false;
-        backEvent.Enabled = false;
-        nextLevelEvent.Enabled = false;
+        BackEvent.Enabled = false;
+        NextLevelEvent.Enabled = false;
     }
 
     public void AddTextureToUnload(string name)
@@ -675,15 +585,15 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
 
     private void RefreshLightColor()
     {
-        lightColor = startLightColor.Clone();
-        lightColor.LightOutColor.R = (byte)(lightColor.LightOutColor.R * lightPower);
-        lightColor.LightOutColor.G = (byte)(lightColor.LightOutColor.G * lightPower);
-        lightColor.LightOutColor.B = (byte)(lightColor.LightOutColor.B * lightPower);
+        LightColor = startLightColor.Clone();
+        LightColor.LightOutColor.R = (byte)(LightColor.LightOutColor.R * lightPower);
+        LightColor.LightOutColor.G = (byte)(LightColor.LightOutColor.G * lightPower);
+        LightColor.LightOutColor.B = (byte)(LightColor.LightOutColor.B * lightPower);
     }
 
     public void RegisterPlasticine(PlasticineBodyClip item)
     {
-        plasticine.Add(item);
+        Plasticine.Add(item);
     }
 
     public TeleportBodyClip GetTeleport(string color)
@@ -698,7 +608,7 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
 
     public void OnMenuPressed()
     {
-        if (finished)
+        if (Finished)
         {
             return;
         }
@@ -718,7 +628,7 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
 
     public void OnBackPress()
     {
-        if (finished || pausePanel.Visible)
+        if (Finished || pausePanel.Visible)
         {
             Back();
             Mokus2DGame.Instance.KeysController.RemoveBackKeyListener(OnBackPress);
@@ -734,17 +644,17 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
 
     private void CreateFlyes()
     {
-        flyes = new ParticleSystem(Mokus2DGame.LoadSpriteData("common/McFly"));
+        Flyes = new ParticleSystem(Mokus2DGame.LoadSpriteData("common/McFly"));
         if (BonusChapter)
         {
-            flyes.Color = ContreJourConstants.GreenLightColor;
+            Flyes.Color = ContreJourConstants.GreenLightColor;
         }
     }
 
     private void CreateGroundFall()
     {
-        groundFall = new GroundFall(this);
-        Builder.Add(groundFall, -1);
+        GroundFall = new GroundFall(this);
+        Builder.Add(GroundFall, -1);
     }
 
     public void ProcessBackgroundItem(Hashtable background)
@@ -761,7 +671,7 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
         node.ScaleX = vector2.X / num;
         node.ScaleY = vector2.Y / num;
         node.RotationDegrees = 0f - background.GetFloat("rotation");
-        if (chapter == 5)
+        if (Chapter == 5)
         {
             node.RotationDegrees = 0f;
             node.Scale = ScreenConstants.W7FromIPhoneSize.X / ((Sprite)node).TextureSize.X;
@@ -771,7 +681,7 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
         {
             Builder.AddForeground(node);
         }
-        else if (blackSide)
+        else if (BlackSide)
         {
             int z = hashtable.GetInt("z", -10);
             Builder.AddAlphaBackgroundZ(node, z);
@@ -797,18 +707,18 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
 
     public void CreateGrass()
     {
-        grass = new ParticleSystem(Mokus2DGame.LoadMovieClipData(ChooseSide(null, "chapter4/McWhiteGrass", "chapter5/McGrass_5", "common/McTotalGrass", "McGrass_6")));
+        Grass = new ParticleSystem(Mokus2DGame.LoadMovieClipData(ChooseSide(null, "chapter4/McWhiteGrass", "chapter5/McGrass_5", "common/McTotalGrass", "McGrass_6")));
     }
 
     public void CreateDust()
     {
-        dust = new ParticleSystem(whiteSide ? "chapter4/McDustWhite" : "common/McDust");
-        Builder.Add(dust, 1);
+        Dust = new ParticleSystem(WhiteSide ? "chapter4/McDustWhite" : "common/McDust");
+        Builder.Add(Dust, 1);
     }
 
     public void CreateEnergy()
     {
-        energy = new ParticleSystem("common/McEnergyBall");
+        Energy = new ParticleSystem("common/McEnergyBall");
     }
 
     public void IncreaseZoomOut()
@@ -831,19 +741,19 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
     {
         if (!BonusChapter)
         {
-            if (whiteSide)
+            if (WhiteSide)
             {
                 particles = new WhiteSnow();
                 Builder.Add(particles, -1);
                 particles.CreateBetweenBounds(40);
             }
-            else if (chapter == 2)
+            else if (Chapter == 2)
             {
                 particles = new SnowFall();
                 Builder.Add(particles, 11);
                 particles.CreateBetweenBounds(40);
             }
-            else if (blackSide)
+            else if (BlackSide)
             {
                 particles = new BlueLights();
                 Builder.AddAlphaBackgroundZ(particles, -9);
@@ -866,9 +776,9 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
 
     public void HideBonuses()
     {
-        endLevel.SetVisible(value: false);
-        energy.Visible = false;
-        energy.OpacityByte = 0;
+        EndLevel.SetVisible(value: false);
+        Energy.Visible = false;
+        Energy.OpacityByte = 0;
     }
 
     public static void FocusOnHero()
@@ -877,10 +787,10 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
 
     public void ShowBonuses()
     {
-        endLevel.SetVisible(value: true);
-        endLevel.ShowPortal();
-        energy.Visible = true;
-        _ = energy.FadeIn(2f);
+        EndLevel.SetVisible(value: true);
+        EndLevel.ShowPortal();
+        Energy.Visible = true;
+        _ = Energy.FadeIn(2f);
     }
 
     public void Fail(float restartTime)
@@ -898,14 +808,14 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
     public void Finish(Vector2 zoomPoint)
     {
         RestartEnabled = false;
-        LevelPosition levelPosition = LevelsMenu.GetLevelPosition(levelIndex);
+        LevelPosition levelPosition = LevelsMenu.GetLevelPosition(LevelIndex);
         LevelData levelDataByPosition = UserData.Instance.GetLevelDataByPosition(levelPosition);
-        int num = UserData.Instance.CompleteLevel(levelPosition, starsCollected, totalTime);
-        bool newHighScore = levelDataByPosition != null && (levelDataByPosition.Score < num || levelDataByPosition.StarsCount < starsCollected);
+        int num = UserData.Instance.CompleteLevel(levelPosition, StarsCollected, totalTime);
+        bool newHighScore = levelDataByPosition != null && (levelDataByPosition.Score < num || levelDataByPosition.StarsCount < StarsCollected);
         pauseButton.InteractionsEnabled = false;
         _ = pauseButton.FadeOutAndHide(0.3f);
-        finishView.Show(levelPosition, starsCollected, num, totalTime, newHighScore);
-        finishView.NextLevelEvent.AddListener(nextLevelEvent.SendEvent);
+        finishView.Show(levelPosition, StarsCollected, num, totalTime, newHighScore);
+        finishView.NextLevelEvent.AddListener(NextLevelEvent.SendEvent);
         FinishWithViewPosition(finishView, zoomPoint);
     }
 
@@ -915,12 +825,12 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
         {
             HidePause();
         }
-        finished = true;
+        Finished = true;
         if (view != null)
         {
             AddChild(view, 16);
             view.RestartEvent.AddListener(HardRestart);
-            view.MenuEvent.AddListener(backEvent.SendEvent);
+            view.MenuEvent.AddListener(BackEvent.SendEvent);
         }
         Vector2 rootSize = ContreJourConfig.RootSize;
         ZoomToScaleRightTopLeftBottomTime(rightTop: new Vector2(0f, 30f), leftBottom: new Vector2(rootSize.X * -0.29999995f, (rootSize.Y * -0.29999995f) - 30f), zoomPoint: zoomPoint * gameRoot.Scale, scale: 1.3f, time: 2.4f);
@@ -1015,14 +925,14 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
     {
         _scheduler.Update(time);
         UpdateZoomOut();
-        frame++;
+        Frame++;
         base.UpdateGame(time);
-        foreach (PlasticineBodyClip item in plasticine)
+        foreach (PlasticineBodyClip item in Plasticine)
         {
             item.UpdateGraphics(time);
         }
-        grass?.Update(time);
-        lightPowerChanged = false;
+        Grass?.Update(time);
+        LightPowerChanged = false;
         _toRemove.Clear();
         foreach (Touch freeTouch in freeTouches)
         {
@@ -1041,12 +951,12 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
         {
             foregrounds[i].Update(time);
         }
-        windManager.Update(time);
+        WindManager.Update(time);
     }
 
     public void RenewGround()
     {
-        foreach (PlasticineBodyClip item in plasticine)
+        foreach (PlasticineBodyClip item in Plasticine)
         {
             item.Restart();
         }

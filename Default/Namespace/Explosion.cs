@@ -7,27 +7,15 @@ namespace Default.Namespace;
 
 public class Explosion : GravityParticleSystem
 {
-    private float opacityStep;
+    public float ScaleStep { get; set; }
 
-    private float scaleStep;
-
-    public float ScaleStep
-    {
-        get => scaleStep;
-        set => scaleStep = value;
-    }
-
-    public float OpacityStep
-    {
-        get => opacityStep;
-        set => opacityStep = value;
-    }
+    public float OpacityStep { get; set; }
 
     public Explosion(string textureName)
         : base(textureName)
     {
-        opacityStep = 300f;
-        scaleStep = 6f;
+        OpacityStep = 300f;
+        ScaleStep = 6f;
         StartOpacity = new RandomRange(220f, 35f);
         Speed = new RandomRange(140f, 20f);
         ParticlesScale = new RandomRange(2f, 1f);
@@ -48,8 +36,8 @@ public class Explosion : GravityParticleSystem
         if (particle.Visible)
         {
             base.UpdateParticleTime(particle, time);
-            particle.OpacityByte -= (int)(opacityStep * time);
-            particle.Scale += scaleStep * time;
+            particle.OpacityByte -= (int)(OpacityStep * time);
+            particle.Scale += ScaleStep * time;
             if (particle.OpacityByte <= 0 || particle.Scale < 0f)
             {
                 particle.Visible = false;

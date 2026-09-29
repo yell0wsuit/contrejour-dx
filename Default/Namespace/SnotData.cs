@@ -9,49 +9,25 @@ namespace Default.Namespace;
 
 public class SnotData
 {
-    private readonly Body joinedBody;
-
-    private Body eyeBody;
-
-    private RevoluteJoint eyeJoint;
-
     private Vector2 localStartAnchor;
 
     private readonly List<Body> bodies;
 
     private readonly List<Joint> joints;
 
-    private readonly float initialLength;
+    public Body EyeBody { get; set; }
 
-    private SnotBodyClipBase snot;
+    public RevoluteJoint EyeJoint { get; set; }
 
-    private readonly RopeMetrics metrics;
+    public Body JoinedBody { get; }
 
-    public Body EyeBody
-    {
-        get => eyeBody;
-        set => eyeBody = value;
-    }
-
-    public RevoluteJoint EyeJoint
-    {
-        get => eyeJoint;
-        set => eyeJoint = value;
-    }
-
-    public Body JoinedBody => joinedBody;
-
-    public float InitialLength => initialLength;
+    public float InitialLength { get; }
 
     public Vector2 LocalStartAnchor => localStartAnchor;
 
-    public SnotBodyClipBase Snot
-    {
-        get => snot;
-        set => snot = value;
-    }
+    public SnotBodyClipBase Snot { get; set; }
 
-    public RopeMetrics Metrics => metrics;
+    public RopeMetrics Metrics { get; }
 
     public int JoitsSize => joints.Count;
 
@@ -61,14 +37,14 @@ public class SnotData
 
     public SnotData(Body eyeBody, RevoluteJoint eyeJoint, Body joinedBody, Vector2 localStartAnchor, List<Body> bodies, List<Joint> joints, RopeMetrics metrics)
     {
-        this.eyeBody = eyeBody;
-        this.eyeJoint = eyeJoint;
+        EyeBody = eyeBody;
+        EyeJoint = eyeJoint;
         this.bodies = bodies;
         this.joints = joints;
-        this.joinedBody = joinedBody;
+        JoinedBody = joinedBody;
         this.localStartAnchor = localStartAnchor;
-        initialLength = (EndBody.Position - EyeBody.Position).Length();
-        this.metrics = metrics;
+        InitialLength = (EndBody.Position - EyeBody.Position).Length();
+        Metrics = metrics;
     }
 
     public Body BodyAt(int i)
@@ -88,6 +64,6 @@ public class SnotData
 
     public Vector2 GetWorldStartPoint()
     {
-        return joinedBody.GetWorldPoint(localStartAnchor);
+        return JoinedBody.GetWorldPoint(localStartAnchor);
     }
 }

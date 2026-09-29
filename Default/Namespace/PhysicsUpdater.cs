@@ -4,20 +4,18 @@ namespace Default.Namespace;
 
 public class PhysicsUpdater : Updatable
 {
-    private readonly World world;
-
-    public World World => world;
+    public World World { get; }
 
     public PhysicsUpdater(World world)
     {
-        this.world = world;
+        World = world;
         // The listener subscribes itself to the world's contact events.
-        _ = new ContactListener(this.world);
+        _ = new ContactListener(World);
     }
 
     public override void Update(float time)
     {
-        foreach (Body body in world.BodyList)
+        foreach (Body body in World.BodyList)
         {
             if (body.UserData is BodyClip bodyClip)
             {

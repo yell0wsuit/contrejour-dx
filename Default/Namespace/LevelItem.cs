@@ -10,23 +10,19 @@ namespace Default.Namespace;
 public class LevelItem : Button, IBoundsNode, ISizeNode
 {
     public const float EffectTime = 0.1f;
-    private readonly int index;
-
-    private readonly int level;
-
     private readonly bool unlocked;
 
-    public int Level => level;
+    public int Level { get; }
 
-    public int Index => index;
+    public int Index { get; }
 
     public LevelItem(int level, bool unlocked, bool trialLocked)
         : base(unlocked ? "menu/McLevelItemBackground" : "menu/McLevelItemInactive", "menu/McLevelItemSelected", null)
     {
         LevelPosition levelPosition = LevelsMenu.GetLevelPosition(level);
         this.unlocked = unlocked;
-        this.level = level;
-        index = levelPosition.Index;
+        Level = level;
+        Index = levelPosition.Index;
         if (!trialLocked)
         {
             CreateLabel(levelPosition);
@@ -57,8 +53,8 @@ public class LevelItem : Button, IBoundsNode, ISizeNode
 
     private void CreateLabel(LevelPosition levelPosition)
     {
-        bool flag = index < 9;
-        int num = index + 1;
+        bool flag = Index < 9;
+        int num = Index + 1;
         Node node;
         if (flag)
         {

@@ -29,14 +29,7 @@ public class LevelBuilderBase : Updatable, IDisposable
     public string NamespacePrefix;
 
     private readonly Dictionary<string, BodyClip> clips;
-    private readonly Dictionary<string, object> createdObjects;
-    private int defaultZ;
-
-    private Box2DConfig engineConfig;
-
     protected GameBase game;
-
-    private readonly Body groundBody;
     private Vector2 levelSize;
 
     protected float maxWorldUpdateTime;
@@ -50,19 +43,15 @@ public class LevelBuilderBase : Updatable, IDisposable
 
     protected World world;
 
-    public Box2DConfig EngineConfig
-    {
-        get => engineConfig;
-        set => engineConfig = value;
-    }
+    public Box2DConfig EngineConfig { get; set; }
 
     public World World => world;
 
-    public Body GroundBody => groundBody;
+    public Body GroundBody { get; }
 
     public GameBase Game => game;
 
-    public Dictionary<string, object> CreatedObjects => createdObjects;
+    public Dictionary<string, object> CreatedObjects { get; }
 
     public float PhysicsSpeed
     {
@@ -70,13 +59,9 @@ public class LevelBuilderBase : Updatable, IDisposable
         set => physicsSpeed = value;
     }
 
-    public int DefaultZ
-    {
-        get => defaultZ;
-        set => defaultZ = value;
-    }
+    public int DefaultZ { get; set; }
 
-    public float SizeMult => engineConfig.SizeMultiplier;
+    public float SizeMult => EngineConfig.SizeMultiplier;
 
     public Vector2 LevelSize
     {
@@ -96,14 +81,14 @@ public class LevelBuilderBase : Updatable, IDisposable
     {
         //IL_0055: Unknown result type (might be due to invalid IL or missing references)
         //IL_005f: Expected O, but got Unknown
-        createdObjects = [];
-        defaultZ = 0;
-        engineConfig = Box2DConfig.DefaultConfig;
-        Settings.PositionIterations = engineConfig.PositionIterations;
-        Settings.VelocityIterations = engineConfig.VelocityIterations;
+        CreatedObjects = [];
+        DefaultZ = 0;
+        EngineConfig = Box2DConfig.DefaultConfig;
+        Settings.PositionIterations = EngineConfig.PositionIterations;
+        Settings.VelocityIterations = EngineConfig.VelocityIterations;
         Settings.ContinuousPhysics = false;
-        world = new World(engineConfig.Gravity);
-        groundBody = BodyFactory.CreateBody(world, new Vector2(0f, 0f), 0f, null);
+        world = new World(EngineConfig.Gravity);
+        GroundBody = BodyFactory.CreateBody(world, new Vector2(0f, 0f), 0f, null);
         maxWorldUpdateTime = 1f / 30f;
         physicsSpeed = 1f;
         this.game = game;
@@ -120,7 +105,7 @@ public class LevelBuilderBase : Updatable, IDisposable
 
     public Body CreateCircleRadiusPositionRotationDynamic(float radius, Vector2 position, float rotation, bool dynamic)
     {
-        return world.CreateCircle(radius, position, rotation, engineConfig.Density, dynamic);
+        return world.CreateCircle(radius, position, rotation, EngineConfig.Density, dynamic);
     }
 
     public virtual void AddProcessors()
@@ -133,12 +118,12 @@ public class LevelBuilderBase : Updatable, IDisposable
 
     public void RegisterObject(BodyClip bodyClip, string key)
     {
-        createdObjects[key] = bodyClip;
+        CreatedObjects[key] = bodyClip;
     }
 
     public object GetObject(string key)
     {
-        return createdObjects.TryGetValue(key, out object value) ? value : null;
+        return CreatedObjects.TryGetValue(key, out object value) ? value : null;
     }
 
     public void AddForeground(Node child)
@@ -232,7 +217,7 @@ public class LevelBuilderBase : Updatable, IDisposable
 
     public Vector2 ToVec(Vector2 point)
     {
-        return engineConfig.ToVec(point);
+        return EngineConfig.ToVec(point);
     }
 
     public Vector2 TouchRootVec(Touch touch)
@@ -265,7 +250,7 @@ public class LevelBuilderBase : Updatable, IDisposable
 
     public Vector2 ToPoint(Vector2 vec)
     {
-        return engineConfig.ToPoint(vec);
+        return EngineConfig.ToPoint(vec);
     }
 
     public static void DestroyFixturesData(Body body)

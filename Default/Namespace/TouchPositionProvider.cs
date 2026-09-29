@@ -8,9 +8,7 @@ public class TouchPositionProvider(Touch _touch, LevelBuilderBase _builder) : IV
 {
     private readonly LevelBuilderBase builder = _builder;
 
-    private readonly Touch touch = _touch;
+    public Touch Touch { get; } = _touch;
 
-    public Touch Touch => touch;
-
-    public Vector2 PositionVec => builder.TouchRootVec(touch);
+    public Vector2 PositionVec => builder.TouchRootVec(Touch);
 }

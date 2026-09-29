@@ -19,10 +19,6 @@ public class MonsterEye : RandomAnimationEye, IPositionDepedent
     private float startAngle;
 
     protected IVectorPositionProvider positionProvider;
-
-    private IVectorPositionProvider randomPositionProvider;
-
-    private bool providerEnabled;
     public static readonly EyeAnimation[] SnotAnimations =
     [
         new("McEyeBlinkMonster"),
@@ -35,17 +31,9 @@ public class MonsterEye : RandomAnimationEye, IPositionDepedent
         set => positionProvider = value;
     }
 
-    public IVectorPositionProvider RandomPositionProvider
-    {
-        get => randomPositionProvider;
-        set => randomPositionProvider = value;
-    }
+    public IVectorPositionProvider RandomPositionProvider { get; set; }
 
-    public bool ProviderEnabled
-    {
-        get => providerEnabled;
-        set => providerEnabled = value;
-    }
+    public bool ProviderEnabled { get; set; }
 
     protected override EyeAnimation[] Animations => SnotAnimations;
 
@@ -77,7 +65,7 @@ public class MonsterEye : RandomAnimationEye, IPositionDepedent
     public MonsterEye(ContreJourGame game, bool visible, Vector2 position)
         : base(game)
     {
-        providerEnabled = true;
+        ProviderEnabled = true;
         Open = visible;
         Visible = visible;
         _ = this.Schedule(0.1f, ChangePositionProvider);
@@ -101,7 +89,7 @@ public class MonsterEye : RandomAnimationEye, IPositionDepedent
 
     public void ProviderRemove(IVectorPositionProvider provider)
     {
-        if (randomPositionProvider == provider)
+        if (RandomPositionProvider == provider)
         {
             ChangePositionProvider();
         }
@@ -124,7 +112,7 @@ public class MonsterEye : RandomAnimationEye, IPositionDepedent
     {
         if (Game != null)
         {
-            randomPositionProvider = Game.GetRandomPositionProvider();
+            RandomPositionProvider = Game.GetRandomPositionProvider();
         }
         CallLater(ScheduleChangePositionProvider);
     }
@@ -137,9 +125,9 @@ public class MonsterEye : RandomAnimationEye, IPositionDepedent
 
     public override void Update(float time)
     {
-        if (providerEnabled)
+        if (ProviderEnabled)
         {
-            IVectorPositionProvider vectorPositionProvider = positionProvider ?? randomPositionProvider;
+            IVectorPositionProvider vectorPositionProvider = positionProvider ?? RandomPositionProvider;
             if (vectorPositionProvider != null)
             {
                 _ = Vector2.Zero;

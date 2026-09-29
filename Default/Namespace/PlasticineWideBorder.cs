@@ -8,27 +8,23 @@ namespace Default.Namespace;
 
 public class PlasticineWideBorder : PrimitivesNode
 {
-    private VertexPositionColor[] outBorder;
+    public VertexPositionColor[] OutBorder { get; private set; }
 
-    private VertexPositionColor[] inBorder;
-
-    public VertexPositionColor[] OutBorder => outBorder;
-
-    public VertexPositionColor[] InBorder => inBorder;
+    public VertexPositionColor[] InBorder { get; private set; }
 
     public void SetSizeBorderColorBorderOutColor(int value, Color borderColor, Color borderOutColor)
     {
         Color = borderColor;
         int num = (value * 2 * 2) + 2;
-        outBorder = new VertexPositionColor[num];
-        inBorder = new VertexPositionColor[num];
-        GraphUtil.SetGradientColorsStrip(Color, borderOutColor, outBorder);
-        GraphUtil.SetColor(inBorder, Color);
+        OutBorder = new VertexPositionColor[num];
+        InBorder = new VertexPositionColor[num];
+        GraphUtil.SetGradientColorsStrip(Color, borderOutColor, OutBorder);
+        GraphUtil.SetColor(InBorder, Color);
     }
 
     protected override void DrawPrimitives()
     {
-        GraphUtil.DrawTriangleStrip(inBorder);
-        GraphUtil.DrawTriangleStrip(outBorder);
+        GraphUtil.DrawTriangleStrip(InBorder);
+        GraphUtil.DrawTriangleStrip(OutBorder);
     }
 }

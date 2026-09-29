@@ -20,9 +20,6 @@ public class BlackTail : PrimitivesNode, IUpdatable
     protected VertexPositionColorTexture[] vertices = [];
 
     private readonly List<Vector2> bezierPoints = [];
-
-    private Body body;
-
     private Vector2 target;
 
     private readonly LevelBuilderBase builder;
@@ -38,32 +35,13 @@ public class BlackTail : PrimitivesNode, IUpdatable
     private readonly List<int> removeFrames = [];
 
     private int currentFrame;
-
-    private float width;
-
-    private int frames;
-
-    private bool moving;
-
     private bool opacityDirty;
 
-    public float Width
-    {
-        get => width;
-        set => width = value;
-    }
+    public float Width { get; set; }
 
-    public int Frames
-    {
-        get => frames;
-        set => frames = value;
-    }
+    public int Frames { get; set; }
 
-    public Body Body
-    {
-        get => body;
-        set => body = value;
-    }
+    public Body Body { get; set; }
 
     public Vector2 Target
     {
@@ -85,12 +63,11 @@ public class BlackTail : PrimitivesNode, IUpdatable
 
     public bool Moving
     {
-        get => moving;
-        set
+        get; set
         {
-            if (moving != value)
+            if (field != value)
             {
-                moving = value;
+                field = value;
             }
         }
     }
@@ -105,12 +82,12 @@ public class BlackTail : PrimitivesNode, IUpdatable
     public BlackTail(Body body, LevelBuilderBase builder, string textureFile)
     {
         UpdateEnabled = false;
-        this.body = body;
+        Body = body;
         this.builder = builder;
-        frames = 40;
-        previousPosition = builder.ToPoint(this.body.Position);
+        Frames = 40;
+        previousPosition = builder.ToPoint(Body.Position);
         currentFrame = 0;
-        width = 40f;
+        Width = 40f;
         Texture = ClipFactory.GetTexture(textureFile);
     }
 
@@ -126,7 +103,7 @@ public class BlackTail : PrimitivesNode, IUpdatable
 
     public override void Update(float time)
     {
-        currentPosition = builder.ToPoint((body != null) ? body.Position : target);
+        currentPosition = builder.ToPoint((Body != null) ? Body.Position : target);
         bool flag = true;
         if (previousPosition != Vector2.Zero)
         {
@@ -184,7 +161,7 @@ public class BlackTail : PrimitivesNode, IUpdatable
 
     public int FramesToLive()
     {
-        return frames;
+        return Frames;
     }
 
     public void RemoveTail()
@@ -205,7 +182,7 @@ public class BlackTail : PrimitivesNode, IUpdatable
         {
             Vector2 start = (num2 == bezierPoints.Count - 1) ? bezierPoints[^1] : bezierPoints[num2 + 1];
             Vector2 end = (num2 == 0) ? currentPosition : bezierPoints[num2 - 1];
-            float num3 = width * (1f - ((num2 + 1) / (float)num));
+            float num3 = Width * (1f - ((num2 + 1) / (float)num));
             if (num3 > 1f)
             {
                 list.Add(ContreDrawUtil.GetPointsPair(bezierPoints[num2], start, end, num3));

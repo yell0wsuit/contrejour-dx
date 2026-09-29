@@ -8,16 +8,9 @@ namespace Default.Namespace;
 public class RadiusClickListener(Node _target, float _clickRadius, int priority = 0) : ClickListener(priority)
 {
     private readonly float clickRadius = _clickRadius;
-
-    private bool disableDrag;
-
     private readonly Node target = _target;
 
-    public bool DisableDrag
-    {
-        get => disableDrag;
-        set => disableDrag = value;
-    }
+    public bool DisableDrag { get; set; }
 
     public override bool Enabled => base.Enabled && target.RootVisible;
 
@@ -39,7 +32,7 @@ public class RadiusClickListener(Node _target, float _clickRadius, int priority 
     protected override bool IsOutStartPosition(Touch touch, Vector2 startPosition)
     {
         bool flag = !SpriteContainsPoint(touch);
-        if (disableDrag)
+        if (DisableDrag)
         {
             flag |= base.IsOutStartPosition(touch, startPosition);
         }

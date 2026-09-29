@@ -8,19 +8,13 @@ public class GravityParticle : Particle
 {
     private Vector2 speed;
 
-    private float angularSpeed;
-
     public Vector2 Speed
     {
         get => speed;
         set => speed = value;
     }
 
-    public float AngularSpeed
-    {
-        get => angularSpeed;
-        set => angularSpeed = value;
-    }
+    public float AngularSpeed { get; set; }
 
     public GravityParticle(ParticleSystem system, IMovieClipData data)
         : base(system, data)

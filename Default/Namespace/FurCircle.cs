@@ -8,18 +8,14 @@ namespace Default.Namespace;
 
 public class FurCircle : ParticleSystem
 {
-    private float radius;
-
-    private readonly float angleStep;
-
     public float Radius
     {
-        get => radius;
+        get;
         set
         {
-            if (Maths.FuzzyNotEquals(radius, value))
+            if (Maths.FuzzyNotEquals(field, value))
             {
-                radius = value;
+                field = value;
                 for (int i = 0; i < Particles.Count; i++)
                 {
                     float itemAngle = GetItemAngle(i);
@@ -31,17 +27,17 @@ public class FurCircle : ParticleSystem
         }
     }
 
-    public float AngleStep => angleStep;
+    public float AngleStep { get; }
 
     public FurCircle(string textureName, int maxParticles, float radius)
         : base(textureName, maxParticles)
     {
-        angleStep = 1f / maxParticles * 2f * (float)Math.PI;
+        AngleStep = 1f / maxParticles * 2f * (float)Math.PI;
         Radius = radius;
     }
 
     public float GetItemAngle(int i)
     {
-        return i * angleStep;
+        return i * AngleStep;
     }
 }

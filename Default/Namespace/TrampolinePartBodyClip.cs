@@ -9,15 +9,9 @@ namespace Default.Namespace;
 
 public class TrampolinePartBodyClip(LevelBuilderBase builder, object body) : ContreJourBodyClip(builder, body, null, null), IClickable
 {
-    private TrampolineBodyClip parent;
-
     public SnotData Data { get; set; }
 
-    public TrampolineBodyClip Parent
-    {
-        get => parent;
-        set => parent = value;
-    }
+    public TrampolineBodyClip Parent { get; set; }
 
     public bool DisableHeroFocus => false;
 
@@ -63,6 +57,6 @@ public class TrampolinePartBodyClip(LevelBuilderBase builder, object body) : Con
 
     public override void OnCollisionStartPoint(Body body2, Contact point)
     {
-        parent?.OnCollisionStart(body2);
+        Parent?.OnCollisionStart(body2);
     }
 }

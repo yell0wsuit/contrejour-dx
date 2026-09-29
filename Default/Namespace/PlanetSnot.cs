@@ -25,9 +25,6 @@ public class PlanetSnot : LongNeckSprite, IDepthDependent
     private Vector2 end;
 
     private Vector2 targetEnd;
-
-    private float depth;
-
     private Vector2 endInit;
 
     private Vector2 middleInit;
@@ -36,11 +33,7 @@ public class PlanetSnot : LongNeckSprite, IDepthDependent
 
     private static readonly Vector2 MIDDLE = new(0f, 30f);
 
-    public float Depth
-    {
-        get => depth;
-        set => depth = value;
-    }
+    public float Depth { get; set; }
 
     public PlanetSnot(PlanetSnotEye eye)
     {
@@ -63,7 +56,7 @@ public class PlanetSnot : LongNeckSprite, IDepthDependent
 
     public override void Update(float time)
     {
-        if (Maths.FuzzyEquals(depth, 1f))
+        if (Maths.FuzzyEquals(Depth, 1f))
         {
             Vector2 vector = VectorUtil.ToVector(_eye.ViewDistance * 40f, _eye.ViewAngle);
             targetEnd = endInit + vector;
@@ -71,7 +64,7 @@ public class PlanetSnot : LongNeckSprite, IDepthDependent
             middle = VectorUtil.StepTo(middle, middleInit, 1f);
             end = VectorUtil.StepTo(end, targetEnd, Math.Min(1f, num / 5f));
         }
-        else if (depth > 0.6f)
+        else if (Depth > 0.6f)
         {
             targetEnd = new Vector2(-10f, -10f);
             middle = VectorUtil.StepTo(middle, new Vector2(-5f, -5f), 10f);
