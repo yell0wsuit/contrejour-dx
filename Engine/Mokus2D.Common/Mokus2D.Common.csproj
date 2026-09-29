@@ -1,2 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <!-- Shared Mokus2D types (Mokus2D.Collections, Mokus2D.Util.Data, ...); folders are relative to Mokus2D. -->
+    <RootNamespace>Mokus2D</RootNamespace>
+  </PropertyGroup>
 </Project>

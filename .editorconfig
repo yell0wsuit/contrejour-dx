@@ -37,9 +37,9 @@ dotnet_analyzer_diagnostic.category-Style.severity = warning
 # Every file already uses file-scoped namespaces.
 csharp_style_namespace_declarations = file_scoped:warning
 
-# Namespaces are part of the type names that level and clip content looks up at runtime
-# (Type.GetType("Default.Namespace." + name), ContreJour.Clips.*), so they can't follow folders.
-dotnet_diagnostic.IDE0130.severity = none
+# Folders follow namespaces (never the other way round): namespaces are part of the type names
+# level and clip content looks up at runtime (Default.Namespace.*, ContreJour.Clips.*).
+dotnet_diagnostic.IDE0130.severity = warning
 
 # Default.Namespace is part of the type names content looks up at runtime, so it can't be renamed
 # to avoid Visual Basic keywords; members and parameters are still checked.
@@ -48,3 +48,8 @@ dotnet_code_quality.CA1716.analyzed_symbol_kinds = NamedType, Method, Property, 
 # Plain data structs (vertices, pairs, rectangles, ranges) keep public fields, like XNA's Vector2:
 # they're mutated in place and some rely on explicit field layout.
 dotnet_code_quality.CA1051.exclude_structs = true
+
+# Engine files that live in the game's Default.Namespace or extend System namespaces can't match
+# their project's root namespace.
+[Engine/*/{Default,System}/**.cs]
+dotnet_diagnostic.IDE0130.severity = none

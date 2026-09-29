@@ -2,7 +2,8 @@
   <PropertyGroup>
     <AssemblyName>ContreJour</AssemblyName>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>ContreJour</RootNamespace>
+    <!-- Folders mirror namespaces from the repository root (ContreJour/Clips, Default/Namespace, ...). -->
+    <RootNamespace></RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
