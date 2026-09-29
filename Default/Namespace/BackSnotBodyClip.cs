@@ -18,11 +18,11 @@ namespace Default.Namespace;
 
 public class BackSnotBodyClip : SnotBodyClipBase, IClickable
 {
-    private float force;
+    private readonly float force;
 
     private float forceProgress;
 
-    private float forceStep;
+    private readonly float forceStep;
 
     private bool stabilize;
 

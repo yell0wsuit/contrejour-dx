@@ -6,7 +6,7 @@ namespace Default.Namespace;
 
 public class AlphaForeground : ForegroundBase, IUpdatable
 {
-    private CosChanger changer;
+    private readonly CosChanger changer;
 
     public AlphaForeground(ContreJourLevelBuilder builder, object body, Node clip, Hashtable config)
         : base(builder, body, clip, config)

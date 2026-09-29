@@ -8,7 +8,7 @@ namespace Default.Namespace;
 
 public class EndLastLevelBodyClip : EndLevelBodyClip
 {
-    private CosChanger scaleChanger;
+    private readonly CosChanger scaleChanger;
 
     private bool bounce;
 

@@ -49,7 +49,7 @@ public class DragableBodyClip : ContreJourBodyClip, IClickable, IRestartable, IS
 
     protected float currentAlpha;
 
-    private EventSender dragStartEvent;
+    private readonly EventSender dragStartEvent;
 
     private bool draging;
 
@@ -61,7 +61,7 @@ public class DragableBodyClip : ContreJourBodyClip, IClickable, IRestartable, IS
 
     private bool limitSpeed;
 
-    private float lowerLimit;
+    private readonly float lowerLimit;
 
     private McDragLimit middle;
 
@@ -69,7 +69,7 @@ public class DragableBodyClip : ContreJourBodyClip, IClickable, IRestartable, IS
 
     private Touch touch;
 
-    private float upperLimit;
+    private readonly float upperLimit;
 
     private readonly CircleShape _dragShape;
 

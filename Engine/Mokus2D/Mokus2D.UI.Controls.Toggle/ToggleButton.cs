@@ -12,7 +12,7 @@ public class ToggleButton(AnchorNode content, IOnOff effect) : Button(content, e
 {
     public bool ToggleOnTouchBegin;
 
-    private bool HighliteOnPressed = true;
+    private readonly bool HighliteOnPressed = true;
 
     public bool Toggle
     {

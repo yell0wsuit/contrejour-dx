@@ -46,7 +46,7 @@ public class FinishView : MovieStripesView, IDisposable
 
     private List<Sprite> energies;
 
-    private ContreJourGame game;
+    private readonly ContreJourGame game;
 
     private FakeHero hero;
 

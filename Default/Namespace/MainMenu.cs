@@ -46,17 +46,17 @@ public class MainMenu : AccelerometerMenu, IActivatedDependent
 
     private Node background;
 
-    private Button backButton;
+    private readonly Button backButton;
 
     private ToggleButton soundButton;
 
     private ToggleButton musicButton;
 
-    private ClickableLayer clickableLayer;
+    private readonly ClickableLayer clickableLayer;
 
     private NamesChanger names;
 
-    private Node foreground;
+    private readonly Node foreground;
 
     private PlanetsSpinner spinner;
 

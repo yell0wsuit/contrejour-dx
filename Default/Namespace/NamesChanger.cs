@@ -16,7 +16,7 @@ public class NamesChanger : Node
 {
     private float currentIndex;
 
-    private List<Node> names = [];
+    private readonly List<Node> names = [];
 
     public float CurrentIndex
     {

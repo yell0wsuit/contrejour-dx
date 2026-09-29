@@ -12,15 +12,15 @@ namespace FarseerPhysics.Common.PhysicsLogic;
 
 public sealed class RealExplosion(World world) : PhysicsLogic(world, PhysicsLogicType.Explosion)
 {
-    private float EdgeRatio = 0.025f;
+    private readonly float EdgeRatio = 0.025f;
 
     public bool IgnoreWhenInsideShape { get; set; }
 
-    private float MaxAngle = (float)Math.PI / 15f;
+    private readonly float MaxAngle = (float)Math.PI / 15f;
 
-    private int MaxShapes = 100;
+    private readonly int MaxShapes = 100;
 
-    private int MinRays = 5;
+    private readonly int MinRays = 5;
 
     private readonly List<ShapeData> _data = [];
 

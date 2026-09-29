@@ -10,9 +10,9 @@ public abstract class LineLayout(Node container) : LayoutBase(container)
 {
     public float Margins { get; set; }
 
-    private LayoutDirection Direction = LayoutDirection.Normal;
+    private readonly LayoutDirection Direction = LayoutDirection.Normal;
 
-    private ILayoutPositionApplier PositionApplier = new DefaultPositionApplier();
+    private readonly ILayoutPositionApplier PositionApplier = new DefaultPositionApplier();
 
     public float? FixedSize;
 

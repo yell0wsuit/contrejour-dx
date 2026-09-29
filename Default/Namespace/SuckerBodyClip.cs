@@ -34,7 +34,7 @@ public class SuckerBodyClip : ContreJourBodyClip, IClickable, IVectorPositionPro
 
     private Vector2 bouncePosition;
 
-    private Bouncer bouncer;
+    private readonly Bouncer bouncer;
 
     protected Vector2 createPosition;
 
@@ -44,13 +44,13 @@ public class SuckerBodyClip : ContreJourBodyClip, IClickable, IVectorPositionPro
 
     private Body endBody;
 
-    private MonsterEye eye;
+    private readonly MonsterEye eye;
 
-    private SuckerNeckSprite ghostNeck;
+    private readonly SuckerNeckSprite ghostNeck;
 
-    private Node ghostPimpa;
+    private readonly Node ghostPimpa;
 
-    private Sprite limit;
+    private readonly Sprite limit;
 
     protected float maxDistance;
 
@@ -58,9 +58,9 @@ public class SuckerBodyClip : ContreJourBodyClip, IClickable, IVectorPositionPro
 
     protected SuckerNeckSprite neck;
 
-    private Node pimpa;
+    private readonly Node pimpa;
 
-    private Sprite pimpaHighlite;
+    private readonly Sprite pimpaHighlite;
 
     private Vector2 pimpaPosition;
 

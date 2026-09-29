@@ -20,13 +20,13 @@ public class SpikesFlowerBodyClip : ContreJourBodyClip, IVectorPositionProvider
 {
     private IEatable hero;
 
-    private ISpikesView movie;
+    private readonly ISpikesView movie;
 
     private FlowerEye eye;
 
-    private SpikesFlowerSprite drawing;
+    private readonly SpikesFlowerSprite drawing;
 
-    private Node container;
+    private readonly Node container;
 
     private static readonly Vector2 EyePosition = new(0f, 30f);
 

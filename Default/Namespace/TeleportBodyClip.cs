@@ -14,15 +14,15 @@ namespace Default.Namespace;
 
 public class TeleportBodyClip : BodyClip
 {
-    private Portal portal;
+    private readonly Portal portal;
 
     private TeleportBodyClip sibling;
 
-    private bool limitSpeed;
+    private readonly bool limitSpeed;
 
-    private List<BodyClip> teleportables;
+    private readonly List<BodyClip> teleportables;
 
-    private EventSender useEvent;
+    private readonly EventSender useEvent;
 
     public TeleportBodyClip Sibling
     {

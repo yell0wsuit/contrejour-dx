@@ -11,11 +11,11 @@ namespace Default.Namespace;
 
 public class LianaPart : IUpdatable
 {
-    private Body body;
+    private readonly Body body;
 
-    private CosChanger forceChanger;
+    private readonly CosChanger forceChanger;
 
-    private float forceAngle;
+    private readonly float forceAngle;
 
     public LianaPart(Body body)
     {

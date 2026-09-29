@@ -12,7 +12,7 @@ public class WindManager : IUpdatable
 
     private float currentWindStep;
 
-    private float step;
+    private readonly float step;
 
     [SuppressMessage("Style", "IDE0290:Use primary constructor", Justification = "Its random draws must run after the base constructor's, in this order.")]
     public WindManager(float step)

@@ -21,9 +21,9 @@ public class RotatorBodyClip : FurBodyClip, IClickable, IRestartable, ISnotHolde
 
     private float startTouchAngle;
 
-    private Sprite circle;
+    private readonly Sprite circle;
 
-    private Sprite touchPoint;
+    private readonly Sprite touchPoint;
 
     private bool touching;
 
@@ -33,7 +33,7 @@ public class RotatorBodyClip : FurBodyClip, IClickable, IRestartable, ISnotHolde
 
     private float touchPointSpeed;
 
-    private float touchPointNeededSpeed;
+    private readonly float touchPointNeededSpeed;
 
     private float lastPointSpeed;
 

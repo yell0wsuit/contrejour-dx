@@ -8,7 +8,7 @@ namespace Default.Namespace;
 
 public class LianaData : ILianaDrawData
 {
-    private List<Body> bodies = [];
+    private readonly List<Body> bodies = [];
 
     public List<Body> Bodies => bodies;
 

@@ -2,9 +2,9 @@ namespace Default.Namespace;
 
 public class PositionProviderValue(IVectorPositionProvider _provider, float _value)
 {
-    private IVectorPositionProvider provider = _provider;
+    private readonly IVectorPositionProvider provider = _provider;
 
-    private float value = _value;
+    private readonly float value = _value;
 
     public float Value => value;
 

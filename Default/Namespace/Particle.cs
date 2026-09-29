@@ -6,7 +6,7 @@ namespace Default.Namespace;
 
 public class Particle : MultiframeSprite
 {
-    private ParticleSystem System;
+    private readonly ParticleSystem System;
 
     public object Tag;
 

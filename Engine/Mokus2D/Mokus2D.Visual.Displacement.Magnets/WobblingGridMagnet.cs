@@ -7,7 +7,7 @@ namespace Mokus2D.Visual.Displacement.Magnets;
 
 public class WobblingGridMagnet : GridMagnetBase
 {
-    private float PhaseOffset = 1f;
+    private readonly float PhaseOffset = 1f;
     private readonly Vector2 _nodeSize;
 
     private readonly CosChanger _verticalOffset;

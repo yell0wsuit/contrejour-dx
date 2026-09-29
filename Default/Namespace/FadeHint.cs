@@ -14,7 +14,7 @@ public class FadeHint : HintBase, IRemovable, IRestartable
 
     protected bool hiding;
 
-    private List<Action> callAfters = [];
+    private readonly List<Action> callAfters = [];
 
     public override bool ShouldRemove => false;
 

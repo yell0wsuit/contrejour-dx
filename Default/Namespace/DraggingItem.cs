@@ -21,11 +21,11 @@ public class DraggingItem
 
     protected Pair<Vector2> basePoints;
 
-    private LevelBuilderBase builder;
+    private readonly LevelBuilderBase builder;
 
     private Touch currentTouch;
 
-    private PlasticineItem dragItem;
+    private readonly PlasticineItem dragItem;
 
     private Vector2 initialPosition;
 
@@ -33,8 +33,8 @@ public class DraggingItem
 
     private Vector2 lastTouchPosition;
 
-    private PlasticineItem left;
-    private PlasticineItem right;
+    private readonly PlasticineItem left;
+    private readonly PlasticineItem right;
 
     public DraggingItem(LevelBuilderBase builder, PlasticineItem item, Touch touch)
     {

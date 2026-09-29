@@ -26,7 +26,7 @@ public class HeroEye : RandomAnimationEye
 
     private float colorProgress;
 
-    private Dictionary<string, List<string>> sounds;
+    private readonly Dictionary<string, List<string>> sounds;
 
     private bool moveAllowed;
 

@@ -14,15 +14,15 @@ namespace Default.Namespace;
 
 public abstract class FurBodyClip : ContreJourBodyClip
 {
-    private List<RotatorGrass> grass = [];
+    private readonly List<RotatorGrass> grass = [];
 
-    private FurCircle grassSystem;
+    private readonly FurCircle grassSystem;
 
-    private float grassStep;
+    private readonly float grassStep;
 
-    private float trampleAngle;
+    private readonly float trampleAngle;
 
-    private Sprite baseSprite;
+    private readonly Sprite baseSprite;
 
     public FurBodyClip(LevelBuilderBase builder, object body, Node clip, Hashtable config)
         : base(builder, body, clip, config)

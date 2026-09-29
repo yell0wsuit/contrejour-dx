@@ -5,7 +5,7 @@ namespace Mokus2D.Events;
 
 public class EventSender
 {
-    private List<Action> listeners = new(64);
+    private readonly List<Action> listeners = new(64);
 
     private readonly List<Action> listenersCopy = new(64);
 
@@ -59,7 +59,7 @@ public class EventSender
 }
 public class EventSender<T> : EventSender
 {
-    private List<Action<T>> parameterListeners = new(64);
+    private readonly List<Action<T>> parameterListeners = new(64);
 
     private readonly List<Action<T>> parameterListenersCopy = new(64);
 

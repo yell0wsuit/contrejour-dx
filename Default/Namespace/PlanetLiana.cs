@@ -11,15 +11,15 @@ namespace Default.Namespace;
 
 public class PlanetLiana : Node, ILianaDrawData
 {
-    private List<Vector2> points = [];
+    private readonly List<Vector2> points = [];
 
-    private LianaSprite sprite;
+    private readonly LianaSprite sprite;
 
-    private CosChanger changer;
+    private readonly CosChanger changer;
 
     private Vector2 middle;
 
-    private float angle;
+    private readonly float angle;
 
     private bool stoped;
 

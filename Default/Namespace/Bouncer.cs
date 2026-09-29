@@ -14,7 +14,7 @@ public class Bouncer : IUpdatable
 
     private float amplitudeStep;
 
-    private CosChanger changer;
+    private readonly CosChanger changer;
 
     public float Amplitude
     {

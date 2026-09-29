@@ -6,7 +6,7 @@ namespace Default.Namespace;
 
 public class FlowerEye : MonsterEye
 {
-    private Node baseNode;
+    private readonly Node baseNode;
 
     private Vector2 initialPosition;
 

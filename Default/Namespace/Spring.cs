@@ -6,11 +6,11 @@ namespace Default.Namespace;
 
 public class Spring
 {
-    private Body bodyA;
+    private readonly Body bodyA;
 
-    private Body bodyB;
+    private readonly Body bodyB;
 
-    private float k;
+    private readonly float k;
 
     private Vector2 localAnchorA;
 

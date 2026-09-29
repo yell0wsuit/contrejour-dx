@@ -4,7 +4,7 @@ namespace Default.Namespace;
 
 public class TeleportPortal(Portal _portal) : ParticleSystem(Mokus2DGame.LoadSpriteData("common/McTeleportPartBlack"), 5)
 {
-    private Portal portal = _portal;
+    private readonly Portal portal = _portal;
 
     public override void Update(float time)
     {

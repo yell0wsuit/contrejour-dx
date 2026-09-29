@@ -12,7 +12,7 @@ public class SpriteFader(Node _target)
 
     private ushort enabledOpacity;
 
-    private Node target = _target;
+    private readonly Node target = _target;
 
     public ushort EnabledOpacity
     {

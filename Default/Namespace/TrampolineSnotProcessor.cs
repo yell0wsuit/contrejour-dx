@@ -10,7 +10,7 @@ namespace Default.Namespace;
 
 public class TrampolineSnotProcessor(LevelBuilderBase builder) : BridgeSnotProcessor(builder, "trampoline", 2f / 3f)
 {
-    private List<TrampolinePartBodyClip> parts = [];
+    private readonly List<TrampolinePartBodyClip> parts = [];
 
     private static readonly float StartRadius = 5f * Box2DConfig.DefaultConfig.SizeMultiplier;
 

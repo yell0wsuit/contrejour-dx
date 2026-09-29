@@ -10,11 +10,11 @@ namespace FarseerPhysics.Controllers;
 
 public sealed class BuoyancyController : Controller
 {
-    private float AngularDragCoefficient;
+    private readonly float AngularDragCoefficient;
 
-    private float Density;
+    private readonly float Density;
 
-    private float LinearDragCoefficient;
+    private readonly float LinearDragCoefficient;
 
     public Vector2 Velocity { get; set; }
 

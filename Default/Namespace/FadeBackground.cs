@@ -6,7 +6,7 @@ public class FadeBackground : BackgroundBase
 {
     private float opacity;
 
-    private Sprite sprite;
+    private readonly Sprite sprite;
 
     public FadeBackground(Node node, Hashtable config, ContreJourGame game)
         : base(node, config, game)

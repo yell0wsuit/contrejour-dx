@@ -14,17 +14,17 @@ public class PlasticineBodyClip : ContreJourBodyClip, IRestartable
 {
     private bool changed;
 
-    private PlasticineSprite clipContent;
+    private readonly PlasticineSprite clipContent;
 
-    private Dictionary<Touch, DraggingItem> draggingItems;
+    private readonly Dictionary<Touch, DraggingItem> draggingItems;
 
     private PlasticineItem firstItem;
 
-    private PlasticineHighliteBorder highlite;
+    private readonly PlasticineHighliteBorder highlite;
 
     private PlasticineItem leftItem;
 
-    private PlasticineWideBorder wideBorder;
+    private readonly PlasticineWideBorder wideBorder;
 
     public PlasticineItem FirstItem => firstItem;
 

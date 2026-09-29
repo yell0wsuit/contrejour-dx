@@ -35,31 +35,31 @@ public class PlasticinePartBodyClip : ContreJourBodyClip, IClickable, IRestartab
 
     private Vector2 initialPosition;
 
-    private float initialAngle;
+    private readonly float initialAngle;
 
     private Vector2 targetPosition;
 
     private float targetAngle;
 
-    private ContreJourGame game;
+    private readonly ContreJourGame game;
 
-    private List<DustData> dust = new(64);
+    private readonly List<DustData> dust = new(64);
 
     private PlasticineItem item;
 
     private bool updateParent;
 
-    private PlasticineBodyClip parent;
+    private readonly PlasticineBodyClip parent;
 
-    private float width;
+    private readonly float width;
 
     private float groundFallTime;
 
-    private float groundFallMaxTime;
+    private readonly float groundFallMaxTime;
 
-    private bool isFloor;
+    private readonly bool isFloor;
 
-    private bool isTop;
+    private readonly bool isTop;
 
     private bool dragging;
 
@@ -79,7 +79,7 @@ public class PlasticinePartBodyClip : ContreJourBodyClip, IClickable, IRestartab
     private bool isRotationDirty;
     private bool fixHighlite;
 
-    private static int i;
+    private static readonly int i;
 
     public PlasticineItem Item
     {

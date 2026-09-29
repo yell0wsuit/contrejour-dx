@@ -10,13 +10,13 @@ namespace Default.Namespace;
 
 public class FlyWings : Node
 {
-    private Sprite bottom;
+    private readonly Sprite bottom;
 
-    private Sprite top;
+    private readonly Sprite top;
 
-    private Node topContainer;
+    private readonly Node topContainer;
 
-    private Node bottomContainer;
+    private readonly Node bottomContainer;
 
     private bool flying;
 

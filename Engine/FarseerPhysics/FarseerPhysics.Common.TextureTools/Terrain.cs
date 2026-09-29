@@ -12,13 +12,13 @@ namespace FarseerPhysics.Common.TextureTools;
 
 public class Terrain
 {
-    private World World;
+    private readonly World World;
 
     private Vector2 Center;
 
-    private float Width;
+    private readonly float Width;
 
-    private float Height;
+    private readonly float Height;
 
     public int PointsPerUnit { get; set; }
 
@@ -26,7 +26,7 @@ public class Terrain
 
     public int SubCellSize { get; set; }
 
-    private int Iterations = 2;
+    private readonly int Iterations = 2;
 
     public TriangulationAlgorithm Decomposer { get; set; }
 

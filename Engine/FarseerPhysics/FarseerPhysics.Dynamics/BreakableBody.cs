@@ -24,9 +24,9 @@ public class BreakableBody
 
     public Body MainBody;
 
-    private List<Fixture> Parts = new(8);
+    private readonly List<Fixture> Parts = new(8);
 
-    private float Strength = 500f;
+    private readonly float Strength = 500f;
 
     public BreakableBody(IEnumerable<Vertices> vertices, World world, float density)
     {

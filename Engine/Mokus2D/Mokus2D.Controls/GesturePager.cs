@@ -10,9 +10,9 @@ public sealed class GesturePager : ITouchListener, IDisposable, IUpdatable
 {
     public int? MaxPosition { get; set; }
 
-    private float MinMoveOffset = 20f;
+    private readonly float MinMoveOffset = 20f;
 
-    private float MinMoveStep = 0.025f;
+    private readonly float MinMoveStep = 0.025f;
 
     public int? MinPosition { get; set; }
     private Touch currentTouch;

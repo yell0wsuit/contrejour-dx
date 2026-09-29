@@ -8,7 +8,7 @@ namespace Default.Namespace;
 
 public abstract class CosPropertyChanger : IUpdatable
 {
-    private CosChanger changer;
+    private readonly CosChanger changer;
 
     protected Node target;
 

@@ -10,7 +10,7 @@ public class MultitouchHint : FadeHint
 {
     private int joinCount;
 
-    private List<BodyClip> snots;
+    private readonly List<BodyClip> snots;
 
     [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "Level content creates this by reflection with this signature.")]
     public MultitouchHint(ContreJourLevelBuilder builder, object body, Sprite clip, Hashtable config)

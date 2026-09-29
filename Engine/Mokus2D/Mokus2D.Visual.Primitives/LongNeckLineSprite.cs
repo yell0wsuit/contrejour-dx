@@ -16,7 +16,7 @@ public abstract class LongNeckLineSprite(ISpriteData spriteData = null) : LongNe
     private readonly List<Vector2> controlPoints = [];
 
     private readonly List<Vector2> bezierLine = [];
-    private int bezierPartsCount = 3;
+    private readonly int bezierPartsCount = 3;
 
     public float Width { get; set; } = 15f;
 

@@ -5,9 +5,9 @@ namespace Default.Namespace;
 
 public class LeafBodyClip : ForegroundBase
 {
-    private CosChanger rotationChanger;
+    private readonly CosChanger rotationChanger;
 
-    private float initialRotation;
+    private readonly float initialRotation;
 
     public LeafBodyClip(ContreJourLevelBuilder builder, object body, Sprite clip, Hashtable config)
         : base(builder, body, clip, config)

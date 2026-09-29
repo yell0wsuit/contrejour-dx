@@ -13,7 +13,7 @@ public class RootNode : Node
 
     private readonly OneThreadTransformCalculator _transformCalculator;
 
-    private bool DrawEnabled = true;
+    private readonly bool DrawEnabled = true;
 
     internal VisualState RootState;
 

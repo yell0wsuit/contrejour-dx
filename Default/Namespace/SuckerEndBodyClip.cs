@@ -8,7 +8,7 @@ public class SuckerEndBodyClip(SuckerBodyClip _sucker, object body) : ContreJour
 {
     private Touch touch;
 
-    private SuckerBodyClip sucker = _sucker;
+    private readonly SuckerBodyClip sucker = _sucker;
 
     public bool DisableHeroFocus => true;
 

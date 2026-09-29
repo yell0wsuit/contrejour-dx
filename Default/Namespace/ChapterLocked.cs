@@ -21,7 +21,7 @@ public class ChapterLocked : ChapterItem
 
     private bool exploding;
 
-    private Explosion explosion;
+    private readonly Explosion explosion;
 
     private Tablo tablo;
 

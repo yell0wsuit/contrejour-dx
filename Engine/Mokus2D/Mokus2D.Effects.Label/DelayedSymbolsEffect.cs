@@ -8,7 +8,7 @@ namespace Mokus2D.Effects.Label;
 
 public abstract class DelayedSymbolsEffect
 {
-    private float SymbolDelayTime;
+    private readonly float SymbolDelayTime;
 
     private readonly Action _onComplete;
 

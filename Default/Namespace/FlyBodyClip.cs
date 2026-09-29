@@ -16,9 +16,9 @@ namespace Default.Namespace;
 
 public class FlyBodyClip : ContreJourBodyClip, IClickable
 {
-    private FlyEye eye;
+    private readonly FlyEye eye;
 
-    private Sprite bodySprite;
+    private readonly Sprite bodySprite;
 
     private Vector2 initialPosition;
 
@@ -26,9 +26,9 @@ public class FlyBodyClip : ContreJourBodyClip, IClickable
 
     private bool stoped;
 
-    private FlyWings leftWings;
+    private readonly FlyWings leftWings;
 
-    private FlyWings rightWings;
+    private readonly FlyWings rightWings;
 
     private float backTime;
 

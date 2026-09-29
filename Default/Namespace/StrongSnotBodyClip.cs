@@ -15,11 +15,11 @@ public class StrongSnotBodyClip : SnotBodyClip
 {
     private FixedMouseJoint dragJoint;
 
-    private float extremeSnotDistance;
+    private readonly float extremeSnotDistance;
 
-    private float maxSnotDistance;
+    private readonly float maxSnotDistance;
 
-    private float normalDistance;
+    private readonly float normalDistance;
 
     private float targetColor;
 

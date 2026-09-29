@@ -25,7 +25,7 @@ public class Slider : UIComponent, IMouseWheelNode
 
     private readonly Sprite _thumb;
 
-    private float ClickAreaSpeed = 1000f;
+    private readonly float ClickAreaSpeed = 1000f;
     private bool _clickAreaStatic;
 
     private float? _clickAreaTargetPosition;

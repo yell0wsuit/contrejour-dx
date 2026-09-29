@@ -10,7 +10,7 @@ namespace Default.Namespace;
 
 public class BouncingSprite : Sprite
 {
-    private CosChanger changer;
+    private readonly CosChanger changer;
 
     private float initialScale;
 

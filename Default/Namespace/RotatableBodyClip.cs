@@ -6,15 +6,15 @@ namespace Default.Namespace;
 
 public class RotatableBodyClip : BodyClip
 {
-    private float scaleDiff;
+    private readonly float scaleDiff;
 
-    private float scaleStep;
+    private readonly float scaleStep;
 
     private float scaleProgress;
 
-    private bool destroying;
+    private readonly bool destroying;
 
-    private int scaleSign;
+    private readonly int scaleSign;
 
     public RotatableBodyClip(LevelBuilderBase builder, object body, Node clip, Hashtable config)
         : base(builder, body, clip, config)

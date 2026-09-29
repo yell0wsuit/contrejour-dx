@@ -23,7 +23,7 @@ public class EndHeroBodyClip : HeroBodyClip
 
     private bool animationsAllowed;
 
-    private List<EnergyPart> energy = [];
+    private readonly List<EnergyPart> energy = [];
 
     private float energySpeed;
 

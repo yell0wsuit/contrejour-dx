@@ -17,7 +17,7 @@ public class ContactManager
 
     public EndContactHandler EndContact;
 
-    private BroadphaseHandler OnBroadphaseCollision;
+    private readonly BroadphaseHandler OnBroadphaseCollision;
 
     public PostSolveHandler PostSolve;
 

@@ -7,7 +7,7 @@ namespace Default.Namespace;
 
 public class RotatorHint : FadeHint
 {
-    private RotatorBodyClip rotator;
+    private readonly RotatorBodyClip rotator;
 
     [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "Level content creates this by reflection with this signature.")]
     public RotatorHint(ContreJourLevelBuilder builder, object body, Sprite clip, Hashtable config)

@@ -9,9 +9,9 @@ namespace Default.Namespace;
 
 public class LianaBodyClip : ContreJourBodyClip
 {
-    private List<object> parts;
+    private readonly List<object> parts;
 
-    private LianaSprite clipContent;
+    private readonly LianaSprite clipContent;
 
     public LianaBodyClip(LevelBuilderBase builder, LianaData data, Node clip, Hashtable config)
         : base(builder, data.Bodies[0], clip, config)

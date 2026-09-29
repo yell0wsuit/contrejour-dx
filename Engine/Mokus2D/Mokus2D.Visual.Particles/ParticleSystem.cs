@@ -20,7 +20,7 @@ public class ParticleSystem : Node
 
     private float _timeToCreate;
 
-    private bool CanCreateParticles = true;
+    private readonly bool CanCreateParticles = true;
 
     public Predicate<ParticleData> RemovePredicate { get; set; }
 

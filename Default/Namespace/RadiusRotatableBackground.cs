@@ -9,7 +9,7 @@ public class RadiusRotatableBackground : RotatableBackground
 {
     protected Vector2 centerPosition;
 
-    private float radius;
+    private readonly float radius;
 
     public RadiusRotatableBackground(Node node, Hashtable config, ContreJourGame game)
         : base(node, config, game)

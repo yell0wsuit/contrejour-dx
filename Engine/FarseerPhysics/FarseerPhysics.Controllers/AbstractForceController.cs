@@ -31,13 +31,13 @@ public abstract class AbstractForceController : Controller
         Curve
     }
 
-    private Curve DecayCurve;
+    private readonly Curve DecayCurve;
 
     public ForceTypes ForceType;
 
     protected Random Randomize;
 
-    private Curve StrengthCurve;
+    private readonly Curve StrengthCurve;
 
     public float Strength { get; set; }
 

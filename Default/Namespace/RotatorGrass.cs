@@ -8,7 +8,7 @@ namespace Default.Namespace;
 
 public class RotatorGrass
 {
-    private CosChanger rotationChanger;
+    private readonly CosChanger rotationChanger;
 
     private float initialAngle;
 

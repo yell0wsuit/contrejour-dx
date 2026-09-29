@@ -24,23 +24,23 @@ public class PausePanel : Node, IDisposable
 
     private int buttonIndex;
 
-    private List<Button> buttons;
+    private readonly List<Button> buttons;
 
-    private ClickableLayer clickableLayer;
+    private readonly ClickableLayer clickableLayer;
 
-    private ContreJourGame game;
+    private readonly ContreJourGame game;
 
-    private Label levelLabel;
+    private readonly Label levelLabel;
 
-    private ToggleButton musicButton;
+    private readonly ToggleButton musicButton;
 
     private bool open;
 
-    private Button restartButton;
+    private readonly Button restartButton;
 
-    private Label scoreLabel;
+    private readonly Label scoreLabel;
 
-    private ToggleButton soundButton;
+    private readonly ToggleButton soundButton;
 
     private Vector2 winSize;
 

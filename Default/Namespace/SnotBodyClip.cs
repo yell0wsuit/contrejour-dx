@@ -39,7 +39,7 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
 
     private bool blinking;
 
-    private bool dynamicDrag;
+    private readonly bool dynamicDrag;
 
     private bool hasRelease;
 
@@ -51,13 +51,13 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
 
     private float length;
 
-    private EventSender linkEvent;
+    private readonly EventSender linkEvent;
 
     protected ISnotLinked linked;
 
-    private EventSender releaseEvent;
+    private readonly EventSender releaseEvent;
 
-    private SnotEye snotEye;
+    private readonly SnotEye snotEye;
 
     protected RevoluteJoint stickyJoint;
 

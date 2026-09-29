@@ -6,9 +6,9 @@ namespace Default.Namespace;
 
 public class TouchPositionProvider(Touch _touch, LevelBuilderBase _builder) : IVectorPositionProvider
 {
-    private LevelBuilderBase builder = _builder;
+    private readonly LevelBuilderBase builder = _builder;
 
-    private Touch touch = _touch;
+    private readonly Touch touch = _touch;
 
     public Touch Touch => touch;
 

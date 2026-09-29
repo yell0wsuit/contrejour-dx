@@ -12,9 +12,9 @@ public class Button : TouchSprite
 
     protected bool enabled;
 
-    private Sprite icon;
+    private readonly Sprite icon;
 
-    private Sprite pressed;
+    private readonly Sprite pressed;
 
     private float realScale;
 

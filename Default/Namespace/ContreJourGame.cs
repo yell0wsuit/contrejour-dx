@@ -71,23 +71,23 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
 
     private readonly PausePanel pausePanel;
 
-    private Node alphaBackground;
+    private readonly Node alphaBackground;
 
-    private EventSender backEvent;
+    private readonly EventSender backEvent;
 
-    private List<BackgroundBase> backgrounds = [];
+    private readonly List<BackgroundBase> backgrounds = [];
 
-    private bool blackSide;
+    private readonly bool blackSide;
 
     private IBonusAcceptable bonusTarget;
 
     private Color buttonsColor;
 
-    private int chapter;
+    private readonly int chapter;
 
-    private ClickableLayer clickableLayer;
+    private readonly ClickableLayer clickableLayer;
 
-    private Dictionary<Touch, IClickable> draggingItems;
+    private readonly Dictionary<Touch, IClickable> draggingItems;
 
     private ParticleSystem dust;
 
@@ -95,7 +95,7 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
 
     private ParticleSystem energy;
 
-    private FinishView finishView;
+    private readonly FinishView finishView;
 
     private bool finished;
 
@@ -103,17 +103,17 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
 
     private ParticleSystem flyes;
 
-    private List<ForegroundBase> foregrounds = [];
+    private readonly List<ForegroundBase> foregrounds = [];
 
     private int frame;
 
-    private List<Touch> freeDisabledTouches;
+    private readonly List<Touch> freeDisabledTouches;
 
-    private List<Touch> freeTouches;
+    private readonly List<Touch> freeTouches;
 
     private ParticleSystem grass;
 
-    private Button pauseButton;
+    private readonly Button pauseButton;
 
     private GroundFall groundFall;
     private int levelIndex;
@@ -126,36 +126,36 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
 
     private bool lightPowerChanged;
 
-    private EventSender nextLevelEvent;
+    private readonly EventSender nextLevelEvent;
 
     private GravityParticleSystem particles;
 
-    private List<PlasticineBodyClip> plasticine = new(8);
+    private readonly List<PlasticineBodyClip> plasticine = new(8);
 
-    private List<object> positionDependent;
+    private readonly List<object> positionDependent;
 
-    private List<object> positionProviders;
+    private readonly List<object> positionProviders;
 
     private float providersValue;
 
     private bool restartEnabled;
 
-    private LayerColor restartLayer;
+    private readonly LayerColor restartLayer;
 
     private bool snotSend;
 
     private int starsCollected;
 
-    private LightColor startLightColor;
+    private readonly LightColor startLightColor;
 
-    private Hashtable teleports;
+    private readonly Hashtable teleports;
 
-    private List<string> texturesToUnload;
+    private readonly List<string> texturesToUnload;
 
     private bool touchEnabled;
-    private bool whiteSide;
+    private readonly bool whiteSide;
 
-    private WindManager windManager;
+    private readonly WindManager windManager;
 
     private int zoomOutCount;
 

@@ -28,15 +28,15 @@ public class LevelBuilderBase : Updatable, IDisposable
 
     public string NamespacePrefix;
 
-    private Dictionary<string, BodyClip> clips;
-    private Dictionary<string, object> createdObjects;
+    private readonly Dictionary<string, BodyClip> clips;
+    private readonly Dictionary<string, object> createdObjects;
     private int defaultZ;
 
     private Box2DConfig engineConfig;
 
     protected GameBase game;
 
-    private Body groundBody;
+    private readonly Body groundBody;
     private Vector2 levelSize;
 
     protected float maxWorldUpdateTime;

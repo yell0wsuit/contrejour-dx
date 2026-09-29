@@ -8,7 +8,7 @@ namespace FarseerPhysics.Common;
 
 public class Path
 {
-    private List<Vector2> ControlPoints;
+    private readonly List<Vector2> ControlPoints;
 
     private float _deltaT;
 

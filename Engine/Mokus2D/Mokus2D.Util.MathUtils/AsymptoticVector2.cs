@@ -8,7 +8,7 @@ public class AsymptoticVector2(RectangleFloat bounds, float offset) : IValueProc
 {
     private RectangleFloat Bounds = bounds;
 
-    private float Offset = offset;
+    private readonly float Offset = offset;
 
     public Vector2 GetValue(Vector2 value)
     {

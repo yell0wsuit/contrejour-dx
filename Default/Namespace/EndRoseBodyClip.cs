@@ -15,7 +15,7 @@ namespace Default.Namespace;
 
 public class EndRoseBodyClip : StickyBodyClip, IBonusAcceptable, IBodyClip
 {
-    private CosChanger colorChanger;
+    private readonly CosChanger colorChanger;
 
     private float colorProgress;
 
@@ -23,13 +23,13 @@ public class EndRoseBodyClip : StickyBodyClip, IBonusAcceptable, IBodyClip
 
     private bool goingDown;
 
-    private float maxTime;
+    private readonly float maxTime;
 
-    private MovieClip movie;
+    private readonly MovieClip movie;
 
     private bool rised;
 
-    private bool saved;
+    private readonly bool saved;
 
     private float startTime;
 

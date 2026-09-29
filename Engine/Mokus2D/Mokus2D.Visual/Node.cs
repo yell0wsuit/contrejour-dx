@@ -71,7 +71,7 @@ public class Node : DisposableBase, IUpdatable, IConfig
 
     public bool UpdateEnabled = true;
 
-    private bool UpdateSelf = true;
+    private readonly bool UpdateSelf = true;
     private bool _firstUpdate = true;
     private bool _matrixDirty;
 

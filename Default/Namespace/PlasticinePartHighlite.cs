@@ -12,15 +12,15 @@ namespace Default.Namespace;
 
 public class PlasticinePartHighlite : IUpdatable
 {
-    private PlasticinePartBodyClip plasticine;
+    private readonly PlasticinePartBodyClip plasticine;
 
-    private LevelBuilderBase builder;
+    private readonly LevelBuilderBase builder;
 
-    private ContreJourGame game;
+    private readonly ContreJourGame game;
 
-    private PlasticineHighliteBorder parent;
+    private readonly PlasticineHighliteBorder parent;
 
-    private int index;
+    private readonly int index;
 
     private bool dirty;
 

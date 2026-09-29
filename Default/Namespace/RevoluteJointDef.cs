@@ -8,9 +8,9 @@ namespace Default.Namespace;
 
 public class RevoluteJointDef(RevoluteJoint joint)
 {
-    private Body BodyA = joint.BodyA;
+    private readonly Body BodyA = joint.BodyA;
 
-    private Body BodyB = joint.BodyB;
+    private readonly Body BodyB = joint.BodyB;
 
     private Vector2 LocalAnchorB = joint.LocalAnchorB;
 

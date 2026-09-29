@@ -6,7 +6,7 @@ namespace Mokus2D.Collections.QuadTree;
 
 public class QuadTreeNode<T>(RectangleFloat bounds) where T : class, IQuadTreeObject<T>
 {
-    private static int _id;
+    private static readonly int _id;
 
     internal readonly QuadTreeNode<T>[] Nodes = new QuadTreeNode<T>[4];
 

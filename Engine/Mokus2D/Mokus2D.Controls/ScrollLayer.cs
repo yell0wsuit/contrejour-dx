@@ -26,7 +26,7 @@ public class ScrollLayer : ClickableLayer, ITouchListener
 
     public bool InertiaHorizontal { get; set; }
 
-    private bool InertiaVertical = true;
+    private readonly bool InertiaVertical = true;
 
     private Touch _scrollTouch;
 

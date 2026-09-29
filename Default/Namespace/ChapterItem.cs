@@ -44,7 +44,7 @@ public class ChapterItem : Node
 
     protected MainMenu menu;
 
-    private float offset;
+    private readonly float offset;
 
     public float Offset => offset;
 

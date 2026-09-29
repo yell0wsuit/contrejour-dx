@@ -52,7 +52,7 @@ public class PhysicsConstructor : PhysicsTransform
         Category.Cat31
     ];
 
-    private float Density = 1f;
+    private readonly float Density = 1f;
 
     public IPhysicsConfigProcessor ConfigProcessor { get; set; }
     private readonly World World;

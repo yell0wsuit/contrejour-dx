@@ -19,13 +19,13 @@ public class BlackTail : PrimitivesNode, IUpdatable
 {
     protected VertexPositionColorTexture[] vertices = [];
 
-    private List<Vector2> bezierPoints = [];
+    private readonly List<Vector2> bezierPoints = [];
 
     private Body body;
 
     private Vector2 target;
 
-    private LevelBuilderBase builder;
+    private readonly LevelBuilderBase builder;
 
     private Vector2 currentPosition;
 
@@ -35,7 +35,7 @@ public class BlackTail : PrimitivesNode, IUpdatable
 
     private Vector2 currentCenter;
 
-    private List<int> removeFrames = [];
+    private readonly List<int> removeFrames = [];
 
     private int currentFrame;
 

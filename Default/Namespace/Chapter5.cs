@@ -18,7 +18,7 @@ public class Chapter5(int index, MainMenu menu) : ChapterItem(index, menu)
 
     private Node foregroundContainer;
 
-    private List<CosPropertyChanger> changers = [];
+    private readonly List<CosPropertyChanger> changers = [];
 
     private Node planetForeground;
 

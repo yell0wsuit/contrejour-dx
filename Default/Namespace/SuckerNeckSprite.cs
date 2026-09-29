@@ -17,7 +17,7 @@ public class SuckerNeckSprite : LongNeckSprite
 
     private Pair<Vector2> end;
 
-    private Bouncer bouncer;
+    private readonly Bouncer bouncer;
 
     private float length;
 

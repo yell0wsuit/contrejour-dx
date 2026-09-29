@@ -14,7 +14,7 @@ namespace Default.Namespace;
 
 public class SimpleSpikesBodyClip : ContreJourBodyClip, IRestartable
 {
-    private bool floating;
+    private readonly bool floating;
 
     private float speed;
 
@@ -28,7 +28,7 @@ public class SimpleSpikesBodyClip : ContreJourBodyClip, IRestartable
 
     private bool actionsRunning;
 
-    private float initialScale;
+    private readonly float initialScale;
 
     public SimpleSpikesBodyClip(LevelBuilderBase builder, object body, Node clip, Hashtable config)
         : base(builder, body, clip, config)

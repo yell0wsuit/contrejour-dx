@@ -18,7 +18,7 @@ public class ClickListener : ITouchListener
 
     private float radius;
 
-    private Dictionary<Touch, Vector2> startPositions = [];
+    private readonly Dictionary<Touch, Vector2> startPositions = [];
 
     public EventSender ClickEvent => clickEvent;
 

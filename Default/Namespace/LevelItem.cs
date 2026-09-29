@@ -10,11 +10,11 @@ namespace Default.Namespace;
 public class LevelItem : Button, IBoundsNode, ISizeNode
 {
     public const float EffectTime = 0.1f;
-    private int index;
+    private readonly int index;
 
-    private int level;
+    private readonly int level;
 
-    private bool unlocked;
+    private readonly bool unlocked;
 
     public int Level => level;
 

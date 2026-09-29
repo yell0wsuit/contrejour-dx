@@ -4,7 +4,7 @@ namespace Default.Namespace;
 
 public class GrassAndPosition(Particle particle, Vector2 position)
 {
-    private Particle particle = particle;
+    private readonly Particle particle = particle;
 
     private Vector2 position = position;
 

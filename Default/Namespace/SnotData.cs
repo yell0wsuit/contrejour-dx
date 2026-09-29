@@ -9,7 +9,7 @@ namespace Default.Namespace;
 
 public class SnotData
 {
-    private Body joinedBody;
+    private readonly Body joinedBody;
 
     private Body eyeBody;
 
@@ -17,15 +17,15 @@ public class SnotData
 
     private Vector2 localStartAnchor;
 
-    private List<Body> bodies;
+    private readonly List<Body> bodies;
 
-    private List<Joint> joints;
+    private readonly List<Joint> joints;
 
-    private float initialLength;
+    private readonly float initialLength;
 
     private SnotBodyClipBase snot;
 
-    private RopeMetrics metrics;
+    private readonly RopeMetrics metrics;
 
     public Body EyeBody
     {

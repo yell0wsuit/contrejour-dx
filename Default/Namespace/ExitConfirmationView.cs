@@ -19,9 +19,9 @@ public class ExitConfirmationView : ClickableLayer
 
     private ColorRectangle _background;
 
-    private EventSender<ExitConfirmationView> OnYes = new();
+    private readonly EventSender<ExitConfirmationView> OnYes = new();
 
-    private EventSender<ExitConfirmationView> OnNo = new();
+    private readonly EventSender<ExitConfirmationView> OnNo = new();
 
     private void OnYesButtonClick(TouchArguments touchArguments)
     {

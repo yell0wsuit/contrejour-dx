@@ -16,11 +16,11 @@ namespace Default.Namespace;
 
 public class BlackSmokeTail(Body _body, LevelBuilderBase _builder) : IUpdatable
 {
-    private Body body = _body;
+    private readonly Body body = _body;
 
-    private LevelBuilderBase builder = _builder;
+    private readonly LevelBuilderBase builder = _builder;
 
-    private List<object> items = [];
+    private readonly List<object> items = [];
 
     private Vector2 previousPosition;
 

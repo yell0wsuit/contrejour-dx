@@ -4,7 +4,7 @@ namespace Default.Namespace;
 
 public class PhysicsUpdater : Updatable
 {
-    private World world;
+    private readonly World world;
 
     public World World => world;
 

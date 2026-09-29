@@ -16,13 +16,13 @@ public class SnotSprite : LongNeckSprite
 
     protected SnotBodyClipBase snot;
 
-    private SnotData data;
+    private readonly SnotData data;
 
-    private float startWidth;
+    private readonly float startWidth;
 
-    private float endWidth;
+    private readonly float endWidth;
 
-    private float centerWidth;
+    private readonly float centerWidth;
 
     public SnotSprite(SnotBodyClipBase snot, float startWidth, float centerWidth, float endWidth)
     {

@@ -7,9 +7,9 @@ namespace FarseerPhysics.Controllers;
 
 public class VelocityLimitController : Controller
 {
-    private bool LimitAngularVelocity = true;
+    private readonly bool LimitAngularVelocity = true;
 
-    private bool LimitLinearVelocity = true;
+    private readonly bool LimitLinearVelocity = true;
 
     private readonly List<Body> _bodies = [];
 

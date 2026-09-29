@@ -33,9 +33,9 @@ public class RotatableSpringBodyClip : RotatableSpringBase, IRestartable
 
     private float startTouchAngle;
 
-    private Sprite circle;
+    private readonly Sprite circle;
 
-    private Sprite touchPoint;
+    private readonly Sprite touchPoint;
 
     private float targetRotation;
 

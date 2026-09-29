@@ -28,9 +28,9 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
 
     private readonly float eyeScale;
 
-    private List<BlackTail> blackTails;
+    private readonly List<BlackTail> blackTails;
 
-    private Sprite bodyBackground;
+    private readonly Sprite bodyBackground;
 
     private float breatheScale;
 
@@ -57,7 +57,7 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
 
     private bool hitEnabled;
 
-    private Sprite hotspot;
+    private readonly Sprite hotspot;
 
     private Vector2 initialPosition;
 
@@ -77,7 +77,7 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
 
     private bool onPlasticine;
 
-    private Portal portal;
+    private readonly Portal portal;
 
     private Vector2 previousSpeed;
 
@@ -87,7 +87,7 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
 
     private bool restarting;
 
-    private Sprite shadow;
+    private readonly Sprite shadow;
 
     protected bool sleep;
 
@@ -105,7 +105,7 @@ public class HeroBodyClip : ContreJourBodyClip, IVectorPositionProvider, IBonusA
 
     protected Vector2 targetScale;
 
-    private EventSender teleportEvent;
+    private readonly EventSender teleportEvent;
 
     private float timeToSleep;
 

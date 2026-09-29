@@ -13,7 +13,7 @@ public class ColorRectangle : PrimitivesNode
 
     private bool sizeDirty;
 
-    private VertexPositionColorTexture[] vertices = new VertexPositionColorTexture[4];
+    private readonly VertexPositionColorTexture[] vertices = new VertexPositionColorTexture[4];
 
     public Vector2 Size
     {

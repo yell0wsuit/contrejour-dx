@@ -32,7 +32,7 @@ public abstract class Mokus2DGame : DisposableBase
 
     public readonly SpriteClicksListener SpriteClicksListener;
 
-    private Tweener Tweener;
+    private readonly Tweener Tweener;
 
     public readonly UpdateDrawCounter PerformanceCounter = new(60);
 
@@ -46,7 +46,7 @@ public abstract class Mokus2DGame : DisposableBase
 
     public Color BackgroundColor = Color.Black;
 
-    private float? MaxUpdateTime = 0.04f;
+    private readonly float? MaxUpdateTime = 0.04f;
     private IFileLoader _fileLoader = new FileLoader();
 
     private readonly ConcurrentDelayedActions _mainThreadActions = new();

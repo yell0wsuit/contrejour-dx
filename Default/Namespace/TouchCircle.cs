@@ -38,7 +38,7 @@ public class TouchCircle(Touch _touch, LevelBuilderBase builder) : BodyClip(buil
 
     private bool free = true;
 
-    private Touch touch = _touch;
+    private readonly Touch touch = _touch;
 
     public Touch Touch => touch;
 

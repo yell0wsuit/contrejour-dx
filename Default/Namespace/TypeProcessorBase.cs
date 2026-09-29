@@ -2,7 +2,7 @@ namespace Default.Namespace;
 
 public class TypeProcessorBase(string _type, LevelBuilderBase _builder)
 {
-    private string type = _type;
+    private readonly string type = _type;
 
     protected LevelBuilderBase builder = _builder;
 

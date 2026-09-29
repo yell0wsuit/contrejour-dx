@@ -13,7 +13,7 @@ public class GrassController : IGrassController, IUpdatable
 {
     protected PlasticinePartBodyClip plasticine;
 
-    private ContreJourGame game;
+    private readonly ContreJourGame game;
 
     protected ContreJourLevelBuilder builder;
 
@@ -25,7 +25,7 @@ public class GrassController : IGrassController, IUpdatable
 
     private List<object> flyes;
 
-    private float startAngle;
+    private readonly float startAngle;
 
     private bool touched;
 

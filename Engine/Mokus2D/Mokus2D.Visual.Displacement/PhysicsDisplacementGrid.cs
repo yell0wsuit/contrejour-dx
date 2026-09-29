@@ -14,7 +14,7 @@ public class PhysicsDisplacementGrid : DisplacementGrid
 {
     private PhysicsNodeData[,] _nodesData;
 
-    private float InteractionCoeff = 1f;
+    private readonly float InteractionCoeff = 1f;
 
     public float RecoveryVelocity { get; set; }
 

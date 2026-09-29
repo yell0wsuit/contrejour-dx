@@ -13,11 +13,11 @@ public class PlasticineHighliteBorder : PrimitivesNode
 {
     public const int HighlitePartVerticesCount = 4;
 
-    private VertexPositionColor[] vertices;
+    private readonly VertexPositionColor[] vertices;
 
-    private List<object> parts = [];
+    private readonly List<object> parts = [];
 
-    private PlasticineWideBorder border;
+    private readonly PlasticineWideBorder border;
 
     public VertexPositionColor[] Vertices => vertices;
 

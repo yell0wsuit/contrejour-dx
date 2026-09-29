@@ -10,7 +10,7 @@ public class FurCircle : ParticleSystem
 {
     private float radius;
 
-    private float angleStep;
+    private readonly float angleStep;
 
     public float Radius
     {

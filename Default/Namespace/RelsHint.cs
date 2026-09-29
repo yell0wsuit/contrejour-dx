@@ -6,7 +6,7 @@ namespace Default.Namespace;
 
 public class RelsHint : FadeHint
 {
-    private DragableBodyClip rels;
+    private readonly DragableBodyClip rels;
 
     private bool used;
 

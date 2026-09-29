@@ -9,7 +9,7 @@ namespace Default.Namespace;
 
 public class MovingRotatingSprite : RotatingSprite
 {
-    private CosChanger changer;
+    private readonly CosChanger changer;
 
     private Vector2 initialPosition;
 

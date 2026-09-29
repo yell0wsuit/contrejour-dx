@@ -2,13 +2,13 @@ namespace Default.Namespace;
 
 public class WindData
 {
-    private float minAngle;
+    private readonly float minAngle;
 
-    private float maxAngle;
+    private readonly float maxAngle;
 
     private float windOffset;
 
-    private float diff;
+    private readonly float diff;
 
     public float MinAngle => minAngle;
 

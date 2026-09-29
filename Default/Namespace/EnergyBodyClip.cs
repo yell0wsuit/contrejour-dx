@@ -13,13 +13,13 @@ namespace Default.Namespace;
 
 public class EnergyBodyClip : BodyClip, IRestartable
 {
-    private ContreJourLevelBuilder contreJourBuilder;
+    private readonly ContreJourLevelBuilder contreJourBuilder;
 
-    private List<object> energyParts;
+    private readonly List<object> energyParts;
 
     private bool collected;
 
-    private EventSender collectEvent;
+    private readonly EventSender collectEvent;
 
     public EventSender CollectEvent => collectEvent;
 

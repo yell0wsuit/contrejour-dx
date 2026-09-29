@@ -35,7 +35,7 @@ public abstract class LongNeckSprite : PrimitivesNode
 
     private readonly TextureCoords textureCoords = new();
 
-    private float textureStep = 1f;
+    private readonly float textureStep = 1f;
 
     protected bool drawBorder = true;
 
