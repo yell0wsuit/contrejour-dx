@@ -27,7 +27,7 @@ public class BackSnotEye : MonsterEye
     public override void Update(float time)
     {
         base.Update(time);
-        currentBackground.Position = CurrentEyeBall.Position * 0.4f;
+        CurrentBackground.Position = CurrentEyeBall.Position * 0.4f;
     }
 
     protected override void CreateDefaultView()

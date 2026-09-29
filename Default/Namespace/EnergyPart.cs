@@ -37,8 +37,8 @@ public class EnergyPart : Satellite
         Target = (BodyClip)Game.BonusTarget;
         Game.Hero.FinishEvent.AddListener(OnHeroFinish);
         collected = true;
-        speedValue = Maths.Random(150f, 250f);
-        angleStep = Maths.Random(0.05f, 0.1f);
+        SpeedValue = Maths.Random(150f, 250f);
+        AngleStep = Maths.Random(0.05f, 0.1f);
     }
 
     public void OnHeroFinish()
@@ -59,14 +59,14 @@ public class EnergyPart : Satellite
         {
             return;
         }
-        float num = clip.Position.DistanceTo(TargetPosition);
+        float num = Clip.Position.DistanceTo(TargetPosition);
         if (collected && num < 50f)
         {
-            clip.OpacityFloat = num / 50f;
+            Clip.OpacityFloat = num / 50f;
         }
         else
         {
-            clip.OpacityByte = 255;
+            Clip.OpacityByte = 255;
         }
         if ((timeToEnd <= 0f && num <= 10f) || opacity <= 0f)
         {
@@ -78,13 +78,13 @@ public class EnergyPart : Satellite
         }
         else if (timeToEnd <= 0f)
         {
-            angleStep += 0.005f;
-            speedValue += 1f;
+            AngleStep += 0.005f;
+            SpeedValue += 1f;
         }
         if (finished && opacity > 0f)
         {
             opacity = Maths.StepTo(opacity, 0f, 5f);
-            clip.OpacityByte = (int)opacity;
+            Clip.OpacityByte = (int)opacity;
         }
     }
 }

@@ -18,7 +18,7 @@ public class MovableSpringBodyClip(LevelBuilderBase builder, object body, Node c
     {
         if (mover == null)
         {
-            mover = (DragableBodyClip)FarseerUtil.Query(builder.World, Body.Position, 3.3333333f, typeof(DragableBodyClip));
+            mover = (DragableBodyClip)FarseerUtil.Query(Builder.World, Body.Position, 3.3333333f, typeof(DragableBodyClip));
             offset = Body.Position - mover.Body.Position;
             moverPosition = mover.Body.Position;
             Body.BodyType = (BodyType)1;

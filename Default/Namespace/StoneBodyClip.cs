@@ -9,6 +9,6 @@ public class StoneBodyClip(LevelBuilderBase builder, object body, Node clip, Has
     public override void Update(float time)
     {
         base.Update(time);
-        clip.Color = Color.White * Game.LightPower;
+        Clip.Color = Color.White * Game.LightPower;
     }
 }

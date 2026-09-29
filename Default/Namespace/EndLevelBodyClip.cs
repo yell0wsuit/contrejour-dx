@@ -18,14 +18,14 @@ public class EndLevelBodyClip : RotatableBodyClip, IRestartable
     public EndLevelBodyClip(LevelBuilderBase builder, object body, Node clip, Hashtable config)
         : base(builder, body, clip, config)
     {
-        Portal = new Portal((ContreJourGame)this.builder.Game, Vector2.Zero)
+        Portal = new Portal((ContreJourGame)this.Builder.Game, Vector2.Zero)
         {
-            Position = this.clip.Position,
+            Position = this.Clip.Position,
             Scale = 1.3f
         };
-        this.builder.Add(Portal, 11);
-        ((ContreJourGame)this.builder.Game).EndLevel = this;
-        this.clip.Visible = false;
+        this.Builder.Add(Portal, 11);
+        ((ContreJourGame)this.Builder.Game).EndLevel = this;
+        this.Clip.Visible = false;
         Portal.ItemsScale = 0f;
     }
 
@@ -44,11 +44,11 @@ public class EndLevelBodyClip : RotatableBodyClip, IRestartable
     {
         if (!finishing && body2.UserData is HeroBodyClip heroBodyClip && heroBodyClip.CanDie())
         {
-            if (builder.Game.TotalTime <= 5f)
+            if (Builder.Game.TotalTime <= 5f)
             {
                 XBoxUtil.AwardAchievement("rush_hour");
             }
-            if (builder.Game.TotalTime <= 10f && ((ContreJourGame)builder.Game).StarsCollected == 3)
+            if (Builder.Game.TotalTime <= 10f && ((ContreJourGame)Builder.Game).StarsCollected == 3)
             {
                 XBoxUtil.AwardAchievement("fast_perfect");
             }

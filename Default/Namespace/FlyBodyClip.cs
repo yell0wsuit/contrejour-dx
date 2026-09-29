@@ -45,13 +45,13 @@ public class FlyBodyClip : ContreJourBodyClip, IClickable
     {
         bodySprite = new McFlyBody();
         clip = bodySprite;
-        this.clip = clip;
+        this.Clip = clip;
         _ = builder.AddChild(clip);
         eye = new FlyEye(Game, visible: true, Body.Position)
         {
             Scale = 0.65f
         };
-        this.clip.AddChild(eye);
+        this.Clip.AddChild(eye);
         scaredTime = 0f;
         Schedule(StartFly, Maths.Random(7f, 11f));
         initialPosition = Body.Position;
@@ -60,8 +60,8 @@ public class FlyBodyClip : ContreJourBodyClip, IClickable
         leftWings.Position = new Vector2(0f - WingsPosition.X, WingsPosition.Y);
         rightWings.Position = WingsPosition;
         rightWings.ScaleX = -1f;
-        this.clip.AddChild(leftWings);
-        this.clip.AddChild(rightWings);
+        this.Clip.AddChild(leftWings);
+        this.Clip.AddChild(rightWings);
         Body.GravityScale = 0f;
     }
 
@@ -85,7 +85,7 @@ public class FlyBodyClip : ContreJourBodyClip, IClickable
         SoundManager.PlaySound("fly", Maths.Random(0.15f, 0.35f));
         eye.PlayAnimation(new EyeAnimation("McEyeBlinkMonster"), force: false);
         eye.RandomPositionProvider = Game.GetTouchProvider(touch);
-        Scare(builder.TouchRootVec(touch));
+        Scare(Builder.TouchRootVec(touch));
         return false;
     }
 
@@ -142,12 +142,12 @@ public class FlyBodyClip : ContreJourBodyClip, IClickable
 
     private void ToBackground()
     {
-        clip.Parent.ChangeChildLayer(clip, -3);
+        Clip.Parent.ChangeChildLayer(Clip, -3);
     }
 
     private void ToForeground()
     {
-        clip.Parent.ChangeChildLayer(clip, 0);
+        Clip.Parent.ChangeChildLayer(Clip, 0);
     }
 
     public void EndFly()
@@ -157,7 +157,7 @@ public class FlyBodyClip : ContreJourBodyClip, IClickable
         Body.LinearVelocity = Vector2.Zero;
         DoFlyImpulse(angle, impulse);
         freeFlight = false;
-        _ = clip.ScaleTo(1.2f, 1f);
+        _ = Clip.ScaleTo(1.2f, 1f);
         Schedule(StartFly, Maths.Random(10f, 20f));
         Schedule(ToForeground, 0.3f);
     }
@@ -195,7 +195,7 @@ public class FlyBodyClip : ContreJourBodyClip, IClickable
 
     public void FlyOutAngle(float impulseMult, float angle)
     {
-        _ = TweeningExtensions.ScaleTo(scale: Maths.Random(0.6f, 0.95f), node: clip, time: 1.2f);
+        _ = TweeningExtensions.ScaleTo(scale: Maths.Random(0.6f, 0.95f), node: Clip, time: 1.2f);
         DoFlyImpulse(angle, Maths.Random(3f, 6f) * impulseMult);
     }
 
@@ -237,19 +237,19 @@ public class FlyBodyClip : ContreJourBodyClip, IClickable
 
     public void CheckOutOfBorder()
     {
-        if (clip.Position.X < 50f)
+        if (Clip.Position.X < 50f)
         {
             DoFlyImpulse(Maths.Random(0f, (float)Math.PI / 4f), Maths.Random(3f, 6f));
         }
-        else if (clip.Position.X > Game.LevelSize.X - 50f)
+        else if (Clip.Position.X > Game.LevelSize.X - 50f)
         {
             DoFlyImpulse(Maths.Random((float)Math.PI * 3f / 4f, (float)Math.PI), Maths.Random(3f, 6f));
         }
-        else if (clip.Position.Y > Game.LevelSize.Y - 50f)
+        else if (Clip.Position.Y > Game.LevelSize.Y - 50f)
         {
             DoFlyImpulse(Maths.Random((float)Math.PI * -3f / 4f, -(float)Math.PI / 4f), Maths.Random(3f, 6f));
         }
-        else if (clip.Position.Y < 50f)
+        else if (Clip.Position.Y < 50f)
         {
             DoFlyImpulse(Maths.Random((float)Math.PI / 4f, (float)Math.PI * 3f / 4f), Maths.Random(3f, 6f));
         }
@@ -258,8 +258,8 @@ public class FlyBodyClip : ContreJourBodyClip, IClickable
     public override void UpdateRotation()
     {
         float target = -5f * Body.LinearVelocity.X;
-        clip.RotationDegrees = Maths.StepTo(clip.RotationDegrees, target, 1f);
-        bodySprite.RotationDegrees = clip.RotationDegrees;
+        Clip.RotationDegrees = Maths.StepTo(Clip.RotationDegrees, target, 1f);
+        bodySprite.RotationDegrees = Clip.RotationDegrees;
     }
 
     public void TryStop()

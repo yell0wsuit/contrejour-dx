@@ -30,7 +30,7 @@ public class TimeoutHint : FadeHint
     public override void Update(float time)
     {
         base.Update(time);
-        if (!showing && builder.Game.TotalTime > 25f)
+        if (!showing && Builder.Game.TotalTime > 25f)
         {
             HasToRun = true;
             showing = true;

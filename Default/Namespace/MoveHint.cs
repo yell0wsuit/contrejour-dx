@@ -10,7 +10,7 @@ public class MoveHint(ContreJourLevelBuilder builder, object body, Sprite clip, 
 
     private void GetPoint()
     {
-        foreach (BodyClip item in FarseerUtil.QueryClips(builder.World, builder.ToVec(clip.Position), 6.6666665f, typeof(SnotPoint)))
+        foreach (BodyClip item in FarseerUtil.QueryClips(Builder.World, Builder.ToVec(Clip.Position), 6.6666665f, typeof(SnotPoint)))
         {
             if (item is SnotPoint && ((SnotPoint)item).Used)
             {
@@ -47,7 +47,7 @@ public class MoveHint(ContreJourLevelBuilder builder, object body, Sprite clip, 
         {
             used = true;
             Hiding = true;
-            Hide(0.5f * clip.OpacityByte / 255f);
+            Hide(0.5f * Clip.OpacityByte / 255f);
         }
     }
 }

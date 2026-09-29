@@ -10,7 +10,7 @@ public class Button : TouchSprite
 {
     public bool StopEventPropagation { get; set; }
 
-    protected bool enabled;
+    public bool Enabled { get; set; }
     private readonly Sprite pressed;
 
     private float realScale;
@@ -27,19 +27,13 @@ public class Button : TouchSprite
         }
     }
 
-    public bool Enabled
-    {
-        get => enabled;
-        set => enabled = value;
-    }
-
     public Sprite Icon { get; }
 
     public Button(string backgroundFile, string pressedName, string iconName)
         : base(backgroundFile)
     {
         realScale = 1f;
-        enabled = true;
+        Enabled = true;
         if (pressedName != null)
         {
             pressed = new Sprite(pressedName);
@@ -71,7 +65,7 @@ public class Button : TouchSprite
 
     public override bool TouchBegin(Touch touch)
     {
-        if (!enabled)
+        if (!Enabled)
         {
             return false;
         }
@@ -94,13 +88,13 @@ public class Button : TouchSprite
     public override bool TouchOut(Touch touch)
     {
         HidePressed();
-        return enabled && base.TouchOut(touch);
+        return Enabled && base.TouchOut(touch);
     }
 
     public override void TouchEnd(Touch touch)
     {
         HidePressed();
-        if (enabled)
+        if (Enabled)
         {
             base.TouchEnd(touch);
             SoundManager.PlaySound("newClip1", 0.7f);

@@ -17,8 +17,8 @@ public class BlueLights : GravityParticleSystem
         Angle = new RandomRange(90f, 15f);
         AngularSpeed = new RandomRange(0f, 0f);
         ParticlesScale = new RandomRange(1.3f, 1f);
-        bottomLeftBound = new Vector2(0f, 0f);
-        topRightBound = new Vector2(w7FromIPhoneSize.X, w7FromIPhoneSize.Y);
+        BottomLeftBound = new Vector2(0f, 0f);
+        TopRightBound = new Vector2(w7FromIPhoneSize.X, w7FromIPhoneSize.Y);
     }
 
     public override void InitParticle(GravityParticle gravityParticle)

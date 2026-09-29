@@ -32,10 +32,10 @@ public class PlasticineBodyClip : ContreJourBodyClip, IRestartable
         contreJourGame.RegisterPlasticine(this);
         clipContent = (PlasticineSprite)ReflectUtil.CreateInstance(contreJourGame.ChooseSide(typeof(BlackPlasticineSprite), typeof(WhitePlasticineSprite), typeof(PlasticineSprite)));
         Create(points);
-        _ = this.builder.AddChild(clipContent);
+        _ = this.Builder.AddChild(clipContent);
         FirstItem.BodyClip.UpdateParent = true;
         wideBorder = new PlasticineWideBorder();
-        _ = this.builder.AddChild(wideBorder);
+        _ = this.Builder.AddChild(wideBorder);
         InitBorder(contreJourGame);
         InitFillSprite();
         if (!contreJourGame.RoseChapter)
@@ -44,7 +44,7 @@ public class PlasticineBodyClip : ContreJourBodyClip, IRestartable
         }
         if (highlite != null)
         {
-            _ = this.builder.AddChild(highlite);
+            _ = this.Builder.AddChild(highlite);
         }
         Changed = false;
         draggingItems = [];
@@ -142,7 +142,7 @@ public class PlasticineBodyClip : ContreJourBodyClip, IRestartable
         ];
         for (int i = 0; i < list.Count; i++)
         {
-            List<Fixture> list2 = FarseerUtil.Raycast(endPoint: list[i], world: builder.World, startPoint: point);
+            List<Fixture> list2 = FarseerUtil.Raycast(endPoint: list[i], world: Builder.World, startPoint: point);
             bool flag = false;
             for (int j = 0; j < list2.Count; j++)
             {
@@ -199,7 +199,7 @@ public class PlasticineBodyClip : ContreJourBodyClip, IRestartable
         item.NextItem.NextItem.BodyClip.ScareFlyes(0);
         item.PreviousItem.BodyClip.ScareFlyes(0);
         item.PreviousItem.PreviousItem.BodyClip.ScareFlyes(0);
-        DraggingItem value = new(builder, item, touch);
+        DraggingItem value = new(Builder, item, touch);
         draggingItems[touch] = value;
         return true;
     }
@@ -239,6 +239,6 @@ public class PlasticineBodyClip : ContreJourBodyClip, IRestartable
 
     public void Create(List<Vector2> points)
     {
-        FirstItem = SurfaceCreator.CreateParentPointsMaxWidth((ContreJourLevelBuilder)builder, this, points, 0.6f, out leftItem);
+        FirstItem = SurfaceCreator.CreateParentPointsMaxWidth((ContreJourLevelBuilder)Builder, this, points, 0.6f, out leftItem);
     }
 }

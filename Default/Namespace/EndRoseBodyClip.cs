@@ -40,7 +40,7 @@ public class EndRoseBodyClip : StickyBodyClip, IBonusAcceptable, IBodyClip
     {
         clip.Scale /= 1.28f;
         Game.BonusTarget = this;
-        movie = (MovieClip)this.clip;
+        movie = (MovieClip)this.Clip;
         movie.Rewind = true;
         movie.Repeat = false;
         saved = UserData.Instance.RoseSaved;
@@ -51,7 +51,7 @@ public class EndRoseBodyClip : StickyBodyClip, IBonusAcceptable, IBodyClip
         maxTime = saved ? 4f : 2.9629629f;
         movie.Color = Color.Black;
         colorChanger = new CosChanger(-0.1f, 0f, 0.05f);
-        this.builder.RegisterObject(this, "rose");
+        this.Builder.RegisterObject(this, "rose");
     }
 
     public void ApplyBonus()
@@ -66,18 +66,18 @@ public class EndRoseBodyClip : StickyBodyClip, IBonusAcceptable, IBodyClip
 
     public Vector2 BonusTarget()
     {
-        return clip.Position + new Vector2(28f, 78f) + (new Vector2(-20f, 20f) * movie.CurrentFrame / movie.MaxFrame);
+        return Clip.Position + new Vector2(28f, 78f) + (new Vector2(-20f, 20f) * movie.CurrentFrame / movie.MaxFrame);
     }
 
     private void AddLight()
     {
         Sprite sprite = new McRoseLight
         {
-            Position = new Vector2(22f, 114f) + clip.Position,
+            Position = new Vector2(22f, 114f) + Clip.Position,
             Blend = BlendState.Additive,
             OpacityByte = 120
         };
-        _ = builder.AddChild(sprite);
+        _ = Builder.AddChild(sprite);
         _ = sprite.FadeIn(2f);
     }
 
@@ -93,8 +93,8 @@ public class EndRoseBodyClip : StickyBodyClip, IBonusAcceptable, IBodyClip
         {
             Repeat = false
         };
-        _ = builder.AddChild(mcTear);
-        mcTear.Position = clip.Position;
+        _ = Builder.AddChild(mcTear);
+        mcTear.Position = Clip.Position;
         mcTear.Speed = 0.7f;
     }
 

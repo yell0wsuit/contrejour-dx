@@ -40,7 +40,7 @@ public class BackSnotBodyClip : SnotBodyClipBase, IClickable
         forceStep = Maths.Random(0.01f, 0.02f);
         stabilize = false;
         stabilizeCalculated = false;
-        Vector2 vector = this.config.GetVector("scale");
+        Vector2 vector = this.Config.GetVector("scale");
         Eye.Scale = vector.X / 10.24f;
         BaseClip.Scale = Eye.Scale;
         BaseEndClip.Scale = Eye.Scale;
@@ -114,7 +114,7 @@ public class BackSnotBodyClip : SnotBodyClipBase, IClickable
             if (!stabilizeCalculated)
             {
                 stabilizeCalculated = true;
-                stabilize = Maths.FuzzyNotEquals((float)Math.Ceiling(Maths.SimplifyAngleDegrees(rotationOffset, -180f) / 90f), 0f);
+                stabilize = Maths.FuzzyNotEquals((float)Math.Ceiling(Maths.SimplifyAngleDegrees(RotationOffset, -180f) / 90f), 0f);
             }
             for (int i = 0; i < Physics.BodiesSize(); i++)
             {
@@ -129,8 +129,8 @@ public class BackSnotBodyClip : SnotBodyClipBase, IClickable
 
     public override SnotSprite CreateClip()
     {
-        Vector2 vector = config.GetVector("scale");
-        BackSnotSprite backSnotSprite = new(this, 9f * vector.X * builder.EngineConfig.SizeMultiplier, 4f * vector.X * builder.EngineConfig.SizeMultiplier, 9f * vector.X * builder.EngineConfig.SizeMultiplier)
+        Vector2 vector = Config.GetVector("scale");
+        BackSnotSprite backSnotSprite = new(this, 9f * vector.X * Builder.EngineConfig.SizeMultiplier, 4f * vector.X * Builder.EngineConfig.SizeMultiplier, 9f * vector.X * Builder.EngineConfig.SizeMultiplier)
         {
             NeckColor = 3947580.ToRGBColor()
         };
@@ -139,6 +139,6 @@ public class BackSnotBodyClip : SnotBodyClipBase, IClickable
 
     protected override MonsterEye CreateEye()
     {
-        return new BackSnotEye((ContreJourGame)builder.Game, visible: true, Physics.EndBody.Position);
+        return new BackSnotEye((ContreJourGame)Builder.Game, visible: true, Physics.EndBody.Position);
     }
 }

@@ -256,7 +256,7 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
         positionDependent = [];
         WindManager = new WindManager(WhiteSide ? 0.02f : 0.03f);
         AlphaBackground = new Node();
-        gameRoot.AddChild(AlphaBackground, -10);
+        GameRoot.AddChild(AlphaBackground, -10);
         freeTouches = [];
         BackEvent = new EventSender();
         NextLevelEvent = new EventSender();
@@ -331,7 +331,7 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
         GameRoot.Y = ContreJourConfig.RootSize.Y - num;
         Vector2 point = levelSize.AddY(GameRoot.Y / GameRoot.Scale);
         LevelScreenPhysicsBounds = new RectangleFloat(Builder.ToVec(new Vector2(0f, (0f - GameRoot.Y) / GameRoot.Scale)), Builder.ToVec(point));
-        LevelScreenBounds = LevelScreenPhysicsBounds * (1f / builder.SizeMult);
+        LevelScreenBounds = LevelScreenPhysicsBounds * (1f / Builder.SizeMult);
         AlphaBackground.Scale = Math.Max(levelSize.X / ScreenConstants.OsSizes.IPhoneRetina.X, (LevelSize.Y + (GameRoot.Y / GameRoot.Scale)) / ScreenConstants.OsSizes.IPhoneRetina.Y);
         AlphaBackground.Y = (0f - GameRoot.Y) / GameRoot.Scale;
         Builder.Add(Energy, 9);
@@ -493,7 +493,7 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
 
     public void SoftRestart()
     {
-        totalTime = 0f;
+        TotalTime = 0f;
         StarsCollected = 0;
         foreach (Body body in Builder.World.BodyList)
         {
@@ -810,11 +810,11 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
         RestartEnabled = false;
         LevelPosition levelPosition = LevelsMenu.GetLevelPosition(LevelIndex);
         LevelData levelDataByPosition = UserData.Instance.GetLevelDataByPosition(levelPosition);
-        int num = UserData.Instance.CompleteLevel(levelPosition, StarsCollected, totalTime);
+        int num = UserData.Instance.CompleteLevel(levelPosition, StarsCollected, TotalTime);
         bool newHighScore = levelDataByPosition != null && (levelDataByPosition.Score < num || levelDataByPosition.StarsCount < StarsCollected);
         pauseButton.InteractionsEnabled = false;
         _ = pauseButton.FadeOutAndHide(0.3f);
-        finishView.Show(levelPosition, StarsCollected, num, totalTime, newHighScore);
+        finishView.Show(levelPosition, StarsCollected, num, TotalTime, newHighScore);
         finishView.NextLevelEvent.AddListener(NextLevelEvent.SendEvent);
         FinishWithViewPosition(finishView, zoomPoint);
     }
@@ -833,7 +833,7 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
             view.MenuEvent.AddListener(BackEvent.SendEvent);
         }
         Vector2 rootSize = ContreJourConfig.RootSize;
-        ZoomToScaleRightTopLeftBottomTime(rightTop: new Vector2(0f, 30f), leftBottom: new Vector2(rootSize.X * -0.29999995f, (rootSize.Y * -0.29999995f) - 30f), zoomPoint: zoomPoint * gameRoot.Scale, scale: 1.3f, time: 2.4f);
+        ZoomToScaleRightTopLeftBottomTime(rightTop: new Vector2(0f, 30f), leftBottom: new Vector2(rootSize.X * -0.29999995f, (rootSize.Y * -0.29999995f) - 30f), zoomPoint: zoomPoint * GameRoot.Scale, scale: 1.3f, time: 2.4f);
     }
 
     public void HidePause()
@@ -858,7 +858,7 @@ public class ContreJourGame : GameBase, IDisposable, ITouchListener, IActivatedD
         Vector2 position = new((w7FromIPhoneSize.X / 2f) - (zoomPoint.X * scale), (w7FromIPhoneSize.Y / 2f) - (zoomPoint.Y * scale));
         position.X = position.X.Clamp(leftBottom.X, rightTop.X);
         position.Y = position.Y.Clamp(leftBottom.Y, rightTop.Y);
-        _ = gameRoot.MoveTo(time, position, Cubic.EaseInOut).ScaleTo(scale * gameRoot.Scale, Cubic.EaseInOut);
+        _ = GameRoot.MoveTo(time, position, Cubic.EaseInOut).ScaleTo(scale * GameRoot.Scale, Cubic.EaseInOut);
     }
 
     public void RegisterHero(HeroBodyClip hero)

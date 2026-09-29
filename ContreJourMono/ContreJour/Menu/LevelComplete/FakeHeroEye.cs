@@ -48,6 +48,6 @@ public class FakeHeroEye : RandomAnimationEye
     public override void Update(float time)
     {
         base.Update(time);
-        currentBackground.Position = CurrentEyeBall.Position * 0.5f;
+        CurrentBackground.Position = CurrentEyeBall.Position * 0.5f;
     }
 }

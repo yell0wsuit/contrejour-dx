@@ -61,7 +61,7 @@ public class RoseBodyClip : StickyBodyClip, IBonusAcceptable, IBodyClip
         Node node = new();
         LevelBuilderBase.ReplaceChildWith(clip, node);
         node.Position = clip.Position;
-        this.clip = node;
+        this.Clip = node;
         game = (ContreJourGame)builder.Game;
         finalRose = new FinalRose
         {
@@ -70,7 +70,7 @@ public class RoseBodyClip : StickyBodyClip, IBonusAcceptable, IBodyClip
             Speed = 0f
         };
         game.BonusTarget = this;
-        this.clip.AddChild((Node)finalRose);
+        this.Clip.AddChild((Node)finalRose);
         if (game.CanShowIntro)
         {
             PlayIntro();
@@ -83,7 +83,7 @@ public class RoseBodyClip : StickyBodyClip, IBonusAcceptable, IBodyClip
 
     public Vector2 BonusTarget()
     {
-        return clip.Position + new Vector2(0f, 30f);
+        return Clip.Position + new Vector2(0f, 30f);
     }
 
     public void ApplyBonus()
@@ -121,7 +121,7 @@ public class RoseBodyClip : StickyBodyClip, IBonusAcceptable, IBodyClip
             skipButton.Y = ContreJourConfig.RootSize.Y - ContreJourConfig.BackButtonPosition.Y;
         }
         intro = new IntroPlayer(game);
-        _ = builder.AddChild(intro);
+        _ = Builder.AddChild(intro);
         stalk = new McStebloAnimation();
         headLight = new McRoseHeadLight();
         headBack = new McRoseHeadBack();
@@ -136,35 +136,35 @@ public class RoseBodyClip : StickyBodyClip, IBonusAcceptable, IBodyClip
         {
             Repeat = false,
             Stoped = true,
-            Position = clip.Position,
+            Position = Clip.Position,
             Speed = 0.5f
         };
-        _ = builder.AddChild(leaf1);
+        _ = Builder.AddChild(leaf1);
         leaf2 = new McLystok2();
         ((Node)finalRose).Visible = false;
         roseParts = [stalk, headDown, leaf2];
         puddle = new McPuddle
         {
-            Position = clip.Position + PuddleOffset,
+            Position = Clip.Position + PuddleOffset,
             Repeat = false,
             Visible = false,
             Stoped = true,
             Speed = 0.7f
         };
-        _ = builder.AddChild(puddle);
+        _ = Builder.AddChild(puddle);
         foreach (IAnimatedNode rosePart in roseParts)
         {
             rosePart.Repeat = false;
             rosePart.Stoped = true;
-            clip.AddChild((Node)rosePart);
+            Clip.AddChild((Node)rosePart);
         }
-        _ = builder.AddChild(leafMain);
+        _ = Builder.AddChild(leafMain);
         leafMain.Repeat = false;
         leafMain.Stoped = true;
-        leafMain.Position = clip.Position;
-        clip.AddChild(headBack);
-        clip.AddChild(headLight);
-        clip.AddChild(headFront);
+        leafMain.Position = Clip.Position;
+        Clip.AddChild(headBack);
+        Clip.AddChild(headLight);
+        Clip.AddChild(headFront);
         leafMain.MaxFrame = 79f;
         headDown.VisibleAndUpdating = false;
         headDown.content.Repeat = false;
@@ -243,14 +243,14 @@ public class RoseBodyClip : StickyBodyClip, IBonusAcceptable, IBodyClip
         ((Node)finalRose).Visible = true;
         foreach (Node rosePart in roseParts.Cast<Node>())
         {
-            clip.RemoveChild(rosePart);
+            Clip.RemoveChild(rosePart);
         }
-        builder.RemoveChild(leaf1);
-        builder.RemoveChild(leafMain);
-        clip.RemoveChild(headFront);
-        clip.RemoveChild(headBack);
-        clip.RemoveChild(headLight);
-        builder.RemoveChild(puddle);
+        Builder.RemoveChild(leaf1);
+        Builder.RemoveChild(leafMain);
+        Clip.RemoveChild(headFront);
+        Clip.RemoveChild(headBack);
+        Clip.RemoveChild(headLight);
+        Builder.RemoveChild(puddle);
     }
 
     private void FinishMovie()

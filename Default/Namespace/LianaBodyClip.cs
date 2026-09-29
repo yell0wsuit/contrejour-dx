@@ -22,7 +22,7 @@ public class LianaBodyClip : ContreJourBodyClip
             black.A = (byte)config.GetInt("alpha");
         }
         clipContent = new LianaSprite(data, black);
-        this.clip = clipContent;
+        this.Clip = clipContent;
         builder.Add(clipContent, -3);
         parts = [];
         for (int i = 1; i < data.Bodies.Count - 1; i++)

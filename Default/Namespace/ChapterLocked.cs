@@ -73,15 +73,15 @@ public class ChapterLocked : ChapterItem
         tablo = new Tablo
         {
             Position = new Vector2(-74f, 28f),
-            Color = (index == 1) ? ContreJourConstants.BlueLightColor : ContreJourConstants.GreyColor
+            Color = (Index == 1) ? ContreJourConstants.BlueLightColor : ContreJourConstants.GreyColor
         };
         Container.AddChild(tablo);
         Background.Color = tablo.Color;
-        Label label = ContreJourLabelUtil.CreateLabel(20f, UserData.StarsToUnlock(index).ToString(CultureInfo.CurrentCulture));
+        Label label = ContreJourLabelUtil.CreateLabel(20f, UserData.StarsToUnlock(Index).ToString(CultureInfo.CurrentCulture));
         label.Anchor = new Vector2(0.5f, 0.5f);
         label.Align = TextAlign.Left;
         label.Scale *= 0.8f;
-        label.Color = index == 1 ? Color.Lerp(ContreJourConstants.GreyColor, tablo.Color, 0.7f) : tablo.Color;
+        label.Color = Index == 1 ? Color.Lerp(ContreJourConstants.GreyColor, tablo.Color, 0.7f) : tablo.Color;
         tablo.AddChild(label);
         label.Position = new Vector2(60f, 46f);
         McEnergyIcon node = new();

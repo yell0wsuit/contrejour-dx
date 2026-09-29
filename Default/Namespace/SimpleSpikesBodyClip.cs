@@ -38,9 +38,9 @@ public class SimpleSpikesBodyClip : ContreJourBodyClip, IRestartable
         floating = text.Contains("Circle");
         if (!contreJourGame.BlackSide)
         {
-            this.clip = LevelBuilderBase.ReplaceClipWith(clip, text + contreJourGame.ChooseSide(null, "White", "_5", "Black", "_6"));
+            this.Clip = LevelBuilderBase.ReplaceClipWith(clip, text + contreJourGame.ChooseSide(null, "White", "_5", "Black", "_6"));
         }
-        this.clip.UpdateEnabled = false;
+        this.Clip.UpdateEnabled = false;
         prickTime = -2f;
         initialPosition = Clip.Position;
         initialScale = Clip.ScaleX;
@@ -60,7 +60,7 @@ public class SimpleSpikesBodyClip : ContreJourBodyClip, IRestartable
                 float scale = Maths.Random(0.95f, 0.98f) * initialScale;
                 float scale2 = Maths.Random(1.02f, 1.05f) * initialScale;
                 float seconds = Maths.Random(2f, 3f);
-                _ = clip.Tweener.RepeatSequenceForever(seconds).ScaleTo(scale, Cubic.EaseInOut).Next(seconds)
+                _ = Clip.Tweener.RepeatSequenceForever(seconds).ScaleTo(scale, Cubic.EaseInOut).Next(seconds)
                     .ScaleTo(scale2, Cubic.EaseInOut);
             }
         }

@@ -19,11 +19,11 @@ public class ButtonSprite : TouchEffect
 
     public override void OnAction(Node node)
     {
-        _ = node.ScaleTo(effectTime, TargetScale);
+        _ = node.ScaleTo(EffectTime, TargetScale);
     }
 
     public override void OffAction(Node node)
     {
-        _ = node.ScaleTo(effectTime, initialScale);
+        _ = node.ScaleTo(EffectTime, initialScale);
     }
 }

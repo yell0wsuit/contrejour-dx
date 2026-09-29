@@ -82,7 +82,7 @@ public class DragableBodyClip : ContreJourBodyClip, IClickable, IRestartable, IS
     {
         get
         {
-            Vector2 vector = VectorExtensions.Rotate(builder.ToVec(new Vector2(0f, -60f)), 0f - RotationOffsetRadians);
+            Vector2 vector = VectorExtensions.Rotate(Builder.ToVec(new Vector2(0f, -60f)), 0f - RotationOffsetRadians);
             return Body.GetWorldPoint(vector);
         }
     }
@@ -93,7 +93,7 @@ public class DragableBodyClip : ContreJourBodyClip, IClickable, IRestartable, IS
         //IL_00f7: Unknown result type (might be due to invalid IL or missing references)
         //IL_0101: Expected O, but got Unknown
         clip = LevelBuilderBase.ReplaceClipWith(clip, ReplaceClipName(builder));
-        this.clip = clip;
+        this.Clip = clip;
         clip.Parent.ChangeChildLayer(clip, 2);
         DragStartEvent = new EventSender();
         float num = config.GetFloat("scaleX");
@@ -101,7 +101,7 @@ public class DragableBodyClip : ContreJourBodyClip, IClickable, IRestartable, IS
         targetPosition = InitialPosition;
         upperLimit = 3.4f * num;
         lowerLimit = -3.4f * num;
-        axis = VectorUtil.ToVector(1f, MathHelper.ToRadians(0f - this.config.GetFloat("rotation")));
+        axis = VectorUtil.ToVector(1f, MathHelper.ToRadians(0f - this.Config.GetFloat("rotation")));
         CreateBoundsClip(num);
         SetAlpha(150f);
         Body.BodyType = (BodyType)1;
@@ -137,11 +137,11 @@ public class DragableBodyClip : ContreJourBodyClip, IClickable, IRestartable, IS
             limitSpeed = false;
             this.touch = touch;
             DragStartEvent.SendEvent();
-            ContreJourGame contreJourGame = (ContreJourGame)builder.Game;
+            ContreJourGame contreJourGame = (ContreJourGame)Builder.Game;
             contreJourGame.IncreaseZoomOut();
             Schedule(ContreJourGame.FocusOnHero, 0.05f);
             draging = true;
-            initialMousePosition = builder.TouchRootVec(this.touch);
+            initialMousePosition = Builder.TouchRootVec(this.touch);
             initialDragOffset = Body.Position - InitialPosition;
             return true;
         }
@@ -160,7 +160,7 @@ public class DragableBodyClip : ContreJourBodyClip, IClickable, IRestartable, IS
     public void TouchEnd(Touch touch)
     {
         draging = false;
-        builder.Game.DecreaseZoomOut();
+        Builder.Game.DecreaseZoomOut();
         this.touch = null;
     }
 
@@ -178,10 +178,10 @@ public class DragableBodyClip : ContreJourBodyClip, IClickable, IRestartable, IS
     protected virtual void CreateBoundsClip(float scale)
     {
         middle = new McDragLimit();
-        Vector2 vector = VectorUtil.ToVector(upperLimit / (1f / 30f), MathHelper.ToRadians(clip.RotationDegrees));
-        Vector2 position = clip.Position;
-        builder.AddChildBefore(middle, clip);
-        float rotationDegrees = clip.RotationDegrees;
+        Vector2 vector = VectorUtil.ToVector(upperLimit / (1f / 30f), MathHelper.ToRadians(Clip.RotationDegrees));
+        Vector2 position = Clip.Position;
+        Builder.AddChildBefore(middle, Clip);
+        float rotationDegrees = Clip.RotationDegrees;
         middle.Position = position;
         middle.RotationDegrees = rotationDegrees;
         middle.ScaleX = (vector.Length() + 40f) * 2f / middle.Size.X;
@@ -208,12 +208,12 @@ public class DragableBodyClip : ContreJourBodyClip, IClickable, IRestartable, IS
 
     public bool ProcessTouch(Touch touch)
     {
-        return builder.TouchRootVec(touch).DistanceTo(Body.Position + TouchOffset()) < 2.3333333f;
+        return Builder.TouchRootVec(touch).DistanceTo(Body.Position + TouchOffset()) < 2.3333333f;
     }
 
     public void UpdateTouchPosition()
     {
-        targetPosition = GetDragPosition(builder.TouchRootVec(touch) - initialMousePosition + initialDragOffset);
+        targetPosition = GetDragPosition(Builder.TouchRootVec(touch) - initialMousePosition + initialDragOffset);
         targetPosition = _dragBounds.ClampToBounds(targetPosition);
     }
 

@@ -10,7 +10,7 @@ public class KaktusBodyClip : ContreJourBodyClip
         string text = builder.ContreJour.ChooseSide("Black", null, "_5", null, "_6");
         if (text != null)
         {
-            clip = (Sprite)LevelBuilderBase.ReplaceClipWith(clip, this.config.GetString("viewType") + text);
+            clip = (Sprite)LevelBuilderBase.ReplaceClipWith(clip, this.Config.GetString("viewType") + text);
         }
         clip.Parent.ChangeChildLayer(clip, -2);
     }

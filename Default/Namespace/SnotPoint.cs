@@ -35,7 +35,7 @@ public class SnotPoint : ContreJourBodyClip
         : base(builder, body, clip, config)
     {
         Body val = Body;
-        this.builder.World.RemoveBody(Body);
+        this.Builder.World.RemoveBody(Body);
         Create(val.Position);
     }
 
@@ -48,15 +48,15 @@ public class SnotPoint : ContreJourBodyClip
     public override void Update(float time)
     {
         base.Update(time);
-        clip.OpacityFloat = clip.OpacityFloat.StepTo(Enabled ? 1f : 0.2f, 0.05f);
+        Clip.OpacityFloat = Clip.OpacityFloat.StepTo(Enabled ? 1f : 0.2f, 0.05f);
     }
 
     private void Create(Vector2 position)
     {
-        Body = builder.World.CreateCircle(Radius * builder.SizeMult, position);
+        Body = Builder.World.CreateCircle(Radius * Builder.SizeMult, position);
         Body.SetSensor(value: true);
         Game.SnotPoints.Add(this);
-        clip = new Sprite("chapter6/McSnotPoint");
-        _ = builder.AddChild(clip, 3);
+        Clip = new Sprite("chapter6/McSnotPoint");
+        _ = Builder.AddChild(Clip, 3);
     }
 }

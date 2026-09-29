@@ -10,13 +10,7 @@ public abstract class TouchEffect(Node node)
 
     protected Node Node { get; set; } = node;
 
-    protected float effectTime = 0.1f;
-
-    public float EffectTime
-    {
-        get => effectTime;
-        set => effectTime = value;
-    }
+    public float EffectTime { get; set; } = 0.1f;
 
     public bool IsOn
     {

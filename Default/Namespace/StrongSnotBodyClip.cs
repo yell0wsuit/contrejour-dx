@@ -30,7 +30,7 @@ public class StrongSnotBodyClip : SnotBodyClip
         : base(builder, body, clip, config)
     {
         NormalDistance = CurrentDistance();
-        maxSnotDistance = Math.Max(NormalDistance * 1.25f, NormalDistance + (30f * this.builder.EngineConfig.SizeMultiplier));
+        maxSnotDistance = Math.Max(NormalDistance * 1.25f, NormalDistance + (30f * this.Builder.EngineConfig.SizeMultiplier));
         extremeSnotDistance = NormalDistance * 2f;
         targetColor = 255f;
     }
@@ -56,7 +56,7 @@ public class StrongSnotBodyClip : SnotBodyClip
     public override void InitSizes()
     {
         base.InitSizes();
-        CenterWidth = 10f * builder.EngineConfig.SizeMultiplier;
+        CenterWidth = 10f * Builder.EngineConfig.SizeMultiplier;
     }
 
     public void EnsureSpeedY(float value)
@@ -78,7 +78,7 @@ public class StrongSnotBodyClip : SnotBodyClip
 
     public override SnotSprite CreateClip()
     {
-        return new TextureSnotSprite((ContreJourGame)builder.Game, this, StartWidth, CenterWidth, EndWidth);
+        return new TextureSnotSprite((ContreJourGame)Builder.Game, this, StartWidth, CenterWidth, EndWidth);
     }
 
     public float CurrentDistance()
@@ -132,7 +132,7 @@ public class StrongSnotBodyClip : SnotBodyClip
         base.EndDrag();
         if (dragJoint != null)
         {
-            builder.World.RemoveJoint((Joint)(object)dragJoint);
+            Builder.World.RemoveJoint((Joint)(object)dragJoint);
             dragJoint = null;
         }
     }
@@ -173,7 +173,7 @@ public class StrongSnotBodyClip : SnotBodyClip
 
     public bool CanRelease()
     {
-        return StickyJoint != null && (linked is not HeroBodyClip || ((HeroBodyClip)linked).OnGround() || linked.SnotJoinedCount > 1);
+        return StickyJoint != null && (Linked is not HeroBodyClip || ((HeroBodyClip)Linked).OnGround() || Linked.SnotJoinedCount > 1);
     }
 
     public override void SetDamping(float value)

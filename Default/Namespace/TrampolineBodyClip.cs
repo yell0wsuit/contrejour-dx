@@ -91,8 +91,8 @@ public class TrampolineBodyClip : SnotBodyClipBase
         {
             Impulse = impulseMultiplier
         };
-        this.builder.Add(trajectory, 11);
-        trajectory.Position = this.builder.ToIPadPoint(center);
+        this.Builder.Add(trajectory, 11);
+        trajectory.Position = this.Builder.ToIPadPoint(center);
         trajectory.Angle = config.GetFloat("rotation").ToRadians() + ((float)Math.PI / 2f);
         timeFromLaunch = 0.3f;
         SetJointsDamping(1f);
@@ -119,7 +119,7 @@ public class TrampolineBodyClip : SnotBodyClipBase
         DragEvent.SendEvent();
         Dragging = true;
         Body val = CenterBody();
-        dragJoint = JointFactory.CreateFixedMouseJoint(builder.World, val, val.WorldCenter);
+        dragJoint = JointFactory.CreateFixedMouseJoint(Builder.World, val, val.WorldCenter);
         dragJoint.MaxForce = 500f;
         dragJoint.Frequency = 100f;
         game.IncreaseZoomOut();
@@ -140,7 +140,7 @@ public class TrampolineBodyClip : SnotBodyClipBase
         {
             game.DecreaseZoomOut();
             Dragging = false;
-            builder.World.RemoveJoint((Joint)(object)dragJoint);
+            Builder.World.RemoveJoint((Joint)(object)dragJoint);
             dragJoint = null;
         }
         trajectory.Enabled = false;
@@ -151,7 +151,7 @@ public class TrampolineBodyClip : SnotBodyClipBase
         Container.AddChild(ClipContent);
         Container.AddChild(BaseEndClip);
         Container.AddChild(BaseClip);
-        builder.Add(Container, Layer());
+        Builder.Add(Container, Layer());
     }
 
     public override void Update(float time)
@@ -161,7 +161,7 @@ public class TrampolineBodyClip : SnotBodyClipBase
         timeFromLaunch += time;
         if (Dragging)
         {
-            Vector2 vector = builder.TouchRootVec(touch);
+            Vector2 vector = Builder.TouchRootVec(touch);
             vector -= center;
             if (VectorUtil.Projection(vector, Normal) > -1.621671f)
             {
@@ -288,7 +288,7 @@ public class TrampolineBodyClip : SnotBodyClipBase
     {
         base.InitSizes();
         StartWidthPixels = 14f;
-        StartWidth = StartWidthPixels * builder.EngineConfig.SizeMultiplier;
+        StartWidth = StartWidthPixels * Builder.EngineConfig.SizeMultiplier;
         EndWidthPixels = StartWidth;
         EndWidth = StartWidth;
     }

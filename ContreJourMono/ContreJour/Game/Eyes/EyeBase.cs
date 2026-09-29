@@ -22,7 +22,7 @@ public abstract class EyeBase : Node
 
     protected IAnimatedNode EndDispatcher { get; set; }
 
-    protected Node currentBackground;
+    public Node CurrentBackground { get; private set; }
 
     protected Node CurrentEyeBall { get; set; }
 
@@ -43,8 +43,6 @@ public abstract class EyeBase : Node
         get => eyeStep;
         set => eyeStep = value;
     }
-
-    public Node CurrentBackground => currentBackground;
 
     public float ViewDistance
     {
@@ -131,16 +129,16 @@ public abstract class EyeBase : Node
     public void SetDefaultView()
     {
         SuspendLayout();
-        if (currentBackground != null)
+        if (CurrentBackground != null)
         {
-            Background.Position = currentBackground.Position;
+            Background.Position = CurrentBackground.Position;
         }
         if (CurrentEyeBall != null)
         {
             eyeBall.Position = CurrentEyeBall.Position;
         }
         EndDispatcher = null;
-        currentBackground = Background;
+        CurrentBackground = Background;
         CurrentEyeBall = eyeBall;
         lockX = lockY = false;
         RefreshLayout();
@@ -152,20 +150,20 @@ public abstract class EyeBase : Node
         {
             content.RemoveChild(CurrentEyeBall);
         }
-        if (currentBackground != null)
+        if (CurrentBackground != null)
         {
-            content.RemoveChild(currentBackground);
+            content.RemoveChild(CurrentBackground);
         }
     }
 
     protected virtual void RefreshLayout()
     {
-        if (currentBackground != null && currentBackground.Parent == null)
+        if (CurrentBackground != null && CurrentBackground.Parent == null)
         {
-            content.AddChild(currentBackground);
+            content.AddChild(CurrentBackground);
             if (useMask)
             {
-                mask.Mask = (Sprite)currentBackground;
+                mask.Mask = (Sprite)CurrentBackground;
             }
         }
         if (CurrentEyeBall != null && CurrentEyeBall.Parent == null)
@@ -183,9 +181,9 @@ public abstract class EyeBase : Node
         if (animation.ReplaceBackground)
         {
             Node node = CreateBackground(animation);
-            node.Position = currentBackground.Position;
+            node.Position = CurrentBackground.Position;
             EndDispatcher = (IAnimatedNode)node;
-            currentBackground = node;
+            CurrentBackground = node;
         }
         if (animation.ReplaceEye)
         {

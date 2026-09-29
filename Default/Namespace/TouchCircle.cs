@@ -40,7 +40,7 @@ public class TouchCircle(Touch _touch, LevelBuilderBase builder) : BodyClip(buil
 
     public bool Free { get; private set; } = true;
 
-    public new Vector2 Position => builder.TouchRootPoint(Touch);
+    public new Vector2 Position => Builder.TouchRootPoint(Touch);
 
     public static Body CreateBody(LevelBuilderBase builder, Touch touch)
     {
@@ -52,7 +52,7 @@ public class TouchCircle(Touch _touch, LevelBuilderBase builder) : BodyClip(buil
     public override void Update(float time)
     {
         base.Update(time);
-        Body.SetTransform(builder.TouchRootVec(Touch), 0f);
+        Body.SetTransform(Builder.TouchRootVec(Touch), 0f);
         if (Enabled)
         {
             ProcessContacts();

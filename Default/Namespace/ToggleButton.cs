@@ -46,7 +46,7 @@ public class ToggleButton : Button
     public override bool TouchBegin(Touch touch)
     {
         bool result = base.TouchBegin(touch);
-        if (enabled)
+        if (Enabled)
         {
             RefreshToggle();
         }
@@ -56,7 +56,7 @@ public class ToggleButton : Button
     public override bool TouchOut(Touch touch)
     {
         bool result = base.TouchOut(touch);
-        if (enabled)
+        if (Enabled)
         {
             RefreshToggle();
         }
@@ -65,7 +65,7 @@ public class ToggleButton : Button
 
     public override void TouchEnd(Touch touch)
     {
-        if (enabled)
+        if (Enabled)
         {
             toggle = !toggle;
         }

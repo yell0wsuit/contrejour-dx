@@ -28,8 +28,8 @@ public class TeleportBodyClip : BodyClip
     {
         UseEvent = new EventSender();
         ContreJourGame contreJourGame = (ContreJourGame)builder.Game;
-        limitSpeed = this.config.GetBool("limitSpeed");
-        string text = this.config.GetString("color") ?? "0";
+        limitSpeed = this.Config.GetBool("limitSpeed");
+        string text = this.Config.GetString("color") ?? "0";
         portal = new Portal(textureName: (!(text != "0")) ? (contreJourGame.BlackSide ? "common/McTeleportPartBlue" : "common/McTeleportPart") : "common/McTeleportPartBlue", game: contreJourGame, position: clip.Position);
         if (contreJourGame.BonusChapter)
         {
@@ -78,7 +78,7 @@ public class TeleportBodyClip : BodyClip
             teleportables.Add(bodyClip);
             teleportable.Teleport(this);
             teleportable.SnotEnabled = false;
-            float num = body2.LinearVelocity.Length() / builder.EngineConfig.SizeMultiplier;
+            float num = body2.LinearVelocity.Length() / Builder.EngineConfig.SizeMultiplier;
             float num2 = Math.Max((num > 200f) ? (20f / num) : 0.1f, 0.01f);
             teleportable.SetScaleTime(0f, num2);
             portal.TargetScale = 0.2f;

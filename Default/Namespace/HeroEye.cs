@@ -77,7 +77,7 @@ public class HeroEye : RandomAnimationEye
     public override void Update(float time)
     {
         base.Update(time);
-        currentBackground.Position = CurrentEyeBall.Position * 0.5f;
+        CurrentBackground.Position = CurrentEyeBall.Position * 0.5f;
         if (colorTime > 0f)
         {
             colorProgress = Maths.StepTo(colorProgress, 1f, 0.1f);
@@ -124,9 +124,9 @@ public class HeroEye : RandomAnimationEye
 
     public void RefreshColor(Color color)
     {
-        if (currentBackground.Parent != null)
+        if (CurrentBackground.Parent != null)
         {
-            currentBackground.Color = color;
+            CurrentBackground.Color = color;
         }
     }
 

@@ -29,19 +29,19 @@ public class MovableSnotEye(SnotBodyClip snot, Body body, SnotPoint targetPoint)
 
     public override int Priority(Vector2 touchPosition)
     {
-        return !snot.Joined ? 0 : 1;
+        return !Snot.Joined ? 0 : 1;
     }
 
     protected override void CheckTouchDistance(Touch touch, float distance)
     {
-        if (distance > 55f * builder.SizeMult && snot.Linked == null)
+        if (distance > 55f * Builder.SizeMult && Snot.Linked == null)
         {
             HasRelease = false;
             moving = true;
             movingTouch = touch;
-            snot.Enabled = false;
+            Snot.Enabled = false;
             DestroyEyeJoint();
-            snot.Physics.EyeJoint = null;
+            Snot.Physics.EyeJoint = null;
         }
         else
         {
@@ -51,10 +51,10 @@ public class MovableSnotEye(SnotBodyClip snot, Body body, SnotPoint targetPoint)
 
     private void DestroyEyeJoint()
     {
-        if (snot.Physics.EyeJoint != null)
+        if (Snot.Physics.EyeJoint != null)
         {
             restoreJoint = true;
-            builder.World.RemoveJoint((Joint)(object)snot.Physics.EyeJoint);
+            Builder.World.RemoveJoint((Joint)(object)Snot.Physics.EyeJoint);
         }
     }
 
@@ -69,20 +69,20 @@ public class MovableSnotEye(SnotBodyClip snot, Body body, SnotPoint targetPoint)
         {
             MoveTo(Body.Position.StepTo(targetPoint.Body.Position, targetSpeed * time));
         }
-        else if (!snot.Enabled)
+        else if (!Snot.Enabled)
         {
             EndSnotDrag();
         }
-        targetPoint?.Enabled = snot.Linked == null;
+        targetPoint?.Enabled = Snot.Linked == null;
     }
 
     private void EndSnotDrag()
     {
         Body.BodyType = (BodyType)2;
-        snot.Enabled = true;
+        Snot.Enabled = true;
         if (restoreJoint)
         {
-            snot.Physics.EyeJoint = FarseerUtil.CreateRevoluteJoint(builder.World, snot.Physics.JoinedBody, snot.Physics.EyeBody, targetPoint.Body.Position);
+            Snot.Physics.EyeJoint = FarseerUtil.CreateRevoluteJoint(Builder.World, Snot.Physics.JoinedBody, Snot.Physics.EyeBody, targetPoint.Body.Position);
             restoreJoint = false;
         }
     }
@@ -91,18 +91,18 @@ public class MovableSnotEye(SnotBodyClip snot, Body body, SnotPoint targetPoint)
     {
         Body.BodyType = (BodyType)1;
         Body.LinearVelocity = Vector2.Zero;
-        Vector2 vector = builder.TouchRootVec(movingTouch);
+        Vector2 vector = Builder.TouchRootVec(movingTouch);
         Vector2 vector2 = targetPoint.Body.Position;
-        if (vector2.DistanceTo(vector) > 55f * builder.SizeMult)
+        if (vector2.DistanceTo(vector) > 55f * Builder.SizeMult)
         {
             if (Body.Position.FuzzyEquals(targetPoint.Body.Position, 0.1f))
             {
-                snot.Physics.EndBody.ApplyForce((Body.Position - vector) * 3f);
+                Snot.Physics.EndBody.ApplyForce((Body.Position - vector) * 3f);
             }
             vector2 = vector;
             foreach (SnotPoint snotPoint in Game.SnotPoints)
             {
-                if (!snotPoint.Used && vector2.DistanceTo(snotPoint.Body.Position) < 50f * builder.SizeMult)
+                if (!snotPoint.Used && vector2.DistanceTo(snotPoint.Body.Position) < 50f * Builder.SizeMult)
                 {
                     targetPoint.Used = false;
                     vector2 = snotPoint.Body.Position;
@@ -119,9 +119,9 @@ public class MovableSnotEye(SnotBodyClip snot, Body body, SnotPoint targetPoint)
     {
         Vector2 vector = position - Body.Position;
         Body.Position += vector;
-        for (int i = 0; i < snot.Physics.BodiesSize(); i++)
+        for (int i = 0; i < Snot.Physics.BodiesSize(); i++)
         {
-            Body obj = snot.Physics.BodyAt(i);
+            Body obj = Snot.Physics.BodyAt(i);
             obj.Position += vector;
         }
     }
@@ -130,7 +130,7 @@ public class MovableSnotEye(SnotBodyClip snot, Body body, SnotPoint targetPoint)
     {
         _ = base.TouchBegan(touch);
         targetPosition = targetPoint.Body.Position;
-        snot.StopParts();
+        Snot.StopParts();
         return true;
     }
 
@@ -142,7 +142,7 @@ public class MovableSnotEye(SnotBodyClip snot, Body body, SnotPoint targetPoint)
 
     private void EndMove()
     {
-        targetSpeed = MathHelper.Clamp(targetPoint.Body.Position.DistanceTo(Body.Position) * 5f, 400f * builder.SizeMult, 1500f * builder.SizeMult);
+        targetSpeed = MathHelper.Clamp(targetPoint.Body.Position.DistanceTo(Body.Position) * 5f, 400f * Builder.SizeMult, 1500f * Builder.SizeMult);
         moving = false;
     }
 
@@ -159,7 +159,7 @@ public class MovableSnotEye(SnotBodyClip snot, Body body, SnotPoint targetPoint)
         Body.BodyType = (BodyType)1;
         Body.LinearVelocity = Vector2.Zero;
         DestroyEyeJoint();
-        snot.Enabled = false;
+        Snot.Enabled = false;
         targetPoint.Enabled = true;
         targetPoint.Used = false;
         targetPoint = initialPoint;

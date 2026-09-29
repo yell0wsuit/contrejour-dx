@@ -14,7 +14,7 @@ public class SpringBridgeHint : FadeHint
     public SpringBridgeHint(ContreJourLevelBuilder builder, object body, Sprite clip, Hashtable config)
         : base(builder, null, clip, config)
     {
-        sucker = (SpringSuckerBodyClip)FarseerUtil.Query(this.builder.World, this.builder.ToIPhoneVec(this.clip.Position), QueryRadius, typeof(SpringSuckerBodyClip));
+        sucker = (SpringSuckerBodyClip)FarseerUtil.Query(this.Builder.World, this.Builder.ToIPhoneVec(this.Clip.Position), QueryRadius, typeof(SpringSuckerBodyClip));
         Restart();
     }
 

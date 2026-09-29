@@ -50,7 +50,7 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
     private bool jointRemoved;
 
     private float length;
-    protected ISnotLinked linked;
+    public ISnotLinked Linked { get; private set; }
     private readonly SnotEye snotEye;
 
     protected RevoluteJoint StickyJoint { get; set; }
@@ -86,8 +86,6 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
 
     public EventSender ReleaseEvent { get; }
 
-    public ISnotLinked Linked => linked;
-
     public bool Dragging => touch != null;
 
     public bool Joined => StickyJoint != null;
@@ -105,9 +103,9 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
         LinkEvent = new EventSender();
         ReleaseEvent = new EventSender();
         SetDamping(FreeDamping());
-        movable = this.config.GetBool("movable");
+        movable = this.Config.GetBool("movable");
         snotEye = movable
-            ? new MovableSnotEye(targetPoint: new SnotPoint(this.builder, body.EyeBody.Position, null, null)
+            ? new MovableSnotEye(targetPoint: new SnotPoint(this.Builder, body.EyeBody.Position, null, null)
             {
                 Used = true
             }, snot: this, body: Physics.EyeBody)
@@ -120,7 +118,7 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
             CreateTail();
         }
         touchEndTime = -1f;
-        dynamicDrag = this.config.GetBool("dynamicDrag");
+        dynamicDrag = this.Config.GetBool("dynamicDrag");
         if (game.LevelIndex == 169)
         {
             Schedule(Blink, Maths.Random(5f, 8f));
@@ -136,8 +134,8 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
             Container.RemoveFromParent();
             joinedBodyClip.Clip.RemoveFromParent();
             int layer = joinedBodyClip.Clip.Layer;
-            _ = this.builder.AddChild(joinedBodyClip.Clip, layer);
-            _ = this.builder.AddChild(Container, layer);
+            _ = this.Builder.AddChild(joinedBodyClip.Clip, layer);
+            _ = this.Builder.AddChild(Container, layer);
         }
     }
 
@@ -162,7 +160,7 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
         {
             return false;
         }
-        Vector2 source = builder.TouchRootVec(touch);
+        Vector2 source = Builder.TouchRootVec(touch);
         if (movable && source.DistanceTo(Body.Position) > source.DistanceTo(Physics.EyeBody.Position))
         {
             return false;
@@ -271,8 +269,8 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
 
     public virtual void CreateTail()
     {
-        blackTail = new BlackTail(textureFile: game.BlackSide ? "snotTailTextureBlack" : "McTailTextureGreen", body: Physics.EndBody, builder: builder);
-        builder.Add(blackTail, 3);
+        blackTail = new BlackTail(textureFile: game.BlackSide ? "snotTailTextureBlack" : "McTailTextureGreen", body: Physics.EndBody, builder: Builder);
+        Builder.Add(blackTail, 3);
         blackTail.Width = 20f;
     }
 
@@ -290,12 +288,12 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
         {
             Container.AddChild(Eye);
         }
-        builder.Add(Container, Layer());
+        Builder.Add(Container, Layer());
     }
 
     public override SnotSprite CreateClip()
     {
-        ContreJourGame contreJourGame = (ContreJourGame)builder.Game;
+        ContreJourGame contreJourGame = (ContreJourGame)Builder.Game;
         return (SnotSprite)ReflectUtil.CreateInstance(contreJourGame.ChooseSide(typeof(BlackSnotSprite), typeof(WhiteSnotSprite), typeof(SpringSnotSprite), typeof(SpringSnotSprite), typeof(GreenSnotSprite)), contreJourGame, this, StartWidth, CenterWidth, EndWidth);
     }
 
@@ -342,7 +340,7 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
         }
         if (movable)
         {
-            BaseClip.Position = builder.ToPoint(snotEye.Body.Position);
+            BaseClip.Position = Builder.ToPoint(snotEye.Body.Position);
         }
         Eye.Position = BaseClip.Position;
         if (blackTail != null)
@@ -371,12 +369,12 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
 
     public override string BaseEndClipName()
     {
-        return ((ContreJourGame)builder.Game).ChooseSide("McSnotEndBlack", "McSnotEndWhite", "McSnotEnd", "McSnotEnd", "McSnotEnd_6");
+        return ((ContreJourGame)Builder.Game).ChooseSide("McSnotEndBlack", "McSnotEndWhite", "McSnotEnd", "McSnotEnd", "McSnotEnd_6");
     }
 
     public override string BaseClipName()
     {
-        return ((ContreJourGame)builder.Game).ChooseSide("McSnotStartBlack", "McSnotStartWhite", "McSnotStart", "McSnotStart", "McSnotStart_6");
+        return ((ContreJourGame)Builder.Game).ChooseSide("McSnotStartBlack", "McSnotStartWhite", "McSnotStart", "McSnotStart", "McSnotStart_6");
     }
 
     public virtual string[] OnSound()
@@ -412,12 +410,12 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
 
     public BodyAndPoint GetDragTarget()
     {
-        return GetDragTarget(builder.TouchRootVec(touch).ClampDistance(Physics.EyeBody.Position, MaxLength()));
+        return GetDragTarget(Builder.TouchRootVec(touch).ClampDistance(Physics.EyeBody.Position, MaxLength()));
     }
 
     public BodyAndPoint GetDragTarget(Vector2 position)
     {
-        List<BodyClip> list = FarseerUtil.Query(param: new LinkableReqParams(JoinDistance(), position), world: builder.World, center: position, radius: JoinDistance(), clipPredicate: LinkableReq);
+        List<BodyClip> list = FarseerUtil.Query(param: new LinkableReqParams(JoinDistance(), position), world: Builder.World, center: position, radius: JoinDistance(), clipPredicate: LinkableReq);
         if (list.Count == 0)
         {
             return new BodyAndPoint(null, position);
@@ -430,7 +428,7 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
     {
         if (joinedBodyClip == null)
         {
-            builder.ChangeChildLayer(Container, value);
+            Builder.ChangeChildLayer(Container, value);
         }
     }
 
@@ -450,15 +448,15 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
         {
             SoundManager.PlayRandomSound(Sounds.LeapOut, 0.5f);
             SetDamping(FreeDamping());
-            if (linked != null)
+            if (Linked != null)
             {
-                linked.SnotJoinedCount--;
-                linked.DestroyEvent.RemoveListener(OnLinkedDestroy);
-                linked = null;
+                Linked.SnotJoinedCount--;
+                Linked.DestroyEvent.RemoveListener(OnLinkedDestroy);
+                Linked = null;
             }
             if (StickyJoint.BodyA != null && StickyJoint.BodyB != null)
             {
-                builder.World.RemoveJoint((Joint)(object)StickyJoint);
+                Builder.World.RemoveJoint((Joint)(object)StickyJoint);
             }
             StickyJoint = null;
             Eye.Open = false;
@@ -490,9 +488,9 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
         BodyClip bodyClip = (BodyClip)joinBody.UserData;
         if (bodyClip is ISnotLinked)
         {
-            linked = (ISnotLinked)bodyClip;
-            linked.SnotJoinedCount++;
-            linked.DestroyEvent.AddListener(OnLinkedDestroy);
+            Linked = (ISnotLinked)bodyClip;
+            Linked.SnotJoinedCount++;
+            Linked.DestroyEvent.AddListener(OnLinkedDestroy);
         }
         SoundManager.PlayRandomSound(OnSound(), 0.5f);
         SetDamping(JoinedDamping());
@@ -572,7 +570,7 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
     {
         if (!IsConnectedToStatic() && !jointRemoved)
         {
-            builder.World.RemoveJoint((Joint)(object)Physics.EyeJoint);
+            Builder.World.RemoveJoint((Joint)(object)Physics.EyeJoint);
             Physics.EyeJoint = null;
             jointRemoved = true;
         }
@@ -591,7 +589,7 @@ public class SnotBodyClip : SnotBodyClipBase, IClickable, IVectorPositionProvide
             {
                 jointRemoved = false;
                 Physics.EyeBody.LinearVelocity = new Vector2(0f, 0f);
-                Physics.EyeJoint = eyeJointDef.Create(builder.World);
+                Physics.EyeJoint = eyeJointDef.Create(Builder.World);
             }
         }
     }

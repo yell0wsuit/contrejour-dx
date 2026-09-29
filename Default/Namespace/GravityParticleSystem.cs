@@ -23,9 +23,9 @@ public class GravityParticleSystem : ParticleSystem
 
     private RandomRange startOpacity = new(255f, 0f);
 
-    protected Vector2 bottomLeftBound = new(float.NegativeInfinity, float.NegativeInfinity);
+    public Vector2 BottomLeftBound { get; set; } = new(float.NegativeInfinity, float.NegativeInfinity);
 
-    protected Vector2 topRightBound = new(float.PositiveInfinity, float.PositiveInfinity);
+    public Vector2 TopRightBound { get; set; } = new(float.PositiveInfinity, float.PositiveInfinity);
 
     public RandomRange Speed
     {
@@ -61,18 +61,6 @@ public class GravityParticleSystem : ParticleSystem
     {
         get => verticalPosition;
         set => verticalPosition = value;
-    }
-
-    public Vector2 TopRightBound
-    {
-        get => topRightBound;
-        set => topRightBound = value;
-    }
-
-    public Vector2 BottomLeftBound
-    {
-        get => bottomLeftBound;
-        set => bottomLeftBound = value;
     }
 
     public RandomRange StartOpacity
@@ -145,7 +133,7 @@ public class GravityParticleSystem : ParticleSystem
     {
         while (Particles.Count < count)
         {
-            _ = AddParticle(new Vector2(Maths.Random(bottomLeftBound.X, topRightBound.X), Maths.Random(bottomLeftBound.Y, topRightBound.Y)));
+            _ = AddParticle(new Vector2(Maths.Random(BottomLeftBound.X, TopRightBound.X), Maths.Random(BottomLeftBound.Y, TopRightBound.Y)));
         }
     }
 
@@ -164,7 +152,7 @@ public class GravityParticleSystem : ParticleSystem
         gravityParticle.Position += vector;
         gravityParticle.RotationDegrees += gravityParticle.AngularSpeed;
         base.UpdateParticleTime(particle, time);
-        if (gravityParticle.Position.X > topRightBound.X || gravityParticle.Position.Y > topRightBound.Y || gravityParticle.Position.X < bottomLeftBound.X || gravityParticle.Position.Y < bottomLeftBound.Y)
+        if (gravityParticle.Position.X > TopRightBound.X || gravityParticle.Position.Y > TopRightBound.Y || gravityParticle.Position.X < BottomLeftBound.X || gravityParticle.Position.Y < BottomLeftBound.Y)
         {
             InitParticle(gravityParticle);
         }

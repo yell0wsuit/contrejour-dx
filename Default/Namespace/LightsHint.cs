@@ -12,7 +12,7 @@ public class LightsHint : FadeHint
     public LightsHint(ContreJourLevelBuilder builder, object body, Sprite clip, Hashtable config)
         : base(builder, null, clip, config)
     {
-        ((EnergyBodyClip)FarseerUtil.Query(this.builder.World, this.builder.ToIPhoneVec(this.clip.Position), QueryRadius, typeof(EnergyBodyClip))).CollectEvent.AddListener(OnEnergyCollected);
+        ((EnergyBodyClip)FarseerUtil.Query(this.Builder.World, this.Builder.ToIPhoneVec(this.Clip.Position), QueryRadius, typeof(EnergyBodyClip))).CollectEvent.AddListener(OnEnergyCollected);
     }
 
     public override bool HasToHide()
@@ -25,7 +25,7 @@ public class LightsHint : FadeHint
         if (!Hiding)
         {
             Hiding = true;
-            Hide(0.5f * clip.OpacityByte / 255f);
+            Hide(0.5f * Clip.OpacityByte / 255f);
         }
     }
 }

@@ -106,7 +106,7 @@ public class PlasticinePartBodyClip : ContreJourBodyClip, IClickable, IRestartab
         //IL_00d5: Unknown result type (might be due to invalid IL or missing references)
         //IL_00df: Expected O, but got Unknown
         Width = width;
-        this.builder = builder;
+        this.Builder = builder;
         Parent = parent;
         game = (ContreJourGame)builder.Game;
         float value = ((Body)body).Rotation.SimplifyAngle(-(float)Math.PI / 2f);
@@ -315,8 +315,8 @@ public class PlasticinePartBodyClip : ContreJourBodyClip, IClickable, IRestartab
         Vector2 centerOffset = GetCenterOffset(offset);
         Vector2 centerOffset2 = Item.NextItem.BodyClip.GetCenterOffset(offset);
         Vector2 vec = VectorUtil.Center(GetRightOffset(offset), VectorUtil.Center(centerOffset, centerOffset2));
-        vector[verticesOffset + indexOffset].Position = builder.ToPoint(vec).ToVector3();
-        vector[verticesOffset + indexOffset + 2].Position = builder.ToPoint(centerOffset2).ToVector3();
+        vector[verticesOffset + indexOffset].Position = Builder.ToPoint(vec).ToVector3();
+        vector[verticesOffset + indexOffset + 2].Position = Builder.ToPoint(centerOffset2).ToVector3();
     }
 
     public void MoveToTargetPosition(float time)
@@ -441,7 +441,7 @@ public class PlasticinePartBodyClip : ContreJourBodyClip, IClickable, IRestartab
         if (num >= 1f && Maths.Random() < 0.33f)
         {
             position = Body.GetWorldPoint(position);
-            DustData dustData = new(game, body2.LinearVelocity, builder.ToIPadPoint(position), num, (!game.WhiteSide) ? 1 : 2);
+            DustData dustData = new(game, body2.LinearVelocity, Builder.ToIPadPoint(position), num, (!game.WhiteSide) ? 1 : 2);
             dust.Add(dustData);
         }
     }

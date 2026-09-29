@@ -24,7 +24,7 @@ public class SnotLinkHint(ContreJourLevelBuilder builder, object body, Sprite cl
 
     private void GetSnot()
     {
-        List<BodyClip> list = FarseerUtil.QueryBodyClipsCenterRadiusType(builder.World, builder.ToIPhoneVec(clip.Position), 6.6666665f, typeof(SnotBodyClip));
+        List<BodyClip> list = FarseerUtil.QueryBodyClipsCenterRadiusType(Builder.World, Builder.ToIPhoneVec(Clip.Position), 6.6666665f, typeof(SnotBodyClip));
         foreach (SnotBodyClip item in list.Cast<SnotBodyClip>())
         {
             item.LinkEvent.AddListener(OnSnotLink);
@@ -49,6 +49,6 @@ public class SnotLinkHint(ContreJourLevelBuilder builder, object body, Sprite cl
     public virtual void OnSnotLink()
     {
         Hiding = true;
-        Hide(0.5f * clip.OpacityByte / 255f);
+        Hide(0.5f * Clip.OpacityByte / 255f);
     }
 }

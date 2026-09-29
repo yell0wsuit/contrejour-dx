@@ -95,7 +95,7 @@ public class EndHeroBodyClip : HeroBodyClip
             linearVelocity.X = Math.Min(linearVelocity.X, -0.05f);
             Body.LinearVelocity = linearVelocity;
         }
-        if (hasToStop && !stoped && Math.Abs(shakePosition - clip.Position.X - StopOffset) < 10f && (double)Math.Abs(Body.LinearVelocity.X) < 0.1)
+        if (hasToStop && !stoped && Math.Abs(shakePosition - Clip.Position.X - StopOffset) < 10f && (double)Math.Abs(Body.LinearVelocity.X) < 0.1)
         {
             Body.BodyType = 0;
             Body.LinearVelocity = Vector2.Zero;
@@ -118,7 +118,7 @@ public class EndHeroBodyClip : HeroBodyClip
 
     private void LookAtTear()
     {
-        ((EndRoseBodyClip)builder.GetObject("rose")).DropTear();
+        ((EndRoseBodyClip)Builder.GetObject("rose")).DropTear();
         Schedule(LookAfterTear, 1f);
     }
 
@@ -138,10 +138,10 @@ public class EndHeroBodyClip : HeroBodyClip
     {
         SetEyeTargetAngle(4.712389f);
         SoundManager.PlaySound("saddness", 0.8f);
-        eye.PlayAnimation(new EyeAnimation("McEyeCloseSlow"), force: true);
-        eye.ReturnToDefault = false;
-        ((MovieClip)eye.CurrentBackground).MaxFrame = 18f;
-        ((MovieClip)eye.CurrentBackground).Repeat = false;
+        Eye.PlayAnimation(new EyeAnimation("McEyeCloseSlow"), force: true);
+        Eye.ReturnToDefault = false;
+        ((MovieClip)Eye.CurrentBackground).MaxFrame = 18f;
+        ((MovieClip)Eye.CurrentBackground).Repeat = false;
         _ = Tail.RotateTo(2f, Tail.RotationRadians - 70.ToRadians(), Cubic.EaseInOut);
         Schedule(ShowOutro, 1f);
     }
@@ -153,8 +153,8 @@ public class EndHeroBodyClip : HeroBodyClip
 
     private void SmileAfterLook()
     {
-        eye.ViewDistance = 0f;
-        eye.Smile();
+        Eye.ViewDistance = 0f;
+        Eye.Smile();
         Schedule(ShowOutro, 1f);
     }
 
@@ -181,10 +181,10 @@ public class EndHeroBodyClip : HeroBodyClip
     {
         if (LevelCompleted)
         {
-            Actions.ShakeWithDurationPositionOffsetCountScaleDiff(clip, 8f, clip.Position, 4f, 50, 0.1f);
+            Actions.ShakeWithDurationPositionOffsetCountScaleDiff(Clip, 8f, Clip.Position, 4f, 50, 0.1f);
             Schedule(AfterShake, 8f);
             CreateLights();
-            Game.ZoomToScaleTime(clip.Position, 1.6f, 10f);
+            Game.ZoomToScaleTime(Clip.Position, 1.6f, 10f);
             Game.TouchEnabled = false;
             animationsAllowed = false;
             EyeAnimationsAllowed = false;
@@ -211,12 +211,12 @@ public class EndHeroBodyClip : HeroBodyClip
 
     private void CreateLight()
     {
-        EnergyPart energyPart = new(Game, this, Maths.Random(0f, (float)Math.PI * 2f), clip.Position);
+        EnergyPart energyPart = new(Game, this, Maths.Random(0f, (float)Math.PI * 2f), Clip.Position);
         energyPart.Collect();
         energyPart.SpeedValue = Math.Min(energySpeed, 600f);
         energySpeed += 10f;
         energy.Add(energyPart);
-        eye.ApplyBonus();
+        Eye.ApplyBonus();
     }
 
     protected override void UpdateShadow(float time)
@@ -233,13 +233,13 @@ public class EndHeroBodyClip : HeroBodyClip
 
     private void AfterShake()
     {
-        clip.Tweener.Stop();
+        Clip.Tweener.Stop();
         Finished = false;
         Body.BodyType = (BodyType)2;
         Body.SetSensor(value: false);
         hasToStop = true;
         animationsAllowed = false;
-        shakePosition = clip.Position.X;
+        shakePosition = Clip.Position.X;
         EyeAnimationsAllowed = false;
         SoundManager.PlaySound("newClip1", 0.5f);
     }

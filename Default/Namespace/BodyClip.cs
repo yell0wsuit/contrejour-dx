@@ -14,17 +14,17 @@ namespace Default.Namespace;
 
 public class BodyClip : Updatable
 {
-    protected float rotationOffset;
+    public float RotationOffset { get; set; }
 
     protected float RotationOffsetRadians { get; set; }
 
     private Body body;
 
-    protected Node clip;
+    public Node Clip { get; protected set; }
 
-    protected Hashtable config;
+    public Hashtable Config { get; set; }
 
-    protected LevelBuilderBase builder;
+    public LevelBuilderBase Builder { get; protected set; }
 
     private bool destroyed;
 
@@ -32,31 +32,15 @@ public class BodyClip : Updatable
 
     private readonly Flag _firstUpdate = new();
 
-    public Hashtable Config
-    {
-        get => config;
-        set => config = value;
-    }
+    public World World => Builder.World;
 
-    public Node Clip => clip;
-
-    public float RotationOffset
-    {
-        get => rotationOffset;
-        set => rotationOffset = value;
-    }
-
-    public LevelBuilderBase Builder => builder;
-
-    public World World => builder.World;
-
-    protected float InitialBodyAngle => MathHelper.ToRadians(0f - rotationOffset);
+    protected float InitialBodyAngle => MathHelper.ToRadians(0f - RotationOffset);
 
     public float BodyAngle => InitialBodyAngle + body.Rotation;
 
     public virtual Vector2 PositionVec => body.Position;
 
-    public Vector2 Position => builder.ToPoint(body.Position);
+    public Vector2 Position => Builder.ToPoint(body.Position);
 
     public virtual Body Body
     {
@@ -78,22 +62,22 @@ public class BodyClip : Updatable
         //IL_0056: Unknown result type (might be due to invalid IL or missing references)
         //IL_0060: Expected O, but got Unknown
         config ??= [];
-        rotationOffset = config.GetFloat("rotationOffset", 0f);
-        RotationOffsetRadians = rotationOffset.ToRadians();
-        this.config = config;
-        this.clip = clip;
+        RotationOffset = config.GetFloat("rotationOffset", 0f);
+        RotationOffsetRadians = RotationOffset.ToRadians();
+        this.Config = config;
+        this.Clip = clip;
         Body = (Body)body;
-        this.builder = builder;
+        this.Builder = builder;
     }
 
     public void Schedule(Action action, float delay)
     {
-        ((ContreJourGame)builder.Game).Schedule(action, delay);
+        ((ContreJourGame)Builder.Game).Schedule(action, delay);
     }
 
     public void UnSchedule(Action action)
     {
-        ((ContreJourGame)builder.Game).UnSchedule(action);
+        ((ContreJourGame)Builder.Game).UnSchedule(action);
     }
 
     public static List<string> TexturesToUnload()
@@ -107,7 +91,7 @@ public class BodyClip : Updatable
         {
             FirstUpdate();
         }
-        if (body != null && clip != null)
+        if (body != null && Clip != null)
         {
             UpdatePosition();
             UpdateRotation();
@@ -120,12 +104,12 @@ public class BodyClip : Updatable
 
     public virtual void UpdatePosition()
     {
-        clip.Position = builder.ToPoint(body.Position);
+        Clip.Position = Builder.ToPoint(body.Position);
     }
 
     public virtual void UpdateRotation()
     {
-        clip.RotationRadians = body.Rotation - RotationOffsetRadians;
+        Clip.RotationRadians = body.Rotation - RotationOffsetRadians;
     }
 
     public void DestroyLater()
@@ -143,9 +127,9 @@ public class BodyClip : Updatable
 
     public void Destroy()
     {
-        if (clip != null && clip.Parent != null)
+        if (Clip != null && Clip.Parent != null)
         {
-            clip.Parent.RemoveChild(clip);
+            Clip.Parent.RemoveChild(Clip);
         }
         RemoveBody();
     }

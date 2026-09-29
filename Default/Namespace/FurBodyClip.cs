@@ -34,13 +34,13 @@ public abstract class FurBodyClip : ContreJourBodyClip
                 Scale = config.GetVector("scale").X
             };
             _ = builder.AddChild(clip);
-            this.clip = clip;
+            this.Clip = clip;
         }
         grassStep = (float)Math.PI * 2f / GrassCount();
         trampleAngle = 4f * grassStep;
         baseSprite = new McRotatorBase();
         baseSprite.Scale = Width() / baseSprite.TextureSize.X;
-        this.clip.AddChild(baseSprite);
+        this.Clip.AddChild(baseSprite);
         grassSystem = CreateFur();
         CreateGrass();
     }
@@ -48,7 +48,7 @@ public abstract class FurBodyClip : ContreJourBodyClip
     public FurCircle CreateFur()
     {
         FurCircle furCircle = new(GrassTexture(), GrassCount(), GrassRadius());
-        clip.AddChild(furCircle);
+        Clip.AddChild(furCircle);
         return furCircle;
     }
 

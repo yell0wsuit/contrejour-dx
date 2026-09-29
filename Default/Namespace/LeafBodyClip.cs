@@ -14,13 +14,13 @@ public class LeafBodyClip : ForegroundBase
     {
         float num = config.GetFloat("angleOffset", 0f);
         rotationChanger = new CosChanger(0f - num, num, config.GetFloat("rotationSpeed") / 30f);
-        initialRotation = this.clip.RotationDegrees;
+        initialRotation = this.Clip.RotationDegrees;
     }
 
     public override void Update(float time)
     {
         base.Update(time);
         rotationChanger.Update(time);
-        clip.RotationDegrees = initialRotation + rotationChanger.Value;
+        Clip.RotationDegrees = initialRotation + rotationChanger.Value;
     }
 }

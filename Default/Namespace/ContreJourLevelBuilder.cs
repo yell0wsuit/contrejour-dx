@@ -6,7 +6,7 @@ namespace Default.Namespace;
 
 public class ContreJourLevelBuilder(GameBase game) : LevelBuilderBase(game)
 {
-    public ContreJourGame ContreJour => (ContreJourGame)game;
+    public ContreJourGame ContreJour => (ContreJourGame)Game;
 
     public override void AddProcessors()
     {
@@ -46,9 +46,9 @@ public class ContreJourLevelBuilder(GameBase game) : LevelBuilderBase(game)
 
     public override void Update(float time)
     {
-        float num = Math.Min(time, MaxWorldUpdateTime) * physicsSpeed / 2f;
-        world.Step(num);
-        world.Step(num);
+        float num = Math.Min(time, MaxWorldUpdateTime) * PhysicsSpeed / 2f;
+        World.Step(num);
+        World.Step(num);
         Updater.Update(time);
     }
 }

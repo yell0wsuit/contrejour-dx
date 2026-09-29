@@ -14,6 +14,6 @@ public class SuckerHintBase : FadeHint
     public SuckerHintBase(ContreJourLevelBuilder builder, object body, Sprite clip, Hashtable config)
         : base(builder, null, clip, config)
     {
-        Sucker = (SuckerBodyClip)FarseerUtil.Query(this.builder.World, this.builder.ToIPhoneVec(this.clip.Position), QueryRadius, typeof(SuckerBodyClip));
+        Sucker = (SuckerBodyClip)FarseerUtil.Query(this.Builder.World, this.Builder.ToIPhoneVec(this.Clip.Position), QueryRadius, typeof(SuckerBodyClip));
     }
 }

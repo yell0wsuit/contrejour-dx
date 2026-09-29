@@ -56,7 +56,7 @@ public class PlanetEye : BackSnotEye, IVectorPositionProvider
         float module = Maths.Random(-10f, 10f);
         float num = Maths.Random(0f - MaxAngle(), MaxAngle()) - ((float)Math.PI / 4f);
         eyePosition = VectorUtil.ToVector(module, num);
-        positionProvider = this;
+        PositionProvider = this;
         speed = VectorUtil.ToVector(Maths.Random(2f), num + (float)Math.PI);
     }
 

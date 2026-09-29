@@ -24,15 +24,15 @@ public class FadeHint : HintBase, IRemovable, IRestartable
     {
         builder.ContreJour.AddUpdatable(this);
         builder.ContreJour.AddTextureToUnload(clip.Texture.Name);
-        this.clip.OpacityByte = 0;
-        this.clip.Visible = false;
+        this.Clip.OpacityByte = 0;
+        this.Clip.Visible = false;
         HasToRun = true;
     }
 
     public virtual void Restart()
     {
-        clip.Tweener.Stop();
-        _ = clip.FadeOutAndHide(0.2f);
+        Clip.Tweener.Stop();
+        _ = Clip.FadeOutAndHide(0.2f);
         HasToRun = true;
         Hiding = false;
         foreach (Action callAfter in callAfters)
@@ -55,7 +55,7 @@ public class FadeHint : HintBase, IRemovable, IRestartable
 
     public override void Update(float time)
     {
-        if (((ContreJourGame)builder.Game).TouchEnabled && HasToRun)
+        if (((ContreJourGame)Builder.Game).TouchEnabled && HasToRun)
         {
             HasToRun = false;
             CallAfterDelay(Show, 2f);
@@ -66,9 +66,9 @@ public class FadeHint : HintBase, IRemovable, IRestartable
     {
         if (!Hiding)
         {
-            clip.Visible = true;
-            clip.Tweener.Stop();
-            _ = clip.FadeIn(2f);
+            Clip.Visible = true;
+            Clip.Tweener.Stop();
+            _ = Clip.FadeIn(2f);
             if (HasToHide())
             {
                 CallAfterDelay(Hide, 5f);
@@ -78,8 +78,8 @@ public class FadeHint : HintBase, IRemovable, IRestartable
 
     public void Hide(float time)
     {
-        clip.Tweener.Stop();
-        _ = clip.FadeOutAndHide(time);
+        Clip.Tweener.Stop();
+        _ = Clip.FadeOutAndHide(time);
     }
 
     public void Hide()
@@ -87,7 +87,7 @@ public class FadeHint : HintBase, IRemovable, IRestartable
         if (!Hiding)
         {
             Hiding = true;
-            Hide(clip.OpacityByte / 255f);
+            Hide(Clip.OpacityByte / 255f);
         }
     }
 }

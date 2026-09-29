@@ -29,35 +29,25 @@ public class LevelBuilderBase : Updatable, IDisposable
     public string NamespacePrefix { get; set; }
 
     private readonly Dictionary<string, BodyClip> clips;
-    protected GameBase game;
+    public GameBase Game { get; }
     private Vector2 levelSize;
 
     protected float MaxWorldUpdateTime { get; set; }
 
     private Vector2 physicsLevelSize;
 
-    protected float physicsSpeed;
+    public float PhysicsSpeed { get; set; }
     protected List<object> Processors { get; set; }
 
     protected PhysicsUpdater Updater { get; set; }
 
-    protected World world;
+    public World World { get; }
 
     public Box2DConfig EngineConfig { get; set; }
 
-    public World World => world;
-
     public Body GroundBody { get; }
 
-    public GameBase Game => game;
-
     public Dictionary<string, object> CreatedObjects { get; }
-
-    public float PhysicsSpeed
-    {
-        get => physicsSpeed;
-        set => physicsSpeed = value;
-    }
 
     public int DefaultZ { get; set; }
 
@@ -75,7 +65,7 @@ public class LevelBuilderBase : Updatable, IDisposable
 
     public Vector2 PhysicsLevelSize => physicsLevelSize;
 
-    public Node GameRoot => game.GameRoot;
+    public Node GameRoot => Game.GameRoot;
 
     public LevelBuilderBase(GameBase game)
     {
@@ -87,13 +77,13 @@ public class LevelBuilderBase : Updatable, IDisposable
         Settings.PositionIterations = EngineConfig.PositionIterations;
         Settings.VelocityIterations = EngineConfig.VelocityIterations;
         Settings.ContinuousPhysics = false;
-        world = new World(EngineConfig.Gravity);
-        GroundBody = BodyFactory.CreateBody(world, new Vector2(0f, 0f), 0f, null);
+        World = new World(EngineConfig.Gravity);
+        GroundBody = BodyFactory.CreateBody(World, new Vector2(0f, 0f), 0f, null);
         MaxWorldUpdateTime = 1f / 30f;
-        physicsSpeed = 1f;
-        this.game = game;
+        PhysicsSpeed = 1f;
+        this.Game = game;
         Processors = [];
-        Updater = new PhysicsUpdater(world);
+        Updater = new PhysicsUpdater(World);
         clips = [];
         AddProcessors();
     }
@@ -105,7 +95,7 @@ public class LevelBuilderBase : Updatable, IDisposable
 
     public Body CreateCircleRadiusPositionRotationDynamic(float radius, Vector2 position, float rotation, bool dynamic)
     {
-        return world.CreateCircle(radius, position, rotation, EngineConfig.Density, dynamic);
+        return World.CreateCircle(radius, position, rotation, EngineConfig.Density, dynamic);
     }
 
     public virtual void AddProcessors()
@@ -264,7 +254,7 @@ public class LevelBuilderBase : Updatable, IDisposable
     public void RemoveBody(Body body)
     {
         DestroyFixturesData(body);
-        world.RemoveBody(body);
+        World.RemoveBody(body);
     }
 
     public void ProcessLevel(Level level)
@@ -383,7 +373,7 @@ public class LevelBuilderBase : Updatable, IDisposable
     public override void Update(float time)
     {
         float num = Math.Min(time, MaxWorldUpdateTime);
-        world.Step(num * physicsSpeed);
+        World.Step(num * PhysicsSpeed);
         Updater.Update(time);
     }
 }

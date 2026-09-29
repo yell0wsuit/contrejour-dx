@@ -22,6 +22,6 @@ public class AlphaForeground : ForegroundBase, IUpdatable
     public override void Update(float time)
     {
         changer.Update(time);
-        clip.OpacityFloat = changer.Value;
+        Clip.OpacityFloat = changer.Value;
     }
 }

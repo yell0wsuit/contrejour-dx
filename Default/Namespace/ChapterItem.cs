@@ -35,7 +35,7 @@ public class ChapterItem : Node
     protected List<object> DepthDependent { get; set; } = [];
     protected List<object> HidingItems { get; set; } = [];
 
-    protected int index;
+    public int Index { get; }
 
     private Color lightColor;
 
@@ -64,8 +64,6 @@ public class ChapterItem : Node
 
     public bool Enabled { get; set; }
 
-    public int Index => index;
-
     public override float OpacityFloat
     {
         set
@@ -80,14 +78,14 @@ public class ChapterItem : Node
     public ChapterItem(int index, MainMenu menu)
     {
         this.Menu = menu;
-        this.index = index;
+        this.Index = index;
         depth = -1f;
         Container = new Node();
         AddChild(Container);
         CreateSprites();
         AddChild(BlurBackground);
         HidingItems.Add(Background);
-        Offset = this.index * (float)Math.PI * 2f / ContreJourConstants.PlanetsCount;
+        Offset = this.Index * (float)Math.PI * 2f / ContreJourConstants.PlanetsCount;
         CreateClickListener();
         Enabled = true;
     }
@@ -190,6 +188,6 @@ public class ChapterItem : Node
 
     public void OnSelect()
     {
-        SelectEvent.Dispatch(index);
+        SelectEvent.Dispatch(Index);
     }
 }

@@ -12,24 +12,20 @@ namespace Default.Namespace;
 
 public class GameBase : Node, IUpdatable
 {
-    protected LevelBuilderBase builder;
+    public LevelBuilderBase Builder { get; private set; }
 
     protected List<IRemovable> Updatables { get; set; } = [];
 
-    protected readonly Node gameRoot = new();
+    public Node GameRoot { get; } = new();
     protected bool paused;
 
-    protected float totalTime;
+    public float TotalTime { get; protected set; }
 
     private LevelsCache _levelsCache;
 
     protected Vector2 levelSize = Mokus2DGame.Instance.ScreenSize;
 
     private readonly List<object> _toRemove = [];
-
-    public LevelBuilderBase Builder => builder;
-
-    public Node GameRoot => gameRoot;
 
     public EventSender LevelLoadedEvent { get; }
 
@@ -39,8 +35,6 @@ public class GameBase : Node, IUpdatable
         set => paused = value;
     }
 
-    public float TotalTime => totalTime;
-
     public Dictionary<string, Level> CachedLevels => _levelsCache.CachedLevels;
 
     public virtual Vector2 LevelSize => Builder.LevelSize;
@@ -49,9 +43,9 @@ public class GameBase : Node, IUpdatable
 
     public GameBase()
     {
-        AddChild(gameRoot);
+        AddChild(GameRoot);
         LevelLoadedEvent = new EventSender();
-        totalTime = 0f;
+        TotalTime = 0f;
     }
 
     public virtual void LoadLevel(string levelName)
@@ -79,9 +73,9 @@ public class GameBase : Node, IUpdatable
 
     public virtual void ProcessLevel(Level level)
     {
-        LevelBuilderBase levelBuilderBase = builder;
-        builder = CreateLevelBuilder();
-        builder.ProcessLevel(level);
+        LevelBuilderBase levelBuilderBase = Builder;
+        Builder = CreateLevelBuilder();
+        Builder.ProcessLevel(level);
         levelBuilderBase?.Dispose();
     }
 
@@ -110,7 +104,7 @@ public class GameBase : Node, IUpdatable
         {
             return;
         }
-        totalTime += time;
+        TotalTime += time;
         UpdateGame(time);
         _toRemove.Clear();
         foreach (IRemovable updatable in Updatables)

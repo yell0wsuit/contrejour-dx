@@ -39,16 +39,16 @@ public class DestroyOnHitClip(LevelBuilderBase builder, object body, Node clip, 
         SoundManager.PlayRandomSound(Sounds.EXPLOSIONS, Maths.Random(0.2f, 0.6f));
         DestroyLater();
         explosion = new Explosion("McGreySmoke");
-        builder.Add(explosion, 10);
-        explosion.Position = clip.Position;
+        Builder.Add(explosion, 10);
+        explosion.Position = Clip.Position;
         explosion.Speed = new RandomRange(100f, 20f);
         explosion.CreateOnStartPosition(25);
-        Vector2 textureSize = ((Sprite)clip).TextureSize;
+        Vector2 textureSize = ((Sprite)Clip).TextureSize;
         int num = 0;
         foreach (GravityParticle particle in explosion.Particles.Cast<GravityParticle>())
         {
             Vector2 source = new(0f, (num * textureSize.Y / 25f) - (textureSize.Y / 2f));
-            particle.Position = builder.ToRootChild(source, clip) - clip.Position;
+            particle.Position = Builder.ToRootChild(source, Clip) - Clip.Position;
             num++;
         }
     }

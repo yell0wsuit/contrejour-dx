@@ -78,7 +78,7 @@ public class SuckerBodyClip : ContreJourBodyClip, IClickable, IVectorPositionPro
     {
         get
         {
-            Vector2 position = builder.TouchRootVec(Touch);
+            Vector2 position = Builder.TouchRootVec(Touch);
             Vector2 vector = Builder.ToVec(MinBorderOffset);
             RectangleFloat levelScreenPhysicsBounds = Game.LevelScreenPhysicsBounds;
             levelScreenPhysicsBounds.Extend(-vector / Game.GameRoot.Scale);
@@ -95,41 +95,41 @@ public class SuckerBodyClip : ContreJourBodyClip, IClickable, IVectorPositionPro
         //IL_006c: Unknown result type (might be due to invalid IL or missing references)
         //IL_0076: Expected O, but got Unknown
         clip = new Node();
-        this.clip = clip;
+        this.Clip = clip;
         builder.Add(clip, 1);
         Body val = builder.World.CreateCircle(0.1f, ((Body)body).Position);
         val.SetSensor(value: true);
         builder.World.RemoveBody((Body)body);
         Body = val;
         bouncer = new Bouncer(4f, 7f, 3f);
-        this.config["noShadow"] = "true";
-        float num = this.config.GetFloat("Width");
-        MaxDistance = num / 2f * this.builder.SizeMult;
+        this.Config["noShadow"] = "true";
+        float num = this.Config.GetFloat("Width");
+        MaxDistance = num / 2f * this.Builder.SizeMult;
         GhostSprite = new Node
         {
             OpacityFloat = 0.5f
         };
-        this.clip.AddChild(GhostSprite);
+        this.Clip.AddChild(GhostSprite);
         ghostNeck = CreateNeck();
         ghostNeck.Color = new Color(10f / 51f, 10f / 51f, 10f / 51f, 1f);
         GhostSprite.AddChild(ghostNeck);
         ghostPimpa = CreatePimpa();
         GhostSprite.AddChild(ghostPimpa);
         limit = new McRoundDragFrameView();
-        this.builder.Add(limit, -1);
-        limit.Position = this.builder.ToPoint(Body.Position);
+        this.Builder.Add(limit, -1);
+        limit.Position = this.Builder.ToPoint(Body.Position);
         limit.Scale = num / 200f;
         Neck = CreateNeck();
-        this.clip.AddChild(Neck);
+        this.Clip.AddChild(Neck);
         Node node = new McSuckerHighlite();
-        this.clip.AddChild(node);
+        this.Clip.AddChild(node);
         Sprite node2 = new McSuckerStart();
-        this.clip.AddChild(node2);
+        this.Clip.AddChild(node2);
         eye = new MonsterEye(Game, visible: false, Body.Position);
-        this.clip.AddChild(eye);
+        this.Clip.AddChild(eye);
         eye.Visible = false;
         pimpa = new Node();
-        this.clip.AddChild(pimpa);
+        this.Clip.AddChild(pimpa);
         pimpaHighlite = new McSuckerHighlite();
         pimpa.AddChild(pimpaHighlite);
         Node node3 = CreatePimpa();
@@ -166,7 +166,7 @@ public class SuckerBodyClip : ContreJourBodyClip, IClickable, IVectorPositionPro
         }
         if (this.Touch == null)
         {
-            Vector2 target = builder.TouchRootVec(touch);
+            Vector2 target = Builder.TouchRootVec(touch);
             if (Body.Position.DistanceTo(target) <= 2f || endBody.Position.DistanceTo(target) <= 2f)
             {
                 StartDrag(touch);
@@ -238,7 +238,7 @@ public class SuckerBodyClip : ContreJourBodyClip, IClickable, IVectorPositionPro
 
     public void RefreshGhostPosition(float time, Vector2 position)
     {
-        Vector2 vector = builder.ToPoint(position - Body.Position);
+        Vector2 vector = Builder.ToPoint(position - Body.Position);
         ghostPimpa.Position = new Vector2(vector.Length(), 0f);
         ghostNeck.Length = ghostPimpa.Position.X;
         ghostNeck.UpdateNode(time);
@@ -279,7 +279,7 @@ public class SuckerBodyClip : ContreJourBodyClip, IClickable, IVectorPositionPro
     {
         pulled = false;
         End = null;
-        builder.World.RemoveBody(endBody);
+        Builder.World.RemoveBody(endBody);
         Body.DestroyFixture(MiddleFixture);
         Body.SetSensor(value: true);
         pimpaPosition = Vector2.Zero;
@@ -294,16 +294,16 @@ public class SuckerBodyClip : ContreJourBodyClip, IClickable, IVectorPositionPro
         SoundManager.PlaySound("vysovuvannja", 0.3f);
         creating = false;
         pulled = true;
-        endBody = builder.World.CreateCircle(0.1f, CreatePosition);
+        endBody = Builder.World.CreateCircle(0.1f, CreatePosition);
         float num = CreatePosition.DistanceTo(Body.Position);
         float angle = VectorUtil.Atan2(Body.Position, CreatePosition);
-        PolygonShape shape = new(builder.EngineConfig.Density);
+        PolygonShape shape = new(Builder.EngineConfig.Density);
         shape.SetAsBox(num / 2f, 0.1f, VectorUtil.Rotate(new Vector2(num / 2f, 0f), angle), angle);
         BounceAngle = angle;
-        MiddleFixture = FarseerUtil.AddShape((Shape)(object)shape, Body, builder.EngineConfig.Density);
+        MiddleFixture = FarseerUtil.AddShape((Shape)(object)shape, Body, Builder.EngineConfig.Density);
         Body.SetSensor(value: false);
         End = new SuckerEndBodyClip(this, endBody);
-        pimpaPosition = builder.ToPoint(endBody.Position - Body.Position);
+        pimpaPosition = Builder.ToPoint(endBody.Position - Body.Position);
         bouncer.Start();
         Neck.LightBounce();
         eye.Open = true;

@@ -37,28 +37,28 @@ public class SpikesFlowerBodyClip : ContreJourBodyClip, IVectorPositionProvider
         if (Game.WhiteSide || Game.BonusChapter)
         {
             clip = LevelBuilderBase.ReplaceClipWith(clip, Game.Choose(null, null, "McSpikesViewWhite", null, "McSpikesView_6"));
-            this.clip = clip;
+            this.Clip = clip;
         }
         container = new Node();
-        this.clip.AddChild(container, -1);
+        this.Clip.AddChild(container, -1);
         Node node = new McSpikesFlowerShadow
         {
-            Scale = this.clip.ScaleY
+            Scale = this.Clip.ScaleY
         };
         container.AddChild(node);
         movie = (ISpikesView)clip;
         movie.Left.Stoped = movie.Right.Stoped = true;
         movie.Left.Speed = movie.Right.Speed = 1.5f;
-        drawing = new SpikesFlowerSprite(this, this.clip.ScaleY);
+        drawing = new SpikesFlowerSprite(this, this.Clip.ScaleY);
         container.AddChild(drawing, -1);
     }
 
     private void CreateEye()
     {
         Vector2 point = container.LocalToNode(EyePosition, Game.Root);
-        Eye = new FlowerEye(Game, visible: true, builder.ToVec(point))
+        Eye = new FlowerEye(Game, visible: true, Builder.ToVec(point))
         {
-            Scale = clip.ScaleY * 0.7f
+            Scale = Clip.ScaleY * 0.7f
         };
         container.AddChild(Eye);
         Eye.RefreshRootAngle();
@@ -115,14 +115,14 @@ public class SpikesFlowerBodyClip : ContreJourBodyClip, IVectorPositionProvider
 
     public void CreateDeadEye()
     {
-        Body val = builder.World.CreateCircle(16f * builder.EngineConfig.SizeMultiplier * hero.DeadEyeScale(), Body.Position, 0f, builder.EngineConfig.Density, dynamic: true);
+        Body val = Builder.World.CreateCircle(16f * Builder.EngineConfig.SizeMultiplier * hero.DeadEyeScale(), Body.Position, 0f, Builder.EngineConfig.Density, dynamic: true);
         Node node = (Game.WhiteSide || Game.BonusChapter) ? new McEyeDeadBlack() : new McEyeDead();
         if (Game.BonusChapter)
         {
             node.Color = ContreJourConstants.GreenLightColor;
         }
-        BodyClip bodyClip = new(builder, val, node, null);
-        builder.Add(node, 10);
+        BodyClip bodyClip = new(Builder, val, node, null);
+        Builder.Add(node, 10);
         node.Scale = 0f;
         _ = node.Tweener.StartSequence(0.3f).ScaleTo(hero.DeadEyeScale()).Next(2f)
             .FadeOut();

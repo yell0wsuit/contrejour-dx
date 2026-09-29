@@ -25,7 +25,7 @@ public class EnergyBodyClip : BodyClip, IRestartable
         : base(builder, body, clip, config)
     {
         clip.Visible = false;
-        contreJourBuilder = (ContreJourLevelBuilder)this.builder;
+        contreJourBuilder = (ContreJourLevelBuilder)this.Builder;
         energyParts = [];
         CollectEvent = new EventSender();
         CreateParts();
@@ -35,7 +35,7 @@ public class EnergyBodyClip : BodyClip, IRestartable
     {
         for (int i = 0; i < 5; i++)
         {
-            EnergyPart item = new((ContreJourGame)builder.Game, this, (float)Math.PI * 2f / 5f * i, clip.Position);
+            EnergyPart item = new((ContreJourGame)Builder.Game, this, (float)Math.PI * 2f / 5f * i, Clip.Position);
             energyParts.Add(item);
         }
     }

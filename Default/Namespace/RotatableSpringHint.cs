@@ -11,8 +11,8 @@ public class RotatableSpringHint : FadeHint
     public RotatableSpringHint(ContreJourLevelBuilder builder, object body, Sprite clip, Hashtable config)
         : base(builder, body, clip, config)
     {
-        spring = (RotatableSpringBodyClip)FarseerUtil.Query(this.builder.World, this.builder.ToIPhoneVec(this.clip.Position), 3f, typeof(RotatableSpringBodyClip));
-        this.clip.Parent.ChangeChildLayer(this.clip, 12);
+        spring = (RotatableSpringBodyClip)FarseerUtil.Query(this.Builder.World, this.Builder.ToIPhoneVec(this.Clip.Position), 3f, typeof(RotatableSpringBodyClip));
+        this.Clip.Parent.ChangeChildLayer(this.Clip, 12);
     }
 
     public override bool HasToHide()
@@ -23,9 +23,9 @@ public class RotatableSpringHint : FadeHint
     public override void Update(float time)
     {
         base.Update(time);
-        if (!Hiding && spring != null && (double)builder.Game.TotalTime > 0.5 && Math.Abs(Maths.PeriodicOffset(spring.Body.Rotation, (float)Math.PI * 2f)) > (float)Math.PI / 4f)
+        if (!Hiding && spring != null && (double)Builder.Game.TotalTime > 0.5 && Math.Abs(Maths.PeriodicOffset(spring.Body.Rotation, (float)Math.PI * 2f)) > (float)Math.PI / 4f)
         {
-            Hide(clip.OpacityFloat / 2f);
+            Hide(Clip.OpacityFloat / 2f);
         }
     }
 }

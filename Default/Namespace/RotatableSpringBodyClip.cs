@@ -56,7 +56,7 @@ public class RotatableSpringBodyClip : RotatableSpringBase, IRestartable
     public RotatableSpringBodyClip(LevelBuilderBase builder, object body, Node clip, Hashtable config)
         : base(builder, body, clip, config)
     {
-        game = (ContreJourGame)this.builder.Game;
+        game = (ContreJourGame)this.Builder.Game;
         Body.BodyType = (BodyType)1;
         BodyCenterVec = Vector2.Zero;
         touchPoint = new McRotatorPoint();
@@ -70,10 +70,10 @@ public class RotatableSpringBodyClip : RotatableSpringBase, IRestartable
             touchPoint.Color = ContreJourConstants.GreenLightColor;
             minOpacity = 0.9f;
         }
-        this.builder.AddChildAfter(circle, this.clip);
+        this.Builder.AddChildAfter(circle, this.Clip);
         circle.AddChild(touchPoint);
         touchPoint.IgnoreParentOpacity = true;
-        circle.Position = this.clip.Position;
+        circle.Position = this.Clip.Position;
         touchPoint.Position = new Vector2(50f, 0f);
         touchPointSpeed = Maths.Random(0.02f, 0.03f) / 1.5f;
         touchPointNeededSpeed = touchPointSpeed;
@@ -82,7 +82,7 @@ public class RotatableSpringBodyClip : RotatableSpringBase, IRestartable
         {
             Impulse = startSpringWidth / 32f
         };
-        this.builder.AddChildAfter(trajectory, circle);
+        this.Builder.AddChildAfter(trajectory, circle);
         foreach (Fixture fixture in Body.FixtureList)
         {
             if (fixture.UserData is Hashtable && ((Hashtable)fixture.UserData).GetString("id", null) == "touch")
@@ -182,7 +182,7 @@ public class RotatableSpringBodyClip : RotatableSpringBase, IRestartable
 
     public override bool TouchBegan(Touch touch)
     {
-        if (!base.TouchBegan(touch) && IsRotatorTouched(builder.TouchRootVec(touch)))
+        if (!base.TouchBegan(touch) && IsRotatorTouched(Builder.TouchRootVec(touch)))
         {
             RunActions();
             rotateTouch = touch;
@@ -201,7 +201,7 @@ public class RotatableSpringBodyClip : RotatableSpringBase, IRestartable
 
     private float GetTouchAngle()
     {
-        return (builder.TouchRootVec(rotateTouch) - Body.Position).Atan2();
+        return (Builder.TouchRootVec(rotateTouch) - Body.Position).Atan2();
     }
 
     public override void TouchEnd(Touch touch)

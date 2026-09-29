@@ -34,7 +34,7 @@ public class PlasticineItem : LinkedListItem
 
     public Body Body => BodyClip.Body;
 
-    public PlasticinePartBodyClip BodyClip => (PlasticinePartBodyClip)item;
+    public PlasticinePartBodyClip BodyClip => (PlasticinePartBodyClip)Item;
 
     public PlasticineItem(PlasticinePartBodyClip bodyClip, float width)
         : base(bodyClip)

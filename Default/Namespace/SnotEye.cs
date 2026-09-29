@@ -11,9 +11,7 @@ public class SnotEye(SnotBodyClip _snot, Body body) : ContreJourBodyClip(_snot.B
 {
     protected bool HasRelease { get; set; }
 
-    protected SnotBodyClip snot = _snot;
-
-    public SnotBodyClip Snot => snot;
+    public SnotBodyClip Snot { get; } = _snot;
 
     public bool DisableHeroFocus => true;
 
@@ -29,7 +27,7 @@ public class SnotEye(SnotBodyClip _snot, Body body) : ContreJourBodyClip(_snot.B
 
     public virtual int Priority(Vector2 touchPosition)
     {
-        return !snot.Joined ? -10 : 1;
+        return !Snot.Joined ? -10 : 1;
     }
 
     public virtual bool TouchBegan(Touch touch)
@@ -43,7 +41,7 @@ public class SnotEye(SnotBodyClip _snot, Body body) : ContreJourBodyClip(_snot.B
         CheckTouchDistance(touch);
         if (HasRelease)
         {
-            snot.ReleaseSnot();
+            Snot.ReleaseSnot();
             ContreJourGame.FocusOnHero();
             HasRelease = false;
         }
@@ -61,7 +59,7 @@ public class SnotEye(SnotBodyClip _snot, Body body) : ContreJourBodyClip(_snot.B
 
     private void CheckTouchDistance(Touch touch)
     {
-        CheckTouchDistance(touch, builder.TouchRootVec(touch).DistanceTo(Body.Position));
+        CheckTouchDistance(touch, Builder.TouchRootVec(touch).DistanceTo(Body.Position));
     }
 
     protected virtual void CheckTouchDistance(Touch touch, float distance)

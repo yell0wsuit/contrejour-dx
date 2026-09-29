@@ -45,13 +45,13 @@ public class SnotBodyClipBase : ContreJourBodyClip
         : base(builder, body.EndBody, null, config)
     {
         Physics = body;
-        game = (ContreJourGame)this.builder.Game;
+        game = (ContreJourGame)this.Builder.Game;
         Container = new Node();
         Physics.Snot = this;
         InitSizes();
         ClipContent = CreateClip();
         BaseClip = ClipTypesCache.CreateNewNode(BaseClipName());
-        BaseClip.Position = this.builder.ToIPadPoint(Physics.GetWorldStartPoint());
+        BaseClip.Position = this.Builder.ToIPadPoint(Physics.GetWorldStartPoint());
         BaseEndClip = ClipTypesCache.CreateNewNode(BaseEndClipName());
         Physics.EndBody.ApplyLinearImpulse(new Vector2(Maths.Random(), Maths.Random()) * Physics.EndBody.Mass);
         Eye = CreateEye();
@@ -61,10 +61,10 @@ public class SnotBodyClipBase : ContreJourBodyClip
     public virtual void InitSizes()
     {
         EndWidthPixels = 10f;
-        CenterWidth = 6f * builder.EngineConfig.SizeMultiplier;
-        EndWidth = EndWidthPixels * builder.EngineConfig.SizeMultiplier;
+        CenterWidth = 6f * Builder.EngineConfig.SizeMultiplier;
+        EndWidth = EndWidthPixels * Builder.EngineConfig.SizeMultiplier;
         StartWidthPixels = 28f;
-        StartWidth = StartWidthPixels * builder.EngineConfig.SizeMultiplier;
+        StartWidth = StartWidthPixels * Builder.EngineConfig.SizeMultiplier;
     }
 
     public virtual int Layer()
@@ -91,12 +91,12 @@ public class SnotBodyClipBase : ContreJourBodyClip
         {
             Container.AddChild(Eye);
         }
-        builder.Add(Container, Layer());
+        Builder.Add(Container, Layer());
     }
 
     protected virtual MonsterEye CreateEye()
     {
-        return new MonsterEye((ContreJourGame)builder.Game, visible: false, Physics.EyeBody.Position);
+        return new MonsterEye((ContreJourGame)Builder.Game, visible: false, Physics.EyeBody.Position);
     }
 
     public virtual SnotSprite CreateClip()
@@ -112,11 +112,11 @@ public class SnotBodyClipBase : ContreJourBodyClip
     public override void Update(float time)
     {
         base.Update(time);
-        BaseClip.Position = builder.ToIPadPoint(Physics.GetWorldStartPoint());
-        BaseEndClip.Position = builder.ToIPadPoint(EndPosition());
+        BaseClip.Position = Builder.ToIPadPoint(Physics.GetWorldStartPoint());
+        BaseEndClip.Position = Builder.ToIPadPoint(EndPosition());
         if (Eye != null && Eye.HasToUpdate)
         {
-            Eye.Position = builder.ToIPadPoint(EyeBody.Position);
+            Eye.Position = Builder.ToIPadPoint(EyeBody.Position);
             Eye.UpdateNode(time);
         }
     }

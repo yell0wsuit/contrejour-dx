@@ -37,7 +37,7 @@ public class SpringSuckerBodyClip : SuckerBodyClip
 
     protected override string BounceSound => "spring";
 
-    private bool CanAutocreate => Touch == null && config.GetBool("auto");
+    private bool CanAutocreate => Touch == null && Config.GetBool("auto");
 
     public SpringSuckerBodyClip(LevelBuilderBase builder, object body, Node clip, Hashtable config)
         : base(builder, body, clip, config)

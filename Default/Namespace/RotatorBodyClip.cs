@@ -65,9 +65,9 @@ public class RotatorBodyClip : FurBodyClip, IClickable, IRestartable, ISnotHolde
         lastDirection = 1f;
         Body.BodyType = (BodyType)1;
         circle = new McRotatorCircle();
-        this.clip.AddChild(circle);
+        this.Clip.AddChild(circle);
         touchPoint = new McRotatorPoint();
-        this.clip.AddChild(touchPoint);
+        this.Clip.AddChild(touchPoint);
         touchPointSpeed = Maths.Random(0.02f, 0.03f);
         touchPointNeededSpeed = touchPointSpeed;
         RunActions();
@@ -173,10 +173,10 @@ public class RotatorBodyClip : FurBodyClip, IClickable, IRestartable, ISnotHolde
 
     public bool TouchBegan(Touch touch)
     {
-        if (Maths.Between(Body.Position.DistanceTo(builder.TouchRootVec(touch)) / clip.Scale, MinTouchRadius, MaxTouchRadius))
+        if (Maths.Between(Body.Position.DistanceTo(Builder.TouchRootVec(touch)) / Clip.Scale, MinTouchRadius, MaxTouchRadius))
         {
             this.touch = touch;
-            startTouchAngle = VectorUtil.Atan2(Body.Position, builder.TouchRootVec(this.touch)) - Body.Rotation;
+            startTouchAngle = VectorUtil.Atan2(Body.Position, Builder.TouchRootVec(this.touch)) - Body.Rotation;
             SetTouching(value: true);
             StopActions();
             return true;
@@ -198,7 +198,7 @@ public class RotatorBodyClip : FurBodyClip, IClickable, IRestartable, ISnotHolde
 
     public void RefreshAngle()
     {
-        targetAngle = VectorUtil.Atan2(Body.Position, builder.TouchRootVec(touch)) - startTouchAngle;
+        targetAngle = VectorUtil.Atan2(Body.Position, Builder.TouchRootVec(touch)) - startTouchAngle;
         targetAngle = targetAngle.SimplifyAngle(Body.Rotation - (float)Math.PI);
     }
 

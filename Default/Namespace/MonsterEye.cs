@@ -18,18 +18,12 @@ public class MonsterEye : RandomAnimationEye, IPositionDepedent
 
     private float startAngle;
 
-    protected IVectorPositionProvider positionProvider;
+    public IVectorPositionProvider PositionProvider { get; set; }
     public static readonly EyeAnimation[] SnotAnimations =
     [
         new("McEyeBlinkMonster"),
         new("McEyeBlinkOneTimeMonster")
     ];
-
-    public IVectorPositionProvider PositionProvider
-    {
-        get => positionProvider;
-        set => positionProvider = value;
-    }
 
     public IVectorPositionProvider RandomPositionProvider { get; set; }
 
@@ -127,7 +121,7 @@ public class MonsterEye : RandomAnimationEye, IPositionDepedent
     {
         if (ProviderEnabled)
         {
-            IVectorPositionProvider vectorPositionProvider = positionProvider ?? RandomPositionProvider;
+            IVectorPositionProvider vectorPositionProvider = PositionProvider ?? RandomPositionProvider;
             if (vectorPositionProvider != null)
             {
                 _ = Vector2.Zero;
@@ -142,7 +136,7 @@ public class MonsterEye : RandomAnimationEye, IPositionDepedent
             }
         }
         base.Update(time);
-        currentBackground.Position = CurrentEyeBall.Position * 0.5f;
+        CurrentBackground.Position = CurrentEyeBall.Position * 0.5f;
     }
 
     private void OnCloseEnd()

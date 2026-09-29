@@ -26,7 +26,7 @@ public class RotatableBodyClip : BodyClip
         _ = Maths.Random(4f, 8f);
         destroying = false;
         scaleSign = 1;
-        this.clip.RotationDegrees = Maths.Random(360);
+        this.Clip.RotationDegrees = Maths.Random(360);
     }
 
     public override void Update(float time)
@@ -35,8 +35,8 @@ public class RotatableBodyClip : BodyClip
         if (!destroying)
         {
             scaleProgress += scaleStep;
-            clip.ScaleX = 1f + (Maths.Cos(scaleProgress) * scaleDiff);
-            clip.ScaleX = scaleSign * clip.ScaleY;
+            Clip.ScaleX = 1f + (Maths.Cos(scaleProgress) * scaleDiff);
+            Clip.ScaleX = scaleSign * Clip.ScaleY;
         }
     }
 

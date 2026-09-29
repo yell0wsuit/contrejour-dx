@@ -18,14 +18,14 @@ public class PortalHint : FadeHint
     public override void Restart()
     {
         base.Restart();
-        Portal = (TeleportBodyClip)FarseerUtil.Query(builder.World, builder.ToIPhoneVec(clip.Position), 6.6666665f, typeof(TeleportBodyClip));
+        Portal = (TeleportBodyClip)FarseerUtil.Query(Builder.World, Builder.ToIPhoneVec(Clip.Position), 6.6666665f, typeof(TeleportBodyClip));
         Portal.UseEvent.AddListener(OnPortalUse);
     }
 
     public virtual void OnPortalUse()
     {
         Portal.UseEvent.RemoveListener(OnPortalUse);
-        Hide(0.5f * clip.OpacityByte / 255f);
+        Hide(0.5f * Clip.OpacityByte / 255f);
     }
 
     public override bool HasToHide()

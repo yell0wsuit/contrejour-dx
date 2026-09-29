@@ -27,10 +27,10 @@ public class RoundDragBodyClip(ContreJourLevelBuilder _builder, object body, Nod
     protected override void CreateBoundsClip(float scale)
     {
         middleSprite = new McRoundDragFrameView();
-        radius = 200f * scale * builder.EngineConfig.SizeMultiplier / 2f;
+        radius = 200f * scale * Builder.EngineConfig.SizeMultiplier / 2f;
         middleSprite.Scale = scale * 200f / 200f;
-        middleSprite.Position = clip.Position;
-        builder.Add(middleSprite, -1);
+        middleSprite.Position = Clip.Position;
+        Builder.Add(middleSprite, -1);
     }
 
     protected override void RefreshObjectsAlpha()
@@ -40,7 +40,7 @@ public class RoundDragBodyClip(ContreJourLevelBuilder _builder, object body, Nod
 
     protected override Vector2 TouchOffset()
     {
-        return builder.ToVec(TouchCenterOffset);
+        return Builder.ToVec(TouchCenterOffset);
     }
 
     protected override Vector2 GetDragPosition(Vector2 offset)

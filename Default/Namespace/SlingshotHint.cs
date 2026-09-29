@@ -20,7 +20,7 @@ public class SlingshotHint : FadeHint
 
     private void Initialize()
     {
-        trampoline = (TrampolineBodyClip)FarseerUtil.Query(builder.World, builder.ToVec(clip.Position), 10f, typeof(TrampolineBodyClip));
+        trampoline = (TrampolineBodyClip)FarseerUtil.Query(Builder.World, Builder.ToVec(Clip.Position), 10f, typeof(TrampolineBodyClip));
         if (trampoline != null)
         {
             trampoline.DragEvent.AddListener(OnStartDrag);
