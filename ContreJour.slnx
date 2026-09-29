@@ -1,12 +1,12 @@
 <Solution>
-  <Project Path="ContreJour.csproj" />
+  <Project Path="src/ContreJour/ContreJour.csproj" />
   <Folder Name="/Engine/">
-    <Project Path="Engine/FarseerPhysics/FarseerPhysics.csproj" />
-    <Project Path="Engine/Mokus2D.Common/Mokus2D.Common.csproj" />
-    <Project Path="Engine/Mokus2D/Mokus2D.csproj" />
-    <Project Path="Engine/Mokus2D.Integration.Farseer/Mokus2D.Integration.Farseer.csproj" />
+    <Project Path="src/FarseerPhysics/FarseerPhysics.csproj" />
+    <Project Path="src/Mokus2D.Common/Mokus2D.Common.csproj" />
+    <Project Path="src/Mokus2D/Mokus2D.csproj" />
+    <Project Path="src/Mokus2D.Integration.Farseer/Mokus2D.Integration.Farseer.csproj" />
   </Folder>
-  <Folder Name="/tools/">
-    <Project Path="tools/Regression/ContreJour.Regression.csproj" />
+  <Folder Name="/Tests/">
+    <Project Path="src/ContreJour.Regression/ContreJour.Regression.csproj" />
   </Folder>
 </Solution>

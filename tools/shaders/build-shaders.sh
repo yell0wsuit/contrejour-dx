@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
-# Compiles Engine/Mokus2D/Shaders/*.fx to OpenGL (*.ogl.mgfxo) for DesktopGL.
+# Compiles src/Mokus2D/Shaders/*.fx to OpenGL (*.ogl.mgfxo) for DesktopGL.
 # MonoGame's effect compiler needs Wine + the real d3dcompiler_47.dll, so it runs in an x86_64 container.
 set -euo pipefail
 
 HERE="$(cd "$(dirname "$0")" && pwd)"
-SHADERS="$HERE/../../Engine/Mokus2D/Shaders"
+SHADERS="$HERE/../../src/Mokus2D/Shaders"
 IMAGE=contrejour-mgfxc
 
 docker build --platform linux/amd64 -t "$IMAGE" "$HERE"

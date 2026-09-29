@@ -51,5 +51,5 @@ dotnet_code_quality.CA1051.exclude_structs = true
 
 # Engine files that live in the game's Default.Namespace or extend System namespaces can't match
 # their project's root namespace.
-[Engine/*/{Default,System}/**.cs]
+[src/{Mokus2D,Mokus2D.Common,Mokus2D.Integration.Farseer}/{Default,System}/**.cs]
 dotnet_diagnostic.IDE0130.severity = none

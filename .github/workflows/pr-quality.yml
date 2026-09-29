@@ -39,7 +39,7 @@ jobs:
             - name: Check formatting
               run: dotnet format ContreJour.slnx --verify-no-changes --verbosity diagnostic
 
-            # The level regression harness (tools/Regression) needs a window and a GPU, so it
+            # The level regression harness (src/ContreJour.Regression) needs a window and a GPU, so it
             # runs locally rather than here.
             - name: Build
               run: dotnet build ContreJour.slnx --no-restore -c Release
