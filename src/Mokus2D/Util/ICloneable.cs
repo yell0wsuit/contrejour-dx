@@ -1,4 +1,4 @@
-namespace System;
+namespace Mokus2D.Util;
 
 public interface ICloneable<out T>
 {

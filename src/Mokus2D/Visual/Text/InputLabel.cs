@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Input;
 using Mokus2D.Fonts;
 using Mokus2D.Input;
 using Mokus2D.Util;
+using Mokus2D.Util.Extensions;
 using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual.Focus;
 using Mokus2D.Visual.Util;

@@ -14,6 +14,7 @@ using Microsoft.Xna.Framework;
 
 using Mokus2D.Integration.Farseer.Util;
 using Mokus2D.Util;
+using Mokus2D.Util.Extensions;
 
 namespace ContreJour.Gameplay;
 

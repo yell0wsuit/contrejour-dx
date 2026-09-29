@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 
 using Mokus2D.Util;
+using Mokus2D.Util.Extensions;
 using Mokus2D.Visual.Particles.Data;
 
 namespace Mokus2D.Visual.Particles;

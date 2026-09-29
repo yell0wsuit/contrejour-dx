@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 
 using FarseerPhysics.Collision.Shapes;
@@ -9,6 +8,7 @@ using Microsoft.Xna.Framework;
 
 using Mokus2D.Integration.Farseer.Construction.Processors;
 using Mokus2D.Integration.Farseer.Physics;
+using Mokus2D.Util.Extensions;
 using Mokus2D.Visual;
 using Mokus2D.Visual.Util;
 

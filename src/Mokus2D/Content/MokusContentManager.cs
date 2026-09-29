@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 using Mokus2D.Util;
+using Mokus2D.Util.Extensions;
 
 namespace Mokus2D.Content;
 

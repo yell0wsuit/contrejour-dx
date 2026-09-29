@@ -7,6 +7,7 @@ using FarseerPhysics.Dynamics.Contacts;
 using Microsoft.Xna.Framework;
 
 using Mokus2D.Events;
+using Mokus2D.Util.Extensions;
 using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual;
 

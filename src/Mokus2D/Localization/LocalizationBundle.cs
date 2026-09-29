@@ -4,6 +4,8 @@ using System.Globalization;
 using System.IO;
 using System.Xml.Linq;
 
+using Mokus2D.Util.Extensions;
+
 namespace Mokus2D.Localization;
 
 public class LocalizationBundle

@@ -2,6 +2,7 @@ using System;
 
 using Mokus2D.Input;
 using Mokus2D.Interfaces;
+using Mokus2D.Util.Extensions;
 using Mokus2D.Util.MathUtils;
 
 namespace Mokus2D.Controls;

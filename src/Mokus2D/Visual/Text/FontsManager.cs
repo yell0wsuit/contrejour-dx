@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 
 using Mokus2D.Fonts;
+using Mokus2D.Util.Extensions;
 using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual.Data;
 

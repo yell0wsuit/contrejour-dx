@@ -4,6 +4,8 @@ using FarseerPhysics.Dynamics;
 
 using Microsoft.Xna.Framework;
 
+using Mokus2D.Util.Extensions;
+
 namespace ContreJour.Gameplay;
 
 public class EditorRevoluteJointProcessor(LevelBuilderBase builder) : RevoluteJointProcessor("editorRevoluteJoint", builder)

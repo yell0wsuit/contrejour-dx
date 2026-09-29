@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 using Microsoft.Xna.Framework;
 
+using Mokus2D.Util.Extensions;
+
 namespace Mokus2D.Visual.Data;
 
 [Serializable]

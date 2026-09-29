@@ -3,6 +3,7 @@ using System;
 using Microsoft.Xna.Framework;
 
 using Mokus2D.Input;
+using Mokus2D.Util.Extensions;
 using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual.Interactive;
 

@@ -5,6 +5,7 @@ using Mokus2D.Collections;
 using Mokus2D.Input;
 using Mokus2D.UI.Controls.Buttons;
 using Mokus2D.Util;
+using Mokus2D.Util.Extensions;
 
 namespace Mokus2D.UI.Controls.Toggle;
 

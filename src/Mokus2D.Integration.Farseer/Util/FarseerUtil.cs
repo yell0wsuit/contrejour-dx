@@ -15,6 +15,7 @@ using Microsoft.Xna.Framework;
 using Mokus2D.Integration.Farseer.Config;
 using Mokus2D.Integration.Farseer.Physics;
 using Mokus2D.Util;
+using Mokus2D.Util.Extensions;
 using Mokus2D.Util.MathUtils;
 
 namespace Mokus2D.Integration.Farseer.Util;

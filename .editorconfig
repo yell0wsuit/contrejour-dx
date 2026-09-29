@@ -40,7 +40,3 @@ csharp_style_namespace_declarations = file_scoped:warning
 # Plain data structs (vertices, pairs, rectangles, ranges) keep public fields, like XNA's Vector2:
 # they're mutated in place and some rely on explicit field layout.
 dotnet_code_quality.CA1051.exclude_structs = true
-
-# Engine extensions that live in System namespaces can't match their project's root namespace.
-[src/{Mokus2D,Mokus2D.Common}/System/**.cs]
-dotnet_diagnostic.IDE0130.severity = none

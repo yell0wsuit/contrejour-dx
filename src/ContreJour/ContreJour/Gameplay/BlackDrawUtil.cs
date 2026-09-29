@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using Mokus2D.Util.Data;
+using Mokus2D.Util.Extensions;
 using Mokus2D.Visual.Util;
 
 namespace ContreJour.Gameplay;

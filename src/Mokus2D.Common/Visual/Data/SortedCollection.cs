@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
+using Mokus2D.Util.Extensions;
+
 namespace Mokus2D.Visual.Data;
 
 public class SortedCollection<T> : IList<T>, ICollection<T>, IEnumerable<T>, IEnumerable

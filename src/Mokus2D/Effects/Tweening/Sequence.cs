@@ -4,6 +4,7 @@ using System.Diagnostics;
 
 using Mokus2D.Data;
 using Mokus2D.Interfaces;
+using Mokus2D.Util.Extensions;
 
 namespace Mokus2D.Effects.Tweening;
 

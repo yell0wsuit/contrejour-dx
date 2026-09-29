@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 using ContreJour.Clips.common;
 
 using FarseerPhysics.Collision.Shapes;

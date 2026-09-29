@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using Mokus2D.PlatformSupport;
+using Mokus2D.Util.Extensions;
 using Mokus2D.Visual.Data;
 using Mokus2D.Visual.Drawing.Effects;
 using Mokus2D.Visual.Drawing.Vertex;

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 
 using Mokus2D.Collections;
 using Mokus2D.Data;
+using Mokus2D.Util.Extensions;
 using Mokus2D.Visual;
 using Mokus2D.Visual.Interactive;
 

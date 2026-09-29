@@ -4,7 +4,6 @@ using System.Reflection;
 
 using ContreJour;
 using ContreJour.Config;
-
 using ContreJour.Gameplay;
 
 using Microsoft.Xna.Framework;

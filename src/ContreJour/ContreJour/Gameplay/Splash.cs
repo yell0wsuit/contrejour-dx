@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 
 using ContreJour.Clips.fakeHero;
 using ContreJour.Clips.loading;

@@ -1,8 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 
-namespace System;
+namespace Mokus2D.Util.Extensions;
 
 public static class StringExtensions
 {

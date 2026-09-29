@@ -1,10 +1,13 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Globalization;
 
 
 using Mokus2D.Util.Data;
 using Mokus2D.Util.MathUtils;
 
-namespace System.Collections.Generic;
+namespace Mokus2D.Util.Extensions;
 
 public static class MokusCollectionExtensions
 {

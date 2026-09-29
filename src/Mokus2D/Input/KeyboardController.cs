@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Input;
 using Mokus2D.Collections;
 using Mokus2D.Interfaces;
 using Mokus2D.Util;
+using Mokus2D.Util.Extensions;
 
 namespace Mokus2D.Input;
 

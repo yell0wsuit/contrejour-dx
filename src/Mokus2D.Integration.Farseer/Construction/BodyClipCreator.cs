@@ -5,6 +5,7 @@ using System.Reflection;
 using FarseerPhysics.Dynamics;
 
 using Mokus2D.Integration.Farseer.Physics;
+using Mokus2D.Util.Extensions;
 using Mokus2D.Visual;
 
 namespace Mokus2D.Integration.Farseer.Construction;
