@@ -53,12 +53,33 @@ namespace ContreJour.Desktop.Platform.Audio
         // failure is reported through error rather than thrown.
         public static SdlAudioBackend TryOpen(out string error)
         {
+            bool audioStarted = false;
+            try
+            {
+                return Open(ref audioStarted, out error);
+            }
+            catch (Exception e) when (e is DllNotFoundException or EntryPointNotFoundException)
+            {
+                // Native libraries that fail to load are one more way for audio to be unavailable. The
+                // loader's message lists every path it tried; its first line names the library.
+                error = $"could not load the SDL audio libraries: {e.Message.Split('\n')[0]}";
+                if (audioStarted)
+                {
+                    SDL.QuitSubSystem(SDL.InitFlags.Audio);
+                }
+                return null;
+            }
+        }
+
+        private static SdlAudioBackend Open(ref bool audioStarted, out string error)
+        {
             // Each failure reads SDL's error before cleanup, which can replace it.
             if (!SDL.InitSubSystem(SDL.InitFlags.Audio))
             {
                 error = $"could not start SDL audio: {SDL.GetError()}";
                 return null;
             }
+            audioStarted = true;
 
             // The published SDL3_mixer library records no runtime search path, so its SDL3 dependency
             // resolves only against the SDL3 image InitSubSystem has already loaded.
