@@ -262,7 +262,6 @@ namespace Mokus2D
         public virtual void Initialize(ApplicationController applicationController)
         {
             ApplicationController = applicationController;
-            ApplicationController.OnInitialize();
             ApplicationController.IsMouseVisible = true;
             ContentRootDirectory = "Content";
             ApplicationController.TargetElapsedTime = TimeSpan.FromTicks(166667L);

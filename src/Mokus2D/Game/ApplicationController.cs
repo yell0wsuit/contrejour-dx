@@ -2,94 +2,81 @@ using System;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Input.Touch;
 
 using Mokus2D.Content;
 using Mokus2D.Platforms.Input;
+using Mokus2D.Util;
 using Mokus2D.Util.Resources;
 
 namespace Mokus2D.Game
 {
-    public class ApplicationController(Microsoft.Xna.Framework.Game application, GraphicsDeviceManager graphics) : DisposableBase
+    // The engine's view of the platform host. GraphicsDevice and MokusContentManager are still
+    // MonoGame types: rendering and content loading do not go through platform interfaces yet.
+    public class ApplicationController : DisposableBase
     {
+        public ApplicationController(IGameHost host, GraphicsDevice graphicsDevice, MokusContentManager content)
+        {
+            Host = host;
+            GraphicsDevice = graphicsDevice;
+            Content = content;
+            Host.ClientSizeChanged += OnHostClientSizeChanged;
+        }
 
-        private readonly GraphicsDeviceManager _graphics = graphics;
+        public IGameHost Host { get; }
 
-        public Microsoft.Xna.Framework.Game Application { get; } = application;
+        public MokusContentManager Content { get; }
 
-        public MokusContentManager Content => (MokusContentManager)Application.Content;
+        public GraphicsDevice GraphicsDevice { get; }
 
-        public Vector2 WindowSize => new(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
+        public event Action ClientSizeChanged;
+
+        public Vector2 WindowSize => Host.WindowSize;
 
         public bool IsFullScreen
         {
-            get => _graphics.IsFullScreen;
-            set => _graphics.IsFullScreen = value;
+            get => Host.IsFullScreen;
+            set => Host.IsFullScreen = value;
         }
 
-        public Rectangle ClientBounds => Application.Window.ClientBounds;
+        public Rectangle ClientBounds => Host.ClientBounds;
 
         public bool IsFixedTimeStep
         {
-            get => Application.IsFixedTimeStep;
-            set => Application.IsFixedTimeStep = value;
+            get => Host.IsFixedTimeStep;
+            set => Host.IsFixedTimeStep = value;
         }
 
         public Util.Data.Point PrefferedBackBufferSize
         {
-            get => new(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
-            set
-            {
-                _graphics.PreferredBackBufferWidth = value.X;
-                _graphics.PreferredBackBufferHeight = value.Y;
-            }
+            get => Host.PreferredBackBufferSize;
+            set => Host.PreferredBackBufferSize = value;
         }
 
-        public Util.Data.Point BackBufferSize => new(GraphicsDevice.PresentationParameters.BackBufferWidth, GraphicsDevice.PresentationParameters.BackBufferHeight);
-
-        public bool SynchronizeWithVerticalRetrace
-        {
-            get => _graphics.SynchronizeWithVerticalRetrace;
-            set => _graphics.SynchronizeWithVerticalRetrace = value;
-        }
+        public Util.Data.Point BackBufferSize => Host.BackBufferSize;
 
         public bool IsMouseVisible
         {
-            get => Application.IsMouseVisible;
-            set => Application.IsMouseVisible = value;
+            get => Host.IsMouseVisible;
+            set => Host.IsMouseVisible = value;
         }
 
         public string ContentRootDirectory
         {
-            get => Application.Content.RootDirectory;
-            set => Application.Content.RootDirectory = value;
+            get => Content.RootDirectory;
+            set => Content.RootDirectory = value;
         }
 
-        public bool IsActive => Application.IsActive;
+        public bool IsActive => Host.IsActive;
 
         public TimeSpan TargetElapsedTime
         {
-            get => Application.TargetElapsedTime;
-            set => Application.TargetElapsedTime = value;
-        }
-
-        public GraphicsDevice GraphicsDevice => Application.GraphicsDevice;
-
-        public void OnInitialize()
-        {
-            Mouse.WindowHandle = Application.Window.Handle;
-            TouchPanel.WindowHandle = Application.Window.Handle;
-            Application.GraphicsDevice.RasterizerState = new RasterizerState
-            {
-                CullMode = CullMode.None
-            };
-            Application.GraphicsDevice.DepthStencilState = DepthStencilState.None;
+            get => Host.TargetElapsedTime;
+            set => Host.TargetElapsedTime = value;
         }
 
         public void ApplyGraphicsChanges()
         {
-            _graphics.ApplyChanges();
+            Host.ApplyGraphicsChanges();
         }
 
         public static void Update()
@@ -97,8 +84,23 @@ namespace Mokus2D.Game
             MouseController.Update();
         }
 
+        // The Windows 8 game could not close itself, so the quit path through Mokus2DGame.Exit does nothing.
         public static void Exit()
         {
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                Host.ClientSizeChanged -= OnHostClientSizeChanged;
+            }
+            base.Dispose(disposing);
+        }
+
+        private void OnHostClientSizeChanged()
+        {
+            ClientSizeChanged.Dispatch();
         }
     }
 }

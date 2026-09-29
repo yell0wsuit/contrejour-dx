@@ -244,7 +244,7 @@ namespace ContreJour.Regression
             _writer.Dispose();
             _trace?.Dispose();
             _phase = Phase.Done;
-            ApplicationController.Application.Exit();
+            ApplicationController.Host.Quit();
         }
 
         // Settings and progress are saved by Preferences as two JSON files. Record some level results

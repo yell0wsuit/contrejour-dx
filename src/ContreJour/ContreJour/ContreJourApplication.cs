@@ -123,10 +123,10 @@ namespace ContreJour
             _initialSize = applicationController.BackBufferSize;
             BlockGameIfNeeded();
             ShowSplash();
-            applicationController.Application.Window.ClientSizeChanged += OnSizeChanged;
+            applicationController.ClientSizeChanged += OnSizeChanged;
         }
 
-        private void OnSizeChanged(object sender, EventArgs e)
+        private void OnSizeChanged()
         {
             PlatformResize();
             BlockGameIfNeeded();

@@ -2,6 +2,8 @@ using System;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Input.Touch;
 
 using Mokus2D;
 using Mokus2D.Content;
@@ -33,12 +35,21 @@ namespace ContreJour.Desktop.MonoGame
         protected override void Initialize()
         {
             base.Initialize();
-            Content = new MokusContentManager(Services);
-            ApplicationController applicationController = new(this, _graphics);
+            MokusContentManager content = new(Services);
+            Content = content;
+            MonoGameHost host = new(this, _graphics);
+            Mouse.WindowHandle = Window.Handle;
+            TouchPanel.WindowHandle = Window.Handle;
+            GraphicsDevice.RasterizerState = new RasterizerState
+            {
+                CullMode = CullMode.None
+            };
+            GraphicsDevice.DepthStencilState = DepthStencilState.None;
+            ApplicationController applicationController = new(host, GraphicsDevice, content);
             _game.Initialize(applicationController);
             // Subscribe after the game is set up: resizes applied during Initialize would otherwise
             // reach the game before its views exist (Win8 view-state events only arrived later).
-            Window.ClientSizeChanged += OnApplicationViewChanged;
+            host.ClientSizeChanged += OnApplicationViewChanged;
         }
 
         protected override void Update(GameTime gameTime)
@@ -72,9 +83,9 @@ namespace ContreJour.Desktop.MonoGame
             _game.OnExiting();
         }
 
-        private void OnApplicationViewChanged(object sender, EventArgs e)
+        private void OnApplicationViewChanged()
         {
-            _game.OnApplicationViewChanged(e);
+            _game.OnApplicationViewChanged(EventArgs.Empty);
         }
     }
 }
