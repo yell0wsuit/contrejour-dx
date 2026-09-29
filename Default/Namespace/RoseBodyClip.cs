@@ -70,7 +70,7 @@ public class RoseBodyClip : StickyBodyClip, IBonusAcceptable, IBodyClip
             Speed = 0f
         };
         game.BonusTarget = this;
-        this.Clip.AddChild((Node)finalRose);
+        this.Clip.AddChild(finalRose);
         if (game.CanShowIntro)
         {
             PlayIntro();
@@ -141,7 +141,7 @@ public class RoseBodyClip : StickyBodyClip, IBonusAcceptable, IBodyClip
         };
         _ = Builder.AddChild(leaf1);
         leaf2 = new McLystok2();
-        ((Node)finalRose).Visible = false;
+        finalRose.Visible = false;
         roseParts = [stalk, headDown, leaf2];
         puddle = new McPuddle
         {
@@ -240,7 +240,7 @@ public class RoseBodyClip : StickyBodyClip, IBonusAcceptable, IBodyClip
         skipButton.TouchEndEvent -= OnSkipClick;
         _ = skipButton.FadeOutAndHide(0.3f);
         finished = true;
-        ((Node)finalRose).Visible = true;
+        finalRose.Visible = true;
         foreach (Node rosePart in roseParts.Cast<Node>())
         {
             Clip.RemoveChild(rosePart);

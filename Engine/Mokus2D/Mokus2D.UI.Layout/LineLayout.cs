@@ -12,7 +12,7 @@ public abstract class LineLayout(Node container) : LayoutBase(container)
 
     private readonly LayoutDirection Direction = LayoutDirection.Normal;
 
-    private readonly DefaultPositionApplier PositionApplier = new DefaultPositionApplier();
+    private readonly DefaultPositionApplier PositionApplier = new();
 
     public float? FixedSize { get; set; }
 

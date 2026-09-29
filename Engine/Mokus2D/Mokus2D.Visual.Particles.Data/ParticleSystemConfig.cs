@@ -32,17 +32,17 @@ public class ParticleSystemConfig : ICloneable<ParticleSystemConfig>
     [DataMember]
     public bool ReuseParticles { get; set; } = true;
 
-    [NonSerialized]
+    [field: NonSerialized]
     [DataMember]
-    public Vector2 ParticlesPosition;
+    public Vector2 ParticlesPosition { get; set; }
 
-    [NonSerialized]
+    [field: NonSerialized]
     [DataMember]
-    public Vector2 Gravity = Vector2.Zero;
+    public Vector2 Gravity { get; set; } = Vector2.Zero;
 
-    [NonSerialized]
+    [field: NonSerialized]
     [DataMember]
-    public Vector2 PositionRange = Vector2.Zero;
+    public Vector2 PositionRange { get; set; } = Vector2.Zero;
 
     [DataMember]
     public bool RadialPosition { get; set; } = true;
