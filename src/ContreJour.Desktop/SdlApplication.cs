@@ -33,6 +33,8 @@ namespace ContreJour.Desktop
 
         private bool _sdlStarted;
 
+        private bool _disposed;
+
         private SdlGlDevice _device;
 
         private SdlGameHost _host;
@@ -68,6 +70,11 @@ namespace ContreJour.Desktop
 
         public void Dispose()
         {
+            if (_disposed)
+            {
+                return;
+            }
+            _disposed = true;
             // Textures go before the GL context they were uploaded to, and the window before SDL.
             _applicationController?.Dispose();
             _renderer?.Dispose();
