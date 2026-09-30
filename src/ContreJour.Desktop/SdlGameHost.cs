@@ -37,12 +37,16 @@ namespace ContreJour.Desktop
                 SDL.PumpEvents();
                 SDL.Delay(10);
             }
-            Check(SDL.GetWindowSizeInPixels(_window, out int width, out int height));
+            Check(SDL.GetWindowSizeInPixels(_window, out int pixelWidth, out int pixelHeight));
+            SDL.DisplayMode display = DesktopMode();
+            (int width, int height) = CanvasSize.Choose(pixelWidth, pixelHeight, display.W, display.H, display.PixelDensity);
             BackBufferSize = new Point(width, height);
             PreferredBackBufferSize = BackBufferSize;
             IsFullScreen = (SDL.GetWindowFlags(_window) & SDL.WindowFlags.Fullscreen) != 0;
             IsActive = (SDL.GetWindowFlags(_window) & SDL.WindowFlags.InputFocus) != 0;
-            Letterbox = new Letterbox(new Vector2(width, height), WindowPoints(), new Vector2(width, height));
+            // Identity until the window has an area; RefreshLetterbox keeps it while it has none.
+            Vector2 canvas = new(width, height);
+            Letterbox = new Letterbox(canvas, canvas, canvas);
             RefreshLetterbox();
         }
 
@@ -174,6 +178,12 @@ namespace ContreJour.Desktop
         {
             Check(SDL.GetWindowSize(_window, out int width, out int height));
             return new Vector2(width, height);
+        }
+
+        private SDL.DisplayMode DesktopMode()
+        {
+            return SDL.GetDesktopDisplayMode(SDL.GetDisplayForWindow(_window))
+                ?? throw new InvalidOperationException($"SDL could not read the display mode: {SDL.GetError()}");
         }
 
         private void PlaceWindowed()
