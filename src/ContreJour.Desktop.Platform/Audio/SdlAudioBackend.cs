@@ -14,8 +14,8 @@ namespace ContreJour.Desktop.Platform.Audio
     // No native callbacks are installed, so nothing has to be kept alive for the mixer's thread.
     public sealed class SdlAudioBackend : IAudioBackend
     {
-        // The album music's rate, so those songs reach the mixer unconverted; chapter5 (24kHz) and the
-        // 22.05kHz effects are resampled as they play.
+        // Every song ships at this rate and every effect is converted to it at load, so no voice
+        // resamples while playing; SDL converts the mixed output to the device's rate in one stream.
         private const int MixerFrequency = 44100;
 
         private const int MixerChannels = 2;
@@ -174,13 +174,72 @@ namespace ContreJour.Desktop.Platform.Audio
         public ISoundEffect LoadSound(string path)
         {
             // Effects are short, replayed constantly and often overlap, so they are decoded once.
-            return new Clip(Load(path, predecode: true));
+            return new Clip(LoadEffect(path));
         }
 
         public ISong LoadSong(string path)
         {
             // Songs are minutes long, so they stream.
             return new Clip(Load(path, predecode: false));
+        }
+
+        // Converts an effect that ships at another rate to the mixer's once, here: a voice that
+        // resamples while playing mixes its first buffer short by the resampler's lookahead and leaves
+        // the rest silent, which pops about 21ms into every effect (fixed the same way in cuttherope-dx).
+        private nint LoadEffect(string path)
+        {
+            ObjectDisposedException.ThrowIf(_disposed, this);
+            if (!File.Exists(path))
+            {
+                throw new FileNotFoundException($"Audio file not found: {path}", path);
+            }
+            if (!SDL.LoadWAV(path, out SDL.AudioSpec source, out nint samples, out uint length))
+            {
+                throw new InvalidDataException($"Could not load audio '{path}': {SDL.GetError()}");
+            }
+            try
+            {
+                if (source.Freq == MixerFrequency)
+                {
+                    return Load(path, predecode: true);
+                }
+                SDL.AudioSpec target = new()
+                {
+                    Format = SDL.AudioFormat.AudioS16LE,
+                    Channels = source.Channels,
+                    Freq = MixerFrequency
+                };
+                if (!SDL.ConvertAudioSamples(in source, samples, (int)length, in target, out nint converted, out int convertedLength))
+                {
+                    throw new InvalidDataException($"Could not resample audio '{path}': {SDL.GetError()}");
+                }
+                try
+                {
+                    return LoadConverted(path, target, converted, convertedLength);
+                }
+                finally
+                {
+                    SDL.Free(converted);
+                }
+            }
+            finally
+            {
+                SDL.Free(samples);
+            }
+        }
+
+        private unsafe nint LoadConverted(string path, SDL.AudioSpec spec, nint samples, int length)
+        {
+            byte[] wav = WavFile.Wrap16Bit(spec.Channels, spec.Freq, new ReadOnlySpan<byte>((void*)samples, length));
+            // Predecoding copies the samples out before the load returns, so the buffer only has to
+            // stay pinned for the call.
+            fixed (byte* data = wav)
+            {
+                nint stream = SDL.IOFromConstMem((nint)data, (nuint)wav.Length);
+                return stream == 0
+                    ? throw new InvalidDataException($"Could not open audio '{path}': {SDL.GetError()}")
+                    : Load(stream, path, predecode: true);
+            }
         }
 
         private nint Load(string path, bool predecode)
@@ -191,10 +250,14 @@ namespace ContreJour.Desktop.Platform.Audio
                 throw new FileNotFoundException($"Audio file not found: {path}", path);
             }
             nint stream = SDL.IOFromFile(path, "rb");
-            if (stream == 0)
-            {
-                throw new InvalidDataException($"Could not open audio '{path}': {SDL.GetError()}");
-            }
+            return stream == 0
+                ? throw new InvalidDataException($"Could not open audio '{path}': {SDL.GetError()}")
+                : Load(stream, path, predecode);
+        }
+
+        // Loads from stream, which the mixer closes; path names the file for errors and picks its decoder.
+        private nint Load(nint stream, string path, bool predecode)
+        {
             uint props = SDL.CreateProperties();
             nint audio;
             try
