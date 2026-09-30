@@ -13,11 +13,16 @@ namespace ContreJour.Desktop.Platform.Tests
         private static readonly GraphicsBackendKind[] AllKinds =
             [GraphicsBackendKind.Metal, GraphicsBackendKind.OpenGL, GraphicsBackendKind.Software];
 
+        [Fact]
+        public void MacPrefersMetalThenOpenGLThenSoftware()
+        {
+            Assert.Equal([GraphicsBackendKind.Metal, GraphicsBackendKind.OpenGL, GraphicsBackendKind.Software], BackendSelector.PreferenceOrder("macos", null));
+        }
+
         [Theory]
-        [InlineData("macos")]
         [InlineData("windows")]
         [InlineData("linux")]
-        public void EveryPlatformFallsBackToSoftwareAfterOpenGL(string platform)
+        public void OtherPlatformsStartOnOpenGLThenSoftware(string platform)
         {
             Assert.Equal([GraphicsBackendKind.OpenGL, GraphicsBackendKind.Software], BackendSelector.PreferenceOrder(platform, null));
         }

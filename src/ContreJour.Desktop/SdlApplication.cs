@@ -165,6 +165,8 @@ namespace ContreJour.Desktop
             Action<string> fault = _options.Faults.For(kind);
             SdlGraphicsDevice device = kind == GraphicsBackendKind.OpenGL
                 ? new SdlGlDevice(fault)
+                : kind == GraphicsBackendKind.Metal
+                ? new MetalDevice(fault)
                 : kind == GraphicsBackendKind.Software
                 ? new SdlSoftwareDevice(fault)
                 : throw new PlatformNotSupportedException($"The {kind} renderer is not available.");
