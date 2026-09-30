@@ -1,6 +1,5 @@
 using System;
 
-using ContreJour.Desktop.MonoGame;
 using ContreJour.Desktop.Platform.Audio;
 
 using Mokus2D.Sound;
@@ -16,7 +15,7 @@ namespace ContreJour.Desktop
             Environment.CurrentDirectory = AppContext.BaseDirectory;
             // Declared before the game, so the game is disposed first.
             using IAudioBackend audio = OpenAudio();
-            using MonoGameApplication<ContreJourApplication> game = new(audio);
+            using SdlApplication<ContreJourApplication> game = new(audio);
             game.Run();
         }
 

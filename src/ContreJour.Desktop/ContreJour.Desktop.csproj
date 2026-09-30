@@ -11,6 +11,7 @@
     <PackageReference Include="MonoGame.Framework.DesktopGL" />
     <ProjectReference Include="../ContreJour/ContreJour.csproj" />
     <ProjectReference Include="../ContreJour.Desktop.Platform/ContreJour.Desktop.Platform.csproj" />
+    <ProjectReference Include="../Mokus2D.Rendering.Skia/Mokus2D.Rendering.Skia.csproj" />
   </ItemGroup>
 
   <Import Project="../GameContents.targets" />
