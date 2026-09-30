@@ -5,7 +5,7 @@
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
   </PropertyGroup>
 
-  <!-- SDL3 platform services for the desktop host. Audio for now; window and input join in step 4. -->
+  <!-- SDL3 platform services for the desktop host: window, GL device, input and audio. -->
   <ItemGroup>
     <PackageReference Include="SDL3-CS" />
     <PackageReference Include="SDL3-CS.Windows" />
@@ -14,6 +14,10 @@
     <PackageReference Include="SDL3-CS.Windows.Mixer" />
     <PackageReference Include="SDL3-CS.Linux.Mixer" />
     <PackageReference Include="SDL3-CS.MacOS.Mixer" />
+    <PackageReference Include="SkiaSharp" />
+    <PackageReference Include="SkiaSharp.NativeAssets.macOS" />
+    <PackageReference Include="SkiaSharp.NativeAssets.Win32" />
+    <PackageReference Include="SkiaSharp.NativeAssets.Linux" />
     <ProjectReference Include="../Mokus2D/Mokus2D.csproj" />
   </ItemGroup>
 </Project>
