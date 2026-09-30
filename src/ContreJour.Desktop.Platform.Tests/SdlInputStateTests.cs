@@ -365,5 +365,28 @@ namespace ContreJour.Desktop.Platform.Tests
             Assert.False(SdlInputState.IsFullScreenShortcut(KeyEvent(SDL.Keycode.F11, false)));
             Assert.False(SdlInputState.IsFullScreenShortcut(KeyEvent(SDL.Keycode.Return, true)));
         }
+
+        [Fact]
+        public void ReleaseAllClearsEverythingHeld()
+        {
+            SdlInputState input = CreateInput();
+            input.HandleEvent(Button(1, down: true));
+            input.HandleEvent(KeyEvent(SDL.Keycode.Escape, down: true));
+
+            input.HandleEvent(Button(2, down: true));
+            input.HandleEvent(Button(3, down: true));
+            input.HandleEvent(KeyEvent(SDL.Keycode.A, down: true));
+            input.HandleEvent(PadButton(7, SDL.GamepadButton.Back, true));
+            input.HandleEvent(Finger(SDL.EventType.FingerDown, 1, 0.5f, 0.5f));
+
+            input.ReleaseAll();
+
+            Assert.False(input.GetMouse().Left);
+            Assert.False(input.IsBackPressed);
+            Assert.False(input.GetMouse().Middle);
+            Assert.False(input.GetMouse().Right);
+            Assert.False(input.IsKeyDown(Key.A));
+            Assert.Empty(Touches(input));
+        }
     }
 }

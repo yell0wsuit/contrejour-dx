@@ -634,6 +634,21 @@ namespace ContreJour.Gameplay
                 Mokus2DGame.Instance.KeysController.RemoveBackKeyListener(OnBackPress);
                 return;
             }
+            OpenPausePanel();
+        }
+
+        // Losing focus pauses the level as the pause button does, unless it is over or already paused.
+        public void PauseForFocusLoss()
+        {
+            if (Finished || pausePanel.Visible)
+            {
+                return;
+            }
+            OpenPausePanel();
+        }
+
+        private void OpenPausePanel()
+        {
             if (ContreJourConfig.BackButtonVisible)
             {
                 pauseButton.Enabled = false;
@@ -1031,5 +1046,6 @@ namespace ContreJour.Gameplay
                 freeTouches.Add(touch);
             }
         }
+
     }
 }

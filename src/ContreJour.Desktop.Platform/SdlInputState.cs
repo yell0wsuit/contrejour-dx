@@ -128,7 +128,7 @@ namespace ContreJour.Desktop.Platform
             else if (type is SDL.EventType.WindowFocusLost or SDL.EventType.WindowMinimized)
             {
                 // Releases that happen while another window has focus never arrive here.
-                ClearHeld();
+                ReleaseAll();
             }
         }
 
@@ -218,7 +218,8 @@ namespace ContreJour.Desktop.Platform
             }
         }
 
-        private void ClearHeld()
+        // Releases while the window is away never arrive, so the host drops everything held.
+        public void ReleaseAll()
         {
             _left = false;
             _middle = false;

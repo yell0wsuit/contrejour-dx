@@ -147,6 +147,26 @@ namespace ContreJour.Desktop.Platform.Audio
             }
         }
 
+        // Pauses the playback device the mixer feeds, below every voice, so the game's own song pause
+        // and mute stay as they were. The desktop host suspends audio while its window is away.
+        public bool Suspended
+        {
+            get;
+            set
+            {
+                if (field == value)
+                {
+                    return;
+                }
+                uint device = (uint)SDL.GetNumberProperty(Mixer.GetMixerProperties(_mixer), Mixer.Props.MixerDeviceNumber, 0);
+                if (device == 0 || !(value ? SDL.PauseAudioDevice(device) : SDL.ResumeAudioDevice(device)))
+                {
+                    return;
+                }
+                field = value;
+            }
+        }
+
         public ISoundEffect LoadSound(string path)
         {
             // Effects are short, replayed constantly and often overlap, so they are decoded once.
@@ -280,5 +300,6 @@ namespace ContreJour.Desktop.Platform.Audio
             Mixer.Quit();
             SDL.QuitSubSystem(SDL.InitFlags.Audio);
         }
+
     }
 }

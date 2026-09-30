@@ -4,6 +4,7 @@ using System.IO;
 using System.Threading;
 
 using ContreJour.Desktop.Platform;
+using ContreJour.Desktop.Platform.Audio;
 using ContreJour.Desktop.Platform.Diagnostics;
 using ContreJour.Desktop.Platform.Graphics;
 
@@ -27,7 +28,7 @@ namespace ContreJour.Desktop
     // per frame; vsync paces it.
     public sealed class SdlApplication<T>(IAudioBackend audio, DesktopOptions options, string saveDirectory) : IDisposable where T : Mokus2DGame, new()
     {
-        // MonoGame's Game.InactiveSleepTime default: an unfocused game keeps running, slowly.
+        // How often a frozen game's window is redrawn while it is away.
         private const int InactiveSleepMilliseconds = 20;
 
         private const SDL.InitFlags Subsystems = SDL.InitFlags.Video | SDL.InitFlags.Gamepad;
@@ -60,22 +61,33 @@ namespace ContreJour.Desktop
 
         private ApplicationController _applicationController;
 
+        private readonly Stopwatch _clock = new();
+
+        private TimeSpan _previous;
+
         public void Run()
         {
             Start();
-            Stopwatch clock = Stopwatch.StartNew();
-            TimeSpan previous = TimeSpan.Zero;
+            _clock.Start();
             _game.Update(0f);
+            _previous = _clock.Elapsed;
             while (!_host.QuitRequested)
             {
                 PumpEvents();
-                if (!_host.IsActive)
+                if (_host.IsActive)
                 {
-                    Thread.Sleep(InactiveSleepMilliseconds);
+                    TimeSpan now = _clock.Elapsed;
+                    _game.Update((float)(now - _previous).TotalSeconds);
+                    _previous = now;
                 }
-                TimeSpan now = clock.Elapsed;
-                _game.Update((float)(now - previous).TotalSeconds);
-                previous = now;
+                else
+                {
+                    // Frozen while the window is away, as the Windows 8 game was when the system
+                    // suspended it; the clock keeps up, so no time is owed on return. Frames are still
+                    // drawn, so resizes and full-screen changes show the paused scene.
+                    Thread.Sleep(InactiveSleepMilliseconds);
+                    _previous = _clock.Elapsed;
+                }
                 DrawFrame();
                 if (_options.QuitAfterFrames is int limit && _presentedFrames >= limit && !_host.QuitRequested)
                 {
@@ -138,6 +150,10 @@ namespace ContreJour.Desktop
             // Initialize would otherwise reach the game before its views exist.
             _host.ClientSizeChanged += OnClientSizeChanged;
             _host.ActiveChanged += OnActiveChanged;
+            if (!_host.IsActive)
+            {
+                OnActiveChanged(false);
+            }
         }
 
         // A driver that crashes the process while starting leaves RendererMemory's marker behind,
@@ -243,13 +259,28 @@ namespace ContreJour.Desktop
 
         private void OnActiveChanged(bool active)
         {
+            ILogger logger = Log.For(LogCategories.Host);
+            HostLog.FocusChanged(logger, active);
             if (active)
             {
+                // Window transitions can spend time inside SDL; none of that is gameplay time.
+                _previous = _clock.Elapsed;
+                SetAudioSuspended(false);
                 _game.OnActivated();
             }
             else
             {
+                _input.ReleaseAll();
                 _game.OnDeactivated();
+                SetAudioSuspended(true);
+            }
+        }
+
+        private void SetAudioSuspended(bool suspended)
+        {
+            if (_audio is SdlAudioBackend sdl)
+            {
+                sdl.Suspended = suspended;
             }
         }
     }

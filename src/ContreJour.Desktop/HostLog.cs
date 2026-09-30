@@ -19,5 +19,8 @@ namespace ContreJour.Desktop
 
         [LoggerMessage(Level = LogLevel.Warning, Message = "Skipping {Renderer}: the last launch did not survive starting it")]
         public static partial void SkippingBlamedRenderer(ILogger logger, GraphicsBackendKind renderer);
+
+        [LoggerMessage(Level = LogLevel.Debug, Message = "Window focus {Active}")]
+        public static partial void FocusChanged(ILogger logger, bool active);
     }
 }

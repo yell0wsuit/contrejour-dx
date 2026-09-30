@@ -53,6 +53,13 @@ namespace ContreJour
             // is fed through the engine's cursor input instead, so don't block the game.
             true;
 
+        public override void OnDeactivated()
+        {
+            base.OnDeactivated();
+            // A level left while the player is away waits for them on its pause panel; menus only freeze.
+            (_currentView as ContreJourGame)?.PauseForFocusLoss();
+        }
+
         public override void OnResumeComplete()
         {
             base.OnResumeComplete();
@@ -472,5 +479,6 @@ namespace ContreJour
         private static void PlatformResize()
         {
         }
+
     }
 }
