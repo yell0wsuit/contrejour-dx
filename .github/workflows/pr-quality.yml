@@ -46,3 +46,6 @@ jobs:
 
             - name: Test
               run: dotnet test --project src/Mokus2D.Rendering.Skia.Tests/Mokus2D.Rendering.Skia.Tests.csproj --no-build -c Release
+
+            - name: Test desktop platform
+              run: dotnet test --project src/ContreJour.Desktop.Platform.Tests/ContreJour.Desktop.Platform.Tests.csproj --no-build -c Release
