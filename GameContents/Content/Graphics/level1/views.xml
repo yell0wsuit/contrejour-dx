@@ -1,0 +1,20 @@
+<root>
+  <McBackground0Front>
+    <config noAlpha="true" final="true" iPhoneSizeLimit="511" type="null" layer="4"/>
+  </McBackground0Front>
+  <McBackground1Front>
+    <config noAlpha="true" final="true" iPhoneSizeLimit="511" type="null" layer="4"/>
+  </McBackground1Front>
+  <McBackground2Back>
+    <config jpg="true" final="true" iPhoneSizeLimit="128" type="null" layer="4"/>
+  </McBackground2Back>
+  <McSunBackground>
+    <config iPhoneSizeLimit="511" moveOffset="0,150" premultiply="false" final="true" type="null" layer="4"/>
+  </McSunBackground>
+  <McSunLight>
+    <config speed="0.15" iPhoneSizeLimit="511" moveOffset="0,150" premultiply="false" final="true" type="null" layer="4"/>
+  </McSunLight>
+  <McBlackSkyBackground>
+    <config targetOpacity="0" final="true" iPhoneSizeLimit="512" type="null" layer="4"/>
+  </McBlackSkyBackground>
+</root>

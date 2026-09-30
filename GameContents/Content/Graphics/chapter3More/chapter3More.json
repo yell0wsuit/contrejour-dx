@@ -1,0 +1,66 @@
+{
+    "frames": [
+        {
+            "filename": "McRelsHintView",
+            "frame": {"x": 495, "y": 312, "w": 18, "h": 70},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 18, "h": 70},
+            "sourceSize": {"w": 18, "h": 70},
+            "pivot": {"x": 0.5, "y": 0.2714285714285714}
+        },
+        {
+            "filename": "McShesterna2Background",
+            "frame": {"x": 258, "y": 1, "w": 255, "h": 255},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 255, "h": 255},
+            "sourceSize": {"w": 255, "h": 255},
+            "pivot": {"x": 0.4980392156862745, "y": 0.5019607843137255}
+        },
+        {
+            "filename": "McShesternaBackground",
+            "frame": {"x": 1, "y": 1, "w": 255, "h": 255},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 255, "h": 255},
+            "sourceSize": {"w": 255, "h": 255},
+            "pivot": {"x": 0.4980392156862745, "y": 0.5019607843137255}
+        },
+        {
+            "filename": "McShesternaBackgroundBlur",
+            "frame": {"x": 1, "y": 258, "w": 253, "h": 253},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 253, "h": 253},
+            "sourceSize": {"w": 253, "h": 253},
+            "pivot": {"x": 0.4980237154150198, "y": 0.5098814229249012}
+        },
+        {
+            "filename": "McShesternaOut",
+            "frame": {"x": 256, "y": 258, "w": 237, "h": 236},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 237, "h": 236},
+            "sourceSize": {"w": 237, "h": 236},
+            "pivot": {"x": 0.4978902953586498, "y": 0.5}
+        },
+        {
+            "filename": "McStoneLongView",
+            "frame": {"x": 495, "y": 258, "w": 510, "h": 52},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 510, "h": 52},
+            "sourceSize": {"w": 510, "h": 52},
+            "pivot": {"x": 0.5019607843137255, "y": 0.5}
+        }
+    ],
+    "meta": {
+        "app": "contre-jour-dx atlas converter",
+        "version": "1.0",
+        "image": "chapter3More.png",
+        "format": "RGBA8888",
+        "size": {"w": 1024, "h": 512},
+        "scale": "1"
+    }
+}

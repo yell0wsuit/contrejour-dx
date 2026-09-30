@@ -129,7 +129,9 @@ namespace Mokus2D.Content
                 data.Frames.Add(new FrameData
                 {
                     Rect = frame.Rect,
-                    Anchor = new Vector2((float)-frame.OffsetX / frame.SourceWidth, (float)-frame.OffsetY / frame.SourceHeight),
+                    Anchor = frame.Rect == Rectangle.Empty
+                        ? Vector2.Zero
+                        : new Vector2((float)-frame.OffsetX / frame.SourceWidth, (float)-frame.OffsetY / frame.SourceHeight),
                 });
             }
             return data;

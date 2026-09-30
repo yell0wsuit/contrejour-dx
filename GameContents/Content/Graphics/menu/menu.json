@@ -1,0 +1,777 @@
+{
+    "frames": [
+        {
+            "filename": "McAchievementLock",
+            "frame": {"x": 669, "y": 355, "w": 18, "h": 24},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 18, "h": 24},
+            "sourceSize": {"w": 18, "h": 24},
+            "pivot": {"x": 0.5, "y": 0.5}
+        },
+        {
+            "filename": "McAchievementLocked",
+            "frame": {"x": 1093, "y": 926, "w": 54, "h": 61},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 54, "h": 61},
+            "sourceSize": {"w": 54, "h": 61},
+            "pivot": {"x": 0.5, "y": 0.5245901639344263}
+        },
+        {
+            "filename": "McBackIcon",
+            "frame": {"x": 1265, "y": 386, "w": 32, "h": 28},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 32, "h": 28},
+            "sourceSize": {"w": 32, "h": 28},
+            "pivot": {"x": 0.5, "y": 0.5}
+        },
+        {
+            "filename": "McBigButtonBackground",
+            "frame": {"x": 1026, "y": 290, "w": 304, "h": 94},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 304, "h": 94},
+            "sourceSize": {"w": 304, "h": 94},
+            "pivot": {"x": 0.5, "y": 0.5}
+        },
+        {
+            "filename": "McButtonBackground",
+            "frame": {"x": 1076, "y": 621, "w": 64, "h": 64},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 64, "h": 64},
+            "sourceSize": {"w": 64, "h": 64},
+            "pivot": {"x": 0.5, "y": 0.5}
+        },
+        {
+            "filename": "McButtonBackgroundBig",
+            "frame": {"x": 978, "y": 621, "w": 96, "h": 96},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 96, "h": 96},
+            "sourceSize": {"w": 96, "h": 96},
+            "pivot": {"x": 0.5, "y": 0.5}
+        },
+        {
+            "filename": "McButtonBackgroundLight",
+            "frame": {"x": 1094, "y": 687, "w": 64, "h": 64},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 64, "h": 64},
+            "sourceSize": {"w": 64, "h": 64},
+            "pivot": {"x": 0.5, "y": 0.5}
+        },
+        {
+            "filename": "McButtonMenuBackground",
+            "frame": {"x": 689, "y": 765, "w": 128, "h": 128},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 128, "h": 128},
+            "sourceSize": {"w": 128, "h": 128},
+            "pivot": {"x": 0.5, "y": 0.5}
+        },
+        {
+            "filename": "McButtonNo",
+            "frame": {"x": 1095, "y": 864, "w": 52, "h": 52},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 52, "h": 52},
+            "sourceSize": {"w": 52, "h": 52},
+            "pivot": {"x": 0.5192307692307693, "y": 0.5}
+        },
+        {
+            "filename": "McButtonPressed",
+            "frame": {"x": 1033, "y": 798, "w": 64, "h": 64},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 64, "h": 64},
+            "sourceSize": {"w": 64, "h": 64},
+            "pivot": {"x": 0.5, "y": 0.5}
+        },
+        {
+            "filename": "McButtonPressedBig",
+            "frame": {"x": 819, "y": 765, "w": 96, "h": 96},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 96, "h": 96},
+            "sourceSize": {"w": 96, "h": 96},
+            "pivot": {"x": 0.5, "y": 0.5}
+        },
+        {
+            "filename": "McButtonYes",
+            "frame": {"x": 963, "y": 979, "w": 59, "h": 44},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 59, "h": 44},
+            "sourceSize": {"w": 59, "h": 44},
+            "pivot": {"x": 0.4576271186440678, "y": 0.5909090909090909}
+        },
+        {
+            "filename": "McChapter1Name",
+            "frame": {"x": 689, "y": 621, "w": 287, "h": 142},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 287, "h": 142},
+            "sourceSize": {"w": 287, "h": 142},
+            "pivot": {"x": 0.4843205574912892, "y": 0.44366197183098594}
+        },
+        {
+            "filename": "McChapter2Name",
+            "frame": {"x": 1026, "y": 145, "w": 287, "h": 143},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 287, "h": 143},
+            "sourceSize": {"w": 287, "h": 143},
+            "pivot": {"x": 0.4843205574912892, "y": 0.4405594405594406}
+        },
+        {
+            "filename": "McChapter3Name",
+            "frame": {"x": 1215, "y": 1, "w": 287, "h": 142},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 287, "h": 142},
+            "sourceSize": {"w": 287, "h": 142},
+            "pivot": {"x": 0.4843205574912892, "y": 0.44366197183098594}
+        },
+        {
+            "filename": "McChapter4Name",
+            "frame": {"x": 513, "y": 1, "w": 335, "h": 142},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 335, "h": 142},
+            "sourceSize": {"w": 335, "h": 142},
+            "pivot": {"x": 0.48656716417910445, "y": 0.44366197183098594}
+        },
+        {
+            "filename": "McChapter5Name",
+            "frame": {"x": 850, "y": 1, "w": 335, "h": 142},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 335, "h": 142},
+            "sourceSize": {"w": 335, "h": 142},
+            "pivot": {"x": 0.48656716417910445, "y": 0.44366197183098594}
+        },
+        {
+            "filename": "McChapter6Name",
+            "frame": {"x": 689, "y": 289, "w": 335, "h": 142},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 335, "h": 142},
+            "sourceSize": {"w": 335, "h": 142},
+            "pivot": {"x": 0.48656716417910445, "y": 0.44366197183098594}
+        },
+        {
+            "filename": "McChapterCommingName",
+            "frame": {"x": 513, "y": 145, "w": 335, "h": 142},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 335, "h": 142},
+            "sourceSize": {"w": 335, "h": 142},
+            "pivot": {"x": 0.48656716417910445, "y": 0.44366197183098594}
+        },
+        {
+            "filename": "McChapterLight",
+            "frame": {"x": 1315, "y": 145, "w": 128, "h": 128},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 128, "h": 128},
+            "sourceSize": {"w": 128, "h": 128},
+            "pivot": {"x": 0.5, "y": 0.5}
+        },
+        {
+            "filename": "McChapterMoreName",
+            "frame": {"x": 1504, "y": 1, "w": 287, "h": 142},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 287, "h": 142},
+            "sourceSize": {"w": 287, "h": 142},
+            "pivot": {"x": 0.4843205574912892, "y": 0.44366197183098594}
+        },
+        {
+            "filename": "McCrystalIcon",
+            "frame": {"x": 621, "y": 289, "w": 64, "h": 64},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 64, "h": 64},
+            "sourceSize": {"w": 64, "h": 64},
+            "pivot": {"x": 0.5, "y": 0.5}
+        },
+        {
+            "filename": "McDisabledIcon",
+            "frame": {"x": 1033, "y": 926, "w": 58, "h": 58},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 58, "h": 58},
+            "sourceSize": {"w": 58, "h": 58},
+            "pivot": {"x": 0.5, "y": 0.5}
+        },
+        {
+            "filename": "McEnergyBig",
+            "frame": {"x": 1204, "y": 621, "w": 48, "h": 48},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 48, "h": 48},
+            "sourceSize": {"w": 48, "h": 48},
+            "pivot": {"x": 0.5, "y": 0.5}
+        },
+        {
+            "filename": "McEnergyBigInactive",
+            "frame": {"x": 1160, "y": 683, "w": 48, "h": 48},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 48, "h": 48},
+            "sourceSize": {"w": 48, "h": 48},
+            "pivot": {"x": 0.5, "y": 0.5}
+        },
+        {
+            "filename": "McEnergyIcon",
+            "frame": {"x": 1096, "y": 989, "w": 32, "h": 32},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 32, "h": 32},
+            "sourceSize": {"w": 32, "h": 32},
+            "pivot": {"x": 0.5, "y": 0.5}
+        },
+        {
+            "filename": "McEyeSpotlight",
+            "frame": {"x": 992, "y": 261, "w": 32, "h": 22},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 32, "h": 22},
+            "sourceSize": {"w": 32, "h": 22},
+            "pivot": {"x": 0.375, "y": 0.5}
+        },
+        {
+            "filename": "McFullVersionButton",
+            "frame": {"x": 1, "y": 816, "w": 316, "h": 96},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 316, "h": 96},
+            "sourceSize": {"w": 316, "h": 96},
+            "pivot": {"x": 0.5, "y": 0.5}
+        },
+        {
+            "filename": "McGetIPhoneButton",
+            "frame": {"x": 689, "y": 433, "w": 256, "h": 77},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 256, "h": 77},
+            "sourceSize": {"w": 256, "h": 77},
+            "pivot": {"x": 0.5, "y": 0.5064935064935064}
+        },
+        {
+            "filename": "McGetMoreLevelsButton",
+            "frame": {"x": 1, "y": 708, "w": 472, "h": 106},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 472, "h": 106},
+            "sourceSize": {"w": 472, "h": 106},
+            "pivot": {"x": 0.5, "y": 0.5}
+        },
+        {
+            "filename": "McGetMoreLevelsText",
+            "frame": {"x": 689, "y": 591, "w": 264, "h": 22},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 264, "h": 22},
+            "sourceSize": {"w": 264, "h": 22},
+            "pivot": {"x": 0.5, "y": 0.5}
+        },
+        {
+            "filename": "McGetUniversalButton",
+            "frame": {"x": 689, "y": 512, "w": 256, "h": 77},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 256, "h": 77},
+            "sourceSize": {"w": 256, "h": 77},
+            "pivot": {"x": 0.5, "y": 0.5064935064935064}
+        },
+        {
+            "filename": "McHeroHighliteMenu",
+            "frame": {"x": 1062, "y": 989, "w": 32, "h": 32},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 32, "h": 32},
+            "sourceSize": {"w": 32, "h": 32},
+            "pivot": {"x": 0.5, "y": 0.5}
+        },
+        {
+            "filename": "McIconAchievements",
+            "frame": {"x": 1215, "y": 436, "w": 38, "h": 46},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 38, "h": 46},
+            "sourceSize": {"w": 38, "h": 46},
+            "pivot": {"x": 0.5, "y": 0.5}
+        },
+        {
+            "filename": "McIconLeaderboards",
+            "frame": {"x": 1026, "y": 386, "w": 44, "h": 43},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 44, "h": 43},
+            "sourceSize": {"w": 44, "h": 43},
+            "pivot": {"x": 0.5, "y": 0.4883720930232558}
+        },
+        {
+            "filename": "McImprovedResult",
+            "frame": {"x": 963, "y": 433, "w": 250, "h": 186},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 250, "h": 186},
+            "sourceSize": {"w": 250, "h": 186},
+            "pivot": {"x": 0.296, "y": 0.05913978494623656}
+        },
+        {
+            "filename": "McLevelComplete",
+            "frame": {"x": 1, "y": 386, "w": 476, "h": 320},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 476, "h": 320},
+            "sourceSize": {"w": 476, "h": 320},
+            "pivot": {"x": 0.5, "y": 0.5}
+        },
+        {
+            "filename": "McLevelEnergy",
+            "frame": {"x": 1187, "y": 33, "w": 24, "h": 24},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 24, "h": 24},
+            "sourceSize": {"w": 24, "h": 24},
+            "pivot": {"x": 0.5, "y": 0.5}
+        },
+        {
+            "filename": "McLevelEnergyInactive",
+            "frame": {"x": 1187, "y": 59, "w": 24, "h": 24},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 24, "h": 24},
+            "sourceSize": {"w": 24, "h": 24},
+            "pivot": {"x": 0.5, "y": 0.5}
+        },
+        {
+            "filename": "McLevelItemBackground",
+            "frame": {"x": 319, "y": 816, "w": 128, "h": 96},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 128, "h": 96},
+            "sourceSize": {"w": 128, "h": 96},
+            "pivot": {"x": 0.5, "y": 0.5}
+        },
+        {
+            "filename": "McLevelItemInactive",
+            "frame": {"x": 513, "y": 289, "w": 106, "h": 80},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 106, "h": 80},
+            "sourceSize": {"w": 106, "h": 80},
+            "pivot": {"x": 0.5, "y": 0.5}
+        },
+        {
+            "filename": "McLevelItemSelected",
+            "frame": {"x": 1015, "y": 719, "w": 77, "h": 77},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 77, "h": 77},
+            "sourceSize": {"w": 77, "h": 77},
+            "pivot": {"x": 0.7012987012987013, "y": 0.4935064935064935}
+        },
+        {
+            "filename": "McLevels0",
+            "frame": {"x": 1110, "y": 386, "w": 28, "h": 38},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 28, "h": 38},
+            "sourceSize": {"w": 28, "h": 38},
+            "pivot": {"x": 0.5, "y": 0.5}
+        },
+        {
+            "filename": "McLevels1",
+            "frame": {"x": 1140, "y": 386, "w": 28, "h": 38},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 28, "h": 38},
+            "sourceSize": {"w": 28, "h": 38},
+            "pivot": {"x": 0.5, "y": 0.5}
+        },
+        {
+            "filename": "McLevels2",
+            "frame": {"x": 1170, "y": 386, "w": 28, "h": 38},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 28, "h": 38},
+            "sourceSize": {"w": 28, "h": 38},
+            "pivot": {"x": 0.5, "y": 0.5}
+        },
+        {
+            "filename": "McLevels3",
+            "frame": {"x": 978, "y": 719, "w": 28, "h": 38},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 28, "h": 38},
+            "sourceSize": {"w": 28, "h": 38},
+            "pivot": {"x": 0.5, "y": 0.5}
+        },
+        {
+            "filename": "McLevels4",
+            "frame": {"x": 449, "y": 816, "w": 28, "h": 38},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 28, "h": 38},
+            "sourceSize": {"w": 28, "h": 38},
+            "pivot": {"x": 0.5, "y": 0.5}
+        },
+        {
+            "filename": "McLevels5",
+            "frame": {"x": 449, "y": 856, "w": 28, "h": 38},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 28, "h": 38},
+            "sourceSize": {"w": 28, "h": 38},
+            "pivot": {"x": 0.5, "y": 0.5}
+        },
+        {
+            "filename": "McLevels6",
+            "frame": {"x": 1215, "y": 564, "w": 28, "h": 38},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 28, "h": 38},
+            "sourceSize": {"w": 28, "h": 38},
+            "pivot": {"x": 0.5, "y": 0.5}
+        },
+        {
+            "filename": "McLevels7",
+            "frame": {"x": 1245, "y": 484, "w": 28, "h": 38},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 28, "h": 38},
+            "sourceSize": {"w": 28, "h": 38},
+            "pivot": {"x": 0.5, "y": 0.5}
+        },
+        {
+            "filename": "McLevels8",
+            "frame": {"x": 1215, "y": 484, "w": 28, "h": 38},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 28, "h": 38},
+            "sourceSize": {"w": 28, "h": 38},
+            "pivot": {"x": 0.5, "y": 0.5}
+        },
+        {
+            "filename": "McLevels9",
+            "frame": {"x": 1215, "y": 524, "w": 28, "h": 38},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 28, "h": 38},
+            "sourceSize": {"w": 28, "h": 38},
+            "pivot": {"x": 0.5, "y": 0.5}
+        },
+        {
+            "filename": "McLoadingIcon",
+            "frame": {"x": 1033, "y": 864, "w": 60, "h": 60},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 60, "h": 60},
+            "sourceSize": {"w": 60, "h": 60},
+            "pivot": {"x": 0.5, "y": 0.5}
+        },
+        {
+            "filename": "McLockIcon",
+            "frame": {"x": 1187, "y": 1, "w": 26, "h": 30},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 26, "h": 30},
+            "sourceSize": {"w": 26, "h": 30},
+            "pivot": {"x": 0.5, "y": 0.5333333333333333}
+        },
+        {
+            "filename": "McMainMenuLogo",
+            "frame": {"x": 850, "y": 145, "w": 170, "h": 114},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 170, "h": 114},
+            "sourceSize": {"w": 170, "h": 114},
+            "pivot": {"x": -0.029411764705882353, "y": 0}
+        },
+        {
+            "filename": "McMenuBackground3",
+            "frame": {"x": 1, "y": 1, "w": 510, "h": 383},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 510, "h": 383},
+            "sourceSize": {"w": 510, "h": 383},
+            "pivot": {"x": 0, "y": 0}
+        },
+        {
+            "filename": "McMenuCircleSpikes",
+            "frame": {"x": 1255, "y": 436, "w": 32, "h": 30},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 32, "h": 30},
+            "sourceSize": {"w": 32, "h": 30},
+            "pivot": {"x": 0.5, "y": 0.5}
+        },
+        {
+            "filename": "McMenuGroundPhone",
+            "frame": {"x": 1, "y": 917, "w": 960, "h": 88},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 960, "h": 88},
+            "sourceSize": {"w": 960, "h": 88},
+            "pivot": {"x": 0, "y": 1}
+        },
+        {
+            "filename": "McMenuIcon",
+            "frame": {"x": 1099, "y": 803, "w": 48, "h": 48},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 48, "h": 48},
+            "sourceSize": {"w": 48, "h": 48},
+            "pivot": {"x": 0.5, "y": 0.5}
+        },
+        {
+            "filename": "McMusicIcon",
+            "frame": {"x": 1072, "y": 386, "w": 36, "h": 30},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 36, "h": 30},
+            "sourceSize": {"w": 36, "h": 30},
+            "pivot": {"x": 0.5833333333333334, "y": 0.5}
+        },
+        {
+            "filename": "McMusicLoadingIcon",
+            "frame": {"x": 1142, "y": 621, "w": 60, "h": 60},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 60, "h": 60},
+            "sourceSize": {"w": 60, "h": 60},
+            "pivot": {"x": 0.2, "y": 0.2}
+        },
+        {
+            "filename": "McMusicPauseIcon",
+            "frame": {"x": 1187, "y": 85, "w": 20, "h": 20},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 20, "h": 20},
+            "sourceSize": {"w": 20, "h": 20},
+            "pivot": {"x": 0.5, "y": 0.5}
+        },
+        {
+            "filename": "McMusicPlayIcon",
+            "frame": {"x": 1187, "y": 107, "w": 18, "h": 22},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 18, "h": 22},
+            "sourceSize": {"w": 18, "h": 22},
+            "pivot": {"x": 0.5, "y": 0.5}
+        },
+        {
+            "filename": "McPauseIcon",
+            "frame": {"x": 1289, "y": 416, "w": 30, "h": 28},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 30, "h": 28},
+            "sourceSize": {"w": 30, "h": 28},
+            "pivot": {"x": 0.5, "y": 0.5}
+        },
+        {
+            "filename": "McPlayIcon",
+            "frame": {"x": 1099, "y": 753, "w": 48, "h": 48},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 48, "h": 48},
+            "sourceSize": {"w": 48, "h": 48},
+            "pivot": {"x": 0.5, "y": 0.5}
+        },
+        {
+            "filename": "McRestartIcon",
+            "frame": {"x": 1149, "y": 753, "w": 48, "h": 48},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 48, "h": 48},
+            "sourceSize": {"w": 48, "h": 48},
+            "pivot": {"x": 0.5, "y": 0.5}
+        },
+        {
+            "filename": "McRightPanelBackground",
+            "frame": {"x": 479, "y": 386, "w": 208, "h": 529},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 208, "h": 529},
+            "sourceSize": {"w": 208, "h": 529},
+            "pivot": {"x": 0.9759615384615384, "y": 0.9867674858223062}
+        },
+        {
+            "filename": "McRoseButton",
+            "frame": {"x": 917, "y": 765, "w": 96, "h": 96},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 96, "h": 96},
+            "sourceSize": {"w": 96, "h": 96},
+            "pivot": {"x": 0.5, "y": 0.5}
+        },
+        {
+            "filename": "McRoseForeground",
+            "frame": {"x": 1076, "y": 687, "w": 16, "h": 22},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 16, "h": 22},
+            "sourceSize": {"w": 16, "h": 22},
+            "pivot": {"x": 3.1875, "y": 5.045454545454546}
+        },
+        {
+            "filename": "McRoseView",
+            "frame": {"x": 963, "y": 863, "w": 68, "h": 114},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 68, "h": 114},
+            "sourceSize": {"w": 68, "h": 114},
+            "pivot": {"x": 0.3088235294117647, "y": 0.9912280701754386}
+        },
+        {
+            "filename": "McSatellite",
+            "frame": {"x": 1130, "y": 989, "w": 32, "h": 32},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 32, "h": 32},
+            "sourceSize": {"w": 32, "h": 32},
+            "pivot": {"x": 0.5, "y": 0.5}
+        },
+        {
+            "filename": "McSkipIcon",
+            "frame": {"x": 1215, "y": 386, "w": 48, "h": 48},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 48, "h": 48},
+            "sourceSize": {"w": 48, "h": 48},
+            "pivot": {"x": 0.5, "y": 0.5}
+        },
+        {
+            "filename": "McSoundIcon",
+            "frame": {"x": 1024, "y": 986, "w": 36, "h": 30},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 36, "h": 30},
+            "sourceSize": {"w": 36, "h": 30},
+            "pivot": {"x": 0.5277777777777778, "y": 0.5}
+        },
+        {
+            "filename": "McTotalLine/0000",
+            "frame": {"x": 1076, "y": 711, "w": 11, "h": 4},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 0, "y": 4, "w": 11, "h": 4},
+            "sourceSize": {"w": 154, "h": 8},
+            "pivot": {"x": 0.006493506493506494, "y": 0.25}
+        },
+        {
+            "filename": "McTotalLine/0001",
+            "frame": {"x": 1024, "y": 1018, "w": 27, "h": 5},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 0, "y": 3, "w": 27, "h": 5},
+            "sourceSize": {"w": 154, "h": 8},
+            "pivot": {"x": 0.006493506493506494, "y": 0.25}
+        },
+        {
+            "filename": "McTotalLine/0002",
+            "frame": {"x": 944, "y": 271, "w": 43, "h": 6},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 0, "y": 2, "w": 43, "h": 6},
+            "sourceSize": {"w": 154, "h": 8},
+            "pivot": {"x": 0.006493506493506494, "y": 0.25}
+        },
+        {
+            "filename": "McTotalLine/0003",
+            "frame": {"x": 927, "y": 280, "w": 59, "h": 7},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 0, "y": 1, "w": 59, "h": 7},
+            "sourceSize": {"w": 154, "h": 8},
+            "pivot": {"x": 0.006493506493506494, "y": 0.25}
+        },
+        {
+            "filename": "McTotalLine/0004",
+            "frame": {"x": 850, "y": 280, "w": 75, "h": 7},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 0, "y": 1, "w": 75, "h": 7},
+            "sourceSize": {"w": 154, "h": 8},
+            "pivot": {"x": 0.006493506493506494, "y": 0.25}
+        },
+        {
+            "filename": "McTotalLine/0005",
+            "frame": {"x": 850, "y": 271, "w": 92, "h": 7},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 0, "y": 1, "w": 92, "h": 7},
+            "sourceSize": {"w": 154, "h": 8},
+            "pivot": {"x": 0.006493506493506494, "y": 0.25}
+        },
+        {
+            "filename": "McTotalLine/0006",
+            "frame": {"x": 689, "y": 905, "w": 108, "h": 8},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 108, "h": 8},
+            "sourceSize": {"w": 154, "h": 8},
+            "pivot": {"x": 0.006493506493506494, "y": 0.25}
+        },
+        {
+            "filename": "McTotalLine/0007",
+            "frame": {"x": 689, "y": 895, "w": 124, "h": 8},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 124, "h": 8},
+            "sourceSize": {"w": 154, "h": 8},
+            "pivot": {"x": 0.006493506493506494, "y": 0.25}
+        },
+        {
+            "filename": "McTotalLine/0008",
+            "frame": {"x": 850, "y": 261, "w": 140, "h": 8},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 140, "h": 8},
+            "sourceSize": {"w": 154, "h": 8},
+            "pivot": {"x": 0.006493506493506494, "y": 0.25}
+        },
+        {
+            "filename": "McTotalLine/0009",
+            "frame": {"x": 513, "y": 371, "w": 154, "h": 8},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 154, "h": 8},
+            "sourceSize": {"w": 154, "h": 8},
+            "pivot": {"x": 0.006493506493506494, "y": 0.25}
+        },
+        {
+            "filename": "McVenzel",
+            "frame": {"x": 819, "y": 863, "w": 128, "h": 48},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 128, "h": 48},
+            "sourceSize": {"w": 128, "h": 48},
+            "pivot": {"x": 0, "y": 0.5}
+        },
+        {
+            "filename": "whitePixel",
+            "frame": {"x": 1265, "y": 416, "w": 16, "h": 16},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 16, "h": 16},
+            "sourceSize": {"w": 16, "h": 16},
+            "pivot": {"x": 0, "y": 0}
+        }
+    ],
+    "meta": {
+        "app": "contre-jour-dx atlas converter",
+        "version": "1.0",
+        "image": "menu.png",
+        "format": "RGBA8888",
+        "size": {"w": 2048, "h": 1024},
+        "scale": "1"
+    }
+}

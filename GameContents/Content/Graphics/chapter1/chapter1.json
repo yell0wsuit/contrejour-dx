@@ -1,0 +1,624 @@
+{
+    "frames": [
+        {
+            "filename": "McBackSnotBase",
+            "frame": {"x": 1082, "y": 884, "w": 130, "h": 130},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 130, "h": 130},
+            "sourceSize": {"w": 130, "h": 130},
+            "pivot": {"x": 0.5, "y": 0.5}
+        },
+        {
+            "filename": "McBackSnotEye",
+            "frame": {"x": 882, "y": 793, "w": 84, "h": 83},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 84, "h": 83},
+            "sourceSize": {"w": 84, "h": 83},
+            "pivot": {"x": 0.5, "y": 0.5060240963855421}
+        },
+        {
+            "filename": "McBackSnotEyeBall",
+            "frame": {"x": 717, "y": 937, "w": 36, "h": 35},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 36, "h": 35},
+            "sourceSize": {"w": 36, "h": 35},
+            "pivot": {"x": 0.5, "y": 0.4857142857142857}
+        },
+        {
+            "filename": "McBackSnotEyeBlink/0000",
+            "frame": {"x": 882, "y": 623, "w": 84, "h": 83},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 84, "h": 83},
+            "sourceSize": {"w": 84, "h": 83},
+            "pivot": {"x": 0.5, "y": 0.5060240963855421}
+        },
+        {
+            "filename": "McBackSnotEyeBlink/0001",
+            "frame": {"x": 968, "y": 603, "w": 84, "h": 73},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 0, "y": 10, "w": 84, "h": 73},
+            "sourceSize": {"w": 84, "h": 83},
+            "pivot": {"x": 0.5, "y": 0.5060240963855421}
+        },
+        {
+            "filename": "McBackSnotEyeBlink/0002",
+            "frame": {"x": 1050, "y": 386, "w": 84, "h": 60},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 0, "y": 23, "w": 84, "h": 60},
+            "sourceSize": {"w": 84, "h": 83},
+            "pivot": {"x": 0.5, "y": 0.5060240963855421}
+        },
+        {
+            "filename": "McBackSnotEyeBlink/0003",
+            "frame": {"x": 1112, "y": 99, "w": 84, "h": 47},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 0, "y": 36, "w": 84, "h": 47},
+            "sourceSize": {"w": 84, "h": 83},
+            "pivot": {"x": 0.5, "y": 0.5060240963855421}
+        },
+        {
+            "filename": "McBackSnotEyeBlink/0004",
+            "frame": {"x": 561, "y": 988, "w": 81, "h": 35},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 2, "y": 48, "w": 81, "h": 35},
+            "sourceSize": {"w": 84, "h": 83},
+            "pivot": {"x": 0.5, "y": 0.5060240963855421}
+        },
+        {
+            "filename": "McBackSnotEyeBlink/0005",
+            "frame": {"x": 1001, "y": 999, "w": 72, "h": 22},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 6, "y": 61, "w": 72, "h": 22},
+            "sourceSize": {"w": 84, "h": 83},
+            "pivot": {"x": 0.5, "y": 0.5060240963855421}
+        },
+        {
+            "filename": "McBackSnotEyeBlink/0006",
+            "frame": {"x": 780, "y": 1011, "w": 51, "h": 8},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 17, "y": 74, "w": 51, "h": 8},
+            "sourceSize": {"w": 84, "h": 83},
+            "pivot": {"x": 0.5, "y": 0.5060240963855421}
+        },
+        {
+            "filename": "McBackSnotEyeBlink/0007",
+            "frame": {"x": 853, "y": 999, "w": 72, "h": 22},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 6, "y": 61, "w": 72, "h": 22},
+            "sourceSize": {"w": 84, "h": 83},
+            "pivot": {"x": 0.5, "y": 0.5060240963855421}
+        },
+        {
+            "filename": "McBackSnotEyeBlink/0008",
+            "frame": {"x": 644, "y": 988, "w": 81, "h": 35},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 2, "y": 48, "w": 81, "h": 35},
+            "sourceSize": {"w": 84, "h": 83},
+            "pivot": {"x": 0.5, "y": 0.5060240963855421}
+        },
+        {
+            "filename": "McBackSnotEyeBlink/0009",
+            "frame": {"x": 1050, "y": 515, "w": 84, "h": 47},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 0, "y": 36, "w": 84, "h": 47},
+            "sourceSize": {"w": 84, "h": 83},
+            "pivot": {"x": 0.5, "y": 0.5060240963855421}
+        },
+        {
+            "filename": "McBackSnotEyeBlink/0010",
+            "frame": {"x": 1026, "y": 200, "w": 84, "h": 60},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 0, "y": 23, "w": 84, "h": 60},
+            "sourceSize": {"w": 84, "h": 83},
+            "pivot": {"x": 0.5, "y": 0.5060240963855421}
+        },
+        {
+            "filename": "McBackSnotEyeBlink/0011",
+            "frame": {"x": 968, "y": 678, "w": 84, "h": 73},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 0, "y": 10, "w": 84, "h": 73},
+            "sourceSize": {"w": 84, "h": 83},
+            "pivot": {"x": 0.5, "y": 0.5060240963855421}
+        },
+        {
+            "filename": "McBackSnotEyeBlink/0012",
+            "frame": {"x": 878, "y": 538, "w": 84, "h": 83},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 84, "h": 83},
+            "sourceSize": {"w": 84, "h": 83},
+            "pivot": {"x": 0.5, "y": 0.5060240963855421}
+        },
+        {
+            "filename": "McBackSnotEyeBlink/0013",
+            "frame": {"x": 878, "y": 453, "w": 84, "h": 83},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 84, "h": 83},
+            "sourceSize": {"w": 84, "h": 83},
+            "pivot": {"x": 0.5, "y": 0.5060240963855421}
+        },
+        {
+            "filename": "McBackSnotEyeBlink/0014",
+            "frame": {"x": 964, "y": 368, "w": 84, "h": 83},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 84, "h": 83},
+            "sourceSize": {"w": 84, "h": 83},
+            "pivot": {"x": 0.5, "y": 0.5060240963855421}
+        },
+        {
+            "filename": "McBackSnotEyeBlink/0015",
+            "frame": {"x": 882, "y": 708, "w": 84, "h": 83},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 84, "h": 83},
+            "sourceSize": {"w": 84, "h": 83},
+            "pivot": {"x": 0.5, "y": 0.5060240963855421}
+        },
+        {
+            "filename": "McBackSnotEyeBlink/0016",
+            "frame": {"x": 599, "y": 668, "w": 84, "h": 83},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 84, "h": 83},
+            "sourceSize": {"w": 84, "h": 83},
+            "pivot": {"x": 0.5, "y": 0.5060240963855421}
+        },
+        {
+            "filename": "McBackSnotEyeBlink/0017",
+            "frame": {"x": 968, "y": 753, "w": 84, "h": 73},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 0, "y": 10, "w": 84, "h": 73},
+            "sourceSize": {"w": 84, "h": 83},
+            "pivot": {"x": 0.5, "y": 0.5060240963855421}
+        },
+        {
+            "filename": "McBackSnotEyeBlink/0018",
+            "frame": {"x": 1026, "y": 262, "w": 84, "h": 60},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 0, "y": 23, "w": 84, "h": 60},
+            "sourceSize": {"w": 84, "h": 83},
+            "pivot": {"x": 0.5, "y": 0.5060240963855421}
+        },
+        {
+            "filename": "McBackSnotEyeBlink/0019",
+            "frame": {"x": 1118, "y": 448, "w": 84, "h": 47},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 0, "y": 36, "w": 84, "h": 47},
+            "sourceSize": {"w": 84, "h": 83},
+            "pivot": {"x": 0.5, "y": 0.5060240963855421}
+        },
+        {
+            "filename": "McBackSnotEyeBlink/0020",
+            "frame": {"x": 1176, "y": 148, "w": 81, "h": 35},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 2, "y": 48, "w": 81, "h": 35},
+            "sourceSize": {"w": 84, "h": 83},
+            "pivot": {"x": 0.5, "y": 0.5060240963855421}
+        },
+        {
+            "filename": "McBackSnotEyeBlink/0021",
+            "frame": {"x": 407, "y": 992, "w": 72, "h": 22},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 6, "y": 61, "w": 72, "h": 22},
+            "sourceSize": {"w": 84, "h": 83},
+            "pivot": {"x": 0.5, "y": 0.5060240963855421}
+        },
+        {
+            "filename": "McBackSnotEyeBlink/0022",
+            "frame": {"x": 727, "y": 1011, "w": 51, "h": 8},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 17, "y": 74, "w": 51, "h": 8},
+            "sourceSize": {"w": 84, "h": 83},
+            "pivot": {"x": 0.5, "y": 0.5060240963855421}
+        },
+        {
+            "filename": "McBackSnotEyeBlink/0023",
+            "frame": {"x": 333, "y": 992, "w": 72, "h": 22},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 6, "y": 61, "w": 72, "h": 22},
+            "sourceSize": {"w": 84, "h": 83},
+            "pivot": {"x": 0.5, "y": 0.5060240963855421}
+        },
+        {
+            "filename": "McBackSnotEyeBlink/0024",
+            "frame": {"x": 1136, "y": 334, "w": 81, "h": 35},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 2, "y": 48, "w": 81, "h": 35},
+            "sourceSize": {"w": 84, "h": 83},
+            "pivot": {"x": 0.5, "y": 0.5060240963855421}
+        },
+        {
+            "filename": "McBackSnotEyeBlink/0025",
+            "frame": {"x": 1112, "y": 50, "w": 84, "h": 47},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 0, "y": 36, "w": 84, "h": 47},
+            "sourceSize": {"w": 84, "h": 83},
+            "pivot": {"x": 0.5, "y": 0.5060240963855421}
+        },
+        {
+            "filename": "McBackSnotEyeBlink/0026",
+            "frame": {"x": 1050, "y": 324, "w": 84, "h": 60},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 0, "y": 23, "w": 84, "h": 60},
+            "sourceSize": {"w": 84, "h": 83},
+            "pivot": {"x": 0.5, "y": 0.5060240963855421}
+        },
+        {
+            "filename": "McBackSnotEyeBlink/0027",
+            "frame": {"x": 964, "y": 528, "w": 84, "h": 73},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 0, "y": 10, "w": 84, "h": 73},
+            "sourceSize": {"w": 84, "h": 83},
+            "pivot": {"x": 0.5, "y": 0.5060240963855421}
+        },
+        {
+            "filename": "McBackSnotEyeBlink/0028",
+            "frame": {"x": 878, "y": 368, "w": 84, "h": 83},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 84, "h": 83},
+            "sourceSize": {"w": 84, "h": 83},
+            "pivot": {"x": 0.5, "y": 0.5060240963855421}
+        },
+        {
+            "filename": "McBackSnotEyeBlinkOneTime/0000",
+            "frame": {"x": 685, "y": 668, "w": 84, "h": 83},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 84, "h": 83},
+            "sourceSize": {"w": 84, "h": 83},
+            "pivot": {"x": 0.5, "y": 0.5060240963855421}
+        },
+        {
+            "filename": "McBackSnotEyeBlinkOneTime/0001",
+            "frame": {"x": 964, "y": 453, "w": 84, "h": 73},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 0, "y": 10, "w": 84, "h": 73},
+            "sourceSize": {"w": 84, "h": 83},
+            "pivot": {"x": 0.5, "y": 0.5060240963855421}
+        },
+        {
+            "filename": "McBackSnotEyeBlinkOneTime/0002",
+            "frame": {"x": 1026, "y": 138, "w": 84, "h": 60},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 0, "y": 23, "w": 84, "h": 60},
+            "sourceSize": {"w": 84, "h": 83},
+            "pivot": {"x": 0.5, "y": 0.5060240963855421}
+        },
+        {
+            "filename": "McBackSnotEyeBlinkOneTime/0003",
+            "frame": {"x": 968, "y": 828, "w": 84, "h": 47},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 0, "y": 36, "w": 84, "h": 47},
+            "sourceSize": {"w": 84, "h": 83},
+            "pivot": {"x": 0.5, "y": 0.5060240963855421}
+        },
+        {
+            "filename": "McBackSnotEyeBlinkOneTime/0004",
+            "frame": {"x": 1050, "y": 564, "w": 81, "h": 35},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 2, "y": 48, "w": 81, "h": 35},
+            "sourceSize": {"w": 84, "h": 83},
+            "pivot": {"x": 0.5, "y": 0.5060240963855421}
+        },
+        {
+            "filename": "McBackSnotEyeBlinkOneTime/0005",
+            "frame": {"x": 481, "y": 992, "w": 72, "h": 22},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 6, "y": 61, "w": 72, "h": 22},
+            "sourceSize": {"w": 84, "h": 83},
+            "pivot": {"x": 0.5, "y": 0.5060240963855421}
+        },
+        {
+            "filename": "McBackSnotEyeBlinkOneTime/0006",
+            "frame": {"x": 682, "y": 753, "w": 51, "h": 8},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 17, "y": 74, "w": 51, "h": 8},
+            "sourceSize": {"w": 84, "h": 83},
+            "pivot": {"x": 0.5, "y": 0.5060240963855421}
+        },
+        {
+            "filename": "McBackSnotEyeBlinkOneTime/0007",
+            "frame": {"x": 927, "y": 999, "w": 72, "h": 22},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 6, "y": 61, "w": 72, "h": 22},
+            "sourceSize": {"w": 84, "h": 83},
+            "pivot": {"x": 0.5, "y": 0.5060240963855421}
+        },
+        {
+            "filename": "McBackSnotEyeBlinkOneTime/0008",
+            "frame": {"x": 1214, "y": 271, "w": 81, "h": 35},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 2, "y": 48, "w": 81, "h": 35},
+            "sourceSize": {"w": 84, "h": 83},
+            "pivot": {"x": 0.5, "y": 0.5060240963855421}
+        },
+        {
+            "filename": "McBackSnotEyeBlinkOneTime/0009",
+            "frame": {"x": 1112, "y": 1, "w": 84, "h": 47},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 0, "y": 36, "w": 84, "h": 47},
+            "sourceSize": {"w": 84, "h": 83},
+            "pivot": {"x": 0.5, "y": 0.5060240963855421}
+        },
+        {
+            "filename": "McBackSnotEyeBlinkOneTime/0010",
+            "frame": {"x": 1026, "y": 76, "w": 84, "h": 60},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 0, "y": 23, "w": 84, "h": 60},
+            "sourceSize": {"w": 84, "h": 83},
+            "pivot": {"x": 0.5, "y": 0.5060240963855421}
+        },
+        {
+            "filename": "McBackSnotEyeBlinkOneTime/0011",
+            "frame": {"x": 1026, "y": 1, "w": 84, "h": 73},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 0, "y": 10, "w": 84, "h": 73},
+            "sourceSize": {"w": 84, "h": 83},
+            "pivot": {"x": 0.5, "y": 0.5060240963855421}
+        },
+        {
+            "filename": "McBackSnotEyeBlinkOneTime/0012",
+            "frame": {"x": 513, "y": 668, "w": 84, "h": 83},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 84, "h": 83},
+            "sourceSize": {"w": 84, "h": 83},
+            "pivot": {"x": 0.5, "y": 0.5060240963855421}
+        },
+        {
+            "filename": "McBackground5Content",
+            "frame": {"x": 513, "y": 1, "w": 511, "h": 365},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 511, "h": 365},
+            "sourceSize": {"w": 511, "h": 365},
+            "pivot": {"x": 0.5264187866927593, "y": 0.5534246575342465}
+        },
+        {
+            "filename": "McBackgroundCrabContent",
+            "frame": {"x": 1, "y": 1, "w": 510, "h": 383},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 510, "h": 383},
+            "sourceSize": {"w": 510, "h": 383},
+            "pivot": {"x": 0, "y": 0}
+        },
+        {
+            "filename": "McBackgroundSkyContent",
+            "frame": {"x": 1, "y": 386, "w": 510, "h": 383},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 510, "h": 383},
+            "sourceSize": {"w": 510, "h": 383},
+            "pivot": {"x": 0, "y": 0}
+        },
+        {
+            "filename": "McFlowerHead",
+            "frame": {"x": 727, "y": 974, "w": 32, "h": 32},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 32, "h": 32},
+            "sourceSize": {"w": 32, "h": 32},
+            "pivot": {"x": 0.5, "y": 0.5}
+        },
+        {
+            "filename": "McGroundHintView",
+            "frame": {"x": 775, "y": 884, "w": 76, "h": 125},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 76, "h": 125},
+            "sourceSize": {"w": 76, "h": 125},
+            "pivot": {"x": -0.6710526315789473, "y": 0.672}
+        },
+        {
+            "filename": "McLightsHintView",
+            "frame": {"x": 1050, "y": 448, "w": 66, "h": 65},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 66, "h": 65},
+            "sourceSize": {"w": 66, "h": 65},
+            "pivot": {"x": 1.8181818181818181, "y": 0.27692307692307694}
+        },
+        {
+            "filename": "McMoreTentaclesHintView",
+            "frame": {"x": 878, "y": 884, "w": 202, "h": 113},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 202, "h": 113},
+            "sourceSize": {"w": 202, "h": 113},
+            "pivot": {"x": 0.48514851485148514, "y": 0.4247787610619469}
+        },
+        {
+            "filename": "McMultitouch2HintView",
+            "frame": {"x": 561, "y": 937, "w": 154, "h": 49},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 154, "h": 49},
+            "sourceSize": {"w": 154, "h": 49},
+            "pivot": {"x": 0.5, "y": 0.20408163265306123}
+        },
+        {
+            "filename": "McMultitouchHintView",
+            "frame": {"x": 259, "y": 937, "w": 300, "h": 53},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 300, "h": 53},
+            "sourceSize": {"w": 300, "h": 53},
+            "pivot": {"x": 0.5, "y": 0.39622641509433965}
+        },
+        {
+            "filename": "McPinchHintView",
+            "frame": {"x": 513, "y": 753, "w": 167, "h": 14},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 167, "h": 14},
+            "sourceSize": {"w": 167, "h": 14},
+            "pivot": {"x": 0.5269461077844312, "y": -0.7857142857142857}
+        },
+        {
+            "filename": "McRetryHintView",
+            "frame": {"x": 1112, "y": 148, "w": 62, "h": 61},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 62, "h": 61},
+            "sourceSize": {"w": 62, "h": 61},
+            "pivot": {"x": -0.8548387096774194, "y": 0.6557377049180327}
+        },
+        {
+            "filename": "McSkipHintView",
+            "frame": {"x": 1174, "y": 211, "w": 59, "h": 58},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 59, "h": 58},
+            "sourceSize": {"w": 59, "h": 58},
+            "pivot": {"x": 0.9491525423728814, "y": 0.13793103448275862}
+        },
+        {
+            "filename": "McSlingshotHintView",
+            "frame": {"x": 853, "y": 884, "w": 14, "h": 68},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 14, "h": 68},
+            "sourceSize": {"w": 14, "h": 68},
+            "pivot": {"x": 7.571428571428571, "y": 0.5}
+        },
+        {
+            "filename": "McSnotHintView",
+            "frame": {"x": 259, "y": 992, "w": 72, "h": 25},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 72, "h": 25},
+            "sourceSize": {"w": 72, "h": 25},
+            "pivot": {"x": 1.7222222222222223, "y": 2.04}
+        },
+        {
+            "filename": "McSnotReleaseHintView",
+            "frame": {"x": 1136, "y": 273, "w": 60, "h": 59},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 60, "h": 59},
+            "sourceSize": {"w": 60, "h": 59},
+            "pivot": {"x": 1.5666666666666667, "y": 0.559322033898305}
+        },
+        {
+            "filename": "McStoneView0",
+            "frame": {"x": 513, "y": 368, "w": 256, "h": 146},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 256, "h": 146},
+            "sourceSize": {"w": 256, "h": 146},
+            "pivot": {"x": 0.5, "y": 0.5}
+        },
+        {
+            "filename": "McStoneView1",
+            "frame": {"x": 517, "y": 771, "w": 256, "h": 164},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 256, "h": 164},
+            "sourceSize": {"w": 256, "h": 164},
+            "pivot": {"x": 0.5, "y": 0.5}
+        },
+        {
+            "filename": "McStoneView2",
+            "frame": {"x": 513, "y": 516, "w": 246, "h": 150},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 246, "h": 150},
+            "sourceSize": {"w": 246, "h": 150},
+            "pivot": {"x": 0.5, "y": 0.5}
+        },
+        {
+            "filename": "McStoneView3",
+            "frame": {"x": 259, "y": 771, "w": 256, "h": 164},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 256, "h": 164},
+            "sourceSize": {"w": 256, "h": 164},
+            "pivot": {"x": 0.5, "y": 0.5}
+        },
+        {
+            "filename": "McStoneView4",
+            "frame": {"x": 1, "y": 771, "w": 256, "h": 236},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 256, "h": 236},
+            "sourceSize": {"w": 256, "h": 236},
+            "pivot": {"x": 0.5, "y": 0.5}
+        },
+        {
+            "filename": "McStoneView5",
+            "frame": {"x": 771, "y": 368, "w": 105, "h": 256},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 105, "h": 256},
+            "sourceSize": {"w": 105, "h": 256},
+            "pivot": {"x": 0.49523809523809526, "y": 0.5}
+        },
+        {
+            "filename": "McStoneView6",
+            "frame": {"x": 775, "y": 626, "w": 105, "h": 256},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 105, "h": 256},
+            "sourceSize": {"w": 105, "h": 256},
+            "pivot": {"x": 0.47619047619047616, "y": 0.5}
+        },
+        {
+            "filename": "McStripesHintView",
+            "frame": {"x": 1112, "y": 211, "w": 60, "h": 60},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 60, "h": 60},
+            "sourceSize": {"w": 60, "h": 60},
+            "pivot": {"x": 2.8333333333333335, "y": 0.5}
+        }
+    ],
+    "meta": {
+        "app": "contre-jour-dx atlas converter",
+        "version": "1.0",
+        "image": "chapter1.png",
+        "format": "RGBA8888",
+        "size": {"w": 2048, "h": 1024},
+        "scale": "1"
+    }
+}

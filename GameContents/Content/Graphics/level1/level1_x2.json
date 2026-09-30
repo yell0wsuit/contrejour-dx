@@ -1,0 +1,804 @@
+{
+    "frames": [
+        {
+            "filename": "McIntroLogo",
+            "frame": {"x": 1, "y": 1, "w": 891, "h": 254},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 891, "h": 254},
+            "sourceSize": {"w": 891, "h": 254},
+            "pivot": {"x": 0.500561167227834, "y": 0.5}
+        },
+        {
+            "filename": "McLystok1Content",
+            "frame": {"x": 710, "y": 977, "w": 57, "h": 17},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 57, "h": 17},
+            "sourceSize": {"w": 57, "h": 17},
+            "pivot": {"x": 0, "y": 0}
+        },
+        {
+            "filename": "McLystok2Content",
+            "frame": {"x": 710, "y": 998, "w": 55, "h": 20},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 55, "h": 20},
+            "sourceSize": {"w": 55, "h": 20},
+            "pivot": {"x": 0, "y": 0}
+        },
+        {
+            "filename": "McRoseHeadBack",
+            "frame": {"x": 710, "y": 909, "w": 66, "h": 66},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 66, "h": 66},
+            "sourceSize": {"w": 66, "h": 66},
+            "pivot": {"x": 0.5909090909090909, "y": 3.4545454545454546}
+        },
+        {
+            "filename": "McRoseHeadBase",
+            "frame": {"x": 438, "y": 853, "w": 16, "h": 16},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 16, "h": 16},
+            "sourceSize": {"w": 16, "h": 16},
+            "pivot": {"x": 0.5, "y": 0.5}
+        },
+        {
+            "filename": "McRoseHeadBase2",
+            "frame": {"x": 410, "y": 688, "w": 16, "h": 16},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 16, "h": 16},
+            "sourceSize": {"w": 16, "h": 16},
+            "pivot": {"x": 0.5, "y": 0.5}
+        },
+        {
+            "filename": "PelustokNoLight",
+            "frame": {"x": 778, "y": 970, "w": 29, "h": 49},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 29, "h": 49},
+            "sourceSize": {"w": 29, "h": 49},
+            "pivot": {"x": -0.034482758620689655, "y": 0}
+        },
+        {
+            "filename": "McRoseHeadLight",
+            "frame": {"x": 778, "y": 911, "w": 61, "h": 57},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 61, "h": 57},
+            "sourceSize": {"w": 61, "h": 57},
+            "pivot": {"x": 0.6065573770491803, "y": 3.8771929824561404}
+        },
+        {
+            "filename": "McStebloAnimation/0000",
+            "frame": {"x": 908, "y": 647, "w": 45, "h": 174},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 22, "y": 0, "w": 45, "h": 174},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0001",
+            "frame": {"x": 957, "y": 823, "w": 45, "h": 173},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 22, "y": 1, "w": 45, "h": 173},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0002",
+            "frame": {"x": 910, "y": 823, "w": 45, "h": 173},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 22, "y": 1, "w": 45, "h": 173},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0003",
+            "frame": {"x": 1002, "y": 473, "w": 45, "h": 173},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 22, "y": 1, "w": 45, "h": 173},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0004",
+            "frame": {"x": 955, "y": 648, "w": 45, "h": 173},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 22, "y": 1, "w": 45, "h": 173},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0005",
+            "frame": {"x": 1049, "y": 348, "w": 44, "h": 173},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 22, "y": 1, "w": 44, "h": 173},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0006",
+            "frame": {"x": 955, "y": 473, "w": 45, "h": 173},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 21, "y": 1, "w": 45, "h": 173},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0007",
+            "frame": {"x": 1051, "y": 822, "w": 45, "h": 172},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 21, "y": 2, "w": 45, "h": 172},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0008",
+            "frame": {"x": 1004, "y": 822, "w": 45, "h": 172},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 21, "y": 2, "w": 45, "h": 172},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0009",
+            "frame": {"x": 1002, "y": 648, "w": 45, "h": 172},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 21, "y": 2, "w": 45, "h": 172},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0010",
+            "frame": {"x": 1006, "y": 174, "w": 45, "h": 172},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 21, "y": 2, "w": 45, "h": 172},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0011",
+            "frame": {"x": 1049, "y": 1, "w": 45, "h": 171},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 21, "y": 3, "w": 45, "h": 171},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0012",
+            "frame": {"x": 965, "y": 1, "w": 46, "h": 171},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 20, "y": 3, "w": 46, "h": 171},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0013",
+            "frame": {"x": 810, "y": 738, "w": 47, "h": 171},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 20, "y": 3, "w": 47, "h": 171},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0014",
+            "frame": {"x": 852, "y": 302, "w": 47, "h": 171},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 20, "y": 3, "w": 47, "h": 171},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0015",
+            "frame": {"x": 859, "y": 738, "w": 47, "h": 170},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 20, "y": 4, "w": 47, "h": 170},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0016",
+            "frame": {"x": 861, "y": 475, "w": 47, "h": 170},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 20, "y": 4, "w": 47, "h": 170},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0017",
+            "frame": {"x": 908, "y": 302, "w": 47, "h": 169},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 20, "y": 5, "w": 47, "h": 169},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0018",
+            "frame": {"x": 957, "y": 302, "w": 47, "h": 169},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 20, "y": 5, "w": 47, "h": 169},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0019",
+            "frame": {"x": 811, "y": 568, "w": 48, "h": 168},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 20, "y": 6, "w": 48, "h": 168},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0020",
+            "frame": {"x": 710, "y": 738, "w": 48, "h": 169},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 19, "y": 5, "w": 48, "h": 169},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0021",
+            "frame": {"x": 761, "y": 568, "w": 48, "h": 168},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 19, "y": 6, "w": 48, "h": 168},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0022",
+            "frame": {"x": 760, "y": 738, "w": 48, "h": 168},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 19, "y": 6, "w": 48, "h": 168},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0023",
+            "frame": {"x": 708, "y": 400, "w": 49, "h": 167},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 19, "y": 7, "w": 49, "h": 167},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0024",
+            "frame": {"x": 710, "y": 569, "w": 49, "h": 167},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 19, "y": 7, "w": 49, "h": 167},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0025",
+            "frame": {"x": 759, "y": 400, "w": 49, "h": 166},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 19, "y": 8, "w": 49, "h": 166},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0026",
+            "frame": {"x": 657, "y": 677, "w": 51, "h": 166},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 17, "y": 8, "w": 51, "h": 166},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0027",
+            "frame": {"x": 657, "y": 845, "w": 51, "h": 165},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 17, "y": 9, "w": 51, "h": 165},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0028",
+            "frame": {"x": 495, "y": 685, "w": 53, "h": 165},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 15, "y": 9, "w": 53, "h": 165},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0029",
+            "frame": {"x": 602, "y": 816, "w": 53, "h": 164},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 15, "y": 10, "w": 53, "h": 164},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0030",
+            "frame": {"x": 477, "y": 853, "w": 55, "h": 162},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 13, "y": 11, "w": 55, "h": 162},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0031",
+            "frame": {"x": 438, "y": 688, "w": 55, "h": 163},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 13, "y": 11, "w": 55, "h": 163},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0032",
+            "frame": {"x": 351, "y": 549, "w": 57, "h": 162},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 11, "y": 12, "w": 57, "h": 162},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0033",
+            "frame": {"x": 379, "y": 713, "w": 57, "h": 161},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 11, "y": 13, "w": 57, "h": 161},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0034",
+            "frame": {"x": 257, "y": 714, "w": 59, "h": 160},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 9, "y": 14, "w": 59, "h": 160},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0035",
+            "frame": {"x": 318, "y": 714, "w": 59, "h": 160},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 9, "y": 14, "w": 59, "h": 160},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0036",
+            "frame": {"x": 65, "y": 717, "w": 61, "h": 159},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 7, "y": 15, "w": 61, "h": 159},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0037",
+            "frame": {"x": 208, "y": 554, "w": 61, "h": 158},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 7, "y": 16, "w": 61, "h": 158},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0038",
+            "frame": {"x": 1, "y": 717, "w": 62, "h": 157},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 6, "y": 17, "w": 62, "h": 157},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0039",
+            "frame": {"x": 193, "y": 717, "w": 62, "h": 156},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 6, "y": 18, "w": 62, "h": 156},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0040",
+            "frame": {"x": 1, "y": 560, "w": 63, "h": 155},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 5, "y": 19, "w": 63, "h": 155},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0041",
+            "frame": {"x": 128, "y": 717, "w": 63, "h": 154},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 5, "y": 20, "w": 63, "h": 154},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0042",
+            "frame": {"x": 140, "y": 406, "w": 66, "h": 153},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 3, "y": 21, "w": 66, "h": 153},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0043",
+            "frame": {"x": 71, "y": 411, "w": 66, "h": 152},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 3, "y": 22, "w": 66, "h": 152},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0044",
+            "frame": {"x": 71, "y": 257, "w": 67, "h": 152},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 2, "y": 22, "w": 67, "h": 152},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0045",
+            "frame": {"x": 282, "y": 257, "w": 67, "h": 151},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 2, "y": 23, "w": 67, "h": 151},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0046",
+            "frame": {"x": 1, "y": 257, "w": 68, "h": 150},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 1, "y": 24, "w": 68, "h": 150},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0047",
+            "frame": {"x": 1, "y": 409, "w": 68, "h": 149},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 1, "y": 25, "w": 68, "h": 149},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0048",
+            "frame": {"x": 894, "y": 1, "w": 69, "h": 149},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 0, "y": 25, "w": 69, "h": 149},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0049",
+            "frame": {"x": 894, "y": 152, "w": 69, "h": 148},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 0, "y": 26, "w": 69, "h": 148},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0050",
+            "frame": {"x": 211, "y": 257, "w": 69, "h": 147},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 0, "y": 27, "w": 69, "h": 147},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0051",
+            "frame": {"x": 140, "y": 257, "w": 69, "h": 147},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 0, "y": 27, "w": 69, "h": 147},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0052",
+            "frame": {"x": 208, "y": 406, "w": 69, "h": 146},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 0, "y": 28, "w": 69, "h": 146},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0053",
+            "frame": {"x": 495, "y": 257, "w": 69, "h": 145},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 0, "y": 29, "w": 69, "h": 145},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0054",
+            "frame": {"x": 351, "y": 402, "w": 69, "h": 145},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 0, "y": 29, "w": 69, "h": 145},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0055",
+            "frame": {"x": 637, "y": 257, "w": 69, "h": 144},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 0, "y": 30, "w": 69, "h": 144},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0056",
+            "frame": {"x": 566, "y": 257, "w": 69, "h": 144},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 0, "y": 30, "w": 69, "h": 144},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0057",
+            "frame": {"x": 423, "y": 257, "w": 70, "h": 143},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 0, "y": 31, "w": 70, "h": 143},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0058",
+            "frame": {"x": 351, "y": 257, "w": 70, "h": 143},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 0, "y": 31, "w": 70, "h": 143},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0059",
+            "frame": {"x": 279, "y": 410, "w": 70, "h": 142},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 0, "y": 32, "w": 70, "h": 142},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0060",
+            "frame": {"x": 422, "y": 402, "w": 70, "h": 142},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 0, "y": 32, "w": 70, "h": 142},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0061",
+            "frame": {"x": 708, "y": 257, "w": 70, "h": 141},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 0, "y": 33, "w": 70, "h": 141},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0062",
+            "frame": {"x": 780, "y": 257, "w": 70, "h": 140},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 0, "y": 33, "w": 70, "h": 140},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0063",
+            "frame": {"x": 137, "y": 565, "w": 69, "h": 139},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 1, "y": 34, "w": 69, "h": 139},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0064",
+            "frame": {"x": 66, "y": 565, "w": 69, "h": 139},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 1, "y": 34, "w": 69, "h": 139},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0065",
+            "frame": {"x": 128, "y": 875, "w": 69, "h": 138},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 1, "y": 35, "w": 69, "h": 138},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0066",
+            "frame": {"x": 199, "y": 876, "w": 68, "h": 138},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 2, "y": 35, "w": 68, "h": 138},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0067",
+            "frame": {"x": 1, "y": 878, "w": 68, "h": 139},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 2, "y": 35, "w": 68, "h": 139},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0068",
+            "frame": {"x": 269, "y": 876, "w": 68, "h": 138},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 2, "y": 36, "w": 68, "h": 138},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0069",
+            "frame": {"x": 339, "y": 876, "w": 67, "h": 138},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 3, "y": 36, "w": 67, "h": 138},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0070",
+            "frame": {"x": 271, "y": 554, "w": 67, "h": 138},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 3, "y": 36, "w": 67, "h": 138},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0071",
+            "frame": {"x": 410, "y": 549, "w": 66, "h": 137},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 4, "y": 37, "w": 66, "h": 137},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0072",
+            "frame": {"x": 478, "y": 546, "w": 66, "h": 137},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 4, "y": 37, "w": 66, "h": 137},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0073",
+            "frame": {"x": 408, "y": 876, "w": 67, "h": 136},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 4, "y": 38, "w": 67, "h": 136},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0074",
+            "frame": {"x": 494, "y": 404, "w": 66, "h": 136},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 5, "y": 38, "w": 66, "h": 136},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0075",
+            "frame": {"x": 534, "y": 853, "w": 66, "h": 135},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 5, "y": 39, "w": 66, "h": 135},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0076",
+            "frame": {"x": 602, "y": 403, "w": 65, "h": 135},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 6, "y": 39, "w": 65, "h": 135},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0077",
+            "frame": {"x": 546, "y": 542, "w": 65, "h": 135},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 6, "y": 39, "w": 65, "h": 135},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0078",
+            "frame": {"x": 613, "y": 540, "w": 64, "h": 135},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 7, "y": 39, "w": 64, "h": 135},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McStebloAnimation/0079",
+            "frame": {"x": 550, "y": 679, "w": 65, "h": 135},
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": {"x": 7, "y": 39, "w": 65, "h": 135},
+            "sourceSize": {"w": 72, "h": 174},
+            "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        }
+    ],
+    "meta": {
+        "app": "contre-jour-dx atlas converter",
+        "version": "1.0",
+        "image": "level1_x2.png",
+        "format": "RGBA8888",
+        "size": {"w": 2048, "h": 1024},
+        "scale": "1"
+    }
+}
