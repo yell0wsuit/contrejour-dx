@@ -17,9 +17,9 @@ namespace ContreJour.Desktop.Platform.Tests
         [InlineData("macos")]
         [InlineData("windows")]
         [InlineData("linux")]
-        public void EveryPlatformStartsOnOpenGL(string platform)
+        public void EveryPlatformFallsBackToSoftwareAfterOpenGL(string platform)
         {
-            Assert.Equal([GraphicsBackendKind.OpenGL], BackendSelector.PreferenceOrder(platform, null));
+            Assert.Equal([GraphicsBackendKind.OpenGL, GraphicsBackendKind.Software], BackendSelector.PreferenceOrder(platform, null));
         }
 
         [Fact]

@@ -24,7 +24,7 @@ namespace ContreJour.Desktop.Platform.Graphics
             return forced.HasValue
                 ? [forced.Value]
                 : platform is "macos" or "windows" or "linux"
-                ? [GraphicsBackendKind.OpenGL]
+                ? [GraphicsBackendKind.OpenGL, GraphicsBackendKind.Software]
                 : throw new PlatformNotSupportedException(platform);
         }
 

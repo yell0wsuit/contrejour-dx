@@ -151,7 +151,7 @@ namespace ContreJour.Desktop
                 ILogger logger = Log.For(LogCategories.Host);
                 HostLog.SkippingBlamedRenderer(logger, blamed);
             }
-            GraphicsSelection<SdlGraphicsDevice> selection = BackendSelector.Attempt<SdlGraphicsDevice>(order, (kind, lifetime) =>
+            GraphicsSelection<SdlGraphicsDevice> selection = BackendSelector.Attempt(order, (kind, lifetime) =>
             {
                 memory.BeginAttempt(kind);
                 return CreateDevice(kind, lifetime);
@@ -160,11 +160,13 @@ namespace ContreJour.Desktop
             return selection;
         }
 
-        private SdlGlDevice CreateDevice(GraphicsBackendKind kind, CandidateLifetime lifetime)
+        private SdlGraphicsDevice CreateDevice(GraphicsBackendKind kind, CandidateLifetime lifetime)
         {
             Action<string> fault = _options.Faults.For(kind);
-            SdlGlDevice device = kind == GraphicsBackendKind.OpenGL
+            SdlGraphicsDevice device = kind == GraphicsBackendKind.OpenGL
                 ? new SdlGlDevice(fault)
+                : kind == GraphicsBackendKind.Software
+                ? new SdlSoftwareDevice(fault)
                 : throw new PlatformNotSupportedException($"The {kind} renderer is not available.");
             _ = lifetime.Own(device);
             device.Initialize();
