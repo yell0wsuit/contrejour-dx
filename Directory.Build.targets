@@ -1,0 +1,27 @@
+<Project>
+  <!--
+    SDL_mixer's optional codec libraries are never used: the game ships .wav effects and .flac
+    music, both decoded by SDL_mixer's built-in decoders, and SdlAudioBackend pins FLAC to the
+    built-in one because libFLAC clips the start of every song. Leaving them out takes about 3MB
+    off every package (adapted from cuttherope-dx).
+  -->
+  <PropertyGroup>
+    <UnusedMixerCodecPattern>^(lib)?(FLAC|gme|mpg123|ogg|opusfile|opus|vorbisfile|vorbis|wavpackdll|wavpack|xmp)([-.][0-9][0-9.]*)?\.(dll|dylib|so)(\.[0-9][0-9.]*)?$</UnusedMixerCodecPattern>
+  </PropertyGroup>
+
+  <Target Name="ExcludeUnusedMixerCodecsFromOutput" AfterTargets="ResolveReferences">
+    <ItemGroup>
+      <ReferenceCopyLocalPaths
+          Remove="@(ReferenceCopyLocalPaths)"
+          Condition="$([System.Text.RegularExpressions.Regex]::IsMatch('%(Filename)%(Extension)', '$(UnusedMixerCodecPattern)'))" />
+    </ItemGroup>
+  </Target>
+
+  <Target Name="ExcludeUnusedMixerCodecsFromPublish" AfterTargets="ComputeResolvedFilesToPublishList">
+    <ItemGroup>
+      <ResolvedFileToPublish
+          Remove="@(ResolvedFileToPublish)"
+          Condition="$([System.Text.RegularExpressions.Regex]::IsMatch('%(Filename)%(Extension)', '$(UnusedMixerCodecPattern)'))" />
+    </ItemGroup>
+  </Target>
+</Project>
