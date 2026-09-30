@@ -87,5 +87,18 @@ namespace ContreJour.Desktop.Platform.Tests
         {
             DesktopOptions.Parse([]).Faults.For(GraphicsBackendKind.Metal)("after-device");
         }
+
+        [Fact]
+        public void DeviceLossesAreCollectedInOrder()
+        {
+            Assert.Equal([100, 300], DesktopOptions.Parse(["--lose-device", "300", "--lose-device", "100"]).DeviceLosses);
+            Assert.Empty(DesktopOptions.Parse([]).DeviceLosses);
+        }
+
+        [Fact]
+        public void ABadLossFrameIsRejected()
+        {
+            _ = Assert.Throws<ArgumentException>(() => DesktopOptions.Parse(["--lose-device", "0"]));
+        }
     }
 }

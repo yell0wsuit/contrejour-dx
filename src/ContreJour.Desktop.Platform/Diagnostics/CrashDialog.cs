@@ -18,9 +18,12 @@ namespace ContreJour.Desktop.Platform.Diagnostics
 
         public static string Title { get; set; } = "Contre Jour";
 
-        // This run's log folder. The button to open it is offered only when it exists: logging can
-        // have fallen back to the console.
+        // This run's log folder and actual file, if logging did not fall back to the console.
         public static string LogDirectory { get; set; }
+
+        public static string LogFilePath { get; set; }
+
+        internal static bool HasFileLog => !string.IsNullOrEmpty(LogFilePath) && File.Exists(LogFilePath);
 
         public static void Show(string message)
         {
@@ -28,7 +31,7 @@ namespace ContreJour.Desktop.Platform.Diagnostics
             {
                 return;
             }
-            bool offerLog = !string.IsNullOrEmpty(LogDirectory) && Directory.Exists(LogDirectory);
+            bool offerLog = HasFileLog && !string.IsNullOrEmpty(LogDirectory) && Directory.Exists(LogDirectory);
             // Enter and Escape both only dismiss, so neither opens a folder by accident.
             NativeMessageBox.Button close = new(CloseButton, "Close",
                 SDL.MessageBoxButtonFlags.ReturnkeyDefault | SDL.MessageBoxButtonFlags.EscapekeyDefault);

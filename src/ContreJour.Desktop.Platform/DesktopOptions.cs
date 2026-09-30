@@ -17,6 +17,8 @@ namespace ContreJour.Desktop.Platform
         // Null: pick automatically.
         public GraphicsBackendKind? Renderer { get; private init; }
 
+        public IReadOnlyList<int> DeviceLosses { get; private init; } = [];
+
         public FaultPlan Faults { get; private init; } = FaultPlan.None;
 
         public static DesktopOptions Parse(IReadOnlyList<string> args)
@@ -25,6 +27,7 @@ namespace ContreJour.Desktop.Platform
             int? quitAfterFrames = null;
             GraphicsBackendKind? renderer = null;
             List<string> faults = [];
+            List<int> losses = [];
             for (int i = 0; i < args.Count; i++)
             {
                 string name = args[i];
@@ -40,10 +43,16 @@ namespace ContreJour.Desktop.Platform
                 {
                     faults.Add(ValueAfter(args, ref i));
                 }
+                else if (name == "--lose-device")
+                {
+                    losses.Add(ParseFrame(name, ValueAfter(args, ref i)));
+                }
             }
+            losses.Sort();
             return new DesktopOptions
             {
                 QuitAfterFrames = quitAfterFrames,
+                DeviceLosses = losses,
                 Renderer = renderer,
                 Faults = FaultPlan.Parse(faults),
             };

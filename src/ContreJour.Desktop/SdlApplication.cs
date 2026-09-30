@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
@@ -65,6 +66,13 @@ namespace ContreJour.Desktop
 
         private TimeSpan _previous;
 
+        private GraphicsRecoveryCoordinator _recovery;
+
+        private Queue<int> _losses;
+
+        // The graphics device could not be restored and the run ended early.
+        public bool Abandoned { get; private set; }
+
         public void Run()
         {
             Start();
@@ -126,6 +134,8 @@ namespace ContreJour.Desktop
             }
             _sdlStarted = true;
             _platform = BackendSelector.CurrentPlatform();
+            _recovery = new GraphicsRecoveryCoordinator(_platform, _options.Renderer);
+            _losses = new Queue<int>(_options.DeviceLosses);
             _selection = SelectDevice();
             SdlGraphicsDevice device = _selection.Device;
             _ = SDL.SetWindowTitle(device.Window, SdlGraphicsDevice.TitleFor(device.Kind));
@@ -227,12 +237,12 @@ namespace ContreJour.Desktop
             }
         }
 
-        private void DrawFrame()
+        private bool DrawScene()
         {
             SdlGraphicsDevice device = _selection.Device;
             if (!device.AcquireFrame())
             {
-                return;
+                return false;
             }
             SKCanvas canvas = device.Canvas;
             Letterbox letterbox = _host.Letterbox;
@@ -249,7 +259,79 @@ namespace ContreJour.Desktop
             canvas.RestoreToCount(saved);
             device.Flush();
             device.Present();
-            _presentedFrames++;
+            return true;
+        }
+
+        private void DrawFrame()
+        {
+            if (Abandoned)
+            {
+                return;
+            }
+            if (_losses.Count > 0 && _presentedFrames >= _losses.Peek())
+            {
+                _ = _losses.Dequeue();
+                RecoverDevice(new GraphicsDeviceLostException($"Loss injected at frame {_presentedFrames}."));
+                return;
+            }
+            try
+            {
+                if (DrawScene())
+                {
+                    _presentedFrames++;
+                    _recovery.FramePresented();
+                }
+            }
+            catch (GraphicsDeviceLostException lost)
+            {
+                RecoverDevice(lost);
+            }
+        }
+
+        // The renderer and every texture carry over: textures are CPU images that Skia uploads
+        // again into the replacement's context the first time they are drawn.
+        private void RecoverDevice(GraphicsDeviceLostException lost)
+        {
+            ILogger logger = Log.For(LogCategories.Host);
+            HostLog.DeviceLost(logger, lost.Message);
+            // Even an exhausted recovery must silence audio and clear input before its dialog.
+            _host.DetachWindow();
+            if (!_recovery.TryBeginRecovery())
+            {
+                Abandon($"The graphics device was replaced {GraphicsRecoveryCoordinator.MaximumFramelessRecoveries} times without drawing a frame.");
+                return;
+            }
+            try
+            {
+                _selection = _recovery.Recover(_selection, CreateDevice, ValidateDevice);
+            }
+            catch (GraphicsRecoveryFailedException failure)
+            {
+                // Recover released the lost device.
+                _selection = null;
+                Abandon(failure.Message);
+                return;
+            }
+            SdlGraphicsDevice device = _selection.Device;
+            foreach (RendererFailure failure in _selection.Failures)
+            {
+                HostLog.RejectedRenderer(logger, failure.Kind, failure.Failure.Message);
+            }
+            _ = SDL.SetWindowTitle(device.Window, SdlGraphicsDevice.TitleFor(device.Kind));
+            _host.AttachWindow(device.Window);
+            // Building a device takes real time the game should not be asked to catch up on.
+            _previous = _clock.Elapsed;
+            HostLog.Recovered(logger, device.Kind, _presentedFrames, _recovery.Recoveries);
+        }
+
+        // Shows the player why the game has to close, without touching the graphics device.
+        private void Abandon(string reason)
+        {
+            ILogger logger = Log.For(LogCategories.Host);
+            HostLog.Abandoning(logger, reason);
+            Abandoned = true;
+            CrashDialog.Show($"The graphics device could not be restored: {reason}{Environment.NewLine}{Environment.NewLine}The game has to close.");
+            _host.Quit();
         }
 
         private void OnClientSizeChanged()

@@ -18,27 +18,17 @@ namespace ContreJour.Desktop
         // Share of the display's usable area the window takes when it leaves full screen.
         private const float WindowedFraction = 0.8f;
 
-        private readonly nint _window;
+        private nint _window;
+
+        private uint _windowId;
 
         private readonly FullScreenState _fullScreen;
 
         public SdlGameHost(nint window)
         {
             _window = window;
-            // Sized and placed before going full screen, so every way out of full screen (F11, the
-            // green button, ⌃⌘F from SDL's own menu) comes back to this window.
-            PlaceWindowed();
-            _ = SDL.SetWindowFullscreen(_window, true);
-            Check(SDL.ShowWindow(_window));
-            _ = SDL.SyncWindow(_window);
-            // macOS animates into a full-screen Space and SyncWindow can return before it ends. Wait
-            // (up to two seconds) for the flag before reading the size the canvas is fixed at;
-            // PumpEvents only queues events, so none are lost before the loop starts.
-            for (int i = 0; i < 200 && (SDL.GetWindowFlags(_window) & SDL.WindowFlags.Fullscreen) == 0; i++)
-            {
-                SDL.PumpEvents();
-                SDL.Delay(10);
-            }
+            _windowId = SDL.GetWindowID(window);
+            Reveal(fullScreen: true);
             Check(SDL.GetWindowSizeInPixels(_window, out int pixelWidth, out int pixelHeight));
             SDL.DisplayMode display = DesktopMode();
             (int width, int height) = CanvasSize.Choose(pixelWidth, pixelHeight, display.W, display.H, display.PixelDensity);
@@ -48,7 +38,7 @@ namespace ContreJour.Desktop
             {
                 IsFullScreen = WindowIsFullScreen()
             };
-            IsActive = (SDL.GetWindowFlags(_window) & SDL.WindowFlags.InputFocus) != 0;
+            IsActive = HasFocus();
             // Identity until the window has an area; RefreshLetterbox keeps it while it has none.
             Vector2 canvas = new(width, height);
             Letterbox = new Letterbox(canvas, canvas, canvas);
@@ -124,11 +114,37 @@ namespace ContreJour.Desktop
             SDL.WarpMouseInWindow(_window, windowPoint.X, windowPoint.Y);
         }
 
+        // Before the window's device is released: the game is deactivated as if the window had lost
+        // focus, so the level pauses and nothing held carries over.
+        public void DetachWindow()
+        {
+            SetActive(false);
+            _window = 0;
+            _windowId = 0;
+        }
+
+        // A replacement device's window, shown the way the old one was. The canvas is unchanged: the
+        // game laid itself out once, and the new window is letterboxed like any other size.
+        public void AttachWindow(nint window)
+        {
+            _window = window;
+            _windowId = SDL.GetWindowID(window);
+            Reveal(_fullScreen.IsFullScreen);
+            _fullScreen.OnWindowChanged(WindowIsFullScreen());
+            RefreshLetterbox();
+            ClientSizeChanged?.Invoke();
+            SetActive(HasFocus());
+        }
+
         public void HandleEvent(in SDL.Event e)
         {
             // Deliberately not a switch: the populate-switch fixer rewrites one over this enum into
             // every one of its members.
             SDL.EventType type = (SDL.EventType)e.Type;
+            if (WindowEvents.IsForOtherWindow(e, _windowId))
+            {
+                return;
+            }
             if (type is SDL.EventType.Quit or SDL.EventType.WindowCloseRequested)
             {
                 QuitRequested = true;
@@ -213,6 +229,31 @@ namespace ContreJour.Desktop
             {
                 throw new InvalidOperationException(SDL.GetError());
             }
+        }
+
+        // Sized and placed before going full screen, so every way out of full screen (F11, the green
+        // button, ⌃⌘F from SDL's own menu) comes back to this window.
+        private void Reveal(bool fullScreen)
+        {
+            PlaceWindowed();
+            if (fullScreen)
+            {
+                _ = SDL.SetWindowFullscreen(_window, true);
+            }
+            Check(SDL.ShowWindow(_window));
+            _ = SDL.SyncWindow(_window);
+            // macOS animates into a full-screen Space and SyncWindow can return before it ends. Wait
+            // (up to two seconds) for the flag; PumpEvents only queues events, so none are lost.
+            for (int i = 0; fullScreen && i < 200 && !WindowIsFullScreen(); i++)
+            {
+                SDL.PumpEvents();
+                SDL.Delay(10);
+            }
+        }
+
+        private bool HasFocus()
+        {
+            return (SDL.GetWindowFlags(_window) & SDL.WindowFlags.InputFocus) != 0;
         }
     }
 }

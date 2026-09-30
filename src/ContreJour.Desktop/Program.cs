@@ -39,9 +39,10 @@ namespace ContreJour.Desktop
                 return 2;
             }
             string saveDirectory = Preferences.SaveDirectory;
-            ILoggerFactory factory = LoggingSetup.Create(saveDirectory, level, LoggingSetup.ComposeHeader(ProductName, Version));
+            ILoggerFactory factory = LoggingSetup.Create(saveDirectory, level, LoggingSetup.ComposeHeader(ProductName, Version), out string logFilePath);
             Log.Factory = factory;
             CrashDialog.Title = ProductName;
+            CrashDialog.LogFilePath = logFilePath;
             CrashDialog.LogDirectory = LoggingSetup.DirectoryFor(saveDirectory);
             // A scripted run has nobody to press the dialog's button.
             CrashDialog.Enabled = options.QuitAfterFrames == null;
@@ -49,8 +50,7 @@ namespace ContreJour.Desktop
             CrashHandlers.Install();
             try
             {
-                Run(options, saveDirectory);
-                return 0;
+                return Run(options, saveDirectory) ? 1 : 0;
             }
             catch (Exception failure)
             {
@@ -67,12 +67,13 @@ namespace ContreJour.Desktop
             }
         }
 
-        private static void Run(DesktopOptions options, string saveDirectory)
+        private static bool Run(DesktopOptions options, string saveDirectory)
         {
             // Declared before the game, so the game is disposed first.
             using IAudioBackend audio = OpenAudio();
             using SdlApplication<ContreJourApplication> game = new(audio, options, saveDirectory);
             game.Run();
+            return game.Abandoned;
         }
 
         // A machine without a usable audio device still runs the game, silently.

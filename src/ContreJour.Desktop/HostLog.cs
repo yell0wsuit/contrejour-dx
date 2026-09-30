@@ -22,5 +22,14 @@ namespace ContreJour.Desktop
 
         [LoggerMessage(Level = LogLevel.Debug, Message = "Window focus {Active}")]
         public static partial void FocusChanged(ILogger logger, bool active);
+
+        [LoggerMessage(Level = LogLevel.Warning, Message = "Graphics device lost: {Reason}")]
+        public static partial void DeviceLost(ILogger logger, string reason);
+
+        [LoggerMessage(Level = LogLevel.Information, Message = "Recovered on {Renderer} at frame {Frame} (recovery {Recoveries})")]
+        public static partial void Recovered(ILogger logger, GraphicsBackendKind renderer, int frame, int recoveries);
+
+        [LoggerMessage(Level = LogLevel.Error, Message = "Abandoning: {Reason}")]
+        public static partial void Abandoning(ILogger logger, string reason);
     }
 }

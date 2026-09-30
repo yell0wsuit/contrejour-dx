@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 using ContreJour.Desktop.Platform.Diagnostics;
 
@@ -15,11 +16,13 @@ namespace ContreJour.Desktop.Platform.Tests
         public CrashHandlersTests()
         {
             CrashDialog.Enabled = false;
+            CrashDialog.LogFilePath = null;
         }
 
         public void Dispose()
         {
             CrashDialog.Enabled = true;
+            CrashDialog.LogFilePath = null;
             CrashHandlers.Configure(null);
             Log.Factory = null;
         }
@@ -88,5 +91,32 @@ namespace ContreJour.Desktop.Platform.Tests
                 }
             }
         }
+
+        [Fact]
+        public void AConsoleOnlyRunDoesNotClaimToHaveSavedALog()
+        {
+            string text = CrashHandlers.Describe(new InvalidOperationException("boom"));
+
+            Assert.DoesNotContain("A log of this session has been saved", text, StringComparison.Ordinal);
+        }
+
+        [Fact]
+        public void ASavedFileEnablesTheCrashLogMessage()
+        {
+            string path = Path.GetTempFileName();
+            try
+            {
+                CrashDialog.LogFilePath = path;
+                Assert.True(CrashDialog.HasFileLog);
+                Assert.Contains("A log of this session has been saved", CrashHandlers.Describe(new InvalidOperationException("boom")), StringComparison.Ordinal);
+                File.Delete(path);
+                Assert.False(CrashDialog.HasFileLog);
+            }
+            finally
+            {
+                File.Delete(path);
+            }
+        }
+
     }
 }

@@ -48,8 +48,11 @@ namespace ContreJour.Desktop.Platform.Diagnostics
             string fault = failure is Exception exception
                 ? $"{exception.GetType().Name}: {exception.Message}"
                 : Convert.ToString(failure, CultureInfo.InvariantCulture) ?? "Unknown failure.";
+            string logStatus = CrashDialog.HasFileLog
+                ? "A log of this session has been saved."
+                : "A log file could not be saved for this session.";
             return $"The game stopped unexpectedly.{Environment.NewLine}{Environment.NewLine}{fault}"
-                + $"{Environment.NewLine}{Environment.NewLine}A log of this session has been saved.";
+                + $"{Environment.NewLine}{Environment.NewLine}{logStatus}";
         }
 
         private static void OnUnhandled(object sender, UnhandledExceptionEventArgs args)

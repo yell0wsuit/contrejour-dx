@@ -97,7 +97,7 @@ namespace ContreJour.Desktop.Platform.Graphics
 
         private void CreateSurface(int width, int height)
         {
-            Context.Flush(submit: true, synchronous: true);
+            Flush();
             ClearSurface();
             Check(SDL.GLGetAttribute(SDL.GLAttr.StencilSize, out int stencil));
             Check(SDL.GLGetAttribute(SDL.GLAttr.MultisampleSamples, out int samples));

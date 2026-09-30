@@ -168,8 +168,9 @@ namespace ContreJour.Desktop.Platform.Tests
                     File.WriteAllText(Path.Combine(root, "logs"), "blocking file");
                 }
 
-                using ILoggerFactory factory = LoggingSetup.Create(root, null, Header, Stamp);
+                using ILoggerFactory factory = LoggingSetup.Create(root, null, Header, Stamp, out string logFile);
                 Write(factory, LogLevel.Warning, "console only");
+                Assert.Null(logFile);
             }
             finally
             {
@@ -210,5 +211,44 @@ namespace ContreJour.Desktop.Platform.Tests
 
             Assert.Contains("loud", failure.Message, StringComparison.Ordinal);
         }
+
+        [Theory]
+        [InlineData("--log-level")]
+        [InlineData("--log-level=")]
+        public void AMissingLogLevelIsRejected(string argument)
+        {
+            _ = Assert.Throws<ArgumentException>(() => LoggingSetup.ParseLevel([argument]));
+        }
+
+        [Fact]
+        public void AnEmptyLogLevelIsRejected()
+        {
+            _ = Assert.Throws<ArgumentException>(() => LoggingSetup.ParseLevel(["--log-level", ""]));
+        }
+
+        [Fact]
+        public void RunsInTheSameSecondNeverAppendToAnEarlierRun()
+        {
+            string root = NewRoot();
+            try
+            {
+                for (int run = 0; run < 3; run++)
+                {
+                    using ILoggerFactory factory = LoggingSetup.Create(root, null, Header, Stamp);
+                    Write(factory, LogLevel.Information, "session " + run);
+                }
+                string[] files = Directory.GetFiles(Path.Combine(root, "logs"), "*.log");
+                Assert.Equal(3, files.Length);
+                string first = File.ReadAllText(LogPath(root, Stamp));
+                Assert.Contains("session 0", first, StringComparison.Ordinal);
+                Assert.DoesNotContain("session 1", first, StringComparison.Ordinal);
+                Assert.DoesNotContain("session 2", first, StringComparison.Ordinal);
+            }
+            finally
+            {
+                Directory.Delete(root, recursive: true);
+            }
+        }
+
     }
 }
