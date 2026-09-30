@@ -14,6 +14,8 @@ namespace ContreJour.Gameplay
 
         public static readonly string[] EXPLOSIONS = ["explosion0", "explosion1"];
 
+        public static readonly string[] DeathByFall = ["deathByFall1", "deathByFall2"];
+
         public static readonly string[] RopeOn = ["rope2", "rope3", "rope5"];
 
         public static readonly string[] LeapOn = ["leapOn1", "newClip"];

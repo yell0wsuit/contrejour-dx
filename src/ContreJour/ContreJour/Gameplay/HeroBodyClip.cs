@@ -638,6 +638,8 @@ namespace ContreJour.Gameplay
         {
             if (Body.Position.Y < -3f)
             {
+                // The iOS build plays this; the Windows 8 port dropped it, so falling out was silent.
+                SoundManager.PlayRandomSound(Sounds.DeathByFall);
                 FailLevelSpeedPause(Body.Position, 0f, 0f);
                 UserData.Instance.OutOfScreen++;
             }

@@ -427,6 +427,7 @@ namespace ContreJour
                 "click",
                 "clip0",
                 "clip1",
+                "deathByFall1",
                 "deathByFall2",
                 "deathByFlowerOut10",
                 "deathByFlowerOut4",
