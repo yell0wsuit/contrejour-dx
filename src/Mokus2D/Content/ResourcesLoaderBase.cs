@@ -8,7 +8,6 @@ using Mokus2D.Content.Serialization;
 using Mokus2D.Fonts;
 using Mokus2D.Util;
 using Mokus2D.Visual.Data;
-using Mokus2D.Visual.Interfaces;
 using Mokus2D.Visual.Particles.Data;
 
 namespace Mokus2D.Content
@@ -46,10 +45,6 @@ namespace Mokus2D.Content
 
         protected ResourcesLoaderBase()
         {
-            Deserializers[typeof(ISpriteData)] = new SpriteDeserializer(this);
-            Deserializers[typeof(SpriteData)] = Deserializers[typeof(ISpriteData)];
-            Deserializers[typeof(IMovieClipData)] = new MovieClipDeserializer(this);
-            Deserializers[typeof(MovieClipData)] = Deserializers[typeof(IMovieClipData)];
             Deserializers[typeof(AnimationData)] = new AnimationDeserializer(this);
             Deserializers[typeof(FontData)] = new FontDeserializer(this);
             Deserializers[typeof(ParticleSystemConfig)] = new ParicleConfigDeserializer();

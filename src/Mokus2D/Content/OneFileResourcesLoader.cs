@@ -26,8 +26,6 @@ namespace Mokus2D.Content
         public OneFileResourcesLoader()
         {
             _deserializerByType["animation"] = Deserializers[typeof(AnimationData)];
-            _deserializerByType["sprite"] = Deserializers[typeof(SpriteData)];
-            _deserializerByType["movieClip"] = Deserializers[typeof(MovieClipData)];
             _deserializerByType["font"] = Deserializers[typeof(FontData)];
         }
 

@@ -21,7 +21,7 @@ namespace Mokus2D.Content
                 {
                     continue;
                 }
-                // Same keys and order GraphicsDeserializerBase.GetConfig produced from the old sprites.xml.
+                // Same keys and order GraphicsDeserializerBase.GetConfig produced from the legacy atlas.
                 Dictionary<string, string> values = [];
                 foreach (XAttribute attribute in config.Attributes())
                 {
