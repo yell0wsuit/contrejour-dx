@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.IO;
 using System.Threading;
 
 using ContreJour.Desktop.Platform;
@@ -20,10 +21,11 @@ using SkiaSharp;
 
 namespace ContreJour.Desktop
 {
-    // Runs a game in an SDL window drawn with Skia over GL. The loop makes the calls MonoGame's
-    // variable-time-step loop made, in the same order: one zero-time update before the first frame,
-    // then events, an update with the real elapsed time, and a draw per frame; vsync paces it.
-    public sealed class SdlApplication<T>(IAudioBackend audio, DesktopOptions options) : IDisposable where T : Mokus2DGame, new()
+    // Runs a game in an SDL window drawn by Skia on the first renderer that passes a draw check. The
+    // loop makes the calls MonoGame's variable-time-step loop made, in the same order: one zero-time
+    // update before the first frame, then events, an update with the real elapsed time, and a draw
+    // per frame; vsync paces it.
+    public sealed class SdlApplication<T>(IAudioBackend audio, DesktopOptions options, string saveDirectory) : IDisposable where T : Mokus2DGame, new()
     {
         // MonoGame's Game.InactiveSleepTime default: an unfocused game keeps running, slowly.
         private const int InactiveSleepMilliseconds = 20;
@@ -34,7 +36,7 @@ namespace ContreJour.Desktop
 
         private readonly DesktopOptions _options = options;
 
-        private int _presentedFrames;
+        private readonly string _saveDirectory = saveDirectory;
 
         private readonly T _game = new();
 
@@ -42,9 +44,11 @@ namespace ContreJour.Desktop
 
         private bool _disposed;
 
-        private CandidateLifetime _deviceLifetime;
+        private int _presentedFrames;
 
-        private SdlGlDevice _device;
+        private string _platform;
+
+        private GraphicsSelection<SdlGraphicsDevice> _selection;
 
         private SdlGameHost _host;
 
@@ -90,11 +94,11 @@ namespace ContreJour.Desktop
                 return;
             }
             _disposed = true;
-            // Textures go before the GL context they were uploaded to, and the window before SDL.
+            // Textures go before the device that drew them, and the window before SDL.
             _applicationController?.Dispose();
             _renderer?.Dispose();
             _gamepads?.Dispose();
-            _deviceLifetime?.Dispose();
+            _selection?.Dispose();
             if (_sdlStarted)
             {
                 // Only what this host started: the audio backend owns and closes its own subsystem.
@@ -109,12 +113,18 @@ namespace ContreJour.Desktop
                 throw new InvalidOperationException($"SDL could not start: {SDL.GetError()}");
             }
             _sdlStarted = true;
-            _deviceLifetime = new CandidateLifetime();
-            SdlGlDevice gl = _deviceLifetime.Own(new SdlGlDevice(static _ => { }));
-            gl.Initialize();
-            _device = gl;
-            _ = SDL.SetWindowTitle(_device.Window, SdlGraphicsDevice.TitleFor(_device.Kind));
-            _host = new SdlGameHost(_device.Window);
+            _platform = BackendSelector.CurrentPlatform();
+            _selection = SelectDevice();
+            SdlGraphicsDevice device = _selection.Device;
+            _ = SDL.SetWindowTitle(device.Window, SdlGraphicsDevice.TitleFor(device.Kind));
+            ILogger logger = Log.For(LogCategories.Host);
+            string audioState = _audio is NullAudioBackend ? "off" : "on";
+            HostLog.Renderer(logger, _selection.Kind, audioState);
+            foreach (RendererFailure failure in _selection.Failures)
+            {
+                HostLog.RejectedRenderer(logger, failure.Kind, failure.Failure.Message);
+            }
+            _host = new SdlGameHost(device.Window);
             _input = new SdlInputState(() => _host.Letterbox, _host.WarpMouse);
             _gamepads = new SdlGamepads(
                 static () => SDL.GetGamepads(out _) ?? [],
@@ -130,6 +140,63 @@ namespace ContreJour.Desktop
             _host.ActiveChanged += OnActiveChanged;
         }
 
+        // A driver that crashes the process while starting leaves RendererMemory's marker behind,
+        // and the next launch skips that renderer.
+        private GraphicsSelection<SdlGraphicsDevice> SelectDevice()
+        {
+            RendererMemory memory = new(Path.Combine(_saveDirectory, RendererMemory.FileName));
+            GraphicsBackendKind[] order = memory.Filter(BackendSelector.PreferenceOrder(_platform, _options.Renderer));
+            if (memory.Blamed is GraphicsBackendKind blamed && Array.IndexOf(order, blamed) < 0)
+            {
+                ILogger logger = Log.For(LogCategories.Host);
+                HostLog.SkippingBlamedRenderer(logger, blamed);
+            }
+            GraphicsSelection<SdlGraphicsDevice> selection = BackendSelector.Attempt<SdlGraphicsDevice>(order, (kind, lifetime) =>
+            {
+                memory.BeginAttempt(kind);
+                return CreateDevice(kind, lifetime);
+            }, ValidateDevice, memory.Absolve);
+            memory.RecordSuccess();
+            return selection;
+        }
+
+        private SdlGlDevice CreateDevice(GraphicsBackendKind kind, CandidateLifetime lifetime)
+        {
+            Action<string> fault = _options.Faults.For(kind);
+            SdlGlDevice device = kind == GraphicsBackendKind.OpenGL
+                ? new SdlGlDevice(fault)
+                : throw new PlatformNotSupportedException($"The {kind} renderer is not available.");
+            _ = lifetime.Own(device);
+            device.Initialize();
+            return device;
+        }
+
+        // A candidate must draw a shaded frame that reads back before the game gets it: a driver that
+        // fails to build a program draws nothing while Skia reports success.
+        private static void ValidateDevice(SdlGraphicsDevice device)
+        {
+            if (!device.AcquireFrame())
+            {
+                throw new InvalidOperationException("The window has nothing to draw into.");
+            }
+            DrawCheck.Draw(device.Canvas, device.Width, device.Height);
+            device.Flush();
+            SKPointI at = DrawCheck.Sample(device.Width, device.Height);
+            using (SKBitmap frame = device.ReadPixels())
+            {
+                SKColor sample = frame.GetPixel(at.X, at.Y);
+                if (!DrawCheck.Drew(sample))
+                {
+                    throw new InvalidOperationException(
+                        $"The renderer accepted a shaded draw but read back {sample} at {at.X},{at.Y}, the color it was cleared to.");
+                }
+            }
+            // Presented cleared, so the window does not show the check when the host reveals it.
+            device.Canvas.Clear(DrawCheck.Background);
+            device.Flush();
+            device.Present();
+        }
+
         private void PumpEvents()
         {
             while (SDL.PollEvent(out SDL.Event e))
@@ -142,11 +209,12 @@ namespace ContreJour.Desktop
 
         private void DrawFrame()
         {
-            if (!_device.AcquireFrame())
+            SdlGraphicsDevice device = _selection.Device;
+            if (!device.AcquireFrame())
             {
                 return;
             }
-            SKCanvas canvas = _device.Canvas;
+            SKCanvas canvas = device.Canvas;
             Letterbox letterbox = _host.Letterbox;
             canvas.ResetMatrix();
             canvas.Clear(SKColors.Black);
@@ -159,8 +227,8 @@ namespace ContreJour.Desktop
             _renderer.SetTarget(canvas, _host.BackBufferSize.X, _host.BackBufferSize.Y);
             _game.Draw();
             canvas.RestoreToCount(saved);
-            _device.Flush();
-            _device.Present();
+            device.Flush();
+            device.Present();
             _presentedFrames++;
         }
 

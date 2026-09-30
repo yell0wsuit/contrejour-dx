@@ -49,7 +49,7 @@ namespace ContreJour.Desktop
             CrashHandlers.Install();
             try
             {
-                Run(options);
+                Run(options, saveDirectory);
                 return 0;
             }
             catch (Exception failure)
@@ -67,11 +67,11 @@ namespace ContreJour.Desktop
             }
         }
 
-        private static void Run(DesktopOptions options)
+        private static void Run(DesktopOptions options, string saveDirectory)
         {
             // Declared before the game, so the game is disposed first.
             using IAudioBackend audio = OpenAudio();
-            using SdlApplication<ContreJourApplication> game = new(audio, options);
+            using SdlApplication<ContreJourApplication> game = new(audio, options, saveDirectory);
             game.Run();
         }
 

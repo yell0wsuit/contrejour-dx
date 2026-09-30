@@ -1,5 +1,7 @@
 using System;
 
+using ContreJour.Desktop.Platform.Graphics;
+
 using Xunit;
 
 namespace ContreJour.Desktop.Platform.Tests
@@ -44,6 +46,46 @@ namespace ContreJour.Desktop.Platform.Tests
             DesktopOptions options = DesktopOptions.Parse(["-psn_0_12345", "--log-level", "debug", "--something-else"]);
 
             Assert.Null(options.QuitAfterFrames);
+        }
+
+        [Fact]
+        public void TheRendererDefaultsToAutomatic()
+        {
+            Assert.Null(DesktopOptions.Parse([]).Renderer);
+            Assert.Null(DesktopOptions.Parse(["--renderer", "auto"]).Renderer);
+        }
+
+        [Theory]
+        [InlineData("metal", GraphicsBackendKind.Metal)]
+        [InlineData("gl", GraphicsBackendKind.OpenGL)]
+        [InlineData("opengl", GraphicsBackendKind.OpenGL)]
+        [InlineData("software", GraphicsBackendKind.Software)]
+        public void ARendererCanBeForced(string name, GraphicsBackendKind expected)
+        {
+            Assert.Equal(expected, DesktopOptions.Parse(["--renderer", name]).Renderer);
+        }
+
+        [Fact]
+        public void AnUnknownRendererIsRejectedByName()
+        {
+            ArgumentException failure = Assert.Throws<ArgumentException>(() => DesktopOptions.Parse(["--renderer", "vulkan"]));
+
+            Assert.Contains("vulkan", failure.Message, StringComparison.Ordinal);
+        }
+
+        [Fact]
+        public void FailRendererSwitchesBuildTheFaultPlan()
+        {
+            DesktopOptions options = DesktopOptions.Parse(["--fail-renderer", "metal:after-device", "--fail-renderer", "gl:after-surface"]);
+
+            _ = Assert.Throws<InvalidOperationException>(() => options.Faults.For(GraphicsBackendKind.Metal)("after-device"));
+            _ = Assert.Throws<InvalidOperationException>(() => options.Faults.For(GraphicsBackendKind.OpenGL)("after-surface"));
+        }
+
+        [Fact]
+        public void WithoutFaultsNothingIsInjected()
+        {
+            DesktopOptions.Parse([]).Faults.For(GraphicsBackendKind.Metal)("after-device");
         }
     }
 }

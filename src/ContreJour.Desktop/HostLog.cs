@@ -1,3 +1,5 @@
+using ContreJour.Desktop.Platform.Graphics;
+
 using Microsoft.Extensions.Logging;
 
 namespace ContreJour.Desktop
@@ -9,5 +11,13 @@ namespace ContreJour.Desktop
 
         [LoggerMessage(Level = LogLevel.Information, Message = "Quitting after {Frames} frames, as asked")]
         public static partial void QuittingAfterFrames(ILogger logger, int frames);
+        [LoggerMessage(Level = LogLevel.Information, Message = "Renderer {Renderer}, audio {AudioState}")]
+        public static partial void Renderer(ILogger logger, GraphicsBackendKind renderer, string audioState);
+
+        [LoggerMessage(Level = LogLevel.Warning, Message = "Rejected {Renderer}: {Reason}")]
+        public static partial void RejectedRenderer(ILogger logger, GraphicsBackendKind renderer, string reason);
+
+        [LoggerMessage(Level = LogLevel.Warning, Message = "Skipping {Renderer}: the last launch did not survive starting it")]
+        public static partial void SkippingBlamedRenderer(ILogger logger, GraphicsBackendKind renderer);
     }
 }
