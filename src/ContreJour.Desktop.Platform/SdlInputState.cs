@@ -114,7 +114,7 @@ namespace ContreJour.Desktop.Platform
             {
                 _ = e.Key.Down ? _heldKeys.Add(e.Key.Key) : _heldKeys.Remove(e.Key.Key);
             }
-            else if (type is SDL.EventType.FingerDown or SDL.EventType.FingerMotion or SDL.EventType.FingerUp)
+            else if (type is SDL.EventType.FingerDown or SDL.EventType.FingerMotion or SDL.EventType.FingerUp or SDL.EventType.FingerCanceled)
             {
                 HandleFinger(type, e.TFinger);
             }
@@ -181,7 +181,8 @@ namespace ContreJour.Desktop.Platform
                 return;
             }
             (ulong, ulong) key = (finger.TouchID, finger.FingerID);
-            if (type == SDL.EventType.FingerUp)
+            // A touch the system takes over (an edge swipe, a removed device) ends canceled, not up.
+            if (type is SDL.EventType.FingerUp or SDL.EventType.FingerCanceled)
             {
                 _ = _fingers.Remove(key);
                 return;

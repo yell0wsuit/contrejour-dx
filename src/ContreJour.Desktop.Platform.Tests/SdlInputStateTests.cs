@@ -286,6 +286,17 @@ namespace ContreJour.Desktop.Platform.Tests
         }
 
         [Fact]
+        public void FingerCanceledReleasesTheTouch()
+        {
+            SdlInputState input = CreateInput();
+
+            input.HandleEvent(Finger(SDL.EventType.FingerDown, 100, 0.5f, 0.5f));
+            input.HandleEvent(Finger(SDL.EventType.FingerCanceled, 100, 0.5f, 0.5f));
+
+            Assert.Empty(Touches(input));
+        }
+
+        [Fact]
         public void SyntheticMouseTouchIsIgnored()
         {
             SdlInputState input = CreateInput();
