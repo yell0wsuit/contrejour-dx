@@ -97,7 +97,7 @@ namespace ContreJour.Gameplay
             if (Enabled)
             {
                 base.TouchEnd(touch);
-                SoundManager.PlaySound("newClip1", 0.7f);
+                SoundManager.PlayRandomSound(Sounds.Tap, 0.7f);
             }
         }
 

@@ -332,7 +332,7 @@ namespace ContreJour.Gameplay
             }
             else if (!inChapter && spinner.Scale == 1f)
             {
-                SoundManager.PlaySound("newClip1", 0.5f);
+                SoundManager.PlayRandomSound(Sounds.Tap, 0.5f);
                 currentChapter = chapter;
                 HidePlanets();
             }
@@ -515,7 +515,7 @@ namespace ContreJour.Gameplay
 
         public static void OnGetFullVersion()
         {
-            SoundManager.PlaySound("newClip1", 0.7f);
+            SoundManager.PlayRandomSound(Sounds.Tap, 0.7f);
         }
 
         public void RefreshPosition()

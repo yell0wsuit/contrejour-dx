@@ -2,7 +2,7 @@ namespace ContreJour.Gameplay
 {
     public static class Sounds
     {
-        public const string Click = "newClip1";
+        public static readonly string[] Tap = ["newClip", "newClip1"];
 
         public const string Menu = "menu";
 
