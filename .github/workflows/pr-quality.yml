@@ -44,6 +44,9 @@ jobs:
             - name: Build
               run: dotnet build ContreJour.slnx --no-restore -c Release
 
+            - name: Test engine
+              run: dotnet test --project src/Mokus2D.Tests/Mokus2D.Tests.csproj --no-build -c Release
+
             - name: Test
               run: dotnet test --project src/Mokus2D.Rendering.Skia.Tests/Mokus2D.Rendering.Skia.Tests.csproj --no-build -c Release
 

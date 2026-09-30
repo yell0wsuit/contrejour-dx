@@ -10,6 +10,7 @@
     <Project Path="src/Mokus2D.Rendering.Skia/Mokus2D.Rendering.Skia.csproj" />
   </Folder>
   <Folder Name="/Tests/">
+    <Project Path="src/Mokus2D.Tests/Mokus2D.Tests.csproj" />
     <Project Path="src/Mokus2D.Rendering.Skia.Tests/Mokus2D.Rendering.Skia.Tests.csproj" />
     <Project Path="src/ContreJour.Desktop.Platform.Tests/ContreJour.Desktop.Platform.Tests.csproj" />
     <Project Path="src/ContreJour.Regression/ContreJour.Regression.csproj" />
