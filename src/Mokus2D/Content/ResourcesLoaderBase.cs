@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text.Json;
 using System.Xml.Linq;
 
 using Mokus2D.Content.Serialization;
@@ -69,7 +70,9 @@ namespace Mokus2D.Content
             {
                 return LoadData<T>(name, _resourcesSuffix);
             }
-            catch (Exception)
+            // A missing file or name falls back to the 1x art; broken atlas data must surface instead of
+            // silently loading the 1x version.
+            catch (Exception exception) when (exception is not InvalidDataException and not JsonException)
             {
                 if (FallbackToDefaultScaleFactor && _resourcesSuffix != null)
                 {
@@ -79,7 +82,7 @@ namespace Mokus2D.Content
             }
         }
 
-        private T LoadData<T>(string name, string resourcesSuffix)
+        protected virtual T LoadData<T>(string name, string resourcesSuffix)
         {
             string fileName = GetFileName<T>(name, resourcesSuffix);
             XDocument xml = GetXml(fileName);
@@ -91,12 +94,11 @@ namespace Mokus2D.Content
             ResourceLoaded.Dispatch(name, data);
         }
 
-        private XDocument GetXml(string name)
+        protected XDocument GetXml(string name)
         {
-            string fullPath = GetFullPath(name);
             try
             {
-                using Stream stream = Mokus2DGame.FileLoader.OpenFile(fullPath);
+                using Stream stream = OpenFile(name);
                 using StreamReader textReader = new(stream);
                 return XDocument.Load(textReader);
             }
@@ -104,6 +106,11 @@ namespace Mokus2D.Content
             {
                 return null;
             }
+        }
+
+        protected Stream OpenFile(string name)
+        {
+            return Mokus2DGame.FileLoader.OpenFile(GetFullPath(name));
         }
 
         private string GetFullPath(string name)
