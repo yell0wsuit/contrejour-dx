@@ -197,6 +197,69 @@
             "spriteSourceSize": {"x": 0, "y": 0, "w": 28, "h": 28},
             "sourceSize": {"w": 28, "h": 28},
             "pivot": {"x": 0.5, "y": 0.5}
+        },
+        {
+            "filename": "McBackgroundContent2_1",
+            "frame": {"x": 1026, "y": 327, "w": 1020, "h": 788},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 1020, "h": 788},
+            "sourceSize": {"w": 1020, "h": 788},
+            "pivot": {"x": 0.5, "y": 0.5}
+        },
+        {
+            "filename": "McBackgroundContent2_2",
+            "frame": {"x": 1026, "y": 1117, "w": 1020, "h": 812},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 1020, "h": 812},
+            "sourceSize": {"w": 1020, "h": 812},
+            "pivot": {"x": 0.021568627450980392, "y": 0.027093596059113302}
+        },
+        {
+            "filename": "McBackgroundContent2_3",
+            "frame": {"x": 0, "y": 512, "w": 1024, "h": 768},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 1024, "h": 768},
+            "sourceSize": {"w": 1024, "h": 768},
+            "pivot": {"x": 0, "y": 0}
+        },
+        {
+            "filename": "McBackgroundContent2_4",
+            "frame": {"x": 2048, "y": 0, "w": 1020, "h": 828},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 1020, "h": 828},
+            "sourceSize": {"w": 1020, "h": 828},
+            "pivot": {"x": 0, "y": 0.0024154589371980675}
+        },
+        {
+            "filename": "McBackgroundContent2_6",
+            "frame": {"x": 0, "y": 1282, "w": 1022, "h": 758},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 1022, "h": 758},
+            "sourceSize": {"w": 1022, "h": 758},
+            "pivot": {"x": -0.015655577299412915, "y": -0.03430079155672823}
+        },
+        {
+            "filename": "McBlackGround0",
+            "frame": {"x": 615, "y": 107, "w": 1022, "h": 218},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 1022, "h": 218},
+            "sourceSize": {"w": 1022, "h": 218},
+            "pivot": {"x": 0.1232876712328767, "y": -0.009174311926605505}
+        },
+        {
+            "filename": "McBlackGround1",
+            "frame": {"x": 3070, "y": 0, "w": 972, "h": 228},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 972, "h": 228},
+            "sourceSize": {"w": 972, "h": 228},
+            "pivot": {"x": 0.0205761316872428, "y": 0.07894736842105263}
         }
     ],
     "meta": {
@@ -204,7 +267,7 @@
         "version": "1.0",
         "image": "chapter2_x2.png",
         "format": "RGBA8888",
-        "size": {"w": 1024, "h": 512},
+        "size": {"w": 4096, "h": 2048},
         "scale": "1"
     }
 }

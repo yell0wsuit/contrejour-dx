@@ -494,6 +494,42 @@
             "spriteSourceSize": {"x": 0, "y": 0, "w": 305, "h": 13},
             "sourceSize": {"w": 305, "h": 13},
             "pivot": {"x": 0.003278688524590164, "y": 0.15384615384615385}
+        },
+        {
+            "filename": "McLevelItemInactive",
+            "frame": {"x": 1439, "y": 661, "w": 212, "h": 160},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 212, "h": 160},
+            "sourceSize": {"w": 212, "h": 160},
+            "pivot": {"x": 0.5, "y": 0.5}
+        },
+        {
+            "filename": "McMusicPlayIcon",
+            "frame": {"x": 300, "y": 874, "w": 36, "h": 44},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 36, "h": 44},
+            "sourceSize": {"w": 36, "h": 44},
+            "pivot": {"x": 0.5, "y": 0.5}
+        },
+        {
+            "filename": "McRightPanelBackground",
+            "frame": {"x": 0, "y": 924, "w": 416, "h": 1058},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 416, "h": 1058},
+            "sourceSize": {"w": 416, "h": 1058},
+            "pivot": {"x": 0.9759615384615384, "y": 0.9867674858223062}
+        },
+        {
+            "filename": "McVenzel",
+            "frame": {"x": 1181, "y": 661, "w": 256, "h": 96},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 256, "h": 96},
+            "sourceSize": {"w": 256, "h": 96},
+            "pivot": {"x": 0, "y": 0.5}
         }
     ],
     "meta": {
@@ -501,7 +537,7 @@
         "version": "1.0",
         "image": "menu_x2.png",
         "format": "RGBA8888",
-        "size": {"w": 2048, "h": 1024},
+        "size": {"w": 2048, "h": 2048},
         "scale": "1"
     }
 }

@@ -5462,6 +5462,24 @@
             "spriteSourceSize": {"x": 0, "y": 0, "w": 48, "h": 50},
             "sourceSize": {"w": 48, "h": 50},
             "pivot": {"x": 0.5, "y": 0.5}
+        },
+        {
+            "filename": "McEyeMonster",
+            "frame": {"x": 1305, "y": 1021, "w": 40, "h": 40},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 40, "h": 40},
+            "sourceSize": {"w": 40, "h": 40},
+            "pivot": {"x": 0.5, "y": 0.5}
+        },
+        {
+            "filename": "McRoundDragFrameView",
+            "frame": {"x": 0, "y": 1013, "w": 512, "h": 510},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 512, "h": 510},
+            "sourceSize": {"w": 512, "h": 510},
+            "pivot": {"x": 0.5, "y": 0.5019607843137255}
         }
     ],
     "meta": {
@@ -5469,7 +5487,7 @@
         "version": "1.0",
         "image": "common_x2.png",
         "format": "RGBA8888",
-        "size": {"w": 2048, "h": 1024},
+        "size": {"w": 2048, "h": 2048},
         "scale": "1"
     }
 }

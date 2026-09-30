@@ -791,6 +791,51 @@
             "spriteSourceSize": {"x": 7, "y": 39, "w": 65, "h": 135},
             "sourceSize": {"w": 72, "h": 174},
             "pivot": {"x": 0.3611111111111111, "y": 0.9885057471264368}
+        },
+        {
+            "filename": "McBackground0Front",
+            "frame": {"x": 1049, "y": 523, "w": 1024, "h": 200},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 1024, "h": 200},
+            "sourceSize": {"w": 1024, "h": 200},
+            "pivot": {"x": 0.478515625, "y": 0.55}
+        },
+        {
+            "filename": "McBackground1Front",
+            "frame": {"x": 1053, "y": 174, "w": 1024, "h": 170},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 1024, "h": 170},
+            "sourceSize": {"w": 1024, "h": 170},
+            "pivot": {"x": 0.00390625, "y": 0.011764705882352941}
+        },
+        {
+            "filename": "McSunBackground",
+            "frame": {"x": 1026, "y": 996, "w": 960, "h": 924},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 960, "h": 924},
+            "sourceSize": {"w": 960, "h": 924},
+            "pivot": {"x": 0.5104166666666666, "y": 0.5086580086580087}
+        },
+        {
+            "filename": "McSunLight",
+            "frame": {"x": 1988, "y": 725, "w": 852, "h": 854},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 852, "h": 854},
+            "sourceSize": {"w": 852, "h": 854},
+            "pivot": {"x": 0.5, "y": 0.49882903981264637}
+        },
+        {
+            "filename": "McBlackSkyBackground",
+            "frame": {"x": 0, "y": 1021, "w": 1024, "h": 616},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x": 0, "y": 0, "w": 1024, "h": 616},
+            "sourceSize": {"w": 1024, "h": 616},
+            "pivot": {"x": 0.5, "y": 0.5}
         }
     ],
     "meta": {
@@ -798,7 +843,7 @@
         "version": "1.0",
         "image": "level1_x2.png",
         "format": "RGBA8888",
-        "size": {"w": 2048, "h": 1024},
+        "size": {"w": 4096, "h": 2048},
         "scale": "1"
     }
 }
