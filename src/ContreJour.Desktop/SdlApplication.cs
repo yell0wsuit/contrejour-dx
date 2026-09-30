@@ -3,7 +3,10 @@ using System.Diagnostics;
 using System.Threading;
 
 using ContreJour.Desktop.Platform;
+using ContreJour.Desktop.Platform.Diagnostics;
 using ContreJour.Desktop.Platform.Graphics;
+
+using Microsoft.Extensions.Logging;
 
 using Mokus2D;
 using Mokus2D.FileSystem;
@@ -20,7 +23,7 @@ namespace ContreJour.Desktop
     // Runs a game in an SDL window drawn with Skia over GL. The loop makes the calls MonoGame's
     // variable-time-step loop made, in the same order: one zero-time update before the first frame,
     // then events, an update with the real elapsed time, and a draw per frame; vsync paces it.
-    public sealed class SdlApplication<T>(IAudioBackend audio) : IDisposable where T : Mokus2DGame, new()
+    public sealed class SdlApplication<T>(IAudioBackend audio, DesktopOptions options) : IDisposable where T : Mokus2DGame, new()
     {
         // MonoGame's Game.InactiveSleepTime default: an unfocused game keeps running, slowly.
         private const int InactiveSleepMilliseconds = 20;
@@ -28,6 +31,10 @@ namespace ContreJour.Desktop
         private const SDL.InitFlags Subsystems = SDL.InitFlags.Video | SDL.InitFlags.Gamepad;
 
         private readonly IAudioBackend _audio = audio;
+
+        private readonly DesktopOptions _options = options;
+
+        private int _presentedFrames;
 
         private readonly T _game = new();
 
@@ -64,6 +71,12 @@ namespace ContreJour.Desktop
                 _game.Update((float)(now - previous).TotalSeconds);
                 previous = now;
                 DrawFrame();
+                if (_options.QuitAfterFrames is int limit && _presentedFrames >= limit && !_host.QuitRequested)
+                {
+                    ILogger logger = Log.For(LogCategories.Host);
+                    HostLog.QuittingAfterFrames(logger, limit);
+                    _host.Quit();
+                }
             }
             _game.OnExiting();
         }
@@ -142,6 +155,7 @@ namespace ContreJour.Desktop
             canvas.RestoreToCount(saved);
             _device.Flush();
             _device.Present();
+            _presentedFrames++;
         }
 
         private void OnClientSizeChanged()

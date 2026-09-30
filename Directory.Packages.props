@@ -1,11 +1,15 @@
 <Project>
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <MELVersion>10.0.12</MELVersion>
     <SDL3CSVersion>3.4.16</SDL3CSVersion>
     <SDL3MixerVersion>3.2.4.11</SDL3MixerVersion>
     <SkiaSharpVersion>4.152.0</SkiaSharpVersion>
   </PropertyGroup>
   <ItemGroup>
+    <PackageVersion Include="Microsoft.Extensions.Logging" Version="$(MELVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.Logging.Console" Version="$(MELVersion)" />
+    <PackageVersion Include="NReco.Logging.File" Version="1.4.0" />
     <PackageVersion Include="SDL3-CS" Version="$(SDL3CSVersion)" />
     <PackageVersion Include="SDL3-CS.Windows" Version="$(SDL3CSVersion)" />
     <PackageVersion Include="SDL3-CS.Linux" Version="$(SDL3CSVersion)" />
