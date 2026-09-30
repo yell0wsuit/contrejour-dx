@@ -14,10 +14,14 @@ namespace ContreJour.Desktop.Platform.Audio
     // No native callbacks are installed, so nothing has to be kept alive for the mixer's thread.
     public sealed class SdlAudioBackend : IAudioBackend
     {
-        // The rate every effect but one ships at, so those reach the mixer unconverted.
+        // The album music's rate, so those songs reach the mixer unconverted; chapter5 (24kHz) and the
+        // 22.05kHz effects are resampled as they play.
         private const int MixerFrequency = 44100;
 
         private const int MixerChannels = 2;
+
+        // SDL_mixer's built-in FLAC decoder (dr_flac).
+        private const string FlacDecoder = "DRFLAC";
 
         private sealed class Clip(nint audio) : ISoundEffect, ISong
         {
@@ -186,7 +190,33 @@ namespace ContreJour.Desktop.Platform.Audio
             {
                 throw new FileNotFoundException($"Audio file not found: {path}", path);
             }
-            nint audio = Mixer.LoadAudio(_mixer, path, predecode);
+            nint stream = SDL.IOFromFile(path, "rb");
+            if (stream == 0)
+            {
+                throw new InvalidDataException($"Could not open audio '{path}': {SDL.GetError()}");
+            }
+            uint props = SDL.CreateProperties();
+            nint audio;
+            try
+            {
+                // The mixer closes the stream itself whether or not the load succeeds.
+                _ = SDL.SetPointerProperty(props, Mixer.Props.AudioLoadIOStreamPointer, stream);
+                _ = SDL.SetBooleanProperty(props, Mixer.Props.AudioLoadCloseIOBoolean, true);
+                _ = SDL.SetBooleanProperty(props, Mixer.Props.AudioLoadPreDecodeBoolean, predecode);
+                _ = SDL.SetPointerProperty(props, Mixer.Props.AudioLoadPreferredMixerPointer, _mixer);
+                // Left to choose, the mixer prefers libFLAC, which discards the first 4096 frames of
+                // every stream: each song would start about 93ms in, with a click. The built-in
+                // decoder plays from the first frame.
+                if (path.EndsWith(".flac", StringComparison.OrdinalIgnoreCase))
+                {
+                    _ = SDL.SetStringProperty(props, Mixer.Props.AudioDecoderString, FlacDecoder);
+                }
+                audio = Mixer.LoadAudioWithProperties(props);
+            }
+            finally
+            {
+                SDL.DestroyProperties(props);
+            }
             if (audio == 0)
             {
                 throw new InvalidDataException($"Could not load audio '{path}': {SDL.GetError()}");

@@ -9,7 +9,10 @@ namespace Mokus2D.Sound
     // fields and unused private helpers are left out; behaviour is otherwise the original's.
     public static class SoundManager
     {
-        private const string Extension = "mp3";
+        // Effects ship as the iOS build's uncompressed originals; music as the lossless soundtrack.
+        private const string SoundExtension = "wav";
+
+        private const string SongExtension = "flac";
 
         private static readonly Dictionary<string, ISong> _songs = [];
 
@@ -135,7 +138,7 @@ namespace Mokus2D.Sound
         {
             if (!_songs.ContainsKey(path))
             {
-                _songs.Add(path, Backend.LoadSong(FilePath(path)));
+                _songs.Add(path, Backend.LoadSong(FilePath(path, SongExtension)));
             }
         }
 
@@ -143,7 +146,7 @@ namespace Mokus2D.Sound
         {
             if (!_sounds.ContainsKey(path))
             {
-                _sounds.Add(path, Backend.LoadSound(FilePath(path)));
+                _sounds.Add(path, Backend.LoadSound(FilePath(path, SoundExtension)));
             }
         }
 
@@ -234,9 +237,9 @@ namespace Mokus2D.Sound
             }
         }
 
-        private static string FilePath(string name)
+        private static string FilePath(string name, string extension)
         {
-            return Path.ChangeExtension(Path.Combine(MusicPath, name), Extension);
+            return Path.ChangeExtension(Path.Combine(MusicPath, name), extension);
         }
     }
 }
