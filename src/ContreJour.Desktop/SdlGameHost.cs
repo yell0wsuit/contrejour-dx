@@ -20,6 +20,8 @@ namespace ContreJour.Desktop
 
         private readonly nint _window;
 
+        private readonly FullScreenState _fullScreen;
+
         public SdlGameHost(nint window)
         {
             _window = window;
@@ -42,7 +44,10 @@ namespace ContreJour.Desktop
             (int width, int height) = CanvasSize.Choose(pixelWidth, pixelHeight, display.W, display.H, display.PixelDensity);
             BackBufferSize = new Point(width, height);
             PreferredBackBufferSize = BackBufferSize;
-            IsFullScreen = (SDL.GetWindowFlags(_window) & SDL.WindowFlags.Fullscreen) != 0;
+            _fullScreen = new FullScreenState(WindowIsFullScreen, fullScreen => SDL.SetWindowFullscreen(_window, fullScreen), () => SDL.SyncWindow(_window))
+            {
+                IsFullScreen = WindowIsFullScreen()
+            };
             IsActive = (SDL.GetWindowFlags(_window) & SDL.WindowFlags.InputFocus) != 0;
             // Identity until the window has an area; RefreshLetterbox keeps it while it has none.
             Vector2 canvas = new(width, height);
@@ -72,7 +77,11 @@ namespace ContreJour.Desktop
 
         // The requested state until ApplyGraphicsChanges, then the window's; SDL's own menu and the
         // green button change it without asking the host.
-        public bool IsFullScreen { get; set; }
+        public bool IsFullScreen
+        {
+            get => _fullScreen.IsFullScreen;
+            set => _fullScreen.IsFullScreen = value;
+        }
 
         public Point PreferredBackBufferSize { get; set; }
 
@@ -102,12 +111,7 @@ namespace ContreJour.Desktop
             {
                 throw new NotSupportedException("The desktop back buffer is fixed at startup; windows are letterboxed instead.");
             }
-            bool windowFullScreen = (SDL.GetWindowFlags(_window) & SDL.WindowFlags.Fullscreen) != 0;
-            if (IsFullScreen != windowFullScreen)
-            {
-                _ = SDL.SetWindowFullscreen(_window, IsFullScreen);
-                _ = SDL.SyncWindow(_window);
-            }
+            _fullScreen.Apply();
         }
 
         public void Quit()
@@ -139,7 +143,7 @@ namespace ContreJour.Desktop
             }
             else if (type is SDL.EventType.WindowEnterFullscreen or SDL.EventType.WindowLeaveFullscreen)
             {
-                IsFullScreen = type == SDL.EventType.WindowEnterFullscreen;
+                _fullScreen.OnWindowChanged(type == SDL.EventType.WindowEnterFullscreen);
             }
             else if (type is SDL.EventType.WindowResized or SDL.EventType.WindowPixelSizeChanged or SDL.EventType.WindowDisplayScaleChanged)
             {
@@ -161,6 +165,11 @@ namespace ContreJour.Desktop
             }
             IsActive = active;
             ActiveChanged?.Invoke(active);
+        }
+
+        private bool WindowIsFullScreen()
+        {
+            return (SDL.GetWindowFlags(_window) & SDL.WindowFlags.Fullscreen) != 0;
         }
 
         private void RefreshLetterbox()
