@@ -1,4 +1,9 @@
 using System;
+using System.Runtime.InteropServices;
+
+using ContreJour.Desktop.Platform.Diagnostics;
+
+using Microsoft.Extensions.Logging;
 
 using SDL3;
 
@@ -6,125 +11,29 @@ using SkiaSharp;
 
 namespace ContreJour.Desktop.Platform.Graphics
 {
-    // An SDL window with an OpenGL context and a Skia surface over its default framebuffer (trimmed
-    // from cuttherope-dx's SdlGraphicsDevice/SdlGlDevice). Everything here runs on the main thread.
-    public sealed class SdlGlDevice : IDisposable
+    // An OpenGL 3.2 core context with a Skia surface over the window's default framebuffer (trimmed
+    // from cuttherope-dx's SdlGlDevice).
+    public sealed class SdlGlDevice(Action<string> fault) : SdlGraphicsDevice(fault)
     {
         private const uint GlFramebufferBinding = 0x8CA6;
 
         private const uint GlRgba8 = 0x8058;
 
+        private const uint GlVendor = 0x1F00;
+
+        private const uint GlRenderer = 0x1F01;
+
+        private const uint GlVersion = 0x1F02;
+
         private nint _glContext;
 
         private uint _framebuffer;
 
-        private GRGlInterface _glInterface;
+        public override GraphicsBackendKind Kind => GraphicsBackendKind.OpenGL;
 
-        private GRContext _grContext;
-
-        private GRBackendRenderTarget _target;
-
-        private SKSurface _surface;
-
-        private bool _disposed;
-
-        private SdlGlDevice()
+        public override void Initialize()
         {
-        }
-
-        public nint Window { get; private set; }
-
-        // Pixel size of the current surface.
-        public int Width { get; private set; }
-
-        public int Height { get; private set; }
-
-        public SKCanvas Canvas => _surface?.Canvas ?? throw new InvalidOperationException("No frame is acquired.");
-
-        // Creates a hidden window with a GL context; the caller sizes, places and shows it.
-        public static SdlGlDevice Create(string title)
-        {
-            SdlGlDevice device = new();
-            try
-            {
-                device.Initialize(title);
-                return device;
-            }
-            catch
-            {
-                device.Dispose();
-                throw;
-            }
-        }
-
-        // False while the window is minimized or has no area, when there is nothing to draw into.
-        public bool AcquireFrame()
-        {
-            ObjectDisposedException.ThrowIf(_disposed, this);
-            if ((SDL.GetWindowFlags(Window) & SDL.WindowFlags.Minimized) != 0)
-            {
-                return false;
-            }
-            Check(SDL.GetWindowSizeInPixels(Window, out int width, out int height));
-            if (width <= 0 || height <= 0)
-            {
-                return false;
-            }
-            Check(SDL.GLMakeCurrent(Window, _glContext));
-            if (_surface == null || width != Width || height != Height)
-            {
-                CreateSurface(width, height);
-            }
-            return true;
-        }
-
-        public void Flush()
-        {
-            ObjectDisposedException.ThrowIf(_disposed, this);
-            _grContext.Flush(submit: true, synchronous: true);
-            // Skia abandons a context when the driver reports the device gone; every later draw
-            // would be dropped silently.
-            if (_grContext.IsAbandoned)
-            {
-                throw new InvalidOperationException("Skia abandoned the GL context.");
-            }
-        }
-
-        public void Present()
-        {
-            ObjectDisposedException.ThrowIf(_disposed, this);
-            if (!SDL.GLSwapWindow(Window))
-            {
-                throw new InvalidOperationException($"SDL could not swap the GL window: {SDL.GetError()}");
-            }
-        }
-
-        public void Dispose()
-        {
-            if (_disposed)
-            {
-                return;
-            }
-            _disposed = true;
-            ReleaseSurface();
-            _grContext?.Dispose();
-            _grContext = null;
-            _glInterface?.Dispose();
-            _glInterface = null;
-            if (_glContext != 0)
-            {
-                _ = SDL.GLDestroyContext(_glContext);
-                _glContext = 0;
-            }
-            if (Window != 0)
-            {
-                SDL.DestroyWindow(Window);
-                Window = 0;
-            }
-        }
-
-        private unsafe void Initialize(string title)
-        {
+            CheckThread();
             SDL.GLResetAttributes();
             Check(SDL.GLSetAttribute(SDL.GLAttr.ContextMajorVersion, 3));
             Check(SDL.GLSetAttribute(SDL.GLAttr.ContextMinorVersion, 2));
@@ -135,62 +44,91 @@ namespace ContreJour.Desktop.Platform.Graphics
             Check(SDL.GLSetAttribute(SDL.GLAttr.BlueSize, 8));
             Check(SDL.GLSetAttribute(SDL.GLAttr.AlphaSize, 8));
             Check(SDL.GLSetAttribute(SDL.GLAttr.StencilSize, 8));
-            Window = SDL.CreateWindow(title, 800, 600,
-                SDL.WindowFlags.OpenGL | SDL.WindowFlags.Resizable | SDL.WindowFlags.HighPixelDensity | SDL.WindowFlags.Hidden);
-            if (Window == 0)
-            {
-                throw new InvalidOperationException($"SDL could not create the window: {SDL.GetError()}");
-            }
+            CreateWindow(SDL.WindowFlags.OpenGL);
             _glContext = SDL.GLCreateContext(Window);
             if (_glContext == 0)
             {
                 throw new InvalidOperationException($"SDL could not create a GL context: {SDL.GetError()}");
             }
+            nint glContext = _glContext;
+            Own(() => SDL.GLDestroyContext(glContext));
             Check(SDL.GLMakeCurrent(Window, _glContext));
+            // The window's own framebuffer is not always 0 (macOS layers it), so ask rather than assume.
+            _framebuffer = (uint)GetInteger(GlFramebufferBinding);
+            _ = SDL.GLSetSwapInterval(1);
+            GRGlInterface glInterface = Own(GRGlInterface.Create(SDL.GLGetProcAddress)
+                ?? throw new InvalidOperationException("Skia could not resolve the GL functions."));
+            Context = Own(GRContext.CreateGl(glInterface)
+                ?? throw new InvalidOperationException("Skia could not create a GL context."));
+            ILogger logger = Log.For(LogCategories.Graphics);
+            if (logger.IsEnabled(LogLevel.Information))
+            {
+                string name = GetString(GlRenderer);
+                string version = $"{GetString(GlVersion)} ({GetString(GlVendor)})";
+                GraphicsDeviceLog.Adapter(logger, Kind, name, version);
+            }
+            Fault("after-device");
+        }
+
+        public override bool AcquireFrame()
+        {
+            if (!GetDrawableSize(out int width, out int height))
+            {
+                return false;
+            }
+            Check(SDL.GLMakeCurrent(Window, _glContext));
+            if (!HasFrame || width != Width || height != Height)
+            {
+                Fault("before-surface");
+                CreateSurface(width, height);
+                Fault("after-surface");
+            }
+            return true;
+        }
+
+        public override void Present()
+        {
+            CheckThread();
+            if (!SDL.GLSwapWindow(Window))
+            {
+                throw new InvalidOperationException($"SDL could not swap the GL window: {SDL.GetError()}");
+            }
+        }
+
+        private void CreateSurface(int width, int height)
+        {
+            Context.Flush(submit: true, synchronous: true);
+            ClearSurface();
+            Check(SDL.GLGetAttribute(SDL.GLAttr.StencilSize, out int stencil));
+            Check(SDL.GLGetAttribute(SDL.GLAttr.MultisampleSamples, out int samples));
+            Context.ResetContext();
+            SetSurface(new GRBackendRenderTarget(width, height, samples, stencil, new GRGlFramebufferInfo(_framebuffer, GlRgba8)),
+                GRSurfaceOrigin.BottomLeft, SKColorType.Rgba8888);
+            Width = width;
+            Height = height;
+        }
+
+        private static unsafe int GetInteger(uint name)
+        {
             nint getIntegerv = SDL.GLGetProcAddress("glGetIntegerv");
             if (getIntegerv == 0)
             {
                 throw new InvalidOperationException("glGetIntegerv is unavailable.");
             }
-            // The window's own framebuffer is not always 0 (macOS layers it), so ask rather than assume.
-            int framebuffer = 0;
-            ((delegate* unmanaged[Cdecl]<uint, int*, void>)getIntegerv)(GlFramebufferBinding, &framebuffer);
-            _framebuffer = (uint)framebuffer;
-            _ = SDL.GLSetSwapInterval(1);
-            _glInterface = GRGlInterface.Create(SDL.GLGetProcAddress)
-                ?? throw new InvalidOperationException("Skia could not resolve the GL functions.");
-            _grContext = GRContext.CreateGl(_glInterface)
-                ?? throw new InvalidOperationException("Skia could not create a GL context.");
+            int value = 0;
+            ((delegate* unmanaged[Cdecl]<uint, int*, void>)getIntegerv)(name, &value);
+            return value;
         }
 
-        private void CreateSurface(int width, int height)
+        private static unsafe string GetString(uint name)
         {
-            _grContext.Flush(submit: true, synchronous: true);
-            ReleaseSurface();
-            Check(SDL.GLGetAttribute(SDL.GLAttr.StencilSize, out int stencil));
-            Check(SDL.GLGetAttribute(SDL.GLAttr.MultisampleSamples, out int samples));
-            _grContext.ResetContext();
-            _target = new GRBackendRenderTarget(width, height, samples, stencil, new GRGlFramebufferInfo(_framebuffer, GlRgba8));
-            _surface = SKSurface.Create(_grContext, _target, GRSurfaceOrigin.BottomLeft, SKColorType.Rgba8888)
-                ?? throw new InvalidOperationException("Skia could not wrap the window's framebuffer.");
-            Width = width;
-            Height = height;
-        }
-
-        private void ReleaseSurface()
-        {
-            _surface?.Dispose();
-            _surface = null;
-            _target?.Dispose();
-            _target = null;
-        }
-
-        private static void Check(bool success)
-        {
-            if (!success)
+            nint getString = SDL.GLGetProcAddress("glGetString");
+            if (getString == 0)
             {
-                throw new InvalidOperationException(SDL.GetError());
+                return "unknown";
             }
+            byte* text = ((delegate* unmanaged[Cdecl]<uint, byte*>)getString)(name);
+            return Marshal.PtrToStringUTF8((nint)text) ?? "unknown";
         }
     }
 }

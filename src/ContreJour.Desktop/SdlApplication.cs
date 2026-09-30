@@ -42,6 +42,8 @@ namespace ContreJour.Desktop
 
         private bool _disposed;
 
+        private CandidateLifetime _deviceLifetime;
+
         private SdlGlDevice _device;
 
         private SdlGameHost _host;
@@ -92,7 +94,7 @@ namespace ContreJour.Desktop
             _applicationController?.Dispose();
             _renderer?.Dispose();
             _gamepads?.Dispose();
-            _device?.Dispose();
+            _deviceLifetime?.Dispose();
             if (_sdlStarted)
             {
                 // Only what this host started: the audio backend owns and closes its own subsystem.
@@ -107,7 +109,11 @@ namespace ContreJour.Desktop
                 throw new InvalidOperationException($"SDL could not start: {SDL.GetError()}");
             }
             _sdlStarted = true;
-            _device = SdlGlDevice.Create("Contre Jour");
+            _deviceLifetime = new CandidateLifetime();
+            SdlGlDevice gl = _deviceLifetime.Own(new SdlGlDevice(static _ => { }));
+            gl.Initialize();
+            _device = gl;
+            _ = SDL.SetWindowTitle(_device.Window, SdlGraphicsDevice.TitleFor(_device.Kind));
             _host = new SdlGameHost(_device.Window);
             _input = new SdlInputState(() => _host.Letterbox, _host.WarpMouse);
             _gamepads = new SdlGamepads(
