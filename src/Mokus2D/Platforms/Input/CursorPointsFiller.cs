@@ -66,7 +66,7 @@ namespace Mokus2D.Platforms.Input
 
         private static bool GetMouseButtonsSwapped()
         {
-            // Desktop MonoGame already reports the logical (post-swap) buttons.
+            // The desktop host (SDL) already reports the logical (post-swap) buttons.
             return false;
         }
     }

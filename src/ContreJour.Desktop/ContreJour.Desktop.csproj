@@ -8,17 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MonoGame.Framework.DesktopGL" />
     <ProjectReference Include="../ContreJour/ContreJour.csproj" />
     <ProjectReference Include="../ContreJour.Desktop.Platform/ContreJour.Desktop.Platform.csproj" />
     <ProjectReference Include="../Mokus2D.Rendering.Skia/Mokus2D.Rendering.Skia.csproj" />
   </ItemGroup>
 
   <Import Project="../GameContents.targets" />
-
-  <ItemGroup>
-    <!-- Precompiled OpenGL sprite effect for MonoGameRenderer (built from MonoGame/Shaders/*.fx with
-         tools/shaders/build-shaders.sh); the output path is the one the renderer opens. -->
-    <Content Include="MonoGame/Shaders/*.ogl.mgfxo" Link="Mokus2D/Shaders/%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
-  </ItemGroup>
 </Project>
