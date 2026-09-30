@@ -57,7 +57,8 @@ namespace ContreJour
         {
             base.OnDeactivated();
             // A level left while the player is away waits for them on its pause panel; menus only freeze.
-            (_currentView as ContreJourGame)?.PauseForFocusLoss();
+            // Scenes are wrapped in a NodeContainer, so the level is its content.
+            ((_currentView as NodeContainer)?.Content as ContreJourGame)?.PauseForFocusLoss();
         }
 
         public override void OnResumeComplete()

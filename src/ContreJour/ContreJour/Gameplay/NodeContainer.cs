@@ -8,19 +8,20 @@ namespace ContreJour.Gameplay
     {
         private readonly Func<Node> _nodeFactory = nodeFactory;
 
-        private Node _node;
+        // The scene the factory made, once the container is on stage.
+        public Node Content { get; private set; }
 
         protected override void OnAddedToStage()
         {
             base.OnAddedToStage();
-            _node = _nodeFactory();
-            AddChild(_node);
+            Content = _nodeFactory();
+            AddChild(Content);
         }
 
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);
-            _node?.Dispose();
+            Content?.Dispose();
         }
     }
 }
