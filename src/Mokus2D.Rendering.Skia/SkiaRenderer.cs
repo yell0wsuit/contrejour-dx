@@ -32,6 +32,8 @@ namespace Mokus2D.Rendering.Skia
 
         private readonly SKPaint _paint = new() { Color = SKColors.White };
 
+        private readonly SKPaint _textPaint = new() { IsAntialias = true };
+
         private readonly Dictionary<int, VertexBuffers> _vertexBuffers = [];
 
         private readonly Dictionary<int, ushort[]> _indexBuffers = [];
@@ -72,6 +74,16 @@ namespace Mokus2D.Rendering.Skia
             using SKBitmap bitmap = SKBitmap.Decode(codec, info) ?? throw new InvalidDataException("The image could not be decoded.");
             SKImage image = SKImage.FromBitmap(bitmap) ?? throw new InvalidDataException("The image could not be decoded.");
             return new SkiaTexture(image);
+        }
+
+        public IFontFace CreateFontFace(Stream stream)
+        {
+            ArgumentNullException.ThrowIfNull(stream);
+            using MemoryStream copy = new();
+            stream.CopyTo(copy);
+            using SKData data = SKData.CreateCopy(copy.ToArray());
+            SKTypeface typeface = SKTypeface.FromData(data) ?? throw new InvalidDataException("The stream is not a supported font.");
+            return new SkiaFontFace(typeface);
         }
 
         public void DrawTriangles(Vertex[] vertices, int vertexCount, short[] indices, int indexCount, in Matrix4x4 transform, in DrawState state)
@@ -167,9 +179,34 @@ namespace Mokus2D.Rendering.Skia
             _paint.Shader = null;
         }
 
+        // Skia's glyph coverage times the paint's color, which it premultiplies, is exactly the Sprite
+        // contract over a white texel, and SrcOver is AlphaBlend.
+        public void DrawText(IFontFace face, string text, float size, in Matrix4x4 transform, Color color)
+        {
+            if (_canvas == null)
+            {
+                throw new InvalidOperationException("SetTarget must be called before drawing.");
+            }
+            SkiaFontFace skiaFace = face as SkiaFontFace
+                ?? throw new ArgumentException("The font face was not created by this renderer.", nameof(face));
+            ObjectDisposedException.ThrowIf(skiaFace.IsDisposed, face);
+            if (string.IsNullOrEmpty(text))
+            {
+                return;
+            }
+
+            Matrix3x2 toPixels = ToPixels(transform);
+            _ = _canvas.Save();
+            _canvas.Concat(new SKMatrix(toPixels.M11, toPixels.M21, toPixels.M31, toPixels.M12, toPixels.M22, toPixels.M32, 0f, 0f, 1f));
+            _textPaint.Color = new SKColor(color.R, color.G, color.B, color.A);
+            _canvas.DrawText(text, 0f, 0f, SKTextAlign.Left, skiaFace.FontFor(size), _textPaint);
+            _canvas.Restore();
+        }
+
         public void Dispose()
         {
             _paint.Dispose();
+            _textPaint.Dispose();
             _primitiveShader?.Dispose();
             _primitiveShader = null;
             _primitiveEffect.Dispose();

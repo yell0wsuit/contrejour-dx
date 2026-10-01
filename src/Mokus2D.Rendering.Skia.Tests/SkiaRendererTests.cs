@@ -340,5 +340,175 @@ namespace Mokus2D.Rendering.Skia.Tests
             using SKPixmap pixmap = second.PeekPixels();
             Assert.Equal(255, pixmap.GetPixelSpan()[0]);
         }
+
+        private sealed class ForeignFace : IFontFace
+        {
+            public FontMetrics GetMetrics(float size)
+            {
+                return default;
+            }
+
+            public float MeasureText(string text, float size)
+            {
+                return 0f;
+            }
+
+            public void Dispose()
+            {
+            }
+        }
+
+        private static IFontFace PatrickHand(RenderTarget target)
+        {
+            using FileStream stream = File.OpenRead(Path.Combine(AppContext.BaseDirectory, "fonts", "PatrickHand-Regular.ttf"));
+            return target.Renderer.CreateFontFace(stream);
+        }
+
+        // Text space in pixels, origin at the target's center. yDirection 1 keeps text space's y pointing
+        // down the screen (so −y, where glyphs rise, is up); −1 flips it.
+        private static Matrix4x4 TextTransform(RenderTarget target, float yDirection)
+        {
+            return Matrix4x4.CreateScale(2f / target.Width, -2f * yDirection / target.Height, 1f);
+        }
+
+        // Inked pixels (red above half) in the rows above and below the center row.
+        private static (int Above, int Below) InkAroundCenterRow(RenderTarget target)
+        {
+            int above = 0;
+            int below = 0;
+            int middle = target.Height / 2;
+            for (int y = 0; y < target.Height; y++)
+            {
+                for (int x = 0; x < target.Width; x++)
+                {
+                    if (target.Pixel(x, y).X > 128f)
+                    {
+                        if (y < middle)
+                        {
+                            above++;
+                        }
+                        else if (y > middle)
+                        {
+                            below++;
+                        }
+                    }
+                }
+            }
+            return (above, below);
+        }
+
+        [Fact]
+        public void CreateFontFaceRejectsDataThatIsNotAFont()
+        {
+            using RenderTarget target = new(1, 1, SKColors.Black);
+            using MemoryStream stream = new([1, 2, 3, 4, 5, 6, 7, 8]);
+
+            _ = Assert.Throws<InvalidDataException>(() => target.Renderer.CreateFontFace(stream));
+        }
+
+        [Fact]
+        public void FaceMetricsAndWidthsScaleWithSize()
+        {
+            using RenderTarget target = new(1, 1, SKColors.Black);
+            using IFontFace face = PatrickHand(target);
+
+            FontMetrics large = face.GetMetrics(100f);
+            FontMetrics small = face.GetMetrics(50f);
+
+            Assert.True(large.Ascent < 0f && large.Descent > 0f, $"ascent {large.Ascent}, descent {large.Descent}");
+            Assert.Equal((large.Descent - large.Ascent) / 2f, small.Descent - small.Ascent, 0.5f);
+            Assert.Equal(face.MeasureText("Contre Jour", 100f) / 2f, face.MeasureText("Contre Jour", 50f), 1f);
+            Assert.Equal(0f, face.MeasureText(string.Empty, 100f));
+        }
+
+        [Theory]
+        [InlineData(1f, true)]
+        [InlineData(-1f, false)]
+        public void TextRisesTowardNegativeYOfItsSpace(float yDirection, bool inkAbove)
+        {
+            using RenderTarget target = new(64, 64, SKColors.Black);
+            using IFontFace face = PatrickHand(target);
+
+            target.Renderer.DrawText(face, "T", 40f, TextTransform(target, yDirection), White);
+
+            (int above, int below) = InkAroundCenterRow(target);
+            bool ok = inkAbove ? above > 50 && below * 10 < above : below > 50 && above * 10 < below;
+            Assert.True(ok, $"above {above}, below {below}");
+        }
+
+        [Fact]
+        public void TextColorFollowsTheSpriteContract()
+        {
+            // Where a glyph covers a pixel fully, text must equal a white texel drawn as a sprite with the
+            // same vertex color. Opaque white on black first marks those pixels.
+            using RenderTarget mask = new(64, 64, SKColors.Black);
+            using RenderTarget target = new(64, 64, Background);
+            using IFontFace maskFace = PatrickHand(mask);
+            using IFontFace face = PatrickHand(target);
+            Color color = new(204, 153, 102, 128);
+
+            mask.Renderer.DrawText(maskFace, "H", 48f, TextTransform(mask, 1f), White);
+            target.Renderer.DrawText(face, "H", 48f, TextTransform(target, 1f), color);
+
+            Vector4 c = new(color.R / 255f, color.G / 255f, color.B / 255f, color.A / 255f);
+            Vector4 dst = new(Background.Red / 255f, Background.Green / 255f, Background.Blue / 255f, 1f);
+            Vector3 expected = Expected(Vector4.One, c, ColorMode.Sprite, BlendMode.AlphaBlend, 1f, dst);
+            int covered = 0;
+            for (int y = 0; y < 64; y++)
+            {
+                for (int x = 0; x < 64; x++)
+                {
+                    if (mask.Pixel(x, y).X == 255f)
+                    {
+                        AssertRgb(expected, target.Pixel(x, y));
+                        covered++;
+                    }
+                }
+            }
+            Assert.True(covered > 10, $"covered {covered}");
+        }
+
+        [Fact]
+        public void CharactersTheFaceLacksStillMeasureAndDraw()
+        {
+            // Patrick Hand has no Hangul: a modded string falls back to the face's missing-glyph box.
+            using RenderTarget target = new(64, 64, SKColors.Black);
+            using IFontFace face = PatrickHand(target);
+
+            Assert.True(face.MeasureText("가", 40f) > 0f);
+            target.Renderer.DrawText(face, "가", 40f, TextTransform(target, 1f), White);
+        }
+
+        [Fact]
+        public void FaceOutlivesATargetChange()
+        {
+            using RenderTarget target = new(64, 64, SKColors.Black);
+            using IFontFace face = PatrickHand(target);
+            using SKSurface other = SKSurface.Create(new SKImageInfo(64, 64, SKColorType.Rgba8888, SKAlphaType.Premul));
+            other.Canvas.Clear(SKColors.Black);
+
+            target.Renderer.SetTarget(other.Canvas, 64, 64);
+            target.Renderer.DrawText(face, "T", 40f, TextTransform(target, 1f), White);
+
+            using SKPixmap pixmap = other.PeekPixels();
+            ReadOnlySpan<byte> bytes = pixmap.GetPixelSpan();
+            bool inked = false;
+            for (int i = 0; i < bytes.Length; i += 4)
+            {
+                inked |= bytes[i] > 128;
+            }
+            Assert.True(inked);
+        }
+
+        [Fact]
+        public void DrawTextRejectsForeignAndDisposedFaces()
+        {
+            using RenderTarget target = new(8, 8, SKColors.Black);
+            IFontFace face = PatrickHand(target);
+            face.Dispose();
+
+            _ = Assert.Throws<ArgumentException>(() => target.Renderer.DrawText(new ForeignFace(), "T", 10f, Matrix4x4.Identity, White));
+            _ = Assert.Throws<ObjectDisposedException>(() => target.Renderer.DrawText(face, "T", 10f, Matrix4x4.Identity, White));
+        }
     }
 }

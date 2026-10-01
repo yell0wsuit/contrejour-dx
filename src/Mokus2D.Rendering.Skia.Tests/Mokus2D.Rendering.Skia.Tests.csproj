@@ -13,5 +13,6 @@
     <PackageReference Include="SkiaSharp.NativeAssets.Win32" />
     <PackageReference Include="SkiaSharp.NativeAssets.Linux" />
     <ProjectReference Include="../Mokus2D.Rendering.Skia/Mokus2D.Rendering.Skia.csproj" />
+    <None Include="../../GameContents/Content/fonts/PatrickHand-Regular.ttf" Link="fonts/PatrickHand-Regular.ttf" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 </Project>
