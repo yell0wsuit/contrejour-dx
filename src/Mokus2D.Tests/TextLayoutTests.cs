@@ -55,7 +55,7 @@ namespace Mokus2D.Tests
         {
             List<TextLine> lines = [];
 
-            _ = Build("a\r\nb c", lines);
+            _ = Build("a\r\nb\u00a0c", lines);
 
             Assert.Equal([new TextLine("a", 9f), new TextLine("b c", 19f)], lines);
         }

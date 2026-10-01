@@ -19,7 +19,7 @@ namespace Mokus2D.Visual.Text
 
         public const char SkipChar = '\r';
 
-        public const char Nbsp = ' ';
+        public const char Nbsp = '\u00a0';
 
         public const char Space = ' ';
 

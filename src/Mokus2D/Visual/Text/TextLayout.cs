@@ -38,7 +38,7 @@ namespace Mokus2D.Visual.Text
                     _ = line.Clear();
                     continue;
                 }
-                _ = line.Append(symbol == ' ' ? ' ' : symbol);
+                _ = line.Append(symbol == '\u00a0' ? ' ' : symbol);
             }
             size.X = Math.Max(size.X, AddLine(lines, line.ToString(), face, emSize, margins));
             return size;
