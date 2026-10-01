@@ -16,6 +16,8 @@ on:
             - "nuget.config"
             - ".github/workflows/pr-quality.yml"
             - ".github/actions/**"
+            - "tools/**"
+            - "GameContents/**"
     pull_request:
         branches: [main]
         paths: *quality-paths
@@ -55,3 +57,24 @@ jobs:
 
             - name: Test game
               run: dotnet test --project src/ContreJour.Tests/ContreJour.Tests.csproj --no-build -c Release
+
+    # The web content pipeline and the browser publish script carry their own tests.
+    python-quality:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v7
+
+            - name: Setup Python
+              uses: actions/setup-python@v7
+              with:
+                  python-version: "3.14"
+                  cache: pip
+                  cache-dependency-path: tools/requirements.txt
+
+            - name: Install dependencies
+              run: pip install -r tools/requirements.txt
+
+            - name: Test
+              run: python -m pytest tools/webcontent/tests -q
