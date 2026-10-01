@@ -5,9 +5,9 @@ using System.Threading;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 
-namespace ContreJour.Desktop.Platform.Diagnostics
+namespace Mokus2D.Diagnostics
 {
-    // The logging seam (from cuttherope-dx). The desktop host installs a factory at startup; until
+    // The logging seam (from cuttherope-dx). A host installs a factory at startup; until
     // it does, and in tests that install none, every logger is a no-op.
     public static class Log
     {
@@ -43,5 +43,11 @@ namespace ContreJour.Desktop.Platform.Diagnostics
         public const string Host = "ContreJour.Host";
 
         public const string Audio = "ContreJour.Audio";
+
+        public const string Application = "ContreJour.Application";
+
+        public const string Preferences = "ContreJour.Preferences";
+
+        public const string Content = "ContreJour.Content";
     }
 }

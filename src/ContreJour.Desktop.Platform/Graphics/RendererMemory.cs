@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-using ContreJour.Desktop.Platform.Diagnostics;
 
 using Microsoft.Extensions.Logging;
+
+using Mokus2D.Diagnostics;
 
 namespace ContreJour.Desktop.Platform.Graphics
 {

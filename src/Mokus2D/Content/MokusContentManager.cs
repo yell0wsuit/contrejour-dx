@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 
+using Mokus2D.Diagnostics;
 using Mokus2D.FileSystem;
 using Mokus2D.Graphics;
 
@@ -26,7 +27,15 @@ namespace Mokus2D.Content
             }
             try
             {
-                texture = ReadTexture(assetName);
+                try
+                {
+                    texture = ReadTexture(assetName);
+                }
+                catch (Exception failure)
+                {
+                    EngineLog.TextureFailed(Log.For(LogCategories.Content), assetName, failure);
+                    throw;
+                }
             }
             catch (OutOfMemoryException innerException)
             {

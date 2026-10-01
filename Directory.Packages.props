@@ -7,6 +7,7 @@
     <SkiaSharpVersion>4.152.0</SkiaSharpVersion>
   </PropertyGroup>
   <ItemGroup>
+    <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="$(MELVersion)" />
     <PackageVersion Include="Microsoft.Extensions.Logging" Version="$(MELVersion)" />
     <PackageVersion Include="Microsoft.Extensions.Logging.Console" Version="$(MELVersion)" />
     <PackageVersion Include="NReco.Logging.File" Version="1.4.0" />

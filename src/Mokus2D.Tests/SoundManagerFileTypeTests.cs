@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.IO;
 
 using Mokus2D.Content;
+using Mokus2D.Diagnostics;
 using Mokus2D.Sound;
 
 using Xunit;
@@ -60,6 +61,8 @@ namespace Mokus2D.Tests
         [Fact]
         public void EffectsLoadWavAndSongsLoadFlac()
         {
+            using RecordingLoggerFactory factory = new();
+            Log.Factory = factory;
             RecordingBackend backend = new();
             string previousPath = SoundManager.MusicPath;
             SoundManager.Backend = backend;
@@ -71,9 +74,14 @@ namespace Mokus2D.Tests
 
                 Assert.Equal([Path.Combine("root", "Music", "leapOn1.wav")], backend.Sounds);
                 Assert.Equal([Path.Combine("root", "Music", "chapter1.flac")], backend.Songs);
+                SoundManager.PreloadSound("leapOn1");
+                SoundManager.PreloadSong("chapter1");
+                Assert.Equal(2, factory.Entries.Count);
+                Assert.All(factory.Entries, entry => Assert.Equal(LogCategories.Audio, entry.Category));
             }
             finally
             {
+                Log.Factory = null;
                 SoundManager.Backend = new NullAudioBackend();
                 SoundManager.MusicPath = previousPath;
             }

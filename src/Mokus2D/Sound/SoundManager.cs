@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 
+using Microsoft.Extensions.Logging;
+
 using Mokus2D.Content;
+using Mokus2D.Diagnostics;
 
 namespace Mokus2D.Sound
 {
@@ -139,7 +142,19 @@ namespace Mokus2D.Sound
         {
             if (!_songs.ContainsKey(path))
             {
-                _songs.Add(path, Backend.LoadSong(FilePath(path, Formats.Song)));
+                string file = FilePath(path, Formats.Song);
+                try
+                {
+                    _songs.Add(path, Backend.LoadSong(file));
+                    ILogger logger = Log.For(LogCategories.Audio);
+                    EngineLog.AudioLoaded(logger, file);
+                }
+                catch (Exception failure)
+                {
+                    ILogger logger = Log.For(LogCategories.Audio);
+                    EngineLog.AudioFailed(logger, file, failure);
+                    throw;
+                }
             }
         }
 
@@ -147,7 +162,19 @@ namespace Mokus2D.Sound
         {
             if (!_sounds.ContainsKey(path))
             {
-                _sounds.Add(path, Backend.LoadSound(FilePath(path, Formats.Sound)));
+                string file = FilePath(path, Formats.Sound);
+                try
+                {
+                    _sounds.Add(path, Backend.LoadSound(file));
+                    ILogger logger = Log.For(LogCategories.Audio);
+                    EngineLog.AudioLoaded(logger, file);
+                }
+                catch (Exception failure)
+                {
+                    ILogger logger = Log.For(LogCategories.Audio);
+                    EngineLog.AudioFailed(logger, file, failure);
+                    throw;
+                }
             }
         }
 

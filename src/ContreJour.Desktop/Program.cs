@@ -8,6 +8,8 @@ using ContreJour.Saving;
 
 using Microsoft.Extensions.Logging;
 
+using Mokus2D.Diagnostics;
+
 using Mokus2D.Sound;
 
 using SDL3;

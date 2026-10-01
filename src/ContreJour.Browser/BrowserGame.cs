@@ -4,7 +4,10 @@ using System.Numerics;
 using ContreJour.Browser.Platform;
 using ContreJour.Saving;
 
+using Microsoft.Extensions.Logging;
+
 using Mokus2D.Content;
+using Mokus2D.Diagnostics;
 using Mokus2D.FileSystem;
 using Mokus2D.Game;
 using Mokus2D.Rendering.Skia;
@@ -54,7 +57,8 @@ namespace ContreJour.Browser
             _game.Initialize(controller);
             _game.Update(0f);
             _ = _clock.Advance(timestampMs);
-            Console.WriteLine($"cj-game-started: canvas {canvas.X}x{canvas.Y}");
+            ILogger gameStartedLogger = Log.For(LogCategories.Host);
+            BrowserLog.GameStarted(gameStartedLogger, canvas.X, canvas.Y);
         }
 
         public BrowserInputState Input { get; }
@@ -74,7 +78,8 @@ namespace ContreJour.Browser
             Draw();
             if (++_frames == RunningMarkerFrame)
             {
-                Console.WriteLine($"cj-running: {RunningMarkerFrame} frames");
+                ILogger runningLogger = Log.For(LogCategories.Host);
+                BrowserLog.Running(runningLogger, RunningMarkerFrame);
             }
         }
 
@@ -119,7 +124,8 @@ namespace ContreJour.Browser
             _lost = true;
             Preferences.RequestSave();
             Preferences.Update(force: true);
-            Console.WriteLine("cj-context-lost: reload required");
+            ILogger contextLostLogger = Log.For(LogCategories.Graphics);
+            BrowserLog.ContextLost(contextLostLogger);
         }
 
         public void Dispose()

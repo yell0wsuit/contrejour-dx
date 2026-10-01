@@ -5,10 +5,19 @@ using ContreJour.Browser;
 using ContreJour.Browser.Platform;
 using ContreJour.Saving;
 
+using Microsoft.Extensions.Logging;
+
+using Mokus2D.Diagnostics;
 using Mokus2D.Localization;
 using Mokus2D.Sound;
 
 [assembly: SupportedOSPlatform("browser")]
+
+// Install before content, audio, or saves can report a failure. The factory stays alive
+// for the animation callbacks after this entry point returns.
+await LogInterop.ImportAsync();
+_ = LogInterop.Begin("Contre Jour DX\nBrowser build\nVersion: " + typeof(BrowserGame).Assembly.GetName().Version);
+Log.Factory = new BrowserLogFactory(LogInterop.Append, Console.Out, Console.Error);
 
 await PageInterop.ImportAsync();
 await FetchInterop.ImportAsync();
@@ -38,7 +47,8 @@ IAudioBackend audio;
 if (catalog.Sounds.Length + catalog.Songs.Length == 0)
 {
     // A payload built with --skip-audio: the game runs silent rather than failing at its first sound.
-    Console.WriteLine("cj-audio: none in the content; running silent");
+    ILogger noAudioLogger = Log.For(LogCategories.Audio);
+    BrowserLog.NoAudio(noAudioLogger);
     audio = new NullAudioBackend();
 }
 else
@@ -54,4 +64,5 @@ GameLoop.CreateGame = (cssSize, pixelSize, timestampMs) => new BrowserGame(surfa
 HostEventQueue.Initialize();
 PageInterop.WatchCanvas("game");
 GameLoop.Start(canvas[0], canvas[1], canvas[2], canvas[3]);
-Console.WriteLine($"cj-boot-complete: language {language}, {catalog.Images.Length} images, {catalog.Fonts.Length} fonts, {catalog.Sounds.Length} sounds, {catalog.Songs.Length} songs");
+ILogger bootCompleteLogger = Log.For(LogCategories.Host);
+BrowserLog.BootComplete(bootCompleteLogger, language, catalog.Images.Length, catalog.Fonts.Length, catalog.Sounds.Length, catalog.Songs.Length);

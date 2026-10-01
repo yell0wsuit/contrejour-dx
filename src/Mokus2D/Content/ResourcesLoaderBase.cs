@@ -5,6 +5,7 @@ using System.Text.Json;
 using System.Xml.Linq;
 
 using Mokus2D.Content.Serialization;
+using Mokus2D.Diagnostics;
 using Mokus2D.Util;
 using Mokus2D.Visual.Data;
 
@@ -59,16 +60,24 @@ namespace Mokus2D.Content
         {
             try
             {
-                return LoadData<T>(name, _resourcesSuffix);
-            }
-            // A missing file or name falls back to the 1x art; broken atlas data must surface instead of
-            // silently loading the 1x version.
-            catch (Exception exception) when (exception is not InvalidDataException and not JsonException)
-            {
-                if (FallbackToDefaultScaleFactor && _resourcesSuffix != null)
+                try
                 {
-                    return LoadData<T>(name, null);
+                    return LoadData<T>(name, _resourcesSuffix);
                 }
+                // Missing art can fall back to 1x; malformed atlas data must still surface.
+                catch (Exception exception) when (exception is not InvalidDataException and not JsonException)
+                {
+                    if (FallbackToDefaultScaleFactor && _resourcesSuffix != null)
+                    {
+                        EngineLog.ResourceFallback(Log.For(LogCategories.Content), name, _resourcesSuffix, exception);
+                        return LoadData<T>(name, null);
+                    }
+                    throw;
+                }
+            }
+            catch (Exception failure)
+            {
+                EngineLog.ResourceFailed(Log.For(LogCategories.Content), name, failure);
                 throw;
             }
         }

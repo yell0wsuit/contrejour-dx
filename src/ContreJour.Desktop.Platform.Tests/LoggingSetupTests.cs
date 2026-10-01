@@ -116,12 +116,12 @@ namespace ContreJour.Desktop.Platform.Tests
         }
 
         [Theory]
-        [InlineData(null, LogLevel.Information, true, false)]
+        [InlineData(null, LogLevel.Information, true, true)]
         [InlineData(null, LogLevel.Warning, true, true)]
         [InlineData(null, LogLevel.Debug, false, false)]
         [InlineData(LogLevel.Debug, LogLevel.Debug, true, true)]
         [InlineData(LogLevel.Error, LogLevel.Warning, false, false)]
-        public void TheFileKeepsInformationAndTheConsoleWarningsUnlessALevelIsAsked(
+        public void BothSinksKeepInformationUnlessALevelIsAsked(
             LogLevel? requested, LogLevel emitted, bool inFile, bool onConsole)
         {
             string root = NewRoot();

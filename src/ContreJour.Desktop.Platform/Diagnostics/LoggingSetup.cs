@@ -8,12 +8,14 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Console;
 
+using Mokus2D.Diagnostics;
+
 using NReco.Logging.File;
 
 namespace ContreJour.Desktop.Platform.Diagnostics
 {
     // The desktop logging pipeline (from cuttherope-dx): one file per run in a logs folder beside the
-    // save data, and a console that only speaks up about warnings and worse.
+    // save data, and a console with the same Information default.
     public static class LoggingSetup
     {
         public const string LevelSwitch = "--log-level";
@@ -108,7 +110,7 @@ namespace ContreJour.Desktop.Platform.Diagnostics
         }
 
         // The caller owns and disposes the factory. Without a requested level the file keeps
-        // Information and up and the console Warning and up; a requested level applies to both.
+        // Information and up and the console Information and up; a requested level applies to both.
         public static ILoggerFactory Create(string saveDirectory, LogLevel? requested, string header, DateTime stamp)
         {
             return Create(saveDirectory, requested, header, stamp, out _);
@@ -117,7 +119,7 @@ namespace ContreJour.Desktop.Platform.Diagnostics
         public static ILoggerFactory Create(string saveDirectory, LogLevel? requested, string header, DateTime stamp, out string logFilePath)
         {
             LogLevel fileLevel = requested ?? LogLevel.Information;
-            LogLevel consoleLevel = requested ?? LogLevel.Warning;
+            LogLevel consoleLevel = requested ?? LogLevel.Information;
             string directory = DirectoryFor(saveDirectory);
             string path = null;
             int fallbackAttempted = 0;

@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 
 using Microsoft.Extensions.Logging;
 
+using Mokus2D.Diagnostics;
+
 namespace ContreJour.Desktop.Platform.Diagnostics
 {
     // Writes a failure nothing caught into the log, flushes it, and shows the crash dialog. Without

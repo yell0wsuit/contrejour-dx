@@ -5,6 +5,8 @@ using ContreJour.Desktop.Platform.Diagnostics;
 
 using Microsoft.Extensions.Logging;
 
+using Mokus2D.Diagnostics;
+
 using Xunit;
 
 namespace ContreJour.Desktop.Platform.Tests

@@ -1,9 +1,10 @@
 using System;
 using System.Runtime.InteropServices;
 
-using ContreJour.Desktop.Platform.Diagnostics;
 
 using Microsoft.Extensions.Logging;
+
+using Mokus2D.Diagnostics;
 
 using SDL3;
 

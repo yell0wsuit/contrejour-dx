@@ -5,6 +5,7 @@
         <!-- Resolves to the directory this page is served from, so the app works from a domain root and from a
              project subpath alike. -->
         <base href="./" />
+        <script src="./console-capture.js"></script>
         <meta
             name="viewport"
             content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover"
@@ -124,6 +125,22 @@
             #resume[hidden] {
                 display: none;
             }
+            #download-logs {
+                position: fixed;
+                right: calc(12px + env(safe-area-inset-right, 0px));
+                bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+                z-index: 20;
+                border: 1px solid #60656d;
+                border-radius: 8px;
+                padding: 8px 12px;
+                background: #202329;
+                color: #e6e6e6;
+                cursor: pointer;
+                touch-action: manipulation;
+            }
+            #splash.hidden + #download-logs {
+                display: none;
+            }
         </style>
     </head>
     <body>
@@ -146,11 +163,35 @@
             </p>
             <button id="resume" hidden>Reload</button>
         </div>
+        <button id="download-logs" type="button">Download logs</button>
         <script type="module">
             // Loading has stretches with no reporting of their own - compiling what was downloaded, and
             // decoding the audio - so a slow device and a wedged one look alike from here. The advice waits
             // out a comfortably slow start rather than accusing every one of them of being broken.
             const HINT_DELAY_MS = 30000;
+            const downloadLogs = document.getElementById("download-logs");
+            let downloadStatusTimer;
+            // Keep keyboard activation on this button out of the game's global key handler.
+            for (const eventName of ["keydown", "keyup"]) {
+                downloadLogs.addEventListener(eventName, event => event.stopPropagation());
+            }
+            downloadLogs.addEventListener("click", async () => {
+                clearTimeout(downloadStatusTimer);
+                downloadLogs.disabled = true;
+                try {
+                    const logs = await import("./log.js");
+                    const count = await logs.exportZip();
+                    downloadLogs.textContent = count > 0 ? "Logs downloaded" : "No logs yet";
+                } catch (error) {
+                    console.error("cj-log: export failed", error);
+                    downloadLogs.textContent = "Retry log download";
+                } finally {
+                    downloadLogs.disabled = false;
+                    downloadStatusTimer = setTimeout(() => {
+                        downloadLogs.textContent = "Download logs";
+                    }, 2000);
+                }
+            });
 
             const start = document.getElementById("start");
             const splash = document.getElementById("splash");

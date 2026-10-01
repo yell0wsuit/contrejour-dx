@@ -11,4 +11,7 @@
     <PackageReference Include="xunit.v3" />
     <ProjectReference Include="../ContreJour/ContreJour.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Include="../Mokus2D.Tests/RecordingLoggerFactory.cs" Link="RecordingLoggerFactory.cs" />
+  </ItemGroup>
 </Project>

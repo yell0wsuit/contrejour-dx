@@ -7,7 +7,7 @@ using System.Text;
 
 using Microsoft.Extensions.Logging;
 
-namespace ContreJour.Desktop.Platform.Diagnostics
+namespace Mokus2D.Diagnostics
 {
     // The one shape a written log entry takes, in the file and on the console, with the account
     // name taken out: save paths and every stack frame carry the home folder, which names the

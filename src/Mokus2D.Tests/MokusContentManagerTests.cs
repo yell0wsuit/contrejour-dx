@@ -1,7 +1,10 @@
 using System.Collections.Generic;
 using System.IO;
 
+using Microsoft.Extensions.Logging;
+
 using Mokus2D.Content;
+using Mokus2D.Diagnostics;
 using Mokus2D.FileSystem;
 
 using Xunit;
@@ -24,6 +27,8 @@ namespace Mokus2D.Tests
         [Fact]
         public void TexturesAreOpenedWithTheHostImageExtension()
         {
+            using RecordingLoggerFactory factory = new();
+            Log.Factory = factory;
             MissingFiles files = new();
             using MokusContentManager content = new(files, null, new ContentFormats(".webp", ".ogg", ".ogg"))
             {
@@ -36,6 +41,14 @@ namespace Mokus2D.Tests
             Assert.Equal(
                 [Path.Combine("Assets/Content", "Graphics/textures/tail.x0.5.webp"), Path.Combine("Assets/Content", "Graphics/menu/menu.webp")],
                 files.Opened);
+            Log.Factory = null;
+            Assert.Equal(2, factory.Entries.Count);
+            Assert.All(factory.Entries, entry =>
+            {
+                Assert.Equal(LogCategories.Content, entry.Category);
+                Assert.Equal(LogLevel.Error, entry.Level);
+                _ = Assert.IsType<FileNotFoundException>(entry.Exception);
+            });
         }
 
         [Fact]

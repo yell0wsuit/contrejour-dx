@@ -4,6 +4,10 @@ using System.Runtime.InteropServices;
 
 using ContreJour.Browser.Platform;
 
+using Microsoft.Extensions.Logging;
+
+using Mokus2D.Diagnostics;
+
 namespace ContreJour.Browser
 {
     // Drives everything from requestAnimationFrame: drains the page's events, then runs a frame of the game once
@@ -56,7 +60,8 @@ namespace ContreJour.Browser
             }
             catch (Exception failure)
             {
-                Console.WriteLine($"cj-frame-error: {failure}");
+                ILogger frameFailedLogger = Log.For(LogCategories.Host);
+                BrowserLog.FrameFailed(frameFailedLogger, failure);
             }
             finally
             {
@@ -68,7 +73,8 @@ namespace ContreJour.Browser
                     }
                     catch (Exception failure)
                     {
-                        Console.WriteLine($"cj-frame-request-error: {failure}");
+                        ILogger frameRequestFailedLogger = Log.For(LogCategories.Host);
+                        BrowserLog.FrameRequestFailed(frameRequestFailedLogger, failure);
                     }
                 }
             }
@@ -92,7 +98,8 @@ namespace ContreJour.Browser
             if (dropped != _reportedDroppedEvents)
             {
                 _reportedDroppedEvents = dropped;
-                Console.WriteLine($"cj-host-events-dropped: total={dropped}");
+                ILogger eventsDroppedLogger = Log.For(LogCategories.Host);
+                BrowserLog.EventsDropped(eventsDroppedLogger, dropped);
             }
         }
 

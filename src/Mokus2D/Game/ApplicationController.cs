@@ -1,7 +1,10 @@
 using System;
 using System.Numerics;
 
+using Microsoft.Extensions.Logging;
+
 using Mokus2D.Content;
+using Mokus2D.Diagnostics;
 using Mokus2D.FileSystem;
 using Mokus2D.Graphics;
 using Mokus2D.Input;
@@ -29,6 +32,8 @@ namespace Mokus2D.Game
             SoundManager.Backend = audio;
             SoundManager.Formats = formats;
             Host.ClientSizeChanged += OnHostClientSizeChanged;
+            ILogger logger = Log.For(LogCategories.Application);
+            EngineLog.Initialized(logger, host.BackBufferSize.X, host.BackBufferSize.Y);
         }
 
         public IGameHost Host { get; }
@@ -112,6 +117,8 @@ namespace Mokus2D.Game
             {
                 Host.ClientSizeChanged -= OnHostClientSizeChanged;
                 Content.Dispose();
+                ILogger logger = Log.For(LogCategories.Application);
+                EngineLog.Disposed(logger);
             }
             base.Dispose(disposing);
         }

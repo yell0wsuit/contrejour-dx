@@ -3,6 +3,10 @@ using System.Threading.Tasks;
 
 using ContreJour.Browser.Platform;
 
+using Microsoft.Extensions.Logging;
+
+using Mokus2D.Diagnostics;
+
 namespace ContreJour.Browser
 {
     // Fetches everything the game reads before it is allowed to start, so every later read is synchronous: the
@@ -24,6 +28,8 @@ namespace ContreJour.Browser
 
         public static Task RunAsync(string label, string[] paths, Func<string, Task> load)
         {
+            ILogger preloadingLogger = Log.For(LogCategories.Content);
+            BrowserLog.Preloading(preloadingLogger, label, paths.Length);
             PageInterop.ReportProgress(label, 0, paths.Length);
             return ParallelPump.RunAsync(paths, Concurrency, load, done => PageInterop.ReportProgress(label, done, paths.Length));
         }
@@ -35,10 +41,19 @@ namespace ContreJour.Browser
 
         private static async Task<byte[]> FetchRequiredAsync(string url)
         {
-            byte[] bytes = await FetchInterop.GetBytesAsync(url);
-            return bytes.Length != 0
-                ? bytes
-                : throw new InvalidOperationException($"Could not load {url}. Run tools/build_web_content.py first.");
+            try
+            {
+                byte[] bytes = await FetchInterop.GetBytesAsync(url);
+                return bytes.Length != 0
+                    ? bytes
+                    : throw new InvalidOperationException($"Could not load {url}. Run tools/build_web_content.py first.");
+            }
+            catch (Exception failure)
+            {
+                ILogger fetchFailedLogger = Log.For(LogCategories.Content);
+                BrowserLog.FetchFailed(fetchFailedLogger, url, failure);
+                throw;
+            }
         }
     }
 }

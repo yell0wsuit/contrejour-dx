@@ -5,6 +5,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Extensions.Logging.Console;
 
+using Mokus2D.Diagnostics;
+
 namespace ContreJour.Desktop.Platform.Diagnostics
 {
     // Writes console entries in the file's shape, account name removed: a bug report is usually a

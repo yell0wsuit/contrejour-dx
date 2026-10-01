@@ -13,6 +13,7 @@ using Microsoft.Extensions.Logging;
 
 using Mokus2D;
 using Mokus2D.Content;
+using Mokus2D.Diagnostics;
 using Mokus2D.FileSystem;
 using Mokus2D.Game;
 using Mokus2D.Rendering.Skia;
