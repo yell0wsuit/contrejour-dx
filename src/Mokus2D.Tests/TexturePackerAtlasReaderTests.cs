@@ -181,6 +181,41 @@ namespace Mokus2D.Tests
             Assert.Contains(reason, error.Message, StringComparison.Ordinal);
         }
 
+        [Theory]
+        [InlineData("\"0.78125\"")]
+        [InlineData("0.78125")]
+        public void MetaScaleDividesTheSuffixScaleFactor(string scale)
+        {
+            string json = "{\"frames\": [" + Frame("A", 0, 0, 1, 1) + "], \"meta\": {\"image\": \"common_x2.png\", \"scale\": " + scale + "}}";
+
+            // A sheet packed at 0.78125 of the 2x art: its pixels are 1.5625 to a 1x pixel.
+            AssertBits(0.5f / 0.78125f, Assert.Single(Read(json)).ScaleFactor);
+        }
+
+        [Fact]
+        public void MissingMetaScaleKeepsTheSuffixScaleFactor()
+        {
+            string json = "{\"frames\": [" + Frame("A", 0, 0, 1, 1) + "], \"meta\": {\"image\": \"common_x2.png\"}}";
+
+            AssertBits(0.5f, Assert.Single(Read(json)).ScaleFactor);
+        }
+
+        [Theory]
+        [InlineData("\"0\"")]
+        [InlineData("\"-1\"")]
+        [InlineData("\"half\"")]
+        [InlineData("\"NaN\"")]
+        [InlineData("true")]
+        public void BadMetaScaleIsRejected(string scale)
+        {
+            string json = "{\"frames\": [" + Frame("A", 0, 0, 1, 1) + "], \"meta\": {\"image\": \"common_x2.png\", \"scale\": " + scale + "}}";
+
+            InvalidDataException error = Assert.Throws<InvalidDataException>(() => Read(json));
+
+            Assert.Contains("common/common_x2.json", error.Message, StringComparison.Ordinal);
+            Assert.Contains("meta.scale", error.Message, StringComparison.Ordinal);
+        }
+
         [Fact]
         public void MissingFramesOrImageIsRejected()
         {

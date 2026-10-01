@@ -32,6 +32,9 @@ namespace Mokus2D.Content
             using JsonDocument document = JsonDocument.Parse(json);
             JsonElement root = document.RootElement;
             string textureName = Path.Combine(graphicsRoot, folder + "/" + Path.GetFileNameWithoutExtension(ReadImage(root, fileName)));
+            // The file suffix gives the art's scale; meta.scale is TexturePacker's packing scale on top of it,
+            // so a "_x2" sheet packed at 0.78125 holds art at 1.5625 times the 1x size.
+            scaleFactor /= ReadMetaScale(root, fileName);
 
             List<string> order = [];
             Dictionary<string, Frame> sprites = [];
@@ -171,6 +174,25 @@ namespace Mokus2D.Content
                 && image.ValueKind == JsonValueKind.String
                 ? image.GetString()
                 : throw new InvalidDataException($"{fileName}: the atlas has no meta.image.");
+        }
+
+        private static float ReadMetaScale(JsonElement root, string fileName)
+        {
+            if (!root.TryGetProperty("meta", out JsonElement meta) || !meta.TryGetProperty("scale", out JsonElement scale))
+            {
+                return 1f;
+            }
+            // TexturePacker writes the scale as a string; a plain number is accepted too.
+            float value = float.NaN;
+            _ = scale.ValueKind switch
+            {
+                JsonValueKind.String => float.TryParse(scale.GetString(), NumberStyles.Float, CultureInfo.InvariantCulture, out value),
+                JsonValueKind.Number => scale.TryGetSingle(out value),
+                _ => false,
+            };
+            return float.IsFinite(value) && value > 0f
+                ? value
+                : throw new InvalidDataException($"{fileName}: meta.scale must be a positive number.");
         }
 
         private static Frame ReadFrame(JsonElement element, string key, string fileName)
