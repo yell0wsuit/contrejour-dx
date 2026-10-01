@@ -155,25 +155,36 @@ export function setSuspended(value) {
     } else {
         void context.resume().catch(() => {});
         playMusicElement();
+        // resume() settles later, and Safari refuses it outside a gesture for a context it interrupted; until
+        // the graph runs, the next tap or key retries it.
+        if (context.state !== "running") {
+            armGestureResume();
+        }
     }
 }
 
 // Safari suspends the graph while the page is in the background, and has an "interrupted" state of its own
-// that a phone call or another app taking the audio device puts it in. Coming back to a visible page tries to
-// resume it, and arms one-shot gesture listeners in case the browser wants a gesture for that.
+// that a phone call or another app taking the audio device puts it in. Either way the context can stay
+// stopped after the game resumes it, so a gesture retries both the graph and the song until it runs.
 function resumeFromGesture() {
     unlock();
+    playMusicElement();
     if (context !== null && context.state === "running") {
         globalThis.removeEventListener("pointerdown", resumeFromGesture);
         globalThis.removeEventListener("keydown", resumeFromGesture);
     }
 }
 
+function armGestureResume() {
+    globalThis.addEventListener("pointerdown", resumeFromGesture, { passive: true });
+    globalThis.addEventListener("keydown", resumeFromGesture, { passive: true });
+}
+
+// An interruption while the page stays visible (and the game active) never reaches setSuspended.
 document.addEventListener("visibilitychange", () => {
     if (document.visibilityState !== "visible" || suspended || context === null || context.state === "running") {
         return;
     }
     unlock();
-    globalThis.addEventListener("pointerdown", resumeFromGesture, { passive: true });
-    globalThis.addEventListener("keydown", resumeFromGesture, { passive: true });
+    armGestureResume();
 });
