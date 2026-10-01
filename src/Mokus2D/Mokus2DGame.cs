@@ -37,8 +37,6 @@ namespace Mokus2D
 
         private GameConfig _config;
 
-        private readonly FontsManager _fontsManager = new();
-
         private FontRegistry _fonts;
 
         private BatchSelector _batchSelector;
@@ -72,8 +70,6 @@ namespace Mokus2D
         }
 
         public static IFileLoader FileLoader => Instance.ApplicationController.Files;
-
-        public static FontsManager FontsManager => Instance._fontsManager;
 
         public static FontRegistry Fonts => Instance._fonts ?? throw new InvalidOperationException("LoadFonts must be called before labels are created.");
 
@@ -154,11 +150,6 @@ namespace Mokus2D
             return Config.GraphicsLoader.Load<T>(name);
         }
 
-        public static void RegisterFont(string fontName, string fontId)
-        {
-            FontsManager.RegisterFont(fontName, fontId);
-        }
-
         // Loads the face for a two-letter locale from <content root>/fonts/fonts.json, replacing any earlier one.
         public static void LoadFonts(string locale)
         {
@@ -177,7 +168,6 @@ namespace Mokus2D
             if (Config.GraphicsLoader.PrefferedScaleFactor != value)
             {
                 Config.GraphicsLoader.PrefferedScaleFactor = value;
-                FontsManager.ReloadFonts();
             }
         }
 

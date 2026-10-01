@@ -4,7 +4,6 @@ using System.IO;
 using System.Xml.Linq;
 
 using Mokus2D.Content.Serialization;
-using Mokus2D.Fonts;
 using Mokus2D.Visual.Data;
 using Mokus2D.Visual.Interfaces;
 using Mokus2D.Visual.Particles.Data;
@@ -17,7 +16,7 @@ namespace Mokus2D.Content
 
         private readonly Dictionary<string, IGraphicsDeserializer> _deserializerByType = [];
 
-        // Sprites and movie clips come from the folder's TexturePacker JSON; fonts, animations and particle
+        // Sprites and movie clips come from the folder's TexturePacker JSON; animations and particle
         // configs keep their XML.
         private static readonly List<Type> AtlasTypes = [typeof(ISpriteData), typeof(IMovieClipData), typeof(SpriteData), typeof(MovieClipData)];
 
@@ -26,7 +25,6 @@ namespace Mokus2D.Content
         public OneFileResourcesLoader()
         {
             _deserializerByType["animation"] = Deserializers[typeof(AnimationData)];
-            _deserializerByType["font"] = Deserializers[typeof(FontData)];
         }
 
         protected override string GetFileName<T>(string resourceName, string resourceSuffix)
