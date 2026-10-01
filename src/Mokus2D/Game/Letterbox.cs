@@ -1,10 +1,10 @@
 using System;
 using System.Numerics;
 
-namespace ContreJour.Desktop.Platform
+namespace Mokus2D.Game
 {
-    // Fits the game's fixed logical canvas into a window, uniformly scaled and centered, and maps
-    // positions between the canvas, the window's pixels and its points (SDL reports the mouse in
+    // Fits the game's fixed logical canvas into a host surface, uniformly scaled and centered, and maps
+    // positions between the canvas, the surface's pixels and its points (SDL and the DOM report pointers in
     // points; the drawable is in pixels).
     public readonly struct Letterbox
     {

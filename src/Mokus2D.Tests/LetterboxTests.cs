@@ -1,9 +1,11 @@
 using System;
 using System.Numerics;
 
+using Mokus2D.Game;
+
 using Xunit;
 
-namespace ContreJour.Desktop.Platform.Tests
+namespace Mokus2D.Tests
 {
     public class LetterboxTests
     {

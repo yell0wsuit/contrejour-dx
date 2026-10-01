@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Numerics;
 
+using Mokus2D.Game;
 using Mokus2D.Input;
 
 using SDL3;
