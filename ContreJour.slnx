@@ -2,6 +2,7 @@
   <Project Path="src/ContreJour/ContreJour.csproj" />
   <Project Path="src/ContreJour.Desktop/ContreJour.Desktop.csproj" />
   <Project Path="src/ContreJour.Desktop.Platform/ContreJour.Desktop.Platform.csproj" />
+  <Project Path="src/ContreJour.Browser.Platform/ContreJour.Browser.Platform.csproj" />
   <Folder Name="/Engine/">
     <Project Path="src/FarseerPhysics/FarseerPhysics.csproj" />
     <Project Path="src/Mokus2D.Common/Mokus2D.Common.csproj" />
@@ -14,6 +15,7 @@
     <Project Path="src/ContreJour.Tests/ContreJour.Tests.csproj" />
     <Project Path="src/Mokus2D.Rendering.Skia.Tests/Mokus2D.Rendering.Skia.Tests.csproj" />
     <Project Path="src/ContreJour.Desktop.Platform.Tests/ContreJour.Desktop.Platform.Tests.csproj" />
+    <Project Path="src/ContreJour.Browser.Platform.Tests/ContreJour.Browser.Platform.Tests.csproj" />
     <Project Path="src/ContreJour.Regression/ContreJour.Regression.csproj" />
   </Folder>
 </Solution>
