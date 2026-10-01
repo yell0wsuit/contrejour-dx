@@ -94,7 +94,7 @@ namespace ContreJour
 
         private void LoadMusic()
         {
-            SoundManager.PreloadSongs(["chapter1", "chapter2", "chapter3", "chapter4", "chapter5", "menu"]);
+            SoundManager.PreloadSongs(["chapter1", "chapter2", "chapter3", "chapter4", "chapter5", "menu", Sounds.Ending]);
             LoadSounds();
         }
 
@@ -354,7 +354,8 @@ namespace ContreJour
             contreJourGame.RestartEvent.AddListener(RestartLevel);
             contreJourGame.NextLevelEvent.AddListener(NextLevel);
             contreJourGame.LoadLevelIndex(lastLevel);
-            SoundManager.PlayMusic($"chapter{chapter + 1}");
+            // The final level plays the soundtrack's Petit theme, which neither original build used.
+            SoundManager.PlayMusic(lastLevel == ContreJourConstants.EndLevel ? Sounds.Ending : $"chapter{chapter + 1}");
             return contreJourGame;
         }
 

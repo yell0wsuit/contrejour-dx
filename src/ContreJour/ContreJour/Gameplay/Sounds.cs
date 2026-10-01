@@ -6,6 +6,8 @@ namespace ContreJour.Gameplay
 
         public const string Menu = "menu";
 
+        public const string Ending = "ending";
+
         public const float ClickVolume = 0.7f;
 
         public static readonly string[] SLEEPING = ["sleeping0"];
