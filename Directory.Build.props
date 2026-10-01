@@ -18,4 +18,11 @@
          stay off until the engine's public API is documented. -->
     <NoWarn>$(NoWarn);CS1573;CS1591</NoWarn>
   </PropertyGroup>
+
+  <!-- The browser build trims every assembly it ships, so all game, engine and host code carries the trim and
+       AOT analyzers: reflection the trimmer cannot follow fails the 0-warning build. Tests may reflect freely. -->
+  <PropertyGroup Condition="!$(MSBuildProjectName.EndsWith('.Tests'))">
+    <IsTrimmable>true</IsTrimmable>
+    <IsAotCompatible>true</IsAotCompatible>
+  </PropertyGroup>
 </Project>

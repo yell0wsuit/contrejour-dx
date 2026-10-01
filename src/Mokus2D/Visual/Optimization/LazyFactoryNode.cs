@@ -1,8 +1,9 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Mokus2D.Visual.Optimization
 {
-    public class LazyFactoryNode<T> where T : Node
+    public class LazyFactoryNode<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor)] T> where T : Node
     {
         private readonly Lazy<T> _value;
 
