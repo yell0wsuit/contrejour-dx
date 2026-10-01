@@ -36,8 +36,6 @@ namespace ContreJour.Gameplay
 
         private bool open;
 
-        private readonly Button restartButton;
-
         private readonly Label scoreLabel;
 
         private readonly ToggleButton soundButton;
@@ -71,23 +69,18 @@ namespace ContreJour.Gameplay
             button.Position = new Vector2(-306f, winSize.Y / 2f);
             button.Color = color;
             button.RealScale = realScale;
-            restartButton = Button.ButtonBigWithIcon("menu/McRestartIcon");
-            clickableLayer.AddChild(restartButton);
-            restartButton.TouchEndEvent += OnRestartClick;
+            // Restart lives next to the pause button, as on the iPad; menu and skip close up around the middle.
             float num = -156f;
-            restartButton.Position = new Vector2(num, (winSize.Y / 2f) + 120f);
-            restartButton.Color = color;
-            restartButton.RealScale = realScale;
             Button button2 = Button.ButtonBigWithIcon("menu/McMenuIcon");
             clickableLayer.AddChild(button2);
             button2.TouchEndEvent += OnMenuClick;
-            button2.Position = new Vector2(num, (winSize.Y / 2f) + 0f);
+            button2.Position = new Vector2(num, (winSize.Y / 2f) + 60f);
             button2.Color = color;
             button2.RealScale = realScale;
             Button button3 = Button.ButtonBigWithIcon("menu/McSkipIcon");
             clickableLayer.AddChild(button3);
             button3.TouchEndEvent += OnSkipClick;
-            button3.Position = new Vector2(num, (winSize.Y / 2f) - 120f);
+            button3.Position = new Vector2(num, (winSize.Y / 2f) - 60f);
             button3.Color = color;
             button3.RealScale = realScale;
             soundButton = new ToggleButton("menu/McSoundIcon", "menu/McDisabledIcon");
@@ -107,7 +100,7 @@ namespace ContreJour.Gameplay
             RefreshSoundButtons();
             soundButton.TouchEndEvent += OnSoundClick;
             musicButton.TouchEndEvent += OnMusicClick;
-            buttons = [button, restartButton, button2, button3];
+            buttons = [button, button2, button3];
             scoreLabel = ContreJourLabelUtil.CreateLabel(15f);
             scoreLabel.Position = new Vector2(-160f, 30f);
             AddChild(scoreLabel);
@@ -150,12 +143,10 @@ namespace ContreJour.Gameplay
             if (levelPosition.Chapter == Constants.NormalChaptersCount - 1 && levelPosition.Index == 19 && UserData.Instance.GetLevelDataByPosition(levelPosition) == null)
             {
                 _ = buttons.RemoveLast();
-                restartButton.Visible = false;
             }
             if (!levelPosition.SkipAvailable)
             {
                 _ = buttons.RemoveLast();
-                restartButton.Visible = false;
             }
             string textString = string.Format(CultureInfo.CurrentCulture, Messages.LevelFormat, levelPosition.Chapter + 1, levelPosition.Index + 1, null);
             levelLabel.TextString = textString;
@@ -247,12 +238,6 @@ namespace ContreJour.Gameplay
 
         private void OnPlayClick(TouchArguments touchArguments)
         {
-            Hide();
-        }
-
-        private void OnRestartClick(TouchArguments touchArguments)
-        {
-            game.Restart();
             Hide();
         }
 

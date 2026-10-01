@@ -54,6 +54,8 @@ namespace ContreJour.Gameplay
 
         public const float RestartTime = 1.5f;
 
+        private const float RestartDisabledOpacity = 150f / 255f;
+
         public const float WindStepWhite = 0.02f;
 
         public const float WindStep = 0.03f;
@@ -87,6 +89,7 @@ namespace ContreJour.Gameplay
         private readonly List<object> positionProviders;
 
         private float providersValue;
+        private readonly Button restartButton;
         private readonly LayerColor restartLayer;
         private readonly LightColor startLightColor;
 
@@ -206,7 +209,18 @@ namespace ContreJour.Gameplay
 
         public Color ButtonsColor => buttonsColor;
 
-        public bool RestartEnabled { get; set; }
+        public bool RestartEnabled
+        {
+            get;
+            set
+            {
+                if (field != value)
+                {
+                    field = value;
+                    RefreshRestartButton();
+                }
+            }
+        }
 
         public bool Finished { get; set; }
 
@@ -281,6 +295,21 @@ namespace ContreJour.Gameplay
                 pauseButton.Position = ContreJourConfig.BackButtonPosition;
                 pauseButton.Color = buttonsColor;
                 ClickableLayer.AddChild(pauseButton);
+                // As on the iPad: a small restart button left of the pause button, 64 points apart at scale 1.
+                restartButton = new Button("menu/McRestartIcon")
+                {
+                    RealScale = 1.3f
+                };
+                restartButton.Icon.Scale = 0.6f;
+                restartButton.TouchEndEvent += delegate
+                {
+                    Restart();
+                };
+                restartButton.Position = ContreJourConfig.BackButtonPosition - new Vector2(64f * restartButton.RealScale, 0f);
+                restartButton.Color = buttonsColor;
+                restartButton.Enabled = false;
+                restartButton.OpacityFloat = RestartDisabledOpacity;
+                ClickableLayer.AddChild(restartButton);
             }
             pausePanel = new PausePanel(this);
             AddChild(pausePanel, 15);
@@ -545,6 +574,17 @@ namespace ContreJour.Gameplay
             {
                 RestartEnabled = true;
             }
+        }
+
+        // The iOS SpriteFader: the restart button dims while a restart is unavailable.
+        private void RefreshRestartButton()
+        {
+            if (restartButton == null)
+            {
+                return;
+            }
+            restartButton.Enabled = RestartEnabled;
+            _ = restartButton.FadeTo(0.15f, RestartEnabled ? 1f : RestartDisabledOpacity);
         }
 
         public void Back()
@@ -829,6 +869,8 @@ namespace ContreJour.Gameplay
             bool newHighScore = levelDataByPosition != null && (levelDataByPosition.Score < num || levelDataByPosition.StarsCount < StarsCollected);
             pauseButton.InteractionsEnabled = false;
             _ = pauseButton.FadeOutAndHide(0.3f);
+            restartButton.InteractionsEnabled = false;
+            _ = restartButton.FadeOutAndHide(0.3f);
             finishView.Show(levelPosition, StarsCollected, num, TotalTime, newHighScore);
             finishView.NextLevelEvent.AddListener(NextLevelEvent.SendEvent);
             FinishWithViewPosition(finishView, zoomPoint);
@@ -854,6 +896,7 @@ namespace ContreJour.Gameplay
         public void HidePause()
         {
             pauseButton?.Enabled = false;
+            restartButton?.Enabled = false;
         }
 
         public void ZoomOut(float time)
