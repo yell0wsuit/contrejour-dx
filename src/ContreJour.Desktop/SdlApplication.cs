@@ -193,7 +193,9 @@ namespace ContreJour.Desktop
             {
                 return CreateAngleDevice(fault, lifetime);
             }
-            SdlGraphicsDevice device = kind == GraphicsBackendKind.OpenGL
+            SdlGraphicsDevice device = kind == GraphicsBackendKind.Vulkan
+                ? new VulkanDevice(fault)
+                : kind == GraphicsBackendKind.OpenGL
                 ? new SdlGlDevice(fault, GlContextProfile.DesktopCore)
                 : kind == GraphicsBackendKind.Metal
                 ? new MetalDevice(fault)
