@@ -7,7 +7,6 @@ using System.Xml.Linq;
 using Mokus2D.Content.Serialization;
 using Mokus2D.Util;
 using Mokus2D.Visual.Data;
-using Mokus2D.Visual.Particles.Data;
 
 namespace Mokus2D.Content
 {
@@ -45,7 +44,6 @@ namespace Mokus2D.Content
         protected ResourcesLoaderBase()
         {
             Deserializers[typeof(AnimationData)] = new AnimationDeserializer(this);
-            Deserializers[typeof(ParticleSystemConfig)] = new ParicleConfigDeserializer();
         }
 
         public void Unload(string name)

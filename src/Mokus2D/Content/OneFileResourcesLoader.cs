@@ -6,18 +6,14 @@ using System.Xml.Linq;
 using Mokus2D.Content.Serialization;
 using Mokus2D.Visual.Data;
 using Mokus2D.Visual.Interfaces;
-using Mokus2D.Visual.Particles.Data;
 
 namespace Mokus2D.Content
 {
     public class OneFileResourcesLoader : ResourcesLoader
     {
-        private static readonly List<Type> SeparateFileTypes = [typeof(ParticleSystemConfig)];
-
         private readonly Dictionary<string, IGraphicsDeserializer> _deserializerByType = [];
 
-        // Sprites and movie clips come from the folder's TexturePacker JSON; animations and particle
-        // configs keep their XML.
+        // Sprites and movie clips come from the folder's TexturePacker JSON; animations keep their XML.
         private static readonly List<Type> AtlasTypes = [typeof(ISpriteData), typeof(IMovieClipData), typeof(SpriteData), typeof(MovieClipData)];
 
         private readonly Dictionary<string, Dictionary<string, Dictionary<string, string>>> _viewsByFolder = [];
@@ -29,10 +25,6 @@ namespace Mokus2D.Content
 
         protected override string GetFileName<T>(string resourceName, string resourceSuffix)
         {
-            if (SeparateFileTypes.Contains(typeof(T)))
-            {
-                return base.GetFileName<T>(resourceName, resourceSuffix);
-            }
             string textureName = GetTextureName(resourceName);
             textureName = ((object)typeof(T) != typeof(AnimationData)) ? (textureName + "sprites" + resourceSuffix) : (textureName + "animations");
             return textureName + ".xml";
@@ -83,10 +75,6 @@ namespace Mokus2D.Content
 
         protected override T ProcessXml<T>(string name, XDocument xml)
         {
-            if (SeparateFileTypes.Contains(typeof(T)))
-            {
-                return base.ProcessXml<T>(name, xml);
-            }
             T val = default;
             string textureName = GetTextureName(name);
             foreach (XElement item in xml.Root.Elements())
