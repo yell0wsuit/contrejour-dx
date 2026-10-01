@@ -35,6 +35,11 @@ jobs:
 
             - uses: ./.github/actions/setup-dotnet
 
+            # The solution includes ContreJour.Browser, which targets net10.0-browser and cannot restore or build
+            # without this workload.
+            - name: Install WebAssembly workload
+              run: dotnet workload install wasm-tools
+
             - name: Restore dependencies
               run: dotnet restore ContreJour.slnx
 

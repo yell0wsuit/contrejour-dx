@@ -1,0 +1,48 @@
+<Project Sdk="Microsoft.NET.Sdk.WebAssembly">
+  <PropertyGroup>
+    <TargetFramework>net10.0-browser</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>ContreJour.Browser</RootNamespace>
+    <!-- The decompiled projects carry their own AssemblyInfo.cs; this one has none. -->
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <!-- The single-threaded runtime: the game, the WebGL context and the animation frame all live on the page's
+         own thread. The threaded build comes later. -->
+    <WasmEnableThreads>false</WasmEnableThreads>
+    <!-- dotnet run serves the interpreter, which is slow on the physics. tools/publish_browser.py publishes
+         with -p:RunAOTCompilation=true, the build that plays at full speed. -->
+    <RunAOTCompilation>false</RunAOTCompilation>
+    <WasmNativeStrip>true</WasmNativeStrip>
+    <!-- The host supplies the language (LocalizationBundle.LocaleOverride); ICU would add ~1MB for nothing. -->
+    <InvariantGlobalization>true</InvariantGlobalization>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SkiaSharp" />
+    <PackageReference Include="SkiaSharp.NativeAssets.WebAssembly" />
+    <EmccExportedRuntimeMethod Include="GL" />
+    <NativeFileReference Include="Native/cjhost.cpp" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../ContreJour/ContreJour.csproj" />
+    <ProjectReference Include="../ContreJour.Browser.Platform/ContreJour.Browser.Platform.csproj" />
+    <ProjectReference Include="../Mokus2D.Rendering.Skia/Mokus2D.Rendering.Skia.csproj" />
+  </ItemGroup>
+
+  <!--
+    The converted content (tools/build_web_content.py) is already-compressed webp/ogg plus one big
+    metadata.json. Letting the WASM SDK fingerprint and Brotli-compress it would add minutes to publish, so it
+    ships as plain static files.
+  -->
+  <ItemGroup>
+    <Content Update="wwwroot/content/**" CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <!--
+    wwwroot/favicon.ico and wwwroot/icon-512.png are copies of distribution/icons/ContreJourDXIcon.ico and
+    ContreJourDXIcon_512.png. They are copied rather than linked in from there: linking gives the asset a content
+    root of wwwroot while its identity stays in distribution, and the dev server reads content from the content
+    root, so `dotnet run` answers both with an empty 200 and the page shows a broken image. Refresh them from
+    distribution/icons if the app icon ever changes.
+  -->
+</Project>
