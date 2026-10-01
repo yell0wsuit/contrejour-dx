@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Numerics;
 
-using ContreJour.Clips.common;
+using ContreJour.Clips;
 using ContreJour.Content;
 using ContreJour.Gameplay.Eyes;
 using ContreJour.Gameplay.Hero;
@@ -53,7 +53,7 @@ namespace ContreJour.Gameplay
         protected bool Finished { get; set; }
 
         private bool hasToYawn;
-        private readonly McHotspotwhite hotspot;
+        private readonly Sprite hotspot;
 
         private Vector2 initialPosition;
 
@@ -147,7 +147,7 @@ namespace ContreJour.Gameplay
             Body.IsBullet = true;
             if (Game.BlackSide || Game.WhiteSide || Game.BonusChapter)
             {
-                bodyBackground = (Sprite)ClipTypesCache.CreateNewNode(Game.ChooseSide("McHeroBlackView", "McHeroWhiteView", "McHeroBackView", "McHeroBackView", "McHeroView_6"));
+                bodyBackground = (Sprite)ClipCatalog.Create(Game.ChooseSide("McHeroBlackView", "McHeroWhiteView", "McHeroBackView", "McHeroBackView", "McHeroView_6"));
                 LevelBuilderBase.ReplaceChildWith(clip, bodyBackground);
             }
             else
@@ -159,7 +159,7 @@ namespace ContreJour.Gameplay
             clip = new Node();
             Clip = clip;
             clip.Position = position;
-            shadow = (Sprite)ClipTypesCache.CreateNewNode(Game.ChooseSide("McHeroShadow", "McHeroShadowWhite", "McHeroShadow", "McHeroShadow"));
+            shadow = (Sprite)ClipCatalog.Create(Game.ChooseSide("McHeroShadow", "McHeroShadowWhite", "McHeroShadow", "McHeroShadow"));
             clip.AddChild(shadow);
             builder.Add(clip, 10);
             bodyBackground.Parent.RemoveChild(bodyBackground);
@@ -187,7 +187,7 @@ namespace ContreJour.Gameplay
             }
             onGroundTime = 0f;
             Config["hasDust"] = true;
-            hotspot = new McHotspotwhite();
+            hotspot = new Sprite(ClipIds.Common.McHotspotwhite);
             clip.AddChild(hotspot);
             Eye = new HeroEye(Game);
             eyeScale = Eye.Scale;

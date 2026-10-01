@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Numerics;
 
-using ContreJour.Clips.common;
+using ContreJour.Clips;
 using ContreJour.Primitives;
 
 using Mokus2D.Util.Data;
@@ -37,7 +37,7 @@ namespace ContreJour.Gameplay
         {
             endInit = END;
             middleInit = MIDDLE;
-            BaseSprite = new McFlowerHead();
+            BaseSprite = new Sprite(ClipIds.Common.McFlowerHead);
             _eye = eye;
             _eye.Position = end;
             middle = middleInit;

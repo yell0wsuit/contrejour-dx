@@ -1,8 +1,7 @@
 using System.Globalization;
 using System.Numerics;
 
-using ContreJour.Clips.menu;
-using ContreJour.Clips.planets;
+using ContreJour.Clips;
 using ContreJour.Utils;
 
 using Mokus2D.Events;
@@ -68,7 +67,7 @@ namespace ContreJour.Gameplay
 
         protected override void CreateSprites()
         {
-            Background = new McPlanetLocked();
+            Background = new Sprite(ClipIds.Planets.McPlanetLocked);
             Container.AddChild(Background);
             tablo = new Tablo
             {
@@ -84,14 +83,14 @@ namespace ContreJour.Gameplay
             label.Color = Index == 1 ? Color.Lerp(ContreJourConstants.GreyColor, tablo.Color, 0.7f) : tablo.Color;
             tablo.AddChild(label);
             label.Position = new Vector2(60f, 46f);
-            McEnergyIcon node = new();
+            Sprite node = new(ClipIds.Menu.McEnergyIcon);
             tablo.AddChild(node);
             node.Position = new Vector2(100f, 46f);
-            McLockIcon sprite = new();
+            Sprite sprite = new(ClipIds.Menu.McLockIcon);
             tablo.AddChild(sprite);
             sprite.Position = new Vector2(24f, 46f);
             sprite.Color = label.Color;
-            BlurBackground = new McChapterLockedBlur();
+            BlurBackground = new Sprite(ClipIds.Planets.McChapterLockedBlur);
             HidingItems.Add(label);
             HidingItems.Add(tablo);
             HidingItems.Add(node);

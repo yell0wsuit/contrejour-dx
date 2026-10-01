@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Numerics;
 
-using ContreJour.Clips.menu;
+using ContreJour.Clips;
 using ContreJour.Config;
 using ContreJour.Utils;
 
@@ -55,7 +55,7 @@ namespace ContreJour.Gameplay
             Position = new Vector2(winSize.X, 0f);
             AddChild(backgroundLayer);
             backgroundLayer.OpacityByte = 0;
-            McRightPanelBackground sprite = new();
+            Sprite sprite = new(ClipIds.Menu.McRightPanelBackground);
             AddChild(sprite);
             sprite.Scale = Math.Max((winSize.Y + 10f) / sprite.Size.Y * 1.4f, 358f / sprite.Size.X);
             sprite.Position = new Vector2(sprite.ScaledSize.X + -306f - 52f, (0f - sprite.Size.Y) * 0.2f);

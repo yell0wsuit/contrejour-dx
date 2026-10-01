@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Numerics;
 
-using ContreJour.Clips.menu;
+using ContreJour.Clips;
 using ContreJour.Config;
 using ContreJour.Gameplay.Interfaces;
 using ContreJour.Utils;
@@ -29,9 +29,9 @@ namespace ContreJour.Gameplay
 
         public EventSender ExitEvent { get; } = new();
 
-        private McMenuGroundPhone ground;
+        private Sprite ground;
 
-        private McMainMenuLogo logo;
+        private Sprite logo;
 
         private List<Sprite> backgroundImages;
 
@@ -39,7 +39,7 @@ namespace ContreJour.Gameplay
 
         private Label starsField;
 
-        private McEnergyIcon starsIcon;
+        private Sprite starsIcon;
 
         private Vector2 centerPosition;
 
@@ -297,7 +297,7 @@ namespace ContreJour.Gameplay
             namesPosition = new Vector2(190f, winSize.Y - 136f);
             names.Position = namesPosition;
             AddChild(names, 4);
-            logo = new McMainMenuLogo();
+            logo = new Sprite(ClipIds.Menu.McMainMenuLogo);
             AddChild(logo, 4);
             logo.Position = new Vector2(winSize.X - 80f - logo.Size.X, winSize.Y);
             if (ContreJourConfig.BackButtonVisible)
@@ -333,8 +333,8 @@ namespace ContreJour.Gameplay
             AddChild(blackLayer, 2);
             blackLayer.OpacityByte = 0;
             blackLayer.Visible = false;
-            ground = new McMenuGroundPhone();
-            McMenuGroundPhone mcMenuGroundPhone = new();
+            ground = new Sprite(ClipIds.Menu.McMenuGroundPhone);
+            Sprite mcMenuGroundPhone = new(ClipIds.Menu.McMenuGroundPhone);
             ground.AddChild(mcMenuGroundPhone);
             mcMenuGroundPhone.Position = new Vector2(ground.Size.X - 2f, winSize.Y + 4f);
             mcMenuGroundPhone.RotationDegrees = 180f;
@@ -351,7 +351,7 @@ namespace ContreJour.Gameplay
 
         public void CreateScore()
         {
-            starsIcon = new McEnergyIcon();
+            starsIcon = new Sprite(ClipIds.Menu.McEnergyIcon);
             AddChild(starsIcon, 4);
             starsIcon.Position = new Vector2(20f, scoreY);
             starsIcon.Scale = 1.3f;

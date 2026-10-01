@@ -39,8 +39,8 @@ namespace ContreJour.Menu.LevelComplete
         {
             string name = ProcessName("McFakeHeroEye");
             string name2 = ProcessName("McFakeHeroEyeBall");
-            Background = (Sprite)ClipTypesCache.CreateNewNode(name);
-            EyeBallSprite = (Sprite)ClipTypesCache.CreateNewNode(name2);
+            Background = (Sprite)ClipCatalog.Create(name);
+            EyeBallSprite = (Sprite)ClipCatalog.Create(name2);
         }
 
         public override void Update(float time)

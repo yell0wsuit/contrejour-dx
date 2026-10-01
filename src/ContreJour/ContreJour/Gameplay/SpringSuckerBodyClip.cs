@@ -1,7 +1,7 @@
 using System;
 using System.Numerics;
 
-using ContreJour.Clips.chapter5;
+using ContreJour.Clips;
 
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Dynamics.Contacts;
@@ -79,7 +79,7 @@ namespace ContreJour.Gameplay
 
         public override Node CreatePimpa()
         {
-            return new McSuckerBody();
+            return new Sprite(ClipIds.Chapter5.McSuckerBody);
         }
 
         public static void CreateLegs()

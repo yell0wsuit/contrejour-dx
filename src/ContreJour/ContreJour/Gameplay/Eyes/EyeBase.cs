@@ -1,6 +1,6 @@
 using System.Numerics;
 
-using ContreJour.Clips.common;
+using ContreJour.Clips;
 using ContreJour.Content;
 
 using Mokus2D.Util.Extensions;
@@ -87,13 +87,13 @@ namespace ContreJour.Gameplay.Eyes
 
         private Node Create(string name)
         {
-            return name == null ? null : ClipTypesCache.CreateNewNode(ProcessName(name));
+            return name == null ? null : ClipCatalog.Create(ProcessName(name));
         }
 
         protected virtual void CreateDefaultView()
         {
-            Background = new McEye();
-            EyeBallSprite = new McEyeBall();
+            Background = new Sprite(ClipIds.Common.McEye);
+            EyeBallSprite = new Sprite(ClipIds.Common.McEyeBall);
         }
 
         public void SetDefaultView()

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 
+using ContreJour.Clips;
 using ContreJour.Clips.level1;
 using ContreJour.Config;
 using ContreJour.Gameplay.Rose;
@@ -30,13 +31,13 @@ namespace ContreJour.Gameplay
 
         private readonly ContreJourGame game;
 
-        private McRoseHeadBack headBack;
+        private Sprite headBack;
 
         private McRoseHeadDown headDown;
 
         private McRoseHeadFront headFront;
 
-        private McRoseHeadLight headLight;
+        private Sprite headLight;
 
         private IntroPlayer intro;
 
@@ -121,9 +122,9 @@ namespace ContreJour.Gameplay
             }
             intro = new IntroPlayer(game);
             _ = Builder.AddChild(intro);
-            stalk = new McStebloAnimation();
-            headLight = new McRoseHeadLight();
-            headBack = new McRoseHeadBack();
+            stalk = new MovieClip(ClipIds.Level1.McStebloAnimation);
+            headLight = new Sprite(ClipIds.Level1.McRoseHeadLight);
+            headBack = new Sprite(ClipIds.Level1.McRoseHeadBack);
             headFront = new McRoseHeadFront();
             headDown = new McRoseHeadDown();
             headDown.content.light.Visible = false;

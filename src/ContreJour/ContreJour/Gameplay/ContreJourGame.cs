@@ -728,7 +728,7 @@ namespace ContreJour.Gameplay
         {
             string text = background.GetString("type");
             texturesToUnload.Add(text);
-            Node node = ClipTypesCache.CreateNewNode(text);
+            Node node = ClipCatalog.Create(text);
             Hashtable hashtable = background.GetHashtable("config");
             Vector2 vector = background.GetVector("position");
             Vector2 vector2 = background.GetVector("scale");

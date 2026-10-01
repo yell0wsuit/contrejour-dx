@@ -1,8 +1,9 @@
 using System.Numerics;
 
-using ContreJour.Clips.menu2;
+using ContreJour.Clips;
 
 using Mokus2D.Util.MathUtils;
+using Mokus2D.Visual;
 
 namespace ContreJour.Gameplay
 {
@@ -10,8 +11,8 @@ namespace ContreJour.Gameplay
     {
         protected override void CreateSprites()
         {
-            Background = new McPlanet4Background();
-            BlurBackground = new McChapter4Blur();
+            Background = new Sprite(ClipIds.Menu2.McPlanet4Background);
+            BlurBackground = new Sprite(ClipIds.Menu2.McChapter4Blur);
             Container.AddChild(Background);
             CreateBouncingSprite("menu2/McPlanet4Spring0", 40, new Vector2(-41f, 49f), 1f).Step = Maths.Random(0.05f, 0.08f);
             CreateBouncingSprite("menu2/McPlanet4Spring1", -70, new Vector2(69f, 24f), 1f).Step = Maths.Random(0.05f, 0.08f);

@@ -1,8 +1,7 @@
 using System;
 using System.Numerics;
 
-using ContreJour.Clips.chapter5;
-using ContreJour.Clips.common;
+using ContreJour.Clips;
 
 using FarseerPhysics.Collision.Shapes;
 using FarseerPhysics.Dynamics;
@@ -49,7 +48,7 @@ namespace ContreJour.Gameplay
 
         private readonly Node ghostPimpa;
 
-        private readonly McRoundDragFrameView limit;
+        private readonly Sprite limit;
 
         protected float MaxDistance { get; set; }
 
@@ -114,22 +113,22 @@ namespace ContreJour.Gameplay
             GhostSprite.AddChild(ghostNeck);
             ghostPimpa = CreatePimpa();
             GhostSprite.AddChild(ghostPimpa);
-            limit = new McRoundDragFrameView();
+            limit = new Sprite(ClipIds.Common.McRoundDragFrameView);
             Builder.Add(limit, -1);
             limit.Position = Builder.ToPoint(Body.Position);
             limit.Scale = num / 200f;
             Neck = CreateNeck();
             Clip.AddChild(Neck);
-            Node node = new McSuckerHighlite();
+            Node node = new Sprite(ClipIds.Chapter5.McSuckerHighlite);
             Clip.AddChild(node);
-            Sprite node2 = new McSuckerStart();
+            Sprite node2 = new(ClipIds.Common.McSuckerStart);
             Clip.AddChild(node2);
             eye = new MonsterEye(Game, visible: false, Body.Position);
             Clip.AddChild(eye);
             eye.Visible = false;
             pimpa = new Node();
             Clip.AddChild(pimpa);
-            pimpaHighlite = new McSuckerHighlite();
+            pimpaHighlite = new Sprite(ClipIds.Chapter5.McSuckerHighlite);
             pimpa.AddChild(pimpaHighlite);
             Node node3 = CreatePimpa();
             pimpa.AddChild(node3);
@@ -202,7 +201,7 @@ namespace ContreJour.Gameplay
 
         public virtual Node CreatePimpa()
         {
-            return new McSuckerBodyStrong();
+            return new Sprite(ClipIds.Chapter5.McSuckerBodyStrong);
         }
 
         protected virtual SuckerNeckSprite CreateNeck()

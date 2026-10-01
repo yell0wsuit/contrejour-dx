@@ -1,7 +1,7 @@
 using System;
 using System.Numerics;
 
-using ContreJour.Clips.chapter5;
+using ContreJour.Clips;
 using ContreJour.Gameplay.Eyes;
 
 using Mokus2D.Input;
@@ -41,7 +41,7 @@ namespace ContreJour.Gameplay
         public FlyBodyClip(LevelBuilderBase builder, object body, Node clip, Hashtable config)
             : base(builder, body, clip, config)
         {
-            bodySprite = new McFlyBody();
+            bodySprite = new Sprite(ClipIds.Chapter5.McFlyBody);
             clip = bodySprite;
             Clip = clip;
             _ = builder.AddChild(clip);

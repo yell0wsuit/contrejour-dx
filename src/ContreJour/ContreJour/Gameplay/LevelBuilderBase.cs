@@ -171,7 +171,7 @@ namespace ContreJour.Gameplay
 
         public static Node ReplaceClipWith(Node clip, string clipName)
         {
-            return ReplaceClipWithNode(clip, ClipTypesCache.CreateNewNode(clipName));
+            return ReplaceClipWithNode(clip, ClipCatalog.Create(clipName));
         }
 
         public static void ReplaceChildWith(Node source, Node with)
@@ -315,7 +315,7 @@ namespace ContreJour.Gameplay
                 Node node = null;
                 if (viewType is not null and not "null")
                 {
-                    node = ClipTypesCache.CreateNewNode(viewType);
+                    node = ClipCatalog.Create(viewType);
                     Vector2 vector = hashtable.GetVector("scale");
                     node.ScaleX = vector.X;
                     node.ScaleY = vector.Y;

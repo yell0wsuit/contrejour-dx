@@ -1,8 +1,7 @@
 using System;
 using System.Numerics;
 
-using ContreJour.Clips.fakeHero;
-using ContreJour.Clips.loading;
+using ContreJour.Clips;
 using ContreJour.Config;
 using ContreJour.Menu.LevelComplete;
 using ContreJour.Utils;
@@ -29,7 +28,7 @@ namespace ContreJour.Gameplay
 
         private Vector2 center;
 
-        private McMokusLogo mokusLogo;
+        private Sprite mokusLogo;
 
         private FakeHeroBlack blackHero;
 
@@ -53,7 +52,7 @@ namespace ContreJour.Gameplay
 
         private void Begin()
         {
-            _ = new McFakeHeroEyeOpen();
+            _ = new MovieClip(ClipIds.FakeHero.McFakeHeroEyeOpen);
             background = new LayerColor(Color.White, "menu/whitePixel");
             AddChild(background);
             center = ScreenConstants.W7FromIPhoneScreenCenter;
@@ -122,7 +121,7 @@ namespace ContreJour.Gameplay
 
         private void ShowMokus()
         {
-            mokusLogo = new McMokusLogo();
+            mokusLogo = new Sprite(ClipIds.Loading.McMokusLogo);
             AddChild(mokusLogo);
             mokusLogo.Position = center;
             _ = background.Tweener.Start(1f).Tween(NodeValues.Color, Color.Black);
@@ -184,7 +183,7 @@ namespace ContreJour.Gameplay
             Node node = new();
             LayerColor layerColor = new(Color.Black, "menu/whitePixel");
             node.AddChild(layerColor);
-            Sprite sprite = new McHeadphones
+            Sprite sprite = new(ClipIds.Loading.McHeadphones)
             {
                 Position = ScreenConstants.W7FromIPhoneScreenCenter,
                 IgnoreParentColor = true

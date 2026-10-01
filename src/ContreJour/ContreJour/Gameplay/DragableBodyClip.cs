@@ -1,6 +1,6 @@
 using System.Numerics;
 
-using ContreJour.Clips.common;
+using ContreJour.Clips;
 
 using FarseerPhysics.Collision.Shapes;
 using FarseerPhysics.Dynamics;
@@ -57,7 +57,7 @@ namespace ContreJour.Gameplay
 
         private readonly float lowerLimit;
 
-        private McDragLimit middle;
+        private Sprite middle;
 
         private Vector2 targetPosition;
 
@@ -174,7 +174,7 @@ namespace ContreJour.Gameplay
 
         protected virtual void CreateBoundsClip(float scale)
         {
-            middle = new McDragLimit();
+            middle = new Sprite(ClipIds.Common.McDragLimit);
             Vector2 vector = VectorUtil.ToVector(upperLimit / (1f / 30f), float.DegreesToRadians(Clip.RotationDegrees));
             Vector2 position = Clip.Position;
             Builder.AddChildBefore(middle, Clip);

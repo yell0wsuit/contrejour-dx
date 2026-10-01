@@ -1,10 +1,11 @@
 using System;
 using System.Numerics;
 
-using ContreJour.Clips.planets;
+using ContreJour.Clips;
 
 using Mokus2D;
 using Mokus2D.Util.MathUtils;
+using Mokus2D.Visual;
 using Mokus2D.Visual.Particles.Util;
 
 namespace ContreJour.Gameplay
@@ -15,8 +16,8 @@ namespace ContreJour.Gameplay
 
         protected override void CreateSprites()
         {
-            Background = new McPlanet2Background();
-            BlurBackground = new McChapter2Blur();
+            Background = new Sprite(ClipIds.Planets.McPlanet2Background);
+            BlurBackground = new Sprite(ClipIds.Planets.McChapter2Blur);
             _ = CreateBouncingSprite("planets/McPlanetSpringBack", 45, new Vector2(-69f, 26f), 0.8f);
             _ = CreateBouncingSprite("planets/McPlanetSpringBack", -150, new Vector2(26f, -73f), 0.7f);
             Container.AddChild(Background);

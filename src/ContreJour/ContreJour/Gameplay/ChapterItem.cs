@@ -2,8 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-using ContreJour.Clips.menu;
-using ContreJour.Clips.planets;
+using ContreJour.Clips;
 
 using Mokus2D.Graphics;
 using Mokus2D.Interfaces;
@@ -20,7 +19,7 @@ namespace ContreJour.Gameplay
 
         protected List<object> AlphaItems { get; set; } = [];
 
-        private McChapterLight backLight;
+        private Sprite backLight;
 
         protected Sprite Background { get; set; }
 
@@ -124,7 +123,7 @@ namespace ContreJour.Gameplay
 
         protected virtual void CreateBackLight()
         {
-            backLight = new McChapterLight
+            backLight = new Sprite(ClipIds.Menu.McChapterLight)
             {
                 Scale = 2.5f
             };
@@ -144,8 +143,8 @@ namespace ContreJour.Gameplay
 
         protected virtual void CreateSprites()
         {
-            Background = new McPlanet1Background();
-            BlurBackground = new McChapter1Blur();
+            Background = new Sprite(ClipIds.Planets.McPlanet1Background);
+            BlurBackground = new Sprite(ClipIds.Planets.McChapter1Blur);
             AddChild(Background);
         }
 

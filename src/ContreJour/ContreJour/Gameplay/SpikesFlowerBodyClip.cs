@@ -2,8 +2,6 @@ using System;
 using System.Numerics;
 
 using ContreJour.Clips;
-using ContreJour.Clips.common;
-using ContreJour.Clips.common2;
 
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Dynamics.Contacts;
@@ -40,7 +38,7 @@ namespace ContreJour.Gameplay
             }
             container = new Node();
             Clip.AddChild(container, -1);
-            Node node = new McSpikesFlowerShadow
+            Sprite node = new(ClipIds.Common.McSpikesFlowerShadow)
             {
                 Scale = Clip.ScaleY
             };
@@ -115,7 +113,7 @@ namespace ContreJour.Gameplay
         public void CreateDeadEye()
         {
             Body val = Builder.World.CreateCircle(16f * Builder.EngineConfig.SizeMultiplier * hero.DeadEyeScale(), Body.Position, 0f, Builder.EngineConfig.Density, dynamic: true);
-            Node node = (Game.WhiteSide || Game.BonusChapter) ? new McEyeDeadBlack() : new McEyeDead();
+            Sprite node = (Game.WhiteSide || Game.BonusChapter) ? new Sprite(ClipIds.Common2.McEyeDeadBlack) : new Sprite(ClipIds.Common.McEyeDead);
             if (Game.BonusChapter)
             {
                 node.Color = ContreJourConstants.GreenLightColor;

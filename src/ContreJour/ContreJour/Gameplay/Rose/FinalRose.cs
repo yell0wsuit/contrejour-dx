@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 
+using ContreJour.Clips;
 using ContreJour.Clips.level1;
 
 using Mokus2D.Util;
@@ -70,7 +71,7 @@ namespace ContreJour.Gameplay.Rose
         {
             player = new AnimationPlayer(this);
             player.EndEvent += PlayerOnEndEvent;
-            AddChildPart(new McStebloAnimation());
+            AddChildPart(new MovieClip(ClipIds.Level1.McStebloAnimation));
             AddChildPart(new McLystok2());
             head = new McRoseHeadDown();
             AddChildPart(head);

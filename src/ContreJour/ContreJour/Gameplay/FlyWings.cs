@@ -1,6 +1,6 @@
 using System.Numerics;
 
-using ContreJour.Clips.chapter5;
+using ContreJour.Clips;
 
 using Mokus2D.Effects.Tween.Easing;
 using Mokus2D.Util.Extensions;
@@ -28,8 +28,8 @@ namespace ContreJour.Gameplay
 
         public FlyWings()
         {
-            top = new McFlyWing();
-            bottom = new McFlyWing();
+            top = new Sprite(ClipIds.Chapter5.McFlyWing);
+            bottom = new Sprite(ClipIds.Chapter5.McFlyWing);
             topContainer = new Node();
             bottomContainer = new Node();
             topContainer.AddChild(top);

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Numerics;
 
-using ContreJour.Clips.level1;
+using ContreJour.Clips;
 using ContreJour.Utils;
 
 using Mokus2D.Graphics;
@@ -52,7 +52,7 @@ namespace ContreJour.Gameplay
 
         private void PlayLogo()
         {
-            McIntroLogo sprite = new();
+            Sprite sprite = new(ClipIds.Level1.McIntroLogo);
             AddChild(sprite);
             sprite.Position = textPosition;
             FadeItemShowTime(sprite, 6f);

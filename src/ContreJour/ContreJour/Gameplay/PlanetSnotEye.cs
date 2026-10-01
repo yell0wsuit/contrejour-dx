@@ -1,8 +1,10 @@
 using System;
 using System.Numerics;
 
-using ContreJour.Clips.common;
+using ContreJour.Clips;
 using ContreJour.Gameplay.Eyes;
+
+using Mokus2D.Visual;
 
 namespace ContreJour.Gameplay
 {
@@ -20,8 +22,8 @@ namespace ContreJour.Gameplay
 
         protected override void CreateDefaultView()
         {
-            Background = new McEyeMonster();
-            EyeBallSprite = new McEyeBallMonster();
+            Background = new Sprite(ClipIds.Common.McEyeMonster);
+            EyeBallSprite = new Sprite(ClipIds.Common.McEyeBallMonster);
         }
 
         protected override float MaxAngle()

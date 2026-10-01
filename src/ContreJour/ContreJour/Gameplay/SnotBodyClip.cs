@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Numerics;
 
-using ContreJour.Clips.common;
+using ContreJour.Clips;
 
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Dynamics.Joints;
@@ -43,7 +43,7 @@ namespace ContreJour.Gameplay
 
         private bool hasRelease;
 
-        private McSnotEndHighlite highlite;
+        private Sprite highlite;
 
         private CosChanger highliteChanger;
 
@@ -242,7 +242,7 @@ namespace ContreJour.Gameplay
         {
             if (!game.BlackSide && !Game.WhiteSide && !Game.BonusChapter)
             {
-                highlite = new McSnotEndHighlite();
+                highlite = new Sprite(ClipIds.Common.McSnotEndHighlite);
                 highliteChanger = new CosChanger(0.05f, 0.1f);
             }
         }

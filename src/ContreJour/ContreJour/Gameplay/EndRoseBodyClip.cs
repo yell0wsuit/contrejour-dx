@@ -1,8 +1,7 @@
 using System;
 using System.Numerics;
 
-using ContreJour.Clips.chapter5;
-using ContreJour.Clips.menu2;
+using ContreJour.Clips;
 using ContreJour.Utils;
 
 using Mokus2D.Graphics;
@@ -71,7 +70,7 @@ namespace ContreJour.Gameplay
 
         private void AddLight()
         {
-            Sprite sprite = new McRoseLight
+            Sprite sprite = new(ClipIds.Menu2.McRoseLight)
             {
                 Position = new Vector2(22f, 114f) + Clip.Position,
                 Blend = BlendMode.Additive,
@@ -89,7 +88,7 @@ namespace ContreJour.Gameplay
 
         public void DropTear()
         {
-            McTear mcTear = new()
+            MovieClip mcTear = new(ClipIds.Chapter5.McTear)
             {
                 Repeat = false
             };

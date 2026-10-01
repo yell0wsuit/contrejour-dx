@@ -1,7 +1,9 @@
 using System.Numerics;
 
-using ContreJour.Clips.chapter1;
+using ContreJour.Clips;
 using ContreJour.Gameplay.Eyes;
+
+using Mokus2D.Visual;
 
 namespace ContreJour.Gameplay
 {
@@ -31,11 +33,11 @@ namespace ContreJour.Gameplay
 
         protected override void CreateDefaultView()
         {
-            Background = new McBackSnotEye
+            Background = new Sprite(ClipIds.Chapter1.McBackSnotEye)
             {
                 Test = true
             };
-            EyeBallSprite = new McBackSnotEyeBall();
+            EyeBallSprite = new Sprite(ClipIds.Chapter1.McBackSnotEyeBall);
         }
     }
 }

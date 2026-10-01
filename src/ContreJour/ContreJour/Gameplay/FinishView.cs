@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Numerics;
 
-using ContreJour.Clips.menu;
+using ContreJour.Clips;
 using ContreJour.Config;
 using ContreJour.Menu.LevelComplete;
 using ContreJour.Utils;
@@ -49,7 +49,7 @@ namespace ContreJour.Gameplay
 
         private FakeHero hero;
 
-        private McHeroHighliteMenu highlite;
+        private Sprite highlite;
 
         private Label levelField;
 
@@ -63,7 +63,7 @@ namespace ContreJour.Gameplay
 
         private Button skipButton;
 
-        private McImprovedResult stamp;
+        private Sprite stamp;
 
         private int stars;
 
@@ -114,7 +114,7 @@ namespace ContreJour.Gameplay
                 color = this.color;
                 color2 = ContreJourConstants.GreenLightColor * 0.5f;
             }
-            McLevelComplete sprite = new();
+            Sprite sprite = new(ClipIds.Menu.McLevelComplete);
             AddChild(sprite);
             Vector2 rootSize = ContreJourConfig.RootSize;
             center = new Vector2(rootSize.X / 2f, rootSize.Y / 2f);
@@ -170,7 +170,7 @@ namespace ContreJour.Gameplay
             energies = [];
             for (int num2 = 0; num2 < 3; num2++)
             {
-                Sprite energy = (num2 < stars) ? new McEnergyBig() : new McEnergyBigInactive();
+                Sprite energy = (num2 < stars) ? new Sprite(ClipIds.Menu.McEnergyBig) : new Sprite(ClipIds.Menu.McEnergyBigInactive);
                 energy.OpacityByte = (num2 < stars) ? 255 : 70;
                 energy.Scale = 1.7f;
                 energy.Visible = false;
@@ -201,7 +201,7 @@ namespace ContreJour.Gameplay
             levelField.Position = new Vector2(-30f, 46f);
             levelField.OpacityByte = 0;
             _ = this.Schedule(0.5f, ShowLevel);
-            highlite = new McHeroHighliteMenu
+            highlite = new Sprite(ClipIds.Menu.McHeroHighliteMenu)
             {
                 Scale = 10f,
                 OpacityFloat = 0.4f
@@ -344,7 +344,7 @@ namespace ContreJour.Gameplay
 
         private void ShowLine()
         {
-            McTotalLine mcTotalLine = new()
+            MovieClip mcTotalLine = new(ClipIds.Menu.McTotalLine)
             {
                 Color = color
             };
@@ -370,7 +370,7 @@ namespace ContreJour.Gameplay
 
         private void ShowNewHighScore()
         {
-            stamp = new McImprovedResult();
+            stamp = new Sprite(ClipIds.Menu.McImprovedResult);
             Label label = ContreJourLabelUtil.CreateMultilineLabel(20f, "IMPROVED_RESULT");
             label.AnchorY = 0.5f;
             label.LineSpacing = -10f;

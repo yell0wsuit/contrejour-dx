@@ -1,6 +1,6 @@
 using System.Numerics;
 
-using ContreJour.Clips.common;
+using ContreJour.Clips;
 
 using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual;
@@ -11,7 +11,7 @@ namespace ContreJour.Gameplay
     {
         private float radius;
 
-        private McRoundDragFrameView middleSprite;
+        private Sprite middleSprite;
 
         private static readonly Vector2 TouchCenterOffset = new(42f, 42f);
 
@@ -26,7 +26,7 @@ namespace ContreJour.Gameplay
 
         protected override void CreateBoundsClip(float scale)
         {
-            middleSprite = new McRoundDragFrameView();
+            middleSprite = new Sprite(ClipIds.Common.McRoundDragFrameView);
             radius = 200f * scale * Builder.EngineConfig.SizeMultiplier / 2f;
             middleSprite.Scale = scale * 200f / 200f;
             middleSprite.Position = Clip.Position;

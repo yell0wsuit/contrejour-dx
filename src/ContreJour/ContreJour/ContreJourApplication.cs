@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Numerics;
 
-using ContreJour.Clips.menu;
+using ContreJour.Clips;
 using ContreJour.Clips.menu2;
 using ContreJour.Config;
 using ContreJour.Gameplay;
@@ -189,22 +189,22 @@ namespace ContreJour
                 Root.X = num4;
                 _gameContainer.Scale *= num3 / size.X;
                 vector.X = num3;
-                whitePixel whitePixel2 = new()
+                Sprite whitePixel2 = new(ClipIds.Menu.whitePixel)
                 {
                     ScaledSize = new Vector2(num4, size.Y),
                     X = 0f - num4,
                     Y = size.Y,
                     Color = Color.Black
                 };
-                whitePixel node = whitePixel2;
-                whitePixel whitePixel3 = new()
+                Sprite node = whitePixel2;
+                Sprite whitePixel3 = new(ClipIds.Menu.whitePixel)
                 {
                     ScaledSize = new Vector2(num4, size.Y),
                     X = num3,
                     Y = size.Y,
                     Color = Color.Black
                 };
-                whitePixel node2 = whitePixel3;
+                Sprite node2 = whitePixel3;
                 Root.AddChild(node, 1);
                 Root.AddChild(node2, 1);
             }

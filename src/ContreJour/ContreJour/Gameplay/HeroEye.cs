@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Numerics;
 
-using ContreJour.Clips.common2;
+using ContreJour.Clips;
 using ContreJour.Content;
 using ContreJour.Gameplay.Eyes;
 
@@ -147,8 +147,8 @@ namespace ContreJour.Gameplay
                 base.CreateDefaultView();
                 return;
             }
-            Background = new McEyeBlack();
-            EyeBallSprite = (Sprite)ClipTypesCache.CreateNewNode(Game.ChooseSide("McEyeBallBlack", "McEyeBallWhite", null, null, "McEyeBall_6"));
+            Background = new Sprite(ClipIds.Common2.McEyeBlack);
+            EyeBallSprite = (Sprite)ClipCatalog.Create(Game.ChooseSide("McEyeBallBlack", "McEyeBallWhite", null, null, "McEyeBall_6"));
         }
 
         protected override string ProcessName(string name)
