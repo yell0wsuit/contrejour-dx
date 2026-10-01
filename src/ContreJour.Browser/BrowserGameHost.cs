@@ -32,11 +32,12 @@ namespace ContreJour.Browser
 
         public bool IsActive { get; set; } = true;
 
-        // Leaving and entering full screen is the browser's; a request outside a user gesture is refused.
+        // The browser build has no full screen of its own; the game's request at startup is ignored. The
+        // browser's own full screen (F11) only resizes the page, which the letterbox follows.
         public bool IsFullScreen
         {
-            get => PageInterop.IsFullScreen();
-            set => PageInterop.SetFullScreen(value);
+            get => false;
+            set { }
         }
 
         public Point PreferredBackBufferSize { get; set; }

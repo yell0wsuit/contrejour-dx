@@ -31,12 +31,6 @@ namespace ContreJour.Browser
         [JSImport("setLoadingProgress", "page")]
         public static partial void ReportProgress(string type, int loaded, int total);
 
-        [JSImport("isFullScreen", "page")]
-        public static partial bool IsFullScreen();
-
-        [JSImport("setFullScreen", "page")]
-        public static partial void SetFullScreen(bool on);
-
         [JSImport("setCursorVisible", "page")]
         public static partial void SetCursorVisible(bool visible);
     }

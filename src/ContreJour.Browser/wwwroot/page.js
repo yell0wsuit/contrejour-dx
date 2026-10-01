@@ -1,6 +1,6 @@
 import * as hostEvents from "./host-events.js";
 
-// The page side of the browser host: canvas shape, screen, language, progress text, full screen and cursor.
+// The page side of the browser host: canvas shape, screen, language, progress text and cursor.
 
 const MAX_PIXEL_RATIO = 2;
 
@@ -47,19 +47,6 @@ export function setLoadingProgress(type, loaded, total) {
     const progress = document.getElementById("splash-progress");
     if (progress !== null) {
         progress.textContent = `Loading ${type}: ${loaded} of ${total}…`;
-    }
-}
-
-export function isFullScreen() {
-    return document.fullscreenElement != null;
-}
-
-// Outside a user gesture the browser refuses; that is not an error worth reporting.
-export function setFullScreen(on) {
-    if (on && document.fullscreenElement == null) {
-        void document.documentElement.requestFullscreen?.().catch(() => {});
-    } else if (!on && document.fullscreenElement != null) {
-        void document.exitFullscreen?.().catch(() => {});
     }
 }
 

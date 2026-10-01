@@ -1,6 +1,6 @@
 import * as hostEvents from "./host-events.js";
 import { unlock } from "./audio.js";
-import { setFullScreen, setLoadingProgress } from "./page.js";
+import { setLoadingProgress } from "./page.js";
 
 // The failure seam is installed by the inline module in index.html, because this module's static imports are
 // fetched before its first statement runs.
@@ -83,14 +83,7 @@ canvas.addEventListener(
     { passive: false },
 );
 
-// Alt+Enter toggles full screen here, inside the key event: requestFullscreen needs the gesture, which the
-// game loop would no longer have. F11 is the browser's own full screen and only resizes the page.
 const onKey = (event, down) => {
-    if (down && event.code === "Enter" && event.altKey && !event.repeat) {
-        event.preventDefault();
-        setFullScreen(document.fullscreenElement == null);
-        return;
-    }
     if (!hostEvents.forwardsKey(event)) {
         return;
     }
@@ -121,16 +114,15 @@ globalThis.addEventListener("pageshow", syncActive);
 
 syncActive();
 
-// Pressing Play: full screen first, while the click still counts as a gesture, then let the game start.
+// Pressing Play: unlock audio while the click still counts as a gesture, then let the game start.
 globalThis.cjStart = () => {
-    setFullScreen(true);
     unlock();
     hostEvents.start();
 };
 globalThis.cjReady?.();
 
 // A test aid: ?autostart presses Play as soon as boot is done, so a headless browser can run the game.
-// Full screen and audio are refused without a gesture; the game runs anyway.
+// Audio is refused without a gesture; the game runs anyway.
 if (new URLSearchParams(globalThis.location.search).has("autostart")) {
     globalThis.cjStart();
     document.getElementById("splash")?.classList.add("hidden");

@@ -208,7 +208,7 @@
             };
 
             start.addEventListener("click", () => {
-                // Synchronously inside the click: full screen and audio both need the gesture.
+                // Synchronously inside the click: audio needs the gesture.
                 globalThis.cjStart();
                 splash.classList.add("hidden");
             });
