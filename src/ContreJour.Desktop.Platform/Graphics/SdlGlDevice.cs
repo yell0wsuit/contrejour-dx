@@ -99,8 +99,24 @@ namespace ContreJour.Desktop.Platform.Graphics
             CheckThread();
             if (!SDL.GLSwapWindow(Window))
             {
-                throw new InvalidOperationException($"SDL could not swap the GL window: {SDL.GetError()}");
+                throw SwapFailed(SDL.GetError());
             }
+        }
+
+        // A swap that fails means the context is no longer usable, which on GL (and ANGLE over a reset
+        // Direct3D device) is what a driver reset looks like. Skia notices the same loss, but only on
+        // the frame after this one.
+        internal static GraphicsDeviceLostException SwapFailed(string error)
+        {
+            return new GraphicsDeviceLostException($"SDL could not swap the GL window: {error}");
+        }
+
+        // On ANGLE, SDL chooses the EGL config while it makes the window, so a version the hardware does
+        // not offer is refused there rather than at the context: ES 3.0 on Direct3D feature level 10_0.
+        internal static GlContextRefusedException WindowRefused(GlContextProfile profile, Exception failure)
+        {
+            return new GlContextRefusedException(
+                $"SDL could not make a window for OpenGL ES {profile.Major}.{profile.Minor}: {failure.Message}", failure);
         }
 
         // Nothing may hold a window across this: candidates are built one at a time, and the one before
@@ -127,7 +143,14 @@ namespace ContreJour.Desktop.Platform.Graphics
             Check(SDL.GLSetAttribute(SDL.GLAttr.BlueSize, 8));
             Check(SDL.GLSetAttribute(SDL.GLAttr.AlphaSize, 8));
             Check(SDL.GLSetAttribute(SDL.GLAttr.StencilSize, 8));
-            CreateWindow(SDL.WindowFlags.OpenGL);
+            try
+            {
+                CreateWindow(SDL.WindowFlags.OpenGL);
+            }
+            catch (InvalidOperationException failure) when (_profile.UsesAngle)
+            {
+                throw WindowRefused(_profile, failure);
+            }
             _glContext = SDL.GLCreateContext(Window);
             if (_glContext == 0)
             {
