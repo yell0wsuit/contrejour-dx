@@ -34,7 +34,7 @@ namespace ContreJour.Browser
 
         private readonly IAudioBackend _audio;
 
-        private double _previousMs;
+        private readonly FrameClock _clock = new();
 
         private bool _active = true;
 
@@ -53,7 +53,7 @@ namespace ContreJour.Browser
             ApplicationController controller = new(_host, Input, files, audio, _renderer, Formats);
             _game.Initialize(controller);
             _game.Update(0f);
-            _previousMs = timestampMs;
+            _ = _clock.Advance(timestampMs);
             Console.WriteLine($"cj-game-started: canvas {canvas.X}x{canvas.Y}");
         }
 
@@ -65,12 +65,12 @@ namespace ContreJour.Browser
             {
                 return;
             }
+            // Stepped while away too, so a page that keeps getting frames owes no time on return.
+            float elapsed = _clock.Advance(timestampMs);
             if (_active)
             {
-                _game.Update((float)((timestampMs - _previousMs) / 1000.0));
+                _game.Update(elapsed);
             }
-            // While away the clock keeps up, so no time is owed on return.
-            _previousMs = timestampMs;
             Draw();
             if (++_frames == RunningMarkerFrame)
             {
@@ -89,6 +89,8 @@ namespace ContreJour.Browser
             _host.IsActive = active;
             if (active)
             {
+                // A hidden page got no frames: the time away is not owed, as on desktop.
+                _clock.Reset();
                 SetAudioSuspended(false);
                 _game.OnActivated();
             }
