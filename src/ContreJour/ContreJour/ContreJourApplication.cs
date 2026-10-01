@@ -5,7 +5,6 @@ using System.Numerics;
 
 using ContreJour.Clips.menu;
 using ContreJour.Clips.menu2;
-using ContreJour.Clips.segoeFont;
 using ContreJour.Config;
 using ContreJour.Gameplay;
 using ContreJour.Saving;
@@ -109,7 +108,6 @@ namespace ContreJour
             ApplicationController.ApplyGraphicsChanges();
             ApplicationController.IsFixedTimeStep = false;
             StartApplication();
-            SegoePrint28Label.Register();
             LoadFonts(ContreJourLabelUtil.CultureName);
             ContreJourConfig.AspectRatio = ChooseAspectRatio();
             _gameContainer = new ViewSwitcher

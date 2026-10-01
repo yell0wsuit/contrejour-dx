@@ -96,7 +96,7 @@ namespace ContreJour.Clips.menu2
         {
             background = new petitInformationBackground();
             AddChild("background", background);
-            message = new Label("Segoe Print", 30f, new Vector2(457.55f, 118.2f))
+            message = new Label(30f, new Vector2(457.55f, 118.2f))
             {
                 TextString = "Open window in fullscreen \nto play\n",
                 LineSpacing = 2f,
