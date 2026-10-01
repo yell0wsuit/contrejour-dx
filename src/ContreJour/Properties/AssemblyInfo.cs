@@ -16,3 +16,5 @@ using System.Runtime.InteropServices;
 [assembly: InternalsVisibleTo("ContreJour.Regression")]
 
 [assembly: InternalsVisibleTo("ContreJour.Desktop")]
+[assembly: InternalsVisibleTo("ContreJour.Browser")]
+[assembly: InternalsVisibleTo("ContreJour.Tests")]

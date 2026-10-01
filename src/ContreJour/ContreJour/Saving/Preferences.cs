@@ -45,7 +45,11 @@ namespace ContreJour.Saving
             }
         }
 
-        private static IPreferenceStore Store { get => field ??= new FilePreferenceStore(SaveDirectory); set; }
+        /// <summary>
+        /// Gets or sets where the files live. Defaults to JSON files in <see cref="SaveDirectory"/>; a host
+        /// without a file system (the browser) sets its own before <see cref="Load"/>. Null restores the default.
+        /// </summary>
+        internal static IPreferenceStore Store { get => field ??= new FilePreferenceStore(SaveDirectory); set; }
 
         /// <summary>Loads both files from the store; a missing or unreadable file starts empty.</summary>
         public static void Load()
