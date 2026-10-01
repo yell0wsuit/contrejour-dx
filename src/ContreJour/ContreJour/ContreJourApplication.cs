@@ -9,9 +9,9 @@ using ContreJour.Clips.segoeFont;
 using ContreJour.Config;
 using ContreJour.Gameplay;
 using ContreJour.Saving;
+using ContreJour.Utils;
 
 using Mokus2D;
-using Mokus2D.Fonts;
 using Mokus2D.Game;
 using Mokus2D.Graphics;
 using Mokus2D.Sound;
@@ -38,8 +38,6 @@ namespace ContreJour
 
         private Vector2 _initialSize;
         private bool _restarting;
-
-        public static Dictionary<int, FontData> Fonts { get; } = [];
 
         protected virtual bool StartFullScreen => true;
 
@@ -112,6 +110,7 @@ namespace ContreJour
             ApplicationController.IsFixedTimeStep = false;
             StartApplication();
             SegoePrint28Label.Register();
+            LoadFonts(ContreJourLabelUtil.CultureName);
             ContreJourConfig.AspectRatio = ChooseAspectRatio();
             _gameContainer = new ViewSwitcher
             {

@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Numerics;
 
 using Mokus2D.Config;
@@ -38,6 +39,8 @@ namespace Mokus2D
 
         private readonly FontsManager _fontsManager = new();
 
+        private FontRegistry _fonts;
+
         private BatchSelector _batchSelector;
 
         private readonly KeyboardController _keyboard = new();
@@ -71,6 +74,8 @@ namespace Mokus2D
         public static IFileLoader FileLoader => Instance.ApplicationController.Files;
 
         public static FontsManager FontsManager => Instance._fontsManager;
+
+        public static FontRegistry Fonts => Instance._fonts ?? throw new InvalidOperationException("LoadFonts must be called before labels are created.");
 
         public static KeyboardController Keyboard => Instance._keyboard;
 
@@ -152,6 +157,14 @@ namespace Mokus2D
         public static void RegisterFont(string fontName, string fontId)
         {
             FontsManager.RegisterFont(fontName, fontId);
+        }
+
+        // Loads the face for a two-letter locale from <content root>/fonts/fonts.json, replacing any earlier one.
+        public static void LoadFonts(string locale)
+        {
+            FontRegistry fonts = FontRegistry.Load(FileLoader, Path.Combine(ContentManager.RootDirectory, "fonts"), locale, Renderer.CreateFontFace);
+            Instance._fonts?.Dispose();
+            Instance._fonts = fonts;
         }
 
         public static void RunInMainThread(Action action)
