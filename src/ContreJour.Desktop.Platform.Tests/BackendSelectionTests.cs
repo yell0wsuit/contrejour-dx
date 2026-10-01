@@ -19,12 +19,30 @@ namespace ContreJour.Desktop.Platform.Tests
             Assert.Equal([GraphicsBackendKind.Metal, GraphicsBackendKind.OpenGL, GraphicsBackendKind.Software], BackendSelector.PreferenceOrder("macos", null));
         }
 
-        [Theory]
-        [InlineData("windows")]
-        [InlineData("linux")]
-        public void OtherPlatformsStartOnOpenGLThenSoftware(string platform)
+        [Fact]
+        public void WindowsPrefersVulkanThenAngleThenOpenGLThenSoftware()
         {
-            Assert.Equal([GraphicsBackendKind.OpenGL, GraphicsBackendKind.Software], BackendSelector.PreferenceOrder(platform, null));
+            Assert.Equal([GraphicsBackendKind.Vulkan, GraphicsBackendKind.Angle, GraphicsBackendKind.OpenGL, GraphicsBackendKind.Software],
+                BackendSelector.PreferenceOrder("windows", null));
+        }
+
+        [Fact]
+        public void LinuxPrefersVulkanThenOpenGLThenSoftware()
+        {
+            Assert.Equal([GraphicsBackendKind.Vulkan, GraphicsBackendKind.OpenGL, GraphicsBackendKind.Software], BackendSelector.PreferenceOrder("linux", null));
+        }
+
+        // ANGLE's libraries ship only with the Windows build, SkiaSharp's macOS library has no Vulkan,
+        // and Metal is Apple's.
+        [Theory]
+        [InlineData("macos", GraphicsBackendKind.Angle)]
+        [InlineData("linux", GraphicsBackendKind.Angle)]
+        [InlineData("macos", GraphicsBackendKind.Vulkan)]
+        [InlineData("windows", GraphicsBackendKind.Metal)]
+        [InlineData("linux", GraphicsBackendKind.Metal)]
+        public void ARendererIsOfferedOnlyWhereItCanRun(string platform, GraphicsBackendKind absent)
+        {
+            Assert.DoesNotContain(absent, BackendSelector.PreferenceOrder(platform, null));
         }
 
         [Fact]

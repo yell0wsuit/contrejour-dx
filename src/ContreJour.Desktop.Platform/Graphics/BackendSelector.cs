@@ -18,16 +18,20 @@ namespace ContreJour.Desktop.Platform.Graphics
                 : OperatingSystem.IsLinux() ? "linux" : throw new PlatformNotSupportedException(RuntimeInformation.OSDescription);
         }
 
-        // The renderers to try, best first; a forced one is the only candidate.
+        // The renderers to try, best first; a forced one is the only candidate. Vulkan leads where
+        // SkiaSharp ships it; ANGLE (Windows only) comes before the native GL driver, which is the
+        // part of an old or broken Windows machine most likely to be wrong.
         public static GraphicsBackendKind[] PreferenceOrder(string platform, GraphicsBackendKind? forced)
         {
             return forced.HasValue
                 ? [forced.Value]
-                : platform == "macos"
-                ? [GraphicsBackendKind.Metal, GraphicsBackendKind.OpenGL, GraphicsBackendKind.Software]
-                : platform is "windows" or "linux"
-                ? [GraphicsBackendKind.OpenGL, GraphicsBackendKind.Software]
-                : throw new PlatformNotSupportedException(platform);
+                : platform switch
+                {
+                    "windows" => [GraphicsBackendKind.Vulkan, GraphicsBackendKind.Angle, GraphicsBackendKind.OpenGL, GraphicsBackendKind.Software],
+                    "linux" => [GraphicsBackendKind.Vulkan, GraphicsBackendKind.OpenGL, GraphicsBackendKind.Software],
+                    "macos" => [GraphicsBackendKind.Metal, GraphicsBackendKind.OpenGL, GraphicsBackendKind.Software],
+                    _ => throw new PlatformNotSupportedException(platform),
+                };
         }
 
         public static GraphicsSelection<T> Select<T>(string platform, GraphicsBackendKind? forced,

@@ -12,7 +12,10 @@ namespace ContreJour.Desktop.Platform.Tests
         [Theory]
         [InlineData("macos", GraphicsBackendKind.Metal, GraphicsBackendKind.Metal, GraphicsBackendKind.OpenGL, GraphicsBackendKind.Software)]
         [InlineData("macos", GraphicsBackendKind.OpenGL, GraphicsBackendKind.OpenGL, GraphicsBackendKind.Metal, GraphicsBackendKind.Software)]
-        [InlineData("linux", GraphicsBackendKind.Software, GraphicsBackendKind.Software, GraphicsBackendKind.OpenGL)]
+        [InlineData("linux", GraphicsBackendKind.Software, GraphicsBackendKind.Software, GraphicsBackendKind.Vulkan, GraphicsBackendKind.OpenGL)]
+        [InlineData("linux", GraphicsBackendKind.Vulkan, GraphicsBackendKind.Vulkan, GraphicsBackendKind.OpenGL, GraphicsBackendKind.Software)]
+        [InlineData("windows", GraphicsBackendKind.Vulkan, GraphicsBackendKind.Vulkan, GraphicsBackendKind.Angle, GraphicsBackendKind.OpenGL, GraphicsBackendKind.Software)]
+        [InlineData("windows", GraphicsBackendKind.OpenGL, GraphicsBackendKind.OpenGL, GraphicsBackendKind.Vulkan, GraphicsBackendKind.Angle, GraphicsBackendKind.Software)]
         public void TheLostRendererIsTriedFirstAndThenTheRest(string platform, GraphicsBackendKind lost, params GraphicsBackendKind[] expected)
         {
             Assert.Equal(expected, new GraphicsRecoveryCoordinator(platform, null).OrderAfter(lost));

@@ -60,6 +60,8 @@ namespace ContreJour.Desktop.Platform.Tests
         [InlineData("gl", GraphicsBackendKind.OpenGL)]
         [InlineData("opengl", GraphicsBackendKind.OpenGL)]
         [InlineData("software", GraphicsBackendKind.Software)]
+        [InlineData("vulkan", GraphicsBackendKind.Vulkan)]
+        [InlineData("angle", GraphicsBackendKind.Angle)]
         public void ARendererCanBeForced(string name, GraphicsBackendKind expected)
         {
             Assert.Equal(expected, DesktopOptions.Parse(["--renderer", name]).Renderer);
@@ -68,9 +70,10 @@ namespace ContreJour.Desktop.Platform.Tests
         [Fact]
         public void AnUnknownRendererIsRejectedByName()
         {
-            ArgumentException failure = Assert.Throws<ArgumentException>(() => DesktopOptions.Parse(["--renderer", "vulkan"]));
+            ArgumentException failure = Assert.Throws<ArgumentException>(() => DesktopOptions.Parse(["--renderer", "directx"]));
 
-            Assert.Contains("vulkan", failure.Message, StringComparison.Ordinal);
+            Assert.Contains("directx", failure.Message, StringComparison.Ordinal);
+            Assert.Contains("vulkan, angle", failure.Message, StringComparison.Ordinal);
         }
 
         [Fact]

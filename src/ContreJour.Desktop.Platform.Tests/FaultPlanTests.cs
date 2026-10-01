@@ -65,10 +65,20 @@ namespace ContreJour.Desktop.Platform.Tests
             plan.For(GraphicsBackendKind.Software)("after-device");
         }
 
+        [Fact]
+        public void TheNewRenderersTakeFaultsLikeTheOthers()
+        {
+            FaultPlan plan = FaultPlan.Parse(["vulkan:after-device", "angle:before-surface#2"]);
+
+            _ = Assert.Throws<InvalidOperationException>(() => plan.For(GraphicsBackendKind.Vulkan)("after-device"));
+            plan.For(GraphicsBackendKind.Angle)("before-surface");
+            _ = Assert.Throws<InvalidOperationException>(() => plan.For(GraphicsBackendKind.Angle)("before-surface"));
+        }
+
         [Theory]
         [InlineData("")]
         [InlineData("metal")]
-        [InlineData("vulkan:after-device")]
+        [InlineData("directx:after-device")]
         [InlineData("metal:nowhere")]
         [InlineData("metal:after-device#0")]
         [InlineData("metal:after-device#x")]

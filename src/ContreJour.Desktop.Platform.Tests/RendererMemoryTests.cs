@@ -46,6 +46,16 @@ namespace ContreJour.Desktop.Platform.Tests
             Assert.Equal([GraphicsBackendKind.OpenGL], next.Filter([GraphicsBackendKind.Metal, GraphicsBackendKind.OpenGL]));
         }
 
+        [Theory]
+        [InlineData(GraphicsBackendKind.Vulkan)]
+        [InlineData(GraphicsBackendKind.Angle)]
+        public void TheNewRenderersCanBeBlamed(GraphicsBackendKind kind)
+        {
+            new RendererMemory(StatePath).BeginAttempt(kind);
+
+            Assert.Equal(kind, new RendererMemory(StatePath).Blamed);
+        }
+
         [Fact]
         public void ARendererThatDrewAFrameIsForgiven()
         {
