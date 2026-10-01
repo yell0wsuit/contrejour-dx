@@ -8,8 +8,8 @@ using Mokus2D.Graphics;
 
 namespace Mokus2D.Content
 {
-    // Caches textures decoded from the PNG files under RootDirectory.
-    public sealed class MokusContentManager(IFileLoader files, IRenderer renderer) : IDisposable
+    // Caches textures decoded from the image files under RootDirectory.
+    public sealed class MokusContentManager(IFileLoader files, IRenderer renderer, ContentFormats formats) : IDisposable
     {
         private readonly Dictionary<string, ITexture> _loadedAssets = [];
 
@@ -59,7 +59,7 @@ namespace Mokus2D.Content
 
         private ITexture ReadTexture(string assetName)
         {
-            string path = Path.Combine(RootDirectory, Path.ChangeExtension(assetName, ".png"));
+            string path = Path.Combine(RootDirectory, Path.ChangeExtension(assetName, formats.Image));
             using Stream stream = files.OpenFile(path);
             return renderer.CreateTexture(stream);
         }

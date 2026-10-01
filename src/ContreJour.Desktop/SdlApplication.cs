@@ -12,6 +12,7 @@ using ContreJour.Desktop.Platform.Graphics;
 using Microsoft.Extensions.Logging;
 
 using Mokus2D;
+using Mokus2D.Content;
 using Mokus2D.FileSystem;
 using Mokus2D.Game;
 using Mokus2D.Rendering.Skia;
@@ -155,7 +156,7 @@ namespace ContreJour.Desktop
                 static handle => SDL.CloseGamepad(handle));
             _gamepads.OpenConnected();
             _renderer = new SkiaRenderer();
-            _applicationController = new ApplicationController(_host, _input, new FileLoader(), _audio, _renderer);
+            _applicationController = new ApplicationController(_host, _input, new FileLoader(), _audio, _renderer, ContentFormats.Desktop);
             _game.Initialize(_applicationController);
             // Subscribed after the game is set up, as the MonoGame host did: resizes during
             // Initialize would otherwise reach the game before its views exist.

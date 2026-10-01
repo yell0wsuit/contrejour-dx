@@ -16,16 +16,18 @@ namespace Mokus2D.Game
     // The engine's view of the platform host.
     public class ApplicationController : DisposableBase
     {
-        public ApplicationController(IGameHost host, IInputSource input, IFileLoader files, IAudioBackend audio, IRenderer renderer)
+        public ApplicationController(IGameHost host, IInputSource input, IFileLoader files, IAudioBackend audio, IRenderer renderer, ContentFormats formats)
         {
             Host = host;
             Input = input;
             Files = files;
             Audio = audio;
             Renderer = renderer;
-            Content = new MokusContentManager(files, renderer);
+            Formats = formats;
+            Content = new MokusContentManager(files, renderer, formats);
             // The host owns the backend and disposes it after the game.
             SoundManager.Backend = audio;
+            SoundManager.Formats = formats;
             Host.ClientSizeChanged += OnHostClientSizeChanged;
         }
 
@@ -38,6 +40,8 @@ namespace Mokus2D.Game
         public IAudioBackend Audio { get; }
 
         public IRenderer Renderer { get; }
+
+        public ContentFormats Formats { get; }
 
         public MokusContentManager Content { get; }
 

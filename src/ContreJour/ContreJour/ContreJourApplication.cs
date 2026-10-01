@@ -89,7 +89,7 @@ namespace ContreJour
             }
             ContentRootDirectory = "Assets/Content";
             Config.GraphicsLoader.GraphicsRootDirectory = "Graphics";
-            SoundManager.MusicPath = Path.Combine(AppContext.BaseDirectory, "Assets", "Content", "Music");
+            SoundManager.MusicPath = Path.Combine("Assets", "Content", "Music");
         }
 
         private void LoadMusic()

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
 
+using Mokus2D.Content;
 using Mokus2D.Sound;
 
 using Xunit;
@@ -73,6 +74,30 @@ namespace Mokus2D.Tests
             }
             finally
             {
+                SoundManager.Backend = new NullAudioBackend();
+                SoundManager.MusicPath = previousPath;
+            }
+        }
+
+        [Fact]
+        public void EffectsAndSongsUseTheHostFormats()
+        {
+            RecordingBackend backend = new();
+            string previousPath = SoundManager.MusicPath;
+            SoundManager.Backend = backend;
+            SoundManager.Formats = new ContentFormats(".webp", ".ogg", ".opus");
+            SoundManager.MusicPath = "Assets/Content/Music";
+            try
+            {
+                SoundManager.PreloadSound("leapOn1");
+                SoundManager.PreloadSong("chapter1");
+
+                Assert.Equal([Path.Combine("Assets/Content/Music", "leapOn1.ogg")], backend.Sounds);
+                Assert.Equal([Path.Combine("Assets/Content/Music", "chapter1.opus")], backend.Songs);
+            }
+            finally
+            {
+                SoundManager.Formats = ContentFormats.Desktop;
                 SoundManager.Backend = new NullAudioBackend();
                 SoundManager.MusicPath = previousPath;
             }

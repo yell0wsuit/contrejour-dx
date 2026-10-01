@@ -1,6 +1,7 @@
 using System;
 
 using Mokus2D;
+using Mokus2D.Content;
 using Mokus2D.FileSystem;
 using Mokus2D.Game;
 using Mokus2D.Rendering.Skia;
@@ -31,7 +32,7 @@ namespace ContreJour.Regression
         public HeadlessApplication(IAudioBackend audio)
         {
             _game = new T();
-            _applicationController = new ApplicationController(_host, new NullInputSource(), new FileLoader(), audio, _renderer);
+            _applicationController = new ApplicationController(_host, new NullInputSource(), new FileLoader(), audio, _renderer, ContentFormats.Desktop);
         }
 
         public void Run()

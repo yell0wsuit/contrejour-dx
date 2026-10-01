@@ -13,7 +13,7 @@ namespace Mokus2D.Sound
     }
 
     // The platform half of audio. SoundManager keeps the caching and the music/enable logic; this is
-    // only what needs a platform audio API. Paths are absolute, with extension.
+    // only what needs a platform audio API. Paths are relative to the working directory (the install folder) and carry the host's extension.
     public interface IAudioBackend : IDisposable
     {
         // Decodes the whole file. Throws FileNotFoundException for a missing file and

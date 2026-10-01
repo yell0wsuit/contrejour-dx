@@ -3,17 +3,14 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 
+using Mokus2D.Content;
+
 namespace Mokus2D.Sound
 {
     // The original FMOD Ex (fmodexWSA81) implementation, ported onto IAudioBackend. Its write-only
     // fields and unused private helpers are left out; behaviour is otherwise the original's.
     public static class SoundManager
     {
-        // Effects ship as the iOS build's uncompressed originals; music as the lossless soundtrack.
-        private const string SoundExtension = "wav";
-
-        private const string SongExtension = "flac";
-
         private static readonly Dictionary<string, ISong> _songs = [];
 
         private static readonly Dictionary<string, ISoundEffect> _sounds = [];
@@ -24,6 +21,10 @@ namespace Mokus2D.Sound
         private static bool _songStarted;
 
         public static string MusicPath { get; set; } = "";
+
+        // Set by ApplicationController from the formats the host ships. Effects ship as the iOS build's
+        // uncompressed originals on desktop; music as the lossless soundtrack.
+        internal static ContentFormats Formats { get; set; } = ContentFormats.Desktop;
 
         public static readonly float SongChangePause = 1f;
 
@@ -138,7 +139,7 @@ namespace Mokus2D.Sound
         {
             if (!_songs.ContainsKey(path))
             {
-                _songs.Add(path, Backend.LoadSong(FilePath(path, SongExtension)));
+                _songs.Add(path, Backend.LoadSong(FilePath(path, Formats.Song)));
             }
         }
 
@@ -146,7 +147,7 @@ namespace Mokus2D.Sound
         {
             if (!_sounds.ContainsKey(path))
             {
-                _sounds.Add(path, Backend.LoadSound(FilePath(path, SoundExtension)));
+                _sounds.Add(path, Backend.LoadSound(FilePath(path, Formats.Sound)));
             }
         }
 
