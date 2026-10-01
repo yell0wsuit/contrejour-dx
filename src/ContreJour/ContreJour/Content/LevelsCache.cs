@@ -1,14 +1,11 @@
 using System.Collections.Generic;
 using System.IO;
-using System.Numerics;
-using System.Reflection;
 
 using ContreJour.Config;
 using ContreJour.Gameplay;
 
 using Mokus2D;
 using Mokus2D.Content;
-using Mokus2D.Util.Xml;
 
 namespace ContreJour.Content
 {
@@ -16,7 +13,6 @@ namespace ContreJour.Content
     {
         private readonly string clip_root = "Levels/";
 
-        private readonly XmlSerializer serializer = new(typeof(ContreJourApplication).GetTypeInfo().Assembly);
         private readonly MokusContentManager content;
 
         public Dictionary<string, Level> CachedLevels { get; } = [];
@@ -29,18 +25,6 @@ namespace ContreJour.Content
 
         public LevelsCache()
         {
-            serializer.AddAlias("Level", typeof(Level).AssemblyQualifiedName);
-            serializer.AddAlias("NSMutableArray", typeof(List<object>).FullName);
-            serializer.AddAlias("NSMutableDictionary", typeof(Hashtable).FullName);
-            serializer.AddAlias("FlashPoint", typeof(Vector2).AssemblyQualifiedName);
-            serializer.AddAlias("x", "X");
-            serializer.AddAlias("y", "Y");
-            serializer.AddAlias("width", "Width");
-            serializer.AddAlias("height", "Height");
-            serializer.AddAlias("frames", "Frames");
-            serializer.AddAlias("tileData", "TileData");
-            serializer.AddAlias("anchor", "Anchor");
-            serializer.AddAlias("useSheet", "UseSheet");
             content = Mokus2DGame.ContentManager;
         }
 
@@ -59,7 +43,7 @@ namespace ContreJour.Content
                     ])
                 ]), "xml");
                 Stream stream = Mokus2DGame.FileLoader.OpenFile(path);
-                level = (Level)serializer.DeserializeFile(stream);
+                level = LevelXmlReader.Read(stream);
                 CachedLevels[name] = level;
             }
             return level;

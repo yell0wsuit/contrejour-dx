@@ -52,3 +52,6 @@ jobs:
 
             - name: Test desktop platform
               run: dotnet test --project src/ContreJour.Desktop.Platform.Tests/ContreJour.Desktop.Platform.Tests.csproj --no-build -c Release
+
+            - name: Test game
+              run: dotnet test --project src/ContreJour.Tests/ContreJour.Tests.csproj --no-build -c Release
