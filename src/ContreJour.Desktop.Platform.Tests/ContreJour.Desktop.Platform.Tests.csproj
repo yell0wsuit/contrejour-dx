@@ -11,4 +11,8 @@
     <PackageReference Include="xunit.v3" />
     <ProjectReference Include="../ContreJour.Desktop.Platform/ContreJour.Desktop.Platform.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <None Include="../../distribution/icons/ContreJourDXIcon.bmp" Link="ContreJourDXIcon.bmp" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
 </Project>

@@ -139,6 +139,7 @@ namespace ContreJour.Desktop
             _selection = SelectDevice();
             SdlGraphicsDevice device = _selection.Device;
             _ = SDL.SetWindowTitle(device.Window, SdlGraphicsDevice.TitleFor(device.Kind));
+            ApplyWindowIcon(device.Window);
             ILogger logger = Log.For(LogCategories.Host);
             string audioState = _audio is NullAudioBackend ? "off" : "on";
             HostLog.Renderer(logger, _selection.Kind, audioState);
@@ -338,6 +339,7 @@ namespace ContreJour.Desktop
                 HostLog.RejectedRenderer(logger, failure.Kind, failure.Failure.Message);
             }
             _ = SDL.SetWindowTitle(device.Window, SdlGraphicsDevice.TitleFor(device.Kind));
+            ApplyWindowIcon(device.Window);
             _host.AttachWindow(device.Window);
             // Building a device takes real time the game should not be asked to catch up on.
             _previous = _clock.Elapsed;
@@ -375,6 +377,23 @@ namespace ContreJour.Desktop
                 _input.ReleaseAll();
                 _game.OnDeactivated();
                 SetAudioSuspended(true);
+            }
+        }
+
+        // A missing or unreadable icon leaves SDL's default one; the game runs either way.
+        private static void ApplyWindowIcon(nint window)
+        {
+            try
+            {
+                using Stream resource = typeof(SdlApplication<T>).Assembly.GetManifestResourceStream("Icon.bmp")
+                    ?? throw new FileNotFoundException("The Icon.bmp resource is not embedded.");
+                using MemoryStream bytes = new();
+                resource.CopyTo(bytes);
+                WindowIcon.Apply(window, bytes.ToArray());
+            }
+            catch (Exception failure) when (failure is IOException or InvalidDataException or InvalidOperationException)
+            {
+                HostLog.WindowIconUnavailable(Log.For(LogCategories.Host), failure.Message);
             }
         }
 

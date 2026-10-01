@@ -5,12 +5,28 @@
     <RootNamespace>ContreJour.Desktop</RootNamespace>
     <!-- The decompiled projects carry their own AssemblyInfo.cs; this one has none. -->
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <WindowsDistributionIcon>../../distribution/icons/ContreJourDXIcon.ico</WindowsDistributionIcon>
+    <ApplicationIcon Condition="$([MSBuild]::IsOsPlatform('Windows'))">$(WindowsDistributionIcon)</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="../ContreJour/ContreJour.csproj" />
     <ProjectReference Include="../ContreJour.Desktop.Platform/ContreJour.Desktop.Platform.csproj" />
     <ProjectReference Include="../Mokus2D.Rendering.Skia/Mokus2D.Rendering.Skia.csproj" />
+  </ItemGroup>
+
+  <!-- The window icon, which SdlApplication hands to every window it gets. -->
+  <ItemGroup>
+    <EmbeddedResource Include="../../distribution/icons/ContreJourDXIcon.bmp">
+      <LogicalName>Icon.bmp</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(RuntimeIdentifier)' != '' AND $(RuntimeIdentifier.StartsWith('osx'))">
+    <None Include="../../distribution/icons/ContreJourDXIcon.icns">
+      <Link>Resources/ContreJourDXIcon.icns</Link>
+      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+    </None>
   </ItemGroup>
 
   <Import Project="../GameContents.targets" />
