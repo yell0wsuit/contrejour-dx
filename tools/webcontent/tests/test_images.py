@@ -106,3 +106,9 @@ def test_jobs_cover_only_graphics_and_keep_scale_suffixes(tmp_path):
         "Assets/Content/Graphics/menu/menu_x2.webp",
         "Assets/Content/Graphics/textures/tail.x0.5.webp",
     ]
+
+
+def test_quality_is_95_and_the_stamp_follows_it():
+    # The stamp is what makes an incremental build re-encode after a quality change.
+    assert images.QUALITY == 95
+    assert images.SETTINGS == f"webp:q{images.QUALITY}+ll{round(images.LOSSLESS_FALLBACK_RATIO * 100)}"

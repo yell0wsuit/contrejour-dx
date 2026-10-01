@@ -1,6 +1,7 @@
 """PNG to WebP conversion.
 
-Lossy q80 is the default because it takes the background art to ~3% of its PNG size.
+Lossy q95 is the default: it stays close to the source art and still takes the graphics to about a
+quarter of their PNG size (5.5 MB of 20 MB; q80 gave 4.1 MB).
 It is a bad trade on the character and font atlases, where it saves almost nothing and
 can even grow the file, so anything that fails to compress well falls back to lossless.
 The rule is self-tuning: no hand-maintained exclusion list to fall out of date.
@@ -16,10 +17,11 @@ from PIL import Image
 
 from . import layout, pipeline, progress
 
-QUALITY = 80
+QUALITY = 95
 LOSSLESS_FALLBACK_RATIO = 0.60
 METHOD = 4
-SETTINGS = "webp:q80+ll60"
+# In every output's stamp, so changing either number re-encodes on the next incremental build.
+SETTINGS = f"webp:q{QUALITY}+ll{round(LOSSLESS_FALLBACK_RATIO * 100)}"
 
 
 def pick_encoding(
