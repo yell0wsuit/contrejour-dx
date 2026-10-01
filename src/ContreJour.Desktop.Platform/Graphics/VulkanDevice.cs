@@ -272,11 +272,9 @@ namespace ContreJour.Desktop.Platform.Graphics
             string adapterType = bestType == 0 ? "discrete"
                 : bestType == 1 ? "integrated"
                 : bestType == 2 ? "virtual" : "software";
+            string adapterName = $"{bestName} ({adapterType})";
             ILogger logger = Log.For(LogCategories.Graphics);
-            if (logger.IsEnabled(LogLevel.Information))
-            {
-                GraphicsDeviceLog.Adapter(logger, Kind, $"{bestName} ({adapterType})", bestVersion);
-            }
+            GraphicsDeviceLog.Adapter(logger, Kind, adapterName, bestVersion);
         }
 
         // Finds a queue family that supports graphics work.
