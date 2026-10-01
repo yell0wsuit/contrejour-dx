@@ -3,7 +3,6 @@ using System.Numerics;
 
 using Mokus2D.Interfaces;
 using Mokus2D.Util.Data;
-using Mokus2D.Util.Extensions;
 using Mokus2D.Visual;
 using Mokus2D.Visual.Data;
 
@@ -93,7 +92,7 @@ namespace Mokus2D.UI.Layout.Anchors
             AnimationData animationData = _originalAnimationData.GetValueOrDefault(id);
             if (animationData == null)
             {
-                animationData = animationNode.AnimationData.DeepClone();
+                animationData = animationNode.AnimationData.Clone();
                 _originalAnimationData[id] = animationData;
             }
             AnimationFrameData childFrameData = animationData.GetChildFrameData(0, node.Name);

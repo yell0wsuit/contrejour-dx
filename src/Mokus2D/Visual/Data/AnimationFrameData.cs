@@ -25,5 +25,10 @@ namespace Mokus2D.Visual.Data
         public float ColorRatio { get; set; }
 
         public bool Visible { get; set; }
+
+        public AnimationFrameData Clone()
+        {
+            return (AnimationFrameData)MemberwiseClone();
+        }
     }
 }
