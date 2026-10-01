@@ -16,6 +16,7 @@ namespace Mokus2D.Input
         D = 68,
         S = 83,
         W = 87,
+        F5 = 116,
         LeftShift = 160,
         RightShift = 161
     }

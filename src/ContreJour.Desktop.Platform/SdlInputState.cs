@@ -38,6 +38,7 @@ namespace ContreJour.Desktop.Platform
             [SDL.Keycode.D] = Key.D,
             [SDL.Keycode.S] = Key.S,
             [SDL.Keycode.W] = Key.W,
+            [SDL.Keycode.F5] = Key.F5,
             [SDL.Keycode.LShift] = Key.LeftShift,
             [SDL.Keycode.RShift] = Key.RightShift,
         };

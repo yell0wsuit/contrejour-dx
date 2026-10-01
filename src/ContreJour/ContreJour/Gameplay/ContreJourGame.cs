@@ -319,6 +319,7 @@ namespace ContreJour.Gameplay
             teleports = [];
             _ = GameRoot.Schedule(1.5f, EnableRestart);
             Mokus2DGame.Instance.KeysController.AddBackKeyListener(OnBackPress);
+            Mokus2DGame.Instance.KeysController.AddKeyListener(Key.F5, OnRestartKey);
         }
 
         public override LevelBuilderBase CreateLevelBuilder()
@@ -398,6 +399,7 @@ namespace ContreJour.Gameplay
         {
             Mokus2DGame.Instance.TouchController.RemoveListener(this);
             Mokus2DGame.Instance.KeysController.RemoveBackKeyListener(OnBackPress);
+            Mokus2DGame.Instance.KeysController.RemoveKeyListener(Key.F5, OnRestartKey);
             pausePanel.Dispose();
             finishView.Dispose();
             base.Dispose(disposing);
@@ -668,13 +670,28 @@ namespace ContreJour.Gameplay
 
         public void OnBackPress()
         {
-            if (Finished || pausePanel.Visible)
+            if (Finished)
             {
                 Back();
                 Mokus2DGame.Instance.KeysController.RemoveBackKeyListener(OnBackPress);
                 return;
             }
+            // Back on the pause panel resumes, as its play button does; its menu button leaves the level.
+            if (pausePanel.Visible)
+            {
+                pausePanel.Hide();
+                return;
+            }
             OpenPausePanel();
+        }
+
+        // F5 restarts as the restart button does, and only while that button could be pressed.
+        private void OnRestartKey()
+        {
+            if (RestartEnabled && !Paused && !Finished)
+            {
+                Restart();
+            }
         }
 
         // Losing focus pauses the level as the pause button does, unless it is over or already paused.

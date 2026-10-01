@@ -159,6 +159,58 @@ namespace ContreJour.Gameplay
             CreateButtons();
             CreateLiteButtons();
             _ = Constants.IsTrial;
+            AddKeyListeners();
+        }
+
+        private void AddKeyListeners()
+        {
+            KeysController keys = Mokus2DGame.Instance.KeysController;
+            keys.AddBackKeyListener(OnBackKey);
+            keys.AddKeyListener(Key.Left, OnLeftKey);
+            keys.AddKeyListener(Key.Right, OnRightKey);
+            keys.AddKeyListener(Key.Enter, OnEnterKey);
+        }
+
+        private void RemoveKeyListeners()
+        {
+            KeysController keys = Mokus2DGame.Instance.KeysController;
+            keys.RemoveBackKeyListener(OnBackKey);
+            keys.RemoveKeyListener(Key.Left, OnLeftKey);
+            keys.RemoveKeyListener(Key.Right, OnRightKey);
+            keys.RemoveKeyListener(Key.Enter, OnEnterKey);
+        }
+
+        // Esc does what the back button does, whenever the button could be pressed.
+        private void OnBackKey()
+        {
+            if (!inLevel && backButton?.Enabled == true)
+            {
+                OnBackClick();
+            }
+        }
+
+        private void OnLeftKey()
+        {
+            if (!inChapter)
+            {
+                spinner.Step(-1);
+            }
+        }
+
+        private void OnRightKey()
+        {
+            if (!inChapter)
+            {
+                spinner.Step(1);
+            }
+        }
+
+        private void OnEnterKey()
+        {
+            if (!inChapter)
+            {
+                spinner.ClickCentered();
+            }
         }
 
         private void OnMusicDisable()
@@ -541,6 +593,7 @@ namespace ContreJour.Gameplay
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);
+            RemoveKeyListeners();
             ExitEvent.RemoveListeners();
             LevelSelectEvent.RemoveListeners();
             spinner.Dispose();

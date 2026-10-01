@@ -109,6 +109,24 @@ namespace ContreJour.Gameplay
             SetTargetChapter(chapter.Index);
         }
 
+        // Spins one planet over, as a swipe does; quick presses add up before the spin settles.
+        public void Step(int direction)
+        {
+            if (Enabled)
+            {
+                pager.SetTargetPosition(pager.TargetPosition + direction);
+            }
+        }
+
+        // Clicks the planet in the middle, which only takes once the spin has settled on it.
+        public void ClickCentered()
+        {
+            if (Enabled)
+            {
+                chapters[Maths.ModPositive((int)Math.Round(currentIndex), chapters.Count)].Click();
+            }
+        }
+
         public void SetTargetChapter(int index)
         {
             if (!HasExplodingChapter)

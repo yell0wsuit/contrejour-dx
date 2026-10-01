@@ -186,6 +186,12 @@ namespace ContreJour.Gameplay
             }
         }
 
+        // A click on the planet, from the keyboard.
+        public void Click()
+        {
+            OnClick();
+        }
+
         public void OnSelect()
         {
             SelectEvent.Dispatch(Index);
