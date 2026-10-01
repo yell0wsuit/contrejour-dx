@@ -117,10 +117,21 @@ namespace ContreJour.Browser
                         _game.SetActive(_active);
                     }
                     break;
-                case HostEventKind.None:
                 case HostEventKind.Pointer:
+                    _game?.Input.HandlePointer(
+                        (PointerPhase)(value.Word0 & 0xFF),
+                        (PointerKind)(value.Word0 >> 8),
+                        value.Word1,
+                        new Vector2(BitConverter.Int32BitsToSingle(value.Word2), BitConverter.Int32BitsToSingle(value.Word3)),
+                        value.Word4);
+                    break;
                 case HostEventKind.Key:
+                    _game?.Input.HandleKey(value.Word1, value.Word0 != 0);
+                    break;
                 case HostEventKind.Wheel:
+                    _game?.Input.AddWheel(value.Word0);
+                    break;
+                case HostEventKind.None:
                 default:
                     break;
             }

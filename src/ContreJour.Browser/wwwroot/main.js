@@ -21,6 +21,84 @@ try {
     throw error;
 }
 
+const canvas = document.getElementById("game");
+
+// getBoundingClientRect forces the browser to settle layout before it answers, and a drag
+// asks once per pointermove. The rectangle only moves when the canvas box does, so it is
+// measured then and reused for every event in between.
+let canvasRect = null;
+const invalidateCanvasRect = () => {
+    canvasRect = null;
+};
+new ResizeObserver(invalidateCanvasRect).observe(canvas);
+globalThis.addEventListener("resize", invalidateCanvasRect);
+globalThis.addEventListener("scroll", invalidateCanvasRect, {
+    capture: true,
+    passive: true,
+});
+
+const sendPointer = (event, phase) => {
+    event.preventDefault();
+    canvasRect ??= canvas.getBoundingClientRect();
+    hostEvents.pointer(phase, event, event.clientX - canvasRect.left, event.clientY - canvasRect.top);
+};
+
+canvas.addEventListener("pointerdown", (event) => {
+    canvas.setPointerCapture(event.pointerId);
+    sendPointer(event, 0);
+});
+canvas.addEventListener("pointermove", (event) => sendPointer(event, 1));
+canvas.addEventListener("pointerup", (event) => sendPointer(event, 2));
+canvas.addEventListener("pointercancel", (event) => sendPointer(event, 3));
+canvas.addEventListener("contextmenu", (event) => event.preventDefault());
+
+// The game scrolls in the desktop's wheel units: one notch is 120 and positive scrolls up. A
+// WheelEvent reports the opposite sign and, depending on deltaMode, counts lines or pages
+// rather than pixels - so both are normalized here and the game sees what it does on desktop.
+const PIXELS_PER_NOTCH = 100;
+const UNITS_PER_NOTCH = 120;
+// Firefox reports one notch as three lines where other browsers report ~100px, so a line is
+// worth a third of a notch here rather than a text line's height.
+const PIXELS_PER_LINE = PIXELS_PER_NOTCH / 3;
+
+canvas.addEventListener(
+    "wheel",
+    (event) => {
+        event.preventDefault();
+        const scale =
+            event.deltaMode === 1
+                ? PIXELS_PER_LINE
+                : event.deltaMode === 2
+                  ? canvas.clientHeight
+                  : 1;
+        const units =
+            (-event.deltaY * scale * UNITS_PER_NOTCH) / PIXELS_PER_NOTCH;
+        const rounded = Math.round(units);
+        if (rounded !== 0) {
+            hostEvents.wheel(rounded);
+        }
+    },
+    // preventDefault needs a non-passive listener, which wheel handlers default to.
+    { passive: false },
+);
+
+// Alt+Enter toggles full screen here, inside the key event: requestFullscreen needs the gesture, which the
+// game loop would no longer have. F11 is the browser's own full screen and only resizes the page.
+const onKey = (event, down) => {
+    if (down && event.code === "Enter" && event.altKey && !event.repeat) {
+        event.preventDefault();
+        setFullScreen(document.fullscreenElement == null);
+        return;
+    }
+    if (!hostEvents.forwardsKey(event)) {
+        return;
+    }
+    event.preventDefault();
+    hostEvents.key(hostEvents.keyId(event.code), down);
+};
+globalThis.addEventListener("keydown", (event) => onKey(event, true));
+globalThis.addEventListener("keyup", (event) => onKey(event, false));
+
 // Focus and visibility are separate losses and either one must freeze the game: a hidden
 // tab stops getting animation frames but keeps its audio, while a window merely pushed
 // behind another stays visible and keeps ticking at full speed.
