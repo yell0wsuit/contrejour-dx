@@ -32,6 +32,8 @@ namespace ContreJour.Browser
 
         private readonly SkiaSurface _surface;
 
+        private readonly IAudioBackend _audio;
+
         private double _previousMs;
 
         private bool _active = true;
@@ -43,6 +45,7 @@ namespace ContreJour.Browser
         public BrowserGame(SkiaSurface surface, IFileLoader files, IAudioBackend audio, Vector2 cssSize, Vector2 pixelSize, double timestampMs)
         {
             _surface = surface;
+            _audio = audio;
             double[] screen = PageInterop.ScreenSize();
             Point canvas = BrowserCanvas.LogicalSize(screen[0], screen[1], screen[2]);
             _host = new BrowserGameHost(canvas, cssSize, pixelSize);
@@ -86,12 +89,14 @@ namespace ContreJour.Browser
             _host.IsActive = active;
             if (active)
             {
+                SetAudioSuspended(false);
                 _game.OnActivated();
             }
             else
             {
                 Input.ReleaseAll();
                 _game.OnDeactivated();
+                SetAudioSuspended(true);
                 Preferences.RequestSave();
                 Preferences.Update(force: true);
             }
@@ -119,6 +124,14 @@ namespace ContreJour.Browser
         {
             _game.Dispose();
             _renderer.Dispose();
+        }
+
+        private void SetAudioSuspended(bool suspended)
+        {
+            if (_audio is WebAudioBackend web)
+            {
+                web.Suspended = suspended;
+            }
         }
 
         private void Draw()

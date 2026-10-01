@@ -1,4 +1,5 @@
 import * as hostEvents from "./host-events.js";
+import { unlock } from "./audio.js";
 import { setFullScreen, setLoadingProgress } from "./page.js";
 
 // The failure seam is installed by the inline module in index.html, because this module's static imports are
@@ -123,6 +124,7 @@ syncActive();
 // Pressing Play: full screen first, while the click still counts as a gesture, then let the game start.
 globalThis.cjStart = () => {
     setFullScreen(true);
+    unlock();
     hostEvents.start();
 };
 globalThis.cjReady?.();
