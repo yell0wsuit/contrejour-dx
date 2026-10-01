@@ -184,13 +184,10 @@ namespace Mokus2D.Content
             }
             // TexturePacker writes the scale as a string; a plain number is accepted too.
             float value = float.NaN;
-            _ = scale.ValueKind switch
-            {
-                JsonValueKind.String => float.TryParse(scale.GetString(), NumberStyles.Float, CultureInfo.InvariantCulture, out value),
-                JsonValueKind.Number => scale.TryGetSingle(out value),
-                _ => false,
-            };
-            return float.IsFinite(value) && value > 0f
+            bool parsed = scale.ValueKind == JsonValueKind.String
+                ? float.TryParse(scale.GetString(), NumberStyles.Float, CultureInfo.InvariantCulture, out value)
+                : scale.ValueKind == JsonValueKind.Number && scale.TryGetSingle(out value);
+            return parsed && float.IsFinite(value) && value > 0f
                 ? value
                 : throw new InvalidDataException($"{fileName}: meta.scale must be a positive number.");
         }
