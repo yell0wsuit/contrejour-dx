@@ -867,10 +867,6 @@ namespace ContreJour.Gameplay
             LevelData levelDataByPosition = UserData.Instance.GetLevelDataByPosition(levelPosition);
             int num = UserData.Instance.CompleteLevel(levelPosition, StarsCollected, TotalTime);
             bool newHighScore = levelDataByPosition != null && (levelDataByPosition.Score < num || levelDataByPosition.StarsCount < StarsCollected);
-            pauseButton.InteractionsEnabled = false;
-            _ = pauseButton.FadeOutAndHide(0.3f);
-            restartButton.InteractionsEnabled = false;
-            _ = restartButton.FadeOutAndHide(0.3f);
             finishView.Show(levelPosition, StarsCollected, num, TotalTime, newHighScore);
             finishView.NextLevelEvent.AddListener(NextLevelEvent.SendEvent);
             FinishWithViewPosition(finishView, zoomPoint);
@@ -893,10 +889,21 @@ namespace ContreJour.Gameplay
             ZoomToScaleRightTopLeftBottomTime(rightTop: new Vector2(0f, 30f), leftBottom: new Vector2(rootSize.X * -0.29999995f, (rootSize.Y * -0.29999995f) - 30f), zoomPoint: zoomPoint * GameRoot.Scale, scale: 1.3f, time: 2.4f);
         }
 
+        // Covers both a level finish and the game ending, where the back button takes the pause button's place.
         public void HidePause()
         {
-            pauseButton?.Enabled = false;
-            restartButton?.Enabled = false;
+            HideButton(pauseButton);
+            HideButton(restartButton);
+        }
+
+        private static void HideButton(Button button)
+        {
+            if (button != null)
+            {
+                button.Enabled = false;
+                button.InteractionsEnabled = false;
+                _ = button.FadeOutAndHide(0.3f);
+            }
         }
 
         public void ZoomOut(float time)
