@@ -8,7 +8,6 @@ using FarseerPhysics.Dynamics.Contacts;
 
 using Mokus2D.Graphics;
 using Mokus2D.Input;
-using Mokus2D.Util;
 using Mokus2D.Util.Extensions;
 using Mokus2D.Util.MathUtils;
 
@@ -383,7 +382,12 @@ namespace ContreJour.Gameplay
         {
             if (!builder.ContreJour.BlackSide)
             {
-                GrassController = (GrassController)ReflectUtil.CreateInstance(builder.ContreJour.ChooseSide(null, typeof(WhiteGrassController), typeof(WhiteGrassController), typeof(GrassController), typeof(WhiteGrassController)), this);
+                GrassController = builder.ContreJour.ChooseSide(
+                    null,
+                    () => new WhiteGrassController(this),
+                    () => new WhiteGrassController(this),
+                    () => new GrassController(this),
+                    () => new WhiteGrassController(this))();
             }
         }
 

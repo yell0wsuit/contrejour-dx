@@ -15,8 +15,6 @@ namespace ContreJour.Gameplay
 
         public const string AssemblyName = "ContreJour.Win8";
 
-        public const string NamespacePrefix = "ContreJour.Gameplay.";
-
         public const float HeroRadiusPixels = 25f;
 
         public const int AchievementDeathCount = 50;

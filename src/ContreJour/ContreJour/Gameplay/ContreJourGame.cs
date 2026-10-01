@@ -18,7 +18,6 @@ using Mokus2D.Graphics;
 using Mokus2D.Input;
 using Mokus2D.Integration.Farseer.Util;
 using Mokus2D.Interfaces;
-using Mokus2D.Util;
 using Mokus2D.Util.Extensions;
 using Mokus2D.Util.MathUtils;
 using Mokus2D.Util.Schedule;
@@ -324,11 +323,7 @@ namespace ContreJour.Gameplay
 
         public override LevelBuilderBase CreateLevelBuilder()
         {
-            ContreJourLevelBuilder contreJourLevelBuilder = new(this)
-            {
-                NamespacePrefix = "ContreJour.Gameplay."
-            };
-            return contreJourLevelBuilder;
+            return new ContreJourLevelBuilder(this);
         }
 
         public void LoadLevelIndex(int index)
@@ -764,7 +759,7 @@ namespace ContreJour.Gameplay
             }
             if (hashtable.Exists("type"))
             {
-                BackgroundBase item = (BackgroundBase)ReflectUtil.CreateInstance(typeName: "ContreJour.Gameplay." + hashtable.GetString("type"), mainAssemblyClass: typeof(ContreJourApplication), parameters: [node, hashtable, this]);
+                BackgroundBase item = BackgroundFactory.Create(hashtable.GetString("type"), node, hashtable, this);
                 backgrounds.Add(item);
             }
         }

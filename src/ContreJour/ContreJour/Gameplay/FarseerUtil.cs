@@ -70,7 +70,7 @@ namespace ContreJour.Gameplay
 
         private static bool InterfacePredicate(object clip, object interfaceType)
         {
-            return ReflectUtil.CastToTypeInfo(interfaceType).IsAssignableFrom(clip.GetType().GetTypeInfo());
+            return ((Type)interfaceType).GetTypeInfo().IsAssignableFrom(clip.GetType().GetTypeInfo());
         }
 
         private static bool TypePredicate(BodyClip clip, object type)

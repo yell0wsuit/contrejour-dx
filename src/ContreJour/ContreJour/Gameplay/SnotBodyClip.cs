@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Numerics;
 
@@ -10,7 +11,6 @@ using Mokus2D.Events;
 using Mokus2D.Graphics;
 using Mokus2D.Input;
 using Mokus2D.Sound;
-using Mokus2D.Util;
 using Mokus2D.Util.Extensions;
 using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual;
@@ -294,7 +294,12 @@ namespace ContreJour.Gameplay
         public override SnotSprite CreateClip()
         {
             ContreJourGame contreJourGame = (ContreJourGame)Builder.Game;
-            return (SnotSprite)ReflectUtil.CreateInstance(contreJourGame.ChooseSide(typeof(BlackSnotSprite), typeof(WhiteSnotSprite), typeof(SpringSnotSprite), typeof(SpringSnotSprite), typeof(GreenSnotSprite)), contreJourGame, this, StartWidth, CenterWidth, EndWidth);
+            return contreJourGame.ChooseSide<Func<SnotSprite>>(
+                () => new BlackSnotSprite(contreJourGame, this, StartWidth, CenterWidth, EndWidth),
+                () => new WhiteSnotSprite(contreJourGame, this, StartWidth, CenterWidth, EndWidth),
+                () => new SpringSnotSprite(contreJourGame, this, StartWidth, CenterWidth, EndWidth),
+                () => new SpringSnotSprite(contreJourGame, this, StartWidth, CenterWidth, EndWidth),
+                () => new GreenSnotSprite(contreJourGame, this, StartWidth, CenterWidth, EndWidth))();
         }
 
         public override void Update(float time)

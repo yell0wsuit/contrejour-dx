@@ -12,7 +12,6 @@ using Mokus2D.Effects.Tween.Easing;
 using Mokus2D.Events;
 using Mokus2D.Graphics;
 using Mokus2D.Sound;
-using Mokus2D.Util;
 using Mokus2D.Util.Extensions;
 using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual;
@@ -236,7 +235,12 @@ namespace ContreJour.Gameplay
 
         private void CreateHero()
         {
-            hero = (FakeHero)ReflectUtil.CreateInstance(game.ChooseSide(typeof(FakeHeroBlack), typeof(FakeHeroWhite), typeof(FakeHero), typeof(FakeHero), typeof(FakeHeroGreen)));
+            hero = game.ChooseSide(
+                static () => new FakeHeroBlack(),
+                static () => new FakeHeroWhite(),
+                static () => new FakeHero(),
+                static () => new FakeHero(),
+                static () => new FakeHeroGreen())();
             hero.Visible = false;
             AddChild(hero, 1);
         }

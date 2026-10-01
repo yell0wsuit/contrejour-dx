@@ -11,7 +11,6 @@ using FarseerPhysics.Dynamics;
 using FarseerPhysics.Factories;
 
 using Mokus2D.Input;
-using Mokus2D.Util;
 using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual;
 
@@ -24,8 +23,6 @@ namespace ContreJour.Gameplay
         public const float MaxUpdateTime = 1f / 30f;
 
         public const int BACKGROUND = -10;
-
-        public string NamespacePrefix { get; set; }
 
         private readonly Dictionary<string, BodyClip> clips;
         public GameBase Game { get; }
@@ -337,13 +334,12 @@ namespace ContreJour.Gameplay
                 if (!hashtable.Exists("skipClip"))
                 {
                     string clipType = GetClipType(hashtable);
-                    Type type = (clipType != null) ? Type.GetType(NamespacePrefix + clipType) : typeof(BodyClip);
-                    if (type is null)
+                    BodyClip bodyClip = BodyClipFactory.Create(clipType, this, physics, node, hashtable);
+                    if (bodyClip is null)
                     {
                         DebugUtil.Trace("type not found {0}", null, clipType);
-                        return null;
                     }
-                    return (BodyClip)ReflectUtil.CreateInstance(type, this, physics, node, hashtable);
+                    return bodyClip;
                 }
             }
             return null;

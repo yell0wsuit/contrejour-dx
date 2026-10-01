@@ -4,7 +4,6 @@ using System.Numerics;
 
 using Mokus2D.Controls;
 using Mokus2D.Events;
-using Mokus2D.Util;
 using Mokus2D.Util.Extensions;
 using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual;
@@ -63,13 +62,19 @@ namespace ContreJour.Gameplay
 
         private void CreatePlanets(MainMenu menu)
         {
-            List<Type> list = [typeof(Chapter1), typeof(Chapter2), typeof(Chapter3), typeof(Chapter4), typeof(Chapter5)
-    ];
+            List<Func<int, MainMenu, ChapterItem>> list =
+            [
+                static (index, owner) => new Chapter1(index, owner),
+                static (index, owner) => new Chapter2(index, owner),
+                static (index, owner) => new Chapter3(index, owner),
+                static (index, owner) => new Chapter4(index, owner),
+                static (index, owner) => new Chapter5(index, owner),
+            ];
             int totalStars = UserData.Instance.TotalStars;
             for (int i = 0; i < list.Count; i++)
             {
                 bool flag = ContreJourConditions.Trial(trialValue: false, i < Constants.NormalChaptersCount && UserData.StarsToUnlock(i) > totalStars);
-                ChapterItem chapterItem = (ChapterItem)ReflectUtil.CreateInstance(flag ? typeof(ChapterLocked) : list[i], i, menu);
+                ChapterItem chapterItem = flag ? new ChapterLocked(i, menu) : list[i](i, menu);
                 if (!flag && i >= UserData.Instance.UnlockedChapters && i < Constants.NormalChaptersCount && UserData.StarsToUnlock(i) > 0)
                 {
                     CreateExplodingChapter(chapterItem, menu);
