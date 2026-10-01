@@ -189,8 +189,12 @@ namespace ContreJour.Desktop
         private SdlGraphicsDevice CreateDevice(GraphicsBackendKind kind, CandidateLifetime lifetime)
         {
             Action<string> fault = _options.Faults.For(kind);
+            if (kind == GraphicsBackendKind.Angle)
+            {
+                return CreateAngleDevice(fault, lifetime);
+            }
             SdlGraphicsDevice device = kind == GraphicsBackendKind.OpenGL
-                ? new SdlGlDevice(fault)
+                ? new SdlGlDevice(fault, GlContextProfile.DesktopCore)
                 : kind == GraphicsBackendKind.Metal
                 ? new MetalDevice(fault)
                 : kind == GraphicsBackendKind.Software
@@ -199,6 +203,20 @@ namespace ContreJour.Desktop
             _ = lifetime.Own(device);
             device.Initialize();
             return device;
+        }
+
+        // From the libraries shipped in angle/ beside the game; a build without them fails here, before
+        // SDL is touched. Both attempts share one fault hook, so a fault fires once.
+        private static SdlGlDevice CreateAngleDevice(Action<string> fault, CandidateLifetime lifetime)
+        {
+            return AngleRuntime.TryLocate(AppContext.BaseDirectory, out string egl, out string gles)
+                ? GlContextProfile.Angle(egl, gles).Start(profile =>
+                {
+                    SdlGlDevice device = lifetime.Own(new SdlGlDevice(fault, profile));
+                    device.Initialize();
+                    return device;
+                })
+                : throw new PlatformNotSupportedException("The ANGLE libraries are not installed beside the game.");
         }
 
         // A candidate must draw a shaded frame that reads back before the game gets it: a driver that
