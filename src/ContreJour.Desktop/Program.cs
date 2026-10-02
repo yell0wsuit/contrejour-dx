@@ -4,6 +4,7 @@ using System.Reflection;
 using ContreJour.Desktop.Platform;
 using ContreJour.Desktop.Platform.Audio;
 using ContreJour.Desktop.Platform.Diagnostics;
+using ContreJour.Gameplay;
 using ContreJour.Saving;
 
 using Microsoft.Extensions.Logging;
@@ -71,9 +72,12 @@ namespace ContreJour.Desktop
 
         private static bool Run(DesktopOptions options, string saveDirectory)
         {
+            // UserData loads settings once. Do it before the window reads them, so game startup
+            // cannot reload the file and discard the host's initial placement changes.
+            _ = UserData.Instance;
             // Declared before the game, so the game is disposed first.
             using IAudioBackend audio = OpenAudio();
-            using SdlApplication<ContreJourApplication> game = new(audio, options, saveDirectory);
+            using SdlApplication<DesktopContreJourApplication> game = new(audio, options, saveDirectory);
             game.Run();
             return game.Abandoned;
         }

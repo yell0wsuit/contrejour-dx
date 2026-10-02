@@ -10,13 +10,12 @@ using SDL3;
 
 namespace ContreJour.Desktop
 {
-    // The SDL window as the engine sees it. The back buffer is a fixed logical canvas, the window's
-    // pixel size when it first went full screen: the game lays itself out once, at startup, so
+    // The SDL window as the engine sees it. The back buffer is a fixed logical canvas, sized from
+    // the fullscreen surface or display at startup: the game lays itself out once, at startup, so
     // later window sizes are letterboxed rather than handed to it.
     internal sealed class SdlGameHost : IGameHost
     {
-        // Share of the display's usable area the window takes when it leaves full screen.
-        private const float WindowedFraction = 0.8f;
+        private WindowPlacement _placement;
 
         private nint _window;
 
@@ -28,10 +27,11 @@ namespace ContreJour.Desktop
         {
             _window = window;
             _windowId = SDL.GetWindowID(window);
-            Reveal(fullScreen: true);
+            (_placement, bool fullScreen) = WindowPreferences.Read();
+            Reveal(fullScreen);
             Check(SDL.GetWindowSizeInPixels(_window, out int pixelWidth, out int pixelHeight));
             SDL.DisplayMode display = DesktopMode();
-            (int width, int height) = CanvasSize.Choose(pixelWidth, pixelHeight, display.W, display.H, display.PixelDensity);
+            (int width, int height) = CanvasSize.Choose(WindowIsFullScreen() ? pixelWidth : 0, WindowIsFullScreen() ? pixelHeight : 0, display.W, display.H, display.PixelDensity);
             BackBufferSize = new Point(width, height);
             PreferredBackBufferSize = BackBufferSize;
             _fullScreen = new FullScreenState(WindowIsFullScreen, fullScreen => SDL.SetWindowFullscreen(_window, fullScreen), () => SDL.SyncWindow(_window))
@@ -102,6 +102,8 @@ namespace ContreJour.Desktop
                 throw new NotSupportedException("The desktop back buffer is fixed at startup; windows are letterboxed instead.");
             }
             _fullScreen.Apply();
+            FitWindowedSizeToFrame();
+            RefreshWindowPreferences();
         }
 
         public void Quit()
@@ -118,6 +120,7 @@ namespace ContreJour.Desktop
         // focus, so the level pauses and nothing held carries over.
         public void DetachWindow()
         {
+            RefreshWindowPreferences();
             SetActive(false);
             _window = 0;
             _windowId = 0;
@@ -160,9 +163,15 @@ namespace ContreJour.Desktop
             else if (type is SDL.EventType.WindowEnterFullscreen or SDL.EventType.WindowLeaveFullscreen)
             {
                 _fullScreen.OnWindowChanged(type == SDL.EventType.WindowEnterFullscreen);
+                FitWindowedSizeToFrame();
+                RefreshWindowPreferences();
+                RefreshLetterbox();
+                ClientSizeChanged?.Invoke();
             }
-            else if (type is SDL.EventType.WindowResized or SDL.EventType.WindowPixelSizeChanged or SDL.EventType.WindowDisplayScaleChanged)
+            else if (type is SDL.EventType.WindowResized or SDL.EventType.WindowPixelSizeChanged or SDL.EventType.WindowDisplayScaleChanged
+                or SDL.EventType.WindowMaximized or SDL.EventType.WindowRestored)
             {
+                RefreshWindowPreferences();
                 RefreshLetterbox();
                 ClientSizeChanged?.Invoke();
             }
@@ -211,16 +220,48 @@ namespace ContreJour.Desktop
                 ?? throw new InvalidOperationException($"SDL could not read the display mode: {SDL.GetError()}");
         }
 
-        private void PlaceWindowed()
+        private (int Width, int Height) FitToDisplay(int width, int height)
         {
-            uint display = SDL.GetDisplayForWindow(_window);
-            if (!SDL.GetDisplayUsableBounds(display, out SDL.Rect bounds))
+            Check(SDL.GetDisplayUsableBounds(SDL.GetDisplayForWindow(_window), out SDL.Rect bounds));
+            _ = SDL.GetWindowBordersSize(_window, out int top, out int left, out int bottom, out int right);
+            return (WindowPlacement.ClampSide(width, bounds.W, left + right),
+                WindowPlacement.ClampSide(height, bounds.H, top + bottom));
+        }
+
+        private void Center()
+        {
+            int centered = (int)SDL.WindowPosCenteredDisplay((int)SDL.GetDisplayForWindow(_window));
+            _ = SDL.SetWindowPosition(_window, centered, centered);
+        }
+
+        // Some backends can measure the frame only after the window is shown or leaves fullscreen.
+        private void FitWindowedSizeToFrame()
+        {
+            if ((SDL.GetWindowFlags(_window) & (SDL.WindowFlags.Fullscreen | SDL.WindowFlags.Maximized | SDL.WindowFlags.Minimized)) != 0)
             {
                 return;
             }
-            _ = SDL.SetWindowSize(_window, (int)(bounds.W * WindowedFraction), (int)(bounds.H * WindowedFraction));
-            int centered = (int)SDL.WindowPosCenteredDisplay((int)display);
-            _ = SDL.SetWindowPosition(_window, centered, centered);
+            (int width, int height) = FitToDisplay(_placement.Width, _placement.Height);
+            bool shrunk = width != _placement.Width || height != _placement.Height;
+            _placement.SetNormalSize(width, height);
+            Check(SDL.GetWindowSize(_window, out int currentWidth, out int currentHeight));
+            if (width != currentWidth || height != currentHeight)
+            {
+                _ = SDL.SetWindowSize(_window, width, height);
+                _ = SDL.SyncWindow(_window);
+                if (shrunk)
+                {
+                    Center();
+                }
+            }
+        }
+
+        private void RefreshWindowPreferences()
+        {
+            Check(SDL.GetWindowSize(_window, out int width, out int height));
+            SDL.WindowFlags flags = SDL.GetWindowFlags(_window);
+            _ = _placement.Refresh(flags, width, height);
+            WindowPreferences.Save(_placement, (flags & SDL.WindowFlags.Fullscreen) != 0);
         }
 
         private static void Check(bool success)
@@ -231,11 +272,14 @@ namespace ContreJour.Desktop
             }
         }
 
-        // Sized and placed before going full screen, so every way out of full screen (F11, the green
-        // button, ⌃⌘F from SDL's own menu) comes back to this window.
+        // Size the normal window while hidden, before fullscreen or maximization can obscure it.
         private void Reveal(bool fullScreen)
         {
-            PlaceWindowed();
+            (int width, int height) = FitToDisplay(_placement.Width, _placement.Height);
+            _placement = new WindowPlacement(width, height, _placement.Maximized);
+            _ = SDL.SetWindowMinimumSize(_window, 320, 320);
+            _ = SDL.SetWindowSize(_window, width, height);
+            Center();
             if (fullScreen)
             {
                 _ = SDL.SetWindowFullscreen(_window, true);
@@ -249,6 +293,14 @@ namespace ContreJour.Desktop
                 SDL.PumpEvents();
                 SDL.Delay(10);
             }
+            FitWindowedSizeToFrame();
+            // Cocoa's maximize request is a zoom toggle; do not toggle an already zoomed window.
+            if (_placement.Maximized && !WindowIsFullScreen() && (SDL.GetWindowFlags(_window) & SDL.WindowFlags.Maximized) == 0)
+            {
+                _ = SDL.MaximizeWindow(_window);
+                _ = SDL.SyncWindow(_window);
+            }
+            RefreshWindowPreferences();
         }
 
         private bool HasFocus()
