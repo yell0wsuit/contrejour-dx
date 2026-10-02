@@ -11,7 +11,8 @@ try {
     const runtime = await dotnet
         .withDiagnosticTracing(false)
         .withModuleConfig({
-            onDownloadResourceProgress: (loaded, total) => setLoadingProgress("runtime", loaded, total),
+            onDownloadResourceProgress: (loaded, total) =>
+                setLoadingProgress("runtime", loaded, total),
         })
         .create();
     globalThis.cjWasmModule = runtime.Module;
@@ -41,7 +42,12 @@ globalThis.addEventListener("scroll", invalidateCanvasRect, {
 const sendPointer = (event, phase) => {
     event.preventDefault();
     canvasRect ??= canvas.getBoundingClientRect();
-    hostEvents.pointer(phase, event, event.clientX - canvasRect.left, event.clientY - canvasRect.top);
+    hostEvents.pointer(
+        phase,
+        event,
+        event.clientX - canvasRect.left,
+        event.clientY - canvasRect.top,
+    );
 };
 
 canvas.addEventListener("pointerdown", (event) => {

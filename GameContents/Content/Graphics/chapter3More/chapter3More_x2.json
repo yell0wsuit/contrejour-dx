@@ -2,57 +2,57 @@
     "frames": [
         {
             "filename": "McRelsHintView",
-            "frame": {"x": 1, "y": 107, "w": 37, "h": 140},
+            "frame": { "x": 1, "y": 107, "w": 37, "h": 140 },
             "rotated": false,
             "trimmed": false,
-            "spriteSourceSize": {"x": 0, "y": 0, "w": 37, "h": 140},
-            "sourceSize": {"w": 37, "h": 140},
-            "pivot": {"x": 0.4864864864864865, "y": 0.2714285714285714}
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 37, "h": 140 },
+            "sourceSize": { "w": 37, "h": 140 },
+            "pivot": { "x": 0.4864864864864865, "y": 0.2714285714285714 }
         },
         {
             "filename": "McStoneLongView",
-            "frame": {"x": 1, "y": 1, "w": 1020, "h": 104},
+            "frame": { "x": 1, "y": 1, "w": 1020, "h": 104 },
             "rotated": false,
             "trimmed": false,
-            "spriteSourceSize": {"x": 0, "y": 0, "w": 1020, "h": 104},
-            "sourceSize": {"w": 1020, "h": 104},
-            "pivot": {"x": 0.5019607843137255, "y": 0.5}
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 1020, "h": 104 },
+            "sourceSize": { "w": 1020, "h": 104 },
+            "pivot": { "x": 0.5019607843137255, "y": 0.5 }
         },
         {
             "filename": "McShesterna2Background",
-            "frame": {"x": 0, "y": 249, "w": 510, "h": 510},
+            "frame": { "x": 0, "y": 249, "w": 510, "h": 510 },
             "rotated": false,
             "trimmed": false,
-            "spriteSourceSize": {"x": 0, "y": 0, "w": 510, "h": 510},
-            "sourceSize": {"w": 510, "h": 510},
-            "pivot": {"x": 0.4980392156862745, "y": 0.5019607843137255}
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 510, "h": 510 },
+            "sourceSize": { "w": 510, "h": 510 },
+            "pivot": { "x": 0.4980392156862745, "y": 0.5019607843137255 }
         },
         {
             "filename": "McShesternaBackground",
-            "frame": {"x": 512, "y": 107, "w": 510, "h": 510},
+            "frame": { "x": 512, "y": 107, "w": 510, "h": 510 },
             "rotated": false,
             "trimmed": false,
-            "spriteSourceSize": {"x": 0, "y": 0, "w": 510, "h": 510},
-            "sourceSize": {"w": 510, "h": 510},
-            "pivot": {"x": 0.4980392156862745, "y": 0.5019607843137255}
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 510, "h": 510 },
+            "sourceSize": { "w": 510, "h": 510 },
+            "pivot": { "x": 0.4980392156862745, "y": 0.5019607843137255 }
         },
         {
             "filename": "McShesternaBackgroundBlur",
-            "frame": {"x": 1024, "y": 0, "w": 506, "h": 506},
+            "frame": { "x": 1024, "y": 0, "w": 506, "h": 506 },
             "rotated": false,
             "trimmed": false,
-            "spriteSourceSize": {"x": 0, "y": 0, "w": 506, "h": 506},
-            "sourceSize": {"w": 506, "h": 506},
-            "pivot": {"x": 0.4980237154150198, "y": 0.5098814229249012}
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 506, "h": 506 },
+            "sourceSize": { "w": 506, "h": 506 },
+            "pivot": { "x": 0.4980237154150198, "y": 0.5098814229249012 }
         },
         {
             "filename": "McShesternaOut",
-            "frame": {"x": 1532, "y": 0, "w": 474, "h": 472},
+            "frame": { "x": 1532, "y": 0, "w": 474, "h": 472 },
             "rotated": false,
             "trimmed": false,
-            "spriteSourceSize": {"x": 0, "y": 0, "w": 474, "h": 472},
-            "sourceSize": {"w": 474, "h": 472},
-            "pivot": {"x": 0.4978902953586498, "y": 0.5}
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 474, "h": 472 },
+            "sourceSize": { "w": 474, "h": 472 },
+            "pivot": { "x": 0.4978902953586498, "y": 0.5 }
         }
     ],
     "meta": {
@@ -60,7 +60,7 @@
         "version": "1.0",
         "image": "chapter3More_x2.png",
         "format": "RGBA8888",
-        "size": {"w": 2048, "h": 1024},
+        "size": { "w": 2048, "h": 1024 },
         "scale": "1"
     }
 }

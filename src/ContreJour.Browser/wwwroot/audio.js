@@ -18,7 +18,9 @@ const voices = new Set();
 
 function ensureContext() {
     if (context === null) {
-        context = new (globalThis.AudioContext || globalThis.webkitAudioContext)();
+        context = new (
+            globalThis.AudioContext || globalThis.webkitAudioContext
+        )();
         effectsGain = context.createGain();
         effectsGain.connect(context.destination);
         musicGain = context.createGain();
@@ -31,20 +33,26 @@ function music() {
     if (musicElement === null) {
         musicElement = new Audio();
         musicElement.loop = true;
-        ensureContext().createMediaElementSource(musicElement).connect(musicGain);
+        ensureContext()
+            .createMediaElementSource(musicElement)
+            .connect(musicGain);
     }
     return musicElement;
 }
 
 function playMusicElement() {
     if (songWanted && !songPaused && !suspended) {
-        void music().play().catch(() => {});
+        void music()
+            .play()
+            .catch(() => {});
     }
 }
 
 // Called from the Play click: a context may only start inside a user gesture.
 export function unlock() {
-    void ensureContext().resume().catch(() => {});
+    void ensureContext()
+        .resume()
+        .catch(() => {});
 }
 
 export async function decodeEffect(key, url) {
@@ -52,7 +60,10 @@ export async function decodeEffect(key, url) {
     if (!response.ok) {
         return 0;
     }
-    effects.set(key, await ensureContext().decodeAudioData(await response.arrayBuffer()));
+    effects.set(
+        key,
+        await ensureContext().decodeAudioData(await response.arrayBuffer()),
+    );
     return 1;
 }
 
@@ -176,13 +187,22 @@ function resumeFromGesture() {
 }
 
 function armGestureResume() {
-    globalThis.addEventListener("pointerdown", resumeFromGesture, { passive: true });
-    globalThis.addEventListener("keydown", resumeFromGesture, { passive: true });
+    globalThis.addEventListener("pointerdown", resumeFromGesture, {
+        passive: true,
+    });
+    globalThis.addEventListener("keydown", resumeFromGesture, {
+        passive: true,
+    });
 }
 
 // An interruption while the page stays visible (and the game active) never reaches setSuspended.
 document.addEventListener("visibilitychange", () => {
-    if (document.visibilityState !== "visible" || suspended || context === null || context.state === "running") {
+    if (
+        document.visibilityState !== "visible" ||
+        suspended ||
+        context === null ||
+        context.state === "running"
+    ) {
         return;
     }
     unlock();

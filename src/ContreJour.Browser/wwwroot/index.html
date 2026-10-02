@@ -146,7 +146,13 @@
     <body>
         <canvas id="game"></canvas>
         <div id="splash">
-            <img src="./icon-512.png" width="96" height="96" alt="Contre Jour icon" decoding="async" />
+            <img
+                src="./icon-512.png"
+                width="96"
+                height="96"
+                alt="Contre Jour icon"
+                decoding="async"
+            />
             <div class="spinner" id="splash-spinner"></div>
             <p id="splash-progress">Loading…</p>
             <h1>Contre Jour</h1>
@@ -155,11 +161,12 @@
                 Taking too long? Check your connection, or reload the page.
             </p>
             <p id="boot-error" role="alert" hidden>
-                The game could not start. Check your connection and reload the page.
+                The game could not start. Check your connection and reload the
+                page.
             </p>
             <p id="context-lost-error" role="alert" hidden>
-                The browser reset the game's graphics. Reload to continue - saved progress is kept, but the
-                current level will restart.
+                The browser reset the game's graphics. Reload to continue -
+                saved progress is kept, but the current level will restart.
             </p>
             <button id="resume" hidden>Reload</button>
         </div>
@@ -173,7 +180,9 @@
             let downloadStatusTimer;
             // Keep keyboard activation on this button out of the game's global key handler.
             for (const eventName of ["keydown", "keyup"]) {
-                downloadLogs.addEventListener(eventName, event => event.stopPropagation());
+                downloadLogs.addEventListener(eventName, (event) =>
+                    event.stopPropagation(),
+                );
             }
             downloadLogs.addEventListener("click", async () => {
                 clearTimeout(downloadStatusTimer);
@@ -181,7 +190,8 @@
                 try {
                     const logs = await import("./log.js");
                     const count = await logs.exportZip();
-                    downloadLogs.textContent = count > 0 ? "Logs downloaded" : "No logs yet";
+                    downloadLogs.textContent =
+                        count > 0 ? "Logs downloaded" : "No logs yet";
                 } catch (error) {
                     console.error("cj-log: export failed", error);
                     downloadLogs.textContent = "Retry log download";
@@ -244,7 +254,10 @@
             // Called once the game is ready. After boot a rejection belongs to the running game, and covering
             // a playable session with the boot error screen would cost the player more than the rejection did.
             globalThis.cjBootComplete = () => {
-                globalThis.removeEventListener("unhandledrejection", onBootRejection);
+                globalThis.removeEventListener(
+                    "unhandledrejection",
+                    onBootRejection,
+                );
                 globalThis.removeEventListener("error", onBootError);
             };
 

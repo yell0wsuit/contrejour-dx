@@ -2,39 +2,39 @@
     "frames": [
         {
             "filename": "McColorFix",
-            "frame": {"x": 211, "y": 502, "w": 200, "h": 1},
+            "frame": { "x": 211, "y": 502, "w": 200, "h": 1 },
             "rotated": false,
             "trimmed": false,
-            "spriteSourceSize": {"x": 0, "y": 0, "w": 200, "h": 1},
-            "sourceSize": {"w": 200, "h": 1},
-            "pivot": {"x": 1.06, "y": 20}
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 200, "h": 1 },
+            "sourceSize": { "w": 200, "h": 1 },
+            "pivot": { "x": 1.06, "y": 20 }
         },
         {
             "filename": "McLightView1Content",
-            "frame": {"x": 1, "y": 1, "w": 218, "h": 309},
+            "frame": { "x": 1, "y": 1, "w": 218, "h": 309 },
             "rotated": false,
             "trimmed": false,
-            "spriteSourceSize": {"x": 0, "y": 0, "w": 218, "h": 309},
-            "sourceSize": {"w": 218, "h": 309},
-            "pivot": {"x": 0.5, "y": 0.5016181229773463}
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 218, "h": 309 },
+            "sourceSize": { "w": 218, "h": 309 },
+            "pivot": { "x": 0.5, "y": 0.5016181229773463 }
         },
         {
             "filename": "McLightView11ContentExport",
-            "frame": {"x": 211, "y": 312, "w": 144, "h": 188},
+            "frame": { "x": 211, "y": 312, "w": 144, "h": 188 },
             "rotated": false,
             "trimmed": false,
-            "spriteSourceSize": {"x": 0, "y": 0, "w": 144, "h": 188},
-            "sourceSize": {"w": 144, "h": 188},
-            "pivot": {"x": 0.5208333333333334, "y": 0.5053191489361702}
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 144, "h": 188 },
+            "sourceSize": { "w": 144, "h": 188 },
+            "pivot": { "x": 0.5208333333333334, "y": 0.5053191489361702 }
         },
         {
             "filename": "McLightView7Content",
-            "frame": {"x": 1, "y": 312, "w": 208, "h": 189},
+            "frame": { "x": 1, "y": 312, "w": 208, "h": 189 },
             "rotated": false,
             "trimmed": false,
-            "spriteSourceSize": {"x": 0, "y": 0, "w": 208, "h": 189},
-            "sourceSize": {"w": 208, "h": 189},
-            "pivot": {"x": 0.6105769230769231, "y": 0.4708994708994709}
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 189 },
+            "sourceSize": { "w": 208, "h": 189 },
+            "pivot": { "x": 0.6105769230769231, "y": 0.4708994708994709 }
         }
     ],
     "meta": {
@@ -42,7 +42,7 @@
         "version": "1.0",
         "image": "lights.png",
         "format": "RGBA8888",
-        "size": {"w": 512, "h": 512},
+        "size": { "w": 512, "h": 512 },
         "scale": "1"
     }
 }

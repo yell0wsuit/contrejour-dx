@@ -2,21 +2,21 @@
     "frames": [
         {
             "filename": "McBackground4Content",
-            "frame": {"x": 0, "y": 0, "w": 1020, "h": 766},
+            "frame": { "x": 0, "y": 0, "w": 1020, "h": 766 },
             "rotated": false,
             "trimmed": false,
-            "spriteSourceSize": {"x": 0, "y": 0, "w": 1020, "h": 766},
-            "sourceSize": {"w": 1020, "h": 766},
-            "pivot": {"x": 0, "y": 0}
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 1020, "h": 766 },
+            "sourceSize": { "w": 1020, "h": 766 },
+            "pivot": { "x": 0, "y": 0 }
         },
         {
             "filename": "McBackgroundContent1_5",
-            "frame": {"x": 1022, "y": 0, "w": 1020, "h": 766},
+            "frame": { "x": 1022, "y": 0, "w": 1020, "h": 766 },
             "rotated": false,
             "trimmed": false,
-            "spriteSourceSize": {"x": 0, "y": 0, "w": 1020, "h": 766},
-            "sourceSize": {"w": 1020, "h": 766},
-            "pivot": {"x": 0, "y": 0}
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 1020, "h": 766 },
+            "sourceSize": { "w": 1020, "h": 766 },
+            "pivot": { "x": 0, "y": 0 }
         }
     ],
     "meta": {
@@ -24,7 +24,7 @@
         "version": "1.0",
         "image": "menuBackgrounds_x2.png",
         "format": "RGBA8888",
-        "size": {"w": 2048, "h": 1024},
+        "size": { "w": 2048, "h": 1024 },
         "scale": "1"
     }
 }

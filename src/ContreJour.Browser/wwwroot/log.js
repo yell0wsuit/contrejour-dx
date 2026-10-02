@@ -6,22 +6,38 @@ const MAX_SESSIONS = 10;
 const MAX_RECORD_LENGTH = 1024 * 1024;
 const FLUSH_DELAY_MS = 2000;
 const started = new Date();
-const runId = formatSessionId(started) + "-" + String(started.getMilliseconds()).padStart(3, "0") + "-" + crypto.randomUUID();
+const runId =
+    formatSessionId(started) +
+    "-" +
+    String(started.getMilliseconds()).padStart(3, "0") +
+    "-" +
+    crypto.randomUUID();
 const gameRecord = createRecord("");
 const browserRecord = createRecord("-browser");
 let dbPromise = null;
 
 function createRecord(suffix) {
-    return { suffix, id: null, header: "", text: "", timer: null, chain: Promise.resolve(), version: 0, writtenVersion: -1 };
+    return {
+        suffix,
+        id: null,
+        header: "",
+        text: "",
+        timer: null,
+        chain: Promise.resolve(),
+        version: 0,
+        writtenVersion: -1,
+    };
 }
 function openDatabase() {
-    return dbPromise ??= new Promise((resolve, reject) => {
+    return (dbPromise ??= new Promise((resolve, reject) => {
         const operation = indexedDB.open(DB_NAME, 1);
-        operation.onupgradeneeded = () => operation.result.createObjectStore(STORE, { keyPath: "id" });
+        operation.onupgradeneeded = () =>
+            operation.result.createObjectStore(STORE, { keyPath: "id" });
         operation.onsuccess = () => resolve(operation.result);
         operation.onerror = () => reject(operation.error);
-        operation.onblocked = () => reject(new Error("Log database upgrade blocked"));
-    });
+        operation.onblocked = () =>
+            reject(new Error("Log database upgrade blocked"));
+    }));
 }
 function request(operation) {
     return new Promise((resolve, reject) => {
@@ -37,12 +53,13 @@ function commit(db, action) {
     return new Promise((resolve, reject) => {
         const tx = db.transaction(STORE, "readwrite");
         tx.oncomplete = resolve;
-        tx.onerror = tx.onabort = () => reject(tx.error ?? new Error("Log write failed"));
+        tx.onerror = tx.onabort = () =>
+            reject(tx.error ?? new Error("Log write failed"));
         action(tx.objectStore(STORE));
     });
 }
 export function formatSessionId(date) {
-    const pad = value => String(value).padStart(2, "0");
+    const pad = (value) => String(value).padStart(2, "0");
     return `${date.getFullYear()}${pad(date.getMonth() + 1)}${pad(date.getDate())}-${pad(date.getHours())}${pad(date.getMinutes())}${pad(date.getSeconds())}`;
 }
 function describeDevice() {
@@ -64,17 +81,25 @@ function appendRecord(record, line, urgent) {
     record.version++;
     if (record.text.length > MAX_RECORD_LENGTH) {
         const marker = "[Earlier entries truncated]\n";
-        const tail = record.text.slice(-(MAX_RECORD_LENGTH - record.header.length - marker.length));
+        const tail = record.text.slice(
+            -(MAX_RECORD_LENGTH - record.header.length - marker.length),
+        );
         record.text = record.header + marker + tail;
     }
     if (urgent) {
         void flushRecord(record);
     } else if (record.timer === null) {
-        record.timer = setTimeout(() => { record.timer = null; void flushRecord(record); }, FLUSH_DELAY_MS);
+        record.timer = setTimeout(() => {
+            record.timer = null;
+            void flushRecord(record);
+        }, FLUSH_DELAY_MS);
     }
 }
 function flushRecord(record) {
-    if (record.timer !== null) { clearTimeout(record.timer); record.timer = null; }
+    if (record.timer !== null) {
+        clearTimeout(record.timer);
+        record.timer = null;
+    }
     if (record.id === null) return record.chain;
     const write = async () => {
         if (record.writtenVersion === record.version) return;
@@ -82,12 +107,23 @@ function flushRecord(record) {
         const text = record.text;
         try {
             const db = await openDatabase();
-            await commit(db, target => target.put({ id: record.id, text }));
+            await commit(db, (target) => target.put({ id: record.id, text }));
             record.writtenVersion = version;
             const ids = (await request(store(db, "readonly").getAllKeys()))
-                .filter(id => id !== record.id && id.endsWith("-browser") === (record === browserRecord)).sort();
-            const doomed = ids.slice(0, Math.max(0, ids.length + 1 - MAX_SESSIONS));
-            if (doomed.length > 0) await commit(db, target => doomed.forEach(id => target.delete(id)));
+                .filter(
+                    (id) =>
+                        id !== record.id &&
+                        id.endsWith("-browser") === (record === browserRecord),
+                )
+                .sort();
+            const doomed = ids.slice(
+                0,
+                Math.max(0, ids.length + 1 - MAX_SESSIONS),
+            );
+            if (doomed.length > 0)
+                await commit(db, (target) =>
+                    doomed.forEach((id) => target.delete(id)),
+                );
         } catch {
             // Keep the bounded current record in memory for export when storage is denied.
         }
@@ -95,26 +131,47 @@ function flushRecord(record) {
     record.chain = record.chain.then(write, write);
     return record.chain;
 }
-export function begin(header) { return beginRecord(gameRecord, header); }
-export function beginBrowser(header) { return beginRecord(browserRecord, header); }
-export function append(line, urgent) { appendRecord(gameRecord, line, urgent); }
-export function appendBrowser(line, urgent) { appendRecord(browserRecord, line, urgent); }
-export function flush() { return Promise.all([flushRecord(gameRecord), flushRecord(browserRecord)]); }
+export function begin(header) {
+    return beginRecord(gameRecord, header);
+}
+export function beginBrowser(header) {
+    return beginRecord(browserRecord, header);
+}
+export function append(line, urgent) {
+    appendRecord(gameRecord, line, urgent);
+}
+export function appendBrowser(line, urgent) {
+    appendRecord(browserRecord, line, urgent);
+}
+export function flush() {
+    return Promise.all([flushRecord(gameRecord), flushRecord(browserRecord)]);
+}
 export async function readAll() {
     await flush();
     let sessions = [];
-    try { sessions = await request(store(await openDatabase(), "readonly").getAll()); } catch { }
+    try {
+        sessions = await request(
+            store(await openDatabase(), "readonly").getAll(),
+        );
+    } catch {}
     // Prefer the live copy, including entries whose storage transaction failed.
-    const byId = new Map(sessions.map(session => [session.id, session]));
+    const byId = new Map(sessions.map((session) => [session.id, session]));
     for (const record of [gameRecord, browserRecord]) {
-        if (record.id !== null) byId.set(record.id, { id: record.id, text: record.text });
+        if (record.id !== null)
+            byId.set(record.id, { id: record.id, text: record.text });
     }
     const ordered = [...byId.values()].sort((a, b) => a.id.localeCompare(b.id));
     // A previously pruned live tab can still export its own run without exceeding retention.
     const retained = [];
     for (const record of [gameRecord, browserRecord]) {
-        const others = ordered.filter(row => row.id !== record.id && row.id.endsWith("-browser") === (record === browserRecord));
-        retained.push(...others.slice(-(MAX_SESSIONS - (record.id === null ? 0 : 1))));
+        const others = ordered.filter(
+            (row) =>
+                row.id !== record.id &&
+                row.id.endsWith("-browser") === (record === browserRecord),
+        );
+        retained.push(
+            ...others.slice(-(MAX_SESSIONS - (record.id === null ? 0 : 1))),
+        );
         if (record.id !== null) retained.push(byId.get(record.id));
     }
     return retained.sort((a, b) => a.id.localeCompare(b.id));
@@ -239,9 +296,12 @@ export async function exportZip() {
     const sessions = await readAll();
     if (sessions.length === 0) return 0;
     const encoder = new TextEncoder();
-    const archive = await buildZip(sessions.map(session => ({
-        name: `contrejour-${session.id}.log`, bytes: encoder.encode(session.text),
-    })));
+    const archive = await buildZip(
+        sessions.map((session) => ({
+            name: `contrejour-${session.id}.log`,
+            bytes: encoder.encode(session.text),
+        })),
+    );
     const url = URL.createObjectURL(archive);
     const link = document.createElement("a");
     link.href = url;
@@ -251,7 +311,9 @@ export async function exportZip() {
     return sessions.length;
 }
 
-globalThis.addEventListener?.("pagehide", () => { void flush(); });
+globalThis.addEventListener?.("pagehide", () => {
+    void flush();
+});
 globalThis.document?.addEventListener("visibilitychange", () => {
     if (document.visibilityState === "hidden") void flush();
 });
