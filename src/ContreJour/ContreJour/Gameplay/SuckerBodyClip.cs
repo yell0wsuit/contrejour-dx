@@ -307,7 +307,13 @@ namespace ContreJour.Gameplay
             eye.Open = true;
             eye.PositionProvider = this;
             Schedule(RefreshPositionProvider, Maths.Random(1.5f, 2.5f));
+            Schedule(PlayJoinSound, 0.15f);
             FinishDragEvent.SendEvent();
+        }
+
+        private void PlayJoinSound()
+        {
+            SoundManager.PlaySound("leapOn1", 0.5f);
         }
 
         private void RefreshPositionProvider()

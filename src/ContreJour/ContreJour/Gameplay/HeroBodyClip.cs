@@ -283,7 +283,7 @@ namespace ContreJour.Gameplay
         {
             eating = true;
             UserData.Instance.Accupuncture++;
-            SoundManager.PlaySound("deathBySpikes5", 0.7f);
+            SoundManager.PlayRandomSound(Sounds.DeathBySpikes, 0.7f);
             FailLevelSpeedPauseEyeAnimation(Body.Position, 1f, 1f, null);
             UpdatePosition();
             disablePositionUpdate = true;

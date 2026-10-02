@@ -6,6 +6,7 @@ using FarseerPhysics.Dynamics;
 using FarseerPhysics.Dynamics.Contacts;
 
 using Mokus2D.Events;
+using Mokus2D.Sound;
 using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual;
 
@@ -76,6 +77,7 @@ namespace ContreJour.Gameplay
             {
                 teleportables.Add(bodyClip);
                 teleportable.Teleport(this);
+                SoundManager.PlaySound("teleport", 0.5f);
                 teleportable.SnotEnabled = false;
                 float num = body2.LinearVelocity.Length() / Builder.EngineConfig.SizeMultiplier;
                 float num2 = Math.Max((num > 200f) ? (20f / num) : 0.1f, 0.01f);

@@ -429,6 +429,7 @@ namespace ContreJour
                 "deathByFall2",
                 "deathByFlowerOut10",
                 "deathByFlowerOut4",
+                "deathBySpikes4",
                 "deathBySpikes5",
                 "end",
                 "explosion0",
@@ -458,6 +459,7 @@ namespace ContreJour
                 "suspicious1",
                 "suspicious3",
                 "teleport",
+                "vysovuvannja",
                 Sounds.IntroSound
             ]);
         }
