@@ -1,9 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
-
+using Mokus2D.Input;
 using Mokus2D.Util;
 using Mokus2D.Visual;
 using Mokus2D.Visual.Interactive;
@@ -19,6 +18,8 @@ namespace Mokus2D.Platforms.Input
         private static bool _middlePressed;
 
         private static int _scrollWheelValue;
+
+        private static bool _scrollBaselineTaken;
 
         private static readonly Dictionary<IMouseOverNode, LinkedListNode<IMouseOverNode>> MouseEventNodes;
 
@@ -59,7 +60,6 @@ namespace Mokus2D.Platforms.Input
             {
                 n.MouseOut();
             };
-            _scrollWheelValue = Mouse.GetState().ScrollWheelValue;
         }
 
         public static void AddMouseOverNode(IMouseOverNode node)
@@ -77,14 +77,21 @@ namespace Mokus2D.Platforms.Input
 
         public static void Update()
         {
+            if (!_scrollBaselineTaken)
+            {
+                // Taken on the first frame rather than in the static constructor, which can run
+                // before the host's input source is available.
+                _scrollWheelValue = Mokus2DGame.Input.GetMouse().ScrollWheelValue;
+                _scrollBaselineTaken = true;
+            }
             if (Mokus2DGame.Instance.AcceptsInput)
             {
-                MouseState state = Mouse.GetState();
-                DispatchScroll(state);
-                CursorPosition = Vector2.Transform(new Vector2(state.X, state.Y), Mokus2DGame.Instance.TouchController.TransformMatrix);
-                ProcessButton(state.LeftButton, ref _leftPressed, LeftButtonPress, LeftButtonRelease);
-                ProcessButton(state.RightButton, ref _rightPressed, RightButtonPress, RightButtonRelease);
-                ProcessButton(state.MiddleButton, ref _middlePressed, MiddleButtonPress, MiddleButtonRelease);
+                MouseSnapshot mouse = Mokus2DGame.Input.GetMouse();
+                DispatchScroll(mouse);
+                CursorPosition = Vector2.Transform(mouse.Position, Mokus2DGame.Instance.TouchController.TransformMatrix);
+                ProcessButton(mouse.Left, ref _leftPressed, LeftButtonPress, LeftButtonRelease);
+                ProcessButton(mouse.Right, ref _rightPressed, RightButtonPress, RightButtonRelease);
+                ProcessButton(mouse.Middle, ref _middlePressed, MiddleButtonPress, MiddleButtonRelease);
                 ProcessMouseOver();
             }
         }
@@ -112,23 +119,23 @@ namespace Mokus2D.Platforms.Input
             }
         }
 
-        private static void DispatchScroll(MouseState state)
+        private static void DispatchScroll(MouseSnapshot mouse)
         {
-            if (state.ScrollWheelValue != _scrollWheelValue)
+            if (mouse.ScrollWheelValue != _scrollWheelValue)
             {
-                ScrollEvent.Dispatch(state.ScrollWheelValue - _scrollWheelValue);
-                _scrollWheelValue = state.ScrollWheelValue;
+                ScrollEvent.Dispatch(mouse.ScrollWheelValue - _scrollWheelValue);
+                _scrollWheelValue = mouse.ScrollWheelValue;
             }
         }
 
-        private static void ProcessButton(ButtonState buttonState, ref bool pressedValue, Action pressEvent, Action releaseEvent)
+        private static void ProcessButton(bool isDown, ref bool pressedValue, Action pressEvent, Action releaseEvent)
         {
-            if (buttonState == ButtonState.Pressed && !pressedValue)
+            if (isDown && !pressedValue)
             {
                 pressedValue = true;
                 pressEvent.Dispatch();
             }
-            else if (buttonState == ButtonState.Released && pressedValue)
+            else if (!isDown && pressedValue)
             {
                 pressedValue = false;
                 releaseEvent.Dispatch();

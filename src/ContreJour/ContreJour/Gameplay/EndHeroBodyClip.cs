@@ -1,16 +1,14 @@
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 
 using ContreJour.Config;
-
-using ContreJourMono.ContreJour.Game.Eyes;
+using ContreJour.Gameplay.Eyes;
 
 using FarseerPhysics.Dynamics;
 
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-
 using Mokus2D.Effects.Tween.Easing;
+using Mokus2D.Graphics;
 using Mokus2D.Sound;
 using Mokus2D.Util.Extensions;
 using Mokus2D.Util.MathUtils;
@@ -48,7 +46,7 @@ namespace ContreJour.Gameplay
         public EndHeroBodyClip(LevelBuilderBase builder, object body, Sprite clip, Hashtable config)
             : base(builder, body, clip, config)
         {
-            Game.Energy.Blend = BlendState.Additive;
+            Game.Energy.Blend = BlendMode.Additive;
             EyeAnimationsAllowed = false;
             animationsAllowed = true;
             Game.BackEvent.AddListener(OnBack);
@@ -143,7 +141,7 @@ namespace ContreJour.Gameplay
             Eye.ReturnToDefault = false;
             ((MovieClip)Eye.CurrentBackground).MaxFrame = 18f;
             ((MovieClip)Eye.CurrentBackground).Repeat = false;
-            _ = Tail.RotateTo(2f, Tail.RotationRadians - MathHelper.ToRadians(70), Cubic.EaseInOut);
+            _ = Tail.RotateTo(2f, Tail.RotationRadians - float.DegreesToRadians(70), Cubic.EaseInOut);
             Schedule(ShowOutro, 1f);
         }
 

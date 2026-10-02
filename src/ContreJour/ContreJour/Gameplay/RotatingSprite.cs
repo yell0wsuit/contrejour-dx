@@ -1,5 +1,4 @@
-using Microsoft.Xna.Framework.Graphics;
-
+using Mokus2D.Graphics;
 using Mokus2D.Visual;
 using Mokus2D.Visual.Data;
 
@@ -14,7 +13,7 @@ namespace ContreJour.Gameplay
         {
         }
 
-        public RotatingSprite(Texture2D texture)
+        public RotatingSprite(ITexture texture)
             : base(texture)
         {
         }

@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 
-using Microsoft.Xna.Framework.Input;
-
 using Mokus2D.Data;
 using Mokus2D.Interfaces;
 using Mokus2D.Util;
@@ -23,13 +21,13 @@ namespace Mokus2D.Input
 
         private static readonly Pool<KeyData> DataPool = new(() => new KeyData());
 
-        private readonly Dictionary<Keys, KeyData> _pressedTimes = [];
+        private readonly Dictionary<Key, KeyData> _pressedTimes = [];
 
         private readonly float RepeatDelay;
 
         private readonly float RepeatTime;
 
-        public event Action<Keys> KeyPressedEvent;
+        public event Action<Key> KeyPressedEvent;
 
         public KeyboardDelayListener(KeyboardController controller)
             : this(controller, 0.65f, 0.06f)
@@ -43,7 +41,7 @@ namespace Mokus2D.Input
             controller.KeyStateChangedEvent += OnKeyStateChanged;
         }
 
-        private void OnKeyStateChanged(Keys keys, bool pressed)
+        private void OnKeyStateChanged(Key keys, bool pressed)
         {
             if (pressed)
             {
@@ -60,7 +58,7 @@ namespace Mokus2D.Input
 
         public void Update(float time)
         {
-            foreach (KeyValuePair<Keys, KeyData> pressedTime in _pressedTimes)
+            foreach (KeyValuePair<Key, KeyData> pressedTime in _pressedTimes)
             {
                 KeyData value = pressedTime.Value;
                 value.Time += time;

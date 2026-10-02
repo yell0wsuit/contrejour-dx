@@ -1,6 +1,6 @@
-using ContreJour.Clips.chapter5;
+using System.Numerics;
 
-using Microsoft.Xna.Framework;
+using ContreJour.Clips;
 
 using Mokus2D.Effects.Tween.Easing;
 using Mokus2D.Util.Extensions;
@@ -20,16 +20,16 @@ namespace ContreJour.Gameplay
 
         private bool flying;
 
-        private static readonly float RotationDiff = MathHelper.ToRadians(5);
+        private static readonly float RotationDiff = float.DegreesToRadians(5);
 
-        private static readonly float ROTATION = MathHelper.ToRadians(25);
+        private static readonly float ROTATION = float.DegreesToRadians(25);
 
-        private static readonly float IdleRotation = MathHelper.ToRadians(10);
+        private static readonly float IdleRotation = float.DegreesToRadians(10);
 
         public FlyWings()
         {
-            top = new McFlyWing();
-            bottom = new McFlyWing();
+            top = new Sprite(ClipIds.Chapter5.McFlyWing);
+            bottom = new Sprite(ClipIds.Chapter5.McFlyWing);
             topContainer = new Node();
             bottomContainer = new Node();
             topContainer.AddChild(top);

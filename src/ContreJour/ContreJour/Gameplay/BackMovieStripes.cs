@@ -2,7 +2,6 @@ using ContreJour.Config;
 
 using Mokus2D.Events;
 using Mokus2D.Util.Extensions;
-using Mokus2D.Visual;
 using Mokus2D.Visual.Interactive;
 
 namespace ContreJour.Gameplay

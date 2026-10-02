@@ -1,9 +1,9 @@
-using ContreJour.Clips.common;
+using System.Numerics;
+
+using ContreJour.Clips;
 
 using FarseerPhysics.Collision.Shapes;
 using FarseerPhysics.Dynamics;
-
-using Microsoft.Xna.Framework;
 
 using Mokus2D.Data;
 using Mokus2D.Events;
@@ -57,7 +57,7 @@ namespace ContreJour.Gameplay
 
         private readonly float lowerLimit;
 
-        private McDragLimit middle;
+        private Sprite middle;
 
         private Vector2 targetPosition;
 
@@ -98,7 +98,7 @@ namespace ContreJour.Gameplay
             targetPosition = InitialPosition;
             upperLimit = 3.4f * num;
             lowerLimit = -3.4f * num;
-            axis = VectorUtil.ToVector(1f, MathHelper.ToRadians(0f - Config.GetFloat("rotation")));
+            axis = VectorUtil.ToVector(1f, float.DegreesToRadians(0f - Config.GetFloat("rotation")));
             CreateBoundsClip(num);
             SetAlpha(150f);
             Body.BodyType = (BodyType)1;
@@ -174,8 +174,8 @@ namespace ContreJour.Gameplay
 
         protected virtual void CreateBoundsClip(float scale)
         {
-            middle = new McDragLimit();
-            Vector2 vector = VectorUtil.ToVector(upperLimit / (1f / 30f), MathHelper.ToRadians(Clip.RotationDegrees));
+            middle = new Sprite(ClipIds.Common.McDragLimit);
+            Vector2 vector = VectorUtil.ToVector(upperLimit / (1f / 30f), float.DegreesToRadians(Clip.RotationDegrees));
             Vector2 position = Clip.Position;
             Builder.AddChildBefore(middle, Clip);
             float rotationDegrees = Clip.RotationDegrees;

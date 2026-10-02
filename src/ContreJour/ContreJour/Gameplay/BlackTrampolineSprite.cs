@@ -1,6 +1,6 @@
 using System;
 
-using Microsoft.Xna.Framework;
+using Mokus2D.Graphics;
 
 namespace ContreJour.Gameplay
 {

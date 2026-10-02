@@ -19,7 +19,6 @@ namespace Mokus2D.Controls
         private Touch currentTouch;
 
         private float direction;
-        private int targetPosition;
 
         private float touchStartPosition;
 
@@ -37,6 +36,8 @@ namespace Mokus2D.Controls
         } = true;
 
         public float CurrentPosition { get; set; }
+
+        public int TargetPosition { get; private set; }
 
         public float PageWidth { get; set; }
 
@@ -81,7 +82,7 @@ namespace Mokus2D.Controls
             currentTouch = null;
             if (Math.Abs(touch.TotalOffset.X) < MinMoveOffset)
             {
-                targetPosition = (int)Math.Round(CurrentPosition);
+                TargetPosition = (int)Math.Round(CurrentPosition);
             }
             else
             {
@@ -91,28 +92,28 @@ namespace Mokus2D.Controls
 
         public void Update(float time)
         {
-            if (currentTouch == null && CurrentPosition != targetPosition)
+            if (currentTouch == null && CurrentPosition != TargetPosition)
             {
-                float step = Math.Max((CurrentPosition - targetPosition).Abs() / 10f, MinMoveStep) * time * 60f;
-                CurrentPosition = CurrentPosition.StepTo(targetPosition, step);
+                float step = Math.Max((CurrentPosition - TargetPosition).Abs() / 10f, MinMoveStep) * time * 60f;
+                CurrentPosition = CurrentPosition.StepTo(TargetPosition, step);
             }
         }
 
         public void SetTargetPosition(int value)
         {
-            targetPosition = value;
+            TargetPosition = value;
         }
 
         private void SetTargetPosition()
         {
-            targetPosition = direction < 0f ? (int)Math.Floor(CurrentPosition) : (int)Math.Ceiling(CurrentPosition);
+            TargetPosition = direction < 0f ? (int)Math.Floor(CurrentPosition) : (int)Math.Ceiling(CurrentPosition);
             if (MinPosition.HasValue)
             {
-                targetPosition = Math.Max(targetPosition, MinPosition.Value);
+                TargetPosition = Math.Max(TargetPosition, MinPosition.Value);
             }
             if (MaxPosition.HasValue)
             {
-                targetPosition = Math.Min(targetPosition, MaxPosition.Value);
+                TargetPosition = Math.Min(TargetPosition, MaxPosition.Value);
             }
         }
     }

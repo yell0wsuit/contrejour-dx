@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
-
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+using System.Numerics;
 
 using Mokus2D;
+using Mokus2D.Graphics;
 using Mokus2D.Util.MathUtils;
 
 namespace ContreJour.Gameplay
@@ -69,7 +68,7 @@ namespace ContreJour.Gameplay
             : base(Mokus2DGame.LoadSpriteData(textureName))
         {
             Parts = [];
-            Blend = BlendState.Additive;
+            Blend = BlendMode.Additive;
             ScaleStep = 0.05f;
             for (int i = 0; i < 5; i++)
             {

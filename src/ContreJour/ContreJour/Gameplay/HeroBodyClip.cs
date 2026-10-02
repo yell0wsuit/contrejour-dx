@@ -1,21 +1,20 @@
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 
-using ContreJour.Clips.common;
+using ContreJour.Clips;
 using ContreJour.Content;
-
-using ContreJourMono.ContreJour.Game.Eyes;
-using ContreJourMono.ContreJour.Game.Hero;
+using ContreJour.Gameplay.Eyes;
+using ContreJour.Gameplay.Hero;
+using ContreJour.Utils;
 
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Dynamics.Contacts;
 
-using Microsoft.Xna.Framework;
-
 using Mokus2D.Events;
+using Mokus2D.Graphics;
 using Mokus2D.Integration.Farseer.Physics;
 using Mokus2D.Sound;
-using Mokus2D.Util;
 using Mokus2D.Util.Extensions;
 using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual;
@@ -54,7 +53,7 @@ namespace ContreJour.Gameplay
         protected bool Finished { get; set; }
 
         private bool hasToYawn;
-        private readonly McHotspotwhite hotspot;
+        private readonly Sprite hotspot;
 
         private Vector2 initialPosition;
 
@@ -148,7 +147,7 @@ namespace ContreJour.Gameplay
             Body.IsBullet = true;
             if (Game.BlackSide || Game.WhiteSide || Game.BonusChapter)
             {
-                bodyBackground = (Sprite)ClipTypesCache.CreateNewNode(Game.ChooseSide("McHeroBlackView", "McHeroWhiteView", "McHeroBackView", "McHeroBackView", "McHeroView_6"));
+                bodyBackground = (Sprite)ClipCatalog.Create(Game.ChooseSide("McHeroBlackView", "McHeroWhiteView", "McHeroBackView", "McHeroBackView", "McHeroView_6"));
                 LevelBuilderBase.ReplaceChildWith(clip, bodyBackground);
             }
             else
@@ -160,7 +159,7 @@ namespace ContreJour.Gameplay
             clip = new Node();
             Clip = clip;
             clip.Position = position;
-            shadow = (Sprite)ClipTypesCache.CreateNewNode(Game.ChooseSide("McHeroShadow", "McHeroShadowWhite", "McHeroShadow", "McHeroShadow"));
+            shadow = (Sprite)ClipCatalog.Create(Game.ChooseSide("McHeroShadow", "McHeroShadowWhite", "McHeroShadow", "McHeroShadow"));
             clip.AddChild(shadow);
             builder.Add(clip, 10);
             bodyBackground.Parent.RemoveChild(bodyBackground);
@@ -188,7 +187,7 @@ namespace ContreJour.Gameplay
             }
             onGroundTime = 0f;
             Config["hasDust"] = true;
-            hotspot = new McHotspotwhite();
+            hotspot = new Sprite(ClipIds.Common.McHotspotwhite);
             clip.AddChild(hotspot);
             Eye = new HeroEye(Game);
             eyeScale = Eye.Scale;
@@ -284,7 +283,7 @@ namespace ContreJour.Gameplay
         {
             eating = true;
             UserData.Instance.Accupuncture++;
-            SoundManager.PlaySound("deathBySpikes5", 0.7f);
+            SoundManager.PlayRandomSound(Sounds.DeathBySpikes, 0.7f);
             FailLevelSpeedPauseEyeAnimation(Body.Position, 1f, 1f, null);
             UpdatePosition();
             disablePositionUpdate = true;
@@ -639,6 +638,8 @@ namespace ContreJour.Gameplay
         {
             if (Body.Position.Y < -3f)
             {
+                // The iOS build plays this; the Windows 8 port dropped it, so falling out was silent.
+                SoundManager.PlayRandomSound(Sounds.DeathByFall);
                 FailLevelSpeedPause(Body.Position, 0f, 0f);
                 UserData.Instance.OutOfScreen++;
             }

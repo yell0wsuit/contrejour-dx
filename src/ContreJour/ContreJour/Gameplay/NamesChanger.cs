@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using System.Globalization;
+using System.Numerics;
 
-using ContreJour.Clips.menu;
+using ContreJour.Clips;
 using ContreJour.Utils;
 
-using Microsoft.Xna.Framework;
-
+using Mokus2D.Graphics;
 using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual;
 using Mokus2D.Visual.Text;
@@ -67,7 +67,7 @@ namespace ContreJour.Gameplay
                 Node node2;
                 if (ContreJourLabelUtil.IsEnglish)
                 {
-                    node2 = new McChapterMoreName();
+                    node2 = new Sprite(ClipIds.Menu.McChapterMoreName);
                 }
                 else
                 {

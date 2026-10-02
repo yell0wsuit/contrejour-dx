@@ -1,11 +1,9 @@
 using System.CodeDom.Compiler;
+using System.Numerics;
 
 using ContreJour.Gameplay;
 
-using Microsoft.Xna.Framework;
-
 using Mokus2D;
-using Mokus2D.Data;
 using Mokus2D.Input;
 using Mokus2D.Interfaces;
 using Mokus2D.Visual;
@@ -14,7 +12,7 @@ using Mokus2D.Visual.Text;
 namespace ContreJour.Clips.menu2
 {
     [GeneratedCode("Mokus2D.ImagesExporter", "0.2")]
-    public class petitInformation : AnimationNode, ITouchListener, IFreeable, IId
+    public class petitInformation : AnimationNode, ITouchListener, IId
     {
         public enum State
         {
@@ -39,13 +37,13 @@ namespace ContreJour.Clips.menu2
             }
         }
 
-        public petitInformationBackground background { get; protected set; }
+        public Sprite background { get; protected set; }
 
         public Label message { get; protected set; }
 
-        public resizeIcon resize { get; protected set; }
+        public Sprite resize { get; protected set; }
 
-        public touchIcon touch { get; protected set; }
+        public Sprite touch { get; protected set; }
 
         public string Id => "menu2/petitInformation";
 
@@ -85,35 +83,23 @@ namespace ContreJour.Clips.menu2
             // Windows 8 "snapped" view has no desktop equivalent.
         }
 
-        public static petitInformation New()
-        {
-            petitInformation petitInformation2 = StaticPool.New<petitInformation>();
-            petitInformation2.RefreshProperties();
-            return petitInformation2;
-        }
-
         public petitInformation()
             : base("menu2/petitInformation")
         {
-            background = new petitInformationBackground();
+            background = new Sprite(ClipIds.Menu2.petitInformationBackground);
             AddChild("background", background);
-            message = new Label("Segoe Print", 30f, new Vector2(457.55f, 118.2f))
+            message = new Label(30f, new Vector2(457.55f, 118.2f))
             {
                 TextString = "Open window in fullscreen \nto play\n",
                 LineSpacing = 2f,
                 Align = TextAlign.Center
             };
             AddChild("message", message);
-            resize = new resizeIcon();
+            resize = new Sprite(ClipIds.Menu2.resizeIcon);
             AddChild("resize", resize);
-            touch = new touchIcon();
+            touch = new Sprite(ClipIds.Menu2.touchIcon);
             AddChild("touch", touch);
             Initialize();
-        }
-
-        public void Free()
-        {
-            StaticPool.Free<petitInformation>(this);
         }
     }
 }

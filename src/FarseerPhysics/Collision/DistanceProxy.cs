@@ -1,7 +1,7 @@
+using System.Numerics;
+
 using FarseerPhysics.Collision.Shapes;
 using FarseerPhysics.Common;
-
-using Microsoft.Xna.Framework;
 
 namespace FarseerPhysics.Collision
 {

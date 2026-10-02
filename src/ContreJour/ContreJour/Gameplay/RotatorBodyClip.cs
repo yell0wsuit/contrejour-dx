@@ -1,10 +1,9 @@
 using System;
+using System.Numerics;
 
-using ContreJour.Clips.chapter5;
+using ContreJour.Clips;
 
 using FarseerPhysics.Dynamics;
-
-using Microsoft.Xna.Framework;
 
 using Mokus2D.Input;
 using Mokus2D.Util.Extensions;
@@ -23,7 +22,7 @@ namespace ContreJour.Gameplay
 
         private readonly Sprite circle;
 
-        private readonly McRotatorPoint touchPoint;
+        private readonly Sprite touchPoint;
 
         private bool touching;
 
@@ -64,9 +63,9 @@ namespace ContreJour.Gameplay
         {
             lastDirection = 1f;
             Body.BodyType = (BodyType)1;
-            circle = new McRotatorCircle();
+            circle = new Sprite(ClipIds.Chapter5.McRotatorCircle);
             Clip.AddChild(circle);
-            touchPoint = new McRotatorPoint();
+            touchPoint = new Sprite(ClipIds.Chapter5.McRotatorPoint);
             Clip.AddChild(touchPoint);
             touchPointSpeed = Maths.Random(0.02f, 0.03f);
             touchPointNeededSpeed = touchPointSpeed;

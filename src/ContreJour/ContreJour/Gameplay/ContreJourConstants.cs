@@ -1,5 +1,4 @@
-using Microsoft.Xna.Framework;
-
+using Mokus2D.Graphics;
 using Mokus2D.Util.Extensions;
 
 namespace ContreJour.Gameplay
@@ -15,8 +14,6 @@ namespace ContreJour.Gameplay
         public const float EndShakeTime = 8f;
 
         public const string AssemblyName = "ContreJour.Win8";
-
-        public const string NamespacePrefix = "ContreJour.Gameplay.";
 
         public const float HeroRadiusPixels = 25f;
 

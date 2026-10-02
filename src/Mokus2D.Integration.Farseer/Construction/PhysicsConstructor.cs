@@ -1,12 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Numerics;
 
 using FarseerPhysics.Collision.Shapes;
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Dynamics.Joints;
-
-using Microsoft.Xna.Framework;
 
 using Mokus2D.Integration.Farseer.Construction.Processors;
 using Mokus2D.Integration.Farseer.Physics;

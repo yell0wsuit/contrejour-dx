@@ -1,0 +1,30 @@
+{
+    "frames": [
+        {
+            "filename": "McBackground4Content",
+            "frame": { "x": 513, "y": 1, "w": 510, "h": 383 },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 510, "h": 383 },
+            "sourceSize": { "w": 510, "h": 383 },
+            "pivot": { "x": 0, "y": 0 }
+        },
+        {
+            "filename": "McBackgroundContent1_5",
+            "frame": { "x": 1, "y": 1, "w": 510, "h": 383 },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 510, "h": 383 },
+            "sourceSize": { "w": 510, "h": 383 },
+            "pivot": { "x": 0, "y": 0 }
+        }
+    ],
+    "meta": {
+        "app": "contre-jour-dx atlas converter",
+        "version": "1.0",
+        "image": "menuBackgrounds.png",
+        "format": "RGBA8888",
+        "size": { "w": 1024, "h": 512 },
+        "scale": "1"
+    }
+}

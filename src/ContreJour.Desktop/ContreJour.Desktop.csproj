@@ -1,0 +1,47 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>ContreJour-DX</AssemblyName>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>ContreJour.Desktop</RootNamespace>
+    <!-- The decompiled projects carry their own AssemblyInfo.cs; this one has none. -->
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <VersionPrefix>1.0.0</VersionPrefix>
+    <VersionSuffix>dirty</VersionSuffix>
+    <Product>Contre Jour DX</Product>
+    <AssemblyTitle>Contre Jour DX</AssemblyTitle>
+    <IncludeSourceRevisionInInformationalVersion Condition="'$(VersionSuffix)' == ''">false</IncludeSourceRevisionInInformationalVersion>
+    <WindowsDistributionIcon>../../distribution/icons/ContreJourDXIcon.ico</WindowsDistributionIcon>
+    <ApplicationIcon Condition="$([MSBuild]::IsOsPlatform('Windows'))">$(WindowsDistributionIcon)</ApplicationIcon>
+  </PropertyGroup>
+
+  <!-- A non-AOT release still ships one executable and loose native libraries. -->
+  <PropertyGroup Condition="'$(RuntimeIdentifier)' != ''">
+    <PublishSingleFile>true</PublishSingleFile>
+    <PublishReadyToRun>false</PublishReadyToRun>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../ContreJour/ContreJour.csproj" />
+    <ProjectReference Include="../ContreJour.Desktop.Platform/ContreJour.Desktop.Platform.csproj" />
+    <ProjectReference Include="../Mokus2D.Rendering.Skia/Mokus2D.Rendering.Skia.csproj" />
+  </ItemGroup>
+
+  <!-- The window icon, which SdlApplication hands to every window it gets. -->
+  <ItemGroup>
+    <EmbeddedResource Include="../../distribution/icons/ContreJourDXIcon.bmp">
+      <LogicalName>Icon.bmp</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(RuntimeIdentifier)' != '' AND $(RuntimeIdentifier.StartsWith('osx'))">
+    <None Include="../../distribution/icons/ContreJourDXIcon.icns">
+      <Link>Resources/ContreJourDXIcon.icns</Link>
+      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+    </None>
+  </ItemGroup>
+
+  <Import Project="../GameContents.targets" />
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Logging" />
+  </ItemGroup>
+</Project>

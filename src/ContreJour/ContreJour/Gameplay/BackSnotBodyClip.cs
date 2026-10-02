@@ -1,10 +1,9 @@
 using System;
+using System.Numerics;
 
-using ContreJourMono.ContreJour.Game.Eyes;
+using ContreJour.Gameplay.Eyes;
 
 using FarseerPhysics.Dynamics;
-
-using Microsoft.Xna.Framework;
 
 using Mokus2D;
 using Mokus2D.Input;

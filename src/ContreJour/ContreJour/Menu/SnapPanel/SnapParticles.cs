@@ -1,8 +1,7 @@
 using System.Collections.Generic;
+using System.Numerics;
 
 using ContreJour.Gameplay;
-
-using Microsoft.Xna.Framework;
 
 using Mokus2D.Util.Extensions;
 using Mokus2D.Util.MathUtils;
@@ -31,7 +30,7 @@ namespace ContreJour.Menu.SnapPanel
                 Vector2 vector = path[i];
                 Vector2 vector2 = path[i + 1];
                 Vector2 vector3 = (vector2 - vector).Rotate90();
-                vector3.Normalize();
+                vector3 = Vector2.Normalize(vector3);
                 for (int j = 0; j < num; j++)
                 {
                     _ = AddParticle(Vector2.Lerp(vector, vector2, j / num) + (vector3 * Maths.Random(-40f, 40f)));

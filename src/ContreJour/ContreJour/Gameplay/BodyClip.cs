@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Dynamics.Contacts;
-
-using Microsoft.Xna.Framework;
 
 using Mokus2D.Util;
 using Mokus2D.Visual;
@@ -33,7 +32,7 @@ namespace ContreJour.Gameplay
 
         public World World => Builder.World;
 
-        protected float InitialBodyAngle => MathHelper.ToRadians(0f - RotationOffset);
+        protected float InitialBodyAngle => float.DegreesToRadians(0f - RotationOffset);
 
         public float BodyAngle => InitialBodyAngle + body.Rotation;
 
@@ -62,7 +61,7 @@ namespace ContreJour.Gameplay
             //IL_0060: Expected O, but got Unknown
             config ??= [];
             RotationOffset = config.GetFloat("rotationOffset", 0f);
-            RotationOffsetRadians = MathHelper.ToRadians(RotationOffset);
+            RotationOffsetRadians = float.DegreesToRadians(RotationOffset);
             Config = config;
             Clip = clip;
             Body = (Body)body;

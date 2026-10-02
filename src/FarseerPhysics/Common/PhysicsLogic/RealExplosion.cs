@@ -1,12 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 
 using FarseerPhysics.Collision;
 using FarseerPhysics.Collision.Shapes;
 using FarseerPhysics.Dynamics;
-
-using Microsoft.Xna.Framework;
 
 namespace FarseerPhysics.Common.PhysicsLogic
 {
@@ -198,7 +197,7 @@ namespace FarseerPhysics.Common.PhysicsLogic
                     continue;
                 }
                 float num15 = _data[num14].Max - _data[num14].Min;
-                float num16 = MathHelper.Min((float)Math.PI / 90f, EdgeRatio * num15);
+                float num16 = MathF.Min((float)Math.PI / 90f, EdgeRatio * num15);
                 int num17 = (int)Math.Ceiling((num15 - (2f * num16) - ((MinRays - 1) * MaxAngle)) / MaxAngle);
                 if (num17 < 0)
                 {

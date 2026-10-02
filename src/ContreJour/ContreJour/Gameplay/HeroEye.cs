@@ -1,13 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 
-using ContreJour.Clips.common2;
+using ContreJour.Clips;
 using ContreJour.Content;
+using ContreJour.Gameplay.Eyes;
 
-using ContreJourMono.ContreJour.Game.Eyes;
-
-using Microsoft.Xna.Framework;
-
+using Mokus2D.Graphics;
 using Mokus2D.Sound;
 using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual;
@@ -46,7 +45,7 @@ namespace ContreJour.Gameplay
         protected override float ViewRadius => base.ViewRadius * 2f;
 
         public HeroEye(ContreJourGame game)
-            : base(game, useMask: true, new Vector2(50f, 50f))
+            : base(game)
         {
             moveAllowed = true;
             colorTime = 0f;
@@ -148,8 +147,8 @@ namespace ContreJour.Gameplay
                 base.CreateDefaultView();
                 return;
             }
-            Background = new McEyeBlack();
-            EyeBallSprite = (Sprite)ClipTypesCache.CreateNewNode(Game.ChooseSide("McEyeBallBlack", "McEyeBallWhite", null, null, "McEyeBall_6"));
+            Background = new Sprite(ClipIds.Common2.McEyeBlack);
+            EyeBallSprite = (Sprite)ClipCatalog.Create(Game.ChooseSide("McEyeBallBlack", "McEyeBallWhite", null, null, "McEyeBall_6"));
         }
 
         protected override string ProcessName(string name)

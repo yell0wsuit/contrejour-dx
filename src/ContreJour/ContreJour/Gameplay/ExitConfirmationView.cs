@@ -1,9 +1,10 @@
+using System.Numerics;
+
 using ContreJour.Config;
 using ContreJour.Utils;
 
-using Microsoft.Xna.Framework;
-
 using Mokus2D.Events;
+using Mokus2D.Graphics;
 using Mokus2D.Visual.Interactive;
 using Mokus2D.Visual.Primitives;
 using Mokus2D.Visual.Text;

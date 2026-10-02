@@ -1,0 +1,633 @@
+{
+    "frames": [
+        {
+            "filename": "McChapter1Blur",
+            "frame": { "x": 516, "y": 1, "w": 250, "h": 250 },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 250, "h": 250 },
+            "sourceSize": { "w": 250, "h": 250 },
+            "pivot": { "x": 0.476, "y": 0.524 }
+        },
+        {
+            "filename": "McChapter2Blur",
+            "frame": { "x": 768, "y": 1, "w": 250, "h": 250 },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 250, "h": 250 },
+            "sourceSize": { "w": 250, "h": 250 },
+            "pivot": { "x": 0.484, "y": 0.524 }
+        },
+        {
+            "filename": "McChapter3Blur",
+            "frame": { "x": 259, "y": 1, "w": 255, "h": 250 },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 255, "h": 250 },
+            "sourceSize": { "w": 255, "h": 250 },
+            "pivot": { "x": 0.5294117647058824, "y": 0.532 }
+        },
+        {
+            "filename": "McChapterLockedBlur",
+            "frame": { "x": 259, "y": 253, "w": 249, "h": 250 },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 249, "h": 250 },
+            "sourceSize": { "w": 249, "h": 250 },
+            "pivot": { "x": 0.5060240963855421, "y": 0.528 }
+        },
+        {
+            "filename": "McGreenPlanetFly",
+            "frame": { "x": 426, "y": 864, "w": 16, "h": 16 },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 16 },
+            "sourceSize": { "w": 16, "h": 16 },
+            "pivot": { "x": 0.5, "y": 0.5 }
+        },
+        {
+            "filename": "McPlanet1Background",
+            "frame": { "x": 250, "y": 505, "w": 200, "h": 208 },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 200, "h": 208 },
+            "sourceSize": { "w": 200, "h": 208 },
+            "pivot": { "x": 0.49, "y": 0.5288461538461539 }
+        },
+        {
+            "filename": "McPlanet1EyeBall",
+            "frame": { "x": 424, "y": 885, "w": 21, "h": 21 },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 21, "h": 21 },
+            "sourceSize": { "w": 21, "h": 21 },
+            "pivot": { "x": 0.5238095238095238, "y": 0.47619047619047616 }
+        },
+        {
+            "filename": "McPlanet1Foreground",
+            "frame": { "x": 1, "y": 259, "w": 247, "h": 252 },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 247, "h": 252 },
+            "sourceSize": { "w": 247, "h": 252 },
+            "pivot": { "x": 0.46558704453441296, "y": 0.5277777777777778 }
+        },
+        {
+            "filename": "McPlanet2Background",
+            "frame": { "x": 748, "y": 253, "w": 211, "h": 214 },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 211, "h": 214 },
+            "sourceSize": { "w": 211, "h": 214 },
+            "pivot": { "x": 0.45023696682464454, "y": 0.5607476635514018 }
+        },
+        {
+            "filename": "McPlanet3Background",
+            "frame": { "x": 510, "y": 253, "w": 236, "h": 195 },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 236, "h": 195 },
+            "sourceSize": { "w": 236, "h": 195 },
+            "pivot": { "x": 0.5338983050847458, "y": 0.5128205128205128 }
+        },
+        {
+            "filename": "McPlanet3Foreground",
+            "frame": { "x": 1, "y": 705, "w": 168, "h": 178 },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 168, "h": 178 },
+            "sourceSize": { "w": 168, "h": 178 },
+            "pivot": { "x": 0.5119047619047619, "y": 0.5617977528089888 }
+        },
+        {
+            "filename": "McPlanet3Light",
+            "frame": { "x": 1, "y": 513, "w": 182, "h": 190 },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 182, "h": 190 },
+            "sourceSize": { "w": 182, "h": 190 },
+            "pivot": { "x": 0.5384615384615384, "y": 0.531578947368421 }
+        },
+        {
+            "filename": "McPlanetCommingBackground",
+            "frame": { "x": 1, "y": 1, "w": 256, "h": 256 },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 256 },
+            "sourceSize": { "w": 256, "h": 256 },
+            "pivot": { "x": 0.5, "y": 0.5 }
+        },
+        {
+            "filename": "McPlanetCross",
+            "frame": { "x": 407, "y": 935, "w": 31, "h": 31 },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 31, "h": 31 },
+            "sourceSize": { "w": 31, "h": 31 },
+            "pivot": { "x": 0.5161290322580645, "y": 0.4838709677419355 }
+        },
+        {
+            "filename": "McPlanetEye",
+            "frame": { "x": 739, "y": 561, "w": 91, "h": 90 },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 91, "h": 90 },
+            "sourceSize": { "w": 91, "h": 90 },
+            "pivot": { "x": 0.4945054945054945, "y": 0.5 }
+        },
+        {
+            "filename": "McPlanetEyeBlink/0000",
+            "frame": { "x": 925, "y": 469, "w": 91, "h": 90 },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 91, "h": 90 },
+            "sourceSize": { "w": 91, "h": 90 },
+            "pivot": { "x": 0.4945054945054945, "y": 0.5 }
+        },
+        {
+            "filename": "McPlanetEyeBlink/0001",
+            "frame": { "x": 832, "y": 643, "w": 91, "h": 80 },
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": { "x": 0, "y": 10, "w": 91, "h": 80 },
+            "sourceSize": { "w": 91, "h": 90 },
+            "pivot": { "x": 0.4945054945054945, "y": 0.5 }
+        },
+        {
+            "filename": "McPlanetEyeBlink/0002",
+            "frame": { "x": 452, "y": 638, "w": 91, "h": 70 },
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": { "x": 0, "y": 20, "w": 91, "h": 70 },
+            "sourceSize": { "w": 91, "h": 90 },
+            "pivot": { "x": 0.4945054945054945, "y": 0.5 }
+        },
+        {
+            "filename": "McPlanetEyeBlink/0003",
+            "frame": { "x": 264, "y": 715, "w": 91, "h": 59 },
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": { "x": 0, "y": 31, "w": 91, "h": 59 },
+            "sourceSize": { "w": 91, "h": 90 },
+            "pivot": { "x": 0.4945054945054945, "y": 0.5 }
+        },
+        {
+            "filename": "McPlanetEyeBlink/0004",
+            "frame": { "x": 264, "y": 776, "w": 91, "h": 49 },
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": { "x": 0, "y": 41, "w": 91, "h": 49 },
+            "sourceSize": { "w": 91, "h": 90 },
+            "pivot": { "x": 0.4945054945054945, "y": 0.5 }
+        },
+        {
+            "filename": "McPlanetEyeBlink/0005",
+            "frame": { "x": 448, "y": 863, "w": 89, "h": 39 },
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": { "x": 1, "y": 51, "w": 89, "h": 39 },
+            "sourceSize": { "w": 91, "h": 90 },
+            "pivot": { "x": 0.4945054945054945, "y": 0.5 }
+        },
+        {
+            "filename": "McPlanetEyeBlink/0006",
+            "frame": { "x": 264, "y": 893, "w": 83, "h": 28 },
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": { "x": 4, "y": 62, "w": 83, "h": 28 },
+            "sourceSize": { "w": 91, "h": 90 },
+            "pivot": { "x": 0.4945054945054945, "y": 0.5 }
+        },
+        {
+            "filename": "McPlanetEyeBlink/0007",
+            "frame": { "x": 334, "y": 935, "w": 71, "h": 18 },
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": { "x": 10, "y": 72, "w": 71, "h": 18 },
+            "sourceSize": { "w": 91, "h": 90 },
+            "pivot": { "x": 0.4945054945054945, "y": 0.5 }
+        },
+        {
+            "filename": "McPlanetEyeBlink/0008",
+            "frame": { "x": 249, "y": 953, "w": 51, "h": 8 },
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": { "x": 20, "y": 82, "w": 51, "h": 8 },
+            "sourceSize": { "w": 91, "h": 90 },
+            "pivot": { "x": 0.4945054945054945, "y": 0.5 }
+        },
+        {
+            "filename": "McPlanetEyeBlink/0009",
+            "frame": { "x": 349, "y": 893, "w": 73, "h": 19 },
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": { "x": 9, "y": 71, "w": 73, "h": 19 },
+            "sourceSize": { "w": 91, "h": 90 },
+            "pivot": { "x": 0.4945054945054945, "y": 0.5 }
+        },
+        {
+            "filename": "McPlanetEyeBlink/0010",
+            "frame": { "x": 448, "y": 904, "w": 85, "h": 31 },
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": { "x": 3, "y": 59, "w": 85, "h": 31 },
+            "sourceSize": { "w": 91, "h": 90 },
+            "pivot": { "x": 0.4945054945054945, "y": 0.5 }
+        },
+        {
+            "filename": "McPlanetEyeBlink/0011",
+            "frame": { "x": 543, "y": 815, "w": 91, "h": 43 },
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": { "x": 0, "y": 47, "w": 91, "h": 43 },
+            "sourceSize": { "w": 91, "h": 90 },
+            "pivot": { "x": 0.4945054945054945, "y": 0.5 }
+        },
+        {
+            "filename": "McPlanetEyeBlink/0012",
+            "frame": { "x": 638, "y": 722, "w": 91, "h": 55 },
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": { "x": 0, "y": 35, "w": 91, "h": 55 },
+            "sourceSize": { "w": 91, "h": 90 },
+            "pivot": { "x": 0.4945054945054945, "y": 0.5 }
+        },
+        {
+            "filename": "McPlanetEyeBlink/0013",
+            "frame": { "x": 658, "y": 653, "w": 91, "h": 67 },
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": { "x": 0, "y": 23, "w": 91, "h": 67 },
+            "sourceSize": { "w": 91, "h": 90 },
+            "pivot": { "x": 0.4945054945054945, "y": 0.5 }
+        },
+        {
+            "filename": "McPlanetEyeBlink/0014",
+            "frame": { "x": 925, "y": 643, "w": 91, "h": 79 },
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": { "x": 0, "y": 11, "w": 91, "h": 79 },
+            "sourceSize": { "w": 91, "h": 90 },
+            "pivot": { "x": 0.4945054945054945, "y": 0.5 }
+        },
+        {
+            "filename": "McPlanetEyeBlink/0015",
+            "frame": { "x": 832, "y": 469, "w": 91, "h": 90 },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 91, "h": 90 },
+            "sourceSize": { "w": 91, "h": 90 },
+            "pivot": { "x": 0.4945054945054945, "y": 0.5 }
+        },
+        {
+            "filename": "McPlanetEyeBlink/0016",
+            "frame": { "x": 739, "y": 469, "w": 91, "h": 90 },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 91, "h": 90 },
+            "sourceSize": { "w": 91, "h": 90 },
+            "pivot": { "x": 0.4945054945054945, "y": 0.5 }
+        },
+        {
+            "filename": "McPlanetEyeBlink/0017",
+            "frame": { "x": 925, "y": 561, "w": 91, "h": 80 },
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": { "x": 0, "y": 10, "w": 91, "h": 80 },
+            "sourceSize": { "w": 91, "h": 90 },
+            "pivot": { "x": 0.4945054945054945, "y": 0.5 }
+        },
+        {
+            "filename": "McPlanetEyeBlink/0018",
+            "frame": { "x": 171, "y": 807, "w": 91, "h": 70 },
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": { "x": 0, "y": 20, "w": 91, "h": 70 },
+            "sourceSize": { "w": 91, "h": 90 },
+            "pivot": { "x": 0.4945054945054945, "y": 0.5 }
+        },
+        {
+            "filename": "McPlanetEyeBlink/0019",
+            "frame": { "x": 452, "y": 710, "w": 91, "h": 59 },
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": { "x": 0, "y": 31, "w": 91, "h": 59 },
+            "sourceSize": { "w": 91, "h": 90 },
+            "pivot": { "x": 0.4945054945054945, "y": 0.5 }
+        },
+        {
+            "filename": "McPlanetEyeBlink/0020",
+            "frame": { "x": 450, "y": 771, "w": 91, "h": 49 },
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": { "x": 0, "y": 41, "w": 91, "h": 49 },
+            "sourceSize": { "w": 91, "h": 90 },
+            "pivot": { "x": 0.4945054945054945, "y": 0.5 }
+        },
+        {
+            "filename": "McPlanetEyeBlink/0021",
+            "frame": { "x": 357, "y": 823, "w": 89, "h": 39 },
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": { "x": 1, "y": 51, "w": 89, "h": 39 },
+            "sourceSize": { "w": 91, "h": 90 },
+            "pivot": { "x": 0.4945054945054945, "y": 0.5 }
+        },
+        {
+            "filename": "McPlanetEyeBlink/0022",
+            "frame": { "x": 176, "y": 879, "w": 83, "h": 28 },
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": { "x": 4, "y": 62, "w": 83, "h": 28 },
+            "sourceSize": { "w": 91, "h": 90 },
+            "pivot": { "x": 0.4945054945054945, "y": 0.5 }
+        },
+        {
+            "filename": "McPlanetEyeBlink/0023",
+            "frame": { "x": 176, "y": 939, "w": 71, "h": 18 },
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": { "x": 10, "y": 72, "w": 71, "h": 18 },
+            "sourceSize": { "w": 91, "h": 90 },
+            "pivot": { "x": 0.4945054945054945, "y": 0.5 }
+        },
+        {
+            "filename": "McPlanetEyeBlink/0024",
+            "frame": { "x": 249, "y": 943, "w": 51, "h": 8 },
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": { "x": 20, "y": 82, "w": 51, "h": 8 },
+            "sourceSize": { "w": 91, "h": 90 },
+            "pivot": { "x": 0.4945054945054945, "y": 0.5 }
+        },
+        {
+            "filename": "McPlanetEyeBlink/0025",
+            "frame": { "x": 351, "y": 864, "w": 73, "h": 19 },
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": { "x": 9, "y": 71, "w": 73, "h": 19 },
+            "sourceSize": { "w": 91, "h": 90 },
+            "pivot": { "x": 0.4945054945054945, "y": 0.5 }
+        },
+        {
+            "filename": "McPlanetEyeBlink/0026",
+            "frame": { "x": 264, "y": 860, "w": 85, "h": 31 },
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": { "x": 3, "y": 59, "w": 85, "h": 31 },
+            "sourceSize": { "w": 91, "h": 90 },
+            "pivot": { "x": 0.4945054945054945, "y": 0.5 }
+        },
+        {
+            "filename": "McPlanetEyeBlink/0027",
+            "frame": { "x": 638, "y": 779, "w": 91, "h": 43 },
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": { "x": 0, "y": 47, "w": 91, "h": 43 },
+            "sourceSize": { "w": 91, "h": 90 },
+            "pivot": { "x": 0.4945054945054945, "y": 0.5 }
+        },
+        {
+            "filename": "McPlanetEyeBlink/0028",
+            "frame": { "x": 357, "y": 715, "w": 91, "h": 55 },
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": { "x": 0, "y": 35, "w": 91, "h": 55 },
+            "sourceSize": { "w": 91, "h": 90 },
+            "pivot": { "x": 0.4945054945054945, "y": 0.5 }
+        },
+        {
+            "filename": "McPlanetEyeBlinkOneTime/0000",
+            "frame": { "x": 171, "y": 715, "w": 91, "h": 90 },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 91, "h": 90 },
+            "sourceSize": { "w": 91, "h": 90 },
+            "pivot": { "x": 0.4945054945054945, "y": 0.5 }
+        },
+        {
+            "filename": "McPlanetEyeBlinkOneTime/0001",
+            "frame": { "x": 832, "y": 561, "w": 91, "h": 80 },
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": { "x": 0, "y": 10, "w": 91, "h": 80 },
+            "sourceSize": { "w": 91, "h": 90 },
+            "pivot": { "x": 0.4945054945054945, "y": 0.5 }
+        },
+        {
+            "filename": "McPlanetEyeBlinkOneTime/0002",
+            "frame": { "x": 925, "y": 724, "w": 91, "h": 70 },
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": { "x": 0, "y": 20, "w": 91, "h": 70 },
+            "sourceSize": { "w": 91, "h": 90 },
+            "pivot": { "x": 0.4945054945054945, "y": 0.5 }
+        },
+        {
+            "filename": "McPlanetEyeBlinkOneTime/0003",
+            "frame": { "x": 545, "y": 697, "w": 91, "h": 59 },
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": { "x": 0, "y": 31, "w": 91, "h": 59 },
+            "sourceSize": { "w": 91, "h": 90 },
+            "pivot": { "x": 0.4945054945054945, "y": 0.5 }
+        },
+        {
+            "filename": "McPlanetEyeBlinkOneTime/0004",
+            "frame": { "x": 357, "y": 772, "w": 91, "h": 49 },
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": { "x": 0, "y": 41, "w": 91, "h": 49 },
+            "sourceSize": { "w": 91, "h": 90 },
+            "pivot": { "x": 0.4945054945054945, "y": 0.5 }
+        },
+        {
+            "filename": "McPlanetEyeBlinkOneTime/0005",
+            "frame": { "x": 450, "y": 822, "w": 89, "h": 39 },
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": { "x": 1, "y": 51, "w": 89, "h": 39 },
+            "sourceSize": { "w": 91, "h": 90 },
+            "pivot": { "x": 0.4945054945054945, "y": 0.5 }
+        },
+        {
+            "filename": "McPlanetEyeBlinkOneTime/0006",
+            "frame": { "x": 176, "y": 909, "w": 83, "h": 28 },
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": { "x": 4, "y": 62, "w": 83, "h": 28 },
+            "sourceSize": { "w": 91, "h": 90 },
+            "pivot": { "x": 0.4945054945054945, "y": 0.5 }
+        },
+        {
+            "filename": "McPlanetEyeBlinkOneTime/0007",
+            "frame": { "x": 261, "y": 923, "w": 71, "h": 18 },
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": { "x": 10, "y": 72, "w": 71, "h": 18 },
+            "sourceSize": { "w": 91, "h": 90 },
+            "pivot": { "x": 0.4945054945054945, "y": 0.5 }
+        },
+        {
+            "filename": "McPlanetEyeBlinkOneTime/0008",
+            "frame": { "x": 658, "y": 638, "w": 51, "h": 8 },
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": { "x": 20, "y": 82, "w": 51, "h": 8 },
+            "sourceSize": { "w": 91, "h": 90 },
+            "pivot": { "x": 0.4945054945054945, "y": 0.5 }
+        },
+        {
+            "filename": "McPlanetEyeBlinkOneTime/0009",
+            "frame": { "x": 349, "y": 914, "w": 73, "h": 19 },
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": { "x": 9, "y": 71, "w": 73, "h": 19 },
+            "sourceSize": { "w": 91, "h": 90 },
+            "pivot": { "x": 0.4945054945054945, "y": 0.5 }
+        },
+        {
+            "filename": "McPlanetEyeBlinkOneTime/0010",
+            "frame": { "x": 264, "y": 827, "w": 85, "h": 31 },
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": { "x": 3, "y": 59, "w": 85, "h": 31 },
+            "sourceSize": { "w": 91, "h": 90 },
+            "pivot": { "x": 0.4945054945054945, "y": 0.5 }
+        },
+        {
+            "filename": "McPlanetEyeBlinkOneTime/0011",
+            "frame": { "x": 543, "y": 860, "w": 91, "h": 43 },
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": { "x": 0, "y": 47, "w": 91, "h": 43 },
+            "sourceSize": { "w": 91, "h": 90 },
+            "pivot": { "x": 0.4945054945054945, "y": 0.5 }
+        },
+        {
+            "filename": "McPlanetEyeBlinkOneTime/0012",
+            "frame": { "x": 545, "y": 758, "w": 91, "h": 55 },
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": { "x": 0, "y": 35, "w": 91, "h": 55 },
+            "sourceSize": { "w": 91, "h": 90 },
+            "pivot": { "x": 0.4945054945054945, "y": 0.5 }
+        },
+        {
+            "filename": "McPlanetLocked",
+            "frame": { "x": 510, "y": 450, "w": 227, "h": 186 },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 227, "h": 186 },
+            "sourceSize": { "w": 227, "h": 186 },
+            "pivot": { "x": 0.5066079295154186, "y": 0.5 }
+        },
+        {
+            "filename": "McPlanetRoseLight",
+            "frame": { "x": 364, "y": 955, "w": 23, "h": 25 },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 23, "h": 25 },
+            "sourceSize": { "w": 23, "h": 25 },
+            "pivot": { "x": 2.4782608695652173, "y": 4.56 }
+        },
+        {
+            "filename": "McPlanetShesterna",
+            "frame": { "x": 751, "y": 719, "w": 64, "h": 63 },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 63 },
+            "sourceSize": { "w": 64, "h": 63 },
+            "pivot": { "x": 0.5, "y": 0.5079365079365079 }
+        },
+        {
+            "filename": "McPlanetShesterna2",
+            "frame": { "x": 185, "y": 513, "w": 62, "h": 69 },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 62, "h": 69 },
+            "sourceSize": { "w": 62, "h": 69 },
+            "pivot": { "x": 0.5, "y": 0.5072463768115942 }
+        },
+        {
+            "filename": "McPlanetShesterna3",
+            "frame": { "x": 334, "y": 955, "w": 28, "h": 32 },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 28, "h": 32 },
+            "sourceSize": { "w": 28, "h": 32 },
+            "pivot": { "x": 0.5, "y": 0.5 }
+        },
+        {
+            "filename": "McPlanetShesternaBlur",
+            "frame": { "x": 751, "y": 653, "w": 64, "h": 64 },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 64 },
+            "sourceSize": { "w": 64, "h": 64 },
+            "pivot": { "x": 0.5, "y": 0.5 }
+        },
+        {
+            "filename": "McPlanetSpringBack",
+            "frame": { "x": 185, "y": 649, "w": 59, "h": 63 },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 59, "h": 63 },
+            "sourceSize": { "w": 59, "h": 63 },
+            "pivot": { "x": 0.4915254237288136, "y": 0.9365079365079365 }
+        },
+        {
+            "filename": "McPlanetSpringView",
+            "frame": { "x": 185, "y": 584, "w": 59, "h": 63 },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 59, "h": 63 },
+            "sourceSize": { "w": 59, "h": 63 },
+            "pivot": { "x": 0.4745762711864407, "y": 0.873015873015873 }
+        },
+        {
+            "filename": "McPlanetStickContent",
+            "frame": { "x": 545, "y": 638, "w": 111, "h": 57 },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 111, "h": 57 },
+            "sourceSize": { "w": 111, "h": 57 },
+            "pivot": { "x": 0.5045045045045045, "y": 0.5087719298245614 }
+        },
+        {
+            "filename": "McPlanetStickBall",
+            "frame": { "x": 334, "y": 923, "w": 10, "h": 10 },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 10, "h": 10 },
+            "sourceSize": { "w": 10, "h": 10 },
+            "pivot": { "x": 0.5, "y": 0.5 }
+        },
+        {
+            "filename": "McPlanetTablo",
+            "frame": { "x": 1, "y": 885, "w": 173, "h": 85 },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 173, "h": 85 },
+            "sourceSize": { "w": 173, "h": 85 },
+            "pivot": { "x": 0.13872832369942195, "y": 0.9176470588235294 }
+        },
+        {
+            "filename": "McPlanetSpringView_58",
+            "frame": { "x": 961, "y": 253, "w": 59, "h": 62 },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 59, "h": 62 },
+            "sourceSize": { "w": 59, "h": 62 },
+            "pivot": { "x": 0.4745762711864407, "y": 0.8709677419354839 }
+        }
+    ],
+    "meta": {
+        "app": "contre-jour-dx atlas converter",
+        "version": "1.0",
+        "image": "planets.png",
+        "format": "RGBA8888",
+        "size": { "w": 1024, "h": 1024 },
+        "scale": "1"
+    }
+}

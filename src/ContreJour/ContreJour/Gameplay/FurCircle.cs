@@ -1,7 +1,5 @@
 using System;
 
-using Microsoft.Xna.Framework;
-
 using Mokus2D.Util.MathUtils;
 
 namespace ContreJour.Gameplay
@@ -20,7 +18,7 @@ namespace ContreJour.Gameplay
                     {
                         float itemAngle = GetItemAngle(i);
                         Particle particle = Particles[i];
-                        particle.RotationDegrees = MathHelper.ToDegrees(itemAngle) - 90f;
+                        particle.RotationDegrees = float.RadiansToDegrees(itemAngle) - 90f;
                         particle.Position = VectorUtil.ToVector(value, itemAngle);
                     }
                 }

@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <!-- Resolves to the directory this page is served from, so the app works from a domain root and from a
+             project subpath alike. -->
+        <base href="./" />
+        <script src="./console-capture.js"></script>
+        <script src="./coi.js"></script>
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover"
+        />
+        <title>Contre Jour</title>
+        <link rel="icon" type="image/x-icon" href="./favicon.ico" />
+        <link rel="apple-touch-icon" href="./icon-512.png" />
+        <style>
+            html,
+            body {
+                height: 100%;
+                margin: 0;
+                background: #000;
+                overflow: hidden;
+                -webkit-user-select: none;
+                user-select: none;
+                -webkit-tap-highlight-color: transparent;
+                touch-action: none;
+                overscroll-behavior: none;
+            }
+            /* The canvas is the viewport. The game letterboxes its fixed canvas into whatever box this is.
+               Fixed positioning rather than viewport units because a mobile browser collapsing its URL bar
+               changes the visible area without changing 100vh. */
+            #game {
+                display: block;
+                position: fixed;
+                inset: 0;
+                width: 100%;
+                height: 100%;
+            }
+            #splash {
+                position: fixed;
+                inset: 0;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                gap: 20px;
+                overflow-y: auto;
+                touch-action: pan-y;
+                box-sizing: border-box;
+                padding: calc(24px + env(safe-area-inset-top, 0px))
+                    calc(24px + env(safe-area-inset-right, 0px))
+                    calc(24px + env(safe-area-inset-bottom, 0px))
+                    calc(24px + env(safe-area-inset-left, 0px));
+                background: #202329;
+                color: #e6e6e6;
+                font-family:
+                    system-ui,
+                    -apple-system,
+                    "Segoe UI",
+                    Roboto,
+                    sans-serif;
+                z-index: 10;
+                transition: opacity 0.25s ease-out;
+            }
+            /* Faded rather than removed, so the canvas underneath is already painted when the
+               splash goes; pointer-events keeps the invisible overlay from eating taps. */
+            #splash.hidden {
+                opacity: 0;
+                pointer-events: none;
+            }
+            #splash > * {
+                flex-shrink: 0;
+            }
+            #splash::before,
+            #splash::after {
+                content: "";
+                margin: auto;
+            }
+            #splash img {
+                width: 96px;
+                height: 96px;
+            }
+            #splash p,
+            #splash h1 {
+                margin: 0;
+                max-width: min(100%, 40rem);
+                overflow-wrap: anywhere;
+                text-align: center;
+            }
+            #splash h1 {
+                font-size: 1.25rem;
+                font-weight: 600;
+            }
+            #splash #splash-hint {
+                max-width: min(100%, 320px);
+                font-size: 0.8rem;
+                line-height: 1.45;
+                opacity: 0.6;
+            }
+            #splash .spinner {
+                width: 36px;
+                height: 36px;
+                border-radius: 50%;
+                border: 4px solid #3a3f47;
+                border-top-color: #e6e6e6;
+                animation: splash-spin 0.8s linear infinite;
+            }
+            #splash .spinner[hidden] {
+                display: none;
+            }
+            @keyframes splash-spin {
+                to {
+                    transform: rotate(360deg);
+                }
+            }
+            #start,
+            #resume {
+                padding: 12px 28px;
+                font-size: 1rem;
+                border: 0;
+                border-radius: 8px;
+                cursor: pointer;
+            }
+            #start[hidden],
+            #resume[hidden] {
+                display: none;
+            }
+            #download-logs {
+                position: fixed;
+                right: calc(12px + env(safe-area-inset-right, 0px));
+                bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+                z-index: 20;
+                border: 1px solid #60656d;
+                border-radius: 8px;
+                padding: 8px 12px;
+                background: #202329;
+                color: #e6e6e6;
+                cursor: pointer;
+                touch-action: manipulation;
+            }
+            #splash.hidden + #download-logs {
+                display: none;
+            }
+        </style>
+    </head>
+    <body>
+        <canvas id="game"></canvas>
+        <div id="splash">
+            <img
+                src="./icon-512.png"
+                width="96"
+                height="96"
+                alt="Contre Jour icon"
+                decoding="async"
+            />
+            <div class="spinner" id="splash-spinner"></div>
+            <p id="splash-progress">Loading…</p>
+            <h1>Contre Jour</h1>
+            <button id="start" hidden>Play</button>
+            <p id="splash-hint" role="status" hidden>
+                Taking too long? Check your connection, or reload the page.
+            </p>
+            <p id="boot-error" role="alert" hidden>
+                The game could not start. Check your connection and reload the
+                page.
+            </p>
+            <p id="context-lost-error" role="alert" hidden>
+                The browser reset the game's graphics. Reload to continue -
+                saved progress is kept, but the current level will restart.
+            </p>
+            <button id="resume" hidden>Reload</button>
+        </div>
+        <button id="download-logs" type="button">Download logs</button>
+        <script type="module">
+            // Loading has stretches with no reporting of their own - compiling what was downloaded, and
+            // decoding the audio - so a slow device and a wedged one look alike from here. The advice waits
+            // out a comfortably slow start rather than accusing every one of them of being broken.
+            const HINT_DELAY_MS = 30000;
+            const downloadLogs = document.getElementById("download-logs");
+            let downloadStatusTimer;
+            // Keep keyboard activation on this button out of the game's global key handler.
+            for (const eventName of ["keydown", "keyup"]) {
+                downloadLogs.addEventListener(eventName, (event) =>
+                    event.stopPropagation(),
+                );
+            }
+            downloadLogs.addEventListener("click", async () => {
+                clearTimeout(downloadStatusTimer);
+                downloadLogs.disabled = true;
+                try {
+                    const logs = await import("./log.js");
+                    const count = await logs.exportZip();
+                    downloadLogs.textContent =
+                        count > 0 ? "Logs downloaded" : "No logs yet";
+                } catch (error) {
+                    console.error("cj-log: export failed", error);
+                    downloadLogs.textContent = "Retry log download";
+                } finally {
+                    downloadLogs.disabled = false;
+                    downloadStatusTimer = setTimeout(() => {
+                        downloadLogs.textContent = "Download logs";
+                    }, 2000);
+                }
+            });
+
+            const start = document.getElementById("start");
+            const splash = document.getElementById("splash");
+            const spinner = document.getElementById("splash-spinner");
+            const hint = document.getElementById("splash-hint");
+            const progress = document.getElementById("splash-progress");
+            const hintTimer = setTimeout(() => {
+                hint.hidden = false;
+            }, HINT_DELAY_MS);
+
+            // The advice is for a slow start, not a stopped one. A boot that has already failed says so on
+            // the splash, and this arriving half a minute later would talk over it.
+            globalThis.cjStopHint = () => {
+                clearTimeout(hintTimer);
+                hint.hidden = true;
+            };
+            globalThis.cjReady = () => {
+                globalThis.cjStopHint();
+                spinner.hidden = true;
+                progress.remove();
+                start.hidden = false;
+            };
+            // The failure seam lives here, not in main.js, because main.js reaches its own first statement
+            // only after its static imports have been fetched and evaluated. This module imports nothing and
+            // runs first, so it is the earliest point that can still speak. The first failure wins: a failed
+            // boot knocks over what follows it, and the cascade is noise once the cause is on screen.
+            let reported = false;
+            globalThis.cjFail = (id, detail) => {
+                if (reported) {
+                    return;
+                }
+                reported = true;
+
+                console.error(`cj-boot-failure: ${id}`, detail ?? "");
+                globalThis.cjStopHint();
+                spinner.hidden = true;
+                progress.hidden = true;
+                start.hidden = true;
+                splash.classList.remove("hidden");
+                document.getElementById(id)?.removeAttribute("hidden");
+            };
+
+            const onBootRejection = (event) =>
+                globalThis.cjFail("boot-error", event.reason);
+            const onBootError = (event) =>
+                globalThis.cjFail("boot-error", event.error ?? event.message);
+            globalThis.addEventListener("unhandledrejection", onBootRejection);
+            globalThis.addEventListener("error", onBootError);
+
+            // Called once the game is ready. After boot a rejection belongs to the running game, and covering
+            // a playable session with the boot error screen would cost the player more than the rejection did.
+            globalThis.cjBootComplete = () => {
+                globalThis.removeEventListener(
+                    "unhandledrejection",
+                    onBootRejection,
+                );
+                globalThis.removeEventListener("error", onBootError);
+            };
+
+            start.addEventListener("click", () => {
+                // Synchronously inside the click: audio needs the gesture.
+                globalThis.cjStart();
+                splash.classList.add("hidden");
+            });
+
+            // Imported here rather than through its own script tag so that this bootstrap owns the promise for
+            // its whole module graph: a module that fails to download raises an error event at its script
+            // element, which does not bubble to a window listener.
+            import("./main.js").catch((error) =>
+                globalThis.cjFail("boot-error", error),
+            );
+        </script>
+    </body>
+</html>

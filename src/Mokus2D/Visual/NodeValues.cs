@@ -1,9 +1,8 @@
 using System;
+using System.Numerics;
 
-using Microsoft.Xna.Framework;
-
-using Mokus2D.Data;
 using Mokus2D.Effects.Tweening;
+using Mokus2D.Graphics;
 using Mokus2D.Util.Extensions;
 
 namespace Mokus2D.Visual
@@ -23,24 +22,6 @@ namespace Mokus2D.Visual
         public static readonly Action<object> PlayFromStart = PlayFromStartAction;
 
         public static readonly Action<object> Play = PlayAction;
-
-        public static readonly Action<object> RemoveFromParentAndFree = delegate (object n)
-        {
-            ((Node)n).RemoveFromParent();
-            ((IFreeable)n).Free();
-        };
-
-        public static readonly Action<object> Free = delegate (object n)
-        {
-            ((IFreeable)n).Free();
-        };
-
-        public static readonly Action<object> RemoveFromParentFreeRemoveListeners = delegate (object n)
-        {
-            ((Node)n).RemoveFromParent();
-            ((IFreeable)n).Free();
-            ((AnimationNode)n).RemoveListeners();
-        };
 
         public static readonly Action<object> Hide = delegate (object n)
         {

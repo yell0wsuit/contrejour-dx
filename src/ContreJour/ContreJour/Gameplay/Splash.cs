@@ -1,17 +1,15 @@
 using System;
+using System.Numerics;
 
-using ContreJour.Clips.fakeHero;
-using ContreJour.Clips.loading;
+using ContreJour.Clips;
 using ContreJour.Config;
+using ContreJour.Menu.LevelComplete;
 using ContreJour.Utils;
-
-using ContreJourMono.ContreJour.Menu.LevelComplete;
-
-using Microsoft.Xna.Framework;
 
 using Mokus2D;
 using Mokus2D.Effects.Tween.Easing;
 using Mokus2D.Events;
+using Mokus2D.Graphics;
 using Mokus2D.Input;
 using Mokus2D.Sound;
 using Mokus2D.Util.Extensions;
@@ -30,7 +28,7 @@ namespace ContreJour.Gameplay
 
         private Vector2 center;
 
-        private McMokusLogo mokusLogo;
+        private Sprite mokusLogo;
 
         private FakeHeroBlack blackHero;
 
@@ -54,7 +52,7 @@ namespace ContreJour.Gameplay
 
         private void Begin()
         {
-            _ = new McFakeHeroEyeOpen();
+            _ = new MovieClip(ClipIds.FakeHero.McFakeHeroEyeOpen);
             background = new LayerColor(Color.White, "menu/whitePixel");
             AddChild(background);
             center = ScreenConstants.W7FromIPhoneScreenCenter;
@@ -123,7 +121,7 @@ namespace ContreJour.Gameplay
 
         private void ShowMokus()
         {
-            mokusLogo = new McMokusLogo();
+            mokusLogo = new Sprite(ClipIds.Loading.McMokusLogo);
             AddChild(mokusLogo);
             mokusLogo.Position = center;
             _ = background.Tweener.Start(1f).Tween(NodeValues.Color, Color.Black);
@@ -137,7 +135,7 @@ namespace ContreJour.Gameplay
             blackHero.Position = blackHeroPosition + new Vector2(ScreenConstants.W7FromIPhoneSize.X / 2.5f, 0f);
             blackHero.Scale = 0.7f;
             _ = blackHero.Tweener.Start(1f).MoveTo(blackHeroPosition, Cubic.EaseOut);
-            _ = blackHero.Background.Tweener.Start(1f).RotateTo(MathHelper.ToRadians(540), Cubic.EaseOut);
+            _ = blackHero.Background.Tweener.Start(1f).RotateTo(float.DegreesToRadians(540), Cubic.EaseOut);
             blackHero.SetMoveAngle(-(float)Math.PI, 3f);
             blackHero.SetViewAngle(-(float)Math.PI, 1f);
             _ = this.Schedule(1.2f, MoveMokusOut);
@@ -147,7 +145,7 @@ namespace ContreJour.Gameplay
         {
             Vector2 vector = new(ScreenConstants.W7FromIPhoneSize.X * 0.8f, 0f);
             _ = blackHero.MoveTo(1f, blackHeroPosition + vector, Cubic.EaseIn);
-            _ = blackHero.Background.RotateTo(1f, 0f - MathHelper.ToRadians(540), Cubic.EaseIn);
+            _ = blackHero.Background.RotateTo(1f, 0f - float.DegreesToRadians(540), Cubic.EaseIn);
             blackHero.SetMoveAngle(0f, 3f);
             blackHero.SetViewAngle(0f, 1f);
             blackHero.Eye.EyeStep = 0.2f;
@@ -185,7 +183,7 @@ namespace ContreJour.Gameplay
             Node node = new();
             LayerColor layerColor = new(Color.Black, "menu/whitePixel");
             node.AddChild(layerColor);
-            Sprite sprite = new McHeadphones
+            Sprite sprite = new(ClipIds.Loading.McHeadphones)
             {
                 Position = ScreenConstants.W7FromIPhoneScreenCenter,
                 IgnoreParentColor = true

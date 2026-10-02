@@ -1,5 +1,7 @@
-using Microsoft.Xna.Framework;
+using System.Numerics;
 
+using Mokus2D.Graphics;
+using Mokus2D.Util.Data;
 using Mokus2D.Visual.Interfaces;
 
 namespace Mokus2D.Visual.Drawing
@@ -8,13 +10,13 @@ namespace Mokus2D.Visual.Drawing
     {
         Rectangle Bounds { get; }
 
-        void RefreshTransformation(Matrix matrix, Vector2 anchorInPixels, Vector2 size);
+        void RefreshTransformation(Matrix4x4 matrix, Vector2 anchorInPixels, Vector2 size);
 
         void SetPositions(Vector2 leftTop, Vector2 rightBottom);
 
         void RefreshTextureRect(Rectangle textureRect, Vector2 textureSize);
 
-        void RefreshColor(Color color, float colorAmount);
+        void RefreshColor(Color color);
 
         void Draw(IDrawer root);
 

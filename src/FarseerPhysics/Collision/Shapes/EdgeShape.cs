@@ -1,6 +1,6 @@
-using FarseerPhysics.Common;
+using System.Numerics;
 
-using Microsoft.Xna.Framework;
+using FarseerPhysics.Common;
 
 namespace FarseerPhysics.Collision.Shapes
 {
@@ -79,7 +79,7 @@ namespace FarseerPhysics.Collision.Shapes
             Vector2 vertex2 = _vertex2;
             Vector2 vector4 = vertex2 - vertex;
             Vector2 vector5 = new(vector4.Y, 0f - vector4.X);
-            vector5.Normalize();
+            vector5 = Vector2.Normalize(vector5);
             float num = Vector2.Dot(vector5, vertex - vector);
             float num2 = Vector2.Dot(vector5, vector3);
             if (num2 == 0f)

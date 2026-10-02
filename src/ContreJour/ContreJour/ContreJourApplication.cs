@@ -1,25 +1,22 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Numerics;
 
-using ContreJour.Clips.menu;
+using ContreJour.Clips;
 using ContreJour.Clips.menu2;
-using ContreJour.Clips.segoeFont;
 using ContreJour.Config;
 using ContreJour.Gameplay;
 using ContreJour.Saving;
-using ContreJour.WinRT;
-
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+using ContreJour.Utils;
 
 using Mokus2D;
-using Mokus2D.Config.Tint;
-using Mokus2D.Fonts;
 using Mokus2D.Game;
+using Mokus2D.Graphics;
 using Mokus2D.Sound;
 using Mokus2D.UI.Containers;
 using Mokus2D.Util.Extensions;
+using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual;
 
 namespace ContreJour
@@ -41,8 +38,6 @@ namespace ContreJour
         private Vector2 _initialSize;
         private bool _restarting;
 
-        public static Dictionary<int, FontData> Fonts { get; } = [];
-
         protected virtual bool StartFullScreen => true;
 
         // The Windows 8 build blocked play while the app was snapped (window smaller than at launch).
@@ -54,6 +49,14 @@ namespace ContreJour
             // The Windows 8 build refused to run without a multitouch screen. On desktop the mouse
             // is fed through the engine's cursor input instead, so don't block the game.
             true;
+
+        public override void OnDeactivated()
+        {
+            base.OnDeactivated();
+            // A level left while the player is away waits for them on its pause panel; menus only freeze.
+            // Scenes are wrapped in a NodeContainer, so the level is its content.
+            ((_currentView as NodeContainer)?.Content as ContreJourGame)?.PauseForFocusLoss();
+        }
 
         public override void OnResumeComplete()
         {
@@ -86,12 +89,12 @@ namespace ContreJour
             }
             ContentRootDirectory = "Assets/Content";
             Config.GraphicsLoader.GraphicsRootDirectory = "Graphics";
-            SoundManager.MusicPath = Path.Combine(AppContext.BaseDirectory, "Assets", "Content", "Music");
+            SoundManager.MusicPath = Path.Combine("Assets", "Content", "Music");
         }
 
         private void LoadMusic()
         {
-            SoundManager.PreloadSongs(["chapter1", "chapter2", "chapter3", "chapter4", "chapter5", "menu"]);
+            SoundManager.PreloadSongs(["chapter1", "chapter2", "chapter3", "chapter4", "chapter5", "menu", Sounds.Ending]);
             LoadSounds();
         }
 
@@ -99,16 +102,13 @@ namespace ContreJour
         {
             base.Initialize(applicationController);
             PlatformInitialize();
-            Config.RenderTargetEnabled = false;
-            Config.DefaultSpriteBatchProperties.Blend = BlendState.AlphaBlend;
+            Config.DefaultSpriteBatchProperties.Blend = BlendMode.AlphaBlend;
             Config.AnimationFPS = 30f;
-            TintGraphicsConfig graphicsConfig = new(tintEnabled: false);
-            Config.GraphicsConfig = graphicsConfig;
             ApplicationController.IsFullScreen = StartFullScreen;
             ApplicationController.ApplyGraphicsChanges();
             ApplicationController.IsFixedTimeStep = false;
             StartApplication();
-            SegoePrint28Label.Register();
+            LoadFonts(ContreJourLabelUtil.CultureName);
             ContreJourConfig.AspectRatio = ChooseAspectRatio();
             _gameContainer = new ViewSwitcher
             {
@@ -124,11 +124,10 @@ namespace ContreJour
             _initialSize = applicationController.BackBufferSize;
             BlockGameIfNeeded();
             ShowSplash();
-            applicationController.Application.Window.ClientSizeChanged += OnSizeChanged;
-            UserData.Instance.TotalStarsChanged += OnTotalStarsChanged;
+            applicationController.ClientSizeChanged += OnSizeChanged;
         }
 
-        private void OnSizeChanged(object sender, EventArgs e)
+        private void OnSizeChanged()
         {
             PlatformResize();
             BlockGameIfNeeded();
@@ -140,11 +139,6 @@ namespace ContreJour
             SoundManager.Update();
             Preferences.Update();
             PlatformUpdate();
-        }
-
-        private void OnTotalStarsChanged(int stars)
-        {
-            LiveTileUpdater.UpdateTiles(stars);
         }
 
         private void HideView(Node view, Action continuation)
@@ -195,22 +189,22 @@ namespace ContreJour
                 Root.X = num4;
                 _gameContainer.Scale *= num3 / size.X;
                 vector.X = num3;
-                whitePixel whitePixel2 = new()
+                Sprite whitePixel2 = new(ClipIds.Menu.whitePixel)
                 {
                     ScaledSize = new Vector2(num4, size.Y),
                     X = 0f - num4,
                     Y = size.Y,
                     Color = Color.Black
                 };
-                whitePixel node = whitePixel2;
-                whitePixel whitePixel3 = new()
+                Sprite node = whitePixel2;
+                Sprite whitePixel3 = new(ClipIds.Menu.whitePixel)
                 {
                     ScaledSize = new Vector2(num4, size.Y),
                     X = num3,
                     Y = size.Y,
                     Color = Color.Black
                 };
-                whitePixel node2 = whitePixel3;
+                Sprite node2 = whitePixel3;
                 Root.AddChild(node, 1);
                 Root.AddChild(node2, 1);
             }
@@ -360,7 +354,8 @@ namespace ContreJour
             contreJourGame.RestartEvent.AddListener(RestartLevel);
             contreJourGame.NextLevelEvent.AddListener(NextLevel);
             contreJourGame.LoadLevelIndex(lastLevel);
-            SoundManager.PlayMusic($"chapter{chapter + 1}");
+            // The final level plays the soundtrack's Petit theme, which neither original build used.
+            SoundManager.PlayMusic(lastLevel == ContreJourConstants.EndLevel ? Sounds.Ending : $"chapter{chapter + 1}");
             return contreJourGame;
         }
 
@@ -430,9 +425,11 @@ namespace ContreJour
                 "click",
                 "clip0",
                 "clip1",
+                "deathByFall1",
                 "deathByFall2",
                 "deathByFlowerOut10",
                 "deathByFlowerOut4",
+                "deathBySpikes4",
                 "deathBySpikes5",
                 "end",
                 "explosion0",
@@ -462,6 +459,7 @@ namespace ContreJour
                 "suspicious1",
                 "suspicious3",
                 "teleport",
+                "vysovuvannja",
                 Sounds.IntroSound
             ]);
         }
@@ -483,5 +481,6 @@ namespace ContreJour
         private static void PlatformResize()
         {
         }
+
     }
 }

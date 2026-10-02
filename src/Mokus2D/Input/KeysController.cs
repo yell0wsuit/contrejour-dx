@@ -2,9 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
-
 using Mokus2D.Interfaces;
 using Mokus2D.Util.Extensions;
 using Mokus2D.Util.MathUtils;
@@ -20,6 +17,14 @@ namespace Mokus2D.Input
 
         private readonly List<ActionPriority> _toRemove = new(64);
 
+        private readonly Dictionary<Key, List<Action>> _keyListeners = [];
+
+        private readonly HashSet<Key> _heldKeys = [];
+
+        private readonly List<Key> _polledKeys = [];
+
+        private readonly List<Action> _pressedListeners = [];
+
         private bool _isBackPressed;
 
         private bool _inUpdate;
@@ -27,6 +32,18 @@ namespace Mokus2D.Input
         private bool _stoped;
 
         private readonly bool Enabled = true;
+
+        private readonly Func<IInputSource> _input;
+
+        public KeysController()
+            : this(() => Mokus2DGame.Input)
+        {
+        }
+
+        internal KeysController(Func<IInputSource> input)
+        {
+            _input = input;
+        }
 
         public void StopPropagation()
         {
@@ -40,8 +57,8 @@ namespace Mokus2D.Input
                 return;
             }
             _inUpdate = true;
-            ButtonState back = GamePad.GetState(PlayerIndex.One).Buttons.Back;
-            if (back == ButtonState.Pressed && !_isBackPressed)
+            bool back = _input().IsBackPressed;
+            if (back && !_isBackPressed)
             {
                 foreach (ActionPriority backKeysListener in _backKeysListeners)
                 {
@@ -52,8 +69,9 @@ namespace Mokus2D.Input
                     }
                 }
             }
-            _isBackPressed = back == ButtonState.Pressed;
+            _isBackPressed = back;
             _stoped = false;
+            DispatchKeyPresses();
             _inUpdate = false;
             _backKeysListeners.RemoveListNoGarbage(_toRemove);
             _toRemove.Clear();
@@ -85,6 +103,42 @@ namespace Mokus2D.Input
         public void AddBackKeyListener(Action action)
         {
             _backKeysListeners.Add(new ActionPriority(action, 0));
+        }
+
+        // Fires once when the key goes down; holding it or the OS key repeat does not fire again.
+        public void AddKeyListener(Key key, Action action)
+        {
+            if (!_keyListeners.TryGetValue(key, out List<Action> listeners))
+            {
+                listeners = [];
+                _keyListeners.Add(key, listeners);
+            }
+            listeners.Add(action);
+        }
+
+        public void RemoveKeyListener(Key key, Action action)
+        {
+            _ = _keyListeners.GetValueOrDefault(key)?.Remove(action);
+        }
+
+        private void DispatchKeyPresses()
+        {
+            _input().GetPressedKeys(_polledKeys);
+            foreach (Key key in _polledKeys)
+            {
+                if (!_heldKeys.Contains(key) && _keyListeners.TryGetValue(key, out List<Action> listeners))
+                {
+                    _pressedListeners.AddRange(listeners);
+                }
+            }
+            _heldKeys.Clear();
+            _heldKeys.UnionWith(_polledKeys);
+            // Listeners may add or remove listeners, so they run from a copy.
+            foreach (Action listener in _pressedListeners)
+            {
+                listener();
+            }
+            _pressedListeners.Clear();
         }
     }
 }

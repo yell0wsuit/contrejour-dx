@@ -1,11 +1,12 @@
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+using System.Numerics;
 
+using Mokus2D.Graphics;
 using Mokus2D.Interfaces;
+using Mokus2D.Util.Data;
 using Mokus2D.Util.Extensions;
+using Mokus2D.Visual.Animation;
 using Mokus2D.Visual.Data;
 using Mokus2D.Visual.Drawing;
-using Mokus2D.Visual.Drawing.Vertex;
 using Mokus2D.Visual.Interfaces;
 
 namespace Mokus2D.Visual
@@ -66,7 +67,7 @@ namespace Mokus2D.Visual
             Quad = CreateQuad();
         }
 
-        public Sprite(Texture2D texture, IQuad quad = null)
+        public Sprite(ITexture texture, IQuad quad = null)
             : base(texture)
         {
             Quad = quad ?? CreateQuad();
@@ -100,7 +101,7 @@ namespace Mokus2D.Visual
             base.Draw(state);
         }
 
-        public virtual void ResetTexture(Texture2D texture)
+        public virtual void ResetTexture(ITexture texture)
         {
             Texture = texture;
             RefreshTexture();
@@ -140,7 +141,7 @@ namespace Mokus2D.Visual
             {
                 if (Config.ContainsKey("premultiply"))
                 {
-                    Blend = Config.GetBool("premultiply") ? BlendState.AlphaBlend : BlendState.NonPremultiplied;
+                    Blend = Config.GetBool("premultiply") ? BlendMode.AlphaBlend : BlendMode.NonPremultiplied;
                 }
                 if (Config.ContainsKey("clickable"))
                 {
@@ -151,7 +152,7 @@ namespace Mokus2D.Visual
 
         protected virtual IQuad CreateQuad()
         {
-            return Mokus2DGame.Config.GraphicsConfig.CreateDefaultQuad();
+            return new Quad();
         }
 
         protected virtual Rectangle GetTileRectangle()
@@ -194,10 +195,10 @@ namespace Mokus2D.Visual
         {
             if (Texture != null && (!Texture.IsDisposed || !IgnoreIfTextureDisposed))
             {
-                Quad.RefreshColor(color, CompositeState.ColorRatio);
+                Quad.RefreshColor(color);
                 if (_textureRectangleDirty)
                 {
-                    Quad.RefreshTextureRect(GetTileRectangle(), Texture.Bounds.Size());
+                    Quad.RefreshTextureRect(GetTileRectangle(), Texture.Size());
                     _textureRectangleDirty = false;
                 }
                 Quad.Draw(Drawer);
@@ -207,25 +208,6 @@ namespace Mokus2D.Visual
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);
-        }
-    }
-    public class Sprite<T>(Texture2D texture) : Sprite(texture) where T : struct, IVertex
-    {
-        public Sprite(string name)
-            : this(Mokus2DGame.LoadResource<ISpriteData>(name))
-        {
-        }
-
-        public Sprite(ISpriteData data)
-            : this(data.Texture)
-        {
-            ResetData(data);
-            Initialize();
-        }
-
-        protected override IQuad CreateQuad()
-        {
-            return new Quad<T>();
         }
     }
 }

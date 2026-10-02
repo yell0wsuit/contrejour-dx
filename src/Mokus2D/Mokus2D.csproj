@@ -1,11 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
-    <PackageReference Include="MonoGame.Framework.DesktopGL" />
     <ProjectReference Include="../Mokus2D.Common/Mokus2D.Common.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <!-- Precompiled OpenGL effects (built from Shaders/*.fx with mgfxc) -->
-    <Content Include="Shaders/*.ogl.mgfxo" Link="Mokus2D/Shaders/%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 </Project>

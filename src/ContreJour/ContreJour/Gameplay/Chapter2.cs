@@ -1,11 +1,11 @@
 using System;
+using System.Numerics;
 
-using ContreJour.Clips.planets;
-
-using Microsoft.Xna.Framework;
+using ContreJour.Clips;
 
 using Mokus2D;
 using Mokus2D.Util.MathUtils;
+using Mokus2D.Visual;
 using Mokus2D.Visual.Particles.Util;
 
 namespace ContreJour.Gameplay
@@ -16,8 +16,8 @@ namespace ContreJour.Gameplay
 
         protected override void CreateSprites()
         {
-            Background = new McPlanet2Background();
-            BlurBackground = new McChapter2Blur();
+            Background = new Sprite(ClipIds.Planets.McPlanet2Background);
+            BlurBackground = new Sprite(ClipIds.Planets.McChapter2Blur);
             _ = CreateBouncingSprite("planets/McPlanetSpringBack", 45, new Vector2(-69f, 26f), 0.8f);
             _ = CreateBouncingSprite("planets/McPlanetSpringBack", -150, new Vector2(26f, -73f), 0.7f);
             Container.AddChild(Background);
@@ -80,7 +80,7 @@ namespace ContreJour.Gameplay
             {
                 GravityParticle gravityParticle = (GravityParticle)springSmoke.AddOrGetInvisible();
                 gravityParticle.Position = spring.LocalToNode(SmokeCoords(), this);
-                gravityParticle.Speed = VectorUtil.ToVector(15f, MathHelper.ToRadians(spring.RotationDegrees) + ((float)Math.PI / 2f));
+                gravityParticle.Speed = VectorUtil.ToVector(15f, float.DegreesToRadians(spring.RotationDegrees) + ((float)Math.PI / 2f));
             }
         }
     }

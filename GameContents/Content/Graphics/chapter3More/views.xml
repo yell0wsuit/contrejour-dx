@@ -1,0 +1,14 @@
+<root>
+  <McShesterna2Background>
+    <config speed="0.2" final="true" iPhoneSizeLimit="256" viewType="McShesternaBackground" type="null"/>
+  </McShesterna2Background>
+  <McShesternaBackground>
+    <config speed="-0.5" final="true" iPhoneSizeLimit="256" type="null"/>
+  </McShesternaBackground>
+  <McShesternaBackgroundBlur>
+    <config speed="1" final="true" iPhoneSizeLimit="254" type="null" premultiply="false"/>
+  </McShesternaBackgroundBlur>
+  <McShesternaOut>
+    <config speed="0.2" final="true" iPhoneSizeLimit="254" type="null" radius="60"/>
+  </McShesternaOut>
+</root>

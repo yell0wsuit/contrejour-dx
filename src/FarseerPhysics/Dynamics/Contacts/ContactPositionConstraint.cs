@@ -1,6 +1,6 @@
-using FarseerPhysics.Collision;
+using System.Numerics;
 
-using Microsoft.Xna.Framework;
+using FarseerPhysics.Collision;
 
 namespace FarseerPhysics.Dynamics.Contacts
 {

@@ -2,9 +2,11 @@ namespace ContreJour.Gameplay
 {
     public static class Sounds
     {
-        public const string Click = "newClip1";
+        public static readonly string[] Tap = ["newClip", "newClip1"];
 
         public const string Menu = "menu";
+
+        public const string Ending = "ending";
 
         public const float ClickVolume = 0.7f;
 
@@ -13,6 +15,10 @@ namespace ContreJour.Gameplay
         public static readonly string[] BackSnot = ["newClip", "newClip1"];
 
         public static readonly string[] EXPLOSIONS = ["explosion0", "explosion1"];
+
+        public static readonly string[] DeathByFall = ["deathByFall1", "deathByFall2"];
+
+        public static readonly string[] DeathBySpikes = ["deathBySpikes4", "deathBySpikes5"];
 
         public static readonly string[] RopeOn = ["rope2", "rope3", "rope5"];
 

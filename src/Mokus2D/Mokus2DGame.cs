@@ -1,15 +1,16 @@
 using System;
-
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+using System.IO;
+using System.Numerics;
 
 using Mokus2D.Config;
 using Mokus2D.Content;
 using Mokus2D.Effects.Tweening;
 using Mokus2D.FileSystem;
 using Mokus2D.Game;
+using Mokus2D.Graphics;
 using Mokus2D.Input;
 using Mokus2D.Util;
+using Mokus2D.Util.Data;
 using Mokus2D.Util.Resources;
 using Mokus2D.Util.Schedule;
 using Mokus2D.Visual;
@@ -17,7 +18,6 @@ using Mokus2D.Visual.Data;
 using Mokus2D.Visual.Drawing;
 using Mokus2D.Visual.Interfaces;
 using Mokus2D.Visual.Text;
-using Mokus2D.Visual.Util;
 
 namespace Mokus2D
 {
@@ -25,7 +25,7 @@ namespace Mokus2D
     {
         public KeysController KeysController { get; } = new();
 
-        private readonly Scheduler Scheduler = new();
+        internal Scheduler Scheduler { get; } = new();
 
         public TouchController TouchController { get; } = new();
 
@@ -37,7 +37,7 @@ namespace Mokus2D
 
         private GameConfig _config;
 
-        private readonly FontsManager _fontsManager = new();
+        private FontRegistry _fonts;
 
         private BatchSelector _batchSelector;
 
@@ -46,7 +46,6 @@ namespace Mokus2D
         public Color BackgroundColor { get; set; } = Color.Black;
 
         private readonly float? MaxUpdateTime = 0.04f;
-        private IFileLoader _fileLoader = new FileLoader();
 
         private readonly ConcurrentDelayedActions _mainThreadActions = new();
 
@@ -70,19 +69,17 @@ namespace Mokus2D
             }
         }
 
-        public static IFileLoader FileLoader
-        {
-            get => Instance._fileLoader;
-            set => Instance._fileLoader = value;
-        }
+        public static IFileLoader FileLoader => Instance.ApplicationController.Files;
 
-        public static FontsManager FontsManager => Instance._fontsManager;
+        public static FontRegistry Fonts => Instance._fonts ?? throw new InvalidOperationException("LoadFonts must be called before labels are created.");
 
         public static KeyboardController Keyboard => Instance._keyboard;
 
+        public static IInputSource Input => Instance.ApplicationController.Input;
+
         public static GameConfig Config => Instance._config;
 
-        public static GraphicsDevice Device => Instance.ApplicationController.GraphicsDevice;
+        public static IRenderer Renderer => Instance.ApplicationController.Renderer;
 
         public static Vector2 ScreenCenter => Instance.ScreenSize * 0.5f;
 
@@ -103,7 +100,7 @@ namespace Mokus2D
             set => ApplicationController.IsFullScreen = value;
         }
 
-        public Util.Data.Point PrefferedBackBufferSize
+        public Point PrefferedBackBufferSize
         {
             get => ApplicationController.PrefferedBackBufferSize;
             set => ApplicationController.PrefferedBackBufferSize = value;
@@ -153,9 +150,12 @@ namespace Mokus2D
             return Config.GraphicsLoader.Load<T>(name);
         }
 
-        public static void RegisterFont(string fontName, string fontId)
+        // Loads the face for a two-letter locale from <content root>/fonts/fonts.json, replacing any earlier one.
+        public static void LoadFonts(string locale)
         {
-            FontsManager.RegisterFont(fontName, fontId);
+            FontRegistry fonts = FontRegistry.Load(FileLoader, Path.Combine(ContentManager.RootDirectory, "fonts"), locale, Renderer.CreateFontFace);
+            Instance._fonts?.Dispose();
+            Instance._fonts = fonts;
         }
 
         public static void RunInMainThread(Action action)
@@ -168,13 +168,11 @@ namespace Mokus2D
             if (Config.GraphicsLoader.PrefferedScaleFactor != value)
             {
                 Config.GraphicsLoader.PrefferedScaleFactor = value;
-                FontsManager.ReloadFonts();
             }
         }
 
         protected Mokus2DGame()
         {
-            PrimitivesDrawing.Clear();
             Instance = this;
             SpriteClicksListener = new SpriteClicksListener();
             Tweener = new Tweener(this);
@@ -262,7 +260,6 @@ namespace Mokus2D
         public virtual void Initialize(ApplicationController applicationController)
         {
             ApplicationController = applicationController;
-            ApplicationController.OnInitialize();
             ApplicationController.IsMouseVisible = true;
             ContentRootDirectory = "Content";
             ApplicationController.TargetElapsedTime = TimeSpan.FromTicks(166667L);

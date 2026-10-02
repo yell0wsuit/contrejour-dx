@@ -1,46 +1,15 @@
 using System;
+using System.Numerics;
 
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-
+using Mokus2D.Graphics;
 using Mokus2D.Visual.Data;
-using Mokus2D.Visual.Drawing.Effects;
-using Mokus2D.Visual.Drawing.Vertex;
 using Mokus2D.Visual.Util;
 
 namespace Mokus2D.Visual.Drawing
 {
     public static class SpriteBatchUtil
     {
-        public static void Draw<T>(ref T[] vertices, ref short[] indices, ref int currentVertex, ref int currentIndex, T[] additionalVertices, int verticesCount, short[] additionalIndices, int indicesCount) where T : struct, IVertex
-        {
-            EnsureSize(ref vertices, ref indices, currentVertex, currentIndex, verticesCount, indicesCount);
-            for (int i = 0; i < indicesCount; i++)
-            {
-                indices[currentIndex + i] = (short)(currentVertex + additionalIndices[i]);
-            }
-            AddVertices(vertices, ref currentVertex, additionalVertices, verticesCount);
-            currentIndex += indicesCount;
-        }
-
-        public static void Draw<T>(ref T[] vertices, ref short[] indices, ref int currentVertex, ref int currentIndex, T[] additionalVertices) where T : struct, IVertex
-        {
-            EnsureSize(ref vertices, ref indices, currentVertex, currentIndex, additionalVertices.Length, additionalVertices.Length);
-            for (int i = 0; i < additionalVertices.Length; i++)
-            {
-                indices[currentIndex + i] = (short)(currentVertex + i);
-            }
-            AddVertices(vertices, ref currentVertex, additionalVertices, additionalVertices.Length);
-            currentIndex += additionalVertices.Length;
-        }
-
-        private static void AddVertices<T>(T[] vertices, ref int currentVertex, T[] additionalVertices, int verticesCount)
-        {
-            Array.Copy(additionalVertices, 0, vertices, currentVertex, verticesCount);
-            currentVertex += verticesCount;
-        }
-
-        public static void DrawQuad<T>(Quad<T> quad, ref T[] vertices, ref short[] indices, ref int currentVertex, ref int currentIndex) where T : struct, IVertex
+        public static void DrawQuad(Quad quad, ref Vertex[] vertices, ref short[] indices, ref int currentVertex, ref int currentIndex)
         {
             EnsureSize(ref vertices, ref indices, currentVertex, currentIndex, 4, 6);
             vertices[currentVertex] = quad.LeftTop;
@@ -57,7 +26,7 @@ namespace Mokus2D.Visual.Drawing
             currentIndex += 6;
         }
 
-        public static void EnsureSize<T>(ref T[] vertices, ref short[] indices, int currentVertex, int currentIndex, int additionalVertices, int additionalIndices) where T : struct, IVertex
+        public static void EnsureSize(ref Vertex[] vertices, ref short[] indices, int currentVertex, int currentIndex, int additionalVertices, int additionalIndices)
         {
             if (currentVertex + additionalVertices >= vertices.Length)
             {
@@ -69,37 +38,13 @@ namespace Mokus2D.Visual.Drawing
             }
         }
 
-        public static void DrawUserIndexedPrimitives<T>(GraphicsDevice device, Vector2 screenSize, ref SpriteBatchProperties properties, ISpriteBatchEffect currentEffect, Texture2D texture, T[] vertices, short[] indices, int verticesCount, int indicesCount) where T : struct, IVertex
-        {
-            Matrix matrix = MatrixCache.GetScreenMatrix(screenSize);
-            DrawUserIndexedPrimitives(device, ref matrix, ref properties, currentEffect, texture, vertices, indices, verticesCount, indicesCount);
-        }
-
-        public static void DrawUserIndexedPrimitives<T>(GraphicsDevice device, ref Matrix matrix, ref SpriteBatchProperties properties, ISpriteBatchEffect currentEffect, Texture2D texture, T[] vertices, short[] indices, int verticesCount, int indicesCount) where T : struct, IVertex
+        public static void DrawTriangles(Vector2 screenSize, ref SpriteBatchProperties properties, ITexture texture, Vertex[] vertices, short[] indices, int verticesCount, int indicesCount)
         {
             if (verticesCount > 0)
             {
-                PrepareDraw(device, ref matrix, ref properties, currentEffect, texture);
-                device.DrawUserIndexedPrimitives(PrimitiveType.TriangleList, vertices, 0, verticesCount, indices, 0, indicesCount / 3);
-                Mokus2DGame.Instance.PerformanceCounter.IncreaseDrawCalls(indicesCount / 3);
-            }
-        }
-
-        private static void PrepareDraw(GraphicsDevice device, ref Matrix matrix, ref SpriteBatchProperties properties, ISpriteBatchEffect currentEffect, Texture2D texture)
-        {
-            device.BlendState = properties.Blend;
-            device.SamplerStates[0] = properties.SamplerState;
-            currentEffect.Apply(matrix, texture);
-        }
-
-        public static void DrawIndexedPrimitives(GraphicsDevice device, ref Matrix matrix, ref SpriteBatchProperties properties, ISpriteBatchEffect currentEffect, Texture2D texture, VertexBuffer vertices, IndexBuffer indices, int verticesCount, int indicesCount)
-        {
-            if (verticesCount > 0)
-            {
-                PrepareDraw(device, ref matrix, ref properties, currentEffect, texture);
-                device.SetVertexBuffer(vertices);
-                device.Indices = indices;
-                device.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, indicesCount / 3);
+                Matrix4x4 matrix = MatrixCache.GetScreenMatrix(screenSize);
+                DrawState state = new(texture, properties.Blend, properties.Sampler, ColorMode.Sprite);
+                Mokus2DGame.Renderer.DrawTriangles(vertices, verticesCount, indices, indicesCount, matrix, state);
                 Mokus2DGame.Instance.PerformanceCounter.IncreaseDrawCalls(indicesCount / 3);
             }
         }

@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <IsPackable>false</IsPackable>
+    <RootNamespace>Mokus2D.Rendering.Skia.Tests</RootNamespace>
+    <!-- The decompiled projects carry their own AssemblyInfo.cs; this one has none. -->
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="xunit.v3" />
+    <PackageReference Include="SkiaSharp.NativeAssets.macOS" />
+    <PackageReference Include="SkiaSharp.NativeAssets.Win32" />
+    <PackageReference Include="SkiaSharp.NativeAssets.Linux" />
+    <ProjectReference Include="../Mokus2D.Rendering.Skia/Mokus2D.Rendering.Skia.csproj" />
+    <None Include="../../GameContents/Content/fonts/PatrickHand-Regular.ttf" Link="fonts/PatrickHand-Regular.ttf" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>

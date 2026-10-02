@@ -1,15 +1,15 @@
 using System.Collections.Generic;
 using System.Globalization;
+using System.Numerics;
 
-using ContreJour.Clips.menu;
+using ContreJour.Clips;
 using ContreJour.Config;
 using ContreJour.Gameplay.Interfaces;
 using ContreJour.Utils;
 
-using Microsoft.Xna.Framework;
-
 using Mokus2D;
 using Mokus2D.Events;
+using Mokus2D.Graphics;
 using Mokus2D.Input;
 using Mokus2D.Sound;
 using Mokus2D.Util.Extensions;
@@ -29,9 +29,9 @@ namespace ContreJour.Gameplay
 
         public EventSender ExitEvent { get; } = new();
 
-        private McMenuGroundPhone ground;
+        private Sprite ground;
 
-        private McMainMenuLogo logo;
+        private Sprite logo;
 
         private List<Sprite> backgroundImages;
 
@@ -39,7 +39,7 @@ namespace ContreJour.Gameplay
 
         private Label starsField;
 
-        private McEnergyIcon starsIcon;
+        private Sprite starsIcon;
 
         private Vector2 centerPosition;
 
@@ -159,6 +159,58 @@ namespace ContreJour.Gameplay
             CreateButtons();
             CreateLiteButtons();
             _ = Constants.IsTrial;
+            AddKeyListeners();
+        }
+
+        private void AddKeyListeners()
+        {
+            KeysController keys = Mokus2DGame.Instance.KeysController;
+            keys.AddBackKeyListener(OnBackKey);
+            keys.AddKeyListener(Key.Left, OnLeftKey);
+            keys.AddKeyListener(Key.Right, OnRightKey);
+            keys.AddKeyListener(Key.Enter, OnEnterKey);
+        }
+
+        private void RemoveKeyListeners()
+        {
+            KeysController keys = Mokus2DGame.Instance.KeysController;
+            keys.RemoveBackKeyListener(OnBackKey);
+            keys.RemoveKeyListener(Key.Left, OnLeftKey);
+            keys.RemoveKeyListener(Key.Right, OnRightKey);
+            keys.RemoveKeyListener(Key.Enter, OnEnterKey);
+        }
+
+        // Esc does what the back button does, whenever the button could be pressed.
+        private void OnBackKey()
+        {
+            if (!inLevel && backButton?.Enabled == true)
+            {
+                OnBackClick();
+            }
+        }
+
+        private void OnLeftKey()
+        {
+            if (!inChapter)
+            {
+                spinner.Step(-1);
+            }
+        }
+
+        private void OnRightKey()
+        {
+            if (!inChapter)
+            {
+                spinner.Step(1);
+            }
+        }
+
+        private void OnEnterKey()
+        {
+            if (!inChapter)
+            {
+                spinner.ClickCentered();
+            }
         }
 
         private void OnMusicDisable()
@@ -245,7 +297,7 @@ namespace ContreJour.Gameplay
             namesPosition = new Vector2(190f, winSize.Y - 136f);
             names.Position = namesPosition;
             AddChild(names, 4);
-            logo = new McMainMenuLogo();
+            logo = new Sprite(ClipIds.Menu.McMainMenuLogo);
             AddChild(logo, 4);
             logo.Position = new Vector2(winSize.X - 80f - logo.Size.X, winSize.Y);
             if (ContreJourConfig.BackButtonVisible)
@@ -281,8 +333,8 @@ namespace ContreJour.Gameplay
             AddChild(blackLayer, 2);
             blackLayer.OpacityByte = 0;
             blackLayer.Visible = false;
-            ground = new McMenuGroundPhone();
-            McMenuGroundPhone mcMenuGroundPhone = new();
+            ground = new Sprite(ClipIds.Menu.McMenuGroundPhone);
+            Sprite mcMenuGroundPhone = new(ClipIds.Menu.McMenuGroundPhone);
             ground.AddChild(mcMenuGroundPhone);
             mcMenuGroundPhone.Position = new Vector2(ground.Size.X - 2f, winSize.Y + 4f);
             mcMenuGroundPhone.RotationDegrees = 180f;
@@ -299,7 +351,7 @@ namespace ContreJour.Gameplay
 
         public void CreateScore()
         {
-            starsIcon = new McEnergyIcon();
+            starsIcon = new Sprite(ClipIds.Menu.McEnergyIcon);
             AddChild(starsIcon, 4);
             starsIcon.Position = new Vector2(20f, scoreY);
             starsIcon.Scale = 1.3f;
@@ -332,7 +384,7 @@ namespace ContreJour.Gameplay
             }
             else if (!inChapter && spinner.Scale == 1f)
             {
-                SoundManager.PlaySound("newClip1", 0.5f);
+                SoundManager.PlayRandomSound(Sounds.Tap, 0.5f);
                 currentChapter = chapter;
                 HidePlanets();
             }
@@ -515,7 +567,7 @@ namespace ContreJour.Gameplay
 
         public static void OnGetFullVersion()
         {
-            SoundManager.PlaySound("newClip1", 0.7f);
+            SoundManager.PlayRandomSound(Sounds.Tap, 0.7f);
         }
 
         public void RefreshPosition()
@@ -541,6 +593,7 @@ namespace ContreJour.Gameplay
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);
+            RemoveKeyListeners();
             ExitEvent.RemoveListeners();
             LevelSelectEvent.RemoveListeners();
             spinner.Dispose();

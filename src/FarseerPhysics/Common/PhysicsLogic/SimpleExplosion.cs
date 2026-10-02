@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 
 using FarseerPhysics.Collision;
 using FarseerPhysics.Dynamics;
-
-using Microsoft.Xna.Framework;
 
 namespace FarseerPhysics.Common.PhysicsLogic
 {
@@ -40,7 +39,7 @@ namespace FarseerPhysics.Common.PhysicsLogic
                     float percent = GetPercent(distance, radius);
                     Vector2 vector = pos - overlappingBody.Position;
                     vector *= 1f / (float)Math.Sqrt((vector.X * vector.X) + (vector.Y * vector.Y));
-                    vector *= MathHelper.Min(force * percent, maxForce);
+                    vector *= MathF.Min(force * percent, maxForce);
                     vector *= -1f;
                     overlappingBody.ApplyLinearImpulse(vector);
                     dictionary.Add(overlappingBody, vector);
@@ -52,7 +51,7 @@ namespace FarseerPhysics.Common.PhysicsLogic
         private float GetPercent(float distance, float radius)
         {
             float num = (float)Math.Pow(1f - ((distance - radius) / radius), Power) - 1f;
-            return float.IsNaN(num) ? 0f : MathHelper.Clamp(num, 0f, 1f);
+            return float.IsNaN(num) ? 0f : Math.Clamp(num, 0f, 1f);
         }
     }
 }

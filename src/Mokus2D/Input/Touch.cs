@@ -1,9 +1,9 @@
 using System;
-
-using Microsoft.Xna.Framework;
+using System.Numerics;
 
 using Mokus2D.PlatformSupport.Input;
 using Mokus2D.Util.Extensions;
+using Mokus2D.Util.MathUtils;
 
 namespace Mokus2D.Input
 {

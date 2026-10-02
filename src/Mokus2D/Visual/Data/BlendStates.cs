@@ -1,29 +1,18 @@
 using System.Collections.Generic;
 
-using Microsoft.Xna.Framework.Graphics;
+using Mokus2D.Graphics;
 
 namespace Mokus2D.Visual.Data
 {
+    // Blend modes by the names animation files use.
     public static class BlendStates
     {
-        public static readonly BlendState NonPremultiplied;
-
-        private static readonly Dictionary<string, BlendState> RegisteredBlendStates;
-
-        static BlendStates()
+        private static readonly Dictionary<string, BlendMode> RegisteredBlendStates = new()
         {
-            RegisteredBlendStates = [];
-            NonPremultiplied = new BlendState
-            {
-                ColorDestinationBlend = Blend.InverseSourceAlpha,
-                AlphaDestinationBlend = Blend.One,
-                ColorSourceBlend = Blend.SourceAlpha,
-                AlphaSourceBlend = Blend.One
-            };
-            RegisteredBlendStates.Add("add", BlendState.Additive);
-        }
+            ["add"] = BlendMode.Additive
+        };
 
-        public static BlendState GetByName(string name)
+        public static BlendMode GetByName(string name)
         {
             return RegisteredBlendStates[name];
         }

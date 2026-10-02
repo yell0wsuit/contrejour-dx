@@ -1,11 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 
 using FarseerPhysics.Dynamics;
 
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-
+using Mokus2D.Graphics;
 using Mokus2D.Interfaces;
 using Mokus2D.Util;
 using Mokus2D.Util.Data;
@@ -17,9 +16,9 @@ namespace ContreJour.Gameplay
 {
     public class BlackTail : PrimitivesNode, IUpdatable
     {
-        private VertexPositionColorTexture[] vertices = [];
+        private Vertex[] vertices = [];
 
-        protected ref VertexPositionColorTexture[] Vertices => ref vertices;
+        protected ref Vertex[] Vertices => ref vertices;
 
         private readonly List<Vector2> bezierPoints = [];
         private Vector2 target;

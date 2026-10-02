@@ -1,25 +1,23 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 
 using ContreJour.Config;
 using ContreJour.Content;
-
 using ContreJour.Gameplay.Interfaces;
 
 using FarseerPhysics.Collision;
 using FarseerPhysics.Dynamics;
 
-using Microsoft.Xna.Framework;
-
 using Mokus2D;
 using Mokus2D.Data;
 using Mokus2D.Effects.Tween.Easing;
 using Mokus2D.Events;
+using Mokus2D.Graphics;
 using Mokus2D.Input;
 using Mokus2D.Integration.Farseer.Util;
 using Mokus2D.Interfaces;
-using Mokus2D.Util;
 using Mokus2D.Util.Extensions;
 using Mokus2D.Util.MathUtils;
 using Mokus2D.Util.Schedule;
@@ -55,6 +53,8 @@ namespace ContreJour.Gameplay
 
         public const float RestartTime = 1.5f;
 
+        private const float RestartDisabledOpacity = 150f / 255f;
+
         public const float WindStepWhite = 0.02f;
 
         public const float WindStep = 0.03f;
@@ -88,6 +88,7 @@ namespace ContreJour.Gameplay
         private readonly List<object> positionProviders;
 
         private float providersValue;
+        private readonly Button restartButton;
         private readonly LayerColor restartLayer;
         private readonly LightColor startLightColor;
 
@@ -207,7 +208,18 @@ namespace ContreJour.Gameplay
 
         public Color ButtonsColor => buttonsColor;
 
-        public bool RestartEnabled { get; set; }
+        public bool RestartEnabled
+        {
+            get;
+            set
+            {
+                if (field != value)
+                {
+                    field = value;
+                    RefreshRestartButton();
+                }
+            }
+        }
 
         public bool Finished { get; set; }
 
@@ -282,6 +294,21 @@ namespace ContreJour.Gameplay
                 pauseButton.Position = ContreJourConfig.BackButtonPosition;
                 pauseButton.Color = buttonsColor;
                 ClickableLayer.AddChild(pauseButton);
+                // As on the iPad: a small restart button left of the pause button, 64 points apart at scale 1.
+                restartButton = new Button("menu/McRestartIcon")
+                {
+                    RealScale = 1.3f
+                };
+                restartButton.Icon.Scale = 0.6f;
+                restartButton.TouchEndEvent += delegate
+                {
+                    Restart();
+                };
+                restartButton.Position = ContreJourConfig.BackButtonPosition - new Vector2(64f * restartButton.RealScale, 0f);
+                restartButton.Color = buttonsColor;
+                restartButton.Enabled = false;
+                restartButton.OpacityFloat = RestartDisabledOpacity;
+                ClickableLayer.AddChild(restartButton);
             }
             pausePanel = new PausePanel(this);
             AddChild(pausePanel, 15);
@@ -291,15 +318,12 @@ namespace ContreJour.Gameplay
             teleports = [];
             _ = GameRoot.Schedule(1.5f, EnableRestart);
             Mokus2DGame.Instance.KeysController.AddBackKeyListener(OnBackPress);
+            Mokus2DGame.Instance.KeysController.AddKeyListener(Key.F5, OnRestartKey);
         }
 
         public override LevelBuilderBase CreateLevelBuilder()
         {
-            ContreJourLevelBuilder contreJourLevelBuilder = new(this)
-            {
-                NamespacePrefix = "ContreJour.Gameplay."
-            };
-            return contreJourLevelBuilder;
+            return new ContreJourLevelBuilder(this);
         }
 
         public void LoadLevelIndex(int index)
@@ -370,6 +394,7 @@ namespace ContreJour.Gameplay
         {
             Mokus2DGame.Instance.TouchController.RemoveListener(this);
             Mokus2DGame.Instance.KeysController.RemoveBackKeyListener(OnBackPress);
+            Mokus2DGame.Instance.KeysController.RemoveKeyListener(Key.F5, OnRestartKey);
             pausePanel.Dispose();
             finishView.Dispose();
             base.Dispose(disposing);
@@ -548,6 +573,17 @@ namespace ContreJour.Gameplay
             }
         }
 
+        // The iOS SpriteFader: the restart button dims while a restart is unavailable.
+        private void RefreshRestartButton()
+        {
+            if (restartButton == null)
+            {
+                return;
+            }
+            restartButton.Enabled = RestartEnabled;
+            _ = restartButton.FadeTo(0.15f, RestartEnabled ? 1f : RestartDisabledOpacity);
+        }
+
         public void Back()
         {
             Hero?.Removed = true;
@@ -629,12 +665,42 @@ namespace ContreJour.Gameplay
 
         public void OnBackPress()
         {
-            if (Finished || pausePanel.Visible)
+            if (Finished)
             {
                 Back();
                 Mokus2DGame.Instance.KeysController.RemoveBackKeyListener(OnBackPress);
                 return;
             }
+            // Back on the pause panel resumes, as its play button does; its menu button leaves the level.
+            if (pausePanel.Visible)
+            {
+                pausePanel.Hide();
+                return;
+            }
+            OpenPausePanel();
+        }
+
+        // F5 restarts as the restart button does, and only while that button could be pressed.
+        private void OnRestartKey()
+        {
+            if (RestartEnabled && !Paused && !Finished)
+            {
+                Restart();
+            }
+        }
+
+        // Losing focus pauses the level as the pause button does, unless it is over or already paused.
+        public void PauseForFocusLoss()
+        {
+            if (Finished || pausePanel.Visible)
+            {
+                return;
+            }
+            OpenPausePanel();
+        }
+
+        private void OpenPausePanel()
+        {
             if (ContreJourConfig.BackButtonVisible)
             {
                 pauseButton.Enabled = false;
@@ -662,7 +728,7 @@ namespace ContreJour.Gameplay
         {
             string text = background.GetString("type");
             texturesToUnload.Add(text);
-            Node node = ClipTypesCache.CreateNewNode(text);
+            Node node = ClipCatalog.Create(text);
             Hashtable hashtable = background.GetHashtable("config");
             Vector2 vector = background.GetVector("position");
             Vector2 vector2 = background.GetVector("scale");
@@ -693,7 +759,7 @@ namespace ContreJour.Gameplay
             }
             if (hashtable.Exists("type"))
             {
-                BackgroundBase item = (BackgroundBase)ReflectUtil.CreateInstance(typeName: "ContreJour.Gameplay." + hashtable.GetString("type"), mainAssemblyClass: typeof(ContreJourApplication), parameters: [node, hashtable, this]);
+                BackgroundBase item = BackgroundFactory.Create(hashtable.GetString("type"), node, hashtable, this);
                 backgrounds.Add(item);
             }
         }
@@ -813,8 +879,6 @@ namespace ContreJour.Gameplay
             LevelData levelDataByPosition = UserData.Instance.GetLevelDataByPosition(levelPosition);
             int num = UserData.Instance.CompleteLevel(levelPosition, StarsCollected, TotalTime);
             bool newHighScore = levelDataByPosition != null && (levelDataByPosition.Score < num || levelDataByPosition.StarsCount < StarsCollected);
-            pauseButton.InteractionsEnabled = false;
-            _ = pauseButton.FadeOutAndHide(0.3f);
             finishView.Show(levelPosition, StarsCollected, num, TotalTime, newHighScore);
             finishView.NextLevelEvent.AddListener(NextLevelEvent.SendEvent);
             FinishWithViewPosition(finishView, zoomPoint);
@@ -837,9 +901,21 @@ namespace ContreJour.Gameplay
             ZoomToScaleRightTopLeftBottomTime(rightTop: new Vector2(0f, 30f), leftBottom: new Vector2(rootSize.X * -0.29999995f, (rootSize.Y * -0.29999995f) - 30f), zoomPoint: zoomPoint * GameRoot.Scale, scale: 1.3f, time: 2.4f);
         }
 
+        // Covers both a level finish and the game ending, where the back button takes the pause button's place.
         public void HidePause()
         {
-            pauseButton?.Enabled = false;
+            HideButton(pauseButton);
+            HideButton(restartButton);
+        }
+
+        private static void HideButton(Button button)
+        {
+            if (button != null)
+            {
+                button.Enabled = false;
+                button.InteractionsEnabled = false;
+                _ = button.FadeOutAndHide(0.3f);
+            }
         }
 
         public void ZoomOut(float time)
@@ -1032,5 +1108,6 @@ namespace ContreJour.Gameplay
                 freeTouches.Add(touch);
             }
         }
+
     }
 }

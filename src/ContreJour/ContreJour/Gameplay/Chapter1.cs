@@ -1,9 +1,7 @@
 using System;
+using System.Numerics;
 
-using ContreJour.Clips.menu;
-using ContreJour.Clips.planets;
-
-using Microsoft.Xna.Framework;
+using ContreJour.Clips;
 
 using Mokus2D.Util.Extensions;
 using Mokus2D.Util.MathUtils;
@@ -33,18 +31,18 @@ namespace ContreJour.Gameplay
             CreateSnotRotationScale(new Vector2(74f, -59f), -130f, 4f / 15f);
             CreateSnotRotationScale(new Vector2(54f, -72f), -180f, 1f / 3f);
             CreateSnotRotationScale(new Vector2(-83f, -35f), 90f, 1f / 3f);
-            Background = new McPlanet1Background();
-            foreground = new McPlanet1Foreground();
-            BlurBackground = new McChapter1Blur
+            Background = new Sprite(ClipIds.Planets.McPlanet1Background);
+            foreground = new Sprite(ClipIds.Planets.McPlanet1Foreground);
+            BlurBackground = new Sprite(ClipIds.Planets.McChapter1Blur)
             {
                 Scale = 1.1f
             };
             Container.AddChild(Background);
-            Sprite sprite = new McPlanetRoseLight();
+            Sprite sprite = new(ClipIds.Planets.McPlanetRoseLight);
             Container.AddChild(sprite);
             _ = sprite.Tweener.RepeatSequenceForever(3f).FadeTo(10f / 51f).Next(3f)
                 .FadeTo(31f / 51f);
-            Sprite node = new McRoseForeground();
+            Sprite node = new(ClipIds.Menu.McRoseForeground);
             Container.AddChild(node);
             eye = new PlanetEye(null, visible: true, Vector2.Zero)
             {

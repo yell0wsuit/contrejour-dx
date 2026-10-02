@@ -1,10 +1,8 @@
 using System;
+using System.Numerics;
 
-using ContreJour.Clips.chapter5;
-
-using ContreJourMono.ContreJour.Game.Eyes;
-
-using Microsoft.Xna.Framework;
+using ContreJour.Clips;
+using ContreJour.Gameplay.Eyes;
 
 using Mokus2D.Input;
 using Mokus2D.Sound;
@@ -43,7 +41,7 @@ namespace ContreJour.Gameplay
         public FlyBodyClip(LevelBuilderBase builder, object body, Node clip, Hashtable config)
             : base(builder, body, clip, config)
         {
-            bodySprite = new McFlyBody();
+            bodySprite = new Sprite(ClipIds.Chapter5.McFlyBody);
             clip = bodySprite;
             Clip = clip;
             _ = builder.AddChild(clip);
@@ -117,7 +115,7 @@ namespace ContreJour.Gameplay
 
         public void SetFlying(bool value)
         {
-            float num = value ? 0f : MathHelper.ToRadians(30f);
+            float num = value ? 0f : float.DegreesToRadians(30f);
             _ = leftWings.RotateTo(0.5f, num);
             _ = rightWings.RotateTo(0.5f, 0f - num);
             leftWings.SetFlying(value);

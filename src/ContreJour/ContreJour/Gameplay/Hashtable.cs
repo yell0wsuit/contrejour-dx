@@ -2,8 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-
-using Microsoft.Xna.Framework;
+using System.Numerics;
 
 namespace ContreJour.Gameplay
 {

@@ -1,11 +1,10 @@
 using System.Collections.Generic;
+using System.Numerics;
 
 using FarseerPhysics.Dynamics;
 
-using Microsoft.Xna.Framework;
-
+using Mokus2D.Graphics;
 using Mokus2D.Input;
-using Mokus2D.Util;
 using Mokus2D.Visual;
 
 namespace ContreJour.Gameplay
@@ -30,7 +29,10 @@ namespace ContreJour.Gameplay
         {
             ContreJourGame contreJourGame = (ContreJourGame)builder.Game;
             contreJourGame.RegisterPlasticine(this);
-            clipContent = (PlasticineSprite)ReflectUtil.CreateInstance(contreJourGame.ChooseSide(typeof(BlackPlasticineSprite), typeof(WhitePlasticineSprite), typeof(PlasticineSprite)));
+            clipContent = contreJourGame.ChooseSide(
+                static () => new BlackPlasticineSprite(),
+                static () => new WhitePlasticineSprite(),
+                static () => new PlasticineSprite())();
             Create(points);
             _ = Builder.AddChild(clipContent);
             FirstItem.BodyClip.UpdateParent = true;

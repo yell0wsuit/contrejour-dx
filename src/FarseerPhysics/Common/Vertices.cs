@@ -1,11 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Numerics;
 using System.Text;
 
 using FarseerPhysics.Collision;
-
-using Microsoft.Xna.Framework;
 
 namespace FarseerPhysics.Common
 {
@@ -335,7 +334,7 @@ namespace FarseerPhysics.Common
             return Math.Abs(num) >= Math.PI;
         }
 
-        public void Transform(ref Matrix transform)
+        public void Transform(ref Matrix4x4 transform)
         {
             for (int i = 0; i < Count; i++)
             {
@@ -346,7 +345,10 @@ namespace FarseerPhysics.Common
                 for (int j = 0; j < Holes.Count; j++)
                 {
                     Vector2[] array = [.. Holes[j]];
-                    Vector2.Transform(array, ref transform, array);
+                    for (int k = 0; k < array.Length; k++)
+                    {
+                        array[k] = Vector2.Transform(array[k], transform);
+                    }
                     Holes[j] = [.. array];
                 }
             }

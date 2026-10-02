@@ -1,8 +1,7 @@
 using System;
+using System.Numerics;
 
-using ContreJour.Clips.menu;
-
-using Microsoft.Xna.Framework;
+using ContreJour.Clips;
 
 using Mokus2D.Interfaces;
 using Mokus2D.Util.MathUtils;
@@ -12,13 +11,13 @@ namespace ContreJour.Gameplay
 {
     public class PlanetSatellite : Node, IUpdatable
     {
-        private readonly McSatellite satellite;
+        private readonly Sprite satellite;
 
         private readonly CosChanger changer;
 
         public PlanetSatellite()
         {
-            satellite = new McSatellite();
+            satellite = new Sprite(ClipIds.Menu.McSatellite);
             changer = new CosChanger(0.03f, 0.035f)
             {
                 MinValue = -150f,

@@ -1,6 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
-
-using Microsoft.Xna.Framework;
+using System.Numerics;
 
 using Mokus2D.Util.MathUtils;
 

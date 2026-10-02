@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+using System.Numerics;
 
 using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual;
@@ -25,7 +25,7 @@ namespace ContreJour.Gameplay
         public override void Update(float time)
         {
             base.Update(time);
-            Vector2 vector = VectorUtil.ToVector(radius, MathHelper.ToRadians(Node.RotationDegrees * 2f));
+            Vector2 vector = VectorUtil.ToVector(radius, float.DegreesToRadians(Node.RotationDegrees * 2f));
             Node.Position = vector + CenterPosition;
         }
     }

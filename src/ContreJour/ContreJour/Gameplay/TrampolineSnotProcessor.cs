@@ -1,10 +1,9 @@
 using System.Collections.Generic;
+using System.Numerics;
 
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Dynamics.Joints;
 using FarseerPhysics.Factories;
-
-using Microsoft.Xna.Framework;
 
 namespace ContreJour.Gameplay
 {

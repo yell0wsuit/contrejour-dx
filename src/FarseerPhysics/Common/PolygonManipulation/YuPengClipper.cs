@@ -1,6 +1,5 @@
 using System.Collections.Generic;
-
-using Microsoft.Xna.Framework;
+using System.Numerics;
 
 namespace FarseerPhysics.Common.PolygonManipulation
 {
@@ -58,7 +57,7 @@ namespace FarseerPhysics.Common.PolygonManipulation
             CalculateIntersections(subject, clip, out Vertices slicedPoly, out Vertices slicedPoly2);
             Vector2 value = subject.GetAABB().LowerBound;
             Vector2 value2 = clip.GetAABB().LowerBound;
-            Vector2.Min(ref value, ref value2, out Vector2 result);
+            Vector2 result = Vector2.Min(value, value2);
             result = Vector2.One - result;
             if (result != Vector2.Zero)
             {

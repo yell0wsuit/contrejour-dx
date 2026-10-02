@@ -1,9 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 
-
-using Microsoft.Xna.Framework;
-
+using Mokus2D.Graphics;
 using Mokus2D.Util.Extensions;
 using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual.Data;
@@ -61,11 +60,11 @@ namespace Mokus2D.Visual.Animation
             if (!child.IgnoredAnimations.Rotation)
             {
                 float value = Maths.SimplifyAngleDegrees(nextData.Rotation, previousData.Rotation - 180f);
-                child.RotationDegrees = MathHelper.Lerp(previousData.Rotation, value, offset) * vector.X * vector.Y;
+                child.RotationDegrees = float.Lerp(previousData.Rotation, value, offset) * vector.X * vector.Y;
             }
             if (!child.IgnoredAnimations.Opacity)
             {
-                child.OpacityFloat = MathHelper.Lerp(previousData.Alpha, nextData.Alpha, offset);
+                child.OpacityFloat = float.Lerp(previousData.Alpha, nextData.Alpha, offset);
             }
             if (!child.IgnoredAnimations.Scale)
             {

@@ -1,7 +1,9 @@
+using System.Numerics;
+
+using ContreJour.Clips;
 using ContreJour.Clips.planets;
 
-using Microsoft.Xna.Framework;
-
+using Mokus2D.Graphics;
 using Mokus2D.Util.Extensions;
 using Mokus2D.Visual;
 
@@ -12,10 +14,10 @@ namespace ContreJour.Gameplay
         protected override void CreateSprites()
         {
             AddShesterna("planets/McPlanetShesterna", 5, new Vector2(-40f, 60f)).Color = new Color(100, 100, 100);
-            BlurBackground = new McChapter3Blur();
-            Background = new McPlanet3Background();
+            BlurBackground = new Sprite(ClipIds.Planets.McChapter3Blur);
+            Background = new Sprite(ClipIds.Planets.McPlanet3Background);
             Container.AddChild(Background);
-            Sprite sprite = new McPlanet3Light();
+            Sprite sprite = new(ClipIds.Planets.McPlanet3Light);
             Container.AddChild(sprite);
             _ = sprite.Tweener.RepeatSequenceForever(4f).FadeTo(20f / 51f).Next(5f)
                 .FadeTo(0.7058824f);
@@ -40,7 +42,7 @@ namespace ContreJour.Gameplay
             mcPlanetStick.Speed = 1.3f;
             AddUpdating(mcPlanetStick.content);
             AlphaItems.Add(mcPlanetStick);
-            Sprite node = new McPlanet3Foreground();
+            Sprite node = new(ClipIds.Planets.McPlanet3Foreground);
             Container.AddChild(node);
         }
 

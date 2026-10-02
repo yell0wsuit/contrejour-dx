@@ -1,6 +1,4 @@
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-
+using Mokus2D.Graphics;
 using Mokus2D.Visual.Data;
 
 namespace Mokus2D.Visual
@@ -13,9 +11,9 @@ namespace Mokus2D.Visual
 
         protected float ScaleFactor { get; set; } = 1f;
 
-        public Texture2D Texture { get; protected set; }
+        public ITexture Texture { get; protected set; }
 
-        public BlendState Blend
+        public BlendMode Blend
         {
             get => SpriteBatchProperties.Blend;
             set => SpriteBatchProperties.Blend = value;
@@ -25,7 +23,7 @@ namespace Mokus2D.Visual
         {
         }
 
-        protected SpriteBatchNode(Texture2D texture)
+        protected SpriteBatchNode(ITexture texture)
         {
             Texture = texture;
         }

@@ -1,7 +1,7 @@
+using System.Numerics;
+
 using FarseerPhysics.Common;
 using FarseerPhysics.Common.ConvexHull;
-
-using Microsoft.Xna.Framework;
 
 namespace FarseerPhysics.Collision.Shapes
 {
@@ -32,7 +32,7 @@ namespace FarseerPhysics.Collision.Shapes
                     int index = (i + 1 < _vertices.Count) ? (i + 1) : 0;
                     Vector2 vector = _vertices[index] - _vertices[i];
                     Vector2 item = new(vector.Y, 0f - vector.X);
-                    item.Normalize();
+                    item = Vector2.Normalize(item);
                     Normals.Add(item);
                 }
                 ComputeProperties();

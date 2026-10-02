@@ -1,9 +1,8 @@
 using System;
+using System.Numerics;
 
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Dynamics.Joints;
-
-using Microsoft.Xna.Framework;
 
 using Mokus2D.Input;
 using Mokus2D.Util.Extensions;
@@ -142,7 +141,7 @@ namespace ContreJour.Gameplay
 
         private void EndMove()
         {
-            targetSpeed = MathHelper.Clamp(Vector2.Distance(targetPoint.Body.Position, Body.Position) * 5f, 400f * Builder.SizeMult, 1500f * Builder.SizeMult);
+            targetSpeed = Math.Clamp(Vector2.Distance(targetPoint.Body.Position, Body.Position) * 5f, 400f * Builder.SizeMult, 1500f * Builder.SizeMult);
             moving = false;
         }
 

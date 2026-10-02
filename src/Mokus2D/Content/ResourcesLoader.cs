@@ -1,7 +1,6 @@
 using System.Xml.Linq;
 
 using Mokus2D.Content.Serialization;
-using Mokus2D.Fonts;
 
 namespace Mokus2D.Content
 {
@@ -9,7 +8,7 @@ namespace Mokus2D.Content
     {
         protected override string GetFileName<T>(string resourceName, string resourceSuffix)
         {
-            string text = ((object)typeof(T) == typeof(FontData)) ? "font" : "xml";
+            string text = "xml";
             IGraphicsDeserializer graphicsDeserializer = Deserializers[typeof(T)];
             string text2 = resourceName;
             if (graphicsDeserializer.UseSuffix)

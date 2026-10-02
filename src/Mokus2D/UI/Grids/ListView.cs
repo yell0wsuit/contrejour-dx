@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using Mokus2D.Util;
 using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual;
-using Mokus2D.Visual.Data;
 
 namespace Mokus2D.UI.Grids
 {
@@ -48,12 +47,6 @@ namespace Mokus2D.UI.Grids
         private float TopRendererOffset => 0f - ItemsPosition.Fraction();
 
         public event Action DataChangedEvent;
-
-        public ListView(Type itemRendererType, int itemsCount, float height)
-            : this(() => (Node)Activator.CreateInstance(itemRendererType), itemsCount, height)
-        {
-            SharedData = this;
-        }
 
         public ListView(Func<Node> itemRendererFactory, int itemsCount, float height)
         {
@@ -134,18 +127,4 @@ namespace Mokus2D.UI.Grids
         }
     }
 
-    public static class ListView
-    {
-        public static ListView<T> Create<T>(Type rendererType, string animationId, float height)
-        {
-            int itemsCount = GetItemsCount(animationId, height);
-            return new ListView<T>(rendererType, itemsCount, height);
-        }
-
-        private static int GetItemsCount(string animationId, float height)
-        {
-            AnimationData animationData = Mokus2DGame.LoadAnimation(animationId);
-            return (int)(height / animationData.PrecalculatedBounds.Height);
-        }
-    }
 }

@@ -1,8 +1,7 @@
 using System;
+using System.Numerics;
 
 using FarseerPhysics.Dynamics;
-
-using Microsoft.Xna.Framework;
 
 using Mokus2D.Interfaces;
 using Mokus2D.Util.MathUtils;

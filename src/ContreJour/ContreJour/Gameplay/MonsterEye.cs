@@ -1,10 +1,8 @@
 using System;
+using System.Numerics;
 
 using ContreJour.Content;
-
-using ContreJourMono.ContreJour.Game.Eyes;
-
-using Microsoft.Xna.Framework;
+using ContreJour.Gameplay.Eyes;
 
 using Mokus2D.Util.Extensions;
 using Mokus2D.Util.MathUtils;
@@ -94,8 +92,8 @@ namespace ContreJour.Gameplay
         {
             string name = BlackEye ? "McEyeMonsterBlack" : "McEyeMonster";
             string name2 = Game.ChooseSide("McEyeBallMonsterBlack", "McEyeBallMonsterWhite", "McEyeBallMonster", "McEyeBallMonster", "McEyeBallMonster_6");
-            Background = (Sprite)ClipTypesCache.CreateNewNode(name);
-            EyeBallSprite = (Sprite)ClipTypesCache.CreateNewNode(name2);
+            Background = (Sprite)ClipCatalog.Create(name);
+            EyeBallSprite = (Sprite)ClipCatalog.Create(name2);
         }
 
         public override void PlayAnimation(EyeAnimation animation, bool force)

@@ -14,3 +14,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Contre Jour")]
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: InternalsVisibleTo("ContreJour.Regression")]
+
+[assembly: InternalsVisibleTo("ContreJour-DX")]
+[assembly: InternalsVisibleTo("ContreJour.Browser")]
+[assembly: InternalsVisibleTo("ContreJour.Tests")]

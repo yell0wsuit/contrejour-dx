@@ -1,9 +1,9 @@
-using Microsoft.Xna.Framework.Graphics;
+using Mokus2D.Graphics;
 
 namespace Mokus2D.Visual.Interfaces
 {
     public interface IBlendable
     {
-        BlendState Blend { get; set; }
+        BlendMode Blend { get; set; }
     }
 }

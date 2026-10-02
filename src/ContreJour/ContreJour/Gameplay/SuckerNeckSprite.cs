@@ -1,10 +1,9 @@
 using System.Collections.Generic;
+using System.Numerics;
 
 using ContreJour.Primitives;
 
-using Microsoft.Xna.Framework;
-
-using Mokus2D;
+using Mokus2D.Graphics;
 using Mokus2D.Util.Data;
 using Mokus2D.Util.MathUtils;
 
@@ -41,7 +40,6 @@ namespace ContreJour.Gameplay
             middle = start;
             end = start;
             bouncer = new Bouncer(6f, 5f, 5f);
-            Effect = Mokus2DGame.Config.GraphicsConfig.DefaultEffect;
         }
 
         public override void Update(float time)

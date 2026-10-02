@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.Globalization;
+using System.Numerics;
 
 using ContreJour.Gameplay;
 
-using Microsoft.Xna.Framework;
-
+using Mokus2D.Localization;
 using Mokus2D.Visual.Text;
 
 namespace ContreJour.Utils
@@ -15,7 +15,7 @@ namespace ContreJour.Utils
 
         private static readonly List<string> Locales = ["de", "es", "fr", "it", "nl", "ru", "uk", "zh"];
 
-        public static readonly string CultureName = CultureInfo.CurrentCulture.Name[..2];
+        public static readonly string CultureName = LocalizationBundle.LocaleOverride ?? CultureInfo.CurrentCulture.Name[..2];
 
         private static readonly bool IsSmallAsian = SmallAsianLanguages.Contains(CultureName);
 

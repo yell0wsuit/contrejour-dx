@@ -1,12 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 
 using ContreJour.Content;
 
 using FarseerPhysics.Dynamics;
-
-using Microsoft.Xna.Framework;
 
 using Mokus2D.Interfaces;
 using Mokus2D.Util.Extensions;
@@ -58,7 +57,7 @@ namespace ContreJour.Gameplay
                 float num3 = num / num2;
                 for (int i = 0; i < num2; i++)
                 {
-                    Node node = ClipTypesCache.CreateNewNode(ClipName);
+                    Node node = ClipCatalog.Create(ClipName);
                     node.Position = VectorUtil.StepTo(previousPosition, vector, num3 * i);
                     float num4 = 1f - (i / (float)num2);
                     node.Scale *= StartScale;

@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+using System.Numerics;
 
 using Mokus2D.Visual;
 using Mokus2D.Visual.Particles.Util;

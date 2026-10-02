@@ -1,13 +1,13 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 
+using ContreJour.Clips;
 using ContreJour.Clips.level1;
 using ContreJour.Config;
 using ContreJour.Gameplay.Rose;
 
 using FarseerPhysics.Dynamics;
-
-using Microsoft.Xna.Framework;
 
 using Mokus2D.Integration.Farseer.Physics;
 using Mokus2D.Sound;
@@ -31,13 +31,13 @@ namespace ContreJour.Gameplay
 
         private readonly ContreJourGame game;
 
-        private McRoseHeadBack headBack;
+        private Sprite headBack;
 
         private McRoseHeadDown headDown;
 
         private McRoseHeadFront headFront;
 
-        private McRoseHeadLight headLight;
+        private Sprite headLight;
 
         private IntroPlayer intro;
 
@@ -122,9 +122,9 @@ namespace ContreJour.Gameplay
             }
             intro = new IntroPlayer(game);
             _ = Builder.AddChild(intro);
-            stalk = new McStebloAnimation();
-            headLight = new McRoseHeadLight();
-            headBack = new McRoseHeadBack();
+            stalk = new MovieClip(ClipIds.Level1.McStebloAnimation);
+            headLight = new Sprite(ClipIds.Level1.McRoseHeadLight);
+            headBack = new Sprite(ClipIds.Level1.McRoseHeadBack);
             headFront = new McRoseHeadFront();
             headDown = new McRoseHeadDown();
             headDown.content.light.Visible = false;
@@ -228,14 +228,14 @@ namespace ContreJour.Gameplay
         private void LookAtRose()
         {
             game.Hero.EyeMoveAllowed = false;
-            game.Hero.SetEyeTargetAngle(MathHelper.ToRadians(30f));
+            game.Hero.SetEyeTargetAngle(float.DegreesToRadians(30f));
             Schedule(LookAtBonuses, 1.5f);
             Schedule(game.ShowBonuses, 1f);
         }
 
         private void LookAtBonuses()
         {
-            game.Hero.SetEyeTargetAngle(MathHelper.ToRadians(160f));
+            game.Hero.SetEyeTargetAngle(float.DegreesToRadians(160f));
             Schedule(FinishMovie, 1.5f);
             skipButton.TouchEndEvent -= OnSkipClick;
             _ = skipButton.FadeOutAndHide(0.3f);

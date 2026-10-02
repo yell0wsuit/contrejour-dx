@@ -1,10 +1,9 @@
 using System.Diagnostics.CodeAnalysis;
+using System.Numerics;
 
 using ContreJour.Content;
 
 using FarseerPhysics.Dynamics;
-
-using Microsoft.Xna.Framework;
 
 using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual;
@@ -49,9 +48,9 @@ namespace ContreJour.Gameplay
             Physics.Snot = this;
             InitSizes();
             ClipContent = CreateClip();
-            BaseClip = ClipTypesCache.CreateNewNode(BaseClipName());
+            BaseClip = ClipCatalog.Create(BaseClipName());
             BaseClip.Position = Builder.ToIPadPoint(Physics.GetWorldStartPoint());
-            BaseEndClip = ClipTypesCache.CreateNewNode(BaseEndClipName());
+            BaseEndClip = ClipCatalog.Create(BaseEndClipName());
             Physics.EndBody.ApplyLinearImpulse(new Vector2(Maths.Random(), Maths.Random()) * Physics.EndBody.Mass);
             Eye = CreateEye();
             AddClipsToStage();

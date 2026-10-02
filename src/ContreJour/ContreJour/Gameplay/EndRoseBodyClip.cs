@@ -1,13 +1,11 @@
 using System;
+using System.Numerics;
 
-using ContreJour.Clips.chapter5;
-using ContreJour.Clips.menu2;
+using ContreJour.Clips;
+using ContreJour.Utils;
 
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-
+using Mokus2D.Graphics;
 using Mokus2D.Integration.Farseer.Physics;
-using Mokus2D.Util;
 using Mokus2D.Util.Extensions;
 using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual;
@@ -72,10 +70,10 @@ namespace ContreJour.Gameplay
 
         private void AddLight()
         {
-            Sprite sprite = new McRoseLight
+            Sprite sprite = new(ClipIds.Menu2.McRoseLight)
             {
                 Position = new Vector2(22f, 114f) + Clip.Position,
-                Blend = BlendState.Additive,
+                Blend = BlendMode.Additive,
                 OpacityByte = 120
             };
             _ = Builder.AddChild(sprite);
@@ -90,7 +88,7 @@ namespace ContreJour.Gameplay
 
         public void DropTear()
         {
-            McTear mcTear = new()
+            MovieClip mcTear = new(ClipIds.Chapter5.McTear)
             {
                 Repeat = false
             };

@@ -1,6 +1,6 @@
-using FarseerPhysics.Common;
+using System.Numerics;
 
-using Microsoft.Xna.Framework;
+using FarseerPhysics.Common;
 
 namespace FarseerPhysics.Dynamics.Joints
 {
@@ -159,7 +159,7 @@ namespace FarseerPhysics.Dynamics.Joints
             float num4 = dt * MaxForce;
             if (_linearImpulse.LengthSquared() > num4 * num4)
             {
-                _linearImpulse.Normalize();
+                _linearImpulse = Vector2.Normalize(_linearImpulse);
                 _linearImpulse *= num4;
             }
             vector = _linearImpulse - linearImpulse;

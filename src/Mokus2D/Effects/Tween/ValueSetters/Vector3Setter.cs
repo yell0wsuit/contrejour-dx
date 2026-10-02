@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+using System.Numerics;
 
 namespace Mokus2D.Effects.Tween.ValueSetters
 {

@@ -1,5 +1,6 @@
 using System.Reflection;
 using System.Resources;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyCopyright("Copyright ©  2012")]
@@ -12,3 +13,4 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyProduct("Mokus2D")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyVersion("1.0.0.0")]
+[assembly: InternalsVisibleTo("Mokus2D.Tests")]

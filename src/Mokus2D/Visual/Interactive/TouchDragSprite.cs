@@ -1,5 +1,4 @@
-using Microsoft.Xna.Framework.Graphics;
-
+using Mokus2D.Graphics;
 using Mokus2D.Visual.Interfaces;
 
 namespace Mokus2D.Visual.Interactive
@@ -16,7 +15,7 @@ namespace Mokus2D.Visual.Interactive
         {
         }
 
-        public TouchDragSprite(Texture2D texture)
+        public TouchDragSprite(ITexture texture)
             : base(texture)
         {
         }

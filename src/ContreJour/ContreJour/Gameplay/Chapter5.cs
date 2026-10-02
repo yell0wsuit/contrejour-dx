@@ -1,11 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 
-using ContreJour.Clips.common;
-using ContreJour.Clips.menu2;
+using ContreJour.Clips;
 using ContreJour.Config;
-
-using Microsoft.Xna.Framework;
 
 using Mokus2D;
 using Mokus2D.Util.MathUtils;
@@ -28,16 +26,16 @@ namespace ContreJour.Gameplay
         protected override void CreateSprites()
         {
             float scale = 2.5f;
-            Background = new McPlanet5Background();
+            Background = new Sprite(ClipIds.Menu2.McPlanet5Background);
             Container.AddChild(Background);
             Background.Scale = scale;
-            ocean = new McPlanet5Ocean();
+            ocean = new Sprite(ClipIds.Menu2.McPlanet5Ocean);
             Container.AddChild(ocean);
             ocean.Scale = scale;
             CreateLianas();
-            planetForeground = new McPlanet5Foreground();
+            planetForeground = new Sprite(ClipIds.Menu2.McPlanet5Foreground);
             Container.AddChild(planetForeground);
-            BlurBackground = new McPlanet5Blur();
+            BlurBackground = new Sprite(ClipIds.Menu2.McPlanet5Blur);
             for (int i = 1; i <= 4; i++)
             {
                 Node node = new Sprite($"menu2/McHole{i}");
@@ -72,21 +70,21 @@ namespace ContreJour.Gameplay
                 Visible = false
             };
             foregroundContainer.AddChild(foreground);
-            foreground.Position = -rootSize / 2f;
+            foreground.Position = (-rootSize) / 2f;
             foregroundContainer.Position = -foreground.Position;
             Menu.AddForeground(foregroundContainer);
-            _ = AddForegroundPositionScaleAngle(new McLeafView4(), new Vector2(rootSize.X - 1024f + 624f, rootSize.Y - 27f), new Vector2(1.72f, 1.29f), 171f);
-            _ = AddForegroundPositionScaleAngle(new McLeafView3(), new Vector2(rootSize.X - 1024f + 731f, rootSize.Y - 54f), new Vector2(2.37f, 2.37f), -172f);
-            _ = AddForegroundPositionScaleAngle(new McLeafView5(), new Vector2(rootSize.X - 1024f + 1008f, rootSize.Y - 55f), new Vector2(3.31f, 3.31f), -22f);
-            _ = AddForegroundPositionScaleAngleRotationOffset(new McLeafView1(), new Vector2(rootSize.X - 1024f + 1095f, rootSize.Y - 124f), new Vector2(2.71f, 2.71f), 0f, 5f);
-            _ = AddForegroundPositionScaleAngleRotationOffset(new McLeafView0(), new Vector2(rootSize.X - 1024f + 1113f, rootSize.Y - 193f), new Vector2(2.38f, 2.38f), -30f, -3f);
-            _ = AddForegroundPositionScaleAngleRotationOffset(new McLeafView0(), new Vector2(rootSize.X - 1024f + 1072f, 168f), new Vector2(2.45f, 2.45f), -52f, 1f);
-            _ = AddForegroundPositionScaleAngleRotationOffset(new McLeafView2(), new Vector2(rootSize.X - 1024f + 1092f, 207f), new Vector2(2.17f, 2.17f), -14f, -3f);
-            _ = AddForegroundPositionScaleAngle(new McLeafView4(), new Vector2(409f, 42f), new Vector2(-1.7f, 1.4f), 0f);
-            _ = AddForegroundPositionScaleAngle(new McLeafView3(), new Vector2(340f, 48f), new Vector2(-2.68f, 2.68f), 4f);
-            _ = AddForegroundPositionScaleAngle(new McLeafView5(), new Vector2(262f, 45f), new Vector2(-2.13f, 2.13f), 0f);
-            _ = AddForegroundPositionScaleAngleRotationOffset(new McLeafView2(), new Vector2(-124f, rootSize.Y - 402f), new Vector2(-2.97f, 2.97f), 0f, 4f);
-            _ = AddForegroundPositionScaleAngleRotationOffset(new McLeafView1(), new Vector2(-182f, rootSize.Y - 364f), new Vector2(-2.76f, 2.76f), -12f, -3f);
+            _ = AddForegroundPositionScaleAngle(new Sprite(ClipIds.Common.McLeafView4), new Vector2(rootSize.X - 1024f + 624f, rootSize.Y - 27f), new Vector2(1.72f, 1.29f), 171f);
+            _ = AddForegroundPositionScaleAngle(new Sprite(ClipIds.Common.McLeafView3), new Vector2(rootSize.X - 1024f + 731f, rootSize.Y - 54f), new Vector2(2.37f, 2.37f), -172f);
+            _ = AddForegroundPositionScaleAngle(new Sprite(ClipIds.Common.McLeafView5), new Vector2(rootSize.X - 1024f + 1008f, rootSize.Y - 55f), new Vector2(3.31f, 3.31f), -22f);
+            _ = AddForegroundPositionScaleAngleRotationOffset(new Sprite(ClipIds.Common.McLeafView1), new Vector2(rootSize.X - 1024f + 1095f, rootSize.Y - 124f), new Vector2(2.71f, 2.71f), 0f, 5f);
+            _ = AddForegroundPositionScaleAngleRotationOffset(new Sprite(ClipIds.Common.McLeafView0), new Vector2(rootSize.X - 1024f + 1113f, rootSize.Y - 193f), new Vector2(2.38f, 2.38f), -30f, -3f);
+            _ = AddForegroundPositionScaleAngleRotationOffset(new Sprite(ClipIds.Common.McLeafView0), new Vector2(rootSize.X - 1024f + 1072f, 168f), new Vector2(2.45f, 2.45f), -52f, 1f);
+            _ = AddForegroundPositionScaleAngleRotationOffset(new Sprite(ClipIds.Common.McLeafView2), new Vector2(rootSize.X - 1024f + 1092f, 207f), new Vector2(2.17f, 2.17f), -14f, -3f);
+            _ = AddForegroundPositionScaleAngle(new Sprite(ClipIds.Common.McLeafView4), new Vector2(409f, 42f), new Vector2(-1.7f, 1.4f), 0f);
+            _ = AddForegroundPositionScaleAngle(new Sprite(ClipIds.Common.McLeafView3), new Vector2(340f, 48f), new Vector2(-2.68f, 2.68f), 4f);
+            _ = AddForegroundPositionScaleAngle(new Sprite(ClipIds.Common.McLeafView5), new Vector2(262f, 45f), new Vector2(-2.13f, 2.13f), 0f);
+            _ = AddForegroundPositionScaleAngleRotationOffset(new Sprite(ClipIds.Common.McLeafView2), new Vector2(-124f, rootSize.Y - 402f), new Vector2(-2.97f, 2.97f), 0f, 4f);
+            _ = AddForegroundPositionScaleAngleRotationOffset(new Sprite(ClipIds.Common.McLeafView1), new Vector2(-182f, rootSize.Y - 364f), new Vector2(-2.76f, 2.76f), -12f, -3f);
         }
 
         public void AddLianaMiddleEndReduce(Vector2 start, Vector2 middle, Vector2 end, bool reduce)

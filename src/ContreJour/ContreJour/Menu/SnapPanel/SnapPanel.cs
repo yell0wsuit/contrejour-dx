@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 
 using ContreJour.Gameplay;
 
-using Microsoft.Xna.Framework;
-
 using Mokus2D;
+using Mokus2D.Graphics;
 using Mokus2D.Input;
 using Mokus2D.Visual;
 using Mokus2D.Visual.Particles.Util;
@@ -35,7 +35,7 @@ namespace ContreJour.Menu.SnapPanel
             AddAccelerometerChild(new SnapParticles(30f), 20f, new Vector2(-130f, -500f));
             SidePanelParticles sidePanelParticles = new();
             AddAccelerometerChild(sidePanelParticles, -10f, Vector2.Zero);
-            sidePanelParticles.BottomLeftBound = (-visibleSize / 2f) - new Vector2(150f, 200f);
+            sidePanelParticles.BottomLeftBound = ((-visibleSize) / 2f) - new Vector2(150f, 200f);
             sidePanelParticles.TopRightBound = (visibleSize / 2f) + new Vector2(50f, 200f);
             sidePanelParticles.HorizontalPosition = new RandomRange(0f, 0.5f * visibleSize.X);
             sidePanelParticles.VerticalPosition = new RandomRange((visibleSize.Y / 2f) + 30f, 0f);

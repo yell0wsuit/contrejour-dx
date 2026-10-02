@@ -1,8 +1,28 @@
 <Project>
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <MELVersion>10.0.12</MELVersion>
+    <SDL3CSVersion>3.4.16</SDL3CSVersion>
+    <SDL3MixerVersion>3.2.4.11</SDL3MixerVersion>
+    <SkiaSharpVersion>4.152.0</SkiaSharpVersion>
   </PropertyGroup>
   <ItemGroup>
-    <PackageVersion Include="MonoGame.Framework.DesktopGL" Version="3.8.5.1" />
+    <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="$(MELVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.Logging" Version="$(MELVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.Logging.Console" Version="$(MELVersion)" />
+    <PackageVersion Include="NReco.Logging.File" Version="1.4.0" />
+    <PackageVersion Include="SDL3-CS" Version="$(SDL3CSVersion)" />
+    <PackageVersion Include="SDL3-CS.Windows" Version="$(SDL3CSVersion)" />
+    <PackageVersion Include="SDL3-CS.Linux" Version="$(SDL3CSVersion)" />
+    <PackageVersion Include="SDL3-CS.MacOS" Version="$(SDL3CSVersion)" />
+    <PackageVersion Include="SDL3-CS.Windows.Mixer" Version="$(SDL3MixerVersion)" />
+    <PackageVersion Include="SDL3-CS.Linux.Mixer" Version="$(SDL3MixerVersion)" />
+    <PackageVersion Include="SDL3-CS.MacOS.Mixer" Version="$(SDL3MixerVersion)" />
+    <PackageVersion Include="SkiaSharp" Version="$(SkiaSharpVersion)" />
+    <PackageVersion Include="SkiaSharp.NativeAssets.macOS" Version="$(SkiaSharpVersion)" />
+    <PackageVersion Include="SkiaSharp.NativeAssets.Win32" Version="$(SkiaSharpVersion)" />
+    <PackageVersion Include="SkiaSharp.NativeAssets.Linux" Version="$(SkiaSharpVersion)" />
+    <PackageVersion Include="SkiaSharp.NativeAssets.WebAssembly" Version="$(SkiaSharpVersion)" />
+    <PackageVersion Include="xunit.v3" Version="4.0.1" />
   </ItemGroup>
 </Project>

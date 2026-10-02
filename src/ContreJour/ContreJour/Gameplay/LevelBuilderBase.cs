@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 
 using ContreJour.Content;
 using ContreJour.Debug;
@@ -9,10 +10,7 @@ using FarseerPhysics;
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Factories;
 
-using Microsoft.Xna.Framework;
-
 using Mokus2D.Input;
-using Mokus2D.Util;
 using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual;
 
@@ -25,8 +23,6 @@ namespace ContreJour.Gameplay
         public const float MaxUpdateTime = 1f / 30f;
 
         public const int BACKGROUND = -10;
-
-        public string NamespacePrefix { get; set; }
 
         private readonly Dictionary<string, BodyClip> clips;
         public GameBase Game { get; }
@@ -175,7 +171,7 @@ namespace ContreJour.Gameplay
 
         public static Node ReplaceClipWith(Node clip, string clipName)
         {
-            return ReplaceClipWithNode(clip, ClipTypesCache.CreateNewNode(clipName));
+            return ReplaceClipWithNode(clip, ClipCatalog.Create(clipName));
         }
 
         public static void ReplaceChildWith(Node source, Node with)
@@ -319,7 +315,7 @@ namespace ContreJour.Gameplay
                 Node node = null;
                 if (viewType is not null and not "null")
                 {
-                    node = ClipTypesCache.CreateNewNode(viewType);
+                    node = ClipCatalog.Create(viewType);
                     Vector2 vector = hashtable.GetVector("scale");
                     node.ScaleX = vector.X;
                     node.ScaleY = vector.Y;
@@ -333,18 +329,17 @@ namespace ContreJour.Gameplay
                     }
                     Add(node, hashtable.Exists("z") ? hashtable.GetInt("z") : DefaultZ);
                     node.Position = ToIPadPoint(item.GetVector("position"));
-                    node.RotationRadians = 0f - MathHelper.ToRadians(hashtable.GetFloat("rotation", 0f));
+                    node.RotationRadians = 0f - float.DegreesToRadians(hashtable.GetFloat("rotation", 0f));
                 }
                 if (!hashtable.Exists("skipClip"))
                 {
                     string clipType = GetClipType(hashtable);
-                    Type type = (clipType != null) ? Type.GetType(NamespacePrefix + clipType) : typeof(BodyClip);
-                    if (type is null)
+                    BodyClip bodyClip = BodyClipFactory.Create(clipType, this, physics, node, hashtable);
+                    if (bodyClip is null)
                     {
                         DebugUtil.Trace("type not found {0}", null, clipType);
-                        return null;
                     }
-                    return (BodyClip)ReflectUtil.CreateInstance(type, this, physics, node, hashtable);
+                    return bodyClip;
                 }
             }
             return null;
@@ -367,7 +362,7 @@ namespace ContreJour.Gameplay
 
         public static float ToRotation(float angle)
         {
-            return MathHelper.ToDegrees(0f - angle);
+            return float.RadiansToDegrees(0f - angle);
         }
 
         public override void Update(float time)

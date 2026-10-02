@@ -1,9 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-
+using Mokus2D.Graphics;
 using Mokus2D.Visual;
 using Mokus2D.Visual.Util;
 
@@ -16,9 +14,9 @@ namespace ContreJour.Gameplay
 
         private readonly PlasticineWideBorder border;
 
-        public VertexPositionColor[] Vertices { get; }
+        public Vertex[] Vertices { get; }
 
-        public VertexPositionColor[] InBorder => border.InBorder;
+        public Vertex[] InBorder => border.InBorder;
 
         public Color MainColor => border.Color;
 
@@ -36,10 +34,10 @@ namespace ContreJour.Gameplay
             }
             while (plasticineItem != firstItem);
             this.border = border;
-            Vertices = new VertexPositionColor[this.border.OutBorder.Length];
+            Vertices = new Vertex[this.border.OutBorder.Length];
         }
 
-        public VertexPositionColor[] OutBorder()
+        public Vertex[] OutBorder()
         {
             return border.OutBorder;
         }

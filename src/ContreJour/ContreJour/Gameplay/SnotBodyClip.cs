@@ -1,16 +1,16 @@
+using System;
 using System.Collections.Generic;
+using System.Numerics;
 
-using ContreJour.Clips.common;
+using ContreJour.Clips;
 
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Dynamics.Joints;
 
-using Microsoft.Xna.Framework;
-
 using Mokus2D.Events;
+using Mokus2D.Graphics;
 using Mokus2D.Input;
 using Mokus2D.Sound;
-using Mokus2D.Util;
 using Mokus2D.Util.Extensions;
 using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual;
@@ -43,7 +43,7 @@ namespace ContreJour.Gameplay
 
         private bool hasRelease;
 
-        private McSnotEndHighlite highlite;
+        private Sprite highlite;
 
         private CosChanger highliteChanger;
 
@@ -242,7 +242,7 @@ namespace ContreJour.Gameplay
         {
             if (!game.BlackSide && !Game.WhiteSide && !Game.BonusChapter)
             {
-                highlite = new McSnotEndHighlite();
+                highlite = new Sprite(ClipIds.Common.McSnotEndHighlite);
                 highliteChanger = new CosChanger(0.05f, 0.1f);
             }
         }
@@ -294,7 +294,12 @@ namespace ContreJour.Gameplay
         public override SnotSprite CreateClip()
         {
             ContreJourGame contreJourGame = (ContreJourGame)Builder.Game;
-            return (SnotSprite)ReflectUtil.CreateInstance(contreJourGame.ChooseSide(typeof(BlackSnotSprite), typeof(WhiteSnotSprite), typeof(SpringSnotSprite), typeof(SpringSnotSprite), typeof(GreenSnotSprite)), contreJourGame, this, StartWidth, CenterWidth, EndWidth);
+            return contreJourGame.ChooseSide<Func<SnotSprite>>(
+                () => new BlackSnotSprite(contreJourGame, this, StartWidth, CenterWidth, EndWidth),
+                () => new WhiteSnotSprite(contreJourGame, this, StartWidth, CenterWidth, EndWidth),
+                () => new SpringSnotSprite(contreJourGame, this, StartWidth, CenterWidth, EndWidth),
+                () => new SpringSnotSprite(contreJourGame, this, StartWidth, CenterWidth, EndWidth),
+                () => new GreenSnotSprite(contreJourGame, this, StartWidth, CenterWidth, EndWidth))();
         }
 
         public override void Update(float time)

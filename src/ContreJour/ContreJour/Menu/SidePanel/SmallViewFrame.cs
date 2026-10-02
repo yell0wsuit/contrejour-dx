@@ -1,7 +1,8 @@
+using System.Numerics;
+
 using ContreJour.Config;
 
-using Microsoft.Xna.Framework;
-
+using Mokus2D.Graphics;
 using Mokus2D.Visual;
 using Mokus2D.Visual.Primitives;
 

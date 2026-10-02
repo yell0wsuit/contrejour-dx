@@ -1,12 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Dynamics.Contacts;
 using FarseerPhysics.Dynamics.Joints;
 using FarseerPhysics.Factories;
-
-using Microsoft.Xna.Framework;
 
 using Mokus2D.Events;
 using Mokus2D.Input;
@@ -93,7 +92,7 @@ namespace ContreJour.Gameplay
             };
             Builder.Add(trajectory, 11);
             trajectory.Position = Builder.ToIPadPoint(center);
-            trajectory.Angle = MathHelper.ToRadians(config.GetFloat("rotation")) + ((float)Math.PI / 2f);
+            trajectory.Angle = float.DegreesToRadians(config.GetFloat("rotation")) + ((float)Math.PI / 2f);
             timeFromLaunch = 0.3f;
             SetJointsDamping(1f);
         }

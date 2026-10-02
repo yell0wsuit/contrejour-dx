@@ -1,0 +1,48 @@
+{
+    "frames": [
+        {
+            "filename": "McPlanet4Background",
+            "frame": { "x": 1, "y": 1, "w": 453, "h": 445 },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 453, "h": 445 },
+            "sourceSize": { "w": 453, "h": 445 },
+            "pivot": { "x": 0.5408388520971302, "y": 0.5550561797752809 }
+        },
+        {
+            "filename": "McPlanet4Spring0",
+            "frame": { "x": 903, "y": 1, "w": 69, "h": 100 },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 69, "h": 100 },
+            "sourceSize": { "w": 69, "h": 100 },
+            "pivot": { "x": 0.4927536231884058, "y": 0.65 }
+        },
+        {
+            "filename": "McPlanet4Spring1",
+            "frame": { "x": 903, "y": 103, "w": 75, "h": 85 },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 75, "h": 85 },
+            "sourceSize": { "w": 75, "h": 85 },
+            "pivot": { "x": 0.5066666666666667, "y": 0.8470588235294118 }
+        },
+        {
+            "filename": "McPlanet5Foreground",
+            "frame": { "x": 456, "y": 1, "w": 445, "h": 452 },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 445, "h": 452 },
+            "sourceSize": { "w": 445, "h": 452 },
+            "pivot": { "x": 0.5573033707865168, "y": 0.413716814159292 }
+        }
+    ],
+    "meta": {
+        "app": "contre-jour-dx atlas converter",
+        "version": "1.0",
+        "image": "menu2_x2.png",
+        "format": "RGBA8888",
+        "size": { "w": 1024, "h": 512 },
+        "scale": "1"
+    }
+}

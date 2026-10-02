@@ -1,5 +1,6 @@
-using Microsoft.Xna.Framework;
+using System.Numerics;
 
+using Mokus2D.Graphics;
 using Mokus2D.Util.Extensions;
 using Mokus2D.Visual.Util;
 
@@ -9,9 +10,9 @@ namespace Mokus2D.Visual.Data
     {
         public bool TransformationDirty { get; set; }
 
-        private Matrix matrix = Matrix.Identity;
+        private Matrix4x4 matrix = Matrix4x4.Identity;
 
-        public ref Matrix Matrix => ref matrix;
+        public ref Matrix4x4 Matrix => ref matrix;
         private Vector2 _spritesScaleFactor = Vector2.One;
 
         private Color _color = Color.White;
@@ -31,7 +32,7 @@ namespace Mokus2D.Visual.Data
             return ColorUtil.AddOpacity(_color, Opacity, premultiply);
         }
 
-        public Matrix GetCombinedScreenMatrix(Vector2 size)
+        public Matrix4x4 GetCombinedScreenMatrix(Vector2 size)
         {
             return Matrix * MatrixCache.GetScreenMatrix(size);
         }
@@ -53,7 +54,7 @@ namespace Mokus2D.Visual.Data
             _spritesScaleFactor = parent._spritesScaleFactor;
         }
 
-        public void Refresh(VisualState parentState, ref Matrix matrix, float nodeOpacity, Color nodeColor, float colorRatio, bool ignoreParentOpacity, bool ignoreParentColor, bool ignoreParentTransformations)
+        public void Refresh(VisualState parentState, ref Matrix4x4 matrix, float nodeOpacity, Color nodeColor, float colorRatio, bool ignoreParentOpacity, bool ignoreParentColor, bool ignoreParentTransformations)
         {
             Matrix = ignoreParentTransformations ? matrix : (matrix * parentState.Matrix);
             RefreshValues(parentState, nodeOpacity, nodeColor, colorRatio, ignoreParentOpacity, ignoreParentColor);
@@ -65,16 +66,7 @@ namespace Mokus2D.Visual.Data
             Opacity = ignoreParentOpacity ? nodeOpacity : (nodeOpacity * parentState.Opacity);
             if (!ignoreParentColor)
             {
-                if (Mokus2DGame.Config.GraphicsConfig.UseColorRatio)
-                {
-                    float num = colorRatio * (1f - parentState.ColorRatio);
-                    _color = Color.Lerp(nodeColor, parentState._color, parentState.ColorRatio / (parentState.ColorRatio + num));
-                    ColorRatio = parentState.ColorRatio + num;
-                }
-                else
-                {
-                    _color = nodeColor.Mult(parentState._color);
-                }
+                _color = nodeColor.Mult(parentState._color);
             }
             else
             {

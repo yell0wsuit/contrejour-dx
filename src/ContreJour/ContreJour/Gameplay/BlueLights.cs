@@ -1,6 +1,7 @@
-using Microsoft.Xna.Framework;
+using System.Numerics;
 
-using Mokus2D.Visual;
+using ContreJour.Config;
+
 using Mokus2D.Visual.Particles.Util;
 
 namespace ContreJour.Gameplay

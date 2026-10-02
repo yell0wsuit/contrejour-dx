@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
-
-using Microsoft.Xna.Framework;
+using System.Numerics;
 
 namespace FarseerPhysics.Common.TextureTools
 {
@@ -27,7 +26,7 @@ namespace FarseerPhysics.Common.TextureTools
 
         private int _height;
         private uint _alphaTolerance;
-        private Matrix _transform = Matrix.Identity;
+        private Matrix4x4 _transform = Matrix4x4.Identity;
 
         private int _tempIsSolidX;
 
@@ -41,7 +40,7 @@ namespace FarseerPhysics.Common.TextureTools
 
         public bool PixelOffsetOptimization { get; set; }
 
-        public Matrix Transform
+        public Matrix4x4 Transform
         {
             get => _transform;
             set => _transform = value;
@@ -60,7 +59,7 @@ namespace FarseerPhysics.Common.TextureTools
             Initialize(null, null, null, null, null, null, null, null);
         }
 
-        public TextureConverter(byte? alphaTolerance, float? hullTolerance, bool? holeDetection, bool? multipartDetection, bool? pixelOffsetOptimization, Matrix? transform)
+        public TextureConverter(byte? alphaTolerance, float? hullTolerance, bool? holeDetection, bool? multipartDetection, bool? pixelOffsetOptimization, Matrix4x4? transform)
         {
             Initialize(null, null, alphaTolerance, hullTolerance, holeDetection, multipartDetection, pixelOffsetOptimization, transform);
         }
@@ -70,12 +69,12 @@ namespace FarseerPhysics.Common.TextureTools
             Initialize(data, width, null, null, null, null, null, null);
         }
 
-        public TextureConverter(uint[] data, int width, byte? alphaTolerance, float? hullTolerance, bool? holeDetection, bool? multipartDetection, bool? pixelOffsetOptimization, Matrix? transform)
+        public TextureConverter(uint[] data, int width, byte? alphaTolerance, float? hullTolerance, bool? holeDetection, bool? multipartDetection, bool? pixelOffsetOptimization, Matrix4x4? transform)
         {
             Initialize(data, width, alphaTolerance, hullTolerance, holeDetection, multipartDetection, pixelOffsetOptimization, transform);
         }
 
-        private void Initialize(uint[] data, int? width, byte? alphaTolerance, float? hullTolerance, bool? holeDetection, bool? multipartDetection, bool? pixelOffsetOptimization, Matrix? transform)
+        private void Initialize(uint[] data, int? width, byte? alphaTolerance, float? hullTolerance, bool? holeDetection, bool? multipartDetection, bool? pixelOffsetOptimization, Matrix4x4? transform)
         {
             if (data != null && !width.HasValue)
             {
@@ -94,7 +93,7 @@ namespace FarseerPhysics.Common.TextureTools
             HoleDetection = holeDetection.HasValue && holeDetection.Value;
             MultipartDetection = multipartDetection.HasValue && multipartDetection.Value;
             PixelOffsetOptimization = pixelOffsetOptimization.HasValue && pixelOffsetOptimization.Value;
-            Transform = transform ?? Matrix.Identity;
+            Transform = transform ?? Matrix4x4.Identity;
         }
 
         private void SetTextureData(uint[] data, int width)
@@ -254,7 +253,7 @@ namespace FarseerPhysics.Common.TextureTools
             {
                 ApplyTriangulationCompatibleWinding(ref detectedPolygons);
             }
-            if (_transform != Matrix.Identity)
+            if (_transform != Matrix4x4.Identity)
             {
                 ApplyTransform(ref detectedPolygons);
             }
@@ -588,7 +587,7 @@ namespace FarseerPhysics.Common.TextureTools
                     if (flag)
                     {
                         Vector2 vector = polygon[index] - polygon[num];
-                        vector.Normalize();
+                        vector = Vector2.Normalize(vector);
                         Vector2 value = polygon[num];
                         float num3 = Vector2.Distance(value, point);
                         vertex1Index = num;

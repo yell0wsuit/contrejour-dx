@@ -1,6 +1,6 @@
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+using System.Numerics;
 
+using Mokus2D.Graphics;
 using Mokus2D.Visual;
 using Mokus2D.Visual.Util;
 
@@ -8,7 +8,7 @@ namespace ContreJour.Gameplay
 {
     public class PinHole : PrimitivesNode
     {
-        private readonly VertexPositionColorTexture[] vertices = new VertexPositionColorTexture[24];
+        private readonly Vertex[] vertices = new Vertex[24];
 
         public static readonly Vector3 InOffset = new(-10f, -10f, 0f);
 

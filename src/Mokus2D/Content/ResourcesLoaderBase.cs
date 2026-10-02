@@ -1,14 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text.Json;
 using System.Xml.Linq;
 
 using Mokus2D.Content.Serialization;
-using Mokus2D.Fonts;
+using Mokus2D.Diagnostics;
 using Mokus2D.Util;
 using Mokus2D.Visual.Data;
-using Mokus2D.Visual.Interfaces;
-using Mokus2D.Visual.Particles.Data;
 
 namespace Mokus2D.Content
 {
@@ -45,13 +44,7 @@ namespace Mokus2D.Content
 
         protected ResourcesLoaderBase()
         {
-            Deserializers[typeof(ISpriteData)] = new SpriteDeserializer(this);
-            Deserializers[typeof(SpriteData)] = Deserializers[typeof(ISpriteData)];
-            Deserializers[typeof(IMovieClipData)] = new MovieClipDeserializer(this);
-            Deserializers[typeof(MovieClipData)] = Deserializers[typeof(IMovieClipData)];
             Deserializers[typeof(AnimationData)] = new AnimationDeserializer(this);
-            Deserializers[typeof(FontData)] = new FontDeserializer(this);
-            Deserializers[typeof(ParticleSystemConfig)] = new ParicleConfigDeserializer();
         }
 
         public void Unload(string name)
@@ -67,19 +60,29 @@ namespace Mokus2D.Content
         {
             try
             {
-                return LoadData<T>(name, _resourcesSuffix);
-            }
-            catch (Exception)
-            {
-                if (FallbackToDefaultScaleFactor && _resourcesSuffix != null)
+                try
                 {
-                    return LoadData<T>(name, null);
+                    return LoadData<T>(name, _resourcesSuffix);
                 }
+                // Missing art can fall back to 1x; malformed atlas data must still surface.
+                catch (Exception exception) when (exception is not InvalidDataException and not JsonException)
+                {
+                    if (FallbackToDefaultScaleFactor && _resourcesSuffix != null)
+                    {
+                        EngineLog.ResourceFallback(Log.For(LogCategories.Content), name, _resourcesSuffix, exception);
+                        return LoadData<T>(name, null);
+                    }
+                    throw;
+                }
+            }
+            catch (Exception failure)
+            {
+                EngineLog.ResourceFailed(Log.For(LogCategories.Content), name, failure);
                 throw;
             }
         }
 
-        private T LoadData<T>(string name, string resourcesSuffix)
+        protected virtual T LoadData<T>(string name, string resourcesSuffix)
         {
             string fileName = GetFileName<T>(name, resourcesSuffix);
             XDocument xml = GetXml(fileName);
@@ -91,12 +94,11 @@ namespace Mokus2D.Content
             ResourceLoaded.Dispatch(name, data);
         }
 
-        private XDocument GetXml(string name)
+        protected XDocument GetXml(string name)
         {
-            string fullPath = GetFullPath(name);
             try
             {
-                using Stream stream = Mokus2DGame.FileLoader.OpenFile(fullPath);
+                using Stream stream = OpenFile(name);
                 using StreamReader textReader = new(stream);
                 return XDocument.Load(textReader);
             }
@@ -104,6 +106,11 @@ namespace Mokus2D.Content
             {
                 return null;
             }
+        }
+
+        protected Stream OpenFile(string name)
+        {
+            return Mokus2DGame.FileLoader.OpenFile(GetFullPath(name));
         }
 
         private string GetFullPath(string name)

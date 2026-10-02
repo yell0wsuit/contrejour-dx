@@ -1,119 +1,60 @@
 using System;
+using System.Numerics;
 
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-
+using Mokus2D.Graphics;
 using Mokus2D.Visual.Data;
-using Mokus2D.Visual.Drawing.Effects;
-using Mokus2D.Visual.Drawing.Vertex;
 
 namespace Mokus2D.Visual.Drawing
 {
-    public class SimpleSpriteBatch<T> : ISimpleSpriteBatch<T>, ISimpleSpriteBatch where T : struct, IVertex
+    // Collects the quads of one texture and state, and draws them in one call on Flush.
+    public class SimpleSpriteBatch(int spriteCount)
     {
         public const int DefaultSpriteCount = 2048;
 
-        private T[] _vertices;
+        private Vertex[] _vertices = new Vertex[spriteCount * 4];
 
-        protected ref T[] Vertices => ref _vertices;
+        private short[] _indices = new short[spriteCount * 6];
 
-        private readonly GraphicsDevice _device;
-
-        private Texture2D _texture;
+        private ITexture _texture;
 
         private SpriteBatchProperties _properties;
 
-        protected ref SpriteBatchProperties Properties => ref _properties;
-
-        private int _verticesCount;
-
-        private int _indicesCount;
+        private Vector2 _screenSize;
 
         private int _currentVertex;
 
-        protected ref int CurrentVertex => ref _currentVertex;
-
         private int _currentIndex;
 
-        protected ref int CurrentIndex => ref _currentIndex;
+        public int TrianglesCount => _currentIndex / 3;
 
-        private readonly ISpriteBatchEffect _defaultEffect;
-
-        private Vector2 _screenSize;
-
-        private ISpriteBatchEffect _currentEffect;
-
-        private short[] _indices;
-
-        protected ref short[] Indices => ref _indices;
-
-        public int TrianglesCount => CurrentIndex / 3;
-
-        public SimpleSpriteBatch(GraphicsDevice device)
-            : this(device, 2048)
+        public SimpleSpriteBatch()
+            : this(DefaultSpriteCount)
         {
         }
 
-        public SimpleSpriteBatch(GraphicsDevice device, int defaultSpriteCount)
+        public void Begin(ITexture texture, Vector2 screenSize, SpriteBatchProperties properties)
         {
-            _device = device;
-            _defaultEffect = CreateDefaultEffect();
-            _currentEffect = _defaultEffect;
-            CreateBuffers(defaultSpriteCount);
-        }
-
-        protected virtual ISpriteBatchEffect CreateDefaultEffect()
-        {
-            return Mokus2DGame.Config.GraphicsConfig.DefaultEffect;
-        }
-
-        private void CreateBuffers(int spriteCount)
-        {
-            _verticesCount = spriteCount * 4;
-            _indicesCount = spriteCount * 6;
-            CreateBuffers(_verticesCount, _indicesCount);
-        }
-
-        protected virtual void CreateBuffers(int verticesCount, int indicesCount)
-        {
-            Vertices = new T[verticesCount];
-            Indices = new short[indicesCount];
-        }
-
-        public void Begin(Texture2D texture, Vector2 screenSize, SpriteBatchProperties properties, ISpriteBatchEffect effect)
-        {
-            _currentEffect = effect ?? _defaultEffect;
             _screenSize = screenSize;
             _texture = texture;
-            Properties = properties;
-            CurrentVertex = 0;
-            CurrentIndex = 0;
+            _properties = properties;
+            _currentVertex = 0;
+            _currentIndex = 0;
             if (_texture.IsDisposed)
             {
                 throw new ObjectDisposedException(Mokus2DGame.ContentManager.GetDisposedTextureName(_texture), "Texture is disposed.");
             }
         }
 
-        public void Draw(T[] vertices)
+        public void DrawQuad(Quad quad)
         {
-            SpriteBatchUtil.Draw(ref Vertices, ref Indices, ref CurrentVertex, ref CurrentIndex, vertices);
+            SpriteBatchUtil.DrawQuad(quad, ref _vertices, ref _indices, ref _currentVertex, ref _currentIndex);
         }
 
-        public void Draw(T[] vertices, int verticesCount, short[] indices, int indicesCount)
+        public void Flush()
         {
-            SpriteBatchUtil.Draw(ref Vertices, ref Indices, ref CurrentVertex, ref CurrentIndex, vertices, verticesCount, indices, indicesCount);
-        }
-
-        public void DrawQuad(Quad<T> quad)
-        {
-            SpriteBatchUtil.DrawQuad(quad, ref Vertices, ref Indices, ref CurrentVertex, ref CurrentIndex);
-        }
-
-        public virtual void Flush()
-        {
-            if (CurrentVertex != 0)
+            if (_currentVertex != 0)
             {
-                SpriteBatchUtil.DrawUserIndexedPrimitives(_device, _screenSize, ref Properties, _currentEffect, _texture, Vertices, Indices, CurrentVertex, CurrentIndex);
+                SpriteBatchUtil.DrawTriangles(_screenSize, ref _properties, _texture, _vertices, _indices, _currentVertex, _currentIndex);
             }
         }
     }

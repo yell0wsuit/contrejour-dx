@@ -1,11 +1,10 @@
 using System.Collections.Generic;
+using System.Numerics;
 
 using ContreJour.Debug;
 
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Dynamics.Joints;
-
-using Microsoft.Xna.Framework;
 
 namespace ContreJour.Gameplay
 {
@@ -52,8 +51,8 @@ namespace ContreJour.Gameplay
             if (config.Exists("upperAngle"))
             {
                 val.LimitEnabled = true;
-                val.LowerLimit = MathHelper.ToRadians(config.GetFloat("lowerAngle"));
-                val.UpperLimit = MathHelper.ToRadians(config.GetFloat("upperAngle"));
+                val.LowerLimit = float.DegreesToRadians(config.GetFloat("lowerAngle"));
+                val.UpperLimit = float.DegreesToRadians(config.GetFloat("upperAngle"));
             }
             val.CollideConnected = false;
             _ = CreateJointConfig(val, config);

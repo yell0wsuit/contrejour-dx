@@ -1,0 +1,77 @@
+name: Deploy Browser to GitHub Pages
+
+# Manual like CutTheRopeDX: deploy the AOT build when a browser release is due.
+on:
+    workflow_dispatch:
+
+permissions:
+    contents: read
+    pages: write
+    id-token: write
+
+concurrency:
+    group: pages
+    cancel-in-progress: true
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v7
+            - uses: ./.github/actions/setup-dotnet
+
+            - name: Install wasm-tools workload
+              run: dotnet workload install wasm-tools
+
+            - name: Setup Python
+              uses: actions/setup-python@v7
+              with:
+                  python-version: "3.14"
+                  cache: pip
+                  cache-dependency-path: tools/requirements.txt
+
+            - name: Install web content tooling
+              run: python -m pip install -r tools/requirements.txt
+
+            # Build-time audio encoder only. No FFmpeg binaries ship with the game.
+            - name: Install audio encoder
+              id: encoder
+              run: |
+                  sudo apt-get update
+                  sudo apt-get install -y ffmpeg
+                  echo "version=$(ffmpeg -version | head -n 1 | sha256sum | cut -d ' ' -f 1)" >> "$GITHUB_OUTPUT"
+
+            # The converter checks source hashes and settings before reusing an output.
+            - name: Cache converted content
+              uses: actions/cache@v6
+              with:
+                  path: src/ContreJour.Browser/wwwroot/content
+                  key: web-content-${{ steps.encoder.outputs.version }}-${{ hashFiles('GameContents/**', 'tools/build_web_content.py', 'tools/webcontent/**/*.py', 'tools/requirements.txt') }}
+                  restore-keys: |
+                      web-content-${{ steps.encoder.outputs.version }}-
+
+            - name: Convert content for the browser
+              run: python tools/build_web_content.py --no-progress
+
+            - name: Publish Browser
+              run: python tools/publish_browser.py --output dist/browser
+
+            # Keep the _framework runtime folder on GitHub Pages.
+            - name: Disable Jekyll
+              run: touch dist/browser/wwwroot/.nojekyll
+
+            - name: Upload Pages artifact
+              uses: actions/upload-pages-artifact@v5
+              with:
+                  path: dist/browser/wwwroot
+
+    deploy:
+        needs: build
+        runs-on: ubuntu-latest
+        environment:
+            name: github-pages
+            url: ${{ steps.deployment.outputs.page_url }}
+        steps:
+            - name: Deploy to GitHub Pages
+              id: deployment
+              uses: actions/deploy-pages@v5

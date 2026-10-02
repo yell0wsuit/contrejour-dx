@@ -1,14 +1,13 @@
 using System;
+using System.Numerics;
 
-using ContreJour.Clips.planets;
-
-using ContreJourMono.ContreJour.Game.Eyes;
-
-using Microsoft.Xna.Framework;
+using ContreJour.Clips;
+using ContreJour.Gameplay.Eyes;
 
 using Mokus2D;
 using Mokus2D.Util.Extensions;
 using Mokus2D.Util.MathUtils;
+using Mokus2D.Visual;
 
 namespace ContreJour.Gameplay
 {
@@ -67,8 +66,8 @@ namespace ContreJour.Gameplay
 
         protected override void CreateDefaultView()
         {
-            Background = new McPlanetEye();
-            EyeBallSprite = new McPlanet1EyeBall
+            Background = new Sprite(ClipIds.Planets.McPlanetEye);
+            EyeBallSprite = new Sprite(ClipIds.Planets.McPlanet1EyeBall)
             {
                 Scale = 1.15f
             };

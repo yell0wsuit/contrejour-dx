@@ -2,12 +2,12 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Globalization;
-
-using Microsoft.Xna.Framework;
+using System.Numerics;
 
 using Mokus2D.Behaviour;
 using Mokus2D.Collections;
 using Mokus2D.Effects.Tweening;
+using Mokus2D.Graphics;
 using Mokus2D.Interfaces;
 using Mokus2D.Util;
 using Mokus2D.Util.Extensions;
@@ -15,7 +15,6 @@ using Mokus2D.Util.MathUtils;
 using Mokus2D.Util.Resources;
 using Mokus2D.Visual.Animation;
 using Mokus2D.Visual.Data;
-using Mokus2D.Visual.Drawing.Effects;
 using Mokus2D.Visual.Exceptions;
 using Mokus2D.Visual.GameDebug;
 using Mokus2D.Visual.Interfaces;
@@ -62,8 +61,6 @@ namespace Mokus2D.Visual
 
         public int OnScreenCount { get; set; } = 1;
 
-        public bool ResetDefaultEffect { get; set; }
-
         public bool Test { get; set; }
 
         public bool UpdateChildren { get; set; } = true;
@@ -76,7 +73,7 @@ namespace Mokus2D.Visual
         private bool _firstUpdate = true;
         private bool _matrixDirty;
 
-        private Matrix _nodeMatrix = Matrix.Identity;
+        private Matrix4x4 _nodeMatrix = Matrix4x4.Identity;
 
         private float _opacity = 1f;
         private Vector2 _position;
@@ -89,10 +86,6 @@ namespace Mokus2D.Visual
         private bool _visible = true;
 
         public VisualState CompositeState { get; protected set; }
-
-        public ISpriteBatchEffect Effect { get; set; }
-
-        public bool RefreshEffect => Effect != null;
 
         public bool HasConfig => Config != null;
 
@@ -110,8 +103,8 @@ namespace Mokus2D.Visual
 
         public float RotationDegrees
         {
-            get => MathHelper.ToDegrees(RotationRadians);
-            set => RotationRadians = MathHelper.ToRadians(value);
+            get => float.RadiansToDegrees(RotationRadians);
+            set => RotationRadians = float.DegreesToRadians(value);
         }
 
         public bool VisibleAndUpdating
@@ -265,7 +258,7 @@ namespace Mokus2D.Visual
             }
         }
 
-        public Matrix NodeMatrix
+        public Matrix4x4 NodeMatrix
         {
             get
             {
@@ -543,7 +536,7 @@ namespace Mokus2D.Visual
             {
                 RefreshParentTransformations();
             }
-            Matrix matrix = Matrix.Invert(CompositeState.Matrix);
+            _ = Matrix4x4.Invert(CompositeState.Matrix, out Matrix4x4 matrix);
             return Vector2.Transform(source, matrix);
         }
 
@@ -673,15 +666,7 @@ namespace Mokus2D.Visual
 
         internal void DrawNode()
         {
-            if (RefreshEffect)
-            {
-                Drawer.StartEffect(Effect);
-            }
             DrawWithChildren();
-            if (ResetDefaultEffect)
-            {
-                Drawer.StartEffect(null);
-            }
             CompositeState.TransformationDirty = false;
         }
 

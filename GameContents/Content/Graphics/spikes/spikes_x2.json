@@ -1,0 +1,84 @@
+{
+    "frames": [
+        {
+            "filename": "McCircleSpikesView/0000",
+            "frame": { "x": 944, "y": 1, "w": 79, "h": 75 },
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": { "x": 9, "y": 5, "w": 79, "h": 75 },
+            "sourceSize": { "w": 100, "h": 93 },
+            "pivot": { "x": 0.47, "y": 0.46236559139784944 }
+        },
+        {
+            "filename": "McCircleSpikesView/0001",
+            "frame": { "x": 937, "y": 109, "w": 84, "h": 81 },
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": { "x": 6, "y": 3, "w": 84, "h": 81 },
+            "sourceSize": { "w": 100, "h": 93 },
+            "pivot": { "x": 0.47, "y": 0.46236559139784944 }
+        },
+        {
+            "filename": "McCircleSpikesView/0002",
+            "frame": { "x": 1, "y": 213, "w": 92, "h": 88 },
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": { "x": 3, "y": 1, "w": 92, "h": 88 },
+            "sourceSize": { "w": 100, "h": 93 },
+            "pivot": { "x": 0.47, "y": 0.46236559139784944 }
+        },
+        {
+            "filename": "McCircleSpikesView/0003",
+            "frame": { "x": 455, "y": 211, "w": 100, "h": 93 },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 93 },
+            "sourceSize": { "w": 100, "h": 93 },
+            "pivot": { "x": 0.47, "y": 0.46236559139784944 }
+        },
+        {
+            "filename": "McSimpleSpikesView/0000",
+            "frame": { "x": 1, "y": 117, "w": 452, "h": 94 },
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": { "x": 12, "y": 10, "w": 452, "h": 94 },
+            "sourceSize": { "w": 473, "h": 114 },
+            "pivot": { "x": 0.5052854122621564, "y": 0.5 }
+        },
+        {
+            "filename": "McSimpleSpikesView/0001",
+            "frame": { "x": 476, "y": 109, "w": 459, "h": 100 },
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": { "x": 8, "y": 7, "w": 459, "h": 100 },
+            "sourceSize": { "w": 473, "h": 114 },
+            "pivot": { "x": 0.5052854122621564, "y": 0.5 }
+        },
+        {
+            "filename": "McSimpleSpikesView/0002",
+            "frame": { "x": 476, "y": 1, "w": 466, "h": 106 },
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": { "x": 4, "y": 4, "w": 466, "h": 106 },
+            "sourceSize": { "w": 473, "h": 114 },
+            "pivot": { "x": 0.5052854122621564, "y": 0.5 }
+        },
+        {
+            "filename": "McSimpleSpikesView/0003",
+            "frame": { "x": 1, "y": 1, "w": 473, "h": 114 },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 473, "h": 114 },
+            "sourceSize": { "w": 473, "h": 114 },
+            "pivot": { "x": 0.5052854122621564, "y": 0.5 }
+        }
+    ],
+    "meta": {
+        "app": "contre-jour-dx atlas converter",
+        "version": "1.0",
+        "image": "spikes_x2.png",
+        "format": "RGBA8888",
+        "size": { "w": 1024, "h": 512 },
+        "scale": "1"
+    }
+}

@@ -1,6 +1,7 @@
-using Microsoft.Xna.Framework;
+using System.Numerics;
 
 using Mokus2D.Data;
+using Mokus2D.Graphics;
 using Mokus2D.Input;
 using Mokus2D.Visual;
 using Mokus2D.Visual.Interfaces;

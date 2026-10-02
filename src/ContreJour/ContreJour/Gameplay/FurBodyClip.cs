@@ -1,11 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 
-using ContreJour.Clips.chapter5;
+using ContreJour.Clips;
 
 using FarseerPhysics.Dynamics.Contacts;
-
-using Microsoft.Xna.Framework;
 
 using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual;
@@ -38,7 +37,7 @@ namespace ContreJour.Gameplay
             }
             grassStep = (float)Math.PI * 2f / GrassCount();
             trampleAngle = 4f * grassStep;
-            baseSprite = new McRotatorBase();
+            baseSprite = new Sprite(ClipIds.Chapter5.McRotatorBase);
             baseSprite.Scale = Width() / baseSprite.TextureSize.X;
             Clip.AddChild(baseSprite);
             grassSystem = CreateFur();

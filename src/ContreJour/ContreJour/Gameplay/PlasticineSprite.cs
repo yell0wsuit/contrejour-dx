@@ -1,6 +1,4 @@
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-
+using Mokus2D.Graphics;
 using Mokus2D.Visual;
 using Mokus2D.Visual.Util;
 
@@ -10,7 +8,7 @@ namespace ContreJour.Gameplay
     {
         private static readonly Color COLOR = new(0, 0, 0, 255);
 
-        public VertexPositionColor[] Vertices { get; private set; }
+        public Vertex[] Vertices { get; private set; }
 
         public override Color Color
         {
@@ -45,7 +43,7 @@ namespace ContreJour.Gameplay
 
         public void InitVertices(int verticesCount)
         {
-            Vertices = new VertexPositionColor[verticesCount];
+            Vertices = new Vertex[verticesCount];
             RefreshColor();
         }
     }

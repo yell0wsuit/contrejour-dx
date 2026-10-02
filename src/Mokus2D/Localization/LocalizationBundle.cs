@@ -14,7 +14,11 @@ namespace Mokus2D.Localization
 
         private readonly Dictionary<string, string> _messages = [];
 
-        public static string CurrentLocale => CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
+        // Set by a host whose runtime has no culture data (the browser runs with invariant globalization) to
+        // the two-letter code it read from the page. Null lets the current culture decide, as on desktop.
+        public static string LocaleOverride { get; set; }
+
+        public static string CurrentLocale => LocaleOverride ?? CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
 
         public LocalizationBundle(string name, string locale = null)
         {

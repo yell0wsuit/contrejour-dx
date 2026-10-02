@@ -1,6 +1,10 @@
 using System;
 using System.IO;
 
+using Microsoft.Extensions.Logging;
+
+using Mokus2D.Diagnostics;
+
 namespace ContreJour.Saving
 {
     /// <summary>
@@ -45,13 +49,22 @@ namespace ContreJour.Saving
             }
         }
 
-        private static IPreferenceStore Store { get => field ??= new FilePreferenceStore(SaveDirectory); set; }
+        /// <summary>
+        /// Gets or sets where the files live. Defaults to JSON files in <see cref="SaveDirectory"/>; a host
+        /// without a file system (the browser) sets its own before <see cref="Load"/>. Null restores the default.
+        /// </summary>
+        internal static IPreferenceStore Store { get => field ??= new FilePreferenceStore(SaveDirectory); set; }
 
         /// <summary>Loads both files from the store; a missing or unreadable file starts empty.</summary>
         public static void Load()
         {
             LoadFile(Settings);
             LoadFile(GameSave);
+            ILogger logger = Log.For(LogCategories.Preferences);
+            if (logger.IsEnabled(LogLevel.Information))
+            {
+                PreferenceLog.Loaded(logger, Store.GetType().Name);
+            }
         }
 
         /// <summary>Requests a write on the next <see cref="Update"/>.</summary>
@@ -90,21 +103,23 @@ namespace ContreJour.Saving
                 SaveRequested = false;
                 saveAttempts = 0;
             }
-            catch (IOException)
+            catch (IOException failure)
             {
-                RetryLater();
+                RetryLater(failure);
             }
-            catch (UnauthorizedAccessException)
+            catch (UnauthorizedAccessException failure)
             {
-                RetryLater();
+                RetryLater(failure);
             }
         }
 
-        private static void RetryLater()
+        private static void RetryLater(Exception failure)
         {
             saveAttempts++;
+            ILogger logger = Log.For(LogCategories.Preferences);
             if (saveAttempts >= MaxSaveAttempts)
             {
+                PreferenceLog.SaveAbandoned(logger, saveAttempts, failure);
                 // The request is dropped so a permanently failing disk isn't retried all session. The
                 // dirty marks stay: the next save request picks the change up again.
                 SaveRequested = false;
@@ -112,6 +127,7 @@ namespace ContreJour.Saving
                 return;
             }
 
+            PreferenceLog.SaveFailed(logger, saveAttempts, failure);
             retryAfterTicks = Environment.TickCount64 + (FirstRetryDelayMs << (saveAttempts - 1));
         }
 
@@ -125,6 +141,8 @@ namespace ContreJour.Saving
                 {
                     Store.Write(file.FileName, file.ToJson());
                     file.Dirty = false;
+                    ILogger logger = Log.For(LogCategories.Preferences);
+                    PreferenceLog.Saved(logger, file.FileName);
                 }
             }
         }
@@ -143,6 +161,8 @@ namespace ContreJour.Saving
             catch (Exception e) when (e is IOException or UnauthorizedAccessException or System.Text.Json.JsonException)
             {
                 file.Clear();
+                ILogger logger = Log.For(LogCategories.Preferences);
+                PreferenceLog.LoadFailed(logger, file.FileName, e);
             }
         }
 

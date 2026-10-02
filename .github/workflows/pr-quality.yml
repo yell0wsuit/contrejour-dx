@@ -16,6 +16,8 @@ on:
             - "nuget.config"
             - ".github/workflows/pr-quality.yml"
             - ".github/actions/**"
+            - "tools/**"
+            - "GameContents/**"
     pull_request:
         branches: [main]
         paths: *quality-paths
@@ -33,13 +35,54 @@ jobs:
 
             - uses: ./.github/actions/setup-dotnet
 
+            # The solution includes ContreJour.Browser, which targets net10.0-browser and cannot restore or build
+            # without this workload.
+            - name: Install WebAssembly workload
+              run: dotnet workload install wasm-tools
+
             - name: Restore dependencies
               run: dotnet restore ContreJour.slnx
 
             - name: Check formatting
               run: dotnet format ContreJour.slnx --verify-no-changes --verbosity diagnostic
 
-            # The level regression harness (src/ContreJour.Regression) needs a window and a GPU, so it
-            # runs locally rather than here.
+            # The level regression harness (src/ContreJour.Regression) runs locally rather than here:
+            # its outputs are only comparable on the same machine.
             - name: Build
               run: dotnet build ContreJour.slnx --no-restore -c Release
+
+            - name: Test engine
+              run: dotnet test --project src/Mokus2D.Tests/Mokus2D.Tests.csproj --no-build -c Release
+
+            - name: Test
+              run: dotnet test --project src/Mokus2D.Rendering.Skia.Tests/Mokus2D.Rendering.Skia.Tests.csproj --no-build -c Release
+
+            - name: Test desktop platform
+              run: dotnet test --project src/ContreJour.Desktop.Platform.Tests/ContreJour.Desktop.Platform.Tests.csproj --no-build -c Release
+
+            - name: Test browser platform
+              run: dotnet test --project src/ContreJour.Browser.Platform.Tests/ContreJour.Browser.Platform.Tests.csproj --no-build -c Release
+
+            - name: Test game
+              run: dotnet test --project src/ContreJour.Tests/ContreJour.Tests.csproj --no-build -c Release
+
+    # The web content pipeline and the browser publish script carry their own tests.
+    python-quality:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v7
+
+            - name: Setup Python
+              uses: actions/setup-python@v7
+              with:
+                  python-version: "3.14"
+                  cache: pip
+                  cache-dependency-path: tools/requirements.txt
+
+            - name: Install dependencies
+              run: pip install -r tools/requirements.txt
+
+            - name: Test
+              run: python -m pytest tools/webcontent/tests -q

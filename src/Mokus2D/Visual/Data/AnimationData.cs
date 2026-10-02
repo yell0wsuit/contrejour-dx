@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-using Microsoft.Xna.Framework;
+using Mokus2D.Util.Data;
 
 namespace Mokus2D.Visual.Data
 {
@@ -45,6 +45,28 @@ namespace Mokus2D.Visual.Data
         public void Add(List<AnimationFrameData> item)
         {
             _frames.Add(item);
+        }
+
+        public AnimationData Clone()
+        {
+            AnimationData clone = new()
+            {
+                PrecalculatedBounds = PrecalculatedBounds,
+                Config = Config is null ? null : new Dictionary<string, string>(Config),
+            };
+            if (_instanceConfigs != null)
+            {
+                clone._instanceConfigs = [];
+                foreach (KeyValuePair<string, Dictionary<string, string>> pair in _instanceConfigs)
+                {
+                    clone._instanceConfigs[pair.Key] = pair.Value is null ? null : new Dictionary<string, string>(pair.Value);
+                }
+            }
+            foreach (List<AnimationFrameData> frame in _frames)
+            {
+                clone._frames.Add(frame?.ConvertAll(static data => data?.Clone()));
+            }
+            return clone;
         }
     }
 }

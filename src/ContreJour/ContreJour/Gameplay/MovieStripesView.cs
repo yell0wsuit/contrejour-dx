@@ -1,10 +1,10 @@
-using ContreJour.Clips.menu;
-using ContreJour.Config;
+using System.Numerics;
 
-using Microsoft.Xna.Framework;
+using ContreJour.Config;
 
 using Mokus2D.Effects.Tween.Easing;
 using Mokus2D.Events;
+using Mokus2D.Graphics;
 using Mokus2D.Util.Extensions;
 using Mokus2D.Visual;
 
@@ -12,9 +12,9 @@ namespace ContreJour.Gameplay
 {
     public class MovieStripesView : Node
     {
-        private readonly whitePixel topSquare;
+        private readonly Sprite topSquare;
 
-        private readonly whitePixel bottomSquare;
+        private readonly Sprite bottomSquare;
 
         private readonly LayerColor FadeRectangle;
 
@@ -32,12 +32,12 @@ namespace ContreJour.Gameplay
         {
             _blackSide = blackSide;
             Vector2 rootSize = ContreJourConfig.RootSize;
-            topSquare = new whitePixel
+            topSquare = new Sprite("menu/whitePixel")
             {
                 Color = Color.Black,
                 ScaledSize = new Vector2(rootSize.X, StripesHeightIphone)
             };
-            bottomSquare = new whitePixel
+            bottomSquare = new Sprite("menu/whitePixel")
             {
                 Color = Color.Black,
                 ScaledSize = new Vector2(rootSize.X, StripesHeightIphone)

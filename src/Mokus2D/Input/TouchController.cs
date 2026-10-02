@@ -1,6 +1,5 @@
 using System.Collections.Generic;
-
-using Microsoft.Xna.Framework;
+using System.Numerics;
 
 using Mokus2D.Data;
 using Mokus2D.Interfaces;
@@ -19,9 +18,9 @@ namespace Mokus2D.Input
 
         private static readonly Pool<List<ITouchListener>> poolListeners = new(() => []);
 
-        private Matrix transformMatrix = Matrix.Identity;
+        private Matrix4x4 transformMatrix = Matrix4x4.Identity;
 
-        public ref Matrix TransformMatrix => ref transformMatrix;
+        public ref Matrix4x4 TransformMatrix => ref transformMatrix;
 
         private readonly List<ITouchListener> listenersCopy = new(64);
 
@@ -95,7 +94,7 @@ namespace Mokus2D.Input
 
         private void TransformTouchesCoords(List<CursorPoint> currentTouches)
         {
-            if (TransformMatrix != Matrix.Identity)
+            if (TransformMatrix != Matrix4x4.Identity)
             {
                 for (int i = 0; i < currentTouches.Count; i++)
                 {

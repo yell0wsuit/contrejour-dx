@@ -1,6 +1,6 @@
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+using System.Numerics;
 
+using Mokus2D.Graphics;
 using Mokus2D.Util.Extensions;
 using Mokus2D.Visual.Util;
 
@@ -12,7 +12,7 @@ namespace Mokus2D.Visual.Primitives
 
         private bool sizeDirty;
 
-        private readonly VertexPositionColorTexture[] vertices = new VertexPositionColorTexture[4];
+        private readonly Vertex[] vertices = new Vertex[4];
 
         public Vector2 Size
         {

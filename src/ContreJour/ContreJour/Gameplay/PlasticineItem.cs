@@ -1,8 +1,7 @@
 using System;
+using System.Numerics;
 
 using FarseerPhysics.Dynamics;
-
-using Microsoft.Xna.Framework;
 
 using Mokus2D.Util.Extensions;
 using Mokus2D.Util.MathUtils;
@@ -92,7 +91,7 @@ namespace ContreJour.Gameplay
             {
                 return initialPosition + vector;
             }
-            vector.Normalize();
+            vector = Vector2.Normalize(vector);
             return (vector * num) + initialPosition;
         }
 

@@ -1,7 +1,5 @@
 using System;
-
-
-using Microsoft.Xna.Framework;
+using System.Numerics;
 
 using Mokus2D.Util.Data;
 using Mokus2D.Util.Extensions;
@@ -95,7 +93,7 @@ namespace Mokus2D.Util.MathUtils
 
         public static Vector2 Normalize(ref Vector2 value, float length)
         {
-            value.Normalize();
+            value = Vector2.Normalize(value);
             value *= length;
             return value;
         }

@@ -1,8 +1,7 @@
 using System;
+using System.Numerics;
 
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-
+using Mokus2D.Graphics;
 using Mokus2D.Interfaces;
 using Mokus2D.Util.Extensions;
 using Mokus2D.Util.MathUtils;
@@ -110,8 +109,8 @@ namespace ContreJour.Gameplay
         public void RefreshBorderColors()
         {
             bool flag = PreviousHighlite().HasLight;
-            VertexPositionColor[] vertices = parent.Vertices;
-            VertexPositionColor[] array = parent.OutBorder();
+            Vertex[] vertices = parent.Vertices;
+            Vertex[] array = parent.OutBorder();
             Color mainColor = parent.MainColor;
             LightColor lightColor = game.LightColor;
             if (plasticine.Index == 0)
@@ -155,8 +154,8 @@ namespace ContreJour.Gameplay
 
         public void Refresh()
         {
-            VertexPositionColor[] vertices = parent.Vertices;
-            VertexPositionColor[] inBorder = parent.InBorder;
+            Vertex[] vertices = parent.Vertices;
+            Vertex[] inBorder = parent.InBorder;
             bool flag = PreviousHighlite().HasLight;
             if (plasticine.Index == 0)
             {

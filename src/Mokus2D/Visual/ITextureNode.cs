@@ -1,9 +1,9 @@
-using Microsoft.Xna.Framework.Graphics;
+using Mokus2D.Graphics;
 
 namespace Mokus2D.Visual
 {
     public interface ITextureNode : ISizeNode
     {
-        Texture2D Texture { get; }
+        ITexture Texture { get; }
     }
 }

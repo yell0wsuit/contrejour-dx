@@ -1,18 +1,14 @@
 using System;
-using System.Runtime.Serialization;
 
 using Mokus2D.Util.MathUtils;
 
 
 namespace Mokus2D.Visual.Particles.Util
 {
-    [DataContract]
     public struct RandomRange(float value, float randomRange) : IEquatable<RandomRange>
     {
-        [DataMember]
         public float Value = value;
 
-        [DataMember]
         public float Offset = randomRange;
 
         public static RandomRange Create(float min, float max)

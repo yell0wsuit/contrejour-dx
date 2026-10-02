@@ -1,16 +1,15 @@
 using System;
+using System.Numerics;
 
-using ContreJour.Clips.chapter5;
-using ContreJour.Clips.common;
+using ContreJour.Clips;
 
 using FarseerPhysics.Collision.Shapes;
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Dynamics.Contacts;
 
-using Microsoft.Xna.Framework;
-
 using Mokus2D.Data;
 using Mokus2D.Events;
+using Mokus2D.Graphics;
 using Mokus2D.Input;
 using Mokus2D.Integration.Farseer.Util;
 using Mokus2D.Sound;
@@ -49,7 +48,7 @@ namespace ContreJour.Gameplay
 
         private readonly Node ghostPimpa;
 
-        private readonly McRoundDragFrameView limit;
+        private readonly Sprite limit;
 
         protected float MaxDistance { get; set; }
 
@@ -80,7 +79,7 @@ namespace ContreJour.Gameplay
                 Vector2 position = Builder.TouchRootVec(Touch);
                 Vector2 vector = Builder.ToVec(MinBorderOffset);
                 RectangleFloat levelScreenPhysicsBounds = Game.LevelScreenPhysicsBounds;
-                levelScreenPhysicsBounds.Extend(-vector / Game.GameRoot.Scale);
+                levelScreenPhysicsBounds.Extend((-vector) / Game.GameRoot.Scale);
                 return levelScreenPhysicsBounds.ClampToBounds(position).ClampDistance(Body.Position, MaxDistance);
             }
         }
@@ -114,22 +113,22 @@ namespace ContreJour.Gameplay
             GhostSprite.AddChild(ghostNeck);
             ghostPimpa = CreatePimpa();
             GhostSprite.AddChild(ghostPimpa);
-            limit = new McRoundDragFrameView();
+            limit = new Sprite(ClipIds.Common.McRoundDragFrameView);
             Builder.Add(limit, -1);
             limit.Position = Builder.ToPoint(Body.Position);
             limit.Scale = num / 200f;
             Neck = CreateNeck();
             Clip.AddChild(Neck);
-            Node node = new McSuckerHighlite();
+            Node node = new Sprite(ClipIds.Chapter5.McSuckerHighlite);
             Clip.AddChild(node);
-            Sprite node2 = new McSuckerStart();
+            Sprite node2 = new(ClipIds.Common.McSuckerStart);
             Clip.AddChild(node2);
             eye = new MonsterEye(Game, visible: false, Body.Position);
             Clip.AddChild(eye);
             eye.Visible = false;
             pimpa = new Node();
             Clip.AddChild(pimpa);
-            pimpaHighlite = new McSuckerHighlite();
+            pimpaHighlite = new Sprite(ClipIds.Chapter5.McSuckerHighlite);
             pimpa.AddChild(pimpaHighlite);
             Node node3 = CreatePimpa();
             pimpa.AddChild(node3);
@@ -202,7 +201,7 @@ namespace ContreJour.Gameplay
 
         public virtual Node CreatePimpa()
         {
-            return new McSuckerBodyStrong();
+            return new Sprite(ClipIds.Chapter5.McSuckerBodyStrong);
         }
 
         protected virtual SuckerNeckSprite CreateNeck()
@@ -223,7 +222,7 @@ namespace ContreJour.Gameplay
             {
                 pimpa.Position = VectorUtil.StepTo(pimpa.Position, bouncePosition, 1000f * time);
                 Neck.Length = pimpa.Position.Length();
-                Neck.RotationDegrees = MathHelper.ToDegrees(Maths.Atan2(pimpa.Position.Y, pimpa.Position.X));
+                Neck.RotationDegrees = float.RadiansToDegrees(Maths.Atan2(pimpa.Position.Y, pimpa.Position.X));
             }
             limit.OpacityByte = (int)Maths.StepTo(limit.OpacityByte, (Touch != null) ? 200 : 80, time * 200f);
             pimpaHighlite.OpacityByte = (int)Maths.StepTo(pimpaHighlite.OpacityByte, (End != null) ? 255 : 0, time * 600f);
@@ -242,7 +241,7 @@ namespace ContreJour.Gameplay
             ghostNeck.Length = ghostPimpa.Position.X;
             ghostNeck.UpdateNode(time);
             RedrawGhost();
-            GhostSprite.RotationDegrees = MathHelper.ToDegrees(Maths.Atan2(vector.Y, vector.X));
+            GhostSprite.RotationDegrees = float.RadiansToDegrees(Maths.Atan2(vector.Y, vector.X));
         }
 
         public override void OnCollisionStartPoint(Body body2, Contact point)
@@ -308,7 +307,13 @@ namespace ContreJour.Gameplay
             eye.Open = true;
             eye.PositionProvider = this;
             Schedule(RefreshPositionProvider, Maths.Random(1.5f, 2.5f));
+            Schedule(PlayJoinSound, 0.15f);
             FinishDragEvent.SendEvent();
+        }
+
+        private void PlayJoinSound()
+        {
+            SoundManager.PlaySound("leapOn1", 0.5f);
         }
 
         private void RefreshPositionProvider()

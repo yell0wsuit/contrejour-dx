@@ -1,8 +1,7 @@
 using System;
+using System.Numerics;
 
 using FarseerPhysics.Common;
-
-using Microsoft.Xna.Framework;
 
 namespace FarseerPhysics.Collision
 {
@@ -47,7 +46,7 @@ namespace FarseerPhysics.Collision
                 Vector2 vector = MathUtils.Mul(ref xfb, v);
                 Vector2 vector2 = MathUtils.Mul(ref xfb2, v2);
                 _axis = vector2 - vector;
-                _axis.Normalize();
+                _axis = Vector2.Normalize(_axis);
             }
             else if (cache.IndexA[0] == cache.IndexA[1])
             {
@@ -56,7 +55,7 @@ namespace FarseerPhysics.Collision
                 Vector2 vector4 = proxyB.Vertices[cache.IndexB[1]];
                 Vector2 vector5 = vector4 - vector3;
                 _axis = new Vector2(vector5.Y, 0f - vector5.X);
-                _axis.Normalize();
+                _axis = Vector2.Normalize(_axis);
                 Vector2 value = MathUtils.Mul(ref xfb2.q, _axis);
                 _localPoint = 0.5f * (vector3 + vector4);
                 Vector2 vector6 = MathUtils.Mul(ref xfb2, _localPoint);
@@ -75,7 +74,7 @@ namespace FarseerPhysics.Collision
                 Vector2 vector9 = _proxyA.Vertices[cache.IndexA[1]];
                 Vector2 vector10 = vector9 - vector8;
                 _axis = new Vector2(vector10.Y, 0f - vector10.X);
-                _axis.Normalize();
+                _axis = Vector2.Normalize(_axis);
                 Vector2 value2 = MathUtils.Mul(ref xfb.q, _axis);
                 _localPoint = 0.5f * (vector8 + vector9);
                 Vector2 vector11 = MathUtils.Mul(ref xfb, _localPoint);
