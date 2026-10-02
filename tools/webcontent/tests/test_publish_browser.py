@@ -42,3 +42,39 @@ def test_missing_content_stops_before_dotnet(tmp_path, monkeypatch, capsys):
     assert publish_browser.main([]) == 1
     assert calls == []
     assert "build_web_content.py" in capsys.readouterr().err
+
+
+def test_merge_preserves_runtime_hashes_and_versions():
+    threaded = {"version": "thread", "assets": [{"url": "index.html", "hash": "shell"}, {"url": "_framework/a.wasm", "hash": "thread-hash"}]}
+    single = {"version": "single", "assets": [{"url": "index.html", "hash": "ignored"}, {"url": "_framework/a.wasm", "hash": "single-hash"}]}
+    merged, version = publish_browser.merge_manifests(threaded, single)
+    assert merged["assets"] == threaded["assets"] + [{"url": "_framework-single/a.wasm", "hash": "single-hash"}]
+    assert merged["version"] == version
+    assert publish_browser.merge_manifests(threaded, single)[1] == version
+    assert publish_browser.merge_manifests(threaded, {**single, "version": "changed"})[1] != version
+    assert publish_browser.merge_manifests({**threaded, "version": "changed"}, single)[1] != version
+
+
+def test_merge_fallback_rewrites_manifest_worker_and_sidecars(tmp_path):
+    site, fallback = tmp_path / "site", tmp_path / "single"
+    site.mkdir()
+    (fallback / "_framework").mkdir(parents=True)
+    (fallback / "_framework" / "a.wasm").write_bytes(b"runtime")
+    (fallback / "_framework" / "a.wasm.br").write_bytes(b"compressed")
+    (site / "service-worker-assets.js").write_text('self.assetsManifest = {"version":"t","assets":[]};')
+    (fallback / "service-worker-assets.js").write_text('self.assetsManifest = {"version":"s","assets":[{"url":"_framework/a.wasm","hash":"sha256-fallback"}]};')
+    (site / "coi-sw.js").write_text('/* Manifest version: old */\nworker();\n')
+    for name in ("coi-sw.js", "service-worker-assets.js"):
+        for suffix in (".br", ".gz"):
+            (site / (name + suffix)).write_bytes(b"stale")
+    publish_browser.merge_fallback(site, fallback)
+    merged = publish_browser.read_manifest(site / "service-worker-assets.js")
+    assert merged["assets"][0]["url"] == "_framework-single/a.wasm"
+    assert (site / "_framework-single/a.wasm").read_bytes() == b"runtime"
+    assert (site / "_framework-single/a.wasm.br").read_bytes() == b"compressed"
+    worker = (site / "coi-sw.js").read_text()
+    assert worker.startswith(f"/* Manifest version: {merged['version']} */")
+    assert "old" not in worker
+    for name in ("coi-sw.js", "service-worker-assets.js"):
+        assert not (site / (name + ".br")).exists()
+        assert not (site / (name + ".gz")).exists()

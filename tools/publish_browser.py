@@ -12,6 +12,10 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import base64
+import hashlib
+import json
+import re
 import functools
 import shutil
 import subprocess
@@ -27,6 +31,11 @@ CONTENT_CATALOG = (
     REPO_ROOT / "src" / "ContreJour.Browser" / "wwwroot" / "content" / "assets.json"
 )
 DEFAULT_PORT = 8080
+FRAMEWORK = "_framework"
+SINGLE_FRAMEWORK = "_framework-single"
+WORKER = "coi-sw.js"
+ASSETS_MANIFEST = "service-worker-assets.js"
+VERSION_COMMENT = re.compile(r"^/\* Manifest version: [^*]* \*/\r?\n")
 
 
 def parse_args(argv: list[str] | None) -> argparse.Namespace:
@@ -119,7 +128,7 @@ def publish_all(publishes: list[tuple[Path, list[str]]]) -> None:
 
 
 def merge_fallback(site: Path, fallback: Path) -> None:
-    """Keep the fallback framework beside the threaded one without altering SDK assets."""
+    """Keep fallback runtime bytes intact and reconcile the offline manifest."""
     source = fallback / "_framework"
     if not source.is_dir():
         raise RuntimeError(f"fallback publish has no framework directory: {source}")
@@ -129,6 +138,81 @@ def merge_fallback(site: Path, fallback: Path) -> None:
     # Module and resource URLs resolve relative to dotnet.js in this SDK. Copy bytes,
     # including compressed sidecars, unchanged to preserve fingerprints and integrity.
     shutil.copytree(source, destination)
+    merged, version = merge_manifests(
+        read_manifest(site / ASSETS_MANIFEST),
+        read_manifest(fallback / ASSETS_MANIFEST),
+    )
+    write_manifest(site / ASSETS_MANIFEST, merged, version)
+    stamp_worker(site / WORKER, version)
+
+
+def read_manifest(path: Path) -> dict:
+    """Reads `self.assetsManifest = {...};` as the object it assigns."""
+    text = path.read_text(encoding="utf-8")
+    return json.loads(text[text.index("{") : text.rindex("}") + 1])
+
+
+def merge_manifests(threaded: dict, single: dict) -> tuple[dict, str]:
+    """Returns the two manifests as one, and the version that stands for the pair.
+
+    The fallback's assets are readdressed on the way in, because they were published at
+    `_framework/` and now live at `_framework-single/`. Anything else it lists - the page,
+    the scripts - is the same file the threaded publish already contributed, so only its
+    runtime crosses over.
+
+    The version is derived from the two the SDK calculated rather than recalculated from
+    the assets. Each of those already changes when anything in its own tree does, which is
+    the whole property the cache name needs, and inheriting it avoids keeping a private
+    copy of how the SDK arrives at one.
+    """
+    assets = list(threaded["assets"])
+    known = {asset["url"] for asset in assets}
+    for asset in single["assets"]:
+        if not asset["url"].startswith(f"{FRAMEWORK}/"):
+            continue
+        moved = dict(asset)
+        moved["url"] = f"{SINGLE_FRAMEWORK}/{asset['url'][len(FRAMEWORK) + 1 :]}"
+        if moved["url"] in known:
+            continue
+        known.add(moved["url"])
+        assets.append(moved)
+
+    combined = f"{threaded['version']}{single['version']}".encode("utf-8")
+    version = base64.b64encode(hashlib.sha256(combined).digest()).decode()[:8]
+    return {"version": version, "assets": assets}, version
+
+
+def write_manifest(path: Path, manifest: dict, version: str) -> None:
+    manifest = {"version": version, "assets": manifest["assets"]}
+    body = json.dumps(manifest, indent=2)
+    path.write_text(f"self.assetsManifest = {body};\n", encoding="utf-8")
+    drop_stale_copies(path)
+
+
+def stamp_worker(path: Path, version: str) -> None:
+    """Replaces the version the SDK stamped into the worker with the merged one.
+
+    The comment is what makes the worker's own bytes change between publishes. A browser
+    compares them to decide whether a new worker exists at all, so a stale one here means
+    a deployment nobody is offered.
+    """
+    text = path.read_text(encoding="utf-8")
+    text = VERSION_COMMENT.sub("", text, count=1)
+    path.write_text(f"/* Manifest version: {version} */\n{text}", encoding="utf-8")
+    drop_stale_copies(path)
+
+
+def drop_stale_copies(path: Path) -> None:
+    """Removes the .br and .gz beside a file this script rewrote.
+
+    The SDK compressed the version it published, and those copies now decode to something
+    the site no longer serves. A server that picks one by Accept-Encoding would hand out
+    the pre-merge manifest to exactly the visitors whose browsers ask for it.
+    """
+    for suffix in (".br", ".gz"):
+        compressed = path.with_name(path.name + suffix)
+        if compressed.exists():
+            compressed.unlink()
 
 
 class Handler(SimpleHTTPRequestHandler):
@@ -140,6 +224,7 @@ class Handler(SimpleHTTPRequestHandler):
         ".js": "text/javascript",
         ".mjs": "text/javascript",
         ".json": "application/json",
+        ".webmanifest": "application/manifest+json",
         ".webp": "image/webp",
         ".ogg": "audio/ogg",
         ".ttf": "font/ttf",

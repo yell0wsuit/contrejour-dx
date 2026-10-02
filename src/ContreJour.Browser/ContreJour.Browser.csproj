@@ -16,6 +16,7 @@
     <WasmNativeStrip>true</WasmNativeStrip>
     <!-- The host supplies the language (LocalizationBundle.LocaleOverride); ICU would add ~1MB for nothing. -->
     <InvariantGlobalization>true</InvariantGlobalization>
+    <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
   </PropertyGroup>
 
   <ItemGroup>
@@ -53,4 +54,8 @@
     root, so `dotnet run` answers both with an empty 200 and the page shows a broken image. Refresh them from
     distribution/icons if the app icon ever changes.
   -->
+  <!-- Keep development network-only; publish replaces the same registered worker URL. -->
+  <ItemGroup>
+    <ServiceWorker Include="wwwroot/coi-sw.js" PublishedContent="wwwroot/service-worker.published.js" />
+  </ItemGroup>
 </Project>
