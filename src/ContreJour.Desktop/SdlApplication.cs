@@ -140,7 +140,7 @@ namespace ContreJour.Desktop
             _losses = new Queue<int>(_options.DeviceLosses);
             _selection = SelectDevice();
             SdlGraphicsDevice device = _selection.Device;
-            _ = SDL.SetWindowTitle(device.Window, SdlGraphicsDevice.TitleFor(device.Kind));
+            _ = SDL.SetWindowTitle(device.Window, SdlGraphicsDevice.TitleFor(device.Kind, Program.Version));
             ApplyWindowIcon(device.Window);
             ILogger logger = Log.For(LogCategories.Host);
             string audioState = _audio is NullAudioBackend ? "off" : "on";
@@ -340,7 +340,7 @@ namespace ContreJour.Desktop
             {
                 HostLog.RejectedRenderer(logger, failure.Kind, failure.Failure.Message);
             }
-            _ = SDL.SetWindowTitle(device.Window, SdlGraphicsDevice.TitleFor(device.Kind));
+            _ = SDL.SetWindowTitle(device.Window, SdlGraphicsDevice.TitleFor(device.Kind, Program.Version));
             ApplyWindowIcon(device.Window);
             _host.AttachWindow(device.Window);
             // Building a device takes real time the game should not be asked to catch up on.

@@ -20,7 +20,7 @@ namespace ContreJour.Desktop
     {
         private const string ProductName = "Contre Jour";
 
-        private static string Version =>
+        internal static string Version =>
             typeof(Program).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion ?? "unknown";
 
         [STAThread]

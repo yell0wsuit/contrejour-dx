@@ -52,9 +52,9 @@ namespace ContreJour.Desktop.Platform.Graphics
 
         protected bool HasFrame => _surface != null;
 
-        public static string TitleFor(GraphicsBackendKind kind)
+        public static string TitleFor(GraphicsBackendKind kind, string version)
         {
-            return $"{WindowTitle} | {kind}";
+            return $"{WindowTitle} v{version} | {kind}";
         }
 
         // Creates the hidden window and everything the backend needs to draw into it.
