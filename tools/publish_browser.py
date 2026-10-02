@@ -13,10 +13,10 @@ from __future__ import annotations
 
 import argparse
 import base64
+import functools
 import hashlib
 import json
 import re
-import functools
 import shutil
 import subprocess
 import sys

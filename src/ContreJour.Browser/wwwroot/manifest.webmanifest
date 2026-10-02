@@ -1,0 +1,26 @@
+{
+    "id": "./",
+    "name": "Contre Jour DX",
+    "short_name": "Contre Jour DX",
+    "description": "A fan-made enhancement of Contre Jour.",
+    "start_url": "./",
+    "scope": "./",
+    "display": "fullscreen",
+    "launch_handler": {
+        "client_mode": "focus-existing"
+    },
+    "background_color": "#202329",
+    "theme_color": "#202329",
+    "categories": [
+        "games",
+        "entertainment"
+    ],
+    "icons": [
+        {
+            "src": "./icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any"
+        }
+    ]
+}

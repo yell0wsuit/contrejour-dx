@@ -1,0 +1,163 @@
+// Service worker registration, the update prompt, and the request for persistent storage.
+//
+// A worker that finds new assets installs alongside the running one and then waits, so a
+// version never swaps in underneath a session in progress. The dialog is how the player asks
+// for it: the waiting worker takes over and the page reloads onto the new build.
+
+const UPDATE_CHECK_INTERVAL_MS = 15 * 60 * 1000;
+requestPersistentStorage();
+
+// Button keyboard defaults must run before the game's window key handler.
+const updateDialog = document.getElementById("update");
+for (const type of ["keydown", "keyup"]) {
+    updateDialog?.addEventListener(type, (event) => event.stopPropagation());
+}
+
+// main.js calls this after boot, alongside deferred worker registration. On
+// header-equipped hosts the first preload completed before the worker existed.
+globalThis.cjCacheGame = async (runtime) => {
+    try {
+        const registration = await globalThis.cjServiceWorkerRegistration;
+        if (!registration) {
+            return;
+        }
+        const ready = await navigator.serviceWorker.ready;
+        ready.active?.postMessage({ type: "cache-game", runtime });
+    } catch (error) {
+        console.warn("offline cache preparation failed:", error);
+    }
+};
+
+globalThis.cjServiceWorkerRegistration
+    ?.then((registration) => {
+        // Truthy rather than a null check: getRegistration resolves to undefined when there
+        // is none, which slipped past the old comparison and threw on registration.waiting.
+        if (registration) {
+            watch(registration);
+        }
+    })
+    .catch((error) =>
+        console.warn("service worker registration failed:", error),
+    );
+
+/**
+ * Watches a registration for a worker that has installed and is waiting to take over.
+ *
+ * @param {ServiceWorkerRegistration} registration
+ */
+function watch(registration) {
+    if (registration.waiting) {
+        promptForUpdate(registration.waiting);
+    }
+
+    // The browser's own check on navigation can have found a new version before this ran, in
+    // which case updatefound has already fired and the worker is part way through installing.
+    if (registration.installing) {
+        followInstall(registration.installing);
+    }
+    registration.addEventListener("updatefound", () => {
+        if (registration.installing) {
+            followInstall(registration.installing);
+        }
+    });
+
+    // Asked for now rather than left to the browser, which schedules its navigation check on its
+    // own terms. A new version then has the whole load to download in, and the prompt can be up
+    // before the player is.
+    registration.update().catch(() => {});
+
+    // The browser only checks for a new worker on navigation, and this page is meant to be
+    // left open. Checking when the tab comes back into view covers the long sessions.
+    let lastCheck = Date.now();
+    document.addEventListener("visibilitychange", () => {
+        if (
+            document.visibilityState === "visible" &&
+            Date.now() - lastCheck > UPDATE_CHECK_INTERVAL_MS
+        ) {
+            lastCheck = Date.now();
+            registration.update().catch(() => {});
+        }
+    });
+}
+
+/**
+ * Offers an installing worker to the player once it has finished installing.
+ *
+ * @param {ServiceWorker} installing
+ */
+function followInstall(installing) {
+    const offer = () => {
+        // Without a controller this is the first install rather than an update, and it
+        // activates on its own — there is nothing for the player to decide.
+        if (
+            installing.state === "installed" &&
+            navigator.serviceWorker.controller
+        ) {
+            promptForUpdate(installing);
+        }
+    };
+    offer();
+    installing.addEventListener("statechange", offer);
+}
+
+/**
+ * Offers the waiting worker to the player.
+ *
+ * @param {ServiceWorker} waiting
+ */
+function promptForUpdate(waiting) {
+    const dialog = document.getElementById("update");
+    if (dialog === null || dialog.open) {
+        return;
+    }
+
+    document.getElementById("update-later").onclick = () => dialog.close();
+    document.getElementById("update-now").onclick = () => {
+        dialog.close();
+        // Reload once the new worker is actually in control, so the fresh assets are the ones
+        // served. Guarded because controllerchange also fires on the very first activation.
+        let reloading = false;
+        navigator.serviceWorker.addEventListener("controllerchange", () => {
+            if (!reloading) {
+                reloading = true;
+                location.reload();
+            }
+        });
+        waiting.postMessage({ type: "skip-waiting" });
+    };
+
+    dialog.showModal();
+}
+
+/**
+ * Asks the browser not to evict this origin's storage.
+ *
+ * The offline caches and the player's save share one evictable pool, which a browser is free
+ * to clear when the device runs short of room. Losing it costs the player their progress and
+ * costs the next visit a fresh download of the content. Chromium grants persistence silently
+ * to an app that has been installed or used enough; the browsers that ask instead raise a
+ * permission prompt on the call, so this waits for the first gesture rather than firing at
+ * page load, where such a prompt would arrive out of nowhere.
+ */
+function requestPersistentStorage() {
+    if (typeof navigator.storage?.persist !== "function") {
+        return;
+    }
+
+    const ask = async () => {
+        globalThis.removeEventListener("pointerdown", ask);
+        globalThis.removeEventListener("keydown", ask);
+        try {
+            if (!(await navigator.storage.persisted())) {
+                await navigator.storage.persist();
+            }
+        } catch (error) {
+            // A refusal is the expected outcome on a browser that declines, and eviction is a
+            // risk rather than a failure there is anything to recover from here.
+            console.warn("persistent storage request failed:", error);
+        }
+    };
+
+    globalThis.addEventListener("pointerdown", ask, { passive: true });
+    globalThis.addEventListener("keydown", ask);
+}

@@ -152,3 +152,6 @@ if (new URLSearchParams(globalThis.location.search).has("autostart")) {
 
 globalThis.cjBootComplete?.();
 globalThis.cjInstallWorker?.();
+void globalThis.cjCacheGame?.(
+    choice.mode === "single" ? "_framework-single" : "_framework",
+);

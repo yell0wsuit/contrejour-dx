@@ -58,7 +58,7 @@ function harness(version = 'v1', entries = assets, stores = new Map()) {
 
 test('install precaches shell and leaves both runtime trees and content for demand', async () => {
     const h = harness(); await h.lifecycle('install');
-    assert.deepEqual(h.fetched.sort(), [scope + 'index.html', scope + 'main.js'].sort());
+    assert.deepEqual(h.fetched.sort(), [scope + 'index.html', scope + 'main.js', scope + 'coi.js'].sort());
     assert.equal(h.skipped, 0);
     h.handlers.get('message')({data: {type: 'skip-waiting'}});
     assert.equal(h.skipped, 1);
@@ -96,4 +96,19 @@ test('activation keeps unchanged content, prunes changed content and retires onl
     const changed = harness('v3', assets.map(a => a.url.startsWith('content/') ? {...a, hash: 'changed'} : a), h.stores);
     await changed.lifecycle('activate'); changed.offline();
     await assert.rejects(changed.request('content/audio.ogg'), /offline/);
+});
+
+test('isolation bootstrap is available offline to attach PWA update watching', async () => {
+    const h = harness(); await h.lifecycle('install'); h.offline();
+    assert.equal(await (await h.request('coi.js')).text(), 'shell');
+});
+
+test('post-boot warming caches only selected runtime and all content after deferred registration', async () => {
+    const h = harness(); await h.lifecycle('install'); await h.lifecycle('activate');
+    let warming;
+    h.handlers.get('message')({data: {type: 'cache-game', runtime: '_framework-single'}, waitUntil(p) {warming = p;}});
+    await warming; h.offline();
+    assert.equal(await (await h.request('_framework-single/a.wasm')).text(), 'shell');
+    assert.equal(await (await h.request('content/audio.ogg')).text(), '0123456789');
+    assert.equal(h.fetched.includes(scope + '_framework/a.wasm'), false);
 });

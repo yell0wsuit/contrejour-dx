@@ -41,7 +41,7 @@ const scopeUrl = new URL("./", self.location.href);
 const shellExclude = [
     /^content\//,
     /^service-worker(-assets)?\.js$/,
-    /^coi(-sw)?\.js$/,
+    /^coi-sw\.js$/,
     /^manifest\.webmanifest$/,
     // Install-dialog artwork. The browser fetches these when offering to install the game; the
     // game itself never asks for them, so caching most of a megabyte of them offline buys
@@ -88,6 +88,11 @@ self.addEventListener("fetch", (event) => {
 self.addEventListener("message", (event) => {
     if (event.data?.type === "skip-waiting") {
         self.skipWaiting();
+    } else if (
+        event.data?.type === "cache-game" &&
+        ["_framework", "_framework-single"].includes(event.data.runtime)
+    ) {
+        event.waitUntil(warmGameCache(event.data.runtime));
     }
 });
 
@@ -416,4 +421,38 @@ function withHash(response, hash) {
         statusText: response.statusText,
         headers,
     });
+}
+
+/**
+ * Header-equipped hosts defer registration until boot has finished. Fill the assets
+ * that loaded before takeover, keeping the unused runtime out of the offline cache.
+ * Runs in the worker so closing the page does not immediately cancel the downloads.
+ */
+async function warmGameCache(runtime) {
+    const assets = [
+        ...[...shellHashes.entries()].filter(([url]) =>
+            url.startsWith(new URL(`${runtime}/`, scopeUrl).href),
+        ),
+        ...contentHashes.entries(),
+    ];
+    let next = 0;
+    async function run() {
+        for (let index = next++; index < assets.length; index = next++) {
+            const [url, hash] = assets[index];
+            const request = new Request(url);
+            try {
+                if (contentHashes.has(url)) {
+                    await serveContent(request, hash);
+                } else {
+                    await serveShell(request, hash);
+                }
+            } catch (error) {
+                // Offline caching is best effort; the running game already has these bytes.
+                console.warn("could not cache game asset:", url, error);
+            }
+        }
+    }
+    await Promise.all(
+        Array.from({ length: Math.min(SHELL_CONCURRENCY, assets.length) }, run),
+    );
 }
