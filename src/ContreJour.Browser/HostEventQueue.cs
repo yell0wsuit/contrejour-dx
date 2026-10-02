@@ -18,7 +18,7 @@ namespace ContreJour.Browser
         {
             _buffer = (byte*)HostShim.EventBuffer(HostEventRing.BufferBytes);
             HostEventRing.Initialize(Span());
-            HostEventInterop.Attach((int)_buffer);
+            HostEventInterop.Attach((int)_buffer, HostShim.ThreadId());
         }
 
         /// <summary>Returns every event written since the last drain.</summary>

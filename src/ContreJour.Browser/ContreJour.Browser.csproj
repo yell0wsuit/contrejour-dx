@@ -5,9 +5,11 @@
     <RootNamespace>ContreJour.Browser</RootNamespace>
     <!-- The decompiled projects carry their own AssemblyInfo.cs; this one has none. -->
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
-    <!-- The single-threaded runtime: the game, the WebGL context and the animation frame all live on the page's
-         own thread. The threaded build comes later. -->
-    <WasmEnableThreads>false</WasmEnableThreads>
+    <!-- The worker owns the game loop and WebGL context. The publisher also builds the
+         fallback for browsers without cross-origin isolation or OffscreenCanvas support. -->
+    <WasmEnableThreads>true</WasmEnableThreads>
+    <WasmEnableThreads Condition="'$(CjSingleThreaded)' == 'true'">false</WasmEnableThreads>
+    <DefineConstants Condition="'$(WasmEnableThreads)' == 'true'">$(DefineConstants);WASM_THREADS</DefineConstants>
     <!-- dotnet run serves the interpreter, which is slow on the physics. tools/publish_browser.py publishes
          with -p:RunAOTCompilation=true, the build that plays at full speed. -->
     <RunAOTCompilation>false</RunAOTCompilation>
@@ -20,6 +22,7 @@
     <PackageReference Include="SkiaSharp" />
     <PackageReference Include="SkiaSharp.NativeAssets.WebAssembly" />
     <EmccExportedRuntimeMethod Include="GL" />
+    <EmccExportedRuntimeMethod Include="PThread" Condition="'$(WasmEnableThreads)' == 'true'" />
     <NativeFileReference Include="Native/cjhost.cpp" />
   </ItemGroup>
 
@@ -34,8 +37,13 @@
     metadata.json. Letting the WASM SDK fingerprint and Brotli-compress it would add minutes to publish, so it
     ships as plain static files.
   -->
+  <PropertyGroup>
+    <CjContentCopy>PreserveNewest</CjContentCopy>
+    <CjContentCopy Condition="'$(CjSkipContent)' == 'true'">Never</CjContentCopy>
+  </PropertyGroup>
+
   <ItemGroup>
-    <Content Update="wwwroot/content/**" CopyToPublishDirectory="PreserveNewest" />
+    <Content Update="wwwroot/content/**" CopyToPublishDirectory="$(CjContentCopy)" />
   </ItemGroup>
 
   <!--

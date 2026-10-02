@@ -14,6 +14,10 @@ namespace ContreJour.Browser
         [JSImport("measureCanvas", "page")]
         public static partial int[] MeasureCanvas(string canvasId);
 
+        // Transfers the canvas to the worker that owns the game and returns its measured size.
+        [JSImport("transferCanvasToThread", "page")]
+        public static partial int[] TransferCanvasToThread(string canvasId, int threadId);
+
         // Starts reporting the canvas box and pixel ratio through the event ring.
         [JSImport("watchCanvas", "page")]
         public static partial void WatchCanvas(string canvasId);

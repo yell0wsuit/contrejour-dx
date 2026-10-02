@@ -1,5 +1,8 @@
 using System;
 using System.Runtime.Versioning;
+#if WASM_THREADS
+using System.Threading.Tasks;
+#endif
 
 using ContreJour.Browser;
 using ContreJour.Browser.Platform;
@@ -29,14 +32,43 @@ await AudioInterop.ImportAsync();
 string language = BrowserLanguage.Parse(PageInterop.Query(), PageInterop.NavigatorLanguage());
 LocalizationBundle.LocaleOverride = language;
 
+// Skia's native GL calls run on their caller, so the game thread must own the
+// canvas and context before any Skia surface exists.
+#if WASM_THREADS
+if (HostShim.IsMainRuntimeThread() != 0)
+{
+    throw new InvalidOperationException("The threaded game must run on a worker.");
+}
+if (HostShim.AcquireCanvas() == 0)
+{
+    throw new InvalidOperationException("Could not prepare the game thread for its canvas.");
+}
+int[] canvas = PageInterop.TransferCanvasToThread("game", HostShim.ThreadId());
+if (canvas.Length != 4)
+{
+    throw new InvalidOperationException("Could not transfer the canvas to the game thread.");
+}
+
+int deliveryAttempts = 0;
+while (HostShim.CanvasReceived() == 0 && deliveryAttempts < 200)
+{
+    deliveryAttempts++;
+    await Task.Delay(25);
+}
+if (HostShim.CanvasReceived() == 0)
+{
+    throw new InvalidOperationException("The transferred canvas never arrived.");
+}
+#else
 int[] canvas = PageInterop.MeasureCanvas("game");
 if (canvas.Length != 4 || HostShim.AcquireCanvas() == 0)
 {
     throw new InvalidOperationException("The page has no canvas to draw to.");
 }
+#endif
 if (HostShim.CreateContext(canvas[2], canvas[3]) == 0)
 {
-    throw new InvalidOperationException("Could not create a WebGL2 context.");
+    throw new InvalidOperationException("Could not create the game thread's WebGL2 context.");
 }
 SkiaSurface surface = new(0, canvas[2], canvas[3]);
 

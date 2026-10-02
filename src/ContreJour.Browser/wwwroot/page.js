@@ -26,6 +26,44 @@ export function measureCanvas(canvasId) {
     return canvas === null ? [] : measure(canvas);
 }
 
+export function transferCanvasToThread(canvasId, threadId) {
+    const canvas = document.getElementById(canvasId);
+    const worker = globalThis.cjWasmModule?.PThread?.pthreads?.[threadId];
+    if (canvas === null || !worker) {
+        return [];
+    }
+
+    // Measured before the transfer, because an OffscreenCanvas has no CSS box to read
+    // and the element stops reporting one the moment it gives its control away.
+    const size = measure(canvas);
+
+    let offscreen;
+    try {
+        offscreen = canvas.transferControlToOffscreen();
+    } catch (error) {
+        console.info(
+            JSON.stringify({
+                marker: "cj-host",
+                boundary: "canvas-transfer",
+                threadId,
+                message: String(error),
+            }),
+        );
+        return [];
+    }
+
+    // Deliberately no `cmd` field. The runtime's own worker dispatcher ends in
+    // `else if (e.data.cmd)`, so any message carrying one that it does not
+    // recognize is reported twice to the console, on every delivery.
+    worker.postMessage({ cjTransferCanvas: offscreen }, [offscreen]);
+    worker.addEventListener("message", (event) => {
+        if (event.data?.cjContextLost) {
+            reportContextLost();
+        }
+    });
+    return size;
+}
+
 // [width, height, devicePixelRatio] of the screen the page is on, for the game's logical canvas.
 export function screenSize() {
     return [

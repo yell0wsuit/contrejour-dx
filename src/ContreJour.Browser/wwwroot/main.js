@@ -1,13 +1,29 @@
 import * as hostEvents from "./host-events.js";
 import { unlock } from "./audio.js";
 import { setLoadingProgress } from "./page.js";
+import {
+    parseModeQuery,
+    probeEnvironment,
+    selectRuntime,
+} from "./runtime-mode.js";
 
 // The failure seam is installed by the inline module in index.html, because this module's static imports are
 // fetched before its first statement runs.
 const fail = (id, detail) => globalThis.cjFail?.(id, detail);
 
+await globalThis.cjIsolationReady;
+const requested = parseModeQuery(globalThis.location.search);
+const choice = selectRuntime(probeEnvironment(), requested.mode);
+console.info(
+    `cj-wasm-env: isolated=${globalThis.crossOriginIsolated === true} runtime=${choice.mode}`,
+);
+if (choice.mode === "unsupported") {
+    fail("boot-error", choice.reason);
+    throw new Error(choice.reason);
+}
+
 try {
-    const { dotnet } = await import("./_framework/dotnet.js");
+    const { dotnet } = await import(choice.runtime);
     const runtime = await dotnet
         .withDiagnosticTracing(false)
         .withModuleConfig({
@@ -135,3 +151,4 @@ if (new URLSearchParams(globalThis.location.search).has("autostart")) {
 }
 
 globalThis.cjBootComplete?.();
+globalThis.cjInstallWorker?.();

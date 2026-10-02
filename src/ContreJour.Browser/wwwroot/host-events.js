@@ -2,8 +2,7 @@
 // the threaded build, so events reach the game thread without a message, a structured
 // clone, or an allocation per pointer move.
 //
-// This is the single-threaded build, which still writes through the ring rather than calling
-// managed code directly, so the threaded build can reuse it. Atomics.load, .store and .add
+// Both builds write through the ring rather than calling managed code directly. Atomics.load, .store and .add
 // accept an ordinary ArrayBuffer - only Atomics.wait insists on a shared one, and nothing
 // here waits.
 
@@ -50,6 +49,7 @@ const KEY_IDS = {
 
 const POINTER_KINDS = { mouse: 0, pen: 1, touch: 2 };
 
+let ownerWorker = null;
 let baseWord = 0;
 let view = null;
 let viewBuffer = null;
@@ -105,15 +105,27 @@ function bits(value) {
     return floatBits.getInt32(0, true);
 }
 
-export function attach(address) {
+export function attach(address, threadId) {
     baseWord = address / 4;
+    ownerWorker = threadId
+        ? (globalThis.cjWasmModule?.PThread?.pthreads?.[threadId] ?? null)
+        : null;
+    if (threadId && ownerWorker === null) {
+        throw new Error(
+            "The game worker is missing; lifecycle events cannot reach it.",
+        );
+    }
 }
 
 // A hidden page stops being given animation frames, so the loop that would have noticed
 // the change is the loop the change put to sleep. Waking it is what lets a pause be
 // acted on and a resume re-arm the frame.
 function wake() {
-    globalThis.cjWasmModule?._cj_wake?.();
+    if (ownerWorker !== null) {
+        ownerWorker.postMessage({ cjWake: 1 });
+    } else {
+        globalThis.cjWasmModule?._cj_wake?.();
+    }
 }
 
 export function keyId(code) {

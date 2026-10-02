@@ -12,6 +12,6 @@ namespace ContreJour.Browser
 
         // Points the page's writer at the ring.
         [JSImport("attach", "hostevents")]
-        public static partial void Attach(int address);
+        public static partial void Attach(int address, int threadId);
     }
 }
