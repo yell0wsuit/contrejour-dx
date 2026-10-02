@@ -5,7 +5,7 @@ Windows ships one build. The graphics backend is chosen when the game starts:
 the SDL host tries Vulkan, then ANGLE, then OpenGL, and keeps
 the first that presents a frame.
 
-    ContreJour.Desktop.exe   the game        + SDL3.dll, SDL3_mixer.dll, libSkiaSharp.dll, ...
+    ContreJour-DX.exe   the game        + SDL3.dll, SDL3_mixer.dll, libSkiaSharp.dll, ...
     angle/  Assets/  Resources/    beside it
 
 The publish is single-file, so the managed assemblies live inside the executable.
@@ -39,7 +39,7 @@ ARCHITECTURES = {
 }
 
 # The name the game publishes under, from the project's AssemblyName.
-GAME_ASSEMBLY = "ContreJour.Desktop"
+GAME_ASSEMBLY = "ContreJour-DX"
 
 UNSHIPPED_SUFFIXES = ".pdb"
 ANGLE_DIRECTORY = "angle"

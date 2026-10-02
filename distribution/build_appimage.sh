@@ -10,10 +10,10 @@
 set -e
 
 # Configuration
-APP_NAME="ContreJour.Desktop"
+APP_NAME="ContreJour-DX"
 APP_ID="page.yell0wsuit.contrejour.dx"
 APP_DISPLAY_NAME="Contre Jour DX"
-EXEC_NAME="ContreJour.Desktop"
+EXEC_NAME="ContreJour-DX"
 DESCRIPTION="Contre Jour DX, a desktop port of Contre Jour."
 
 # Directories

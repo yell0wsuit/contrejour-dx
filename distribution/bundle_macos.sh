@@ -7,7 +7,8 @@ PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 # =========================
 # App metadata
 # =========================
-APP_NAME="ContreJour.Desktop"
+APP_NAME="Contre Jour DX"
+EXEC_NAME="ContreJour-DX"
 BUNDLE_ID="page.yell0wsuit.contrejour.dx"
 
 # =========================
@@ -16,7 +17,6 @@ BUNDLE_ID="page.yell0wsuit.contrejour.dx"
 PROJECT="$PROJECT_ROOT/src/ContreJour.Desktop/ContreJour.Desktop.csproj"
 PUBLISH_DIR="$PROJECT_ROOT/src/ContreJour.Desktop/bin/Publish/osx-arm64"
 APP_DIR="$PUBLISH_DIR/$APP_NAME.app"
-ICON_SOURCE="$PUBLISH_DIR/Resources/ContreJourDXIcon.icns"
 TEMPLATES_DIR="$SCRIPT_DIR/templates/macos"
 
 # =========================
@@ -86,11 +86,12 @@ rsync -a "$PUBLISH_DIR/Resources/" "$APP_DIR/Contents/Resources/"
 rsync -a "$PUBLISH_DIR/Assets/" "$APP_DIR/Contents/Resources/Assets/"
 ln -s ../Resources/Assets "$APP_DIR/Contents/MacOS/Assets"
 ln -s ../Resources "$APP_DIR/Contents/MacOS/Resources"
-chmod +x "$APP_DIR/Contents/MacOS/$APP_NAME"
-cp "$ICON_SOURCE" "$APP_DIR/Contents/Resources/$APP_NAME.icns"
+chmod +x "$APP_DIR/Contents/MacOS/$EXEC_NAME"
+test -f "$APP_DIR/Contents/Resources/ContreJourDXIcon.icns"
 
 # Write Info.plist
 sed -e "s/{{APP_NAME}}/$APP_NAME/g" \
+    -e "s/{{EXEC_NAME}}/$EXEC_NAME/g" \
     -e "s/{{BUNDLE_ID}}/$BUNDLE_ID/g" \
     -e "s/{{VERSION}}/$VERSION/g" \
     "$TEMPLATES_DIR/Info.plist" > "$APP_DIR/Contents/Info.plist"
