@@ -11,7 +11,9 @@
             name="viewport"
             content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover"
         />
-        <title>Contre Jour</title>
+        <title>Contre Jour DX</title>
+        <meta name="theme-color" content="#202329" />
+        <link rel="manifest" href="./manifest.webmanifest" />
         <link rel="icon" type="image/x-icon" href="./favicon.ico" />
         <link rel="apple-touch-icon" href="./icon-512.png" />
         <style>
@@ -142,6 +144,41 @@
             #splash.hidden + #download-logs {
                 display: none;
             }
+            #update {
+                padding: 20px 24px;
+                max-width: min(32rem, calc(100% - 48px));
+                box-sizing: border-box;
+                touch-action: manipulation;
+                border: 0;
+                border-radius: 10px;
+                background: #202329;
+                color: #e6e6e6;
+                font-family:
+                    system-ui,
+                    -apple-system,
+                    "Segoe UI",
+                    Roboto,
+                    sans-serif;
+                box-shadow: 0 8px 32px rgb(0 0 0 / 50%);
+            }
+            #update::backdrop {
+                background: rgb(0 0 0 / 50%);
+            }
+            #update p {
+                margin: 0 0 16px;
+            }
+            #update-actions {
+                display: flex;
+                gap: 8px;
+                justify-content: flex-end;
+            }
+            #update button {
+                padding: 8px 18px;
+                font-size: 0.95rem;
+                border: 0;
+                border-radius: 6px;
+                cursor: pointer;
+            }
         </style>
     </head>
     <body>
@@ -172,6 +209,14 @@
             <button id="resume" hidden>Reload</button>
         </div>
         <button id="download-logs" type="button">Download logs</button>
+        <dialog id="update" aria-labelledby="update-title">
+            <p id="update-title">A new version is ready. Reload to update?</p>
+            <div id="update-actions">
+                <button id="update-later" type="button">Later</button>
+                <button id="update-now" type="button">Update</button>
+            </div>
+        </dialog>
+        <script type="module" src="./pwa.js"></script>
         <script type="module">
             // Loading has stretches with no reporting of their own - compiling what was downloaded, and
             // decoding the audio - so a slow device and a wedged one look alike from here. The advice waits
