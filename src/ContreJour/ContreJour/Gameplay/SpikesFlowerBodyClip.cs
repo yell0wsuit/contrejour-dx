@@ -37,7 +37,11 @@ namespace ContreJour.Gameplay
                 Clip = clip;
             }
             container = new Node();
-            Clip.AddChild(container, -1);
+            // The eye, shadow, and neck already apply the mouth's scale themselves.
+            // Keep their container unscaled, as in the original game.
+            Builder.AddChildBefore(container, Clip);
+            container.Position = Clip.Position;
+            container.RotationRadians = Clip.RotationRadians;
             Sprite node = new(ClipIds.Common.McSpikesFlowerShadow)
             {
                 Scale = Clip.ScaleY
@@ -73,6 +77,8 @@ namespace ContreJour.Gameplay
         public override void Update(float time)
         {
             base.Update(time);
+            container.Position = Clip.Position;
+            container.RotationRadians = Clip.RotationRadians;
             if (Eye == null && container.Root != null)
             {
                 CreateEye();

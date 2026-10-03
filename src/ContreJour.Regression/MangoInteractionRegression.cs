@@ -28,6 +28,15 @@ namespace ContreJour.Regression
             {
                 Check(flower.Clip is MovieClip movie && movie.TotalFrames == 6 && movie.Stoped,
                     "Mango flower did not use the complete six-frame movie in its idle state.");
+                Vector2 eyeOrigin = flower.Eye.LocalToNode(Vector2.Zero, game.Builder.GameRoot);
+                Vector2 expectedOrigin = flower.Clip.LocalToNode(Vector2.Zero, game.Builder.GameRoot)
+                    + Vector2.Transform(flower.Eye.Position, Matrix3x2.CreateRotation(flower.Clip.RotationRadians));
+                Check(Vector2.Distance(eyeOrigin, expectedOrigin) < 0.01f,
+                    "The flower eye's resolved position inherited the mouth scale.");
+                float expectedScale = flower.Clip.ScaleY * 0.7f;
+                Check(Math.Abs(Vector2.Distance(eyeOrigin, flower.Eye.LocalToNode(Vector2.UnitX, game.Builder.GameRoot)) - expectedScale) < 0.001f
+                    && Math.Abs(Vector2.Distance(eyeOrigin, flower.Eye.LocalToNode(Vector2.UnitY, game.Builder.GameRoot)) - expectedScale) < 0.001f,
+                    "The flower eye inherited the mouth scale a second time.");
             }
         }
 
