@@ -38,7 +38,26 @@ namespace ContreJour.Regression
                 Check(ReferenceEquals(particle.Texture, particleData.Texture)
                     && particleData.TextureRect.Equals((Rectangle)TileRectangle.Invoke(particle, null)),
                     "New Friend ambient particles did not use the themed atlas frame.");
+                GravityParticle falling = (GravityParticle)particle;
+                Check(falling.Speed.X < 0f && falling.Speed.Y < 0f,
+                    "Valentine particles did not drift left and down after reflecting web Y.");
+                Check(Math.Abs(falling.Speed.Length() - (20f * falling.Scale)) < 0.00001f,
+                    "Valentine particle speed did not match the source's twenty-times-scale formula.");
+                Check(Math.Abs(falling.AngularSpeed) <= float.RadiansToDegrees(0.1f),
+                    "Valentine particle angular speed exceeded the source's .1-radian range.");
             }
+            Vector2 levelSize = game.LevelSize;
+            Check(backgroundParticles.BottomLeftBound == new Vector2(0f, -20f)
+                && backgroundParticles.TopRightBound == new Vector2(levelSize.X + 20f, levelSize.Y),
+                "Valentine particles did not use the authored world's reflected recycling bounds.");
+            GravityParticle recycled = (GravityParticle)backgroundParticles.Particles[0];
+            recycled.Position = new Vector2(-1f, levelSize.Y / 2f);
+            backgroundParticles.UpdateParticleTime(recycled, 0f);
+            Check(recycled.Position.Y == levelSize.Y && recycled.Position.X >= 0f && recycled.Position.X <= levelSize.X,
+                "Valentine particles did not respawn along the source's top edge.");
+            Check(recycled.Speed.X < 0f && recycled.Speed.Y < 0f
+                && Math.Abs(recycled.Speed.Length() - (20f * recycled.Scale)) < 0.00001f,
+                "Recycled Valentine particles lost their source motion settings.");
             HashSet<BodyClip> checkedClips = [];
             foreach (Body body in game.Builder.World.BodyList)
             {

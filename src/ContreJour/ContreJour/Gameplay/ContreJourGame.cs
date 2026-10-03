@@ -23,7 +23,6 @@ using Mokus2D.Util.MathUtils;
 using Mokus2D.Util.Schedule;
 using Mokus2D.Visual;
 using Mokus2D.Visual.Interactive;
-using Mokus2D.Visual.Particles.Util;
 using Mokus2D.Visual.Util;
 
 namespace ContreJour.Gameplay
@@ -897,13 +896,7 @@ namespace ContreJour.Gameplay
                 }
                 else
                 {
-                    // The web's New Friend theme uses ValentineFall settings.
-                    // Convert its normalized opacity to DX's byte range.
-                    particles = NewFriendChapter ? new BlackFall("newFriend/McParticle_7")
-                    {
-                        ParticlesScale = new RandomRange(0.5f, 0.2f),
-                        StartOpacity = new RandomRange(0.5f, 0.2f) * 255f
-                    } : new BlackFall();
+                    particles = NewFriendChapter ? new ValentineFall(LevelSize) : new BlackFall();
                     Builder.Add(particles, -2);
                     particles.CreateBetweenBounds(NewFriendChapter ? 25 : 40);
                 }
