@@ -69,15 +69,16 @@ namespace ContreJour.Gameplay
             // The touch dispatcher queries physics fixtures; expose the tip as a draggable target.
             _ = new TailTouchClip(this);
             tailSprite = new BaloonTailSprite(Tail, builder);
-            Clip.AddChild(tailSprite);
             baloonFur = CreateFur();
             baloonFur.RotationRadians = baloonFur.AngleStep / 2f;
             baloonFur.Visible = false;
             Clip.AddChild(new Sprite("newFriend/McBaloonLegs") { Scale = 1.05f });
+            // Match the web draw order: fur, legs, tail, then the eye.
+            Clip.AddChild(tailSprite);
             eye = new HeroEye(Game) { Scale = 0.7f };
             Clip.AddChild(eye);
             portal = new Portal(Game, Clip.Position) { ItemsScale = 0f, ScaleStep = 0.1f };
-            builder.AddChildBefore(portal, Clip);
+            builder.Add(portal, 8);
             Game.Amie = this;
             Game.AddPositionProvider(new PositionProviderValue(this, 2f));
             Respawn();
@@ -232,6 +233,8 @@ namespace ContreJour.Gameplay
 
         public void Respawn()
         {
+            // The web game overrides the authored zIndex on every respawn.
+            Builder.ChangeChildLayer(Clip, 9);
             respawnScheduled = false;
             StopRespawnActions();
             Clip.Tweener.Stop();

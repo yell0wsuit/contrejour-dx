@@ -18,6 +18,9 @@ namespace ContreJour.Regression
         public static void Run(ContreJourGame game, Action<float> tick)
         {
             BaloonBodyClip amie = game.Amie ?? throw new InvalidOperationException("New Friend companion was not constructed.");
+            Check(amie.Clip.Layer == 9, "Amie did not use the web companion layer below Petit and above snot.");
+            Check(amie.Clip.Children[^2] is BaloonTailSprite && amie.Clip.Children[^1] is HeroEye,
+                "Companion tail did not draw after the legs and before the eye, as in the web game.");
             HeroBodyClip primaryHero = game.Hero;
             World world = game.Builder.World;
             Dictionary<Body, bool> enabled = [];
@@ -86,6 +89,7 @@ namespace ContreJour.Regression
 
                 amie.Restart();
                 Step(LifecycleTick, 15);
+                Check(amie.Clip.Layer == 9, "Companion respawn did not restore its drawing layer.");
                 Check(Vector2.Distance(amie.Body.Position, amie.SpawnPosition) < 0.001f, "Companion restart did not restore the authored spawn position.");
                 Check(amie.Clip.Visible && amie.Tail.Visible, "Companion restart did not restore its body and tail visibility.");
                 // Restart again while the previous portal/scale callbacks are pending.

@@ -1,3 +1,4 @@
+using Mokus2D.Graphics;
 using Mokus2D.Visual;
 using Mokus2D.Visual.Text;
 
@@ -18,7 +19,7 @@ namespace ContreJour.Gameplay
                 if (child is Label label)
                 {
                     label.Scale /= 1.4f;
-                    label.Color = ContreJourConstants.NewFriendColor;
+                    label.Color = Color.Black;
                 }
             }
         }
