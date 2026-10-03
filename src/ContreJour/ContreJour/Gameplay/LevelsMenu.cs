@@ -12,7 +12,6 @@ using Mokus2D.Util;
 using Mokus2D.Util.Extensions;
 using Mokus2D.Visual;
 using Mokus2D.Visual.Interactive;
-using Mokus2D.Visual.Text;
 
 namespace ContreJour.Gameplay
 {
@@ -27,7 +26,6 @@ namespace ContreJour.Gameplay
         public static readonly Vector2 BorderOffset = new(200f, 220f);
 
         private static readonly Vector2 GetMorePosition = new(0f, -120f);
-        private readonly float RowOffset = 120f;
 
         public static readonly int[,] LEVELS = new int[6, 20]
         {
@@ -52,8 +50,8 @@ namespace ContreJour.Gameplay
                 151, 146, 128, 150, 154, 123, 156, 168, 155, 134
             },
             {
-                188, 171, 170, 172, 190, 196, 191, 176, 186, 174,
-                194, 178, 195, 182, 189, 197, 198, 183, 179, 199
+                300, 301, 302, 303, 304, 305, 306, 307, 308, 309,
+                -1, -1, -1, -1, -1, -1, -1, -1, -1, -1
             }
         };
 
@@ -63,7 +61,7 @@ namespace ContreJour.Gameplay
 
         private Vector2 initialPosition;
 
-        private readonly Sprite adsButton;
+        private readonly TouchSprite adsButton;
 
         private Vector2 adsButtonPosition;
 
@@ -76,7 +74,10 @@ namespace ContreJour.Gameplay
             }
         }
 
-        private static int LockedRows => Constants.NormalChaptersCount - UserData.Instance.UnlockedChapters;
+        public static int GetLevelCount(int chapter)
+        {
+            return chapter == Constants.NewFriendChapter ? 10 : Constants.LevelsInChapter;
+        }
 
         public static List<List<int>> LevelsList
         {
@@ -87,7 +88,7 @@ namespace ContreJour.Gameplay
                     for (int i = 0; i < Constants.ChaptersCount; i++)
                     {
                         field.Add([]);
-                        for (int j = 0; j < 20; j++)
+                        for (int j = 0; j < GetLevelCount(i); j++)
                         {
                             field[i].Add(LEVELS[i, j]);
                         }
@@ -108,21 +109,22 @@ namespace ContreJour.Gameplay
             Vector2 bORDER_OFFSET_IPHONE = BorderOffsetIphone;
             Vector2 vector = new Vector2(bORDER_OFFSET_IPHONE.X, w7FromIPhoneSize.Y - bORDER_OFFSET_IPHONE.Y) - ScreenConstants.W7FromIPhoneScreenCenter;
             Vector2 vector2 = new((w7FromIPhoneSize.X - (bORDER_OFFSET_IPHONE.X * 2f)) / (COLUMNS - 1), (w7FromIPhoneSize.Y - (bORDER_OFFSET_IPHONE.Y * 2f)) / (ROWS - 1));
+            if (chapter == Constants.NewFriendChapter)
+            {
+                int rows = (list.Count + COLUMNS - 1) / COLUMNS;
+                vector.Y = vector2.Y * (rows - 1) / 2f;
+            }
             if (!Constants.IsTrial && UserData.Instance.LastLevelOpen && chapter == 4)
             {
                 vector = CreateRoseButton(vector, w7FromIPhoneSize, bORDER_OFFSET_IPHONE);
             }
-            bool flag = chapter == 5;
-            for (int i = 0; i < 20; i++)
+            bool flag = chapter == Constants.NewFriendChapter;
+            for (int i = 0; i < list.Count; i++)
             {
                 int level = list[i];
                 LevelPosition levelPosition = GetLevelPosition(level);
                 bool flag2 = UserData.Instance.GetUnlockedLevels(levelPosition.Chapter) >= levelPosition.Index;
                 bool flag3 = Constants.IsTrial && i >= 10;
-                if (flag)
-                {
-                    flag3 = i >= (ROWS - LockedRows) * COLUMNS;
-                }
                 LevelItem levelItem = new(level, flag2 && !flag3, flag3)
                 {
                     RealScale = 1.0925f
@@ -132,32 +134,13 @@ namespace ContreJour.Gameplay
                 levelItem.TouchEndEvent += OnLevelClick;
                 if (flag)
                 {
-                    levelItem.Color = ContreJourConstants.GreenLightColor.LerpToWhite(0.5f);
+                    levelItem.Color = ContreJourConstants.NewFriendColor.LerpToWhite(0.5f);
                 }
             }
             if (Constants.IsTrial)
             {
                 adsButton = CreateGetMoreButton(chapter);
             }
-            else if (flag && LockedRows > 0)
-            {
-                adsButton = CreateUnlockButton();
-            }
-        }
-
-        private Sprite CreateUnlockButton()
-        {
-            adsButtonPosition = new Vector2(0f, (0f - RowOffset) / 2f * (4 - LockedRows));
-            Sprite sprite = new("McGetMoreLevelsButton");
-            AddChild(sprite);
-            sprite.Position = adsButtonPosition;
-            sprite.Scale = 1.45f;
-            sprite.Color = ContreJourConstants.GreenLightColor;
-            Label label = ContreJourLabelUtil.CreateLabel(20f, "COMPLETE_MORE_CHAPTERS");
-            label.Scale *= 0.75f;
-            sprite.AddChild(label);
-            label.Y = 6f;
-            return sprite;
         }
 
         public void Show()

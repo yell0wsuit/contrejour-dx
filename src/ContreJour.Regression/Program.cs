@@ -19,6 +19,9 @@ namespace ContreJour.Regression
     // Set CJ_REGRESSION_TRACE=<file> to also dump every recorded frame's bodies and nodes.
     // Set CJ_REGRESSION_OLD_SAVE=<save file> to also check that an older save still loads the same.
     // Set CJ_REGRESSION_PIXELS=<folder> to also save every captured frame there as a PNG.
+    // Set CJ_REGRESSION_SIZE=<width>x<height> to check a different viewport.
+    // Set CJ_REGRESSION_NEW_FRIEND_INTERACTIONS=1 to exercise companion input and lifecycle in level300.
+    // Set CJ_REGRESSION_CONTENT_ROOT=<desktop output directory> to check that build's deployed assets.
     //
     // Outputs are only comparable on the same machine: math library results can differ across OS/CPU.
     public static class Program
@@ -43,7 +46,7 @@ namespace ContreJour.Regression
             }
 
             // Content paths are relative to the install folder, as in the game.
-            Environment.CurrentDirectory = AppContext.BaseDirectory;
+            Environment.CurrentDirectory = Environment.GetEnvironmentVariable("CJ_REGRESSION_CONTENT_ROOT") ?? AppContext.BaseDirectory;
 
             // Start from a fresh save every run, and never touch the player's real one.
             string dataDirectory = Path.Combine(Path.GetTempPath(), "ContreJourRegression");

@@ -12,6 +12,8 @@ namespace ContreJour.Gameplay
             return clipType switch
             {
                 null => new BodyClip(builder, physics, clip, config),
+                "AmieHint" => new AmieHint((ContreJourLevelBuilder)builder, physics, (Sprite)clip, config),
+                "BaloonBodyClip" => new BaloonBodyClip(builder, physics, clip, config),
                 "AlphaForeground" => new AlphaForeground((ContreJourLevelBuilder)builder, physics, clip, config),
                 "BackSnotBodyClip" => new BackSnotBodyClip(builder, (SnotData)physics, clip, config),
                 "BridgeHideHint" => new BridgeHideHint((ContreJourLevelBuilder)builder, physics, (Sprite)clip, config),

@@ -9,7 +9,6 @@ namespace ContreJour.Tests
     public class FactoryTests
     {
         [Theory]
-        [InlineData("BaloonBodyClip")]
         [InlineData("BridgeSnotBodyClip")]
         [InlineData("ColorBallBodyClip")]
         [InlineData("LampBodyClip")]

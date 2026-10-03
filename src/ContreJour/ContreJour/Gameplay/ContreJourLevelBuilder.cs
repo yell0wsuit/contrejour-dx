@@ -41,7 +41,10 @@ namespace ContreJour.Gameplay
 
         public override string GetViewType(Hashtable config)
         {
-            return ContreJour.BlackSide && config.Exists("blackViewType") ? config.GetString("blackViewType") : base.GetViewType(config);
+            string viewType = base.GetViewType(config);
+            return ContreJour.NewFriendChapter && viewType is not null && Content.ClipCatalog.Find(viewType + "_7") is not null
+                ? viewType + "_7"
+                : ContreJour.BlackSide && config.Exists("blackViewType") ? config.GetString("blackViewType") : viewType;
         }
 
         public override void Update(float time)

@@ -108,7 +108,13 @@ namespace ContreJour.Gameplay
             this.color = flag ? BlueLightColor : GreyColor;
             Color color = flag ? Color.Lerp(Color.White, BlueLightColor, 0.9f) : GreyColor;
             Color color2 = flag ? BlueLightColor : ColorUtil.Mult(GreyColor, 0.7f);
-            if (game.BonusChapter)
+            if (game.NewFriendChapter)
+            {
+                this.color = ContreJourConstants.NewFriendColor;
+                color = this.color;
+                color2 = this.color * 0.5f;
+            }
+            else if (game.BonusChapter)
             {
                 this.color = ContreJourConstants.GreenLightColor;
                 color = this.color;
@@ -211,6 +217,10 @@ namespace ContreJour.Gameplay
                 highlite.Color = BlueLightColor;
                 highlite.OpacityByte = 140;
             }
+            else if (game.NewFriendChapter)
+            {
+                highlite.Color = ContreJourConstants.NewFriendColor;
+            }
             else if (game.BonusChapter)
             {
                 highlite.Color = ContreJourConstants.GreenLightColor;
@@ -226,7 +236,11 @@ namespace ContreJour.Gameplay
             portal.Scale = 2f;
             portal.ScaleStep = 0.2f;
             _ = this.Schedule(0.5f, ShowPortal);
-            if (levelPosition.Chapter == 1)
+            if (game.NewFriendChapter)
+            {
+                hero.HotSpot.Color = ColorUtil.Mult(ContreJourConstants.NewFriendColor, 1.5f);
+            }
+            else if (levelPosition.Chapter == 1)
             {
                 hero.HotSpot.Color = ColorUtil.Mult(BlueLightColor, 1.5f);
             }

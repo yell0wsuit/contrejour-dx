@@ -12,6 +12,17 @@ namespace ContreJour.Regression
     {
         private bool _sizeLocked;
 
+        public HeadlessHost()
+        {
+            string size = Environment.GetEnvironmentVariable("CJ_REGRESSION_SIZE");
+            if (!string.IsNullOrEmpty(size))
+            {
+                string[] dimensions = size.Split('x');
+                Point bufferSize = new(int.Parse(dimensions[0], System.Globalization.CultureInfo.InvariantCulture), int.Parse(dimensions[1], System.Globalization.CultureInfo.InvariantCulture));
+                BackBufferSize = PreferredBackBufferSize = bufferSize;
+            }
+        }
+
         // Nothing outside the game ever resizes a headless back buffer.
         public event Action ClientSizeChanged
         {

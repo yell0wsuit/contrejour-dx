@@ -74,8 +74,6 @@ namespace ContreJour.Gameplay
 
         private static readonly Color GreyColor = ContreJourConstants.GreyColor;
 
-        private static readonly Color GreenColor = 12573952.ToRGBColor();
-
         private static readonly Color[] FontColors =
         [
             GreyColor,
@@ -83,7 +81,7 @@ namespace ContreJour.Gameplay
             ContreJourConditions.Trial(Color.Lerp(Color.White, BlueColor, 0.8f), GreyColor),
             GreyColor,
             GreyColor,
-            GreenColor
+            ContreJourConstants.NewFriendColor
         ];
 
         private static readonly Color[] BackColors = Constants.IsTrial ? [GreyColor, BlueColor, BlueColor] :
@@ -93,7 +91,7 @@ namespace ContreJour.Gameplay
             ContreJourConditions.Trial(BlueColor, GreyColor),
             ColorUtil.Mult(GreyColor, 0.5f),
             GreyColor,
-            GreenColor
+            ContreJourConstants.NewFriendColor
         ];
 
         private Vector2 namesPosition;
@@ -373,10 +371,11 @@ namespace ContreJour.Gameplay
                 "menu/McMenuBackground3",
                 "menu2/McChapter4MenuBackground",
                 "menu2/McChapter5MenuBackground",
+                "newFriend/McChapter5MenuBackground",
             ];
         }
 
-        private void OnChapterSelect(int chapter)
+        internal void OnChapterSelect(int chapter)
         {
             if (Constants.IsTrial && chapter == Constants.ChaptersCount)
             {
@@ -407,7 +406,7 @@ namespace ContreJour.Gameplay
         {
             int num = inChapter ? UserData.Instance.GetChapterStars(currentChapter) : UserData.Instance.TotalStars;
             int num2 = inChapter ? UserData.Instance.GetChapterScore(currentChapter) : UserData.Instance.TotalScore;
-            int num3 = inChapter ? 60 : (ContreJourConstants.LevelCount * 3);
+            int num3 = inChapter ? LevelsMenu.GetLevelCount(currentChapter) * 3 : (ContreJourConstants.LevelCount * 3);
             string textString = string.Format(CultureInfo.CurrentCulture, Messages.StarsAndScoreFormat, num, num3, num2);
             starsField.TextString = textString;
         }

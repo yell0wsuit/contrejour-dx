@@ -95,7 +95,6 @@ namespace ContreJour.Regression
 
         public override void Initialize(ApplicationController applicationController)
         {
-            applicationController.PrefferedBackBufferSize = new Mokus2D.Util.Data.Point(1280, 720);
             base.Initialize(applicationController);
             // The real cursor moves eyes and hover effects; keep it out of the recording.
             InputEnabled = false;
@@ -111,6 +110,7 @@ namespace ContreJour.Regression
                 }
                 catch (Exception e) when (_phase != Phase.Startup)
                 {
+                    Console.Error.WriteLine(e);
                     _error = $"EXCEPTION {e.GetType().Name}: {e.Message.ReplaceLineEndings(" ")}";
                     FinishItem();
                 }
@@ -224,6 +224,28 @@ namespace ContreJour.Regression
                     FinishItem();
                     return;
                 }
+                if (game.LevelIndex == 300 && Environment.GetEnvironmentVariable("CJ_REGRESSION_NEW_FRIEND_INTERACTIONS") == "1")
+                {
+                    NewFriendInteractionRegression.Run(game, base.Update);
+                }
+                if (game.LevelIndex == 300 && Environment.GetEnvironmentVariable("CJ_REGRESSION_PAUSE_PREVIEW") == "1")
+                {
+                    for (int frame = 0; frame < 60; frame++)
+                    {
+                        base.Update(TimeStep);
+                    }
+                    game.OnMenuPressed();
+                    for (int frame = 0; frame < SettleFrames; frame++)
+                    {
+                        base.Update(TimeStep);
+                    }
+                    _ = CapturePixels("paused");
+                    game.OnMenuPressed();
+                    for (int frame = 0; frame < SettleFrames; frame++)
+                    {
+                        base.Update(TimeStep);
+                    }
+                }
             }
             else
             {
@@ -234,7 +256,11 @@ namespace ContreJour.Regression
                     FinishItem();
                     return;
                 }
-                menu.ShowLevels();
+                menu.OnChapterSelect(_item.MenuChapter);
+                for (int frame = 0; frame < SettleFrames; frame++)
+                {
+                    base.Update(TimeStep);
+                }
             }
             _phase = Phase.Record;
             _frame = 0;

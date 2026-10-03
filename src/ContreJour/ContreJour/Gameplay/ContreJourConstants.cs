@@ -214,6 +214,8 @@ namespace ContreJour.Gameplay
 
         public static readonly Color BlueLightColor = 1721955.ToRGBColor();
 
+        public static readonly Color NewFriendColor = new(128, 108, 141);
+
         public static readonly Color GreenLightColor = 12253975.ToRGBColor();
 
         public static readonly Color GreenSnotStart = 12844819.ToRGBColor();
@@ -226,7 +228,7 @@ namespace ContreJour.Gameplay
 
         public static readonly Color WhiteLightColor = new(14f / 51f, 14f / 51f, 14f / 51f);
 
-        public static readonly int LevelCount = Constants.ChaptersCount * 20;
+        public static readonly int LevelCount = ((Constants.ChaptersCount - 1) * Constants.LevelsInChapter) + LevelsMenu.GetLevelCount(Constants.ChaptersCount - 1);
 
         public static readonly string[] AppUrls = ["http://itunes.apple.com/app/id440693481", "http://itunes.apple.com/app/id444085845?mt=8"];
 

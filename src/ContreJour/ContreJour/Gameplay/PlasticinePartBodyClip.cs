@@ -382,7 +382,7 @@ namespace ContreJour.Gameplay
         {
             if (!builder.ContreJour.BlackSide)
             {
-                GrassController = builder.ContreJour.ChooseSide(
+                GrassController = builder.ContreJour.NewFriendChapter ? new WhiteGrassController(this) : builder.ContreJour.ChooseSide(
                     null,
                     () => new WhiteGrassController(this),
                     () => new WhiteGrassController(this),

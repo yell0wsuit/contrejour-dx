@@ -247,6 +247,7 @@ namespace ContreJour.Gameplay
 
         public void EatSpeedPauseScaleTime(Vector2 targetPosition, float finishSpeed, float pause, float scale, float time)
         {
+            Game.Amie?.ReleaseHero();
             eating = true;
             FailLevelSpeedPause(targetPosition, finishSpeed, pause);
             SetScaleTime(scale, time);
@@ -270,6 +271,7 @@ namespace ContreJour.Gameplay
 
         public void Restart()
         {
+            Game.Amie?.ReleaseHero();
             restarting = true;
             FinishEvent.SendEvent();
             restartOnEating = eating;
@@ -281,6 +283,7 @@ namespace ContreJour.Gameplay
 
         public void Explode()
         {
+            Game.Amie?.ReleaseHero();
             eating = true;
             UserData.Instance.Accupuncture++;
             SoundManager.PlayRandomSound(Sounds.DeathBySpikes, 0.7f);
@@ -797,6 +800,7 @@ namespace ContreJour.Gameplay
         public void CompleteLevelSpeed(Vector2 targetPosition, float finishSpeed)
         {
             LevelCompleted = true;
+            Game.Amie?.MarkLevelCompleted();
             FinishLevelSpeed(targetPosition, finishSpeed);
         }
 

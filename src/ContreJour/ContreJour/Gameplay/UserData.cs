@@ -31,7 +31,7 @@ namespace ContreJour.Gameplay
         private const string FeedMonsterKey = "STAT_FEED_MONSTER";
         private const string BlocksDestroyedKey = "STAT_BLOCKS_DESTROYED";
 
-        private static readonly int[] StarsToUnlockByChapter = [0, 30, 70, 120, 180];
+        private static readonly int[] StarsToUnlockByChapter = [0, 30, 70, 120, 180, 240];
         private static LevelPosition postponedLevel;
 
         public static UserData Instance
@@ -196,17 +196,17 @@ namespace ContreJour.Gameplay
 
         public int GetChapterStars(int chapter)
         {
-            return GetStarsEnd(chapter * 20, (chapter + 1) * 20);
+            return GetStarsEnd(chapter * 20, (chapter * 20) + LevelsMenu.GetLevelCount(chapter));
         }
 
         public int GetChapterScore(int chapter)
         {
-            return GetScoreEnd(chapter * 20, (chapter + 1) * 20);
+            return GetScoreEnd(chapter * 20, (chapter * 20) + LevelsMenu.GetLevelCount(chapter));
         }
 
         public bool GetCompleted(int chapter)
         {
-            for (int i = chapter * 20; i < (chapter + 1) * 20; i++)
+            for (int i = chapter * 20; i < (chapter * 20) + LevelsMenu.GetLevelCount(chapter); i++)
             {
                 if (GetLevelData(i) == null)
                 {
@@ -218,7 +218,7 @@ namespace ContreJour.Gameplay
 
         public bool GetPerfect(int chapter)
         {
-            for (int i = chapter * 20; i < (chapter + 1) * 20; i++)
+            for (int i = chapter * 20; i < (chapter * 20) + LevelsMenu.GetLevelCount(chapter); i++)
             {
                 LevelData levelData = GetLevelData(i);
                 if (levelData == null || levelData.StarsCount < 3)
@@ -300,9 +300,12 @@ namespace ContreJour.Gameplay
 
         public void CompleteAll()
         {
-            for (int i = 0; i < Constants.ChaptersCount * 20; i++)
+            for (int chapter = 0; chapter < Constants.ChaptersCount; chapter++)
             {
-                _ = CompleteLevel(new LevelPosition(i / 20, i % 20), 2, 100f);
+                for (int index = 0; index < LevelsMenu.GetLevelCount(chapter); index++)
+                {
+                    _ = CompleteLevel(new LevelPosition(chapter, index), 2, 100f);
+                }
             }
             XBoxUtil.AwardAchievement("blue_lantern");
             XBoxUtil.AwardAchievement("fast_perfect");

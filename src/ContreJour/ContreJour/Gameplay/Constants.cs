@@ -10,7 +10,9 @@ namespace ContreJour.Gameplay
 
         public const float PRECISION = 1E-10f;
 
-        public const int BonusChapter = 5;
+        public const int NewFriendChapter = 5;
+
+        public const int BonusChapter = 6;
 
         public const int BlueChapter = 1;
 
@@ -28,9 +30,9 @@ namespace ContreJour.Gameplay
 
         public const int KGameAutorotationUiViewController = 2;
 
-        public static readonly int ChaptersCount = IsTrial ? 2 : 5;
+        public static readonly int ChaptersCount = IsTrial ? 2 : 6;
 
-        public static readonly int NormalChaptersCount = IsTrial ? 2 : 5;
+        public static readonly int NormalChaptersCount = IsTrial ? 2 : 6;
 
         public static bool IsTrial => false;
 
