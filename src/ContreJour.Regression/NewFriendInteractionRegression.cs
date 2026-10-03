@@ -197,8 +197,14 @@ namespace ContreJour.Regression
 
                 amie.EatSpeedPauseScaleTime(amie.Body.Position + Vector2.UnitX, 0.5f, 1.3f, 0f, 0.2f);
                 Check(!amie.Body.Enabled && !amie.CanDie(), "Eating did not deactivate the companion and block further hazards.");
+                float timeBeforeEating = game.TotalTime;
                 Step(LifecycleTick, 200);
-                Check(amie.Body.Enabled && amie.Clip.Visible && amie.Tail.Visible && amie.Body.BodyType == BodyType.Dynamic, "Companion eating did not restart and respawn it.");
+                Check(!amie.Body.Enabled && amie.Clip.Scale == 0f && game.TotalTime > timeBeforeEating + 3f,
+                    "Eating Amie restarted the level instead of allowing Petit to continue.");
+                game.SoftRestart();
+                Step(LifecycleTick, 120);
+                Check(amie.Body.Enabled && amie.Clip.Visible && amie.Tail.Visible && amie.Body.BodyType == BodyType.Dynamic,
+                    "Manual restart did not restore the consumed companion.");
 
                 // The finish lifecycle must stop the companion from restarting a won level.
                 amie.MarkLevelCompleted();
@@ -251,7 +257,15 @@ namespace ContreJour.Regression
                 flowers[1].OnCollisionPoint(amie.Body, null);
                 amie.DestroyEvent.RemoveListener(OnDestroyed);
                 Check(repeatedDestruction == 0, "A second flower consumed Amie again.");
-                Console.WriteLine("New Friend flowers passed: attached consumption, Petit release, joint cleanup, duplicate guard.");
+                float timeBeforeEating = game.TotalTime;
+                for (int frame = 0; frame < 200; frame++)
+                {
+                    HoldHero(hero, center);
+                    tick(TimeStep);
+                }
+                Check(!amie.Body.Enabled && amie.Clip.Scale == 0f && game.TotalTime > timeBeforeEating + 3f,
+                    "Flower consumption restarted the level instead of allowing Petit to continue.");
+                Console.WriteLine("New Friend flowers passed: attached consumption, Petit release, joint cleanup, duplicate guard, continued gameplay.");
             }
             finally
             {

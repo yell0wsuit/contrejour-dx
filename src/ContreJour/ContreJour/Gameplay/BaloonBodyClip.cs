@@ -165,10 +165,6 @@ namespace ContreJour.Gameplay
             Body.LinearVelocity = Vector2.Zero;
             Body.SetSensor(true);
             SetScaleTime(scale, time);
-            if (!levelCompleted)
-            {
-                RequestRestart(pause);
-            }
         }
 
         public void Explode()
