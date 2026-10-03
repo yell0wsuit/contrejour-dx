@@ -240,6 +240,7 @@ namespace ContreJour.Gameplay
         {
             return chapter == Constants.NewFriendChapter
                 ? ContreJourConstants.NewFriendColor
+                : chapter == Constants.BonusChapter ? ContreJourConstants.GreenLightColor
                 : chapter == 1 ? ColorUtil.Mult(ContreJourConstants.BlueLightColor, 2f) : ContreJourConstants.GreyColor;
         }
 
