@@ -4,6 +4,7 @@ using System.Numerics;
 
 using ContreJour.Gameplay;
 using ContreJour.Gameplay.Eyes;
+using ContreJour.Menu.LevelComplete;
 
 using Mokus2D;
 using Mokus2D.Input;
@@ -75,6 +76,37 @@ namespace ContreJour.Regression
             game.OnMenuPressed();
             Step(tick, 60);
             Check(!game.Paused, "Mango did not resume after closing pause.");
+        }
+
+        public static void VerifyResultEye(FinishView finishView, Action<string> capture)
+        {
+            FakeHeroEye eye = Descendants(finishView).OfType<FakeHeroEye>().Single();
+            foreach (string animation in new[] { "McFakeHeroEyeBlink", "McFakeHeroEyeSmile" })
+            {
+                eye.SetEyeContent(new EyeAnimation(animation, lockX: true, lockY: true));
+                MovieClip background = (MovieClip)eye.CurrentBackground;
+                background.GotoAndStop(background.TotalFrames / 2);
+                background.Update(0f);
+                eye.Update(0f);
+                capture(animation);
+                Sprite pupil = Descendants(eye).OfType<Sprite>().Single(sprite => sprite != background);
+                Vector2 position = pupil.Position;
+                // Render outside the eyelid to check the mask against pixels, including animated views.
+                pupil.Position = new Vector2(0f, -100f);
+                byte[] withPupil = RegressionApplication.CaptureFrame().Pixels;
+                pupil.Visible = false;
+                byte[] withoutPupil = RegressionApplication.CaptureFrame().Pixels;
+                pupil.Visible = true;
+                pupil.Position = position;
+                Check(withPupil.SequenceEqual(withoutPupil), "The result-screen pupil draws outside its animated eyelid.");
+            }
+            eye.SetDefaultView();
+            Sprite openPupil = Descendants(eye).OfType<Sprite>().Single(sprite => sprite != eye.CurrentBackground);
+            byte[] openWithPupil = RegressionApplication.CaptureFrame().Pixels;
+            openPupil.Visible = false;
+            byte[] openWithoutPupil = RegressionApplication.CaptureFrame().Pixels;
+            openPupil.Visible = true;
+            Check(!openWithPupil.SequenceEqual(openWithoutPupil), "The result-screen mask hid the pupil in its open eye.");
         }
 
         private static void VerifyClosedHeroEye(ContreJourGame game, Action<string> capture)

@@ -8,6 +8,8 @@ namespace ContreJour.Menu.LevelComplete
 {
     public class FakeHeroEye : RandomAnimationEye
     {
+        protected override bool MaskEyeBall => true;
+
         protected override float ViewRadius => 12f;
 
         protected override EyeAnimation[] Animations => [];
