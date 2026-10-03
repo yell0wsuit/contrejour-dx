@@ -30,17 +30,16 @@ namespace ContreJour.Gameplay
         {
             this.first = first;
             this.game = game;
-            levelHeight = game.Builder.LevelSize.Y;
+            levelHeight = 640f; // The source shading canvas is always 960 by 640.
             int count = 0;
-            float top = float.NegativeInfinity;
-            float bottom = float.PositiveInfinity;
+            float top = 0f;
+            float bottom = levelHeight;
             PlasticineItem item = first;
             do
             {
                 Vector2 center = SurfacePoint(item, 0f);
-                Vector2 control = SurfacePoint(item, item.GetRightSurfacePositionLocal().X);
-                top = Math.Max(top, Math.Max(center.Y, control.Y));
-                bottom = Math.Min(bottom, Math.Min(center.Y, control.Y));
+                top = Math.Max(top, center.Y);
+                bottom = Math.Min(bottom, center.Y);
                 count++;
                 item = item.NextItem;
             }
@@ -61,7 +60,9 @@ namespace ContreJour.Gameplay
             float width = StrokeWidth * (Passes - pass) / Passes;
             float intensity = Math.Clamp(MathF.Floor(width * 6.5f * lightPower) / 255f, 0f, 1f);
             float shade = 1f - MathF.Cos(intensity * MathF.PI / 2f);
-            float gradient = Math.Clamp((y - dropOff + (height * 0.06f)) / (height * 0.12f), 0f, 1f);
+            float lower = Math.Max(0f, dropOff - (height * 0.06f));
+            float upper = Math.Min(height, dropOff + (height * 0.06f));
+            float gradient = Math.Clamp((y - lower) / (upper - lower), 0f, 1f);
             return new Color((byte)(MathF.Floor(254f * shade) * gradient), (byte)(MathF.Floor(127f * shade) * gradient), (byte)(MathF.Floor(40f * shade) * gradient));
         }
 

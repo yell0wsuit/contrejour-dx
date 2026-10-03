@@ -53,6 +53,7 @@ namespace ContreJour.Gameplay
         public bool DisableHeroFocus => false;
         public override Vector2 PositionVec => Linked ? Body.Position : Tail.End.Position;
         protected override string BaseTexture => "newFriend/McRotatorBase";
+        protected override bool WebFurMotion => true;
 
         public BaloonBodyClip(LevelBuilderBase builder, object body, Node clip, Hashtable config)
             : base(builder, body, clip, config)
@@ -70,7 +71,10 @@ namespace ContreJour.Gameplay
             _ = new TailTouchClip(this);
             tailSprite = new BaloonTailSprite(Tail, builder);
             baloonFur = CreateFur();
-            baloonFur.RotationRadians = baloonFur.AngleStep / 2f;
+            GrassSystem.IgnoreParentOpacity = true;
+            baloonFur.IgnoreParentOpacity = true;
+            // Web FurCircle.draw ignores its rotation property and draws the
+            // particle transforms directly; preserve that visible behavior.
             baloonFur.Visible = false;
             Clip.AddChild(new Sprite("newFriend/McBaloonLegs") { Scale = 1.05f });
             // Match the web draw order: fur, legs, tail, then the eye.
@@ -297,7 +301,6 @@ namespace ContreJour.Gameplay
         private void FinishRespawn()
         {
             Body.BodyType = BodyType.Dynamic;
-            Body.Mass = 0.659745f;
             RefreshDamping();
             Schedule(HidePortal, 0.2f);
         }
@@ -498,7 +501,6 @@ namespace ContreJour.Gameplay
             {
                 eye.SetVelocity(Body.LinearVelocity);
             }
-            eye.Update(time);
             if (touch != null)
             {
                 Vector2 target = Builder.TouchRootVec(touch);
@@ -527,9 +529,7 @@ namespace ContreJour.Gameplay
                 }
                 Body.LinearVelocity = velocity;
                 upForce = Maths.StepTo(upForce, LiftAcceleration(SnotJoinedCount + Game.Hero.SnotJoinedCount, Body.Position.Y, worldSize.Y, ceilingZone > 70f / 30f), 2f);
-                // DX runs two half physics steps and clears forces after each one. Clip forces
-                // reach only the first half step, so double them to preserve the web acceleration.
-                Body.ApplyForce(new Vector2(0f, 2f * upForce * Body.Mass));
+                Body.ApplyForce(new Vector2(0f, upForce * Body.Mass));
             }
             if (!exploding)
             {
@@ -537,10 +537,12 @@ namespace ContreJour.Gameplay
                 GrassSystem.Radius = radius;
                 baloonFur.Radius = radius;
                 baloonFur.Visible = radius > 13f;
-                baloonFur.OpacityFloat = (radius - 13f) / 13f;
                 eye.Scale = 0.7f + (0.35f * ((radius - 13f) / 13f));
                 SetBaseWidth((2f * radius) + 4f);
             }
+            float furOpacity = Math.Max(0f, 1f - (1.25f * (1f - Clip.OpacityFloat)));
+            GrassSystem.OpacityFloat = furOpacity;
+            baloonFur.OpacityFloat = (GrassSystem.Radius - 13f) / 13f * furOpacity;
             if (Body.Position.Y < -50f / 30f)
             {
                 RequestRestart(0f);
@@ -562,8 +564,8 @@ namespace ContreJour.Gameplay
                 if (heroTimer >= 1.5f)
                 {
                     Vector2 force = new(difference.X * (distance - 1f) * 40f, 0f);
-                    Body.ApplyForce(force * 2f);
-                    Game.Hero.Body.ApplyForce(force * -2f);
+                    Body.ApplyForce(force);
+                    Game.Hero.Body.ApplyForce(-force);
                     heroTimer = 0f;
                 }
             }

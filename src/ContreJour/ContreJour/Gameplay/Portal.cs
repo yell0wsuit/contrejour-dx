@@ -75,7 +75,10 @@ namespace ContreJour.Gameplay
                 Satellite item = new(game, AddParticle(), null, (float)Math.PI * 2f / 5f * i, position);
                 Parts.Add(item);
             }
-            SpeedValue = 40f;
+            if (!game.NewFriendChapter)
+            {
+                SpeedValue = 40f;
+            }
             itemsScale = 1f;
             targetScale = 2f;
         }

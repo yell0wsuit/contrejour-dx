@@ -9,6 +9,7 @@ namespace ContreJour.Gameplay
         private readonly CosChanger rotationChanger;
         private float initialDegrees;
         private float currentContactAngle;
+        private readonly bool webMotion;
 
         public float InitialAngle
         {
@@ -24,8 +25,9 @@ namespace ContreJour.Gameplay
 
         public Particle Particle { get; set; }
 
-        public RotatorGrass(Particle particle)
+        public RotatorGrass(Particle particle, bool webMotion = false)
         {
+            this.webMotion = webMotion;
             rotationChanger = new CosChanger(-15f, 15f, Maths.Random(0.005f, 0.01f))
             {
                 Progress = Maths.Random(0f, (float)Math.PI * 2f)
@@ -37,10 +39,11 @@ namespace ContreJour.Gameplay
 
         public void UpdateAngle(float time, float angle)
         {
-            rotationChanger.Update(time);
+            rotationChanger.Update(webMotion ? time * 30f : time);
             currentContactAngle = Math.Abs(currentContactAngle) > Math.Abs(ContactAngle) ? Maths.StepTo(currentContactAngle, ContactAngle, 0.05f) : ContactAngle;
             float num = initialDegrees + angle + rotationChanger.Value + float.RadiansToDegrees(currentContactAngle);
-            float maxStep = Math.Min(Math.Abs(Particle.RotationDegrees - num) / 7f, 3f);
+            float difference = Math.Abs(Particle.RotationDegrees - num);
+            float maxStep = Math.Min(webMotion ? float.RadiansToDegrees(difference / 7f) : difference / 7f, 3f);
             Particle.RotationDegrees = Maths.StepTo(Particle.RotationDegrees, num, maxStep);
         }
     }

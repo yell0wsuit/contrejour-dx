@@ -375,7 +375,7 @@ namespace ContreJour.Gameplay
         public override void LoadLevel(string levelName)
         {
             base.LoadLevel(levelName);
-            Builder.PhysicsSpeed = NewFriendChapter ? 1f : 1.2f;
+            Builder.PhysicsSpeed = 1.2f;
         }
 
         public override void ProcessLevel(Level level)

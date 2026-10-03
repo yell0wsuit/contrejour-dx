@@ -9,6 +9,14 @@ namespace ContreJour.Tests
     public class NewFriendGroundTests
     {
         [Fact]
+        public void FloorGradientClampsItsStopsAtTheCanvasEdgeBeforeInterpolating()
+        {
+            Assert.Equal(Color.Black, NewFriendGroundBorder.StrokeColor(0, 0f, 0f, 640f, 1f));
+            Assert.Equal(new Color(110, 55, 17), NewFriendGroundBorder.StrokeColor(0, 19.2f, 0f, 640f, 1f));
+            Assert.Equal(new Color(221, 110, 34), NewFriendGroundBorder.StrokeColor(0, 38.4f, 0f, 640f, 1f));
+        }
+
+        [Fact]
         public void GrassSitsAboveTheWebSurfaceByTheAuthoredShadingOffset()
         {
             Assert.Equal(1f / 12f, NewFriendGroundBorder.SurfaceOffset);

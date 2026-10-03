@@ -1,12 +1,18 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
+using System.Reflection;
 
 using ContreJour.Gameplay;
 
 using FarseerPhysics.Dynamics;
 
 using Mokus2D.Input;
+using Mokus2D;
+using Mokus2D.Visual;
+using Mokus2D.Visual.Interfaces;
+using Mokus2D.Util.Data;
 using Mokus2D.PlatformSupport.Input;
 
 namespace ContreJour.Regression
@@ -14,10 +20,41 @@ namespace ContreJour.Regression
     internal static class NewFriendInteractionRegression
     {
         private const float TimeStep = 1f / 60f;
+        private static readonly MethodInfo TileRectangle = typeof(Sprite).GetMethod("GetTileRectangle", BindingFlags.Instance | BindingFlags.NonPublic);
+
+        public static void VerifyAssets(ContreJourGame game)
+        {
+            HashSet<BodyClip> checkedClips = [];
+            foreach (Body body in game.Builder.World.BodyList)
+            {
+                if (body.UserData is not BodyClip clip || !checkedClips.Add(clip))
+                {
+                    continue;
+                }
+                if (clip is SimpleSpikesBodyClip && clip.Config.GetString("viewType").Contains("Circle"))
+                {
+                    IMovieClipData expected = Mokus2DGame.LoadMovieClipData("newFriend/McCircleSpikesView_7");
+                    Check(clip.Clip is Sprite sprite && ReferenceEquals(sprite.Texture, expected.Texture)
+                        && expected.Frames.Any(frame => frame.Rect.Equals((Rectangle)TileRectangle.Invoke(sprite, null))),
+                        "Circle spikes did not use the exact themed atlas frames.");
+                }
+                if (clip is DragableBodyClip)
+                {
+                    string texture = clip is RoundDragBodyClip ? "newFriend/McRoundDragView_7" : "newFriend/McDragView_7";
+                    ISpriteData expected = Mokus2DGame.LoadSpriteData(texture);
+                    Check(clip.Clip is Sprite sprite && ReferenceEquals(sprite.Texture, expected.Texture)
+                        && expected.TextureRect.Equals((Rectangle)TileRectangle.Invoke(sprite, null)),
+                        "Drag handle did not use the exact themed atlas frame.");
+                }
+            }
+        }
 
         public static void Run(ContreJourGame game, Action<float> tick)
         {
             BaloonBodyClip amie = game.Amie ?? throw new InvalidOperationException("New Friend companion was not constructed.");
+            Check(game.Builder.PhysicsSpeed == 1.2f && FarseerPhysics.Settings.VelocityIterations == 16,
+                "New Friend did not use the web physics speed and solver iterations.");
+            Check(FarseerPhysics.Settings.ContinuousPhysics, "New Friend did not enable continuous physics as the source does.");
             Check(amie.Clip.Layer == 9, "Amie did not use the web companion layer below Petit and above snot.");
             Check(amie.Clip.Children[^2] is BaloonTailSprite && amie.Clip.Children[^1] is HeroEye,
                 "Companion tail did not draw after the legs and before the eye, as in the web game.");
@@ -36,6 +73,17 @@ namespace ContreJour.Regression
             }
             try
             {
+                // Check the actual builder integration, including long-frame
+                // clamping and force clearing, with an isolated dynamic body.
+                Body probe = world.CreateCircle(0.1f, new Vector2(1000f, 1000f), density: 1f, dynamic: true);
+                probe.SetSensor(true);
+                world.ProcessChanges();
+                probe.ApplyForce(new Vector2(0f, probe.Mass * 20f));
+                game.Builder.Update(0.1f);
+                Check(Math.Abs(probe.LinearVelocity.Y - 0.48f) < 0.00001f,
+                    "Source single-step integration did not preserve the full applied force at min(delta,.04)*1.2.");
+                world.RemoveBody(probe);
+                world.ProcessChanges();
                 Vector2 center = game.Builder.ToVec(game.LevelSize) / 2f;
                 PlaceCharacters(amie, primaryHero, center);
                 Touch drag = TouchAt(game, amie.Tail.End.Position, 7001);
@@ -98,6 +146,13 @@ namespace ContreJour.Regression
                 Check(amie.Body.BodyType == BodyType.Static, "A stale respawn callback activated the companion before its new spawn animation finished.");
                 Step(LifecycleTick, 20);
                 Check(amie.Body.BodyType == BodyType.Dynamic && amie.Clip.Scale > 0.99f, "Companion respawn did not restore an active full-size body.");
+                float fixtureMass = 0f;
+                foreach (Fixture fixture in amie.Body.FixtureList)
+                {
+                    fixtureMass += fixture.Shape.MassData.Mass;
+                }
+                Check(Math.Abs(amie.Body.Mass - fixtureMass) < 0.00001f, "Companion respawn overrode the source fixture-derived mass.");
+
 
                 amie.Explode();
                 Step(LifecycleTick, 45);

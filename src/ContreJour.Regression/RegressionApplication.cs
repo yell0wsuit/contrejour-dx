@@ -224,6 +224,10 @@ namespace ContreJour.Regression
                     FinishItem();
                     return;
                 }
+                if (game.NewFriendChapter)
+                {
+                    NewFriendInteractionRegression.VerifyAssets(game);
+                }
                 if (game.LevelIndex == 300 && Environment.GetEnvironmentVariable("CJ_REGRESSION_NEW_FRIEND_INTERACTIONS") == "1")
                 {
                     NewFriendInteractionRegression.Run(game, base.Update);

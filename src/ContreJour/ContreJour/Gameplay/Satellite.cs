@@ -31,7 +31,7 @@ namespace ContreJour.Gameplay
             initialPosition = position;
             Clip = clip;
             SpeedValue = Maths.Random(15f, 25f) * 2f;
-            AngleStep = Maths.Random(0.18f, 0.28f);
+            AngleStep = game?.NewFriendChapter == true ? Maths.Random(0.12f, 0.2f) : Maths.Random(0.18f, 0.28f);
             this.direction = direction;
             Clip.Position = position;
             if (game != null)

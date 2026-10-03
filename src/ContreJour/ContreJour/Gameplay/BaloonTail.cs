@@ -29,6 +29,8 @@ namespace ContreJour.Gameplay
         private float lastOnGroundTime;
         private float phase = Maths.Random(0f, MathF.PI);
         private float amplitude = 1f;
+        private float oscillatorAmplitude = 1f;
+        private bool limitAngles;
         private float timeCoeff;
 
         public Body Start { get; }
@@ -71,9 +73,7 @@ namespace ContreJour.Gameplay
                 Start.Position = baloon.Position;
                 linkedJoint = FarseerUtil.CreateRevoluteJoint(world, baloon, Start, Start.Position);
                 Start.BodyType = BodyType.Dynamic;
-                Middle.BodyType = BodyType.Dynamic;
                 End.BodyType = BodyType.Dynamic;
-                Springing = false;
                 targetLength = FullLength * 2f / 3f;
             }
             else
@@ -95,18 +95,12 @@ namespace ContreJour.Gameplay
             {
                 Dragging = value;
                 SpringTail(totalTime);
-                if (Dragging)
-                {
-                    End.BodyType = BodyType.Kinematic;
-                    Springing = false;
-                }
             }
         }
 
         public void SetPositions(Vector2 position)
         {
             Start.Position = Middle.Position = End.Position = position;
-            Start.LinearVelocity = Middle.LinearVelocity = End.LinearVelocity = Vector2.Zero;
         }
 
         public void SpringTail(float totalTime)
@@ -141,7 +135,7 @@ namespace ContreJour.Gameplay
             amplitude = Maths.StepTo(amplitude, 1f - (timeCoeff / 20f), 0.01f);
             float angle = speed > 0.2f ? MathF.Atan2(Start.LinearVelocity.Y, Start.LinearVelocity.X) + MathF.PI : MathF.PI / 2f;
             angle = angle.SimplifyAngle(-MathF.PI / 2f);
-            if (totalTime - lastOnGroundTime < 0.3f)
+            if (limitAngles)
             {
                 angle = Maths.Clamp(angle, MathF.PI / 6f, MathF.PI * 5f / 6f);
             }
@@ -151,14 +145,16 @@ namespace ContreJour.Gameplay
             targetEnd = StepVector(targetEnd, neededEnd, step);
             Vector2 perpendicular = VectorUtil.ToVector(7f / 30f, MathF.Atan2(targetEnd.Y, targetEnd.X) - (MathF.PI / 2f));
             // Preserve CosChanger's biased amplitude interpolation, reflected into DX's Y axis.
-            middleFawn = perpendicular * ((amplitude * (1f + MathF.Cos(phase + (MathF.PI / 2f)))) - 1f);
-            endFawn = perpendicular * ((amplitude * (1f + MathF.Cos(phase))) - 1f);
+            middleFawn = perpendicular * ((oscillatorAmplitude * (1f + MathF.Cos(phase + (MathF.PI / 2f)))) - 1f);
+            endFawn = perpendicular * ((oscillatorAmplitude * (1f + MathF.Cos(phase))) - 1f);
+            oscillatorAmplitude = amplitude;
             middleJoint.Length = Maths.StepTo(middleJoint.Length, targetLength * FirstLength / FullLength, 0.05f);
             endJoint.Length = Maths.StepTo(endJoint.Length, targetLength * SecondLength / FullLength, 0.05f);
             if (Linked)
             {
                 return;
             }
+            limitAngles = totalTime - lastOnGroundTime < 0.3f;
             Start.SetTransform(baloon.Position, baloon.Rotation);
             Start.LinearVelocity = baloon.LinearVelocity;
             if (Springing)
@@ -172,7 +168,6 @@ namespace ContreJour.Gameplay
                 {
                     Springing = false;
                     End.BodyType = BodyType.Kinematic;
-                    End.LinearVelocity = Vector2.Zero;
                     targetMiddle = Middle.Position - Start.Position;
                     targetEnd = End.Position - Start.Position;
                     amplitude = 0f;
@@ -186,7 +181,6 @@ namespace ContreJour.Gameplay
             {
                 End.SetTransform(Start.Position + targetEnd + endFawn, 0f);
                 Middle.SetTransform(Start.Position + targetMiddle + middleFawn, 0f);
-                End.LinearVelocity = Vector2.Zero;
             }
         }
 

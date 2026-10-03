@@ -24,6 +24,7 @@ namespace ContreJour.Gameplay
         private readonly Sprite baseSprite;
 
         protected virtual string BaseTexture => ClipIds.Chapter5.McRotatorBase;
+        protected virtual bool WebFurMotion => false;
 
         public FurBodyClip(LevelBuilderBase builder, object body, Node clip, Hashtable config)
             : base(builder, body, clip, config)
@@ -69,8 +70,11 @@ namespace ContreJour.Gameplay
         public override void Update(float time)
         {
             base.Update(time);
-            float angle = 0f - Maths.Clamp(Body.AngularVelocity * 10f, -65f, 65f);
-            UpdateContactAngles();
+            float angle = WebFurMotion ? 0f : 0f - Maths.Clamp(Body.AngularVelocity * 10f, -65f, 65f);
+            if (!WebFurMotion)
+            {
+                UpdateContactAngles();
+            }
             foreach (RotatorGrass item in grass)
             {
                 item.UpdateAngle(time, angle);
@@ -115,7 +119,7 @@ namespace ContreJour.Gameplay
         {
             for (int i = 0; i < GrassCount(); i++)
             {
-                RotatorGrass rotatorGrass = new(GrassSystem.Particles[i])
+                RotatorGrass rotatorGrass = new(GrassSystem.Particles[i], WebFurMotion)
                 {
                     InitialAngle = GrassSystem.GetItemAngle(i)
                 };

@@ -21,12 +21,14 @@ namespace ContreJour.Gameplay
 
         protected override string ReplaceClipName(ContreJourLevelBuilder builder)
         {
-            return builder.ContreJour.ChooseSide(null, "McRoundDragViewWhite", "McRoundDragView_5", null);
+            return builder.ContreJour.NewFriendChapter ? "McRoundDragView_7"
+                : builder.ContreJour.ChooseSide(null, "McRoundDragViewWhite", "McRoundDragView_5", null);
         }
 
         protected override void CreateBoundsClip(float scale)
         {
-            middleSprite = new Sprite(ClipIds.Common.McRoundDragFrameView);
+            middleSprite = new Sprite(((ContreJourGame)Builder.Game).NewFriendChapter
+                ? "newFriend/McRoundDragFrameView_7" : ClipIds.Common.McRoundDragFrameView);
             radius = 200f * scale * Builder.EngineConfig.SizeMultiplier / 2f;
             middleSprite.Scale = scale * 200f / 200f;
             middleSprite.Position = Clip.Position;
