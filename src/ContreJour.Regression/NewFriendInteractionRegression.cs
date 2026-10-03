@@ -49,7 +49,7 @@ namespace ContreJour.Regression
             }
         }
 
-        public static void Run(ContreJourGame game, Action<float> tick)
+        public static void Run(ContreJourGame game, Action<float> tick, Action<string> capture = null)
         {
             BaloonBodyClip amie = game.Amie ?? throw new InvalidOperationException("New Friend companion was not constructed.");
             Check(game.Builder.PhysicsSpeed == 1.2f && FarseerPhysics.Settings.VelocityIterations == 16,
@@ -137,6 +137,23 @@ namespace ContreJour.Regression
 
                 amie.Restart();
                 Step(LifecycleTick, 15);
+                // Restart fades the old body for .2s, then the source spawn
+                // sequence waits another .2s before bringing up the light.
+                Step(LifecycleTick, 12);
+                Check(amie.SpawnPortal.Particles[0].TextureSize == new Vector2(86f, 86f),
+                    "Amie's spawn light did not use the source 86-pixel glow texture.");
+                Check(amie.SpawnPortal.Layer == 8 && amie.SpawnPortal.Visible && amie.SpawnPortal.ItemsScale > 0f,
+                    $"Amie's spawn light did not appear behind her during respawn: layer={amie.SpawnPortal.Layer}, visible={amie.SpawnPortal.Visible}, scale={amie.SpawnPortal.ItemsScale}, target={amie.SpawnPortal.TargetScale}, first={amie.SpawnPortal.Particles[0].Position}.");
+                Vector2 spawnPixels = game.Builder.ToPoint(amie.SpawnPosition);
+                Vector2 lightCenter = Vector2.Zero;
+                foreach (Particle particle in amie.SpawnPortal.Particles)
+                {
+                    lightCenter += particle.Position;
+                }
+                lightCenter /= amie.SpawnPortal.Particles.Count;
+                Check(Vector2.Distance(lightCenter, spawnPixels) < 30f,
+                    $"Amie's spawn light orbited the wrong position: light={lightCenter}, spawn={spawnPixels}.");
+                capture?.Invoke("amie-spawn-light");
                 Check(amie.Clip.Layer == 9, "Companion respawn did not restore its drawing layer.");
                 Check(Vector2.Distance(amie.Body.Position, amie.SpawnPosition) < 0.001f, "Companion restart did not restore the authored spawn position.");
                 Check(amie.Clip.Visible && amie.Tail.Visible, "Companion restart did not restore its body and tail visibility.");
@@ -144,6 +161,7 @@ namespace ContreJour.Regression
                 amie.Restart();
                 Step(LifecycleTick, 66);
                 Check(amie.Body.BodyType == BodyType.Static, "A stale respawn callback activated the companion before its new spawn animation finished.");
+                capture?.Invoke("amie-spawn-light-full");
                 Step(LifecycleTick, 20);
                 Check(amie.Body.BodyType == BodyType.Dynamic && amie.Clip.Scale > 0.99f, "Companion respawn did not restore an active full-size body.");
                 float fixtureMass = 0f;
@@ -152,7 +170,9 @@ namespace ContreJour.Regression
                     fixtureMass += fixture.Shape.MassData.Mass;
                 }
                 Check(Math.Abs(amie.Body.Mass - fixtureMass) < 0.00001f, "Companion respawn overrode the source fixture-derived mass.");
-
+                Step(LifecycleTick, 45);
+                Check(!amie.SpawnPortal.Visible && amie.SpawnPortal.ItemsScale == 0f,
+                    "Amie's spawn light did not fade away after respawn.");
 
                 amie.Explode();
                 Step(LifecycleTick, 45);

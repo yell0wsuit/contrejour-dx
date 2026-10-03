@@ -230,7 +230,7 @@ namespace ContreJour.Regression
                 }
                 if (game.LevelIndex == 300 && Environment.GetEnvironmentVariable("CJ_REGRESSION_NEW_FRIEND_INTERACTIONS") == "1")
                 {
-                    NewFriendInteractionRegression.Run(game, base.Update);
+                    NewFriendInteractionRegression.Run(game, base.Update, label => { _ = CapturePixels(label); });
                 }
                 if (game.LevelIndex == 300 && Environment.GetEnvironmentVariable("CJ_REGRESSION_PAUSE_PREVIEW") == "1")
                 {

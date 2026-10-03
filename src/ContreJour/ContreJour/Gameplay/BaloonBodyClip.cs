@@ -25,7 +25,7 @@ namespace ContreJour.Gameplay
         private readonly HeroEye eye;
         private readonly FurCircle baloonFur;
         private readonly BaloonTailSprite tailSprite;
-        private readonly Portal portal;
+        internal Portal SpawnPortal { get; }
         private RevoluteJoint heroJoint;
         private Fixture baloonFixture;
         private Touch touch;
@@ -81,8 +81,10 @@ namespace ContreJour.Gameplay
             Clip.AddChild(tailSprite);
             eye = new HeroEye(Game) { Scale = 0.7f };
             Clip.AddChild(eye);
-            portal = new Portal(Game, Clip.Position) { ItemsScale = 0f, ScaleStep = 0.1f };
-            builder.Add(portal, 8);
+            // The fur clip is positioned after construction. Anchor the light
+            // to the authored physics spawn, like the web's initialized transform.
+            SpawnPortal = new Portal(Game, builder.ToPoint(SpawnPosition), "newFriendSpawn/McFinishPart") { ItemsScale = 0f, ScaleStep = 0.1f };
+            builder.Add(SpawnPortal, 8);
             Game.Amie = this;
             Game.AddPositionProvider(new PositionProviderValue(this, 2f));
             Respawn();
@@ -271,8 +273,8 @@ namespace ContreJour.Gameplay
                 }
             }
             Tail.SetPositions(SpawnPosition);
-            portal.ItemsScale = 0f;
-            portal.TargetScale = 0f;
+            SpawnPortal.ItemsScale = 0f;
+            SpawnPortal.TargetScale = 0f;
             Schedule(BeginRespawn, 0.2f);
         }
 
@@ -287,7 +289,7 @@ namespace ContreJour.Gameplay
 
         private void BeginRespawn()
         {
-            portal.TargetScale = 1f;
+            SpawnPortal.TargetScale = 1f;
             Schedule(ShowBody, 0.2f);
         }
 
@@ -307,7 +309,7 @@ namespace ContreJour.Gameplay
 
         private void HidePortal()
         {
-            portal.TargetScale = 0f;
+            SpawnPortal.TargetScale = 0f;
         }
 
         public void Teleport(BodyClip teleport)
