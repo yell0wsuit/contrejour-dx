@@ -896,13 +896,15 @@ namespace ContreJour.Gameplay
                 }
                 else
                 {
+                    // The web's New Friend theme uses ValentineFall settings.
+                    // Convert its normalized opacity to DX's byte range.
                     particles = NewFriendChapter ? new BlackFall("newFriend/McParticle_7")
                     {
                         ParticlesScale = new RandomRange(0.5f, 0.2f),
-                        StartOpacity = new RandomRange(0.5f, 0.2f)
+                        StartOpacity = new RandomRange(0.5f, 0.2f) * 255f
                     } : new BlackFall();
                     Builder.Add(particles, -2);
-                    particles.CreateBetweenBounds(40);
+                    particles.CreateBetweenBounds(NewFriendChapter ? 25 : 40);
                 }
             }
         }

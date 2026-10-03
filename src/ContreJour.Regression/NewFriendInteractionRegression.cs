@@ -24,6 +24,21 @@ namespace ContreJour.Regression
 
         public static void VerifyAssets(ContreJourGame game)
         {
+            GravityParticleSystem backgroundParticles = (GravityParticleSystem)typeof(ContreJourGame)
+                .GetField("particles", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(game);
+            ISpriteData particleData = Mokus2DGame.LoadSpriteData("newFriend/McParticle_7");
+            Check(backgroundParticles.Particles.Count == 25,
+                "New Friend did not create the source's 25 ambient particles.");
+            foreach (Particle particle in backgroundParticles.Particles)
+            {
+                Check(particle.Scale is >= 0.3f and <= 0.7f,
+                    "New Friend ambient particles did not use the source's .3-.7 scale range.");
+                Check(particle.OpacityFloat >= 76f / 255f && particle.OpacityFloat <= 0.7f && particle.Visible,
+                    "New Friend ambient particles did not use the source's .3-.7 opacity range.");
+                Check(ReferenceEquals(particle.Texture, particleData.Texture)
+                    && particleData.TextureRect.Equals((Rectangle)TileRectangle.Invoke(particle, null)),
+                    "New Friend ambient particles did not use the themed atlas frame.");
+            }
             HashSet<BodyClip> checkedClips = [];
             foreach (Body body in game.Builder.World.BodyList)
             {
