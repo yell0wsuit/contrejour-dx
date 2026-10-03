@@ -1,3 +1,4 @@
+using System;
 using System.Numerics;
 
 using Mokus2D.Graphics;
@@ -49,7 +50,7 @@ namespace ContreJour.Gameplay
             }
             UpdateStroke();
             endSprite.Position = end;
-            endSprite.RotationRadians = System.MathF.Atan2(end.Y - middle.Y, end.X - middle.X);
+            endSprite.RotationRadians = MathF.Atan2(end.Y - middle.Y, end.X - middle.X);
         }
 
         protected override void DrawPrimitives()

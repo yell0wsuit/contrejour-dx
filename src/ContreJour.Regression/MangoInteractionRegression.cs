@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 
@@ -137,7 +138,7 @@ namespace ContreJour.Regression
             Check(!openWithPupil.SequenceEqual(openWithoutPupil), "The mask hid the hero pupil in its open eye.");
         }
 
-        private static System.Collections.Generic.IEnumerable<Node> Descendants(Node node)
+        private static IEnumerable<Node> Descendants(Node node)
         {
             foreach (Node child in node.Children)
             {

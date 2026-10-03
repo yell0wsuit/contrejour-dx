@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using System.Numerics;
 
 using Mokus2D.Game;
@@ -18,7 +19,7 @@ namespace ContreJour.Regression
             if (!string.IsNullOrEmpty(size))
             {
                 string[] dimensions = size.Split('x');
-                Point bufferSize = new(int.Parse(dimensions[0], System.Globalization.CultureInfo.InvariantCulture), int.Parse(dimensions[1], System.Globalization.CultureInfo.InvariantCulture));
+                Point bufferSize = new(int.Parse(dimensions[0], CultureInfo.InvariantCulture), int.Parse(dimensions[1], CultureInfo.InvariantCulture));
                 BackBufferSize = PreferredBackBufferSize = bufferSize;
             }
         }
