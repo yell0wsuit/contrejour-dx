@@ -189,11 +189,28 @@ namespace ContreJour.Regression
                 Check(!amie.SpawnPortal.Visible && amie.SpawnPortal.ItemsScale == 0f,
                     "Amie's spawn light did not fade away after respawn.");
 
+                Vector2 deathPosition = amie.Clip.Position;
                 amie.Explode();
-                Step(LifecycleTick, 45);
+                Step(LifecycleTick, 1);
+                Check(!amie.Body.Enabled, "Spike death left Amie's solid physics body active.");
+                Check(amie.Clip.Scale is >= 1.02f and <= 1.04f,
+                    "Amie's first death shake did not use the web's additive .02-.04 scale step.");
+                Step(LifecycleTick, 38);
+                Check(amie.Clip.Visible && amie.Clip.Position == deathPosition,
+                    "Amie's forty-update death shake ended early or translated her body.");
+                Step(LifecycleTick, 1);
+                Check(amie.Clip.Visible, "Amie disappeared before all forty death shakes finished.");
+                Step(LifecycleTick, 1);
                 Check(!amie.Clip.Visible && !amie.Tail.Visible, $"Companion explosion did not hide its body and tail (body={amie.Clip.Visible}, tail={amie.Tail.Visible}, scale={amie.Clip.Scale}).");
                 Step(LifecycleTick, 180);
                 Check(amie.Clip.Visible && amie.Tail.Visible && amie.Body.BodyType == BodyType.Dynamic, "Companion death did not restart and respawn it.");
+
+                // Restart during the shake must cancel the old pin/explosion lifecycle.
+                amie.Explode();
+                game.SoftRestart();
+                Step(LifecycleTick, 120);
+                Check(amie.Body.Enabled && amie.Clip.Visible && amie.Clip.Scale > 0.99f && amie.CanDie(),
+                    "An interrupted spike explosion disabled or hid respawned Amie.");
 
                 amie.EatSpeedPauseScaleTime(amie.Body.Position + Vector2.UnitX, 0.5f, 1.3f, 0f, 0.2f);
                 Check(!amie.Body.Enabled && !amie.CanDie(), "Eating did not deactivate the companion and block further hazards.");

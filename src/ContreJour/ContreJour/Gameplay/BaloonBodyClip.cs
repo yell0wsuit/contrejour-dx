@@ -7,7 +7,6 @@ using FarseerPhysics.Dynamics;
 using FarseerPhysics.Dynamics.Joints;
 
 using Mokus2D;
-using Mokus2D.Effects.Tweening;
 using Mokus2D.Events;
 using Mokus2D.Input;
 using Mokus2D.Sound;
@@ -37,6 +36,9 @@ namespace ContreJour.Gameplay
         private float airTime;
         private float heroTimer;
         private bool exploding;
+        private int explosionShakes;
+        private int explosionShakeSteps;
+        private int explosionShakeSign;
         private bool restartPending;
         private bool levelCompleted;
         private bool respawnScheduled;
@@ -177,20 +179,45 @@ namespace ContreJour.Gameplay
             ReleaseHero();
             StopRespawnActions();
             exploding = true;
+            explosionShakes = 0;
+            explosionShakeSteps = 0;
+            explosionShakeSign = 1;
             DestroyEvent.SendEvent();
             Tail.Visible = false;
-            Body.BodyType = BodyType.Static;
+            // Contact callbacks run during World.Step. Deactivate the body
+            // before the next step, as the web's zero-delay WORLD action does.
+            Schedule(DisableExplosionBody, 0f);
+            Clip.Tweener.Stop();
             eye.AnimationsAllowed = false;
-            eye.SetDefaultView();
             SoundManager.PlayRandomSound(Sounds.DeathBySpikes, 0.7f);
-            Sequence sequence = Clip.Tweener.StartSequence();
-            for (int index = 0; index < 15; index++)
+        }
+
+        private void DisableExplosionBody()
+        {
+            if (exploding && !respawnScheduled)
             {
-                Vector2 position = Clip.Position + new Vector2(Maths.Random(-2f, 2f), Maths.Random(-2f, 2f));
-                float scale = initialScale * (1f + (index / 75f) + (index % 2 == 0 ? -0.05f : 0.05f));
-                sequence = sequence.Next(0.02f).ScaleTo(scale).MoveTo(position);
+                Body.Enabled = false;
             }
-            _ = sequence.OnComplete(DoExplode);
+        }
+
+        private void UpdateExplosion()
+        {
+            if (explosionShakes < 40)
+            {
+                float step = explosionShakeSign > 0 ? Maths.Random(0.02f, 0.04f) : -Maths.Random(0.016f, 0.02f);
+                Clip.Scale += step;
+                if (++explosionShakeSteps > 2)
+                {
+                    explosionShakeSteps = 0;
+                    explosionShakeSign *= -1;
+                }
+                explosionShakes++;
+            }
+            else if (explosionShakes == 40)
+            {
+                explosionShakes++;
+                DoExplode();
+            }
         }
 
         public void DoExplode()
@@ -231,6 +258,7 @@ namespace ContreJour.Gameplay
                 return;
             }
             respawnScheduled = true;
+            UnSchedule(DisableExplosionBody);
             StopRespawnActions();
             EndTailDrag();
             ReleaseHero();
@@ -245,6 +273,7 @@ namespace ContreJour.Gameplay
             Builder.ChangeChildLayer(Clip, 9);
             respawnScheduled = false;
             StopRespawnActions();
+            UnSchedule(DisableExplosionBody);
             Clip.Tweener.Stop();
             EndTailDrag();
             ReleaseHero();
@@ -486,6 +515,10 @@ namespace ContreJour.Gameplay
             }
             UpdateHeroSeparation(time);
             base.Update(time);
+            if (exploding && !respawnScheduled)
+            {
+                UpdateExplosion();
+            }
             if (!Linked)
             {
                 airTime = FarseerUtil.IsTouching(Body) ? 0f : airTime + time;
@@ -591,6 +624,7 @@ namespace ContreJour.Gameplay
             UnSchedule(FinishRespawn);
             UnSchedule(HidePortal);
             UnSchedule(DoExplode);
+            UnSchedule(DisableExplosionBody);
             Tail.Clear();
             base.Clear();
         }
