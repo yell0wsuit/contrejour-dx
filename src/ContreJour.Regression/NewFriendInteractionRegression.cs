@@ -220,6 +220,50 @@ namespace ContreJour.Regression
             }
         }
 
+        public static void RunFlowers(ContreJourGame game, Action<float> tick)
+        {
+            BaloonBodyClip amie = game.Amie;
+            HeroBodyClip hero = game.Hero;
+            SpikesFlowerBodyClip[] flowers = [.. game.Builder.World.BodyList
+                .Select(body => body.UserData).OfType<SpikesFlowerBodyClip>()];
+            Check(flowers.Length >= 2, "The authored flower level did not contain its two flowers.");
+            Vector2 center = game.Builder.ToVec(game.LevelSize) / 2f;
+            try
+            {
+                PlaceCharacters(amie, hero, center);
+                amie.LinkToHero();
+                Check(amie.Linked && !amie.CanDie(), "Attached Amie did not retain her spike immunity.");
+                // Exercise the real flower collision handler rather than bypassing its eligibility check.
+                flowers[0].OnCollisionPoint(amie.Body, null);
+                Check(!amie.Linked && !amie.Tail.Linked && !amie.Body.Enabled,
+                    "The flower did not consume attached Amie and release Petit.");
+                game.Builder.World.ProcessChanges();
+                Check(CountCompanionJoints(game.Builder.World, amie, hero) == 0,
+                    "Flower consumption retained an attachment joint.");
+                Check(ReferenceEquals(game.Hero, hero) && hero.Body.Enabled,
+                    "Eating Amie replaced or deactivated Petit.");
+                int repeatedDestruction = 0;
+                void OnDestroyed()
+                {
+                    repeatedDestruction++;
+                }
+                amie.DestroyEvent.AddListener(OnDestroyed);
+                flowers[1].OnCollisionPoint(amie.Body, null);
+                amie.DestroyEvent.RemoveListener(OnDestroyed);
+                Check(repeatedDestruction == 0, "A second flower consumed Amie again.");
+                Console.WriteLine("New Friend flowers passed: attached consumption, Petit release, joint cleanup, duplicate guard.");
+            }
+            finally
+            {
+                game.SoftRestart();
+                for (int frame = 0; frame < 180; frame++)
+                {
+                    HoldHero(hero, center);
+                    tick(TimeStep);
+                }
+            }
+        }
+
         private static void PlaceCharacters(BaloonBodyClip amie, HeroBodyClip hero, Vector2 center)
         {
             amie.Body.BodyType = hero.Body.BodyType = BodyType.Dynamic;

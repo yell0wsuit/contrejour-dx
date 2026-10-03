@@ -20,7 +20,7 @@ namespace ContreJour.Regression
     // Set CJ_REGRESSION_OLD_SAVE=<save file> to also check that an older save still loads the same.
     // Set CJ_REGRESSION_PIXELS=<folder> to also save every captured frame there as a PNG.
     // Set CJ_REGRESSION_SIZE=<width>x<height> to check a different viewport.
-    // Set CJ_REGRESSION_NEW_FRIEND_INTERACTIONS=1 to exercise companion input and lifecycle in level300.
+    // Set CJ_REGRESSION_NEW_FRIEND_INTERACTIONS=1 to exercise companion input/lifecycle in level300 and flowers in level306.
     // Set CJ_REGRESSION_MANGO_INTERACTIONS=1 to exercise anchor movement, restart, pause, and the Mango planet.
     // Set CJ_REGRESSION_MANGO_LOCKS=1 to verify Mango menu locks and its banner at every chapter gate.
     // Set CJ_REGRESSION_FINISH=1 to open each selected level's finish screen and verify its menu portal.

@@ -125,6 +125,12 @@ namespace ContreJour.Gameplay
         {
             return SnotEnabled && !exploding && !movingToTarget && !restartPending;
         }
+        internal bool CanBeEaten()
+        {
+            // Web flowers consume characters even while attached. Spike and
+            // teleport immunity still follows SnotEnabled through CanDie.
+            return Body.Enabled && !exploding && !movingToTarget && !restartPending;
+        }
         public bool CanLaunch()
         {
             return !Linked && CanDie();

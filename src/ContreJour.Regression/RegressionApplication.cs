@@ -240,6 +240,10 @@ namespace ContreJour.Regression
                 {
                     NewFriendInteractionRegression.Run(game, base.Update, label => { _ = CapturePixels(label); });
                 }
+                if (game.LevelIndex == 306 && Environment.GetEnvironmentVariable("CJ_REGRESSION_NEW_FRIEND_INTERACTIONS") == "1")
+                {
+                    NewFriendInteractionRegression.RunFlowers(game, base.Update);
+                }
                 if (Environment.GetEnvironmentVariable("CJ_REGRESSION_FINISH") == "1")
                 {
                     game.Finish(game.Builder.ToPoint(game.Hero.Body.Position));

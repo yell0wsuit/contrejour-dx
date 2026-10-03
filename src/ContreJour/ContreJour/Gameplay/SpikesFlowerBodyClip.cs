@@ -89,7 +89,8 @@ namespace ContreJour.Gameplay
 
         public override void OnCollisionPoint(Body body2, Contact point)
         {
-            if (body2.UserData is IEatable eatable && movie.Left.Stoped && Maths.FuzzyEquals(movie.Left.CurrentFrame, 0f) && eatable.CanDie())
+            if (body2.UserData is IEatable eatable && movie.Left.Stoped && Maths.FuzzyEquals(movie.Left.CurrentFrame, 0f)
+                && (eatable is BaloonBodyClip amie ? amie.CanBeEaten() : eatable.CanDie()))
             {
                 hero = eatable;
                 hero.EatSpeedPauseScaleTime(Body.Position, 0.5f, 1.3f, 0f, 0.2f);
