@@ -11,7 +11,7 @@ namespace ContreJour.Gameplay
 
         protected override string ProcessName(string name)
         {
-            return name + "_6";
+            return TextureFolder + "/" + name + "_6";
         }
 
         protected override FakeHeroEye CreateEye()

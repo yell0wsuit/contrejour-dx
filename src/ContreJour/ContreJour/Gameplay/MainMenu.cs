@@ -81,7 +81,8 @@ namespace ContreJour.Gameplay
             ContreJourConditions.Trial(Color.Lerp(Color.White, BlueColor, 0.8f), GreyColor),
             GreyColor,
             GreyColor,
-            ContreJourConstants.NewFriendColor
+            ContreJourConstants.NewFriendColor,
+            ContreJourConstants.GreenLightColor
         ];
 
         private static readonly Color[] BackColors = Constants.IsTrial ? [GreyColor, BlueColor, BlueColor] :
@@ -91,7 +92,8 @@ namespace ContreJour.Gameplay
             ContreJourConditions.Trial(BlueColor, GreyColor),
             ColorUtil.Mult(GreyColor, 0.5f),
             GreyColor,
-            ContreJourConstants.NewFriendColor
+            ContreJourConstants.NewFriendColor,
+            ContreJourConstants.GreenLightColor
         ];
 
         private Vector2 namesPosition;
@@ -372,6 +374,7 @@ namespace ContreJour.Gameplay
                 "menu2/McChapter4MenuBackground",
                 "menu2/McChapter5MenuBackground",
                 "newFriend/McChapter5MenuBackground",
+                "chapter6/McBackgroundContent6_1",
             ];
         }
 

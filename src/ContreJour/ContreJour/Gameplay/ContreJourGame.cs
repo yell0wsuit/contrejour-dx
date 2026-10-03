@@ -836,7 +836,7 @@ namespace ContreJour.Gameplay
 
         public void CreateGrass()
         {
-            Grass = new ParticleSystem(Mokus2DGame.LoadMovieClipData(NewFriendChapter ? "newFriend/McGrass_7" : ChooseSide(null, "chapter4/McWhiteGrass", "chapter5/McGrass_5", "common/McTotalGrass", "McGrass_6")));
+            Grass = new ParticleSystem(Mokus2DGame.LoadMovieClipData(NewFriendChapter ? "newFriend/McGrass_7" : ChooseSide(null, "chapter4/McWhiteGrass", "chapter5/McGrass_5", "common/McTotalGrass", "chapter6/McGrass_6")));
         }
 
         public void CreateDust()

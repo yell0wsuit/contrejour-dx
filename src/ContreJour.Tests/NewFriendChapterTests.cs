@@ -12,13 +12,13 @@ namespace ContreJour.Tests
         [Fact]
         public void NewFriendFollowsJungleWithTenIndependentLevels()
         {
-            Assert.Equal(6, Constants.ChaptersCount);
-            Assert.Equal(110, ContreJourConstants.LevelCount);
+            Assert.Equal(7, Constants.ChaptersCount);
+            Assert.Equal(130, ContreJourConstants.LevelCount);
             Assert.Equal(240, UserData.StarsToUnlock(5));
-            Assert.Equal(6, LevelsMenu.LevelsList.Count);
+            Assert.Equal(7, LevelsMenu.LevelsList.Count);
             Assert.Equal(Enumerable.Range(300, 10), LevelsMenu.LevelsList[5]);
-            Assert.Equal(110, LevelsMenu.LevelsList.Sum(chapter => chapter.Count));
-            Assert.Equal(110, LevelsMenu.LevelsList.SelectMany(chapter => chapter).Distinct().Count());
+            Assert.Equal(130, LevelsMenu.LevelsList.Sum(chapter => chapter.Count));
+            Assert.Equal(130, LevelsMenu.LevelsList.SelectMany(chapter => chapter).Distinct().Count());
             Assert.Equal(149, LevelsMenu.GetLevelIndex(new LevelPosition(4, 0)));
             Assert.Equal(134, LevelsMenu.GetLevelIndex(new LevelPosition(4, 19)));
             for (int i = 0; i < 10; i++)

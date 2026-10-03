@@ -27,7 +27,7 @@ namespace ContreJour.Gameplay
 
         private static readonly Vector2 GetMorePosition = new(0f, -120f);
 
-        public static readonly int[,] LEVELS = new int[6, 20]
+        public static readonly int[,] LEVELS = new int[7, 20]
         {
             {
                 0, 45, 1, 4, 35, 3, 19, 26, 9, 47,
@@ -52,6 +52,10 @@ namespace ContreJour.Gameplay
             {
                 300, 301, 302, 303, 304, 305, 306, 307, 308, 309,
                 -1, -1, -1, -1, -1, -1, -1, -1, -1, -1
+            },
+            {
+                188, 171, 170, 172, 190, 196, 191, 176, 186, 174,
+                194, 178, 195, 182, 189, 197, 198, 183, 179, 199
             }
         };
 
@@ -118,7 +122,7 @@ namespace ContreJour.Gameplay
             {
                 vector = CreateRoseButton(vector, w7FromIPhoneSize, bORDER_OFFSET_IPHONE);
             }
-            bool flag = chapter == Constants.NewFriendChapter;
+            bool flag = chapter is Constants.NewFriendChapter or Constants.BonusChapter;
             for (int i = 0; i < list.Count; i++)
             {
                 int level = list[i];
@@ -134,7 +138,9 @@ namespace ContreJour.Gameplay
                 levelItem.TouchEndEvent += OnLevelClick;
                 if (flag)
                 {
-                    levelItem.Color = ContreJourConstants.NewFriendColor.LerpToWhite(0.5f);
+                    levelItem.Color = (chapter == Constants.BonusChapter
+                        ? ContreJourConstants.GreenLightColor
+                        : ContreJourConstants.NewFriendColor).LerpToWhite(0.5f);
                 }
             }
             if (Constants.IsTrial)

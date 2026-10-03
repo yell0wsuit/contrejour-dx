@@ -94,7 +94,7 @@ namespace ContreJour
 
         private void LoadMusic()
         {
-            SoundManager.PreloadSongs(["chapter1", "chapter2", "chapter3", "chapter4", "chapter5", "chapter6", "menu", Sounds.Ending]);
+            SoundManager.PreloadSongs(["chapter1", "chapter2", "chapter3", "chapter4", "chapter5", "chapter6", "chapter7", "menu", Sounds.Ending]);
             LoadSounds();
         }
 
@@ -385,9 +385,9 @@ namespace ContreJour
                 levelPosition.Index++;
                 LoadLevel(LevelsMenu.GetLevelIndex(levelPosition));
             }
-            else if (levelPosition.Chapter == Constants.NewFriendChapter)
+            else if (levelPosition.Chapter is Constants.NewFriendChapter or Constants.BonusChapter)
             {
-                ChangeScene(() => CreateMainMenu(Constants.NewFriendChapter));
+                ChangeScene(() => CreateMainMenu(levelPosition.Chapter));
             }
             else if (levelPosition.Chapter == Constants.RoseChapter)
             {

@@ -40,5 +40,11 @@ namespace Mokus2D.Graphics
         // straight alpha: the result is what ColorMode.Sprite gives for a white texel scaled by the
         // glyph's coverage, blended with BlendMode.AlphaBlend.
         void DrawText(IFontFace face, string text, float size, in Matrix4x4 transform, Color color);
+
+        // Isolates subsequent draws and clips them to the alpha of a textured quad. Vertex colors
+        // and opacity are ignored for the mask; transform maps its positions to clip space.
+        void BeginAlphaMask(Vertex[] quad, ITexture texture, in Matrix4x4 transform);
+
+        void EndAlphaMask();
     }
 }

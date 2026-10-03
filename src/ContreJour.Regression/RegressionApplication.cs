@@ -31,7 +31,7 @@ namespace ContreJour.Regression
 
         private const int StepsPerUpdate = 100;
 
-        private const int MenuChapters = 6;
+        private static readonly int MenuChapters = Constants.ChaptersCount;
 
         private const ulong FnvOffset = 14695981039346656037UL;
 
@@ -224,6 +224,14 @@ namespace ContreJour.Regression
                     FinishItem();
                     return;
                 }
+                if (game.BonusChapter)
+                {
+                    MangoInteractionRegression.VerifyAssets(game);
+                }
+                if (game.LevelIndex == 188 && Environment.GetEnvironmentVariable("CJ_REGRESSION_MANGO_INTERACTIONS") == "1")
+                {
+                    MangoInteractionRegression.Run(game, base.Update, label => { _ = CapturePixels(label); });
+                }
                 if (game.NewFriendChapter)
                 {
                     NewFriendInteractionRegression.VerifyAssets(game);
@@ -231,6 +239,21 @@ namespace ContreJour.Regression
                 if (game.LevelIndex == 300 && Environment.GetEnvironmentVariable("CJ_REGRESSION_NEW_FRIEND_INTERACTIONS") == "1")
                 {
                     NewFriendInteractionRegression.Run(game, base.Update, label => { _ = CapturePixels(label); });
+                }
+                if (game.LevelIndex == 199 && Environment.GetEnvironmentVariable("CJ_REGRESSION_MANGO_INTERACTIONS") == "1")
+                {
+                    NextLevel();
+                    for (int frame = 0; frame < SettleFrames; frame++)
+                    {
+                        base.Update(TimeStep);
+                    }
+                    MainMenu completedMenu = Find<MainMenu>(Root);
+                    if (completedMenu == null || Find<PlanetsSpinner>(completedMenu) is not PlanetsSpinner completedSpinner
+                        || Math.Abs(completedSpinner.CurrentIndex - Constants.BonusChapter) > 0.01f)
+                    {
+                        throw new InvalidOperationException("Completing Mango did not return to its chapter menu.");
+                    }
+                    _ = CapturePixels("chapter-complete");
                 }
                 if (game.LevelIndex == 300 && Environment.GetEnvironmentVariable("CJ_REGRESSION_PAUSE_PREVIEW") == "1")
                 {
@@ -268,6 +291,16 @@ namespace ContreJour.Regression
             }
             _phase = Phase.Record;
             _frame = 0;
+            if (_item.MenuChapter == Constants.BonusChapter && Environment.GetEnvironmentVariable("CJ_REGRESSION_MANGO_INTERACTIONS") == "1")
+            {
+                MainMenu menu = Find<MainMenu>(Root);
+                menu.HideLevels();
+                for (int frame = 0; frame < SettleFrames; frame++)
+                {
+                    base.Update(TimeStep);
+                }
+                _ = CapturePixels("planet");
+            }
             _settledPixels = CapturePixels("settled");
         }
 

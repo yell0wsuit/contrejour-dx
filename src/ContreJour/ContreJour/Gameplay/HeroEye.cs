@@ -44,6 +44,8 @@ namespace ContreJour.Gameplay
 
         protected override float ViewRadius => base.ViewRadius * 2f;
 
+        protected override bool MaskEyeBall => BlackEye;
+
         public HeroEye(ContreJourGame game)
             : base(game)
         {

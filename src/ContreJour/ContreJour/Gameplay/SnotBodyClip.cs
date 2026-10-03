@@ -96,6 +96,8 @@ namespace ContreJour.Gameplay
 
         public override Vector2 PositionVec => Physics.EndBody.Position;
 
+        public override Vector2 StartPosition => Physics.EyeBody.Position;
+
         public SnotBodyClip(LevelBuilderBase builder, SnotData body, Node clip, Hashtable config)
             : base(builder, body, clip, config)
         {

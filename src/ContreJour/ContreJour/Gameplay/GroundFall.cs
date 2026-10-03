@@ -5,7 +5,7 @@ namespace ContreJour.Gameplay
     public class GroundFall : GravityParticleSystem
     {
         public GroundFall(ContreJourGame game)
-            : base(game.NewFriendChapter ? "newFriend/McGroundPart_7" : game.Choose("common/McGroundPart", "common/McGroundPartBlack", "chapter4/McGroundPartWhite", null, "McGroundPart_6"))
+            : base(game.NewFriendChapter ? "newFriend/McGroundPart_7" : game.Choose("common/McGroundPart", "common/McGroundPartBlack", "chapter4/McGroundPartWhite", null, "chapter6/McGroundPart_6"))
         {
             Angle = new RandomRange(270f, 0f);
             Speed = new RandomRange(40f, 20f);

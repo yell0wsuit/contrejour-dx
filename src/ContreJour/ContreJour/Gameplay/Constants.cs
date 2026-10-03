@@ -30,7 +30,7 @@ namespace ContreJour.Gameplay
 
         public const int KGameAutorotationUiViewController = 2;
 
-        public static readonly int ChaptersCount = IsTrial ? 2 : 6;
+        public static readonly int ChaptersCount = IsTrial ? 2 : 7;
 
         public static readonly int NormalChaptersCount = IsTrial ? 2 : 6;
 

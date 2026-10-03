@@ -122,9 +122,9 @@ namespace ContreJour.Gameplay
             set => gameSave.SetInt(UnlockedChaptersKey, Math.Max(1, value));
         }
 
-        public int TotalStars => GetStarsEnd(0, ContreJourConstants.LevelCount);
+        public int TotalStars => GetStarsEnd(0, Constants.ChaptersCount * LevelsPerChapter);
 
-        public int TotalScore => GetScoreEnd(0, ContreJourConstants.LevelCount);
+        public int TotalScore => GetScoreEnd(0, Constants.ChaptersCount * LevelsPerChapter);
 
         public bool RoseSaved => TotalStars >= 240;
 
@@ -232,8 +232,12 @@ namespace ContreJour.Gameplay
         public int GetStarsEnd(int start, int end)
         {
             int num = 0;
-            for (int i = start; i < Math.Min(ContreJourConstants.LevelCount, end); i++)
+            for (int i = start; i < Math.Min(Constants.ChaptersCount * LevelsPerChapter, end); i++)
             {
+                if (i % LevelsPerChapter >= LevelsMenu.GetLevelCount(i / LevelsPerChapter))
+                {
+                    continue;
+                }
                 LevelData levelData = GetLevelData(i);
                 if (levelData != null)
                 {
@@ -246,8 +250,12 @@ namespace ContreJour.Gameplay
         public int GetScoreEnd(int start, int end)
         {
             int num = 0;
-            for (int i = start; i < Math.Min(ContreJourConstants.LevelCount, end); i++)
+            for (int i = start; i < Math.Min(Constants.ChaptersCount * LevelsPerChapter, end); i++)
             {
+                if (i % LevelsPerChapter >= LevelsMenu.GetLevelCount(i / LevelsPerChapter))
+                {
+                    continue;
+                }
                 LevelData levelData = GetLevelData(i);
                 if (levelData != null)
                 {

@@ -70,6 +70,7 @@ namespace ContreJour.Gameplay
                 static (index, owner) => new Chapter4(index, owner),
                 static (index, owner) => new Chapter5(index, owner),
                 static (index, owner) => new Chapter6(index, owner),
+                static (index, owner) => new Chapter7(index, owner),
             ];
             int totalStars = UserData.Instance.TotalStars;
             for (int i = 0; i < list.Count; i++)

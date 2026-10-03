@@ -84,6 +84,7 @@ namespace ContreJour.Content
                 "chapter5Backgrounds" => Chapter5Backgrounds(name),
                 "chapter4Backgrounds" => Chapter4Backgrounds(name),
                 "chapter3More" => Chapter3More(name),
+                "chapter6" => Chapter6(name),
                 "newFriend" => NewFriend(name),
                 "common" => Common(name),
                 "common2" => Common2(name),
@@ -91,6 +92,46 @@ namespace ContreJour.Content
                 "planets" => Planets(name),
                 "finalLevel" => FinalLevel(name),
                 "menuBackgrounds" => MenuBackgrounds(name),
+                _ => null,
+            };
+        }
+
+        private static ClipEntry Chapter6(string name)
+        {
+            return name switch
+            {
+                "McBackgroundContent2_6" => new("chapter6/McBackgroundContent2_6", ClipKind.Sprite),
+                "McBackgroundContent4_6" => new("chapter6/McBackgroundContent4_6", ClipKind.Sprite),
+                "McBackgroundContent5_6" => new("chapter6/McBackgroundContent5_6", ClipKind.Sprite),
+                "McBackgroundContent6_1" => new("chapter6/McBackgroundContent6_1", ClipKind.Sprite),
+                "McBackgroundContent6_2" => new("chapter6/McBackgroundContent6_2", ClipKind.Sprite),
+                "McBackgroundContent6_3" => new("chapter6/McBackgroundContent6_3", ClipKind.Sprite),
+                "McBackgroundContent6_4" => new("chapter6/McBackgroundContent6_4", ClipKind.Sprite),
+                "McBackgroundContent6_5" => new("chapter6/McBackgroundContent6_5", ClipKind.Sprite),
+                "McChapter6Background" => new("chapter6/McChapter6Background", ClipKind.Sprite),
+                "McChapter6Foreground" => new("chapter6/McChapter6Foreground", ClipKind.Sprite),
+                "McCircleSpikesView_6" => new("chapter6/McCircleSpikesView_6", ClipKind.MovieClip),
+                "McEggBridgeView_6" => new("chapter6/McEggBridgeView_6", ClipKind.Sprite),
+                "McEggView0_6" => new("chapter6/McEggView0_6", ClipKind.Sprite),
+                "McEggView1_6" => new("chapter6/McEggView1_6", ClipKind.Sprite),
+                "McEggView2_6" => new("chapter6/McEggView2_6", ClipKind.Sprite),
+                "McEggView3_6" => new("chapter6/McEggView3_6", ClipKind.Sprite),
+                "McEyeBallHit_6" => new("chapter6/McEyeBallHit_6", ClipKind.MovieClip),
+                "McEyeBallMonster_6" => new("chapter6/McEyeBallMonster_6", ClipKind.Sprite),
+                "McEyeBall_6" => new("chapter6/McEyeBall_6", ClipKind.Sprite),
+                "McFlowerHead_6" => new("chapter6/McFlowerHead_6", ClipKind.Sprite),
+                "McGrass_6" => new("chapter6/McGrass_6", ClipKind.MovieClip),
+                "McGreenPlanetFly" => new("chapter6/McGreenPlanetFly", ClipKind.Sprite),
+                "McGroundPart_6" => new("chapter6/McGroundPart_6", ClipKind.Sprite),
+                "McHeroShadow_6" => new("chapter6/McHeroShadow_6", ClipKind.Sprite),
+                "McHeroView_6" => new("chapter6/McHeroView_6", ClipKind.Sprite),
+                "McMoveHintView" => new("chapter6/McMoveHintView", ClipKind.Sprite),
+                "McRotatableSpring_6" => new("chapter6/McRotatableSpring_6", ClipKind.MovieClip),
+                "McSnotEnd_6" => new("chapter6/McSnotEnd_6", ClipKind.Sprite),
+                "McSnotPoint" => new("chapter6/McSnotPoint", ClipKind.Sprite),
+                "McSnotStart_6" => new("chapter6/McSnotStart_6", ClipKind.Sprite),
+                "McSpikesView_6" => new("chapter6/McSpikesView_6", ClipKind.MovieClip),
+                "McSpringView_6" => new("chapter6/McSpringView_6", ClipKind.MovieClip),
                 _ => null,
             };
         }

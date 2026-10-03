@@ -26,7 +26,7 @@ namespace ContreJour.Tests
             FieldInfo field = typeof(MainMenu).GetField(paletteName, BindingFlags.NonPublic | BindingFlags.Static);
             Assert.NotNull(field);
             Color[] palette = Assert.IsType<Color[]>(field.GetValue(null));
-            Assert.Equal(6, palette.Length);
+            Assert.Equal(Constants.ChaptersCount, palette.Length);
             Assert.Equal(ContreJourConstants.NewFriendColor, palette[5]);
             Assert.Equal(new Color(128, 108, 141), palette[5]);
             Assert.Equal(ContreJourConstants.GreyColor, palette[0]);

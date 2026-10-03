@@ -1,3 +1,5 @@
+using System.Linq;
+
 using Mokus2D.Graphics;
 using Mokus2D.Util.Extensions;
 
@@ -228,7 +230,7 @@ namespace ContreJour.Gameplay
 
         public static readonly Color WhiteLightColor = new(14f / 51f, 14f / 51f, 14f / 51f);
 
-        public static readonly int LevelCount = ((Constants.ChaptersCount - 1) * Constants.LevelsInChapter) + LevelsMenu.GetLevelCount(Constants.ChaptersCount - 1);
+        public static readonly int LevelCount = LevelsMenu.LevelsList.Sum(chapter => chapter.Count);
 
         public static readonly string[] AppUrls = ["http://itunes.apple.com/app/id440693481", "http://itunes.apple.com/app/id444085845?mt=8"];
 
