@@ -98,13 +98,14 @@ namespace ContreJour.Gameplay
 
         private static Node CreateChapterName(int index)
         {
-            return ContreJourLabelUtil.IsEnglish
+            return ContreJourLabelUtil.IsEnglish && index != Constants.NewFriendChapter && index != Constants.BonusChapter
                 ? new Sprite(string.Format(CultureInfo.InvariantCulture, "menu/McChapter{0}Name", index + 1))
                 : CreateLabelColor(color: index switch
                 {
                     3 => ContreJourConstants.WhiteLightColor * 1.8f,
                     1 => ContreJourConstants.BlueLightColor * 1.8f,
-                    5 => ContreJourConstants.GreenLightColor,
+                    Constants.NewFriendChapter => ContreJourConstants.NewFriendColor,
+                    Constants.BonusChapter => ContreJourConstants.GreenLightColor,
                     _ => Color.Black,
                 }, text: string.Format(CultureInfo.InvariantCulture, "CHAPTER{0}", index + 1));
         }

@@ -73,7 +73,7 @@ namespace ContreJour.Gameplay
 
         public override string BaseEndClipName()
         {
-            return Game.ChooseSide("McStrongSnotEndBlack", "McStrongSnotEndWhite", "McStrongSnotEnd", "McStrongSnotEnd", "McSnotEnd_6");
+            return Game.NewFriendChapter ? "McStrongSnotEnd_7" : Game.ChooseSide("McStrongSnotEndBlack", "McStrongSnotEndWhite", "McStrongSnotEnd", "McStrongSnotEnd", "McSnotEnd_6");
         }
 
         public override SnotSprite CreateClip()

@@ -23,6 +23,7 @@ using Mokus2D.Util.MathUtils;
 using Mokus2D.Util.Schedule;
 using Mokus2D.Visual;
 using Mokus2D.Visual.Interactive;
+using Mokus2D.Visual.Particles.Util;
 using Mokus2D.Visual.Util;
 
 namespace ContreJour.Gameplay
@@ -208,6 +209,41 @@ namespace ContreJour.Gameplay
 
         public Color ButtonsColor => buttonsColor;
 
+        internal static float GetLevelScale(Vector2 levelSize, Vector2 viewport, bool fitHeight)
+        {
+            float widthScale = viewport.X / levelSize.X;
+            return fitHeight ? Math.Min(widthScale, viewport.Y / levelSize.Y) : widthScale;
+        }
+
+        internal static (Vector2 Position, Vector2 Scale) FitNewFriendBackground(
+            Vector2 imageSize, Vector2 anchor, Vector2 authoredScale,
+            Vector2 viewportOrigin, Vector2 viewportSize, float rotation)
+        {
+            // Preserve the source's nonuniform scale. Add only a uniform cover
+            // factor, accounting for rotation before centering the crop.
+            float cosine = MathF.Abs(MathF.Cos(rotation));
+            float sine = MathF.Abs(MathF.Sin(rotation));
+            Vector2 requiredSize = new(
+                (viewportSize.X * cosine) + (viewportSize.Y * sine),
+                (viewportSize.X * sine) + (viewportSize.Y * cosine));
+            Vector2 authoredSize = imageSize * authoredScale;
+            float cover = Math.Max(requiredSize.X / MathF.Abs(authoredSize.X), requiredSize.Y / MathF.Abs(authoredSize.Y));
+            Vector2 scale = authoredScale * cover;
+            Vector2 size = imageSize * scale;
+            // Sprite root Y=-1 puts the local image center below its anchor.
+            Vector2 imageCenter = new((.5f - anchor.X) * size.X, (anchor.Y - .5f) * size.Y);
+            Vector2 rotatedCenter = Vector2.Transform(imageCenter, Matrix3x2.CreateRotation(rotation));
+            return (viewportOrigin + (viewportSize / 2f) - rotatedCenter, scale);
+        }
+
+        internal static Color GetButtonsColor(int chapter)
+        {
+            return chapter == Constants.NewFriendChapter
+                ? ContreJourConstants.NewFriendColor
+                : chapter == Constants.BonusChapter ? ContreJourConstants.GreenLightColor
+                : chapter == 1 ? ColorUtil.Mult(ContreJourConstants.BlueLightColor, 2f) : ContreJourConstants.GreyColor;
+        }
+
         public bool RestartEnabled
         {
             get;
@@ -227,7 +263,11 @@ namespace ContreJour.Gameplay
 
         public bool RoseChapter => Chapter == 4;
 
-        public bool BonusChapter => Chapter == 5;
+        public bool NewFriendChapter => Chapter == Constants.NewFriendChapter;
+
+        public BaloonBodyClip Amie { get; set; }
+
+        public bool BonusChapter => Chapter == Constants.BonusChapter;
 
         public int HeroIndex => Builder.GameRoot.Children.IndexOf(Hero.Clip);
 
@@ -259,7 +299,7 @@ namespace ContreJour.Gameplay
             Vector2 point = BlackSide ? new Vector2(w7FromIPhoneSize.X / 2f, w7FromIPhoneSize.Y * 2f) : vector;
             lightPoint = Box2DConfig.DefaultConfig.ToVec(point);
             lightPower = 1f;
-            LightColor = ChooseSide(PlasticineConstants.BLUE, PlasticineConstants.BlackLight, PlasticineConstants.LastLight, PlasticineConstants.WHITE, PlasticineConstants.Green);
+            LightColor = NewFriendChapter ? PlasticineConstants.NewFriendLight : ChooseSide(PlasticineConstants.BLUE, PlasticineConstants.BlackLight, PlasticineConstants.LastLight, PlasticineConstants.WHITE, PlasticineConstants.Green);
             startLightColor = LightColor;
             flyOpacity = 255f;
             Mokus2DGame.Instance.TouchController.AddListener(this);
@@ -278,8 +318,7 @@ namespace ContreJour.Gameplay
             restartLayer = new LayerColor(Color.Black, "menu/whitePixel");
             AddChild(restartLayer, 100);
             restartLayer.Visible = false;
-            Color color = ColorUtil.Mult(ContreJourConstants.BlueLightColor, 2f);
-            buttonsColor = BlackSide ? color : ContreJourConstants.GreyColor;
+            buttonsColor = GetButtonsColor(Chapter);
             _ = ScreenConstants.W7FromIPhoneSize;
             if (ContreJourConfig.BackButtonVisible)
             {
@@ -351,14 +390,26 @@ namespace ContreJour.Gameplay
             base.ProcessLevel(level);
             Hashtable levelProperties = level.LevelProperties;
             levelSize = new Vector2(levelProperties.GetFloat("Width"), levelProperties.GetFloat("Height"));
-            GameRoot.Scale = ContreJourConfig.RootSize.X / levelSize.X;
+            GameRoot.Scale = GetLevelScale(levelSize, ContreJourConfig.RootSize, NewFriendChapter);
+            if (NewFriendChapter)
+            {
+                GameRoot.X = (ContreJourConfig.RootSize.X - (GameRoot.Scale * levelSize.X)) / 2f;
+            }
             float num = GameRoot.Scale * levelSize.Y;
             GameRoot.Y = ContreJourConfig.RootSize.Y - num;
             Vector2 point = levelSize.AddY(GameRoot.Y / GameRoot.Scale);
             LevelScreenPhysicsBounds = new RectangleFloat(Builder.ToVec(new Vector2(0f, (0f - GameRoot.Y) / GameRoot.Scale)), Builder.ToVec(point));
             LevelScreenBounds = LevelScreenPhysicsBounds * (1f / Builder.SizeMult);
-            AlphaBackground.Scale = Math.Max(levelSize.X / ScreenConstants.OsSizes.IPhoneRetina.X, (LevelSize.Y + (GameRoot.Y / GameRoot.Scale)) / ScreenConstants.OsSizes.IPhoneRetina.Y);
-            AlphaBackground.Y = (0f - GameRoot.Y) / GameRoot.Scale;
+            if (NewFriendChapter)
+            {
+                AlphaBackground.Scale = 1f;
+                AlphaBackground.Position = Vector2.Zero;
+            }
+            else
+            {
+                AlphaBackground.Scale = Math.Max(levelSize.X / ScreenConstants.OsSizes.IPhoneRetina.X, (LevelSize.Y + (GameRoot.Y / GameRoot.Scale)) / ScreenConstants.OsSizes.IPhoneRetina.Y);
+                AlphaBackground.Y = (0f - GameRoot.Y) / GameRoot.Scale;
+            }
             Builder.Add(Energy, 9);
             CreateBackgrounds(level);
             CreateParticles();
@@ -732,13 +783,25 @@ namespace ContreJour.Gameplay
             Hashtable hashtable = background.GetHashtable("config");
             Vector2 vector = background.GetVector("position");
             Vector2 vector2 = background.GetVector("scale");
-            vector.Y = ScreenConstants.OsSizes.IPhoneRetina.Y + vector.Y - levelSize.Y;
+            if (!NewFriendChapter)
+            {
+                vector.Y = ScreenConstants.OsSizes.IPhoneRetina.Y + vector.Y - levelSize.Y;
+            }
             node.Position = vector;
             float num = background.GetFloat("initialScale", 1f);
             node.ScaleX = vector2.X / num;
             node.ScaleY = vector2.Y / num;
             node.RotationDegrees = 0f - background.GetFloat("rotation");
-            if (Chapter == 5)
+            if (NewFriendChapter && node is Sprite sprite)
+            {
+                (Vector2 position, Vector2 scale) = FitNewFriendBackground(
+                    sprite.Size, sprite.Anchor, node.ScaleVec,
+                    -GameRoot.Position / GameRoot.Scale, ContreJourConfig.RootSize / GameRoot.Scale,
+                    node.RotationRadians);
+                node.Position = position;
+                node.ScaleVec = scale;
+            }
+            if (BonusChapter)
             {
                 node.RotationDegrees = 0f;
                 node.Scale = ScreenConstants.W7FromIPhoneSize.X / ((Sprite)node).TextureSize.X;
@@ -774,7 +837,7 @@ namespace ContreJour.Gameplay
 
         public void CreateGrass()
         {
-            Grass = new ParticleSystem(Mokus2DGame.LoadMovieClipData(ChooseSide(null, "chapter4/McWhiteGrass", "chapter5/McGrass_5", "common/McTotalGrass", "McGrass_6")));
+            Grass = new ParticleSystem(Mokus2DGame.LoadMovieClipData(NewFriendChapter ? "newFriend/McGrass_7" : ChooseSide(null, "chapter4/McWhiteGrass", "chapter5/McGrass_5", "common/McTotalGrass", "chapter6/McGrass_6")));
         }
 
         public void CreateDust()
@@ -834,9 +897,15 @@ namespace ContreJour.Gameplay
                 }
                 else
                 {
-                    particles = new BlackFall();
+                    // The web's New Friend theme uses ValentineFall settings.
+                    // Convert its normalized opacity to DX's byte range.
+                    particles = NewFriendChapter ? new BlackFall("newFriend/McParticle_7")
+                    {
+                        ParticlesScale = new RandomRange(0.5f, 0.2f),
+                        StartOpacity = new RandomRange(0.5f, 0.2f) * 255f
+                    } : new BlackFall();
                     Builder.Add(particles, -2);
-                    particles.CreateBetweenBounds(40);
+                    particles.CreateBetweenBounds(NewFriendChapter ? 25 : 40);
                 }
             }
         }

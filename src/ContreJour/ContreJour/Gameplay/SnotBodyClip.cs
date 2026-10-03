@@ -96,6 +96,8 @@ namespace ContreJour.Gameplay
 
         public override Vector2 PositionVec => Physics.EndBody.Position;
 
+        public override Vector2 StartPosition => Physics.EyeBody.Position;
+
         public SnotBodyClip(LevelBuilderBase builder, SnotData body, Node clip, Hashtable config)
             : base(builder, body, clip, config)
         {
@@ -242,7 +244,7 @@ namespace ContreJour.Gameplay
         {
             if (!game.BlackSide && !Game.WhiteSide && !Game.BonusChapter)
             {
-                highlite = new Sprite(ClipIds.Common.McSnotEndHighlite);
+                highlite = new Sprite(game.NewFriendChapter ? "newFriend/McSnotEndHighlite_7" : ClipIds.Common.McSnotEndHighlite);
                 highliteChanger = new CosChanger(0.05f, 0.1f);
             }
         }

@@ -41,6 +41,8 @@ namespace ContreJour.Gameplay
 
         public static readonly LightColor BLUE = new(new Color(0f, 0f, 0f, 1f), ContreJourConstants.BlueLightColor.ChangeAlpha(1f));
 
+        public static readonly LightColor NewFriendLight = new(Color.Black, new Color(254, 127, 40));
+
         public static readonly LightColor Green = new(new Color(0f, 0f, 0f, 1f), ContreJourConstants.GreenLightColor.ChangeAlpha(1f));
 
         public static readonly LightColor LastLight = new(new Color(0f, 0f, 0f, 1f), new Color(2f / 51f, 2f / 51f, 2f / 51f, 1f));

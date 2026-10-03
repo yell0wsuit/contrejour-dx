@@ -1,7 +1,4 @@
-using System.Numerics;
-
 using Mokus2D.Visual;
-using Mokus2D.Visual.Particles.Util;
 
 namespace ContreJour.Gameplay
 {
@@ -9,20 +6,15 @@ namespace ContreJour.Gameplay
     {
         protected override void CreateSprites()
         {
-            ParticleSystem particleSystem = new("planets/McGreenPlanetFly");
-            Container.AddChild(particleSystem);
-            AddAlphaItem(particleSystem);
-            AddUpdating(new PlanetSurround(particleSystem));
-            Background = new Sprite("McChapter6Background");
-            BlurBackground = new Sprite("McChapter6Background");
+            BlurBackground = new Sprite("newFriend/McChapterVBlur");
+            RotatingSprite upper = new("newFriend/McPlanetVBackground1") { Speed = -float.RadiansToDegrees(1f), RotationRadians = -60f };
+            RotatingSprite lower = new("newFriend/McPlanetVBackground2") { Speed = float.RadiansToDegrees(0.75f), RotationRadians = -30f };
+            Container.AddChild(upper);
+            Container.AddChild(lower);
+            AddUpdating(upper);
+            AddUpdating(lower);
+            Background = new Sprite("newFriend/McPlanetVBackground");
             Container.AddChild(Background);
-            ParticleSystem particleSystem2 = new("common/McEnergyBall");
-            Container.AddChild(particleSystem2);
-            particleSystem2.Scale = 2f;
-            AlphaItems.Add(particleSystem2);
-            AddUpdating(new PlanetEnergy(particleSystem2, Vector2.Zero, new RandomRange(0.16f, 0.06f)));
-            Sprite node = new("McChapter6Foreground");
-            Container.AddChild(node);
         }
     }
 }

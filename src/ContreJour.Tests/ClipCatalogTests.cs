@@ -14,6 +14,7 @@ namespace ContreJour.Tests
         [InlineData("McEyeBall", "fakeHero/McEyeBall", ClipKind.Sprite)]
         [InlineData("McColorFix", "chapter4Backgrounds/McColorFix", ClipKind.Sprite)]
         [InlineData("McTear", "level1/McTear", ClipKind.MovieClip)]
+        [InlineData("McInspired", "level1/McInspired", ClipKind.Sprite)]
         [InlineData("McSpikesView", "common/McSpikesView", ClipKind.Composite)]
         public void NamesResolveToTheFirstSearchedFolder(string name, string id, ClipKind kind)
         {

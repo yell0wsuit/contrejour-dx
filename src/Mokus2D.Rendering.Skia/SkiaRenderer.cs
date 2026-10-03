@@ -48,6 +48,11 @@ namespace Mokus2D.Rendering.Skia
 
         private int _height;
 
+        private readonly Stack<AlphaMask> _alphaMasks = new();
+        private bool _drawingMask;
+        private static readonly short[] MaskIndices = [0, 1, 2, 1, 3, 2];
+        private sealed record AlphaMask(Vertex[] Quad, ITexture Texture, Matrix4x4 Transform);
+
         public SkiaRenderer()
         {
             _primitiveEffect = SKRuntimeEffect.CreateShader(PrimitiveShaderSource, out string errors)
@@ -125,7 +130,8 @@ namespace Mokus2D.Rendering.Skia
                 else
                 {
                     buffers.TextureCoordinates[i] = new SKPoint(vertex.TextureCoordinate.X, vertex.TextureCoordinate.Y);
-                    buffers.Colors[i] = TexturedVertexColor(vertex.Color, state.ColorMode, weighted, opacity);
+                    buffers.Colors[i] = _drawingMask ? SKColors.White
+                        : TexturedVertexColor(vertex.Color, state.ColorMode, weighted, opacity);
                 }
             }
             // A GPU drops a triangle with a non-finite vertex and draws the rest; Skia would drop the
@@ -170,13 +176,72 @@ namespace Mokus2D.Rendering.Skia
                 AssertUniformPerTriangle(buffers.Colors, triangles);
             }
 
-            _paint.BlendMode = state.Blend == BlendMode.Additive ? SKBlendMode.Plus : SKBlendMode.SrcOver;
+            _paint.BlendMode = _drawingMask ? SKBlendMode.DstIn
+                : state.Blend == BlendMode.Additive ? SKBlendMode.Plus : SKBlendMode.SrcOver;
             _paint.Shader = texture?.Shader(state.Sampler, weighted) ?? PrimitiveShader(opacity);
             using SKVertices skiaVertices = SKVertices.CreateCopy(SKVertexMode.Triangles, buffers.Positions, buffers.TextureCoordinates, buffers.Colors, triangles)
                 ?? throw new InvalidOperationException("Skia could not create the vertex set.");
             _canvas.DrawVertices(skiaVertices, SKBlendMode.Modulate, _paint);
             // The paint would otherwise keep the texture's shader, and through it the image, alive.
             _paint.Shader = null;
+        }
+
+        public void BeginAlphaMask(Vertex[] quad, ITexture texture, in Matrix4x4 transform)
+        {
+            if (_canvas == null)
+            {
+                throw new InvalidOperationException("SetTarget must be called before drawing.");
+            }
+            ArgumentNullException.ThrowIfNull(quad);
+            ArgumentNullException.ThrowIfNull(texture);
+            if (texture is not SkiaTexture)
+            {
+                throw new ArgumentException("The texture was not created by this renderer.", nameof(texture));
+            }
+            ObjectDisposedException.ThrowIf(texture.IsDisposed, texture);
+            if (quad.Length != 4)
+            {
+                throw new ArgumentException("An alpha mask requires four quad vertices.", nameof(quad));
+            }
+            Matrix3x2 toPixels = ToPixels(transform);
+            using SKPathBuilder builder = new();
+            int[] corners = [0, 1, 3, 2];
+            foreach (int index in corners)
+            {
+                Vector2 point = Vector2.Transform(new Vector2(quad[index].Position.X, quad[index].Position.Y), toPixels);
+                if (index == 0)
+                {
+                    builder.MoveTo(point.X, point.Y);
+                }
+                else
+                {
+                    builder.LineTo(point.X, point.Y);
+                }
+            }
+            builder.Close();
+            using SKPath path = builder.Detach();
+            _alphaMasks.Push(new AlphaMask(quad, texture, transform));
+            _ = _canvas.Save();
+            // DstIn affects only the drawn quad, so also exclude content outside that quad.
+            _canvas.ClipPath(path, SKClipOperation.Intersect, antialias: false);
+            _ = _canvas.SaveLayer(path.Bounds, null);
+        }
+
+        public void EndAlphaMask()
+        {
+            AlphaMask mask = _alphaMasks.Pop();
+            _drawingMask = true;
+            try
+            {
+                DrawState state = new(mask.Texture, BlendMode.AlphaBlend, SamplerMode.LinearClamp, ColorMode.Sprite);
+                DrawTriangles(mask.Quad, 4, MaskIndices, 6, mask.Transform, state);
+            }
+            finally
+            {
+                _drawingMask = false;
+                _canvas.Restore();
+                _canvas.Restore();
+            }
         }
 
         // Skia's glyph coverage times the paint's color, which it premultiplies, is exactly the Sprite

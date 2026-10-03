@@ -156,7 +156,7 @@ namespace ContreJour.Gameplay
 
         protected virtual string GetClipName()
         {
-            return Game.Choose("McSpringView_5", null, "McSpringViewWhite", null, "McSpringView_6");
+            return Game.NewFriendChapter ? "McSpringView_7" : Game.Choose("McSpringView_5", null, "McSpringViewWhite", null, "McSpringView_6");
         }
 
         protected virtual void SetSticked(ILaunchable value)
@@ -173,7 +173,7 @@ namespace ContreJour.Gameplay
 
         protected virtual void CreateShadow()
         {
-            Sprite node = new(Game.ChooseSide("common/McSpringShadow", "chapter4/McSpringShadowWhite", "common/McSpringShadow_5"));
+            Sprite node = new(Game.NewFriendChapter ? "newFriend/McSpringShadow_7" : Game.ChooseSide("common/McSpringShadow", "chapter4/McSpringShadowWhite", "common/McSpringShadow_5"));
             Builder.AddChildBefore(node, Clip);
             node.Position = Clip.Position;
             node.RotationRadians = Clip.RotationRadians;

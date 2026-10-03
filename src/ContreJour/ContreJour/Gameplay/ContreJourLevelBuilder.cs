@@ -41,11 +41,24 @@ namespace ContreJour.Gameplay
 
         public override string GetViewType(Hashtable config)
         {
-            return ContreJour.BlackSide && config.Exists("blackViewType") ? config.GetString("blackViewType") : base.GetViewType(config);
+            string viewType = base.GetViewType(config);
+            return ContreJour.NewFriendChapter && viewType is not null && Content.ClipCatalog.Find(viewType + "_7") is not null
+                ? viewType + "_7"
+                : ContreJour.BlackSide && config.Exists("blackViewType") ? config.GetString("blackViewType") : viewType;
         }
 
         public override void Update(float time)
         {
+            if (ContreJour.NewFriendChapter)
+            {
+                // Match Box2DWeb's single step and explicit solver settings.
+                FarseerPhysics.Settings.VelocityIterations = 16;
+                FarseerPhysics.Settings.PositionIterations = 20;
+                FarseerPhysics.Settings.ContinuousPhysics = true;
+                World.Step(Math.Min(time, 0.04f) * PhysicsSpeed);
+                Updater.Update(time);
+                return;
+            }
             float num = Math.Min(time, MaxWorldUpdateTime) * PhysicsSpeed / 2f;
             World.Step(num);
             World.Step(num);

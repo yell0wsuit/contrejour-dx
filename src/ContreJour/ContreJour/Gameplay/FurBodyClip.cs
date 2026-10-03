@@ -15,13 +15,16 @@ namespace ContreJour.Gameplay
     {
         private readonly List<RotatorGrass> grass = [];
 
-        private readonly FurCircle grassSystem;
+        protected FurCircle GrassSystem { get; }
 
         private readonly float grassStep;
 
         private readonly float trampleAngle;
 
         private readonly Sprite baseSprite;
+
+        protected virtual string BaseTexture => ClipIds.Chapter5.McRotatorBase;
+        protected virtual bool WebFurMotion => false;
 
         public FurBodyClip(LevelBuilderBase builder, object body, Node clip, Hashtable config)
             : base(builder, body, clip, config)
@@ -37,14 +40,14 @@ namespace ContreJour.Gameplay
             }
             grassStep = (float)Math.PI * 2f / GrassCount();
             trampleAngle = 4f * grassStep;
-            baseSprite = new Sprite(ClipIds.Chapter5.McRotatorBase);
+            baseSprite = new Sprite(BaseTexture);
             baseSprite.Scale = Width() / baseSprite.TextureSize.X;
             Clip.AddChild(baseSprite);
-            grassSystem = CreateFur();
+            GrassSystem = CreateFur();
             CreateGrass();
         }
 
-        public FurCircle CreateFur()
+        public virtual FurCircle CreateFur()
         {
             FurCircle furCircle = new(GrassTexture(), GrassCount(), GrassRadius());
             Clip.AddChild(furCircle);
@@ -67,8 +70,11 @@ namespace ContreJour.Gameplay
         public override void Update(float time)
         {
             base.Update(time);
-            float angle = 0f - Maths.Clamp(Body.AngularVelocity * 10f, -65f, 65f);
-            UpdateContactAngles();
+            float angle = WebFurMotion ? 0f : 0f - Maths.Clamp(Body.AngularVelocity * 10f, -65f, 65f);
+            if (!WebFurMotion)
+            {
+                UpdateContactAngles();
+            }
             foreach (RotatorGrass item in grass)
             {
                 item.UpdateAngle(time, angle);
@@ -113,9 +119,9 @@ namespace ContreJour.Gameplay
         {
             for (int i = 0; i < GrassCount(); i++)
             {
-                RotatorGrass rotatorGrass = new(grassSystem.Particles[i])
+                RotatorGrass rotatorGrass = new(GrassSystem.Particles[i], WebFurMotion)
                 {
-                    InitialAngle = grassSystem.GetItemAngle(i)
+                    InitialAngle = GrassSystem.GetItemAngle(i)
                 };
                 grass.Add(rotatorGrass);
             }

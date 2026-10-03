@@ -36,11 +36,11 @@ namespace ContreJour.Gameplay
             Create(points);
             _ = Builder.AddChild(clipContent);
             FirstItem.BodyClip.UpdateParent = true;
-            wideBorder = new PlasticineWideBorder();
+            wideBorder = contreJourGame.NewFriendChapter ? new NewFriendGroundBorder(FirstItem, contreJourGame) : new PlasticineWideBorder();
             _ = Builder.AddChild(wideBorder);
             InitBorder(contreJourGame);
             InitFillSprite();
-            if (!contreJourGame.RoseChapter)
+            if (!contreJourGame.RoseChapter && !contreJourGame.NewFriendChapter)
             {
                 highlite = new PlasticineHighliteBorder(FirstItem, wideBorder);
             }

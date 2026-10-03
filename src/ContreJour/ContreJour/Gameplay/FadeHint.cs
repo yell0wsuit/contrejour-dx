@@ -14,6 +14,8 @@ namespace ContreJour.Gameplay
 
         protected bool Hiding { get; set; }
 
+        protected virtual float FadeInTime => 2f;
+
         private readonly List<Action> callAfters = [];
 
         public override bool ShouldRemove => false;
@@ -68,7 +70,7 @@ namespace ContreJour.Gameplay
             {
                 Clip.Visible = true;
                 Clip.Tweener.Stop();
-                _ = Clip.FadeIn(2f);
+                _ = Clip.FadeIn(FadeInTime);
                 if (HasToHide())
                 {
                     CallAfterDelay(Hide, 5f);
