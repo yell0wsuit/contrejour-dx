@@ -16,6 +16,42 @@ namespace ContreJour.Tests
         private static readonly int[] MangoLevels = [188, 171, 170, 172, 190, 196, 191, 176, 186, 174,
             194, 178, 195, 182, 189, 197, 198, 183, 179, 199];
 
+        [Theory]
+        [InlineData(1, 5)]
+        [InlineData(2, 5)]
+        [InlineData(3, 10)]
+        [InlineData(4, 15)]
+        [InlineData(5, 20)]
+        [InlineData(6, 20)]
+        [InlineData(7, 20)]
+        public void MangoCannotSkipOrAdvancePastAvailableRows(int unlockedChapters, int availableLevels)
+        {
+            UserData data = UserData.Instance;
+            Preferences.GameSave.Clear();
+            try
+            {
+                data.UnlockedChapters = unlockedChapters;
+                // Even previously saved Mango progress cannot bypass the chapter gate.
+                data.SetUnlockedLevelsChapter(20, Constants.BonusChapter);
+                Assert.Equal(availableLevels, data.AvailableBonusLevels);
+                for (int i = 0; i < 20; i++)
+                {
+                    Assert.Equal(i >= availableLevels,
+                        new LevelPosition(Constants.BonusChapter, i).LockedByChapterProgress);
+                    Assert.Equal(i < availableLevels - 1,
+                        new LevelPosition(Constants.BonusChapter, i).SkipAvailable);
+                }
+                Assert.True(new LevelPosition(Constants.NewFriendChapter, 4).SkipAvailable);
+                Assert.False(new LevelPosition(Constants.NewFriendChapter, 9).LockedByChapterProgress);
+                Assert.True(new LevelPosition(0, 4).SkipAvailable);
+                Assert.False(LevelPosition.EndGame.SkipAvailable);
+            }
+            finally
+            {
+                Preferences.GameSave.Clear();
+            }
+        }
+
         [Fact]
         public void MangoFollowsNewFriendWithRekindledLevelOrder()
         {

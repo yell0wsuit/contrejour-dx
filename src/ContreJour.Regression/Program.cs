@@ -22,6 +22,7 @@ namespace ContreJour.Regression
     // Set CJ_REGRESSION_SIZE=<width>x<height> to check a different viewport.
     // Set CJ_REGRESSION_NEW_FRIEND_INTERACTIONS=1 to exercise companion input and lifecycle in level300.
     // Set CJ_REGRESSION_MANGO_INTERACTIONS=1 to exercise anchor movement, restart, pause, and the Mango planet.
+    // Set CJ_REGRESSION_MANGO_LOCKS=1 to verify Mango menu locks and its banner at every chapter gate.
     // Set CJ_REGRESSION_FINISH=1 to open each selected level's finish screen and verify its menu portal.
     // Set CJ_REGRESSION_CONTENT_ROOT=<desktop output directory> to check that build's deployed assets.
     //

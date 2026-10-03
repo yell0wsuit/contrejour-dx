@@ -184,6 +184,10 @@ namespace ContreJour.Gameplay
             return gameSave.GetInt(UnlockedLevelsKey + chapter.ToString(CultureInfo.InvariantCulture));
         }
 
+        // Rekindled starts with one Mango row and adds one for each of chapters 3-5.
+        // DX also has New Friend and starts with only chapter 1 open.
+        public int AvailableBonusLevels => Math.Clamp(UnlockedChapters - 1, 1, LevelsMenu.ROWS) * LevelsMenu.COLUMNS;
+
         public void UnlockChapter(int chapter)
         {
             UnlockedChapters = Math.Max(chapter + 1, gameSave.GetInt(UnlockedChaptersKey));

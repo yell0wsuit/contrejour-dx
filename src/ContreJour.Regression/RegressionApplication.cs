@@ -304,6 +304,10 @@ namespace ContreJour.Regression
                 {
                     base.Update(TimeStep);
                 }
+                if (_item.MenuChapter == Constants.BonusChapter && Environment.GetEnvironmentVariable("CJ_REGRESSION_MANGO_LOCKS") == "1")
+                {
+                    MangoLockRegression.Run(Find<LevelsMenu>(menu));
+                }
             }
             _phase = Phase.Record;
             _frame = 0;

@@ -12,7 +12,9 @@ namespace ContreJour.Gameplay
 
         public static LevelPosition EndGame => new(0, -1);
 
-        public bool SkipAvailable => !IsEndGame;
+        public bool LockedByChapterProgress => Chapter == Constants.BonusChapter && Index >= UserData.Instance.AvailableBonusLevels;
+
+        public bool SkipAvailable => !IsEndGame && (Chapter != Constants.BonusChapter || Index < UserData.Instance.AvailableBonusLevels - 1);
 
         public LevelPosition()
         {

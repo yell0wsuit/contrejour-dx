@@ -380,6 +380,11 @@ namespace ContreJour
         {
             canShowIntro = true;
             LevelPosition levelPosition = LevelsMenu.GetLevelPosition(lastLevel);
+            if (levelPosition.Chapter == Constants.BonusChapter && !levelPosition.SkipAvailable)
+            {
+                ChangeScene(() => CreateMainMenu(levelPosition.Chapter));
+                return;
+            }
             if (levelPosition.Index < Math.Min(Constants.LevelsToPlay, LevelsMenu.GetLevelCount(levelPosition.Chapter)) - 1)
             {
                 levelPosition.Index++;

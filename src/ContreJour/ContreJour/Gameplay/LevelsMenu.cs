@@ -12,6 +12,7 @@ using Mokus2D.Util;
 using Mokus2D.Util.Extensions;
 using Mokus2D.Visual;
 using Mokus2D.Visual.Interactive;
+using Mokus2D.Visual.Text;
 
 namespace ContreJour.Gameplay
 {
@@ -65,7 +66,7 @@ namespace ContreJour.Gameplay
 
         private Vector2 initialPosition;
 
-        private readonly TouchSprite adsButton;
+        private readonly Sprite adsButton;
 
         private Vector2 adsButtonPosition;
 
@@ -128,7 +129,7 @@ namespace ContreJour.Gameplay
                 int level = list[i];
                 LevelPosition levelPosition = GetLevelPosition(level);
                 bool flag2 = UserData.Instance.GetUnlockedLevels(levelPosition.Chapter) >= levelPosition.Index;
-                bool flag3 = Constants.IsTrial && i >= 10;
+                bool flag3 = (Constants.IsTrial && i >= 10) || levelPosition.LockedByChapterProgress;
                 LevelItem levelItem = new(level, flag2 && !flag3, flag3)
                 {
                     RealScale = 1.0925f
@@ -147,6 +148,10 @@ namespace ContreJour.Gameplay
             {
                 adsButton = CreateGetMoreButton(chapter);
             }
+            else if (chapter == Constants.BonusChapter && UserData.Instance.AvailableBonusLevels < list.Count)
+            {
+                adsButton = CreateUnlockButton(vector2.Y);
+            }
         }
 
         public void Show()
@@ -154,13 +159,31 @@ namespace ContreJour.Gameplay
             InteractionsEnabled = true;
         }
 
+        private Sprite CreateUnlockButton(float rowOffset)
+        {
+            int availableRows = UserData.Instance.AvailableBonusLevels / COLUMNS;
+            adsButtonPosition = new Vector2(0f, -rowOffset * availableRows / 2f);
+            Sprite sprite = new(ClipIds.Menu.McGetMoreLevelsButton)
+            {
+                Position = adsButtonPosition,
+                Scale = 1.45f,
+                Color = ContreJourConstants.GreenLightColor
+            };
+            AddChild(sprite);
+            Label label = ContreJourLabelUtil.CreateLabel(20f, "COMPLETE_MORE_CHAPTERS");
+            label.Scale *= 0.75f;
+            label.Y = 6f;
+            sprite.AddChild(label);
+            return sprite;
+        }
+
         private TouchSprite CreateGetMoreButton(int chapter)
         {
-            TouchSprite touchSprite = new("McGetMoreLevelsButton");
+            TouchSprite touchSprite = new(ClipIds.Menu.McGetMoreLevelsButton);
             Node node;
             if (ContreJourLabelUtil.IsEnglish)
             {
-                node = new Sprite("McGetMoreLevelsText");
+                node = new Sprite(ClipIds.Menu.McGetMoreLevelsText);
             }
             else
             {
