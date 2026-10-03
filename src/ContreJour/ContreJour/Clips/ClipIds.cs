@@ -364,6 +364,7 @@ namespace ContreJour.Clips
             public const string McBackground2Back = "level1/McBackground2Back";
             public const string McBlackSkyBackground = "level1/McBlackSkyBackground";
             public const string McIntroLogo = "level1/McIntroLogo";
+            public const string McInspired = "level1/McInspired";
             public const string McLystok1 = "level1/McLystok1";
             public const string McLystok1Content = "level1/McLystok1Content";
             public const string McLystok2 = "level1/McLystok2";

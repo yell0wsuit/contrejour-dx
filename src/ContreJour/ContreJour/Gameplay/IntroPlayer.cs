@@ -47,6 +47,20 @@ namespace ContreJour.Gameplay
 
         public void PlayInspired()
         {
+            Label label = ContreJourLabelUtil.CreateMultilineLabel(15f, "INSPIRED_BY");
+            label.Color = Color.Black;
+            label.Position = textPosition + new Vector2(-40f, 0f);
+            AddChild(label);
+            FadeItem(label);
+            if (ContreJourLabelUtil.IsEnglish)
+            {
+                Sprite inspired = new(ClipIds.Level1.McInspired)
+                {
+                    Position = textPosition
+                };
+                AddChild(inspired);
+                FadeItem(inspired);
+            }
             _ = this.Schedule(6f, PlayLogo);
         }
 

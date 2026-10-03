@@ -210,6 +210,7 @@ namespace ContreJour.Content
                 "McBackground2Back" => new(ClipIds.Level1.McBackground2Back, ClipKind.Sprite),
                 "McBlackSkyBackground" => new(ClipIds.Level1.McBlackSkyBackground, ClipKind.Sprite),
                 "McIntroLogo" => new(ClipIds.Level1.McIntroLogo, ClipKind.Sprite),
+                "McInspired" => new(ClipIds.Level1.McInspired, ClipKind.Sprite),
                 "McLystok1" => new(ClipIds.Level1.McLystok1, ClipKind.Composite, static () => new Clips.level1.McLystok1()),
                 "McLystok1Content" => new(ClipIds.Level1.McLystok1Content, ClipKind.Sprite),
                 "McLystok2" => new(ClipIds.Level1.McLystok2, ClipKind.Composite, static () => new Clips.level1.McLystok2()),
