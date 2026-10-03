@@ -240,6 +240,22 @@ namespace ContreJour.Regression
                 {
                     NewFriendInteractionRegression.Run(game, base.Update, label => { _ = CapturePixels(label); });
                 }
+                if (Environment.GetEnvironmentVariable("CJ_REGRESSION_FINISH") == "1")
+                {
+                    game.Finish(game.Builder.ToPoint(game.Hero.Body.Position));
+                    for (int frame = 0; frame < SettleFrames; frame++)
+                    {
+                        base.Update(TimeStep);
+                    }
+                    FinishView finishView = Find<FinishView>(game);
+                    MenuPortal portal = finishView == null ? null : Find<MenuPortal>(finishView);
+                    if (!game.Finished || portal == null || !portal.Visible || portal.SpeedValue != 40f)
+                    {
+                        throw new InvalidOperationException("The level finish screen did not show its animated menu portal.");
+                    }
+                    _ = CapturePixels("finished");
+                    MangoInteractionRegression.VerifyResultEye(finishView, label => { _ = CapturePixels(label); });
+                }
                 if (game.LevelIndex == 199 && Environment.GetEnvironmentVariable("CJ_REGRESSION_MANGO_INTERACTIONS") == "1")
                 {
                     NextLevel();
