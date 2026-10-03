@@ -8,12 +8,12 @@ using ContreJour.Gameplay;
 
 using FarseerPhysics.Dynamics;
 
-using Mokus2D.Input;
 using Mokus2D;
+using Mokus2D.Input;
+using Mokus2D.PlatformSupport.Input;
+using Mokus2D.Util.Data;
 using Mokus2D.Visual;
 using Mokus2D.Visual.Interfaces;
-using Mokus2D.Util.Data;
-using Mokus2D.PlatformSupport.Input;
 
 namespace ContreJour.Regression
 {

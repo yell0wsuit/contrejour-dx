@@ -2,8 +2,8 @@ using System;
 using System.Numerics;
 
 using FarseerPhysics.Dynamics;
-using FarseerPhysics.Dynamics.Joints;
 using FarseerPhysics.Dynamics.Contacts;
+using FarseerPhysics.Dynamics.Joints;
 
 using Mokus2D.Util.MathUtils;
 

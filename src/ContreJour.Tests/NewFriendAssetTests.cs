@@ -1,4 +1,5 @@
 using ContreJour.Content;
+
 using Xunit;
 
 namespace ContreJour.Tests

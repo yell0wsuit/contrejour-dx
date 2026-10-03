@@ -138,7 +138,7 @@ namespace ContreJour.Gameplay
         }
         public void ForceClipPosition()
         {
-            base.UpdatePosition();
+            UpdatePosition();
         }
         public void SetScaleTime(float scale, float time)
         {
