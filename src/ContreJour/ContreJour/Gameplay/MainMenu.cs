@@ -342,6 +342,8 @@ namespace ContreJour.Gameplay
             ground.Position = new Vector2(-2f, -2f);
             AddChild(ground, 3);
             backgroundImages[1].Color = BlueColor;
+            // Rekindled lowers the Mango menu background; Windows 8 never shipped it.
+            backgroundImages[Constants.BonusChapter].Position = new Vector2(0f, winSize.Y - 100f);
             if (Constants.IsTrial)
             {
                 backgroundImages[2].Color = BlueColor;
