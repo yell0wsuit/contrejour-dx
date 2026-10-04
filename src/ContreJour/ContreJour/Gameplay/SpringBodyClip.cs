@@ -63,7 +63,10 @@ namespace ContreJour.Gameplay
             movie.Stoped = true;
             movie.Repeat = false;
             movie.MinFrame = 7f;
-            CreateShadow();
+            if (!Game.BonusChapter)
+            {
+                CreateShadow();
+            }
             startScale = Clip.ScaleX;
             suckPoint = Builder.ToVec(SuckPoint * Clip.ScaleX);
             suckDistance = 150f * Clip.ScaleX * Builder.SizeMult;
