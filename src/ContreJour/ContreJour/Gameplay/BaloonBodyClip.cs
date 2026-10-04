@@ -33,7 +33,6 @@ namespace ContreJour.Gameplay
         private float finishSpeed;
         private float linkDelay;
         private float upForce;
-        private float airTime;
         private float heroTimer;
         private bool exploding;
         private int explosionShakes;
@@ -281,7 +280,6 @@ namespace ContreJour.Gameplay
             movingToTarget = false;
             exploding = false;
             SnotEnabled = true;
-            airTime = 0f;
             linkDelay = 0f;
             eye.AnimationsAllowed = true;
             eye.MoveAllowed = true;
@@ -520,8 +518,9 @@ namespace ContreJour.Gameplay
             }
             if (!Linked)
             {
-                airTime = FarseerUtil.IsTouching(Body) ? 0f : airTime + time;
-                Body.AngularDamping = airTime > 1f ? 1f : 0.1f;
+                // cj.js adds its frame object to airTime, so the airborne
+                // damping of 1 is never reached and 0.1 always applies.
+                Body.AngularDamping = 0.1f;
                 linkDelay = Math.Max(0f, linkDelay - time);
             }
             Tail.Update(time, Game.TotalTime);
