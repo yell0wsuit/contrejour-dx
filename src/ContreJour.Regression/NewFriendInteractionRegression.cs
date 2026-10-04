@@ -233,14 +233,7 @@ namespace ContreJour.Regression
 
                 amie.EatSpeedPauseScaleTime(amie.Body.Position + Vector2.UnitX, 0.5f, 1.3f, 0f, 0.2f);
                 Check(!amie.Body.Enabled && !amie.CanDie(), "Eating did not deactivate the companion and block further hazards.");
-                float timeBeforeEating = game.TotalTime;
-                Step(LifecycleTick, 200);
-                Check(!amie.Body.Enabled && amie.Clip.Scale == 0f && game.TotalTime > timeBeforeEating + 3f,
-                    "Eating Amie restarted the level instead of allowing Petit to continue.");
-                game.SoftRestart();
-                Step(LifecycleTick, 120);
-                Check(amie.Body.Enabled && amie.Clip.Visible && amie.Tail.Visible && amie.Body.BodyType == BodyType.Dynamic,
-                    "Manual restart did not restore the consumed companion.");
+                VerifyConsumptionRestart(game, LifecycleTick);
 
                 // The finish lifecycle must stop the companion from restarting a won level.
                 amie.MarkLevelCompleted();
@@ -249,6 +242,11 @@ namespace ContreJour.Regression
                 amie.Body.Position = new Vector2(center.X, -3f);
                 Step(LifecycleTick, 120);
                 Check(amie.Body.Position.Y < -2f, "A completed companion falling below the level restarted gameplay.");
+                amie.EatSpeedPauseScaleTime(amie.Body.Position, 0.5f, 1.3f, 0f, 0.2f);
+                float completedTime = game.TotalTime;
+                Step(LifecycleTick, 120);
+                Check(!amie.Body.Enabled && game.TotalTime > completedTime + 1.9f,
+                    "Eating Amie after completion restarted a won level.");
                 Console.WriteLine("New Friend interactions passed: tail input, attach, upward lift, click release, teleport release, respawn, spawn callback cancellation, death, eating, completion guard.");
             }
             finally
@@ -275,10 +273,14 @@ namespace ContreJour.Regression
             {
                 PlaceCharacters(amie, hero, center);
                 amie.LinkToHero();
+                Step(tick, 15);
                 Check(amie.Linked && amie.CanDie() && !amie.CanTeleport(),
                     "Attachment made Amie immune to hazards or enabled attached teleportation.");
-                // Exercise the real flower collision handler rather than bypassing its eligibility check.
-                flowers[0].OnCollisionPoint(amie.Body, null);
+                Check(amie.Body.FixtureList.Count(fixture => !fixture.IsSensor) >= 2,
+                    "The physical flower regression did not inflate attached Amie.");
+                amie.Body.SetTransform(flowers[0].Body.Position, 0f);
+                HoldHero(hero, new Vector2(1000f, 1000f));
+                game.Builder.World.Step(TimeStep * game.Builder.PhysicsSpeed);
                 Check(!amie.Linked && !amie.Tail.Linked && !amie.Body.Enabled,
                     "The flower did not consume attached Amie and release Petit.");
                 game.Builder.World.ProcessChanges();
@@ -295,15 +297,13 @@ namespace ContreJour.Regression
                 flowers[1].OnCollisionPoint(amie.Body, null);
                 amie.DestroyEvent.RemoveListener(OnDestroyed);
                 Check(repeatedDestruction == 0, "A second flower consumed Amie again.");
-                float timeBeforeEating = game.TotalTime;
-                for (int frame = 0; frame < 200; frame++)
+                void ConsumptionTick(float time)
                 {
                     HoldHero(hero, center);
-                    tick(TimeStep);
+                    tick(time);
                 }
-                Check(!amie.Body.Enabled && amie.Clip.Scale == 0f && game.TotalTime > timeBeforeEating + 3f,
-                    "Flower consumption restarted the level instead of allowing Petit to continue.");
-                Console.WriteLine("New Friend flowers passed: attached consumption, Petit release, joint cleanup, duplicate guard, continued gameplay.");
+                VerifyConsumptionRestart(game, ConsumptionTick);
+                Console.WriteLine("New Friend flowers passed: physical attached consumption, Petit release, joint cleanup, duplicate guard, automatic restart.");
             }
             finally
             {
@@ -314,6 +314,31 @@ namespace ContreJour.Regression
                     tick(TimeStep);
                 }
             }
+        }
+
+        private static void VerifyConsumptionRestart(ContreJourGame game, Action<float> tick)
+        {
+            float previousTime = game.TotalTime;
+            int restarts = 0;
+            for (int frame = 0; frame < 200; frame++)
+            {
+                tick(TimeStep);
+                if (game.TotalTime < previousTime)
+                {
+                    restarts++;
+                }
+                previousTime = game.TotalTime;
+                if (frame == 59)
+                {
+                    Check(restarts == 0 && !game.Amie.Body.Enabled && game.Amie.Clip.Scale == 0f,
+                        "Flower consumption did not wait for its restart delay.");
+                }
+            }
+            Check(restarts == 1, $"Flower consumption restarted {restarts} times instead of once.");
+            BaloonBodyClip amie = game.Amie;
+            Check(amie.Body.Enabled && amie.Clip.Visible && amie.Tail.Visible && amie.Clip.Scale > 0.99f
+                && amie.Body.BodyType == BodyType.Dynamic && amie.CanDie(),
+                "The automatic flower restart did not restore Amie.");
         }
 
         private static void VerifyAttachedSpikes(ContreJourGame game, Action<float> tick)
