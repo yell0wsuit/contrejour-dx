@@ -87,7 +87,7 @@ namespace ContreJour.Regression
         {
             PlasticineBodyClip ground = game.Plasticine[0];
             PlasticineBorder outline = ground.OutBorder;
-            Check(outline is NewFriendPlasticineBorder && outline.Layer == -3 && outline.OpacityFloat == 0f,
+            Check(outline is NewFriendPlasticineBorder && outline.Layer == -3 && outline.Opacity == 0,
                 "New Friend ground did not create the hidden yellow rest outline behind the level.");
             // Drag an upward-facing part away from both characters, as a player would.
             PlasticineItem item = ground.FirstItem;
@@ -115,14 +115,14 @@ namespace ContreJour.Regression
                 _ = game.TouchMove(drag);
                 tick(TimeStep);
             }
-            Check(Math.Abs(outline.OpacityFloat - (102f / 255f)) < 0.0001f,
+            Check(outline.Opacity == 102,
                 "Dragging the ground did not fade the rest outline in to the source's 102 opacity.");
             capture?.Invoke("ground-outline");
             game.TouchEnd(drag);
             Step(tick, 110);
-            Check(outline.OpacityFloat > 0f, "The rest outline faded before the source's two-second hold.");
+            Check(outline.Opacity > 0, "The rest outline faded before the source's two-second hold.");
             Step(tick, 40);
-            Check(outline.OpacityFloat == 0f, "The rest outline did not fade out after the drag ended.");
+            Check(outline.Opacity == 0, "The rest outline did not fade out after the drag ended.");
         }
 
         public static void Run(ContreJourGame game, Action<float> tick, Action<string> capture = null)

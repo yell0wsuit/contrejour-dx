@@ -23,8 +23,6 @@ namespace ContreJour.Gameplay
 
         private float lastTouchTime = float.MaxValue;
 
-        private int outBorderOpacity;
-
         // iOS outlines the rest shape while the ground is dragged; Windows 8 dropped it.
         internal PlasticineBorder OutBorder { get; }
 
@@ -233,8 +231,7 @@ namespace ContreJour.Gameplay
             // iOS steps an integer opacity by 5.1 per frame toward 102 for two seconds after a drag.
             int targetOpacity = lastTouchTime >= 2f ? 0 : 102;
             lastTouchTime += time;
-            outBorderOpacity = (int)Maths.StepTo(outBorderOpacity, targetOpacity, 5.1f);
-            OutBorder.OpacityFloat = outBorderOpacity / 255f;
+            OutBorder.Opacity = (int)Maths.StepTo(OutBorder.Opacity, targetOpacity, 5.1f);
             PlasticineItem nextItem = FirstItem;
             do
             {

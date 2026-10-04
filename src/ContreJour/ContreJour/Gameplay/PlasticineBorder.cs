@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Numerics;
 
 using Mokus2D.Graphics;
+using Mokus2D.Util.Extensions;
 using Mokus2D.Visual;
 using Mokus2D.Visual.Util;
 
@@ -24,13 +25,16 @@ namespace ContreJour.Gameplay
 
         private readonly float WIDTH = 4f;
 
-        public override float OpacityFloat
+        // iOS scales only the center vertex alpha. Node opacity would also
+        // scale the primitive's color and darken the outline.
+        public int Opacity
         {
+            get;
             set
             {
-                if (OpacityFloat != value)
+                if (field != value)
                 {
-                    base.OpacityFloat = value;
+                    field = value;
                     CreateColors();
                 }
             }
@@ -43,10 +47,10 @@ namespace ContreJour.Gameplay
             polygonSize = surface.Count;
             outBorder = new Vertex[surface.Count * 6];
             inBorder = new Vertex[surface.Count * 6];
-            GraphUtil.CreateGradientBorderWidthVertices(surface, BorderWidth(), inBorder);
-            GraphUtil.CreateGradientBorderWidthVertices(surface, 0f - BorderWidth(), outBorder);
+            // iOS turns +90 degrees from the outline for the in side; GetOutVertex turns -90.
+            GraphUtil.CreateGradientBorderWidthVertices(surface, 0f - BorderWidth(), inBorder);
+            GraphUtil.CreateGradientBorderWidthVertices(surface, BorderWidth(), outBorder);
             CreateColors();
-            OpacityFloat = 0f;
         }
 
         public virtual float BorderWidth()
@@ -69,16 +73,22 @@ namespace ContreJour.Gameplay
             return DefaultCenterColor;
         }
 
+        protected Color ScaledCenterColor()
+        {
+            Color center = CenterColor();
+            return center.ChangeAlpha((byte)(Opacity / 255f * center.A));
+        }
+
         public void CreateColors()
         {
-            Color startColor = CenterColor();
+            Color startColor = ScaledCenterColor();
             GraphUtil.CreateGradientColorsList(polygonSize, startColor, InColor(), inBorder);
             GraphUtil.CreateGradientColorsList(polygonSize, startColor, OutColor(), outBorder);
         }
 
         protected override void DrawPrimitives()
         {
-            if (OpacityFloat > 0f)
+            if (Opacity >= 1)
             {
                 GraphUtil.FillTrianglesList(inBorder);
                 GraphUtil.FillTrianglesList(outBorder);
@@ -87,8 +97,8 @@ namespace ContreJour.Gameplay
 
         int IOpacity.OpacityByte
         {
-            get => OpacityByte;
-            set => OpacityByte = value;
+            get => Opacity;
+            set => Opacity = value;
         }
     }
 }
