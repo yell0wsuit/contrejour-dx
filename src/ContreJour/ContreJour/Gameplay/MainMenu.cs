@@ -74,6 +74,8 @@ namespace ContreJour.Gameplay
 
         private static readonly Color GreyColor = ContreJourConstants.GreyColor;
 
+        private static readonly Color GreenColor = 12573952.ToRGBColor();
+
         private static readonly Color[] FontColors =
         [
             GreyColor,
@@ -82,7 +84,7 @@ namespace ContreJour.Gameplay
             GreyColor,
             GreyColor,
             ContreJourConstants.NewFriendColor,
-            ContreJourConstants.GreenLightColor
+            GreenColor
         ];
 
         private static readonly Color[] BackColors = Constants.IsTrial ? [GreyColor, BlueColor, BlueColor] :
@@ -93,7 +95,7 @@ namespace ContreJour.Gameplay
             ColorUtil.Mult(GreyColor, 0.5f),
             GreyColor,
             ContreJourConstants.NewFriendColor,
-            ContreJourConstants.GreenLightColor
+            GreenColor
         ];
 
         private Vector2 namesPosition;

@@ -126,7 +126,8 @@ namespace ContreJour.Tests
             Color[] palette = Assert.IsType<Color[]>(field.GetValue(null));
             Assert.Equal(Constants.ChaptersCount, palette.Length);
             Assert.Equal(ContreJourConstants.NewFriendColor, palette[5]);
-            Assert.Equal(ContreJourConstants.GreenLightColor, palette[6]);
+            // Rekindled and the Windows 8 source tint the Mango menu with 0xBFDD00.
+            Assert.Equal(new Color(191, 221, 0), palette[6]);
             Assert.Equal("chapter6/McBackgroundContent6_1", MainMenu.Backgrounds()[6]);
         }
     }
