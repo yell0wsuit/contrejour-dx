@@ -83,8 +83,51 @@ namespace ContreJour.Regression
             }
         }
 
+        public static void VerifyGroundOutline(ContreJourGame game, Action<float> tick, Action<string> capture = null)
+        {
+            PlasticineBodyClip ground = game.Plasticine[0];
+            PlasticineBorder outline = ground.OutBorder;
+            Check(outline is NewFriendPlasticineBorder && outline.Layer == -3 && outline.OpacityFloat == 0f,
+                "New Friend ground did not create the hidden yellow rest outline behind the level.");
+            // Drag an upward-facing part away from both characters, as a player would.
+            PlasticineItem item = ground.FirstItem;
+            PlasticineItem chosen = null;
+            do
+            {
+                Vector2 surface = item.GetSurfaceCenterVec();
+                if (Vector2.Normalize(item.BodyClip.Normal).Y > 0.7f && Vector2.Distance(surface, game.Hero.Body.Position) > 3f
+                    && Vector2.Distance(surface, game.Amie.Body.Position) > 3f)
+                {
+                    chosen = item;
+                    break;
+                }
+                item = item.NextItem;
+            }
+            while (item != ground.FirstItem);
+            Check(chosen != null, "No draggable ground part was found for the outline check.");
+            Vector2 start = chosen.GetSurfaceCenterVec();
+            Touch drag = TouchAt(game, start, 7101);
+            Check(game.TouchBegin(drag) && chosen.BodyClip.Dragging, "The ground outline check could not drag the ground.");
+            for (int frame = 1; frame <= 30; frame++)
+            {
+                Vector2 target = start + (Vector2.Normalize(chosen.BodyClip.Normal) * (frame / 30f));
+                drag.Position = game.Builder.GameRoot.LocalToGlobal(game.Builder.ToPoint(target));
+                _ = game.TouchMove(drag);
+                tick(TimeStep);
+            }
+            Check(Math.Abs(outline.OpacityFloat - (102f / 255f)) < 0.0001f,
+                "Dragging the ground did not fade the rest outline in to the source's 102 opacity.");
+            capture?.Invoke("ground-outline");
+            game.TouchEnd(drag);
+            Step(tick, 110);
+            Check(outline.OpacityFloat > 0f, "The rest outline faded before the source's two-second hold.");
+            Step(tick, 40);
+            Check(outline.OpacityFloat == 0f, "The rest outline did not fade out after the drag ended.");
+        }
+
         public static void Run(ContreJourGame game, Action<float> tick, Action<string> capture = null)
         {
+            VerifyGroundOutline(game, tick, capture);
             BaloonBodyClip amie = game.Amie ?? throw new InvalidOperationException("New Friend companion was not constructed.");
             Check(game.Builder.PhysicsSpeed == 1.2f && FarseerPhysics.Settings.VelocityIterations == 16,
                 "New Friend did not use the web physics speed and solver iterations.");

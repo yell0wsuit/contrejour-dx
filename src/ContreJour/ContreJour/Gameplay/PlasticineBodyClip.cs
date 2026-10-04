@@ -57,7 +57,10 @@ namespace ContreJour.Gameplay
                 _ = Builder.AddChild(highlite);
             }
             Changed = false;
-            OutBorder = CreateOutBorder(PlasticineConstants.MaxDragOffset);
+            // The web New Friend surface sits on its own offset; keep the outline above it.
+            OutBorder = CreateOutBorder(contreJourGame.NewFriendChapter
+                ? PlasticineConstants.MaxDragOffset + NewFriendGroundBorder.SurfaceOffset
+                : PlasticineConstants.MaxDragOffset);
             Builder.Add(OutBorder, -3);
             draggingItems = [];
         }
@@ -187,9 +190,11 @@ namespace ContreJour.Gameplay
         {
             List<Vector2> polygon = [];
             GetBorderVerticesOffset(ref polygon, offset);
-            return !Game.BlackSide
-                ? !Game.BonusChapter ? new PlasticineBorder(polygon) : new GreenPlasticineBorder(polygon)
-                : new BlackPlasticineBorder(polygon);
+            return Game.NewFriendChapter
+                ? new NewFriendPlasticineBorder(polygon)
+                : !Game.BlackSide
+                    ? !Game.BonusChapter ? new PlasticineBorder(polygon) : new GreenPlasticineBorder(polygon)
+                    : new BlackPlasticineBorder(polygon);
         }
 
         public bool StartDragItemTouch(PlasticineItem item, Touch touch)
