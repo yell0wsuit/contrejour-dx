@@ -155,6 +155,19 @@ namespace ContreJour.Regression
                 Check(!amie.Linked && amie.SnotEnabled, "Primary hero teleport/destruction did not release the companion.");
                 Check(CountCompanionJoints(world, amie, primaryHero) == 0, "Hero teleport retained an attachment joint.");
 
+                // A touch that began on nothing releases the balloon when it slides onto it.
+                Step(tick, 40);
+                amie.LinkToHero();
+                Check(amie.Linked, "Relink before the free touch check failed.");
+                Touch swipe = TouchAt(game, new Vector2(-10f, -10f), 7003);
+                _ = game.TouchBegin(swipe);
+                Check(amie.Linked, "A touch far from the companion released it.");
+                swipe.Position = game.Builder.GameRoot.LocalToGlobal(game.Builder.ToPoint(amie.Body.Position));
+                _ = game.TouchMove(swipe);
+                game.TouchEnd(swipe);
+                tick(TimeStep);
+                Check(!amie.Linked && amie.SnotEnabled, "A free touch sliding onto the inflated companion did not release it.");
+
                 // Lifecycle assertions use the authored terrain. The low companion spawn needs
                 // its real support, and the primary hero must not fail or finish during these checks.
                 foreach ((Body body, bool wasEnabled) in enabled)

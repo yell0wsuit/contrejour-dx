@@ -357,9 +357,11 @@ namespace ContreJour.Gameplay
         {
             return Linked ? 2 : 0;
         }
+        // cj.js tries startTouch for any touch without a listener, so a free
+        // touch sliding onto the inflated balloon releases it too.
         public bool AcceptFreeTouches()
         {
-            return !Linked || Tail.Dragging;
+            return true;
         }
         public bool UseForZoom()
         {
