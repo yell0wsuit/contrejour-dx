@@ -67,6 +67,8 @@ namespace ContreJour.Gameplay
             sensor.IsSensor = true;
             sensor.CollisionGroup = -2;
             Body.Mass = 0.659745f;
+            // cj.js raises ground dust for every character, the amie included.
+            Config["hasDust"] = true;
             Tail = new BaloonTail(World, Body);
             // The touch dispatcher queries physics fixtures; expose the tip as a draggable target.
             _ = new TailTouchClip(this);
