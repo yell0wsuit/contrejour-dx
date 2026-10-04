@@ -264,6 +264,7 @@ namespace ContreJour.Regression
 
         public static void RunFlowers(ContreJourGame game, Action<float> tick)
         {
+            VerifyAttachedSpikes(game, tick);
             BaloonBodyClip amie = game.Amie;
             HeroBodyClip hero = game.Hero;
             SpikesFlowerBodyClip[] flowers = [.. game.Builder.World.BodyList
@@ -274,7 +275,8 @@ namespace ContreJour.Regression
             {
                 PlaceCharacters(amie, hero, center);
                 amie.LinkToHero();
-                Check(amie.Linked && !amie.CanDie(), "Attached Amie did not retain her spike immunity.");
+                Check(amie.Linked && amie.CanDie() && !amie.CanTeleport(),
+                    "Attachment made Amie immune to hazards or enabled attached teleportation.");
                 // Exercise the real flower collision handler rather than bypassing its eligibility check.
                 flowers[0].OnCollisionPoint(amie.Body, null);
                 Check(!amie.Linked && !amie.Tail.Linked && !amie.Body.Enabled,
@@ -305,6 +307,61 @@ namespace ContreJour.Regression
             }
             finally
             {
+                game.SoftRestart();
+                for (int frame = 0; frame < 180; frame++)
+                {
+                    HoldHero(hero, center);
+                    tick(TimeStep);
+                }
+            }
+        }
+
+        private static void VerifyAttachedSpikes(ContreJourGame game, Action<float> tick)
+        {
+            BaloonBodyClip amie = game.Amie;
+            HeroBodyClip hero = game.Hero;
+            World world = game.Builder.World;
+            SimpleSpikesBodyClip spikes = world.BodyList.Select(body => body.UserData).OfType<SimpleSpikesBodyClip>().First();
+            Dictionary<Body, bool> enabled = [];
+            foreach (Body body in world.BodyList)
+            {
+                if (body != amie.Body && body != hero.Body && body != amie.Tail.Start && body != amie.Tail.Middle && body != amie.Tail.End)
+                {
+                    enabled.Add(body, body.Enabled);
+                    body.Enabled = false;
+                }
+            }
+            Vector2 center = game.PhysicsLevelSize / 2f;
+            try
+            {
+                PlaceCharacters(amie, hero, center);
+                amie.LinkToHero();
+                Step(tick, 15); // Allow the actual delayed inflated fixture to appear.
+                Check(amie.Linked && amie.Body.FixtureList.Count(fixture => !fixture.IsSensor) >= 2,
+                    "The physical spike regression did not inflate attached Amie.");
+                Check(amie.CanDie() && !amie.CanTeleport(),
+                    "Attached Amie gained spike immunity or lost her teleport restriction.");
+                spikes.Body.Enabled = true;
+                amie.Body.SetTransform(spikes.Body.Position, 0f);
+                HoldHero(hero, new Vector2(1000f, 1000f));
+                // Contact callbacks, fixture removal, and joint cleanup run inside the real world step.
+                world.Step(TimeStep * game.Builder.PhysicsSpeed);
+                world.ProcessChanges();
+                Check(!amie.Linked && !amie.Tail.Visible && !amie.CanDie(),
+                    "Physical spike contact did not explode attached Amie and release Petit.");
+                Check(CountCompanionJoints(world, amie, hero) == 0,
+                    "Attached spike death retained a companion joint.");
+                HoldHero(hero, center);
+                tick(TimeStep);
+                Check(!amie.Body.Enabled, "Attached spike death did not deactivate Amie's body.");
+                Console.WriteLine("Attached Amie spikes passed: physical contact, explosion, Petit release, joint cleanup.");
+            }
+            finally
+            {
+                foreach ((Body body, bool wasEnabled) in enabled)
+                {
+                    body.Enabled = wasEnabled;
+                }
                 game.SoftRestart();
                 for (int frame = 0; frame < 180; frame++)
                 {

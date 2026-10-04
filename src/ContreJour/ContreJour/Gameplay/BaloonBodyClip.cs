@@ -125,21 +125,19 @@ namespace ContreJour.Gameplay
         }
         public bool CanDie()
         {
-            return SnotEnabled && !exploding && !movingToTarget && !restartPending;
+            return Body.Enabled && !exploding && !movingToTarget && !restartPending;
         }
         internal bool CanBeEaten()
         {
-            // Web flowers consume characters even while attached. Spike and
-            // teleport immunity still follows SnotEnabled through CanDie.
-            return Body.Enabled && !exploding && !movingToTarget && !restartPending;
+            return CanDie();
         }
         public bool CanLaunch()
         {
-            return !Linked && CanDie();
+            return !Linked && CanTeleport();
         }
         public bool CanTeleport()
         {
-            return CanDie();
+            return SnotEnabled && CanDie();
         }
         public void SetSpeedLocked(bool value)
         {
@@ -421,7 +419,7 @@ namespace ContreJour.Gameplay
 
         public void LinkToHero()
         {
-            if (Linked || Game.Hero == null || !CanDie())
+            if (Linked || Game.Hero == null || !CanTeleport())
             {
                 return;
             }
