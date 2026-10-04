@@ -242,7 +242,7 @@ namespace ContreJour.Gameplay
 
         public virtual void CreateHighlite(ContreJourGame game)
         {
-            if (!game.BlackSide && !Game.WhiteSide && !Game.BonusChapter)
+            if (!game.BlackSide)
             {
                 highlite = new Sprite(game.NewFriendChapter ? "newFriend/McSnotEndHighlite_7" : ClipIds.Common.McSnotEndHighlite);
                 highliteChanger = new CosChanger(0.05f, 0.1f);
