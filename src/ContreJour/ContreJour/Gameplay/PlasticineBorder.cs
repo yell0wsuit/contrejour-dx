@@ -15,7 +15,8 @@ namespace ContreJour.Gameplay
 
         private readonly int polygonSize;
 
-        private static readonly Color DefaultOutColor = new Color(255, 255, 255) * 0f;
+        // iOS fades outward to transparent white; primitives interpolate straight alpha.
+        private static readonly Color DefaultOutColor = new(255, 255, 255, 0);
 
         private static readonly Color DefaultInColor = new(0, 0, 0, 0);
 
