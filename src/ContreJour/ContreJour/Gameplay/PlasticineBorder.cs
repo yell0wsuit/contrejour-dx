@@ -23,7 +23,7 @@ namespace ContreJour.Gameplay
 
         private static readonly Color DefaultCenterColor = new(127, 127, 127);
 
-        private readonly float WIDTH = 4f;
+        private readonly float WIDTH = 2f;
 
         // iOS scales only the center vertex alpha. Node opacity would also
         // scale the primitive's color and darken the outline.
