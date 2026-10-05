@@ -63,7 +63,7 @@ namespace ContreJour.Gameplay
 
         private float lastOnGroundTime;
 
-        protected bool LevelCompleted { get; set; }
+        public bool LevelCompleted { get; protected set; }
 
         private bool migthyPosted;
 
@@ -800,6 +800,8 @@ namespace ContreJour.Gameplay
         public void CompleteLevelSpeed(Vector2 targetPosition, float finishSpeed)
         {
             LevelCompleted = true;
+            Game.RestartEnabled = false;
+            Game.HidePause();
             Game.Amie?.MarkLevelCompleted();
             FinishLevelSpeed(targetPosition, finishSpeed);
         }

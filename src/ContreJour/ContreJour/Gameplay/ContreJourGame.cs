@@ -620,7 +620,7 @@ namespace ContreJour.Gameplay
 
         private void EnableRestart()
         {
-            if (!Finished)
+            if (!Finished && !EnteringEndPortal)
             {
                 RestartEnabled = true;
             }
@@ -739,12 +739,19 @@ namespace ContreJour.Gameplay
             Paused = true;
         }
 
+        // Petit is being pulled into the end portal: the level is won but not yet Finished.
+        private bool EnteringEndPortal => Hero is { LevelCompleted: true };
+
         public void OnBackPress()
         {
             if (Finished)
             {
                 Back();
                 Mokus2DGame.Instance.KeysController.RemoveBackKeyListener(OnBackPress);
+                return;
+            }
+            if (EnteringEndPortal)
+            {
                 return;
             }
             // Back on the pause panel resumes, as its play button does; its menu button leaves the level.
@@ -768,7 +775,7 @@ namespace ContreJour.Gameplay
         // Losing focus pauses the level as the pause button does, unless it is over or already paused.
         public void PauseForFocusLoss()
         {
-            if (Finished || pausePanel.Visible)
+            if (Finished || EnteringEndPortal || pausePanel.Visible)
             {
                 return;
             }
