@@ -25,7 +25,7 @@ namespace ContreJour.Desktop.Platform.Tests
                 Assert.True(SDL.IsPixelFormatAlpha(info.Format));
                 Assert.True(SDL.ReadSurfacePixel(surface, 0, 0, out _, out _, out _, out byte corner));
                 Assert.True(SDL.ReadSurfacePixel(surface, 128, 128, out _, out _, out _, out byte center));
-                Assert.Equal(255, corner);
+                Assert.Equal(0, corner);
                 Assert.Equal(255, center);
             }
             finally
