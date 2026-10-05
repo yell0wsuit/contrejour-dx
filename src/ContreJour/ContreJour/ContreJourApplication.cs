@@ -143,6 +143,7 @@ namespace ContreJour
 
         private void HideView(Node view, Action continuation)
         {
+            _blackForeground.Tweener.Stop();
             _blackForeground.Visible = true;
             _ = _blackForeground.FadeIn(0.5f).OnComplete((Action)delegate
             {
