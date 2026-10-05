@@ -134,8 +134,13 @@ export function startLoaderAnimation(canvas, splash) {
         ctx.restore();
     }
 
+    // Hidden behind the game, or replaced by sad Petit after a failure.
+    function stopped() {
+        return splash.classList.contains("hidden") || splash.classList.contains("failed");
+    }
+
     function loop(now) {
-        if (splash.classList.contains("hidden")) {
+        if (stopped()) {
             frame = 0;
             return;
         }
@@ -151,7 +156,7 @@ export function startLoaderAnimation(canvas, splash) {
     }
 
     function resume() {
-        if (frame === 0 && !splash.classList.contains("hidden")) {
+        if (frame === 0 && !stopped()) {
             last = 0;
             lag = 0;
             frame = requestAnimationFrame(loop);

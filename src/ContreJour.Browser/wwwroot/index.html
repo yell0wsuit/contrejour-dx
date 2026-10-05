@@ -91,19 +91,40 @@
                 aspect-ratio: 5 / 8;
             }
             /* What is loading, in small print under the swoosh. */
-            #splash-progress {
+            /* The progress line, then the hint or an error, stacked so a line that wraps on a small
+               panel pushes the next one down instead of overlapping it. */
+            #splash-status {
                 position: absolute;
-                top: 79%;
+                top: 80.5%;
                 left: 0;
                 right: 0;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 12px;
+            }
+            #splash-progress {
                 font-size: 0.9rem;
+            }
+            /* A short landscape screen has little room under the planet: let the status run wider
+               than the panel so it wraps into fewer lines and stays on screen. */
+            @media (max-height: 480px) {
+                #splash-status {
+                    left: 50%;
+                    right: auto;
+                    width: min(calc(100vw - 48px), 28rem);
+                    transform: translateX(-50%);
+                }
+                /* There the hint reaches the dark bottom of the sunset; a cream backdrop keeps it
+                   above 4.5:1 (8:1 or more on the screens measured). */
+                #splash #splash-hint {
+                    padding: 4px 10px;
+                    border-radius: 8px;
+                    background: rgb(252 244 209 / 60%);
+                }
             }
             /* The hint and the errors sit in the empty bottom of the panel, under the progress. */
             #splash-messages {
-                position: absolute;
-                top: 85%;
-                left: 0;
-                right: 0;
                 display: flex;
                 flex-direction: column;
                 align-items: center;
@@ -114,6 +135,39 @@
                 inset: 0;
                 width: 100%;
                 height: 100%;
+            }
+            /* A failed boot or a lost graphics context: the web version's sad Petit on black, where
+               the planet was, with light text so it keeps its contrast. */
+            #loader-sad {
+                display: none;
+                position: absolute;
+                left: 9.4%;
+                top: 29.2%;
+                width: 81.2%;
+            }
+            #splash.failed {
+                background: #000;
+                color: #e6e6e6;
+            }
+            #splash.failed #loader-canvas {
+                display: none;
+            }
+            /* Without the logo, sad Petit and the message below him sit around the middle. */
+            #splash.failed #loader-sad {
+                display: block;
+                top: 22%;
+            }
+            #splash.failed #loader-logo {
+                display: none;
+            }
+            /* Nothing is loading, so the error takes the loading slot right under sad Petit. On black it
+               can also be wider than a small panel, so a long message wraps into fewer lines. */
+            #splash.failed #splash-status {
+                top: 65%;
+                left: 50%;
+                right: auto;
+                width: min(calc(100vw - 48px), 28rem);
+                transform: translateX(-50%);
             }
             #loader-logo {
                 position: absolute;
@@ -168,6 +222,7 @@
             }
             #splash p,
             #splash h1 {
+                margin: 0;
                 max-width: min(100%, 40rem);
                 overflow-wrap: anywhere;
                 text-align: center;
@@ -261,6 +316,7 @@
                     height="800"
                     aria-hidden="true"
                 ></canvas>
+                <img id="loader-sad" src="./loader/sad_petit.png" alt="" />
                 <img
                     id="loader-logo"
                     src="./loader/logo_red.png"
@@ -284,23 +340,25 @@
                         alt=""
                     />
                 </div>
-                <p id="splash-progress" role="status">Loading…</p>
                 <button id="start" hidden>Play</button>
-                <div id="splash-messages">
-                    <p id="splash-hint" role="status" hidden>
-                        Taking too long? Check your connection, or reload the
-                        page.
-                    </p>
-                    <p id="boot-error" role="alert" hidden>
-                        The game could not start. Check your connection and
-                        reload the page.
-                    </p>
-                    <p id="context-lost-error" role="alert" hidden>
-                        The browser reset the game's graphics. Reload to
-                        continue - saved progress is kept, but the current level
-                        will restart.
-                    </p>
-                    <button id="resume" hidden>Reload</button>
+                <div id="splash-status">
+                    <p id="splash-progress" role="status">Loading…</p>
+                    <div id="splash-messages">
+                        <p id="splash-hint" role="status" hidden>
+                            Taking too long? Check your connection, or reload
+                            the page.
+                        </p>
+                        <p id="boot-error" role="alert" hidden>
+                            The game could not start due to unexpected errors.
+                            Try reloading the page.
+                        </p>
+                        <p id="context-lost-error" role="alert" hidden>
+                            The browser reset the game's graphics. Reload to
+                            continue - saved progress is kept, but the current
+                            level will restart.
+                        </p>
+                        <button id="resume" hidden>Reload</button>
+                    </div>
                 </div>
             </div>
             <h1 class="visually-hidden">Contre Jour DX</h1>
@@ -384,7 +442,16 @@
                 progress.hidden = true;
                 start.hidden = true;
                 splash.classList.remove("hidden");
+                splash.classList.add("failed");
                 document.getElementById(id)?.removeAttribute("hidden");
+                // An installed app has no browser reload button, so the splash offers its own.
+                const resume = document.getElementById("resume");
+                resume.hidden = false;
+                resume.addEventListener(
+                    "click",
+                    () => globalThis.location.reload(),
+                    { once: true },
+                );
             };
 
             const onBootRejection = (event) =>
