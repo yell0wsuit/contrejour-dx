@@ -55,8 +55,9 @@
                     calc(24px + env(safe-area-inset-left, 0px));
                 background: url("./loader/siteBgLoading.jpg") center / cover
                     no-repeat;
-                color: #e6e6e6;
-                text-shadow: 0 1px 3px rgb(0 0 0 / 70%);
+                /* Near-black with the logo's red in it: at least 4.5:1 against the sunset wherever the
+                   progress, hint and errors sit, at every screen size. Light text cannot reach that here. */
+                color: #1e0706;
                 font-family:
                     system-ui,
                     -apple-system,
@@ -95,8 +96,7 @@
                 top: 79%;
                 left: 0;
                 right: 0;
-                font-size: 0.8rem;
-                opacity: 0.85;
+                font-size: 0.9rem;
             }
             /* The hint and the errors sit in the empty bottom of the panel, under the progress. */
             #splash-messages {
@@ -180,7 +180,6 @@
                 max-width: min(100%, 320px);
                 font-size: 0.8rem;
                 line-height: 1.45;
-                opacity: 0.6;
             }
             #splash-spinner[hidden] {
                 display: none;
