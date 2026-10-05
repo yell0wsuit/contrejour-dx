@@ -47,14 +47,14 @@ namespace ContreJour.Gameplay
                 Scale = Clip.ScaleY
             };
             container.AddChild(node);
-            movie = Game.BonusChapter ? new SingleMovieSpikesView((MovieClip)clip) : (ISpikesView)clip;
+            movie = Clip as ISpikesView ?? new SingleMovieSpikesView((MovieClip)Clip);
             movie.Left.Stoped = movie.Right.Stoped = true;
             movie.Left.Speed = movie.Right.Speed = 1.5f;
             drawing = new SpikesFlowerSprite(this, Clip.ScaleY);
             container.AddChild(drawing, -1);
         }
 
-        // Mango exports the complete flower as one movie, so both sides use its player.
+        // iOS and Mango export the complete flower as one movie, so both sides use its player.
         private sealed class SingleMovieSpikesView(MovieClip clip) : ISpikesView
         {
             public MovieClip Left => clip;

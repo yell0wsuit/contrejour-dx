@@ -590,7 +590,7 @@ namespace ContreJour.Content
                 "McSpikesCenter" => new(ClipIds.Common.McSpikesCenter, ClipKind.Sprite),
                 "McSpikesFlowerShadow" => new(ClipIds.Common.McSpikesFlowerShadow, ClipKind.Sprite),
                 "McSpikesPart" => new(ClipIds.Common.McSpikesPart, ClipKind.MovieClip),
-                "McSpikesView" => new(ClipIds.Common.McSpikesView, ClipKind.Composite, static () => new Clips.common.McSpikesView()),
+                "McSpikesView" => new(ClipIds.Common.McSpikesView, ClipKind.MovieClip),
                 "McSpringShadow" => new(ClipIds.Common.McSpringShadow, ClipKind.Sprite),
                 "McSpringShadow_5" => new(ClipIds.Common.McSpringShadow_5, ClipKind.Sprite),
                 "McSpringView_5" => new(ClipIds.Common.McSpringView_5, ClipKind.MovieClip),

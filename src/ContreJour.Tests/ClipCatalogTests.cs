@@ -15,7 +15,7 @@ namespace ContreJour.Tests
         [InlineData("McColorFix", "chapter4Backgrounds/McColorFix", ClipKind.Sprite)]
         [InlineData("McTear", "level1/McTear", ClipKind.MovieClip)]
         [InlineData("McInspired", "level1/McInspired", ClipKind.Sprite)]
-        [InlineData("McSpikesView", "common/McSpikesView", ClipKind.Composite)]
+        [InlineData("McSpikesView", "common/McSpikesView", ClipKind.MovieClip)]
         public void NamesResolveToTheFirstSearchedFolder(string name, string id, ClipKind kind)
         {
             ClipEntry entry = ClipCatalog.Find(name);
