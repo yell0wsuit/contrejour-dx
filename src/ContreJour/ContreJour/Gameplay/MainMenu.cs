@@ -152,6 +152,7 @@ namespace ContreJour.Gameplay
                 inChapter = true;
                 spinner.Enabled = false;
                 FixCurrentPosition();
+                SoundManager.PlayMusic("menu");
             }
             else
             {
