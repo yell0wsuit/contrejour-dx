@@ -3,16 +3,15 @@ using Mokus2D.Input;
 namespace ContreJour.Browser.Platform
 {
     // The keys the page forwards, numbered so no strings cross the event ring. host-events.js holds the other
-    // half of this table (KeyboardEvent.code -> id); the two must agree. The set is the desktop host's. Escape
-    // and Q both mean Escape (the game's Back) and R means F5 (restart), because a browser keeps Escape (it
-    // leaves full screen) and F5 (reload) for itself.
+    // half of this table (KeyboardEvent.code -> id); the two must agree. The set is the desktop host's, except
+    // that Q means Escape (the game's Back) and R means F5 (restart): a browser keeps Escape (it leaves full
+    // screen) and F5 (reload) for itself, so the page forwards neither.
     public static class BrowserKeys
     {
         public static Key Map(int id)
         {
             return id switch
             {
-                1 => Key.Escape,
                 2 => Key.Escape,
                 3 => Key.F5,
                 4 => Key.Back,

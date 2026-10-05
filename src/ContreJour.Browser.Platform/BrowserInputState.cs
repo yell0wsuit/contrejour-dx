@@ -15,7 +15,7 @@ namespace ContreJour.Browser.Platform
     {
         private readonly Func<Letterbox> _letterbox = letterbox ?? throw new ArgumentNullException(nameof(letterbox));
 
-        // Key ids rather than keys: Escape and Q both mean Escape, and releasing one must not release the other.
+        // Key ids rather than keys, so two ids that share a key cannot release each other.
         private readonly HashSet<int> _heldKeys = [];
 
         private readonly Dictionary<int, TouchPoint> _touches = [];

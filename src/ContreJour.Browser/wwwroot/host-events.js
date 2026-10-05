@@ -25,9 +25,9 @@ const KIND_RESIZE = 5;
 const KIND_START = 6;
 
 // KeyboardEvent.code -> BrowserKeys id (src/ContreJour.Browser.Platform/BrowserKeys.cs); the tables must agree.
-// Q and R stand in for Escape and F5, which a browser keeps for itself.
+// Q and R stand in for Escape and F5, which a browser keeps for itself: Escape leaves full screen and F5
+// reloads, so neither reaches the game. Id 1 was Escape.
 const KEY_IDS = {
-    Escape: 1,
     KeyQ: 2,
     KeyR: 3,
     Backspace: 4,

@@ -121,17 +121,15 @@ namespace ContreJour.Browser.Platform.Tests
         }
 
         [Fact]
-        public void EscapeAndQBothHoldBack()
+        public void QHoldsBack()
         {
             BrowserInputState input = Create();
 
-            input.HandleKey(1, down: true);
             input.HandleKey(2, down: true);
-            input.HandleKey(2, down: false);
 
             Assert.True(input.IsBackPressed);
             Assert.True(input.IsKeyDown(Key.Escape));
-            input.HandleKey(1, down: false);
+            input.HandleKey(2, down: false);
             Assert.False(input.IsBackPressed);
         }
 
