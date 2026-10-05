@@ -324,6 +324,8 @@ namespace ContreJour.Gameplay
             _ = ScreenConstants.W7FromIPhoneSize;
             if (ContreJourConfig.BackButtonVisible)
             {
+                CoveredButtons coveredButtons = new(this);
+                AddChild(coveredButtons);
                 pauseButton = new Button("menu/McPauseIcon")
                 {
                     RealScale = 1.3f
@@ -334,7 +336,7 @@ namespace ContreJour.Gameplay
                 };
                 pauseButton.Position = ContreJourConfig.BackButtonPosition;
                 pauseButton.Color = buttonsColor;
-                ClickableLayer.AddChild(pauseButton);
+                ClickableLayer.AddChild(coveredButtons.Hold(pauseButton));
                 // As on the iPad: a small restart button left of the pause button, 64 points apart at scale 1.
                 restartButton = new Button("menu/McRestartIcon")
                 {
@@ -349,7 +351,7 @@ namespace ContreJour.Gameplay
                 restartButton.Color = buttonsColor;
                 restartButton.Enabled = false;
                 restartButton.OpacityFloat = RestartDisabledOpacity;
-                ClickableLayer.AddChild(restartButton);
+                ClickableLayer.AddChild(coveredButtons.Hold(restartButton));
             }
             pausePanel = new PausePanel(this);
             AddChild(pausePanel, 15);
@@ -1133,6 +1135,16 @@ namespace ContreJour.Gameplay
             foreach (PlasticineBodyClip item in Plasticine)
             {
                 item.Restart();
+            }
+        }
+
+        // Lets go of whatever a touch grabbed, as if it had been lifted; the touch itself stays down.
+        public void ReleaseTouch(Touch touch)
+        {
+            _ = freeTouches.Remove(touch);
+            if (draggingItems.Remove(touch, out IClickable clickable))
+            {
+                clickable.TouchEnd(touch);
             }
         }
 
