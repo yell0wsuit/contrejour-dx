@@ -993,7 +993,8 @@ namespace ContreJour.Gameplay
                 view.MenuEvent.AddListener(BackEvent.SendEvent);
             }
             Vector2 rootSize = ContreJourConfig.RootSize;
-            ZoomToScaleRightTopLeftBottomTime(rightTop: new Vector2(0f, 30f), leftBottom: new Vector2(rootSize.X * -0.29999995f, (rootSize.Y * -0.29999995f) - 30f), zoomPoint: zoomPoint * GameRoot.Scale, scale: 1.3f, time: 2.4f);
+            // As on the iPad: a linear 1.2x zoom over 0.8 s. Its 150 point margin is 125 units on this 640 tall stage.
+            ZoomToScaleRightTopLeftBottomTime(rightTop: new Vector2(0f, 125f), leftBottom: new Vector2(rootSize.X * -0.2f, (rootSize.Y * -0.2f) - 125f), zoomPoint: zoomPoint * GameRoot.Scale, scale: 1.2f, time: 0.8f, easing: null);
         }
 
         // Covers both a level finish and the game ending, where the back button takes the pause button's place.
@@ -1021,16 +1022,16 @@ namespace ContreJour.Gameplay
         public void ZoomToScaleTime(Vector2 zoomPoint, float scale, float time)
         {
             Vector2 w7FromIPhoneSize = ScreenConstants.W7FromIPhoneSize;
-            ZoomToScaleRightTopLeftBottomTime(zoomPoint, scale, new Vector2(0f, 0f), new Vector2(w7FromIPhoneSize.X * (1f - scale), w7FromIPhoneSize.Y * (1f - scale)), time);
+            ZoomToScaleRightTopLeftBottomTime(zoomPoint, scale, new Vector2(0f, 0f), new Vector2(w7FromIPhoneSize.X * (1f - scale), w7FromIPhoneSize.Y * (1f - scale)), time, Cubic.EaseInOut);
         }
 
-        public void ZoomToScaleRightTopLeftBottomTime(Vector2 zoomPoint, float scale, Vector2 rightTop, Vector2 leftBottom, float time)
+        public void ZoomToScaleRightTopLeftBottomTime(Vector2 zoomPoint, float scale, Vector2 rightTop, Vector2 leftBottom, float time, Func<float, float> easing)
         {
             Vector2 w7FromIPhoneSize = ScreenConstants.W7FromIPhoneSize;
             Vector2 position = new((w7FromIPhoneSize.X / 2f) - (zoomPoint.X * scale), (w7FromIPhoneSize.Y / 2f) - (zoomPoint.Y * scale));
             position.X = position.X.Clamp(leftBottom.X, rightTop.X);
             position.Y = position.Y.Clamp(leftBottom.Y, rightTop.Y);
-            _ = GameRoot.MoveTo(time, position, Cubic.EaseInOut).ScaleTo(scale * GameRoot.Scale, Cubic.EaseInOut);
+            _ = GameRoot.MoveTo(time, position, easing).ScaleTo(scale * GameRoot.Scale, easing);
         }
 
         public void RegisterHero(HeroBodyClip hero)
