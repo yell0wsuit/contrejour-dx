@@ -171,5 +171,5 @@ The HTML5 edition of _Contre Jour_, which the _New Friend_ chapter comes from:
 - Maksym Hryniv for creating _Contre Jour_ and allowing this fan project to exist.
 - David Ari Leon for composing the music of _Contre Jour_.
 - The original developer team of _Contre Jour_ for their work on the game.
-- @TheAwesomeBlue for finding the original Windows 8 version of _Contre Jour_.
+- TheAwesomeBlue for finding the original Windows 8 version of _Contre Jour_.
 - Laxii for providing the lossless soundtrack of _Contre Jour_.
