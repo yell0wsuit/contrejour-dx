@@ -42,20 +42,21 @@
             #splash {
                 position: fixed;
                 inset: 0;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: flex-start;
-                gap: 20px;
-                overflow-y: auto;
+                /* One centered cell: the panel is sized to fit it, so nothing scrolls. */
+                display: grid;
+                grid-template: minmax(0, 1fr) / minmax(0, 1fr);
+                place-items: center;
+                overflow: hidden;
                 touch-action: pan-y;
                 box-sizing: border-box;
                 padding: calc(24px + env(safe-area-inset-top, 0px))
                     calc(24px + env(safe-area-inset-right, 0px))
                     calc(24px + env(safe-area-inset-bottom, 0px))
                     calc(24px + env(safe-area-inset-left, 0px));
-                background: #202329;
+                background: url("./loader/siteBgLoading.jpg") center / cover
+                    no-repeat;
                 color: #e6e6e6;
+                text-shadow: 0 1px 3px rgb(0 0 0 / 70%);
                 font-family:
                     system-ui,
                     -apple-system,
@@ -71,21 +72,102 @@
                 opacity: 0;
                 pointer-events: none;
             }
-            #splash > * {
-                flex-shrink: 0;
+            /* The web loader's 500x800 panel, scaled down to fit. Its pieces keep the web offsets,
+               as fractions of the panel. */
+            #loader {
+                position: relative;
+                width: min(
+                    500px,
+                    100%,
+                    calc(
+                        (
+                                100svh - 48px - env(safe-area-inset-top, 0px) -
+                                    env(safe-area-inset-bottom, 0px)
+                            ) *
+                            5 / 8
+                    )
+                );
+                aspect-ratio: 5 / 8;
             }
-            #splash::before,
-            #splash::after {
-                content: "";
-                margin: auto;
+            /* What is loading, in small print under the swoosh. */
+            #splash-progress {
+                position: absolute;
+                top: 79%;
+                left: 0;
+                right: 0;
+                font-size: 0.8rem;
+                opacity: 0.85;
             }
-            #splash img {
-                width: 96px;
-                height: 96px;
+            /* The hint and the errors sit in the empty bottom of the panel, under the progress. */
+            #splash-messages {
+                position: absolute;
+                top: 85%;
+                left: 0;
+                right: 0;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 12px;
+            }
+            #loader-canvas {
+                position: absolute;
+                inset: 0;
+                width: 100%;
+                height: 100%;
+            }
+            #loader-logo {
+                position: absolute;
+                left: 26.6%;
+                top: 15%;
+                width: 47%;
+            }
+            #splash-spinner .loading-text {
+                position: absolute;
+                left: 36.8%;
+                top: 72.5%;
+                width: 26.6%;
+            }
+            #splash-spinner .swoosh {
+                position: absolute;
+                left: 41%;
+                top: 75%;
+                width: 18%;
+            }
+            /* Loading has no single percentage across its stages, so the swoosh fills and fades in a loop. */
+            #splash-spinner .swoosh-fill {
+                left: 40.8%;
+                animation: swoosh 1.6s ease-in-out infinite;
+            }
+            @keyframes swoosh {
+                0% {
+                    clip-path: inset(0 100% 0 0);
+                    opacity: 1;
+                }
+                70% {
+                    clip-path: inset(0 0 0 0);
+                    opacity: 1;
+                }
+                100% {
+                    clip-path: inset(0 0 0 0);
+                    opacity: 0;
+                }
+            }
+            #loader #start {
+                position: absolute;
+                left: 50%;
+                top: 72.5%;
+                transform: translateX(-50%);
+            }
+            .visually-hidden {
+                position: absolute;
+                width: 1px;
+                height: 1px;
+                overflow: hidden;
+                clip-path: inset(50%);
+                white-space: nowrap;
             }
             #splash p,
             #splash h1 {
-                margin: 0;
                 max-width: min(100%, 40rem);
                 overflow-wrap: anywhere;
                 text-align: center;
@@ -100,21 +182,8 @@
                 line-height: 1.45;
                 opacity: 0.6;
             }
-            #splash .spinner {
-                width: 36px;
-                height: 36px;
-                border-radius: 50%;
-                border: 4px solid #3a3f47;
-                border-top-color: #e6e6e6;
-                animation: splash-spin 0.8s linear infinite;
-            }
-            #splash .spinner[hidden] {
+            #splash-spinner[hidden] {
                 display: none;
-            }
-            @keyframes splash-spin {
-                to {
-                    transform: rotate(360deg);
-                }
             }
             #start,
             #resume {
@@ -122,6 +191,8 @@
                 font-size: 1rem;
                 border: 0;
                 border-radius: 8px;
+                background: rgb(144 63 60);
+                color: rgb(252 244 209);
                 cursor: pointer;
             }
             #start[hidden],
@@ -184,29 +255,56 @@
     <body>
         <canvas id="game"></canvas>
         <div id="splash">
-            <img
-                src="./icon-512.png"
-                width="96"
-                height="96"
-                alt="Contre Jour icon"
-                decoding="async"
-            />
-            <div class="spinner" id="splash-spinner"></div>
-            <p id="splash-progress">Loading…</p>
-            <h1>Contre Jour</h1>
-            <button id="start" hidden>Play</button>
-            <p id="splash-hint" role="status" hidden>
-                Taking too long? Check your connection, or reload the page.
-            </p>
-            <p id="boot-error" role="alert" hidden>
-                The game could not start. Check your connection and reload the
-                page.
-            </p>
-            <p id="context-lost-error" role="alert" hidden>
-                The browser reset the game's graphics. Reload to continue -
-                saved progress is kept, but the current level will restart.
-            </p>
-            <button id="resume" hidden>Reload</button>
+            <div id="loader">
+                <canvas
+                    id="loader-canvas"
+                    width="500"
+                    height="800"
+                    aria-hidden="true"
+                ></canvas>
+                <img
+                    id="loader-logo"
+                    src="./loader/logo_red.png"
+                    alt=""
+                    decoding="async"
+                />
+                <div id="splash-spinner" aria-hidden="true">
+                    <img
+                        class="loading-text"
+                        src="./loader/loaderText.png"
+                        alt=""
+                    />
+                    <img
+                        class="swoosh"
+                        src="./loader/loaderSwooshBlack.png"
+                        alt=""
+                    />
+                    <img
+                        class="swoosh swoosh-fill"
+                        src="./loader/loaderSwooshBlue.png"
+                        alt=""
+                    />
+                </div>
+                <p id="splash-progress" role="status">Loading…</p>
+                <button id="start" hidden>Play</button>
+                <div id="splash-messages">
+                    <p id="splash-hint" role="status" hidden>
+                        Taking too long? Check your connection, or reload the
+                        page.
+                    </p>
+                    <p id="boot-error" role="alert" hidden>
+                        The game could not start. Check your connection and
+                        reload the page.
+                    </p>
+                    <p id="context-lost-error" role="alert" hidden>
+                        The browser reset the game's graphics. Reload to
+                        continue - saved progress is kept, but the current level
+                        will restart.
+                    </p>
+                    <button id="resume" hidden>Reload</button>
+                </div>
+            </div>
+            <h1 class="visually-hidden">Contre Jour DX</h1>
         </div>
         <button id="download-logs" type="button">Download logs</button>
         <dialog id="update" aria-labelledby="update-title">
@@ -312,6 +410,16 @@
                 globalThis.cjStart();
                 splash.classList.add("hidden");
             });
+
+            // The planet is decoration: if it cannot load, the splash still works without it.
+            import("./loader.js")
+                .then((loader) =>
+                    loader.startLoaderAnimation(
+                        document.getElementById("loader-canvas"),
+                        splash,
+                    ),
+                )
+                .catch((error) => console.warn("cj-loader:", error));
 
             // Imported here rather than through its own script tag so that this bootstrap owns the promise for
             // its whole module graph: a module that fails to download raises an error event at its script
