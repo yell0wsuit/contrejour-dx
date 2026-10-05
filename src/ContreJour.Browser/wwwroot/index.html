@@ -22,12 +22,22 @@
                 height: 100%;
                 margin: 0;
                 background: #000;
+                font-family:
+                    system-ui,
+                    -apple-system,
+                    "Segoe UI",
+                    Roboto,
+                    sans-serif;
                 overflow: hidden;
                 -webkit-user-select: none;
                 user-select: none;
                 -webkit-tap-highlight-color: transparent;
                 touch-action: none;
                 overscroll-behavior: none;
+            }
+            /* Buttons take the page's font instead of the browser's own button font. */
+            button {
+                font: inherit;
             }
             /* The canvas is the viewport. The game letterboxes its fixed canvas into whatever box this is.
                Fixed positioning rather than viewport units because a mobile browser collapsing its URL bar
@@ -58,12 +68,6 @@
                 /* Near-black with the logo's red in it: at least 4.5:1 against the sunset wherever the
                    progress, hint and errors sit, at every screen size. Light text cannot reach that here. */
                 color: #1e0706;
-                font-family:
-                    system-ui,
-                    -apple-system,
-                    "Segoe UI",
-                    Roboto,
-                    sans-serif;
                 z-index: 10;
                 transition: opacity 0.25s ease-out;
             }
@@ -263,6 +267,7 @@
                 padding: 8px 12px;
                 background: #202329;
                 color: #e6e6e6;
+                font-size: 0.85rem;
                 cursor: pointer;
                 touch-action: manipulation;
             }
@@ -278,12 +283,6 @@
                 border-radius: 10px;
                 background: #202329;
                 color: #e6e6e6;
-                font-family:
-                    system-ui,
-                    -apple-system,
-                    "Segoe UI",
-                    Roboto,
-                    sans-serif;
                 box-shadow: 0 8px 32px rgb(0 0 0 / 50%);
             }
             #update::backdrop {
