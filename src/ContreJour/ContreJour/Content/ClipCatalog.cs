@@ -404,7 +404,7 @@ namespace ContreJour.Content
                 "McSpikesCenterWhite" => new(ClipIds.Chapter4.McSpikesCenterWhite, ClipKind.Sprite),
                 "McSpikesPartWhite" => new(ClipIds.Chapter4.McSpikesPartWhite, ClipKind.MovieClip),
                 "McSpikesPartWhiteRight" => new(ClipIds.Chapter4.McSpikesPartWhiteRight, ClipKind.MovieClip),
-                "McSpikesViewWhite" => new(ClipIds.Chapter4.McSpikesViewWhite, ClipKind.Composite, static () => new Clips.chapter4.McSpikesViewWhite()),
+                "McSpikesViewWhite" => new(ClipIds.Chapter4.McSpikesViewWhite, ClipKind.MovieClip),
                 "McSpringShadowWhite" => new(ClipIds.Chapter4.McSpringShadowWhite, ClipKind.Sprite),
                 "McSpringViewWhite" => new(ClipIds.Chapter4.McSpringViewWhite, ClipKind.MovieClip),
                 "McStrongSnotEndWhite" => new(ClipIds.Chapter4.McStrongSnotEndWhite, ClipKind.Sprite),
