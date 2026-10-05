@@ -89,6 +89,9 @@ namespace ContreJour.Gameplay
 
         private float providersValue;
         private readonly Button restartButton;
+
+        // F5 stays off with the restart button while the intro plays.
+        private bool introPlaying;
         private readonly LayerColor restartLayer;
         private readonly LightColor startLightColor;
 
@@ -634,6 +637,29 @@ namespace ContreJour.Gameplay
             _ = restartButton.FadeTo(0.15f, RestartEnabled ? 1f : RestartDisabledOpacity);
         }
 
+        // The intro shows its own skip button, which restarts the level just as this one would.
+        public void HideRestartButton()
+        {
+            introPlaying = true;
+            if (restartButton != null)
+            {
+                restartButton.Visible = false;
+                restartButton.InteractionsEnabled = false;
+            }
+        }
+
+        public void ShowRestartButton()
+        {
+            introPlaying = false;
+            if (restartButton != null)
+            {
+                restartButton.Visible = true;
+                restartButton.InteractionsEnabled = true;
+                restartButton.OpacityFloat = 0f;
+                _ = restartButton.FadeTo(0.3f, RestartEnabled ? 1f : RestartDisabledOpacity);
+            }
+        }
+
         public void Back()
         {
             Hero?.Removed = true;
@@ -733,7 +759,7 @@ namespace ContreJour.Gameplay
         // F5 restarts as the restart button does, and only while that button could be pressed.
         private void OnRestartKey()
         {
-            if (RestartEnabled && !Paused && !Finished)
+            if (RestartEnabled && !Paused && !Finished && !introPlaying)
             {
                 Restart();
             }
