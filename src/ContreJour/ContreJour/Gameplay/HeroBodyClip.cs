@@ -50,7 +50,7 @@ namespace ContreJour.Gameplay
 
         private float finishSpeed;
 
-        protected bool Finished { get; set; }
+        public bool Finished { get; protected set; }
 
         private bool hasToYawn;
         private readonly Sprite hotspot;
