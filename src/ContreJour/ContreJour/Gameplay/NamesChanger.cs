@@ -5,6 +5,7 @@ using System.Numerics;
 using ContreJour.Clips;
 using ContreJour.Utils;
 
+using Mokus2D;
 using Mokus2D.Graphics;
 using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual;
@@ -14,6 +15,11 @@ namespace ContreJour.Gameplay
 {
     public class NamesChanger : Node
     {
+        private const float LabelSize = 32f;
+
+        // As in the chapter name art, the "chapter N" line sits a little smaller over the chapter's name.
+        private const float ChapterLineSize = 0.75f;
+
         private float currentIndex;
 
         private readonly List<Node> names = [];
@@ -100,7 +106,7 @@ namespace ContreJour.Gameplay
         {
             return ContreJourLabelUtil.IsEnglish && index != Constants.NewFriendChapter && index != Constants.BonusChapter
                 ? new Sprite(string.Format(CultureInfo.InvariantCulture, "menu/McChapter{0}Name", index + 1))
-                : CreateLabelColor(color: index switch
+                : CreateChapterLabel(color: index switch
                 {
                     3 => ContreJourConstants.WhiteLightColor * 1.8f,
                     1 => ContreJourConstants.BlueLightColor * 1.8f,
@@ -110,12 +116,38 @@ namespace ContreJour.Gameplay
                 }, text: string.Format(CultureInfo.InvariantCulture, "CHAPTER{0}", index + 1));
         }
 
+        private static Node CreateChapterLabel(string text, Color color)
+        {
+            string[] lines = text.Localize().Split('\n');
+            if (lines.Length != 2)
+            {
+                return CreateLabelColor(text, color);
+            }
+            Node title = CreateLabelColor(lines[0], color, LabelSize * ChapterLineSize, out _);
+            Node name = CreateLabelColor(lines[1], color, LabelSize, out Label nameLabel);
+            // Stacked as the two-line label stacks them (line height plus its -6 spacing), centered on the node.
+            float lineHeight = Mokus2DGame.Fonts.GetLineHeight(LabelSize) * nameLabel.Scale;
+            float gap = ((1f + ChapterLineSize) * lineHeight / 2f) - (6f * nameLabel.Scale);
+            float center = (1f - ChapterLineSize) * lineHeight / 4f;
+            title.Y = center + (gap / 2f);
+            name.Y = center - (gap / 2f);
+            Node node = new();
+            node.AddChild(title);
+            node.AddChild(name);
+            return node;
+        }
+
         private static Node CreateLabelColor(string text, Color color)
         {
+            return CreateLabelColor(text, color, LabelSize, out _);
+        }
+
+        private static Node CreateLabelColor(string text, Color color, float size, out Label label)
+        {
             Node node = new();
-            Label label = ContreJourLabelUtil.CreateMultilineLabel(32f, text);
+            label = ContreJourLabelUtil.CreateMultilineLabel(size, text);
             label.Color = color;
-            Label label2 = ContreJourLabelUtil.CreateMultilineLabel(32f, text);
+            Label label2 = ContreJourLabelUtil.CreateMultilineLabel(size, text);
             label2.Color = Color.Black;
             label2.OpacityByte = 80;
             label2.Position = new Vector2(3f, -3f);
