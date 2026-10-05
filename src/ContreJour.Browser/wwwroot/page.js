@@ -99,7 +99,9 @@ export function setCursorVisible(visible) {
 // that made them. Reloading is what recovers, so the player is handed the reload rather than told to go
 // and find it. The game saves as it notices the loss.
 function reportContextLost() {
-    document.getElementById("splash")?.classList.remove("hidden");
+    const splash = document.getElementById("splash");
+    splash?.classList.remove("hidden");
+    splash?.classList.add("failed");
     for (const element of ["splash-spinner", "splash-progress", "start"]) {
         document.getElementById(element)?.setAttribute("hidden", "");
     }

@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Text.Json;
 
 using Microsoft.Extensions.Logging;
 
@@ -158,7 +159,7 @@ namespace ContreJour.Saving
                     file.LoadJson(json);
                 }
             }
-            catch (Exception e) when (e is IOException or UnauthorizedAccessException or System.Text.Json.JsonException)
+            catch (Exception e) when (e is IOException or UnauthorizedAccessException or JsonException)
             {
                 file.Clear();
                 ILogger logger = Log.For(LogCategories.Preferences);

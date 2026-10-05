@@ -35,7 +35,7 @@ namespace ContreJour.Gameplay
             ContreJourGame contreJourGame = (ContreJourGame)builder.Game;
             string text = config.GetString("viewType");
             floating = text.Contains("Circle");
-            if (!contreJourGame.BlackSide)
+            if (!contreJourGame.BlackSide && !contreJourGame.NewFriendChapter)
             {
                 Clip = LevelBuilderBase.ReplaceClipWith(clip, text + contreJourGame.ChooseSide(null, "White", "_5", "Black", "_6"));
             }

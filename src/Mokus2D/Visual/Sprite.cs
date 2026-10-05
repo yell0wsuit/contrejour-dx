@@ -139,10 +139,6 @@ namespace Mokus2D.Visual
             SetMainConfig(data.Config);
             if (Config != null)
             {
-                if (Config.ContainsKey("premultiply"))
-                {
-                    Blend = Config.GetBool("premultiply") ? BlendMode.AlphaBlend : BlendMode.NonPremultiplied;
-                }
                 if (Config.ContainsKey("clickable"))
                 {
                     Clickable = Config.GetBool("clickable");

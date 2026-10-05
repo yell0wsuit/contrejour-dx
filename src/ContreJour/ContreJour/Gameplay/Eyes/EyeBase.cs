@@ -32,6 +32,9 @@ namespace ContreJour.Gameplay.Eyes
         private bool dirty = true;
 
         private readonly Node content = new();
+        private readonly Node eyeBallContent;
+
+        protected virtual bool MaskEyeBall => false;
 
         public float ViewDistance
         {
@@ -65,6 +68,7 @@ namespace ContreJour.Gameplay.Eyes
         protected EyeBase(ContreJourGame game)
         {
             Game = game;
+            eyeBallContent = MaskEyeBall ? new AlphaMaskedNode() : content;
             CreateDefaultView();
             AddChild(content);
             SetDefaultView();
@@ -118,7 +122,7 @@ namespace ContreJour.Gameplay.Eyes
         {
             if (CurrentEyeBall != null)
             {
-                content.RemoveChild(CurrentEyeBall);
+                eyeBallContent.RemoveChild(CurrentEyeBall);
             }
             if (CurrentBackground != null)
             {
@@ -134,7 +138,17 @@ namespace ContreJour.Gameplay.Eyes
             }
             if (CurrentEyeBall != null && CurrentEyeBall.Parent == null)
             {
-                content.AddChild(CurrentEyeBall);
+                if (eyeBallContent is AlphaMaskedNode masked)
+                {
+                    masked.Mask = (Sprite)CurrentBackground;
+                    // Reinsert after the background each time the animation changes.
+                    if (masked.Parent != null)
+                    {
+                        content.RemoveChild(masked);
+                    }
+                    content.AddChild(masked);
+                }
+                eyeBallContent.AddChild(CurrentEyeBall);
             }
         }
 

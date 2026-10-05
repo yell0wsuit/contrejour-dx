@@ -7,7 +7,6 @@ namespace ContreJour.Browser.Platform.Tests
     public class BrowserKeysTests
     {
         [Theory]
-        [InlineData(1, Key.Escape)]
         [InlineData(2, Key.Escape)]
         [InlineData(3, Key.F5)]
         [InlineData(4, Key.Back)]
@@ -31,6 +30,7 @@ namespace ContreJour.Browser.Platform.Tests
 
         [Theory]
         [InlineData(0)]
+        [InlineData(1)]
         [InlineData(18)]
         [InlineData(-1)]
         public void UnknownIdsMapToNone(int id)

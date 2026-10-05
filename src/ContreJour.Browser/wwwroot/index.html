@@ -22,12 +22,22 @@
                 height: 100%;
                 margin: 0;
                 background: #000;
+                font-family:
+                    system-ui,
+                    -apple-system,
+                    "Segoe UI",
+                    Roboto,
+                    sans-serif;
                 overflow: hidden;
                 -webkit-user-select: none;
                 user-select: none;
                 -webkit-tap-highlight-color: transparent;
                 touch-action: none;
                 overscroll-behavior: none;
+            }
+            /* Buttons take the page's font instead of the browser's own button font. */
+            button {
+                font: inherit;
             }
             /* The canvas is the viewport. The game letterboxes its fixed canvas into whatever box this is.
                Fixed positioning rather than viewport units because a mobile browser collapsing its URL bar
@@ -42,26 +52,22 @@
             #splash {
                 position: fixed;
                 inset: 0;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: flex-start;
-                gap: 20px;
-                overflow-y: auto;
+                /* One centered cell: the panel is sized to fit it, so nothing scrolls. */
+                display: grid;
+                grid-template: minmax(0, 1fr) / minmax(0, 1fr);
+                place-items: center;
+                overflow: hidden;
                 touch-action: pan-y;
                 box-sizing: border-box;
                 padding: calc(24px + env(safe-area-inset-top, 0px))
                     calc(24px + env(safe-area-inset-right, 0px))
                     calc(24px + env(safe-area-inset-bottom, 0px))
                     calc(24px + env(safe-area-inset-left, 0px));
-                background: #202329;
-                color: #e6e6e6;
-                font-family:
-                    system-ui,
-                    -apple-system,
-                    "Segoe UI",
-                    Roboto,
-                    sans-serif;
+                background: url("./loader/siteBgLoading.jpg") center / cover
+                    no-repeat;
+                /* Near-black with the logo's red in it: at least 4.5:1 against the sunset wherever the
+                   progress, hint and errors sit, at every screen size. Light text cannot reach that here. */
+                color: #1e0706;
                 z-index: 10;
                 transition: opacity 0.25s ease-out;
             }
@@ -71,17 +77,153 @@
                 opacity: 0;
                 pointer-events: none;
             }
-            #splash > * {
-                flex-shrink: 0;
+            /* The web loader's 500x800 panel, scaled down to fit. Its pieces keep the web offsets,
+               as fractions of the panel. */
+            #loader {
+                position: relative;
+                width: min(
+                    500px,
+                    100%,
+                    calc(
+                        (
+                                100svh - 48px - env(safe-area-inset-top, 0px) -
+                                    env(safe-area-inset-bottom, 0px)
+                            ) *
+                            5 / 8
+                    )
+                );
+                aspect-ratio: 5 / 8;
             }
-            #splash::before,
-            #splash::after {
-                content: "";
-                margin: auto;
+            /* What is loading, in small print under the swoosh. */
+            /* The progress line, then the hint or an error, stacked so a line that wraps on a small
+               panel pushes the next one down instead of overlapping it. */
+            #splash-status {
+                position: absolute;
+                top: 80.5%;
+                left: 0;
+                right: 0;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 12px;
             }
-            #splash img {
-                width: 96px;
-                height: 96px;
+            #splash-progress {
+                font-size: 0.9rem;
+            }
+            /* A short landscape screen has little room under the planet: let the status run wider
+               than the panel so it wraps into fewer lines and stays on screen. */
+            @media (max-height: 480px) {
+                #splash-status {
+                    left: 50%;
+                    right: auto;
+                    width: min(calc(100vw - 48px), 28rem);
+                    transform: translateX(-50%);
+                }
+                /* There the hint reaches the dark bottom of the sunset; a cream backdrop keeps it
+                   above 4.5:1 (8:1 or more on the screens measured). */
+                #splash #splash-hint {
+                    padding: 4px 10px;
+                    border-radius: 8px;
+                    background: rgb(252 244 209 / 60%);
+                }
+            }
+            /* The hint and the errors sit in the empty bottom of the panel, under the progress. */
+            #splash-messages {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 12px;
+            }
+            #loader-canvas {
+                position: absolute;
+                inset: 0;
+                width: 100%;
+                height: 100%;
+            }
+            /* A failed boot or a lost graphics context: the web version's sad Petit on black, where
+               the planet was, with light text so it keeps its contrast. */
+            #loader-sad {
+                display: none;
+                position: absolute;
+                left: 9.4%;
+                top: 29.2%;
+                width: 81.2%;
+                transform: translateX(6%);
+            }
+            #splash.failed {
+                background: #000;
+                color: #e6e6e6;
+            }
+            #splash.failed #loader-canvas {
+                display: none;
+            }
+            /* Without the logo, sad Petit and the message below him sit around the middle. */
+            #splash.failed #loader-sad {
+                display: block;
+                top: 22%;
+            }
+            #splash.failed #loader-logo {
+                display: none;
+            }
+            /* Nothing is loading, so the error takes the loading slot right under sad Petit. On black it
+               can also be wider than a small panel, so a long message wraps into fewer lines. */
+            #splash.failed #splash-status {
+                top: 65%;
+                left: 50%;
+                right: auto;
+                width: min(calc(100vw - 48px), 28rem);
+                transform: translateX(-50%);
+            }
+            #loader-logo {
+                position: absolute;
+                left: 26.6%;
+                top: 15%;
+                width: 47%;
+            }
+            #splash-spinner .loading-text {
+                position: absolute;
+                left: 36.8%;
+                top: 72.5%;
+                width: 26.6%;
+            }
+            #splash-spinner .swoosh {
+                position: absolute;
+                left: 41%;
+                top: 75%;
+                width: 18%;
+            }
+            /* Loading has no single percentage across its stages, so the swoosh fills and fades in a loop. */
+            #splash-spinner .swoosh-fill {
+                left: 40.8%;
+                animation: swoosh 1.6s ease-in-out infinite;
+            }
+            @keyframes swoosh {
+                0% {
+                    clip-path: inset(0 100% 0 0);
+                    opacity: 1;
+                }
+                70% {
+                    clip-path: inset(0 0 0 0);
+                    opacity: 1;
+                }
+                100% {
+                    clip-path: inset(0 0 0 0);
+                    opacity: 0;
+                }
+            }
+            #loader #start {
+                position: absolute;
+                left: 50%;
+                top: 72.5%;
+                transform: translateX(-50%);
+            }
+            .visually-hidden {
+                position: absolute;
+                width: 1px;
+                height: 1px;
+                overflow: hidden;
+                clip-path: inset(50%);
+                white-space: nowrap;
             }
             #splash p,
             #splash h1 {
@@ -98,23 +240,9 @@
                 max-width: min(100%, 320px);
                 font-size: 0.8rem;
                 line-height: 1.45;
-                opacity: 0.6;
             }
-            #splash .spinner {
-                width: 36px;
-                height: 36px;
-                border-radius: 50%;
-                border: 4px solid #3a3f47;
-                border-top-color: #e6e6e6;
-                animation: splash-spin 0.8s linear infinite;
-            }
-            #splash .spinner[hidden] {
+            #splash-spinner[hidden] {
                 display: none;
-            }
-            @keyframes splash-spin {
-                to {
-                    transform: rotate(360deg);
-                }
             }
             #start,
             #resume {
@@ -122,6 +250,8 @@
                 font-size: 1rem;
                 border: 0;
                 border-radius: 8px;
+                background: rgb(144 63 60);
+                color: rgb(252 244 209);
                 cursor: pointer;
             }
             #start[hidden],
@@ -138,6 +268,7 @@
                 padding: 8px 12px;
                 background: #202329;
                 color: #e6e6e6;
+                font-size: 0.85rem;
                 cursor: pointer;
                 touch-action: manipulation;
             }
@@ -153,12 +284,6 @@
                 border-radius: 10px;
                 background: #202329;
                 color: #e6e6e6;
-                font-family:
-                    system-ui,
-                    -apple-system,
-                    "Segoe UI",
-                    Roboto,
-                    sans-serif;
                 box-shadow: 0 8px 32px rgb(0 0 0 / 50%);
             }
             #update::backdrop {
@@ -184,29 +309,59 @@
     <body>
         <canvas id="game"></canvas>
         <div id="splash">
-            <img
-                src="./icon-512.png"
-                width="96"
-                height="96"
-                alt="Contre Jour icon"
-                decoding="async"
-            />
-            <div class="spinner" id="splash-spinner"></div>
-            <p id="splash-progress">Loading…</p>
-            <h1>Contre Jour</h1>
-            <button id="start" hidden>Play</button>
-            <p id="splash-hint" role="status" hidden>
-                Taking too long? Check your connection, or reload the page.
-            </p>
-            <p id="boot-error" role="alert" hidden>
-                The game could not start. Check your connection and reload the
-                page.
-            </p>
-            <p id="context-lost-error" role="alert" hidden>
-                The browser reset the game's graphics. Reload to continue -
-                saved progress is kept, but the current level will restart.
-            </p>
-            <button id="resume" hidden>Reload</button>
+            <div id="loader">
+                <canvas
+                    id="loader-canvas"
+                    width="500"
+                    height="800"
+                    aria-hidden="true"
+                ></canvas>
+                <img id="loader-sad" src="./loader/sad_petit.png" alt="" />
+                <img
+                    id="loader-logo"
+                    src="./loader/logo_red.png"
+                    alt=""
+                    decoding="async"
+                />
+                <div id="splash-spinner" aria-hidden="true">
+                    <img
+                        class="loading-text"
+                        src="./loader/loaderText.png"
+                        alt=""
+                    />
+                    <img
+                        class="swoosh"
+                        src="./loader/loaderSwooshBlack.png"
+                        alt=""
+                    />
+                    <img
+                        class="swoosh swoosh-fill"
+                        src="./loader/loaderSwooshBlue.png"
+                        alt=""
+                    />
+                </div>
+                <button id="start" hidden>Play</button>
+                <div id="splash-status">
+                    <p id="splash-progress" role="status">Loading…</p>
+                    <div id="splash-messages">
+                        <p id="splash-hint" role="status" hidden>
+                            Taking too long? Check your connection, or reload
+                            the page.
+                        </p>
+                        <p id="boot-error" role="alert" hidden>
+                            The game could not start due to unexpected errors.
+                            Try reloading the page.
+                        </p>
+                        <p id="context-lost-error" role="alert" hidden>
+                            The browser reset the game's graphics. Reload to
+                            continue - saved progress is kept, but the current
+                            level will restart.
+                        </p>
+                        <button id="resume" hidden>Reload</button>
+                    </div>
+                </div>
+            </div>
+            <h1 class="visually-hidden">Contre Jour DX</h1>
         </div>
         <button id="download-logs" type="button">Download logs</button>
         <dialog id="update" aria-labelledby="update-title">
@@ -287,7 +442,16 @@
                 progress.hidden = true;
                 start.hidden = true;
                 splash.classList.remove("hidden");
+                splash.classList.add("failed");
                 document.getElementById(id)?.removeAttribute("hidden");
+                // An installed app has no browser reload button, so the splash offers its own.
+                const resume = document.getElementById("resume");
+                resume.hidden = false;
+                resume.addEventListener(
+                    "click",
+                    () => globalThis.location.reload(),
+                    { once: true },
+                );
             };
 
             const onBootRejection = (event) =>
@@ -312,6 +476,16 @@
                 globalThis.cjStart();
                 splash.classList.add("hidden");
             });
+
+            // The planet is decoration: if it cannot load, the splash still works without it.
+            import("./loader.js")
+                .then((loader) =>
+                    loader.startLoaderAnimation(
+                        document.getElementById("loader-canvas"),
+                        splash,
+                    ),
+                )
+                .catch((error) => console.warn("cj-loader:", error));
 
             // Imported here rather than through its own script tag so that this bootstrap owns the promise for
             // its whole module graph: a module that fails to download raises an error event at its script

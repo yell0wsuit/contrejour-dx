@@ -5,6 +5,7 @@ using FarseerPhysics.Dynamics;
 
 using Mokus2D.Graphics;
 using Mokus2D.Input;
+using Mokus2D.Util.MathUtils;
 using Mokus2D.Visual;
 
 namespace ContreJour.Gameplay
@@ -19,6 +20,11 @@ namespace ContreJour.Gameplay
         private PlasticineItem leftItem;
 
         private readonly PlasticineWideBorder wideBorder;
+
+        private float lastTouchTime = float.MaxValue;
+
+        // iOS outlines the rest shape while the ground is dragged; Windows 8 dropped it.
+        internal PlasticineBorder OutBorder { get; }
 
         public PlasticineItem FirstItem { get; private set; }
 
@@ -36,11 +42,11 @@ namespace ContreJour.Gameplay
             Create(points);
             _ = Builder.AddChild(clipContent);
             FirstItem.BodyClip.UpdateParent = true;
-            wideBorder = new PlasticineWideBorder();
+            wideBorder = contreJourGame.NewFriendChapter ? new NewFriendGroundBorder(FirstItem, contreJourGame) : new PlasticineWideBorder();
             _ = Builder.AddChild(wideBorder);
             InitBorder(contreJourGame);
             InitFillSprite();
-            if (!contreJourGame.RoseChapter)
+            if (!contreJourGame.RoseChapter && !contreJourGame.NewFriendChapter)
             {
                 highlite = new PlasticineHighliteBorder(FirstItem, wideBorder);
             }
@@ -49,6 +55,11 @@ namespace ContreJour.Gameplay
                 _ = Builder.AddChild(highlite);
             }
             Changed = false;
+            // The web New Friend surface sits on its own offset; keep the outline above it.
+            OutBorder = CreateOutBorder(contreJourGame.NewFriendChapter
+                ? PlasticineConstants.MaxDragOffset + NewFriendGroundBorder.SurfaceOffset
+                : PlasticineConstants.MaxDragOffset);
+            Builder.Add(OutBorder, -3);
             draggingItems = [];
         }
 
@@ -177,9 +188,11 @@ namespace ContreJour.Gameplay
         {
             List<Vector2> polygon = [];
             GetBorderVerticesOffset(ref polygon, offset);
-            return !Game.BlackSide
-                ? !Game.BonusChapter ? new PlasticineBorder(polygon) : new GreenPlasticineBorder(polygon)
-                : new BlackPlasticineBorder(polygon);
+            return Game.NewFriendChapter
+                ? new NewFriendPlasticineBorder(polygon)
+                : !Game.BlackSide
+                    ? !Game.BonusChapter ? new PlasticineBorder(polygon) : new GreenPlasticineBorder(polygon)
+                    : new BlackPlasticineBorder(polygon);
         }
 
         public bool StartDragItemTouch(PlasticineItem item, Touch touch)
@@ -215,6 +228,10 @@ namespace ContreJour.Gameplay
 
         public void UpdateGraphics(float time)
         {
+            // iOS steps an integer opacity by 5.1 per frame toward 102 for two seconds after a drag.
+            int targetOpacity = lastTouchTime >= 2f ? 0 : 102;
+            lastTouchTime += time;
+            OutBorder.Opacity = (int)Maths.StepTo(OutBorder.Opacity, targetOpacity, 5.1f);
             PlasticineItem nextItem = FirstItem;
             do
             {
@@ -232,6 +249,7 @@ namespace ContreJour.Gameplay
         public bool TouchMove(Touch touch)
         {
             Changed |= draggingItems[touch].Update();
+            lastTouchTime = 0f;
             return true;
         }
 

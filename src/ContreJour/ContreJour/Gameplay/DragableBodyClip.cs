@@ -169,7 +169,8 @@ namespace ContreJour.Gameplay
 
         protected virtual string ReplaceClipName(ContreJourLevelBuilder builder)
         {
-            return builder.ContreJour.ChooseSide(null, "McDragViewWhite", "McDragView_5", "McDragView_5");
+            return builder.ContreJour.NewFriendChapter ? "McDragView_7"
+                : builder.ContreJour.ChooseSide(null, "McDragViewWhite", "McDragView_5", "McDragView_5");
         }
 
         protected virtual void CreateBoundsClip(float scale)

@@ -38,7 +38,7 @@ namespace ContreJour.Gameplay
         }
 
         public TextureSnotSprite(ContreJourGame game, SnotBodyClipBase snot, float startWidth, float centerWidth, float endWidth)
-            : this(game, snot, startWidth, centerWidth, endWidth, game.ChooseSide("blackStrongSnotTexture", "whiteStrongSnotTexture", "strongSnotTexture", "strongSnotTexture", "greenStrongSnotTexture"))
+            : this(game, snot, startWidth, centerWidth, endWidth, game.NewFriendChapter ? "strongSnotTexture_7" : game.ChooseSide("blackStrongSnotTexture", "whiteStrongSnotTexture", "strongSnotTexture", "strongSnotTexture", "greenStrongSnotTexture"))
         {
         }
 

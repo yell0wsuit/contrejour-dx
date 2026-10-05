@@ -94,7 +94,7 @@ namespace ContreJour
 
         private void LoadMusic()
         {
-            SoundManager.PreloadSongs(["chapter1", "chapter2", "chapter3", "chapter4", "chapter5", "menu", Sounds.Ending]);
+            SoundManager.PreloadSongs(["chapter1", "chapter2", "chapter3", "chapter4", "chapter5", "chapter6", "chapter7", "menu", Sounds.FinalLevel, Sounds.EndingNeutral, Sounds.EndingTrue]);
             LoadSounds();
         }
 
@@ -143,6 +143,7 @@ namespace ContreJour
 
         private void HideView(Node view, Action continuation)
         {
+            _blackForeground.Tweener.Stop();
             _blackForeground.Visible = true;
             _ = _blackForeground.FadeIn(0.5f).OnComplete((Action)delegate
             {
@@ -354,8 +355,7 @@ namespace ContreJour
             contreJourGame.RestartEvent.AddListener(RestartLevel);
             contreJourGame.NextLevelEvent.AddListener(NextLevel);
             contreJourGame.LoadLevelIndex(lastLevel);
-            // The final level plays the soundtrack's Petit theme, which neither original build used.
-            SoundManager.PlayMusic(lastLevel == ContreJourConstants.EndLevel ? Sounds.Ending : $"chapter{chapter + 1}");
+            SoundManager.PlayMusic(lastLevel == ContreJourConstants.EndLevel ? Sounds.FinalLevel : $"chapter{chapter + 1}");
             return contreJourGame;
         }
 
@@ -380,14 +380,23 @@ namespace ContreJour
         {
             canShowIntro = true;
             LevelPosition levelPosition = LevelsMenu.GetLevelPosition(lastLevel);
-            if (levelPosition.Index < Constants.LevelsToPlay - 1)
+            if (levelPosition.Chapter == Constants.BonusChapter && !levelPosition.SkipAvailable)
+            {
+                ChangeScene(() => CreateMainMenu(levelPosition.Chapter));
+                return;
+            }
+            if (levelPosition.Index < Math.Min(Constants.LevelsToPlay, LevelsMenu.GetLevelCount(levelPosition.Chapter)) - 1)
             {
                 levelPosition.Index++;
                 LoadLevel(LevelsMenu.GetLevelIndex(levelPosition));
             }
-            else if (levelPosition.Chapter == 5)
+            else if (levelPosition.Chapter is Constants.NewFriendChapter or Constants.BonusChapter)
             {
-                ChangeScene(() => CreateMainMenu(5));
+                ChangeScene(() => CreateMainMenu(levelPosition.Chapter));
+            }
+            else if (levelPosition.Chapter == Constants.RoseChapter)
+            {
+                LoadLevel(169);
             }
             else if (ContreJourConditions.Trial(trialValue: true, levelPosition.Chapter + 1 < Constants.NormalChaptersCount))
             {

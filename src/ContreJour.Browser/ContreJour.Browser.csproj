@@ -47,13 +47,6 @@
     <Content Update="wwwroot/content/**" CopyToPublishDirectory="$(CjContentCopy)" />
   </ItemGroup>
 
-  <!--
-    wwwroot/favicon.ico and wwwroot/icon-512.png are copies of distribution/icons/ContreJourDXIcon.ico and
-    ContreJourDXIcon_512.png. They are copied rather than linked in from there: linking gives the asset a content
-    root of wwwroot while its identity stays in distribution, and the dev server reads content from the content
-    root, so `dotnet run` answers both with an empty 200 and the page shows a broken image. Refresh them from
-    distribution/icons if the app icon ever changes.
-  -->
   <!-- Keep development network-only; publish replaces the same registered worker URL. -->
   <ItemGroup>
     <ServiceWorker Include="wwwroot/coi-sw.js" PublishedContent="wwwroot/service-worker.published.js" />

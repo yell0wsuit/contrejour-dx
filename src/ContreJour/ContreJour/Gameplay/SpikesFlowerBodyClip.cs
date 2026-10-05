@@ -37,17 +37,29 @@ namespace ContreJour.Gameplay
                 Clip = clip;
             }
             container = new Node();
-            Clip.AddChild(container, -1);
+            // The eye, shadow, and neck already apply the mouth's scale themselves.
+            // Keep their container unscaled, as in the original game.
+            Builder.AddChildBefore(container, Clip);
+            container.Position = Clip.Position;
+            container.RotationRadians = Clip.RotationRadians;
             Sprite node = new(ClipIds.Common.McSpikesFlowerShadow)
             {
                 Scale = Clip.ScaleY
             };
             container.AddChild(node);
-            movie = (ISpikesView)clip;
+            movie = Clip as ISpikesView ?? new SingleMovieSpikesView((MovieClip)Clip);
             movie.Left.Stoped = movie.Right.Stoped = true;
             movie.Left.Speed = movie.Right.Speed = 1.5f;
             drawing = new SpikesFlowerSprite(this, Clip.ScaleY);
             container.AddChild(drawing, -1);
+        }
+
+        // iOS and Mango export the complete flower as one movie, so both sides use its player.
+        private sealed class SingleMovieSpikesView(MovieClip clip) : ISpikesView
+        {
+            public MovieClip Left => clip;
+
+            public MovieClip Right => clip;
         }
 
         private void CreateEye()
@@ -65,6 +77,8 @@ namespace ContreJour.Gameplay
         public override void Update(float time)
         {
             base.Update(time);
+            container.Position = Clip.Position;
+            container.RotationRadians = Clip.RotationRadians;
             if (Eye == null && container.Root != null)
             {
                 CreateEye();
@@ -75,7 +89,8 @@ namespace ContreJour.Gameplay
 
         public override void OnCollisionPoint(Body body2, Contact point)
         {
-            if (body2.UserData is IEatable eatable && movie.Left.Stoped && Maths.FuzzyEquals(movie.Left.CurrentFrame, 0f) && eatable.CanDie())
+            if (body2.UserData is IEatable eatable && movie.Left.Stoped && Maths.FuzzyEquals(movie.Left.CurrentFrame, 0f)
+                && (eatable is BaloonBodyClip amie ? amie.CanBeEaten() : eatable.CanDie()))
             {
                 hero = eatable;
                 hero.EatSpeedPauseScaleTime(Body.Position, 0.5f, 1.3f, 0f, 0.2f);

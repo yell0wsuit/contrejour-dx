@@ -27,9 +27,8 @@ namespace ContreJour.Gameplay
         public static readonly Vector2 BorderOffset = new(200f, 220f);
 
         private static readonly Vector2 GetMorePosition = new(0f, -120f);
-        private readonly float RowOffset = 120f;
 
-        public static readonly int[,] LEVELS = new int[6, 20]
+        public static readonly int[,] LEVELS = new int[7, 20]
         {
             {
                 0, 45, 1, 4, 35, 3, 19, 26, 9, 47,
@@ -50,6 +49,10 @@ namespace ContreJour.Gameplay
             {
                 149, 147, 153, 148, 152, 157, 141, 132, 133, 139,
                 151, 146, 128, 150, 154, 123, 156, 168, 155, 134
+            },
+            {
+                300, 301, 302, 303, 304, 305, 306, 307, 308, 309,
+                -1, -1, -1, -1, -1, -1, -1, -1, -1, -1
             },
             {
                 188, 171, 170, 172, 190, 196, 191, 176, 186, 174,
@@ -76,7 +79,10 @@ namespace ContreJour.Gameplay
             }
         }
 
-        private static int LockedRows => Constants.NormalChaptersCount - UserData.Instance.UnlockedChapters;
+        public static int GetLevelCount(int chapter)
+        {
+            return chapter == Constants.NewFriendChapter ? 10 : Constants.LevelsInChapter;
+        }
 
         public static List<List<int>> LevelsList
         {
@@ -87,7 +93,7 @@ namespace ContreJour.Gameplay
                     for (int i = 0; i < Constants.ChaptersCount; i++)
                     {
                         field.Add([]);
-                        for (int j = 0; j < 20; j++)
+                        for (int j = 0; j < GetLevelCount(i); j++)
                         {
                             field[i].Add(LEVELS[i, j]);
                         }
@@ -108,21 +114,22 @@ namespace ContreJour.Gameplay
             Vector2 bORDER_OFFSET_IPHONE = BorderOffsetIphone;
             Vector2 vector = new Vector2(bORDER_OFFSET_IPHONE.X, w7FromIPhoneSize.Y - bORDER_OFFSET_IPHONE.Y) - ScreenConstants.W7FromIPhoneScreenCenter;
             Vector2 vector2 = new((w7FromIPhoneSize.X - (bORDER_OFFSET_IPHONE.X * 2f)) / (COLUMNS - 1), (w7FromIPhoneSize.Y - (bORDER_OFFSET_IPHONE.Y * 2f)) / (ROWS - 1));
+            if (chapter == Constants.NewFriendChapter)
+            {
+                int rows = (list.Count + COLUMNS - 1) / COLUMNS;
+                vector.Y = vector2.Y * (rows - 1) / 2f;
+            }
             if (!Constants.IsTrial && UserData.Instance.LastLevelOpen && chapter == 4)
             {
                 vector = CreateRoseButton(vector, w7FromIPhoneSize, bORDER_OFFSET_IPHONE);
             }
-            bool flag = chapter == 5;
-            for (int i = 0; i < 20; i++)
+            bool flag = chapter is Constants.NewFriendChapter or Constants.BonusChapter;
+            for (int i = 0; i < list.Count; i++)
             {
                 int level = list[i];
                 LevelPosition levelPosition = GetLevelPosition(level);
                 bool flag2 = UserData.Instance.GetUnlockedLevels(levelPosition.Chapter) >= levelPosition.Index;
-                bool flag3 = Constants.IsTrial && i >= 10;
-                if (flag)
-                {
-                    flag3 = i >= (ROWS - LockedRows) * COLUMNS;
-                }
+                bool flag3 = (Constants.IsTrial && i >= 10) || levelPosition.LockedByChapterProgress;
                 LevelItem levelItem = new(level, flag2 && !flag3, flag3)
                 {
                     RealScale = 1.0925f
@@ -132,32 +139,19 @@ namespace ContreJour.Gameplay
                 levelItem.TouchEndEvent += OnLevelClick;
                 if (flag)
                 {
-                    levelItem.Color = ContreJourConstants.GreenLightColor.LerpToWhite(0.5f);
+                    levelItem.Color = (chapter == Constants.BonusChapter
+                        ? ContreJourConstants.GreenLightColor
+                        : ContreJourConstants.NewFriendColor).LerpToWhite(0.5f);
                 }
             }
             if (Constants.IsTrial)
             {
                 adsButton = CreateGetMoreButton(chapter);
             }
-            else if (flag && LockedRows > 0)
+            else if (chapter == Constants.BonusChapter && UserData.Instance.AvailableBonusLevels < list.Count)
             {
-                adsButton = CreateUnlockButton();
+                adsButton = CreateUnlockButton(vector2.Y);
             }
-        }
-
-        private Sprite CreateUnlockButton()
-        {
-            adsButtonPosition = new Vector2(0f, (0f - RowOffset) / 2f * (4 - LockedRows));
-            Sprite sprite = new("McGetMoreLevelsButton");
-            AddChild(sprite);
-            sprite.Position = adsButtonPosition;
-            sprite.Scale = 1.45f;
-            sprite.Color = ContreJourConstants.GreenLightColor;
-            Label label = ContreJourLabelUtil.CreateLabel(20f, "COMPLETE_MORE_CHAPTERS");
-            label.Scale *= 0.75f;
-            sprite.AddChild(label);
-            label.Y = 6f;
-            return sprite;
         }
 
         public void Show()
@@ -165,13 +159,31 @@ namespace ContreJour.Gameplay
             InteractionsEnabled = true;
         }
 
+        private Sprite CreateUnlockButton(float rowOffset)
+        {
+            int availableRows = UserData.Instance.AvailableBonusLevels / COLUMNS;
+            adsButtonPosition = new Vector2(0f, -rowOffset * availableRows / 2f);
+            Sprite sprite = new(ClipIds.Menu.McGetMoreLevelsButton)
+            {
+                Position = adsButtonPosition,
+                Scale = 1.45f,
+                Color = ContreJourConstants.GreenLightColor
+            };
+            AddChild(sprite);
+            Label label = ContreJourLabelUtil.CreateLabel(20f, "COMPLETE_MORE_CHAPTERS");
+            label.Scale *= 0.75f;
+            label.Y = 6f;
+            sprite.AddChild(label);
+            return sprite;
+        }
+
         private TouchSprite CreateGetMoreButton(int chapter)
         {
-            TouchSprite touchSprite = new("McGetMoreLevelsButton");
+            TouchSprite touchSprite = new(ClipIds.Menu.McGetMoreLevelsButton);
             Node node;
             if (ContreJourLabelUtil.IsEnglish)
             {
-                node = new Sprite("McGetMoreLevelsText");
+                node = new Sprite(ClipIds.Menu.McGetMoreLevelsText);
             }
             else
             {

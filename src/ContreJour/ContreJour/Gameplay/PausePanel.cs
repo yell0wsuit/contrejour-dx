@@ -47,7 +47,11 @@ namespace ContreJour.Gameplay
             this.game = game;
             SoundManager.MusicDisableEvent += OnMusicDisable;
             Color color = this.game.BlackSide ? ColorUtil.Mult(ContreJourConstants.BlueLightColor, 1.5f) : ContreJourConstants.GreyColor;
-            if (this.game.BonusChapter)
+            if (this.game.NewFriendChapter)
+            {
+                color = ContreJourConstants.NewFriendColor;
+            }
+            else if (this.game.BonusChapter)
             {
                 color = ContreJourConstants.GreenLightColor;
             }
@@ -140,7 +144,7 @@ namespace ContreJour.Gameplay
             }
             LevelData levelDataByFile = UserData.Instance.GetLevelDataByFile(levelIndex);
             LevelPosition levelPosition = UserData.GetLevelPosition(levelIndex);
-            if (levelPosition.Chapter == Constants.NormalChaptersCount - 1 && levelPosition.Index == 19 && UserData.Instance.GetLevelDataByPosition(levelPosition) == null)
+            if (levelPosition.Chapter == Constants.RoseChapter && levelPosition.Index == 19 && UserData.Instance.GetLevelDataByPosition(levelPosition) == null)
             {
                 _ = buttons.RemoveLast();
             }

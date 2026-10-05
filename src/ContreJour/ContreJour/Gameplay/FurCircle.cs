@@ -1,6 +1,7 @@
 using System;
 
 using Mokus2D.Util.MathUtils;
+using Mokus2D.Visual.Interfaces;
 
 namespace ContreJour.Gameplay
 {
@@ -29,6 +30,13 @@ namespace ContreJour.Gameplay
 
         public FurCircle(string textureName, int maxParticles, float radius)
             : base(textureName, maxParticles)
+        {
+            AngleStep = 1f / maxParticles * 2f * (float)Math.PI;
+            Radius = radius;
+        }
+
+        public FurCircle(IMovieClipData data, int maxParticles, float radius)
+            : base(data, maxParticles)
         {
             AngleStep = 1f / maxParticles * 2f * (float)Math.PI;
             Radius = radius;

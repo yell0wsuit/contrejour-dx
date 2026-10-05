@@ -120,6 +120,7 @@ namespace ContreJour.Gameplay
             {
                 skipButton.Y = ContreJourConfig.RootSize.Y - ContreJourConfig.BackButtonPosition.Y;
             }
+            game.HideRestartButton();
             intro = new IntroPlayer(game);
             _ = Builder.AddChild(intro);
             stalk = new MovieClip(ClipIds.Level1.McStebloAnimation);
@@ -239,6 +240,7 @@ namespace ContreJour.Gameplay
             Schedule(FinishMovie, 1.5f);
             skipButton.TouchEndEvent -= OnSkipClick;
             _ = skipButton.FadeOutAndHide(0.3f);
+            game.ShowRestartButton();
             finished = true;
             finalRose.Visible = true;
             foreach (Node rosePart in roseParts.Cast<Node>())

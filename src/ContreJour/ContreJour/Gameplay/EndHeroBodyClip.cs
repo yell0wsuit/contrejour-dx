@@ -180,6 +180,8 @@ namespace ContreJour.Gameplay
         {
             if (LevelCompleted)
             {
+                // Reaching the light hands the final level's theme over to the ending's.
+                SoundManager.PlayMusic(UserData.Instance.RoseSaved ? Sounds.EndingTrue : Sounds.EndingNeutral);
                 Actions.ShakeWithDurationPositionOffsetCountScaleDiff(Clip, 8f, Clip.Position, 4f, 50, 0.1f);
                 Schedule(AfterShake, 8f);
                 CreateLights();

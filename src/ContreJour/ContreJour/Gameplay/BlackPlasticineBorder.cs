@@ -13,11 +13,6 @@ namespace ContreJour.Gameplay
             return CenterColor().ChangeAlpha(0);
         }
 
-        public override float BorderWidth()
-        {
-            return 4f;
-        }
-
         public override Color InColor()
         {
             return OutColor();

@@ -53,6 +53,10 @@ namespace ContreJour.Gameplay
 
         public virtual float GrassStep => !touched ? 1f : 2.5f;
 
+        private Vector2 LocalGrassCenter => game.NewFriendChapter
+            ? new Vector2(0f, NewFriendGroundBorder.GrassOffset)
+            : PlasticinePartBodyClip.GetLocalSurfaceCenter();
+
         public virtual float GetSmallGrassOffset(int index)
         {
             return Maths.Random(0f - Plasticine.Width, Plasticine.Width);
@@ -73,7 +77,7 @@ namespace ContreJour.Gameplay
         {
             int frame = Math.Min(GrassFrame, game.Grass.TotalFrames - 1);
             Grass = game.Grass.AddParticleWithFrame(frame);
-            Grass.Position = Builder.ToIPadPoint(Plasticine.GetSurfaceCenter());
+            Grass.Position = Builder.ToIPadPoint(Plasticine.Body.GetWorldPoint(LocalGrassCenter));
             RandomizeClipMinScaleMaxScale(Grass, 0.45499998f, 0.65f);
             windData = new WindData(WindAngle);
             CreateSmallGrass();
@@ -146,11 +150,11 @@ namespace ContreJour.Gameplay
 
         public void UpdateGrassPosition()
         {
-            Vector2 surfaceCenter = Plasticine.GetSurfaceCenter();
+            Vector2 surfaceCenter = Plasticine.Body.GetWorldPoint(LocalGrassCenter);
             Grass.Position = Builder.ToIPadPoint(surfaceCenter);
             foreach (GrassAndPosition smallGrass in SmallGrasses)
             {
-                Vector2 vector = smallGrass.Position + PlasticinePartBodyClip.GetLocalSurfaceCenter();
+                Vector2 vector = smallGrass.Position + LocalGrassCenter;
                 Vector2 worldPoint = Plasticine.Body.GetWorldPoint(vector);
                 smallGrass.Particle.Position = Builder.ToIPadPoint(worldPoint);
                 smallGrass.Particle.RotationDegrees = LevelBuilderBase.ToRotation(Plasticine.Body.Rotation);
@@ -161,7 +165,7 @@ namespace ContreJour.Gameplay
         public void CreateFlyes()
         {
             flyes = [];
-            int num = (game.RoseChapter || game.BonusChapter) ? 1 : 2;
+            int num = (game.RoseChapter || game.BonusChapter || game.NewFriendChapter) ? 1 : 2;
             for (int i = 0; i < num; i++)
             {
                 Vector2 vec = new(Maths.Random(0f - Plasticine.Width, Plasticine.Width), Maths.Random(1.3333334f, 2f));

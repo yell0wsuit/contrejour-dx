@@ -31,7 +31,7 @@ namespace ContreJour.Regression
 
         private const int StepsPerUpdate = 100;
 
-        private const int MenuChapters = 6;
+        private static readonly int MenuChapters = Constants.ChaptersCount;
 
         private const ulong FnvOffset = 14695981039346656037UL;
 
@@ -95,7 +95,6 @@ namespace ContreJour.Regression
 
         public override void Initialize(ApplicationController applicationController)
         {
-            applicationController.PrefferedBackBufferSize = new Mokus2D.Util.Data.Point(1280, 720);
             base.Initialize(applicationController);
             // The real cursor moves eyes and hover effects; keep it out of the recording.
             InputEnabled = false;
@@ -111,6 +110,7 @@ namespace ContreJour.Regression
                 }
                 catch (Exception e) when (_phase != Phase.Startup)
                 {
+                    Console.Error.WriteLine(e);
                     _error = $"EXCEPTION {e.GetType().Name}: {e.Message.ReplaceLineEndings(" ")}";
                     FinishItem();
                 }
@@ -224,6 +224,75 @@ namespace ContreJour.Regression
                     FinishItem();
                     return;
                 }
+                if (game.BonusChapter)
+                {
+                    MangoInteractionRegression.VerifyAssets(game);
+                }
+                if (game.LevelIndex == 188 && Environment.GetEnvironmentVariable("CJ_REGRESSION_MANGO_INTERACTIONS") == "1")
+                {
+                    MangoInteractionRegression.Run(game, base.Update, label => { _ = CapturePixels(label); });
+                }
+                if (game.NewFriendChapter)
+                {
+                    NewFriendInteractionRegression.VerifyAssets(game);
+                }
+                if (game.LevelIndex == 300 && Environment.GetEnvironmentVariable("CJ_REGRESSION_NEW_FRIEND_INTERACTIONS") == "1")
+                {
+                    NewFriendInteractionRegression.Run(game, base.Update, label => { _ = CapturePixels(label); });
+                }
+                if (game.LevelIndex == 306 && Environment.GetEnvironmentVariable("CJ_REGRESSION_NEW_FRIEND_INTERACTIONS") == "1")
+                {
+                    NewFriendInteractionRegression.RunFlowers(game, base.Update);
+                }
+                if (Environment.GetEnvironmentVariable("CJ_REGRESSION_FINISH") == "1")
+                {
+                    game.Finish(game.Builder.ToPoint(game.Hero.Body.Position));
+                    for (int frame = 0; frame < SettleFrames; frame++)
+                    {
+                        base.Update(TimeStep);
+                    }
+                    FinishView finishView = Find<FinishView>(game);
+                    MenuPortal portal = finishView == null ? null : Find<MenuPortal>(finishView);
+                    if (!game.Finished || portal == null || !portal.Visible || portal.SpeedValue != 40f)
+                    {
+                        throw new InvalidOperationException("The level finish screen did not show its animated menu portal.");
+                    }
+                    _ = CapturePixels("finished");
+                    MangoInteractionRegression.VerifyResultEye(finishView, label => { _ = CapturePixels(label); });
+                }
+                if (game.LevelIndex == 199 && Environment.GetEnvironmentVariable("CJ_REGRESSION_MANGO_INTERACTIONS") == "1")
+                {
+                    NextLevel();
+                    for (int frame = 0; frame < SettleFrames; frame++)
+                    {
+                        base.Update(TimeStep);
+                    }
+                    MainMenu completedMenu = Find<MainMenu>(Root);
+                    if (completedMenu == null || Find<PlanetsSpinner>(completedMenu) is not PlanetsSpinner completedSpinner
+                        || Math.Abs(completedSpinner.CurrentIndex - Constants.BonusChapter) > 0.01f)
+                    {
+                        throw new InvalidOperationException("Completing Mango did not return to its chapter menu.");
+                    }
+                    _ = CapturePixels("chapter-complete");
+                }
+                if (game.LevelIndex == 300 && Environment.GetEnvironmentVariable("CJ_REGRESSION_PAUSE_PREVIEW") == "1")
+                {
+                    for (int frame = 0; frame < 60; frame++)
+                    {
+                        base.Update(TimeStep);
+                    }
+                    game.OnMenuPressed();
+                    for (int frame = 0; frame < SettleFrames; frame++)
+                    {
+                        base.Update(TimeStep);
+                    }
+                    _ = CapturePixels("paused");
+                    game.OnMenuPressed();
+                    for (int frame = 0; frame < SettleFrames; frame++)
+                    {
+                        base.Update(TimeStep);
+                    }
+                }
             }
             else
             {
@@ -234,10 +303,28 @@ namespace ContreJour.Regression
                     FinishItem();
                     return;
                 }
-                menu.ShowLevels();
+                menu.OnChapterSelect(_item.MenuChapter);
+                for (int frame = 0; frame < SettleFrames; frame++)
+                {
+                    base.Update(TimeStep);
+                }
+                if (_item.MenuChapter == Constants.BonusChapter && Environment.GetEnvironmentVariable("CJ_REGRESSION_MANGO_LOCKS") == "1")
+                {
+                    MangoLockRegression.Run(Find<LevelsMenu>(menu));
+                }
             }
             _phase = Phase.Record;
             _frame = 0;
+            if (_item.MenuChapter == Constants.BonusChapter && Environment.GetEnvironmentVariable("CJ_REGRESSION_MANGO_INTERACTIONS") == "1")
+            {
+                MainMenu menu = Find<MainMenu>(Root);
+                menu.HideLevels();
+                for (int frame = 0; frame < SettleFrames; frame++)
+                {
+                    base.Update(TimeStep);
+                }
+                _ = CapturePixels("planet");
+            }
             _settledPixels = CapturePixels("settled");
         }
 

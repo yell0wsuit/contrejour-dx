@@ -50,7 +50,7 @@ namespace ContreJour.Gameplay
 
         private float finishSpeed;
 
-        protected bool Finished { get; set; }
+        public bool Finished { get; protected set; }
 
         private bool hasToYawn;
         private readonly Sprite hotspot;
@@ -63,7 +63,7 @@ namespace ContreJour.Gameplay
 
         private float lastOnGroundTime;
 
-        protected bool LevelCompleted { get; set; }
+        public bool LevelCompleted { get; protected set; }
 
         private bool migthyPosted;
 
@@ -247,6 +247,7 @@ namespace ContreJour.Gameplay
 
         public void EatSpeedPauseScaleTime(Vector2 targetPosition, float finishSpeed, float pause, float scale, float time)
         {
+            Game.Amie?.ReleaseHero();
             eating = true;
             FailLevelSpeedPause(targetPosition, finishSpeed, pause);
             SetScaleTime(scale, time);
@@ -270,6 +271,7 @@ namespace ContreJour.Gameplay
 
         public void Restart()
         {
+            Game.Amie?.ReleaseHero();
             restarting = true;
             FinishEvent.SendEvent();
             restartOnEating = eating;
@@ -281,6 +283,7 @@ namespace ContreJour.Gameplay
 
         public void Explode()
         {
+            Game.Amie?.ReleaseHero();
             eating = true;
             UserData.Instance.Accupuncture++;
             SoundManager.PlayRandomSound(Sounds.DeathBySpikes, 0.7f);
@@ -797,6 +800,9 @@ namespace ContreJour.Gameplay
         public void CompleteLevelSpeed(Vector2 targetPosition, float finishSpeed)
         {
             LevelCompleted = true;
+            Game.RestartEnabled = false;
+            Game.HidePause();
+            Game.Amie?.MarkLevelCompleted();
             FinishLevelSpeed(targetPosition, finishSpeed);
         }
 

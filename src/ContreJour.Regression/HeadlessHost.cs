@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using System.Numerics;
 
 using Mokus2D.Game;
@@ -11,6 +12,17 @@ namespace ContreJour.Regression
     internal sealed class HeadlessHost : IGameHost
     {
         private bool _sizeLocked;
+
+        public HeadlessHost()
+        {
+            string size = Environment.GetEnvironmentVariable("CJ_REGRESSION_SIZE");
+            if (!string.IsNullOrEmpty(size))
+            {
+                string[] dimensions = size.Split('x');
+                Point bufferSize = new(int.Parse(dimensions[0], CultureInfo.InvariantCulture), int.Parse(dimensions[1], CultureInfo.InvariantCulture));
+                BackBufferSize = PreferredBackBufferSize = bufferSize;
+            }
+        }
 
         // Nothing outside the game ever resizes a headless back buffer.
         public event Action ClientSizeChanged
