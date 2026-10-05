@@ -94,7 +94,7 @@ namespace ContreJour
 
         private void LoadMusic()
         {
-            SoundManager.PreloadSongs(["chapter1", "chapter2", "chapter3", "chapter4", "chapter5", "chapter6", "chapter7", "menu", Sounds.EndingNeutral, Sounds.EndingTrue]);
+            SoundManager.PreloadSongs(["chapter1", "chapter2", "chapter3", "chapter4", "chapter5", "chapter6", "chapter7", "menu", Sounds.FinalLevel, Sounds.EndingNeutral, Sounds.EndingTrue]);
             LoadSounds();
         }
 
@@ -355,8 +355,7 @@ namespace ContreJour
             contreJourGame.RestartEvent.AddListener(RestartLevel);
             contreJourGame.NextLevelEvent.AddListener(NextLevel);
             contreJourGame.LoadLevelIndex(lastLevel);
-            SoundManager.PlayMusic(lastLevel != ContreJourConstants.EndLevel ? $"chapter{chapter + 1}"
-                : UserData.Instance.RoseSaved ? Sounds.EndingTrue : Sounds.EndingNeutral);
+            SoundManager.PlayMusic(lastLevel == ContreJourConstants.EndLevel ? Sounds.FinalLevel : $"chapter{chapter + 1}");
             return contreJourGame;
         }
 

@@ -6,6 +6,8 @@ namespace ContreJour.Gameplay
 
         public const string Menu = "menu";
 
+        public const string FinalLevel = "finalLevel";
+
         public const string EndingNeutral = "ending1";
 
         public const string EndingTrue = "ending2";

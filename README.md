@@ -44,7 +44,7 @@ You can also install the game as an app from your browser. After it loads once, 
 - Sharper art: sprites that the Windows 8 version shipped only at low resolution use the high-resolution art from the iOS version, such as backgrounds, the spikes flower and the end rose.
 - Restored details from the iOS version, such as the outline of the ground's rest shape while you drag it.
 - Support for sprites and animations from [TexturePacker](https://www.codeandweb.com/texturepacker) in JSON array format, for easier modding and new assets.
-- The music from the official soundtrack album, with a theme for each of the final level's two endings.
+- The music from the official soundtrack album, including a theme for the final level and one for each of its two endings.
 - Open-source fonts for each language, so text renders smoothly at any size.
 - Runs on Windows, macOS and Linux through SDL3 and Skia. The game uses Metal, Vulkan or OpenGL, and falls back to software rendering if no GPU renderer works. It recovers when the graphics device is lost.
 - Runs in the browser: a WebAssembly build installs as a PWA. Saves live in `localStorage` rather than a file.
