@@ -133,6 +133,30 @@ namespace Mokus2D.Visual.Util
             return nextInVertex + VectorUtil.ToVector(width, num);
         }
 
+        // Fills result with its length of points around center, counterclockwise from angle 0.
+        public static void GetCircle(Vector2 center, float radius, Vector2[] result)
+        {
+            float step = (float)(Math.PI * 2.0 / result.Length);
+            float angle = 0f;
+            for (int i = 0; i < result.Length; i++)
+            {
+                result[i] = center + (new Vector2(MathF.Cos(angle), MathF.Sin(angle)) * radius);
+                angle += step;
+            }
+        }
+
+        // The triangle list of the fan a convex surface's points make from its first point.
+        public static void CreateConvexTriangles(IList<Vector2> surface, Vertex[] vertices)
+        {
+            for (int i = 0; i < surface.Count - 2; i++)
+            {
+                int num = i * 3;
+                vertices[num].Position = new Vector3(surface[0], 0f);
+                vertices[num + 1].Position = new Vector3(surface[i + 1], 0f);
+                vertices[num + 2].Position = new Vector3(surface[i + 2], 0f);
+            }
+        }
+
         public static void CreateBezierPoints(IList<Vector2> polygon, int segments, IList<Vector2> result)
         {
             for (int i = 0; i < polygon.Count - 1; i += 2)

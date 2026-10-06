@@ -26,6 +26,9 @@ namespace ContreJour.Primitives
 
         private Color drawNeckColor;
 
+        // The neck color with the node's opacity, as the vertices were last colored.
+        protected Color DrawNeckColor => drawNeckColor;
+
         protected float BorderWidth { get; set; }
 
         protected int AllPointsSize { get; set; }
