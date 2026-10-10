@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Publishes threaded and fallback browser runtimes in parallel and optionally serves them locally.
 
-`dotnet run --project src/ContreJour.Browser` is the quick path, on the interpreter. This is the build
+`dotnet run --project src/ContreJourDX.Browser` is the quick path, on the interpreter. This is the build
 that plays at full speed: AOT-compiled and trimmed, served as static files.
 
 Usage:
@@ -26,9 +26,9 @@ from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-PROJECT = REPO_ROOT / "src" / "ContreJour.Browser" / "ContreJour.Browser.csproj"
+PROJECT = REPO_ROOT / "src" / "ContreJourDX.Browser" / "ContreJourDX.Browser.csproj"
 CONTENT_CATALOG = (
-    REPO_ROOT / "src" / "ContreJour.Browser" / "wwwroot" / "content" / "assets.json"
+    REPO_ROOT / "src" / "ContreJourDX.Browser" / "wwwroot" / "content" / "assets.json"
 )
 DEFAULT_PORT = 8080
 FRAMEWORK = "_framework"

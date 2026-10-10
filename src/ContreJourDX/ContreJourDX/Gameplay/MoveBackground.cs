@@ -1,0 +1,30 @@
+using System.Numerics;
+
+using Mokus2D.Util.Extensions;
+using Mokus2D.Visual;
+using Mokus2D.Visual.Util;
+
+namespace ContreJourDX.Gameplay
+{
+    public class MoveBackground : BackgroundBase
+    {
+        private Vector2 moveOffset;
+
+        public MoveBackground(Node node, Hashtable config, ContreJourDXGame game)
+            : base(node, config, game)
+        {
+            if (config.Exists("moveOffset"))
+            {
+                moveOffset = config.Exists("moveOffset") ? GraphUtil.StringToVector(config.GetString("moveOffset")) : Vector2.Zero;
+                if (Game.CanShowIntro)
+                {
+                    _ = node.MoveTo(60f, node.Position + moveOffset);
+                }
+                else
+                {
+                    node.Position += moveOffset;
+                }
+            }
+        }
+    }
+}

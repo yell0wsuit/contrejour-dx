@@ -1,0 +1,56 @@
+<Project Sdk="Microsoft.NET.Sdk.WebAssembly">
+  <PropertyGroup>
+    <TargetFramework>net10.0-browser</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>ContreJourDX.Browser</RootNamespace>
+    <!-- The decompiled projects carry their own AssemblyInfo.cs; this one has none. -->
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <Product>Contre Jour DX</Product>
+    <AssemblyTitle>Contre Jour DX</AssemblyTitle>
+    <!-- The worker owns the game loop and WebGL context. The publisher also builds the
+         fallback for browsers without cross-origin isolation or OffscreenCanvas support. -->
+    <WasmEnableThreads>true</WasmEnableThreads>
+    <WasmEnableThreads Condition="'$(CjSingleThreaded)' == 'true'">false</WasmEnableThreads>
+    <DefineConstants Condition="'$(WasmEnableThreads)' == 'true'">$(DefineConstants);WASM_THREADS</DefineConstants>
+    <!-- dotnet run serves the interpreter, which is slow on the physics. tools/publish_browser.py publishes
+         with -p:RunAOTCompilation=true, the build that plays at full speed. -->
+    <RunAOTCompilation>false</RunAOTCompilation>
+    <WasmNativeStrip>true</WasmNativeStrip>
+    <!-- The host supplies the language (LocalizationBundle.LocaleOverride); ICU would add ~1MB for nothing. -->
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SkiaSharp" />
+    <PackageReference Include="SkiaSharp.NativeAssets.WebAssembly" />
+    <EmccExportedRuntimeMethod Include="GL" />
+    <EmccExportedRuntimeMethod Include="PThread" Condition="'$(WasmEnableThreads)' == 'true'" />
+    <NativeFileReference Include="Native/cjhost.cpp" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../ContreJourDX/ContreJourDX.csproj" />
+    <ProjectReference Include="../ContreJourDX.Browser.Platform/ContreJourDX.Browser.Platform.csproj" />
+    <ProjectReference Include="../Mokus2D.Rendering.Skia/Mokus2D.Rendering.Skia.csproj" />
+  </ItemGroup>
+
+  <!--
+    The converted content (tools/build_web_content.py) is already-compressed webp/ogg plus one big
+    metadata.json. Letting the WASM SDK fingerprint and Brotli-compress it would add minutes to publish, so it
+    ships as plain static files.
+  -->
+  <PropertyGroup>
+    <CjContentCopy>PreserveNewest</CjContentCopy>
+    <CjContentCopy Condition="'$(CjSkipContent)' == 'true'">Never</CjContentCopy>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot/content/**" CopyToPublishDirectory="$(CjContentCopy)" />
+  </ItemGroup>
+
+  <!-- Keep development network-only; publish replaces the same registered worker URL. -->
+  <ItemGroup>
+    <ServiceWorker Include="wwwroot/coi-sw.js" PublishedContent="wwwroot/service-worker.published.js" />
+  </ItemGroup>
+</Project>

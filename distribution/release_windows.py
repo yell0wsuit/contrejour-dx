@@ -5,7 +5,7 @@ Windows ships one build. The graphics backend is chosen when the game starts:
 the SDL host tries Vulkan, then ANGLE, then OpenGL, and keeps
 the first that presents a frame.
 
-    ContreJour-DX.exe   the game        + SDL3.dll, SDL3_mixer.dll, libSkiaSharp.dll, ...
+    ContreJourDX.Desktop.exe   the game        + SDL3.dll, SDL3_mixer.dll, libSkiaSharp.dll, ...
     angle/  Assets/  Resources/    beside it
 
 The publish is single-file, so the managed assemblies live inside the executable.
@@ -26,8 +26,8 @@ from pathlib import Path
 
 SCRIPT_DIR = Path(__file__).parent
 PROJECT_ROOT = SCRIPT_DIR.parent.resolve()
-CSPROJ = PROJECT_ROOT / "src" / "ContreJour.Desktop" / "ContreJour.Desktop.csproj"
-RELEASE_DIR = PROJECT_ROOT / "src" / "ContreJour.Desktop" / "bin" / "release_github"
+CSPROJ = PROJECT_ROOT / "src" / "ContreJourDX.Desktop" / "ContreJourDX.Desktop.csproj"
+RELEASE_DIR = PROJECT_ROOT / "src" / "ContreJourDX.Desktop" / "bin" / "release_github"
 
 ARCHITECTURES = {
     "x64": {"rid": "win-x64", "electron": "x64", "label": "x64"},
@@ -39,7 +39,7 @@ ARCHITECTURES = {
 }
 
 # The name the game publishes under, from the project's AssemblyName.
-GAME_ASSEMBLY = "ContreJour-DX"
+GAME_ASSEMBLY = "ContreJourDX.Desktop"
 
 UNSHIPPED_SUFFIXES = ".pdb"
 ANGLE_DIRECTORY = "angle"
@@ -315,7 +315,7 @@ def main():
     runtime_id = config["rid"]
     arch_label = config["label"]
     output_dir = (
-        PROJECT_ROOT / "src" / "ContreJour.Desktop" / "bin" / "Publish" / runtime_id
+        PROJECT_ROOT / "src" / "ContreJourDX.Desktop" / "bin" / "Publish" / runtime_id
     )
 
     print(f"\nBuilding v{version} for {runtime_id} " f"(NativeAOT: {use_aot})...")

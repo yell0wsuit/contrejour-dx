@@ -32,7 +32,7 @@ from webcontent import (  # noqa: E402
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_SOURCE = REPO_ROOT / "GameContents"
-DEFAULT_OUT = REPO_ROOT / "src" / "ContreJour.Browser" / "wwwroot" / "content"
+DEFAULT_OUT = REPO_ROOT / "src" / "ContreJourDX.Browser" / "wwwroot" / "content"
 MANIFEST_NAME = ".build-manifest.json"
 
 

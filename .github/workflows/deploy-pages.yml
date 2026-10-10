@@ -45,7 +45,7 @@ jobs:
             - name: Cache converted content
               uses: actions/cache@v6
               with:
-                  path: src/ContreJour.Browser/wwwroot/content
+                  path: src/ContreJourDX.Browser/wwwroot/content
                   key: web-content-${{ steps.encoder.outputs.version }}-${{ hashFiles('GameContents/**', 'tools/build_web_content.py', 'tools/webcontent/**/*.py', 'tools/requirements.txt') }}
                   restore-keys: |
                       web-content-${{ steps.encoder.outputs.version }}-
