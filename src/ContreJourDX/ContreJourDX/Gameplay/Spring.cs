@@ -1,0 +1,63 @@
+using System.Numerics;
+
+using FarseerPhysics.Dynamics;
+
+using Mokus2D.Util.MathUtils;
+
+namespace ContreJourDX.Gameplay
+{
+    public class Spring
+    {
+        private readonly Body bodyA;
+
+        private readonly Body bodyB;
+
+        private readonly float k;
+
+        private Vector2 localAnchorA;
+
+        private Vector2 localAnchorB;
+
+        public Spring(ref Body bodyA, ref Body bodyB, Vector2 anchorA, Vector2 anchorB, float k)
+        {
+            this.bodyA = bodyA;
+            this.bodyB = bodyB;
+            this.k = k;
+            localAnchorA = bodyA.GetLocalPoint(anchorA);
+            localAnchorB = bodyB.GetLocalPoint(anchorB);
+        }
+
+        public void Update()
+        {
+            //IL_0006: Unknown result type (might be due to invalid IL or missing references)
+            //IL_0013: Unknown result type (might be due to invalid IL or missing references)
+            //IL_0093: Unknown result type (might be due to invalid IL or missing references)
+            //IL_00b6: Unknown result type (might be due to invalid IL or missing references)
+            if (bodyA.BodyType == 0 && bodyB.BodyType == 0)
+            {
+                return;
+            }
+            Vector2 worldPoint = bodyA.GetWorldPoint(localAnchorA);
+            Vector2 worldPoint2 = bodyB.GetWorldPoint(localAnchorB);
+            Vector2 vector = worldPoint2 - worldPoint;
+            float num = vector.Length();
+            vector *= 1f / num;
+            Vector2 vector2 = vector;
+            vector2 *= -1f;
+            float num2 = k * num * num;
+            if (Maths.FuzzyNotEquals(num2, 0f))
+            {
+                if (bodyA.BodyType != 0)
+                {
+                    vector *= num2;
+                    bodyA.ApplyForce(vector, worldPoint);
+                }
+                if (bodyB.BodyType != 0)
+                {
+                    vector2 *= num2;
+                    bodyB.ApplyForce(vector2, worldPoint2);
+                }
+            }
+        }
+    }
+}

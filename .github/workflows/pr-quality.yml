@@ -35,21 +35,21 @@ jobs:
 
             - uses: ./.github/actions/setup-dotnet
 
-            # The solution includes ContreJour.Browser, which targets net10.0-browser and cannot restore or build
+            # The solution includes ContreJourDX.Browser, which targets net10.0-browser and cannot restore or build
             # without this workload.
             - name: Install WebAssembly workload
               run: dotnet workload install wasm-tools
 
             - name: Restore dependencies
-              run: dotnet restore ContreJour.slnx
+              run: dotnet restore ContreJourDX.slnx
 
             - name: Check formatting
-              run: dotnet format ContreJour.slnx --verify-no-changes --verbosity diagnostic
+              run: dotnet format ContreJourDX.slnx --verify-no-changes --verbosity diagnostic
 
-            # The level regression harness (src/ContreJour.Regression) runs locally rather than here:
+            # The level regression harness (src/ContreJourDX.Regression) runs locally rather than here:
             # its outputs are only comparable on the same machine.
             - name: Build
-              run: dotnet build ContreJour.slnx --no-restore -c Release
+              run: dotnet build ContreJourDX.slnx --no-restore -c Release
 
             - name: Test engine
               run: dotnet test --project src/Mokus2D.Tests/Mokus2D.Tests.csproj --no-build -c Release
@@ -58,13 +58,13 @@ jobs:
               run: dotnet test --project src/Mokus2D.Rendering.Skia.Tests/Mokus2D.Rendering.Skia.Tests.csproj --no-build -c Release
 
             - name: Test desktop platform
-              run: dotnet test --project src/ContreJour.Desktop.Platform.Tests/ContreJour.Desktop.Platform.Tests.csproj --no-build -c Release
+              run: dotnet test --project src/ContreJourDX.Desktop.Platform.Tests/ContreJourDX.Desktop.Platform.Tests.csproj --no-build -c Release
 
             - name: Test browser platform
-              run: dotnet test --project src/ContreJour.Browser.Platform.Tests/ContreJour.Browser.Platform.Tests.csproj --no-build -c Release
+              run: dotnet test --project src/ContreJourDX.Browser.Platform.Tests/ContreJourDX.Browser.Platform.Tests.csproj --no-build -c Release
 
             - name: Test game
-              run: dotnet test --project src/ContreJour.Tests/ContreJour.Tests.csproj --no-build -c Release
+              run: dotnet test --project src/ContreJourDX.Tests/ContreJourDX.Tests.csproj --no-build -c Release
 
     # The web content pipeline and the browser publish script carry their own tests.
     python-quality:

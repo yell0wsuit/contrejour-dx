@@ -8,14 +8,14 @@ PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 # App metadata
 # =========================
 APP_NAME="Contre Jour DX"
-EXEC_NAME="ContreJour-DX"
+EXEC_NAME="ContreJourDX.Desktop"
 BUNDLE_ID="page.yell0wsuit.contrejour.dx"
 
 # =========================
 # Project / publish paths
 # =========================
-PROJECT="$PROJECT_ROOT/src/ContreJour.Desktop/ContreJour.Desktop.csproj"
-PUBLISH_DIR="$PROJECT_ROOT/src/ContreJour.Desktop/bin/Publish/osx-arm64"
+PROJECT="$PROJECT_ROOT/src/ContreJourDX.Desktop/ContreJourDX.Desktop.csproj"
+PUBLISH_DIR="$PROJECT_ROOT/src/ContreJourDX.Desktop/bin/Publish/osx-arm64"
 APP_DIR="$PUBLISH_DIR/$APP_NAME.app"
 TEMPLATES_DIR="$SCRIPT_DIR/templates/macos"
 
@@ -116,7 +116,7 @@ codesign --force --sign - "$APP_DIR"
 # =========================
 echo "[4/4] Packaging .dmg archive..."
 
-RELEASE_DIR="$PROJECT_ROOT/src/ContreJour.Desktop/bin/release_github"
+RELEASE_DIR="$PROJECT_ROOT/src/ContreJourDX.Desktop/bin/release_github"
 mkdir -p "$RELEASE_DIR"
 # "+" in a prerelease version is not kept in GitHub asset names, so file names use "_".
 FILE_VERSION=$(printf '%s' "$VERSION" | tr '+' '_')

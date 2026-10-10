@@ -62,7 +62,7 @@ jobs:
             - uses: actions/upload-artifact@v7
               with:
                   name: bundle-windows
-                  path: src/ContreJour.Desktop/bin/release_github/*.7z
+                  path: src/ContreJourDX.Desktop/bin/release_github/*.7z
                   if-no-files-found: error
                   compression-level: 0
                   retention-days: 7
@@ -82,7 +82,7 @@ jobs:
             - uses: actions/upload-artifact@v7
               with:
                   name: bundle-macos
-                  path: src/ContreJour.Desktop/bin/release_github/*.dmg
+                  path: src/ContreJourDX.Desktop/bin/release_github/*.dmg
                   if-no-files-found: error
                   compression-level: 0
                   retention-days: 7
@@ -99,7 +99,7 @@ jobs:
             - uses: actions/upload-artifact@v7
               with:
                   name: bundle-linux
-                  path: src/ContreJour.Desktop/bin/release_github/*.AppImage
+                  path: src/ContreJourDX.Desktop/bin/release_github/*.AppImage
                   if-no-files-found: error
                   compression-level: 0
                   retention-days: 7

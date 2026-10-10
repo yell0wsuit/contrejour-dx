@@ -417,7 +417,7 @@ namespace Mokus2D.Rendering.Skia.Tests
 
             Assert.True(large.Ascent < 0f && large.Descent > 0f, $"ascent {large.Ascent}, descent {large.Descent}");
             Assert.Equal((large.Descent - large.Ascent) / 2f, small.Descent - small.Ascent, 0.5f);
-            Assert.Equal(face.MeasureText("Contre Jour", 100f) / 2f, face.MeasureText("Contre Jour", 50f), 1f);
+            Assert.Equal(face.MeasureText("Contre Jour DX", 100f) / 2f, face.MeasureText("Contre Jour DX", 50f), 1f);
             Assert.Equal(0f, face.MeasureText(string.Empty, 100f));
         }
 

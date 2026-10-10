@@ -65,6 +65,8 @@ The development of _Contre Jour DX_ is an ongoing process, and contributions are
 
 Do these steps to test the game while you develop it.
 
+The solution is `ContreJourDX.slnx`. Game projects, assemblies, and C# namespaces use `ContreJourDX`; the desktop executable is `ContreJourDX.Desktop` (`.exe` on Windows). Display names use **Contre Jour DX**. Existing save filenames and browser storage keys remain unchanged so updates retain saved progress.
+
 1. Install [.NET 10 or higher](https://dotnet.microsoft.com/en-us/download/dotnet/).
 
 > [!NOTE]
@@ -88,13 +90,13 @@ Do these steps to test the game while you develop it.
 a. Windows
 
 ```bash
-dotnet publish src\ContreJour.Desktop\ContreJour.Desktop.csproj -c Release -r win-x64 -p:PublishAot=true -o .\src\ContreJour.Desktop\bin\Publish\win-x64
+dotnet publish src\ContreJourDX.Desktop\ContreJourDX.Desktop.csproj -c Release -r win-x64 -p:PublishAot=true -o .\src\ContreJourDX.Desktop\bin\Publish\win-x64
 ```
 
 b. macOS
 
 ```bash
-dotnet publish src/ContreJour.Desktop/ContreJour.Desktop.csproj -c Release -r osx-arm64 -p:PublishAot=true -o ./src/ContreJour.Desktop/bin/Publish/osx-arm64
+dotnet publish src/ContreJourDX.Desktop/ContreJourDX.Desktop.csproj -c Release -r osx-arm64 -p:PublishAot=true -o ./src/ContreJourDX.Desktop/bin/Publish/osx-arm64
 ```
 
 To make a `.app` bundle, run `./distribution/bundle_macos.sh <version>` instead.
@@ -105,7 +107,7 @@ To make a `.app` bundle, run `./distribution/bundle_macos.sh <version>` instead.
 c. Linux
 
 ```bash
-dotnet publish src/ContreJour.Desktop/ContreJour.Desktop.csproj -c Release -r linux-x64 -p:PublishAot=true -o ./src/ContreJour.Desktop/bin/Publish/linux-x64
+dotnet publish src/ContreJourDX.Desktop/ContreJourDX.Desktop.csproj -c Release -r linux-x64 -p:PublishAot=true -o ./src/ContreJourDX.Desktop/bin/Publish/linux-x64
 ```
 
 To make an AppImage, run `./distribution/build_appimage.sh <version>` instead.
@@ -133,7 +135,7 @@ The conversion is incremental. Do the conversion again only after you change an 
 Start the game in your browser. This quick build runs on the interpreter:
 
 ```bash
-dotnet run --project src/ContreJour.Browser
+dotnet run --project src/ContreJourDX.Browser
 ```
 
 Or publish the AOT-compiled site, which plays at full speed, and serve it at `http://127.0.0.1:8080`:
@@ -147,7 +149,7 @@ The [Deploy Browser to GitHub Pages](.github/workflows/deploy-pages.yml) workflo
 4. Run the unit tests:
 
     ```bash
-    dotnet test --solution ContreJour.slnx
+    dotnet test --solution ContreJourDX.slnx
     ```
 
 ## Credits
