@@ -97,7 +97,7 @@ namespace Mokus2D.Visual.Text
         }
 
         // A label that sizes itself to its text. Like the original, it starts anchored at its top-left
-        // corner and left-aligned; ContreJourLabelUtil re-centers the game's labels.
+        // corner and left-aligned; ContreJourDXLabelUtil re-centers the game's labels.
         public Label(float fontSize)
             : this(fontSize, Vector2.Zero)
         {

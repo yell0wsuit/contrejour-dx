@@ -1,4 +1,15 @@
 <Project>
+  <!-- Match cuttherope-dx packaging: dependencies can contribute PDBs even when the
+       SDK omits this project's symbols. Allow explicit opt-in for diagnostic publishes. -->
+  <Target Name="ExcludeReferenceSymbolsFromPublish"
+          AfterTargets="ComputeResolvedFilesToPublishList"
+          Condition="'$(CopyOutputSymbolsToPublishDirectory)' != 'true'">
+    <ItemGroup>
+      <ResolvedFileToPublish Remove="@(ResolvedFileToPublish)"
+                             Condition="'%(ResolvedFileToPublish.Extension)' == '.pdb'" />
+    </ItemGroup>
+  </Target>
+
   <!--
     SDL_mixer's optional codec libraries are never used: the game ships .wav effects and .flac
     music, both decoded by SDL_mixer's built-in decoders, and SdlAudioBackend pins FLAC to the

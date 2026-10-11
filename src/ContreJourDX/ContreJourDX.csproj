@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>ContreJourDX</AssemblyName>
+    <!-- Folders mirror namespaces from the project folder (ContreJourDX/Clips, ContreJourDX/Gameplay, ...). -->
+    <RootNamespace></RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../Mokus2D.Integration.Farseer/Mokus2D.Integration.Farseer.csproj" />
+  </ItemGroup>
+</Project>

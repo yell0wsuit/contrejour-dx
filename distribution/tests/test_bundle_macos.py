@@ -25,10 +25,10 @@ import sys
 from pathlib import Path
 out = Path(sys.argv[sys.argv.index('-o') + 1])
 for name, data in {
-    'ContreJour-DX': b'game',
-    'ContreJour-DX.xml': b'assembly docs',
-    'ContreJour-DX.pdb': b'symbols',
-    'ContreJour-DX.dSYM/Contents/Resources/DWARF/ContreJour-DX': b'native symbols',
+    'ContreJourDX.Desktop': b'game',
+    'ContreJourDX.Desktop.xml': b'assembly docs',
+    'ContreJourDX.Desktop.pdb': b'symbols',
+    'ContreJourDX.Desktop.dSYM/Contents/Resources/DWARF/ContreJourDX.Desktop': b'native symbols',
     'Assets/Content/levels.xml': b'level data',
     'Resources/en.xml': b'localization',
     'Resources/ContreJourDXIcon.icns': b'icon',
@@ -47,19 +47,19 @@ for name, data in {
         env={**os.environ, "PATH": f"{tools}{os.pathsep}{os.environ['PATH']}", "USE_AOT": "false"},
         check=True, capture_output=True, text=True,
     )
-    bundle = repo / "src/ContreJour.Desktop/bin/Publish/osx-arm64/Contre Jour DX.app"
+    bundle = repo / "src/ContreJourDX.Desktop/bin/Publish/osx-arm64/Contre Jour DX.app"
     binaries = bundle / "Contents/MacOS"
     assert (binaries / "Assets").is_symlink()
     assert (binaries / "Resources").is_symlink()
     assert (binaries / "Assets/Content/levels.xml").read_bytes() == b"level data"
     assert (binaries / "Resources/en.xml").read_bytes() == b"localization"
-    assert not (binaries / "ContreJour-DX.xml").exists()
-    assert not (binaries / "ContreJour-DX.pdb").exists()
-    assert not (binaries / "ContreJour-DX.dSYM").exists()
-    assert (binaries / "ContreJour-DX").read_bytes() == b"game"
+    assert not (binaries / "ContreJourDX.Desktop.xml").exists()
+    assert not (binaries / "ContreJourDX.Desktop.pdb").exists()
+    assert not (binaries / "ContreJourDX.Desktop.dSYM").exists()
+    assert (binaries / "ContreJourDX.Desktop").read_bytes() == b"game"
     info = plistlib.loads((bundle / "Contents/Info.plist").read_bytes())
     assert info["CFBundleName"] == "Contre Jour DX"
     assert info["CFBundleDisplayName"] == "Contre Jour DX"
-    assert info["CFBundleExecutable"] == "ContreJour-DX"
+    assert info["CFBundleExecutable"] == "ContreJourDX.Desktop"
     assert info["CFBundleIconFile"] == "ContreJourDXIcon.icns"
     assert (bundle / "Contents/Resources" / info["CFBundleIconFile"]).read_bytes() == b"icon"

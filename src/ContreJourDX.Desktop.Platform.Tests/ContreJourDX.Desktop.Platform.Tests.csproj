@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <IsPackable>false</IsPackable>
+    <RootNamespace>ContreJourDX.Desktop.Platform.Tests</RootNamespace>
+    <!-- The decompiled projects carry their own AssemblyInfo.cs; this one has none. -->
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="xunit.v3" />
+    <ProjectReference Include="../ContreJourDX.Desktop.Platform/ContreJourDX.Desktop.Platform.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="../../distribution/icons/ContreJourDXIcon.bmp" Link="ContreJourDXIcon.bmp" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>

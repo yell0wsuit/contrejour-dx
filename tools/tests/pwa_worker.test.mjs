@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import vm from "node:vm";
 
-const root = new URL("../../src/ContreJour.Browser/wwwroot/", import.meta.url);
+const root = new URL("../../src/ContreJourDX.Browser/wwwroot/", import.meta.url);
 const scope = "https://example.test/contre-jour/";
 const assets = [
     ["index.html", "shell"],

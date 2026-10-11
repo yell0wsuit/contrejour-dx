@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import vm from "node:vm";
 
-const root = new URL("../../src/ContreJour.Browser/wwwroot/", import.meta.url);
+const root = new URL("../../src/ContreJourDX.Browser/wwwroot/", import.meta.url);
 const flush = () => new Promise((resolve) => setImmediate(resolve));
 function emitter(extra = {}) {
     const listeners = new Map();
@@ -180,7 +180,7 @@ test("missing and rejected worker registrations do not break boot", async () => 
     assert.equal((await harness({ rejected: true })).updates, 0);
 });
 
-test("installation metadata uses Contre Jour branding and files that exist", () => {
+test("installation metadata uses Contre Jour DX branding and files that exist", () => {
     const manifest = JSON.parse(
         readFileSync(new URL("manifest.webmanifest", root), "utf8"),
     );

@@ -38,16 +38,16 @@ namespace Mokus2D.Diagnostics
 
     public static class LogCategories
     {
-        public const string Graphics = "ContreJour.Graphics";
+        public const string Graphics = "ContreJourDX.Graphics";
 
-        public const string Host = "ContreJour.Host";
+        public const string Host = "ContreJourDX.Host";
 
-        public const string Audio = "ContreJour.Audio";
+        public const string Audio = "ContreJourDX.Audio";
 
-        public const string Application = "ContreJour.Application";
+        public const string Application = "ContreJourDX.Application";
 
-        public const string Preferences = "ContreJour.Preferences";
+        public const string Preferences = "ContreJourDX.Preferences";
 
-        public const string Content = "ContreJour.Content";
+        public const string Content = "ContreJourDX.Content";
     }
 }

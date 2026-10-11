@@ -1,0 +1,265 @@
+using System.Collections.Generic;
+using System.Numerics;
+
+using FarseerPhysics.Dynamics;
+
+using Mokus2D.Graphics;
+using Mokus2D.Input;
+using Mokus2D.Util.MathUtils;
+using Mokus2D.Visual;
+
+namespace ContreJourDX.Gameplay
+{
+    public class PlasticineBodyClip : ContreJourDXBodyClip, IRestartable
+    {
+        private readonly PlasticineSprite clipContent;
+
+        private readonly Dictionary<Touch, DraggingItem> draggingItems;
+        private readonly PlasticineHighliteBorder highlite;
+
+        private PlasticineItem leftItem;
+
+        private readonly PlasticineWideBorder wideBorder;
+
+        private float lastTouchTime = float.MaxValue;
+
+        // iOS outlines the rest shape while the ground is dragged; Windows 8 dropped it.
+        internal PlasticineBorder OutBorder { get; }
+
+        public PlasticineItem FirstItem { get; private set; }
+
+        public bool Changed { get; set; }
+
+        public PlasticineBodyClip(LevelBuilderBase builder, List<Vector2> points, Node clip, Hashtable config)
+            : base(builder, null, clip, config)
+        {
+            ContreJourDXGame contreJourGame = (ContreJourDXGame)builder.Game;
+            contreJourGame.RegisterPlasticine(this);
+            clipContent = contreJourGame.ChooseSide(
+                static () => new BlackPlasticineSprite(),
+                static () => new WhitePlasticineSprite(),
+                static () => new PlasticineSprite())();
+            Create(points);
+            _ = Builder.AddChild(clipContent);
+            FirstItem.BodyClip.UpdateParent = true;
+            wideBorder = contreJourGame.NewFriendChapter ? new NewFriendGroundBorder(FirstItem, contreJourGame) : new PlasticineWideBorder();
+            _ = Builder.AddChild(wideBorder);
+            InitBorder(contreJourGame);
+            InitFillSprite();
+            if (!contreJourGame.RoseChapter && !contreJourGame.NewFriendChapter)
+            {
+                highlite = new PlasticineHighliteBorder(FirstItem, wideBorder);
+            }
+            if (highlite != null)
+            {
+                _ = Builder.AddChild(highlite);
+            }
+            Changed = false;
+            // The web New Friend surface sits on its own offset; keep the outline above it.
+            OutBorder = CreateOutBorder(contreJourGame.NewFriendChapter
+                ? PlasticineConstants.MaxDragOffset + NewFriendGroundBorder.SurfaceOffset
+                : PlasticineConstants.MaxDragOffset);
+            Builder.Add(OutBorder, -3);
+            draggingItems = [];
+        }
+
+        public void Restart()
+        {
+            PlasticineItem nextItem = FirstItem;
+            do
+            {
+                nextItem.BodyClip.MoveToInitialPosition();
+                nextItem = nextItem.NextItem;
+            }
+            while (nextItem != FirstItem);
+        }
+
+        private void InitFillSprite()
+        {
+            int num = 0;
+            int vertices = 0;
+            PlasticineItem nextItem = leftItem.NextItem;
+            PlasticineItem previousItem = leftItem.PreviousItem;
+            do
+            {
+                if (num % 2 == 0)
+                {
+                    InitFillSpriteVertices(nextItem, previousItem, ref vertices);
+                }
+                nextItem = nextItem.NextItem;
+                previousItem = previousItem.PreviousItem;
+                num++;
+            }
+            while (nextItem != previousItem && nextItem.NextItem != previousItem);
+            if (nextItem == previousItem)
+            {
+                nextItem.BodyClip.SetFillSprite(clipContent, vertices++);
+            }
+            else
+            {
+                InitFillSpriteVertices(nextItem, previousItem, ref vertices);
+            }
+            clipContent.InitVertices(vertices);
+        }
+
+        private void InitFillSpriteVertices(PlasticineItem top, PlasticineItem bottom, ref int vertices)
+        {
+            top.BodyClip.SetFillSprite(clipContent, vertices);
+            bottom.BodyClip.SetFillSprite(clipContent, vertices + 1);
+            vertices += 2;
+        }
+
+        private void InitBorder(ContreJourDXGame game)
+        {
+            PlasticineItem nextItem = FirstItem;
+            int num = 0;
+            do
+            {
+                nextItem.BodyClip.SetWideBorder(wideBorder, num);
+                num++;
+                nextItem = nextItem.NextItem;
+            }
+            while (nextItem != FirstItem);
+            Color borderOutColor = game.BlackSide ? PlasticineConstants.BlackBorderOutColor : ((!game.WhiteSide) ? new Color(0, 0, 0, 0) : PlasticineConstants.WhiteGroundOutColor);
+            wideBorder.SetSizeBorderColorBorderOutColor(num, clipContent.Color, borderOutColor);
+        }
+
+        public PlasticineItem GetClosestItem(Vector2 point)
+        {
+            PlasticineItem nextItem = FirstItem;
+            PlasticineItem plasticineItem = null;
+            float num = 0f;
+            do
+            {
+                float num2 = (nextItem.Body.Position - point).LengthSquared();
+                if (num2 < num || plasticineItem == null)
+                {
+                    plasticineItem = nextItem;
+                    num = num2;
+                }
+                nextItem = nextItem.NextItem;
+            }
+            while (nextItem != FirstItem);
+            return plasticineItem;
+        }
+
+        public bool PointInside(Vector2 point)
+        {
+            float num = 30f;
+            List<Vector2> list =
+            [
+                new Vector2(point.X + num, point.Y),
+                new Vector2(point.X, point.Y + num),
+                new Vector2(point.X - num, point.Y),
+                new Vector2(point.X, point.Y - num),
+            ];
+            for (int i = 0; i < list.Count; i++)
+            {
+                List<Fixture> list2 = FarseerUtil.Raycast(endPoint: list[i], world: Builder.World, startPoint: point);
+                bool flag = false;
+                for (int j = 0; j < list2.Count; j++)
+                {
+                    if (list2[j].Body.UserData is PlasticinePartBodyClip part && part.Parent == this)
+                    {
+                        flag = true;
+                        break;
+                    }
+                }
+                if (!flag)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        public void GetBorderVerticesOffset(ref List<Vector2> polygon, float offset)
+        {
+            PlasticineItem nextItem = FirstItem;
+            do
+            {
+                polygon.Add(nextItem.GetBorder(offset));
+                nextItem = nextItem.NextItem;
+            }
+            while (nextItem != FirstItem);
+        }
+
+        public PlasticineBorder CreateOutBorder(float offset)
+        {
+            List<Vector2> polygon = [];
+            GetBorderVerticesOffset(ref polygon, offset);
+            return Game.NewFriendChapter
+                ? new NewFriendPlasticineBorder(polygon)
+                : !Game.BlackSide
+                    ? !Game.BonusChapter ? new PlasticineBorder(polygon) : new GreenPlasticineBorder(polygon)
+                    : new BlackPlasticineBorder(polygon);
+        }
+
+        public bool StartDragItemTouch(PlasticineItem item, Touch touch)
+        {
+            int i = 0;
+            PlasticineItem previousItem = item.PreviousItem;
+            PlasticineItem nextItem = item.NextItem;
+            for (; i < 7; i++)
+            {
+                if (previousItem.BodyClip.Dragging || nextItem.BodyClip.Dragging)
+                {
+                    return false;
+                }
+                previousItem = previousItem.PreviousItem;
+                nextItem = nextItem.NextItem;
+            }
+            item.BodyClip.ScareFlyes(0);
+            item.NextItem.BodyClip.ScareFlyes(0);
+            item.NextItem.NextItem.BodyClip.ScareFlyes(0);
+            item.PreviousItem.BodyClip.ScareFlyes(0);
+            item.PreviousItem.PreviousItem.BodyClip.ScareFlyes(0);
+            DraggingItem value = new(Builder, item, touch);
+            draggingItems[touch] = value;
+            return true;
+        }
+
+        public void StopDragTouch(Touch touch)
+        {
+            DraggingItem draggingItem = draggingItems[touch];
+            _ = draggingItems.Remove(touch);
+            draggingItem.Finish();
+        }
+
+        public void UpdateGraphics(float time)
+        {
+            // iOS steps an integer opacity by 5.1 per frame toward 102 for two seconds after a drag.
+            int targetOpacity = lastTouchTime >= 2f ? 0 : 102;
+            lastTouchTime += time;
+            OutBorder.Opacity = (int)Maths.StepTo(OutBorder.Opacity, targetOpacity, 5.1f);
+            PlasticineItem nextItem = FirstItem;
+            do
+            {
+                nextItem.BodyClip.UpdateWideBorderAndFill();
+                nextItem = nextItem.NextItem;
+            }
+            while (nextItem != FirstItem);
+            highlite?.Update(time);
+            if (Changed)
+            {
+                Changed = false;
+            }
+        }
+
+        public bool TouchMove(Touch touch)
+        {
+            Changed |= draggingItems[touch].Update();
+            lastTouchTime = 0f;
+            return true;
+        }
+
+        public static void SetDotPositionPosition()
+        {
+        }
+
+        public void Create(List<Vector2> points)
+        {
+            FirstItem = SurfaceCreator.CreateParentPointsMaxWidth((ContreJourDXLevelBuilder)Builder, this, points, 0.6f, out leftItem);
+        }
+    }
+}

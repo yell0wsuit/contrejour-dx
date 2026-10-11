@@ -1,0 +1,14 @@
+using Mokus2D.Graphics;
+using Mokus2D.Visual;
+
+namespace ContreJourDX.Gameplay
+{
+    public class LightPowerBackground(Node node, Hashtable config, ContreJourDXGame game) : BackgroundBase(node, config, game)
+    {
+        public override void Update(float time)
+        {
+            base.Update(time);
+            Node.Color = Color.White * ((Game.LightPower + 0.3f) / 1.3f);
+        }
+    }
+}

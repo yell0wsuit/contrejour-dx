@@ -1,0 +1,22 @@
+<Solution>
+  <Project Path="src/ContreJourDX/ContreJourDX.csproj" />
+  <Project Path="src/ContreJourDX.Desktop/ContreJourDX.Desktop.csproj" />
+  <Project Path="src/ContreJourDX.Browser/ContreJourDX.Browser.csproj" />
+  <Project Path="src/ContreJourDX.Desktop.Platform/ContreJourDX.Desktop.Platform.csproj" />
+  <Project Path="src/ContreJourDX.Browser.Platform/ContreJourDX.Browser.Platform.csproj" />
+  <Folder Name="/Engine/">
+    <Project Path="src/FarseerPhysics/FarseerPhysics.csproj" />
+    <Project Path="src/Mokus2D.Common/Mokus2D.Common.csproj" />
+    <Project Path="src/Mokus2D/Mokus2D.csproj" />
+    <Project Path="src/Mokus2D.Integration.Farseer/Mokus2D.Integration.Farseer.csproj" />
+    <Project Path="src/Mokus2D.Rendering.Skia/Mokus2D.Rendering.Skia.csproj" />
+  </Folder>
+  <Folder Name="/Tests/">
+    <Project Path="src/Mokus2D.Tests/Mokus2D.Tests.csproj" />
+    <Project Path="src/ContreJourDX.Tests/ContreJourDX.Tests.csproj" />
+    <Project Path="src/Mokus2D.Rendering.Skia.Tests/Mokus2D.Rendering.Skia.Tests.csproj" />
+    <Project Path="src/ContreJourDX.Desktop.Platform.Tests/ContreJourDX.Desktop.Platform.Tests.csproj" />
+    <Project Path="src/ContreJourDX.Browser.Platform.Tests/ContreJourDX.Browser.Platform.Tests.csproj" />
+    <Project Path="src/ContreJourDX.Regression/ContreJourDX.Regression.csproj" />
+  </Folder>
+</Solution>

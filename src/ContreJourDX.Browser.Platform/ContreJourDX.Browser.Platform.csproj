@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>ContreJourDX.Browser.Platform</RootNamespace>
+    <!-- The decompiled projects carry their own AssemblyInfo.cs; this one has none. -->
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+  </PropertyGroup>
+
+  <!-- The browser host's logic that needs no JavaScript, as a plain library so plain tests reach it. -->
+  <ItemGroup>
+    <ProjectReference Include="../Mokus2D/Mokus2D.csproj" />
+  </ItemGroup>
+</Project>

@@ -10,20 +10,20 @@
 set -e
 
 # Configuration
-APP_NAME="ContreJour-DX"
+APP_NAME="ContreJourDX"
 APP_ID="page.yell0wsuit.contrejour.dx"
 APP_DISPLAY_NAME="Contre Jour DX"
-EXEC_NAME="ContreJour-DX"
+EXEC_NAME="ContreJourDX.Desktop"
 DESCRIPTION="Contre Jour DX, a desktop port of Contre Jour."
 
 # Directories
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
-PROJECT="$PROJECT_ROOT/src/ContreJour.Desktop/ContreJour.Desktop.csproj"
-BUILD_DIR="$PROJECT_ROOT/src/ContreJour.Desktop/bin/appimage_build"
-PUBLISH_DIR="$PROJECT_ROOT/src/ContreJour.Desktop/bin/Publish/linux-x64"
+PROJECT="$PROJECT_ROOT/src/ContreJourDX.Desktop/ContreJourDX.Desktop.csproj"
+BUILD_DIR="$PROJECT_ROOT/src/ContreJourDX.Desktop/bin/appimage_build"
+PUBLISH_DIR="$PROJECT_ROOT/src/ContreJourDX.Desktop/bin/Publish/linux-x64"
 APPDIR="$BUILD_DIR/$APP_NAME.AppDir"
-TOOLS_DIR="$PROJECT_ROOT/src/ContreJour.Desktop/bin/distribution_tools"
+TOOLS_DIR="$PROJECT_ROOT/src/ContreJourDX.Desktop/bin/distribution_tools"
 TEMPLATES_DIR="$SCRIPT_DIR/templates/linux"
 
 # Resolve version (from arg or csproj)
@@ -136,7 +136,7 @@ rm -rf "$BUILD_DIR"
 APPIMAGE_SIZE=$(du -h "$APPIMAGE_FILE" | cut -f1)
 
 # Copy to release_github
-RELEASE_DIR="$PROJECT_ROOT/src/ContreJour.Desktop/bin/release_github"
+RELEASE_DIR="$PROJECT_ROOT/src/ContreJourDX.Desktop/bin/release_github"
 mkdir -p "$RELEASE_DIR"
 cp "$APPIMAGE_FILE" "$RELEASE_DIR/"
 

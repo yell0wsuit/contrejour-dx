@@ -53,7 +53,7 @@ globalThis.indexedDB = {
     },
 };
 const moduleUrl = pathToFileURL(
-    new URL("../../src/ContreJour.Browser/wwwroot/log.js", import.meta.url)
+    new URL("../../src/ContreJourDX.Browser/wwwroot/log.js", import.meta.url)
         .pathname,
 );
 const load = (suffix) => import(`${moduleUrl}?test=${suffix}`);
@@ -120,7 +120,7 @@ test("records stay bounded and retain recent failure details", async () => {
 
 test("export produces a valid ZIP with its UTF-8 log content", async () => {
     const log = await load("zip");
-    const bytes = new TextEncoder().encode("Contre Jour\n[Error] test boom\n");
+    const bytes = new TextEncoder().encode("Contre Jour DX\n[Error] test boom\n");
     assert.equal(log.crc32(new TextEncoder().encode("123456789")), 0xcbf43926);
     const zip = await log.buildZip([{ name: "contrejour-test.log", bytes }]);
     await writeFile(
@@ -132,7 +132,7 @@ test("export produces a valid ZIP with its UTF-8 log content", async () => {
 test("early page capture and the export control are wired before game boot", async () => {
     const html = await readFile(
         new URL(
-            "../../src/ContreJour.Browser/wwwroot/index.html",
+            "../../src/ContreJourDX.Browser/wwwroot/index.html",
             import.meta.url,
         ),
         "utf8",
@@ -164,7 +164,7 @@ test("page capture keeps original console output, stacks, resource failures, and
     const { runInNewContext } = await import("node:vm");
     const capture = await readFile(
         new URL(
-            "../../src/ContreJour.Browser/wwwroot/console-capture.js",
+            "../../src/ContreJourDX.Browser/wwwroot/console-capture.js",
             import.meta.url,
         ),
         "utf8",

@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <IsPackable>false</IsPackable>
+    <RootNamespace>ContreJourDX.Tests</RootNamespace>
+    <!-- The decompiled projects carry their own AssemblyInfo.cs; this one has none. -->
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="xunit.v3" />
+    <ProjectReference Include="../ContreJourDX/ContreJourDX.csproj" />
+    <ProjectReference Include="../ContreJourDX.Desktop.Platform/ContreJourDX.Desktop.Platform.csproj" />
+    <Compile Include="../ContreJourDX.Desktop/WindowPreferences.cs" Link="WindowPreferences.cs" />
+    <Compile Include="../ContreJourDX.Desktop/SdlGameHost.cs" Link="SdlGameHost.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="../Mokus2D.Tests/RecordingLoggerFactory.cs" Link="RecordingLoggerFactory.cs" />
+  </ItemGroup>
+</Project>
