@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Globalization;
 using System.Numerics;
 
 using ContreJourDX.Gameplay;
@@ -15,7 +14,7 @@ namespace ContreJourDX.Utils
 
         private static readonly List<string> Locales = ["de", "es", "fr", "it", "nl", "ru", "uk", "zh"];
 
-        public static readonly string CultureName = LocalizationBundle.LocaleOverride ?? CultureInfo.CurrentCulture.Name[..2];
+        public static readonly string CultureName = LocalizationBundle.CurrentLocale;
 
         private static readonly bool IsSmallAsian = SmallAsianLanguages.Contains(CultureName);
 
